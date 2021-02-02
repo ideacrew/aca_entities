@@ -37,10 +37,81 @@ module AcaEntities
       )
 
       BenefitStatusKind = Types::Coerccable::String.enum('is_eligible', 'is_enrolled')
+      EsiCoveredKind    = Types::Coerccable::String.enum('self', 'self_and_spouse', 'family')
 
-      ESI_COVERED_KINDS = %w[self self_and_spouse family].freeze
+      DriverQuestionAttributeKind = Types::Coerccable::String.enum(
+        'has_job_income',
+        'has_self_employment_income',
+        'has_other_income',
+        'has_deductions',
+        'has_enrolled_health_coverage',
+        'has_eligible_health_coverage',
+      )
 
-      BenefitNameMap = {}
+      IncomeValidationStateKind   = Types::Coerccable::String.enum('na', 'valid', 'outstanding', 'pending')
+      MecValidationStateKind      = Types::Coerccable::String.enum('na', 'valid', 'outstanding', 'pending')
+      NaturalizationDocumentKind  = Types::Coerccable::String.enum('Certificate of Citizenship', 'Naturalization Certificate')
+
+      StudentKind   = Types::Coerccable::String.enum(
+        'dropped_out',
+        'elementary',
+        'english_language_institute',
+        'full_time',
+        'ged',
+        'graduated',
+        'graduate_school',
+        'half_time',
+        'junior_school',
+        'not_in_school',
+        'open_university',
+        'part_time',
+        'preschool',
+        'primary',
+        'secondary',
+        'technical',
+        'undergraduate',
+        'vocational',
+        'vocational_tech',
+      )
+
+      StudentSchoolKind = Types::Coerccable::String.enum(
+        'english_language_institute',
+        'elementary',
+        'equivalent_vocational_tech',
+        'graduate_school',
+        'ged',
+        'high_school',
+        'junior_school',
+        'open_university',
+        'pre_school',
+        'primary',
+        'technical',
+        'undergraduate',
+        'vocational',
+      )
+
+      TaxFilerKind  = Types::Coerccable::String.enum('tax_filer', 'single', 'joint', 'separate', 'dependent', 'non_filer')
+
+      # List of the documents user can provide to verify Immigration status
+      VlpDocumentKind = Types::Coerccable::String.enum(
+        'I-327 (Reentry Permit)',
+        'I-551 (Permanent Resident Card)',
+        'I-571 (Refugee Travel Document)',
+        'I-766 (Employment Authorization Card)',
+        'Certificate of Citizenship',
+        'Naturalization Certificate',
+        'Machine Readable Immigrant Visa (with Temporary I-551 Language)',
+        'Temporary I-551 Stamp (on passport or I-94)',
+        'I-94 (Arrival/Departure Record)',
+        'I-94 (Arrival/Departure Record) in Unexpired Foreign Passport',
+        'Unexpired Foreign Passport',
+        'I-20 (Certificate of Eligibility for Nonimmigrant (F-1) Student Status)',
+        'DS2019 (Certificate of Eligibility for Exchange Visitor (J-1) Status)',
+        'Other (With Alien Number)',
+        'Other (With I-94 Number)'
+      )
+
+      BenefitTermMap = {}
       INSURANCE_TYPE = {
         acf_refugee_medical_assistance: 'ACF Refugee Medical Assistance',
         americorps_health_benefits: 'AmeriCorps health benefits',
@@ -66,6 +137,18 @@ module AcaEntities
         veterans_administration_health_benefits: 'Veterans Administration health benefits',
         peace_corps_health_benefits: 'Peace Corps health benefits'
       }.freeze
+
+      CitizenTermMap = {
+        us_citizen: 'US citizen',
+        naturalized_citizen: 'Naturalized citizen',
+        alien_lawfully_present: 'Alien lawfully present',
+        lawful_permanent_resident: 'Lawful permanent resident',
+        undocumented_immigrant: 'Undocumented immigrant',
+        not_lawfully_present_in_us: 'Not lawfully present in US',
+        non_native_not_lawfully_present_in_us: 'Non-native not lawfully present in US',
+        ssn_pass_citizenship_fails_with_SSA: 'SSN pass citizenship fails with SSA',
+        non_native_citizen: 'Non-native citizen'
+      }
 
     end
   end
