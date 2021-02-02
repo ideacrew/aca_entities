@@ -3,7 +3,7 @@
 module AcaEntities
   module ShopMarket
 
-    require_relative 'entities/questionnaires/questionnaire'
+    require_relative 'questionnaires/questionnaire'
 
   end
 end

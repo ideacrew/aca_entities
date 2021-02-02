@@ -10,6 +10,8 @@ module AcaEntities
       send(:include, Dry.Types())
       send(:include, Dry::Logic)
 
+      VersionKind = Types::Coerccable::String.default('0.1.0'.freeze).enum('0.1.0')
+
       BenefitKind = Types::Coerccable::String.enum(
         'acf_refugee_medical_assistance',
         'americorps_health_benefits',

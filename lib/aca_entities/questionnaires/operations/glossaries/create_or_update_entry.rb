@@ -5,7 +5,7 @@ module AcaEntities
     module Operations
       module Glossaries
 
-        class CreateOrUpdate
+        class CreateOrUpdateEntry
           send(:include, Dry::Monads[:result, :do])
           send(:include, Dry::Monads[:try])
 
@@ -17,9 +17,9 @@ module AcaEntities
           # @return [Dry::Monad::Result] result
           def call(params)
             values    = yield validate(params)
-            glossary  = yield find_or_create(values)
+            entry  = yield find_or_create(values)
 
-            Success(glossary)
+            Success(entry)
           end
 
           private

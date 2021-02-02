@@ -3,8 +3,8 @@
 module AcaEntities
   module IndividualMarket
 
-    require_relative 'entities/iap/iap'
-    require_relative 'entities/questionnaires/questionnaire'
+    require_relative 'iap/iap'
+    require_relative 'questionnaires/questionnaire'
 
   end
 end

@@ -2,6 +2,9 @@
 
 Dry::Validation.load_extensions(:monads)
 
+module AcaEntities
+  module Iap
+    module Contracts
 # Configuration values and shared rules and macros for domain model validation contracts
 class ApplicationContract < Dry::Validation::Contract
   config.messages.default_locale = :en
@@ -57,5 +60,10 @@ class ApplicationContract < Dry::Validation::Contract
         key.failure(text: "invalid clinical monitoring investigations", error: result.errors.to_h) if result&.failure?
       end
     end
-    
+
 end
+
+end
+end
+end
+
