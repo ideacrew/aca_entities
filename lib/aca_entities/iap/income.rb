@@ -1,9 +1,7 @@
 # frozen_string_literal: true
 
-module AcaEntities
-  module Iap
-    class Income
+module Iap
+  class Income < Dry::Struct
 
-    end
   end
 end

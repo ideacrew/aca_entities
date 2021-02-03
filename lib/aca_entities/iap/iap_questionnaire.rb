@@ -1,10 +1,8 @@
 # frozen_string_literal: true
 
-module AcaEntities
-  module Questionnaire
+module Iap
 
-    class IapQuestionnaire
+  class IapQuestionnaire < Dry::Struct
 
-    end
   end
 end

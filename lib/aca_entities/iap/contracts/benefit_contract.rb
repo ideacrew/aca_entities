@@ -1,13 +1,11 @@
 # frozen_string_literal: true
 
-module AcaEntities
+module Iap
   module Contracts
-    module Iap
-      class BenefitContract < ApplicationContract
+    class BenefitContract < ApplicationContract
 
-        params do
+      params do
 
-        end
       end
     end
   end

@@ -4,9 +4,9 @@ require_relative 'types'
 require_relative 'entry'
 require_relative 'glossary'
 require_relative 'namespace'
+require_relative 'question'
 require_relative 'topic'
 require_relative 'ordered_topic'
-require_relative 'question'
 
 module AcaEntities
   module Questionnaires

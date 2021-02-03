@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Iap
-  class EligibilityDetermination < Dry::Struct
+  class Verification < Dry::Struct
 
   end
 end

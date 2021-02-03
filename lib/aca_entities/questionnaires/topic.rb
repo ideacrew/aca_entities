@@ -31,18 +31,18 @@ module AcaEntities
       # @!attribute [r] questions
       # The set of Questions associated with this Topic
       # @return [Array<Question>]
-      attribute :questions,   Types::Array.of(Question).optional.meta(ommitable: true)
+      attribute :questions,   Types::Array.of(AcaEntities::Questionnaires::Question).optional.meta(ommitable: true)
 
       # @!attribute [r] is_enabled
       # Flag indicating whether the question is active in this Questionnaire
       # instance
       # @return [Boolean]
-      attribure :is_enabled,  Types::Bool.meta(ommitable: false)
+      attribute :is_enabled,  Types::Bool.meta(ommitable: false)
 
       # @!attribute [r] is_visible
       # Flag indicating whether the question should display in the UI
       # @return [Boolean]
-      attribure :is_visible,  Types::Bool.meta(ommitable: false)
+      attribute :is_visible,  Types::Bool.meta(ommitable: false)
 
     end
   end
