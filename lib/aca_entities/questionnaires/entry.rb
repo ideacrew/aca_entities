@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module AcaEntities
-  module Questionnaire
+  module Questionnaires
 
     # A defined term and definition pair that appears in a Questionnaire's Glossary
     class Entry < Dry::Struct

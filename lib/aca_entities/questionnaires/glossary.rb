@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module AcaEntities
-  module Questionnaire
+  module Questionnaires
 
     # A Glossary is a dictionary that contains a list of terms and their definitions
     class Glossary < Dry::Struct
