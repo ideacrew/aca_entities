@@ -13,7 +13,7 @@ module AcaEntities
 
         DeterminationIndicatorKind = Types::Coercible::String.enum('Y', 'N', 'X')
 
-        RelationshipCodeKind = Types::Coercible::String.enum(RELATIONSHIP_CODE_MAP.values)
+        RelationshipCodeKind = Types::Coercible::String.enum('01', '02', '03', '04', '05', '06', '07', '12', '13', '14', '15', '16', '23', '26', '30', '87', '88')
 
         RELATIONSHIP_CODE_MAP = {
           self: '01',
@@ -38,6 +38,22 @@ module AcaEntities
         }.freeze
 
         YesNoKind = Types::Coercible::String.enum('Y', 'N')
+
+        ImmigrationStatusKind = Types::Coercible::String.enum('01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '99')
+
+        ImmigrationStatusCodeMap = {
+          'Lawful Permanent Resident (LPR/Green Card Holder)':                                '01',
+          'Asylee':                                                                           '02',
+          'Refugee':                                                                          '03',
+          'Cuban/Haitian entrant':                                                            '04',
+          'Paroled into the U.S. for at least one year':                                      '05',
+          'Conditional entrant granted before 1980':                                          '06',
+          'Battered non-citizen, spouse, child, or parent':                                   '07',
+          'Victim of trafficking':                                                            '08',
+          'Granted withholding of deportation':                                               '09',
+          'Member of a federally recognized Indian tribe or American Indian born in Canada':  '10',
+          'Other':                                                                            '99'
+        }
       end
 
     end
