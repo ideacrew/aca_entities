@@ -18,12 +18,12 @@ module AcaEntities
         # @!attribute [r] is_medicaid_eligible
         # Is this person Medicaid eligible?
         # @return [String]
-        attribute :is_medicaid_eligible,    Types::Mitc::YesNoKind.meta(ommittable: false)
+        attribute :is_medicaid_eligible,    Types::YesNoKind.meta(ommittable: false)
 
         # @!attribute [r] is_chip_eligible
         # Is this person CHIP eligible?
         # @return [String]
-        attribute :is_chip_eligible,  Types::Mitc::YesNoKind.meta(ommittable: false)
+        attribute :is_chip_eligible,  Types::YesNoKind.meta(ommittable: false)
 
         # @!attribute [r] medicaid_ineligibility_reasons
         # A list of reasons the person is not Medicaid eligible.
@@ -33,7 +33,7 @@ module AcaEntities
         # @!attribute [r] is_eligible_for_non_magi_reasons
         # Is the person potentially eligible for non-MAGI reasons?
         # @return [String]
-        attribute :is_eligible_for_non_magi_reasons,  Types::Mitc::YesNoKind.meta(ommittable: false)
+        attribute :is_eligible_for_non_magi_reasons,  Types::YesNoKind.meta(ommittable: false)
 
         # @!attribute [r] chip_ineligibility_reasons
         # A list of reasons the person is not CHIP eligible.

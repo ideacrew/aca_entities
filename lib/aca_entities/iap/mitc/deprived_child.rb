@@ -8,7 +8,7 @@ module AcaEntities
         # @!attribute [r] qualify_as_deprived_child
         # Does the person qualify as a Deprived Child?
         # @return [Integer]
-        attribute :qualify_as_deprived_child, Types::Mitc::YesNoKind.meta(ommittable: false)
+        attribute :qualify_as_deprived_child, Types::YesNoKind.meta(ommittable: false)
       end
     end
   end

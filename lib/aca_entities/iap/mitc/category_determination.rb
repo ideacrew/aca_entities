@@ -3,7 +3,7 @@
 module AcaEntities
   module Iap
     module Mitc
-      class Application < Dry::Struct
+      class CategoryDetermination < Dry::Struct
 
         # @!attribute [r] indicator_code
         # Whether the {Applicant} qualifies for the category.
