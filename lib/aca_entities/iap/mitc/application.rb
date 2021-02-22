@@ -31,7 +31,7 @@ module AcaEntities
         # @!attribute [r] households
         # How the Application's People are organized into physical households
         # @return [Array<Household>]
-        attribute :physical_households, Types::Array.of(PhysicalHousehold).meta(omittible: false)
+        attribute :physical_households, Types::Array.of(Household).meta(omittible: false)
 
         # @!attribute [r] tax_returns
         #
