@@ -33,4 +33,5 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'dry-struct',               '~> 1.0'
   spec.add_dependency 'dry-types',                '~> 1.0'
   spec.add_dependency 'dry-validation',           '~> 1.2'
+  spec.add_dependency 'dry-transformer',          '~> 0.1.1'
 end
