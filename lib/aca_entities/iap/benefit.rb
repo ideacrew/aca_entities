@@ -34,6 +34,5 @@ module Iap
       status == 'is_enrolled'
     end
 
-
   end
 end

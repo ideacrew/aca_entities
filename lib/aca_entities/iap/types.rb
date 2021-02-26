@@ -9,7 +9,7 @@ module Iap
     send(:include, Dry.Types())
     send(:include, Dry::Logic)
 
-    VersionKind = Types::Coercible::String.default('0.1.0'.freeze).enum('0.1.0')
+    VersionKind = Types::Coercible::String.default('0.1.0').enum('0.1.0')
 
     BenefitKind = Types::Coercible::String.enum(
       'acf_refugee_medical_assistance',
@@ -34,7 +34,7 @@ module Iap
       'coverage_obtained_through_another_exchange',
       'coverage_under_the_state_health_benefits_risk_pool',
       'veterans_administration_health_benefits',
-      'peace_corps_health_benefits',
+      'peace_corps_health_benefits'
     )
 
     BenefitStatusKind = Types::Coercible::String.enum('is_eligible', 'is_enrolled')
@@ -46,14 +46,15 @@ module Iap
       'has_other_income',
       'has_deductions',
       'has_enrolled_health_coverage',
-      'has_eligible_health_coverage',
+      'has_eligible_health_coverage'
     )
 
     IncomeValidationStateKind   = Types::Coercible::String.enum('na', 'valid', 'outstanding', 'pending')
     MecValidationStateKind      = Types::Coercible::String.enum('na', 'valid', 'outstanding', 'pending')
-    NaturalizationDocumentKind  = Types::Coercible::String.enum('Certificate of Citizenship', 'Naturalization Certificate')
+    NaturalizationDocumentKind  = Types::Coercible::String.enum('Certificate of Citizenship',
+                                                                'Naturalization Certificate')
 
-    StudentKind   = Types::Coercible::String.enum(
+    StudentKind = Types::Coercible::String.enum(
       'dropped_out',
       'elementary',
       'english_language_institute',
@@ -72,7 +73,7 @@ module Iap
       'technical',
       'undergraduate',
       'vocational',
-      'vocational_tech',
+      'vocational_tech'
     )
 
     StudentSchoolKind = Types::Coercible::String.enum(
@@ -88,10 +89,10 @@ module Iap
       'primary',
       'technical',
       'undergraduate',
-      'vocational',
+      'vocational'
     )
 
-    TaxFilerKind  = Types::Coercible::String.enum('tax_filer', 'single', 'joint', 'separate', 'dependent', 'non_filer')
+    TaxFilerKind = Types::Coercible::String.enum('tax_filer', 'single', 'joint', 'separate', 'dependent', 'non_filer')
 
     # List of the documents user can provide to verify Immigration status
     VlpDocumentKind = Types::Coercible::String.enum(
@@ -112,7 +113,7 @@ module Iap
       'Other (With I-94 Number)'
     )
 
-    BenefitTermMap = {}
+    BenefitTermMap = {}.freeze
     INSURANCE_TYPE = {
       acf_refugee_medical_assistance: 'ACF Refugee Medical Assistance',
       americorps_health_benefits: 'AmeriCorps health benefits',
@@ -149,7 +150,7 @@ module Iap
       non_native_not_lawfully_present_in_us: 'Non-native not lawfully present in US',
       ssn_pass_citizenship_fails_with_SSA: 'SSN pass citizenship fails with SSA',
       non_native_citizen: 'Non-native citizen'
-    }
+    }.freeze
 
   end
 end

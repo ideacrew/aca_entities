@@ -5,7 +5,7 @@ module AcaEntities
     module Mitc
       class PhysicalHousehold < Dry::Struct
 
-          attribute :household,   Array.of(Household).meta(omitttable: false)
+        attribute :household,   Array.of(Household).meta(omitttable: false)
 
       end
     end

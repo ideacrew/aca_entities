@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'dry-struct'
 
 module Iap
@@ -12,7 +13,6 @@ module Iap
     # field :race, type: String
     # field :indian_tribe_member, type: Boolean
     # field :tribal_id, type: String
-
 
     attribute :addresses,       Types::Array.of(AcaEntities::Address).optional.meta(omittable: true)
 

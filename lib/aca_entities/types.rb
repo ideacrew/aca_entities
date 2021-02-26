@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'dry-types'
 
 module AcaEntities
@@ -9,7 +10,6 @@ module AcaEntities
     send(:include, Dry::Logic)
 
     UsStateAbbreviationKind = Types::String.enum('DC', 'MA', 'ME')
-
 
   end
 end

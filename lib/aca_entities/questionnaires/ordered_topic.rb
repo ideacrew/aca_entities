@@ -23,7 +23,8 @@ module AcaEntities
       # @!attribute [r] ordered_topics
       # The recursive set of Question groups that are children to this one
       # @return [Array<OrderedTopic>]
-      attribute :ordered_topics, Types::Array.of(AcaEntities::Questionnaires::OrderedTopic).optional.meta(ommitable: true)
+      attribute :ordered_topics,
+                Types::Array.of(AcaEntities::Questionnaires::OrderedTopic).optional.meta(ommitable: true)
     end
   end
 end

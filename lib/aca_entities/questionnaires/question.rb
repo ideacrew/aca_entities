@@ -41,7 +41,8 @@ module AcaEntities
       # to this question.  For example, if this question's response value is nil, is_enabled => false
       # for all questions referenced in this set
       # @return [Boolean]
-      attribute :dependent_questions, Types::Array.of(AcaEntities::Questionnaires::Question).optional.meta(ommitable: true)
+      attribute :dependent_questions,
+                Types::Array.of(AcaEntities::Questionnaires::Question).optional.meta(ommitable: true)
 
       # @!attribute [r] is_required
       # Flag indicating that a response value is required for this question

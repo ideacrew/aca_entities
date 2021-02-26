@@ -7,7 +7,7 @@ module AcaEntities
     module ErrorInitalizer
       attr_reader :original
 
-      def initialize(msg, original = $!)
+      def initialize(msg, original = $ERROR_INFO)
         super(msg)
         @original = original
       end
@@ -18,7 +18,7 @@ module AcaEntities
       include ErrorInitalizer
     end
 
-    class LoadException < LoadError
+    class LoadException < RuntimeError
       include ErrorInitalizer
     end
 

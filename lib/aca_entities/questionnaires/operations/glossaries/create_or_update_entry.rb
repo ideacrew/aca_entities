@@ -16,7 +16,7 @@ module AcaEntities
           # @param [Array<OrderedTopics] ordered_topics
           # @return [Dry::Monad::Result] result
           def call(params)
-            values    = yield validate(params)
+            values = yield validate(params)
             entry  = yield find_or_create(values)
 
             Success(entry)
