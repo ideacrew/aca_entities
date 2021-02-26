@@ -1,9 +1,11 @@
 # This yaml describes our current checks.
 AllCops:
   TargetRubyVersion: 2.6
+  SuggestExtensions: false
   NewCops: enable
   Exclude:
-    - bin/**
+    - "bin/**/*"
+    - "vendor/**/*"
 
 Layout/CommentIndentation:
   Enabled: true
