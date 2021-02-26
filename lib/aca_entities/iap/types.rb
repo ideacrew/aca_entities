@@ -113,7 +113,7 @@ module Iap
       'Other (With I-94 Number)'
     )
 
-    BenefitTermMap = {}.freeze
+    BENEFIT_TERM_MAP = {}.freeze
     INSURANCE_TYPE = {
       acf_refugee_medical_assistance: 'ACF Refugee Medical Assistance',
       americorps_health_benefits: 'AmeriCorps health benefits',
@@ -128,7 +128,8 @@ module Iap
       veterans_benefits: 'Veterans benefits',
       naf_health_benefit_program: 'NAF Health Benefits Program',
       health_care_for_peace_corp_volunteers: 'Health care for Peace Corps volunteers',
-      department_of_defense_non_appropriated_health_benefits: 'Department of Defense Nonappropriated Fund health benefits',
+      department_of_defense_non_appropriated_health_benefits:
+        'Department of Defense Nonappropriated Fund health benefits',
       cobra: 'COBRA',
       employer_sponsored_insurance: 'Employer-sponsored insurance',
       self_funded_student_health_coverage: 'Self-funded student health coverage',
@@ -140,7 +141,7 @@ module Iap
       peace_corps_health_benefits: 'Peace Corps health benefits'
     }.freeze
 
-    CitizenTermMap = {
+    CITIZEN_TERM_MAP = {
       us_citizen: 'US citizen',
       naturalized_citizen: 'Naturalized citizen',
       alien_lawfully_present: 'Alien lawfully present',

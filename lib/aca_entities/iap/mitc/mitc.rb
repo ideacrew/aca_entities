@@ -9,6 +9,7 @@ require_relative 'tax_return'
 
 module AcaEntities
   module Iap
+    # Behaviour for Magi-in-the-Cloud
     module MitC
 
     end

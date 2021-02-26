@@ -13,9 +13,9 @@ module AcaEntities
 
         DeterminationIndicatorKind = Types::Coercible::String.enum('Y', 'N', 'X')
 
-        RelationshipCodeKind = Types::Coercible::String.enum(RelationshipCodeMap.values)
+        RelationshipCodeKind = Types::Coercible::String.enum(RELATIONSHIP_CODE_MAP.values)
 
-        RelationshipCodeMap = {
+        RELATIONSHIP_CODE_MAP = {
           self: '01',
           husband_or_wife: '02',
           parent: '03',

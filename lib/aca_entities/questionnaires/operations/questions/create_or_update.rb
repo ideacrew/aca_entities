@@ -5,6 +5,7 @@ module AcaEntities
     module Operations
       module Questions
 
+        # Create or update a question.
         class CreateOrUpdate
           send(:include, Dry::Monads[:result, :do])
           send(:include, Dry::Monads[:try])

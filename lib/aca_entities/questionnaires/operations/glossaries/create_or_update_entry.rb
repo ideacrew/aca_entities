@@ -4,7 +4,7 @@ module AcaEntities
   module Questionnaires
     module Operations
       module Glossaries
-
+        # Create or update an entry within a glossary.
         class CreateOrUpdateEntry
           send(:include, Dry::Monads[:result, :do])
           send(:include, Dry::Monads[:try])

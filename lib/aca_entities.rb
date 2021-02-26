@@ -20,6 +20,8 @@ require 'aca_entities/shop_market'
 # TODO: Decide how to incorporate versioning? e.g. Iap::V3_0::Application
 # TODO: Should we insure unique namespacing with prefix? e.g. AcaIap::Application
 
+# AcaEntities provides a shared interface for the serialization and deserialization
+# of shared ACA entities across applications.
 module AcaEntities
 
 end

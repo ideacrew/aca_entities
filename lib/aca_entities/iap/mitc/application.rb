@@ -6,7 +6,7 @@ module AcaEntities
       class Application < Dry::Struct
 
         # @!attribute [r] name
-        # The state of the application.  2 character state code.  For example, “CA”
+        # The state of the application.  2 character state code.  For example, "CA"
         # @return [String]
         attribute :name,              Types::String.meta(omittible: false)
 
