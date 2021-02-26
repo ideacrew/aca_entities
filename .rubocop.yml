@@ -1,22 +1,126 @@
----
+# This yaml describes our current checks.
 AllCops:
+  TargetRubyVersion: 2.6
   NewCops: enable
+  Exclude:
+    - bin/**
+
+Layout/CommentIndentation:
+  Enabled: true
+
+Layout/EmptyLineAfterGuardClause:
+  Enabled: false
+
+Layout/EmptyLinesAroundBlockBody:
+  Enabled: false
+
+Layout/LeadingCommentSpace:
+  Enabled: true
+
+Layout/ExtraSpacing:
+  Enabled: false
 
 Layout/EmptyLinesAroundClassBody:
   Enabled: false
+
 Layout/EmptyLinesAroundModuleBody:
   Enabled: false
-Layout/ExtraSpacing:
+
+Layout/SpaceBeforeBlockBraces:
+  Enabled: true
+
+Layout/SpaceInsideHashLiteralBraces:
+  Enabled: true
+
+Layout/SpaceInsideBlockBraces:
   Enabled: false
+
+Layout/IndentationWidth:
+  Enabled: true
+
+Layout/IndentationStyle:
+  Enabled: true
+
+Layout/TrailingEmptyLines:
+  Enabled: false
+
+Layout/TrailingWhitespace:
+  Enabled: true
+
+Metrics/AbcSize:
+  Max: 50
+
+Metrics/ClassLength:
+  Max: 200
+
+Metrics/ModuleLength:
+  Max: 200
+
+Metrics/CyclomaticComplexity:
+  Max: 11
+
+Metrics/BlockLength:
+  Enabled: false
+
 Layout/LineLength:
+  Max: 120
+
+Metrics/MethodLength:
+  Max: 25
+
+Metrics/PerceivedComplexity:
+  Max: 15
+
+Naming/VariableNumber:
+  Enabled: true
+
+Style/AndOr:
+  Enabled: true
+
+Style/BlockComments:
   Enabled: false
-Layout/SpaceAroundOperators:
+
+Style/Documentation:
+  Enabled: true
+
+Style/EachWithObject:
+  Enabled: true
+
+Style/EmptyLiteral:
   Enabled: false
-Layout/EmptyLinesAroundArguments:
+
+Style/EmptyMethod:
   Enabled: false
-Layout/CommentIndentation:
+
+Style/ExpandPathArguments:
   Enabled: false
-Style/TrailingCommaInArguments:
+
+Style/HashSyntax:
   Enabled: false
+
+Style/NumericPredicate:
+  Enabled: false
+
 Style/RedundantPercentQ:
+  Enabled: false
+
+Style/RedundantSelf:
+  Enabled: false
+
+Style/StringLiterals:
+  Enabled: false
+
+Style/SymbolArray:
+  Enabled: false
+
+Style/TernaryParentheses:
+  Enabled: false
+
+Style/WordArray:
+  Enabled: false
+
+Bundler/OrderedGems:
+  Enabled: false
+
+Gemspec/OrderedDependencies:
   Enabled: false
