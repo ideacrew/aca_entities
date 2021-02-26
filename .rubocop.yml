@@ -7,9 +7,6 @@ AllCops:
     - "bin/**/*"
     - "vendor/**/*"
 
-Layout/CommentIndentation:
-  Enabled: true
-
 Layout/EmptyLineAfterGuardClause:
   Enabled: false
 

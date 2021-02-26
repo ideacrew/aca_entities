@@ -7,10 +7,12 @@ module AcaEntities
     module ErrorInitalizer
       attr_reader :original
 
-      def initialize(msg, original = $ERROR_INFO)
+      # rubocop:disable Style/SpecialGlobalVars
+      def initialize(msg, original = $!)
         super(msg)
         @original = original
       end
+      # rubocop:enable Style/SpecialGlobalVars
     end
 
     # @api public
