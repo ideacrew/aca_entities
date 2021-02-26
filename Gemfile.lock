@@ -89,6 +89,7 @@ GEM
       parser (>= 2.7.1.5)
     ruby-progressbar (1.11.0)
     unicode-display_width (2.0.0)
+    yard (0.9.26)
 
 PLATFORMS
   ruby
@@ -99,6 +100,7 @@ DEPENDENCIES
   rake (~> 12.0)
   rspec (~> 3.0)
   rubocop
+  yard
 
 BUNDLED WITH
    2.2.3

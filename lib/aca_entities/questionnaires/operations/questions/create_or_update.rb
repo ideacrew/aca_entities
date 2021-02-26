@@ -10,16 +10,17 @@ module AcaEntities
           send(:include, Dry::Monads[:result, :do])
           send(:include, Dry::Monads[:try])
 
-          # @param [String] key
-          # @param [String] label
-          # @param [String] description
-          # @param [String] kind
-          # @param [Mixed] default_value
-          # @param [Array<Question>] dependent_questions
-          # @param [Boolean] is_required
-          # @param [Boolean] is_visible
-          # @param [Boolean] is_enabled
-          # @param [Integer] order
+          # @param params [Hash] options to create or update the question
+          # @option params [String] :key
+          # @option params [String] :label
+          # @option params [String] :description
+          # @option params [String] :kind
+          # @option params [Mixed] :default_value
+          # @option params [Array<Question>] :dependent_questions
+          # @option params [Boolean] :is_required
+          # @option params [Boolean] :is_visible
+          # @option params [Boolean] :is_enabled
+          # @option params [Integer] :order
           # @return [Dry::Monad::Result] result
           def call(params)
             values    = yield validate(params)
