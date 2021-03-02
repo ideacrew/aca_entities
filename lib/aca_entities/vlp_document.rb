@@ -1,8 +1,7 @@
 # frozen_string_literal: true
 
-module Entities
+module AcaEntities
   class VlpDocument < Dry::Struct
-    transform_keys(&:to_sym)
 
     attribute :subject, Types::String.optional.meta(omittable: true)
     attribute :alien_number, Types::String.optional.meta(omittable: true)
@@ -17,6 +16,5 @@ module Entities
     attribute :country_of_citizenship, Types::String.optional.meta(omittable: true)
     attribute :expiration_date, Types::Date.optional.meta(omittable: true)
     attribute :issuing_country, Types::String.optional.meta(omittable: true)
-
   end
 end

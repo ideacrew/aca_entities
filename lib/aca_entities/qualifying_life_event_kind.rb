@@ -2,8 +2,6 @@
 
 module AcaEntities
   class QualifyingLifeEventKind < Dry::Struct
-    transform_keys(&:to_sym)
-
     attribute :start_on, Types::Date
     attribute :end_on, Types::Date.optional
     attribute :title, Types::String

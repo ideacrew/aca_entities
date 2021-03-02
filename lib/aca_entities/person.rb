@@ -1,8 +1,7 @@
 # frozen_string_literal: true
 
-module Entities
+module AcaEntities
   class Person < Dry::Struct
-    transform_keys(&:to_sym)
 
     attribute :hbx_id, Types::String.optional.meta(omittable: true)
     attribute :name_pfx, Types::String.optional.meta(omittable: true)
@@ -29,8 +28,8 @@ module Entities
     attribute :no_ssn, Types::String.optional.meta(omittable: true)
     attribute :same_with_primary, Types::Strict::Bool
 
-    attribute :addresses, Types::Array.of(Entities::Address)
-    attribute :emails, Types::Array.of(Entities::Email)
-    attribute :phones, Types::Array.of(Entities::Phone)
+    attribute :addresses, Types::Array.of(Address)
+    attribute :emails, Types::Array.of(Email)
+    attribute :phones, Types::Array.of(Phone)
   end
 end

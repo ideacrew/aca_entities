@@ -1,8 +1,7 @@
 # frozen_string_literal: true
 
-module Entities
+module AcaEntities
   class Phone < Dry::Struct
-    transform_keys(&:to_sym)
 
     attribute :kind, Types::String.optional
     attribute :country_code, Types::String.optional.meta(omittable: true)
@@ -11,6 +10,5 @@ module Entities
     attribute :extension, Types::String.optional.meta(omittable: true)
     attribute :primary, Types::Strict::Bool.meta(omittable: true)
     attribute :full_phone_number, Types::String.optional
-
   end
 end
