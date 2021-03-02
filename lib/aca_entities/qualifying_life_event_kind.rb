@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Entities
+module AcaEntities
   class QualifyingLifeEventKind < Dry::Struct
     transform_keys(&:to_sym)
 
