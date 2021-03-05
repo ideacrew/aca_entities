@@ -4,6 +4,7 @@ module AcaEntities
   module Iap
     module Mitc
       module Validators
+        # Contract for QualifiedChild.
         class QualifiedChildContract < Dry::Validation::Contract
 
           params do

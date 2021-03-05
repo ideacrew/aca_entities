@@ -43,7 +43,7 @@ module AcaEntities
         # @!attribute [r] medicaid_category
         # The category under which the person may be found eligible for Medicaid.
         # If there are multiple qualifying categories, the highest-threshold category will be used.
-        # If not eligible under any category, the value will be “None”.
+        # If not eligible under any category, the value will be "None".
         # @return [String]
         attribute :medicaid_category,    Types::String.meta(ommittable: false)
 
@@ -54,8 +54,8 @@ module AcaEntities
 
         # @!attribute [r] chip_category
         # The category undwer which the person could be CHIP eligible.
-        # This will be the largest threshold for which they’re eligble.
-        # If not eligible under any category, the value willbe “None”.
+        # This will be the largest threshold for which they're eligble.
+        # If not eligible under any category, the value willbe "None".
         # @return [String]
         attribute :chip_category,    Types::String.meta(ommittable: false)
 

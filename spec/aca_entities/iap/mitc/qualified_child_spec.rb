@@ -11,10 +11,13 @@ RSpec.describe ::AcaEntities::Iap::Mitc::QualifiedChild do
   describe 'with valid arguments' do
     let(:input_params) do
       { person_id: 100,
-        determination: {indicator_code: 'N', ineligibility_code: 100, ineligibility_reason: 'Nothing'},
-        deprived_child: {qualify_as_deprived_child: 'N'},
-        relationship: {other_id: 101, attest_primary_responsibility: 'Y', relationship_code: '01'}
-      }
+        determination: { indicator_code: 'N',
+                         ineligibility_code: 100,
+                         ineligibility_reason: 'Nothing' },
+        deprived_child: { qualify_as_deprived_child: 'N' },
+        relationship: { other_id: 101,
+                        attest_primary_responsibility: 'Y',
+                        relationship_code: '01' } }
     end
 
     it 'should initialize' do

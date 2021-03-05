@@ -2,6 +2,7 @@
 
 module AcaEntities
   module Contracts
+    # Contract for QualifyingLifeEventKind.
     class QualifyingLifeEventKindContract < ::Dry::Validation::Contract
       params do
         required(:start_on).filled(:date)
@@ -36,7 +37,9 @@ module AcaEntities
           result_hash[:reason] = "" if result_hash[:reason] == 'Choose...'
           other_params[:reason] = result_hash[:other_reason].parameterize.underscore if result_hash[:reason] == 'other'
           other_params[:reason] = (other_params[:reason] ? other_params : result_hash)[:reason]
-          other_params[:termination_on_kinds] = [] if result_hash[:market_kind].to_s == 'individual' || result_hash[:termination_on_kinds].nil?
+          if result_hash[:market_kind].to_s == 'individual' || result_hash[:termination_on_kinds].nil?
+            other_params[:termination_on_kinds] = []
+          end
           other_params[:published_by] = '' if result_hash[:publish] != 'Publish'
           other_params[:updated_by] = ''
           result_hash.merge(other_params)
@@ -44,13 +47,17 @@ module AcaEntities
       end
 
       rule(:start_on) do
-        key.failure('Start on must be current or future date') if !values[:start_on].nil? && values[:start_on].is_a?(Date) && values[:start_on] < Date.today
+        if !values[:start_on].nil? && values[:start_on].is_a?(Date) && values[:start_on] < Date.today
+          key.failure('Start on must be current or future date')
+        end
       end
 
       rule(:end_on, :start_on) do
         unless values[:end_on].nil?
           key.failure('must be a date') unless values[:end_on].is_a?(Date)
-          key.failure('End on must be after start on date') if values[:end_on].is_a?(Date) && values[:end_on] < values[:start_on]
+          if values[:end_on].is_a?(Date) && values[:end_on] < values[:start_on]
+            key.failure('End on must be after start on date')
+          end
         end
       end
 
@@ -75,23 +82,34 @@ module AcaEntities
       end
 
       rule(:coverage_start_on) do
-        key.failure('Eligibility Start Date must be filled') if !values[:coverage_start_on].nil? && !values[:coverage_start_on].is_a?(Date)
+        if !values[:coverage_start_on].nil? && !values[:coverage_start_on].is_a?(Date)
+          key.failure('Eligibility Start Date must be filled')
+        end
 
-        key.failure("Eligibility Start Date must be filled") if values[:coverage_start_on].nil? && !values[:coverage_end_on].nil? && values[:coverage_end_on].is_a?(Date)
+        if values[:coverage_start_on].nil? && !values[:coverage_end_on].nil? && values[:coverage_end_on].is_a?(Date)
+          key.failure("Eligibility Start Date must be filled")
+        end
       end
 
       rule(:coverage_end_on) do
         key.failure('must be a date') if !values[:coverage_end_on].nil? && !values[:coverage_end_on].is_a?(Date)
 
-        key.failure("Eligibility End Date must be filled") if !values[:coverage_start_on].nil? && values[:coverage_end_on].nil? && values[:coverage_start_on].is_a?(Date)
+        if !values[:coverage_start_on].nil? && values[:coverage_end_on].nil? && values[:coverage_start_on].is_a?(Date)
+          key.failure("Eligibility End Date must be filled")
+        end
 
-        if !values[:coverage_start_on].nil? && !values[:coverage_end_on].nil? && values[:coverage_start_on].is_a?(Date) && values[:coverage_end_on].is_a?(Date) && (values[:coverage_end_on] <= values[:coverage_start_on])
+        values_check = !values[:coverage_start_on].nil? && !values[:coverage_end_on].nil?
+        dates_check = values[:coverage_start_on].is_a?(Date) && values[:coverage_end_on].is_a?(Date)
+
+        if values_check && dates_check && (values[:coverage_end_on] <= values[:coverage_start_on])
           key.failure('Eligibility End Date must be after Eligibility Start Date')
         end
       end
 
       rule(:termination_on_kinds) do
-        key.failure("validators.qualifying_life_event_kind.termination_on_kind") if !values[:termination_on_kinds].nil? && values[:termination_on_kinds].any? {|ele| !ele.is_a?(String)}
+        if !values[:termination_on_kinds].nil? && values[:termination_on_kinds].any? {|ele| !ele.is_a?(String)}
+          key.failure("validators.qualifying_life_event_kind.termination_on_kind")
+        end
       end
     end
   end

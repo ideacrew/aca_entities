@@ -4,6 +4,7 @@ module AcaEntities
   module Iap
     module Mitc
       module Validators
+        # Contract for Applicant.
         class ApplicantContract < Dry::Validation::Contract
 
           params do
@@ -41,18 +42,18 @@ module AcaEntities
           rule(:physical_households) do
             if key? && value
               physical_households_array = value.inject([]) do |hash_array, household_hash|
-                                  if household_hash.is_a?(Hash)
-                                    result = HouseholdContract.new.call(household_hash)
-                                    if result&.failure?
-                                      key.failure(text: 'invalid physical household.', error: result.errors.to_h)
-                                    else
-                                      hash_array << result.to_h
-                                    end
-                                  else
-                                    key.failure(text: 'invalid physical household. Expected a hash.')
-                                  end
-                                  hash_array
-                                end
+                if household_hash.is_a?(Hash)
+                  result = HouseholdContract.new.call(household_hash)
+                  if result&.failure?
+                    key.failure(text: 'invalid physical household.', error: result.errors.to_h)
+                  else
+                    hash_array << result.to_h
+                  end
+                else
+                  key.failure(text: 'invalid physical household. Expected a hash.')
+                end
+                hash_array
+              end
               values.merge!(physical_households: physical_households_array)
             end
           end
@@ -60,18 +61,18 @@ module AcaEntities
           rule(:qualified_children) do
             if key? && value
               qualified_children_array = value.inject([]) do |hash_array, child_hash|
-                                  if child_hash.is_a?(Hash)
-                                    result = QualifiedChildContract.new.call(child_hash)
-                                    if result&.failure?
-                                      key.failure(text: 'invalid qualified child.', error: result.errors.to_h)
-                                    else
-                                      hash_array << result.to_h
-                                    end
-                                  else
-                                    key.failure(text: 'invalid qualified child. Expected a hash.')
-                                  end
-                                  hash_array
-                                end
+                if child_hash.is_a?(Hash)
+                  result = QualifiedChildContract.new.call(child_hash)
+                  if result&.failure?
+                    key.failure(text: 'invalid qualified child.', error: result.errors.to_h)
+                  else
+                    hash_array << result.to_h
+                  end
+                else
+                  key.failure(text: 'invalid qualified child. Expected a hash.')
+                end
+                hash_array
+              end
               values.merge!(qualified_children: qualified_children_array)
             end
           end

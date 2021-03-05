@@ -71,7 +71,7 @@ Metrics/PerceivedComplexity:
   Max: 15
 
 Naming/VariableNumber:
-  Enabled: true
+  Enabled: false
 
 Style/AndOr:
   Enabled: true
@@ -83,7 +83,7 @@ Style/Documentation:
   Enabled: true
 
 Style/EachWithObject:
-  Enabled: true
+  Enabled: false
 
 Style/EmptyLiteral:
   Enabled: false

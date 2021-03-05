@@ -12,14 +12,14 @@ RSpec.describe AcaEntities::Contracts::PersonContract, type: :model, dbclean: :a
   end
 
   let(:person_params) do
-    {first_name: 'ivl40', last_name: '41',
-     dob: '1940-09-17', ssn: '345343243',
-     gender: 'male', is_incarcerated: false,
-     same_with_primary: true, indian_tribe_member: true, citizen_status: 'true',
-     addresses: [kind: 'home', address_1: '123', address_2: '', address_3: '',
-                 city: 'was', county: '', state: 'DC', location_state_code: nil,
-                 full_text: nil, zip: '12321', country_name: '', tracking_version: 1,
-                 modifier_id: nil], phones: [], emails: []}
+    { first_name: 'ivl40', last_name: '41',
+      dob: '1940-09-17', ssn: '345343243',
+      gender: 'male', is_incarcerated: false,
+      same_with_primary: true, indian_tribe_member: true, citizen_status: 'true',
+      addresses: [kind: 'home', address_1: '123', address_2: '', address_3: '',
+                  city: 'was', county: '', state: 'DC', location_state_code: nil,
+                  full_text: nil, zip: '12321', country_name: '', tracking_version: 1,
+                  modifier_id: nil], phones: [], emails: [] }
 
   end
 
@@ -41,7 +41,7 @@ RSpec.describe AcaEntities::Contracts::PersonContract, type: :model, dbclean: :a
 
     context 'start on date is in the past' do
       before do
-        @result = subject.call(person_params.reject { |k, v| k == :dob })
+        @result = subject.call(person_params.reject { |k, _v| k == :dob })
       end
 
       it 'should return failure' do

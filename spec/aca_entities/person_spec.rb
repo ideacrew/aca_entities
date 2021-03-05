@@ -10,14 +10,14 @@ RSpec.describe ::AcaEntities::Person, dbclean: :after_each do
 
   describe 'with valid arguments' do
     let(:input_params) do
-      {first_name: 'ivl40', last_name: '41',
-       dob: Date.today.prev_year, ssn: '345343243',
-       gender: 'male', is_incarcerated: false,
-       same_with_primary: true, indian_tribe_member: true, citizen_status: 'true',
-       addresses: [kind: 'home', address_1: '123', address_2: '', address_3: '',
-                   city: 'was', county: '', state: 'DC', location_state_code: nil,
-                   full_text: nil, zip: '12321', country_name: '', tracking_version: 1,
-                   modifier_id: nil], phones: [], emails: []}
+      { first_name: 'ivl40', last_name: '41',
+        dob: Date.today.prev_year, ssn: '345343243',
+        gender: 'male', is_incarcerated: false,
+        same_with_primary: true, indian_tribe_member: true, citizen_status: 'true',
+        addresses: [kind: 'home', address_1: '123', address_2: '', address_3: '',
+                    city: 'was', county: '', state: 'DC', location_state_code: nil,
+                    full_text: nil, zip: '12321', country_name: '', tracking_version: 1,
+                    modifier_id: nil], phones: [], emails: [] }
 
     end
 

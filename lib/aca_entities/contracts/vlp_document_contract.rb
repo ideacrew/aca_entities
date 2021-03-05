@@ -2,6 +2,7 @@
 
 module AcaEntities
   module Contracts
+    # Contract for VlpDocument.
     class VlpDocumentContract < Dry::Validation::Contract
       params do
 

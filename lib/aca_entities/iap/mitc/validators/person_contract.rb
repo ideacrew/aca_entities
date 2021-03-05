@@ -4,6 +4,7 @@ module AcaEntities
   module Iap
     module Mitc
       module Validators
+        # Contract for Person.
         class PersonContract < Dry::Validation::Contract
 
           params do
@@ -87,7 +88,9 @@ module AcaEntities
           end
 
           rule(:is_five_year_bar_met) do
-            key.failure('cannot be empty.') if values[:is_lawful_presence_self_attested] == 'Y' && values[:five_year_bar_applies] == 'Y' && value.nil?
+            if values[:is_lawful_presence_self_attested] == 'Y' && values[:five_year_bar_applies] == 'Y' && value.nil?
+              key.failure('cannot be empty.')
+            end
           end
 
           rule(:refugee_medical_assistance_start_date) do
@@ -116,18 +119,18 @@ module AcaEntities
           rule(:relationships) do
             if key? && value
               relationships_array = value.inject([]) do |hash_array, relationship_hash|
-                                  if relationship_hash.is_a?(Hash)
-                                    result = RelationshipContract.new.call(relationship_hash)
-                                    if result&.failure?
-                                      key.failure(text: 'invalid relationship.', error: result.errors.to_h)
-                                    else
-                                      hash_array << result.to_h
-                                    end
-                                  else
-                                    key.failure(text: 'invalid relationship. Expected a hash.')
-                                  end
-                                  hash_array
-                                end
+                if relationship_hash.is_a?(Hash)
+                  result = RelationshipContract.new.call(relationship_hash)
+                  if result&.failure?
+                    key.failure(text: 'invalid relationship.', error: result.errors.to_h)
+                  else
+                    hash_array << result.to_h
+                  end
+                else
+                  key.failure(text: 'invalid relationship. Expected a hash.')
+                end
+                hash_array
+              end
               values.merge!(relationships: relationships_array)
             end
           end

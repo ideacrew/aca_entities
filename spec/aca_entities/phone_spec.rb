@@ -13,7 +13,7 @@ RSpec.describe ::AcaEntities::Phone, dbclean: :after_each do
         number: '1234567',
         extension: '101',
         primary: true,
-        full_phone_number: '1001234567'}
+        full_phone_number: '1001234567' }
     end
 
     it 'should initialize' do

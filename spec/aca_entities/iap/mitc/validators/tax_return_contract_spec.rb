@@ -7,7 +7,7 @@ require 'aca_entities/iap/mitc/validators/tax_return_contract'
 
 RSpec.describe ::AcaEntities::Iap::Mitc::Validators::TaxReturnContract do
   let(:required_params) do
-    {filers: [{person_id: 100}], dependents: [{person_id: 101}]}
+    { filers: [{ person_id: 100 }], dependents: [{ person_id: 101 }] }
   end
 
   context 'valid params' do

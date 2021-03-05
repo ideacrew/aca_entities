@@ -12,7 +12,7 @@ RSpec.describe ::AcaEntities::Contracts::ConsumerRoleContract,  dbclean: :after_
   describe 'missing all fields' do
 
     let(:params) do
-      { }
+      {}
     end
 
     it "passes" do
@@ -23,9 +23,13 @@ RSpec.describe ::AcaEntities::Contracts::ConsumerRoleContract,  dbclean: :after_
   describe 'optional fields with empty values' do
 
     let(:params) do
-      {is_applying_coverage: nil, is_active: nil, is_applicant: nil }
+      { is_applying_coverage: nil, is_active: nil, is_applicant: nil }
     end
-    let(:error_message) {{:is_applying_coverage => ['must be filled'], :is_applicant => ['must be filled']}}
+
+    let(:error_message) do
+      { :is_applying_coverage => ['must be filled'],
+        :is_applicant => ['must be filled'] }
+    end
 
     it 'fails' do
       expect(subject).not_to be_success
@@ -36,7 +40,7 @@ RSpec.describe ::AcaEntities::Contracts::ConsumerRoleContract,  dbclean: :after_
   describe 'passing optional fileds with values' do
 
     let(:params) do
-      {is_applying_coverage: true, is_active: true, is_applicant: true }
+      { is_applying_coverage: true, is_active: true, is_applicant: true }
     end
 
     it 'passes' do

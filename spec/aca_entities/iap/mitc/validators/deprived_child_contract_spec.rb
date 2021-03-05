@@ -5,7 +5,7 @@ require 'aca_entities/iap/mitc/types'
 require 'aca_entities/iap/mitc/validators/deprived_child_contract'
 
 RSpec.describe ::AcaEntities::Iap::Mitc::Validators::DeprivedChildContract do
-  let(:required_params) {{qualify_as_deprived_child: 'N'}}
+  let(:required_params) { { qualify_as_deprived_child: 'N' } }
 
   context 'valid params' do
     it { expect(subject.call(required_params).success?).to be_truthy }

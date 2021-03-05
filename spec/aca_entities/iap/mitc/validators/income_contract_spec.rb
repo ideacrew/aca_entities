@@ -22,7 +22,7 @@ RSpec.describe ::AcaEntities::Iap::Mitc::Validators::IncomeContract do
       ira_deduction: 1,
       student_loan_interest_deduction: 9,
       tution_and_fees: 10,
-      other_magi_eligible_income: 0}
+      other_magi_eligible_income: 0 }
   end
 
   context 'valid params' do

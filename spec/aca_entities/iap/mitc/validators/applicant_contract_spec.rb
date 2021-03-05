@@ -13,7 +13,7 @@ require 'aca_entities/iap/mitc/validators/applicant_contract'
 RSpec.describe ::AcaEntities::Iap::Mitc::Validators::ApplicantContract do
   let(:required_params) do
     { person_id: 100,
-      medicaid_household: {household_id: 1000, people: [{person_id: 100}]},
+      medicaid_household: { household_id: 1000, people: [{ person_id: 100 }] },
       is_medicaid_eligible: 'N',
       is_chip_eligible: 'N',
       medicaid_ineligibility_reasons: ['test'],
@@ -21,15 +21,20 @@ RSpec.describe ::AcaEntities::Iap::Mitc::Validators::ApplicantContract do
       chip_ineligibility_reasons: ['test'],
       medicaid_category: 'Medicaid Category',
       medicaid_category_threshold: 100,
-      physical_households: [{household_id: 1000, people: [{person_id: 100}]}],
+      physical_households: [{ household_id: 1000, people: [{ person_id: 100 }] }],
       chip_category: 'Chip Category',
       chip_category_threshold: 50,
-      category_determination: {indicator_code: 'Y', ineligibility_code: 123, ineligibility_reason: 'Nothing'},
-      qualified_children: [{person_id: 101,
-                            determination: {indicator_code: 'Y', ineligibility_code: 123, ineligibility_reason: 'Nothing'},
-                            deprived_child: {qualify_as_deprived_child: 'N'},
-                            relationship: {other_id: 100, attest_primary_responsibility: 'Y', relationship_code: '01'}
-                          }]}
+      category_determination: { indicator_code: 'Y',
+                                ineligibility_code: 123,
+                                ineligibility_reason: 'Nothing' },
+      qualified_children: [{ person_id: 101,
+                             determination: { indicator_code: 'Y',
+                                              ineligibility_code: 123,
+                                              ineligibility_reason: 'Nothing' },
+                             deprived_child: { qualify_as_deprived_child: 'N' },
+                             relationship: { other_id: 100,
+                                             attest_primary_responsibility: 'Y',
+                                             relationship_code: '01' } }] }
   end
 
   context 'valid params' do

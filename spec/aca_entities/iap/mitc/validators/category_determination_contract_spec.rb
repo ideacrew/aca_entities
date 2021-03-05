@@ -7,10 +7,10 @@ require 'aca_entities/iap/mitc/validators/category_determination_contract'
 RSpec.describe ::AcaEntities::Iap::Mitc::Validators::CategoryDeterminationContract do
   let(:required_params) do
     { indicator_code: 'Y',
-      ineligibility_code: 130}
+      ineligibility_code: 130 }
   end
-  let(:optional_params) {{ineligibility_reason: 'Testing'}}
-  let(:all_params) { required_params.merge(optional_params)}
+  let(:optional_params) { { ineligibility_reason: 'Testing' } }
+  let(:all_params) { required_params.merge(optional_params) }
 
   context 'valid params' do
     it { expect(subject.call(required_params).success?).to be_truthy }

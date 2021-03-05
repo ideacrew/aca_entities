@@ -4,6 +4,7 @@ module AcaEntities
   module Iap
     module Mitc
       module Validators
+        # Contract for Relationship
         class RelationshipContract < Dry::Validation::Contract
 
           params do

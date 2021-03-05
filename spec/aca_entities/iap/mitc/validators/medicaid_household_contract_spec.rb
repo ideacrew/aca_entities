@@ -7,7 +7,7 @@ require 'aca_entities/iap/mitc/validators/medicaid_household_contract'
 
 RSpec.describe ::AcaEntities::Iap::Mitc::Validators::MedicaidHouseholdContract do
   let(:required_params) do
-    {people: [{person_id: 100}, {person_id: 101}], magi_income: 100, size: 2}
+    { people: [{ person_id: 100 }, { person_id: 101 }], magi_income: 100, size: 2 }
   end
 
   context 'valid params' do

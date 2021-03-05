@@ -2,6 +2,7 @@
 
 module AcaEntities
   module Contracts
+    # Contract for Phone.
     class PhoneContract < Dry::Validation::Contract
 
       params do

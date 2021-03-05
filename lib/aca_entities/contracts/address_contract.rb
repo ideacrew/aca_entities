@@ -2,6 +2,7 @@
 
 module AcaEntities
   module Contracts
+    # Contract for Address.
     class AddressContract < Dry::Validation::Contract
 
       params do
@@ -18,7 +19,9 @@ module AcaEntities
 
       rule(:zip) do
         key.failure("#{values[:kind].capitalize} Addresses: zip can't be blank") if values[:zip].to_s.empty?
-        key.failure("#{values[:kind].capitalize} Addresses: zip should be in the form: 12345 or 12345-1234") if !values[:zip].to_s.empty? && !/\A\d{5}(-\d{4})?\z/.match?(value)
+        if !values[:zip].to_s.empty? && !/\A\d{5}(-\d{4})?\z/.match?(value)
+          key.failure("#{values[:kind].capitalize} Addresses: zip should be in the form: 12345 or 12345-1234")
+        end
       end
 
       rule(:address_1) do

@@ -6,17 +6,17 @@ module AcaEntities
       class Income < Dry::Struct
 
         # @!attribute [r] amount
-        # Wages, Salaries, Tips: person’s income from work.
+        # Wages, Salaries, Tips: person's income from work.
         # @return [Integer]
         attribute :amount,              Types::Integer.meta(omittible: false)
 
         # @!attribute [r] taxable_interest
-        # Person’s interest that is subject to taxation.
+        # Person's interest that is subject to taxation.
         # @return [Integer]
         attribute :taxable_interest,    Types::Integer.meta(omittible: false)
 
         # @!attribute [r] tax_exempt_interest
-        # Person’s interest that is not subject to taxation.
+        # Person's interest that is not subject to taxation.
         # @return [Integer]
         attribute :tax_exempt_interest,    Types::Integer.meta(omittible: false)
 
@@ -59,7 +59,7 @@ module AcaEntities
         attribute :magi_deductions,    Types::Integer.meta(omittible: false)
 
         # @!attribute [r] adjusted_gross_income
-        # In the event the information is being built from last year’s tax return,
+        # In the event the information is being built from last year's tax return,
         # it may be easier to calculate MAGI by starting with the AGI.  Expressed as an annual amount.
         # @return [Integer]
         attribute :adjusted_gross_income,    Types::Integer.meta(omittible: false)

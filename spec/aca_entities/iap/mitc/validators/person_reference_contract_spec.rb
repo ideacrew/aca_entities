@@ -5,7 +5,7 @@ require 'aca_entities/iap/mitc/types'
 require 'aca_entities/iap/mitc/validators/person_reference_contract'
 
 RSpec.describe ::AcaEntities::Iap::Mitc::Validators::PersonReferenceContract do
-  let(:required_params) {{person_id: 100}}
+  let(:required_params) { { person_id: 100 } }
 
   context 'valid params' do
     it { expect(subject.call(required_params).success?).to be_truthy }

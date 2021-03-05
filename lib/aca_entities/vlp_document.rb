@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 module AcaEntities
+  # Entity for VLPDocument
   class VlpDocument < Dry::Struct
     attribute :subject,             Iap::Types::VlpDocumentKind.optional.meta(omittable: true)
     attribute :alien_number, Types::String.optional.meta(omittable: true)

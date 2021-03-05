@@ -2,6 +2,7 @@
 
 module AcaEntities
   module Contracts
+    # Contract for Email.
     class EmailContract < Dry::Validation::Contract
 
       params do

@@ -17,7 +17,7 @@ RSpec.describe ::AcaEntities::ApplicantRole, dbclean: :after_each do
       is_resident_post_092296: false, is_physically_disabled: false,
       is_self_attested_long_term_care: false,
       addresses: [kind: 'home', address_1: '123', address_2: '', address_3: '',
-                 city: 'was', county: '', state: 'DC', zip: '12321', country_name: ''] }
+                  city: 'was', county: '', state: 'DC', zip: '12321', country_name: ''] }
   end
 
   let(:all_params) { required_params.merge(optional_params)}

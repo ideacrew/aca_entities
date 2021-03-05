@@ -4,23 +4,23 @@ module Iap
   class Application < Dry::Struct
 
     # FFM Attributes
-      # Application ID
-      # Identification Category Text
-      # Application Signature Date
-      # Original Signature Date
-      # Application Creation Date
-      # Application Update Date
-      # Applying for Financial Assistance Indicator
-      # Medicaid Determination Indicator
-      # Privacy Policy Agreement Indicator
-      # Attested Not Incarcerated Indicator
-      # Pending Disposition
-      # Attested If Information Changes Indicator
-      # Attested Medicaid Applicant Awareness Indicator
-      # Attested Non Perjury Indicator
-      # Attested To Cooperate With Medical Collection Agency
-      # Tax Return Access Indicator
-      # Tax Return Access
+    # Application ID
+    # Identification Category Text
+    # Application Signature Date
+    # Original Signature Date
+    # Application Creation Date
+    # Application Update Date
+    # Applying for Financial Assistance Indicator
+    # Medicaid Determination Indicator
+    # Privacy Policy Agreement Indicator
+    # Attested Not Incarcerated Indicator
+    # Pending Disposition
+    # Attested If Information Changes Indicator
+    # Attested Medicaid Applicant Awareness Indicator
+    # Attested Non Perjury Indicator
+    # Attested To Cooperate With Medical Collection Agency
+    # Tax Return Access Indicator
+    # Tax Return Access
 
     attribute :hbx_id, Types::String.meta(omittable: false)
     attribute :submitted_on, Types::Date.meta(omittable: false)
@@ -39,7 +39,8 @@ module Iap
     # Indicates the applicant attests that the information provided is truthful.
     attribute :submission_terms, Types::Bool.meta(omittable: false)
 
-    # Indicates the applicant agrees to cooperate with agencies that collection medical support information from absent parents.
+    # Indicates the applicant agrees to cooperate with agencies that collection medical
+    # support information from absent parents.
     attribute :attestation_terms, Types::Bool.optional.meta(omittable: true)
 
     # Indicates applicant agrees to allow FFE access to his tax returns.

@@ -21,7 +21,7 @@ RSpec.describe AcaEntities::Contracts::QualifyingLifeEventKindContract, type: :m
       :effective_on_kinds => ['date_of_event'],
       :ordinal_position => 1,
       coverage_start_on: Date.today,
-      coverage_end_on: (Date.today.next_month),
+      coverage_end_on: Date.today.next_month,
       event_kind_label: 'event kind label',
       is_visible: true,
       qle_event_date_kind: 'qle_on',
@@ -48,7 +48,7 @@ RSpec.describe AcaEntities::Contracts::QualifyingLifeEventKindContract, type: :m
 
     context 'for end_on being optional' do
       before do
-        contract_params.merge!({end_on: nil})
+        contract_params.merge!({ end_on: nil })
         @result = subject.call(contract_params)
       end
 
@@ -63,7 +63,7 @@ RSpec.describe AcaEntities::Contracts::QualifyingLifeEventKindContract, type: :m
 
     context 'for tool_tip being optional' do
       before do
-        contract_params.merge!({tool_tip: nil})
+        contract_params.merge!({ tool_tip: nil })
         @result = subject.call(contract_params)
       end
 
@@ -78,7 +78,7 @@ RSpec.describe AcaEntities::Contracts::QualifyingLifeEventKindContract, type: :m
 
     context 'for coverage_start_on being optional' do
       before do
-        contract_params.merge!({coverage_start_on: nil, coverage_end_on: nil})
+        contract_params.merge!({ coverage_start_on: nil, coverage_end_on: nil })
         @result = subject.call(contract_params)
       end
 
@@ -93,7 +93,7 @@ RSpec.describe AcaEntities::Contracts::QualifyingLifeEventKindContract, type: :m
 
     context 'for coverage_end_on being optional' do
       before do
-        contract_params.merge!({coverage_start_on: nil, coverage_end_on: nil})
+        contract_params.merge!({ coverage_start_on: nil, coverage_end_on: nil })
         @result = subject.call(contract_params)
       end
 
@@ -108,7 +108,7 @@ RSpec.describe AcaEntities::Contracts::QualifyingLifeEventKindContract, type: :m
 
     context 'for termination_on_kinds being optional for individual' do
       before do
-        contract_params.merge!({termination_on_kinds: nil})
+        contract_params.merge!({ termination_on_kinds: nil })
         @result = subject.call(contract_params)
       end
 
@@ -123,7 +123,7 @@ RSpec.describe AcaEntities::Contracts::QualifyingLifeEventKindContract, type: :m
 
     context 'for termination_on_kinds being mandatory' do
       before do
-        contract_params.merge!({market_kind: 'shop'})
+        contract_params.merge!({ market_kind: 'shop' })
         @result = subject.call(contract_params)
       end
 
@@ -139,7 +139,10 @@ RSpec.describe AcaEntities::Contracts::QualifyingLifeEventKindContract, type: :m
     context 'with auditing attributes' do
       context "with create params" do
         before do
-          contract_params.merge!({market_kind: 'shop', published_by: '1', updated_by: '', created_by: '1'})
+          contract_params.merge!({ market_kind: 'shop',
+                                   published_by: '1',
+                                   updated_by: '',
+                                   created_by: '1' })
           @result = subject.call(contract_params)
         end
 
@@ -170,7 +173,7 @@ RSpec.describe AcaEntities::Contracts::QualifyingLifeEventKindContract, type: :m
 
     context 'start on date is in the past' do
       before  do
-        contract_params.merge!({start_on: Date.today.prev_day})
+        contract_params.merge!({ start_on: Date.today.prev_day })
         @result = subject.call(contract_params)
       end
 
@@ -189,7 +192,7 @@ RSpec.describe AcaEntities::Contracts::QualifyingLifeEventKindContract, type: :m
 
     context 'end on date is less than start on date' do
       before  do
-        contract_params.merge!({end_on: Date.today.prev_year, publish: 'Publish'})
+        contract_params.merge!({ end_on: Date.today.prev_year, publish: 'Publish' })
         @result = subject.call(contract_params)
       end
 
@@ -208,7 +211,7 @@ RSpec.describe AcaEntities::Contracts::QualifyingLifeEventKindContract, type: :m
 
     context 'invalid end_on value' do
       before do
-        contract_params.merge!({end_on: 'test', publish: 'Publish'})
+        contract_params.merge!({ end_on: 'test', publish: 'Publish' })
         @result = subject.call(contract_params)
       end
 
@@ -223,7 +226,7 @@ RSpec.describe AcaEntities::Contracts::QualifyingLifeEventKindContract, type: :m
 
     context 'invalid coverage_start_on value' do
       before do
-        contract_params.merge!({coverage_start_on: 'test'})
+        contract_params.merge!({ coverage_start_on: 'test' })
         @result = subject.call(contract_params)
       end
 
@@ -238,7 +241,7 @@ RSpec.describe AcaEntities::Contracts::QualifyingLifeEventKindContract, type: :m
 
     context 'invalid coverage_end_on value' do
       before do
-        contract_params.merge!({coverage_end_on: 'test'})
+        contract_params.merge!({ coverage_end_on: 'test' })
         @result = subject.call(contract_params)
       end
 
@@ -253,7 +256,7 @@ RSpec.describe AcaEntities::Contracts::QualifyingLifeEventKindContract, type: :m
 
     context 'coverage_start_on present' do
       before  do
-        contract_params.merge!({coverage_start_on: Date.today.next_day, coverage_end_on: nil})
+        contract_params.merge!({ coverage_start_on: Date.today.next_day, coverage_end_on: nil })
         @result = subject.call(contract_params)
       end
 
@@ -272,7 +275,7 @@ RSpec.describe AcaEntities::Contracts::QualifyingLifeEventKindContract, type: :m
 
     context 'coverage_end_on present' do
       before  do
-        contract_params.merge!({coverage_end_on: Date.today.next_day, coverage_start_on: nil})
+        contract_params.merge!({ coverage_end_on: Date.today.next_day, coverage_start_on: nil })
         @result = subject.call(contract_params)
       end
 
@@ -291,7 +294,7 @@ RSpec.describe AcaEntities::Contracts::QualifyingLifeEventKindContract, type: :m
 
     context 'coverage_end_on less than coverage_start_on date ' do
       before  do
-        contract_params.merge!({coverage_start_on: Date.today.next_month, coverage_end_on: Date.today})
+        contract_params.merge!({ coverage_start_on: Date.today.next_month, coverage_end_on: Date.today })
         @result = subject.call(contract_params)
       end
 

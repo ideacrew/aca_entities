@@ -101,7 +101,7 @@ module AcaEntities
 
         # @!attribute [r] foster_care_us_state
         # The state where the applicant received foster care.
-        # Two character state code. For example, “CA”
+        # Two character state code. For example, "CA"
         # @return [String]
         attribute :foster_care_us_state,    ::AcaEntities::Types::UsStateAbbreviationKind.meta(omittible: false)
 
@@ -136,7 +136,7 @@ module AcaEntities
         attribute :is_lawful_presence_self_attested,    Types::YesNoKind.meta(ommittable: false)
 
         # @!attribute [r] immigration_status
-        # Code indicating the person’s immigration status.
+        # Code indicating the person's immigration status.
         # @return [String]
         attribute :immigration_status,    Types::ImmigrationStatusKind.meta(omittible: false)
 
@@ -147,7 +147,8 @@ module AcaEntities
 
         # @!attribute [r] has_forty_title_ii_work_quarters
         # For non-citizens, have they earned 40 Title II work quarters.
-        # In general, this is answered by whether the applicant has had 40 quarters in which the applicant was employed in the US.
+        # In general, this is answered by whether the applicant has had 40 quarters
+        # in which the applicant was employed in the US.
         # @return [String]
         attribute :has_forty_title_ii_work_quarters,    Types::YesNoKind.meta(ommittable: false)
 
@@ -177,7 +178,7 @@ module AcaEntities
         attribute :refugee_medical_assistance_start_date,    Types::Date.meta(omittable: false)
 
         # @!attribute [r] seven_year_limit_start_date
-        # This date varies based on the person’s immigration status:
+        # This date varies based on the person's immigration status:
         # LPR: Entry date
         # Asylee: Asylum grant date
         # Refugee: Refugee admit date

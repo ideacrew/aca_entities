@@ -2,6 +2,7 @@
 
 module AcaEntities
   module Contracts
+    # Contract for ConsumerRole.
     class ConsumerRoleContract < Dry::Validation::Contract
       params do
         optional(:is_applying_coverage).filled(:bool)

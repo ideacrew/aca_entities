@@ -12,10 +12,9 @@ RSpec.describe AcaEntities::Contracts::PhoneContract,  dbclean: :after_each do
   describe 'missing kind and full_phone_number field' do
 
     let(:params) do
-      { }
+      {}
     end
-    let(:error_message) {{:kind => ['is missing'], :full_phone_number => ['is missing']}}
-
+    let(:error_message) { { :kind => ['is missing'], :full_phone_number => ['is missing'] } }
 
     it "fails" do
       expect(subject).not_to be_success
@@ -23,13 +22,11 @@ RSpec.describe AcaEntities::Contracts::PhoneContract,  dbclean: :after_each do
     end
   end
 
-
   describe 'empty kind and full_phone_number fields' do
 
     let(:params) do
-      {kind: '', full_phone_number: ''}
+      { kind: '', full_phone_number: '' }
     end
-
 
     it 'success' do
       expect(subject).to be_success
@@ -39,7 +36,7 @@ RSpec.describe AcaEntities::Contracts::PhoneContract,  dbclean: :after_each do
   describe 'passing valid kind and full_phone_number fields' do
 
     let(:params) do
-      {kind: 'test', full_phone_number: '9898989898'}
+      { kind: 'test', full_phone_number: '9898989898' }
     end
 
     it 'passes' do

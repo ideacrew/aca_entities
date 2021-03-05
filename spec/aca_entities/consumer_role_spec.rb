@@ -12,7 +12,7 @@ RSpec.describe ::AcaEntities::ConsumerRole, dbclean: :after_each do
         is_applicant: true,
         is_state_resident: true,
         lawful_presence_determination: 'lawful_presence',
-        citizen_status: 'us_citizen'}
+        citizen_status: 'us_citizen' }
     end
 
     it 'should initialize' do

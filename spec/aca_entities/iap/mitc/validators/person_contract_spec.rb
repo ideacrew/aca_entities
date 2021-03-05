@@ -59,9 +59,8 @@ RSpec.describe ::AcaEntities::Iap::Mitc::Validators::PersonContract do
                 ira_deduction: 5,
                 student_loan_interest_deduction: 0,
                 tution_and_fees: 0,
-                other_magi_eligible_income: 0},
-      relationships: [{other_id: 101, attest_primary_responsibility: 'Y', relationship_code: '01'}]
-    }
+                other_magi_eligible_income: 0 },
+      relationships: [{ other_id: 101, attest_primary_responsibility: 'Y', relationship_code: '01' }] }
   end
 
   context 'valid params' do
@@ -83,7 +82,7 @@ RSpec.describe ::AcaEntities::Iap::Mitc::Validators::PersonContract do
       end
 
       it 'should return an error' do
-        expect(@result.errors.to_h).to eq({:prior_insurance_end_date=>['cannot be empty.']})
+        expect(@result.errors.to_h).to eq({ :prior_insurance_end_date => ['cannot be empty.'] })
       end
     end
   end

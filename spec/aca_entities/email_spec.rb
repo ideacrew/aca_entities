@@ -7,7 +7,7 @@ RSpec.describe ::AcaEntities::Email, dbclean: :after_each do
 
   describe 'with valid arguments' do
     let(:input_params) do
-      { kind: 'home', address: 'yy@ll.com'}
+      { kind: 'home', address: 'yy@ll.com' }
     end
 
     it 'should initialize' do

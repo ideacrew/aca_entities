@@ -4,6 +4,7 @@ module AcaEntities
   module Iap
     module Mitc
       module Validators
+        # Contract for TaxReturn
         class TaxReturnContract < Dry::Validation::Contract
 
           params do
@@ -14,18 +15,18 @@ module AcaEntities
           rule(:filers) do
             if key? && value
               filers_array = value.inject([]) do |hash_array, person_reference_hash|
-                                  if person_reference_hash.is_a?(Hash)
-                                    result = Validators::PersonReferenceContract.new.call(person_reference_hash)
-                                    if result&.failure?
-                                      key.failure(text: 'invalid person reference.', error: result.errors.to_h)
-                                    else
-                                      hash_array << result.to_h
-                                    end
-                                  else
-                                    key.failure(text: 'invalid person reference. Expected a hash.')
-                                  end
-                                  hash_array
-                                end
+                if person_reference_hash.is_a?(Hash)
+                  result = Validators::PersonReferenceContract.new.call(person_reference_hash)
+                  if result&.failure?
+                    key.failure(text: 'invalid person reference.', error: result.errors.to_h)
+                  else
+                    hash_array << result.to_h
+                  end
+                else
+                  key.failure(text: 'invalid person reference. Expected a hash.')
+                end
+                hash_array
+              end
               values.merge!(filers: filers_array)
             end
           end
@@ -33,18 +34,18 @@ module AcaEntities
           rule(:dependents) do
             if key? && value
               dependents_array = value.inject([]) do |hash_array, person_reference_hash|
-                                  if person_reference_hash.is_a?(Hash)
-                                    result = Validators::PersonReferenceContract.new.call(person_reference_hash)
-                                    if result&.failure?
-                                      key.failure(text: 'invalid person reference.', error: result.errors.to_h)
-                                    else
-                                      hash_array << result.to_h
-                                    end
-                                  else
-                                    key.failure(text: 'invalid person reference. Expected a hash.')
-                                  end
-                                  hash_array
-                                end
+                if person_reference_hash.is_a?(Hash)
+                  result = Validators::PersonReferenceContract.new.call(person_reference_hash)
+                  if result&.failure?
+                    key.failure(text: 'invalid person reference.', error: result.errors.to_h)
+                  else
+                    hash_array << result.to_h
+                  end
+                else
+                  key.failure(text: 'invalid person reference. Expected a hash.')
+                end
+                hash_array
+              end
               values.merge!(dependents: dependents_array)
             end
           end

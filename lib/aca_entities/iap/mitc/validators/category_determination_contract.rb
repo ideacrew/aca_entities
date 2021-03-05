@@ -4,6 +4,7 @@ module AcaEntities
   module Iap
     module Mitc
       module Validators
+        # Contract for CategoryDetermination.
         class CategoryDeterminationContract < Dry::Validation::Contract
 
           params do

@@ -10,9 +10,9 @@ require 'aca_entities/iap/mitc/validators/qualified_child_contract'
 RSpec.describe ::AcaEntities::Iap::Mitc::Validators::QualifiedChildContract do
   let(:required_params) do
     { person_id: 100,
-      determination: {indicator_code: 'Y', ineligibility_code: 123, ineligibility_reason: 'Nothing'},
-      deprived_child: {qualify_as_deprived_child: 'N'},
-      relationship: {other_id: 100, attest_primary_responsibility: 'Y', relationship_code: '01'}}
+      determination: { indicator_code: 'Y', ineligibility_code: 123, ineligibility_reason: 'Nothing' },
+      deprived_child: { qualify_as_deprived_child: 'N' },
+      relationship: { other_id: 100, attest_primary_responsibility: 'Y', relationship_code: '01' } }
   end
 
   context 'valid params' do

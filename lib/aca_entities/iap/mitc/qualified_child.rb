@@ -26,7 +26,8 @@ module AcaEntities
 
         # @!attribute [r] relationship
         # Relationship: a hash with only the hash:
-          # a) Indicator: does the person have the necessary relationship with the containing person to qualify the containing person for parent-caretaker status.  Y/N
+        # a) Indicator: does the person have the necessary relationship with the containing person
+        # to qualify the containing person for parent-caretaker status.  Y/N
         # @return [Hash]
         attribute :relationship,   Relationship.meta(omittible: false)
       end

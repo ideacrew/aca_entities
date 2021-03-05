@@ -5,14 +5,14 @@ require 'aca_entities/contracts/vlp_document_contract'
 
 RSpec.describe ::AcaEntities::Contracts::VlpDocumentContract, dbclean: :after_each do
 
-  let(:required_params) {{subject: "Invoice"}}
+  let(:required_params) { { subject: "Invoice" } }
 
   let(:optional_params) do
     {
       alien_number: "0110200", i94_number: "i94", visa_number: "93749h",
       passport_number: "L1201", sevis_id: "N010", naturalization_number: nil,
       receipt_number: nil, citizenship_number: nil, card_number: nil,
-      country_of_citizenship: nil, expiration_date: Date.new(2022, 3, 8), issuing_country: "USA",
+      country_of_citizenship: nil, expiration_date: Date.new(2022, 3, 8), issuing_country: "USA"
     }
   end
   let(:all_params) { required_params.merge(optional_params)}

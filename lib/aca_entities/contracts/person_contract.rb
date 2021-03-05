@@ -2,6 +2,7 @@
 
 module AcaEntities
   module Contracts
+    # Contract for Person.
     class PersonContract < Dry::Validation::Contract
 
       params do
@@ -70,7 +71,9 @@ module AcaEntities
       end
 
       rule(:is_applying_coverage) do
-        key.failure(text: "Incarceration question must be answered") if key? && values[:is_applying_coverage] && values[:is_incarcerated].to_s.blank?
+        if key? && values[:is_applying_coverage] && values[:is_incarcerated].to_s.blank?
+          key.failure(text: "Incarceration question must be answered")
+        end
       end
     end
   end

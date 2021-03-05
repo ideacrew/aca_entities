@@ -65,9 +65,10 @@ RSpec.describe ::AcaEntities::Iap::Mitc::Validators::ApplicationContract do
                 ira_deduction: 5,
                 student_loan_interest_deduction: 0,
                 tution_and_fees: 0,
-                other_magi_eligible_income: 0},
-      relationships: [{other_id: 101, attest_primary_responsibility: 'Y', relationship_code: '01'}]
-    }
+                other_magi_eligible_income: 0 },
+      relationships: [{ other_id: 101,
+                        attest_primary_responsibility: 'Y',
+                        relationship_code: '01' }] }
   end
 
   let(:required_params) do
@@ -75,8 +76,8 @@ RSpec.describe ::AcaEntities::Iap::Mitc::Validators::ApplicationContract do
       state: 'DC',
       application_year: 2021,
       people: [person_params],
-      physical_households: [{household_id: 1000, people: [{person_id: 100}]}],
-      tax_returns: [{filers: [{person_id: 100}], dependents: [{person_id: 101}]}]}
+      physical_households: [{ household_id: 1000, people: [{ person_id: 100 }] }],
+      tax_returns: [{ filers: [{ person_id: 100 }], dependents: [{ person_id: 101 }] }] }
   end
 
   context 'valid params' do

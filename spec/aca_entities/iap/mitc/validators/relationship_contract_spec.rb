@@ -6,7 +6,7 @@ require 'aca_entities/iap/mitc/validators/relationship_contract'
 
 RSpec.describe ::AcaEntities::Iap::Mitc::Validators::RelationshipContract do
   let(:required_params) do
-    {other_id: 100, attest_primary_responsibility: 'Y', relationship_code: '01'}
+    { other_id: 100, attest_primary_responsibility: 'Y', relationship_code: '01' }
   end
 
   context 'valid params' do
