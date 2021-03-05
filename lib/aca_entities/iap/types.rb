@@ -49,6 +49,33 @@ module Iap
       'has_eligible_health_coverage'
     )
 
+    IncomeKind = Types::Coercible::String.enum(
+      'alimony_and_maintenance',
+      'american_indian_and_alaskan_native',
+      'capital_gains',
+      'dividend',
+      'employer_funded_disability',
+      'estate_trust',
+      'farming_and_fishing',
+      'foreign',
+      'interest',
+      'lump_sum_amount',
+      'military',
+      'net_self_employment',
+      'other',
+      'pension_retirement_benefits',
+      'permanent_workers_compensation',
+      'prizes_and_awards',
+      'rental_and_royalty',
+      'scholorship_payments',
+      'social_security_benefit',
+      'supplemental_security_income',
+      'tax_exempt_interest',
+      'unemployment_insurance',
+      'wages_and_salaries',
+      'income_from_irs'
+    )
+
     IncomeValidationStateKind   = Types::Coercible::String.enum('na', 'valid', 'outstanding', 'pending')
     MecValidationStateKind      = Types::Coercible::String.enum('na', 'valid', 'outstanding', 'pending')
     NaturalizationDocumentKind  = Types::Coercible::String.enum('Certificate of Citizenship',

@@ -7,7 +7,7 @@ RSpec.describe ::AcaEntities::VlpDocument, dbclean: :after_each do
 
   describe 'with valid arguments' do
     let(:input_params) do
-      { subject: 'Invoice',
+      { subject: 'I-327 (Reentry Permit)',
         alien_number: "0110200",
         i94_number: "i94",
         visa_number: "93749h",

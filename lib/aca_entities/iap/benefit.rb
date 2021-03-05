@@ -6,6 +6,7 @@ module Iap
   class Benefit < Dry::Struct
 
     attribute :name,                    Types::String.meta(omittable: false)
+    # insurance_kind
     attribute :kind,                    Iap::Types::BenefitKind.meta(omittable: false)
     attribute :status,                  Iap::Types::BenefitStatusKind.meta(omittable: false)
 
@@ -15,6 +16,9 @@ module Iap
     attribute :esi_covered,             Types::String.meta(omittable: false)
     attribute :is_esi_waiting_period,   Types::Bool.meta(omittable: false)
     attribute :is_esi_mec_met,          Types::Bool.meta(omittable: false)
+
+    attribute :employer_name,           Types::String.optional.meta(omittable: true)
+    attribute :employer_id,             Types::String.optional.meta(omittable: true)
 
     # Money
     attribute :employee_cost,           Types::Decimal.meta(omittable: false)
@@ -36,5 +40,8 @@ module Iap
     end
     # rubocop:enable Naming/PredicateName
 
+    def cobra_covered?
+      kind == 'cobra'
+    end
   end
 end
