@@ -5,6 +5,7 @@ module AcaEntities
     module Operations
       module Questions
 
+        # Find a question.
         class Find
           send(:include, Dry::Monads[:result, :do])
           send(:include, Dry::Monads[:try])

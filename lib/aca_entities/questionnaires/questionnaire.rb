@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'dry-types'
 require_relative 'types'
 require_relative 'entry'

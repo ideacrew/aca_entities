@@ -1,0 +1,28 @@
+name: RSpec
+on: push
+
+jobs:
+  rspec:
+    runs-on: ubuntu-16.04
+    steps:
+      - uses: actions/checkout@v2
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 2.6
+      - name: Cache Gems
+        uses: actions/cache@v1
+        with:
+          path: vendor/bundle
+          key: ${{ runner.os }}-aca_entities-gems-${{ hashFiles('**/Gemfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-aca_entities-gems-${{ hashFiles('**/Gemfile.lock') }}
+      - name: bundle install
+        run: |
+          bundle config path vendor/bundle
+          bundle install
+      - name: run rubocop
+        run: |
+          bundle exec rubocop
+      - name: run tests
+        run: |
+          bundle exec rspec

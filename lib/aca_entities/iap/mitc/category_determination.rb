@@ -7,13 +7,13 @@ module AcaEntities
 
         # @!attribute [r] indicator_code
         # Whether the {Applicant} qualifies for the category.
-        # One character code, Y for yes, N for No, X for doesn’t apply
+        # One character code, Y for yes, N for No, X for doesn't apply
         # @return [Types::Mitc::DeterminationIndicatorKind]
         attribute :indicator_code,        Types::Mitc::DeterminationIndicatorKind.meta(ommittable: false)
 
         # @!attribute [r] ineligibility_code
         # An FFM code.  3 digit code
-        # One character code, Y for yes, N for No, X for doesn’t apply
+        # One character code, Y for yes, N for No, X for doesn't apply
         # @return [Integer]
         attribute :ineligibility_code,    Types::Integer.optional.meta(ommittable: true)
 

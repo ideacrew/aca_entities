@@ -26,6 +26,7 @@ module Iap
 
     attribute :workflow,                Iap::Workflow.meta(omittable: false)
 
+    # rubocop:disable Naming/PredicateName
     def is_eligible?
       status == 'is_eligible'
     end
@@ -33,7 +34,7 @@ module Iap
     def is_enrolled?
       status == 'is_enrolled'
     end
-
+    # rubocop:enable Naming/PredicateName
 
   end
 end

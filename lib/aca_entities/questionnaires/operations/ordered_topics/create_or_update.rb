@@ -5,6 +5,7 @@ module AcaEntities
     module Operations
       module OrderedTopics
 
+        # Create or update an ordered topic.
         class CreateOrUpdate
           send(:include, Dry::Monads[:result, :do])
           send(:include, Dry::Monads[:try])
