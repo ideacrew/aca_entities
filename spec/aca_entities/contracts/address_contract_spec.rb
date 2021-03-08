@@ -12,16 +12,17 @@ RSpec.describe ::AcaEntities::Contracts::AddressContract,  dbclean: :after_each 
   describe 'missing address1 field' do
 
     let(:params) do
-      { kind: 'test',
+      { kind: 'home',
         address_2: '1234',
         address_3: 'person',
         city: 'test',
         county: '',
         state: 'DC',
         zip: '12345',
-        county_name: '' }
+        county_name: '',
+        has_fixed_address: true }
     end
-    let(:error_message) { { :address_1 => ['is missing'] } }
+    let(:error_message) { { :has_fixed_address => ['Address1 cannot be blank'] } }
 
     it 'fails' do
       expect(subject).not_to be_success
@@ -39,9 +40,10 @@ RSpec.describe ::AcaEntities::Contracts::AddressContract,  dbclean: :after_each 
         county: '',
         state: 'DC',
         zip: '12345',
-        county_name: '' }
+        county_name: '',
+        has_fixed_address: true }
     end
-    let(:error_message) { { :kind => ['is missing'] } }
+    let(:error_message) { { :has_fixed_address => ['Kind cannot be blank'] } }
 
     it 'fails' do
       expect(subject).not_to be_success
@@ -59,9 +61,10 @@ RSpec.describe ::AcaEntities::Contracts::AddressContract,  dbclean: :after_each 
         county: '',
         state: 'DC',
         zip: '12345',
-        county_name: '' }
+        county_name: '',
+        has_fixed_address: true }
     end
-    let(:error_message) { { :city => ['is missing'] } }
+    let(:error_message) { { :has_fixed_address => ['City cannot be blank'] } }
 
     it 'fails' do
       expect(subject).not_to be_success
@@ -79,9 +82,10 @@ RSpec.describe ::AcaEntities::Contracts::AddressContract,  dbclean: :after_each 
         city: 'test',
         county: '',
         zip: '12345',
-        county_name: '' }
+        county_name: '',
+        has_fixed_address: true }
     end
-    let(:error_message) { { :state => ['is missing'] } }
+    let(:error_message) { { :has_fixed_address => ['State cannot be blank'] } }
 
     it 'fails' do
       expect(subject).not_to be_success
@@ -99,9 +103,10 @@ RSpec.describe ::AcaEntities::Contracts::AddressContract,  dbclean: :after_each 
         city: 'test',
         state: 'DC',
         county: '',
-        county_name: '' }
+        county_name: '',
+        has_fixed_address: true }
     end
-    let(:error_message) { { :zip => ['is missing'] } }
+    let(:error_message) { { :has_fixed_address => ['Zip cannot be blank'] } }
 
     it 'fails' do
       expect(subject).not_to be_success
@@ -120,13 +125,14 @@ RSpec.describe ::AcaEntities::Contracts::AddressContract,  dbclean: :after_each 
         state: '',
         zip: '',
         county: '',
-        county_name: '' }
+        county_name: '',
+        has_fixed_address: true }
     end
     let(:error_message) do
-      { :address_1 => ["Test Addresses: address 1 can't be blank"],
-        :city => ["Test Addresses: city can't be blank"],
-        :state => ["Test Addresses: state can't be blank"],
-        :zip => ["Test Addresses: zip can't be blank"] }
+      { :has_fixed_address => ['Address1 cannot be blank',
+                               'City cannot be blank',
+                               'State cannot be blank',
+                               'Zip cannot be blank'] }
     end
 
     it 'fails' do
@@ -146,10 +152,11 @@ RSpec.describe ::AcaEntities::Contracts::AddressContract,  dbclean: :after_each 
         state: 'DC',
         zip: '223',
         county: '',
-        county_name: '' }
+        county_name: '',
+        has_fixed_address: true }
     end
     let(:error_message) do
-      { :zip => ['Test Addresses: zip should be in the form: 12345 or 12345-1234'] }
+      { :has_fixed_address => ['Zip should be in the form: 12345 or 12345-1234'] }
     end
 
     it 'fails' do
@@ -169,7 +176,8 @@ RSpec.describe ::AcaEntities::Contracts::AddressContract,  dbclean: :after_each 
         state: 'DC',
         zip: '12345',
         county: '',
-        county_name: '' }
+        county_name: '',
+        has_fixed_address: true }
     end
 
     it 'passes' do

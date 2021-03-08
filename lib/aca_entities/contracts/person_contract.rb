@@ -1,20 +1,14 @@
 # frozen_string_literal: true
 
+require 'aca_entities/contracts/applicant_role_contract'
+
 module AcaEntities
   module Contracts
     # Contract for Person.
-    class PersonContract < Dry::Validation::Contract
+    class PersonContract < ApplicantRoleContract
 
       params do
         optional(:hbx_id).maybe(:string)
-        optional(:name_pfx).maybe(:string)
-        required(:first_name).maybe(:string)
-        optional(:middle_name).maybe(:string)
-        required(:last_name).maybe(:string)
-        optional(:name_sfx).maybe(:string)
-        optional(:ssn).maybe(:string)
-        required(:gender).maybe(:string)
-        required(:dob).filled(:date)
 
         optional(:is_incarcerated).maybe(:bool)
         optional(:is_disabled).filled(:bool)
@@ -29,23 +23,11 @@ module AcaEntities
 
         optional(:no_ssn).maybe(:string)
 
-        optional(:addresses).maybe(:array)
         optional(:phones).maybe(:array)
         optional(:emails).maybe(:array)
 
         # Need this attribute in contract to be able to conditionally validate other params.
         optional(:is_applying_coverage).maybe(:bool)
-      end
-
-      rule(:addresses).each do
-        if key? && value
-          if value.is_a?(Hash)
-            result = AddressContract.new.call(value)
-            key.failure(text: "invalid address", error: result.errors.to_h) if result&.failure?
-          else
-            key.failure(text: "invalid addresses. Expected a hash.")
-          end
-        end
       end
 
       rule(:phones).each do

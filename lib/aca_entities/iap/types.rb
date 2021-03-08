@@ -168,6 +168,18 @@ module Iap
       peace_corps_health_benefits: 'Peace Corps health benefits'
     }.freeze
 
+    CITIZEN_KINDS = Types::Coercible::String.enum(
+      'us_citizen',
+      'naturalized_citizen',
+      'alien_lawfully_present',
+      'lawful_permanent_resident',
+      'undocumented_immigrant',
+      'not_lawfully_present_in_us',
+      'non_native_not_lawfully_present_in_us',
+      'ssn_pass_citizenship_fails_with_SSA',
+      'non_native_citizen'
+    )
+
     CITIZEN_TERM_MAP = {
       us_citizen: 'US citizen',
       naturalized_citizen: 'Naturalized citizen',

@@ -2,7 +2,8 @@
 
 module AcaEntities
   class Person < ApplicantRole
-    attribute :hbx_id, Types::String.optional.meta(omittable: true)
+    attribute :hbx_id,      Types::String.optional.meta(omittable: true)
+
     attribute :is_disabled, Types::Strict::Bool.meta(omittable: true)
     attribute :ethnicity, Types::Strict::Array.meta(omittable: true)
     attribute :race, Types::String.optional.meta(omittable: true)
@@ -18,7 +19,5 @@ module AcaEntities
 
     attribute :emails, Types::Array.of(Email)
     attribute :phones, Types::Array.of(Phone)
-
-    attribute :age_of_person, Types::Integer.optional.meta(omittable: true)
   end
 end

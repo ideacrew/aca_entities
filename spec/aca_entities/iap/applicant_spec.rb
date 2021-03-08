@@ -19,7 +19,8 @@ RSpec.describe ::Iap::Applicant, dbclean: :after_each do
       is_resident_post_092296: false, is_physically_disabled: false,
       is_self_attested_long_term_care: false, is_former_foster_care: false,
       addresses: [kind: 'home', address_1: '123', address_2: '', address_3: '',
-                  city: 'was', county: '', state: 'DC', zip: '12321', country_name: ''],
+                  city: 'was', county: '', state: 'DC', zip: '12321', country_name: '',
+                  has_fixed_address: true],
       age_of_applicant: 25, person_hbx_id: '100', vlp_subject: 'I-327 (Reentry Permit)',
       expiration_date: Date.today.next_year, vlp_description: '', is_student: false,
       relationships: [], incomes: [], benefits: [], deductions: [], verifications: [] }

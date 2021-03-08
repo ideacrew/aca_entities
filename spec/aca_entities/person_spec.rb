@@ -14,11 +14,10 @@ RSpec.describe ::AcaEntities::Person, dbclean: :after_each do
         dob: Date.today.prev_year, ssn: '345343243',
         gender: 'male', is_incarcerated: false,
         same_with_primary: true, indian_tribe_member: true, citizen_status: 'true',
-        addresses: [kind: 'home', address_1: '123', address_2: '', address_3: '',
-                    city: 'was', county: '', state: 'DC', location_state_code: nil,
-                    full_text: nil, zip: '12321', country_name: '', tracking_version: 1,
-                    modifier_id: nil], phones: [], emails: [] }
-
+        addresses: [{ kind: 'home', address_1: '123', address_2: '', address_3: '',
+                      city: 'was', county: '', state: 'DC', location_state_code: nil,
+                      full_text: nil, zip: '12321', country_name: '', has_fixed_address: true }],
+        phones: [], emails: [] }
     end
 
     it 'should initialize' do

@@ -2,11 +2,9 @@
 
 require 'spec_helper'
 require 'aca_entities/contracts/address_contract'
-require 'aca_entities/contracts/phone_contract'
-require 'aca_entities/contracts/email_contract'
-require 'aca_entities/contracts/person_contract'
+require 'aca_entities/contracts/applicant_role_contract'
 
-RSpec.describe AcaEntities::Contracts::PersonContract, type: :model, dbclean: :after_each do
+RSpec.describe AcaEntities::Contracts::ApplicantRoleContract, type: :model, dbclean: :after_each do
   it 'should be a container-ready operation' do
     expect(subject.respond_to?(:call)).to be_truthy
   end
@@ -17,10 +15,8 @@ RSpec.describe AcaEntities::Contracts::PersonContract, type: :model, dbclean: :a
       gender: 'male', is_incarcerated: false,
       same_with_primary: true, indian_tribe_member: true, citizen_status: 'us_citizen',
       addresses: [{ kind: 'home', address_1: '123', address_2: '', address_3: '',
-                    city: 'was', county: '', state: 'DC', location_state_code: nil,
-                    full_text: nil, zip: '12321', country_name: '',
-                    has_fixed_address: true }],
-      phones: [], emails: [] }
+                    city: 'was', county: '', state: 'DC', zip: '12321', country_name: '',
+                    has_fixed_address: true }] }
   end
 
   context 'success case' do

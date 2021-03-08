@@ -5,6 +5,7 @@ module AcaEntities
     # Contract for VlpDocument.
     class VlpDocumentContract < Dry::Validation::Contract
       params do
+        # optional(:identification_number).maybe(:string)
 
         required(:subject).filled(:string)
         optional(:alien_number).maybe(:string)
