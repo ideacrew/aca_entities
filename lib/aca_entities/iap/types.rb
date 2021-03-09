@@ -142,33 +142,6 @@ module Iap
 
     BenefitTermMap = {}.freeze
 
-    InsuranceType = {
-      acf_refugee_medical_assistance: 'ACF Refugee Medical Assistance',
-      americorps_health_benefits: 'AmeriCorps health benefits',
-      child_health_insurance_plan: "Children's Health Insurance Program",
-      medicaid: 'Medicaid',
-      medicare: 'Medicare',
-      medicare_advantage: 'Medicare Advantage',
-      medicare_part_b: 'Medicare Part B',
-      private_individual_and_family_coverage: 'Private individual and family coverage',
-      state_supplementary_payment: 'State Supplementary Payment',
-      tricare: 'TRICARE',
-      veterans_benefits: 'Veterans benefits',
-      naf_health_benefit_program: 'NAF Health Benefits Program',
-      health_care_for_peace_corp_volunteers: 'Health care for Peace Corps volunteers',
-      department_of_defense_non_appropriated_health_benefits:
-        'Department of Defense Nonappropriated Fund health benefits',
-      cobra: 'COBRA',
-      employer_sponsored_insurance: 'Employer-sponsored insurance',
-      self_funded_student_health_coverage: 'Self-funded student health coverage',
-      foreign_government_health_coverage: 'Foreign government health coverage',
-      private_health_insurance_plan: 'Private health insurance plan',
-      coverage_obtained_through_another_exchange: 'Coverage obtained through another exchange',
-      coverage_under_the_state_health_benefits_risk_pool: 'Coverage under the state health benefits risk pool',
-      veterans_administration_health_benefits: 'Veterans Administration health benefits',
-      peace_corps_health_benefits: 'Peace Corps health benefits'
-    }.freeze
-
     CitizenKinds = Types::Coercible::String.enum(
       'us_citizen',
       'naturalized_citizen',
@@ -181,17 +154,39 @@ module Iap
       'non_native_citizen'
     )
 
-    CitizenTermMap = {
-      us_citizen: 'US citizen',
-      naturalized_citizen: 'Naturalized citizen',
-      alien_lawfully_present: 'Alien lawfully present',
-      lawful_permanent_resident: 'Lawful permanent resident',
-      undocumented_immigrant: 'Undocumented immigrant',
-      not_lawfully_present_in_us: 'Not lawfully present in US',
-      non_native_not_lawfully_present_in_us: 'Non-native not lawfully present in US',
-      ssn_pass_citizenship_fails_with_SSA: 'SSN pass citizenship fails with SSA',
-      non_native_citizen: 'Non-native citizen'
-    }.freeze
-
+    IncomeType = Types::Coercible::String.enum(
+      'CapitalGains',
+      'Interest',
+      'Wages',
+      'RentalOrRoyalty',
+      'FarmingOrFishing',
+      'Winnings',
+      'Alimony',
+      'SocialSecurity',
+      'Unemployment',
+      'RetirementOrPension',
+      'CanceledDebt',
+      'CourtAward',
+      'JuryDuty',
+      'SelfEmployment',
+      'CashSupport',
+      'Scholarship',
+      'Unspecified'
+    )
+    IncomeFrequency = Types::Coercible::String.enum(
+      'Weekly',
+      'Monthly',
+      'Annually',
+      'BiWeekly',
+      'Quarterly',
+      'SemiMonthly',
+      'Hourly',
+      'Daily',
+      'SemiAnnually',
+      '13xPerYear',
+      '11xPerYear',
+      '10xPerYear',
+      'Once'
+    )
   end
 end
