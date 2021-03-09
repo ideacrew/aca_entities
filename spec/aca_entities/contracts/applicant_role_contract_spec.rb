@@ -12,7 +12,7 @@ RSpec.describe AcaEntities::Contracts::ApplicantRoleContract, type: :model, dbcl
   let(:person_params) do
     { first_name: 'ivl40', last_name: '41',
       dob: '1940-09-17', ssn: '345343243',
-      gender: 'male', is_incarcerated: false,
+      gender: 'male', is_incarcerated: false, is_student: false,
       same_with_primary: true, indian_tribe_member: true, citizen_status: 'us_citizen',
       addresses: [{ kind: 'home', address_1: '123', address_2: '', address_3: '',
                     city: 'was', county: '', state: 'DC', zip: '12321', country_name: '',

@@ -15,6 +15,7 @@ module AcaEntities
     attribute :ssn,                             Types::String.optional.meta(omittable: true)
     attribute :citizen_status,                  Types::String.meta(omittable: false)
     attribute :is_resident_post_092296,         Types::Bool.optional.meta(omittable: true)
+    attribute :is_student,                      Types::Bool.optional.meta(omittable: true)
 
     attribute :is_incarcerated,                 Types::Bool
     attribute :indian_tribe_member,             Types::Bool

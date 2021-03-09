@@ -14,8 +14,8 @@ RSpec.describe ::AcaEntities::ApplicantRole, dbclean: :after_each do
   let(:optional_params) do
     { name_pfx: 'Mr.', middle_name: 'test', name_sfx: 'Jr.',
       ssn: '345343243', is_veteran_or_active_military: false,
-      is_resident_post_092296: false, is_physically_disabled: false,
-      is_self_attested_long_term_care: false,
+      is_resident_post_092296: false, is_student: false,
+      is_physically_disabled: false, is_self_attested_long_term_care: false,
       addresses: [kind: 'home', address_1: '123', address_2: '', address_3: '',
                   city: 'was', county: '', state: 'DC', zip: '12321', country_name: '',
                   has_fixed_address: true] }

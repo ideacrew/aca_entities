@@ -18,6 +18,7 @@ module AcaEntities
         optional(:ssn).maybe(:string)
         required(:citizen_status).filled(Iap::Types::CitizenKinds)
         optional(:is_resident_post_092296).maybe(:bool)
+        optional(:is_student).maybe(:bool)
 
         optional(:addresses).maybe(:array)
 

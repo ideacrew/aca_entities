@@ -20,9 +20,6 @@ module Iap
     attribute :vlp_subject,                     Iap::Types::VlpDocumentKind.optional.meta(omittable: true)
     attribute :expiration_date,                 Types::Date.optional.meta(omittable: true)
     attribute :vlp_description,                 Types::String.optional.meta(omittable: true)
-
-    attribute :is_student,                      Types::Bool.optional.meta(omittable: true)
-
     attribute :is_former_foster_care,           Types::Bool.optional.meta(omittable: true)
     attribute :age_left_foster_care,            Types::Bool.optional.meta(omittable: true)
     attribute :foster_care_us_state,            Types::Bool.optional.meta(omittable: true)

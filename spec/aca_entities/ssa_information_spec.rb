@@ -7,7 +7,11 @@ RSpec.describe ::AcaEntities::SsaInformation do
 
   describe 'with valid arguments' do
     let(:input_params) do
-      { is_person_alive: true }
+      { is_person_alive: true,
+        is_person_incarcerated: true,
+        prisoner_confinement_date: Date.today,
+        prison_name: 'Prison',
+        prison_address: 'Same Location' }
     end
 
     it 'should initialize' do
