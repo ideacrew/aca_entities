@@ -37,5 +37,28 @@ module AcaEntities
       'Eligible',
       'EligibleNotEnrolledPlanningToEnroll'
     )
+
+    CoverageEndedReasonCode = Types::Coercible::String.enum(
+      'UnpaidPremium',
+      'DiscontinuedByIssuer',
+      'DiscontinuedByEmployer',
+      'ChangedEmployer'
+    )
+
+    OtherInsuranceTypeCode = Types::Coercible::String.enum(
+      'Employer',
+      'Private',
+      'Medicaid',
+      'Medicare',
+      'CHIP',
+      'TRICARE',
+      'VeteranHealthProgram',
+      'PeaceCorps',
+      'OPM',
+      'Federal',
+      'State',
+      'UnspecifiedLimitedCoverage',
+      'UnspecifiedFullCoverage'
+    )
   end
 end
