@@ -20,6 +20,14 @@ module AcaEntities
         optional(:is_employer_active).maybe(:bool)
         optional(:date_employer_drops_lcsop).maybe(:date)
         optional(:employee_do_not_know_lcsop_cost).maybe(:bool)
+        optional(:employee_do_not_know_offered_coverage).maybe(:bool)
+        optional(:employee_will_drop_coverage_code).maybe(Types::EmployeeCoverageCode)
+        optional(:employee_plans_to_enroll_in_esi).maybe(:bool)
+        optional(:esi_coverage_start_date).maybe(:date)
+        optional(:esi_coverage_end_date).maybe(:date)
+        optional(:is_offered).maybe(:bool)
+        optional(:is_enrolled).maybe(:bool)
+        optional(:eligible_to_enroll_date).maybe(:date)
       end
 
       rule(:employer_ein) do

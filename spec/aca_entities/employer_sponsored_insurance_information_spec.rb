@@ -20,7 +20,15 @@ RSpec.describe ::AcaEntities::EmployerSponsoredInsuranceInformation do
         new_lcsop_premium: 100.00,
         is_employer_active: true,
         date_employer_drops_lcsop: Date.today,
-        employee_do_not_know_lcsop_cost: false }
+        employee_do_not_know_lcsop_cost: false,
+        employee_do_not_know_offered_coverage: false,
+        employee_will_drop_coverage_code: 'Enrolled',
+        employee_plans_to_enroll_in_esi: true,
+        esi_coverage_start_date: Date.today,
+        esi_coverage_end_date: Date.today.next_year,
+        is_offered: false,
+        is_enrolled: true,
+        eligible_to_enroll_date: Date.today }
     end
 
     it 'should initialize' do

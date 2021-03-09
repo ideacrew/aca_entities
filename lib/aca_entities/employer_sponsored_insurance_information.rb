@@ -25,5 +25,16 @@ module AcaEntities
 
     # Applicant does not know the cost to enroll in LCSOP.
     attribute :employee_do_not_know_lcsop_cost, Types::Bool.optional.meta(omittable: true)
+
+    # Applicant does not know if he/she is elgible for coverage through a job.
+    attribute :employee_do_not_know_offered_coverage, Types::Bool.optional.meta(omittable: true)
+    attribute :employee_will_drop_coverage_code, Types::String.optional.meta(omittable: true)
+
+    attribute :employee_plans_to_enroll_in_esi,  Types::Bool.optional.meta(omittable: true)
+    attribute :esi_coverage_start_date,  Types::Date.optional.meta(omittable: true)
+    attribute :esi_coverage_end_date,  Types::Date.optional.meta(omittable: true)
+    attribute :is_offered, Types::Bool.optional.meta(omittable: true)
+    attribute :is_enrolled, Types::Bool.optional.meta(omittable: true)
+    attribute :eligible_to_enroll_date, Types::Date.optional.meta(omittable: true)
   end
 end

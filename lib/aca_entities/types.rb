@@ -28,5 +28,14 @@ module AcaEntities
     )
 
     LcsopCostCodeKinds = LcsopCoverageCodeKinds
+
+    EmployeeCoverageCode = Types::Coercible::String.enum(
+      'Enrolled',
+      'PlanningToEnroll',
+      'NotEligible',
+      'PlanningToDisenroll',
+      'Eligible',
+      'EligibleNotEnrolledPlanningToEnroll'
+    )
   end
 end
