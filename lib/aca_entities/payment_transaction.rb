@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module AcaEntities
-  class Transaction < Dry::Struct
+  class PaymentTransaction < Dry::Struct
     transform_keys(&:to_sym)
 
     attribute :enrollment_id,                Types::Strict::String

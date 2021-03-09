@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require "../aca_entities/lib/aca_entities/transaction"
+require "../aca_entities/lib/aca_entities/payment_transaction"
 
-RSpec.describe ::AcaEntities::Transaction,  dbclean: :after_each do
+RSpec.describe ::AcaEntities::PaymentTransaction,  dbclean: :after_each do
 
   describe "Transaction Entity" do
     let(:input_params) do
@@ -18,7 +18,7 @@ RSpec.describe ::AcaEntities::Transaction,  dbclean: :after_each do
         end
 
         it 'should raise an error' do
-          expect { ::AcaEntities::Transaction.new(input_params) }.to raise_error
+          expect { ::AcaEntities::PaymentTransaction.new(input_params) }.to raise_error
         end
       end
 
@@ -28,7 +28,7 @@ RSpec.describe ::AcaEntities::Transaction,  dbclean: :after_each do
         end
 
         it 'should raise an error' do
-          expect { ::AcaEntities::Transaction.new(input_params) }.to raise_error
+          expect { ::AcaEntities::PaymentTransaction.new(input_params) }.to raise_error
         end
       end
 
@@ -38,7 +38,7 @@ RSpec.describe ::AcaEntities::Transaction,  dbclean: :after_each do
         end
 
         it 'should raise an error' do
-          expect { ::AcaEntities::Transaction.new(input_params) }.to raise_error
+          expect { ::AcaEntities::PaymentTransaction.new(input_params) }.to raise_error
         end
       end
 
@@ -48,7 +48,7 @@ RSpec.describe ::AcaEntities::Transaction,  dbclean: :after_each do
         end
 
         it 'should raise an error' do
-          expect { ::AcaEntities::Transaction.new(input_params) }.to raise_error
+          expect { ::AcaEntities::PaymentTransaction.new(input_params) }.to raise_error
         end
       end
 
@@ -58,7 +58,7 @@ RSpec.describe ::AcaEntities::Transaction,  dbclean: :after_each do
         end
 
         it 'should raise an error' do
-          expect { ::AcaEntities::Transaction.new(input_params) }.to raise_error
+          expect { ::AcaEntities::PaymentTransaction.new(input_params) }.to raise_error
         end
       end
 
@@ -68,19 +68,19 @@ RSpec.describe ::AcaEntities::Transaction,  dbclean: :after_each do
         end
 
         it 'should raise an error' do
-          expect { ::AcaEntities::Transaction.new(input_params) }.to raise_error
+          expect { ::AcaEntities::PaymentTransaction.new(input_params) }.to raise_error
         end
       end
     end
 
     context 'Passing valid params' do
       it 'should initialize' do
-        result = ::AcaEntities::Transaction.new(input_params)
-        expect(result).to be_a ::AcaEntities::Transaction
+        result = ::AcaEntities::PaymentTransaction.new(input_params)
+        expect(result).to be_a ::AcaEntities::PaymentTransaction
       end
 
       it 'should not raise error' do
-        expect { ::AcaEntities::Transaction.new(input_params) }.not_to raise_error
+        expect { ::AcaEntities::PaymentTransaction.new(input_params) }.not_to raise_error
       end
     end
   end

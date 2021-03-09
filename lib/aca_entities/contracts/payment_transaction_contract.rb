@@ -7,7 +7,7 @@ module AcaEntities
 
     Dry::Validation.load_extensions(:monads)
     # Transaction contract
-    class TransactionContract < ::Dry::Validation::Contract
+    class PaymentTransactionContract < ::Dry::Validation::Contract
 
       params do
         required(:enrollment_id).value(:string)
