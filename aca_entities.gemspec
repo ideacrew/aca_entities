@@ -11,7 +11,7 @@ Gem::Specification.new do |spec|
   spec.summary       = %q{Domain model for Affordable Care Act (ACA) data entities}
   spec.homepage      = 'https://github.com/ideacrew/aca_entities'
   spec.license       = 'MIT'
-  spec.required_ruby_version = Gem::Requirement.new('>= 2.6.6')
+  spec.required_ruby_version = Gem::Requirement.new('>= 2.5.1')
 
   # spec.metadata['allowed_push_host'] = 'TODO: Set to 'http://mygemserver.com''
 
