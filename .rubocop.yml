@@ -73,6 +73,9 @@ Metrics/PerceivedComplexity:
 Naming/VariableNumber:
   Enabled: false
 
+Naming/ConstantName:
+  Enabled: false
+
 Style/AndOr:
   Enabled: true
 

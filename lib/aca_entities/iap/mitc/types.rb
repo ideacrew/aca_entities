@@ -31,7 +31,7 @@ module AcaEntities
                                                              '87',
                                                              '88')
 
-        RELATIONSHIP_CODE_MAP = {
+        RelationshipCodeMap = {
           self: '01',
           husband_or_wife: '02',
           parent: '03',
@@ -67,7 +67,7 @@ module AcaEntities
                                                               '10',
                                                               '99')
 
-        IMMIGRATION_STATUS_CODE_MAP = {
+        ImmigrationStatusCodeMap = {
           'Lawful Permanent Resident (LPR/Green Card Holder)': '01',
           Asylee: '02',
           Refugee: '03',

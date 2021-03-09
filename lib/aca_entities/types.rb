@@ -11,13 +11,13 @@ module AcaEntities
 
     UsStateAbbreviationKind = Types::String.enum('DC', 'MA', 'ME')
 
-    EMPLOYEE_STATUS_CODE_KINDS = Types::Coercible::String.enum(
+    EmployeeStatusCodeKinds = Types::Coercible::String.enum(
       'NoLongerEmployed',
       'Retired',
       'CurrentlyEmployed'
     )
 
-    LCSOP_COVERAGE_CODE_KINDS = Types::Coercible::String.enum(
+    LcsopCoverageCodeKinds = Types::Coercible::String.enum(
       'Offers',
       'DoesNotOffer',
       'PlansToOffer',
@@ -27,6 +27,6 @@ module AcaEntities
       'PlansToChangeCost'
     )
 
-    LCSOP_COST_CODE_KINDS = LCSOP_COVERAGE_CODE_KINDS
+    LcsopCostCodeKinds = LcsopCoverageCodeKinds
   end
 end

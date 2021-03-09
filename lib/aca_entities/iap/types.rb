@@ -140,8 +140,9 @@ module Iap
       'Other (With I-94 Number)'
     )
 
-    BENEFIT_TERM_MAP = {}.freeze
-    INSURANCE_TYPE = {
+    BenefitTermMap = {}.freeze
+
+    InsuranceType = {
       acf_refugee_medical_assistance: 'ACF Refugee Medical Assistance',
       americorps_health_benefits: 'AmeriCorps health benefits',
       child_health_insurance_plan: "Children's Health Insurance Program",
@@ -168,7 +169,7 @@ module Iap
       peace_corps_health_benefits: 'Peace Corps health benefits'
     }.freeze
 
-    CITIZEN_KINDS = Types::Coercible::String.enum(
+    CitizenKinds = Types::Coercible::String.enum(
       'us_citizen',
       'naturalized_citizen',
       'alien_lawfully_present',
@@ -180,7 +181,7 @@ module Iap
       'non_native_citizen'
     )
 
-    CITIZEN_TERM_MAP = {
+    CitizenTermMap = {
       us_citizen: 'US citizen',
       naturalized_citizen: 'Naturalized citizen',
       alien_lawfully_present: 'Alien lawfully present',
