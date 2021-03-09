@@ -1,0 +1,50 @@
+# frozen_string_literal: true
+require "../aca_entities/lib/aca_entities/payment_transactions/contracts/transaction_contract.rb"
+
+RSpec.describe ::AcaEntities::PaymentTransactions::Contracts::TransactionContract,  dbclean: :after_each do
+
+  describe "Transaction contract" do
+
+    context "calling with params values as nil" do
+      let(:invalid_params) { {enrollment_id: '', carrier_id: '', enrollment_effective_date: ''} }
+      let(:error_message) { {:carrier_id=>["Carrier id is blank"], :enrollment_effective_date=>["must be a date"], :enrollment_id=>["Enrollment id is blank"]} }
+
+      it 'should be a container-ready operation' do
+        expect(subject.respond_to?(:call)).to be_truthy
+      end
+
+      it 'should return Dry::Validation::Result object' do
+        expect(subject.call(invalid_params)).to be_a ::Dry::Validation::Result
+      end
+
+      it 'should throw errors' do
+        expect(subject.call(invalid_params).errors.to_h).to eq error_message
+      end
+    end
+
+    context "sending with missing keys should return errors" do
+
+      let(:invalid_params) { {} }
+      let(:error_message) { {:carrier_id=>["is missing"], :enrollment_effective_date=>["is missing"], :enrollment_id=>["is missing"]} }
+
+      it 'should throw errors' do
+        expect(subject.call(invalid_params).errors.to_h).to eq error_message
+      end
+    end
+
+    context "sending with all keys and values should not errors" do
+
+      let(:valid_params) { {enrollment_id: "test", carrier_id: "test", enrollment_effective_date: Date.today} }
+
+
+      it 'should return Dry::Validation::Result object' do
+        expect(subject.call(valid_params)).to be_a ::Dry::Validation::Result
+      end
+
+      it 'should not return any errors' do
+        expect(subject.call(valid_params).errors.to_h).to be_empty
+      end
+    end
+
+  end
+end
