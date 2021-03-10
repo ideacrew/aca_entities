@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require 'pry'
 require 'aca_entities/contracts/verification_header_contract'
 
 RSpec.describe AcaEntities::Contracts::VerificationHeaderContract, type: :model do
