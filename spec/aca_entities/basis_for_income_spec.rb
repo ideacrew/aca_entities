@@ -1,19 +1,14 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require 'aca_entities/ssa_information'
+require 'aca_entities/basis_for_income'
 
-RSpec.describe ::AcaEntities::SsaInformation do
+RSpec.describe ::AcaEntities::BasisForIncome do
 
   describe 'with valid arguments' do
     let(:input_params) do
       {
-        is_person_alive: true,
-        is_person_incarcerated: true,
-        prisoner_confinement_date: Date.today,
-        prison_name: 'Prison',
-        prison_address: 'Same Location',
-        ssn_verification_indicator: nil
+        ssa_citizenship_status: true
       }
     end
 

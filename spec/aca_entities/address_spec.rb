@@ -7,7 +7,8 @@ RSpec.describe ::AcaEntities::Address, dbclean: :after_each do
 
   describe 'with valid arguments' do
     let(:input_params) do
-      { has_fixed_address: true,
+      {
+        has_fixed_address: true,
         kind: 'home',
         address_1: '123',
         address_2: '',
@@ -17,7 +18,9 @@ RSpec.describe ::AcaEntities::Address, dbclean: :after_each do
         country_code: '',
         state: 'DC',
         zip: '12321',
-        country_name: '' }
+        country_name: '',
+        verification_status: nil
+      }
     end
 
     it 'should initialize' do

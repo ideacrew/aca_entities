@@ -165,10 +165,36 @@ RSpec.describe ::AcaEntities::Contracts::AddressContract,  dbclean: :after_each 
     end
   end
 
+  describe 'invalid validation_status field' do
+
+    let(:params) do
+      {
+        kind: 'home',
+        address_1: '1234',
+        address_2: '1234',
+        address_3: 'person',
+        city: 'test',
+        county: '',
+        state: 'DC',
+        zip: '12345',
+        county_name: '',
+        has_fixed_address: true,
+        validation_status: 'Test'
+      }
+    end
+    let(:error_message) { { :validation_status => ['must be one of: ValidMatch, PartialMatch, NoStreet, NoCity'] } }
+
+    it 'fails' do
+      expect(subject).not_to be_success
+      expect(subject.errors.to_h).to eq error_message
+    end
+  end
+
   describe 'all valid fields' do
 
     let(:params) do
-      { kind: 'test',
+      {
+        kind: 'test',
         address_1: '1234',
         address_2: '1234',
         address_3: 'person',
@@ -177,7 +203,9 @@ RSpec.describe ::AcaEntities::Contracts::AddressContract,  dbclean: :after_each 
         zip: '12345',
         county: '',
         county_name: '',
-        has_fixed_address: true }
+        has_fixed_address: true,
+        validation_status: 'ValidMatch'
+      }
     end
 
     it 'passes' do

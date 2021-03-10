@@ -11,11 +11,14 @@ RSpec.describe AcaEntities::Contracts::SsaInformationContract, type: :model do
 
   context 'success case' do
     let(:input_params) do
-      { is_person_alive: true,
+      {
+        is_person_alive: true,
         is_person_incarcerated: true,
         prisoner_confinement_date: Date.today,
         prison_name: 'Prison',
-        prison_address: 'Same Location' }
+        prison_address: 'Same Location',
+        ssn_verification_indicator: nil
+      }
     end
 
     before do
@@ -33,11 +36,13 @@ RSpec.describe AcaEntities::Contracts::SsaInformationContract, type: :model do
 
   context 'failure case' do
     let(:input_params) do
-      { is_person_alive: true,
+      {
+        is_person_alive: true,
         is_person_incarcerated: true,
         prisoner_confinement_date: Date.today,
         prison_name: 100,
-        prison_address: 'Same Location' }
+        prison_address: 'Same Location'
+      }
     end
 
     before do

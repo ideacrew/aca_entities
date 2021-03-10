@@ -188,5 +188,9 @@ module Iap
       '10xPerYear',
       'Once'
     )
+    VerificationStatusCode = Types::Coercible::String.enum(
+      'FFEVerificationCode', 'AddressVerificationCode', 'DHS-G845VerificationCode', 'DHS-SAVEVerificationCode'
+    )
+    AddressValidationStatusCode = Types::Coercible::String.enum('ValidMatch', 'PartialMatch', 'NoStreet', 'NoCity')
   end
 end

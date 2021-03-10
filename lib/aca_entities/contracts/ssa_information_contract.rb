@@ -11,6 +11,7 @@ module AcaEntities
         optional(:prisoner_confinement_date).maybe(:date)
         optional(:prison_name).maybe(:string)
         optional(:prison_address).maybe(:string)
+        optional(:ssn_verification_indicator).maybe(:bool)
       end
     end
   end

@@ -22,5 +22,8 @@ module AcaEntities
     attribute :state,             Types::String.optional.meta(omittable: true)
     attribute :zip,               Types::String.optional.meta(omittable: true)
     attribute :country_name,      Types::String.optional.meta(omittable: true)
+
+    # Indicates whether the address information has been validated with the USPS.
+    attribute :validation_status, Types::String.optional.meta(omittable: true)
   end
 end

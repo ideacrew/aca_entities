@@ -12,5 +12,9 @@ module AcaEntities
     attribute :prisoner_confinement_date,   Types::Date.optional.meta(omittable: true)
     attribute :prison_name,                 Types::String.optional.meta(omittable: true)
     attribute :prison_address,              Types::String.optional.meta(omittable: true)
+
+    # Response Code received by SSA indicating if the combination of
+    # SSN, First Name, Middle Name, Last Name, and DOB were verified.
+    attribute :ssn_verification_indicator,  Types::Bool.optional.meta(omittable: true)
   end
 end
