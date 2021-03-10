@@ -19,8 +19,8 @@ module AcaEntities
 
       rule(:coverage_type_code) do
         if key? && values[:coverage_type_code] == 'QHP'
-          key.failure(text: 'qhp_issuer_id must be populated.') if values[:qhp_issuer_id].to_s.blank?
-          key.failure(text: 'qhp_id must be populated.') if values[:qhp_id].to_s.blank?
+          key.failure(text: 'qhp_issuer_id must be populated.') if values[:qhp_issuer_id].to_s.empty?
+          key.failure(text: 'qhp_id must be populated.') if values[:qhp_id].to_s.empty?
         end
       end
     end

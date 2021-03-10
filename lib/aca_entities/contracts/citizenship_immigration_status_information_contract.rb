@@ -15,7 +15,7 @@ module AcaEntities
       end
 
       rule(:us_citizen) do
-        if key? && value == false && values[:eligible_immigration_status].to_s.blank?
+        if key? && value == false && values[:eligible_immigration_status].nil?
           key.failure(text: 'eligible_immigration_status must be answered')
         end
       end

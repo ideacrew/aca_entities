@@ -1625,6 +1625,11 @@ module AcaEntities
     )
 
     ParentCaretakerToChildRelationshipCode = RelationshipToTaxFilerCode
+
+    GenderKind = Types::Coercible::String.enum(
+      'Male',
+      'Female'
+    )
   end
   # rubocop:enable Layout/LineLength
   # rubocop:enable Metrics/ModuleLength

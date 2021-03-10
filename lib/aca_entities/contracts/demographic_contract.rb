@@ -7,7 +7,7 @@ module AcaEntities
 
       params do
         required(:dob).filled(:date)
-        required(:gender).filled(:string)
+        required(:gender).filled(Types::GenderKind)
         optional(:is_veteran_or_active_military).maybe(:bool)
         optional(:age_of_applicant).maybe(:integer)
       end

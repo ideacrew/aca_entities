@@ -28,6 +28,7 @@ module AcaEntities
     attribute :coverage_period, CoveragePeriod.optional.meta(omittable: true)
     attribute :relationships, Types::Array.of(Relationship).optional.meta(omittable: true)
     attribute :foster_care, FosterCare.optional.meta(omittable: true)
+    attribute :basis_for_outcome, BasisForOutcome.optional.meta(omittable: true)
   end
   # rubocop:enable Layout/LineLength
 end

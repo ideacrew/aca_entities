@@ -7,7 +7,7 @@ module AcaEntities
 
       params do
         optional(:identifying_number).maybe(:string)
-        optional(:identifying_number_type).maybe(:string)
+        optional(:identifying_number_type).maybe(Iap::Types::NaturalizationDocumentKind)
         optional(:foreign_passport_country_of_issuance_code).maybe(Types::IsoAlpha3Code)
       end
 
