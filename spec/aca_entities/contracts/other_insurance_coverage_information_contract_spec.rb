@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require 'aca_entities/contracts/other_insurance_information_contract'
+require 'aca_entities/contracts/other_insurance_coverage_information_contract'
 
-RSpec.describe AcaEntities::Contracts::OtherInsuranceInformationContract, type: :model do
+RSpec.describe AcaEntities::Contracts::OtherInsuranceCoverageInformationContract, type: :model do
 
   it 'should be a container-ready operation' do
     expect(subject.respond_to?(:call)).to be_truthy

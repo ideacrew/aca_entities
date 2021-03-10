@@ -6,7 +6,9 @@ module AcaEntities
     attribute :employer_ein,            Types::String.optional.meta(omittable: true)
     attribute :employer_name,           Types::String.optional.meta(omittable: true)
     attribute :is_a_cobra_coverage,     Types::Bool.optional.meta(omittable: true)
+    attribute :is_employee_at_job_providing_coverage, Types::Bool.meta(omittable: true)
     attribute :employee_status_code,    Types::String.optional.meta(omittable: true)
+    attribute :coverage_offered_through_job, Types::Bool.optional.meta(omittable: true)
     attribute :changes_esi_status,      Types::Bool.optional.meta(omittable: true)
     attribute :retiree_plan_coverage,   Types::Bool.optional.meta(omittable: true)
 

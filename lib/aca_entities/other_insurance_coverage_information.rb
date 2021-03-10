@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 module AcaEntities
-  # Entity for OtherInsuranceInformation.
-  class OtherInsuranceInformation < Dry::Struct
+  # Entity for OtherInsuranceCoverageInformation.
+  class OtherInsuranceCoverageInformation < Dry::Struct
 
     # Person lost health insurance within the number of months associated with the state waiting period.
     attribute :lost_insurance_within_waiting_period,      Types::Bool.optional.meta(omittable: true)

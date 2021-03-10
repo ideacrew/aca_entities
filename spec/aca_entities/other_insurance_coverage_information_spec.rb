@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require 'aca_entities/other_insurance_information'
+require 'aca_entities/other_insurance_coverage_information'
 
-RSpec.describe ::AcaEntities::OtherInsuranceInformation do
+RSpec.describe ::AcaEntities::OtherInsuranceCoverageInformation do
 
   describe 'with valid arguments' do
     let(:input_params) do
