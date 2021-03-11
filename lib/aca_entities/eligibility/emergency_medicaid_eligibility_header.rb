@@ -5,7 +5,7 @@ module AcaEntities
     class EmergencyMedicaidEligibilityHeader < Dry::Struct
 
       attribute :eligibility_status_indicator,      Types::Bool.optional.meta(omittable: true)
-      attribute :eligibility_determination_date,    Types::Date.optional.meta(omittable: true)
+      attribute :eligibility_determination_date,    Types::DateTime.optional.meta(omittable: true)
       attribute :ineligibility_reason,              Types::String.optional.meta(omittable: true)
       attribute :start_date,                        Types::Date.meta(omittable: false)
       attribute :end_date,                          Types::Date.optional.meta(omittable: true)

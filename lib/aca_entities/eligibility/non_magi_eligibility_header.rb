@@ -4,9 +4,9 @@ module AcaEntities
   module Eligibility
     class NonMagiEligibilityHeader < Dry::Struct
 
-      attribute :referal_indicator,                Types::Bool.optional.meta(omittable: true)
-      attribute :referral_determination_date,      Types::Date.optional.meta(omittable: true)
-      attribute :referral_ineligibility_reason,    Types::String.optional.meta(omittable: true)
+      attribute :referal_indicator,                 Types::Bool.optional.meta(omittable: true)
+      attribute :referral_determination_date,       Types::DateTime.optional.meta(omittable: true)
+      attribute :referral_ineligibility_reason,     Types::String.optional.meta(omittable: true)
       attribute :start_date,                        Types::Date.meta(omittable: false)
       attribute :end_date,                          Types::Date.optional.meta(omittable: true)
       attribute :medicaid_chip_state,               Types::String.meta(omittable: false)
