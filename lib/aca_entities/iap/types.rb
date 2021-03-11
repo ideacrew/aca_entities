@@ -192,5 +192,18 @@ module Iap
       'FFEVerificationCode', 'AddressVerificationCode', 'DHS-G845VerificationCode', 'DHS-SAVEVerificationCode'
     )
     AddressValidationStatusCode = Types::Coercible::String.enum('ValidMatch', 'PartialMatch', 'NoStreet', 'NoCity')
+    ReferralActivityReasonCode = Types::Coercible::String.enum(
+      'FullDetermination',
+      'WaitingPeriodException',
+      'GapFilling'
+    )
+    ReferralActivityStatusCode = Types::Coercible::String.enum(
+      'Initiated',
+      'Accepted',
+      'Rejected',
+      'ProvisionallyAccepted',
+      'Updated',
+      'PartiallyRejected'
+    )
   end
 end
