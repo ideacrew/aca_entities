@@ -1,6 +1,6 @@
 # This yaml describes our current checks.
 AllCops:
-  TargetRubyVersion: 2.6
+  TargetRubyVersion: 2.5
   SuggestExtensions: false
   NewCops: enable
   Exclude:
@@ -62,7 +62,7 @@ Metrics/BlockLength:
   Enabled: false
 
 Layout/LineLength:
-  Max: 120
+  Max: 150
 
 Metrics/MethodLength:
   Max: 25
