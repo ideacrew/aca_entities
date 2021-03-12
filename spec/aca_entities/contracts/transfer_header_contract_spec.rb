@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-require 'pry'
 require 'spec_helper'
 require 'aca_entities/contracts/transfer_header_contract'
 
