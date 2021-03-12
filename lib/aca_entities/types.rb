@@ -1630,6 +1630,11 @@ module AcaEntities
       'Male',
       'Female'
     )
+
+    DeductionCategoryCode = Types::Coercible::String.enum(
+      'Alimony',
+      'StudentLoanInterest'
+    )
   end
   # rubocop:enable Layout/LineLength
   # rubocop:enable Metrics/ModuleLength

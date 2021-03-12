@@ -188,6 +188,9 @@ module Iap
       '10xPerYear',
       'Once'
     )
+
+    DeductionFrequency = IncomeFrequency
+
     VerificationStatusCode = Types::Coercible::String.enum(
       'FFEVerificationCode', 'AddressVerificationCode', 'DHS-G845VerificationCode', 'DHS-SAVEVerificationCode'
     )

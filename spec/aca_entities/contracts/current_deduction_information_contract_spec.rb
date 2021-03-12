@@ -2,7 +2,6 @@
 
 require 'spec_helper'
 require 'aca_entities/contracts/current_deduction_information_contract'
-require 'aca_entities/types'
 
 RSpec.describe ::AcaEntities::Contracts::CurrentDeductionInformationContract, dbclean: :after_each do
 
