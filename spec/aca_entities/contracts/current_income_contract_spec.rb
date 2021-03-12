@@ -11,7 +11,10 @@ RSpec.describe AcaEntities::Contracts::CurrentIncomeContract,  dbclean: :after_e
 
   describe 'passing valid params' do
     let(:params) do
-      { most_recent_hire_date: Date.today.to_s, termination_date: Date.today.next_year.to_s }
+      { most_recent_hire_date: Date.today.to_s,
+        termination_date: Date.today.next_year.to_s,
+        pay_rate: 15,
+        data_source_payment_frequency_code: 'Weekly' }
     end
 
     it 'passes' do

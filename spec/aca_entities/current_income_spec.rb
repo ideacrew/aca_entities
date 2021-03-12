@@ -8,7 +8,9 @@ RSpec.describe ::AcaEntities::VlpDocument, dbclean: :after_each do
   describe 'with valid arguments' do
     let(:input_params) do
       { most_recent_hire_date: Date.today,
-        termination_date: Date.today.next_year }
+        termination_date: Date.today.next_year,
+        pay_rate: 15,
+        data_source_payment_frequency_code: 'Weekly' }
     end
 
     it 'should initialize' do
