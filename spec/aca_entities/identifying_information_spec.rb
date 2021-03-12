@@ -8,7 +8,11 @@ RSpec.describe ::AcaEntities::IdentifyingInformation do
   describe 'with valid arguments' do
     let(:input_params) do
       { ssn: '123456789',
-        hbx_id: '100' }
+        hbx_id: '100',
+        medicaid_id: 'medicaid_id',
+        chip_id: 'chip_id',
+        primary_insured: true,
+        temporary_id: 'temporary_id' }
     end
 
     it 'should initialize' do
