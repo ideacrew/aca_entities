@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require 'pry'
 require 'aca_entities/contracts/person_name_contract'
 require 'aca_entities/contracts/identifying_information_contract'
 require 'aca_entities/contracts/address_contract'

@@ -29,7 +29,7 @@ RSpec.describe AcaEntities::Contracts::PreferenceContract, type: :model do
 
   context 'invalid params' do
     let(:input_params) do
-      { contact_preference_Code: true}
+      { contact_preference_Code: true }
     end
 
     it 'should return failure with errors' do
