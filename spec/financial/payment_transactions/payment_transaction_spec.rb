@@ -2,7 +2,7 @@
 
 require "../aca_entities/lib/aca_entities/payment_transaction"
 
-RSpec.describe ::AcaEntities::Financial::PaymentTransactions::PaymentTransaction, dbclean: :after_each do
+RSpec.describe ::AcaEntities::Financial::PaymentTransactions::PaymentTransaction,  dbclean: :after_each do
 
   describe "Transaction Entity" do
     let(:input_params) do

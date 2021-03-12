@@ -2,7 +2,7 @@
 
 require "../aca_entities/lib/aca_entities/contracts/payment_transaction_contract"
 
-RSpec.describe ::AcaEntities::Contracts::Financial::PaymentTransactions::PaymentTransactionContract, dbclean: :after_each do
+RSpec.describe ::AcaEntities::Contracts::Financial::PaymentTransactions::PaymentTransactionContract,  dbclean: :after_each do
 
   describe "Transaction contract" do
 
@@ -57,5 +57,6 @@ RSpec.describe ::AcaEntities::Contracts::Financial::PaymentTransactions::Payment
         expect(subject.call(valid_params).errors.to_h).to be_empty
       end
     end
+
   end
 end
