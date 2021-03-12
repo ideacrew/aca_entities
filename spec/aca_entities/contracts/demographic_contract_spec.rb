@@ -9,7 +9,12 @@ RSpec.describe ::AcaEntities::Contracts::DemographicContract, dbclean: :after_ea
 
   let(:optional_params) do
     { is_veteran_or_active_military: false,
-      age_of_applicant: 30 }
+      age_of_applicant: 30,
+      date_of_adoption: Date.today.prev_year,
+      is_married: false,
+      race_name: 'race_name',
+      ethnicity_name: 'ethnicity_name',
+      is_hispanic_or_spanish_descent: false }
   end
   let(:all_params) { required_params.merge(optional_params)}
 
