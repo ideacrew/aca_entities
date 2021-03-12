@@ -12,6 +12,7 @@ module AcaEntities
         optional(:chip_id).maybe(:string)
         optional(:primary_insured).maybe(:bool)
         optional(:temporary_id).maybe(:string)
+        optional(:application_signature).maybe(:string)
       end
 
       rule(:medicaid_id) do

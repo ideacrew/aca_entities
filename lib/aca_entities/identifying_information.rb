@@ -10,5 +10,6 @@ module AcaEntities
     # Indicates the person is the primary insured for another person's offer of insurance (not enrolled)
     attribute :primary_insured, Types::Bool.optional.meta(omittable: true)
     attribute :temporary_id, Types::String.optional.meta(omittable: true)
+    attribute :application_signature,  Types::String.optional.meta(omittable: true)
   end
 end
