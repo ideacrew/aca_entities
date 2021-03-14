@@ -2,7 +2,7 @@
 
 module AcaEntities
   module Eligibility
-    class RefugeeMedicalAssistanceEligibilityHeader < Dry::Struct
+    class ExchangeEligibilityHeader < Dry::Struct
 
       attribute :eligibility_indicator,             Types::Bool.optional.meta(omittable: true)
       attribute :determination_date,                Types::DateTime.optional.meta(omittable: true)

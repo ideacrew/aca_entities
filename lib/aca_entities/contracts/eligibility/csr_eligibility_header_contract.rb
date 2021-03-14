@@ -7,8 +7,8 @@ module AcaEntities
       class CsrEligibilityHeaderContract < Dry::Validation::Contract
 
         params do
-          required(:start_date).maybe(:date)
-          required(:medicaid_chip_state).maybe(:string)
+          required(:start_date).filled(:date)
+          required(:medicaid_chip_state).filled(:string)
           optional(:eligibility_indicator).maybe(:bool)
           optional(:eligibility_determination_date).maybe(:date_time)
           optional(:ineligibility_reason).maybe(:string)

@@ -7,8 +7,8 @@ module AcaEntities
       class MagiCitizenshipAndImmigrationBasisContract < Dry::Validation::Contract
 
         params do
-          required(:category_code).filled(:string)
-          optional(:category_indicator).maybe(:bool)
+          required(:status_code).filled(:string)
+          optional(:status_indicator).maybe(:bool)
           optional(:determination_date).maybe(:date_time)
           optional(:inconsistency_reason).maybe(:string)
           optional(:ineligibility_reason).maybe(:string)
