@@ -14,5 +14,8 @@ module AcaEntities
     attribute :parent_caretaker_to_child_relationship_code, Types::String.optional.meta(omittable: true)
     attribute :parent1_hours_worked_per_week, Types::Integer.optional.meta(omittable: true)
     attribute :parent2_hours_worked_per_week, Types::Integer.optional.meta(omittable: true)
+
+    attribute :lives_with_household_member, Types::Bool.optional.meta(omittable: true)
+    attribute :is_member_of_applicants_medicaid_household, Types::Bool
   end
 end

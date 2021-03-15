@@ -6,7 +6,7 @@ require 'aca_entities/relationship'
 RSpec.describe ::AcaEntities::Relationship, dbclean: :after_each do
 
   describe 'with valid arguments' do
-    let(:required_params) { {} }
+    let(:required_params) { { is_member_of_applicants_medicaid_household: false } }
 
     let(:optional_params) do
       { relationship_to_tax_filer_code: '01',
@@ -18,7 +18,8 @@ RSpec.describe ::AcaEntities::Relationship, dbclean: :after_each do
         person_for_work_quarters: false,
         parent_caretaker_to_child_relationship_code: '01',
         parent1_hours_worked_per_week: 10,
-        parent2_hours_worked_per_week: 10 }
+        parent2_hours_worked_per_week: 10,
+        lives_with_household_member: false }
     end
 
     let(:all_params) { required_params.merge(optional_params)}

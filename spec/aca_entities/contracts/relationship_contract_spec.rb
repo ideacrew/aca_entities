@@ -5,7 +5,7 @@ require 'aca_entities/contracts/relationship_contract'
 
 RSpec.describe ::AcaEntities::Contracts::RelationshipContract, dbclean: :after_each do
 
-  let(:required_params) { {} }
+  let(:required_params) { { is_member_of_applicants_medicaid_household: false } }
 
   let(:optional_params) do
     { relationship_to_tax_filer_code: '01',
@@ -17,7 +17,8 @@ RSpec.describe ::AcaEntities::Contracts::RelationshipContract, dbclean: :after_e
       person_for_work_quarters: false,
       parent_caretaker_to_child_relationship_code: '01',
       parent1_hours_worked_per_week: 10,
-      parent2_hours_worked_per_week: 10 }
+      parent2_hours_worked_per_week: 10,
+      lives_with_household_member: false }
   end
 
   let(:all_params) { required_params.merge(optional_params)}
@@ -32,21 +33,25 @@ RSpec.describe ::AcaEntities::Contracts::RelationshipContract, dbclean: :after_e
 
   context 'valid parameters' do
     context 'with required parameters only' do
-      let(:input_params) { {} }
-
       before do
-        @result = subject.call(input_params)
+        @result = subject.call(required_params)
       end
 
       it { expect(@result.success?).to be_truthy }
-      it { expect(@result.to_h).to eq input_params }
+      it { expect(@result.to_h).to eq required_params }
     end
 
     context 'with all required and optional parameters' do
+      before do
+        @result = subject.call(all_params)
+      end
+
       it 'should pass validation' do
-        result = subject.call(all_params)
-        expect(result.success?).to be_truthy
-        expect(result.to_h).to eq all_params
+        expect(@result.success?).to be_truthy
+      end
+
+      it 'should return all params' do
+        expect(@result.to_h).to eq all_params
       end
     end
   end

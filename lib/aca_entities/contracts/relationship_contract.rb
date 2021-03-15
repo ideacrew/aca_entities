@@ -16,6 +16,8 @@ module AcaEntities
         optional(:parent_caretaker_to_child_relationship_code).maybe(Types::ParentCaretakerToChildRelationshipCode)
         optional(:parent1_hours_worked_per_week).maybe(:integer)
         optional(:parent2_hours_worked_per_week).maybe(:integer)
+        optional(:lives_with_household_member).maybe(:bool)
+        required(:is_member_of_applicants_medicaid_household).filled(:bool)
       end
 
       rule(:relationship_to_tax_filer_code) do
