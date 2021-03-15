@@ -33,9 +33,7 @@ module AcaEntities
       end
 
       rule(:employer_ein) do
-        if !value.to_s.empty? && !/[0-9]{9}/.match?(value)
-          key.failure(text: 'Employer Identification Number should be numbers of size 9.')
-        end
+        key.failure(text: 'Employer Identification Number should be numbers of size 9.') if !value.to_s.empty? && !/[0-9]{9}/.match?(value)
       end
     end
   end

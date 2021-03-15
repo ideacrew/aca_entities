@@ -53,9 +53,7 @@ module AcaEntities
       end
 
       rule(:is_applying_coverage) do
-        if key? && values[:is_applying_coverage] && values[:is_incarcerated].to_s.blank?
-          key.failure(text: "Incarceration question must be answered")
-        end
+        key.failure(text: 'Incarceration question must be answered') if key? && values[:is_applying_coverage] && values[:is_incarcerated].to_s.blank?
       end
     end
   end

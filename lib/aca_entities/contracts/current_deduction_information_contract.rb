@@ -13,9 +13,7 @@ module AcaEntities
       end
 
       rule(:frequency_code) do
-        if key? && !values[:amount].nil? && value.to_s.empty?
-          key.failure(text: 'FrequencyCode is expected when Amount is not nil')
-        end
+        key.failure(text: 'FrequencyCode is expected when Amount is not nil') if key? && !values[:amount].nil? && value.to_s.empty?
       end
     end
   end

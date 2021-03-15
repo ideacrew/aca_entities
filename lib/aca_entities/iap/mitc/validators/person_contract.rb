@@ -88,9 +88,7 @@ module AcaEntities
           end
 
           rule(:is_five_year_bar_met) do
-            if values[:is_lawful_presence_self_attested] == 'Y' && values[:five_year_bar_applies] == 'Y' && value.nil?
-              key.failure('cannot be empty.')
-            end
+            key.failure('cannot be empty.') if values[:is_lawful_presence_self_attested] == 'Y' && values[:five_year_bar_applies] == 'Y' && value.nil?
           end
 
           rule(:refugee_medical_assistance_start_date) do

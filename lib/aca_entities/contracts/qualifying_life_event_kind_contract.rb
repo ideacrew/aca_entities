@@ -37,9 +37,7 @@ module AcaEntities
           result_hash[:reason] = "" if result_hash[:reason] == 'Choose...'
           other_params[:reason] = result_hash[:other_reason].parameterize.underscore if result_hash[:reason] == 'other'
           other_params[:reason] = (other_params[:reason] ? other_params : result_hash)[:reason]
-          if result_hash[:market_kind].to_s == 'individual' || result_hash[:termination_on_kinds].nil?
-            other_params[:termination_on_kinds] = []
-          end
+          other_params[:termination_on_kinds] = [] if result_hash[:market_kind].to_s == 'individual' || result_hash[:termination_on_kinds].nil?
           other_params[:published_by] = '' if result_hash[:publish] != 'Publish'
           other_params[:updated_by] = ''
           result_hash.merge(other_params)
@@ -55,9 +53,7 @@ module AcaEntities
       rule(:end_on, :start_on) do
         unless values[:end_on].nil?
           key.failure('must be a date') unless values[:end_on].is_a?(Date)
-          if values[:end_on].is_a?(Date) && values[:end_on] < values[:start_on]
-            key.failure('End on must be after start on date')
-          end
+          key.failure('End on must be after start on date') if values[:end_on].is_a?(Date) && values[:end_on] < values[:start_on]
         end
       end
 
@@ -82,9 +78,7 @@ module AcaEntities
       end
 
       rule(:coverage_start_on) do
-        if !values[:coverage_start_on].nil? && !values[:coverage_start_on].is_a?(Date)
-          key.failure('Eligibility Start Date must be filled')
-        end
+        key.failure('Eligibility Start Date must be filled') if !values[:coverage_start_on].nil? && !values[:coverage_start_on].is_a?(Date)
 
         if values[:coverage_start_on].nil? && !values[:coverage_end_on].nil? && values[:coverage_end_on].is_a?(Date)
           key.failure("Eligibility Start Date must be filled")

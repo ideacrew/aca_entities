@@ -18,9 +18,7 @@ module AcaEntities
       end
 
       rule(:designation_date) do
-        if key? && value && (value <= 1912 || value.year > Date.today.year)
-          key.failure(text: 'Designation date is invalid')
-        end
+        key.failure(text: 'Designation date is invalid') if key? && value && (value <= 1912 || value.year > Date.today.year)
       end
     end
   end

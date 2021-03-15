@@ -6,7 +6,6 @@ module AcaEntities
 
   # Extend DryTypes
   # rubocop:disable Metrics/ModuleLength
-  # rubocop:disable Layout/LineLength
   module Types
     send(:include, Dry.Types())
     send(:include, Dry::Logic)
@@ -1696,6 +1695,5 @@ module AcaEntities
       'StudentLoanInterest'
     )
   end
-  # rubocop:enable Layout/LineLength
   # rubocop:enable Metrics/ModuleLength
 end
