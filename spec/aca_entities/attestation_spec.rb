@@ -7,7 +7,12 @@ RSpec.describe ::AcaEntities::Attestation do
 
   describe 'with valid arguments' do
     let(:input_params) do
-      { is_incarcerated: false }
+      { is_incarcerated: false,
+        attested_not_incarcerated_indicator: false,
+        attested_if_information_changes_indicator: true,
+        attested_non_perjury_indicator: true,
+        tax_return_access_indicator: true,
+        tax_return_access: true }
     end
 
     it 'should initialize' do
