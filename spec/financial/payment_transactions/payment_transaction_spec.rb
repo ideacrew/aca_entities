@@ -18,7 +18,7 @@ RSpec.describe ::AcaEntities::Financial::PaymentTransactions::PaymentTransaction
         end
 
         it 'should raise an error' do
-          expect { ::AcaEntities::Financial::PaymentTransactions::PaymentTransaction.new(input_params) }.to raise_error
+          expect { described_class.new(input_params) }.to raise_error(Dry::Struct::Error)
         end
       end
 
@@ -28,7 +28,7 @@ RSpec.describe ::AcaEntities::Financial::PaymentTransactions::PaymentTransaction
         end
 
         it 'should raise an error' do
-          expect { ::AcaEntities::Financial::PaymentTransactions::PaymentTransaction.new(input_params) }.to raise_error
+          expect { described_class.new(input_params) }.to raise_error(Dry::Struct::Error)
         end
       end
 
@@ -38,7 +38,7 @@ RSpec.describe ::AcaEntities::Financial::PaymentTransactions::PaymentTransaction
         end
 
         it 'should raise an error' do
-          expect { ::AcaEntities::Financial::PaymentTransactions::PaymentTransaction.new(input_params) }.to raise_error
+          expect { described_class.new(input_params) }.to raise_error(Dry::Struct::Error)
         end
       end
 
@@ -48,7 +48,7 @@ RSpec.describe ::AcaEntities::Financial::PaymentTransactions::PaymentTransaction
         end
 
         it 'should raise an error' do
-          expect { ::AcaEntities::Financial::PaymentTransactions::PaymentTransaction.new(input_params) }.to raise_error
+          expect { described_class.new(input_params) }.to raise_error(Dry::Struct::Error)
         end
       end
 
@@ -58,7 +58,7 @@ RSpec.describe ::AcaEntities::Financial::PaymentTransactions::PaymentTransaction
         end
 
         it 'should raise an error' do
-          expect { ::AcaEntities::Financial::PaymentTransactions::PaymentTransaction.new(input_params) }.to raise_error
+          expect { described_class.new(input_params) }.to raise_error(Dry::Struct::Error)
         end
       end
 
@@ -68,19 +68,19 @@ RSpec.describe ::AcaEntities::Financial::PaymentTransactions::PaymentTransaction
         end
 
         it 'should raise an error' do
-          expect { ::AcaEntities::Financial::PaymentTransactions::PaymentTransaction.new(input_params) }.to raise_error
+          expect { described_class.new(input_params) }.to raise_error(Dry::Struct::Error)
         end
       end
     end
 
     context 'Passing valid params' do
       it 'should initialize' do
-        result = ::AcaEntities::Financial::PaymentTransactions::PaymentTransaction.new(input_params)
+        result = described_class.new(input_params)
         expect(result).to be_a ::AcaEntities::Financial::PaymentTransactions::PaymentTransaction
       end
 
       it 'should not raise error' do
-        expect { ::AcaEntities::Financial::PaymentTransactions::PaymentTransaction.new(input_params) }.not_to raise_error
+        expect { described_class.new(input_params) }.not_to raise_error
       end
     end
   end
