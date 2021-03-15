@@ -3,7 +3,6 @@
 module AcaEntities
   # rubocop:disable Layout/LineLength
   class Applicant < Dry::Struct
-
     attribute :person_name, PersonName.meta(omittable: false)
     attribute :addresses, Types::Array.of(Address).optional.meta(omittable: true)
     attribute :demographic, Demographic.meta(omittable: false)
