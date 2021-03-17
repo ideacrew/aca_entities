@@ -5,8 +5,8 @@ module AcaEntities
     module Mitc
       class TaxReturn < Dry::Struct
 
-        attribute :filers,      Array.of(PersonReference).meta(omitttable: false)
-        attribute :dependents,  Array.of(PersonReference).meta(omitttable: false)
+        attribute :filers,      Types::Array.of(PersonReference).meta(omitttable: false)
+        attribute :dependents,  Types::Array.of(PersonReference).meta(omitttable: false)
 
       end
     end

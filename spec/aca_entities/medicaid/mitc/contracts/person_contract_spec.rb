@@ -14,6 +14,7 @@ RSpec.describe ::AcaEntities::Medicaid::Mitc::Contracts::PersonContract do
       is_full_time_student: 'Y',
       is_medicare_entitled: 'Y',
       is_incarcerated: 'Y',
+      resides_in_state_of_application: 'Y',
       is_claimed_as_dependent_by_non_applicant: 'Y',
       is_self_attested_long_term_care: 'Y',
       has_insurance: 'Y',

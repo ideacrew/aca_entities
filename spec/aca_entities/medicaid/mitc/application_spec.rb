@@ -1,18 +1,16 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require 'aca_entities/types'
 require 'aca_entities/medicaid/mitc/types'
-require 'aca_entities/medicaid/mitc/contracts/tax_return_contract'
-require 'aca_entities/medicaid/mitc/contracts/person_reference_contract'
-require 'aca_entities/medicaid/mitc/contracts/category_determination_contract'
-require 'aca_entities/medicaid/mitc/contracts/household_contract'
-require 'aca_entities/medicaid/mitc/contracts/relationship_contract'
-require 'aca_entities/medicaid/mitc/contracts/income_contract'
-require 'aca_entities/medicaid/mitc/contracts/person_contract'
-require 'aca_entities/medicaid/mitc/contracts/application_contract'
+require 'aca_entities/medicaid/mitc/income'
+require 'aca_entities/medicaid/mitc/relationship'
+require 'aca_entities/medicaid/mitc/person_reference'
+require 'aca_entities/medicaid/mitc/person'
+require 'aca_entities/medicaid/mitc/household'
+require 'aca_entities/medicaid/mitc/tax_return'
+require 'aca_entities/medicaid/mitc/application'
 
-RSpec.describe ::AcaEntities::Medicaid::Mitc::Contracts::ApplicationContract do
+RSpec.describe ::AcaEntities::Medicaid::Mitc::Application, dbclean: :after_each do
   let(:person_params) do
     { person_id: 100,
       is_applicant: 'Y',
@@ -75,29 +73,23 @@ RSpec.describe ::AcaEntities::Medicaid::Mitc::Contracts::ApplicationContract do
   let(:required_params) do
     { name: 'Application 100',
       state: 'DC',
+      application_year: 2021,
       people: [person_params],
-      physical_households: [{ household_id: 1000, people: [{ person_id: 100 }] }],
+      physical_households: [{ household_id: '1000', people: [{ person_id: 100 }] }],
       tax_returns: [{ filers: [{ person_id: 100 }], dependents: [{ person_id: 101 }] }] }
   end
 
-  context 'valid params' do
-    it { expect(subject.call(required_params).success?).to be_truthy }
-    it { expect(subject.call(required_params).to_h).to eq required_params }
+  context 'invalid params' do
+    context 'with empty params' do
+      it 'should raise error' do
+        expect {subject}.to raise_error(Dry::Struct::Error, /:name is missing in Hash input/)
+      end
+    end
   end
 
-  context 'invalid params' do
-    context 'with no parameters' do
-      before :each do
-        @result = subject.call({})
-      end
-
-      it 'should return a failure' do
-        expect(@result.success?).to be_falsey
-      end
-
-      it 'should list error for every required parameter' do
-        expect(@result.errors.to_h.keys).to match_array required_params.keys
-      end
+  context 'valid params' do
+    context 'required params only' do
+      it { expect(described_class.new(required_params).to_h).to eq required_params }
     end
   end
 end

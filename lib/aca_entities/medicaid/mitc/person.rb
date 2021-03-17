@@ -35,6 +35,11 @@ module AcaEntities
         # @return [String]
         attribute :is_incarcerated,    Types::YesNoKind.meta(ommittable: false)
 
+        # @!attribute [r] resides_in_state_of_application
+        # If the person  currently reside in the state of application(Y/N).
+        # @return [String]
+        attribute :resides_in_state_of_application,    Types::YesNoKind.meta(ommittable: false)
+
         # @!attribute [r] is_claimed_as_dependent_by_non_applicant
         # A boolean if the person is claimed as dependent person not in this data structure.
         # is the person  claimed by a person not in this data structure (like an absent parent)
@@ -64,7 +69,7 @@ module AcaEntities
         # @!attribute [r] prior_insurance_end_date
         # The date the prior coverage ended.A date in YYYY-MM-DD format.
         # @return [Date]
-        attribute :prior_insurance_end_date,    Types::Date.meta(omittable: false)
+        attribute :prior_insurance_end_date,    Types::Date.optional.meta(omittable: true)
 
         # @!attribute [r] is_pregnant
         # A boolean if applicant is pregnant.
@@ -74,7 +79,7 @@ module AcaEntities
         # @!attribute [r] children_expected_count
         # For a pregnant woman, the number of children expected.
         # @return [Integer]
-        attribute :children_expected_count,    Types::Integer.meta(omittable: false)
+        attribute :children_expected_count,    Types::Integer.optional.meta(omittable: true)
 
         # @!attribute [r] is_in_post_partum_period
         # Applicant is currently within the post-partum period.
@@ -82,7 +87,7 @@ module AcaEntities
         # continuing for at least 60 days,
         # and ending on the last day of the month in which the 60-day period ended.
         # @return [String]
-        attribute :is_in_post_partum_period,    Types::YesNoKind.meta(ommittable: false)
+        attribute :is_in_post_partum_period,    Types::YesNoKind.optional.meta(ommittable: true)
 
         # @!attribute [r] is_in_former_foster_care
         # A boolean if applicant was in foster care previously.
@@ -92,18 +97,18 @@ module AcaEntities
         # @!attribute [r] had_medicaid_during_foster_care
         # A boolean if applicant received Medicaid coverage while in Foster care.
         # @return [String]
-        attribute :had_medicaid_during_foster_care,    Types::YesNoKind.meta(ommittable: false)
+        attribute :had_medicaid_during_foster_care,    Types::YesNoKind.optional.meta(ommittable: true)
 
         # @!attribute [r] age_left_foster_care
         # The age of the applicant at the time they left foster care.
         # @return [Integer]
-        attribute :age_left_foster_care,    Types::Integer.meta(omittable: false)
+        attribute :age_left_foster_care,    Types::Integer.optional.meta(omittable: true)
 
         # @!attribute [r] foster_care_us_state
         # The state where the applicant received foster care.
         # Two character state code. For example, "CA"
         # @return [String]
-        attribute :foster_care_us_state,    ::AcaEntities::Types::UsStateAbbreviationKind.meta(omittible: false)
+        attribute :foster_care_us_state,    Types::UsStateAbbreviationKind.optional.meta(omittible: true)
 
         # @!attribute [r] is_required_to_file_taxes
         # A boolean if the applicant meets the bar to be required to file taxes.
@@ -138,29 +143,29 @@ module AcaEntities
         # @!attribute [r] immigration_status
         # Code indicating the person's immigration status.
         # @return [String]
-        attribute :immigration_status,    Types::ImmigrationStatusKind.meta(omittible: false)
+        attribute :immigration_status,    Types::ImmigrationStatusKind.optional.meta(omittible: true)
 
         # @!attribute [r] is_amerasian
         # Does the non-citizen have Amerasian status?
         # @return [String]
-        attribute :is_amerasian,    Types::YesNoKind.meta(ommittable: false)
+        attribute :is_amerasian,    Types::YesNoKind.optional.meta(omittible: true)
 
         # @!attribute [r] has_forty_title_ii_work_quarters
         # For non-citizens, have they earned 40 Title II work quarters.
         # In general, this is answered by whether the applicant has had 40 quarters
         # in which the applicant was employed in the US.
         # @return [String]
-        attribute :has_forty_title_ii_work_quarters,    Types::YesNoKind.meta(ommittable: false)
+        attribute :has_forty_title_ii_work_quarters,    Types::YesNoKind.optional.meta(omittible: true)
 
         # @!attribute [r] five_year_bar_applies
         # Is the non-citizen subject to the 5 year bar?
         # @return [String]
-        attribute :five_year_bar_applies,    Types::YesNoKind.meta(ommittable: false)
+        attribute :five_year_bar_applies,    Types::YesNoKind.optional.meta(omittible: true)
 
         # @!attribute [r] is_five_year_bar_met
         # Has the non-citizen applicant met the 5 year bar?
         # @return [String]
-        attribute :is_five_year_bar_met,    Types::YesNoKind.meta(ommittable: false)
+        attribute :is_five_year_bar_met,    Types::YesNoKind.optional.meta(omittible: true)
 
         # @!attribute [r] is_trafficking_victim
         # Is a victim of trafficking?
@@ -175,7 +180,7 @@ module AcaEntities
         # @!attribute [r] refugee_medical_assistance_start_date
         # Is the applicant eligible for refugee medical assistance?
         # @return [Date]
-        attribute :refugee_medical_assistance_start_date,    Types::Date.meta(omittable: false)
+        attribute :refugee_medical_assistance_start_date,    Types::Date.optional.meta(omittible: true)
 
         # @!attribute [r] seven_year_limit_start_date
         # This date varies based on the person's immigration status:

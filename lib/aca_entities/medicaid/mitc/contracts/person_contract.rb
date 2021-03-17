@@ -14,6 +14,7 @@ module AcaEntities
             required(:is_full_time_student).filled(Types::YesNoKind)
             required(:is_medicare_entitled).filled(Types::YesNoKind)
             required(:is_incarcerated).filled(Types::YesNoKind)
+            required(:resides_in_state_of_application).filled(Types::YesNoKind)
             required(:is_claimed_as_dependent_by_non_applicant).filled(Types::YesNoKind)
             required(:is_self_attested_long_term_care).filled(Types::YesNoKind)
             required(:has_insurance).filled(Types::YesNoKind)
@@ -26,7 +27,7 @@ module AcaEntities
             required(:is_in_former_foster_care).filled(Types::YesNoKind)
             optional(:had_medicaid_during_foster_care).maybe(Types::YesNoKind)
             optional(:age_left_foster_care).maybe(:integer)
-            optional(:foster_care_us_state).maybe(::AcaEntities::Types::UsStateAbbreviationKind)
+            optional(:foster_care_us_state).maybe(Types::UsStateAbbreviationKind)
             required(:is_required_to_file_taxes).filled(Types::YesNoKind)
             required(:age_of_applicant).filled(:integer)
             required(:hours_worked_per_week).filled(:integer)
@@ -45,6 +46,10 @@ module AcaEntities
             required(:is_veteran).filled(Types::YesNoKind)
             required(:income).filled(:hash)
             required(:relationships).array(:hash)
+          end
+
+          rule(:person_id) do
+            key.failure('must be between 1 and 100') if !value.nil? && !(1..100).include?(value)
           end
 
           rule(:prior_insurance_end_date) do

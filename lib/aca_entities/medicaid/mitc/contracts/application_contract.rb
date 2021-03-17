@@ -8,9 +8,9 @@ module AcaEntities
         class ApplicationContract < Dry::Validation::Contract
 
           params do
-            required(:name).filled(Types::String)
+            required(:name).filled(:string)
             required(:state).filled(Types::UsStateAbbreviationKind)
-            required(:application_year).filled(:integer)
+            optional(:application_year).maybe(:integer)
             required(:people).array(:hash)
             required(:physical_households).array(:hash)
             required(:tax_returns).array(:hash)
