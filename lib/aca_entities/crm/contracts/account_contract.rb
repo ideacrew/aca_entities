@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 module Accounts
+  # Contract for Account.
   class AccountContract < ApplicationContract
 
     params do
-
       required(:name).filled(:string)
       required(:contacts_count).filled(:integer)
       required(:opportunities_count).filled(:integer)
@@ -41,7 +41,7 @@ module Accounts
       optional(:created_at).maybe(:date_time)
       optional(:updated_at).maybe(:date_time)
       optional(:deleted_at).maybe(:date_time)
-  	end
+    end
 
     rule(:user, :assigned_to) do
       if key? && value

@@ -1,5 +1,7 @@
 # frozen_string_literal: true
+
 module Contacts
+  # Entity for Contract.
   class Contact < Dry::Struct
 
     attribute :id,                        Types::Coercible::Integer.optional.meta(omittable: true)
@@ -23,7 +25,6 @@ module Contacts
     attribute :contact_opportunities,     Types::Array.of(Opportunities::Opportunity).meta(omittable: true)
     attribute :opportunities,             Types::Array.of(Opportunities::Opportunity).meta(omittable: true)
 
-
     attribute :outreach_priority,         Types::Coercible::Integer.optional.meta(omittable: true)
 
     # User-defined category sets: e.g. faculty, staff, student - or - employees, customers
@@ -32,7 +33,7 @@ module Contacts
     attribute :first_name,                Types::Strict::String.meta(omittable: false)
     attribute :last_name,                 Types::Strict::String.meta(omittable: false)
     attribute :preferred_name,            Types::String.optional.meta(omittable: true)
-    
+
     attribute :born_on,                   Types::Date.optional.meta(omittable: true)
     attribute :hired_on,                  Types::Date.optional.meta(omittable: true)
     attribute :ssn,                       Types::String.optional.meta(omittable: true)
@@ -64,8 +65,7 @@ module Contacts
     attribute :updated_at,                Types::DateTime.optional.meta(omittable: true)
     attribute :deleted_at,                Types::DateTime.optional.meta(omittable: true)
 
-
-    def contact_cases 
+    def contact_cases
       []
     end
 

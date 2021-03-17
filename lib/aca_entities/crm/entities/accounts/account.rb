@@ -42,10 +42,10 @@ module AcaEntities
         attribute :managing_division,
                   Accounts::Account.optional.meta(omittable: true)
 
-        # TODO:
+        # TODO: What?
         # attribute :divisions,           Types::Array.of(Accounts::Account).optional.meta(omittable: true)
 
-        # TODO:
+        # TODO: What?
         # attribute :contacts,            Types::Array.of(Accounts::AccountContracts).optional.meta(omittable: true)
         attribute :opportunities,
                   Accounts::AccountsOpportunities.optional.meta(omittable: true)
