@@ -8,7 +8,7 @@ module AcaEntities
         class HouseholdContract < Dry::Validation::Contract
 
           params do
-            required(:household_id).filled(:integer)
+            required(:household_id).filled(:string)
             required(:people).array(:hash)
           end
 

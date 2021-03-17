@@ -76,7 +76,7 @@ RSpec.describe ::AcaEntities::Medicaid::Mitc::Contracts::ApplicationContract do
     { name: 'Application 100',
       state: 'DC',
       people: [person_params],
-      physical_households: [{ household_id: 1000, people: [{ person_id: 100 }] }],
+      physical_households: [{ household_id: '1000', people: [{ person_id: 100 }] }],
       tax_returns: [{ filers: [{ person_id: 100 }], dependents: [{ person_id: 101 }] }] }
   end
 

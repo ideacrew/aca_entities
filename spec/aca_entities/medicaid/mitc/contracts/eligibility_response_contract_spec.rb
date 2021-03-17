@@ -14,7 +14,7 @@ require 'aca_entities/medicaid/mitc/contracts/eligibility_response_contract'
 RSpec.describe ::AcaEntities::Medicaid::Mitc::Contracts::EligibilityResponseContract do
   let(:applicant_params) do
     { person_id: 100,
-      medicaid_household: { household_id: 1000, people: [{ person_id: 100 }] },
+      medicaid_household: { household_id: '1000', people: [{ person_id: 100 }] },
       is_medicaid_eligible: 'N',
       is_chip_eligible: 'N',
       medicaid_ineligibility_reasons: ['test'],
@@ -22,7 +22,7 @@ RSpec.describe ::AcaEntities::Medicaid::Mitc::Contracts::EligibilityResponseCont
       chip_ineligibility_reasons: ['test'],
       medicaid_category: 'Medicaid Category',
       medicaid_category_threshold: 100,
-      physical_households: [{ household_id: 1000, people: [{ person_id: 100 }] }],
+      physical_households: [{ household_id: '1000', people: [{ person_id: 100 }] }],
       chip_category: 'Chip Category',
       chip_category_threshold: 50,
       category_determination: { indicator_code: 'Y',

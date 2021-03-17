@@ -6,7 +6,7 @@ require 'aca_entities/medicaid/mitc/contracts/person_reference_contract'
 require 'aca_entities/medicaid/mitc/contracts/household_contract'
 
 RSpec.describe ::AcaEntities::Medicaid::Mitc::Contracts::HouseholdContract do
-  let(:required_params) { { household_id: 1000, people: [{ person_id: 100 }] } }
+  let(:required_params) { { household_id: '1000', people: [{ person_id: 100 }] } }
 
   context 'valid params' do
     it { expect(subject.call(required_params).success?).to be_truthy }
