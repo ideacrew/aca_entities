@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
+require 'aca_entities/sender'
+require 'aca_entities/receiver'
 require 'aca_entities/referral_header'
 
 RSpec.describe ::AcaEntities::ReferralHeader do

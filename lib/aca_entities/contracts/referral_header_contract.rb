@@ -13,8 +13,40 @@ module AcaEntities
         optional(:referral_activity_eligibility).maybe(:string)
         optional(:referral_activity_status).maybe(Iap::Types::ReferralActivityStatusCode)
         optional(:referral_activity_over_all_verification_status).maybe(:string)
+
+        optional(:sender).maybe(:hash)
+        optional(:receiver).maybe(:hash)
       end
 
+      rule(:sender) do
+        if key? && value
+          if value.is_a?(Hash)
+            result = SenderContract.new.call(value)
+            if result&.failure?
+              key.failure(text: 'invalid sender', error: result.errors.to_h)
+            else
+              values.merge!(sender: result.to_h)
+            end
+          else
+            key.failure(text: 'invalid sender. Expected a hash.')
+          end
+        end
+      end
+
+      rule(:receiver) do
+        if key? && value
+          if value.is_a?(Hash)
+            result = ReceiverContract.new.call(value)
+            if result&.failure?
+              key.failure(text: 'invalid receiver', error: result.errors.to_h)
+            else
+              values.merge!(receiver: result.to_h)
+            end
+          else
+            key.failure(text: 'invalid receiver. Expected a hash.')
+          end
+        end
+      end
       # Will be present if household member is being referred.
       # TODO: Fix these rules later
       rule(:referral_id) do
