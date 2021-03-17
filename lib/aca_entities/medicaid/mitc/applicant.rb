@@ -28,7 +28,7 @@ module AcaEntities
         # @!attribute [r] medicaid_ineligibility_reasons
         # A list of reasons the person is not Medicaid eligible.
         # @return [String]
-        attribute :medicaid_ineligibility_reasons,   Types::Array.of(String).meta(omittible: false)
+        attribute :medicaid_ineligibility_reasons,   Types::Array.of(Types::String).meta(omittible: false)
 
         # @!attribute [r] is_eligible_for_non_magi_reasons
         # Is the person potentially eligible for non-MAGI reasons?
@@ -38,7 +38,7 @@ module AcaEntities
         # @!attribute [r] chip_ineligibility_reasons
         # A list of reasons the person is not CHIP eligible.
         # @return [String]
-        attribute :chip_ineligibility_reasons,   Types::Array.of(String).meta(omittible: false)
+        attribute :chip_ineligibility_reasons,   Types::Array.of(Types::String).meta(omittible: false)
 
         # @!attribute [r] medicaid_category
         # The category under which the person may be found eligible for Medicaid.
