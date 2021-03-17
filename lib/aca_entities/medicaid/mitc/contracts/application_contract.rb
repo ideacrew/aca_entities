@@ -9,7 +9,7 @@ module AcaEntities
 
           params do
             required(:name).filled(Types::String)
-            required(:state).filled(::AcaEntities::Types::UsStateAbbreviationKind)
+            required(:state).filled(Types::UsStateAbbreviationKind)
             required(:application_year).filled(:integer)
             required(:people).array(:hash)
             required(:physical_households).array(:hash)
