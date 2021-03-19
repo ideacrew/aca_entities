@@ -50,9 +50,9 @@ module AcaEntities
       attribute :issuing_country, Types::String.optional.meta(omittable: true)
       attribute :relationship, Types::String.optional.meta(omittable: true)
 
-      attribute :addresses, Types::Array.of(FinancialAssistance::Entities::Address)
-      attribute :emails, Types::Array.of(FinancialAssistance::Entities::Email)
-      attribute :phones, Types::Array.of(FinancialAssistance::Entities::Phone)
+      attribute :addresses, Types::Array.of(Address)
+      attribute :emails, Types::Array.of(Email)
+      attribute :phones, Types::Array.of(Phone)
     end
   end
 end
