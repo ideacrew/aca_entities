@@ -1,14 +1,21 @@
 # frozen_string_literal: true
 
-module Qbo::Items
-  class ItemContract < ApplicationContract
+module AcaEntities
+  module Ledger
+    module Qbo
+      module Items
+        # contract for Qbo item
+        class ItemContract < ApplicationContract
 
-    json do
-      required(:Name).filled(Qbo::Types::StrippedString)
-      required(:IncomeAccountRef).hash do 
-        required(:value).filled(Qbo::Types::StrippedString)
+          json do
+            required(:Name).filled(Ledger::Qbo::Types::StrippedString)
+            required(:IncomeAccountRef).hash do
+              required(:value).filled(Ledger::Qbo::Types::StrippedString)
+            end
+            required(:Type).filled(Ledger::Qbo::Types::StrippedString)
+          end
+        end
       end
-      required(:Type).filled(Qbo::Types::StrippedString)
     end
   end
 end

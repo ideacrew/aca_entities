@@ -1,52 +1,56 @@
 # frozen_string_literal: true
 
-module Qbo::Accounts
+module AcaEntities
+  module Ledger
+    module Qbo
+      module Accounts
+        # Schema and validation rules for the {CallCenter::Operations::Contacts::ListFlow} operation
+        class AccountContract < Ledger::Qbo::ApplicationContract
 
-  # Schema and validation rules for the {CallCenter::Operations::Contacts::ListFlow} operation
-  class AccountContract < ApplicationContract
+          # @!method call(opts)
+          # @param [Hash] opts the parameters to validate using this contract
+          # @option opts [String] 'Name' (required)
+          # @option opts [Array<CallCenter::Types::ContactFlow>] :contact_flow_types
+          # @return [Dry::Monads::Result::Success] if params pass validation
+          # @return [Dry::Monads::Result::Failure] if params fail validation
+          json do
+            # required(:sample).value(format?: /^a/)
 
-    # @!method call(opts)
-    # @param [Hash] opts the parameters to validate using this contract
-    # @option opts [String] 'Name' (required)
-    # @option opts [Array<CallCenter::Types::ContactFlow>] :contact_flow_types
-    # @return [Dry::Monads::Result::Success] if params pass validation
-    # @return [Dry::Monads::Result::Failure] if params fail validation
-    json do
-      # required(:sample).value(format?: /^a/)
+            required(:Name).filled(Ledger::Qbo::Types::StrippedString, max_size?: 100)
 
-      required(:"Name").filled(Qbo::Types::StrippedString, max_size?: 100)
+            # required for update
+            optional(:Id).value(Ledger::Qbo::Types::StrippedString)
+            optional(:SyncToken).value(Ledger::Qbo::Types::StrippedString)
 
-      # required for update
-      optional(:"Id").value(Qbo::Types::StrippedString)
-      optional(:"SyncToken").value(Qbo::Types::StrippedString)
+            optional(:AcctNum).value(Ledger::Qbo::Types::StrippedString, max_size?: 7)
+            optional(:AccountType).value(Ledger::Qbo::Types::StrippedString)
+            optional(:AccountSubType).value(Ledger::Qbo::Types::StrippedString)
 
-      optional(:"AcctNum").value(Qbo::Types::StrippedString, max_size?: 7)
-      optional(:"AccountType").value(Qbo::Types::StrippedString)
-      optional(:"AccountSubType").value(Qbo::Types::StrippedString)
+            optional(:CurrencyRef).hash do
+              required(:value).filled(Ledger::Qbo::Types::StrippedString)
+              optional(:name).value(Ledger::Qbo::Types::StrippedString)
+            end
 
-      optional(:"CurrencyRef").hash do 
-        required(:"value").filled(Qbo::Types::StrippedString)
-        optional(:"name").value(Qbo::Types::StrippedString)
+            optional(:ParentRef).hash do
+              required(:value).filled(Ledger::Qbo::Types::StrippedString)
+              optional(:name).value(Ledger::Qbo::Types::StrippedString)
+            end
+
+            optional(:Description).value(Ledger::Qbo::Types::StrippedString, max_size?: 100)
+            optional(:Active).value(:bool)
+            optional(:MetaData).value(:hash)
+
+            optional(:SubAccount).value(:bool)
+
+            optional(:FullyQualifiedName).value(Ledger::Qbo::Types::StrippedString)
+            optional(:domain).value(Ledger::Qbo::Types::StrippedString)
+            optional(:Classification).value(Ledger::Qbo::Types::StrippedString)
+            optional(:CurrentBalanceWithSubAccounts).value(Types::Coercible::Float)
+            optional(:sparse).value(:bool)
+            optional(:CurrentBalance).value(Types::Coercible::Float)
+          end
+        end
       end
-
-      optional(:"ParentRef").hash do 
-        required(:"value").filled(Qbo::Types::StrippedString)
-        optional(:"name").value(Qbo::Types::StrippedString)
-      end
-
-      optional(:"Description").value(Qbo::Types::StrippedString, max_size?: 100)
-      optional(:"Active").value(:bool)
-      optional(:"MetaData").value(:hash)
-
-      optional(:"SubAccount").value(:bool)
-
-      optional(:"FullyQualifiedName").value(Qbo::Types::StrippedString)
-      optional(:domain).value(Qbo::Types::StrippedString)
-      optional(:"Classification").value(Qbo::Types::StrippedString)
-      optional(:"CurrentBalanceWithSubAccounts").value(Types::Coercible::Float)
-      optional(:sparse).value(:bool)
-      optional(:"CurrentBalance").value(Types::Coercible::Float)
     end
   end
-
 end

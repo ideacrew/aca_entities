@@ -1,19 +1,25 @@
 # frozen_string_literal: true
 
-module Qbo::Locations
+module AcaEntities
+  module Ledger
+    module Qbo
+      module Locations
+        # contract for Qbo address
+        class AddressContract < ApplicationContract
 
-  class AddressContract < ApplicationContract
+          json do
 
-    json do
-      
-      optional(:"Id").value(Qbo::Types::StrippedString)
-      optional(:"Line1").value(Qbo::Types::StrippedString)
-      optional(:"City").value(Qbo::Types::StrippedString)
-      optional(:"PostalCode").value(Qbo::Types::StrippedString)
-      optional(:"Lat").value(Qbo::Types::StrippedString)
-      optional(:"Long").value(Qbo::Types::StrippedString)
-      optional(:"CountrySubDivisionCode").value(Qbo::Types::StrippedString)
-      
+            optional(:Id).value(Ledger::Qbo::Types::StrippedString)
+            optional(:Line1).value(Ledger::Qbo::Types::StrippedString)
+            optional(:City).value(Ledger::Qbo::Types::StrippedString)
+            optional(:PostalCode).value(Ledger::Qbo::Types::StrippedString)
+            optional(:Lat).value(Ledger::Qbo::Types::StrippedString)
+            optional(:Long).value(Ledger::Qbo::Types::StrippedString)
+            optional(:CountrySubDivisionCode).value(Ledger::Qbo::Types::StrippedString)
+
+          end
+        end
+      end
     end
   end
 end

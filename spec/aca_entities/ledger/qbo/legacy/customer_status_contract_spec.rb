@@ -1,45 +1,47 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
+require 'spec_helper'
+require 'aca_entities/ledger/qbo/types'
+require 'aca_entities/ledger/qbo/contracts/application_contract'
+require 'aca_entities/ledger/qbo/contracts/legacy/customer_status_contract'
 
-RSpec.describe Qbo::Legacy::CustomerStatusContract do
+RSpec.describe AcaEntities::Ledger::Qbo::Legacy::CustomerStatusContract do
 
-  let(:required_params)    { 
+  let(:required_params)    do
     {
-      "past_due": "0",
-      "previous_balance": "1051.92",
-      "new_charges": "350.64",
-      "adjustments": "0",
-      "payments": "-1051.92",
-      "total_due": "350.64",
-      "statement_date": Date.today.beginning_of_month,
-      "adjustment_items": [
+      past_due: "0",
+      previous_balance: "1051.92",
+      new_charges: "350.64",
+      adjustments: "0",
+      payments: "-1051.92",
+      total_due: "350.64",
+      statement_date: Date.today,
+      adjustment_items: [
         {
-          "amount": "100",
-          "name": "Some name",
-          "description": "BlueDental Preferred High",
-          "posting_date": "01/03/2019",
-          "is_passive_renewal": true
+          amount: "100",
+          name: "Some name",
+          description: "BlueDental Preferred High",
+          posting_date: "01/03/2019",
+          is_passive_renewal: true
         }
       ],
-      "payment_history": [
+      payment_history: [
         {
-          "amount": "1051.92",
-          "reference_id": "3025768644",
-          "paid_on": "2018-12-31:00:00",
-          "method_kind": "ACH"
+          amount: "1051.92",
+          reference_id: "3025768644",
+          paid_on: "2018-12-31:00:00",
+          method_kind: "ACH"
         },
         {
-          "amount": "701.28",
-          "reference_id": "3022648327",
-          "paid_on": "2018-09-26:00:00",
-          "method_kind":  "ACH"
+          amount: "701.28",
+          reference_id: "3022648327",
+          paid_on: "2018-09-26:00:00",
+          method_kind: "ACH"
         }
       ]
     }
-  }
+  end
 
-  
   context "Given invalid parameter scenarios" do
     context "with empty parameters" do
       it 'should list error for every required parameter' do

@@ -1,17 +1,20 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
+require 'spec_helper'
+require 'aca_entities/ledger/qbo/types'
+require 'aca_entities/ledger/qbo/contracts/application_contract'
+require 'aca_entities/ledger/qbo/contracts/legacy/payment_history_contract'
 
-RSpec.describe Qbo::Legacy::PaymentHistoryContract do
+RSpec.describe AcaEntities::Ledger::Qbo::Legacy::PaymentHistoryContract do
 
-  let(:required_params)    { 
+  let(:required_params)    do
     {
-      "amount": "1051.92",
-      "reference_id": "3025768644",
-      "paid_on": "2018-12-31:00:00",
-      "method_kind": "ACH"
+      amount: "1051.92",
+      reference_id: "3025768644",
+      paid_on: "2018-12-31:00:00",
+      method_kind: "ACH"
     }
-  }
+  end
 
   context "Given invalid parameter scenarios" do
     context "with empty parameters" do

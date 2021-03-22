@@ -1,46 +1,52 @@
 # frozen_string_literal: true
 
-module Qbo::Customers
+module AcaEntities
+  module Ledger
+    module Qbo
+      module Customers
+        # contract for Qbo customer
+        class CustomerContract < ApplicationContract
 
-  class CustomerContract < ApplicationContract
+          json do
 
-    json do
-      
-      required(:"DisplayName").value(Qbo::Types::StrippedString)
-      required(:"PrimaryTaxIdentifier").value(Qbo::Types::StrippedString)
-      optional(:"ExternalId").value(Qbo::Types::StrippedString)
-      optional(:"GivenName").value(Qbo::Types::StrippedString)
-      optional(:"FullyQualifiedName").value(Qbo::Types::StrippedString)
-      optional(:"CompanyName").value(Qbo::Types::StrippedString)
-      optional(:"FamilyName").value(Qbo::Types::StrippedString)
+            required(:DisplayName).value(Ledger::Qbo::Types::StrippedString)
+            required(:PrimaryTaxIdentifier).value(Ledger::Qbo::Types::StrippedString)
+            optional(:ExternalId).value(Ledger::Qbo::Types::StrippedString)
+            optional(:GivenName).value(Ledger::Qbo::Types::StrippedString)
+            optional(:FullyQualifiedName).value(Ledger::Qbo::Types::StrippedString)
+            optional(:CompanyName).value(Ledger::Qbo::Types::StrippedString)
+            optional(:FamilyName).value(Ledger::Qbo::Types::StrippedString)
 
-      optional(:Id).value(Qbo::Types::StrippedString)
-      optional(:"SyncToken").value(Qbo::Types::StrippedString)
-      optional(:"domain").value(Qbo::Types::StrippedString)
+            optional(:Id).value(Ledger::Qbo::Types::StrippedString)
+            optional(:SyncToken).value(Ledger::Qbo::Types::StrippedString)
+            optional(:domain).value(Ledger::Qbo::Types::StrippedString)
 
-      optional(:"BillWithParent").value(:bool)
-      optional(:"sparse").value(:bool)
+            optional(:BillWithParent).value(:bool)
+            optional(:sparse).value(:bool)
 
-      optional(:"BillAddr").maybe(:hash)
+            optional(:BillAddr).maybe(:hash)
 
-      optional(:"PrimaryEmailAddr").hash do
-        optional(:"Address").maybe(Qbo::Types::StrippedString)
+            optional(:PrimaryEmailAddr).hash do
+              optional(:Address).maybe(Ledger::Qbo::Types::StrippedString)
+            end
+
+            optional(:PrimaryPhone).hash do
+              optional(:FreeFormNumber).maybe(Ledger::Qbo::Types::StrippedString)
+            end
+
+            optional(:Active).value(:bool)
+            optional(:MetaData).maybe(:hash)
+            optional(:Job).value(:bool)
+            optional(:Taxable).value(:bool)
+
+            optional(:BalanceWithJobs).value(Types::Coercible::Float)
+            optional(:Balance).value(Types::Coercible::Float)
+            optional(:PrintOnCheckName).value(Ledger::Qbo::Types::StrippedString)
+            optional(:PreferredDeliveryMethod).value(Ledger::Qbo::Types::StrippedString)
+
+          end
+        end
       end
-
-      optional(:"PrimaryPhone").hash do
-        optional(:"FreeFormNumber").maybe(Qbo::Types::StrippedString)
-      end
-      
-      optional(:"Active").value(:bool)
-      optional(:"MetaData").maybe(:hash)
-      optional(:"Job").value(:bool)
-      optional(:"Taxable").value(:bool)
-
-      optional(:"BalanceWithJobs").value(Types::Coercible::Float)
-      optional(:"Balance").value(Types::Coercible::Float)
-      optional(:"PrintOnCheckName").value(Qbo::Types::StrippedString)
-      optional(:"PreferredDeliveryMethod").value(Qbo::Types::StrippedString)
-
     end
   end
 end

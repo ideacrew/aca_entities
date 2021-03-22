@@ -1,35 +1,42 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
+require 'spec_helper'
+require 'aca_entities/ledger/qbo/types'
+require 'aca_entities/ledger/qbo/contracts/application_contract'
+require 'aca_entities/ledger/qbo/contracts/accounts/account_contract'
 
-RSpec.describe Qbo::Accounts::AccountContract do
+RSpec.describe AcaEntities::Ledger::Qbo::Accounts::AccountContract do
 
-  let(:name)    { { 
-    :"Name" => 'MyJobs' 
-    } }
+  let(:name)    do
+    {
+      :Name => 'MyJobs'
+    }
+  end
 
-  let(:account) { {
-    :"SyncToken" => '0', 
-    :"Id" => '94', 
-    :"FullyQualifiedName" => 'MyJobs', 
-    :domain => 'QBO', 
-    :"Classification" => 'Asset', 
-    :"AccountSubType" => 'AccountsReceivable', 
-    :"CurrencyRef" => {
-      :"name" => 'United States Dollar', 
-      :"value" => 'USD'
-    }, 
-    :"CurrentBalanceWithSubAccounts" => 0, 
-    :sparse => false, 
-    :"MetaData" => {
-      :"CreateTime" => '2014-12-31T09:29:05-08:00', 
-      :"LastUpdatedTime" => '2014-12-31T09:29:05-08:00'
-    }, 
-    :"AccountType" => 'Accounts Receivable', 
-    :"CurrentBalance" => 0, 
-    :"Active" => true, 
-    :"SubAccount" => false
-    } }
+  let(:account) do
+    {
+      :SyncToken => '0',
+      :Id => '94',
+      :FullyQualifiedName => 'MyJobs',
+      :domain => 'QBO',
+      :Classification => 'Asset',
+      :AccountSubType => 'AccountsReceivable',
+      :CurrencyRef => {
+        :name => 'United States Dollar',
+        :value => 'USD'
+      },
+      :CurrentBalanceWithSubAccounts => 0,
+      :sparse => false,
+      :MetaData => {
+        :CreateTime => '2014-12-31T09:29:05-08:00',
+        :LastUpdatedTime => '2014-12-31T09:29:05-08:00'
+      },
+      :AccountType => 'Accounts Receivable',
+      :CurrentBalance => 0,
+      :Active => true,
+      :SubAccount => false
+    }
+  end
 
   let(:required_params)     { name }
   let(:optional_params)     { account }
@@ -47,7 +54,7 @@ RSpec.describe Qbo::Accounts::AccountContract do
 
     context "with optional parameters only" do
       it { expect(subject.call(optional_params).success?).to be_falsey }
-      it { expect(subject.call(optional_params).error?(:"Name")).to be_truthy }
+      it { expect(subject.call(optional_params).error?(:Name)).to be_truthy }
     end
 
   end

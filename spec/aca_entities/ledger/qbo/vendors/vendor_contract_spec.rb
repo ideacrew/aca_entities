@@ -1,48 +1,51 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
+require 'spec_helper'
+require 'aca_entities/ledger/qbo/types'
+require 'aca_entities/ledger/qbo/contracts/application_contract'
+require 'aca_entities/ledger/qbo/contracts/vendors/vendor_contract'
 
-RSpec.describe Qbo::Vendors::VendorContract do
+RSpec.describe AcaEntities::Ledger::Qbo::Vendors::VendorContract do
 
-  let(:display_name)    { { :"DisplayName" => "Books by Bessie"  } }
+  let(:display_name)    { { :DisplayName => "Books by Bessie"  } }
 
-  let(:customer) { 
-   {
-      "PrimaryEmailAddr": {
-        "Address": "Books@Intuit.com"
-      }, 
-      "Vendor1099": false, 
-      "domain": "QBO", 
-      "GivenName": "Bessie", 
-      "BillAddr": {
-        "City": "Palo Alto", 
-        "Line1": "15 Main St.", 
-        "PostalCode": "94303", 
-        "Lat": "37.445013", 
-        "Long": "-122.1391443", 
-        "CountrySubDivisionCode": "CA", 
-        "Id": "31"
+  let(:customer) do
+    {
+      PrimaryEmailAddr: {
+        Address: "Books@Intuit.com"
       },
-      "SyncToken": "0", 
-      "PrintOnCheckName": "Books by Bessie", 
-      "FamilyName": "Williams", 
-      "PrimaryPhone": {
-        "FreeFormNumber": "(650) 555-7745"
-      }, 
-      "AcctNum": "1345", 
-      "CompanyName": "Books by Bessie", 
-      "WebAddr": {
-        "URI": "http://www.booksbybessie.co"
-      }, 
-      "sparse": false, 
-      "Active": true, 
-      "Balance": 0, 
-      "MetaData": {
-        "CreateTime": "2014-09-12T10:07:56-07:00", 
-        "LastUpdatedTime": "2014-09-17T11:13:46-07:00"
+      Vendor1099: false,
+      domain: "QBO",
+      GivenName: "Bessie",
+      BillAddr: {
+        City: "Palo Alto",
+        Line1: "15 Main St.",
+        PostalCode: "94303",
+        Lat: "37.445013",
+        Long: "-122.1391443",
+        CountrySubDivisionCode: "CA",
+        Id: "31"
+      },
+      SyncToken: "0",
+      PrintOnCheckName: "Books by Bessie",
+      FamilyName: "Williams",
+      PrimaryPhone: {
+        FreeFormNumber: "(650) 555-7745"
+      },
+      AcctNum: "1345",
+      CompanyName: "Books by Bessie",
+      WebAddr: {
+        URI: "http://www.booksbybessie.co"
+      },
+      sparse: false,
+      Active: true,
+      Balance: 0,
+      MetaData: {
+        CreateTime: "2014-09-12T10:07:56-07:00",
+        LastUpdatedTime: "2014-09-17T11:13:46-07:00"
       }
     }
-  }
+  end
 
   let(:required_params)     { display_name }
   let(:optional_params)     { customer }
@@ -60,7 +63,7 @@ RSpec.describe Qbo::Vendors::VendorContract do
 
     context "with optional parameters only" do
       it { expect(subject.call(optional_params).success?).to be_falsey }
-      it { expect(subject.call(optional_params).error?(:"DisplayName")).to be_truthy }
+      it { expect(subject.call(optional_params).error?(:DisplayName)).to be_truthy }
     end
   end
 
