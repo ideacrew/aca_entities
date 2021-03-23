@@ -1,9 +1,11 @@
 # frozen_string_literal: true
 
-module Iap
-  class Family < Dry::Struct
+module AcaEntities
+  module Iap
+    class Family < Dry::Struct
 
-    attribute :applications, Types::Array.of(Iap::Application).meta(omittable: true)
+      attribute :applications, Types::Array.of(Iap::Application).meta(omittable: true)
 
+    end
   end
 end

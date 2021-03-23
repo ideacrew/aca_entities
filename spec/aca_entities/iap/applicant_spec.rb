@@ -5,7 +5,7 @@ require 'aca_entities/applicant_role'
 require 'aca_entities/vlp_document'
 require 'aca_entities/iap/applicant'
 
-RSpec.describe ::Iap::Applicant, dbclean: :after_each do
+RSpec.describe AcaEntities::Iap::Applicant, dbclean: :after_each do
   let(:required_params) do
     { first_name: 'ivl40', last_name: '41',
       dob: Date.today.prev_year, gender: 'male',

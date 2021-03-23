@@ -1,8 +1,14 @@
-module Google::Maps
-  class Viewport < Dry::Struct
+# frozen_string_literal: true
 
-    attribute :northeast,  Google::Maps::LatLng.meta(omittable: false)
-    attribute :southwest,  Google::Maps::LatLng.meta(omittable: false)
-    
+module AcaEntities
+  module Google
+    module Maps
+      class Viewport < Dry::Struct
+
+        attribute :northeast,  Google::Maps::LatLng.meta(omittable: false)
+        attribute :southwest,  Google::Maps::LatLng.meta(omittable: false)
+
+      end
+    end
   end
 end

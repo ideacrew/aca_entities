@@ -1,18 +1,23 @@
 # frozen_string_literal: true
 
-module Ehs
-  module Applications
-    class ProgramApplicationContract < Ehs::ApplicationContract
+module AcaEntities
+  module Medicaid
+    module Curam
+      module Applications
+        # contract for ProgramApplicationC
+        class ProgramApplicationContract < Curam::ApplicationContract
 
-      params do
-        optional(:source_system_key).maybe(:string)
-        required(:ids).array(:hash)
-        required(:program_type).filled(Ehs::Types::ProgramApplicationTypeKind)
-        required(:type_code).filled(Ehs::Types::ProgramApplicationTypeCodeKind)
-        required(:status).filled(Ehs::Types::ProgramApplicationStatusKind)
-        required(:status_code).filled(Ehs::Types::ProgramApplicationStatusCodeKind)
-        required(:last_updated_at).filled(:date_time)
-        required(:request_date).filled(:date)
+          params do
+            optional(:source_system_key).maybe(:string)
+            required(:ids).array(:hash)
+            required(:program_type).filled(Curam::TypesProgramApplicationTypeKind)
+            required(:type_code).filled(Curam::TypesProgramApplicationTypeCodeKind)
+            required(:status).filled(Curam::TypesProgramApplicationStatusKind)
+            required(:status_code).filled(Curam::TypesProgramApplicationStatusCodeKind)
+            required(:last_updated_at).filled(:date_time)
+            required(:request_date).filled(:date)
+          end
+        end
       end
     end
   end

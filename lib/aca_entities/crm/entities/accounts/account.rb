@@ -5,7 +5,7 @@
 # attribute :division_name,       Types::String.meta(omittable: true)   # HQ, Region, Agency, Department
 # attribute :contacts,            Accounts::AccountContact.optional.meta(omittable: true)
 # attribute :website,             Types::String.meta(omittable: true)
-# attribute :fax,                 CovidMost::Types::PhoneNumber.meta(omittable: true)
+# attribute :fax,                 Crm::Types::PhoneNumber.meta(omittable: true)
 # attribute :addresses,           Types::Array.of(Locations::Address).meta(omittable: true)
 # attribute :facility,            Facilities::Facility.optional.meta(omittable: true)
 # attribute :opportunities,       Accounts::AccountsOpportunities.optional.meta(omittable: true)
@@ -14,8 +14,8 @@
 # Dropped
 
 # attribute :lead,                Leads::Lead.optional.meta(omittable: true)
-# attribute :mobile,              CovidMost::Types::PhoneNumber.meta(omittable: true)
-# attribute :alt_email,           CovidMost::Types::Email.meta(omittable: true)
+# attribute :mobile,              Crm::Types::PhoneNumber.meta(omittable: true)
+# attribute :alt_email,           Crm::Types::Email.meta(omittable: true)
 # attribute :date_of_birth,       Types::Date.meta(omittable: true)
 # attribute :title,               Types::String.meta(omittable: true)
 # attribute :department,          Types::String.meta(omittable: true)
@@ -25,6 +25,7 @@
 module AcaEntities
   module Crm
     module Accounts
+      # entity for crm accounts
       class Account < Dry::Struct
         attribute :user, Users::User.optional.meta(omittable: true)
         attribute :assigned_to, Users::User.optional.meta(omittable: true)
@@ -39,24 +40,18 @@ module AcaEntities
         attribute :name, Types::Strict::String.meta(omittable: false)
         attribute :division_name, Types::String.meta(omittable: true) # HQ, Region, Agency, Department
         attribute :division_kind, Types::String.meta(omittable: true) # HQ, Region, Agency, Department
-        attribute :managing_division,
-                  Accounts::Account.optional.meta(omittable: true)
+        attribute :managing_division, Accounts::Account.optional.meta(omittable: true)
 
-        # TODO:
         # attribute :divisions,           Types::Array.of(Accounts::Account).optional.meta(omittable: true)
-
-        # TODO:
         # attribute :contacts,            Types::Array.of(Accounts::AccountContracts).optional.meta(omittable: true)
-        attribute :opportunities,
-                  Accounts::AccountsOpportunities.optional.meta(omittable: true)
+        # attribute :opportunities, Accounts::AccountsOpportunities.optional.meta(omittable: true)
 
-        attribute :facility, Facilities::Facility.optional.meta(omittable: true)
+        # attribute :facility, Facilities::Facility.optional.meta(omittable: true)
 
-        attribute :addresses,
-                  Types::Array.of(Locations::Address).meta(omittable: true)
-        attribute :email, CovidMost::Types::Email.meta(omittable: true)
-        attribute :phone, CovidMost::Types::PhoneNumber.meta(omittable: true)
-        attribute :fax, CovidMost::Types::PhoneNumber.meta(omittable: true)
+        attribute :addresses, Types::Array.of(AcaEntities::Locations::Address).meta(omittable: true)
+        attribute :email, Crm::Types::Email.meta(omittable: true)
+        attribute :phone, Crm::Types::PhoneNumber.meta(omittable: true)
+        attribute :fax, Crm::Types::PhoneNumber.meta(omittable: true)
 
         attribute :website, Types::String.meta(omittable: true)
         attribute :linkedin, Types::String.meta(omittable: true)
@@ -64,10 +59,8 @@ module AcaEntities
         attribute :twitter, Types::String.meta(omittable: true)
         attribute :category, Types::String.meta(omittable: true)
 
-        attribute :contacts_count,
-                  Types::Coercible::Integer.meta(omittable: false)
-        attribute :opportunities_count,
-                  Types::Coercible::Integer.meta(omittable: false)
+        attribute :contacts_count, Types::Coercible::Integer.meta(omittable: false)
+        attribute :opportunities_count, Types::Coercible::Integer.meta(omittable: false)
 
         attribute :background_info, Types::String.meta(omittable: true)
 

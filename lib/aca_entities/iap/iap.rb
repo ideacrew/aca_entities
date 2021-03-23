@@ -17,5 +17,8 @@ require_relative 'applicant'
 require_relative 'contracts/application_contract'
 require_relative 'contracts/benefit_contract'
 
-# Behaviour for Individual Applications.
-module Iap; end
+module AcaEntities
+  # Behaviour for Individual Applications.
+  module Iap
+  end
+end
