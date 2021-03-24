@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require 'aca_entities/magi_medicaid/email'
+require 'aca_entities/magi_medicaid/native_american_information'
 
-RSpec.describe ::AcaEntities::MagiMedicaid::Email, dbclean: :after_each do
+RSpec.describe ::AcaEntities::MagiMedicaid::NativeAmericanInformation, dbclean: :after_each do
 
   describe 'with valid arguments' do
     let(:input_params) do
-      { kind: 'home', address: 'yy@ll.com' }
+      { indian_tribe_member: false }
     end
 
     it 'should initialize' do
@@ -21,7 +21,8 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Email, dbclean: :after_each do
 
   describe 'with invalid arguments' do
     it 'should raise error' do
-      expect { described_class.new(kind: 100) }.to raise_error(Dry::Struct::Error, /invalid type for :kind violates constraints/)
+      msg = /invalid type for :indian_tribe_member violates constraints/
+      expect { described_class.new(indian_tribe_member: 'Test') }.to raise_error(Dry::Struct::Error, msg)
     end
   end
 end

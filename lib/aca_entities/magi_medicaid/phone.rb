@@ -10,6 +10,8 @@ module AcaEntities
       attribute :extension, Types::String.optional.meta(omittable: true)
       attribute :primary, Types::Strict::Bool.meta(omittable: true)
       attribute :full_phone_number, Types::String.optional
+      attribute :start_on, Types::Date.optional.meta(omittable: true)
+      attribute :end_on, Types::Date.optional.meta(omittable: true)
     end
   end
 end

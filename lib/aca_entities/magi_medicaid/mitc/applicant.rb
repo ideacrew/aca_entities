@@ -13,7 +13,7 @@ module AcaEntities
         # @!attribute [r] medicaid_household
         # A hash representing the household composition and MAGI determination.
         # @return [Hash]
-        attribute :medicaid_household,   Household.meta(omitttable: false)
+        attribute :medicaid_household,   MedicaidHousehold.meta(omitttable: false)
 
         # @!attribute [r] is_medicaid_eligible
         # Is this person Medicaid eligible?

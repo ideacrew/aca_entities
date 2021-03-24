@@ -1694,6 +1694,41 @@ module AcaEntities
       'Alimony',
       'StudentLoanInterest'
     )
+
+    MarketPlaceKinds = Types::Coercible::String.enum(
+      'aca_individual',
+      'aca_shop',
+      'aca_congress',
+      'individual',
+      'cover_all',
+      'group',
+      'fehb',
+      'medicaid'
+    )
+
+    ProductKinds = Types::Coercible::String.enum(
+      'health_catastrophic',
+      'health',
+      'dental',
+      'life',
+      'short_term_disability',
+      'long_term_disability',
+      'annuities',
+      'chip',
+      'snap',
+      'tanf'
+    )
+
+    ProductsByMarketPlaceKind = {
+      aca_individual: ['health_catastrophic', 'health', 'dental'],
+      aca_shop: ['health', 'dental'],
+      aca_congress: ['health', 'dental'],
+      individual: ['health', 'dental'],
+      cover_all: ['health', 'dental'],
+      group: ['health', 'dental', 'life', 'short_term_disability', 'long_term_disability', 'annuities'],
+      fehb: ['health', 'dental'],
+      medicaid: ['chip', 'snap', 'tanf']
+    }.freeze
   end
   # rubocop:enable Metrics/ModuleLength
 end

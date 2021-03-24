@@ -27,9 +27,9 @@ module Iap
 
     attribute :relationships,   Types::Array.of(Iap::Relationship).optional.meta(omittable: true)
 
-    attribute :incomes,         Types::Array.of(Iap::Income).optional.meta(omittable: true)
-    attribute :benefits,        Types::Array.of(Iap::Benefit).optional.meta(omittable: true)
-    attribute :deductions,      Types::Array.of(Iap::Deduction).optional.meta(omittable: true)
-    attribute :verifications,   Types::Array.of(Iap::Verification).optional.meta(omittable: true)
+    # attribute :incomes,         Types::Array.of(Iap::Income).optional.meta(omittable: true)
+    # attribute :benefits,        Types::Array.of(Iap::Benefit).optional.meta(omittable: true)
+    # attribute :deductions,      Types::Array.of(Iap::Deduction).optional.meta(omittable: true)
+    # attribute :verifications,   Types::Array.of(Iap::Verification).optional.meta(omittable: true)
   end
 end

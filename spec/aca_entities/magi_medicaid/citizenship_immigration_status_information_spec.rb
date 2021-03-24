@@ -1,23 +1,13 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require 'aca_entities/magi_medicaid/address'
+require 'aca_entities/magi_medicaid/citizenship_immigration_status_information'
 
-RSpec.describe ::AcaEntities::MagiMedicaid::Address, dbclean: :after_each do
+RSpec.describe ::AcaEntities::MagiMedicaid::CitizenshipImmigrationStatusInformation, dbclean: :after_each do
 
   describe 'with valid arguments' do
     let(:input_params) do
-      {
-        kind: 'home',
-        address_1: '123',
-        address_2: '',
-        address_3: '',
-        city: 'was',
-        county: '',
-        state: 'DC',
-        zip: '12321',
-        country_name: ''
-      }
+      { citizen_status: 'us_citizen' }
     end
 
     it 'should initialize' do
@@ -31,7 +21,7 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Address, dbclean: :after_each do
 
   describe 'with invalid arguments' do
     it 'should raise error' do
-      expect { subject }.to raise_error(Dry::Struct::Error, /:kind is missing in Hash input/)
+      expect { subject }.to raise_error(Dry::Struct::Error, /:citizen_status is missing/)
     end
   end
 end

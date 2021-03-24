@@ -2,57 +2,66 @@
 
 module AcaEntities
   module MagiMedicaid
+    # Cv3 IAP Entity for Applicant.
     class Applicant < Dry::Struct
-      attribute :name_pfx, Types::String.optional.meta(omittable: true)
-      attribute :first_name, Types::String.optional
-      attribute :middle_name, Types::String.optional.meta(omittable: true)
-      attribute :last_name, Types::String.optional
-      attribute :name_sfx, Types::String.optional.meta(omittable: true)
-      attribute :ssn, Types::String.optional
-      attribute :gender, Types::String.optional
-      attribute :dob, Types::Date.optional
-      attribute :is_primary_applicant, Types::Strict::Bool.meta(omittable: true)
-      attribute :family_member_id, Types::String.optional.meta(omittable: true)
-      attribute :person_hbx_id, Types::String.optional.meta(omittable: true)
-      attribute :is_incarcerated, Types::Strict::Bool.optional.meta(omittable: true)
-      attribute :is_disabled, Types::Strict::Bool.meta(omittable: true)
-      attribute :ethnicity, Types::Array.optional.meta(omittable: true)
-      attribute :race, Types::String.optional.meta(omittable: true)
-      attribute :indian_tribe_member, Types::Bool.optional.meta(omittable: true)
-      attribute :tribal_id, Types::String.optional.meta(omittable: true)
+      # All common entities across all the subs lives at aca_entities level just like address.
+      attribute :name, AcaEntities::PersonName.meta(omittable: false)
+      attribute :identifying_information, IdentifyingInformation.meta(omittable: false)
+      attribute :demographic, Demographic.meta(omittable: false)
+      attribute :attestation, Attestation.optional.meta(omittable: true)
+      attribute :is_primary_applicant, Types::Bool.meta(omittable: false)
+      attribute :native_american_information, NativeAmericanInformation.optional.meta(omittable: true)
 
-      attribute :language_code, Types::String.optional.meta(omittable: true)
-      attribute :no_dc_address, Types::Strict::Bool.meta(omittable: true)
-      attribute :is_homeless, Types::Strict::Bool.meta(omittable: true)
-      attribute :is_temporarily_out_of_state, Types::Strict::Bool.meta(omittable: true)
+      attribute :citizenship_immigration_status_information, CitizenshipImmigrationStatusInformation.meta(omittable: false)
 
-      attribute :no_ssn, Types::String.optional.meta(omittable: true)
-      attribute :citizen_status, Types::String.optional
-      attribute :is_consumer_role, Types::Strict::Bool
-      attribute :is_resident_role, Types::Strict::Bool.meta(omittable: true)
-      attribute :vlp_document_id, Types::String.optional.meta(omittable: true)
-      attribute :same_with_primary, Types::Bool.optional.meta(omittable: true)
-      attribute :is_applying_coverage, Types::Strict::Bool
+      attribute :is_consumer_role, Types::Bool.optional.meta(omittable: true)
+      attribute :is_resident_role, Types::Bool.optional.meta(omittable: true)
+      attribute :is_applying_coverage, Types::Bool.optional.meta(omittable: true)
+      attribute :is_consent_applicant, Types::Bool.optional.meta(omittable: true)
+      attribute :vlp_document, VlpDocument.optional.meta(omittable: true)
+      attribute :person_hbx_id, Types::String.meta(omittable: false)
 
-      attribute :vlp_subject, Types::String.optional.meta(omittable: true)
-      attribute :vlp_description, Types::String.optional.meta(omittable: true)
-      attribute :alien_number, Types::String.optional.meta(omittable: true)
-      attribute :i94_number, Types::String.optional.meta(omittable: true)
-      attribute :visa_number, Types::String.optional.meta(omittable: true)
-      attribute :passport_number, Types::String.optional.meta(omittable: true)
-      attribute :sevis_id, Types::String.optional.meta(omittable: true)
-      attribute :naturalization_number, Types::String.optional.meta(omittable: true)
-      attribute :receipt_number, Types::String.optional.meta(omittable: true)
-      attribute :citizenship_number, Types::String.optional.meta(omittable: true)
-      attribute :card_number, Types::String.optional.meta(omittable: true)
-      attribute :country_of_citizenship, Types::String.optional.meta(omittable: true)
-      attribute :expiration_date, Types::Date.optional.meta(omittable: true)
-      attribute :issuing_country, Types::String.optional.meta(omittable: true)
-      attribute :relationship, Types::String.optional.meta(omittable: true)
+      attribute :is_required_to_file_taxes, Types::Bool.optional.meta(omittable: true)
+      attribute :tax_filer_kind, Types::String.optional.meta(omittable: true)
+      attribute :is_joint_tax_filing, Types::Bool.optional.meta(omittable: true)
+      attribute :is_claimed_as_tax_dependent, Types::Bool.optional.meta(omittable: true)
+      attribute :claimed_as_tax_dependent_by, Types::String.optional.meta(omittable: true)
 
-      attribute :addresses, Types::Array.of(Address)
-      attribute :emails, Types::Array.of(Email)
-      attribute :phones, Types::Array.of(Phone)
+      attribute :student, Student.optional.meta(omittable: true)
+      attribute :is_refugee, Types::Bool.optional.meta(omittable: true)
+      attribute :is_trafficking_victim, Types::Bool.optional.meta(omittable: true)
+      attribute :foster_care, FosterCare.optional.meta(omittable: true)
+      attribute :pregnancy_information, PregnancyInformation.optional.meta(omittable: true)
+
+      # TODO: do we want to move these anywhere?
+      attribute :is_subject_to_five_year_bar, Types::Bool.optional.meta(omittable: true)
+      attribute :is_five_year_bar_met, Types::Bool.optional.meta(omittable: true)
+      attribute :is_forty_quarters, Types::Bool.optional.meta(omittable: true)
+      attribute :is_ssn_applied, Types::Bool.optional.meta(omittable: true)
+      attribute :non_ssn_apply_reason, Types::String.optional.meta(omittable: true)
+      # 5 Yr. Bar QNs.
+      attribute :moved_on_or_after_welfare_reformed_law, Types::Bool.optional.meta(omittable: true)
+      attribute :is_currently_enrolled_in_health_plan, Types::Bool.optional.meta(omittable: true)
+
+      # Other QNs.
+      attribute :has_daily_living_help, Types::Bool.optional.meta(omittable: true)
+      attribute :need_help_paying_bills, Types::Bool.optional.meta(omittable: true)
+
+      # Driver QNs.
+      attribute :has_job_income, Types::Bool.optional.meta(omittable: true)
+      attribute :has_self_employment_income, Types::Bool.optional.meta(omittable: true)
+      attribute :has_other_income, Types::Bool.optional.meta(omittable: true)
+      attribute :has_deductions, Types::Bool.optional.meta(omittable: true)
+      attribute :has_enrolled_health_coverage, Types::Bool.optional.meta(omittable: true)
+      attribute :has_eligible_health_coverage, Types::Bool.optional.meta(omittable: true)
+
+      attribute :addresses, Types::Array.of(AcaEntities::Address).optional.meta(omittable: true)
+      attribute :emails, Types::Array.of(Email).optional.meta(omittable: true)
+      attribute :phones, Types::Array.of(Phone).optional.meta(omittable: true)
+
+      attribute :incomes,         Types::Array.of(Income).optional.meta(omittable: true)
+      attribute :benefits,        Types::Array.of(Benefit).optional.meta(omittable: true)
+      attribute :deductions,      Types::Array.of(Deduction).optional.meta(omittable: true)
     end
   end
 end

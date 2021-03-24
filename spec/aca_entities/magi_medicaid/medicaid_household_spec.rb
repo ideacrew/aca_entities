@@ -1,13 +1,14 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require 'aca_entities/magi_medicaid/email'
+require 'aca_entities/magi_medicaid/person_reference'
+require 'aca_entities/magi_medicaid/medicaid_household'
 
-RSpec.describe ::AcaEntities::MagiMedicaid::Email, dbclean: :after_each do
+RSpec.describe ::AcaEntities::MagiMedicaid::MedicaidHousehold, dbclean: :after_each do
 
   describe 'with valid arguments' do
     let(:input_params) do
-      { kind: 'home', address: 'yy@ll.com' }
+      { people: [{ person_id: 100 }], magi_income: 10_000, size: 1 }
     end
 
     it 'should initialize' do
@@ -21,7 +22,7 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Email, dbclean: :after_each do
 
   describe 'with invalid arguments' do
     it 'should raise error' do
-      expect { described_class.new(kind: 100) }.to raise_error(Dry::Struct::Error, /invalid type for :kind violates constraints/)
+      expect { subject }.to raise_error(Dry::Struct::Error, /:people is missing/)
     end
   end
 end

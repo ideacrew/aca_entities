@@ -25,5 +25,10 @@ module AcaEntities
 
     # Indicates whether the address information has been validated with the USPS.
     attribute :validation_status, Types::String.optional.meta(omittable: true)
+
+    attribute :start_on, Types::Date.optional.meta(omittable: true)
+    attribute :end_on, Types::Date.optional.meta(omittable: true)
+
+    attribute :lives_outside_state_temporarily, Types::Bool.optional.meta(omittable: true)
   end
 end

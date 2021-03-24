@@ -22,8 +22,8 @@ RSpec.describe ::Iap::Applicant, dbclean: :after_each do
                   city: 'was', county: '', state: 'DC', zip: '12321', country_name: '',
                   has_fixed_address: true],
       age_of_applicant: 25, person_hbx_id: '100', vlp_subject: 'I-327 (Reentry Permit)',
-      expiration_date: Date.today.next_year, vlp_description: '', is_student: false,
-      relationships: [], incomes: [], benefits: [], deductions: [], verifications: [] }
+      expiration_date: Date.today.next_year, vlp_description: '', is_student: false }
+    # relationships: [], incomes: [], benefits: [], deductions: [], verifications: [] }
   end
 
   let(:all_params) { required_params.merge(optional_params) }

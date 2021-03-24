@@ -7,12 +7,12 @@ require 'aca_entities/magi_medicaid/mitc/category_determination'
 require 'aca_entities/magi_medicaid/mitc/deprived_child'
 require 'aca_entities/magi_medicaid/mitc/qualified_child'
 require 'aca_entities/magi_medicaid/mitc/person_reference'
-require 'aca_entities/magi_medicaid/mitc/household'
+require 'aca_entities/magi_medicaid/mitc/medicaid_household'
 require 'aca_entities/magi_medicaid/mitc/applicant'
 
 RSpec.describe ::AcaEntities::MagiMedicaid::Mitc::Applicant do
   describe 'with valid arguments' do
-    let(:medicaid_household_params) { { household_id: '1000', people: [{ person_id: 100 }] } }
+    let(:medicaid_household_params) { { people: [{ person_id: 100 }], magi_income: 1000, size: 1 } }
     let(:category_determination_params) do
       { indicator_code: 'Y',
         ineligibility_code: 123,

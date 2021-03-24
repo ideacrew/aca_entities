@@ -11,6 +11,8 @@ module AcaEntities
         attribute :last_name, Types::String
         attribute :name_sfx, Types::String.optional.meta(omittable: true)
         attribute :name_pfx, Types::String.optional.meta(omittable: true)
+        attribute :start_on, Types::Date.optional.meta(omittable: true)
+        attribute :end_on, Types::Date.optional.meta(omittable: true)
       end
     end
   end
