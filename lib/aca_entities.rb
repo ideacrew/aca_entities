@@ -11,6 +11,8 @@ require 'aca_entities/types'
 require 'aca_entities/version'
 require 'aca_entities/error'
 
+require 'aca_entities/operations/operation'
+
 require 'aca_entities/address'
 
 # TODO: We want these to be selectively included at run time
@@ -23,5 +25,4 @@ require 'aca_entities/shop_market'
 # AcaEntities provides a shared interface for the serialization and deserialization
 # of shared ACA entities across applications.
 module AcaEntities
-
 end

@@ -12,6 +12,8 @@ GEM
   remote: https://rubygems.org/
   specs:
     ast (2.4.2)
+    byebug (11.1.3)
+    coderay (1.1.3)
     concurrent-ruby (1.1.8)
     diff-lcs (1.4.4)
     dry-configurable (0.12.1)
@@ -58,9 +60,16 @@ GEM
       dry-initializer (~> 3.0)
       dry-schema (~> 1.5, >= 1.5.2)
     ice_nine (0.11.2)
+    method_source (1.0.0)
     parallel (1.20.1)
     parser (3.0.0.0)
       ast (~> 2.4.1)
+    pry (0.13.1)
+      coderay (~> 1.1)
+      method_source (~> 1.0)
+    pry-byebug (3.9.0)
+      byebug (~> 11.0)
+      pry (~> 0.13.0)
     rainbow (3.0.0)
     rake (12.3.3)
     regexp_parser (2.1.1)
@@ -99,10 +108,11 @@ PLATFORMS
 
 DEPENDENCIES
   aca_entities!
+  pry-byebug
   rake (~> 12.0)
   rspec (~> 3.0)
   rubocop
   yard
 
 BUNDLED WITH
-   2.2.3
+   2.2.14
