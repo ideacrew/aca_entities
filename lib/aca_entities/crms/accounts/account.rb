@@ -40,7 +40,8 @@ module AcaEntities
         attribute :name, Types::Strict::String.meta(omittable: false)
         attribute :division_name, Types::String.meta(omittable: true) # HQ, Region, Agency, Department
         attribute :division_kind, Types::String.meta(omittable: true) # HQ, Region, Agency, Department
-        attribute :managing_division, Accounts::Account.optional.meta(omittable: true)
+        attribute :managing_division,
+                  Accounts::Account.optional.meta(omittable: true)
 
         # attribute :divisions,           Types::Array.of(Accounts::Account).optional.meta(omittable: true)
         # attribute :contacts,            Types::Array.of(Accounts::AccountContracts).optional.meta(omittable: true)
@@ -48,7 +49,10 @@ module AcaEntities
 
         # attribute :facility, Facilities::Facility.optional.meta(omittable: true)
 
-        attribute :addresses, Types::Array.of(AcaEntities::Locations::Address).meta(omittable: true)
+        attribute :addresses,
+                  Types::Array
+                    .of(AcaEntities::Locations::Address)
+                    .meta(omittable: true)
         attribute :email, Crm::Types::Email.meta(omittable: true)
         attribute :phone, Crm::Types::PhoneNumber.meta(omittable: true)
         attribute :fax, Crm::Types::PhoneNumber.meta(omittable: true)
@@ -59,8 +63,10 @@ module AcaEntities
         attribute :twitter, Types::String.meta(omittable: true)
         attribute :category, Types::String.meta(omittable: true)
 
-        attribute :contacts_count, Types::Coercible::Integer.meta(omittable: false)
-        attribute :opportunities_count, Types::Coercible::Integer.meta(omittable: false)
+        attribute :contacts_count,
+                  Types::Coercible::Integer.meta(omittable: false)
+        attribute :opportunities_count,
+                  Types::Coercible::Integer.meta(omittable: false)
 
         attribute :background_info, Types::String.meta(omittable: true)
 

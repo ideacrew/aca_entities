@@ -3,6 +3,7 @@
 module AcaEntities
   module Crms
     module Contacts
+      # Domain entity for CRM Contract Entity
       class Contact < Dry::Struct
         attribute :id, Types::Coercible::Integer.optional.meta(omittable: true)
         attribute :user_id,

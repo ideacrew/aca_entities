@@ -37,9 +37,9 @@ channels:
       message:
         $ref: "#/components/messages/crms_contacts_contact_created_event"
         tags:
-          - name: user
-          - name: signup
-          - name: register
+          - name: crm
+          - name: contact
+          - name: create
         headers:
           type: object
           properties:

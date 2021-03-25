@@ -8,7 +8,7 @@ module AcaEntities
     class Serialize
       send(:include, Dry::Monads[:result, :do])
 
-      # @param [Hash] params to be transformed into YAML String
+      # @param [Hash] Key/value pairs to transformed into YAML String
       # @return [Dry:Monad] passed params in YAML format
       def call(params)
         values = yield transform(params)

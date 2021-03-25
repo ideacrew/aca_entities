@@ -2,7 +2,16 @@
 
 module Crms
   module Accounts
+    # Schema and validation rules for the {Crms::Accounts::Account} entity
     class AccountContract < ApplicationContract
+      # @!method call(opts)
+      # @param [Hash] opts the parameters to validate using this contract
+      # @option opts [String] :name required
+      # @option opts [Integer] :contacts_count required
+      # @option opts [Integer] :opportunities_count required
+      # @option opts [String] :report_to_account optional
+      # @return [Dry::Monads::Result] result
+
       params do
         required(:name).filled(:string)
         required(:contacts_count).filled(:integer)
