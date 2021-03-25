@@ -11,7 +11,6 @@ module AcaEntities
       attribute :attestation, Attestation.optional.meta(omittable: true)
       attribute :is_primary_applicant, Types::Bool.meta(omittable: false)
       attribute :native_american_information, NativeAmericanInformation.optional.meta(omittable: true)
-
       attribute :citizenship_immigration_status_information, CitizenshipImmigrationStatusInformation.meta(omittable: false)
 
       attribute :is_consumer_role, Types::Bool.optional.meta(omittable: true)

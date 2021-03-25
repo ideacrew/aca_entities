@@ -77,6 +77,22 @@ module AcaEntities
         'income_from_irs'
       )
 
+      DeductionKind = Types::Coercible::String.enum(
+        'alimony_paid',
+        'deductable_part_of_self_employment_taxes',
+        'domestic_production_activities',
+        'penalty_on_early_withdrawal_of_savings',
+        'educator_expenses',
+        'self_employment_sep_simple_and_qualified_plans',
+        'self_employed_health_insurance',
+        'student_loan_interest',
+        'moving_expenses',
+        'health_savings_account',
+        'ira_deduction',
+        'reservists_performing_artists_and_fee_basis_government_official_expenses',
+        'tuition_and_fees'
+      )
+
       IncomeValidationStateKind   = Types::Coercible::String.enum('na', 'valid', 'outstanding', 'pending')
       MecValidationStateKind      = Types::Coercible::String.enum('na', 'valid', 'outstanding', 'pending')
       NaturalizationDocumentKind  = Types::Coercible::String.enum('Certificate of Citizenship',
@@ -191,6 +207,7 @@ module AcaEntities
       )
 
       DeductionFrequency = IncomeFrequency
+      EmployeeCostFrequency = IncomeFrequency
 
       VerificationStatusCode = Types::Coercible::String.enum(
         'FFEVerificationCode', 'AddressVerificationCode', 'DHS-G845VerificationCode', 'DHS-SAVEVerificationCode'

@@ -5,26 +5,16 @@ module AcaEntities
     # Entity for Deduction.
     class Deduction < Dry::Struct
 
-      # field :title
-      # field :kind
-      # field :amount
-      # field :start_on
-      # field :end_on
-      # field :frequency_kind
-      # field :submitted_at
-      # field :workflow
-
       # title
-      attribute :name,            Types::String.meta(omittable: false)
-      attribute :kind,            Types::String.meta(omittable: false)
-      attribute :amount,          Types::Decimal.meta(omittable: false)
-      attribute :start_on,        Types::Date.meta(omittable: false)
-      attribute :end_on,          Types::Date.meta(omittable: false)
-      attribute :frequency_kind,  Types::String.meta(omittable: false)
-      attribute :submitted_at,    Types::DateTime.meta(omittable: false)
+      attribute :name,            Types::String.optional.meta(omittable: true)
+      attribute :kind,            Types::DeductionKind.optional.meta(omittable: true)
+      attribute :amount,          Types::Float.optional.meta(omittable: true)
+      attribute :start_on,        Types::Date.optional.meta(omittable: true)
+      attribute :end_on,          Types::Date.optional.meta(omittable: true)
+      attribute :frequency_kind,  Types::DeductionFrequency.optional.meta(omittable: true)
+      attribute :submitted_at,    Types::DateTime.optional.meta(omittable: true)
 
-      attribute :workflow,        Iap::Workflow.meta(omittable: false)
-
+      # attribute :workflow,        Iap::Workflow.meta(omittable: false)
     end
   end
 end
