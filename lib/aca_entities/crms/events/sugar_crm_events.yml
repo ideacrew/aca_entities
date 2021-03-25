@@ -1,0 +1,60 @@
+---
+asyncapi: 2.0.0
+info:
+  title: SugarCRM Gateway Adapter Service
+  version: 0.1.0
+  description: This service provides accesss to SugarCRM Customer Relationship Mangement systems
+channels:
+  crm.contact_created:
+    subscribe:
+      operationId: on_crm_contacts_contact_created
+      summary: CRM Contact Created
+      message:
+        $ref: "#/components/messages/crm_contacts_contact_created_event"
+  crm.sugar_crm.contacts.contact_created:
+    publish:
+      operationId: on_crm_sugarcrm_contacts_contact_created
+      summary: SugarCRM Contact Created
+      message:
+        $ref: "#/components/messages/crm_sugar_crm_contacts_contact_created_event"
+        payload:
+          type: object
+    subscribe:
+      operationId: crm_sugarcrm_contacts_contact_created
+      summary: SugarCRM Contact Created
+      message:
+        $ref: "#/components/messages/crm_sugar_crm_contacts_contact_created_event"
+        payload:
+          type: object
+components:
+  messages:
+    crm_contacts_contact_created_event:
+      title: CRM Contact created event
+      summary: Inform about a new Account registration in the system
+      contentType: application/json
+      payload:
+        $ref: "#/components/schemas/crm_contacts_contact_created_payload"
+    crm_sugar_crm_contacts_contact_created_event:
+      title: SugarCRM Contact created event
+      summary: Inform about a new Contact registration in the system
+      contentType: application/json
+      payload:
+        $ref: "#/components/schemas/crm_contacts_contact_created_payload"
+  schemas:
+    crm_contacts_contact_created_payload:
+      type: object
+      properties:
+        firstName:
+          type: string
+          description: "foo"
+        lastName:
+          type: string
+          description: "bar"
+        email:
+          type: string
+          format: email
+          description: "baz"
+        createdAt:
+          type: string
+          format: date-time
+          description: "foo"

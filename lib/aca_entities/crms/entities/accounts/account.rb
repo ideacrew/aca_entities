@@ -23,7 +23,7 @@
 # attribute :do_not_call,         Types::Bool.meta(omittable: true)
 
 module AcaEntities
-  module Crm
+  module Crms
     module Accounts
       class Account < Dry::Struct
         attribute :user, Users::User.optional.meta(omittable: true)
