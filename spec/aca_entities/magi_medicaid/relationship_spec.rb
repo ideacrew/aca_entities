@@ -1,17 +1,31 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
+require 'aca_entities/magi_medicaid/types'
+require 'aca_entities/magi_medicaid/applicant_reference'
 require 'aca_entities/magi_medicaid/relationship'
 
 RSpec.describe ::AcaEntities::MagiMedicaid::Relationship, dbclean: :after_each do
 
   describe 'with valid arguments' do
+    let(:applicant) do
+      { first_name: 'First Test',
+        last_name: 'Last Test',
+        dob: Date.today.prev_year,
+        person_hbx_id: '1000' }
+    end
+
+    let(:relative) do
+      { first_name: 'Second Test',
+        last_name: 'Last Test',
+        dob: Date.today.prev_year,
+        person_hbx_id: '1001' }
+    end
+
     let(:input_params) do
-      {
-        kind: 'spouse',
-        applicant_id: '100',
-        relative_id: '101'
-      }
+      { kind: 'spouse',
+        applicant: applicant,
+        relative: relative }
     end
 
     it 'should initialize' do
@@ -25,7 +39,7 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Relationship, dbclean: :after_each d
 
   describe 'with invalid arguments' do
     it 'should raise error' do
-      expect { subject }.to raise_error(Dry::Struct::Error, /:kind is missing in Hash input/)
+      expect { subject }.to raise_error(Dry::Struct::Error, /:first_name is missing in Hash input/)
     end
   end
 end

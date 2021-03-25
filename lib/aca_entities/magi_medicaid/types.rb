@@ -299,6 +299,19 @@ module AcaEntities
         'Yes',
         'No'
       )
+
+      RelationshipKind = Types::Coercible::String.enum(
+        'spouse',
+        'domestic_partner',
+        'child',
+        'parent',
+        'sibling',
+        'unrelated',
+        'aunt_or_uncle',
+        'nephew_or_niece',
+        'grandchild',
+        'grandparent'
+      )
     end
     # rubocop:enable Metrics/ModuleLength
   end
