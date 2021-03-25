@@ -2,6 +2,8 @@
 
 require 'spec_helper'
 require 'aca_entities/person_name'
+require 'aca_entities/magi_medicaid/types'
+require 'aca_entities/magi_medicaid/employer'
 require 'aca_entities/magi_medicaid/identifying_information'
 require 'aca_entities/magi_medicaid/demographic'
 require 'aca_entities/magi_medicaid/attestation'
