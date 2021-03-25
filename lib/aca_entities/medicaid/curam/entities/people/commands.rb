@@ -1,16 +1,23 @@
-module Ehs
-  module People
-    module Commands
-      class CreatePerson < Sequent::Command
-        attrs aggregate_id: String, person: PersonValueObject
+# frozen_string_literal: true
 
-        include ::Ehs::Commands::QuackLikeACreateOperation
-      end
+module AcaEntities
+  module Medicaid
+    module Curam
+      module People
+        module Commands
+          # create person command
+          class CreatePerson < Sequent::Command
+            attrs aggregate_id: String, person: PersonValueObject
 
-      class UpdatePerson < Sequent::Command
-        attrs aggregate_id: String, person: PersonValueObject
+            include ::Curam::Commands::QuackLikeACreateOperation
+          end
 
-        include ::Ehs::Commands::QuackLikeAnOperation
+          class UpdatePerson < Sequent::Command
+            attrs aggregate_id: String, person: PersonValueObject
+
+            include ::Curam::Commands::QuackLikeAnOperation
+          end
+        end
       end
     end
   end

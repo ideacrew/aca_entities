@@ -1,14 +1,21 @@
-module Ehs
-  module People
-    class CommandHandler < Sequent::CommandHandler
+# frozen_string_literal: true
 
-      on Commands::CreatePerson do |command|
-        repository.add_aggregate AggregateRoot.new(command)
-      end
+module AcaEntities
+  module Medicaid
+    module Curam
+      module People
+        # people command handler
+        class CommandHandler < Sequent::CommandHandler
 
-      on Commands::UpdatePerson do |command|
-        do_with_aggregate(command, AggregateRoot) do |aggregate|
-          aggregate.update(command)
+          on Commands::CreatePerson do |command|
+            repository.add_aggregate AggregateRoot.new(command)
+          end
+
+          on Commands::UpdatePerson do |command|
+            do_with_aggregate(command, AggregateRoot) do |aggregate|
+              aggregate.update(command)
+            end
+          end
         end
       end
     end

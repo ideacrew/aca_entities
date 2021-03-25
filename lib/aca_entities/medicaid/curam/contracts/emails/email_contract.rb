@@ -1,11 +1,18 @@
 # frozen_string_literal: true
 
-module Ehs::Emails
-  class EmailContract < Ehs::ApplicationContract
+module AcaEntities
+  module Medicaid
+    module Curam
+      module Emails
+        # contract for curam email
+        class EmailContract < Curam::ApplicationContract
 
-    params do
-      required(:type).filled(Ehs::Types::EmailKind)
-      required(:address).filled(:string)
+          params do
+            required(:type).filled(Curam::TypesEmailKind)
+            required(:address).filled(:string)
+          end
+        end
+      end
     end
   end
 end

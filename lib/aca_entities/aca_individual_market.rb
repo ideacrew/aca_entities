@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 module AcaEntities
-  module AcaIndividualMarket
+  # individual market class
+  class AcaIndividualMarket < Dry::Struct
     # Marketplaces
     # People
     #   PersonName (add time period)

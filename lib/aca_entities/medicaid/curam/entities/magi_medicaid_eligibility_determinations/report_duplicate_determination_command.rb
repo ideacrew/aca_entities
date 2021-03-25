@@ -1,9 +1,16 @@
-module Ehs
-  module MagiMedicaidEligibilityDeterminations
-    class ReportDuplicateDeterminationCommand < Sequent::Command
-      attrs aggregate_id: String, original_determination_aggregate_id: String
+# frozen_string_literal: true
 
-      include Ehs::Commands::QuackLikeAnOperation
+module AcaEntities
+  module Medicaid
+    module Curam
+      module MagiMedicaidEligibilityDeterminations
+        # ReportDuplicateDetermination Command
+        class ReportDuplicateDeterminationCommand < Sequent::Command
+          attrs aggregate_id: String, original_determination_aggregate_id: String
+
+          include Curam::Commands::QuackLikeAnOperation
+        end
+      end
     end
   end
 end

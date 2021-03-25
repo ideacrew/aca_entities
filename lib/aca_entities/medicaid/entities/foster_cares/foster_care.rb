@@ -4,12 +4,12 @@ module AcaEntities
   module Medicaid
     module FosterCares
       # Mongoid persistance model
-      class FosterCareModel
-      end
+      # class FosterCareModel
+      # end
 
       # ActiveRecord persistance model
-      class FosterCareRecord
-      end
+      # class FosterCareRecord
+      # end
 
       # Entity for FosterCare.
       class FosterCare < Dry::Struct

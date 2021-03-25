@@ -1,11 +1,17 @@
-module Google::Maps
+# frozen_string_literal: true
 
-  class GeocodeRequestContract < ApplicationContract
+module AcaEntities
+  module Google
+    module Maps
+      # contract for google maps Geocode request
+      class GeocodeRequestContract < Dry::Validation::Contract
 
-    params do
-      required(:key).filled(:string)
-      required(:address).filled(:string)
+        params do
+          required(:key).filled(:string)
+          required(:address).filled(:string)
+        end
+
+      end
     end
-
   end
 end

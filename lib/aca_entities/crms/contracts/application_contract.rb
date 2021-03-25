@@ -16,46 +16,46 @@ class ApplicationContract < Dry::Validation::Contract
   # Process validation contracts in a standard manner
   # @param evaluator [Dry::Validation::Contract::Evaluator]
 
-    rule(:user, :assigned_to) do
-      if key? && value
-        result = Users::UserContract.new.call(value)
-        key.failure(text: "invalid user", error: result.errors.to_h) if result&.failure?
-      end
+  rule(:user, :assigned_to) do
+    if key? && value
+      result = Users::UserContract.new.call(value)
+      key.failure(text: "invalid user", error: result.errors.to_h) if result&.failure?
     end
+  end
 
-    rule(:subscribed_users).each do  |key, value|
-      if key? && value
-        result = Users::UserContract.new.call(value)
-        key.failure(text: "invalid user", error: result.errors.to_h) if result&.failure?
-      end
+  rule(:subscribed_users).each do  |key, value|
+    if key? && value
+      result = Users::UserContract.new.call(value)
+      key.failure(text: "invalid user", error: result.errors.to_h) if result&.failure?
     end
+  end
 
-    rule(:lead) do
-      if key? && value
-        result = Leads::LeadContract.new.call(value)
-        key.failure(text: "invalid lead", error: result.errors.to_h) if result&.failure?
-      end
+  rule(:lead) do
+    if key? && value
+      result = Leads::LeadContract.new.call(value)
+      key.failure(text: "invalid lead", error: result.errors.to_h) if result&.failure?
     end
+  end
 
-    rule(:contacts).each do |key, value|
-      if key? && value
-        result = Contacts::ContactContract.new.call(value)
-        key.failure(text: "invalid account", error: result.errors.to_h) if result&.failure?
-      end
+  rule(:contacts).each do |key, value|
+    if key? && value
+      result = Contacts::ContactContract.new.call(value)
+      key.failure(text: "invalid account", error: result.errors.to_h) if result&.failure?
     end
+  end
 
-    rule(:opportunities, :contact_opportunities).each do |key, value|
-      if key? && value
-        result = Opportunities::OpportunityContract.new.call(value)
-        key.failure(text: "invalid opportunity", error: result.errors.to_h) if result&.failure?
-      end
+  rule(:opportunities, :contact_opportunities).each do |key, value|
+    if key? && value
+      result = Opportunities::OpportunityContract.new.call(value)
+      key.failure(text: "invalid opportunity", error: result.errors.to_h) if result&.failure?
     end
+  end
 
-    rule(:clinical_monitoring_investigations).each do |key, value|
-      if key? && value
-        result = Investigations::ClinicalDetailedInvestigationContract.new.call(value)
-        key.failure(text: "invalid clinical monitoring investigations", error: result.errors.to_h) if result&.failure?
-      end
+  rule(:clinical_monitoring_investigations).each do |key, value|
+    if key? && value
+      result = Investigations::ClinicalDetailedInvestigationContract.new.call(value)
+      key.failure(text: "invalid clinical monitoring investigations", error: result.errors.to_h) if result&.failure?
     end
-    
+  end
+
 end

@@ -1,10 +1,16 @@
 # frozen_string_literal: true
 
-module Ehs
-  class People::ContactInformation < Dry::Struct
+module AcaEntities
+  module Medicaid
+    module Curam
+      module People
+        class ContactInformation < Dry::Struct
 
-    attribute :addresses, Types::Array.of(Ehs::Addresses::Address).meta(omittable: false)
-    attribute :phones,    Types::Array.of(Ehs::Phones::Phone).meta(omittable: false)
-    attribute :emails,    Types::Array.of(Ehs::Emails::Email).optional.meta(omittable: true)
+          attribute :addresses, Types::Array.of(Curam::Addresses::Address).meta(omittable: false)
+          attribute :phones,    Types::Array.of(Curam::Phones::Phone).meta(omittable: false)
+          attribute :emails,    Types::Array.of(Curam::Emails::Email).optional.meta(omittable: true)
+        end
+      end
+    end
   end
 end
