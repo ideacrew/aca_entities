@@ -2,6 +2,7 @@
 
 module Crms
   module Contacts
+    # contract for crm contact
     class ContactContract < ApplicationContract
       params do
         optional(:identifiers).array(:hash)
@@ -63,27 +64,20 @@ module Crms
       rule(:user, :reporting_user, :assigned_to) do
         if key? && value
           result = Users::UserContract.new.call(value)
-          if result&.failure?
-            key.failure(text: 'invalid user', error: result.errors.to_h)
-          end
+          key.failure(text: 'invalid user', error: result.errors.to_h) if result&.failure?
         end
       end
 
       rule(:subscribed_users).each do |key, value|
-        if key? && value
-          result = Users::UserContract.new.call(value)
-          if result&.failure?
-            key.failure(text: 'invalid user', error: result.errors.to_h)
-          end
-        end
+        next unless key? && value
+        result = Users::UserContract.new.call(value)
+        key.failure(text: 'invalid user', error: result.errors.to_h) if result&.failure?
       end
 
       rule(:account) do
         if key? && value
           result = Accounts::AccountContract.new.call(value)
-          if result&.failure?
-            key.failure(text: 'invalid account', error: result.errors.to_h)
-          end
+          key.failure(text: 'invalid account', error: result.errors.to_h) if result&.failure?
         end
       end
 
@@ -102,76 +96,55 @@ module Crms
       rule(:lead) do
         if key? && value
           result = Leads::LeadContract.new.call(value)
-          if result&.failure?
-            key.failure(text: 'invalid lead', error: result.errors.to_h)
-          end
+          key.failure(text: 'invalid lead', error: result.errors.to_h) if result&.failure?
         end
       end
 
       rule(:campaign) do
         if key? && value
           result = Campaigns::CampaigContract.new.call(value)
-          if result&.failure?
-            key.failure(text: 'invalid campaign', error: result.errors.to_h)
-          end
+          key.failure(text: 'invalid campaign', error: result.errors.to_h) if result&.failure?
         end
       end
 
       rule(:tasks).each do |key, value|
-        if key? && value
-          result = Tasks::TaskContract.new.call(value)
-          if result&.failure?
-            key.failure(text: 'invalid task', error: result.errors.to_h)
-          end
-        end
+        next unless key? && value
+        result = Tasks::TaskContract.new.call(value)
+        key.failure(text: 'invalid task', error: result.errors.to_h) if result&.failure?
       end
 
       rule(:addresses).each do |key, value|
-        if key? && value
-          result = Locations::AddressContract.new.call(value)
-          if result&.failure?
-            key.failure(text: 'invalid address', error: result.errors.to_h)
-          end
-        end
+        next unless key? && value
+        result = Locations::AddressContract.new.call(value)
+        key.failure(text: 'invalid address', error: result.errors.to_h) if result&.failure?
       end
 
       rule(:opportunities, :contact_opportunities).each do |key, value|
-        if key? && value
-          result = Opportunities::OpportunityContract.new.call(value)
-          if result&.failure?
-            key.failure(text: 'invalid opportunity', error: result.errors.to_h)
-          end
-        end
+        next unless key? && value
+        result = Opportunities::OpportunityContract.new.call(value)
+        key.failure(text: 'invalid opportunity', error: result.errors.to_h) if result&.failure?
       end
 
       rule(:identifiers).each do |key, value|
-        if key? && value
-          result = Identifiers::IdsContract.new.call(value)
-          if result&.failure?
-            key.failure(text: 'invalid identifier', error: result.errors.to_h)
-          end
-        end
+        next unless key? && value
+        result = Identifiers::IdsContract.new.call(value)
+        key.failure(text: 'invalid identifier', error: result.errors.to_h) if result&.failure?
       end
 
       rule(:index_case_opportunities).each do |key, value|
-        if key? && value
-          result = IndexCases::IndexCaseOpportunityContract.new.call(value)
-          if result&.failure?
-            key.failure(
-              text: 'invalid index case opportunity',
-              error: result.errors.to_h
-            )
-          end
-        end
+        next unless key? && value
+        result = IndexCases::IndexCaseOpportunityContract.new.call(value)
+        next unless result&.failure?
+        key.failure(
+          text: 'invalid index case opportunity',
+          error: result.errors.to_h
+        )
       end
 
       rule(:consents).each do |key, value|
-        if key? && value
-          result = Consents::ConsentContract.new.call(value)
-          if result&.failure?
-            key.failure(text: 'invalid consents', error: result.errors.to_h)
-          end
-        end
+        next unless key? && value
+        result = Consents::ConsentContract.new.call(value)
+        key.failure(text: 'invalid consents', error: result.errors.to_h) if result&.failure?
       end
     end
   end

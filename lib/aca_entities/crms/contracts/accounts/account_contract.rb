@@ -54,45 +54,33 @@ module Crms
       rule(:user, :assigned_to) do
         if key? && value
           result = Users::UserContract.new.call(value)
-          if result&.failure?
-            key.failure(text: 'invalid user', error: result.errors.to_h)
-          end
+          key.failure(text: 'invalid user', error: result.errors.to_h) if result&.failure?
         end
       end
 
       rule(:subscribed_users).each do |key, value|
-        if key? && value
-          result = Users::UserContract.new.call(value)
-          if result&.failure?
-            key.failure(text: 'invalid user', error: result.errors.to_h)
-          end
-        end
+        next unless key? && value
+        result = Users::UserContract.new.call(value)
+        key.failure(text: 'invalid user', error: result.errors.to_h) if result&.failure?
       end
 
       rule(:managing_division) do
         if key? && value
           result = Accounts::AccountContract.new.call(value)
-          if result&.failure?
-            key.failure(text: 'invalid account', error: result.errors.to_h)
-          end
+          key.failure(text: 'invalid account', error: result.errors.to_h) if result&.failure?
         end
       end
 
       rule(:divisions).each do |key, value|
-        if key? && value
-          result = Accounts::AccountContract.new.call(value)
-          if result&.failure?
-            key.failure(text: 'invalid account', error: result.errors.to_h)
-          end
-        end
+        next unless key? && value
+        result = Accounts::AccountContract.new.call(value)
+        key.failure(text: 'invalid account', error: result.errors.to_h) if result&.failure?
       end
 
       rule(:lead) do
         if key? && value
           result = Leads::LeadContract.new.call(value)
-          if result&.failure?
-            key.failure(text: 'invalid lead', error: result.errors.to_h)
-          end
+          key.failure(text: 'invalid lead', error: result.errors.to_h) if result&.failure?
         end
       end
     end
