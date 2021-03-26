@@ -3,7 +3,7 @@
 require 'spec_helper'
 require 'aca_entities/magi_medicaid/application_reference'
 
-RSpec.describe ::AcaEntities::MagiMedicaid::ApplictionReference, dbclean: :after_each do
+RSpec.describe ::AcaEntities::MagiMedicaid::ApplicationReference, dbclean: :after_each do
 
   describe 'with valid arguments' do
     let(:input_params) do
