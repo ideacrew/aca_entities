@@ -16,7 +16,7 @@ module AcaEntities
       attribute :medicaid_household_size, Types::Integer.optional.meta(omittable: true)
       attribute :magi_medicaid_monthly_income_limit, Types::Float.optional.meta(omittable: true)
       attribute :magi_as_percentage_of_fpl, Types::Float.optional.meta(omittable: true)
-      attribute :magi_medicaid_category, Types::String.optional.meta(omittable: true)
+      attribute :magi_medicaid_category, Types::MagiMedicaidCategoryType
 
     end
   end

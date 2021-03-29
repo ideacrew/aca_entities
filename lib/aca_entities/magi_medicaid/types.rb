@@ -157,6 +157,17 @@ module AcaEntities
         'Other (With I-94 Number)'
       )
 
+      MagiMedicaidCategoryType = Types::Coercible::String.enum(
+        'none',
+        'adult_group',
+        'child',
+        'chip_targeted_low_income_child',
+        'optional_targeted_low_income_child',
+        'parent_caretaker',
+        'pregnancy',
+        'unborn_child'
+      )
+
       BenefitTermMap = {}.freeze
 
       CitizenKinds = Types::Coercible::String.enum(
