@@ -7,10 +7,9 @@ require 'aca_entities/magi_medicaid/contracts/attestation_contract'
 RSpec.describe ::AcaEntities::MagiMedicaid::Contracts::AttestationContract,  dbclean: :after_each do
   context 'applicant not applying for coverage' do
     context 'valid params' do
-      let(:required_params) { { is_applying_coverage: false } }
+      let(:required_params) { { is_applying_coverage: false, is_disabled: false } }
       let(:optional_params) do
         { is_incarcerated: nil,
-          is_disabled: nil,
           is_self_attested_long_term_care: nil }
       end
       let(:all_params) { required_params.merge(optional_params) }
@@ -38,19 +37,18 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Contracts::AttestationContract,  dbc
       end
 
       it 'should return a failure with error messages' do
-        expect(@result.errors.to_h).to eq({ is_applying_coverage: ['is missing'] })
+        expect(@result.errors.to_h).to eq({ is_applying_coverage: ['is missing'], is_disabled: ['is missing'] })
       end
     end
   end
 
   context 'applicant applying for coverage' do
-    let(:required_params) { { is_applying_coverage: true } }
+    let(:required_params) { { is_applying_coverage: true, is_disabled: false } }
     let(:all_params) { required_params.merge(optional_params) }
 
     context 'valid params' do
       let(:optional_params) do
         { is_incarcerated: false,
-          is_disabled: false,
           is_self_attested_long_term_care: false }
       end
 
@@ -70,7 +68,6 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Contracts::AttestationContract,  dbc
     context 'invalid params' do
       let(:optional_params) do
         { is_incarcerated: nil,
-          is_disabled: nil,
           is_self_attested_long_term_care: nil }
       end
 
@@ -83,7 +80,7 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Contracts::AttestationContract,  dbc
       end
 
       it 'should return failure with error messages' do
-        expect(@result.errors.to_h).to eq({ is_incarcerated: ['cannot be blank'], is_disabled: ['cannot be blank'] })
+        expect(@result.errors.to_h).to eq({ is_incarcerated: ['cannot be blank'] })
       end
     end
   end
