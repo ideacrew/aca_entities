@@ -21,10 +21,10 @@ module AcaEntities
       attribute :person_hbx_id, Types::String.meta(omittable: false)
 
       attribute :is_required_to_file_taxes, Types::Bool.optional.meta(omittable: true)
-      attribute :tax_filer_kind, Types::String.optional.meta(omittable: true)
+      attribute :tax_filer_kind, Types::TaxFilerKind.optional.meta(omittable: true)
       attribute :is_joint_tax_filing, Types::Bool.optional.meta(omittable: true)
       attribute :is_claimed_as_tax_dependent, Types::Bool.optional.meta(omittable: true)
-      attribute :claimed_as_tax_dependent_by, Types::String.optional.meta(omittable: true)
+      attribute :claimed_as_tax_dependent_by, ApplicantReference.optional.meta(omittable: true)
 
       attribute :student, Student.optional.meta(omittable: true)
       attribute :is_refugee, Types::Bool.optional.meta(omittable: true)

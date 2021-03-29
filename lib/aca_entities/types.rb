@@ -1729,6 +1729,8 @@ module AcaEntities
       fehb: ['health', 'dental'],
       medicaid: ['chip', 'snap', 'tanf']
     }.freeze
+
+    AddressValidationStatusCode = Types::Coercible::String.enum('ValidMatch', 'PartialMatch', 'NoStreet', 'NoCity')
   end
   # rubocop:enable Metrics/ModuleLength
 end

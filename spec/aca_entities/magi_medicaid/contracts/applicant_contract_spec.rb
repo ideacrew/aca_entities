@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
+require 'aca_entities/contracts/address_contract'
 require 'aca_entities/magi_medicaid/contracts/email_contract'
 require 'aca_entities/magi_medicaid/contracts/phone_contract'
-require 'aca_entities/magi_medicaid/contracts/address_contract'
 require 'aca_entities/magi_medicaid/contracts/applicant_contract'
 
 RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicantContract,  dbclean: :after_each do

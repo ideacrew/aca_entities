@@ -12,15 +12,20 @@ RSpec.describe ::AcaEntities::Contracts::AddressContract,  dbclean: :after_each 
   describe 'missing address1 field' do
 
     let(:params) do
-      { kind: 'home',
+      { has_fixed_address: true,
+        kind: 'home',
         address_2: '1234',
         address_3: 'person',
         city: 'test',
         county: '',
+        county_name: '',
         state: 'DC',
         zip: '12345',
-        county_name: '',
-        has_fixed_address: true }
+        country_name: 'USA',
+        validation_status: 'ValidMatch',
+        start_on: '2021/1/12',
+        end_on: nil,
+        lives_outside_state_temporarily: false }
     end
     let(:error_message) { { :has_fixed_address => ['Address1 cannot be blank'] } }
 
@@ -33,15 +38,20 @@ RSpec.describe ::AcaEntities::Contracts::AddressContract,  dbclean: :after_each 
   describe 'missing kind field' do
 
     let(:params) do
-      { address_1: 'test',
+      { has_fixed_address: true,
+        address_1: 'address one',
         address_2: '1234',
         address_3: 'person',
         city: 'test',
         county: '',
+        county_name: '',
         state: 'DC',
         zip: '12345',
-        county_name: '',
-        has_fixed_address: true }
+        country_name: 'USA',
+        validation_status: 'ValidMatch',
+        start_on: '2021/1/12',
+        end_on: nil,
+        lives_outside_state_temporarily: false }
     end
     let(:error_message) { { :has_fixed_address => ['Kind cannot be blank'] } }
 

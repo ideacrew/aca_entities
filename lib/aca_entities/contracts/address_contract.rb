@@ -17,7 +17,10 @@ module AcaEntities
         optional(:state).maybe(:string)
         optional(:zip).maybe(:string)
         optional(:country_name).maybe(:string)
-        optional(:validation_status).maybe(Iap::Types::AddressValidationStatusCode)
+        optional(:validation_status).maybe(Types::AddressValidationStatusCode)
+        optional(:start_on).maybe(:date)
+        optional(:end_on).maybe(:date)
+        optional(:lives_outside_state_temporarily).maybe(:bool)
       end
 
       rule(:has_fixed_address) do
