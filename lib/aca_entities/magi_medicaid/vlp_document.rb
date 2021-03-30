@@ -6,7 +6,7 @@ module AcaEntities
     class VlpDocument < Dry::Struct
       # attribute :identification_number,   Types::String.optional.meta(omittable: true)
 
-      attribute :subject,             Iap::Types::VlpDocumentKind.optional.meta(omittable: true)
+      attribute :subject,             MagiMedicaid::Types::VlpDocumentKind.optional.meta(omittable: true)
       attribute :alien_number, Types::String.optional.meta(omittable: true)
       attribute :i94_number, Types::String.optional.meta(omittable: true)
       attribute :visa_number, Types::String.optional.meta(omittable: true)
