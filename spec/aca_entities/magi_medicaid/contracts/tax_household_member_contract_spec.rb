@@ -24,14 +24,14 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Contracts::TaxHouseholdMemberContrac
   end
 
   let(:all_params) do
-    { 
+    {
       product_eligibility_determination: product_eligibility_determination,
       applicant_reference: '100'
     }
   end
 
   let(:invalid_params) do
-    all_params.merge({applicant_reference: 01010})
+    all_params.merge({ applicant_reference: 0o1010 })
   end
 
   context "with invalid params" do

@@ -39,7 +39,7 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Contracts::TaxHouseholdContract, dbc
   end
 
   let(:invalid_params) do
-    all_params.merge({tax_household_members: tax_household_member})
+    all_params.merge({ tax_household_members: tax_household_member })
   end
 
   context "with invalid params" do
