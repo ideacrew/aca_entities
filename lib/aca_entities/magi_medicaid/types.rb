@@ -323,6 +323,13 @@ module AcaEntities
         'grandchild',
         'grandparent'
       )
+
+      PhoneKind = Types::Coercible::String.enum(
+        'home',
+        'work',
+        'mobile',
+        'fax'
+      )
     end
     # rubocop:enable Metrics/ModuleLength
   end
