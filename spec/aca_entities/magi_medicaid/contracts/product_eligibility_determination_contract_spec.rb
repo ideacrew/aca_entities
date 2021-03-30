@@ -9,7 +9,7 @@ require 'aca_entities/magi_medicaid/contracts/product_eligibility_determination_
 RSpec.describe ::AcaEntities::MagiMedicaid::Contracts::ProductEligibilityDeterminationContract, dbclean: :around_each do
 
   let(:all_params) do
-    { 
+    {
       is_ia_eligible: true,
       is_medicaid_chip_eligible: false,
       is_non_magi_medicaid_eligible: false,
@@ -25,7 +25,7 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Contracts::ProductEligibilityDetermi
   end
 
   let(:invalid_params) do
-    all_params.merge({is_magi_medicaid: "magi"})
+    all_params.merge({ is_magi_medicaid: "magi" })
   end
 
   context "with invalid params" do
