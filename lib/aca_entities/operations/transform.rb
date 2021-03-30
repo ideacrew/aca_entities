@@ -1,3 +1,4 @@
+# rubocop:disable all
 require 'oj'
 
 module Operations
@@ -62,3 +63,4 @@ result =
   Medicaid::Transforms::IapTo::MitcInput.call(source_filename, output_filename)
 result =
   Medicaid::Transforms::MitcResultTo::Iap.call(source_filename, output_filename)
+# rubocop:enable all
