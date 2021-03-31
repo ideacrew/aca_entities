@@ -26,7 +26,7 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Contracts::FederalPovertyLevelContra
     }
   end
 
-  context 'Given one or more invalid paramaters are passed to the #{described_class} contract' do
+  context "Given one or more invalid paramaters are passed to the #{described_class} contract" do
     context 'and the effective_end_on precedes the effective_start_on date' do
       let(:effective_start_on) { Date.today }
       let(:invalid_effective_end_on) { effective_start_on - 1 }
