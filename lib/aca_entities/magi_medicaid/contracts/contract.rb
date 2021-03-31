@@ -14,9 +14,7 @@ module AcaEntities
         # config.messages.namespace - custom messages namespace for a contract class. Use this to differentiate common messages
 
         rule(:effective_end_on, :effective_start_on) do
-          if values[:effective_end_on] < values[:effective_start_on]
-            key.failure('must be after effective_start_on')
-          end
+          key.failure('must be after effective_start_on') if values[:effective_end_on] < values[:effective_start_on]
         end
       end
     end
