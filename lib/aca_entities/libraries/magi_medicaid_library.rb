@@ -1,5 +1,6 @@
-# Include the baseline entities and types
+# frozen_string_literal: true
 
+# Include the baseline entities and types
 module AcaEntities
   module Libraries
     module MagiMedicaidLibrary
