@@ -17,7 +17,9 @@ module AcaEntities
         # @option opts [Date] :effective_end_on required
         # @return [Dry::Monads::Result]
         params do
-          required(:state_code).filled(:string)
+          required(:state_code).filled(
+            AcaEntities::Types::UsStateAbbreviationKind
+          )
           required(:household_size).filled(:integer)
           required(:annual_poverty_guideline).filled(AcaEntities::Types::Money)
           required(:add_person_annual_amount).filled(AcaEntities::Types::Money)
