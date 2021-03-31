@@ -7,11 +7,10 @@ require 'dry/monads'
 require 'dry/monads/do'
 require 'dry-struct'
 
-require 'aca_entities/types'
 require 'aca_entities/version'
 require 'aca_entities/error'
 
-require 'aca_entities/address'
+require 'aca_entities/libraries/core_library'
 
 # TODO: We want these to be selectively included at run time
 require 'aca_entities/individual_market'
@@ -23,5 +22,4 @@ require 'aca_entities/shop_market'
 # AcaEntities provides a shared interface for the serialization and deserialization
 # of shared ACA entities across applications.
 module AcaEntities
-
 end
