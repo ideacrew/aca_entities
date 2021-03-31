@@ -1,3 +1,4 @@
+# rubocop:disable all
 require 'oj'
 
 module Operations
@@ -136,7 +137,6 @@ module Operations
     # end
   end
 end
-
 
 # # This how we call the operation
 # result =
