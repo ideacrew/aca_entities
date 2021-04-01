@@ -330,6 +330,9 @@ module AcaEntities
         'mobile',
         'fax'
       )
+
+      # FosterCare related questions are asked if the age of applicant falls within below range.
+      FosterCareRange = (19..25)
     end
     # rubocop:enable Metrics/ModuleLength
   end
