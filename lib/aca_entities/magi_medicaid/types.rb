@@ -333,6 +333,9 @@ module AcaEntities
 
       # FosterCare related questions are asked if the age of applicant falls within below range.
       FosterCareRange = (19..25).freeze
+
+      # Student related questions are asked if the age of applicant falls within below range.
+      StudentRange = (18..19).freeze
     end
     # rubocop:enable Metrics/ModuleLength
   end
