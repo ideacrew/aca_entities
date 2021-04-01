@@ -7,7 +7,11 @@ module AcaEntities
     # For example, nil, '', '   ', [], and {} are all blank.
     # Note: false is not blank.
     def check_if_blank?(data_object)
-      data_object.respond_to?(:empty?) ? data_object.strip.empty? : data_object.nil?
+      if data_object.respond_to?(:empty?)
+        data_object.is_a?(String) ? data_object.strip.empty? : data_object.empty?
+      else
+        data_object.nil?
+      end
     end
 
     def check_if_present?(data_object)

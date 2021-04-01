@@ -14,9 +14,6 @@ module AcaEntities
       attribute :start_on, Types::Date.optional.meta(omittable: true)
       attribute :end_on, Types::Date.optional.meta(omittable: true)
       attribute :is_projected, Types::Bool.optional.meta(omittable: true)
-
-      # tax_form is only defined in IAP Income Mongoid::Document and not used anywhere in IAP engine.
-      attribute :tax_form, Types::String.optional.meta(omittable: true)
       attribute :employer, Employer.optional.meta(omittable: true)
       attribute :has_property_usage_rights, Types::Bool.optional.meta(omittable: true)
       attribute :submitted_at, Types::DateTime.optional.meta(omittable: true)
