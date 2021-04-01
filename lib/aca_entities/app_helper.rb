@@ -11,7 +11,7 @@ module AcaEntities
     end
 
     def check_if_present?(data_object)
-      !is_blank?(data_object)
+      !check_if_blank?(data_object)
     end
   end
 end

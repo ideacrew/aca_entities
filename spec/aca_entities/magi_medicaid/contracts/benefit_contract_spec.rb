@@ -43,6 +43,23 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Contracts::BenefitContract,  dbclean
         expect(@result).to be_success
       end
     end
+
+    context 'including end_on' do
+      let(:input_params) do
+        { kind: 'acf_refugee_medical_assistance',
+          status: 'is_enrolled',
+          start_on: Date.today.prev_year.to_s,
+          end_on: nil }
+      end
+
+      before do
+        @result = subject.call(input_params)
+      end
+
+      it 'should return success' do
+        expect(@result).to be_success
+      end
+    end
   end
 
   context 'invalid params' do
