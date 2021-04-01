@@ -35,7 +35,7 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Contracts::FosterCareContract,  dbcl
           it 'should return failure with error messages' do
             err_msg = { age_left_foster_care: ['must be filled if age of applicant is within 19..25.'],
                         foster_care_us_state: ['must be filled if age of applicant is within 19..25.'],
-                        had_medicaid_during_foster_care: ['must be filled if age of applicant is within 19..25.']}
+                        had_medicaid_during_foster_care: ['must be filled if age of applicant is within 19..25.'] }
             expect(subject.call(input_params).errors.to_h).to eq(err_msg)
           end
         end
