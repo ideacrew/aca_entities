@@ -22,7 +22,6 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Income, dbclean: :after_each do
         start_on: Date.today.prev_year,
         end_on: nil,
         is_projected: false,
-        tax_form: 'tax_form',
         employer: employer,
         has_property_usage_rights: false }
     end
