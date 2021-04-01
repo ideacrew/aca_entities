@@ -62,7 +62,7 @@ module AcaEntities
         end
 
         rule(:end_on) do
-          key.failure(text: 'must be after start_on.') if key? && check_if_blank?(value) && values[:start_on] && value < values[:start_on]
+          key.failure(text: 'must be after start_on.') if key? && check_if_present?(value) && values[:start_on] && value < values[:start_on]
         end
 
         def kind_esi?(kind_value)
