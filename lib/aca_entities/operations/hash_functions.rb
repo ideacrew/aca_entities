@@ -15,7 +15,7 @@ module AcaEntities
       # @param mapping The key-rename mapping
       #
       # @example
-      #   source_hash: {"a" => {"b" => { "c" => "d" => "123"}}, {"d" => "456"}}, mapping: {"d" => "e"}, namespaces: [:a,:b,:c]
+      #   source_hash: {"a" => {"b" => { "c" => {"d" => "123"}}, {"d" => "456"}}, mapping: {"d" => "e"}, namespaces: [:a,:b,:c]
       #   # =>   {"a" => {"b" => { "c" => {"e" => "123"}}, {"d" => "456"}}
       #
       # @return [Hash]
