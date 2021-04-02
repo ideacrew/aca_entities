@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-
+require 'pry'
 require 'dry/validation'
 require 'dry/monads/result'
 
@@ -16,6 +16,9 @@ require 'aca_entities/address'
 # TODO: We want these to be selectively included at run time
 require 'aca_entities/individual_market'
 require 'aca_entities/shop_market'
+require 'transform/transformer'
+require 'aca_entities/operations/transform'
+require 'aca_entities/medicaid/transforms/iap_to/mitc_input'
 
 # TODO: Decide how to incorporate versioning? e.g. Iap::V3_0::Application
 # TODO: Should we insure unique namespacing with prefix? e.g. AcaIap::Application
