@@ -4,11 +4,38 @@ require 'dry/transformer/conditional'
 require "dry/inflector"
 
 module AcaEntities
-  module Transforms
+  module Operations
     # This module provides services for hash transformations
-    module DeepNest
+    module HashFunctions
       module_function
 
+      # Rename particular keys using namespace
+      #
+      # @param source_hash The input hash
+      # @param mapping The key-rename mapping
+      #
+      # @example
+      #   source_hash: {"a" => {"b" => { "c" => "d" => "123"}}, {"d" => "456"}}, mapping: {"d" => "e"}, namespaces: [:a,:b,:c]
+      #   # =>   {"a" => {"b" => { "c" => {"e" => "123"}}, {"d" => "456"}}
+      #
+      # @return [Hash]
+      def rename_nested_keys(source_hash, mapping, namespaces = [])
+        source_hash.to_h.tap do |hash|
+          final_pair = hash.dig(*namespaces)
+          mapping.first.each {|k, v| final_pair[v] = final_pair.delete(k) if final_pair.key?(k)}
+        end
+      end
+
+      # Rename all keys upto nested hash
+      #
+      # @param source_hash The input hash
+      # @param mapped_keys The key-rename mapping
+      #
+      # @example
+      #   source_hash: {"a" => {"b" => { "c" => {"d" => "123"}}, {"d" => "456"}}, mapping: {"d" => "e"}
+      #   # =>  {"a" => {"b" => { "c" => {"e" => "123"}}, {"e" => "456"}}
+      #
+      # @return [Hash]
       def deep_rename_keys(source_hash, mapped_keys)
         source_hash.each_with_object({}) do |(k, v), result|
           mapped_key = mapped_keys[k] || k
@@ -58,6 +85,29 @@ module AcaEntities
         end
       end
 
+      # TODO
+      def collect_namespace(source_hash, *keys)
+        keys = keys.dup
+        next_key = keys.shift
+
+        return [] unless source_hash.key? next_key
+
+        next_val = source_hash[next_key]
+
+        return [next_val] if keys.empty?
+
+        case next_val
+        when Hash
+          next_val.collect_namespace(*keys)
+        when Array
+          next_val.each_with_object([]) do |v, result|
+            inner = v.collect_namespace(*keys)
+            result.concat inner
+          end
+        else
+          []
+        end
+      end
     end
   end
 end
