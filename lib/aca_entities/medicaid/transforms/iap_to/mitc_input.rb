@@ -61,7 +61,46 @@ module Medicaid
         # nest :household, [:hbx_enrollment]
         # nest :families, [:household]
         # map_function :age_on, -> { Date.today }
+        # map "coverageYear", "families.household.hbx_enrollment.plan_year", :rename_nested_key
 
+		# map "coverageYear", "hbx_enrollment.coverageYear", [:nest]
+		# map "insuranceApplicationIdentifier", "hbx_enrollment.insuranceApplicationIdentifier", [:nest]
+	    # map "hbx_enrollment", "household", [:nest]
+	    # map "household", "families", [:nest]
+
+	    map "coverageYear", "families.household.hbx_enrollment.coverageYear", [:nest]
+		map "insuranceApplicationIdentifier", "families.household.hbx_enrollment.insuranceApplicationIdentifier", [:nest]
+
+		map "lastUpdateMetadata", "lastUpdateData", [:rename_keys]
+		map "lastUpdateMetadata.sourceSystemName", "lastUpdateData.sourceName", :rename_nested_keys
+		map "lastUpdateMetadata.roleId", "lastUpdateData.role", :rename_nested_keys
+
+		map "attestations", "verifications", [:rename_keys]
+		map "attestations.application", "verifications.consumer_role", [:rename_nested_keys]
+		map "attestations.application.comments", "verifications.consumer_role.user_comments", [:rename_nested_keys]
+		map "attestations.application.contactInformation", "verifications.consumer_role.contact", [:rename_nested_keys]
+
+		map "computed.application.bestSEP", "computed.seps.bestSEP", [:rewrap_keys]
+
+		# unwrap ['computed', 'application'], ['bestSEP']
+		# unwrap ["computed"], ['bestSEP']
+		
+		# nest "seps", ['bestSEP']
+		# nest "computed", ['seps']
+
+		# map "computed.application.bestSEP", "computed.bestSEP", [:rewrap_keys]
+
+	    # unwrap "computed.application", ['bestSEP']
+		# unwrap "computed", ['bestSEP']
+		# nest "computed", ['bestSEP']
+
+		# map "computed.application.bestSEP", "bestSEP", [:rewrap_keys]
+
+        # unwrap "computed.application", ['bestSEP']
+		# unwrap "computed", ['bestSEP']
+
+
+		# map "verifications.legalAttestations", "verificastions.consumer_attestations.legalAttestations", [:nest]
         # map "coverageYear", "families.household.hbx_enrollment.plan_year", :age_on
         # map "coverageYear", "families.household.hbx_enrollment.plan_year", :camelize
         
@@ -69,6 +108,7 @@ module Medicaid
         # map 'coverageYear',  {destination: ,}
 
         # map "insuranceApplicationIdentifier", "families.household.hbx_enrollment.insuranceApplicationIdentifier"
+
 
         # def switch_keys
         #   symbolize_keys

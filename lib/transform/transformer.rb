@@ -3,7 +3,6 @@
 # frozen_string_literal: true
 
 require 'dry/transformer/all'
-require 'aca_entities/transforms/deep_nest'
 require "dry/inflector"
 require 'json'
 
@@ -37,7 +36,8 @@ module Transform
     extend Dry::Transformer::Registry
     import Dry::Transformer::HashTransformations
     import Dry::Transformer::ArrayTransformations
-    import AcaEntities::Transforms::DeepNest
+    import ::AcaEntities::Operations::HashFunctions
+
     import :camelize, from: Inflector, as: :camel_case
     import :underscore, from: Inflector, as: :underscore
 
@@ -72,6 +72,7 @@ module Transform
 
     import Dry::Transformer::HashTransformations
     import Dry::Transformer::ArrayTransformations
+    import ::AcaEntities::Operations::HashFunctions
   end
 
   class Mapper
@@ -91,19 +92,25 @@ module Transform
 
     def transform
       elements = output_key.split('.')
-      actions.push(:nest).uniq! if elements.size > 1
+      # actions.push(:nest).uniq! if elements.size > 1
 
-      transform_procs = [:rename_keys, :nest].inject([]) do |procs, action|
+      transform_procs = actions.inject([]) do |procs, action|
         procs << if action == :nest
           elements.size.times.collect do |i|
             offset = -1 * i
             "t(:nest, :#{elements[-2 + offset]}, [:#{elements[-1 + offset]}])" if elements[-2 + offset]
           end.compact
+        elsif action == :rewrap_keys
+          "t(:rewrap_keys, #{source_key.split('.').map(&:to_sym)}, #{elements.map(&:to_sym)})"
+        elsif action == :rename_nested_keys
+          source = source_key.split('.').last
+          "t(:#{action}, [#{source}: :#{elements.last}], #{elements[0..-2].map(&:to_sym)})"
         else
           "t(:#{action}, #{source_key}: :#{elements.last})"
         end
       end
-
+      # binding.pry
+      # binding.pry
       @transproc = eval(transform_procs.flatten.join('.>> '))
     end
 

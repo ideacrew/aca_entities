@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
-require 'dry/transformer/conditional'
+# require 'dry/transformer/conditional'
 require "dry/inflector"
+require 'deep_merge'
 
 module AcaEntities
   module Operations
@@ -20,11 +21,48 @@ module AcaEntities
       #
       # @return [Hash]
       def rename_nested_keys(source_hash, mapping, namespaces = [])
+        puts "------>>>> #{namespaces} ---- #{source_hash}"
         source_hash.to_h.tap do |hash|
           final_pair = hash.dig(*namespaces)
           mapping.first.each {|k, v| final_pair[v] = final_pair.delete(k) if final_pair.key?(k)}
         end
       end
+
+      def rewrap_keys(source_hash, source_namespaces, destination_namespaces = [])
+        puts "------>>>> unwrap #{source_hash} -- #{source_namespaces} ---- #{destination_namespaces}"
+
+        source_hash.to_h.tap do |source_data|
+          # final_pair = hash.dig(*namespaces)
+          # mapping.first.each {|k, v| final_pair[v] = final_pair.delete(k) if final_pair.key?(k)}
+          data_hash = source_data.dig(*source_namespaces[0..-2])
+
+          element = destination_namespaces.pop
+          # destination_namespaces.pop
+          output = initialize_or_assign({}, destination_namespaces.dup, Hash[element, data_hash.delete(element)])
+         
+          puts "-----output --- #{output.inspect}"
+
+          source_data[source_namespaces[0]] = output[destination_namespaces[0]]
+          source_data
+        end
+      end
+
+      def initialize_or_assign(local_record, values = [], data)
+        if current_namespace = values.shift
+          local_record[current_namespace] ||= {} 
+
+          if values.empty?
+            local_record[current_namespace].deep_merge!(data)
+          else
+            local_record[current_namespace] = initialize_or_assign(local_record[current_namespace], values, data)
+          end
+        else
+          local_record.deep_merge!(data)
+        end
+
+        local_record
+      end
+
 
       # Rename all keys upto nested hash
       #
