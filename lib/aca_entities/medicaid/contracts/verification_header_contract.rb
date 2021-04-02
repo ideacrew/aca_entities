@@ -13,7 +13,7 @@ module AcaEntities
           optional(:medicaid_chip_county).maybe(:string)
           optional(:verification_type).maybe(:string)
           optional(:verification_source).maybe(:string)
-          required(:verification_status).filled(Iap::Types::VerificationStatusCode)
+          required(:verification_status).filled(MagiMedicaid::Types::VerificationStatusCode)
           optional(:verification_code).maybe(:string)
           optional(:response_code).maybe(:string)
         end

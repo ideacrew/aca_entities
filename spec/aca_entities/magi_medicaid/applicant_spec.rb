@@ -17,6 +17,7 @@ require 'aca_entities/magi_medicaid/phone'
 require 'aca_entities/magi_medicaid/income'
 require 'aca_entities/magi_medicaid/benefit'
 require 'aca_entities/magi_medicaid/deduction'
+require 'aca_entities/magi_medicaid/vlp_document'
 require 'aca_entities/magi_medicaid/applicant'
 
 RSpec.describe ::AcaEntities::MagiMedicaid::Applicant, dbclean: :after_each do

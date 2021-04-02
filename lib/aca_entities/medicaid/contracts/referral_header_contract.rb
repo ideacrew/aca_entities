@@ -10,9 +10,9 @@ module AcaEntities
           optional(:referral_id).maybe(:string)
           optional(:referral_date).maybe(:date_time)
           optional(:evidence_documents_available).maybe(:bool)
-          optional(:referral_activity_reason).maybe(Iap::Types::ReferralActivityReasonCode)
+          optional(:referral_activity_reason).maybe(MagiMedicaid::Types::ReferralActivityReasonCode)
           optional(:referral_activity_eligibility).maybe(:string)
-          optional(:referral_activity_status).maybe(Iap::Types::ReferralActivityStatusCode)
+          optional(:referral_activity_status).maybe(MagiMedicaid::Types::ReferralActivityStatusCode)
           optional(:referral_activity_over_all_verification_status).maybe(:string)
 
           optional(:sender).maybe(:hash)

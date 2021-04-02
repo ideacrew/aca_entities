@@ -18,7 +18,7 @@ module AcaEntities
           optional(:zip_code).maybe(:string)
           optional(:lives_outside_state_temporarily).maybe(:bool)
 
-          optional(:address_validation_status).maybe(Iap::Types::AddressValidationStatusCode)
+          optional(:address_validation_status).maybe(MagiMedicaid::Types::AddressValidationStatusCode)
         end
 
         rule(:fixed_address_indicator) do

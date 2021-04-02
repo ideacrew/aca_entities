@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
+require 'aca_entities/magi_medicaid/types'
 require 'aca_entities/contracts/address_contract'
 require 'aca_entities/contracts/applicant_role_contract'
 
