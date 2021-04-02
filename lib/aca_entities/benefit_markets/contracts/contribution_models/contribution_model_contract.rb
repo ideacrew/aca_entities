@@ -21,7 +21,7 @@ module AcaEntities
         rule(:contribution_units).each do
           next unless key? && value
           contribution_units = [AcaEntities::BenefitMarkets::FixedPercentContributionUnit, AcaEntities::BenefitMarkets::FixedDollarContributionUnit,
-            AcaEntities::BenefitMarkets::PercentWithCapContributionUnit]
+                                AcaEntities::BenefitMarkets::PercentWithCapContributionUnit]
           unless contribution_units.include?(value.class)
             if value.is_a?(Hash)
               result = BenefitMarkets::ContributionModels::ContributionUnitContract.new.call(value)
