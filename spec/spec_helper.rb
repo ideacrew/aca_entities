@@ -2,7 +2,7 @@
 
 require 'bundler/setup'
 require 'aca_entities'
-require 'pry-byebug'
+require 'pry'
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure

@@ -13,9 +13,6 @@ Layout/EmptyLineAfterGuardClause:
 Layout/EmptyLinesAroundBlockBody:
   Enabled: false
 
-Layout/LeadingCommentSpace:
-  Enabled: true
-
 Layout/ExtraSpacing:
   Enabled: false
 
@@ -25,26 +22,11 @@ Layout/EmptyLinesAroundClassBody:
 Layout/EmptyLinesAroundModuleBody:
   Enabled: false
 
-Layout/SpaceBeforeBlockBraces:
-  Enabled: true
-
-Layout/SpaceInsideHashLiteralBraces:
-  Enabled: true
-
 Layout/SpaceInsideBlockBraces:
   Enabled: false
 
-Layout/IndentationWidth:
-  Enabled: true
-
-Layout/IndentationStyle:
-  Enabled: true
-
 Layout/TrailingEmptyLines:
   Enabled: false
-
-Layout/TrailingWhitespace:
-  Enabled: true
 
 Metrics/AbcSize:
   Max: 50
@@ -76,14 +58,8 @@ Naming/VariableNumber:
 Naming/ConstantName:
   Enabled: false
 
-Style/AndOr:
-  Enabled: true
-
 Style/BlockComments:
   Enabled: false
-
-Style/Documentation:
-  Enabled: true
 
 Style/EachWithObject:
   Enabled: false

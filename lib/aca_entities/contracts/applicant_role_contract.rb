@@ -16,7 +16,7 @@ module AcaEntities
         optional(:is_veteran_or_active_military).maybe(:bool)
         optional(:age_of_applicant).maybe(:integer)
         optional(:ssn).maybe(:string)
-        required(:citizen_status).filled(Iap::Types::CitizenKinds)
+        required(:citizen_status).filled(MagiMedicaid::Types::CitizenKinds)
         optional(:is_resident_post_092296).maybe(:bool)
         optional(:is_student).maybe(:bool)
 

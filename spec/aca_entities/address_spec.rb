@@ -19,7 +19,10 @@ RSpec.describe ::AcaEntities::Address, dbclean: :after_each do
         state: 'DC',
         zip: '12321',
         country_name: '',
-        verification_status: nil
+        validation_status: nil,
+        start_on: nil,
+        end_on: nil,
+        lives_outside_state_temporarily: false
       }
     end
 
