@@ -8,7 +8,8 @@ gemspec
 gem "rake", "~> 12.0"
 
 group :development, :test do
-  gem "rspec", "~> 3.0"
+  gem "rspec"
+  gem "rspec-core"
   gem "rubocop"
   gem "yard"
 end

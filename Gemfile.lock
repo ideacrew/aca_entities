@@ -110,7 +110,8 @@ DEPENDENCIES
   aca_entities!
   pry-byebug
   rake (~> 12.0)
-  rspec (~> 3.0)
+  rspec
+  rspec-core
   rubocop
   yard
 
