@@ -38,68 +38,34 @@ module Operations
       @namespace_mappings = Hash.new
     end
 
-    def namespace_tranform_for(key)
-      return unless defined? @record_delimiter_matched_namespace
-      # key_with_namespace = (@namespaces - @record_delimiter_matched_namespace).push(key).join('.')
-      # return if @namespace_mappings[key_with_namespace]
+    def namespace_mappping_for(key, namespaces)
+      key_with_namespace = (namespaces - @record_delimiter_matched_namespace).push(key).join('.')
+      return @namespace_mappings[key_with_namespace] if @namespace_mappings.key?(key_with_namespace)
+      
+      transformed_namespaces = namespace_mappings_set.compact.map(&:to_sym)
+      transformed_key = (transformed_namespaces + [key]).map(&:to_s).join('.')
+      key_with_transform = key_with_namespace if container.key?(key_with_namespace)
+      key_with_transform = transformed_key if container.key?(transformed_key)
+   
+      return unless key_with_transform
 
-      # data = container[key].call(Hash[key_with_namespace.to_sym, nil]) if container.key?(key)
-      # @namespace_mappings[key_with_namespace] = data&.keys&.first || key_with_namespace
-
-      # return @mappings[key] if @mappings.key?(key)
-      # return key unless container.key?(key)
-      # @mappings[key] = container[key].process
-      namespace_mappping_for(key, @namespaces)
+      input = initialize_or_assign({}, transformed_namespaces, Hash[key.to_sym, nil])
+      data = container[key_with_transform].call(input)
+      @namespace_mappings[key_with_namespace] = namespace_hash_to_array(data).map(&:to_s).join('.') || key_with_transform     
     end
 
+    # def strip_delimiter(namespaces, key)
+    #   (namespaces - @record_delimiter_matched_namespace).push(key).join('.')
+    # end
 
-    def namespace_mappping_for(key, namespace_list)
-      key_with_namespace = (namespace_list - @record_delimiter_matched_namespace).push(key).join('.')
-      return @namespace_mappings[key_with_namespace] if @namespace_mappings[key_with_namespace]
-
-      if container.key?(key_with_namespace)
-        input = initialize_or_assign({}, namespace_mappings_set.compact.map(&:to_sym), Hash[key.to_sym, nil])
-        data = container[key_with_namespace].call(input) 
-      end
-      # binding.pry if key && key.to_sym == :application
-
-      @namespace_mappings[key_with_namespace] = nested_keys(data).map(&:to_s).join('.') || key_with_namespace
-    end
-
-    def nested_keys(data)
+    def namespace_hash_to_array(data)
       return [] unless data
       data.reduce([]) do |keys, (key, value)|
-        # if value && !value.empty?
-          keys.push(key) 
-          keys += nested_keys(value)
-        # end
-        
-        keys
+        keys.push(key) 
+        keys += namespace_hash_to_array(value)        
       end
     end
 
-    # applications: {
-    #   <id>: {
-    #     result: {
-    #       <id>: {
-    #         record: {
-
-    #         }
-    #       }
-    #     }
-    #   }
-    # }
-
-    # 'applications.identifier.result.identifier.record'
-    # {
-    #   0: 'applications',
-    #   2: 'result',
-    #   4: 'record'
-    # }
-
-    # [nil,'applications', '42232', 'result', '626323', 'record']
-
-    # ['applications', '42232', 'result', '626323', 'record']
     def namespace_record_delimiter_matched?(namespaces)
       return false if namespaces.empty?
       return false unless namespaces.index(namespace_record_delimiter[0])
@@ -131,42 +97,27 @@ module Operations
 
     def record_end(key)
       @records.push(record)
-      # new_record = record
-
-      # @container.each do |key, mapper|
-      #   new_record = mapper.call(new_record)
-      # end
       binding.pry
 
       puts "***** record ended for #{key}"
     end
 
-   # "attestations"=>
-   #  {"application"=>
-   #    {"comments"=>"Versioning For Change in Circumstance"}}
-
-   #  {'attestations.application': {}}
-
-   #  {'employee_attestations.application'}
-
     def hash_start(key)
-      namespace_tranform_for(key)
+      namespace_mappping_for(key, @namespaces) if defined? @record_delimiter_matched_namespace
       @namespaces.push(key&.to_sym)
-      if namespace_record_delimiter_matched?(@namespaces)# if @namespaces.last == namespace_record_delimiter
-        # unless defined? @record_delimiter_matched_namespace
-          @record_delimiter_matched_namespace ||= @namespaces.dup
-          # binding.pry
-        # end
+      
+      if namespace_record_delimiter_matched?(@namespaces)
+        @record_delimiter_matched_namespace ||= @namespaces.dup
+
         record_start(key&.to_sym)
       end
       puts "---hash_start -- #{key}"
       puts "---hash_start_namespaces--#{namespaces}"
     end
-    
+
     # [:applications, '42323', 'result', 'enrollees']
     # [:applications, '42323', 'result']
     def hash_end(key)
-      # key = renamed_key_for(key)
       matched = namespace_record_delimiter_matched?(@namespaces)
       @namespaces.pop
       puts "---hash_end -- #{key}"
@@ -175,7 +126,6 @@ module Operations
     end
 
     def array_start(key)
-      # key = renamed_key_for(key)
       @array_namespaces.push(key&.to_sym)
       @array_records = [] if key
       @array_record = []
@@ -184,19 +134,21 @@ module Operations
     end
 
     def array_end(key)
-      # key = renamed_key_for(key)
       @array_namespaces.pop
+
       if key
         value = @array_records.empty? ? @array_record : @array_records
+        key_with_namespace = (@namespaces - @record_delimiter_matched_namespace).push(key).join('.')
 
-        input = Hash[key.to_sym, value]
-        data = container[key].call(input) if container.key?(key)
-
-        # transformed_namespaces = @namespaces[(record_index + 1)..-1].collect{|ns| @namespace_mappings[ns.to_s]}
         transformed_namespaces = namespace_mappings_set.compact.map(&:to_sym)
+        transformed_key = (transformed_namespaces + [key]).map(&:to_s).join('.')
+        key_with_transform = key_with_namespace if container.key?(key_with_namespace)
+        key_with_transform = transformed_key if container.key?(transformed_key)
+     
+        input = initialize_or_assign({}, transformed_namespaces, Hash[key.to_sym, value])
+        data = container[key_with_transform].call(input) if key_with_transform
 
-        initialize_or_assign(record, transformed_namespaces.compact.map(&:to_sym), data || input)
-        # initialize_or_assign(record, @namespaces[(record_index + 1)..-1], key.to_sym, value)
+        initialize_or_assign(record, [], data || input)
       else
         @array_records.push(@array_record)
       end
@@ -205,12 +157,9 @@ module Operations
       puts "---array_end_array_namespaces--#{array_namespaces}"
     end
 
-    # ["familyRelationships", nil]
-    # familyRelationships: [element, [element, element]]
-    # familyRelationships: [element, {}]
-    # familyRelationships: [element, element]
-    # [["1435239665677772593","SELF","1435239665677772593"]]
     def add_value(value, key)
+      puts "---add_value -- #{key} ---- #{value}"
+
       # key = renamed_key_for(key)
       unless array_namespaces.empty?
         @array_record << if key
@@ -218,6 +167,7 @@ module Operations
         else
           value
         end
+
         return
       end
 
@@ -225,44 +175,35 @@ module Operations
 
       if defined? @record_delimiter_matched_namespace
         key_with_namespace = (@namespaces - @record_delimiter_matched_namespace).push(key).join('.')
-        key_transformed_namespaces = namespace_mappings_set.compact.map(&:to_sym)
+        transformed_namespaces = namespace_mappings_set.compact.map(&:to_sym)
       end
 
       key_for_transform = key_with_namespace || key
-      # input = Hash[key_with_transformed_namespaces.to_sym, value]
-      # binding.pry if key.to_sym == :sourceSystemName
-      # binding.pry if key.to_sym == :comments
-      # binding.pry if key.to_sym == :absentParentAgreementIndicator
+      transformed_key = (transformed_namespaces + [key]).map(&:to_s).join('.')
 
-      if container.key?(key_for_transform)
-        input = initialize_or_assign({}, key_transformed_namespaces, Hash[key.to_sym, value])
-        data = container[key_for_transform].call(input)
+      key_with_transform = key_for_transform if container.key?(key_for_transform)
+      key_with_transform = transformed_key if container.key?(transformed_key)
+   
+      if key_with_transform
+        input = initialize_or_assign({}, transformed_namespaces, Hash[key.to_sym, value])
+        data = container[key_with_transform].call(input)
+        initialize_or_assign(record, [], data)
       else
-        transformed_namespaces = namespace_mappings_set.compact.map(&:to_sym) #(@namespaces - @record_delimiter_matched_namespace).collect{|ns| @namespace_mappings[ns.to_s]}
         data = Hash[key.to_sym, value]
+        initialize_or_assign(record, transformed_namespaces, data)
       end
   
-      initialize_or_assign(record, transformed_namespaces || [], data || input)
-      # initialize_or_assign(record, @namespaces[(record_index + 1)..-1], key.to_sym, value)
-
-      puts "---add_value -- #{key} ---- #{value}"
+      # initialize_or_assign(record, transformed_namespaces || [], data || input)
     end
 
 
     def namespace_mappings_set
       element_namespaces = (@namespaces - @record_delimiter_matched_namespace)
-
-      # array = [:computed, :application, :bestSEP]
-      # [:computed, :application] + [:bestSEP]
-      # [:computed] + [:application, :bestSEP]
-      # if @namespaces.last.to_s == 'bestSEP'
-
       set = []
-      array = element_namespaces
-
       element_namespaces.size.times do |i|
         sample = element_namespaces[0..(element_namespaces.size - (1 + i))]
         namespace_str = sample.map(&:to_s).join('.')
+
         if @namespace_mappings.key?(namespace_str)
           set = @namespace_mappings[namespace_str].split('.') + (element_namespaces - sample).map(&:to_s)
           break
@@ -273,37 +214,9 @@ module Operations
 
       return set unless set.empty?
       element_namespaces.map(&:to_s)
-
-      # end
-      # element_namespaces.each_with_index.collect do |ns, index|
-      #   ns_prefixes = element_namespaces[0..index-1] if index != 0
-      #   namespace_str = (ns_prefixes || []).push(ns).map(&:to_s).join('.')
-      #   @namespace_mappings[namespace_str]&.to_s&.split('.')&.last || ns.to_s
-      # end
     end
 
     def initialize_or_assign(local_record, values = [], data)
-    # def initialize_or_assign(local_record, values = [], key, value)
-      # if key.split('.').size > 1
-      #   key_namespaces = key.split('.')
-      #   key = key_namespaces.pop
-      #   values += key_namespaces
-      # end
-
-      # if current_namespace = values.shift
-      #   local_record[current_namespace] ||= {}
-
-      #   if values.empty?
-      #     local_record[current_namespace][key] = value
-      #   else
-      #     local_record[current_namespace] = initialize_or_assign(local_record[current_namespace], values, key, value)
-      #   end
-      # else
-      #   local_record[key] = value
-      # end
-
-      # local_record
-
       if current_namespace = values.shift
         local_record[current_namespace] ||= {} 
 

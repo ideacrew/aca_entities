@@ -10,25 +10,76 @@ Inflector = Dry::Inflector.new
 
 module Transform
   # collection of maps
-  class EntityMapper
+  class MapSerializer
 
-    attr_accessor :mappings
+    attr_reader :source_ns, :output_ns, :mappings, :transform_action
 
-    def initialize(namespace)
-      @namespace = [namespace]
-      @mappings = []
+    def initialize(source_namespace, output_namespace = nil, transform_action = nil)
+      @source_ns = source_namespace.is_a?(Array) ? source_namespace.flatten : source_namespace.split('.')
+      @output_ns = output_namespace.is_a?(Array) ? output_namespace.flatten : output_namespace.to_s.split('.')
+      @transform_action = transform_action
+      @mappings = {}
+      construct_namespace_map
     end
 
-    def map(source_key = nil, output_key = nil, transform: [])
-      mapping = Transform::Mapper.new(source_key, output_key, transform)
-      mapping.namespace = @namespace.flatten
-      @mappings.push(mapping)
+    # namespace "lastUpdateMetadata", "lastUpdateData" do
+    #   map
+    # end
+
+    # namespace "lastUpdateMetadata", "lastUpdateData" do
+    #   namespace "application", 'consumer' do
+    #     map
+    #   end
+    # end
+
+    # namespace "lastUpdateMetadata.application", "lastUpdateData.consumer" do
+    #   map
+    # end
+
+    def construct_namespace_map
+      return if transform_action == :rewrap_keys
+      return unless source_ns.length == output_ns.length
+
+      source_ns.each_with_index do |namespace, index|
+        container_key = source_ns[0..index].join('.')
+        next if @mappings.key?(container_key)
+        @mappings[container_key] = if index == 0
+          Transform::Map.new(namespace, output_ns[index], :rename_keys)
+        else
+          Transform::Map.new(source_ns[0..index].join('.'), output_ns[0..index].join('.'), :rename_nested_keys)
+        end
+      end
     end
 
-    def group(associations, &block)
-      map = self.class.new(@namespace + [associations])
+    def map(source_key = nil, output_key = nil)
+      mapping = Transform::Map.new(
+        (source_ns + [source_key]).join('.'),
+        (output_ns + [output_key.to_s]).join('.'),
+        transform_action || :rename_nested_keys
+      )
+      @mappings[mapping.source_key] = mapping
+    end
+
+    def rewrap(output_namespace = nil, &block)
+      map = self.class.new(
+        source_ns,
+        output_ns + output_namespace.to_s.split('.'),
+        :rewrap_keys
+      )
       map.instance_exec(&block)
-      @mappings += map.mappings
+
+      @mappings.merge!(map.mappings)
+    end
+
+    def namespace(source_namespace, output_namespace = nil, &block)
+      # @mappings << Transform::Map.new(source_namespace, output_namespace, :rename_keys) if output_namespace.present?
+      map = self.class.new(
+        source_ns + source_namespace.split('.'),
+        output_ns + (output_namespace).to_s.split('.')
+      )
+      map.instance_exec(&block)
+
+      @mappings.merge!(map.mappings)
     end
   end
 
@@ -47,17 +98,17 @@ module Transform
 
     module ClassMethods
       def map(source_key = nil, output_key = nil, *actions)
-        mapping = Transform::Mapper.new(source_key, output_key, actions.flatten)
-        key = (mapping.namespace+[mapping.source_key]).map(&:to_s).join('.')
-        mapping_container.register(key, mapping)
+        mapping = Transform::Map.new(source_key, output_key, actions.flatten)
+        # key = (mapping.namespace+[mapping.source_key]).map(&:to_s).join('.')
+        mapping_container.register(mapping.source_key, mapping)
       end
 
-      def group(associations, &block)
-        map = EntityMapper.new(associations)
+      def namespace(source_namespace, output_namespace = nil, &block)
+        map = MapSerializer.new(source_namespace, output_namespace)
         map.instance_exec(&block)
-        map.mappings.each do |mapping|
-          key = (mapping.namespace+[mapping.source_key]).map(&:to_s).join('.')
-          mapping_container.register(key, mapping)
+        map.mappings.each do |key, map|
+          # key = (mapping.namespace+[mapping.source_key]).map(&:to_s).join('.')
+          mapping_container.register(map.source_key, map) unless mapping_container.key?(map.source_key)
         end
       end
 
@@ -75,14 +126,14 @@ module Transform
     import ::AcaEntities::Operations::HashFunctions
   end
 
-  class Mapper
-    attr_reader :source_key, :output_key, :actions, :result, :transproc, :namespace
+  class Map
+    attr_reader :source_key, :output_key, :key_transforms, :result, :transproc#, :namespace
 
-    def initialize(source_key = nil, output_key = nil, actions, &block)
+    def initialize(source_key = nil, output_key = nil, *key_transforms, &block)
       @source_key = source_key
       @output_key = output_key
-      @actions = actions
-      @namespace = []
+      @key_transforms = key_transforms
+      # @namespace = []
       transform
     end
 
@@ -91,32 +142,33 @@ module Transform
     end
 
     def transform
-      elements = output_key.split('.')
-      # actions.push(:nest).uniq! if elements.size > 1
+      source_elements = source_key.split('.')
+      output_elements = output_key.split('.')
 
-      transform_procs = actions.inject([]) do |procs, action|
+      # key_transforms.push(:nest).uniq! if elements.size > 1
+
+      transform_procs = key_transforms.inject([]) do |procs, action|
         procs << if action == :nest
-          elements.size.times.collect do |i|
-            offset = -1 * i
-            "t(:nest, :#{elements[-2 + offset]}, [:#{elements[-1 + offset]}])" if elements[-2 + offset]
-          end.compact
+        output_elements.size.times.collect do |i|
+          offset = -1 * i
+          "t(:nest, :#{output_elements[-2 + offset]}, [:#{output_elements[-1 + offset]}])" if output_elements[-2 + offset]
+        end.compact
         elsif action == :rewrap_keys
-          "t(:rewrap_keys, #{source_key.split('.').map(&:to_sym)}, #{elements.map(&:to_sym)})"
+          "t(:rewrap_keys, #{source_elements.map(&:to_sym)}, #{output_elements.map(&:to_sym)})"
         elsif action == :rename_nested_keys
           source = source_key.split('.').last
-          "t(:#{action}, [#{source}: :#{elements.last}], #{elements[0..-2].map(&:to_sym)})"
+          "t(:#{action}, [#{source}: :#{output_elements.last}], #{output_elements[0..-2].map(&:to_sym)})"
         else
-          "t(:#{action}, #{source_key}: :#{elements.last})"
+          "t(:#{action}, #{source_key}: :#{output_elements.last})"
         end
       end
-      # binding.pry
-      # binding.pry
+
       @transproc = eval(transform_procs.flatten.join('.>> '))
     end
 
-    def namespace=(value)
-      @namespace = value
-    end
+    # def namespace=(value)
+    #   @namespace = value
+    # end
 
     def call(input)
       transproc.call(input)
@@ -142,4 +194,3 @@ module Transform
 end
 
 # rubocop:enable all
-
