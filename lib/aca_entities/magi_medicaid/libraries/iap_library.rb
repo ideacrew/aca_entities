@@ -46,7 +46,6 @@ module AcaEntities
         require 'aca_entities/magi_medicaid/contracts/native_american_information_contract'
         require 'aca_entities/magi_medicaid/contracts/citizenship_immigration_status_information_contract'
         require 'aca_entities/magi_medicaid/contracts/vlp_document_contract'
-        require 'aca_entities/magi_medicaid/contracts/applicant_reference_contract'
         require 'aca_entities/magi_medicaid/contracts/student_contract'
         require 'aca_entities/magi_medicaid/contracts/foster_care_contract'
         require 'aca_entities/magi_medicaid/contracts/pregnancy_information_contract'
