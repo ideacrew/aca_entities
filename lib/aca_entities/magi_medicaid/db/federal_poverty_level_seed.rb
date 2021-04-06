@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-# rubocop:disable all
-
 module AcaEntities
   module MagiMedicaid
     module Db
@@ -52,7 +50,7 @@ module AcaEntities
           annual_poverty_guideline: 12_880,
           annual_per_person_amount: 4_540
         }
-      ]
+      ].freeze
 
       # TODO: Set state_code values using configuration setting
       FederalPovertyLevels =
@@ -66,18 +64,16 @@ module AcaEntities
 
             year =
               AcaEntities::Operations::MagiMedicaid::CreateFederalPovertyLevel
-                .new.call(fpl_year)
+              .new.call(fpl_year)
 
-            if year.success?
-              years << year.value!
-            else
-              # TODO: Raise initilization error
-              # log error
-            end
+            # if year.success?
+            years << year.value! if year.success?
+            # else
+            # TODO: Raise initilization error
+            # log error
+            # end
           end
         end.flatten
     end
   end
 end
-
-# rubocop:enable all
