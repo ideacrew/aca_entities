@@ -14,11 +14,7 @@ module AcaEntities
         # config.messages.namespace - custom messages namespace for a contract class. Use this to differentiate common messages
 
         rule(:aptc_effective_end_on, :aptc_effective_start_on) do
-          if key?
-            if values[:aptc_effective_end_on] < values[:aptc_effective_start_on]
-              key.failure('must be after aptc_effective_start_on')
-            end
-          end
+          key.failure('must be after aptc_effective_start_on') if key? && values[:aptc_effective_end_on] < values[:aptc_effective_start_on]
         end
       end
     end

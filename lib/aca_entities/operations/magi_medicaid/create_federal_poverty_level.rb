@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'dry/monads'
 require 'dry/monads/do'
 require 'bigdecimal'
@@ -34,7 +35,7 @@ module AcaEntities
         def validate(params)
           result =
             AcaEntities::MagiMedicaid::Contracts::CreateFederalPovertyLevelContract
-              .new.call(params)
+            .new.call(params)
           result.success? ? Success(result) : Failure(result)
         end
 
@@ -70,7 +71,7 @@ module AcaEntities
         def validate_fpl_hash(fpl_hash)
           result =
             AcaEntities::MagiMedicaid::Contracts::FederalPovertyLevelContract
-              .new.call(fpl_hash)
+            .new.call(fpl_hash)
           result.success? ? Success(result) : Failure(result)
         end
 
