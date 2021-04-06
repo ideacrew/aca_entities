@@ -1,9 +1,7 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require 'aca_entities/app_helper'
-require 'aca_entities/magi_medicaid/types'
-require 'aca_entities/magi_medicaid/contracts/pregnancy_information_contract'
+require 'aca_entities/magi_medicaid/libraries/iap_library'
 
 RSpec.describe AcaEntities::MagiMedicaid::Contracts::PregnancyInformationContract,  dbclean: :after_each do
   context 'applicant is pregnant' do

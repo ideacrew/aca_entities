@@ -1,8 +1,7 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require 'aca_entities/app_helper'
-require 'aca_entities/magi_medicaid/contracts/demographic_contract'
+require 'aca_entities/magi_medicaid/libraries/iap_library'
 
 RSpec.describe ::AcaEntities::MagiMedicaid::Contracts::DemographicContract,  dbclean: :after_each do
   context 'applicant not applying for coverage' do

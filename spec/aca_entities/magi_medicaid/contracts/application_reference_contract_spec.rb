@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require 'aca_entities/magi_medicaid/contracts/application_reference_contract'
+require 'aca_entities/magi_medicaid/libraries/iap_library'
 
 RSpec.describe ::AcaEntities::MagiMedicaid::Contracts::ApplicationReferenceContract,  dbclean: :after_each do
 

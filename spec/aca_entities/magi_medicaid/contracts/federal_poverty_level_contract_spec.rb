@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require 'aca_entities/libraries/magi_medicaid_library'
+require 'aca_entities/magi_medicaid/libraries/iap_library'
 
 RSpec.describe ::AcaEntities::MagiMedicaid::Contracts::FederalPovertyLevelContract do
   let(:state_code) { 'ME' }

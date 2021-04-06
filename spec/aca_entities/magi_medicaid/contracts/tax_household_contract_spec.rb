@@ -1,12 +1,7 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require 'aca_entities/magi_medicaid/types'
-require 'aca_entities/magi_medicaid/product_eligibility_determination'
-require 'aca_entities/magi_medicaid/tax_household_member'
-require 'aca_entities/magi_medicaid/contracts/product_eligibility_determination_contract'
-require 'aca_entities/magi_medicaid/contracts/tax_household_member_contract'
-require 'aca_entities/magi_medicaid/contracts/tax_household_contract'
+require 'aca_entities/magi_medicaid/libraries/iap_library'
 
 RSpec.describe ::AcaEntities::MagiMedicaid::Contracts::TaxHouseholdContract, dbclean: :around_each do
 

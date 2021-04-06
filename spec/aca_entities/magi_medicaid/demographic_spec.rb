@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require 'aca_entities/magi_medicaid/demographic'
+require 'aca_entities/magi_medicaid/libraries/iap_library'
 
 RSpec.describe ::AcaEntities::MagiMedicaid::Demographic, dbclean: :after_each do
 

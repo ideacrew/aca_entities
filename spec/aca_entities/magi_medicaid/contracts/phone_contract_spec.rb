@@ -1,8 +1,7 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require 'aca_entities/magi_medicaid/types'
-require 'aca_entities/magi_medicaid/contracts/phone_contract'
+require 'aca_entities/magi_medicaid/libraries/iap_library'
 
 RSpec.describe AcaEntities::MagiMedicaid::Contracts::PhoneContract,  dbclean: :after_each do
   let(:required_params) do
