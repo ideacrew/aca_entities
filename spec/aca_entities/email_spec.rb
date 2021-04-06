@@ -18,4 +18,10 @@ RSpec.describe ::AcaEntities::Email, dbclean: :after_each do
       expect { described_class.new(input_params) }.not_to raise_error
     end
   end
+
+  describe 'with invalid arguments' do
+    it 'should raise error' do
+      expect { described_class.new(kind: 100) }.to raise_error(Dry::Struct::Error, /invalid type for :kind violates constraints/)
+    end
+  end
 end

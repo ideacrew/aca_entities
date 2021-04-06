@@ -1830,6 +1830,18 @@ module AcaEntities
         'NoStreet',
         'NoCity'
       )
+
+    PhoneKind = Types::Coercible::String.enum(
+      'home',
+      'work',
+      'mobile',
+      'fax'
+    )
+
+    EmailKind = Types::Coercible::String.enum(
+      'home',
+      'work'
+    )
   end
   # rubocop:enable Metrics/ModuleLength
 end

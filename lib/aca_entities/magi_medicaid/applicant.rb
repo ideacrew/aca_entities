@@ -55,8 +55,8 @@ module AcaEntities
       attribute :has_eligible_health_coverage, Types::Bool.optional.meta(omittable: true)
 
       attribute :addresses, Types::Array.of(AcaEntities::Address).optional.meta(omittable: true)
-      attribute :emails, Types::Array.of(Email).optional.meta(omittable: true)
-      attribute :phones, Types::Array.of(Phone).optional.meta(omittable: true)
+      attribute :emails, Types::Array.of(AcaEntities::Email).optional.meta(omittable: true)
+      attribute :phones, Types::Array.of(AcaEntities::Phone).optional.meta(omittable: true)
 
       attribute :incomes,         Types::Array.of(Income).optional.meta(omittable: true)
       attribute :benefits,        Types::Array.of(Benefit).optional.meta(omittable: true)
