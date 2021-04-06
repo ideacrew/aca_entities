@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Include the baseline contracts, entities and types
+# Include the baseline contracts, entities and types of Magi In The Cloud
 module AcaEntities
   module MagiMedicaid
     module Libraries

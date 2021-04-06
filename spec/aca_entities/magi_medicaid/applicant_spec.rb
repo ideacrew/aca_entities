@@ -1,24 +1,7 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require 'aca_entities/person_name'
-require 'aca_entities/magi_medicaid/types'
-require 'aca_entities/magi_medicaid/employer'
-require 'aca_entities/magi_medicaid/identifying_information'
-require 'aca_entities/magi_medicaid/demographic'
-require 'aca_entities/magi_medicaid/attestation'
-require 'aca_entities/magi_medicaid/native_american_information'
-require 'aca_entities/magi_medicaid/citizenship_immigration_status_information'
-require 'aca_entities/magi_medicaid/student'
-require 'aca_entities/magi_medicaid/pregnancy_information'
-require 'aca_entities/magi_medicaid/foster_care'
-require 'aca_entities/magi_medicaid/email'
-require 'aca_entities/magi_medicaid/phone'
-require 'aca_entities/magi_medicaid/income'
-require 'aca_entities/magi_medicaid/benefit'
-require 'aca_entities/magi_medicaid/deduction'
-require 'aca_entities/magi_medicaid/vlp_document'
-require 'aca_entities/magi_medicaid/applicant'
+require 'aca_entities/magi_medicaid/libraries/iap_library'
 
 RSpec.describe ::AcaEntities::MagiMedicaid::Applicant, dbclean: :after_each do
 

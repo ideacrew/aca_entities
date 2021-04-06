@@ -1,27 +1,7 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require 'aca_entities/app_helper'
-require 'aca_entities/contracts/person_name_contract'
-require 'aca_entities/magi_medicaid/types'
-require 'aca_entities/magi_medicaid/contracts/identifying_information_contract'
-require 'aca_entities/magi_medicaid/contracts/demographic_contract'
-require 'aca_entities/magi_medicaid/contracts/attestation_contract'
-require 'aca_entities/magi_medicaid/contracts/native_american_information_contract'
-require 'aca_entities/magi_medicaid/contracts/citizenship_immigration_status_information_contract'
-require 'aca_entities/magi_medicaid/contracts/vlp_document_contract'
-require 'aca_entities/magi_medicaid/contracts/applicant_reference_contract'
-require 'aca_entities/magi_medicaid/contracts/student_contract'
-require 'aca_entities/magi_medicaid/contracts/foster_care_contract'
-require 'aca_entities/magi_medicaid/contracts/pregnancy_information_contract'
-require 'aca_entities/magi_medicaid/contracts/income_contract'
-require 'aca_entities/magi_medicaid/contracts/deduction_contract'
-require 'aca_entities/magi_medicaid/contracts/benefit_contract'
-require 'aca_entities/contracts/address_contract'
-require 'aca_entities/magi_medicaid/contracts/phone_contract'
-require 'aca_entities/magi_medicaid/contracts/email_contract'
-require 'aca_entities/magi_medicaid/contracts/applicant_contract'
-require 'aca_entities/magi_medicaid/contracts/application_contract'
+require 'aca_entities/magi_medicaid/libraries/iap_library'
 
 RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicationContract,  dbclean: :after_each do
   let(:name) { { first_name: 'first', last_name: 'last' } }
