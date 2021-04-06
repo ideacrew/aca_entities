@@ -1,8 +1,7 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require 'aca_entities/magi_medicaid/mitc/types'
-require 'aca_entities/magi_medicaid/mitc/relationship'
+require 'aca_entities/magi_medicaid/libraries/mitc_library'
 
 RSpec.describe ::AcaEntities::MagiMedicaid::Mitc::Relationship do
   describe 'with valid arguments' do

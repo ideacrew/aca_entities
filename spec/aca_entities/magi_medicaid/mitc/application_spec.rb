@@ -1,14 +1,7 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require 'aca_entities/magi_medicaid/mitc/types'
-require 'aca_entities/magi_medicaid/mitc/income'
-require 'aca_entities/magi_medicaid/mitc/relationship'
-require 'aca_entities/magi_medicaid/mitc/person_reference'
-require 'aca_entities/magi_medicaid/mitc/person'
-require 'aca_entities/magi_medicaid/mitc/household'
-require 'aca_entities/magi_medicaid/mitc/tax_return'
-require 'aca_entities/magi_medicaid/mitc/application'
+require 'aca_entities/magi_medicaid/libraries/mitc_library'
 
 RSpec.describe ::AcaEntities::MagiMedicaid::Mitc::Application, dbclean: :after_each do
   let(:person_params) do

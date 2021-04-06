@@ -1,8 +1,7 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require 'aca_entities/magi_medicaid/mitc/types'
-require 'aca_entities/magi_medicaid/mitc/contracts/deprived_child_contract'
+require 'aca_entities/magi_medicaid/libraries/mitc_library'
 
 RSpec.describe ::AcaEntities::MagiMedicaid::Mitc::Contracts::DeprivedChildContract do
   let(:required_params) { { qualify_as_deprived_child: 'N' } }
