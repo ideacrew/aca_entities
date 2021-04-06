@@ -6,7 +6,7 @@ module AcaEntities
     class EmailContract < Dry::Validation::Contract
 
       params do
-        required(:kind).filled(:string)
+        required(:kind).filled(Types::EmailKind)
         required(:address).filled(:string)
       end
     end
