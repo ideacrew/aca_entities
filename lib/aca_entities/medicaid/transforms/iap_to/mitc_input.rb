@@ -73,36 +73,21 @@ module Medicaid
         # map "lastUpdateMetadata.sourceSystemName", "lastUpdateData.sourceName", :rename_nested_keys
         # map "lastUpdateMetadata.sourceSystemName", "lastUpdateData.sourceName", :rename_nested_keys
 
-        namespace "lastUpdateMetadata", "lastUpdateData" do
-          map "sourceSystemName", "sourceName"
-        end
-
-        namespace "attestations", "records" do
-          namespace "application", "record" do
-            map "legalAttestations", "attestations"
-            map "applicationSignatures", "signatures"
-
-            # rewrap "verifications.consumer_role" do
-            #   map "comments", "user_comments"
-            #   map "contactInformation", "contact"
-            #   map "applicationAssistors", "applicationAssistors"
-            # end
-          end
-        end
-
-        namespace "records.record" do
-          rewrap "verifications.consumer_role" do
-          	map "comments", "user_comments"
-          	map "contactInformation", "contact"
-          	map "applicationAssistors", "applicationAssistors"
-          end
-        end
-
-        # namespace "records" do
-        #   namespace "record" do
-        #   end
+        # namespace "lastUpdateMetadata", "lastUpdateData" do
+        #   map "sourceSystemName", "sourceName"
         # end
 
+        # namespace "attestations.application", "records.record" do
+        #     map "legalAttestations", "attestations"
+        #     map "applicationSignatures", "signatures"
+        #     map "contactMemberIdentifier", "attestations" # , add_key: ["members", "computed.variableDeterminations.memberVariableDeterminations"]
+
+        #    	rewrap 'family.verifications.consumer_role' do
+        #   		map "comments", "user_comments"
+        #   		map "contactInformation", "contact"
+        #   		map "applicationAssistors", "applicationAssistors"
+        #   	end
+        # end
 
         # namespace "attestations" do
         #   namespace "application" do
