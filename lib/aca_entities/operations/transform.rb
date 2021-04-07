@@ -38,50 +38,10 @@ module Operations
       @namespace_mappings = Hash.new
     end
 
-    def namespace_mappping_for(key, namespaces)
-      key_with_namespace = (namespaces - @record_delimiter_matched_namespace).push(key).join('.')
-      return @namespace_mappings[key_with_namespace] if @namespace_mappings.key?(key_with_namespace)
-      
-      transformed_namespaces = namespace_mappings_set.compact.map(&:to_sym)
-      transformed_key = (transformed_namespaces + [key]).map(&:to_s).join('.')
-      key_with_transform = key_with_namespace if container.key?(key_with_namespace)
-      key_with_transform = transformed_key if container.key?(transformed_key)
-   
-      return unless key_with_transform
-
-      input = initialize_or_assign({}, transformed_namespaces, Hash[key.to_sym, nil])
-      data = container[key_with_transform].call(input)
-      @namespace_mappings[key_with_namespace] = namespace_hash_to_array(data).map(&:to_s).join('.') || key_with_transform     
-    end
-
-    # def strip_delimiter(namespaces, key)
-    #   (namespaces - @record_delimiter_matched_namespace).push(key).join('.')
-    # end
-
-    def namespace_hash_to_array(data)
-      return [] unless data
-      data.reduce([]) do |keys, (key, value)|
-        keys.push(key) 
-        keys += namespace_hash_to_array(value)        
-      end
-    end
-
-    def namespace_record_delimiter_matched?(namespaces)
-      return false if namespaces.empty?
-      return false unless namespaces.index(namespace_record_delimiter[0])
-
-      namespace_subset = namespaces[namespaces.index(namespace_record_delimiter.first)..-1]
-      return false unless namespace_subset.size == namespace_record_delimiter.size
-      non_identifier_delimiters.all? {|index, delimiter| namespace_subset[index] == delimiter}
-    end
-
-    def non_identifier_delimiters
-      return @non_identifier_dict if defined? @non_identifier_dict
-      @non_identifier_dict = {}
-      namespace_record_delimiter.each_with_index do |delimiter, index|
-        @non_identifier_dict[index] = delimiter if delimiter != :identifier
-      end
-      @non_identifier_dict
+    def call
+      File.open(@source_filename, 'r') { |f| Oj.saj_parse(self, f) }
+      # close input and output files
+      # return Monad around file processing, output file close result
     end
 
     def record_start(key)
@@ -115,8 +75,6 @@ module Operations
       puts "---hash_start_namespaces--#{namespaces}"
     end
 
-    # [:applications, '42323', 'result', 'enrollees']
-    # [:applications, '42323', 'result']
     def hash_end(key)
       matched = namespace_record_delimiter_matched?(@namespaces)
       @namespaces.pop
@@ -138,17 +96,7 @@ module Operations
 
       if key
         value = @array_records.empty? ? @array_record : @array_records
-        key_with_namespace = (@namespaces - @record_delimiter_matched_namespace).push(key).join('.')
-
-        transformed_namespaces = namespace_mappings_set.compact.map(&:to_sym)
-        transformed_key = (transformed_namespaces + [key]).map(&:to_s).join('.')
-        key_with_transform = key_with_namespace if container.key?(key_with_namespace)
-        key_with_transform = transformed_key if container.key?(transformed_key)
-     
-        input = initialize_or_assign({}, transformed_namespaces, Hash[key.to_sym, value])
-        data = container[key_with_transform].call(input) if key_with_transform
-
-        initialize_or_assign(record, [], data || input)
+        transform_data_for(key, value)
       else
         @array_records.push(@array_record)
       end
@@ -160,7 +108,6 @@ module Operations
     def add_value(value, key)
       puts "---add_value -- #{key} ---- #{value}"
 
-      # key = renamed_key_for(key)
       unless array_namespaces.empty?
         @array_record << if key
           Hash[key.to_sym, value]
@@ -173,32 +120,82 @@ module Operations
 
       return unless record_index
 
-      if defined? @record_delimiter_matched_namespace
-        key_with_namespace = (@namespaces - @record_delimiter_matched_namespace).push(key).join('.')
-        transformed_namespaces = namespace_mappings_set.compact.map(&:to_sym)
-      end
-
-      key_for_transform = key_with_namespace || key
-      transformed_key = (transformed_namespaces + [key]).map(&:to_s).join('.')
-
-      key_with_transform = key_for_transform if container.key?(key_for_transform)
-      key_with_transform = transformed_key if container.key?(transformed_key)
-   
-      if key_with_transform
-        input = initialize_or_assign({}, transformed_namespaces, Hash[key.to_sym, value])
-        data = container[key_with_transform].call(input)
-        initialize_or_assign(record, [], data)
-      else
-        data = Hash[key.to_sym, value]
-        initialize_or_assign(record, transformed_namespaces, data)
-      end
-  
-      # initialize_or_assign(record, transformed_namespaces || [], data || input)
+      transform_data_for(key, value)
     end
 
+    private
 
-    def namespace_mappings_set
-      element_namespaces = (@namespaces - @record_delimiter_matched_namespace)
+    def namespace_mappping_for(key, namespaces)
+      return unless defined? @record_delimiter_matched_namespace
+      
+      element_namespaces = (namespaces - @record_delimiter_matched_namespace)
+      key_with_namespace = (element_namespaces + [key]).join('.')
+      
+      return @namespace_mappings[key_with_namespace] if @namespace_mappings.key?(key_with_namespace)
+      return unless container.key?(key_with_namespace)
+
+      input = initialize_or_assign({}, element_namespaces.dup, Hash[key.to_sym, nil])
+      data = container[key_with_namespace].call(input) 
+
+      new_namespaces = namespace_hash_to_array(data)
+      transformed_namespaces = namespace_mappings_for(new_namespaces[0..-2]) + [new_namespaces.last.to_s]
+      # puts "*******************input-#{input.inspect}----output-#{data.inspect}--transformed--#{transformed_namespaces}"
+
+      @namespace_mappings[key_with_namespace] = transformed_namespaces.join('.') || key_with_transform     
+    end
+
+    def namespace_hash_to_array(data)
+      return [] unless data
+      data.reduce([]) do |keys, (key, value)|
+        keys.push(key) 
+        keys += namespace_hash_to_array(value)        
+      end
+    end
+
+    def namespace_record_delimiter_matched?(namespaces)
+      return false if namespaces.empty?
+      return false unless namespaces.index(namespace_record_delimiter[0])
+
+      namespace_subset = namespaces[namespaces.index(namespace_record_delimiter.first)..-1]
+      return false unless namespace_subset.size == namespace_record_delimiter.size
+      non_identifier_delimiters.all? {|index, delimiter| namespace_subset[index] == delimiter}
+    end
+
+    def non_identifier_delimiters
+      return @non_identifier_dict if defined? @non_identifier_dict
+      @non_identifier_dict = {}
+      namespace_record_delimiter.each_with_index do |delimiter, index|
+        @non_identifier_dict[index] = delimiter if delimiter != :identifier
+      end
+      @non_identifier_dict
+    end
+
+    def transform_data_for(key, value)
+      if defined? @record_delimiter_matched_namespace
+        element_namespaces = (namespaces - @record_delimiter_matched_namespace)
+        key_with_namespace = (element_namespaces + [key]).join('.')
+
+        input = initialize_or_assign({}, element_namespaces.dup, Hash[key.to_sym, value])
+        data = container[key_with_namespace].call(input) if container.key?(key_with_namespace)
+        # puts "****************************************input-#{input.inspect}----output-#{transform_hash(data, element_namespaces.dup).inspect}"
+      else
+        input = Hash[key.to_sym, value]
+        element_namespaces = namespaces
+      end
+
+      data_hash = transform_hash(data || input, element_namespaces.dup)
+      initialize_or_assign(record, [], data_hash)
+    end
+
+    def transform_hash(data_hash, namespace_set)
+      data_pair = data_hash.dig(*namespace_set) unless namespace_set.empty?
+      initialize_or_assign({}, namespace_mappings_for(namespace_set).map(&:to_sym), data_pair || data_hash)
+    rescue
+      binding.pry
+    end
+
+    def namespace_mappings_for(namespace_set = nil)
+      element_namespaces = (namespace_set - @record_delimiter_matched_namespace)
       set = []
       element_namespaces.size.times do |i|
         sample = element_namespaces[0..(element_namespaces.size - (1 + i))]
@@ -233,16 +230,6 @@ module Operations
     end
 
     def error(message, line, column); end
-
-    def call
-      puts "----inside calll"
-      File.open(@source_filename, 'r') { |f| Oj.saj_parse(self, f) }
-
-      # close input and output files
-      # return Monad around file processing, output file close result
-    end
-
-    private
 
     # def each(&block)
     #   until @buffer.include?(namespace_record_delimiter)

@@ -157,7 +157,7 @@ module Transform
           "t(:rewrap_keys, #{source_elements.map(&:to_sym)}, #{output_elements.map(&:to_sym)})"
         elsif action == :rename_nested_keys
           source = source_key.split('.').last
-          "t(:#{action}, [#{source}: :#{output_elements.last}], #{output_elements[0..-2].map(&:to_sym)})"
+          "t(:#{action}, [#{source}: :#{output_elements.last}], #{source_elements[0..-2].map(&:to_sym)})"
         else
           "t(:#{action}, #{source_key}: :#{output_elements.last})"
         end
