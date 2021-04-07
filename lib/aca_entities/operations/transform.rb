@@ -6,7 +6,7 @@ module Operations
   class Transform < Oj::Saj
     BufferLength = 512
 
-    attr_reader :source_filename, :namespaces, :namespace_record_delimiter, :array_namespaces, :container, :records, :record, :record_identifier, :record_index
+    attr_reader :source_filename, :namespaces, :namespace_record_delimiter, :array_namespaces, :container, :records, :record, :record_index
 
     # set_key_transform :camel # "some_key" => "SomeKey"
     # set_key_transform :camel_lower # "some_key" => "someKey"
@@ -45,8 +45,6 @@ module Operations
     end
 
     def record_start(key)
-      @record_identifier = key
-
       first_delimiter_match_index = @namespaces.index(namespace_record_delimiter[0])
       max_delimier_index = non_identifier_delimiters.keys.last
       binding.pry
@@ -63,7 +61,7 @@ module Operations
     end
 
     def hash_start(key)
-      namespace_mappping_for(key, @namespaces) if defined? @record_delimiter_matched_namespace
+      find_or_build_namespace_mappping_for(key) if defined? @record_delimiter_matched_namespace
       @namespaces.push(key&.to_sym)
       
       if namespace_record_delimiter_matched?(@namespaces)
@@ -125,23 +123,29 @@ module Operations
 
     private
 
-    def namespace_mappping_for(key, namespaces)
+    def find_or_build_namespace_mappping_for(key)
       return unless defined? @record_delimiter_matched_namespace
-      
+
       element_namespaces = (namespaces - @record_delimiter_matched_namespace)
       key_with_namespace = (element_namespaces + [key]).join('.')
-      
+
       return @namespace_mappings[key_with_namespace] if @namespace_mappings.key?(key_with_namespace)
       return unless container.key?(key_with_namespace)
 
-      input = initialize_or_assign({}, element_namespaces.dup, Hash[key.to_sym, nil])
-      data = container[key_with_namespace].call(input) 
+      build_namespace_mapping_for(element_namespaces, key)
+    end
+
+    def build_namespace_mapping_for(element_namespaces, key, value = nil)
+      key_with_namespace = (element_namespaces + [key]).join('.')
+
+      input = initialize_or_assign({}, element_namespaces.dup, Hash[key.to_sym, value])
+      data = container[key_with_namespace].call(input)
 
       new_namespaces = namespace_hash_to_array(data)
       transformed_namespaces = namespace_mappings_for(new_namespaces[0..-2]) + [new_namespaces.last.to_s]
       # puts "*******************input-#{input.inspect}----output-#{data.inspect}--transformed--#{transformed_namespaces}"
 
-      @namespace_mappings[key_with_namespace] = transformed_namespaces.join('.') || key_with_transform     
+      @namespace_mappings[key_with_namespace] = transformed_namespaces.join('.') || key_with_transform
     end
 
     def namespace_hash_to_array(data)
