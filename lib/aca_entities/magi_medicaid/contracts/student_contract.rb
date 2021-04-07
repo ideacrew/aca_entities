@@ -3,16 +3,23 @@
 module AcaEntities
   module MagiMedicaid
     module Contracts
-      # Contract for Student.
+      # Schema and validation rules for {AcaEntities::MagiMedicaid::Student}
       class StudentContract < Dry::Validation::Contract
         include ::AcaEntities::AppHelper
-
+        # @!method call(opts)
+        # @param [Hash] opts the parameters to validate using this contract
+        # @option opts [Integer] :age_of_applicant required
+        # @option opts [Boolean] :is_student optional
+        # @option opts [String] :student_kind optional
+        # @option opts [String] :student_school_kind optional
+        # @option opts [Date] :student_status_end_on optional
+        # @return [Dry::Monads::Result]
         params do
           required(:age_of_applicant).filled(:integer)
           optional(:is_student).maybe(:bool)
           optional(:student_kind).maybe(Types::StudentKind)
           optional(:student_school_kind).maybe(Types::StudentSchoolKind)
-          optional(:student_status_end_on).maybe(:bool)
+          optional(:student_status_end_on).maybe(:date)
         end
 
         rule(:is_student) do

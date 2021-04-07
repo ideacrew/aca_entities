@@ -3,10 +3,25 @@
 module AcaEntities
   module MagiMedicaid
     module Contracts
-      # Contract for Benefit.
+      # Schema and validation rules for {AcaEntities::MagiMedicaid::Benefit}
       class BenefitContract < Dry::Validation::Contract
         include ::AcaEntities::AppHelper
-
+        # @!method call(opts)
+        # @param [Hash] opts the parameters to validate using this contract
+        # @option opts [String] :name optional
+        # @option opts [String] :kind required
+        # @option opts [String] :status required
+        # @option opts [Boolean] :is_employer_sponsored optional
+        # @option opts [Hash] :employer optional
+        # @option opts [String] :esi_covered optional
+        # @option opts [Boolean] :is_esi_waiting_period optional
+        # @option opts [Boolean] :is_esi_mec_met optional
+        # @option opts [Float] :employee_cost optional
+        # @option opts [String] :employee_cost_frequency optional
+        # @option opts [Date] :start_on optional
+        # @option opts [Date] :end_on optional
+        # @option opts [DateTime] :submitted_at optional
+        # @return [Dry::Monads::Result]
         params do
           # title
           optional(:name).maybe(:string)
@@ -15,7 +30,7 @@ module AcaEntities
           # kind
           required(:status).filled(Types::BenefitStatusKind)
           optional(:is_employer_sponsored).maybe(:bool)
-          optional(:employer).maybe(:hash)
+          optional(:employer).maybe(EmployerContract.params)
           optional(:esi_covered).maybe(Types::EsiCoveredKind)
           optional(:is_esi_waiting_period).maybe(:bool)
           optional(:is_esi_mec_met).maybe(:bool)
@@ -27,18 +42,7 @@ module AcaEntities
         end
 
         rule(:employer) do
-          if kind_esi?(values[:kind]) && key? && value
-            if value.is_a?(Hash)
-              result = EmployerContract.new.call(value)
-              if result&.failure?
-                key.failure(text: 'invalid employer.', error: result.errors.to_h)
-              else
-                values.merge!(employer: result.to_h)
-              end
-            else
-              key.failure(text: 'invalid employer. Expected a hash.')
-            end
-          elsif kind_esi?(values[:kind])
+          if kind_esi?(values[:kind]) && check_if_blank?(value)
             key.failure(text: 'employer information missing for kind employer_sponsored_insurance.')
           end
         end

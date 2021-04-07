@@ -93,7 +93,7 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Contracts::BenefitContract,  dbclean
           end
 
           it 'should return failure with error message' do
-            err_msg = { employer: [{ error: { employer_id: ['is missing'], employer_name: ['is missing'] }, text: 'invalid employer.' }] }
+            err_msg = { employer: { employer_id: ['is missing'], employer_name: ['is missing'] } }
             expect(@result.errors.to_h).to eq(err_msg)
           end
         end

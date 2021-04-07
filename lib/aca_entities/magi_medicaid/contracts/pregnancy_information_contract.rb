@@ -3,10 +3,19 @@
 module AcaEntities
   module MagiMedicaid
     module Contracts
-      # Contract for PregnancyInformation.
+      # Schema and validation rules for {AcaEntities::MagiMedicaid::PregnancyInformation}
       class PregnancyInformationContract < Dry::Validation::Contract
         include ::AcaEntities::AppHelper
-
+        # @!method call(opts)
+        # @param [Hash] opts the parameters to validate using this contract
+        # @option opts [Boolean] :is_applying_coverage required
+        # @option opts [Boolean] :is_pregnant required
+        # @option opts [Boolean] :is_enrolled_on_medicaid optional
+        # @option opts [Boolean] :is_post_partum_period optional
+        # @option opts [Integer] :expected_children_count optional
+        # @option opts [Date] :pregnancy_due_on optional
+        # @option opts [Date] :pregnancy_end_on optional
+        # @return [Dry::Monads::Result]
         params do
           required(:is_applying_coverage).filled(:bool)
           required(:is_pregnant).filled(:bool)
