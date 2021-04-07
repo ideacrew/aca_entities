@@ -174,7 +174,7 @@ module AcaEntities
         rule(:vlp_document) do
           if key? && value
             if value.is_a?(Hash)
-              result = VlpDocumentContract.new.call(value)
+              result = AcaEntites::VlpDocumentContract.new.call(value)
               if result&.failure?
                 key.failure(text: 'invalid vlp_document', error: result.errors.to_h)
               else
