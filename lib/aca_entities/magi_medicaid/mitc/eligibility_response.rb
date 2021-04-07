@@ -8,12 +8,12 @@ module AcaEntities
         # @!attribute [r] determination_date
         # Tthe date the request was made.  YYYY-MM-DD
         # @return [String]
-        attribute :determination_date,  Types::String.meta(omittible: false)
+        attribute :determination_date,  Types::String.meta(omittable: false)
 
         # @!attribute [r] applicants
         # The list of {Applicants} whose eligibility is determined
         # @return [Array<Applicant>]
-        attribute :applicants,          Types::Array.of(Applicant).meta(omittible: false)
+        attribute :applicants,          Types::Array.of(Applicant).meta(omittable: false)
 
       end
     end

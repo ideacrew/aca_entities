@@ -1807,6 +1807,117 @@ module AcaEntities
         'tanf'
       )
 
+    ProductKinds = Types::Coercible::String.enum(
+      'health_catastrophic',
+      'health',
+      'dental'
+    )
+
+    DocumentRights = Types::Coercible::String.enum(
+      'public',
+      'pii_restricted'
+    )
+
+    ServiceMarketKinds = Types::Coercible::String.enum(
+      'shop',
+      'individual',
+      'coverall'
+    )
+
+    PremiumCreditStrategyKinds = Types::Coercible::String.enum(
+      'unassisted', 'employer_fixed_cost',
+      'employee_fixed_cost','allocated_lump_sum_credit',
+      'percentage_contribution','indexed_percentage_contribution',
+      'federal_employee_health_benefit'
+    )
+
+    BrokerMarketKinds = Types::Coercible::String.enum(
+      'individual',
+      'shop',
+      'both'
+    )
+
+    GeneralAgencyMarketKinds = Types::Coercible::String.enum(
+      'individual',
+      'shop',
+      'both'
+    )
+
+    ProviderKinds = Types::Coercible::String.enum(
+      'broker',
+      'assister'
+    )
+
+    EmailKinds = Types::Coercible::String.enum(
+      'home',
+      'work'
+    )
+
+    AddressKinds = Types::Coercible::String.enum(
+      'home','work',
+      'mailing','primary',
+      'mailing','branch'
+    )
+
+    PhoneKinds = Types::Coercible::String.enum(
+      'home',
+      'work',
+      'mobile',
+      'main',
+      'fax',
+      'phone',
+      'main'
+    )
+
+    EligibilitySourceKinds = Types::Coercible::String.enum(
+     'Curam',
+     'Admin',
+     'Renewals',
+     'Faa'
+    )
+
+    EligibilityCsrKinds = Types::Coercible::String.enum(
+      'csr_100',
+      'csr_94',
+      'csr_87',
+      'csr_73',
+      'csr_0',
+      'csr_limited'
+    )
+
+    EnrollmentKinds = Types::Coercible::String.enum(
+      'open_enrollment',
+      'special_enrollment'
+    )
+
+    EnrollmentMarketPlaceKinds = Types::Coercible::String.enum(
+      'individual', 'employer_sponsored',
+      'employer_sponsored_cobra' 'coverall',
+      'unassisted_qhp', 'insurance_assisted_qhp',
+      'streamlined_medicaid', 'emergency_medicaid',
+      'hcr_chip',
+    )
+
+    EnrollmentExemptionKinds = Types::Coercible::String.enum(
+      'hardship', 'health_care_ministry_member',
+      'incarceration','indian_tribe_member',
+      'religious_conscience'
+    )
+
+    MarketTransitionRoleTypes = Types::Coercible::String.enum(
+      'consumer',
+      'resident'
+    )
+
+    MarketTransitionReasonCodes = Types::Coercible::String.enum(
+      'initial_individual_market_transition_created_using_data_migration',
+      'eligibility_failed_or_documents_not_received_by_due_date',
+      'eligibility_documents_provided',
+      'generating_consumer_role',
+      'generating_resident_role'
+    )
+
+
     ProductsByMarketPlaceKind = {
       aca_individual: %w[health_catastrophic health dental],
       aca_shop: %w[health dental],
