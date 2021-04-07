@@ -7,7 +7,7 @@ module AcaEntities
       params do
         # optional(:identification_number).maybe(:string)
 
-        required(:subject).filled(:string)
+        optional(:subject).maybe(Types::VlpDocumentKind)
         optional(:alien_number).maybe(:string)
         optional(:i94_number).maybe(:string)
         optional(:visa_number).maybe(:string)

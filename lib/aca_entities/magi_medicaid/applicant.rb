@@ -17,7 +17,7 @@ module AcaEntities
       attribute :is_resident_role, Types::Bool.optional.meta(omittable: true)
       attribute :is_applying_coverage, Types::Bool.optional.meta(omittable: true)
       attribute :is_consent_applicant, Types::Bool.optional.meta(omittable: true)
-      attribute :vlp_document, VlpDocument.optional.meta(omittable: true)
+      attribute :vlp_document, AcaEntities::VlpDocument.optional.meta(omittable: true)
       attribute :person_hbx_id, Types::String.meta(omittable: false)
 
       attribute :is_required_to_file_taxes, Types::Bool.optional.meta(omittable: true)
