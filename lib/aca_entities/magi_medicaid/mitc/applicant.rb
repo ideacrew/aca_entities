@@ -8,7 +8,7 @@ module AcaEntities
         # @!attribute [r] person_id
         # An integer representing the applicant.
         # @return [Integer]
-        attribute :person_id,        Types::Integer.meta(omittible: false)
+        attribute :person_id,        Types::Integer.meta(omittable: false)
 
         # @!attribute [r] medicaid_household
         # A hash representing the household composition and MAGI determination.
@@ -28,7 +28,7 @@ module AcaEntities
         # @!attribute [r] medicaid_ineligibility_reasons
         # A list of reasons the person is not Medicaid eligible.
         # @return [String]
-        attribute :medicaid_ineligibility_reasons,   Types::Array.of(Types::String).meta(omittible: false)
+        attribute :medicaid_ineligibility_reasons,   Types::Array.of(Types::String).meta(omittable: false)
 
         # @!attribute [r] is_eligible_for_non_magi_reasons
         # Is the person potentially eligible for non-MAGI reasons?
@@ -38,7 +38,7 @@ module AcaEntities
         # @!attribute [r] chip_ineligibility_reasons
         # A list of reasons the person is not CHIP eligible.
         # @return [String]
-        attribute :chip_ineligibility_reasons,   Types::Array.of(Types::String).meta(omittible: false)
+        attribute :chip_ineligibility_reasons,   Types::Array.of(Types::String).meta(omittable: false)
 
         # @!attribute [r] medicaid_category
         # The category under which the person may be found eligible for Medicaid.
@@ -67,12 +67,12 @@ module AcaEntities
         # @!attribute [r] category_determination
         # A hash of category determinations.
         # @return category_determination
-        attribute :category_determination, CategoryDetermination.meta(omittible: false)
+        attribute :category_determination, CategoryDetermination.meta(omittable: false)
 
         # @!attribute [r] qualified_children
         # A list that currently contains only the Qualified Children List.
         # @return [Array<QualifiedChild>]
-        attribute :qualified_children,    Types::Array.of(QualifiedChild).meta(omittible: false)
+        attribute :qualified_children,    Types::Array.of(QualifiedChild).meta(omittable: false)
       end
     end
   end
