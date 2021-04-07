@@ -4,35 +4,41 @@ require 'spec_helper'
 require 'aca_entities/magi_medicaid/libraries/iap_library'
 
 RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicantContract,  dbclean: :after_each do
-  context 'valid params' do
-    context 'applicant is not applying for coverage' do
-      let(:name) { { first_name: 'first', last_name: 'last' } }
-      let(:identifying_information) { { has_ssn: false } }
-      let(:demographic) { { is_applying_coverage: false, gender: 'Male', dob: Date.today.prev_year.to_s } }
-      let(:attestation) { { is_applying_coverage: false, is_disabled: false } }
-      let(:family_member_reference) { { hbx_id: '1000' } }
-      let(:pregnancy_information) { { is_applying_coverage: false, is_pregnant: false, is_post_partum_period: false } }
+  context 'applicant is not applying for coverage' do
+    let(:name) { { first_name: 'first', last_name: 'last' } }
+    let(:identifying_information) { { has_ssn: false } }
+    let(:demographic) { { is_applying_coverage: false, gender: 'Male', dob: Date.today.prev_year.to_s } }
+    let(:attestation) { { is_applying_coverage: false, is_disabled: false } }
+    let(:family_member_reference) { { hbx_id: '1000' } }
+    let(:pregnancy_information) { { is_applying_coverage: false, is_pregnant: false, is_post_partum_period: false } }
 
-      let(:input_params) do
-        { name: name,
-          identifying_information: identifying_information,
-          demographic: demographic,
-          attestation: attestation,
-          is_primary_applicant: true,
-          is_applying_coverage: false,
-          family_member_reference: family_member_reference,
-          person_hbx_id: '100',
-          is_required_to_file_taxes: false,
-          pregnancy_information: pregnancy_information,
-          has_job_income: false,
-          has_self_employment_income: false,
-          has_unemployment_income: false,
-          has_other_income: false,
-          has_deductions: false,
-          has_enrolled_health_coverage: false,
-          has_eligible_health_coverage: false }
-      end
+    let(:input_params) do
+      { name: name,
+        identifying_information: identifying_information,
+        demographic: demographic,
+        attestation: attestation,
+        is_primary_applicant: true,
+        is_applying_coverage: false,
+        family_member_reference: family_member_reference,
+        person_hbx_id: '100',
+        is_required_to_file_taxes: false,
+        pregnancy_information: pregnancy_information,
+        has_job_income: false,
+        has_self_employment_income: false,
+        has_unemployment_income: false,
+        has_other_income: false,
+        has_deductions: false,
+        has_enrolled_health_coverage: false,
+        has_eligible_health_coverage: false,
+        addresses: [],
+        emails: [],
+        phones: [],
+        incomes: [],
+        benefits: [],
+        deductions: [] }
+    end
 
+    context 'valid params' do
       before do
         @result = subject.call(input_params)
       end
@@ -46,39 +52,91 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicantContract,  dbclean
       end
     end
 
-    context 'applicant is applying for coverage' do
-      let(:name) { { first_name: 'first', last_name: 'last' } }
-      let(:identifying_information) { { has_ssn: false } }
-      let(:demographic) do
-        { is_applying_coverage: true,
-          gender: 'Male',
-          dob: Date.today.prev_year.to_s,
-          is_veteran_or_active_military: false }
-      end
-      let(:attestation) { { is_applying_coverage: true, is_disabled: false, is_incarcerated: false } }
-      let(:family_member_reference) { { hbx_id: '1000' } }
-      let(:pregnancy_information) { { is_applying_coverage: true, is_pregnant: false, is_post_partum_period: false } }
+    context 'invalid params' do
+      context 'without incomes but has_job_income it set to true' do
+        let(:invalid_params) do
+          input_params.merge({ has_job_income: true })
+        end
 
-      let(:input_params) do
-        { name: name,
-          identifying_information: identifying_information,
-          demographic: demographic,
-          attestation: attestation,
-          is_primary_applicant: true,
-          is_applying_coverage: true,
-          family_member_reference: family_member_reference,
-          person_hbx_id: '100',
-          is_required_to_file_taxes: false,
-          pregnancy_information: pregnancy_information,
-          has_job_income: false,
-          has_self_employment_income: false,
-          has_unemployment_income: false,
-          has_other_income: false,
-          has_deductions: false,
-          has_enrolled_health_coverage: false,
-          has_eligible_health_coverage: false }
+        before do
+          @result = subject.call(invalid_params)
+        end
+
+        it 'should return failure with error message' do
+          expect(@result.errors.to_h).to eq({ incomes: ['invalid input data for incomes.'] })
+        end
       end
 
+      context 'without deductions but has_deductions is set to true' do
+        let(:invalid_params) do
+          input_params.merge({ has_deductions: true })
+        end
+
+        before do
+          @result = subject.call(invalid_params)
+        end
+
+        it 'should return failure with error message' do
+          expect(@result.errors.to_h).to eq({ deductions: ['invalid input data for deductions.'] })
+        end
+      end
+
+      context 'without benefits but has_enrolled_health_coverage is set to true' do
+        let(:invalid_params) do
+          input_params.merge({ has_enrolled_health_coverage: true })
+        end
+
+        before do
+          @result = subject.call(invalid_params)
+        end
+
+        it 'should return failure with error message' do
+          expect(@result.errors.to_h).to eq({ benefits: ['invalid input data for benefits.'] })
+        end
+      end
+    end
+  end
+
+  context 'applicant is applying for coverage' do
+    let(:name) { { first_name: 'first', last_name: 'last' } }
+    let(:identifying_information) { { has_ssn: false } }
+    let(:demographic) do
+      { is_applying_coverage: true,
+        gender: 'Male',
+        dob: Date.today.prev_year.to_s,
+        is_veteran_or_active_military: false }
+    end
+    let(:attestation) { { is_applying_coverage: true, is_disabled: false, is_incarcerated: false } }
+    let(:family_member_reference) { { hbx_id: '1000' } }
+    let(:pregnancy_information) { { is_applying_coverage: true, is_pregnant: false, is_post_partum_period: false } }
+
+    let(:input_params) do
+      { name: name,
+        identifying_information: identifying_information,
+        demographic: demographic,
+        attestation: attestation,
+        is_primary_applicant: true,
+        is_applying_coverage: true,
+        family_member_reference: family_member_reference,
+        person_hbx_id: '100',
+        is_required_to_file_taxes: false,
+        pregnancy_information: pregnancy_information,
+        has_job_income: false,
+        has_self_employment_income: false,
+        has_unemployment_income: false,
+        has_other_income: false,
+        has_deductions: false,
+        has_enrolled_health_coverage: false,
+        has_eligible_health_coverage: false,
+        addresses: [],
+        emails: [],
+        phones: [],
+        incomes: [],
+        benefits: [],
+        deductions: [] }
+    end
+
+    context 'valid params' do
       before do
         @result = subject.call(input_params)
       end

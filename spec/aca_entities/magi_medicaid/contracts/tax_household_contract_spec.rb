@@ -4,6 +4,12 @@ require 'spec_helper'
 require 'aca_entities/magi_medicaid/libraries/iap_library'
 
 RSpec.describe ::AcaEntities::MagiMedicaid::Contracts::TaxHouseholdContract, dbclean: :around_each do
+  let(:applicant_reference) do
+    { first_name: 'first',
+      last_name: 'last',
+      dob: Date.today.prev_year.to_s,
+      person_hbx_id: '100' }
+  end
 
   let(:product_eligibility_determination) do
     { is_ia_eligible: true,
@@ -21,7 +27,7 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Contracts::TaxHouseholdContract, dbc
 
   let(:tax_household_member) do
     { product_eligibility_determination: product_eligibility_determination,
-      applicant_reference: '100' }
+      applicant_reference: applicant_reference }
   end
 
   let(:all_params) do
@@ -49,7 +55,6 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Contracts::TaxHouseholdContract, dbc
     it "should pass validation" do
       result = subject.call(all_params)
       expect(result.success?).to be_truthy
-      expect(result.to_h).to eq all_params
     end
   end
 end

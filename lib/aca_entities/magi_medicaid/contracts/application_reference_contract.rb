@@ -3,9 +3,12 @@
 module AcaEntities
   module MagiMedicaid
     module Contracts
-      # Contract for ApplicationReference.
+      # Schema and validation rules for {AcaEntities::MagiMedicaid::ApplicationReference}
       class ApplicationReferenceContract < Dry::Validation::Contract
-
+        # @!method call(opts)
+        # @param [Hash] opts the parameters to validate using this contract
+        # @option opts [String] :hbx_id required
+        # @return [Dry::Monads::Result]
         params do
           required(:hbx_id).filled(:string)
         end

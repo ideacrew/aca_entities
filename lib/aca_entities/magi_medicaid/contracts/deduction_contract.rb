@@ -3,10 +3,19 @@
 module AcaEntities
   module MagiMedicaid
     module Contracts
-      # Contract for Deduction.
+      # Schema and validation rules for {AcaEntities::MagiMedicaid::Deduction}
       class DeductionContract < Dry::Validation::Contract
         include ::AcaEntities::AppHelper
-
+        # @!method call(opts)
+        # @param [Hash] opts the parameters to validate using this contract
+        # @option opts [String] :name optional
+        # @option opts [String] :kind required
+        # @option opts [Float] :amount required
+        # @option opts [Date] :start_on required
+        # @option opts [Date] :end_on optional
+        # @option opts [String] :frequency_kind required
+        # @option opts [DateTime] :submitted_at optional
+        # @return [Dry::Monads::Result]
         params do
           optional(:name).maybe(:string)
           required(:kind).filled(Types::DeductionKind)

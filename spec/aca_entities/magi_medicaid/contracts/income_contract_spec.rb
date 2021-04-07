@@ -17,7 +17,6 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Contracts::IncomeContract,  dbclean:
       amount_tax_exempt: 0.0,
       end_on: nil,
       is_projected: false,
-      employer: {},
       has_property_usage_rights: false,
       submitted_at: DateTime.now.to_s }
   end
