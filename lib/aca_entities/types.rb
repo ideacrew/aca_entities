@@ -1843,6 +1843,8 @@ module AcaEntities
       'work'
     )
 
+    EmailAddressRegex = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i.freeze
+
     # List of the documents user can provide to verify Immigration status
     VlpDocumentKind = Types::Coercible::String.enum(
       'I-327 (Reentry Permit)',
