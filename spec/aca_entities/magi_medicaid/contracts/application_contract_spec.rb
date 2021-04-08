@@ -88,10 +88,11 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicationContract,  dbcle
       end
 
       it 'should return failure with error message' do
+        preg_err_hash = { expected_children_count: ['must be filled if the applicant is pregnant.'],
+                          pregnancy_due_on: ['must be filled if the applicant is pregnant.'] }
         err_msg = { applicants: [{ text: 'invalid applicant',
                                    error: { pregnancy_information: [{ text: 'invalid pregnancy_information',
-                                                                      error: { expected_children_count: ['must be filled if the applicant is pregnant.'],
-                                                                               pregnancy_due_on: ['must be filled if the applicant is pregnant.'] } }] } }] }
+                                                                      error: preg_err_hash }] } }] }
         expect(subject.call(input_params).errors.to_h).to eq(err_msg)
       end
     end
