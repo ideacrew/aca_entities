@@ -30,6 +30,25 @@ module AcaEntities
         #     key.failure('at least one must be provided')
         #   end
         # end
+
+        rule(:applicants) do
+          if key? && value
+            applicants_array = value.inject([]) do |hash_array, object_hash|
+              if object_hash.is_a?(Hash)
+                result = ApplicantContract.new.call(object_hash)
+                if result&.failure?
+                  key.failure(text: 'invalid applicant', error: result.errors.to_h)
+                else
+                  hash_array << result.to_h
+                end
+              else
+                key.failure(text: 'invalid applicant. Expected a hash.')
+              end
+              hash_array
+            end
+            values.merge!(applicants: applicants_array)
+          end
+        end
       end
     end
   end
