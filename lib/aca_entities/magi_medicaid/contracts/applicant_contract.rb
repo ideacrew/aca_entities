@@ -217,9 +217,9 @@ module AcaEntities
         rule(:incomes) do
           if any_income?(values)
             key.failure(text: 'invalid input data for incomes.') if check_if_blank?(value)
-            incomes_array = value.inject([]) do |hash_array, id_hash|
-              if id_hash.is_a?(Hash)
-                result = IncomeContract.new.call(id_hash)
+            incomes_array = value.inject([]) do |hash_array, object_hash|
+              if object_hash.is_a?(Hash)
+                result = IncomeContract.new.call(object_hash)
                 if result&.failure?
                   key.failure(text: 'invalid income', error: result.errors.to_h)
                 else
@@ -237,9 +237,9 @@ module AcaEntities
         rule(:deductions) do
           if values[:has_deductions]
             key.failure(text: 'invalid input data for deductions.') if check_if_blank?(value)
-            deductions_array = value.inject([]) do |hash_array, id_hash|
-              if id_hash.is_a?(Hash)
-                result = DeductionContract.new.call(id_hash)
+            deductions_array = value.inject([]) do |hash_array, object_hash|
+              if object_hash.is_a?(Hash)
+                result = DeductionContract.new.call(object_hash)
                 if result&.failure?
                   key.failure(text: 'invalid deduction', error: result.errors.to_h)
                 else
@@ -261,9 +261,9 @@ module AcaEntities
         rule(:benefits) do
           if any_benefit?(values)
             key.failure(text: 'invalid input data for benefits.') if check_if_blank?(value)
-            benefits_array = value.inject([]) do |hash_array, id_hash|
-              if id_hash.is_a?(Hash)
-                result = BenefitContract.new.call(id_hash)
+            benefits_array = value.inject([]) do |hash_array, object_hash|
+              if object_hash.is_a?(Hash)
+                result = BenefitContract.new.call(object_hash)
                 if result&.failure?
                   key.failure(text: 'invalid benefit', error: result.errors.to_h)
                 else
@@ -280,9 +280,9 @@ module AcaEntities
 
         rule(:addresses) do
           if key? && value
-            addresses_array = value.inject([]) do |hash_array, id_hash|
-              if id_hash.is_a?(Hash)
-                result = AcaEntities::Contracts::AddressContract.new.call(id_hash)
+            addresses_array = value.inject([]) do |hash_array, object_hash|
+              if object_hash.is_a?(Hash)
+                result = AcaEntities::Contracts::AddressContract.new.call(object_hash)
                 if result&.failure?
                   key.failure(text: 'invalid address', error: result.errors.to_h)
                 else
@@ -299,9 +299,9 @@ module AcaEntities
 
         rule(:phones) do
           if key? && value
-            phones_array = value.inject([]) do |hash_array, id_hash|
-              if id_hash.is_a?(Hash)
-                result = AcaEntities::Contracts::PhoneContract.new.call(id_hash)
+            phones_array = value.inject([]) do |hash_array, object_hash|
+              if object_hash.is_a?(Hash)
+                result = AcaEntities::Contracts::PhoneContract.new.call(object_hash)
                 if result&.failure?
                   key.failure(text: 'invalid phone', error: result.errors.to_h)
                 else
@@ -318,9 +318,9 @@ module AcaEntities
 
         rule(:emails) do
           if key? && value
-            emails_array = value.inject([]) do |hash_array, id_hash|
-              if id_hash.is_a?(Hash)
-                result = AcaEntities::Contracts::EmailContract.new.call(id_hash)
+            emails_array = value.inject([]) do |hash_array, object_hash|
+              if object_hash.is_a?(Hash)
+                result = AcaEntities::Contracts::EmailContract.new.call(object_hash)
                 if result&.failure?
                   key.failure(text: 'invalid email', error: result.errors.to_h)
                 else

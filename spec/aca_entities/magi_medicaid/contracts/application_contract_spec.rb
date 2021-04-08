@@ -75,5 +75,25 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicationContract,  dbcle
         expect(subject.call(input_params).errors.to_h).to eq({ assistance_year: ['must be an integer'] })
       end
     end
+
+    context 'invalid applicant for assistance_year' do
+      let(:input_params) do
+        { family_reference: family_reference,
+          assistance_year: 2021,
+          applicants: [applicant.merge({ pregnancy_information: { is_applying_coverage: true, is_pregnant: true, is_post_partum_period: true } })] }
+      end
+
+      before do
+        @result = subject.call(input_params)
+      end
+
+      it 'should return failure with error message' do
+        err_msg = { applicants: [{ text: 'invalid applicant',
+                                   error: { pregnancy_information: [{ text: 'invalid pregnancy_information',
+                                                                      error: { expected_children_count: ['must be filled if the applicant is pregnant.'],
+                                                                               pregnancy_due_on: ['must be filled if the applicant is pregnant.'] } }] } }] }
+        expect(subject.call(input_params).errors.to_h).to eq(err_msg)
+      end
+    end
   end
 end
