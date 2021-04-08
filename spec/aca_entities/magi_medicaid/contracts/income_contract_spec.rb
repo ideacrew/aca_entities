@@ -66,5 +66,33 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Contracts::IncomeContract,  dbclean:
         expect(@result.errors.to_h[:frequency_kind].first).to match(err_msg)
       end
     end
+
+    context 'bad employer id' do
+      let(:input_params) do
+        { kind: 'wages_and_salaries',
+          amount: 100.67,
+          employer: { employer_name: 'ABC employer', employer_id: '12344' },
+          frequency_kind: 'Weekly',
+          start_on: Date.today.prev_year.to_s,
+          title: 'title',
+          wage_type: 'wage_type',
+          hours_per_week: 20,
+          amount_tax_exempt: 0.0,
+          end_on: nil,
+          is_projected: false,
+          has_property_usage_rights: false,
+          submitted_at: DateTime.now.to_s }
+      end
+
+      before do
+        @result = subject.call(input_params)
+      end
+
+      it 'should return failure with error message' do
+        err_msg = { employer: [{ error: { employer_id: ['should be of length 9 and allows numbers only'] },
+                                 text: 'invalid employer.' }] }
+        expect(@result.errors.to_h).to eq(err_msg)
+      end
+    end
   end
 end
