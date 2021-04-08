@@ -28,22 +28,24 @@ module AcaEntities
         end
       end
 
-      def rewrap_keys(source_hash, source_namespaces, destination_namespaces = [])
-        puts "------>>>> unwrap #{source_hash} -- #{source_namespaces} ---- #{destination_namespaces}"
-        binding.pry
+      def append_keys(source_hash, source_namespaces, destination_namespaces = [])
         source_hash.to_h.tap do |source_data|
-          # final_pair = hash.dig(*namespaces)
-          # mapping.first.each {|k, v| final_pair[v] = final_pair.delete(k) if final_pair.key?(k)}
-          data_hash = source_data.dig(*source_namespaces[0..-2])
 
           element = destination_namespaces.pop
-          # destination_namespaces.pop
-          output = initialize_or_assign({}, destination_namespaces.dup, Hash[element, data_hash[source_namespaces.last]])
+          output = initialize_or_assign({}, destination_namespaces.dup, Hash[element, source_data[source_namespaces.last]])
          
-          puts "-----output --- #{output.inspect}"
-
           source_data[destination_namespaces[0]] = output[destination_namespaces[0]]
-          source_data.delete(source_namespaces[0])
+          source_data.delete(source_namespaces.last)
+        end
+      end
+
+      def rewrap_keys(source_hash, source_namespaces, destination_namespaces = [])
+        puts "------>>>> unwrap #{source_hash} -- #{source_namespaces} ---- #{destination_namespaces}"
+        source_hash.to_h.tap do |source_data|
+          element = destination_namespaces.pop
+          output = initialize_or_assign({}, destination_namespaces.dup, source_data)
+          source_data.delete(source_namespaces.last)
+          source_data[destination_namespaces[0]] = output[destination_namespaces[0]]
         end
       end
 

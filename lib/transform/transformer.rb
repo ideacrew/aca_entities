@@ -14,27 +14,13 @@ module Transform
 
     attr_reader :source_ns, :output_ns, :mappings, :transform_action
 
-    def initialize(source_namespace, output_namespace = nil, transform_action = nil)
+    def initialize(source_namespace, output_namespace = nil, transform_action = nil, *args)
       @source_ns = source_namespace.is_a?(Array) ? source_namespace.flatten : source_namespace.split('.')
       @output_ns = output_namespace.is_a?(Array) ? output_namespace.flatten : output_namespace.to_s.split('.')
       @transform_action = transform_action
       @mappings = {}
       construct_namespace_map
     end
-
-    # namespace "lastUpdateMetadata", "lastUpdateData" do
-    #   map
-    # end
-
-    # namespace "lastUpdateMetadata", "lastUpdateData" do
-    #   namespace "application", 'consumer' do
-    #     map
-    #   end
-    # end
-
-    # namespace "lastUpdateMetadata.application", "lastUpdateData.consumer" do
-    #   map
-    # end
 
     def construct_namespace_map
       return if transform_action == :rewrap_keys
@@ -51,20 +37,39 @@ module Transform
       end
     end
 
-    def map(source_key = nil, output_key = nil)
-      mapping = Transform::Map.new(
-        (source_ns + [source_key]).join('.'),
-        (output_ns + [output_key.to_s]).join('.'),
-        transform_action || :rename_nested_keys
-      )
-      @mappings[mapping.source_key] = mapping
+    def map(source_key = nil, output_key = nil, options = {})
+      if source_key == ''
+        mapping = Transform::Map.new(
+          (source_ns + [output_key.to_s]).join('.'),
+          (output_ns + [output_key.to_s]).join('.'),
+          :append_keys
+        )
+      else
+        mapping = Transform::Map.new(
+          (source_ns + [source_key]).join('.'),
+          (output_ns + [output_key.to_s]).join('.'),
+          transform_action || :rename_nested_keys
+        )
+      end
+      @mappings[mapping.container_key] = mapping
     end
 
-    def rewrap(output_namespace = nil, &block)
+    def rewrap(output_namespace = nil, *args, &block)
+      unless args.empty?
+        map = Transform::Map.new(
+          (source_ns).join('.'),
+          output_namespace,
+          :rewrap_keys
+        )
+        map.properties = args
+        @mappings[map.container_key] = map
+      end
+
       map = self.class.new(
         source_ns,
-        output_ns + output_namespace.to_s.split('.'),
-        :rewrap_keys
+        output_namespace.to_s.split('.'),
+        :rewrap_keys,
+        args
       )
       map.instance_exec(&block)
 
@@ -97,18 +102,30 @@ module Transform
     end
 
     module ClassMethods
-      def map(source_key = nil, output_key = nil, *actions)
-        mapping = Transform::Map.new(source_key, output_key, actions.flatten)
-        # key = (mapping.namespace+[mapping.source_key]).map(&:to_s).join('.')
+      # attr_reader :namespace
+
+      def map(source_key = nil, output_key = nil, options = {})
+        mapping = Transform::Map.new(source_key, output_key, options)
+        key = (mapping.namespace+[mapping.source_key]).map(&:to_s).join('.')
         mapping_container.register(mapping.source_key, mapping)
       end
 
+      def add_key; end
+
+      # FIX ME: deprecate map serializer
       def namespace(source_namespace, output_namespace = nil, &block)
         map = MapSerializer.new(source_namespace, output_namespace)
-        map.instance_exec(&block)
+        # @namespace ||= []
+        # @namespace.push(source_namespace)
+
+        # yield if block_given?
+
+        # @namespace.pop
+
+        map.instance_exec(&block) if block_given?
         map.mappings.each do |key, map|
           # key = (mapping.namespace+[mapping.source_key]).map(&:to_s).join('.')
-          mapping_container.register(map.source_key, map) unless mapping_container.key?(map.source_key)
+          mapping_container.register(map.container_key, map) unless mapping_container.key?(map.source_key)
         end
       end
 
@@ -127,7 +144,7 @@ module Transform
   end
 
   class Map
-    attr_reader :source_key, :output_key, :key_transforms, :result, :transproc#, :namespace
+    attr_reader :source_key, :output_key, :key_transforms, :result, :transproc, :type#, :namespace
 
     def initialize(source_key = nil, output_key = nil, *key_transforms, &block)
       @source_key = source_key
@@ -135,6 +152,10 @@ module Transform
       @key_transforms = key_transforms
       # @namespace = []
       transform
+    end
+
+    def call(input)
+      transproc.call(input)
     end
 
     def t(*args)
@@ -149,10 +170,12 @@ module Transform
 
       transform_procs = key_transforms.inject([]) do |procs, action|
         procs << if action == :nest
-        output_elements.size.times.collect do |i|
-          offset = -1 * i
-          "t(:nest, :#{output_elements[-2 + offset]}, [:#{output_elements[-1 + offset]}])" if output_elements[-2 + offset]
-        end.compact
+          output_elements.size.times.collect do |i|
+            offset = -1 * i
+            "t(:nest, :#{output_elements[-2 + offset]}, [:#{output_elements[-1 + offset]}])" if output_elements[-2 + offset]
+          end.compact
+        elsif action == :append_keys
+          "t(:append_keys, #{source_elements.map(&:to_sym)}, #{output_elements.map(&:to_sym)})"
         elsif action == :rewrap_keys
           "t(:rewrap_keys, #{source_elements.map(&:to_sym)}, #{output_elements.map(&:to_sym)})"
         elsif action == :rename_nested_keys
@@ -166,12 +189,17 @@ module Transform
       @transproc = eval(transform_procs.flatten.join('.>> '))
     end
 
-    # def namespace=(value)
-    #   @namespace = value
-    # end
+    def namespace_transform_required?
+      return false if key_transforms.include?(:rewrap_keys) ||  key_transforms.include?(:append_keys)
+      true
+    end
 
-    def call(input)
-      transproc.call(input)
+    def container_key
+      source_key
+    end
+
+    def properties=(args)
+      @type = args.first[:type]
     end
 
     # def process

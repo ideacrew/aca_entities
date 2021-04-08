@@ -3,7 +3,41 @@ require 'oj'
 require 'deep_merge'
 
 module Operations
+
+  class RecordBuilder
+    attr_reader :root, :data_set
+
+    def initialize(root:, type:)
+      @type = type
+      @data_set = {}
+      @root = root
+    end
+
+    def append(identifier, data)
+      data_pair = data.dig(*@output_ns.split('.').map(&:to_sym))
+      @data_set[identifier] ||= {}
+      @data_set[identifier].deep_merge!(data_pair)
+    end
+
+    def output
+      if @type == :array 
+        data_set.values
+      else
+        data_set
+      end
+    end
+
+    def output=(output_ns)
+      @output_ns = output_ns
+    end
+
+    def output_namespaces
+      @output_ns.split('.').map(&:to_sym)
+    end
+  end
+
   class Transform < Oj::Saj
+
     BufferLength = 512
 
     attr_reader :source_filename, :namespaces, :namespace_record_delimiter, :array_namespaces, :container, :records, :record, :record_index
@@ -44,6 +78,10 @@ module Operations
       # return Monad around file processing, output file close result
     end
 
+    def t(*args)
+      ::Transform::TransformFunctions[*args]
+    end
+
     def record_start(key)
       first_delimiter_match_index = @namespaces.index(namespace_record_delimiter[0])
       max_delimier_index = non_identifier_delimiters.keys.last
@@ -69,12 +107,20 @@ module Operations
 
         record_start(key&.to_sym)
       end
+
+      process_append_transforms(namespaces, key) if defined? @record_delimiter_matched_namespace
+
       puts "---hash_start -- #{key}"
       puts "---hash_start_namespaces--#{namespaces}"
     end
 
     def hash_end(key)
       matched = namespace_record_delimiter_matched?(@namespaces)
+
+      if @record_builder && !@record_builder.data_set.empty?
+        write_records(key)
+      end
+
       @namespaces.pop
       puts "---hash_end -- #{key}"
       puts "---hash_end_namespaces--#{namespaces}"
@@ -123,11 +169,50 @@ module Operations
 
     private
 
+    def process_append_transforms(namespaces, key)
+      element_namespaces = (namespaces - @record_delimiter_matched_namespace)
+
+      container.keys.each do |container_key|
+        next unless container[container_key].transproc.name == :append_keys
+
+        if container_key.match(/^#{element_namespaces.join('.')}\.\w+$/)
+          # input = initialize_or_assign({}, element_namespaces.dup, Hash[container_key.split('.').last.to_sym, nil])
+          
+          data  = container[container_key].call(Hash[container_key.split('.').last.to_sym, nil])
+          initialize_or_assign(record, [], data)
+        elsif @record_builder && container_key.match(/^#{@record_builder.root}\.\w+$/)
+          buider_root_ns = @record_builder.root.split('.').map(&:to_sym)
+          next unless buider_root_ns.size == element_namespaces.size && buider_root_ns[0..-2] == element_namespaces[0..-2]
+          # input = initialize_or_assign({}, element_namespaces.dup, Hash[container_key.split('.').last.to_sym, nil])
+          
+          data  = container[container_key].call(Hash[container_key.split('.').last.to_sym, nil])
+          @record_builder.append(key, data)
+        end
+      end
+    end
+
+    def write_records(key)
+      element_namespaces = (namespaces - @record_delimiter_matched_namespace)
+      return unless @record_builder.root.split('.').size == element_namespaces.size
+      binding.pry
+
+      initialize_or_assign(record, @record_builder.output_namespaces, @record_builder.output)
+
+      @record_builder = nil
+    end
+
     def find_or_build_namespace_mappping_for(key)
       return unless defined? @record_delimiter_matched_namespace
 
       element_namespaces = (namespaces - @record_delimiter_matched_namespace)
       key_with_namespace = (element_namespaces + [key]).join('.')
+
+      regex_key = (element_namespaces + ['*']).join('.')
+      if container.key?(regex_key)
+        @record_builder ||= RecordBuilder.new(root: regex_key, type: container[regex_key].type)
+        @record_builder.output = container[regex_key].output_key
+        @record_unique_identifier = key
+      end
 
       return @namespace_mappings[key_with_namespace] if @namespace_mappings.key?(key_with_namespace)
       return unless container.key?(key_with_namespace)
@@ -174,21 +259,73 @@ module Operations
       @non_identifier_dict
     end
 
-    def transform_data_for(key, value)
-      if defined? @record_delimiter_matched_namespace
-        element_namespaces = (namespaces - @record_delimiter_matched_namespace)
-        key_with_namespace = (element_namespaces + [key]).join('.')
+    # def transform_data_for(key, value)
+    #   if defined? @record_delimiter_matched_namespace
+    #     element_namespaces = (namespaces - @record_delimiter_matched_namespace)
+    #     key_with_namespace = (element_namespaces + [key]).join('.')
 
-        input = initialize_or_assign({}, element_namespaces.dup, Hash[key.to_sym, value])
-        data = container[key_with_namespace].call(input) if container.key?(key_with_namespace)
-        # puts "****************************************input-#{input.inspect}----output-#{transform_hash(data, element_namespaces.dup).inspect}"
+    #     input = initialize_or_assign({}, element_namespaces.dup, Hash[key.to_sym, value])
+    #     data = container[key_with_namespace].call(input) if container.key?(key_with_namespace)
+    #     # puts "****************************************input-#{input.inspect}----output-#{transform_hash(data, element_namespaces.dup).inspect}" 
+    #   else
+    #     input = Hash[key.to_sym, value]
+    #     element_namespaces = namespaces
+    #   end
+
+    #   namespace_transform_needed = true
+    #   namespace_transform_needed = container[key_with_namespace].namespace_transform_required? if data
+
+    #   data_hash = transform_hash(data || input, element_namespaces.dup) if namespace_transform_needed
+    #   initialize_or_assign(record, [], data_hash || data)
+    # end
+
+    def transform_data_for(key, value)
+      return unless defined? @record_delimiter_matched_namespace
+
+      element_namespaces = (namespaces - @record_delimiter_matched_namespace)
+      key_with_namespace = (element_namespaces + [key]).join('.')
+
+      transformed_key = transform_to_wildcard(key_with_namespace.dup)
+      record_unique_identifier = record_unique_identifier(key_with_namespace)
+
+      # binding.pry if key.to_s == 'birthDate' || key.to_s == 'sex'
+
+      return unless container.key?(transformed_key) #|| container.key?(element_namespaces.join('.'))
+
+      input = if record_unique_identifier
+        initialize_or_assign({}, [], Hash[key.to_sym, value])
       else
-        input = Hash[key.to_sym, value]
-        element_namespaces = namespaces
+        initialize_or_assign({}, element_namespaces.dup, Hash[key.to_sym, value])
       end
 
-      data_hash = transform_hash(data || input, element_namespaces.dup)
-      initialize_or_assign(record, [], data_hash)
+      binding.pry if key.to_s == 'streetName1'
+
+      namespace_transform_needed = true
+      data = container[transformed_key].call(input) 
+      namespace_transform_needed = container[transformed_key].namespace_transform_required?
+
+      data_hash = transform_hash(data || input, element_namespaces.dup) if namespace_transform_needed
+
+      if record_unique_identifier
+        @record_builder.append(record_unique_identifier, data_hash || data)
+      else
+        initialize_or_assign(record, [], data_hash || data)
+      end
+    end
+
+    def record_unique_identifier(key)
+      return nil if record_uniq_identifiers.empty?
+      key.match(/#{record_uniq_identifiers.join('|')}/)[0]
+    end
+
+    def transform_to_wildcard(key)
+      return key if record_uniq_identifiers.empty?
+      key.gsub(/#{record_uniq_identifiers.join('|')}/, '*')
+    end
+
+    def record_uniq_identifiers
+      return [] unless @record_builder
+      @record_builder.data_set.keys
     end
 
     def transform_hash(data_hash, namespace_set)
@@ -222,7 +359,11 @@ module Operations
         local_record[current_namespace] ||= {} 
 
         if values.empty?
-          local_record[current_namespace].deep_merge!(data)
+          if data.is_a?(Hash)
+            local_record[current_namespace].deep_merge!(data)
+          else
+            local_record[current_namespace] = data
+          end
         else
           local_record[current_namespace] = initialize_or_assign(local_record[current_namespace], values, data)
         end
