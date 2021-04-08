@@ -97,6 +97,24 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Contracts::BenefitContract,  dbclean
             expect(@result.errors.to_h).to eq(err_msg)
           end
         end
+
+        context 'bad employer id' do
+          let(:input_params) do
+            { kind: 'employer_sponsored_insurance',
+              status: 'is_enrolled',
+              employer: { employer_name: 'ABC employer', employer_id: '12344' },
+              esi_covered: 'self_and_spouse',
+              start_on: Date.today.prev_year.to_s,
+              employee_cost_frequency: 'Weekly',
+              employee_cost: 100.00 }
+          end
+
+          it 'should return failure with error message' do
+            err_msg = { employer: [{ error: { employer_id: ['should be of length 9 and allows numbers only'] },
+                                     text: 'invalid employer.' }] }
+            expect(@result.errors.to_h).to eq(err_msg)
+          end
+        end
       end
     end
 

@@ -4,6 +4,7 @@ module AcaEntities
   module MagiMedicaid
     module Contracts
       # Schema and validation rules for {AcaEntities::MagiMedicaid::Applicant}
+      # rubocop:disable Metrics/ClassLength
       class ApplicantContract < Dry::Validation::Contract
         include AcaEntities::AppHelper
         # @!method call(opts)
@@ -119,8 +120,94 @@ module AcaEntities
           optional(:deductions).array(DeductionContract.params)
         end
 
+        rule(:demographic) do
+          if value.is_a?(Hash)
+            result = DemographicContract.new.call(value)
+            if result&.failure?
+              key.failure(text: 'invalid demographic', error: result.errors.to_h)
+            else
+              values.merge!(demographic: result.to_h)
+            end
+          else
+            key.failure(text: 'invalid demographic. Expected a hash.')
+          end
+        end
+
+        rule(:attestation) do
+          if value.is_a?(Hash)
+            result = AttestationContract.new.call(value)
+            if result&.failure?
+              key.failure(text: 'invalid attestation', error: result.errors.to_h)
+            else
+              values.merge!(attestation: result.to_h)
+            end
+          else
+            key.failure(text: 'invalid attestation. Expected a hash.')
+          end
+        end
+
+        rule(:native_american_information) do
+          if key? && value
+            if value.is_a?(Hash)
+              result = NativeAmericanInformationContract.new.call(value)
+              if result&.failure?
+                key.failure(text: 'invalid native_american_information', error: result.errors.to_h)
+              else
+                values.merge!(native_american_information: result.to_h)
+              end
+            else
+              key.failure(text: 'invalid native_american_information. Expected a hash.')
+            end
+          end
+        end
+
         rule(:is_claimed_as_tax_dependent) do
           key.failure(text: 'cannot be blank') if key? && values[:is_required_to_file_taxes] && check_if_blank?(value)
+        end
+
+        rule(:student) do
+          if key? && values[:is_applying_coverage]
+            if value.is_a?(Hash)
+              result = StudentContract.new.call(value)
+              if result&.failure?
+                key.failure(text: 'invalid student', error: result.errors.to_h)
+              else
+                values.merge!(student: result.to_h)
+              end
+            else
+              key.failure(text: 'invalid student. Expected a hash.')
+            end
+          end
+        end
+
+        rule(:foster_care) do
+          if key? && values[:is_applying_coverage]
+            if value.is_a?(Hash)
+              result = FosterCareContract.new.call(value)
+              if result&.failure?
+                key.failure(text: 'invalid foster_care', error: result.errors.to_h)
+              else
+                values.merge!(foster_care: result.to_h)
+              end
+            else
+              key.failure(text: 'invalid foster_care. Expected a hash.')
+            end
+          end
+        end
+
+        rule(:pregnancy_information) do
+          if key? && value
+            if value.is_a?(Hash)
+              result = PregnancyInformationContract.new.call(value)
+              if result&.failure?
+                key.failure(text: 'invalid pregnancy_information', error: result.errors.to_h)
+              else
+                values.merge!(pregnancy_information: result.to_h)
+              end
+            else
+              key.failure(text: 'invalid pregnancy_information. Expected a hash.')
+            end
+          end
         end
 
         def any_income?(values)
@@ -128,11 +215,43 @@ module AcaEntities
         end
 
         rule(:incomes) do
-          key.failure(text: 'invalid input data for incomes.') if any_income?(values) && check_if_blank?(value)
+          if any_income?(values)
+            key.failure(text: 'invalid input data for incomes.') if check_if_blank?(value)
+            incomes_array = value.inject([]) do |hash_array, id_hash|
+              if id_hash.is_a?(Hash)
+                result = IncomeContract.new.call(id_hash)
+                if result&.failure?
+                  key.failure(text: 'invalid income', error: result.errors.to_h)
+                else
+                  hash_array << result.to_h
+                end
+              else
+                key.failure(text: 'invalid income. Expected a hash.')
+              end
+              hash_array
+            end
+            values.merge!(incomes: incomes_array)
+          end
         end
 
         rule(:deductions) do
-          key.failure(text: 'invalid input data for deductions.') if values[:has_deductions] && check_if_blank?(value)
+          if values[:has_deductions]
+            key.failure(text: 'invalid input data for deductions.') if check_if_blank?(value)
+            deductions_array = value.inject([]) do |hash_array, id_hash|
+              if id_hash.is_a?(Hash)
+                result = DeductionContract.new.call(id_hash)
+                if result&.failure?
+                  key.failure(text: 'invalid deduction', error: result.errors.to_h)
+                else
+                  hash_array << result.to_h
+                end
+              else
+                key.failure(text: 'invalid deduction. Expected a hash.')
+              end
+              hash_array
+            end
+            values.merge!(deductions: deductions_array)
+          end
         end
 
         def any_benefit?(values)
@@ -140,9 +259,83 @@ module AcaEntities
         end
 
         rule(:benefits) do
-          key.failure(text: 'invalid input data for benefits.') if any_benefit?(values) && check_if_blank?(value)
+          if any_benefit?(values)
+            key.failure(text: 'invalid input data for benefits.') if check_if_blank?(value)
+            benefits_array = value.inject([]) do |hash_array, id_hash|
+              if id_hash.is_a?(Hash)
+                result = BenefitContract.new.call(id_hash)
+                if result&.failure?
+                  key.failure(text: 'invalid benefit', error: result.errors.to_h)
+                else
+                  hash_array << result.to_h
+                end
+              else
+                key.failure(text: 'invalid benefit. Expected a hash.')
+              end
+              hash_array
+            end
+            values.merge!(benefits: benefits_array)
+          end
+        end
+
+        rule(:addresses) do
+          if key? && value
+            addresses_array = value.inject([]) do |hash_array, id_hash|
+              if id_hash.is_a?(Hash)
+                result = AcaEntities::Contracts::AddressContract.new.call(id_hash)
+                if result&.failure?
+                  key.failure(text: 'invalid address', error: result.errors.to_h)
+                else
+                  hash_array << result.to_h
+                end
+              else
+                key.failure(text: 'invalid address. Expected a hash.')
+              end
+              hash_array
+            end
+            values.merge!(addresses: addresses_array)
+          end
+        end
+
+        rule(:phones) do
+          if key? && value
+            phones_array = value.inject([]) do |hash_array, id_hash|
+              if id_hash.is_a?(Hash)
+                result = AcaEntities::Contracts::PhoneContract.new.call(id_hash)
+                if result&.failure?
+                  key.failure(text: 'invalid phone', error: result.errors.to_h)
+                else
+                  hash_array << result.to_h
+                end
+              else
+                key.failure(text: 'invalid phone. Expected a hash.')
+              end
+              hash_array
+            end
+            values.merge!(phones: phones_array)
+          end
+        end
+
+        rule(:emails) do
+          if key? && value
+            emails_array = value.inject([]) do |hash_array, id_hash|
+              if id_hash.is_a?(Hash)
+                result = AcaEntities::Contracts::EmailContract.new.call(id_hash)
+                if result&.failure?
+                  key.failure(text: 'invalid email', error: result.errors.to_h)
+                else
+                  hash_array << result.to_h
+                end
+              else
+                key.failure(text: 'invalid email. Expected a hash.')
+              end
+              hash_array
+            end
+            values.merge!(emails: emails_array)
+          end
         end
       end
+      # rubocop:enable Metrics/ClassLength
     end
   end
 end

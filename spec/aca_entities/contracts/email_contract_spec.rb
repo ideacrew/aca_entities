@@ -38,7 +38,7 @@ RSpec.describe ::AcaEntities::Contracts::EmailContract,  dbclean: :after_each do
   describe 'passing valid address and kind fields' do
 
     let(:params) do
-      { kind: 'home', address: 'test' }
+      { kind: 'home', address: 'test@oo.com' }
     end
 
     it 'passes' do

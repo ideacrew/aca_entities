@@ -42,7 +42,18 @@ module AcaEntities
         end
 
         rule(:employer) do
-          if kind_esi?(values[:kind]) && check_if_blank?(value)
+          if kind_esi?(values[:kind]) && key? && value
+            if value.is_a?(Hash)
+              result = EmployerContract.new.call(value)
+              if result&.failure?
+                key.failure(text: 'invalid employer.', error: result.errors.to_h)
+              else
+                values.merge!(employer: result.to_h)
+              end
+            else
+              key.failure(text: 'invalid employer. Expected a hash.')
+            end
+          elsif kind_esi?(values[:kind])
             key.failure(text: 'employer information missing for kind employer_sponsored_insurance.')
           end
         end
