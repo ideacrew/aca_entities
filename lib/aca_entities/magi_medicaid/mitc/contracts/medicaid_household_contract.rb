@@ -4,32 +4,18 @@ module AcaEntities
   module MagiMedicaid
     module Mitc
       module Contracts
-        # Contract for MedicaidHousehold
+        # Schema and validation rules for {AcaEntities::MagiMedicaid::Mitc::MedicaidHousehold}
         class MedicaidHouseholdContract < Dry::Validation::Contract
-
+          # @!method call(opts)
+          # @param [Hash] opts the parameters to validate using this contract
+          # @option opts [Array] :people required
+          # @option opts [Integer] :magi_income required
+          # @option opts [Integer] :size required
+          # @return [Dry::Monads::Result]
           params do
-            required(:people).array(:hash)
+            required(:people).array(PersonReferenceContract.params)
             required(:magi_income).filled(:integer)
             required(:size).filled(:integer)
-          end
-
-          rule(:people) do
-            if key? && value
-              people_array = value.inject([]) do |hash_array, person_reference_hash|
-                if person_reference_hash.is_a?(Hash)
-                  result = PersonReferenceContract.new.call(person_reference_hash)
-                  if result&.failure?
-                    key.failure(text: 'invalid person reference.', error: result.errors.to_h)
-                  else
-                    hash_array << result.to_h
-                  end
-                else
-                  key.failure(text: 'invalid person reference. Expected a hash.')
-                end
-                hash_array
-              end
-              values.merge!(people: people_array)
-            end
           end
         end
       end

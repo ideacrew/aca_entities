@@ -4,31 +4,16 @@ module AcaEntities
   module MagiMedicaid
     module Mitc
       module Contracts
-        # Contract for EligibilityResponse.
+        # Schema and validation rules for {AcaEntities::MagiMedicaid::Mitc::EligibilityResponse}
         class EligibilityResponseContract < Dry::Validation::Contract
-
+          # @!method call(opts)
+          # @param [Hash] opts the parameters to validate using this contract
+          # @option opts [Date] :determination_date required
+          # @option opts [Array] :applicants required
+          # @return [Dry::Monads::Result]
           params do
             required(:determination_date).filled(:date)
-            required(:applicants).array(:hash)
-          end
-
-          rule(:applicants) do
-            if key? && value
-              applicants_array = value.inject([]) do |hash_array, applicant_hash|
-                if applicant_hash.is_a?(Hash)
-                  result = ApplicantContract.new.call(applicant_hash)
-                  if result&.failure?
-                    key.failure(text: 'invalid applicant.', error: result.errors.to_h)
-                  else
-                    hash_array << result.to_h
-                  end
-                else
-                  key.failure(text: 'invalid applicant. Expected a hash.')
-                end
-                hash_array
-              end
-              values.merge!(applicants: applicants_array)
-            end
+            required(:applicants).array(ApplicantContract.params)
           end
         end
       end

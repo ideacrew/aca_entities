@@ -4,9 +4,49 @@ module AcaEntities
   module MagiMedicaid
     module Mitc
       module Contracts
-        # Contract for Person.
+        # Schema and validation rules for {AcaEntities::MagiMedicaid::Mitc::Person}
         class PersonContract < Dry::Validation::Contract
-
+          # @!method call(opts)
+          # @param [Hash] opts the parameters to validate using this contract
+          # @option opts [Integer] :person_id required
+          # @option opts [String] :is_applicant required
+          # @option opts [String] :is_blind_or_disabled required
+          # @option opts [String] :is_full_time_student required
+          # @option opts [String] :is_medicare_entitled required
+          # @option opts [String] :is_incarcerated required
+          # @option opts [String] :resides_in_state_of_application required
+          # @option opts [String] :is_claimed_as_dependent_by_non_applicant required
+          # @option opts [String] :is_self_attested_long_term_care required
+          # @option opts [String] :has_insurance required
+          # @option opts [String] :has_state_health_benefit required
+          # @option opts [String] :had_prior_insurance required
+          # @option opts [Date] :prior_insurance_end_date optional
+          # @option opts [String] :is_pregnant required
+          # @option opts [Integer] :children_expected_count optional
+          # @option opts [String] :is_in_post_partum_period optional
+          # @option opts [String] :is_in_former_foster_care required
+          # @option opts [String] :had_medicaid_during_foster_care optional
+          # @option opts [Integer] :age_left_foster_care optional
+          # @option opts [String] :foster_care_us_state optional
+          # @option opts [String] :is_required_to_file_taxes required
+          # @option opts [String] :age_of_applicant required
+          # @option opts [Integer] :hours_worked_per_week required
+          # @option opts [String] :is_temporarily_out_of_state required
+          # @option opts [String] :is_us_citizen required
+          # @option opts [String] :is_lawful_presence_self_attested required
+          # @option opts [String] :immigration_status optional
+          # @option opts [String] :is_amerasian optional
+          # @option opts [String] :has_forty_title_ii_work_quarters optional
+          # @option opts [String] :five_year_bar_applies optional
+          # @option opts [String] :is_five_year_bar_met optional
+          # @option opts [String] :is_trafficking_victim required
+          # @option opts [String] :is_eligible_for_refugee_medical_assistance required
+          # @option opts [Date] :refugee_medical_assistance_start_date optional
+          # @option opts [Date] :seven_year_limit_start_date optional
+          # @option opts [String] :is_veteran required
+          # @option opts [Hash] :income required
+          # @option opts [Array] :relationships required
+          # @return [Dry::Monads::Result]
           params do
             required(:person_id).filled(:integer)
             required(:is_applicant).filled(Types::YesNoKind)
@@ -44,8 +84,8 @@ module AcaEntities
             optional(:refugee_medical_assistance_start_date).maybe(Types::Date)
             optional(:seven_year_limit_start_date).maybe(Types::Date)
             required(:is_veteran).filled(Types::YesNoKind)
-            required(:income).filled(:hash)
-            required(:relationships).array(:hash)
+            required(:income).filled(IncomeContract.params)
+            required(:relationships).array(RelationshipContract.params)
           end
 
           rule(:person_id) do
@@ -102,40 +142,6 @@ module AcaEntities
 
           rule(:seven_year_limit_start_date) do
             key.failure('cannot be empty.') if values[:is_eligible_for_refugee_medical_assistance] == 'Y' && value.nil?
-          end
-
-          rule(:income) do
-            if key? && value
-              if value.is_a?(Hash)
-                result = IncomeContract.new.call(value)
-                if result&.failure?
-                  key.failure(text: 'invalid income', error: result.errors.to_h)
-                else
-                  values.merge!(income: result.to_h)
-                end
-              else
-                key.failure(text: 'invalid income. Expected a hash.')
-              end
-            end
-          end
-
-          rule(:relationships) do
-            if key? && value
-              relationships_array = value.inject([]) do |hash_array, relationship_hash|
-                if relationship_hash.is_a?(Hash)
-                  result = RelationshipContract.new.call(relationship_hash)
-                  if result&.failure?
-                    key.failure(text: 'invalid relationship.', error: result.errors.to_h)
-                  else
-                    hash_array << result.to_h
-                  end
-                else
-                  key.failure(text: 'invalid relationship. Expected a hash.')
-                end
-                hash_array
-              end
-              values.merge!(relationships: relationships_array)
-            end
           end
         end
       end
