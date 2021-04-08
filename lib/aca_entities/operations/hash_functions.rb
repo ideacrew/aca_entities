@@ -42,8 +42,7 @@ module AcaEntities
       def rewrap_keys(source_hash, source_namespaces, destination_namespaces = [])
         puts "------>>>> unwrap #{source_hash} -- #{source_namespaces} ---- #{destination_namespaces}"
         source_hash.to_h.tap do |source_data|
-          element = destination_namespaces.pop
-          output = initialize_or_assign({}, destination_namespaces.dup, source_data)
+          output = initialize_or_assign({}, destination_namespaces[0..-2].dup, source_data)
           source_data.delete(source_namespaces.last)
           source_data[destination_namespaces[0]] = output[destination_namespaces[0]]
         end

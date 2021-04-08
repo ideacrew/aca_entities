@@ -28,8 +28,6 @@ module Medicaid
 
         #   @container.register(unique_key, )
 
-
-
         #   family.hbx_id
         # end
 
@@ -105,12 +103,12 @@ module Medicaid
                 #
                 namespace 'demographic' do
                   rewrap 'family.family_members.person' do
-                  	namespace 'name' do
-                      rewrap 'family.family_members.person.names' do
-                      	map 'firstName', 'first_name'
-                      	map 'lastName', 'last_name'
-                      end
-                    end
+                  	# namespace 'name' do
+                   #    rewrap 'family.family_members.person.names' do
+                   #    	map 'firstName', 'first_name'
+                   #    	map 'lastName', 'last_name'
+                   #    end
+                   #  end
 
                     map 'ssn', 'encrypted_ssn'
                     map 'birthDate', 'dob'
@@ -127,38 +125,38 @@ module Medicaid
 
                     namespace 'mailingAddress' do
                       rewrap 'family.family_members.person.addresses', type: :array do
-                        map '', 'has_fixed_address'
+                        # map '', 'has_fixed_address'
                         # map 'mailingAddress', 'kind'
                         map 'streetName1', 'address_1'
-                        map '', 'address_2'
+                        # map '', 'address_2'
                         map 'cityName', 'city'
                         map 'countyName', 'county'
                         map 'countyFipsCode', 'county_code'
                         map 'stateCode', 'state'
                         map 'zipCode', 'zip'
                         map 'countryCode', 'country_name'
-                        map '', 'validation_status'
-                        map '', 'start_on'
-                        map '', 'end_on'
+                        # map '', 'validation_status'
+                        # map '', 'start_on'
+                        # map '', 'end_on'
                         # map 'liveOutsideStateTemporarilyIndicator', 'lives_outside_state_temporarily'
                       end
                     end
 
                     namespace "homeAddress" do
                       rewrap 'family.family_members.person.addresses', type: :array do
-                        map '', 'has_fixed_address'
+                        # map '', 'has_fixed_address'
                         # map 'homeAddress', 'kind'
                         map 'streetName1', 'address_1'
-                        map '', 'address_2'
+                        # map '', 'address_2'
                         map 'cityName', 'city'
                         map 'countyName', 'county'
                         map 'countyFipsCode', 'county_code'
                         map 'stateCode', 'state'
                         map 'zipCode', 'zip'
                         map 'countryCode', 'country_name'
-                        map '', 'validation_status'
-                        map '', 'start_on'
-                        map '', 'end_on'
+                        # map '', 'validation_status'
+                        # map '', 'start_on'
+                        # map '', 'end_on'
                         # map 'liveOutsideStateTemporarilyIndicator', 'lives_outside_state_temporarily'
                       end
                     end
