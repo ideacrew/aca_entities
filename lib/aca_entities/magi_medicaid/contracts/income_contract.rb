@@ -38,6 +38,17 @@ module AcaEntities
           optional(:submitted_at).maybe(:date_time)
         end
 
+        rule(:employer) do
+          if key? && check_if_present?(value) && value.is_a?(Hash)
+            result = EmployerContract.new.call(value)
+            if result&.failure?
+              key.failure(text: 'invalid employer.', error: result.errors.to_h)
+            else
+              values.merge!(employer: result.to_h)
+            end
+          end
+        end
+
         rule(:end_on) do
           key.failure(text: 'must be after start_on.') if key? && check_if_present?(value) && values[:start_on] && value < values[:start_on]
         end

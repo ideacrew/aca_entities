@@ -23,6 +23,25 @@ module AcaEntities
             required(:physical_households).array(HouseholdContract.params)
             required(:tax_returns).array(TaxReturnContract.params)
           end
+
+          rule(:people) do
+            if key? && value
+              people_array = value.inject([]) do |hash_array, person_hash|
+                if person_hash.is_a?(Hash)
+                  result = PersonContract.new.call(person_hash)
+                  if result&.failure?
+                    key.failure(text: 'invalid person.', error: result.errors.to_h)
+                  else
+                    hash_array << result.to_h
+                  end
+                else
+                  key.failure(text: 'invalid person. Expected a hash.')
+                end
+                hash_array
+              end
+              values.merge!(people: people_array)
+            end
+          end
         end
       end
     end

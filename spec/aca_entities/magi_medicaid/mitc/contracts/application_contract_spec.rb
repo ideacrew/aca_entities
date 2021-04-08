@@ -90,5 +90,22 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Mitc::Contracts::ApplicationContract
         expect(@result.errors.to_h.keys).to match_array required_params.keys
       end
     end
+
+    context 'invalid person' do
+      let(:bad_params) do
+        person_params.merge!(is_pregnant: 'Y', children_expected_count: nil)
+        required_params.merge({ person_params: person_params })
+      end
+
+      before :each do
+        @result = subject.call(bad_params)
+      end
+
+      it 'should return a failure' do
+        err_msg = { people: [{ text: 'invalid person.',
+                               error: { children_expected_count: ['cannot be empty.'] } }] }
+        expect(@result.errors.to_h).to eq(err_msg)
+      end
+    end
   end
 end
