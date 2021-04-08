@@ -13,6 +13,8 @@ module AcaEntities
     # Money = ::Types.Instance(BigDecimal)
     Money = Types.Constructor(BigDecimal) { |val| BigDecimal(val.to_s) }
 
+    McrToCvIncarcerationKind = Types.Constructor(self) {|value| value == 'INCARCERATED'}
+
     UsStateAbbreviationKind =
       Types::String.enum(
         'AL',

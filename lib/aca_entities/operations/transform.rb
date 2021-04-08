@@ -129,7 +129,7 @@ module Operations
         record_start(key&.to_sym)
       end
 
-      # process_append_transforms(namespaces, key) if defined? @record_delimiter_matched_namespace
+      process_append_transforms(namespaces, key) if defined? @record_delimiter_matched_namespace
 
       puts "---hash_start -- #{key}"
       puts "---hash_start_namespaces--#{namespaces}"
@@ -194,7 +194,8 @@ module Operations
       element_namespaces = (namespaces - @record_delimiter_matched_namespace)
 
       container.keys.each do |container_key|
-        next unless container[container_key].transproc.name == :append_keys
+        next if container[container_key].transproc.is_a? Dry::Transformer::Composite
+        next unless container[container_key].transproc.name == :append_keys || :add_key
 
         if container_key.match(/^#{element_namespaces.join('.')}\.\w+$/)
           # input = initialize_or_assign({}, element_namespaces.dup, Hash[container_key.split('.').last.to_sym, nil])

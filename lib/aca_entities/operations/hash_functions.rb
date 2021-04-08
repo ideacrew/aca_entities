@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
-# require 'dry/transformer/conditional'
+# rubocop:disable Style/HashConversion, Style/OptionalArguments
+
 require "dry/inflector"
 require 'deep_merge'
 
@@ -9,6 +10,51 @@ module AcaEntities
     # This module provides services for hash transformations
     module HashFunctions
       module_function
+
+      # Transform a value using namespace and a proc
+      #
+      # @param source_hash The input hash
+      # @param namespaces The namespaces is the array of nested keys
+      # @param func is a proc
+      #
+      # @example
+      #   source_hash: {:family=>{:family_members=>[{:person=>{:value=> "1969-03-01"}}]}}
+      #   namespaces: [:family, :family_members, :person]
+      #   func: proc
+      #
+      #   # => {:family=>{:family_members=>[{:person=>{:value=> 52}}]}}
+      #
+      # @return [Hash]
+      def map_value(source_hash, namespaces, func)
+        source_hash.to_h.tap do |hash|
+          final_pair = hash.dig(*namespaces)
+          transformed_pair = final_pair.transform_values!(&func)
+          initialize_or_assign({}, namespaces[0..-2].dup, transformed_pair)
+        end
+      end
+
+      # Add key using namespaced_key
+      #
+      # @param source_hash The input hash
+      # @param namespaced_keys The namespaced keys
+      # @param value is a value
+      #
+      # @example
+      #   source_hash: {:value => nil}
+      #   namespaced_keys: [:family, :family_members, :person, :value]
+      #   value: "1969-03-01"
+      #
+      #   # => {:family=>{:family_members=>[{:person=>{:value=> "1969-03-01"}}]}}
+      #
+      # @return [Hash]
+      def add_key(source_hash, namespaced_keys, value)
+        source_hash.to_h.tap do |hash|
+          element = namespaced_keys.pop
+          output_hash = initialize_or_assign({}, namespaced_keys.dup, Hash[element, value])
+          hash[namespaced_keys[0]] = output_hash[namespaced_keys[0]]
+          hash.delete(element)
+        end
+      end
 
       # Rename particular keys using namespace
       #
@@ -33,7 +79,7 @@ module AcaEntities
 
           element = destination_namespaces.last
           output = initialize_or_assign({}, destination_namespaces[0..-2], Hash[element, source_data[source_namespaces.last]])
-         
+
           source_data[destination_namespaces[0]] = output[destination_namespaces[0]]
           source_data.delete(source_namespaces.last)
         end
@@ -50,8 +96,8 @@ module AcaEntities
       end
 
       def initialize_or_assign(local_record, values = [], data)
-        if current_namespace = values.shift
-          local_record[current_namespace] ||= {} 
+        if (current_namespace = values.shift)
+          local_record[current_namespace] ||= {}
 
           if values.empty?
             local_record[current_namespace].deep_merge!(data)
@@ -64,7 +110,6 @@ module AcaEntities
 
         local_record
       end
-
 
       # Rename all keys upto nested hash
       #
@@ -151,3 +196,4 @@ module AcaEntities
     end
   end
 end
+# rubocop:enable Style/HashConversion, Style/OptionalArguments

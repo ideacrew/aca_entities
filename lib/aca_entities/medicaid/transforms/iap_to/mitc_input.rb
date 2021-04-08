@@ -59,7 +59,7 @@ module Medicaid
           # rename_key 'attestations', 'family'
 
           rewrap 'family' do
-            map '', 'hbx_id'
+            add_key 'hbx_id', 1234
             # map 'renewEligibilityYearQuantity', 'renewal_consent_through_year' #, -> {|year | year + value_of("attestations.application.applicationSignatures")}
             # map '', 'vlp_documents_status'
             # map '', 'min_verifications_due_date'
@@ -109,10 +109,13 @@ module Medicaid
                    #    	map 'lastName', 'last_name'
                    #    end
                    #  end
-
+                    add_key 'no_ssn', 'false'
                     map 'ssn', 'encrypted_ssn'
-                    map 'birthDate', 'dob'
-                    map 'sex', 'gender'
+                    map 'birthDate', 'age', '-> v { age_of(v) }'
+                    # map 'type', 'kind',  '-> (value){ value.to_s.downcase }'
+                    # map 'status', 'is_active',  '-> (value){ boolean(value)}'
+                    map 'sex', 'gender','-> (value){ value.to_s.downcase }'
+                    # map 'incarcerationType', 'is_incarcerated',  '-> (value){ AcaEntities::Types::McrToCvIncarcerationKind[value] }'
                     # map 'computed.members.*.ssnStatusReason', 'no_ssn'
                     # map '', 'hbx_id'
                     map 'blindOrDisabledIndicator', 'is_disabled'
@@ -127,6 +130,7 @@ module Medicaid
                       rewrap 'family.family_members.person.addresses', type: :array do
                         # map '', 'has_fixed_address'
                         # map 'mailingAddress', 'kind'
+                        add_key 'kind', 'mailing'
                         map 'streetName1', 'address_1'
                         # map '', 'address_2'
                         map 'cityName', 'city'
