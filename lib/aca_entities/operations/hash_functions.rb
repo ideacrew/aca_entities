@@ -40,17 +40,17 @@ module AcaEntities
       # @param value is a value
       #
       # @example
-      #   source_hash: {:value => nil}
-      #   namespaced_keys: [:family, :family_members, :person, :value]
+      #   source_hash: {:date_of_birth => nil}
+      #   namespaced_keys: [:family, :family_members, :person, :date_of_birth]
       #   value: "1969-03-01"
       #
-      #   # => {:family=>{:family_members=>[{:person=>{:value=> "1969-03-01"}}]}}
+      #   # => {:family=>{:family_members=>[{:person=>{:date_of_birth=> "1969-03-01"}}]}}
       #
       # @return [Hash]
       def add_key(source_hash, namespaced_keys, value)
         source_hash.to_h.tap do |hash|
-          element = namespaced_keys.pop
-          output_hash = initialize_or_assign({}, namespaced_keys.dup, Hash[element, value])
+          element = namespaced_keys.last
+          output_hash = initialize_or_assign({}, namespaced_keys[0..-2], Hash[element, value])
           hash[namespaced_keys[0]] = output_hash[namespaced_keys[0]]
           hash.delete(element)
         end

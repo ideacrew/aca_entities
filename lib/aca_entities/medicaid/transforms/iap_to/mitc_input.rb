@@ -103,7 +103,7 @@ module Medicaid
                 #
                 namespace 'demographic' do
                   rewrap 'family.family_members.person' do
-                  	# namespace 'name' do
+                   # namespace 'name' do
                    #    rewrap 'family.family_members.person.names' do
                    #    	map 'firstName', 'first_name'
                    #    	map 'lastName', 'last_name'
@@ -150,6 +150,7 @@ module Medicaid
                       rewrap 'family.family_members.person.addresses', type: :array do
                         # map '', 'has_fixed_address'
                         # map 'homeAddress', 'kind'
+                        add_key 'kind', 'home'
                         map 'streetName1', 'address_1'
                         # map '', 'address_2'
                         map 'cityName', 'city'
@@ -179,6 +180,7 @@ module Medicaid
             # map '', 'tax_households'
           end
         end
+
 
         # map "dateofBirth", "Age", 'age_on' #-> { age_on('1/1/2000') }
         # define! do

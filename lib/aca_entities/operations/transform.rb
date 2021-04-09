@@ -4,57 +4,6 @@ require 'deep_merge'
 
 module Operations
 
-  class RecordBuilder
-    attr_reader :root, :data_set, :parent_ns, :output_ns
-
-    def initialize(root:, type:)
-      @type = type
-      @data_set = {}
-      @root = root
-    end
-
-    def append(identifier, data, dig = true)
-      data_pair = data.dig(*(output_ns).split('.').map(&:to_sym)) if dig
-      @data_set[identifier] ||= {}
-      @data_set[identifier].deep_merge!(data_pair || data)
-      puts "----------********* #{@data_set.inspect} *************"
-    end
-
-    def output
-      value = if @type == :array
-        data_set.values
-      else
-        data_set
-      end
-
-      wrap((output_namespaces - parent_namespaces), value)
-    end
-
-    def output_namespace=(output_ns)
-      @output_ns = output_ns
-    end
-
-    def parent_namespace=(parent_namespace)
-      @parent_ns = parent_namespace
-    end
-
-    def output_namespaces
-      output_ns.split('.').map(&:to_sym)
-    end
-
-    def parent_namespaces
-      return [] unless parent_ns
-      parent_ns.split('.').map(&:to_sym)
-    end
-
-    def wrap(namespaces, data)
-      return output if namespaces.empty?
-      output = Hash[namespaces.pop.to_sym, data]
-      output = wrap(namespaces, output) unless namespaces.empty?
-      output
-    end
-  end
-
   class Transform < Oj::Saj
 
     BufferLength = 512
@@ -89,7 +38,7 @@ module Operations
       @records = []
       @container = self.class.mapping_container
       @namespace_mappings = Hash.new
-      @record_accumulator = []
+      @record_pipe = []
       @record_namespaces = []
       @wild_char_matchers = []
     end
@@ -191,22 +140,19 @@ module Operations
     private
 
     def process_append_transforms(namespaces, key)
+
       element_namespaces = (namespaces - @record_delimiter_matched_namespace)
 
       container.keys.each do |container_key|
         next if container[container_key].transproc.is_a? Dry::Transformer::Composite
         next unless container[container_key].transproc.name == :append_keys || :add_key
 
-        if container_key.match(/^#{element_namespaces.join('.')}\.\w+$/)
-          # input = initialize_or_assign({}, element_namespaces.dup, Hash[container_key.split('.').last.to_sym, nil])
-          
+        if container_key.match(/^#{element_namespaces.join('.')}\.\w+$/)          
           data  = container[container_key].call(Hash[container_key.split('.').last.to_sym, nil])
           initialize_or_assign(record, [], data)
         elsif record_builder && container_key.match(/^#{record_builder.root}\.\w+$/)
           buider_root_ns = record_builder.root.split('.').map(&:to_sym)
           next unless buider_root_ns.size == element_namespaces.size && buider_root_ns[0..-2] == element_namespaces[0..-2]
-          # input = initialize_or_assign({}, element_namespaces.dup, Hash[container_key.split('.').last.to_sym, nil])
-          
           data  = container[container_key].call(Hash[container_key.split('.').last.to_sym, nil])
           record_builder.append(key, data)
         end
@@ -214,18 +160,18 @@ module Operations
     end
 
     def write_records(key)
-      record_builder = @record_accumulator.last
+      record_builder = @record_pipe.last
 
       element_namespaces = (namespaces - @record_delimiter_matched_namespace)
       return unless record_builder.root.split('.').size == element_namespaces.size
 
-      @record_accumulator.pop
+      @record_pipe.pop
       @wild_char_matchers.delete(@record_namespaces.pop)
 
-      if @record_accumulator.empty?
+      if @record_pipe.empty?
         initialize_or_assign(record, [], record_builder.output)
       else
-        @record_accumulator.last.append(@record_namespaces.last, record_builder.output, false)
+        @record_pipe.last.append(@record_namespaces.last, record_builder.output, false)
       end
 
       record_builder = nil
@@ -256,12 +202,12 @@ module Operations
       if container.key?(namespaced_key) && (record_builder.nil? || record_builder.root != namespaced_key)
 
         if container[namespaced_key].type == :array
-          record_builder = RecordBuilder.new(root: namespaced_key, type: container[namespaced_key].type)
-          record_builder.output_namespace = container[namespaced_key].output_key
-          record_builder.parent_namespace = @record_accumulator.last.output_ns unless @record_accumulator.empty?
+          builder = ::AcaEntities::Operations::RecordBuilder.new(root: namespaced_key, type: container[namespaced_key].type)
+          builder.output_namespace = container[namespaced_key].output_key
+          builder.parent_namespace = @record_pipe.last.output_ns unless @record_pipe.empty?
           record_unique_identifier = key
     
-          @record_accumulator.push(record_builder)
+          @record_pipe.push(builder)
           @record_namespaces.push(key)
           @wild_char_matchers.push(key) if namespaced_key.split('.').last == '*'
         end
@@ -307,26 +253,6 @@ module Operations
       @non_identifier_dict
     end
 
-    # def transform_data_for(key, value)
-    #   if defined? @record_delimiter_matched_namespace
-    #     element_namespaces = (namespaces - @record_delimiter_matched_namespace)
-    #     key_with_namespace = (element_namespaces + [key]).join('.')
-
-    #     input = initialize_or_assign({}, element_namespaces.dup, Hash[key.to_sym, value])
-    #     data = container[key_with_namespace].call(input) if container.key?(key_with_namespace)
-    #     # puts "****************************************input-#{input.inspect}----output-#{transform_hash(data, element_namespaces.dup).inspect}" 
-    #   else
-    #     input = Hash[key.to_sym, value]
-    #     element_namespaces = namespaces
-    #   end
-
-    #   namespace_transform_needed = true
-    #   namespace_transform_needed = container[key_with_namespace].namespace_transform_required? if data
-
-    #   data_hash = transform_hash(data || input, element_namespaces.dup) if namespace_transform_needed
-    #   initialize_or_assign(record, [], data_hash || data)
-    # end
-
     def transform_data_for(key, value)
       return unless defined? @record_delimiter_matched_namespace
 
@@ -369,7 +295,7 @@ module Operations
     end
 
     def record_builder
-      @record_accumulator.last
+      @record_pipe.last
     end
 
     def record_uniq_identifiers

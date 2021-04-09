@@ -17,6 +17,7 @@ require 'aca_entities/individual_market'
 require 'aca_entities/shop_market'
 require 'aca_entities/operations/hash_functions'
 require 'transform/transformer'
+require 'aca_entities/operations/record_builder'
 require 'aca_entities/operations/transform'
 require 'aca_entities/medicaid/transforms/iap_to/mitc_input'
 
