@@ -38,7 +38,7 @@ module Operations
       @records = []
       @container = self.class.mapping_container
       @namespace_mappings = Hash.new
-      @record_pipe = []
+      @record_queue = []
       @record_namespaces = []
       @wild_char_matchers = []
     end
@@ -64,21 +64,21 @@ module Operations
 
     def record_end(key)
       @records.push(record)
-      remove_instance_variable(:@record_delimiter_matched_namespace)
+      remove_instance_variable(:@record_namespace_offset)
       binding.pry
       puts "***** record ended for #{key}"
     end
 
     def hash_start(key)
-      find_or_build_namespace_mappping_for(key) if defined? @record_delimiter_matched_namespace
+      find_or_build_namespace_mappping_for(key) if defined? @record_namespace_offset
       @namespaces.push(key&.to_sym)
       
       if namespace_record_delimiter_matched?(@namespaces)
-        @record_delimiter_matched_namespace ||= @namespaces.dup
+        @record_namespace_offset ||= @namespaces.dup
         record_start(key&.to_sym)
       end
 
-      process_append_transforms(namespaces, key) if defined? @record_delimiter_matched_namespace
+      process_append_transforms(key) if defined? @record_namespace_offset
 
       puts "---hash_start -- #{key}"
       puts "---hash_start_namespaces--#{namespaces}"
@@ -139,9 +139,11 @@ module Operations
 
     private
 
-    def process_append_transforms(namespaces, key)
-      element_namespaces = (namespaces - @record_delimiter_matched_namespace)
+    def element_namespaces
+      namespaces - @record_namespace_offset
+    end
 
+    def process_append_transforms(key)
       container.keys.each do |container_key|
         next if container[container_key].transproc.is_a? Dry::Transformer::Composite
         next unless container[container_key].transproc.name == :add_key
@@ -159,35 +161,31 @@ module Operations
     end
 
     def write_records(key)
-      record_builder = @record_pipe.last
+      record_builder = @record_queue.last
 
-      element_namespaces = (namespaces - @record_delimiter_matched_namespace)
       return unless record_builder.root.split('.').size == element_namespaces.size
 
-      @record_pipe.pop
+      @record_queue.pop
       @wild_char_matchers.delete(@record_namespaces.pop)
 
-      if @record_pipe.empty?
+      if @record_queue.empty?
         initialize_or_assign(record, [], record_builder.output)
       else
-        @record_pipe.last.append(@record_namespaces.last, record_builder.output, false)
+        @record_queue.last.append(@record_namespaces.last, record_builder.output, false)
       end
 
       record_builder = nil
     end
 
     def find_or_build_namespace_mappping_for(key)
-      return unless defined? @record_delimiter_matched_namespace
+      return unless defined? @record_namespace_offset
 
-      element_namespaces = (namespaces - @record_delimiter_matched_namespace)
       key_with_namespace = (element_namespaces + [key]).join('.')
 
       regex_key = (element_namespaces + ['*']).join('.') unless element_namespaces.compact.empty?
-
-      # binding.pry if key.to_s == 'mailingAddress'
       
-      verify_and_intialize_accumlator(regex_key, key) if regex_key
-      verify_and_intialize_accumlator(key_with_namespace.dup, key)
+      initialize_new_record_for(regex_key, key) if regex_key
+      initialize_new_record_for(key_with_namespace.dup, key)
 
       return @namespace_mappings[key_with_namespace] if @namespace_mappings.key?(key_with_namespace)
       return unless container.key?(key_with_namespace)
@@ -195,7 +193,7 @@ module Operations
       build_namespace_mapping_for(element_namespaces, key)
     end
 
-    def verify_and_intialize_accumlator(namespaced_key, key)
+    def initialize_new_record_for(namespaced_key, key)
       @wild_char_matchers.each {|char| namespaced_key.gsub!(/#{char}/, '*') }
 
       if container.key?(namespaced_key) && (record_builder.nil? || record_builder.root != namespaced_key)
@@ -203,10 +201,10 @@ module Operations
         if container[namespaced_key].type == :array
           builder = ::AcaEntities::Operations::RecordBuilder.new(root: namespaced_key, type: container[namespaced_key].type)
           builder.output_namespace = container[namespaced_key].output_key
-          builder.parent_namespace = @record_pipe.last.output_ns unless @record_pipe.empty?
+          builder.parent_namespace = @record_queue.last.output_ns unless @record_queue.empty?
           record_unique_identifier = key
     
-          @record_pipe.push(builder)
+          @record_queue.push(builder)
           @record_namespaces.push(key)
           @wild_char_matchers.push(key) if namespaced_key.split('.').last == '*'
         end
@@ -252,9 +250,8 @@ module Operations
     end
 
     def transform_data_for(key, value)
-      return unless defined? @record_delimiter_matched_namespace
+      return unless defined? @record_namespace_offset
 
-      element_namespaces = (namespaces - @record_delimiter_matched_namespace)
       key_with_namespace = (element_namespaces + [key]).join('.')
 
       transformed_key = transform_to_wildcard(key_with_namespace.dup)
@@ -293,7 +290,7 @@ module Operations
     end
 
     def record_builder
-      @record_pipe.last
+      @record_queue.last
     end
 
     def transform_hash(data_hash, namespace_set)
@@ -304,7 +301,7 @@ module Operations
     end
 
     def namespace_mappings_for(namespace_set = nil)
-      element_namespaces = (namespace_set - @record_delimiter_matched_namespace)
+      element_namespaces = (namespace_set - @record_namespace_offset)
       set = []
       element_namespaces.size.times do |i|
         sample = element_namespaces[0..(element_namespaces.size - (1 + i))]
