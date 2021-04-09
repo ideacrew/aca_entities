@@ -140,12 +140,11 @@ module Operations
     private
 
     def process_append_transforms(namespaces, key)
-
       element_namespaces = (namespaces - @record_delimiter_matched_namespace)
 
       container.keys.each do |container_key|
         next if container[container_key].transproc.is_a? Dry::Transformer::Composite
-        next unless container[container_key].transproc.name == :append_keys || :add_key
+        next unless container[container_key].transproc.name == :add_key
 
         if container_key.match(/^#{element_namespaces.join('.')}\.\w+$/)          
           data  = container[container_key].call(Hash[container_key.split('.').last.to_sym, nil])
@@ -222,7 +221,6 @@ module Operations
 
       new_namespaces = namespace_hash_to_array(data)
       transformed_namespaces = namespace_mappings_for(new_namespaces[0..-2]) + [new_namespaces.last.to_s]
-      # puts "*******************input-#{input.inspect}----output-#{data.inspect}--transformed--#{transformed_namespaces}"
 
       @namespace_mappings[key_with_namespace] = transformed_namespaces.join('.') || key_with_transform
     end
@@ -285,24 +283,17 @@ module Operations
     end
 
     def record_unique_identifier(key)
-      return nil if record_uniq_identifiers.empty?
-      key.match(/#{record_uniq_identifiers.join('|')}/).to_a[0]
+      return nil if @wild_char_matchers.empty?
+      key.match(/#{@wild_char_matchers.join('|')}/).to_a[0]
     end
 
     def transform_to_wildcard(key)
-      return key if record_uniq_identifiers.empty?
-      key.gsub(/#{record_uniq_identifiers.join('|')}/, '*')
+      return key if @wild_char_matchers.empty?
+      key.gsub(/#{@wild_char_matchers.join('|')}/, '*')
     end
 
     def record_builder
       @record_pipe.last
-    end
-
-    def record_uniq_identifiers
-      # return [] unless record_builder
-      # record_builder.data_set.keys
-
-      @wild_char_matchers
     end
 
     def transform_hash(data_hash, namespace_set)

@@ -11,10 +11,10 @@ module Medicaid
         # TODO namespace_map "source || output"
 
         # namespace 'attestations' do
-        # 	map '', 'hbx_id'
-        # 	map '', 'min_verifications_due_date'
+        # 	add_key 'hbx_id'
+        # 	add_key 'min_verifications_due_date'
         #   namespace 'application' do
-        #   	map '', 'is_primary_applicant'
+        #   	add_key 'is_primary_applicant'
         #   end
         # end
 
@@ -61,41 +61,41 @@ module Medicaid
           rewrap 'family' do
             add_key 'hbx_id', 1234
             # map 'renewEligibilityYearQuantity', 'renewal_consent_through_year' #, -> {|year | year + value_of("attestations.application.applicationSignatures")}
-            # map '', 'vlp_documents_status'
-            # map '', 'min_verifications_due_date'
-            # map '', 'special_enrollment_periods'
-            # map '', 'irs_groups'
-            # map '', 'broker_agency_accounts'
-            # map '', 'general_agency_accounts'
-            # map '', 'documents'
-            # map '', 'payment_transactions'
-            # map '', 'financial_assistance_applications'
+            # add_key 'vlp_documents_status'
+            # add_key 'min_verifications_due_date'
+            # add_key 'special_enrollment_periods'
+            # add_key 'irs_groups'
+            # add_key 'broker_agency_accounts'
+            # add_key 'general_agency_accounts'
+            # add_key 'documents'
+            # add_key 'payment_transactions'
+            # add_key 'financial_assistance_applications'
 
             namespace 'members.*' do
               # rewrap 'attestations.members.*', 'family.family_members', type: :array do
               rewrap 'family.family_members', type: :array do
 
-                map '', 'is_primary_applicant'
-                # map '', 'is_coverage_applicant'
-                # map '', 'is_consent_applicant'
+                add_key 'is_primary_applicant'
+                add_key 'is_coverage_applicant'
+                add_key 'is_consent_applicant'
 
                 #               namespace 'application.contactInformation' do
                 #                 rewrap 'person' do
                 #                   namespace 'email' do
                 #                     rewrap 'emails' , type: :array do
-                #                       map '', 'kind'
+                #                       add_key 'kind'
                 #                       map 'email', 'address'
                 #                     end
                 #                   end
                 #                   namespace 'primaryPhoneNumber'  do
                 #                     rewrap 'phones', type: :array do
                 #                       map 'type', 'kind'#,  -> {|value|  value.to_s.downcase }
-                #                       map '', 'country_code'
+                #                       add_key 'country_code'
                 #                       #map "number","" , ->(area_code: 3, number: 7) {|value| value}
                 #                       map 'number (1..3)', 'area_code'#, -> {|value| value}
                 #                       map 'number (4..10)', 'number'
                 #                       map 'ext', 'extension'
-                #                       map '', 'primary'
+                #                       add_key 'primary'
                 #                     end
                 #                   end
                 #                 end
@@ -117,51 +117,51 @@ module Medicaid
                     map 'sex', 'gender','-> (value){ value.to_s.downcase }'
                     # map 'incarcerationType', 'is_incarcerated',  '-> (value){ AcaEntities::Types::McrToCvIncarcerationKind[value] }'
                     # map 'computed.members.*.ssnStatusReason', 'no_ssn'
-                    # map '', 'hbx_id'
+                    # add_key 'hbx_id'
                     map 'blindOrDisabledIndicator', 'is_disabled'
-                    map '', 'ethnicity'
-                    # map '', 'race'
-                    # map '', 'tribal_id'
-                    # map '', 'language_code' , "default: en"
+                    add_key 'ethnicity'
+                    # add_key 'race'
+                    # add_key 'tribal_id'
+                    # add_key 'language_code' , "default: en"
                     map 'noHomeAddressIndicator', 'is_homeless'
                     map 'liveOutsideStateTemporarilyIndicator', 'is_temporarily_out_of_state'
 
                     namespace 'mailingAddress' do
                       rewrap 'family.family_members.person.addresses', type: :array do
-                        # map '', 'has_fixed_address'
+                        # add_key 'has_fixed_address'
                         # map 'mailingAddress', 'kind'
                         add_key 'kind', 'mailing'
                         map 'streetName1', 'address_1'
-                        # map '', 'address_2'
-                        map 'cityName', 'city'
+                        # add_key 'address_2'
+                        map 'cityName', 'city'#
                         map 'countyName', 'county'
                         map 'countyFipsCode', 'county_code'
                         map 'stateCode', 'state'
                         map 'zipCode', 'zip'
                         map 'countryCode', 'country_name'
-                        # map '', 'validation_status'
-                        # map '', 'start_on'
-                        # map '', 'end_on'
+                        # add_key 'validation_status'
+                        # add_key 'start_on'
+                        # add_key 'end_on'
                         # map 'liveOutsideStateTemporarilyIndicator', 'lives_outside_state_temporarily'
                       end
                     end
 
                     namespace "homeAddress" do
                       rewrap 'family.family_members.person.addresses', type: :array do
-                        # map '', 'has_fixed_address'
+                        # add_key 'has_fixed_address'
                         # map 'homeAddress', 'kind'
                         add_key 'kind', 'home'
                         map 'streetName1', 'address_1'
-                        # map '', 'address_2'
+                        # add_key 'address_2'
                         map 'cityName', 'city'
                         map 'countyName', 'county'
                         map 'countyFipsCode', 'county_code'
                         map 'stateCode', 'state'
                         map 'zipCode', 'zip'
                         map 'countryCode', 'country_name'
-                        # map '', 'validation_status'
-                        # map '', 'start_on'
-                        # map '', 'end_on'
+                        # add_key 'validation_status'
+                        # add_key 'start_on'
+                        # add_key 'end_on'
                         # map 'liveOutsideStateTemporarilyIndicator', 'lives_outside_state_temporarily'
                       end
                     end
@@ -169,15 +169,15 @@ module Medicaid
                 end
               end
 
-              # map '', 'person_relationships'
-              # map '', 'relative_hbx_id'
-              # map '', 'kind'
-              # map '', 'hbx_id'
+              # add_key 'person_relationships'
+              # add_key 'relative_hbx_id'
+              # add_key 'kind'
+              # add_key 'hbx_id'
             end
 
-            # map '', 'households'
-            # map '', 'coverage_households'
-            # map '', 'tax_households'
+            # add_key 'households'
+            # add_key 'coverage_households'
+            # add_key 'tax_households'
           end
         end
 

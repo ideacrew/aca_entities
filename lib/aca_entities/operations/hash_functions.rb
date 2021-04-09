@@ -48,6 +48,7 @@ module AcaEntities
       #
       # @return [Hash]
       def add_key(source_hash, namespaced_keys, value)
+        value = nil if value == ''
         source_hash.to_h.tap do |hash|
           element = namespaced_keys.last
           output_hash = initialize_or_assign({}, namespaced_keys[0..-2], Hash[element, value])
@@ -71,17 +72,6 @@ module AcaEntities
         source_hash.to_h.tap do |hash|
           final_pair = hash.dig(*namespaces)
           mapping.first.each {|k, v| final_pair[v] = final_pair.delete(k) if final_pair.key?(k)}
-        end
-      end
-
-      def append_keys(source_hash, source_namespaces, destination_namespaces = [])
-        source_hash.to_h.tap do |source_data|
-
-          element = destination_namespaces.last
-          output = initialize_or_assign({}, destination_namespaces[0..-2], Hash[element, source_data[source_namespaces.last]])
-
-          source_data[destination_namespaces[0]] = output[destination_namespaces[0]]
-          source_data.delete(source_namespaces.last)
         end
       end
 

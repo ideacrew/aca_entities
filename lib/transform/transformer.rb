@@ -44,24 +44,16 @@ module Transform
       end
     end
 
-    def map(source_key = nil, output_key = nil, proc = nil)
-      mapping = if source_key == ''
-                  Transform::Map.new((source_ns + [output_key.to_s]).join('.'),
-                                     (output_ns + [output_key.to_s]).join('.'),
-                                     nil,
-                                     :append_keys,
-                                     proc: proc)
-                else
-                  Transform::Map.new((source_ns + [source_key]).join('.'),
+    def map(source_key, output_key = nil, proc = nil)
+      mapping = Transform::Map.new((source_ns + [source_key]).join('.'),
                                      (output_ns + [output_key.to_s]).join('.'),
                                      nil,
                                      transform_action || :rename_nested_keys,
                                      proc: proc)
-                end
       @mappings[mapping.container_key] = mapping
     end
 
-    def add_key(key, value)
+    def add_key(key, value = nil)
       mapping = Transform::Map.new((source_ns + [key]).join('.'),
                                    (output_ns + [key]).join('.'),
                                    value,
@@ -188,8 +180,6 @@ module Transform
                    end.compact
                  when :add_key
                    "t(:add_key,  #{output_elements.map(&:to_sym)}, '#{value}')"
-                 when :append_keys
-                   "t(:append_keys, #{source_elements.map(&:to_sym)}, #{output_elements.map(&:to_sym)})"
                  when :rewrap_keys
                    "t(:rewrap_keys, #{source_elements.map(&:to_sym)}, #{output_elements.map(&:to_sym)})"
                  when :rename_nested_keys
@@ -209,7 +199,7 @@ module Transform
     end
 
     def namespace_transform_required?
-      return false if key_transforms.include?(:rewrap_keys) || key_transforms.include?(:append_keys)
+      return false if key_transforms.include?(:rewrap_keys) || key_transforms.include?(:add_key)
       true
     end
 
