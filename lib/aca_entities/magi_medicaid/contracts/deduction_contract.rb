@@ -5,7 +5,6 @@ module AcaEntities
     module Contracts
       # Schema and validation rules for {AcaEntities::MagiMedicaid::Deduction}
       class DeductionContract < Dry::Validation::Contract
-        include ::AcaEntities::AppHelper
         # @!method call(opts)
         # @param [Hash] opts the parameters to validate using this contract
         # @option opts [String] :name optional
@@ -24,10 +23,6 @@ module AcaEntities
           optional(:end_on).maybe(:date)
           required(:frequency_kind).filled(Types::DeductionFrequency)
           optional(:submitted_at).maybe(:date_time)
-        end
-
-        rule(:end_on) do
-          key.failure(text: 'must be after start_on.') if key? && check_if_present?(value) && values[:start_on] && value < values[:start_on]
         end
       end
     end

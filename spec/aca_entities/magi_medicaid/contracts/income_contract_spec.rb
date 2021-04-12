@@ -89,9 +89,7 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Contracts::IncomeContract,  dbclean:
       end
 
       it 'should return failure with error message' do
-        err_msg = { employer: [{ error: { employer_id: ['should be of length 9 and allows numbers only'] },
-                                 text: 'invalid employer.' }] }
-        expect(@result.errors.to_h).to eq(err_msg)
+        expect(@result.errors.to_h).to eq({ employer: { employer_id: ['length must be 9'] } })
       end
     end
   end

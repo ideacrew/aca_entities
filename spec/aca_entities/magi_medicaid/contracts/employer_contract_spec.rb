@@ -37,7 +37,7 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Contracts::EmployerContract,  dbclea
 
     context 'invalid data for employer id' do
       let(:all_params) do
-        { employer_name: 'ABC employer', employer_id: ['abcdefghi', '12-3456789', '123#@!789'].sample }
+        { employer_name: 'ABC employer', employer_id: '123456' }
       end
 
       before { @result = subject.call(all_params) }
@@ -47,7 +47,7 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Contracts::EmployerContract,  dbclea
       end
 
       it 'should return a failure with error message' do
-        expect(@result.errors.to_h).to eq({ employer_id: ['should be of length 9 and allows numbers only'] })
+        expect(@result.errors.to_h).to eq({ employer_id: ['length must be 9'] })
       end
     end
   end
