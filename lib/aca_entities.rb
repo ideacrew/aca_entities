@@ -19,6 +19,7 @@ require 'aca_entities/operations/hash_functions'
 require 'transform/transformer'
 require 'aca_entities/operations/record_builder'
 require 'aca_entities/operations/transform'
+require 'aca_entities/functions/age_on'
 require 'aca_entities/medicaid/transforms/iap_to/mitc_input'
 
 # TODO: Decide how to incorporate versioning? e.g. Iap::V3_0::Application

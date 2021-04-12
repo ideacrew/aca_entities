@@ -175,7 +175,7 @@ module Transform
     import Dry::Transformer::HashTransformations
     import Dry::Transformer::ArrayTransformations
     import Dry::Transformer::Coercions
-    import ::AcaEntities::Operations::HashFunctions
+    import AcaEntities::Operations::HashFunctions
     import :camelize, from: Inflector, as: :camel_case
     import :underscore, from: Inflector, as: :underscore
   end
@@ -253,36 +253,6 @@ module Transform
     def namespace_transform_required?
       return true if ([:rewrap_keys, :add_key, :add_namespace] & key_transforms).empty?
       false
-    end
-
-    # Convert dob to age
-    #
-    # @param dob The input dob
-    # @param on_date The age on the given date
-    #
-    # @example
-    #   dob: Date.new(1980,1,1), on_date: Date.new(2021,1,1)
-    #   # =>  41
-    #
-    # @return age
-    def age_of(dob, on_date: Date.today)
-      dob = t(:to_date)[dob]
-      age = on_date.year - dob.to_date.year
-      return age - 1 unless on_date.month > dob.month || (on_date.month == dob.month && on_date.day >= dob.day)
-      age
-    end
-
-    # Convert value to boolean
-    #
-    # @param value The input value
-    #
-    # @example
-    #   value: "YES"
-    #   # =>  true
-    #
-    # @return value
-    def boolean(value)
-      t(:to_boolean)[value.to_s.downcase]
     end
 
     # TODO

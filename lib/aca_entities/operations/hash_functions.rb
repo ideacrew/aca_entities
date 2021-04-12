@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # rubocop:disable Style/HashConversion, Style/OptionalArguments
-
+require 'dry/transformer/all'
 require "dry/inflector"
 require 'deep_merge'
 
@@ -9,6 +9,9 @@ module AcaEntities
   module Operations
     # This module provides services for hash transformations
     module HashFunctions
+      extend Dry::Transformer::Registry
+      import Dry::Transformer::Coercions
+
       module_function
 
       # Transform a value using namespace and a proc
@@ -35,15 +38,14 @@ module AcaEntities
         source_hash.to_h.tap do |hash|
           final_pair = hash.dig(*namespaces)
           transformed_pair = if func.is_a? Proc
-                               if input[:context]
-                                final_pair.update(final_pair) {|_k, old_value| instance_exec(input[:context], &func)}
-                               else
-                                final_pair.update(final_pair) {|_k, old_value| instance_exec(old_value, &func)}
-                               end
-                             else
-                              binding.pry
-                               final_pair.transform_values!(&func)
-                             end
+            if input[:context]
+              final_pair.update(final_pair) {|_k, old_value| instance_exec(input[:context], &func)}
+            else
+              final_pair.update(final_pair) {|_k, old_value| instance_exec(old_value, &func)}
+            end
+          else
+            final_pair.transform_values!(&func)
+          end
           initialize_or_assign({}, namespaces[0..-2].dup, transformed_pair)
         end
         input
@@ -90,14 +92,44 @@ module AcaEntities
         end
       end
 
+      # # Convert dob to age
+      # #
+      # # @param dob The input dob
+      # # @param on_date The age on the given date
+      # #
+      # # @example
+      # #   dob: Date.new(1980,1,1), on_date: Date.new(2021,1,1)
+      # #   # =>  41
+      # #
+      # # @return age
+      # def age_of(dob, on_date: Date.today)
+      #   dob = t(:to_date)[dob]
+      #   age = on_date.year - dob.to_date.year
+      #   return age - 1 unless on_date.month > dob.month || (on_date.month == dob.month && on_date.day >= dob.day)
+      #   age
+      # end
+
+      # Convert value to boolean
+      #
+      # @param value The input value
+      #
+      # @example
+      #   value: "YES"
+      #   # =>  true
+      #
+      # @return value
+      def boolean(value)
+        t(:to_boolean)[value.to_s.downcase]
+      end
+
       # Rename particular keys using namespace
       #
       # @param source_hash The input hash
       # @param mapping The key-rename mapping
       #
       # @example
-      #   source_hash: {"a" => {"b" => { "c" => {"d" => "123"}}, {"d" => "456"}}, mapping: {"d" => "e"}, namespaces: [:a,:b,:c]
-      #   # =>   {"a" => {"b" => { "c" => {"e" => "123"}}, {"d" => "456"}}
+      #   source_hash: {"a" => {"b" => { "c" => {"d" => "123"}}, "f" => {"d" => "456"}}}, mapping: [{"d" => "e"}], namespaces: ["a","b","c"]
+      #   # => {"a" => {"b" => { "c" => {"e" => "123"}}, "f" => {"d" => "456"}}}
       #
       # @return [Hash]
       def rename_nested_keys(source_hash, mapping, namespaces = [])
@@ -148,15 +180,15 @@ module AcaEntities
         source_hash.each_with_object({}) do |(k, v), result|
           mapped_key = mapped_keys[k] || k
           result[mapped_key] = case v
-                               when ::Hash
-                                 deep_rename_keys(v, mapped_keys)
-                               when ::Array
-                                 v.map do |item|
-                                   item.is_a?(Hash) ? deep_rename_keys(item, mapped_keys) : item
-                                 end
-                               else
-                                 v
-                               end
+          when ::Hash
+            deep_rename_keys(v, mapped_keys)
+          when ::Array
+            v.map do |item|
+              item.is_a?(Hash) ? deep_rename_keys(item, mapped_keys) : item
+            end
+          else
+            v
+          end
         end
       end
 
@@ -164,58 +196,33 @@ module AcaEntities
         source_hash.each_with_object({}) do |(key, value), output|
           next unless permitted_keys.include? key
           output[key] = case value
-                        when ::Hash
-                          deep_accept_keys(value, permitted_keys)
-                        when ::Array
-                          value.map do |item|
-                            item.is_a?(Hash) ? deep_accept_keys(item, permitted_keys) : item
-                          end
-                        else
-                          value
-                        end
+          when ::Hash
+            deep_accept_keys(value, permitted_keys)
+          when ::Array
+            value.map do |item|
+              item.is_a?(Hash) ? deep_accept_keys(item, permitted_keys) : item
+            end
+          else
+            value
+          end
         end
       end
 
       def deep_map_keys(hash)
         inflector = Dry::Inflector.new
         hash.each_with_object({}) do |(key, value), output|
-          output[inflector.underscore(key).to_sym] =
-            case value
-            when Hash
-              deep_map_keys(value)
-            when Array
-              value.map do |item|
-                item.is_a?(Hash) ? deep_map_keys(item) : item
-              end
-            else
-              value
+          output[inflector.underscore(key).to_sym] = case value
+          when Hash
+            deep_map_keys(value)
+          when Array
+            value.map do |item|
+              item.is_a?(Hash) ? deep_map_keys(item) : item
             end
-        end
-      end
-
-      # TODO
-      def collect_namespace(source_hash, *keys)
-        keys = keys.dup
-        next_key = keys.shift
-
-        return [] unless source_hash.key? next_key
-
-        next_val = source_hash[next_key]
-
-        return [next_val] if keys.empty?
-
-        case next_val
-        when Hash
-          next_val.collect_namespace(*keys)
-        when Array
-          next_val.each_with_object([]) do |v, result|
-            inner = v.collect_namespace(*keys)
-            result.concat inner
+          else
+            value
           end
-        else
-          []
         end
-      end
+      end 
     end
   end
 end

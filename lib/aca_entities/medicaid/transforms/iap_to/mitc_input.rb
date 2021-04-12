@@ -12,6 +12,8 @@ module Medicaid
 
         # TODO namespace_map "source || output"
 
+        AgeOn = AcaEntities::Functions::AgeOn.new(on_date: "2020-1-1")
+
         # namespace 'attestations' do
         # 	add_key 'hbx_id'
         # 	add_key 'min_verifications_due_date'
@@ -61,7 +63,7 @@ module Medicaid
           # rename_key 'attestations', 'family'
 
           rewrap 'family' do
-            add_key 'hbx_id', 1234
+            # add_key 'hbx_id', 1234
             # map 'renewEligibilityYearQuantity', 'renewal_consent_through_year' #, -> {|year | year + value_of("attestations.application.applicationSignatures")}
             # add_key 'vlp_documents_status'
             # add_key 'min_verifications_due_date'
@@ -129,7 +131,7 @@ module Medicaid
                     add_key 'no_ssn', 'false'
                     map 'ssn', 'encrypted_ssn'#, Dry::Transformer(:nest, :address, [:street, :zipcode])
                     # map 'birthDate', 'age', -> v { age_of(v) }
-                    # map 'birthDate', 'age', Ageof
+                    map 'birthDate', 'age', AgeOn
 
                     # map 'birthDate', 'age' do |value|
                     #   age_of(value)
@@ -139,6 +141,7 @@ module Medicaid
                     # map 'type', 'kind',  '-> (value){ value.to_s.downcase }'
                     map 'status', 'is_active',  -> (value){ boolean(value)}
                     map 'sex', 'gender', -> (value){ value.to_s.downcase }
+
                     # map 'incarcerationType', 'is_incarcerated',  '-> (value){ AcaEntities::Types::McrToCvIncarcerationKind[value] }'
                     # map 'computed.members.*.ssnStatusReason', 'no_ssn'
                     # add_key 'hbx_id'
