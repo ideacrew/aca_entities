@@ -5,7 +5,6 @@ module AcaEntities
     module Contracts
       # Schema and validation rules for {AcaEntities::MagiMedicaid::Benefit}
       class BenefitContract < Dry::Validation::Contract
-        include ::AcaEntities::AppHelper
         # @!method call(opts)
         # @param [Hash] opts the parameters to validate using this contract
         # @option opts [String] :name optional
@@ -39,53 +38,6 @@ module AcaEntities
           optional(:start_on).maybe(:date)
           optional(:end_on).maybe(:date)
           optional(:submitted_at).maybe(:date_time)
-        end
-
-        rule(:employer) do
-          if kind_esi?(values[:kind]) && key? && value
-            if value.is_a?(Hash)
-              result = EmployerContract.new.call(value)
-              if result&.failure?
-                key.failure(text: 'invalid employer.', error: result.errors.to_h)
-              else
-                values.merge!(employer: result.to_h)
-              end
-            else
-              key.failure(text: 'invalid employer. Expected a hash.')
-            end
-          elsif kind_esi?(values[:kind])
-            key.failure(text: 'employer information missing for kind employer_sponsored_insurance.')
-          end
-        end
-
-        rule(:esi_covered) do
-          key.failure(text: 'is expected when kind is employer_sponsored_insurance.') if key? && check_if_blank?(value) && kind_esi?(values[:kind])
-        end
-
-        rule(:start_on) do
-          if check_if_blank?(value) && (kind_esi?(values[:kind]) || status_enrolled?(values[:status]))
-            key.failure(text: 'is expected when kind is employer_sponsored_insurance or status is is_enrolled.')
-          end
-        end
-
-        rule(:employee_cost_frequency) do
-          key.failure(text: 'is expected when kind is employer_sponsored_insurance.') if key? && check_if_blank?(value) && kind_esi?(values[:kind])
-        end
-
-        rule(:employee_cost) do
-          key.failure(text: 'is expected when kind is employer_sponsored_insurance.') if key? && check_if_blank?(value) && kind_esi?(values[:kind])
-        end
-
-        rule(:end_on) do
-          key.failure(text: 'must be after start_on.') if key? && check_if_present?(value) && values[:start_on] && value < values[:start_on]
-        end
-
-        def kind_esi?(kind_value)
-          kind_value == 'employer_sponsored_insurance'
-        end
-
-        def status_enrolled?(status_value)
-          status_value == 'is_enrolled'
         end
       end
     end

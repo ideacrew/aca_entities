@@ -12,11 +12,7 @@ module AcaEntities
         # @return [Dry::Monads::Result]
         params do
           optional(:indian_tribe_member).maybe(:bool)
-          optional(:tribal_id).maybe(:string)
-        end
-
-        rule(:tribal_id) do
-          key.failure(text: 'should be of length 9 and allows numbers only') if key? && value && !value.match?(/^[0-9]{9}$/)
+          optional(:tribal_id).maybe(:string, size?: 9)
         end
       end
     end

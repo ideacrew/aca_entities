@@ -19,30 +19,8 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::PregnancyInformationContrac
     end
 
     context 'invalid params' do
-      context 'missing value for expected_children_count' do
-        let(:input_params) do
-          { is_applying_coverage: false,
-            is_pregnant: true,
-            expected_children_count: nil,
-            pregnancy_due_on: Date.today.next_month.to_s }
-        end
-
-        it 'should return failure with error message' do
-          expect(subject.call(input_params).errors.to_h).to eq({ expected_children_count: ['must be filled if the applicant is pregnant.'] })
-        end
-      end
-
-      context 'missing value for pregnancy_due_on' do
-        let(:input_params) do
-          { is_applying_coverage: false,
-            is_pregnant: true,
-            expected_children_count: 2,
-            pregnancy_due_on: nil }
-        end
-
-        it 'should return failure with error message' do
-          expect(subject.call(input_params).errors.to_h).to eq({ pregnancy_due_on: ['must be filled if the applicant is pregnant.'] })
-        end
+      it 'should return failure with error messages' do
+        expect(subject.call({}).errors.to_h).to eq({ is_pregnant: ['is missing'] })
       end
     end
   end
@@ -59,36 +37,6 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::PregnancyInformationContrac
         end
 
         it { expect(subject.call(input_params)).to be_success }
-      end
-
-      context 'invalid params with missing end_on value' do
-        let(:input_params) do
-          { is_applying_coverage: true,
-            is_pregnant: false,
-            is_post_partum_period: true,
-            is_enrolled_on_medicaid: false,
-            pregnancy_end_on: nil }
-        end
-
-        it 'should return error with a message' do
-          err_msg = 'must be filled if the applicant is not pregnant and is in post partum period.'
-          expect(subject.call(input_params).errors.to_h).to eq({ pregnancy_end_on: [err_msg] })
-        end
-      end
-
-      context 'invalid params with missing is_enrolled_on_medicaid value' do
-        let(:input_params) do
-          { is_applying_coverage: true,
-            is_pregnant: false,
-            is_post_partum_period: true,
-            is_enrolled_on_medicaid: nil,
-            pregnancy_end_on: Date.today.next_month.to_s }
-        end
-
-        it 'should return error with a message' do
-          err_msg = 'must be filled if the applicant is not applying for coverage, not pregnant and is in post partum period.'
-          expect(subject.call(input_params).errors.to_h).to eq({ is_enrolled_on_medicaid: [err_msg] })
-        end
       end
     end
   end
