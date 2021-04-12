@@ -4,6 +4,17 @@ require 'deep_merge'
 
 module Operations
 
+
+  class Context
+    def initialize(contexts)
+      @contexts = contexts
+    end
+
+    def context(key)
+      OpenStruct.new @contexts.values.detect{|hash| hash[:name] == key.to_s}
+    end
+  end
+
   class Transform < Oj::Saj
 
     BufferLength = 512
@@ -30,8 +41,6 @@ module Operations
 
     def initialize(source_filename, output_filename, options = {})
       @source_filename = source_filename
-      # file_descriptor = IO.sysopen(@source_filename)
-      # @io = IO.new(file_descriptor)
       @namespace_record_delimiter = self.class.namespace_record_delimiter.split('.').map(&:to_sym)
       @namespaces = []
       @array_namespaces = []
@@ -39,8 +48,8 @@ module Operations
       @container = self.class.mapping_container
       @namespace_mappings = Hash.new
       @record_queue = []
-      @record_namespaces = []
       @wild_char_matchers = []
+      @contexts = {}
     end
 
     def call
@@ -71,14 +80,15 @@ module Operations
 
     def hash_start(key)
       find_or_build_namespace_mappping_for(key) if defined? @record_namespace_offset
+
       @namespaces.push(key&.to_sym)
-      
+
       if namespace_record_delimiter_matched?(@namespaces)
         @record_namespace_offset ||= @namespaces.dup
         record_start(key&.to_sym)
       end
 
-      process_append_transforms(key) if defined? @record_namespace_offset
+      add_new_elements(key) if defined? @record_namespace_offset
 
       puts "---hash_start -- #{key}"
       puts "---hash_start_namespaces--#{namespaces}"
@@ -88,10 +98,11 @@ module Operations
       matched = namespace_record_delimiter_matched?(@namespaces)
 
       if record_builder && !record_builder.data_set.empty?
-        write_records(key)
+        close_recent_record(key)
       end
 
       @namespaces.pop
+      @contexts.delete(key)
       puts "---hash_end -- #{key}"
       puts "---hash_end_namespaces--#{namespaces}"
       record_end(key&.to_sym) if matched
@@ -143,45 +154,91 @@ module Operations
       namespaces - @record_namespace_offset
     end
 
-    def process_append_transforms(key)
-      container.keys.each do |container_key|
-        next if container[container_key].transproc.is_a? Dry::Transformer::Composite
-        next unless container[container_key].transproc.name == :add_key
+    def add_new_elements(key)
+      namespaced_key = element_namespaces.join('.')
+      @wild_char_matchers.each {|char| namespaced_key.gsub!(/#{char}/, '*')}
 
-        if container_key.match(/^#{element_namespaces.join('.')}\.\w+$/)          
-          data  = container[container_key].call(Hash[container_key.split('.').last.to_sym, nil])
+      keys_under_namespace = container.keys_under_namespace(namespaced_key).select do |key|
+        !container[key].transproc.is_a? Dry::Transformer::Composite
+      end
+
+      namespace_keys = keys_under_namespace.select{|key| container[key].transproc.name == :add_namespace}
+      execute_add_namespaces(namespace_keys, namespaced_key, key)
+
+      namespace_keys.each do |namespace_key|
+        keys_under_namespace.each_with_index do |key, index|
+          keys_under_namespace.delete_at(index) if key.match?(/^#{Regexp.escape(namespace_key)}.*/)
+        end
+      end
+
+      keys_under_namespace.each do |container_key|
+        data  = container[container_key].call(Hash[container_key.split('.').last.to_sym, nil])
+        # binding.pry if key.to_s == 'demographic'
+        if record_builder # && container_key.match(/^#{Regexp.escape(record_builder.root)}\.\w+$/)
+          record_builder.append(record_builder.namespace, data)
+        else
           initialize_or_assign(record, [], data)
-        elsif record_builder && container_key.match(/^#{record_builder.root}\.\w+$/)
-          buider_root_ns = record_builder.root.split('.').map(&:to_sym)
-          next unless buider_root_ns.size == element_namespaces.size && buider_root_ns[0..-2] == element_namespaces[0..-2]
-          data  = container[container_key].call(Hash[container_key.split('.').last.to_sym, nil])
-          record_builder.append(key, data)
         end
       end
     end
 
-    def write_records(key)
+    def execute_add_namespaces(namespace_keys, namespaced_key, key)
+      namespace_keys.each do |namespace_key|
+        create_record(namespace_key, namespaced_key, key)
+        container.keys_under_namespace(namespace_key).each do |key|
+          if container[key].transproc_name == :add_namespace
+            execute_add_namespaces([key], namespace_key, key)
+          end
+
+          if container[key].transproc_name == :add_key
+            input = {context: Operations::Context.new(@contexts), source_hash: Hash[key.split('.').last.to_sym, nil]}
+            data  = container[key].call(input)[:source_hash]
+            record_builder.append(record_builder.namespace, data)
+          end
+        end
+        close_recent_record(key, false)
+      end
+    end
+
+    def create_record(container_key, namespaced_key, key)
+      builder = ::AcaEntities::Operations::RecordBuilder.new(root: namespaced_key, type: container[container_key].type)
+      builder.output_namespace = container[container_key].output_key
+      builder.parent_namespace = @record_queue.last&.output_ns
+      builder.namespace = key
+      @record_queue.push(builder)
+    end
+
+    def close_recent_record(key, validate_namespace = true)
       record_builder = @record_queue.last
+      return if validate_namespace && record_builder.root.split('.').size != element_namespaces.size
 
-      return unless record_builder.root.split('.').size == element_namespaces.size
-
+      @wild_char_matchers.delete(@record_queue.last.namespace)
       @record_queue.pop
-      @wild_char_matchers.delete(@record_namespaces.pop)
 
       if @record_queue.empty?
         initialize_or_assign(record, [], record_builder.output)
       else
-        @record_queue.last.append(@record_namespaces.last, record_builder.output, false)
+        @record_queue.last.append(@record_queue.last.namespace, record_builder.output, false)
       end
 
       record_builder = nil
     end
 
+    # Inject given arguments into the constructor of the class
+    #
+    # @example
+    #   Transproct(:constructor_inject, Struct)['User', :name, :age]
+    #   # => Struct::User
+    #
+    # @param [*Mixed] A list of arguments to inject
+    #
+    # @return [Object] An instance of the given klass
+    #
+    # @api private
     def find_or_build_namespace_mappping_for(key)
       return unless defined? @record_namespace_offset
 
       key_with_namespace = (element_namespaces + [key]).join('.')
-
       regex_key = (element_namespaces + ['*']).join('.') unless element_namespaces.compact.empty?
       
       initialize_new_record_for(regex_key, key) if regex_key
@@ -197,15 +254,13 @@ module Operations
       @wild_char_matchers.each {|char| namespaced_key.gsub!(/#{char}/, '*') }
 
       if container.key?(namespaced_key) && (record_builder.nil? || record_builder.root != namespaced_key)
+        # binding.pry if namespaced_key.to_s == "attestations.members.*"
 
-        if container[namespaced_key].type == :array
-          builder = ::AcaEntities::Operations::RecordBuilder.new(root: namespaced_key, type: container[namespaced_key].type)
-          builder.output_namespace = container[namespaced_key].output_key
-          builder.parent_namespace = @record_queue.last.output_ns unless @record_queue.empty?
-          record_unique_identifier = key
-    
-          @record_queue.push(builder)
-          @record_namespaces.push(key)
+        container_value = container[namespaced_key]
+        @contexts[key] = container_value.context.merge(key: key) if container_value.context
+
+        if container_value.type == :array
+          create_record(namespaced_key, namespaced_key, key)
           @wild_char_matchers.push(key) if namespaced_key.split('.').last == '*'
         end
       end
@@ -217,17 +272,18 @@ module Operations
       input = initialize_or_assign({}, element_namespaces.dup, Hash[key.to_sym, value])
       data = container[key_with_namespace].call(input)
 
-      new_namespaces = namespace_hash_to_array(data)
-      transformed_namespaces = namespace_mappings_for(new_namespaces[0..-2]) + [new_namespaces.last.to_s]
+      # FiX ME: Can be deleted?
+      # transformed_namespaces = namespace_mappings_for(new_namespaces[0..-2]) + [new_namespaces.last.to_s]
+      # @namespace_mappings[key_with_namespace] = transformed_namespaces.join('.')
 
-      @namespace_mappings[key_with_namespace] = transformed_namespaces.join('.') || key_with_transform
+      @namespace_mappings[key_with_namespace] = namespace_hash_to_array(data).join('.')
     end
 
     def namespace_hash_to_array(data)
       return [] unless data
       data.reduce([]) do |keys, (key, value)|
         keys.push(key) 
-        keys += namespace_hash_to_array(value)        
+        keys.concat(namespace_hash_to_array(value))
       end
     end
 
@@ -269,11 +325,12 @@ module Operations
       data = container[transformed_key].call(input) 
       namespace_transform_needed = container[transformed_key].namespace_transform_required?
 
-      data_hash = transform_hash(data || input, element_namespaces.dup) if namespace_transform_needed
+      # binding.pry if key.to_s == 'sex'
+
+      data_hash = transform_hash(data || input) if namespace_transform_needed
 
       if record_unique_identifier
-        record_builder.append(@record_namespaces.last, data_hash || data)
-        # binding.pry if key.to_s == 'streetName1' || key == 'cityName'
+        record_builder.append(record_builder.namespace, data_hash || data)
       else
         initialize_or_assign(record, [], data_hash || data)
       end
@@ -293,31 +350,31 @@ module Operations
       @record_queue.last
     end
 
-    def transform_hash(data_hash, namespace_set)
-      data_pair = data_hash.dig(*namespace_set) unless namespace_set.empty?
-      initialize_or_assign({}, namespace_mappings_for(namespace_set).map(&:to_sym), data_pair || data_hash)
-    rescue
-      binding.pry
-    end
+    # def transform_hash(data_hash)
+    #   data_pair = data_hash.dig(*element_namespaces) unless element_namespaces.empty?
+    #   initialize_or_assign({}, namespace_mappings_for(element_namespaces).map(&:to_sym), data_pair || data_hash)
+    # rescue
+    #   binding.pry
+    # end
 
-    def namespace_mappings_for(namespace_set = nil)
-      element_namespaces = (namespace_set - @record_namespace_offset)
-      set = []
-      element_namespaces.size.times do |i|
-        sample = element_namespaces[0..(element_namespaces.size - (1 + i))]
-        namespace_str = sample.map(&:to_s).join('.')
+    # def namespace_mappings_for(element_namespaces)
+    #
+    #   set = []
+    #   element_namespaces.size.times do |i|
+    #     sample = element_namespaces[0..(element_namespaces.size - (1 + i))]
+    #     namespace_str = sample.map(&:to_s).join('.')
 
-        if @namespace_mappings.key?(namespace_str)
-          set = @namespace_mappings[namespace_str].split('.') + (element_namespaces - sample).map(&:to_s)
-          break
-        else
-          next
-        end
-      end
+    #     if @namespace_mappings.key?(namespace_str)
+    #       set = @namespace_mappings[namespace_str].split('.') + (element_namespaces - sample).map(&:to_s)
+    #       break
+    #     else
+    #       next
+    #     end
+    #   end
 
-      return set unless set.empty?
-      element_namespaces.map(&:to_s)
-    end
+    #   return set unless set.empty?
+    #   element_namespaces.map(&:to_s)
+    # end
 
     def initialize_or_assign(local_record, values = [], data)
       if current_namespace = values.shift

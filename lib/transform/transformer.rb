@@ -23,7 +23,7 @@ module Transform
     end
 
     def construct_namespace_map
-      return if transform_action == :rewrap_keys
+      return if [:rewrap_keys, :add_namespace].include?(transform_action)
       return unless source_ns.length == output_ns.length
 
       source_ns.each_with_index do |namespace, index|
@@ -44,6 +44,10 @@ module Transform
       end
     end
 
+    def context=(attrs)
+      @context = attrs
+    end
+
     def map(source_key, output_key = nil, proc = nil)
       mapping = Transform::Map.new((source_ns + [source_key]).join('.'),
                                      (output_ns + [output_key.to_s]).join('.'),
@@ -55,11 +59,28 @@ module Transform
 
     def add_key(key, value = nil)
       mapping = Transform::Map.new((source_ns + [key]).join('.'),
-                                   (output_ns + [key]).join('.'),
-                                   value,
-                                   :add_key,
-                                   proc: nil)
+                                 (output_ns + [key]).join('.'),
+                                 value,
+                                 :add_key,
+                                 proc: nil)
       @mappings[mapping.container_key] = mapping
+    end
+
+    def add_namespace(source_ns_key, output_namespace, *args, &block)
+      map = Transform::Map.new((source_ns + [source_ns_key]).join('.'),
+                               output_namespace,
+                               nil,
+                               :add_namespace)
+      map.properties = args
+      @mappings[map.container_key] = map
+
+      map = self.class.new((source_ns + [source_ns_key]),
+                           output_namespace.to_s.split('.'),
+                           :add_namespace,
+                           args)
+
+      map.instance_exec(&block) if block_given?
+      @mappings.merge!(map.mappings)
     end
 
     def rewrap(output_namespace = nil, *args, &block)
@@ -70,6 +91,7 @@ module Transform
                                  :rewrap_keys,
                                  proc: nil)
         map.properties = args
+        map.context = @context
         @mappings[map.container_key] = map
       end
 
@@ -82,10 +104,11 @@ module Transform
       @mappings.merge!(map.mappings)
     end
 
-    def namespace(source_namespace, output_namespace = nil, &block)
+    def namespace(source_namespace, output_namespace = nil, *args, &block)
       # @mappings << Transform::Map.new(source_namespace, output_namespace, :rename_keys) if output_namespace.present?
       map = self.class.new(source_ns + source_namespace.split('.'),
                            output_ns + output_namespace.to_s.split('.'))
+      map.context = args.first[:context] if args.first && args.first[:context]
       map.instance_exec(&block)
 
       @mappings.merge!(map.mappings)
@@ -128,8 +151,21 @@ module Transform
       end
 
       def mapping_container
-        @_maps_ ||= Dry::Container.new
+        @_maps_ ||= ::Transform::TransformContainer.new
       end
+    end
+  end
+
+  class TransformContainer < Dry::Container
+
+    def initialize
+      @keys_by_namespace = {}
+      super
+    end
+
+    def keys_under_namespace(namespace)
+      return @keys_by_namespace[namespace] if @keys_by_namespace[namespace]
+      @keys_by_namespace[namespace] = keys.select{|key| key.match?(/^#{Regexp.escape(namespace)}\.\w+$/)}
     end
   end
 
@@ -146,14 +182,20 @@ module Transform
 
   # Creates transform proc
   class Map
-    attr_reader :source_key, :output_key, :value, :key_transforms, :result, :transproc, :proc, :type
+    attr_reader :source_key, :output_key, :value, :key_transforms, :result, :transproc, :proc, :type, :context
 
     def initialize(source_key = nil, output_key = nil, value = nil, *key_transforms, proc: nil)
       @source_key = source_key
       @output_key = output_key
       @key_transforms = key_transforms
-      @value = value
       @proc = proc
+
+      if value && value.is_a?(Proc)
+        @proc = value
+      else
+        @value = value
+      end
+
       # @namespace = []
       transform
     end
@@ -182,6 +224,8 @@ module Transform
                    "t(:add_key,  #{output_elements.map(&:to_sym)}, '#{value}')"
                  when :rewrap_keys
                    "t(:rewrap_keys, #{source_elements.map(&:to_sym)}, #{output_elements.map(&:to_sym)})"
+                 when :add_namespace
+                   "t(:add_namespace, #{source_elements.map(&:to_sym)}, #{output_elements.map(&:to_sym)})"
                  when :rename_nested_keys
                    source = source_key.split('.').last
                    "t(:#{action}, [#{source}: :#{output_elements.last}], #{source_elements[0..-2].map(&:to_sym)})"
@@ -190,17 +234,25 @@ module Transform
                  end
       end
 
-      if proc
-        output = output_elements[0..-2]
-        transform_procs << "t(:map_value, #{output.map(&:to_sym)}, #{proc})"
-      end
+      @transproc = if proc
+                     output = output_elements[0..-2]
+                     eval(transform_procs.flatten.join('.>> ')) >> t(:map_value, output.map(&:to_sym), proc)
+                   else
+                     eval(transform_procs.flatten.join('.>> '))
+                   end
+    end
 
-      @transproc = eval(transform_procs.flatten.join('.>> '))
+    def transproc_name
+      if @transproc.respond_to?(:left)
+        transproc.left.name
+      else
+        @transproc.name
+      end
     end
 
     def namespace_transform_required?
-      return false if key_transforms.include?(:rewrap_keys) || key_transforms.include?(:add_key)
-      true
+      return true if ([:rewrap_keys, :add_key, :add_namespace] & key_transforms).empty?
+      false
     end
 
     # Convert dob to age
@@ -248,6 +300,10 @@ module Transform
 
     def properties=(args)
       @type = args.first[:type]
+    end
+
+    def context=(context)
+      @context = context
     end
 
     # def process

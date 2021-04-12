@@ -8,6 +8,8 @@ module Medicaid
         # transform functions
 
         record_delimiter 'applications.identifier.result' # TODO: support wild card ex. applications.*.result (prefer Regex)
+        # source_vocabulary :mcr
+
         # TODO namespace_map "source || output"
 
         # namespace 'attestations' do
@@ -71,13 +73,15 @@ module Medicaid
             # add_key 'payment_transactions'
             # add_key 'financial_assistance_applications'
 
-            namespace 'members.*' do
+            # namespace 'members.*', context: {ref: 'members', element: 'id', type: 'members'} do
+            namespace 'members.*', nil, context: {name: 'members'} do
+
               # rewrap 'attestations.members.*', 'family.family_members', type: :array do
               rewrap 'family.family_members', type: :array do
 
                 add_key 'is_primary_applicant'
-                add_key 'is_coverage_applicant'
-                add_key 'is_consent_applicant'
+                # add_key 'is_coverage_applicant'
+                # add_key 'is_consent_applicant'
 
                 #               namespace 'application.contactInformation' do
                 #                 rewrap 'person' do
@@ -103,18 +107,38 @@ module Medicaid
                 #
                 namespace 'demographic' do
                   rewrap 'family.family_members.person' do
-                   # namespace 'name' do
-                   #    rewrap 'family.family_members.person.names' do
-                   #    	map 'firstName', 'first_name'
-                   #    	map 'lastName', 'last_name'
-                   #    end
-                   #  end
+
+                    add_namespace 'identifiers', 'family.family_members.person.identifiers', type: :array do
+                      add_key 'source_system_key', 'ccr' #source_vocabulary
+
+                      add_namespace 'ids', 'family.family_members.person.identifiers.ids', type: :array do
+                        add_key 'key', -> v { v.context(:members).name } # should be derived based on context
+                        add_key 'item', -> v { v.context(:members).key } # should pick id from the source payload
+                      end
+                    end
+
+                    # add_namespace 'family.family_members.person.identifiers', AcaEntities::Identifiers
+
+                    namespace 'name' do
+                      rewrap 'family.family_members.person.names', type: :array do
+                        map 'firstName', 'first_name'
+                        map 'lastName', 'last_name'
+                      end
+                    end
+
                     add_key 'no_ssn', 'false'
-                    map 'ssn', 'encrypted_ssn'
-                    map 'birthDate', 'age', '-> v { age_of(v) }'
+                    map 'ssn', 'encrypted_ssn'#, Dry::Transformer(:nest, :address, [:street, :zipcode])
+                    # map 'birthDate', 'age', -> v { age_of(v) }
+                    # map 'birthDate', 'age', Ageof
+
+                    # map 'birthDate', 'age' do |value|
+                    #   age_of(value)
+                    #   nest
+                    # end
+
                     # map 'type', 'kind',  '-> (value){ value.to_s.downcase }'
-                    # map 'status', 'is_active',  '-> (value){ boolean(value)}'
-                    map 'sex', 'gender','-> (value){ value.to_s.downcase }'
+                    map 'status', 'is_active',  -> (value){ boolean(value)}
+                    map 'sex', 'gender', -> (value){ value.to_s.downcase }
                     # map 'incarcerationType', 'is_incarcerated',  '-> (value){ AcaEntities::Types::McrToCvIncarcerationKind[value] }'
                     # map 'computed.members.*.ssnStatusReason', 'no_ssn'
                     # add_key 'hbx_id'
@@ -174,6 +198,11 @@ module Medicaid
               # add_key 'kind'
               # add_key 'hbx_id'
             end
+
+            # namespace 'households'
+            #   # construct relationships according
+            #   map "familyRelationships"
+            # end
 
             # add_key 'households'
             # add_key 'coverage_households'

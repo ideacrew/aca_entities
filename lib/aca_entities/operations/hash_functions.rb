@@ -25,12 +25,28 @@ module AcaEntities
       #   # => {:family=>{:family_members=>[{:person=>{:value=> 52}}]}}
       #
       # @return [Hash]
-      def map_value(source_hash, namespaces, func)
+      def map_value(input, namespaces, func)
+        if input[:source_hash]
+          source_hash = input[:source_hash]
+        else
+          source_hash = input
+        end
+
         source_hash.to_h.tap do |hash|
           final_pair = hash.dig(*namespaces)
-          transformed_pair = final_pair.transform_values!(&func)
+          transformed_pair = if func.is_a? Proc
+                               if input[:context]
+                                final_pair.update(final_pair) {|_k, old_value| instance_exec(input[:context], &func)}
+                               else
+                                final_pair.update(final_pair) {|_k, old_value| instance_exec(old_value, &func)}
+                               end
+                             else
+                              binding.pry
+                               final_pair.transform_values!(&func)
+                             end
           initialize_or_assign({}, namespaces[0..-2].dup, transformed_pair)
         end
+        input
       end
 
       # Add key using namespaced_key
@@ -47,13 +63,30 @@ module AcaEntities
       #   # => {:family=>{:family_members=>[{:person=>{:date_of_birth=> "1969-03-01"}}]}}
       #
       # @return [Hash]
-      def add_key(source_hash, namespaced_keys, value)
+      def add_key(input, namespaced_keys, value)
+        if input[:source_hash]
+          source_hash = input[:source_hash]
+        else
+          source_hash = input
+        end
+
         value = nil if value == ''
         source_hash.to_h.tap do |hash|
           element = namespaced_keys.last
           output_hash = initialize_or_assign({}, namespaced_keys[0..-2], Hash[element, value])
           hash[namespaced_keys[0]] = output_hash[namespaced_keys[0]]
           hash.delete(element)
+        end
+
+        input
+      end
+
+      def add_namespace(source_hash, source_namespace, destination_namespace)
+        source_hash.to_h.tap do |hash|
+          output_hash = initialize_or_assign({}, destination_namespace[0..-2], hash)
+          hash.delete(destination_namespace.last)
+          hash.merge!(output_hash)
+          binding.pry
         end
       end
 

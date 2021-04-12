@@ -3,7 +3,7 @@
 module AcaEntities
   module Operations
     class RecordBuilder
-      attr_reader :root, :data_set, :parent_ns, :output_ns
+      attr_reader :root, :data_set, :parent_ns, :output_ns, :namespace
 
       def initialize(root:, type:)
         @type = type
@@ -30,6 +30,10 @@ module AcaEntities
 
       def output_namespace=(output_ns)
         @output_ns = output_ns
+      end
+
+      def namespace=(namespace)
+        @namespace = namespace
       end
 
       def parent_namespace=(parent_namespace)
