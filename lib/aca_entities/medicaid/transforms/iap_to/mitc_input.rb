@@ -14,54 +14,7 @@ module Medicaid
 
         AgeOn = AcaEntities::Functions::AgeOn.new(on_date: "2020-1-1")
 
-        # namespace 'attestations' do
-        # 	add_key 'hbx_id'
-        # 	add_key 'min_verifications_due_date'
-        #   namespace 'application' do
-        #   	add_key 'is_primary_applicant'
-        #   end
-        # end
-
-        # output_namespace
-
-        # def add_key(output_namespaced_key)
-        #   yield if block_given?
-
-        #   @namespace(sourcefile namespace)
-        #   unique_key = (['attestations'] + ['family.hbx_id']).join('.')
-
-        #   @container.register(unique_key, )
-
-        #   family.hbx_id
-        # end
-
-        # add_key 'family' do |ns|
-        #   ns.add_key 'hbx_id'
-        #   ns.add_key 'vlp_documents_status'
-        #   ns.add_key 'min_verifications_due_date'
-        #   ns.add_key 'special_enrollment_periods'
-        # end
-
-        # add_key 'family.hbx_id'
-        # add_key 'family.vlp_documents_status'
-
-
         namespace 'attestations' do
-
-          # run when attestations found
-          # rewrap 'family' do
-          #   add_key 'hbx_id', '2323'
-          #   add_key 'vlp_documents_status', 'submitted'
-          #   add_key 'min_verifications_due_date'
-          #   add_key 'special_enrollment_periods'
-
-          #   namespace 'application.legalAttestations' do
-          #     map 'renewEligibilityYearQuantity', 'renewal_consent_through_year' #, -> {|year | year + value_of("attestations.application.applicationSignatures")}
-          #   end
-          # end
-
-          # rename_key 'attestations', 'family'
-
           rewrap 'family' do
             # add_key 'hbx_id', 1234
             # map 'renewEligibilityYearQuantity', 'renewal_consent_through_year' #, -> {|year | year + value_of("attestations.application.applicationSignatures")}
@@ -74,6 +27,12 @@ module Medicaid
             # add_key 'documents'
             # add_key 'payment_transactions'
             # add_key 'financial_assistance_applications'
+            # map 'application.contactMemberIdentifier', "primary_applicant_identifier", AcaEntities::Functions::PrimaryApplicantBuilder
+            #
+            # map 'household.familyRelationships', "person_relationships", AcaEntities::Functions::PersonRelationshipBuilder
+            # map "application.contactInformation", "primary_contact_information", AcaEntities::Functions::PrimaryApplicantBuilder
+            # map "application.contactInformation.email", "family_members.person.emails", AcaEntities::Functions::PrimaryApplicant
+            # map "application.contactInformation.primaryPhoneNumber", "family_members.person.phones", AcaEntities::Functions::PrimaryApplicant
 
             # namespace 'members.*', context: {ref: 'members', element: 'id', type: 'members'} do
             namespace 'members.*', nil, context: {name: 'members'} do
@@ -81,34 +40,14 @@ module Medicaid
               # rewrap 'attestations.members.*', 'family.family_members', type: :array do
               rewrap 'family.family_members', type: :array do
 
-                add_key 'is_primary_applicant'
-                # add_key 'is_coverage_applicant'
-                # add_key 'is_consent_applicant'
+                # add_key 'is_primary_applicant', -> v { v.context(:primary_applicant_identifier).is_primary_applicant }
 
-                #               namespace 'application.contactInformation' do
-                #                 rewrap 'person' do
-                #                   namespace 'email' do
-                #                     rewrap 'emails' , type: :array do
-                #                       add_key 'kind'
-                #                       map 'email', 'address'
-                #                     end
-                #                   end
-                #                   namespace 'primaryPhoneNumber'  do
-                #                     rewrap 'phones', type: :array do
-                #                       map 'type', 'kind'#,  -> {|value|  value.to_s.downcase }
-                #                       add_key 'country_code'
-                #                       #map "number","" , ->(area_code: 3, number: 7) {|value| value}
-                #                       map 'number (1..3)', 'area_code'#, -> {|value| value}
-                #                       map 'number (4..10)', 'number'
-                #                       map 'ext', 'extension'
-                #                       add_key 'primary'
-                #                     end
-                #                   end
-                #                 end
-                #               end
-                #
                 namespace 'demographic' do
                   rewrap 'family.family_members.person' do
+
+                    # add_key 'emails', -> v { v.context(:primary_contact_information).emails }
+                    # add_key 'phones', -> v { v.context(:primary_contact_information).phones }
+                    # add_key 'person_relationships', -> v { v.context(:person_relationships).person_relationships }
 
                     add_namespace 'identifiers', 'family.family_members.person.identifiers', type: :array do
                       add_key 'source_system_key', 'ccr' #source_vocabulary
@@ -118,8 +57,6 @@ module Medicaid
                         add_key 'item', -> v { v.context(:members).key } # should pick id from the source payload
                       end
                     end
-
-                    # add_namespace 'family.family_members.person.identifiers', AcaEntities::Identifiers
 
                     namespace 'name' do
                       rewrap 'family.family_members.person.names', type: :array do
