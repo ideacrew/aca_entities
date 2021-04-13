@@ -20,48 +20,9 @@ module AcaEntities
           optional(:end_on).maybe(:date)
           optional(:is_active).maybe(:bool)
           optional(:aasm_state).maybe(:string)
-          required(:broker_role).filled(:hash)
-          required(:general_agency).filled(:hash)
-          optional(:updated_by).filled(:hash)
-        end
-
-        rule(:end_on, :start_on) do
-          if values[:end_on]
-            key.failure('End on must be after start on date') unless values[:end_on] >= values[:start_on]
-          end
-        end
-
-        rule(:broker_role) do
-          if key? && value
-            if value.is_a?(Hash)
-              result = AcaEntities::Contracts::Brokers::BrokerRoleContract.new.call(value)
-              key.failure(text: "invalid broker role", error: result.errors.to_h) if result&.failure?
-            else
-              key.failure(text: "invalid broker role. Expected a hash.")
-            end
-          end
-        end
-
-        rule(:general_agency) do
-          if key? && value
-            if value.is_a?(Hash)
-              result = AcaEntities::Contracts::Organizations::GeneralAgencyReferenceContract.new.call(value)
-              key.failure(text: "invalid general agency", error: result.errors.to_h) if result&.failure?
-            else
-              key.failure(text: "invalid general agency. Expected a hash.")
-            end
-          end
-        end
-
-        rule(:updated_by) do
-          if key? && value
-            if value.is_a?(Hash)
-              result = AcaEntities::Contracts::People::PersonReferenceContract.new.call(value)
-              key.failure(text: "invalid updated by", error: result.errors.to_h) if result&.failure?
-            else
-              key.failure(text: "invalid updated by. Expected a hash.")
-            end
-          end
+          required(:broker_role_reference).hash(AcaEntities::Contracts::Brokers::BrokerRoleReferenceContract.params)
+          required(:general_agency_reference).hash(AcaEntities::Contracts::Organizations::GeneralAgencyReferenceContract.params)
+          optional(:updated_by).hash(AcaEntities::Contracts::People::PersonReferenceContract.params)
         end
       end
     end

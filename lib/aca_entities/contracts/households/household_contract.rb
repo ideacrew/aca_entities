@@ -18,63 +18,13 @@ module AcaEntities
         # @return [Dry::Monads::Result]
         params do
           required(:start_date).filled(:date)
-          optional(:end_date).filled(:date)
-          optional(:is_active).filled(:bool)
+          optional(:end_date).maybe(:date)
+          required(:is_active).filled(:bool)
           optional(:submitted_at).filled(:date)
-          optional(:irs_group).filled(:hash)
-          optional(:tax_households).filled(:hash)
-          required(:coverage_households).filled(:hash)
-          optional(:hbx_enrollments).filled(:hash)
-        end
-
-        rule(:end_date, :start_date) do
-          if values[:end_date]
-            key.failure('End on must be after start on date') unless values[:end_date] >= values[:start_date]
-          end
-        end
-
-        rule(:irs_group) do
-          if key? && value
-            if value.is_a?(Hash)
-              result = AcaEntities::Contracts::Group::IrsGroupReferenceContract.new.call(value)
-              key.failure(text: "invalid irs group", error: result.errors.to_h) if result&.failure?
-            else
-              key.failure(text: "invalid irs group. Expected a hash.")
-            end
-          end
-        end
-
-        rule(:tax_households).each do
-          if key? && value
-            if value.is_a?(Hash)
-              result = AcaEntities::Contracts::Households::TaxHouseholdContract.new.call(value)
-              key.failure(text: "invalid tax household", error: result.errors.to_h) if result&.failure?
-            else
-              key.failure(text: "invalid tax household. Expected a hash.")
-            end
-          end
-        end
-
-        rule(:coverage_households).each do
-          if key? && value
-            if value.is_a?(Hash)
-              result = AcaEntities::Contracts::Households::CoverageHouseholdContract.new.call(value)
-              key.failure(text: "invalid coverage household", error: result.errors.to_h) if result&.failure?
-            else
-              key.failure(text: "invalid coverage household. Expected a hash.")
-            end
-          end
-        end
-
-        rule(:hbx_enrollments).each do
-          if key? && value
-            if value.is_a?(Hash)
-              result = AcaEntities::Contracts::Enrollments::HbxEnrollmentContract.new.call(value)
-              key.failure(text: "invalid hbx enrollment", error: result.errors.to_h) if result&.failure?
-            else
-              key.failure(text: "invalid hbx enrollment. Expected a hash.")
-            end
-          end
+          required(:irs_group_reference).hash(AcaEntities::Contracts::Groups::IrsGroupReferenceContract.params)
+          required(:tax_households).array(AcaEntities::Contracts::Households::TaxHouseholdContract.params)
+          required(:coverage_households).array(AcaEntities::Contracts::Households::CoverageHouseholdContract.params)
+          required(:hbx_enrollments).array(AcaEntities::Contracts::Enrollments::HbxEnrollmentContract.params)
         end
       end
     end

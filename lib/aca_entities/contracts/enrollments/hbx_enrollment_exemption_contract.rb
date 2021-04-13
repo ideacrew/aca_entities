@@ -21,30 +21,8 @@ module AcaEntities
           optional(:certificate_number).maybe(:string)
           optional(:start_date).maybe(:date)
           optional(:end_date).maybe(:date)
-          optional(:family_member).maybe(:hash)
-          optional(:irs_group).maybe(:hash)
-        end
-
-        rule(:family_member) do
-          if key? && value
-            if value.is_a?(Hash)
-              result = AcaEntities::Contracts::Families::FamilyMemberReferenceContract.new.call(value)
-              key.failure(text: "invalid family member", error: result.errors.to_h) if result&.failure?
-            else
-              key.failure(text: "invalid family member. Expected a hash.")
-            end
-          end
-        end
-
-        rule(:irs_group) do
-          if key? && value
-            if value.is_a?(Hash)
-              result = AcaEntities::Contracts::Groups::IrsGroupReferenceContract.new.call(value)
-              key.failure(text: "invalid irs_group", error: result.errors.to_h) if result&.failure?
-            else
-              key.failure(text: "invalid irs group. Expected a hash.")
-            end
-          end
+          optional(:family_member_reference).hash(AcaEntities::Contracts::Families::FamilyMemberReferenceContract.params)
+          optional(:irs_group_reference).hash(AcaEntities::Contracts::Groups::IrsGroupReferenceContract.params)
         end
       end
     end

@@ -11,19 +11,8 @@ module AcaEntities
         # @option opts [Boolean] :is_subscriber required
         # @return [Dry::Monads::Result]
         params do
-          optional(:family_member).maybe(:hash)
+          optional(:family_member_reference).hash(AcaEntities::Contracts::Families::FamilyMemberReferenceContract.params)
           required(:is_subscriber).maybe(:bool)
-        end
-
-        rule(:family_member) do
-          if key? && value
-            if value.is_a?(Hash)
-              result = AcaEntities::Contracts::Families::FamilyMemberReferenceContract.new.call(value)
-              key.failure(text: "invalid family member", error: result.errors.to_h) if result&.failure?
-            else
-              key.failure(text: "invalid family member. Expected a hash.")
-            end
-          end
         end
       end
     end

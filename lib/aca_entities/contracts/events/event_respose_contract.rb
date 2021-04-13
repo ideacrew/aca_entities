@@ -6,14 +6,14 @@ module AcaEntities
   module Contracts
     module Events
       # Schema and validation rules for {AcaEntities::Events::EventResponse}
-      class EventResponseContract
+      class EventResponseContract < Dry::Validation::Contract
         # @!method call(opts)
         # @param [Hash] opts the parameters to validate using this contract
-        # @option opts [String] :requested_at optional
+        # @option opts [String] :received_at optional
         # @option opts [Date] :body optional
         # @return [Dry::Monads::Result]
         params do
-          optional(:requested_at).maybe(:date)
+          optional(:received_at).maybe(:date)
           optional(:body).maybe(:string)
         end
       end

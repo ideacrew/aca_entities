@@ -19,19 +19,8 @@ module AcaEntities
           required(:is_applying_coverage).filled(:bool)
           required(:is_applicant).filled(:bool)
           required(:is_state_resident).filled(:bool)
-          required(:lawful_presence_determination).filled(:hash)
+          required(:lawful_presence_determination).hash(AcaEntities::Contracts::Determinations::LawfulPresenceDeterminationContract.params)
           required(:citizen_status).filled(:string)
-        end
-
-        rule(:lawful_presence_determination) do
-          if key? && value
-            if value.is_a?(Hash)
-              result = AcaEntities::Contracts::Determinations::LawfulPresenceDeterminationContract.new.call(value)
-              key.failure(text: "invalid lawful_presence_determination.", error: result.errors.to_h) if result&.failure?
-            else
-              key.failure(text: "invalid lawful_presence_determination. Expected a hash.")
-            end
-          end
         end
       end
     end

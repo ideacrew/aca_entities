@@ -24,7 +24,7 @@ module AcaEntities
           optional(:dba).maybe(:string)
           optional(:display_name).maybe(:string)
           required(:fein).filled(:string)
-          required(:corporate_npn).filled(:string)
+          optional(:corporate_npn).maybe(:string)
         end
       end
     end

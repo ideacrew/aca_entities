@@ -19,39 +19,17 @@ module AcaEntities
         # @option opts [Array] :vlp_documents optional
         # @return [Dry::Monads::Result]
         params do
-          optional(:type_name).filled(:string)
-          optional(:validation_status).filled(:string)
-          optional(:applied_roles).filled(:array)
-          optional(:update_reason).filled(:string)
-          optional(:rejected).filled(:bool)
-          optional(:external_service).filled(:string)
-          optional(:due_date).filled(:date)
-          optional(:due_date_type).filled(:string)
-          optional(:updated_by).filled(:hash)
-          optional(:inactive).filled(:bool)
-          optional(:vlp_documents).filled(:array)
-        end
-
-        rule(:vlp_documents).each do
-          if key? && value
-            if value.is_a?(Hash)
-              result = AcaEntities::Contracts::Documents::VlpDocumentContract.new.call(value)
-              key.failure(text: "invalid vlp_documents.", error: result.errors.to_h) if result&.failure?
-            else
-              key.failure(text: "invalid vlp_documents. Expected a hash.")
-            end
-          end
-        end
-
-        rule(:updated_by) do
-          if key? && value
-            if value.is_a?(Hash)
-              result = AcaEntities::Contracts::People::PersonReferenceContract.new.call(value)
-              key.failure(text: "invalid updated by", error: result.errors.to_h) if result&.failure?
-            else
-              key.failure(text: "invalid updated by. Expected a hash.")
-            end
-          end
+          optional(:type_name).maybe(:string)
+          optional(:validation_status).maybe(:string)
+          optional(:applied_roles).maybe(:array)
+          optional(:update_reason).maybe(:string)
+          optional(:rejected).maybe(:bool)
+          optional(:external_service).maybe(:string)
+          optional(:due_date).maybe(:date)
+          optional(:due_date_type).maybe(:string)
+          optional(:updated_by).hash(AcaEntities::Contracts::People::PersonReferenceContract.params)
+          optional(:inactive).maybe(:bool)
+          optional(:vlp_documents).array(AcaEntities::Contracts::Documents::VlpDocumentContract.params)
         end
       end
     end

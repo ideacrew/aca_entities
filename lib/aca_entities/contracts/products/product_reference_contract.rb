@@ -22,20 +22,10 @@ module AcaEntities
           required(:active_year).filled(:integer)
           required(:is_dental_only).filled(:bool)
           required(:metal_level).filled(:string)
-          required(:coverage_type).filled(:string)
+          required(:benefit_market_kind).filled(:string)  #TODO types
+          required(:product_kind).filled(:string) #TODO types
           required(:ehb_percent).filled(:string)
-          required(:issuer_profile).filled(:hash)
-        end
-
-        rule(:issuer_profile) do
-          if key? && value
-            if value.is_a?(Hash)
-              result = AcaEntities::Contracts::Organizations::IssuerProfileReferenceContract.new.call(value)
-              key.failure(text: "invalid issuer profile", error: result.errors.to_h) if result&.failure?
-            else
-              key.failure(text: "invalid issuer profile. Expected a hash.")
-            end
-          end
+          required(:issuer_profile_reference).hash(AcaEntities::Contracts::Organizations::IssuerProfileReferenceContract.params)
         end
       end
     end

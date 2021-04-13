@@ -19,30 +19,8 @@ module AcaEntities
           optional(:action).filled(:string)
           optional(:modifier).filled(:string)
           optional(:update_reason).filled(:string)
-          optional(:event_response_record).filled(:hash)
-          optional(:event_request_record).filled(:hash)
-        end
-
-        rule(:event_request_record).each do
-          if key? && value
-            if value.is_a?(Hash)
-              result = AcaEntities::Contracts::Events::EventRequestContract.new.call(value)
-              key.failure(text: "invalid event_request_record.", error: result.errors.to_h) if result&.failure?
-            else
-              key.failure(text: "invalid event_request_record. Expected a hash.")
-            end
-          end
-        end
-
-        rule(:event_response_record).each do
-          if key? && value
-            if value.is_a?(Hash)
-              result = AcaEntities::Contracts::Events::EventResponseContract.new.call(value)
-              key.failure(text: "invalid event_response_record.", error: result.errors.to_h) if result&.failure?
-            else
-              key.failure(text: "invalid event_response_record. Expected a hash.")
-            end
-          end
+          optional(:event_response_record).hash(AcaEntities::Contracts::Events::EventResponseContract.params)
+          optional(:event_request_record).hash(AcaEntities::Contracts::Events::EventRequestContract.params)
         end
       end
     end

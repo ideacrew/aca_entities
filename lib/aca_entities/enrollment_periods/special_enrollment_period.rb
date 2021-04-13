@@ -4,7 +4,7 @@ module AcaEntities
   module EnrollmentPeriods
     module SpecialEnrollmentPeriod
 
-      attribute :qualifying_life_event_kind,                  AcaEntities::QualifyingLifeEvents::QualifyingLifeEventKindReference.meta(omittable: false)
+      attribute :qualifying_life_event_kind_reference,        AcaEntities::QualifyingLifeEvents::QualifyingLifeEventKindReference.meta(omittable: false)
       attribute :qle_on,                                      Types::Date.meta(omittable: false)
       attribute :is_valid,                                    Types::Bool.optional.meta(omittable: false)
       attribute :effective_on_kind,                           Types::String.meta(omittable: false)

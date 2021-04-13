@@ -1824,8 +1824,8 @@ module AcaEntities
 
     PremiumCreditStrategyKinds = Types::Coercible::String.enum(
       'unassisted', 'employer_fixed_cost',
-      'employee_fixed_cost','allocated_lump_sum_credit',
-      'percentage_contribution','indexed_percentage_contribution',
+      'employee_fixed_cost', 'allocated_lump_sum_credit',
+      'percentage_contribution', 'indexed_percentage_contribution',
       'federal_employee_health_benefit'
     )
 
@@ -1852,9 +1852,9 @@ module AcaEntities
     )
 
     AddressKinds = Types::Coercible::String.enum(
-      'home','work',
-      'mailing','primary',
-      'mailing','branch'
+      'home', 'work',
+      'mailing', 'primary',
+      'mailing', 'branch'
     )
 
     PhoneKinds = Types::Coercible::String.enum(
@@ -1868,10 +1868,10 @@ module AcaEntities
     )
 
     EligibilitySourceKinds = Types::Coercible::String.enum(
-     'Curam',
-     'Admin',
-     'Renewals',
-     'Faa'
+      'Curam',
+      'Admin',
+      'Renewals',
+      'Faa'
     )
 
     EligibilityCsrKinds = Types::Coercible::String.enum(
@@ -1890,15 +1890,15 @@ module AcaEntities
 
     EnrollmentMarketPlaceKinds = Types::Coercible::String.enum(
       'individual', 'employer_sponsored',
-      'employer_sponsored_cobra' 'coverall',
+      'employer_sponsored_cobra', 'coverall',
       'unassisted_qhp', 'insurance_assisted_qhp',
       'streamlined_medicaid', 'emergency_medicaid',
-      'hcr_chip',
+      'hcr_chip'
     )
 
     EnrollmentExemptionKinds = Types::Coercible::String.enum(
       'hardship', 'health_care_ministry_member',
-      'incarceration','indian_tribe_member',
+      'incarceration', 'indian_tribe_member',
       'religious_conscience'
     )
 
@@ -1914,7 +1914,6 @@ module AcaEntities
       'generating_consumer_role',
       'generating_resident_role'
     )
-
 
     ProductsByMarketPlaceKind = {
       aca_individual: %w[health_catastrophic health dental],

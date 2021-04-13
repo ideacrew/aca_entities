@@ -11,6 +11,7 @@ require 'aca_entities/version'
 require 'aca_entities/error'
 
 require 'aca_entities/libraries/core_library'
+require 'aca_entities/libraries/individual_market_library'
 
 # require 'aca_entities/operations/operation'
 

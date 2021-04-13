@@ -19,72 +19,16 @@ module AcaEntities
         # @option opts [Hash] :timestamp optional
         # @return [Dry::Monads::Result]
         params do
-          required(:hbx_id).filled(:string)  #TODO: until hbx_id added to family this is person hbx_id
+          optional(:hbx_id).filled(:string)  #TODO: until hbx_id added to family this is person hbx_id
           required(:is_primary_applicant).filled(:bool)
           optional(:is_consent_applicant).maybe(:bool)
           optional(:is_coverage_applicant).maybe(:bool)
           optional(:is_active).maybe(:bool)
-
-          optional(:applicant).maybe(:hash)
-          optional(:former_family).maybe(:hash)
-          optional(:hbx_enrollment_exemptions).maybe(:array)
-          required(:person).filled(:hash)
-          optional(:timestamp).maybe(:hash)
-        end
-
-        rule(:applicant) do
-          if key? && value
-            if value.is_a?(Hash)
-              result = MagiMedicaid::Contracts::ApplicantReferenceContract.new.call(value)
-              key.failure(text: "invalid applicant", error: result.errors.to_h) if result&.failure?
-            else
-              key.failure(text: "invalid applicant. Expected a hash.")
-            end
-          end
-        end
-
-        rule(:former_family) do
-          if key? && value
-            if value.is_a?(Hash)
-              result = AcaEntities::Contracts::Families::FamilyReferenceContract.new.call(value)
-              key.failure(text: "invalid former family", error: result.errors.to_h) if result&.failure?
-            else
-              key.failure(text: "invalid former family. Expected a hash.")
-            end
-          end
-        end
-
-        rule(:hbx_enrollment_exemptions).each do
-          if key? && value
-            if value.is_a?(Hash)
-              result =  AcaEntities::Contracts::Enrollments::HbxEnrollmentExemptionContract.new.call(value)
-              key.failure(text: "invalid hbx enrollment exemption", error: result.errors.to_h) if result&.failure?
-            else
-              key.failure(text: "invalid hbx enrollment exemption. Expected a hash.")
-            end
-          end
-        end
-
-        rule(:person) do
-          if key? && value
-            if value.is_a?(Hash)
-              result = AcaEntities::Contracts::People::PersonContract.new.call(value)
-              key.failure(text: "invalid person", error: result.errors.to_h) if result&.failure?
-            else
-              key.failure(text: "invalid person. Expected a hash.")
-            end
-          end
-        end
-
-        rule(:timestamp) do
-          if key? && value
-            if value.is_a?(Hash)
-              result = TimeStampContract.new.call(value)
-              key.failure(text: "invalid timestamp", error: result.errors.to_h) if result&.failure?
-            else
-              key.failure(text: "invalid timestamp. Expected a hash.")
-            end
-          end
+          optional(:applicant_reference).hash(MagiMedicaid::Contracts::ApplicantReferenceContract.params)
+          optional(:former_family_reference).hash(AcaEntities::Contracts::Families::FamilyReferenceContract.params)
+          optional(:hbx_enrollment_exemptions).array(AcaEntities::Contracts::Enrollments::HbxEnrollmentExemptionContract.params)
+          required(:person).hash(AcaEntities::Contracts::People::PersonContract.params)
+          optional(:timestamp).hash(AcaEntities::Contracts::TimeStampContract.params)
         end
       end
     end

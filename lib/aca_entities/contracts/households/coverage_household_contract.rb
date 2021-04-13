@@ -22,44 +22,11 @@ module AcaEntities
           optional(:end_date).maybe(:date)
           required(:is_immediate_family).filled(:bool)
           optional(:is_determination_split_household).maybe(:bool)
-          optional(:aasm_state).maybe(:String)
-          optional(:submitted_at).maybe(:Date)
-          required(:coverage_household_members).filled(:hash)
-          optional(:broker_agency).maybe(:hash)
-          optional(:broker_role).maybe(:hash)
-        end
-
-        rule(:coverage_household_members).each do
-          if key? && value
-            if value.is_a?(Hash)
-              result = AcaEntities::Contracts::Households::CoverageHouseholdMemberContract.new.call(value)
-              key.failure(text: "invalid coverage household member", error: result.errors.to_h) if result&.failure?
-            else
-              key.failure(text: "invalid coverage household member. Expected a hash.")
-            end
-          end
-        end
-
-        rule(:broker_role) do
-          if key? && value
-            if value.is_a?(Hash)
-              result = AcaEntities::Contracts::Brokers::BrokerRoleContract.new.call(value)
-              key.failure(text: "invalid broker role", error: result.errors.to_h) if result&.failure?
-            else
-              key.failure(text: "invalid broker role. Expected a hash.")
-            end
-          end
-        end
-
-        rule(:broker_agency) do
-          if key? && value
-            if value.is_a?(Hash)
-              result = AcaEntities::Contracts::Organizations::BrokerAgencyProfileReferenceContract.new.call(value)
-              key.failure(text: "invalid broker agency", error: result.errors.to_h) if result&.failure?
-            else
-              key.failure(text: "invalid broker agency. Expected a hash.")
-            end
-          end
+          optional(:aasm_state).maybe(:string)
+          optional(:submitted_at).maybe(:date)
+          required(:coverage_household_members).array(AcaEntities::Contracts::Households::CoverageHouseholdMemberContract.params)
+          optional(:broker_role_reference).hash(AcaEntities::Contracts::Brokers::BrokerRoleReferenceContract.params)
+          optional(:broker_agency_reference).hash(AcaEntities::Contracts::Organizations::BrokerAgencyProfileReferenceContract.params)
         end
       end
     end

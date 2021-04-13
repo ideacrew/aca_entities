@@ -12,7 +12,7 @@ module AcaEntities
         # @return [Dry::Monads::Result]
         params do
           required(:is_tobacco_user).filled(:string)
-          required(:is_physically_disabled).filled(:string)
+          optional(:is_physically_disabled).filled(:bool)
         end
       end
     end

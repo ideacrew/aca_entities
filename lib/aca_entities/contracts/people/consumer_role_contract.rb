@@ -15,7 +15,7 @@ module AcaEntities
         # @option opts [String] :marital_status optional
         # @option opts [Boolean] :is_active optional
         # @option opts [Boolean] :is_applying_coverage optional
-        # @option opts [String] :raw_event_responses optional
+        # @option opts [Array] :raw_event_responses optional
         # @option opts [String] :bookmark_url optional
         # @option opts [String] :admin_bookmark_url optional
         # @option opts [String] :contact_method optional
@@ -25,8 +25,8 @@ module AcaEntities
         # @option opts [String] :identity_update_reason optional
         # @option opts [String] :application_validation optional
         # @option opts [String] :application_update_reason optional
-        # @option opts [String] :identity_rejected optional
-        # @option opts [String] :application_rejected optional
+        # @option opts [Boolean] :identity_rejected optional
+        # @option opts [Boolean] :application_rejected optional
         # @option opts [Array] :documents optional
         # @option opts [Array] :vlp_documents optional
         # @option opts [Array] :ridp_documents optional
@@ -44,102 +44,27 @@ module AcaEntities
           optional(:marital_status).maybe(:string)
           optional(:is_active).maybe(:bool)
           optional(:is_applying_coverage).maybe(:bool)
-          optional(:raw_event_responses).maybe(:string)
+          optional(:raw_event_responses).maybe(:array)
           optional(:bookmark_url).maybe(:string)
           optional(:admin_bookmark_url).maybe(:string)
           optional(:contact_method).maybe(:string)
           optional(:language_preference).maybe(:string)
+
           optional(:is_state_resident).maybe(:bool)
           optional(:identity_validation).maybe(:string)
           optional(:identity_update_reason).maybe(:string)
           optional(:application_validation).maybe(:string)
           optional(:application_update_reason).maybe(:string)
-          optional(:identity_rejected).maybe(:string)
-          optional(:application_rejected).maybe(:string)
-          optional(:documents).maybe(:array)
-          optional(:vlp_documents).maybe(:array)
-          optional(:ridp_documents).maybe(:array)
-          optional(:verification_type_history_elements).maybe(:array)
-          optional(:lawful_presence_determination).maybe(:hash)
-          optional(:local_residency_responses).maybe(:array)
-          optional(:local_residency_requests).maybe(:array)
-        end
-
-        rule(:documents).each do
-          if key? && value
-            if value.is_a?(Hash)
-              result = AcaEntities::Contracts::Documents::DocumentContract.new.call(value)
-              key.failure(text: "invalid document.", error: result.errors.to_h) if result&.failure?
-            else
-              key.failure(text: "invalid document. Expected a hash.")
-            end
-          end
-        end
-
-        rule(:vlp_documents).each do
-          if key? && value
-            if value.is_a?(Hash)
-              result = AcaEntities::Contracts::Documents::VlpDocumentContract.new.call(value)
-              key.failure(text: "invalid vlp_documents.", error: result.errors.to_h) if result&.failure?
-            else
-              key.failure(text: "invalid vlp_documents. Expected a hash.")
-            end
-          end
-        end
-
-        rule(:ridp_documents).each do
-          if key? && value
-            if value.is_a?(Hash)
-              result = AcaEntities::Contracts::Documents::RidpDocument.new.call(value)
-              key.failure(text: "invalid ridp_documents.", error: result.errors.to_h) if result&.failure?
-            else
-              key.failure(text: "invalid ridp_documents. Expected a hash.")
-            end
-          end
-        end
-
-        rule(:verification_type_history_elements).each do
-          if key? && value
-            if value.is_a?(Hash)
-              result = AcaEntities::Contracts::Verifications::VerificationTypeHistoryElementContract.new.call(value)
-              key.failure(text: "invalid verification_type_history_elements.", error: result.errors.to_h) if result&.failure?
-            else
-              key.failure(text: "invalid verification_type_history_elements. Expected a hash.")
-            end
-          end
-        end
-
-        rule(:lawful_presence_determination) do
-          if key? && value
-            if value.is_a?(Hash)
-              result = AcaEntities::Contracts::Determinations::LawfulPresenceDeterminationContract.new.call(value)
-              key.failure(text: "invalid lawful_presence_determination.", error: result.errors.to_h) if result&.failure?
-            else
-              key.failure(text: "invalid lawful_presence_determination. Expected a hash.")
-            end
-          end
-        end
-
-        rule(:local_residency_requests).each do
-          if key? && value
-            if value.is_a?(Hash)
-              result = AcaEntities::Contracts::Events::EventRequestContract.new.call(value)
-              key.failure(text: "invalid local_residency_requests.", error: result.errors.to_h) if result&.failure?
-            else
-              key.failure(text: "invalid local_residency_requests. Expected a hash.")
-            end
-          end
-        end
-
-        rule(:local_residency_responses).each do
-          if key? && value
-            if value.is_a?(Hash)
-              result = AcaEntities::Contracts::Events::EventResponseContract.new.call(value)
-              key.failure(text: "invalid local_residency_responses.", error: result.errors.to_h) if result&.failure?
-            else
-              key.failure(text: "invalid local_residency_responses. Expected a hash.")
-            end
-          end
+          optional(:identity_rejected).maybe(:bool)
+          optional(:application_rejected).maybe(:bool)
+          # optional(:active_vlp_document_id).maybe(:hash) TODO: revisit
+          optional(:documents).array(AcaEntities::Contracts::Documents::DocumentContract.params)
+          optional(:vlp_documents).array(AcaEntities::Contracts::Documents::VlpDocumentContract.params)
+          optional(:ridp_documents).array(AcaEntities::Contracts::Documents::RidpDocument.params)
+          optional(:verification_type_history_elements).array(AcaEntities::Contracts::Verifications::VerificationTypeHistoryElementContract.params)
+          optional(:lawful_presence_determination).hash(AcaEntities::Contracts::Determinations::LawfulPresenceDeterminationContract.params)
+          optional(:local_residency_responses).array(AcaEntities::Contracts::Events::EventRequestContract.params)
+          optional(:local_residency_requests).array(AcaEntities::Contracts::Events::EventResponseContract.params)
         end
       end
     end
