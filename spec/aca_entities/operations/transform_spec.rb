@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-
+require 'aca_entities/medicaid/transforms/mcr_to/cv_input'
 
 RSpec.describe ::Operations::Transform do
  
@@ -10,9 +10,9 @@ RSpec.describe ::Operations::Transform do
     let(:source_file) { Pathname.pwd.join('spec', 'support', 'sample.json') }
 
     it 'should transform the keys' do
-      # binding.pry
-      Medicaid::Transforms::IapTo::MitcInput.call(source_file, "test.json", {})
-
+      binding.pry
+      result = Medicaid::Transforms::McrTo::CvInput.call(source_file, "test.json", {})
+      expect(result).to eql(output)
     end
   end
 end

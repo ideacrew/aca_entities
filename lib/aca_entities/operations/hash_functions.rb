@@ -16,12 +16,12 @@ module AcaEntities
 
       # Transform a value using namespace and a proc
       #
-      # @param source_hash The input hash
+      # @param input The input hash
       # @param namespaces The namespaces is the array of nested keys
       # @param func is a proc
       #
       # @example
-      #   source_hash: {:family=>{:family_members=>[{:person=>{:value=> "1969-03-01"}}]}}
+      #   input: {:family=>{:family_members=>[{:person=>{:value=> "1969-03-01"}}]}}
       #   namespaces: [:family, :family_members, :person]
       #   func: proc
       #
@@ -29,11 +29,11 @@ module AcaEntities
       #
       # @return [Hash]
       def map_value(input, namespaces, func)
-        if input[:source_hash]
-          source_hash = input[:source_hash]
-        else
-          source_hash = input
-        end
+        source_hash = if input[:source_hash]
+                        input[:source_hash]
+                      else
+                        input
+                      end
 
         source_hash.to_h.tap do |hash|
           final_pair = hash.dig(*namespaces)
@@ -54,12 +54,12 @@ module AcaEntities
 
       # Add key using namespaced_key
       #
-      # @param source_hash The input hash
+      # @param input The input hash
       # @param namespaced_keys The namespaced keys
       # @param value is a value
       #
       # @example
-      #   source_hash: {:date_of_birth => nil}
+      #   input: {:date_of_birth => nil}
       #   namespaced_keys: [:family, :family_members, :person, :date_of_birth]
       #   value: "1969-03-01"
       #
@@ -67,11 +67,11 @@ module AcaEntities
       #
       # @return [Hash]
       def add_key(input, namespaced_keys, value)
-        if input[:source_hash]
-          source_hash = input[:source_hash]
-        else
-          source_hash = input
-        end
+        source_hash = if input[:source_hash]
+                        input[:source_hash]
+                      else
+                        input
+                      end
 
         value = nil if value == ''
         source_hash.to_h.tap do |hash|

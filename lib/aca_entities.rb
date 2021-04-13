@@ -21,7 +21,6 @@ require 'aca_entities/operations/record_builder'
 require 'aca_entities/operations/transform'
 require 'aca_entities/functions/age_on'
 require 'aca_entities/functions/primary_applicant_builder'
-require 'aca_entities/medicaid/transforms/iap_to/mitc_input'
 
 # TODO: Decide how to incorporate versioning? e.g. Iap::V3_0::Application
 # TODO: Should we insure unique namespacing with prefix? e.g. AcaIap::Application
