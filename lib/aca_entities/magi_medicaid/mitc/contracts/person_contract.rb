@@ -84,7 +84,7 @@ module AcaEntities
             optional(:refugee_medical_assistance_start_date).maybe(Types::Date)
             optional(:seven_year_limit_start_date).maybe(Types::Date)
             required(:is_veteran).filled(Types::YesNoKind)
-            required(:income).filled(IncomeContract.params)
+            required(:income).hash(IncomeContract.params)
             required(:relationships).array(RelationshipContract.params)
           end
         end

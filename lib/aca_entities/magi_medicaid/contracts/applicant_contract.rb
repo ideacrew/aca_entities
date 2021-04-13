@@ -55,10 +55,10 @@ module AcaEntities
         # @option opts [Array] :deductions optional
         # @return [Dry::Monads::Result]
         params do
-          required(:name).filled(AcaEntities::Contracts::PersonNameContract.params)
-          required(:identifying_information).filled(IdentifyingInformationContract.params)
-          required(:demographic).filled(DemographicContract.params)
-          required(:attestation).filled(AttestationContract.params)
+          required(:name).hash(AcaEntities::Contracts::PersonNameContract.params)
+          required(:identifying_information).hash(IdentifyingInformationContract.params)
+          required(:demographic).hash(DemographicContract.params)
+          required(:attestation).hash(AttestationContract.params)
           required(:is_primary_applicant).filled(:bool)
           optional(:native_american_information).maybe(NativeAmericanInformationContract.params)
           optional(:citizenship_immigration_status_information).maybe(CitizenshipImmigrationStatusInformationContract.params)
@@ -78,7 +78,7 @@ module AcaEntities
           optional(:is_refugee).maybe(:bool)
           optional(:is_trafficking_victim).maybe(:bool)
           optional(:foster_care).maybe(FosterCareContract.params)
-          required(:pregnancy_information).filled(PregnancyInformationContract.params)
+          required(:pregnancy_information).hash(PregnancyInformationContract.params)
           optional(:is_subject_to_five_year_bar).maybe(:bool)
           optional(:is_five_year_bar_met).maybe(:bool)
           optional(:is_forty_quarters).maybe(:bool)

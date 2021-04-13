@@ -25,7 +25,7 @@ module AcaEntities
           # @return [Dry::Monads::Result]
           params do
             required(:person_id).filled(:integer)
-            required(:medicaid_household).filled(HouseholdContract.params)
+            required(:medicaid_household).hash(HouseholdContract.params)
             required(:is_medicaid_eligible).filled(Types::YesNoKind)
             required(:is_chip_eligible).filled(Types::YesNoKind)
             required(:medicaid_ineligibility_reasons).array(:string)

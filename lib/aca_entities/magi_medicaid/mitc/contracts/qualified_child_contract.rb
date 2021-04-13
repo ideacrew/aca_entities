@@ -15,9 +15,9 @@ module AcaEntities
           # @return [Dry::Monads::Result]
           params do
             required(:person_id).filled(:integer)
-            required(:determination).filled(CategoryDeterminationContract.params)
-            required(:deprived_child).filled(DeprivedChildContract.params)
-            required(:relationship).filled(RelationshipContract.params)
+            required(:determination).hash(CategoryDeterminationContract.params)
+            required(:deprived_child).hash(DeprivedChildContract.params)
+            required(:relationship).hash(RelationshipContract.params)
           end
         end
       end
