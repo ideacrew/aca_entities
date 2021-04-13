@@ -91,7 +91,7 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicationContract,  dbcle
         end
 
         it 'should return a failure with error message' do
-          err_txt = /at least one income should be present if has_job_income or has_self_employment_income/
+          err_txt = /atleast one income should be present if has_job_income/
           expect(obj_call.errors.to_h[:applicants][0][:incomes].first).to match(err_txt)
         end
       end

@@ -4,7 +4,6 @@ module AcaEntities
   module MagiMedicaid
     module Contracts
       # Schema and validation rules for {AcaEntities::MagiMedicaid::Applicant}
-      # rubocop:disable Metrics/ClassLength
       class ApplicantContract < Dry::Validation::Contract
         # @!method call(opts)
         # @param [Hash] opts the parameters to validate using this contract
@@ -119,7 +118,6 @@ module AcaEntities
           optional(:deductions).array(DeductionContract.params)
         end
       end
-      # rubocop:enable Metrics/ClassLength
     end
   end
 end
