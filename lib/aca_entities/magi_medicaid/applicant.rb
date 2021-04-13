@@ -5,7 +5,7 @@ module AcaEntities
     # Cv3 IAP Entity for Applicant.
     class Applicant < Dry::Struct
       # All common entities across all the subs lives at aca_entities level just like address.
-      attribute :name, AcaEntities::PersonName.meta(omittable: false)
+      attribute :name, AcaEntities::People::PersonName.meta(omittable: false)
       attribute :identifying_information, IdentifyingInformation.meta(omittable: false)
       attribute :demographic, Demographic.meta(omittable: false)
       attribute :attestation, Attestation.optional.meta(omittable: true)
@@ -17,7 +17,7 @@ module AcaEntities
       attribute :is_resident_role, Types::Bool.optional.meta(omittable: true)
       attribute :is_applying_coverage, Types::Bool.optional.meta(omittable: true)
       attribute :is_consent_applicant, Types::Bool.optional.meta(omittable: true)
-      attribute :vlp_document, AcaEntities::VlpDocument.optional.meta(omittable: true)
+      attribute :vlp_document, AcaEntities::Documents::VlpDocument.optional.meta(omittable: true)
       attribute :family_member_reference, Types::Hash.meta(omittable: false) # AcaEntities::References::FamilyMemberReference
 
       attribute :person_hbx_id, Types::String.meta(omittable: false)
@@ -57,9 +57,9 @@ module AcaEntities
       attribute :has_enrolled_health_coverage, Types::Bool.optional.meta(omittable: true)
       attribute :has_eligible_health_coverage, Types::Bool.optional.meta(omittable: true)
 
-      attribute :addresses, Types::Array.of(AcaEntities::Address).optional.meta(omittable: true)
-      attribute :emails, Types::Array.of(AcaEntities::Email).optional.meta(omittable: true)
-      attribute :phones, Types::Array.of(AcaEntities::Phone).optional.meta(omittable: true)
+      attribute :addresses, Types::Array.of(AcaEntities::Locations::Address).optional.meta(omittable: true)
+      attribute :emails, Types::Array.of(AcaEntities::Contacts::EmailContact).optional.meta(omittable: true)
+      attribute :phones, Types::Array.of(AcaEntities::Contacts::PhoneContact).optional.meta(omittable: true)
 
       attribute :incomes,         Types::Array.of(Income).optional.meta(omittable: true)
       attribute :benefits,        Types::Array.of(Benefit).optional.meta(omittable: true)

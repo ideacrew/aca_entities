@@ -55,10 +55,10 @@ module AcaEntities
         # @option opts [Array] :deductions optional
         # @return [Dry::Monads::Result]
         params do
-          required(:name).hash(AcaEntities::Contracts::PersonNameContract.params)
-          required(:identifying_information).hash(IdentifyingInformationContract.params)
-          required(:demographic).hash(DemographicContract.params)
-          required(:attestation).hash(AttestationContract.params)
+          required(:name).filled(AcaEntities::Contracts::People::PersonNameContract.params)
+          required(:identifying_information).filled(IdentifyingInformationContract.params)
+          required(:demographic).filled(DemographicContract.params)
+          required(:attestation).filled(AttestationContract.params)
           required(:is_primary_applicant).filled(:bool)
           optional(:native_american_information).maybe(NativeAmericanInformationContract.params)
           required(:citizenship_immigration_status_information).hash(CitizenshipImmigrationStatusInformationContract.params)
@@ -66,7 +66,7 @@ module AcaEntities
           optional(:is_resident_role).maybe(:bool)
           required(:is_applying_coverage).filled(:bool)
           optional(:is_consent_applicant).maybe(:bool)
-          optional(:vlp_document).maybe(AcaEntities::Contracts::VlpDocumentContract.params)
+          optional(:vlp_document).maybe(AcaEntities::Contracts::Documents::VlpDocumentContract.params)
           required(:family_member_reference).filled(:hash) # AcaEntities::Contracts::References::FamilyMemberContract.params
           required(:person_hbx_id).filled(:string)
           required(:is_required_to_file_taxes).filled(:bool)
@@ -110,9 +110,9 @@ module AcaEntities
           # including coverage they could get through another person?
           required(:has_eligible_health_coverage).filled(:bool)
 
-          optional(:addresses).array(AcaEntities::Contracts::AddressContract.params)
-          optional(:emails).array(AcaEntities::Contracts::EmailContract.params)
-          optional(:phones).array(AcaEntities::Contracts::PhoneContract.params)
+          optional(:addresses).array(AcaEntities::Contracts::Locations::AddressContract.params)
+          optional(:emails).array(AcaEntities::Contracts::Contacts::EmailContract.params)
+          optional(:phones).array(AcaEntities::Contracts::Contacts::PhoneContract.params)
           optional(:incomes).array(IncomeContract.params)
           optional(:benefits).array(BenefitContract.params)
           optional(:deductions).array(DeductionContract.params)
