@@ -6,7 +6,7 @@ module AcaEntities
     class VlpDocument < AcaEntities::Documents::Document
       # attribute :identification_number,   Types::String.optional.meta(omittable: false)
 
-      attribute :subject,      Iap::Types::VlpDocumentKind.optional.meta(omittable: false)
+      attribute :subject,      Types::VlpDocumentKind.optional.meta(omittable: false)
       attribute :alien_number, Types::String.optional.meta(omittable: false)
       attribute :i94_number, Types::String.optional.meta(omittable: false)
       attribute :visa_number, Types::String.optional.meta(omittable: false)
