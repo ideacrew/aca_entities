@@ -15,7 +15,7 @@ module AcaEntities
         # @return [Dry::Monads::Result]
         params do
           required(:start_on).filled(:date)
-          required(:end_on).maybe(:date)
+          optional(:end_on).maybe(:date)
           required(:title).filled(:string)
           required(:reason).filled(:string)
           required(:market_kind).filled(:string)

@@ -20,13 +20,7 @@ module AcaEntities
           required(:reason_code).filled(
             AcaEntities::Types::MarketTransitionReasonCodes
           )
-          required(:submitted_at).filled(:Date)
-        end
-
-        rule(:end_on, :start_on) do
-          if values[:end_on] && values[:start_on]
-            key.failure('End on must be after start on date') unless values[:end_on] > values[:start_on]
-          end
+          required(:submitted_at).filled(:date)
         end
       end
     end

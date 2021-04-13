@@ -28,7 +28,7 @@ module AcaEntities
         # @option opts [Hash] :timestamp optional
         # @return [Dry::Monads::Result]
         params do
-          required(:qualifying_life_event_kind).filled(:hash)
+          required(:qualifying_life_event_kind_reference).hash(AcaEntities::Contracts::QualifyingLifeEvents::QualifyingLifeEventKindReferenceContract.params)
           required(:qle_on).maybe(:date)
           required(:effective_on_kind).filled(:string)
           required(:submitted_at).filled(:date)
@@ -42,43 +42,11 @@ module AcaEntities
           optional(:option1_date).maybe(:date)
           optional(:option2_date).maybe(:date)
           optional(:option3_date).maybe(:date)
-          optional(:optional_effective_on).maybe(:date)
-          optional(:csl_num).filled(:string)
+          optional(:optional_effective_on).maybe(:array)
+          optional(:csl_num).maybe(:string)
           optional(:market_kind).maybe(:string)
           optional(:admin_flag).maybe(:bool)
-          optional(:timestamp).maybe(:hash)
-        end
-
-        rule(:qualifying_life_event_kind) do
-          if key? && value
-            if value.is_a?(Hash)
-              result = AcaEntities::Contracts::QualifyingLifeEvents::QualifyingLifeEventKindReferenceContract.new.call(value)
-              key.failure(text: "invalid qualifying life event kind", error: result.errors.to_h) if result&.failure?
-            else
-              key.failure(text: "invalid qualifying life event kind. Expected a hash.")
-            end
-          end
-        end
-
-        rule(:end_on, :start_on) do
-          key.failure('End on must be after start on date') unless values[:end_on] > values[:start_on]
-        end
-
-        rule(:csl_num) do
-          if key? && values[:csl_num]
-            key.failure('Not a valid naturalization_number') unless (6..12).cover?(values[:csl_num].length)
-          end
-        end
-
-        rule(:timestamp) do
-          if key? && value
-            if value.is_a?(Hash)
-              result = TimeStampContract.new.call(value)
-              key.failure(text: "invalid timestamp", error: result.errors.to_h) if result&.failure?
-            else
-              key.failure(text: "invalid timestamp. Expected a hash.")
-            end
-          end
+          optional(:timestamp).hash(TimeStampContract.params)
         end
       end
     end

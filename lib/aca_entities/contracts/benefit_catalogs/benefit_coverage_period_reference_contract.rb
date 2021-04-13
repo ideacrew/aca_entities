@@ -24,18 +24,6 @@ module AcaEntities
           required(:open_enrollment_start_on).filled(:date)
           required(:open_enrollment_end_on).filled(:date)
         end
-
-        rule(:end_on, :start_on) do
-          if values[:end_on]
-            key.failure('end on must be after start on') if values[:end_on] < values[:start_on]
-          end
-        end
-
-        rule(:open_enrollment_end_on, :open_enrollment_start_on) do
-          if values[:open_enrollment_end_on]
-            key.failure('open enrollment_end_on must be after open_enrollment_start_on') if values[:open_enrollment_end_on] < values[:open_enrollment_start_on]
-          end
-        end
       end
     end
   end

@@ -38,188 +38,35 @@ module AcaEntities
         # @option opts [Hash] :timestamp optional
         # @return [Dry::Monads::Result]
         params do
-          required(:hbx_id).maybe(:string)
-          required(:person_name).maybe(:hash)
-          required(:person_demographics).maybe(:hash)
-          required(:person_health).maybe(:hash)
-          required(:is_active).maybe(:string)
-          required(:is_disabled).maybe(:bool)
-
-          optional(:no_dc_address).filled(:bool)
-          optional(:no_dc_address_reason).filled(:bool)
+          optional(:hbx_id).maybe(:string)
+          required(:person_name).hash(AcaEntities::Contracts::People::PersonNameContract.params)
+          required(:person_demographics).hash(AcaEntities::Contracts::People::PersonDemographicsContract.params)
+          required(:person_health).hash(AcaEntities::Contracts::People::PersonHealthContract.params)
+          required(:is_active).maybe(:bool)
+          required(:is_disabled).filled(:bool)
+          optional(:no_dc_address).maybe(:bool)
+          optional(:no_dc_address_reason).maybe(:bool)
           optional(:is_homeless).maybe(:bool)
           optional(:is_temporarily_out_of_state).maybe(:bool)
           optional(:age_off_excluded).maybe(:bool)
           optional(:is_applying_for_assistance).maybe(:bool)
-          optional(:person_relationships).maybe(:array)
-          optional(:consumer_role).maybe(:hash)
-          optional(:resident_role).maybe(:hash)
-          optional(:individual_market_transitions).maybe(:array)
-          optional(:verification_types).maybe(:array)
-          optional(:broker_role).maybe(:hash)
-          optional(:broker_agency_staff_roles).maybe(:array)
-          optional(:general_agency_staff_roles).maybe(:array)
-          optional(:employee_roles).maybe(:array)
-          optional(:employer_staff_roles).maybe(:array)
-          optional(:addresses).maybe(:array)
-          optional(:phones).maybe(:array)
-          optional(:emails).maybe(:array)
-          optional(:documents).maybe(:array)
-          optional(:timestamp).maybe(:hash)
-        end
+          optional(:person_relationships).array(AcaEntities::Contracts::People::PersonRelationshipContract.params)
+          optional(:consumer_role).hash(AcaEntities::Contracts::People::ConsumerRoleContract.params)
+          optional(:resident_role).hash(AcaEntities::Contracts::People::ResidentRoleContract.params)
+          optional(:individual_market_transitions).array(AcaEntities::Contracts::Determinations::IndividualMarketTransitionContract.params)
+          optional(:verification_types).array(AcaEntities::Contracts::Verifications::VerificationTypeContract.params)
+          optional(:broker_role).hash(AcaEntities::Contracts::Brokers::BrokerRoleContract.params)
+          optional(:addresses).array(AcaEntities::Contracts::Locations::AddressContract.params)
+          optional(:phones).array(AcaEntities::Contracts::Contacts::PhoneContract.params)
+          optional(:emails).array(AcaEntities::Contracts::Contacts::EmailContract.params)
+          optional(:documents).array(AcaEntities::Contracts::Documents::DocumentContract.params)
+          optional(:timestamp).hash(TimeStampContract.params)
 
-        rule(:person_name) do
-          if key? && value
-            if value.is_a?(Hash)
-              result = AcaEntities::Contracts::People::PersonName.new.call(value)
-              key.failure(text: "invalid person_name", error: result.errors.to_h) if result&.failure?
-            else
-              key.failure(text: "invalid person_name. Expected a hash.")
-            end
-          end
-        end
-
-        rule(:person_demographics) do
-          if key? && value
-            if value.is_a?(Hash)
-              result = AcaEntities::Contracts::People::PersonDemographicsContract.new.call(value)
-              key.failure(text: "invalid person_demographics", error: result.errors.to_h) if result&.failure?
-            else
-              key.failure(text: "invalid person_demographics. Expected a hash.")
-            end
-          end
-        end
-
-        rule(:person_health) do
-          if key? && value
-            if value.is_a?(Hash)
-              result = AcaEntities::Contracts::People::PersonHealth.new.call(value)
-              key.failure(text: "invalid person_health", error: result.errors.to_h) if result&.failure?
-            else
-              key.failure(text: "invalid person_health. Expected a hash.")
-            end
-          end
-        end
-
-        rule(:person_relationships).each do
-          if key? && value
-            if value.is_a?(Hash)
-              result = AcaEntities::Contracts::People::PersonRelationshipContract.new.call(value)
-              key.failure(text: "invalid person_relationships", error: result.errors.to_h) if result&.failure?
-            else
-              key.failure(text: "invalid person_relationships. Expected a hash.")
-            end
-          end
-        end
-
-        rule(:consumer_role) do
-          if key? && value
-            if value.is_a?(Hash)
-              result = AcaEntities::Contracts::People::ConsumerRoleContract.new.call(value)
-              key.failure(text: "invalid consumer_role", error: result.errors.to_h) if result&.failure?
-            else
-              key.failure(text: "invalid consumer_role. Expected a hash.")
-            end
-          end
-        end
-
-        rule(:resident_role) do
-          if key? && value
-            if value.is_a?(Hash)
-              result = AcaEntities::Contracts::People::ResidentRoleContract.new.call(value)
-              key.failure(text: "invalid resident_role", error: result.errors.to_h) if result&.failure?
-            else
-              key.failure(text: "invalid resident_role. Expected a hash.")
-            end
-          end
-        end
-
-        rule(:individual_market_transitions).each do
-          if key? && value
-            if value.is_a?(Hash)
-              result = AcaEntities::Contracts::Determinations::IndividualMarketTransitionContract.new.call(value)
-              key.failure(text: "invalid individual_market_transitions", error: result.errors.to_h) if result&.failure?
-            else
-              key.failure(text: "invalid individual_market_transitions. Expected a hash.")
-            end
-          end
-        end
-
-        rule(:verification_types).each do
-          if key? && value
-            if value.is_a?(Hash)
-              result = AcaEntities::Contracts::Verifications::VerificationTypeContract.new.call(value)
-              key.failure(text: "invalid verification_types", error: result.errors.to_h) if result&.failure?
-            else
-              key.failure(text: "invalid verification_types. Expected a hash.")
-            end
-          end
-        end
-
-        rule(:broker_role) do
-          if key? && value
-            if value.is_a?(Hash)
-              result = AcaEntities::Contracts::Brokers::BrokerRoleContract.new.call(value)
-              key.failure(text: "invalid verification_types", error: result.errors.to_h) if result&.failure?
-            else
-              key.failure(text: "invalid verification_types. Expected a hash.")
-            end
-          end
-        end
-
-        rule(:phones).each do
-          if key? && value
-            if value.is_a?(Hash)
-              result = AcaEntities::Contracts::Contact::PhoneContract.new.call(value)
-              key.failure(text: "invalid phone", error: result.errors.to_h) if result&.failure?
-            else
-              key.failure(text: "invalid phones. Expected a hash.")
-            end
-          end
-        end
-
-        rule(:emails).each do
-          if key? && value
-            if value.is_a?(Hash)
-              result = AcaEntities::Contracts::Contact::EmailContract.new.call(value)
-              key.failure(text: "invalid email", error: result.errors.to_h) if result&.failure?
-            else
-              key.failure(text: "invalid emails. Expected a hash.")
-            end
-          end
-        end
-
-        rule(:addresses).each do
-          if key? && value
-            if value.is_a?(Hash)
-              result = AcaEntities::Contracts::Locations::AddressContract.new.call(value)
-              key.failure(text: "invalid addresses", error: result.errors.to_h) if result&.failure?
-            else
-              key.failure(text: "invalid addresses. Expected a hash.")
-            end
-          end
-        end
-
-        rule(:documents).each do
-          if key? && value
-            if value.is_a?(Hash)
-              result = AcaEntities::Contracts::Documents::DocumentContract.new.call(value)
-              key.failure(text: "invalid documents", error: result.errors.to_h) if result&.failure?
-            else
-              key.failure(text: "invalid documents. Expected a hash.")
-            end
-          end
-        end
-
-        rule(:timestamp) do
-          if key? && value
-            if value.is_a?(Hash)
-              result = TimeStampContract.new.call(value)
-              key.failure(text: "invalid timestamp", error: result.errors.to_h) if result&.failure?
-            else
-              key.failure(text: "invalid timestamp. Expected a hash.")
-            end
-          end
+          # TODO: Add contracts
+          # optional(:broker_agency_staff_roles).array(:array)
+          # optional(:general_agency_staff_roles).array(:array)
+          # optional(:employee_roles).array(:array)
+          # optional(:employer_staff_roles).array(:array)
         end
       end
     end

@@ -17,53 +17,14 @@ module AcaEntities
         # @option opts [Date] :coverage_end_on required
         # @return [Dry::Monads::Result]
         params do
-          required(:family_member).filled(:hash)
+          required(:family_member_reference).hash(AcaEntities::Contracts::Families::FamilyMemberReferenceContract.params)
           optional(:carrier_member_id).maybe(:string)
           required(:is_subscriber).filled(:bool)
-          optional(:premium_amount).maybe(:hash)
-          optional(:applied_aptc_amount).maybe(:hash)
+          optional(:premium_amount).hash(AcaEntities::Contracts::CurrencyContract.params)
+          optional(:applied_aptc_amount).hash(AcaEntities::Contracts::CurrencyContract.params)
           required(:eligibility_date).filled(:date)
           required(:coverage_start_on).filled(:date)
           optional(:coverage_end_on).maybe(:date)
-        end
-
-        rule(:coverage_end_on, :coverage_start_on) do
-          if key? && value
-            key.failure('must be on or after coverage_start_on.')  if values[:coverage_end_on] < values[:coverage_start_on]
-          end
-        end
-
-        rule(:family_member) do
-          if key? && value
-            if value.is_a?(Hash)
-              result = AcaEntities::Contracts::Families::FamilyMemberReferenceContract.new.call(value)
-              key.failure(text: "invalid family", error: result.errors.to_h) if result&.failure?
-            else
-              key.failure(text: "invalid family. Expected a hash.")
-            end
-          end
-        end
-
-        rule(:premium_amount) do
-          if key? && value
-            if value.is_a?(Hash)
-              result = CurrencyContract.new.call(value)
-              key.failure(text: "invalid premium_amount", error: result.errors.to_h) if result&.failure?
-            else
-              key.failure(text: "invalid premium_amount. Expected a hash.")
-            end
-          end
-        end
-
-        rule(:applied_aptc_amount) do
-          if key? && value
-            if value.is_a?(Hash)
-              result = CurrencyContract.new.call(value)
-              key.failure(text: "invalid applied_aptc_amount", error: result.errors.to_h) if result&.failure?
-            else
-              key.failure(text: "invalid applied_aptc_amount. Expected a hash.")
-            end
-          end
         end
       end
     end

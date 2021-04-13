@@ -23,32 +23,9 @@ module AcaEntities
           optional(:residency_determined_at).maybe(:date)
           optional(:contact_method).maybe(:string)
           optional(:language_preference).maybe(:string)
-          optional(:local_residency_responses).maybe(:array)
-          optional(:lawful_presence_determination).maybe(:hash)
+          optional(:local_residency_responses).array(AcaEntities::Contracts::Events::EventResponseContract.params)
+          optional(:lawful_presence_determination).hash(AcaEntities::Contracts::Determinations::LawfulPresenceDeterminationContract.params)
         end
-
-        rule(:local_residency_responses).each do
-          if key? && value
-            if value.is_a?(Hash)
-              result = AcaEntities::Contracts::Events::EventResponseContract.new.call(value)
-              key.failure(text: "invalid local_residency_responses.", error: result.errors.to_h) if result&.failure?
-            else
-              key.failure(text: "invalid local_residency_responses. Expected a hash.")
-            end
-          end
-        end
-
-        rule(:lawful_presence_determination) do
-          if key? && value
-            if value.is_a?(Hash)
-              result = AcaEntities::Contracts::Determinations::LawfulPresenceDeterminationContract.new.call(value)
-              key.failure(text: "invalid lawful_presence_determination.", error: result.errors.to_h) if result&.failure?
-            else
-              key.failure(text: "invalid lawful_presence_determination. Expected a hash.")
-            end
-          end
-        end
-
       end
     end
   end

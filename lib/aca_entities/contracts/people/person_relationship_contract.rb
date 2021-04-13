@@ -11,7 +11,7 @@ module AcaEntities
         # @option opts [String] :kind required
         # @return [Dry::Monads::Result]
         params do
-          required(:relative).filled(:hash)
+          required(:relative).hash(AcaEntities::Contracts::People::PersonReferenceContract.params)
           required(:kind).filled(:string)
         end
       end

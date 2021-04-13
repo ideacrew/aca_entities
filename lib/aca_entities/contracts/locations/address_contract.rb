@@ -42,20 +42,6 @@ module AcaEntities
           optional(:end_on).maybe(:date)
           optional(:lives_outside_state_temporarily).maybe(:bool)
         end
-
-        rule(:has_fixed_address) do
-          if value
-            address_kind = values[:kind]
-            key.failure(text: 'Kind cannot be blank') if address_kind.to_s.empty?
-            key.failure(text: 'Address1 cannot be blank') if values[:address_1].to_s.empty?
-            key.failure(text: 'City cannot be blank') if values[:city].to_s.empty?
-            key.failure(text: 'State cannot be blank') if values[:state].to_s.empty?
-            key.failure(text: 'Zip cannot be blank') if values[:zip].to_s.empty?
-            if !values[:zip].to_s.empty? && !/\A\d{5}(-\d{4})?\z/.match?(values[:zip])
-              key.failure(text: 'Zip should be in the form: 12345 or 12345-1234')
-            end
-          end
-        end
       end
     end
   end

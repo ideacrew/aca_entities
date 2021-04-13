@@ -34,18 +34,7 @@ module AcaEntities
           optional(:license).maybe(:bool)
           optional(:training).maybe(:bool)
           optional(:carrier_appointments).maybe(:hash)
-          required(:broker_agency).maybe(:hash)
-        end
-
-        rule(:broker_agency) do
-          if key? && value
-            if value.is_a?(Hash)
-              result = AcaEntities::Contracts::Organizations::BrokerAgencyProfileReferenceContract.new.call(value)
-              key.failure(text: "invalid broker agency", error: result.errors.to_h) if result&.failure?
-            else
-              key.failure(text: "invalid broker agency. Expected a hash.")
-            end
-          end
+          required(:broker_agency_reference).hash(AcaEntities::Contracts::Organizations::BrokerAgencyProfileReferenceContract.params)
         end
       end
     end

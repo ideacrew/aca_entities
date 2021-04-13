@@ -7,7 +7,6 @@ module AcaEntities
       class PersonDemographicsContract < Dry::Validation::Contract
         # @!method call(opts)
         # @param [Hash] opts the parameters to validate using this contract
-        # @option opts [Boolean] :is_applying_coverage required
         # @option opts [String] :ssn required
         # @option opts [Boolean] :no_ssn required
         # @option opts [String] :gender required
@@ -21,7 +20,6 @@ module AcaEntities
         # @option opts [String] :language_code required
         # @return [Dry::Monads::Result]
         params do
-          required(:is_applying_coverage).maybe(:bool) # look in consumer role
           required(:ssn).filled(:string)
           required(:no_ssn).filled(:bool)
           required(:gender).filled(:string)
@@ -29,14 +27,10 @@ module AcaEntities
           optional(:date_of_death).filled(:date)
           optional(:dob_check).filled(:date)
           required(:is_incarcerated).filled(:bool)
-          required(:ethnicity).filled(:array)
-          required(:race).filled(:string)
-          required(:tribal_id).filled(:string)
-          required(:language_code).filled(:string)
-        end
-
-        rule(:is_applying_coverage) do
-          key.failure(text: 'Incarceration question must be answered') if key? && values[:is_applying_coverage] && values[:is_incarcerated].to_s.blank?
+          optional(:ethnicity).filled(:array)
+          optional(:race).filled(:string)
+          optional(:tribal_id).filled(:string)
+          optional(:language_code).filled(:string)
         end
       end
     end

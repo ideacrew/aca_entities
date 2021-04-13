@@ -13,30 +13,8 @@ module AcaEntities
         # @return [Dry::Monads::Result]
         params do
           required(:npn).filled(:string)
-          required(:person).filled(:hash)
-          required(:broker_agency).filled(:hash)
-        end
-
-        rule(:person) do
-          if key? && value
-            if value.is_a?(Hash)
-              result = AcaEntities::Contracts::People::PersonReferenceContract.new.call(value)
-              key.failure(text: "invalid person", error: result.errors.to_h) if result&.failure?
-            else
-              key.failure(text: "invalid person. Expected a hash.")
-            end
-          end
-        end
-
-        rule(:broker_agency) do
-          if key? && value
-            if value.is_a?(Hash)
-              result = AcaEntities::Contracts::Organizations::BrokerAgencyProfileReferenceContract.new.call(value)
-              key.failure(text: "invalid broker agency", error: result.errors.to_h) if result&.failure?
-            else
-              key.failure(text: "invalid broker agency. Expected a hash.")
-            end
-          end
+          required(:person_reference).hash(AcaEntities::Contracts::People::PersonReferenceContract.params)
+          required(:broker_agency_reference).hash(AcaEntities::Contracts::Organizations::BrokerAgencyProfileReferenceContract.params)
         end
       end
     end

@@ -22,28 +22,9 @@ module AcaEntities
           params do
             optional(:payment_transaction_id).maybe(:string)
             required(:enrollment_id).value(:string)
-            required(:issuer_profile).value(:hash)
+            required(:issuer_profile_reference).hash(AcaEntities::Contracts::Organizations::IssuerProfileReferenceContract.params)
             required(:enrollment_effective_date).value(:date)
             optional(:status).maybe(:string)
-          end
-
-          rule(:enrollment_id) do
-            key.failure('Enrollment id is blank') if value.empty?
-          end
-
-          rule(:issuer_profile) do
-            if key? && value
-              if value.is_a?(Hash)
-                result = AcaEntities::Contracts::Organizations::IssuerProfileReferenceContract.new.call(value)
-                key.failure(text: "invalid issuer profile", error: result.errors.to_h) if result&.failure?
-              else
-                key.failure(text: "invalid issuer profile. Expected a hash.")
-              end
-            end
-          end
-
-          rule(:enrollment_effective_date) do
-            key.failure('Enrollment effective on is not a date') unless value.is_a?(Date)
           end
         end
       end

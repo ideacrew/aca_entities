@@ -5,7 +5,6 @@ module AcaEntities
     class SpecialEnrollmentPeriodReference < Dry::Struct
 
       attribute :qualifying_life_event_kind,                  AcaEntities::QualifyingLifeEvents::QualifyingLifeEventKindReference.meta(omittable: false)
-      attribute :market_kind,                                 Types::String.meta(omittable: false)
       attribute :qle_on,                                      Types::Date.meta(omittable: false)
       attribute :start_on,                                    Types::Date.meta(omittable: false)
       attribute :end_on,                                      Types::Date.meta(omittable: false)

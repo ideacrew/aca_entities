@@ -20,8 +20,8 @@ module AcaEntities
         # @option opts [Date] :determined_at optional
         # @return [Dry::Monads::Result]
         params do
-          optional(:e_pdc_id).filled(:string)
-          optional(:benchmark_plan).filled(:hash)
+          optional(:e_pdc_id).filled(:string)  #TODO
+          optional(:benchmark_plan).filled(AcaEntities::Contracts::Products::ProductReferenceContract.params)
           optional(:source).filled(
             AcaEntities::Types::EligibilitySourceKinds
           )
@@ -31,34 +31,12 @@ module AcaEntities
           optional(:csr_eligibility_kind).filled(
             AcaEntities::Types::EligibilityCsrKinds
           )
-          optional(:aptc_csr_annual_household_income).maybe(:AcaEntities::Types::Money)
-          optional(:aptc_annual_income_limit).maybe(:AcaEntities::Types::Money)
-          optional(:csr_annual_income_limit).maybe(:AcaEntities::Types::Money)
-          required(:max_aptc).filled(:hash)
+          optional(:aptc_csr_annual_household_income).maybe(AcaEntities::Contracts::CurrencyContract.params)
+          optional(:aptc_annual_income_limit).maybe(AcaEntities::Contracts::CurrencyContract.params)
+          optional(:csr_annual_income_limit).maybe(AcaEntities::Contracts::CurrencyContract.params)
+          required(:max_aptc).filled(AcaEntities::Contracts::CurrencyContract.params)
           required(:csr_percent_as_integer).filled(:integer)
           required(:determined_at).filled(:date)
-        end
-
-        rule(:benchmark_plan) do
-          if key? && value
-            if value.is_a?(Hash)
-              result = AcaEntities::Contracts::Products::ProductReferenceContract.new.call(value)
-              key.failure(text: "invalid max aptc", error: result.errors.to_h) if result&.failure?
-            else
-              key.failure(text: "invalid max aptc. Expected a hash.")
-            end
-          end
-        end
-
-        rule(:max_aptc) do
-          if key? && value
-            if value.is_a?(Hash)
-              result = CurrencyContract.new.call(value)
-              key.failure(text: "invalid max aptc", error: result.errors.to_h) if result&.failure?
-            else
-              key.failure(text: "invalid max aptc. Expected a hash.")
-            end
-          end
         end
       end
     end

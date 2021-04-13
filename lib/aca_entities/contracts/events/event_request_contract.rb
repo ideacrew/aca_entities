@@ -6,7 +6,7 @@ module AcaEntities
   module Contracts
     module Events
       # Schema and validation rules for {AcaEntities::Events::EventRequest}
-      class EventRequestContract
+      class EventRequestContract < Dry::Validation::Contract
         # @!method call(opts)
         # @param [Hash] opts the parameters to validate using this contract
         # @option opts [String] :requested_at optional

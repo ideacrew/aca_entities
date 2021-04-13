@@ -46,12 +46,6 @@ module AcaEntities
           optional(:tags).maybe(:array)
           optional(:size).maybe(:string)
         end
-
-        rule(:rights) do
-          if key? && values[:rights]
-            key.failure('Not a valid document right') unless DocumentRights.include?(values[:rights])
-          end
-        end
       end
     end
   end

@@ -4,8 +4,8 @@ module Entities
   module People
     class PersonHealth < Dry::Struct
 
-      attribute :is_tobacco_user,         Types::String.optional
-      attribute :is_physically_disabled,  Types::String.optional
+      attribute :is_tobacco_user,         Types::String.optional.meta(omittable: false)
+      attribute :is_physically_disabled,  Types::Bool.optional.meta(omittable: false)
     end
   end
 end

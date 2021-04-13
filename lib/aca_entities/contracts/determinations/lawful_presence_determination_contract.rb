@@ -22,59 +22,15 @@ module AcaEntities
         params do
           optional(:vlp_verified_at).maybe(:date)
           optional(:vlp_authority).maybe(:string)
-          optional(:vlp_document_id).maybe(:string) # TODO: check this
+          optional(:vlp_document_id).maybe(:string) # TODO: Revisit
           optional(:citizen_status).maybe(:string)
           optional(:citizenship_result).maybe(:string)
           optional(:qualified_non_citizenship_result).maybe(:string)
           optional(:aasm_state).maybe(:string)
-          optional(:ssa_responses).maybe(:array)
-          optional(:ssa_requests).maybe(:array)
-          optional(:vlp_responses).maybe(:array)
-          optional(:vlp_requests).maybe(:array)
-        end
-
-        rule(:ssa_responses).each do
-          if key? && value
-            if value.is_a?(Hash)
-              result = AcaEntities::Contracts::Events::EventResponse.new.call(value)
-              key.failure(text: "invalid ssa response", error: result.errors.to_h) if result&.failure?
-            else
-              key.failure(text: "invalid ssa response. Expected a hash.")
-            end
-          end
-        end
-
-        rule(:ssa_requests).each do
-          if key? && value
-            if value.is_a?(Hash)
-              result = AcaEntities::Contracts::Events::EventRequest.new.call(value)
-              key.failure(text: "invalid ssa request", error: result.errors.to_h) if result&.failure?
-            else
-              key.failure(text: "invalid ssa request. Expected a hash.")
-            end
-          end
-        end
-
-        rule(:vlp_responses).each do
-          if key? && value
-            if value.is_a?(Hash)
-              result = AcaEntities::Contracts::Events::EventResponse.new.call(value)
-              key.failure(text: "invalid ssa response", error: result.errors.to_h) if result&.failure?
-            else
-              key.failure(text: "invalid ssa response. Expected a hash.")
-            end
-          end
-        end
-
-        rule(:vlp_requests).each do
-          if key? && value
-            if value.is_a?(Hash)
-              result = AcaEntities::Contracts::Events::EventRequest.new.call(value)
-              key.failure(text: "invalid ssa request", error: result.errors.to_h) if result&.failure?
-            else
-              key.failure(text: "invalid ssa request. Expected a hash.")
-            end
-          end
+          optional(:ssa_responses).array(AcaEntities::Contracts::Events::EventResponseContract.params)
+          optional(:ssa_requests).array(AcaEntities::Contracts::Events::EventRequestContract.params)
+          optional(:vlp_responses).array(AcaEntities::Contracts::Events::EventResponseContract.params)
+          optional(:vlp_requests).array(AcaEntities::Contracts::Events::EventRequestContract.params)
         end
       end
     end

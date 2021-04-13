@@ -13,32 +13,10 @@ module AcaEntities
         # @option opts [Date] :reason optional
         # @return [Dry::Monads::Result]
         params do
-          optional(:family_member).maybe(:hash)
-          optional(:product_eligibility_determination).maybe(:hash)
+          optional(:family_member_reference).hash(AcaEntities::Contracts::Families::FamilyMemberReferenceContract.params)
+          optional(:product_eligibility_determination).hash(AcaEntities::Contracts::Determinations::ProductEligibilityDeterminationContract.params)
           optional(:is_subscriber).maybe(:bool)
           optional(:reason).maybe(:string)
-        end
-
-        rule(:family_member) do
-          if key? && value
-            if value.is_a?(Hash)
-              result = AcaEntities::Contracts::Families::FamilyMemberReferenceContract.new.call(value)
-              key.failure(text: "invalid family", error: result.errors.to_h) if result&.failure?
-            else
-              key.failure(text: "invalid family. Expected a hash.")
-            end
-          end
-        end
-
-        rule(:product_eligibility_determination) do
-          if key? && value
-            if value.is_a?(Hash)
-              result = AcaEntities::Contracts::Determinations::ProductEligibilityDeterminationContract.new.call(value)
-              key.failure(text: "invalid product eligibility determination", error: result.errors.to_h) if result&.failure?
-            else
-              key.failure(text: "invalid product eligibility determination. Expected a hash.")
-            end
-          end
         end
       end
     end

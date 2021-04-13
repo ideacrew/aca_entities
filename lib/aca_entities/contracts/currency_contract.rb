@@ -10,7 +10,7 @@ module AcaEntities
       # @option opts [String] :currency_iso required
       # @return [Dry::Monads::Result]
       params do
-        required(:cents).filled(:float)
+        required(:cents).maybe(AcaEntities::Types::Money)
         required(:currency_iso).filled(:string)
       end
     end

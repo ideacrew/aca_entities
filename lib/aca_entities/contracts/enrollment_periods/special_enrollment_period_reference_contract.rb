@@ -22,8 +22,7 @@ module AcaEntities
         # @option opts [Hash] :timestamp optional
         # @return [Dry::Monads::Result]
         params do
-          required(:qualifying_life_event_kind).filled(:hash)
-          required(:market_kind).filled(:string)
+          required(:qualifying_life_event_kind_reference).hash(AcaEntities::Contracts::QualifyingLifeEvents::QualifyingLifeEventKindReferenceContract.params)
           required(:qle_on).filled(:date)
           required(:start_on).filled(:date)
           required(:end_on).filled(:date)
@@ -34,33 +33,7 @@ module AcaEntities
           optional(:option2_date).filled(:date)
           optional(:option3_date).filled(:date)
           optional(:optional_effective_on).filled(:date)
-          optional(:timestamp).filled(:hash)
-        end
-
-        rule(:qualifying_life_event_kind) do
-          if key? && value
-            if value.is_a?(Hash)
-              result = AcaEntities::Contracts::QualifyingLifeEvents::QualifyingLifeEventKindReferenceContract.new.call(value)
-              key.failure(text: "invalid qualifying life event kind", error: result.errors.to_h) if result&.failure?
-            else
-              key.failure(text: "invalid qualifying life event kind. Expected a hash.")
-            end
-          end
-        end
-
-        rule(:end_on, :start_on) do
-          key.failure('End on must be after start on date') unless values[:end_on] > values[:start_on]
-        end
-
-        rule(:timestamp) do
-          if key? && value
-            if value.is_a?(Hash)
-              result = TimeStampContract.new.call(value)
-              key.failure(text: "invalid timestamp", error: result.errors.to_h) if result&.failure?
-            else
-              key.failure(text: "invalid timestamp. Expected a hash.")
-            end
-          end
+          optional(:timestamp).hash(AcaEntities::Contracts::TimeStampContract.params)
         end
       end
     end
