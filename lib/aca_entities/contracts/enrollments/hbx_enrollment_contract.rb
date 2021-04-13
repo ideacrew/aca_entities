@@ -80,7 +80,9 @@ module AcaEntities
           optional(:family_reference).hash(AcaEntities::Contracts::Families::FamilyReferenceContract.params)
           optional(:household_reference).hash(AcaEntities::Contracts::Households::HouseholdReferenceContract.params)
 
-          optional(:special_enrollment_period_reference).hash(AcaEntities::Contracts::EnrollmentPeriods::SpecialEnrollmentPeriodReferenceContract.params)
+          optional(:special_enrollment_period_reference).hash(
+            AcaEntities::Contracts::EnrollmentPeriods::SpecialEnrollmentPeriodReferenceContract.params
+          )
           optional(:broker_agency_reference).hash(AcaEntities::Contracts::Organizations::BrokerAgencyProfileReferenceContract.params)
           optional(:broker_role_reference).hash(AcaEntities::Contracts::Brokers::BrokerRoleReferenceContract.params)
 

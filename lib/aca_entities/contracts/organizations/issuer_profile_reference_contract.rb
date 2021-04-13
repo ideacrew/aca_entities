@@ -2,7 +2,7 @@
 
 module AcaEntities
   module Contracts
-  module Organizations
+    module Organizations
       # Schema and validation rules for {AcaEntities::Organizations::GeneralAgencyReference}
       class IssuerProfileReferenceContract < Dry::Validation::Contract
         # @!method call(opts)

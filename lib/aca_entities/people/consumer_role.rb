@@ -27,8 +27,10 @@ module AcaEntities
       attribute :application_rejected,                     Types::String.optional.meta(omittable: true)
       attribute :documents,                                Types::Strict::Array.of(AcaEntities::Documents::Document).optional.meta(omittable: true)
       attribute :vlp_documents,                            Types::Strict::Array.of(AcaEntities::Documents::VlpDocument).optional.meta(omittable: true)
-      attribute :ridp_documents,                           Types::Strict::Array.of(AcaEntities::Documents::RidpDocument).optional.meta(omittable: true)
-      attribute :verification_type_history_elements,       Types::Strict::Array.of(AcaEntities::Verifications::VerificationTypeHistoryElement).optional.meta(omittable: true)
+      attribute :ridp_documents,
+                Types::Strict::Array.of(AcaEntities::Documents::RidpDocument).optional.meta(omittable: true)
+      attribute :verification_type_history_elements,
+                Types::Strict::Array.of(AcaEntities::Verifications::VerificationTypeHistoryElement).optional.meta(omittable: true)
       attribute :lawful_presence_determination,            AcaEntities::Determination::LawfulPresenceDetermination.optional.meta(omittable: true)
       attribute :local_residency_responses,                Types::Strict::Array.of(AcaEntities::Events::EventResponse).optional.meta(omittable: true)
       attribute :local_residency_requests,                 Types::Strict::Array.of(AcaEntities::Event::EventRequest).optional.meta(omittable: true)

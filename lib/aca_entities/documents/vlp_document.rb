@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 module AcaEntities
-  # Entity for VLPDocument
   module Documents
-    class VlpDocument <  AcaEntities::Documents::Document
+    # Entity for VLPDocument
+    class VlpDocument < AcaEntities::Documents::Document
       # attribute :identification_number,   Types::String.optional.meta(omittable: false)
 
       attribute :subject,      Iap::Types::VlpDocumentKind.optional.meta(omittable: false)

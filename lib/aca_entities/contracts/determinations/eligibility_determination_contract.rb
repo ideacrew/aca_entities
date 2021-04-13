@@ -20,7 +20,7 @@ module AcaEntities
         # @option opts [Date] :determined_at optional
         # @return [Dry::Monads::Result]
         params do
-          optional(:e_pdc_id).filled(:string)  #TODO
+          optional(:e_pdc_id).filled(:string)  # TODO
           optional(:benchmark_plan).filled(AcaEntities::Contracts::Products::ProductReferenceContract.params)
           optional(:source).filled(
             AcaEntities::Types::EligibilitySourceKinds

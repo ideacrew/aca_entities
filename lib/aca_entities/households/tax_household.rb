@@ -14,7 +14,8 @@ module AcaEntities
       # Is this used for curram account transfer, check if it is depricated.
       # attribute :total_incomes_by_year,           Types::Decimal.optional.meta(omittable: true)
       attribute :tax_household_members,           Types::Strict::Array.of(AcaEntities::Households::TaxHouseholdMember).meta(omittable: false)
-      attribute :eligibility_determinations,      Types::Strict::Array.of(AcaEntities::Determinations::EligibilityDetermination).optional.meta(omittable: true)
+      attribute :eligibility_determinations,
+                Types::Strict::Array.of(AcaEntities::Determinations::EligibilityDetermination).optional.meta(omittable: true)
     end
   end
 end

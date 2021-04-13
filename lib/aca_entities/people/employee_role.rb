@@ -4,7 +4,7 @@ require 'dry-struct'
 
 module AcaEntities
   module People
-    class EmployeeRole
+    class EmployeeRole < Dry::Struct
 
     end
   end

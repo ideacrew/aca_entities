@@ -28,7 +28,9 @@ module AcaEntities
         # @option opts [Hash] :timestamp optional
         # @return [Dry::Monads::Result]
         params do
-          required(:qualifying_life_event_kind_reference).hash(AcaEntities::Contracts::QualifyingLifeEvents::QualifyingLifeEventKindReferenceContract.params)
+          required(:qualifying_life_event_kind_reference).hash(
+            AcaEntities::Contracts::QualifyingLifeEvents::QualifyingLifeEventKindReferenceContract.params
+          )
           required(:qle_on).maybe(:date)
           required(:effective_on_kind).filled(:string)
           required(:submitted_at).filled(:date)
