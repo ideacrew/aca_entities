@@ -54,6 +54,25 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicationContract,  dbcle
         end
       end
 
+      context 'missing applicants' do
+        let(:bad_person_name) do
+          bad_applicant = applicant.merge({ name: 'name' })
+          input_params.merge({ applicants: [bad_applicant] })
+        end
+
+        before do
+          @result = subject.call(bad_person_name).errors.to_h
+        end
+
+        it 'should return a failure with error message' do
+          expect { subject.call(bad_person_name) }.not_to raise_error(NoMethodError)
+        end
+
+        it 'should return a failure with error message' do
+          expect(subject.call(bad_person_name).errors.to_h).to eq({ applicants: { 0 => { name:  ['must be a hash'] } } })
+        end
+      end
+
       context 'invalid applicant value' do
         let(:required_applicant_keys) do
           [:name, :identifying_information, :demographic, :attestation, :is_primary_applicant,

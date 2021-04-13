@@ -14,8 +14,8 @@ module AcaEntities
         # @return [Dry::Monads::Result]
         params do
           required(:kind).filled(Types::RelationshipKind)
-          required(:applicant_reference).filled(ApplicantReferenceContract.params)
-          required(:relative_reference).filled(ApplicantReferenceContract.params)
+          required(:applicant_reference).hash(ApplicantReferenceContract.params)
+          required(:relative_reference).hash(ApplicantReferenceContract.params)
           optional(:lives_with_household_member).maybe(:bool)
         end
       end
