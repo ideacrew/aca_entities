@@ -5,7 +5,9 @@ module AcaEntities
   module MagiMedicaid
     module Libraries
       module MitcLibrary
+        require 'aca_entities/app_helper'
         require 'aca_entities/magi_medicaid/mitc/types'
+        require 'aca_entities/magi_medicaid/mitc/contracts/request_contract'
 
         require 'aca_entities/magi_medicaid/mitc/person_reference'
         require 'aca_entities/magi_medicaid/mitc/category_determination'

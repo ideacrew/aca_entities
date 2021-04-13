@@ -87,62 +87,6 @@ module AcaEntities
             required(:income).filled(IncomeContract.params)
             required(:relationships).array(RelationshipContract.params)
           end
-
-          rule(:person_id) do
-            key.failure('must be between 1 and 100') if !value.nil? && !(1..100).include?(value)
-          end
-
-          rule(:prior_insurance_end_date) do
-            key.failure('cannot be empty.') if values[:had_prior_insurance] == 'Y' && value.nil?
-          end
-
-          rule(:children_expected_count) do
-            key.failure('cannot be empty.') if values[:is_pregnant] == 'Y' && value.nil?
-          end
-
-          rule(:is_in_post_partum_period) do
-            key.failure('cannot be empty.') if values[:is_pregnant] == 'Y' && value.nil?
-          end
-
-          rule(:had_medicaid_during_foster_care) do
-            key.failure('cannot be empty.') if values[:is_in_former_foster_care] == 'Y' && value.nil?
-          end
-
-          rule(:age_left_foster_care) do
-            key.failure('cannot be empty.') if values[:is_in_former_foster_care] == 'Y' && value.nil?
-          end
-
-          rule(:foster_care_us_state) do
-            key.failure('cannot be empty.') if values[:is_in_former_foster_care] == 'Y' && value.nil?
-          end
-
-          rule(:immigration_status) do
-            key.failure('cannot be empty.') if values[:is_lawful_presence_self_attested] == 'Y' && value.nil?
-          end
-
-          rule(:is_amerasian) do
-            key.failure('cannot be empty.') if values[:is_lawful_presence_self_attested] == 'Y' && value.nil?
-          end
-
-          rule(:has_forty_title_ii_work_quarters) do
-            key.failure('cannot be empty.') if values[:is_lawful_presence_self_attested] == 'Y' && value.nil?
-          end
-
-          rule(:five_year_bar_applies) do
-            key.failure('cannot be empty.') if values[:is_lawful_presence_self_attested] == 'Y' && value.nil?
-          end
-
-          rule(:is_five_year_bar_met) do
-            key.failure('cannot be empty.') if values[:is_lawful_presence_self_attested] == 'Y' && values[:five_year_bar_applies] == 'Y' && value.nil?
-          end
-
-          rule(:refugee_medical_assistance_start_date) do
-            key.failure('cannot be empty.') if values[:is_eligible_for_refugee_medical_assistance] == 'Y' && value.nil?
-          end
-
-          rule(:seven_year_limit_start_date) do
-            key.failure('cannot be empty.') if values[:is_eligible_for_refugee_medical_assistance] == 'Y' && value.nil?
-          end
         end
       end
     end

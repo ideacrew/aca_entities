@@ -8,8 +8,8 @@ module AcaEntities
 
       # Extend DryTypes to include IAP
       module Types
-        send(:include, Dry.Types())
-        send(:include, Dry::Logic)
+        include Dry.Types
+        include Dry::Logic
 
         DeterminationIndicatorKind = Types::Coercible::String.enum('Y', 'N', 'X')
 
@@ -142,8 +142,10 @@ module AcaEntities
           'WI',
           'WY'
         )
-      end
 
+        # An integer representing the applicant. Must be between 1 and 100.
+        PersonIdRange = (1..100).freeze
+      end
     end
   end
 end
