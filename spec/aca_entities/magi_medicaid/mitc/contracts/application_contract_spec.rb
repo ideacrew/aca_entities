@@ -108,7 +108,8 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Mitc::Contracts::ApplicationContract
         let(:local_person) { person_params.merge({ prior_insurance_end_date: [nil, ''].sample }) }
 
         it 'should return failure with error message' do
-          expect(contract_call.errors.to_h).to eq({ people: { 0 => { prior_insurance_end_date: ['cannot be blank when had_prior_insurance is Y'] } } })
+          err = { people: { 0 => { prior_insurance_end_date: ['cannot be blank when had_prior_insurance is Y'] } } }
+          expect(contract_call.errors.to_h).to eq(err)
         end
       end
 
@@ -125,7 +126,8 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Mitc::Contracts::ApplicationContract
           let(:local_person) { person_params.merge({ is_pregnant: 'Y', is_in_post_partum_period: [nil, ''].sample }) }
 
           it 'should return failure with error message' do
-            expect(contract_call.errors.to_h).to eq({ people: { 0 => { is_in_post_partum_period: ['cannot be blank when is_pregnant is Y'] } } })
+            err = { people: { 0 => { is_in_post_partum_period: ['cannot be blank when is_pregnant is Y'] } } }
+            expect(contract_call.errors.to_h).to eq(err)
           end
         end
       end
@@ -135,7 +137,8 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Mitc::Contracts::ApplicationContract
           let(:local_person) { person_params.merge({ is_in_former_foster_care: 'Y', had_medicaid_during_foster_care: [nil, ''].sample }) }
 
           it 'should return failure with error message' do
-            expect(contract_call.errors.to_h).to eq({ people: { 0 => { had_medicaid_during_foster_care: ['cannot be blank when is_in_former_foster_care is Y'] } } })
+            err = { people: { 0 => { had_medicaid_during_foster_care: ['cannot be blank when is_in_former_foster_care is Y'] } } }
+            expect(contract_call.errors.to_h).to eq(err)
           end
         end
 
@@ -143,7 +146,8 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Mitc::Contracts::ApplicationContract
           let(:local_person) { person_params.merge({ is_in_former_foster_care: 'Y', age_left_foster_care: [nil, ''].sample }) }
 
           it 'should return failure with error message' do
-            expect(contract_call.errors.to_h).to eq({ people: { 0 => { age_left_foster_care: ['cannot be blank when is_in_former_foster_care is Y'] } } })
+            err = { people: { 0 => { age_left_foster_care: ['cannot be blank when is_in_former_foster_care is Y'] } } }
+            expect(contract_call.errors.to_h).to eq(err)
           end
         end
 
@@ -151,7 +155,8 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Mitc::Contracts::ApplicationContract
           let(:local_person) { person_params.merge({ is_in_former_foster_care: 'Y', foster_care_us_state: [nil, ''].sample }) }
 
           it 'should return failure with error message' do
-            expect(contract_call.errors.to_h).to eq({ people: { 0 => { foster_care_us_state: ['cannot be blank when is_in_former_foster_care is Y'] } } })
+            err = { people: { 0 => { foster_care_us_state: ['cannot be blank when is_in_former_foster_care is Y'] } } }
+            expect(contract_call.errors.to_h).to eq(err)
           end
         end
       end
@@ -170,7 +175,8 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Mitc::Contracts::ApplicationContract
           let(:local_person) { lawful_presence_person.merge({ immigration_status: [nil, ''].sample }) }
 
           it 'should return failure with error message' do
-            expect(contract_call.errors.to_h).to eq({ people: { 0 => { immigration_status: ['cannot be blank when is_lawful_presence_self_attested is Y'] } } })
+            err = { people: { 0 => { immigration_status: ['cannot be blank when is_lawful_presence_self_attested is Y'] } } }
+            expect(contract_call.errors.to_h).to eq(err)
           end
         end
 
@@ -178,7 +184,8 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Mitc::Contracts::ApplicationContract
           let(:local_person) { lawful_presence_person.merge({ is_amerasian: [nil, ''].sample }) }
 
           it 'should return failure with error message' do
-            expect(contract_call.errors.to_h).to eq({ people: { 0 => { is_amerasian: ['cannot be blank when is_lawful_presence_self_attested is Y'] } } })
+            err = { people: { 0 => { is_amerasian: ['cannot be blank when is_lawful_presence_self_attested is Y'] } } }
+            expect(contract_call.errors.to_h).to eq(err)
           end
         end
 
@@ -186,7 +193,8 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Mitc::Contracts::ApplicationContract
           let(:local_person) { lawful_presence_person.merge({ has_forty_title_ii_work_quarters: [nil, ''].sample }) }
 
           it 'should return failure with error message' do
-            expect(contract_call.errors.to_h).to eq({ people: { 0 => { has_forty_title_ii_work_quarters: ['cannot be blank when is_lawful_presence_self_attested is Y'] } } })
+            err = { people: { 0 => { has_forty_title_ii_work_quarters: ['cannot be blank when is_lawful_presence_self_attested is Y'] } } }
+            expect(contract_call.errors.to_h).to eq(err)
           end
         end
 
@@ -194,7 +202,8 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Mitc::Contracts::ApplicationContract
           let(:local_person) { lawful_presence_person.merge({ five_year_bar_applies: [nil, ''].sample }) }
 
           it 'should return failure with error message' do
-            expect(contract_call.errors.to_h).to eq({ people: { 0 => { five_year_bar_applies: ['cannot be blank when is_lawful_presence_self_attested is Y'] } } })
+            err = { people: { 0 => { five_year_bar_applies: ['cannot be blank when is_lawful_presence_self_attested is Y'] } } }
+            expect(contract_call.errors.to_h).to eq(err)
           end
         end
 
@@ -202,7 +211,8 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Mitc::Contracts::ApplicationContract
           let(:local_person) { lawful_presence_person.merge({ five_year_bar_applies: 'Y', is_five_year_bar_met: [nil, ''].sample }) }
 
           it 'should return failure with error message' do
-            expect(contract_call.errors.to_h).to eq({ people: { 0 => { is_five_year_bar_met: ['cannot be blank when both is_lawful_presence_self_attested and five_year_bar_applies are Y'] } } })
+            err = { is_five_year_bar_met: ['cannot be blank when both is_lawful_presence_self_attested and five_year_bar_applies are Y'] }
+            expect(contract_call.errors.to_h[:people][0]).to eq(err)
           end
         end
       end
@@ -211,7 +221,8 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Mitc::Contracts::ApplicationContract
         let(:local_person) { person_params.merge({ refugee_medical_assistance_start_date: [nil, ''].sample }) }
 
         it 'should return failure with error message' do
-          expect(contract_call.errors.to_h).to eq({ people: { 0 => { refugee_medical_assistance_start_date: ['cannot be blank when is_eligible_for_refugee_medical_assistance is Y'] } } })
+          err = { refugee_medical_assistance_start_date: ['cannot be blank when is_eligible_for_refugee_medical_assistance is Y'] }
+          expect(contract_call.errors.to_h[:people][0]).to eq(err)
         end
       end
 
@@ -219,7 +230,8 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Mitc::Contracts::ApplicationContract
         let(:local_person) { person_params.merge({ refugee_medical_assistance_start_date: [nil, ''].sample }) }
 
         it 'should return failure with error message' do
-          expect(contract_call.errors.to_h).to eq({ people: { 0 => { refugee_medical_assistance_start_date: ['cannot be blank when is_eligible_for_refugee_medical_assistance is Y'] } } })
+          err = { 0 => { refugee_medical_assistance_start_date: ['cannot be blank when is_eligible_for_refugee_medical_assistance is Y'] } }
+          expect(contract_call.errors.to_h[:people]).to eq(err)
         end
       end
     end
