@@ -51,11 +51,11 @@ module Transform
       options = args.first
 
       if options
-        if options.is_a?(Proc)
-          proc = options
-        elsif options.is_a?(Hash) && options[:memoize]
+        if options.is_a?(Hash) && options[:memoize]
           add_context((source_ns + [source_key]).join('.'), output_key, options[:function])
           return
+        else
+          proc = options
         end
       end
 
