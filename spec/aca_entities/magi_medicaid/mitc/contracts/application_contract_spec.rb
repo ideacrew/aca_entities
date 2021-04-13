@@ -91,20 +91,136 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Mitc::Contracts::ApplicationContract
       end
     end
 
-    context 'invalid person' do
-      let(:bad_params) do
-        person_params.merge!(is_pregnant: 'Y', children_expected_count: nil)
-        required_params.merge({ person_params: person_params })
+    context 'person' do
+      let(:contract_call) do
+        subject.call(required_params.merge({ people: [local_person] }))
       end
 
-      before :each do
-        @result = subject.call(bad_params)
+      context 'person_id' do
+        let(:local_person) { person_params.merge({ person_id: 1000 }) }
+
+        it 'should return failure with error message' do
+          expect(contract_call.errors.to_h).to eq({ people: { 0 => { person_id: ['must be between 1 and 100'] } } })
+        end
       end
 
-      it 'should return a failure' do
-        err_msg = { people: [{ text: 'invalid person.',
-                               error: { children_expected_count: ['cannot be empty.'] } }] }
-        expect(@result.errors.to_h).to eq(err_msg)
+      context 'prior_insurance_end_date' do
+        let(:local_person) { person_params.merge({ prior_insurance_end_date: [nil, ''].sample }) }
+
+        it 'should return failure with error message' do
+          expect(contract_call.errors.to_h).to eq({ people: { 0 => { prior_insurance_end_date: ['cannot be blank when had_prior_insurance is Y'] } } })
+        end
+      end
+
+      context 'is_pregnant' do
+        context 'children_expected_count' do
+          let(:local_person) { person_params.merge({ is_pregnant: 'Y', children_expected_count: [nil, ''].sample }) }
+
+          it 'should return failure with error message' do
+            expect(contract_call.errors.to_h).to eq({ people: { 0 => { children_expected_count: ['cannot be blank when is_pregnant is Y'] } } })
+          end
+        end
+
+        context 'is_in_post_partum_period' do
+          let(:local_person) { person_params.merge({ is_pregnant: 'Y', is_in_post_partum_period: [nil, ''].sample }) }
+
+          it 'should return failure with error message' do
+            expect(contract_call.errors.to_h).to eq({ people: { 0 => { is_in_post_partum_period: ['cannot be blank when is_pregnant is Y'] } } })
+          end
+        end
+      end
+
+      context 'is_in_former_foster_care' do
+        context 'had_medicaid_during_foster_care' do
+          let(:local_person) { person_params.merge({ is_in_former_foster_care: 'Y', had_medicaid_during_foster_care: [nil, ''].sample }) }
+
+          it 'should return failure with error message' do
+            expect(contract_call.errors.to_h).to eq({ people: { 0 => { had_medicaid_during_foster_care: ['cannot be blank when is_in_former_foster_care is Y'] } } })
+          end
+        end
+
+        context 'age_left_foster_care' do
+          let(:local_person) { person_params.merge({ is_in_former_foster_care: 'Y', age_left_foster_care: [nil, ''].sample }) }
+
+          it 'should return failure with error message' do
+            expect(contract_call.errors.to_h).to eq({ people: { 0 => { age_left_foster_care: ['cannot be blank when is_in_former_foster_care is Y'] } } })
+          end
+        end
+
+        context 'foster_care_us_state' do
+          let(:local_person) { person_params.merge({ is_in_former_foster_care: 'Y', foster_care_us_state: [nil, ''].sample }) }
+
+          it 'should return failure with error message' do
+            expect(contract_call.errors.to_h).to eq({ people: { 0 => { foster_care_us_state: ['cannot be blank when is_in_former_foster_care is Y'] } } })
+          end
+        end
+      end
+
+      context 'is_lawful_presence_self_attested' do
+        let(:lawful_presence_person) do
+          person_params.merge({ is_lawful_presence_self_attested: 'Y',
+                                immigration_status: '01',
+                                is_amerasian: 'N',
+                                has_forty_title_ii_work_quarters: 'N',
+                                five_year_bar_applies: 'Y',
+                                is_five_year_bar_met: 'N' })
+        end
+
+        context 'immigration_status' do
+          let(:local_person) { lawful_presence_person.merge({ immigration_status: [nil, ''].sample }) }
+
+          it 'should return failure with error message' do
+            expect(contract_call.errors.to_h).to eq({ people: { 0 => { immigration_status: ['cannot be blank when is_lawful_presence_self_attested is Y'] } } })
+          end
+        end
+
+        context 'is_amerasian' do
+          let(:local_person) { lawful_presence_person.merge({ is_amerasian: [nil, ''].sample }) }
+
+          it 'should return failure with error message' do
+            expect(contract_call.errors.to_h).to eq({ people: { 0 => { is_amerasian: ['cannot be blank when is_lawful_presence_self_attested is Y'] } } })
+          end
+        end
+
+        context 'has_forty_title_ii_work_quarters' do
+          let(:local_person) { lawful_presence_person.merge({ has_forty_title_ii_work_quarters: [nil, ''].sample }) }
+
+          it 'should return failure with error message' do
+            expect(contract_call.errors.to_h).to eq({ people: { 0 => { has_forty_title_ii_work_quarters: ['cannot be blank when is_lawful_presence_self_attested is Y'] } } })
+          end
+        end
+
+        context 'five_year_bar_applies' do
+          let(:local_person) { lawful_presence_person.merge({ five_year_bar_applies: [nil, ''].sample }) }
+
+          it 'should return failure with error message' do
+            expect(contract_call.errors.to_h).to eq({ people: { 0 => { five_year_bar_applies: ['cannot be blank when is_lawful_presence_self_attested is Y'] } } })
+          end
+        end
+
+        context 'is_five_year_bar_met' do
+          let(:local_person) { lawful_presence_person.merge({ five_year_bar_applies: 'Y', is_five_year_bar_met: [nil, ''].sample }) }
+
+          it 'should return failure with error message' do
+            expect(contract_call.errors.to_h).to eq({ people: { 0 => { is_five_year_bar_met: ['cannot be blank when both is_lawful_presence_self_attested and five_year_bar_applies are Y'] } } })
+          end
+        end
+      end
+
+      context 'refugee_medical_assistance_start_date' do
+        let(:local_person) { person_params.merge({ refugee_medical_assistance_start_date: [nil, ''].sample }) }
+
+        it 'should return failure with error message' do
+          expect(contract_call.errors.to_h).to eq({ people: { 0 => { refugee_medical_assistance_start_date: ['cannot be blank when is_eligible_for_refugee_medical_assistance is Y'] } } })
+        end
+      end
+
+      context 'refugee_medical_assistance_start_date' do
+        let(:local_person) { person_params.merge({ refugee_medical_assistance_start_date: [nil, ''].sample }) }
+
+        it 'should return failure with error message' do
+          expect(contract_call.errors.to_h).to eq({ people: { 0 => { refugee_medical_assistance_start_date: ['cannot be blank when is_eligible_for_refugee_medical_assistance is Y'] } } })
+        end
       end
     end
   end

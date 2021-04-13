@@ -5,7 +5,7 @@
 module AcaEntities
   module MagiMedicaid
     module Contracts
-      # Configuration values and shared rules and macros for {AcaEntities::Medicaid} validation contracts
+      # Configuration values and shared rules and macros for {AcaEntities::MagiMedicaid} validation contracts
       class Contract < Dry::Validation::Contract
         include AcaEntities::AppHelper
         # config.messages.backend - the localization backend to use. Supported values are: :yaml and :i18n
