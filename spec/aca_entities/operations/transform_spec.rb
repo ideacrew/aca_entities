@@ -4,10 +4,10 @@ require 'spec_helper'
 require 'aca_entities/medicaid/transforms/mcr_to/cv_input'
 
 RSpec.describe ::Operations::Transform do
- 
+
   describe 'with valid input file' do
 
-    let(:source_file) { Pathname.pwd.join('spec', 'support', 'sample.json') }
+    let(:source_file) { Pathname.pwd.join('spec', 'support', 'application.json') }
 
     it 'should transform the keys' do
       binding.pry

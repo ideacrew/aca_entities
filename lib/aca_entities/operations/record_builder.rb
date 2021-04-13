@@ -50,7 +50,7 @@ module AcaEntities
       end
 
       def wrap(namespaces, data)
-        return output if namespaces.empty?
+        return data if namespaces.empty?
         output = Hash[namespaces.pop.to_sym, data]
         output = wrap(namespaces, output) unless namespaces.empty?
         output
