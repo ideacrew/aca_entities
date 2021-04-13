@@ -159,7 +159,6 @@ module Operations
 
       keys_under_namespace = container.keys_under_namespace(namespaced_key)
       namespace_keys = keys_under_namespace.select{|key| container[key].transproc_name == :add_namespace}
-      binding.pry unless namespace_keys.empty?
       execute_add_namespaces(namespace_keys, namespaced_key, key)
 
       namespace_keys.each do |namespace_key|
