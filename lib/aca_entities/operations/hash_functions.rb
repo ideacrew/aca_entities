@@ -37,6 +37,7 @@ module AcaEntities
 
         source_hash.to_h.tap do |hash|
           final_pair = hash.dig(*namespaces)
+
           transformed_pair = if func.is_a? Proc
             if input[:context]
               final_pair.update(final_pair) {|_k, old_value| instance_exec(input[:context], &func)}
@@ -143,11 +144,20 @@ module AcaEntities
       def rewrap_keys(source_hash, source_namespaces, destination_namespaces = [])
         puts "------>>>> unwrap #{source_hash} -- #{source_namespaces} ---- #{destination_namespaces}"
         source_hash.to_h.tap do |source_data|
+
+          # value = source_data.dig(*source_namespaces)
           element = destination_namespaces.last
           output = initialize_or_assign({}, destination_namespaces[0..-2], Hash[element, source_data[source_namespaces.last]])
+          # output = initialize_or_assign({}, destination_namespaces[0..-2], Hash[element, value])
+
           source_data.delete(source_namespaces.last)
+          # source_data.delete(source_namespaces.first)
           source_data[destination_namespaces[0]] = output[destination_namespaces[0]]
         end
+      end
+
+      def add_context(source_hash, source_namespaces, destination_namespaces, func)
+        func.call(destination_namespaces[0], source_hash.dig(*source_namespaces[0..-2]))
       end
 
       def initialize_or_assign(local_record, values = [], data)

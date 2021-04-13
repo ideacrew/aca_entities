@@ -30,17 +30,17 @@ module Transform
         container_key = source_ns[0..index].join('.')
         next if @mappings.key?(container_key)
         @mappings[container_key] = if index == 0
-                                     Transform::Map.new(namespace,
-                                                        output_ns[index],
-                                                        nil,
-                                                        :rename_keys,
-                                                        proc: nil)
-                                   else
-                                     Transform::Map.new(source_ns[0..index].join('.'),
-                                                        output_ns[0..index].join('.'),
-                                                        nil, :rename_nested_keys,
-                                                        proc: nil)
-                                   end
+          Transform::Map.new(namespace,
+                             output_ns[index],
+                             nil,
+                             :rename_keys,
+                             proc: nil)
+        else
+          Transform::Map.new(source_ns[0..index].join('.'),
+                             output_ns[0..index].join('.'),
+                             nil, :rename_nested_keys,
+                             proc: nil)
+        end
       end
     end
 
@@ -48,22 +48,42 @@ module Transform
       @context = attrs
     end
 
-    def map(source_key, output_key = nil, proc = nil)
+    def map(source_key, output_key = nil, *args)
+      options = args.first
+
+      if options
+        if options.is_a?(Proc)
+          proc = options
+        elsif options.is_a?(Hash) && options[:memoize]
+          add_context((source_ns + [source_key]).join('.'), output_key, options[:function])
+          return
+        end
+      end
+
       mapping = Transform::Map.new((source_ns + [source_key]).join('.'),
-                                     (output_ns + [output_key.to_s]).join('.'),
-                                     nil,
-                                     transform_action || :rename_nested_keys,
-                                     proc: proc)
+                                   (output_ns + [output_key.to_s]).join('.'),
+                                   nil,
+                                   transform_action || :rename_nested_keys,
+                                   proc: proc)
       @mappings[mapping.container_key] = mapping
     end
 
     def add_key(key, value = nil)
       mapping = Transform::Map.new((source_ns + [key]).join('.'),
-                                 (output_ns + [key]).join('.'),
-                                 value,
-                                 :add_key,
-                                 proc: nil)
+                                   (output_ns + [key]).join('.'),
+                                   value,
+                                   :add_key,
+                                   proc: nil)
       @mappings[mapping.container_key] = mapping
+    end
+
+    def add_context(key, output_key, proc =nil)
+      map = Transform::Map.new(key,
+                               output_key,
+                               nil,
+                               :add_context,
+                               proc: proc)
+      @mappings[map.container_key] = map
     end
 
     def add_namespace(source_ns_key, output_namespace, *args, &block)
@@ -157,15 +177,17 @@ module Transform
   end
 
   class TransformContainer < Dry::Container
+    # attr_reader :keys_by_namespace
 
     def initialize
-      @keys_by_namespace = {}
+      # @keys_by_namespace = {}
       super
     end
 
     def keys_under_namespace(namespace)
-      return @keys_by_namespace[namespace] if @keys_by_namespace[namespace]
-      @keys_by_namespace[namespace] = keys.select{|key| key.match?(/^#{Regexp.escape(namespace)}\.\w+$/)}
+      # return @keys_by_namespace[namespace] if @keys_by_namespace[namespace]
+      # @keys_by_namespace[namespace] = 
+      keys.select{|key| key.match?(/^#{Regexp.escape(namespace)}\.\w+$/)}
     end
   end
 
@@ -196,6 +218,7 @@ module Transform
         @value = value
       end
 
+      # @proc = proc.new if proc && !proc.is_a?(Proc)
       # @namespace = []
       transform
     end
@@ -215,31 +238,33 @@ module Transform
       # key_transforms.push(:nest).uniq! if elements.size > 1
       transform_procs = key_transforms.inject([]) do |procs, action|
         procs << case action
-                 when :nest
-                   output_elements.size.times.collect do |i|
-                     offset = -1 * i
-                     "t(:nest, :#{output_elements[-2 + offset]}, [:#{output_elements[-1 + offset]}])" if output_elements[-2 + offset]
-                   end.compact
-                 when :add_key
-                   "t(:add_key,  #{output_elements.map(&:to_sym)}, '#{value}')"
-                 when :rewrap_keys
-                   "t(:rewrap_keys, #{source_elements.map(&:to_sym)}, #{output_elements.map(&:to_sym)})"
-                 when :add_namespace
-                   "t(:add_namespace, #{source_elements.map(&:to_sym)}, #{output_elements.map(&:to_sym)})"
-                 when :rename_nested_keys
-                   source = source_key.split('.').last
-                   "t(:#{action}, [#{source}: :#{output_elements.last}], #{source_elements[0..-2].map(&:to_sym)})"
-                 else
-                   "t(:#{action}, #{source_key}: :#{output_elements.last})"
-                 end
+        when :nest
+          output_elements.size.times.collect do |i|
+            offset = -1 * i
+            "t(:nest, :#{output_elements[-2 + offset]}, [:#{output_elements[-1 + offset]}])" if output_elements[-2 + offset]
+          end.compact
+        when :add_key
+          "t(:add_key,  #{output_elements.map(&:to_sym)}, '#{value}')"
+        when :rewrap_keys
+          "t(:rewrap_keys, #{source_elements.map(&:to_sym)}, #{output_elements.map(&:to_sym)})"
+        when :add_namespace
+          "t(:add_namespace, #{source_elements.map(&:to_sym)}, #{output_elements.map(&:to_sym)})"
+        when :rename_nested_keys
+          source = source_key.split('.').last
+          "t(:#{action}, [#{source}: :#{output_elements.last}], #{source_elements[0..-2].map(&:to_sym)})"
+        when :add_context
+          "t(:add_context, #{source_elements.map(&:to_sym)}, #{output_elements.map(&:to_sym)}, #{proc})"
+        else
+          "t(:#{action}, #{source_key}: :#{output_elements.last})"
+        end
       end
 
-      @transproc = if proc
-                     output = output_elements[0..-2]
-                     eval(transform_procs.flatten.join('.>> ')) >> t(:map_value, output.map(&:to_sym), proc)
-                   else
-                     eval(transform_procs.flatten.join('.>> '))
-                   end
+      @transproc = if proc && !key_transforms.include?(:add_context)
+        output = output_elements[0..-2]
+        eval(transform_procs.flatten.join('.>> ')) >> t(:map_value, output.map(&:to_sym), proc)
+      else
+        eval(transform_procs.flatten.join('.>> '))
+      end
     end
 
     def transproc_name

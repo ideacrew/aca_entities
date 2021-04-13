@@ -10,8 +10,8 @@ module Operations
       @contexts = contexts
     end
 
-    def context(key)
-      OpenStruct.new @contexts.values.detect{|hash| hash[:name] == key.to_s}
+    def resolve(key)
+      OpenStruct.new @contexts.values.detect{|hash| hash[:name].to_s == key.to_s}
     end
   end
 
@@ -20,9 +20,6 @@ module Operations
     BufferLength = 512
 
     attr_reader :source_filename, :namespaces, :namespace_record_delimiter, :array_namespaces, :container, :records, :record, :record_index
-
-    # set_key_transform :camel # "some_key" => "SomeKey"
-    # set_key_transform :camel_lower # "some_key" => "someKey"
 
     class << self
       def call(*args)
@@ -75,6 +72,7 @@ module Operations
       @records.push(record)
       remove_instance_variable(:@record_namespace_offset)
       binding.pry
+
       puts "***** record ended for #{key}"
     end
 
@@ -103,6 +101,7 @@ module Operations
 
       @namespaces.pop
       @contexts.delete(key)
+
       puts "---hash_end -- #{key}"
       puts "---hash_end_namespaces--#{namespaces}"
       record_end(key&.to_sym) if matched
@@ -158,11 +157,9 @@ module Operations
       namespaced_key = element_namespaces.join('.')
       @wild_char_matchers.each {|char| namespaced_key.gsub!(/#{char}/, '*')}
 
-      keys_under_namespace = container.keys_under_namespace(namespaced_key).select do |key|
-        !container[key].transproc.is_a? Dry::Transformer::Composite
-      end
-
-      namespace_keys = keys_under_namespace.select{|key| container[key].transproc.name == :add_namespace}
+      keys_under_namespace = container.keys_under_namespace(namespaced_key)
+      namespace_keys = keys_under_namespace.select{|key| container[key].transproc_name == :add_namespace}
+      binding.pry unless namespace_keys.empty?
       execute_add_namespaces(namespace_keys, namespaced_key, key)
 
       namespace_keys.each do |namespace_key|
@@ -172,13 +169,27 @@ module Operations
       end
 
       keys_under_namespace.each do |container_key|
-        data  = container[container_key].call(Hash[container_key.split('.').last.to_sym, nil])
+        next if container[container_key].transproc_name == :add_context
+        next unless container[container_key].transproc_name == :add_key
+
+        # if container[container_key].transproc_name == :add_key
+          input = {source_hash: Hash[container_key.split('.').last.to_sym, nil]}
+          input.merge!(context: Operations::Context.new(@contexts)) unless @contexts.empty?
+          data  = container[container_key].call(input)[:source_hash]
+        # else
+        #   input = Hash[container_key.split('.').last.to_sym, nil]
+        #   data  = container[container_key].call(input)
+        # end
+
+        # data  = container[container_key].call()
         # binding.pry if key.to_s == 'demographic'
         if record_builder # && container_key.match(/^#{Regexp.escape(record_builder.root)}\.\w+$/)
           record_builder.append(record_builder.namespace, data)
         else
           initialize_or_assign(record, [], data)
         end
+      rescue
+        binding.pry
       end
     end
 
@@ -192,6 +203,8 @@ module Operations
 
           if container[key].transproc_name == :add_key
             input = {context: Operations::Context.new(@contexts), source_hash: Hash[key.split('.').last.to_sym, nil]}
+
+            # input = {context: @contexts, source_hash: Hash[key.split('.').last.to_sym, nil]}
             data  = container[key].call(input)[:source_hash]
             record_builder.append(record_builder.namespace, data)
           end
@@ -236,6 +249,7 @@ module Operations
     #
     # @api private
     def find_or_build_namespace_mappping_for(key)
+
       return unless defined? @record_namespace_offset
 
       key_with_namespace = (element_namespaces + [key]).join('.')
@@ -257,7 +271,11 @@ module Operations
         # binding.pry if namespaced_key.to_s == "attestations.members.*"
 
         container_value = container[namespaced_key]
-        @contexts[key] = container_value.context.merge(key: key) if container_value.context
+        @contexts[key] = container_value.context.merge(item: key) if container_value.context
+        # if container_value.context
+        #   @hash_key_context_mappings[key] = container_value.context[:name]
+        #   @contexts.register(container_value.context[:name], OpenStruct.new(container_value.context.merge(key: key)))
+        # end
 
         if container_value.type == :array
           create_record(namespaced_key, namespaced_key, key)
@@ -323,6 +341,11 @@ module Operations
 
       namespace_transform_needed = true
       data = container[transformed_key].call(input) 
+      if container[transformed_key].transproc_name == :add_context
+        context_key = container[transformed_key].output_key
+        @contexts[context_key] = {name: context_key, item: data.first[-1]}
+        return
+      end
       namespace_transform_needed = container[transformed_key].namespace_transform_required?
 
       # binding.pry if key.to_s == 'sex'

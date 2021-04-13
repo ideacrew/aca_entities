@@ -27,12 +27,15 @@ module Medicaid
             # add_key 'documents'
             # add_key 'payment_transactions'
             # add_key 'financial_assistance_applications'
-            # map 'application.contactMemberIdentifier', "primary_applicant_identifier", AcaEntities::Functions::PrimaryApplicantBuilder
-            #
-            # map 'household.familyRelationships', "person_relationships", AcaEntities::Functions::PersonRelationshipBuilder
-            # map "application.contactInformation", "primary_contact_information", AcaEntities::Functions::PrimaryApplicantBuilder
+
+            # add_context 'application.contactMemberIdentifier', AcaEntities::Functions::PrimaryApplicantBuilder
+            # add_context 'household.familyRelationships', AcaEntities::Functions::PersonRelationshipBuilder
+            # add_context "application.contactInformation", AcaEntities::Functions::PrimaryApplicantBuilder
+
             # map "application.contactInformation.email", "family_members.person.emails", AcaEntities::Functions::PrimaryApplicant
             # map "application.contactInformation.primaryPhoneNumber", "family_members.person.phones", AcaEntities::Functions::PrimaryApplicant
+
+            map 'application.contactMemberIdentifier', 'family.family_members.is_primary_applicant', {memoize: true, function: AcaEntities::Functions::PrimaryApplicantBuilder}
 
             # namespace 'members.*', context: {ref: 'members', element: 'id', type: 'members'} do
             namespace 'members.*', nil, context: {name: 'members'} do
@@ -40,7 +43,7 @@ module Medicaid
               # rewrap 'attestations.members.*', 'family.family_members', type: :array do
               rewrap 'family.family_members', type: :array do
 
-                # add_key 'is_primary_applicant', -> v { v.context(:primary_applicant_identifier).is_primary_applicant }
+                add_key 'is_primary_applicant', -> v { v.resolve('family.family_members.is_primary_applicant').item == v.resolve(:members).item }
 
                 namespace 'demographic' do
                   rewrap 'family.family_members.person' do
@@ -53,8 +56,8 @@ module Medicaid
                       add_key 'source_system_key', 'ccr' #source_vocabulary
 
                       add_namespace 'ids', 'family.family_members.person.identifiers.ids', type: :array do
-                        add_key 'key', -> v { v.context(:members).name } # should be derived based on context
-                        add_key 'item', -> v { v.context(:members).key } # should pick id from the source payload
+                        add_key 'key', -> v { v.resolve(:members).name } # should be derived based on context
+                        add_key 'item', -> v { v.resolve(:members).item } # should pick id from the source payload
                       end
                     end
 
