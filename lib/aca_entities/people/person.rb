@@ -25,7 +25,8 @@ module AcaEntities
       attribute :consumer_role,                          AcaEntities::People::ConsumerRole.meta(omittable: false).optional.meta(omittable: true)
       attribute :resident_role,                          AcaEntities::People::ResidentRole.meta(omittable: false).optional.meta(omittable: true)
 
-      attribute :individual_market_transitions,          Types::Array.of(AcaEntities::Determinations::IndividualMarketTransition).optional.meta(omittable: true)
+      attribute :individual_market_transitions,
+                Types::Array.of(AcaEntities::Determinations::IndividualMarketTransition).optional.meta(omittable: true)
 
       attribute :verification_types,                     Types::Array.of(AcaEntities::Verifications::VerificationType).optional.meta(omittable: true)
 

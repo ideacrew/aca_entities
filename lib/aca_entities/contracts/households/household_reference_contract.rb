@@ -8,9 +8,11 @@ module AcaEntities
         # @!method call(opts)
         # @param [Hash] opts the parameters to validate using this contract
         # @return [Dry::Monads::Result]
+        # rubocop:disable Lint/EmptyBlock
         params do
 
         end
+        # rubocop:enable Lint/EmptyBlock
       end
     end
   end

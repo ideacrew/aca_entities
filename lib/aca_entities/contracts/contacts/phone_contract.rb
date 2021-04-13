@@ -17,7 +17,7 @@ module AcaEntities
         # @return [Dry::Monads::Result]
         params do
           required(:kind).filled(
-              AcaEntities::Types::PhoneKinds
+            AcaEntities::Types::PhoneKinds
           )
           optional(:country_code).maybe(:string)
           required(:area_code).filled(:string)

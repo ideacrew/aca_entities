@@ -22,8 +22,8 @@ module AcaEntities
           required(:active_year).filled(:integer)
           required(:is_dental_only).filled(:bool)
           required(:metal_level).filled(:string)
-          required(:benefit_market_kind).filled(:string)  #TODO types
-          required(:product_kind).filled(:string) #TODO types
+          required(:benefit_market_kind).filled(:string)  # TODO: types
+          required(:product_kind).filled(:string) # TODO: types
           required(:ehb_percent).filled(:string)
           required(:issuer_profile_reference).hash(AcaEntities::Contracts::Organizations::IssuerProfileReferenceContract.params)
         end
