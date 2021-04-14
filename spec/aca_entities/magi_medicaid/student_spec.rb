@@ -13,12 +13,17 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Student, dbclean: :after_each do
         student_status_end_on: Date.today.prev_year }
     end
 
-    it 'should initialize' do
-      expect(described_class.new(input_params)).to be_a described_class
+    before do
+      student_params = AcaEntities::MagiMedicaid::Contracts::StudentContract.new.call(input_params).to_h
+      @result = described_class.new(student_params)
     end
 
-    it 'should not raise error' do
-      expect { described_class.new(input_params) }.not_to raise_error
+    it 'should return student entity object' do
+      expect(@result).to be_a(described_class)
+    end
+
+    it 'should return all keys of student' do
+      expect(@result.to_h.keys).to eq(input_params.keys)
     end
   end
 

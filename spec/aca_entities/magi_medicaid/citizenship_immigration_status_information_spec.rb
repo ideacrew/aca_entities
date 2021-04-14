@@ -10,12 +10,17 @@ RSpec.describe ::AcaEntities::MagiMedicaid::CitizenshipImmigrationStatusInformat
       { citizen_status: 'us_citizen' }
     end
 
-    it 'should initialize' do
-      expect(described_class.new(input_params)).to be_a described_class
+    before do
+      cisi_params = AcaEntities::MagiMedicaid::Contracts::CitizenshipImmigrationStatusInformationContract.new.call(input_params).to_h
+      @result = described_class.new(cisi_params)
     end
 
-    it 'should not raise error' do
-      expect { described_class.new(input_params) }.not_to raise_error
+    it 'should return CitizenshipImmigrationStatusInformation entity object' do
+      expect(@result).to be_a(described_class)
+    end
+
+    it 'should return all keys of CitizenshipImmigrationStatusInformation' do
+      expect(@result.to_h.keys).to eq(input_params.keys)
     end
   end
 

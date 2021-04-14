@@ -12,12 +12,17 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Demographic, dbclean: :after_each do
         ethnicity: [] }
     end
 
-    it 'should initialize' do
-      expect(described_class.new(input_params)).to be_a described_class
+    before do
+      demographic_params = AcaEntities::MagiMedicaid::Contracts::DemographicContract.new.call(input_params).to_h
+      @result = described_class.new(demographic_params)
     end
 
-    it 'should not raise error' do
-      expect { described_class.new(input_params) }.not_to raise_error
+    it 'should return demographic entity object' do
+      expect(@result).to be_a(described_class)
+    end
+
+    it 'should return all keys of demographic' do
+      expect(@result.to_h.keys).to eq(input_params.keys)
     end
   end
 

@@ -9,12 +9,17 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Employer, dbclean: :after_each do
       { employer_name: 'Employer Test', employer_id: '123456789' }
     end
 
-    it 'should initialize' do
-      expect(described_class.new(input_params)).to be_a described_class
+    before do
+      employer_params = AcaEntities::MagiMedicaid::Contracts::EmployerContract.new.call(input_params).to_h
+      @result = described_class.new(employer_params)
     end
 
-    it 'should not raise error' do
-      expect { described_class.new(input_params) }.not_to raise_error
+    it 'should return employer entity object' do
+      expect(@result).to be_a(described_class)
+    end
+
+    it 'should return all keys of employer' do
+      expect(@result.to_h.keys).to eq(input_params.keys)
     end
   end
 
