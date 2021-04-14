@@ -159,27 +159,52 @@ module AcaEntities
           func.call(destination_namespaces[0], source_hash.dig(*source_namespaces[0..-2]))
         end
 
-        def build_nested_hash(local_record, values = [], data)
+        # Convert data into a nested hash using values(namespaces) passed
+        # Deep merge constructed hash into the record passed
+        #
+        # @param record Record hash
+        # @param values Namespaces for the data
+        # @param data Input hash that needed to be merged with the record
+        #
+        # @example
+        #   record: {:family=>{:family_members=>[{:person=>{:gender=> "female"}}]}}
+        #   values: [:family, :family_members, :person]
+        #   data: {dob: "1969-03-01"}
+        #
+        #   # => {:family=>{:family_members=>[{:person=>{:gender=> "female", :date_of_birth=> "1969-03-01"}}]}}
+        #
+        # @return [Hash]
+        def build_nested_hash(record, values = [], data)
           if (current_namespace = values.shift)
-            local_record[current_namespace] ||= {}
+            record[current_namespace] ||= {}
 
             if values.empty?
-              local_record[current_namespace].deep_merge!(data)
+              record[current_namespace].deep_merge!(data)
             else
-              local_record[current_namespace] = build_nested_hash(local_record[current_namespace], values, data)
+              record[current_namespace] = build_nested_hash(record[current_namespace], values, data)
             end
           else
-            local_record.deep_merge!(data)
+            record.deep_merge!(data)
           end
 
-          local_record
+          record
         end
 
+        # Converts nested hash into an array
+        #
+        # @param data Input hash
+        #
+        # @example
+        #   data: {:family=>{:family_members=>{:person=>{:gender=> "female"}}}}
+        #
+        #   # => [:family, :family_members, :person, :gender]
+        #
+        # @return [Array]
         def nested_hash_to_array(data)
           return [] unless data
           data.reduce([]) do |keys, (key, value)|
             keys.push(key)
-            keys.concat(nested_hash_to_array(value))
+            keys.concat(nested_hash_to_array(value)) if value.is_a?(Hash)
           end
         end
 
