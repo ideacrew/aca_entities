@@ -20,9 +20,16 @@ RSpec.describe ::AcaEntities::MagiMedicaid::TaxHousehold, dbclean: :after_each d
         magi_medicaid_category: 'parent_caretaker' }
     end
 
+    let(:applicant_reference) do
+      { first_name: 'First Test',
+        last_name: 'Last Test',
+        dob: Date.today.prev_year,
+        person_hbx_id: '1000' }
+    end
+
     let(:tax_household_member) do
       { product_eligibility_determination: product_eligibility_determination,
-        applicant_reference: '100' }
+        applicant_reference: applicant_reference }
     end
 
     let(:input_params) do
@@ -32,19 +39,24 @@ RSpec.describe ::AcaEntities::MagiMedicaid::TaxHousehold, dbclean: :after_each d
         tax_household_members: [tax_household_member] }
     end
 
-    it 'should initialize' do
-      expect(described_class.new(input_params)).to be_a described_class
+    before do
+      thh_params = AcaEntities::MagiMedicaid::Contracts::TaxHouseholdContract.new.call(input_params).to_h
+      @result = described_class.new(thh_params)
     end
 
-    it 'should not raise error' do
-      expect { described_class.new(input_params) }.not_to raise_error
+    it 'should return thh entity object' do
+      expect(@result).to be_a(described_class)
     end
-  end
 
-  describe 'with invalid arguments' do
-    it 'should raise error' do
-      msg = /:is_insurance_assistance_eligible violates constraints/
-      expect { described_class.new(is_insurance_assistance_eligible: 'Test') }.to raise_error(Dry::Struct::Error, msg)
+    it 'should return all keys of thh' do
+      expect(@result.to_h.keys).to eq(input_params.keys)
+    end
+
+    it 'should match all the input keys of tax_household_members' do
+      result_thhm_keys = @result.to_h[:tax_household_members].first.keys
+      input_thhm_keys = tax_household_member.keys
+      expect(result_thhm_keys - input_thhm_keys).to be_empty
+      expect(input_thhm_keys - result_thhm_keys).to be_empty
     end
   end
 end

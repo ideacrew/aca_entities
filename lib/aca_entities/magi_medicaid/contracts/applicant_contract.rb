@@ -61,7 +61,7 @@ module AcaEntities
           required(:attestation).hash(AttestationContract.params)
           required(:is_primary_applicant).filled(:bool)
           optional(:native_american_information).maybe(NativeAmericanInformationContract.params)
-          optional(:citizenship_immigration_status_information).maybe(CitizenshipImmigrationStatusInformationContract.params)
+          required(:citizenship_immigration_status_information).hash(CitizenshipImmigrationStatusInformationContract.params)
           optional(:is_consumer_role).maybe(:bool)
           optional(:is_resident_role).maybe(:bool)
           required(:is_applying_coverage).filled(:bool)

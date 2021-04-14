@@ -18,6 +18,8 @@ module AcaEntities
       attribute :is_applying_coverage, Types::Bool.optional.meta(omittable: true)
       attribute :is_consent_applicant, Types::Bool.optional.meta(omittable: true)
       attribute :vlp_document, AcaEntities::VlpDocument.optional.meta(omittable: true)
+      attribute :family_member_reference, Types::Hash.meta(omittable: false) # AcaEntities::References::FamilyMemberReference
+
       attribute :person_hbx_id, Types::String.meta(omittable: false)
 
       attribute :is_required_to_file_taxes, Types::Bool.optional.meta(omittable: true)
@@ -49,6 +51,7 @@ module AcaEntities
       # Driver QNs.
       attribute :has_job_income, Types::Bool.optional.meta(omittable: true)
       attribute :has_self_employment_income, Types::Bool.optional.meta(omittable: true)
+      attribute :has_unemployment_income, Types::Bool.optional.meta(omittable: true)
       attribute :has_other_income, Types::Bool.optional.meta(omittable: true)
       attribute :has_deductions, Types::Bool.optional.meta(omittable: true)
       attribute :has_enrolled_health_coverage, Types::Bool.optional.meta(omittable: true)

@@ -7,10 +7,10 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicantContract,  dbclean
   context 'applicant is not applying for coverage' do
     let(:name) { { first_name: 'first', last_name: 'last' } }
     let(:identifying_information) { { has_ssn: false } }
-    let(:demographic) { { is_applying_coverage: false, gender: 'Male', dob: Date.today.prev_year.to_s } }
-    let(:attestation) { { is_applying_coverage: false, is_disabled: false } }
+    let(:demographic) { { gender: 'Male', dob: Date.today.prev_year.to_s } }
+    let(:attestation) { { is_disabled: false } }
     let(:family_member_reference) { { hbx_id: '1000' } }
-    let(:pregnancy_information) { { is_applying_coverage: false, is_pregnant: false, is_post_partum_period: false } }
+    let(:pregnancy_information) { { is_pregnant: false, is_post_partum_period: false } }
 
     let(:input_params) do
       { name: name,
@@ -18,6 +18,7 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicantContract,  dbclean
         demographic: demographic,
         attestation: attestation,
         is_primary_applicant: true,
+        citizenship_immigration_status_information: { citizen_status: 'us_citizen' },
         is_applying_coverage: false,
         family_member_reference: family_member_reference,
         person_hbx_id: '100',
@@ -71,14 +72,13 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicantContract,  dbclean
     let(:name) { { first_name: 'first', last_name: 'last' } }
     let(:identifying_information) { { has_ssn: false } }
     let(:demographic) do
-      { is_applying_coverage: true,
-        gender: 'Male',
+      { gender: 'Male',
         dob: Date.today.prev_year.to_s,
         is_veteran_or_active_military: false }
     end
-    let(:attestation) { { is_applying_coverage: true, is_disabled: false, is_incarcerated: false } }
+    let(:attestation) { { is_disabled: false, is_incarcerated: false } }
     let(:family_member_reference) { { hbx_id: '1000' } }
-    let(:pregnancy_information) { { is_applying_coverage: true, is_pregnant: false, is_post_partum_period: false } }
+    let(:pregnancy_information) { { is_pregnant: false, is_post_partum_period: false } }
 
     let(:input_params) do
       { name: name,
@@ -86,6 +86,7 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicantContract,  dbclean
         demographic: demographic,
         attestation: attestation,
         is_primary_applicant: true,
+        citizenship_immigration_status_information: { citizen_status: 'us_citizen' },
         is_applying_coverage: true,
         family_member_reference: family_member_reference,
         person_hbx_id: '100',
