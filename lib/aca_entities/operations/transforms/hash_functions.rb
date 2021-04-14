@@ -134,7 +134,6 @@ module AcaEntities
         #
         # @return [Hash]
         def rename_nested_keys(source_hash, mapping, namespaces = [])
-          puts "------>>>> #{namespaces} ---- #{source_hash}"
           source_hash.to_h.tap do |hash|
             final_pair = hash.dig(*namespaces)
             mapping.first.each {|k, v| final_pair[v] = final_pair.delete(k) if final_pair.key?(k)}
@@ -142,15 +141,12 @@ module AcaEntities
         end
 
         def rewrap_keys(source_hash, source_namespaces, destination_namespaces = [])
-          puts "------>>>> unwrap #{source_hash} -- #{source_namespaces} ---- #{destination_namespaces}"
           source_hash.to_h.tap do |source_data|
 
-            # value = source_data.dig(*source_namespaces)
             element = destination_namespaces.last
             output = build_nested_hash({}, destination_namespaces[0..-2], Hash[element, source_data[source_namespaces.last]])
 
             source_data.delete(source_namespaces.last)
-            # source_data.delete(source_namespaces.first)
             source_data[destination_namespaces[0]] = output[destination_namespaces[0]]
           end
         end

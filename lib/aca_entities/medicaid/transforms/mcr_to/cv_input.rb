@@ -17,17 +17,17 @@ module AcaEntities
 
           namespace 'attestations' do
             rewrap 'family' do
-              # add_key 'hbx_id', 1234
+              add_key 'hbx_id', 1234
               # map 'renewEligibilityYearQuantity', 'renewal_consent_through_year' #, -> {|year | year + value_of("attestations.application.applicationSignatures")}
-              # add_key 'vlp_documents_status'
-              # add_key 'min_verifications_due_date'
-              # add_key 'special_enrollment_periods'
-              # add_key 'irs_groups'
-              # add_key 'broker_agency_accounts'
-              # add_key 'general_agency_accounts'
-              # add_key 'documents'
-              # add_key 'payment_transactions'
-              # add_key 'financial_assistance_applications'
+              add_key 'vlp_documents_status'
+              add_key 'min_verifications_due_date'
+              add_key 'special_enrollment_periods'
+              add_key 'irs_groups'
+              add_key 'broker_agency_accounts'
+              add_key 'general_agency_accounts'
+              add_key 'documents'
+              add_key 'payment_transactions'
+              add_key 'financial_assistance_applications'
 
               # add_context 'application.contactMemberIdentifier', AcaEntities::Functions::PrimaryApplicantBuilder
               # add_context 'household.familyRelationships', AcaEntities::Functions::PersonRelationshipBuilder
@@ -69,9 +69,7 @@ module AcaEntities
                         end
                       end
 
-
                       map 'americanIndianAlaskanNativeIndicator', 'americanIndianAlaskanNativeIndicator'
-
 
                       add_key 'no_ssn', 'false'
                       map 'ssn', 'encrypted_ssn'#, Dry::Transformer(:nest, :address, [:street, :zipcode])
@@ -92,8 +90,8 @@ module AcaEntities
                       # add_key 'hbx_id'
                       map 'blindOrDisabledIndicator', 'is_disabled'
                       add_key 'ethnicity'
-                      # add_key 'race'
-                      # add_key 'tribal_id'
+                      add_key 'race'
+                      add_key 'tribal_id'
                       # add_key 'language_code' , "default: en"
                       map 'noHomeAddressIndicator', 'is_homeless'
                       map 'liveOutsideStateTemporarilyIndicator', 'is_temporarily_out_of_state'

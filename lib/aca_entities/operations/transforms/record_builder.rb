@@ -16,7 +16,6 @@ module AcaEntities
           data_pair = data.dig(*(output_ns).split('.').map(&:to_sym)) if dig
           @data_set[identifier] ||= {}
           @data_set[identifier].deep_merge!(data_pair || data)
-          puts "----------********* #{@data_set.inspect} *************"
         end
 
         def output

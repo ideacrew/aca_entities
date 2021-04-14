@@ -20,12 +20,12 @@ module AcaEntities
 
         BufferLength = 512
 
-        attr_reader :source_filename, :namespaces, :namespace_record_delimiter, :array_namespaces, :container, :records, :record, :record_index
+        attr_reader :source_filename, :namespaces, :namespace_record_delimiter, :array_namespaces, :container, :record, :record_index
 
         class << self
-          def call(*args)
+          def call(*args, &block)
             service = new(*args)
-            service.call
+            service.call(&block)
           end
 
           def namespace_record_delimiter
@@ -42,7 +42,6 @@ module AcaEntities
           @namespace_record_delimiter = self.class.namespace_record_delimiter.split('.').map(&:to_sym)
           @namespaces = []
           @array_namespaces = []
-          @records = []
           @container = self.class.mapping_container
           @namespace_mappings = Hash.new
           @record_queue = []
@@ -50,7 +49,8 @@ module AcaEntities
           @contexts = {}
         end
 
-        def call
+        def call(&block)
+          @record_processor = block
           File.open(@source_filename, 'r') { |f| Oj.saj_parse(self, f) }
           # close input and output files
           # return Monad around file processing, output file close result
@@ -65,15 +65,11 @@ module AcaEntities
           max_delimier_index = non_identifier_delimiters.keys.last
           @record_index = (first_delimiter_match_index + max_delimier_index) # (@namespaces.index(namespace_record_delimiter) + 1)
           @record = {}
-          puts "***** record started for #{key}"
         end
 
         def record_end(key)
-          @records.push(record)
+          @record_processor.call(record) if @record_processor
           remove_instance_variable(:@record_namespace_offset)
-          binding.pry
-
-          puts "***** record ended for #{key}"
         end
 
         def hash_start(key)
@@ -86,9 +82,6 @@ module AcaEntities
           end
 
           add_new_elements(key) if defined? @record_namespace_offset
-
-          puts "---hash_start -- #{key}"
-          puts "---hash_start_namespaces--#{namespaces}"
         end
 
         def hash_end(key)
@@ -98,8 +91,6 @@ module AcaEntities
           @namespaces.pop
           @contexts.delete(key)
 
-          puts "---hash_end -- #{key}"
-          puts "---hash_end_namespaces--#{namespaces}"
           record_end(key&.to_sym) if matched
         end
 
@@ -107,8 +98,6 @@ module AcaEntities
           @array_namespaces.push(key&.to_sym)
           @array_records = [] if key
           @array_record = []
-          puts "---array_start -- #{key}"
-          puts "---array_start_array_namespaces--#{array_namespaces}"
         end
 
         def array_end(key)
@@ -120,14 +109,9 @@ module AcaEntities
           else
             @array_records.push(@array_record)
           end
-
-          puts "---array_end -- #{key}"
-          puts "---array_end_array_namespaces--#{array_namespaces}"
         end
 
         def add_value(value, key)
-          puts "---add_value -- #{key} ---- #{value}"
-
           unless array_namespaces.empty?
             @array_record << (key.nil? ? value : Hash[key.to_sym, value])
             return
@@ -315,9 +299,3 @@ module AcaEntities
     end
   end
 end
-
-# # This how we call the operation
-# result =
-#   Medicaid::Transforms::IapTo::MitcInput.call(source_filename, output_filename)
-# result =
-#   Medicaid::Transforms::MitcResultTo::Iap.call(source_filename, output_filename)
