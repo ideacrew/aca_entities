@@ -20,12 +20,17 @@ RSpec.describe ::AcaEntities::MagiMedicaid::ProductEligibilityDetermination, dbc
         magi_medicaid_category: 'parent_caretaker' }
     end
 
-    it 'should initialize' do
-      expect(described_class.new(input_params)).to be_a described_class
+    before do
+      ped_params = AcaEntities::MagiMedicaid::Contracts::ProductEligibilityDeterminationContract.new.call(input_params).to_h
+      @result = described_class.new(ped_params)
     end
 
-    it 'should not raise error' do
-      expect { described_class.new(input_params) }.not_to raise_error
+    it 'should return ProductEligibilityDetermination entity object' do
+      expect(@result).to be_a(described_class)
+    end
+
+    it 'should return all keys of ProductEligibilityDetermination' do
+      expect(@result.to_h.keys).to eq(input_params.keys)
     end
   end
 

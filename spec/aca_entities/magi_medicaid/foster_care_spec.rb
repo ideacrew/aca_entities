@@ -13,12 +13,17 @@ RSpec.describe ::AcaEntities::MagiMedicaid::FosterCare, dbclean: :after_each do
         had_medicaid_during_foster_care: false }
     end
 
-    it 'should initialize' do
-      expect(described_class.new(input_params)).to be_a described_class
+    before do
+      foster_care_params = AcaEntities::MagiMedicaid::Contracts::FosterCareContract.new.call(input_params).to_h
+      @result = described_class.new(foster_care_params)
     end
 
-    it 'should not raise error' do
-      expect { described_class.new(input_params) }.not_to raise_error
+    it 'should return foster_care entity object' do
+      expect(@result).to be_a(described_class)
+    end
+
+    it 'should return all keys of foster_care' do
+      expect(@result.to_h.keys).to eq(input_params.keys)
     end
   end
 

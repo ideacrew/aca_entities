@@ -26,12 +26,31 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Relationship, dbclean: :after_each d
         relative_reference: relative }
     end
 
-    it 'should initialize' do
-      expect(described_class.new(input_params)).to be_a described_class
+    before do
+      relationship_params = AcaEntities::MagiMedicaid::Contracts::RelationshipContract.new.call(input_params).to_h
+      @result = described_class.new(relationship_params)
     end
 
-    it 'should not raise error' do
-      expect { described_class.new(input_params) }.not_to raise_error
+    it 'should return Relationship entity object' do
+      expect(@result).to be_a(described_class)
+    end
+
+    it 'should return all keys of Relationship' do
+      expect(@result.to_h.keys).to eq(input_params.keys)
+    end
+
+    it 'should match all the input keys of applicant_reference' do
+      result_app_ref_keys = @result.to_h[:applicant_reference].keys
+      input_app_ref_keys = applicant.keys
+      expect(result_app_ref_keys - input_app_ref_keys).to be_empty
+      expect(input_app_ref_keys - result_app_ref_keys).to be_empty
+    end
+
+    it 'should match all the input keys of relative_reference' do
+      result_app_ref_keys = @result.to_h[:relative_reference].keys
+      input_app_ref_keys = relative.keys
+      expect(result_app_ref_keys - input_app_ref_keys).to be_empty
+      expect(input_app_ref_keys - result_app_ref_keys).to be_empty
     end
   end
 

@@ -24,12 +24,24 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Income, dbclean: :after_each do
         has_property_usage_rights: false }
     end
 
-    it 'should initialize' do
-      expect(described_class.new(input_params)).to be_a described_class
+    before do
+      income_params = AcaEntities::MagiMedicaid::Contracts::IncomeContract.new.call(input_params).to_h
+      @result = described_class.new(income_params)
     end
 
-    it 'should not raise error' do
-      expect { described_class.new(input_params) }.not_to raise_error
+    it 'should return income entity object' do
+      expect(@result).to be_a(described_class)
+    end
+
+    it 'should return all keys of income' do
+      expect(@result.to_h.keys).to eq(input_params.keys)
+    end
+
+    it 'should match all the input keys of employer' do
+      result_employer_keys = @result.to_h[:employer].keys
+      input_employer_keys = employer.keys
+      expect(result_employer_keys - input_employer_keys).to be_empty
+      expect(input_employer_keys - result_employer_keys).to be_empty
     end
   end
 
