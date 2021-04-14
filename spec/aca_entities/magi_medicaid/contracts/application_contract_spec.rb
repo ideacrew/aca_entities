@@ -14,6 +14,7 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicationContract,  dbcle
   let(:applicant) do
     { name: name,
       identifying_information: identifying_information,
+      citizenship_immigration_status_information: { citizen_status: 'us_citizen' },
       demographic: demographic,
       attestation: attestation,
       is_primary_applicant: true,
@@ -41,6 +42,98 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicationContract,  dbcle
 
     it 'should return success' do
       expect(subject.call(input_params)).to be_success
+    end
+
+    context 'with tax households' do
+      let(:applicant_reference) do
+        { first_name: applicant[:name][:first_name],
+          last_name: applicant[:name][:last_name],
+          dob: applicant[:demographic][:dob],
+          person_hbx_id: applicant[:person_hbx_id] }
+      end
+
+      let(:product_eligibility_determination) do
+        { is_ia_eligible: true,
+          is_medicaid_chip_eligible: false,
+          is_non_magi_medicaid_eligible: false,
+          is_totally_ineligible: false,
+          is_without_assistance: false,
+          is_magi_medicaid: false,
+          magi_medicaid_monthly_household_income: 6474.42,
+          medicaid_household_size: 1,
+          magi_medicaid_monthly_income_limit: 3760.67,
+          magi_as_percentage_of_fpl: 10.0,
+          magi_medicaid_category: 'parent_caretaker' }
+      end
+
+      let(:tax_household_member) do
+        { product_eligibility_determination: product_eligibility_determination,
+          applicant_reference: applicant_reference }
+      end
+
+      let(:tax_hh) do
+        { max_aptc: 100.56,
+          csr: 73,
+          is_insurance_assistance_eligible: 'Yes',
+          tax_household_members: [tax_household_member] }
+      end
+
+      let(:app_with_thh) do
+        input_params.merge({ tax_households: [tax_hh] })
+      end
+
+      before do
+        @result = subject.call(app_with_thh)
+      end
+
+      it 'should return success' do
+        expect(@result).to be_success
+      end
+
+      it 'should include key tax_households' do
+        expect(@result.to_h.keys).to include(:tax_households)
+      end
+    end
+
+    context 'with multiple applicants and relationships' do
+      let(:applicant2) do
+        applicant.merge({ person_hbx_id: '101', name: { first_name: 'wifey', last_name: 'last' } })
+      end
+
+      let(:applicant1_ref) do
+        { first_name: applicant[:name][:first_name],
+          last_name: applicant[:name][:last_name],
+          dob: applicant[:demographic][:dob],
+          person_hbx_id: applicant[:person_hbx_id] }
+      end
+
+      let(:applicant2_ref) do
+        { first_name: applicant2[:name][:first_name],
+          last_name: applicant2[:name][:last_name],
+          dob: applicant2[:demographic][:dob],
+          person_hbx_id: applicant2[:person_hbx_id] }
+      end
+
+      let(:relationships) do
+        [{ kind: 'spouse', applicant_reference: applicant1_ref, relative_reference: applicant2_ref },
+         { kind: 'spouse', applicant_reference: applicant2_ref, relative_reference: applicant1_ref }]
+      end
+
+      let(:app_with_multi_applicants) do
+        input_params.merge({ applicants: [applicant, applicant2], relationships: relationships })
+      end
+
+      before do
+        @result = subject.call(app_with_multi_applicants)
+      end
+
+      it 'should return success' do
+        expect(@result).to be_success
+      end
+
+      it 'should include key tax_households' do
+        expect(@result.to_h.keys).to include(:relationships)
+      end
     end
   end
 
@@ -76,9 +169,10 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicationContract,  dbcle
       context 'invalid applicant value' do
         let(:required_applicant_keys) do
           [:name, :identifying_information, :demographic, :attestation, :is_primary_applicant,
-           :is_applying_coverage, :family_member_reference, :person_hbx_id, :is_required_to_file_taxes,
-           :pregnancy_information, :has_job_income, :has_self_employment_income, :has_unemployment_income,
-           :has_other_income, :has_deductions, :has_enrolled_health_coverage, :has_eligible_health_coverage]
+           :citizenship_immigration_status_information, :is_applying_coverage, :family_member_reference,
+           :person_hbx_id, :is_required_to_file_taxes, :pregnancy_information, :has_job_income,
+           :has_self_employment_income, :has_unemployment_income, :has_other_income, :has_deductions,
+           :has_enrolled_health_coverage, :has_eligible_health_coverage]
         end
 
         it 'should return a failure with error message' do
@@ -392,8 +486,7 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicationContract,  dbcle
           subject.call(input_params.merge({ applicants: [appl_params] }))
         end
         let(:pregnancy_information) do
-          { is_applying_coverage: false,
-            is_pregnant: true,
+          { is_pregnant: true,
             expected_children_count: 2,
             pregnancy_due_on: Date.today.next_month.to_s }
         end

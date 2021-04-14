@@ -29,10 +29,10 @@ module AcaEntities
         require 'aca_entities/magi_medicaid/benefit'
         require 'aca_entities/magi_medicaid/deduction'
         require 'aca_entities/magi_medicaid/applicant'
-        require 'aca_entities/magi_medicaid/application'
         require 'aca_entities/magi_medicaid/product_eligibility_determination'
         require 'aca_entities/magi_medicaid/tax_household_member'
         require 'aca_entities/magi_medicaid/tax_household'
+        require 'aca_entities/magi_medicaid/application'
 
         require 'aca_entities/contracts/person_name_contract'
         require 'aca_entities/contracts/phone_contract'
@@ -56,10 +56,10 @@ module AcaEntities
         require 'aca_entities/magi_medicaid/contracts/benefit_contract'
         require 'aca_entities/contracts/address_contract'
         require 'aca_entities/magi_medicaid/contracts/applicant_contract'
-        require 'aca_entities/magi_medicaid/contracts/application_contract'
         require 'aca_entities/magi_medicaid/contracts/product_eligibility_determination_contract'
         require 'aca_entities/magi_medicaid/contracts/tax_household_member_contract'
         require 'aca_entities/magi_medicaid/contracts/tax_household_contract'
+        require 'aca_entities/magi_medicaid/contracts/application_contract'
       end
     end
   end

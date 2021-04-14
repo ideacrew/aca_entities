@@ -22,8 +22,8 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Relationship, dbclean: :after_each d
 
     let(:input_params) do
       { kind: 'spouse',
-        applicant: applicant,
-        relative: relative }
+        applicant_reference: applicant,
+        relative_reference: relative }
     end
 
     it 'should initialize' do

@@ -23,6 +23,8 @@ module AcaEntities
           optional(:is_ridp_verified).maybe(:bool)
           optional(:is_renewal_authorized).maybe(:bool)
           required(:applicants).array(ApplicantContract.params)
+          optional(:relationships).array(RelationshipContract.params)
+          optional(:tax_households).array(TaxHouseholdContract.params)
         end
       end
     end
