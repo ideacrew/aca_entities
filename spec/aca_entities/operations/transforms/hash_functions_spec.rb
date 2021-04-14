@@ -22,6 +22,18 @@ RSpec.describe ::AcaEntities::Operations::Transforms::HashFunctions do
       end
     end
 
+    describe '.build_nested_hash' do
+      it 'returns a new hash with new key value pair' do
+        record = { :family => { :family_members => { :person => { :gender => 'female' } } } }
+        values = [:family, :family_members, :person]
+        data = { dob: '1969-03-01'}
+        output = { :family => { :family_members => { :person => { :gender => 'female', :dob => '1969-03-01'} } } }
+
+        map_value = described_class.build_nested_hash(record, values, data)
+        expect(map_value).to eql(output)
+      end
+    end
+
     describe '.rename_nested_keys' do
       it 'returns a new hash with renamed key' do
         input = { 'a' => { 'b' => { 'c' => { 'd' => '123' } }, 'f' => { 'd' => '456' } } }

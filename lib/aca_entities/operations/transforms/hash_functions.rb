@@ -132,6 +132,17 @@ module AcaEntities
           end
         end
 
+        # Move keys to new namespace hash
+        #
+        # @param source_hash The input hash
+        # @param source_namespaces accepts array of existing key namespace
+        # @param destination_namespaces accepts array of new key namespace
+        #
+        # @example
+        #   source_hash: { :foo => 'bar' }, "f" => {"d" => "456"}}}, source_namespaces: [:boo, :foo], destination_namespaces: [:boo, :too]
+        #   # => { :boo => { :too => 'bar' } }
+        #
+        # @return [Hash]
         def rewrap_keys(source_hash, source_namespaces, destination_namespaces = [])
           source_hash.to_h.tap do |source_data|
 
@@ -155,11 +166,11 @@ module AcaEntities
         # @param data Input hash that needed to be merged with the record
         #
         # @example
-        #   record: {:family=>{:family_members=>[{:person=>{:gender=> "female"}}]}}
+        #   record: { :family => { :family_members => { :person => { :gender => 'female' } } } }
         #   values: [:family, :family_members, :person]
-        #   data: {dob: "1969-03-01"}
+        #   data: { dob: '1969-03-01'}
         #
-        #   # => {:family=>{:family_members=>[{:person=>{:gender=> "female", :date_of_birth=> "1969-03-01"}}]}}
+        #   # => { :family => { :family_members => { :person => { :gender => 'female', :dob => '1969-03-01'} } } }
         #
         # @return [Hash]
         def build_nested_hash(record, values = [], data)
