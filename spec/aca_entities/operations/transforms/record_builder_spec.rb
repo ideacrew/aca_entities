@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe ::AcaEntities::Operations::RecordBuilder do
+RSpec.describe ::AcaEntities::Operations::Transforms::RecordBuilder do
   let(:define_class){ described_class.new(root: 'a.b', type: :array)}
 
   describe 'with valid input file' do

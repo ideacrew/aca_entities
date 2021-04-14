@@ -15,10 +15,7 @@ require 'aca_entities/libraries/core_library'
 # TODO: We want these to be selectively included at run time
 require 'aca_entities/individual_market'
 require 'aca_entities/shop_market'
-require 'aca_entities/operations/hash_functions'
-require 'transform/transformer'
-require 'aca_entities/operations/record_builder'
-require 'aca_entities/operations/transform'
+require 'aca_entities/transform'
 require 'aca_entities/functions/age_on'
 require 'aca_entities/functions/primary_applicant_builder'
 

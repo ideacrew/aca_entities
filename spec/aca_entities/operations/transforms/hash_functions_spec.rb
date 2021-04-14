@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe ::AcaEntities::Operations::HashFunctions do
+RSpec.describe ::AcaEntities::Operations::Transforms::HashFunctions do
   describe 'with valid input file' do
     describe '.map_value' do
       it 'returns a new hash with given proc applied to value' do

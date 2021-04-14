@@ -3,11 +3,11 @@
 require 'spec_helper'
 require 'transform/transformer'
 
-RSpec.describe Transform::MapSerializer do
+RSpec.describe AcaEntities::Operations::Transforms::MapSerializer do
   describe 'dsl' do
     let(:foo) do
       Module.new do
-        include Transform::Transformer
+        include AcaEntities::Operations::Transforms::Transformer
         namespace 'a' do
           map 'b', 'c'
         end
@@ -16,7 +16,7 @@ RSpec.describe Transform::MapSerializer do
 
     let(:foo2) do
       Module.new do
-        include Transform::Transformer
+        include AcaEntities::Operations::Transforms::Transformer
         namespace 'a'
       end
     end
@@ -35,7 +35,7 @@ RSpec.describe Transform::MapSerializer do
   end
 
   describe '.add_key' do
-    let(:foo) {Transform::MapSerializer.new('a.b')}
+    let(:foo) {AcaEntities::Operations::Transforms::MapSerializer.new('a.b')}
 
     describe 'with valid input block' do
       it 'should build dry transformer function' do
@@ -52,7 +52,7 @@ RSpec.describe Transform::MapSerializer do
   end
 
   describe '.rewrap' do
-    let(:foo) {Transform::MapSerializer.new('a.b')}
+    let(:foo) {AcaEntities::Operations::Transforms::MapSerializer.new('a.b')}
 
     describe 'with valid input block' do
       it 'should build dry transformer function' do
@@ -71,7 +71,7 @@ RSpec.describe Transform::MapSerializer do
   end
 
   describe '.add_namespace' do
-    let(:foo) {Transform::MapSerializer.new('a.b')}
+    let(:foo) {AcaEntities::Operations::Transforms::MapSerializer.new('a.b')}
 
     describe 'with valid input block' do
       it 'should build dry transformer function' do
@@ -89,7 +89,7 @@ RSpec.describe Transform::MapSerializer do
   end
 
   describe '.namespace' do
-    let(:foo) {Transform::MapSerializer.new('a.b')}
+    let(:foo) {AcaEntities::Operations::Transforms::MapSerializer.new('a.b')}
 
     describe 'with valid input block' do
       it 'should build dry transformer function' do
@@ -108,8 +108,8 @@ RSpec.describe Transform::MapSerializer do
   end
 end
 
-RSpec.describe Transform::Transformer::ClassMethods do
-  let(:dummy_class) {Class.new {extend Transform::Transformer::ClassMethods}}
+RSpec.describe AcaEntities::Operations::Transforms::Transformer::ClassMethods do
+  let(:dummy_class) {Class.new {extend AcaEntities::Operations::Transforms::Transformer::ClassMethods}}
 
   describe '.namespace' do
     describe 'with valid input block' do
@@ -130,9 +130,9 @@ RSpec.describe Transform::Transformer::ClassMethods do
   end
 end
 
-RSpec.describe Transform::Map do
+RSpec.describe AcaEntities::Operations::Transforms::Map do
   describe 'with transform action' do
-    let(:foo) {Transform::Map.new('a.b', 'c', nil, :rename_nested_keys)}
+    let(:foo) {AcaEntities::Operations::Transforms::Map.new('a.b', 'c', nil, :rename_nested_keys)}
 
     it 'should build dry transformer function' do
       expect(foo.transproc.is_a?(Dry::Transformer::Function)).to eq true
@@ -140,7 +140,7 @@ RSpec.describe Transform::Map do
   end
 
   describe 'with transform action and proc' do
-    let(:foo) {Transform::Map.new('a.b', 'c', nil, :rename_nested_keys, proc: proc {|v| v.downcase})}
+    let(:foo) {AcaEntities::Operations::Transforms::Map.new('a.b', 'c', nil, :rename_nested_keys, proc: proc {|v| v.downcase})}
 
     it 'should build dry transformer composite' do
       expect(foo.transproc.is_a?(Dry::Transformer::Composite)).to eq true
@@ -148,7 +148,7 @@ RSpec.describe Transform::Map do
   end
 
   describe 'without transform action' do
-    let(:foo) {Transform::Map.new('a.b', 'c', nil)}
+    let(:foo) {AcaEntities::Operations::Transforms::Map.new('a.b', 'c', nil)}
 
     it 'should not build dry transformer function' do
       expect(foo.transproc).to eq nil
