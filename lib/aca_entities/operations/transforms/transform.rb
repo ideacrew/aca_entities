@@ -164,7 +164,7 @@ module AcaEntities
               if record_builder
                 record_builder.append(record_builder.namespace, data)
               else
-                initialize_or_assign(record, [], data)
+                t(:build_nested_hash)[record, [], data]
               end
             end
           end
@@ -187,7 +187,7 @@ module AcaEntities
           @record_queue.pop
 
           if @record_queue.empty?
-            initialize_or_assign(record, [], record_builder.output)
+            t(:build_nested_hash)[record, [], record_builder.output]
           else
             @record_queue.last.append(@record_queue.last.namespace, record_builder.output, false)
           end
@@ -226,19 +226,10 @@ module AcaEntities
 
         def build_namespace_mapping_for(element_namespaces, key, value = nil)
           key_with_namespace = (element_namespaces + [key]).join('.')
-
-          input = initialize_or_assign({}, element_namespaces.dup, Hash[key.to_sym, value])
+          input = t(:build_nested_hash)[{}, element_namespaces.dup, Hash[key.to_sym, value]]
           data = container[key_with_namespace].call(input)
 
-          @namespace_mappings[key_with_namespace] = namespace_hash_to_array(data).join('.')
-        end
-
-        def namespace_hash_to_array(data)
-          return [] unless data
-          data.reduce([]) do |keys, (key, value)|
-            keys.push(key)
-            keys.concat(namespace_hash_to_array(value))
-          end
+          @namespace_mappings[key_with_namespace] = (t(:nested_hash_to_array)[data]).join('.')
         end
 
         def namespace_record_delimiter_matched?(namespaces)
@@ -269,9 +260,9 @@ module AcaEntities
           return unless container.key?(transformed_key)
 
           input = if record_unique_identifier
-            initialize_or_assign({}, [], Hash[key.to_sym, value])
+            t(:build_nested_hash)[{}, [], Hash[key.to_sym, value]]
           else
-            initialize_or_assign({}, element_namespaces.dup, Hash[key.to_sym, value])
+            t(:build_nested_hash)[{}, element_namespaces.dup, Hash[key.to_sym, value]]
           end
 
           namespace_transform_needed = true
@@ -288,7 +279,7 @@ module AcaEntities
           if record_unique_identifier
             record_builder.append(record_builder.namespace, data_hash || data)
           else
-            initialize_or_assign(record, [], data_hash || data)
+            t(:build_nested_hash)[record, [], data_hash || data]
           end
         end
 
@@ -306,24 +297,8 @@ module AcaEntities
           @record_queue.last
         end
 
-        def initialize_or_assign(local_record, values = [], data)
-          if current_namespace = values.shift
-            local_record[current_namespace] ||= {}
-
-            if values.empty?
-              if data.is_a?(Hash)
-                local_record[current_namespace].deep_merge!(data)
-              else
-                local_record[current_namespace] = data
-              end
-            else
-              local_record[current_namespace] = initialize_or_assign(local_record[current_namespace], values, data)
-            end
-          else
-            local_record.deep_merge!(data)
-          end
-
-          local_record
+        def t(*args)
+          TransformFunctions[*args]
         end
 
         def error(message, line, column); end

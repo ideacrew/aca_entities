@@ -48,7 +48,7 @@ module AcaEntities
             else
               final_pair.transform_values!(&func)
             end
-            initialize_or_assign({}, namespaces[0..-2].dup, transformed_pair)
+            build_nested_hash({}, namespaces[0..-2].dup, transformed_pair)
           end
           input
         end
@@ -77,7 +77,7 @@ module AcaEntities
           value = nil if value == ''
           source_hash.to_h.tap do |hash|
             element = namespaced_keys.last
-            output_hash = initialize_or_assign({}, namespaced_keys[0..-2], Hash[element, value])
+            output_hash = build_nested_hash({}, namespaced_keys[0..-2], Hash[element, value])
             hash[namespaced_keys[0]] = output_hash[namespaced_keys[0]]
             hash.delete(element)
           end
@@ -87,10 +87,9 @@ module AcaEntities
 
         def add_namespace(source_hash, source_namespace, destination_namespace)
           source_hash.to_h.tap do |hash|
-            output_hash = initialize_or_assign({}, destination_namespace[0..-2], hash)
+            output_hash = build_nested_hash({}, destination_namespace[0..-2], hash)
             hash.delete(destination_namespace.last)
             hash.merge!(output_hash)
-            binding.pry
           end
         end
 
@@ -148,8 +147,7 @@ module AcaEntities
 
             # value = source_data.dig(*source_namespaces)
             element = destination_namespaces.last
-            output = initialize_or_assign({}, destination_namespaces[0..-2], Hash[element, source_data[source_namespaces.last]])
-            # output = initialize_or_assign({}, destination_namespaces[0..-2], Hash[element, value])
+            output = build_nested_hash({}, destination_namespaces[0..-2], Hash[element, source_data[source_namespaces.last]])
 
             source_data.delete(source_namespaces.last)
             # source_data.delete(source_namespaces.first)
@@ -161,20 +159,28 @@ module AcaEntities
           func.call(destination_namespaces[0], source_hash.dig(*source_namespaces[0..-2]))
         end
 
-        def initialize_or_assign(local_record, values = [], data)
+        def build_nested_hash(local_record, values = [], data)
           if (current_namespace = values.shift)
             local_record[current_namespace] ||= {}
 
             if values.empty?
               local_record[current_namespace].deep_merge!(data)
             else
-              local_record[current_namespace] = initialize_or_assign(local_record[current_namespace], values, data)
+              local_record[current_namespace] = build_nested_hash(local_record[current_namespace], values, data)
             end
           else
             local_record.deep_merge!(data)
           end
 
           local_record
+        end
+
+        def nested_hash_to_array(data)
+          return [] unless data
+          data.reduce([]) do |keys, (key, value)|
+            keys.push(key)
+            keys.concat(nested_hash_to_array(value))
+          end
         end
 
         # Rename all keys upto nested hash
