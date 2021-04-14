@@ -30,24 +30,20 @@ module AcaEntities
         #
         # @return [Hash]
         def map_value(input, namespaces, func)
-          source_hash = if input[:source_hash]
-            input[:source_hash]
-          else
-            input
-          end
+          source_hash = input[:source_hash] || input
 
           source_hash.to_h.tap do |hash|
             final_pair = hash.dig(*namespaces)
 
             transformed_pair = if func.is_a? Proc
-              if input[:context]
-                final_pair.update(final_pair) {|_k, old_value| instance_exec(input[:context], &func)}
-              else
-                final_pair.update(final_pair) {|_k, old_value| instance_exec(old_value, &func)}
-              end
-            else
-              final_pair.transform_values!(&func)
-            end
+                                 if input[:context]
+                                   final_pair.update(final_pair) {|_k, _old_value| instance_exec(input[:context], &func)}
+                                 else
+                                   final_pair.update(final_pair) {|_k, old_value| instance_exec(old_value, &func)}
+                                 end
+                               else
+                                 final_pair.transform_values!(&func)
+                               end
             build_nested_hash({}, namespaces[0..-2].dup, transformed_pair)
           end
           input
@@ -68,11 +64,7 @@ module AcaEntities
         #
         # @return [Hash]
         def add_key(input, namespaced_keys, value)
-          source_hash = if input[:source_hash]
-            input[:source_hash]
-          else
-            input
-          end
+          source_hash = input[:source_hash] || input
 
           value = nil if value == ''
           source_hash.to_h.tap do |hash|
@@ -85,7 +77,7 @@ module AcaEntities
           input
         end
 
-        def add_namespace(source_hash, source_namespace, destination_namespace)
+        def add_namespace(source_hash, _source_namespace, destination_namespace)
           source_hash.to_h.tap do |hash|
             output_hash = build_nested_hash({}, destination_namespace[0..-2], hash)
             hash.delete(destination_namespace.last)
@@ -218,15 +210,15 @@ module AcaEntities
           source_hash.each_with_object({}) do |(k, v), result|
             mapped_key = mapped_keys[k] || k
             result[mapped_key] = case v
-            when ::Hash
-              deep_rename_keys(v, mapped_keys)
-            when ::Array
-              v.map do |item|
-                item.is_a?(Hash) ? deep_rename_keys(item, mapped_keys) : item
-              end
-            else
-              v
-            end
+                                 when ::Hash
+                                   deep_rename_keys(v, mapped_keys)
+                                 when ::Array
+                                   v.map do |item|
+                                     item.is_a?(Hash) ? deep_rename_keys(item, mapped_keys) : item
+                                   end
+                                 else
+                                   v
+                                 end
           end
         end
 
@@ -234,15 +226,15 @@ module AcaEntities
           source_hash.each_with_object({}) do |(key, value), output|
             next unless permitted_keys.include? key
             output[key] = case value
-            when ::Hash
-              deep_accept_keys(value, permitted_keys)
-            when ::Array
-              value.map do |item|
-                item.is_a?(Hash) ? deep_accept_keys(item, permitted_keys) : item
-              end
-            else
-              value
-            end
+                          when ::Hash
+                            deep_accept_keys(value, permitted_keys)
+                          when ::Array
+                            value.map do |item|
+                              item.is_a?(Hash) ? deep_accept_keys(item, permitted_keys) : item
+                            end
+                          else
+                            value
+                          end
           end
         end
 
@@ -250,15 +242,15 @@ module AcaEntities
           inflector = Dry::Inflector.new
           hash.each_with_object({}) do |(key, value), output|
             output[inflector.underscore(key).to_sym] = case value
-            when Hash
-              deep_map_keys(value)
-            when Array
-              value.map do |item|
-                item.is_a?(Hash) ? deep_map_keys(item) : item
-              end
-            else
-              value
-            end
+                                                       when Hash
+                                                         deep_map_keys(value)
+                                                       when Array
+                                                         value.map do |item|
+                                                           item.is_a?(Hash) ? deep_map_keys(item) : item
+                                                         end
+                                                       else
+                                                         value
+                                                       end
           end
         end
       end

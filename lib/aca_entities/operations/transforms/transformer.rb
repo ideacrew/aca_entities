@@ -33,17 +33,17 @@ module AcaEntities
             container_key = source_ns[0..index].join('.')
             next if @mappings.key?(container_key)
             @mappings[container_key] = if index == 0
-              Map.new(namespace,
-                                 output_ns[index],
-                                 nil,
-                                 :rename_keys,
-                                 proc: nil)
-            else
-              Map.new(source_ns[0..index].join('.'),
-                                 output_ns[0..index].join('.'),
-                                 nil, :rename_nested_keys,
-                                 proc: nil)
-            end
+                                         Map.new(namespace,
+                                                 output_ns[index],
+                                                 nil,
+                                                 :rename_keys,
+                                                 proc: nil)
+                                       else
+                                         Map.new(source_ns[0..index].join('.'),
+                                                 output_ns[0..index].join('.'),
+                                                 nil, :rename_nested_keys,
+                                                 proc: nil)
+                                       end
           end
         end
 
@@ -61,10 +61,10 @@ module AcaEntities
           end
 
           mapping = Map.new((source_ns + [source_key]).join('.'),
-                                       (output_ns + [output_key.to_s]).join('.'),
-                                       nil,
-                                       transform_action || :rename_nested_keys,
-                                       proc: proc)
+                            (output_ns + [output_key.to_s]).join('.'),
+                            nil,
+                            transform_action || :rename_nested_keys,
+                            proc: proc)
           @mappings[mapping.container_key] = mapping
         end
 
@@ -73,20 +73,20 @@ module AcaEntities
           raise 'arg1 should not be empty string or an integer' if key.empty? || key.is_a?(Integer)
 
           mapping = Map.new((source_ns + [key]).join('.'),
-                                       (output_ns + [key]).join('.'),
-                                       value,
-                                       :add_key,
-                                       proc: nil)
+                            (output_ns + [key]).join('.'),
+                            value,
+                            :add_key,
+                            proc: nil)
           @mappings[mapping.container_key] = mapping
         end
 
         # @api public
         def add_context(key, output_key, proc = nil)
           map = Map.new(key,
-                                   output_key,
-                                   nil,
-                                   :add_context,
-                                   proc: proc)
+                        output_key,
+                        nil,
+                        :add_context,
+                        proc: proc)
           @mappings[map.container_key] = map
         end
 
@@ -97,9 +97,9 @@ module AcaEntities
           raise 'expected arg3 not be empty' if args.empty?
 
           map = Map.new((source_ns + [source_ns_key]).join('.'),
-                                   output_namespace,
-                                   nil,
-                                   :add_namespace)
+                        output_namespace,
+                        nil,
+                        :add_namespace)
           map.properties = args
           @mappings[map.container_key] = map
 
@@ -118,10 +118,10 @@ module AcaEntities
 
           unless args.empty?
             map = Map.new((source_ns).join('.'),
-                                     output_namespace,
-                                     nil,
-                                     :rewrap_keys,
-                                     proc: nil)
+                          output_namespace,
+                          nil,
+                          :rewrap_keys,
+                          proc: nil)
             map.properties = args
             map.context = @context
             @mappings[map.container_key] = map
@@ -250,11 +250,11 @@ module AcaEntities
           transform_procs = key_transforms.collect {|action| action_to_transproc(action, source_elements, output_elements)}
 
           @transproc = if proc && !key_transforms.include?(:add_context)
-            output = output_elements[0..-2]
-            eval(transform_procs.flatten.join('.>> ')) >> t(:map_value, output.map(&:to_sym), proc)
-          else
-            eval(transform_procs.flatten.join('.>> '))
-          end
+                         output = output_elements[0..-2]
+                         eval(transform_procs.flatten.join('.>> ')) >> t(:map_value, output.map(&:to_sym), proc)
+                       else
+                         eval(transform_procs.flatten.join('.>> '))
+                       end
         end
 
         def action_to_transproc(action, source_elements, output_elements)
