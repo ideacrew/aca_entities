@@ -145,7 +145,7 @@ module AcaEntities
 
         def add_new_elements(key)
           namespaced_key = element_namespaces.join('.')
-          @wild_char_matchers.each {|char| namespaced_key.gsub!(/#{char}/, '*')}
+          namespaced_key = match_wildcard_chars(namespaced_key)
           process_add_namespaces(namespaced_key, key)
         end
 
@@ -202,7 +202,7 @@ module AcaEntities
           regex_key = (element_namespaces + ['*']).join('.') unless element_namespaces.compact.empty?
 
           initialize_new_record_for(regex_key, key) if regex_key
-          initialize_new_record_for(key_with_namespace.dup, key)
+          initialize_new_record_for(key_with_namespace, key)
 
           return @namespace_mappings[key_with_namespace] if @namespace_mappings.key?(key_with_namespace)
           return unless container.key?(key_with_namespace)
@@ -211,7 +211,7 @@ module AcaEntities
         end
 
         def initialize_new_record_for(namespaced_key, key)
-          @wild_char_matchers.each {|char| namespaced_key.gsub!(/#{char}/, '*') }
+          namespaced_key = match_wildcard_chars(namespaced_key)
 
           if container.key?(namespaced_key) && (record_builder.nil? || record_builder.root != namespaced_key)
             container_value = container[namespaced_key]
@@ -226,7 +226,7 @@ module AcaEntities
 
         def build_namespace_mapping_for(element_namespaces, key, value = nil)
           key_with_namespace = (element_namespaces + [key]).join('.')
-          input = t(:build_nested_hash)[{}, element_namespaces.dup, Hash[key.to_sym, value]]
+          input = t(:build_nested_hash)[{}, element_namespaces, Hash[key.to_sym, value]]
           data = container[key_with_namespace].call(input)
 
           @namespace_mappings[key_with_namespace] = (t(:nested_hash_to_array)[data]).join('.')
@@ -254,7 +254,7 @@ module AcaEntities
           return unless defined? @record_namespace_offset
 
           key_with_namespace = (element_namespaces + [key]).join('.')
-          transformed_key = transform_to_wildcard(key_with_namespace.dup)
+          transformed_key = match_wildcard_chars(key_with_namespace.dup)
           record_unique_identifier = record_unique_identifier(key_with_namespace)
 
           return unless container.key?(transformed_key)
@@ -262,10 +262,9 @@ module AcaEntities
           input = if record_unique_identifier
             t(:build_nested_hash)[{}, [], Hash[key.to_sym, value]]
           else
-            t(:build_nested_hash)[{}, element_namespaces.dup, Hash[key.to_sym, value]]
+            t(:build_nested_hash)[{}, element_namespaces, Hash[key.to_sym, value]]
           end
 
-          namespace_transform_needed = true
           data = container[transformed_key].call(input)
           if container[transformed_key].transproc_name == :add_context
             context_key = container[transformed_key].output_key
@@ -273,13 +272,10 @@ module AcaEntities
             return
           end
 
-          namespace_transform_needed = container[transformed_key].namespace_transform_required?
-          data_hash = transform_hash(data || input) if namespace_transform_needed
-
           if record_unique_identifier
-            record_builder.append(record_builder.namespace, data_hash || data)
+            record_builder.append(record_builder.namespace, data || input)
           else
-            t(:build_nested_hash)[record, [], data_hash || data]
+            t(:build_nested_hash)[record, [], data || input]
           end
         end
 
@@ -288,7 +284,7 @@ module AcaEntities
           key.match(/#{@wild_char_matchers.join('|')}/).to_a[0]
         end
 
-        def transform_to_wildcard(key)
+        def match_wildcard_chars(key)
           return key if @wild_char_matchers.empty?
           key.gsub(/#{@wild_char_matchers.join('|')}/, '*')
         end

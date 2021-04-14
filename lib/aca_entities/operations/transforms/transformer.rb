@@ -288,11 +288,6 @@ module AcaEntities
           end
         end
 
-        def namespace_transform_required?
-          return true if ([:rewrap_keys, :add_key, :add_namespace] & key_transforms).empty?
-          false
-        end
-
         # TODO
         def type_change(value)
           AcaEntities::Types::INCARCERATION_MAP[value.downcase.to_sym]

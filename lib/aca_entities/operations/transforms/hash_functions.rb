@@ -175,13 +175,13 @@ module AcaEntities
         #
         # @return [Hash]
         def build_nested_hash(record, values = [], data)
-          if (current_namespace = values.shift)
+          if (current_namespace = values.first)
             record[current_namespace] ||= {}
 
             if values.empty?
               record[current_namespace].deep_merge!(data)
             else
-              record[current_namespace] = build_nested_hash(record[current_namespace], values, data)
+              record[current_namespace] = build_nested_hash(record[current_namespace], values[1..-1], data)
             end
           else
             record.deep_merge!(data)
