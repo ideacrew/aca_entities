@@ -52,11 +52,11 @@ module AcaEntities
           options = args.first
 
           if options
-            if options.is_a?(Proc)
-              proc = options
-            elsif options.is_a?(Hash) && options[:memoize]
+            if options.is_a?(Hash) && options[:memoize]
               add_context((source_ns + [source_key]).join('.'), output_key, options[:function])
               return
+            else
+              proc = options
             end
           end
 
@@ -165,7 +165,6 @@ module AcaEntities
 
           def map(source_key = nil, output_key = nil, options = {})
             mapping = Map.new(source_key, output_key, options)
-            # (mapping.namespace+[mapping.source_key]).map(&:to_s).join('.')
             mapping_container.register(mapping.source_key, mapping)
           end
 
@@ -177,16 +176,8 @@ module AcaEntities
             raise 'no block given' unless block_given?
 
             map = MapSerializer.new(source_namespace, output_namespace)
-            # @namespace ||= []
-            # @namespace.push(source_namespace)
-
-            # yield if block_given?
-
-            # @namespace.pop
-
             map.instance_exec(&block) if block_given?
             map.mappings.each do |_key, mapping|
-              # key = (mapping.namespace+[mapping.source_key]).map(&:to_s).join('.')
               mapping_container.register(mapping.container_key, mapping) unless mapping_container.key?(mapping.source_key)
             end
           end
@@ -241,8 +232,6 @@ module AcaEntities
             @value = value
           end
 
-          # @proc = proc.new if proc && !proc.is_a?(Proc)
-          # @namespace = []
           transform
         end
 
@@ -258,35 +247,36 @@ module AcaEntities
           source_elements = source_key.split('.')
           output_elements = output_key.split('.')
 
-          # key_transforms.push(:nest).uniq! if elements.size > 1
-          transform_procs = key_transforms.inject([]) do |procs, action|
-            procs << case action
-            when :nest
-              output_elements.size.times.collect do |i|
-                offset = -1 * i
-                "t(:nest, :#{output_elements[-2 + offset]}, [:#{output_elements[-1 + offset]}])" if output_elements[-2 + offset]
-              end.compact
-            when :add_key
-              "t(:add_key,  #{output_elements.map(&:to_sym)}, '#{value}')"
-            when :rewrap_keys
-              "t(:rewrap_keys, #{source_elements.map(&:to_sym)}, #{output_elements.map(&:to_sym)})"
-            when :add_namespace
-              "t(:add_namespace, #{source_elements.map(&:to_sym)}, #{output_elements.map(&:to_sym)})"
-            when :rename_nested_keys
-              source = source_key.split('.').last
-              "t(:#{action}, [#{source}: :#{output_elements.last}], #{source_elements[0..-2].map(&:to_sym)})"
-            when :add_context
-              "t(:add_context, #{source_elements.map(&:to_sym)}, #{output_elements.map(&:to_sym)}, #{proc})"
-            else
-              "t(:#{action}, #{source_key}: :#{output_elements.last})"
-            end
-          end
+          transform_procs = key_transforms.collect {|action| action_to_transproc(action, source_elements, output_elements)}
 
           @transproc = if proc && !key_transforms.include?(:add_context)
             output = output_elements[0..-2]
             eval(transform_procs.flatten.join('.>> ')) >> t(:map_value, output.map(&:to_sym), proc)
           else
             eval(transform_procs.flatten.join('.>> '))
+          end
+        end
+
+        def action_to_transproc(action, source_elements, output_elements)
+          case action
+          when :nest
+            output_elements.size.times.collect do |i|
+              offset = -1 * i
+              "t(:nest, :#{output_elements[-2 + offset]}, [:#{output_elements[-1 + offset]}])" if output_elements[-2 + offset]
+            end.compact
+          when :add_key
+            "t(:add_key,  #{output_elements.map(&:to_sym)}, '#{value}')"
+          when :rewrap_keys
+            "t(:rewrap_keys, #{source_elements.map(&:to_sym)}, #{output_elements.map(&:to_sym)})"
+          when :add_namespace
+            "t(:add_namespace, #{source_elements.map(&:to_sym)}, #{output_elements.map(&:to_sym)})"
+          when :rename_nested_keys
+            source = source_key.split('.').last
+            "t(:#{action}, [#{source}: :#{output_elements.last}], #{source_elements[0..-2].map(&:to_sym)})"
+          when :add_context
+            "t(:add_context, #{source_elements.map(&:to_sym)}, #{output_elements.map(&:to_sym)}, #{proc})"
+          else
+            "t(:#{action}, #{source_key}: :#{output_elements.last})"
           end
         end
 
