@@ -36,8 +36,9 @@ module AcaEntities
           required(:submitted_at).filled(:date)
           required(:start_on).filled(:date)
           required(:end_on).filled(:date)
+          required(:effective_on).filled(:date)
+
           optional(:is_valid).maybe(:bool)
-          optional(:effective_on).maybe(:date)
           optional(:title).maybe(:string)
           optional(:qle_answer).maybe(:string)
           optional(:next_poss_effective_date).maybe(:date)

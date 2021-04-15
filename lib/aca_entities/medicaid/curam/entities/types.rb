@@ -232,10 +232,10 @@ module AcaEntities
           'urn:openhbx:terms:v1:phone_type#other'
         )
 
-        EmailKind = Types::String.enum(
-          'urn:openhbx:terms:v1:email_type#home',
-          'urn:openhbx:terms:v1:email_type#work'
-        )
+        # EmailKind = Types::String.enum(
+        #   'urn:openhbx:terms:v1:email_type#home',
+        #   'urn:openhbx:terms:v1:email_type#work'
+        # )
 
         FamilyRelationshipKind = Types::String.enum(
           'urn:openhbx:terms:v1:individual_relationship#self',

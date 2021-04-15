@@ -8,7 +8,7 @@ module AcaEntities
       # For a particular market_place we only allow a specific
       # set of product_kinds(Types::ProductsByMarketPlaceKind).
       # Add rules around this in the Contract.
-      attribute :product_kind, Types::ProductKinds.meta(omittable: false)
+      attribute :product_kind, Types::ProductKind.meta(omittable: false)
     end
   end
 end

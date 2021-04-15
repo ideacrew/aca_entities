@@ -36,8 +36,8 @@ module AcaEntities
         require 'aca_entities/magi_medicaid/application'
 
         require 'aca_entities/contracts/people/person_name_contract'
-        require 'aca_entities/contracts/contacts/phone_contract'
-        require 'aca_entities/contracts/contacts/email_contract'
+        require 'aca_entities/contracts/contacts/phone_contact_contract'
+        require 'aca_entities/contracts/contacts/email_contact_contract'
         require 'aca_entities/contracts/documents/document_contract'
         require 'aca_entities/contracts/documents/vlp_document_contract'
         require 'aca_entities/magi_medicaid/contracts/contract'

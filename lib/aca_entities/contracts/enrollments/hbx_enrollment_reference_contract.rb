@@ -19,13 +19,13 @@ module AcaEntities
           required(:effective_on).filled(:date)
           required(:aasm_state).filled(:string)
           required(:market_place_kind).filled(
-            AcaEntities::Types::EnrollmentMarketPlaceKinds
+            AcaEntities::Types::EnrollmentMarketPlaceKind
           )
           required(:enrollment_period_kind).filled(
-            AcaEntities::Types::EnrollmentKinds
+            AcaEntities::Types::EnrollmentKind
           )
           required(:product_kind).filled(
-            AcaEntities::Types::ProductKinds
+            AcaEntities::Types::ProductKind
           )
         end
       end

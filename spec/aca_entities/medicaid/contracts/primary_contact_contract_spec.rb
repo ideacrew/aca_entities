@@ -4,7 +4,7 @@ require 'spec_helper'
 require 'aca_entities/medicaid/contracts/person_name_contract'
 require 'aca_entities/medicaid/contracts/identifying_information_contract'
 require 'aca_entities/medicaid/contracts/address_contract'
-require 'aca_entities/contracts/phone_contract'
+require 'aca_entities/contracts/contacts/phone_contact_contract'
 require 'aca_entities/medicaid/contracts/preference_contract'
 require 'aca_entities/medicaid/contracts/primary_contact_contract'
 

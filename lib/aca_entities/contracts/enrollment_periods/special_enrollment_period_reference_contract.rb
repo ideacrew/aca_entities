@@ -30,11 +30,12 @@ module AcaEntities
           required(:end_on).filled(:date)
           required(:submitted_at).filled(:date)
           required(:effective_on).filled(:date)
-          optional(:next_poss_effective_date).filled(:date)
-          optional(:option1_date).filled(:date)
-          optional(:option2_date).filled(:date)
-          optional(:option3_date).filled(:date)
-          optional(:optional_effective_on).filled(:date)
+
+          optional(:next_poss_effective_date).maybe(:date)
+          optional(:option1_date).maybe(:date)
+          optional(:option2_date).maybe(:date)
+          optional(:option3_date).maybe(:date)
+          optional(:optional_effective_on).maybe(:date)
           optional(:timestamp).hash(AcaEntities::Contracts::TimeStampContract.params)
         end
       end

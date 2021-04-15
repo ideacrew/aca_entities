@@ -4,8 +4,11 @@ require 'spec_helper'
 require 'aca_entities/magi_medicaid/libraries/iap_library'
 
 RSpec.describe ::AcaEntities::MagiMedicaid::Applicant, dbclean: :after_each do
-  context 'applicant is not applying for coverage' do
-    let(:name) { { first_name: 'first', last_name: 'last' } }
+
+  describe 'with valid arguments' do
+    let(:person_name) do
+      { first_name: 'First', middle_name: 'middle', last_name: 'Last' }
+    end
     let(:identifying_information) { { has_ssn: false } }
     let(:demographic) { { gender: 'Male', dob: Date.today.prev_year.to_s } }
     let(:attestation) { { is_disabled: false } }

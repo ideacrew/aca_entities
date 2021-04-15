@@ -1793,7 +1793,7 @@ module AcaEntities
         'medicaid'
       )
 
-    ProductKinds =
+    ProductKind =
       Types::Coercible::String.enum(
         'health_catastrophic',
         'health',
@@ -1818,10 +1818,22 @@ module AcaEntities
       'pii_restricted'
     )
 
-    ServiceMarketKinds = Types::Coercible::String.enum(
+    ServiceMarketKind = Types::Coercible::String.enum(
       'shop',
       'individual',
       'coverall'
+    )
+
+    IdKey = Types::Coercible::String.enum(
+      'curam_e_case_id'
+    )
+
+    IdentifierKindKey = Types::Coercible::String.enum(
+      'e_case'
+    )
+
+    IdentifierKindNamespace = Types::Coercible::String.enum(
+      'curam'
     )
 
     PremiumCreditStrategyKinds = Types::Coercible::String.enum(
@@ -1831,7 +1843,7 @@ module AcaEntities
       'federal_employee_health_benefit'
     )
 
-    BrokerMarketKinds = Types::Coercible::String.enum(
+    BrokerMarketKind = Types::Coercible::String.enum(
       'individual',
       'shop',
       'both'
@@ -1848,7 +1860,7 @@ module AcaEntities
       'assister'
     )
 
-    EmailKinds = Types::Coercible::String.enum(
+    EmailKind = Types::Coercible::String.enum(
       'home',
       'work'
     )
@@ -1859,7 +1871,7 @@ module AcaEntities
       'mailing', 'branch'
     )
 
-    PhoneKinds = Types::Coercible::String.enum(
+    PhoneKind = Types::Coercible::String.enum(
       'home',
       'work',
       'mobile',
@@ -1885,12 +1897,12 @@ module AcaEntities
       'csr_limited'
     )
 
-    EnrollmentKinds = Types::Coercible::String.enum(
+    EnrollmentKind = Types::Coercible::String.enum(
       'open_enrollment',
       'special_enrollment'
     )
 
-    EnrollmentMarketPlaceKinds = Types::Coercible::String.enum(
+    EnrollmentMarketPlaceKind = Types::Coercible::String.enum(
       'individual', 'employer_sponsored',
       'employer_sponsored_cobra', 'coverall',
       'unassisted_qhp', 'insurance_assisted_qhp',
@@ -1943,19 +1955,9 @@ module AcaEntities
         'NoCity'
       )
 
-    PhoneKind = Types::Coercible::String.enum(
-      'home',
-      'work',
-      'mobile',
-      'fax'
-    )
-
-    EmailKind = Types::Coercible::String.enum(
-      'home',
-      'work'
-    )
-
     EmailAddressRegex = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i.freeze
+
+    ZipCodeRegex = /\A\d{5}(-\d{4})?\z/.freeze
 
     # List of the documents user can provide to verify Immigration status
     VlpDocumentKind = Types::Coercible::String.enum(

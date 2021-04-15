@@ -17,7 +17,7 @@ module AcaEntities
         params do
           required(:title).filled(:string)
           required(:market_place).filled(
-            AcaEntities::Types::ServiceMarketKinds
+            AcaEntities::Types::ServiceMarketKind
           )
           required(:start_on).filled(:date)
           required(:end_on).filled(:date)

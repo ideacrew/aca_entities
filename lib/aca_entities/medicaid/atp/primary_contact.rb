@@ -9,7 +9,7 @@ module AcaEntities
         attribute :person_name, PersonName.meta(omittable: false)
         attribute :identifying_information, IdentifyingInformation.optional.meta(omittable: true)
         attribute :addresses, Types::Array.of(Address)
-        attribute :phones, Types::Array.of(Phone)
+        attribute :phones, Types::Array.of(AcaEntities::Contacts::PhoneContact)
         attribute :preference, Types::Array.of(Preference)
       end
     end

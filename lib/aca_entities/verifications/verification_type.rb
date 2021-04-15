@@ -12,10 +12,11 @@ module AcaEntities
       attribute :external_service,                          Types::String.optional.meta(omittable: false)
       attribute :due_date,                                  Types::Date.optional.meta(omittable: false)
       attribute :due_date_type,                             Types::String.optional.meta(omittable: false)
-      attribute :updated_by,                                Types::String.optional.meta(omittable: false)
+      attribute :updated_by,                                AcaEntities::People::PersonReference.optional.meta(omittable: true)
       attribute :inactive,                                  Types::Bool.optional.meta(omittable: false)
 
-      attribute :vlp_documents,                            Types::Strict::Array.of(AcaEntities::Documents::VlpDocument)
+      attribute :vlp_documents,
+                Types::Strict::Array.of(AcaEntities::Documents::VlpDocument).optional.meta(omittable: false)
     end
   end
 end

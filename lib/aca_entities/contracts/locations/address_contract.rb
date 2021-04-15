@@ -25,17 +25,19 @@ module AcaEntities
         # @return [Dry::Monads::Result]
         params do
           optional(:has_fixed_address).filled(:bool)
-          optional(:kind).maybe(
+          required(:kind).filled(
             AcaEntities::Types::AddressKinds
           )
-          required(:address_1).maybe(:string)
+          required(:address_1).filled(:string)
           optional(:address_2).maybe(:string)
           optional(:address_3).maybe(:string)
-          required(:city).maybe(:string)
+          required(:city).filled(:string)
           optional(:county).maybe(:string)
           optional(:county_code).maybe(:string)
-          required(:state).maybe(:string)
-          required(:zip).maybe(:string)
+          required(:state).filled(:string)
+          required(:zip).filled do
+            str? & format?(Types::ZipCodeRegex)
+          end
           optional(:country_name).maybe(:string)
           optional(:validation_status).maybe(Types::AddressValidationStatusCode)
           optional(:start_on).maybe(:date)
