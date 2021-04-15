@@ -55,7 +55,7 @@ module AcaEntities
         # @option opts [Array] :deductions optional
         # @return [Dry::Monads::Result]
         params do
-          required(:name).filled(AcaEntities::Contracts::People::PersonNameContract.params)
+          required(:name).hash(AcaEntities::Contracts::People::PersonNameContract.params)
           required(:identifying_information).filled(IdentifyingInformationContract.params)
           required(:demographic).filled(DemographicContract.params)
           required(:attestation).filled(AttestationContract.params)
