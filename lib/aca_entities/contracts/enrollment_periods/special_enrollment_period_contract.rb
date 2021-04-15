@@ -46,7 +46,7 @@ module AcaEntities
           optional(:option2_date).maybe(:date)
           optional(:option3_date).maybe(:date)
           optional(:optional_effective_on).maybe(:array)
-          optional(:csl_num).maybe(:string)
+          optional(:csl_num).maybe(:string, size?: 5..10)
           optional(:market_kind).maybe(:string)
           optional(:admin_flag).maybe(:bool)
           optional(:timestamp).hash(TimeStampContract.params)

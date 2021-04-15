@@ -12,17 +12,6 @@ module AcaEntities
       # config.messages.top_namespace - the key in the locale files under which messages are defined, by default it's dry_validation
       # config.messages.namespace - custom messages namespace for a contract class. Use this to differentiate common messages
 
-      rule(:renewal_consent_through_year) do
-        if key? && values[:renewal_consent_through_year] && !(2014..2025).cover?(values[:renewal_consent_through_year])
-          key.failure('Not a valid renewal_consent_through_year')
-        end
-      end
-
-      rule(:documents).each do |index:|
-        next unless key? && value.is_a?(Hash)
-        key([:documents, :rights, index]).failure('Not a valid document right') if value[:rights] && !DocumentRights.include?(value[:rights])
-      end
-
       rule(:broker_accounts).each do |index:|
         next unless key? && value.is_a?(Hash)
         if value[:end_on] && value[:start_on] && (value[:end_on] < value[:start_on])
@@ -35,27 +24,12 @@ module AcaEntities
         if value[:end_on] && value[:start_on] && (value[:end_on] < value[:start_on])
           key([:special_enrollment_periods, :end_on, index]).failure('End on must be after start on date')
         end
-
-        if value[:csl_num] && !(6..12).cover?(value[:csl_num].length)
-          key([:special_enrollment_periods, :csl_num,
-               index]).failure('Not a valid naturalization_number')
-        end
       end
 
       rule(:general_agency_accounts).each do |index:|
         next unless key? && value.is_a?(Hash)
         if value[:end_on] && value[:start_on] && (value[:end_on] < value[:start_on])
           key([:general_agency_accounts, :end_on, index]).failure('end on must be after start on date')
-        end
-      end
-
-      rule(:payment_transactions).each do |index:|
-        next unless key? && value.is_a?(Hash)
-        key([:payment_transactions, :enrollment_id, index]).failure('Enrollment id is blank') if value[:enrollment_id] && !value[:enrollment_id]
-
-        if value[:enrollment_effective_date] && !value[:enrollment_effective_date]
-          key([:payment_transactions, :enrollment_effective_date,
-               index]).failure('Enrollment effective on is not a date')
         end
       end
 
@@ -76,49 +50,6 @@ module AcaEntities
         value.dig(:person, :consumer_role).tap do |cr|
           if cr[:is_applying_coverage] && value.dig(:person, :person_demographics, :is_incarcerated).to_s.empty?
             key([:consumer_role, :is_applying_coverage]).failure(text: 'Incarceration question must be answered')
-          end
-
-          if cr[:vlp_documents].is_a?(Array)
-
-            cr[:vlp_documents].each_with_index do |vlpd, vlpd_index|
-              if vlpd[:alien_number] && (vlpd[:alien_number].length != 9)
-                key([:vlp_documents, :alien_number, vlpd_index]).failure('Not a valid alien_number')
-              end
-
-              if vlpd[:citizenship_number] && !(6..12).cover?(vlpd[:citizenship_number].length)
-                key([:vlp_documents, :citizenship_number,
-                     vlpd_index]).failure('Not a valid citizenship_number')
-              end
-
-              if vlpd[:i94_number] && vlpd[:i94_number].length == 11
-                key([:vlp_documents, :i94_number,
-                     vlpd_index]).failure('Not a valid i94_number')
-              end
-
-              if vlpd[:naturalization_number] && !(6..12).cover?(vlpd[:naturalization_number].length)
-                key([:vlp_documents, :naturalization_number,
-                     vlpd_index]).failure('Not a valid naturalization_number')
-              end
-
-              if vlpd[:passport_number] && !(6..12).cover?(vlpd[:passport_number].length)
-                key([:vlp_documents, :passport_number,
-                     vlpd_index]).failure('Not a valid passport_number')
-              end
-
-              key([:vlp_documents, :sevis_id, vlpd_index]).failure('Not a valid sevis_id') if vlpd[:sevis_id] && vlpd[:sevis_id].length == 10
-
-              if vlpd[:visa_number] && vlpd[:visa_number].length == 8
-                key([:vlp_documents, :visa_number, vlpd_index]).failure('Not a valid visa_number')
-              end
-
-              if vlpd[:receipt_number] && vlpd[:receipt_number].length == 13
-                key([:vlp_documents, :receipt_number, vlpd_index]).failure('Not a valid receipt_number')
-              end
-
-              if vlpd[:card_number] && vlpd[:card_number].length == 13
-                key([:vlp_documents, :card_number, vlpd_index]).failure('Not a valid card_number')
-              end
-            end
           end
         end
       end

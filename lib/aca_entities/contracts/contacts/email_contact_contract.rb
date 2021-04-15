@@ -14,7 +14,9 @@ module AcaEntities
           required(:kind).filled(
             AcaEntities::Types::EmailKind
           )
-          required(:address).filled(:string)
+          required(:address).filled do
+            str? & format?(Types::EmailAddressRegex)
+          end
           optional(:start_on).maybe(:string)
           optional(:end_on).maybe(:string)
         end
