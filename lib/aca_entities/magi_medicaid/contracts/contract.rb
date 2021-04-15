@@ -211,7 +211,6 @@ module AcaEntities
           student = value[:student]
           student_failure_key = [:applicants, index, :student]
 
-          # rubocop:disable Style/Next
           if Types::StudentRange.cover?(age_of_applicant)
             err_text = "must be filled if age of applicant is within #{Types::StudentRange}."
             key(student_failure_key + [:is_student]).failure(text: err_text) if check_if_blank?(student[:is_student])
@@ -220,6 +219,37 @@ module AcaEntities
               key(student_failure_key + [:student_kind]).failure(text: err_text) if check_if_blank?(student[:student_kind])
 
               key(student_failure_key + [:student_school_kind]).failure(text: err_text) if check_if_blank?(student[:student_school_kind])
+            end
+          end
+
+          # Phone
+          if check_if_present?(value[:phones]) && value[:phones].is_a?(Array)
+            value[:phones].each_with_index do |phone, p_index|
+              # end_on
+              if check_if_present?(phone[:end_on]) && phone[:start_on] && phone[:end_on] < phone[:start_on]
+                key([:applicants, index, :phones, p_index, :end_on]).failure(text: 'must be after phone start_on')
+              end
+            end
+          end
+
+          # Email
+          if check_if_present?(value[:emails]) && value[:emails].is_a?(Array)
+            value[:emails].each_with_index do |email, e_index|
+              # end_on
+              if check_if_present?(email[:end_on]) && email[:start_on] && email[:end_on] < email[:start_on]
+                key([:applicants, index, :emails, e_index, :end_on]).failure(text: 'must be after email start_on')
+              end
+            end
+          end
+
+          # Address
+          # rubocop:disable Style/Next
+          if check_if_present?(value[:addresses]) && value[:addresses].is_a?(Array)
+            value[:addresses].each_with_index do |address, add_index|
+              # end_on
+              if check_if_present?(address[:end_on]) && address[:start_on] && address[:end_on] < address[:start_on]
+                key([:applicants, index, :addresses, add_index, :end_on]).failure(text: 'must be after address start_on')
+              end
             end
           end
           # rubocop:enable Style/Next

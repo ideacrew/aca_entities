@@ -602,6 +602,73 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicationContract,  dbcle
           end
         end
       end
+
+      context 'phones' do
+        context 'end_on' do
+          let(:input_params) { { family_reference: family_reference, assistance_year: Date.today.year, applicants: [local_applicant] } }
+          let(:local_phone) do
+            { kind: 'home',
+              area_code: '100',
+              number: '1234567',
+              primary: true,
+              full_phone_number: '1001234567',
+              start_on: Date.today.to_s,
+              end_on: Date.today.prev_month.to_s }
+          end
+          let(:local_applicant) { applicant.merge({ phones: [local_phone] }) }
+
+          it 'should return failure with error message' do
+            err = subject.call(input_params).errors.to_h[:applicants][0][:phones][0][:end_on].first
+            expect(err).to eq('must be after phone start_on')
+          end
+        end
+      end
+
+      context 'emails' do
+        context 'end_on' do
+          let(:input_params) { { family_reference: family_reference, assistance_year: Date.today.year, applicants: [local_applicant] } }
+          let(:local_email) do
+            { kind: 'home',
+              address: 'test@tt.com',
+              start_on: Date.today.to_s,
+              end_on: Date.today.prev_month.to_s }
+          end
+          let(:local_applicant) { applicant.merge({ emails: [local_email] }) }
+
+          it 'should return failure with error message' do
+            err = subject.call(input_params).errors.to_h[:applicants][0][:emails][0][:end_on].first
+            expect(err).to eq('must be after email start_on')
+          end
+        end
+      end
+
+      context 'addresses' do
+        context 'end_on' do
+          let(:input_params) { { family_reference: family_reference, assistance_year: Date.today.year, applicants: [local_applicant] } }
+          let(:local_address) do
+            { has_fixed_address: true,
+              kind: 'home',
+              address_1: '1234',
+              address_3: 'person',
+              city: 'test',
+              county: '',
+              county_name: '',
+              state: 'DC',
+              zip: '12345',
+              country_name: 'USA',
+              validation_status: 'ValidMatch',
+              lives_outside_state_temporarily: false,
+              start_on: Date.today.to_s,
+              end_on: Date.today.prev_month.to_s }
+          end
+          let(:local_applicant) { applicant.merge({ addresses: [local_address] }) }
+
+          it 'should return failure with error message' do
+            err = subject.call(input_params).errors.to_h[:applicants][0][:addresses][0][:end_on].first
+            expect(err).to eq('must be after address start_on')
+          end
+        end
+      end
     end
 
     context 'missing assistance_year' do
