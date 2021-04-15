@@ -19,12 +19,16 @@ module AcaEntities
           # @option opts [Date] :enrollment_effective_date required
           # @option opts [String] :status optional
           # @return [Dry::Monads::Result]
+
           params do
-            optional(:payment_transaction_id).maybe(:string)
-            required(:enrollment_id).value(:string)
-            required(:issuer_profile_reference).hash(AcaEntities::Contracts::Organizations::IssuerProfileReferenceContract.params)
-            required(:enrollment_effective_date).value(:date)
+            required(:enrollment_id).filled(:string)
+            required(:carrier_id).filled(:string)
+            # TODO: Needs refactor
+            # required(:issuer_profile_reference).hash(AcaEntities::Contracts::Organizations::IssuerProfileReferenceContract.params)
+            required(:enrollment_effective_date).filled(:date)
+
             optional(:status).maybe(:string)
+            optional(:payment_transaction_id).maybe(:string)
           end
         end
       end

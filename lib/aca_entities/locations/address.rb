@@ -7,7 +7,7 @@ module AcaEntities
       # @!attribute [r] has_fixed_address
       # Whether applicant has a fixed address.
       # @return [String]
-      attribute :has_fixed_address, Types::Bool.meta(omittable: false)
+      attribute :has_fixed_address, Types::Bool.optional.meta(omittable: true)
       attribute :kind,              Types::String.optional.meta(omittable: false)
       attribute :address_1,         Types::String.optional.meta(omittable: false)
       attribute :address_2,         Types::String.optional.meta(omittable: true)

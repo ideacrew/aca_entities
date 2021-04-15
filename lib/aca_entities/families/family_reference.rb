@@ -5,7 +5,7 @@ module AcaEntities
     class FamilyReference < Dry::Struct
 
       # This maps to hbx_assigned_id of family.
-      attribute :hbx_id,          Types::String.meta(omittable: true)
+      attribute :hbx_id,          Types::String.optional.meta(omittable: false)
     end
   end
 end

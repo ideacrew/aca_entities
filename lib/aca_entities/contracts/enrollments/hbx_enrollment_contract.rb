@@ -51,17 +51,17 @@ module AcaEntities
         # @option opts [Hash] :timestamp optional
         # @return [Dry::Monads::Result]
         params do
-          required(:hbx_id).filled(:string)
+          optional(:hbx_id).maybe(:string)
           required(:effective_on).filled(:date)
           required(:aasm_state).filled(:string)
           required(:market_place_kind).filled(
-            AcaEntities::Types::EnrollmentMarketPlaceKinds
+            AcaEntities::Types::EnrollmentMarketPlaceKind
           )
           required(:enrollment_period_kind).filled(
-            AcaEntities::Types::EnrollmentKinds
+            AcaEntities::Types::EnrollmentKind
           )
           required(:product_kind).filled(
-            AcaEntities::Types::ProductKinds
+            AcaEntities::Types::ProductKind
           )
           required(:hbx_enrollment_members).array(AcaEntities::Contracts::Enrollments::HbxEnrollmentMemberContract.params)
           required(:product_reference).hash(AcaEntities::Contracts::Products::ProductReferenceContract.params)

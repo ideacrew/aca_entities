@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Entities
+module AcaEntities
   module People
     class PersonHealth < Dry::Struct
 

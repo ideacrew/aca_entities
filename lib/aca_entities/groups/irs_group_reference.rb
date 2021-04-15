@@ -4,7 +4,7 @@ module AcaEntities
   module Groups
     class IrsGroupReference < Dry::Struct
 
-      attribute :hbx_id,     Types::String.meta(omittable: false)
+      attribute :hbx_id,     Types::String.optional.meta(omittable: false)
     end
   end
 end

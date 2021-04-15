@@ -19,10 +19,10 @@ module AcaEntities
         params do
           required(:hbx_id).filled(:string)
           required(:first_name).filled(:string)
-          optional(:middle_name).filled(:string)
+          optional(:middle_name).maybe(:string)
           required(:last_name).filled(:string)
-          optional(:ssn).filled(:string)
-          optional(:no_ssn).filled(:bool)
+          optional(:ssn).maybe(:string)
+          optional(:no_ssn).maybe(:bool)
           required(:dob).filled(:date)
           required(:gender).filled(:string)
         end

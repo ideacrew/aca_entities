@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'aca_entities/contracts/applicant_role_contract'
-
 module AcaEntities
   module Contracts
     module People
@@ -57,8 +55,8 @@ module AcaEntities
           optional(:verification_types).array(AcaEntities::Contracts::Verifications::VerificationTypeContract.params)
           optional(:broker_role).hash(AcaEntities::Contracts::Brokers::BrokerRoleContract.params)
           optional(:addresses).array(AcaEntities::Contracts::Locations::AddressContract.params)
-          optional(:phones).array(AcaEntities::Contracts::Contacts::PhoneContract.params)
-          optional(:emails).array(AcaEntities::Contracts::Contacts::EmailContract.params)
+          optional(:phones).array(AcaEntities::Contracts::Contacts::PhoneContactContract.params)
+          optional(:emails).array(AcaEntities::Contracts::Contacts::EmailContactContract.params)
           optional(:documents).array(AcaEntities::Contracts::Documents::DocumentContract.params)
           optional(:timestamp).hash(TimeStampContract.params)
 

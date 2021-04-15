@@ -29,15 +29,16 @@ module AcaEntities
           required(:title).filled(:string)
           required(:creator).filled(:string)
           required(:subject).filled(:string)
-          optional(:description).maybe(:string)
           required(:publisher).filled(:string)
-          optional(:contributor).maybe(:string)
-          optional(:date).maybe(:date)
-          required(:type).filled(:string)
-          required(:format).filled(:string)
-          optional(:identifier).maybe(:string)
           required(:source).filled(:string)
           required(:language).filled(:string)
+          required(:type).filled(:string)
+          required(:format).filled(:string)
+
+          optional(:description).maybe(:string)
+          optional(:contributor).maybe(:string)
+          optional(:date).maybe(:date)
+          optional(:identifier).maybe(:string)
           optional(:relation).maybe(:string)
           optional(:coverage).maybe(:string)
           optional(:rights).maybe(
@@ -45,6 +46,7 @@ module AcaEntities
           )
           optional(:tags).maybe(:array)
           optional(:size).maybe(:string)
+          optional(:doc_identifier).maybe(:string)
         end
       end
     end

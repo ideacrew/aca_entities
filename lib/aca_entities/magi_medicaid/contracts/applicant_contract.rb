@@ -111,8 +111,8 @@ module AcaEntities
           required(:has_eligible_health_coverage).filled(:bool)
 
           optional(:addresses).array(AcaEntities::Contracts::Locations::AddressContract.params)
-          optional(:emails).array(AcaEntities::Contracts::Contacts::EmailContract.params)
-          optional(:phones).array(AcaEntities::Contracts::Contacts::PhoneContract.params)
+          optional(:emails).array(AcaEntities::Contracts::Contacts::EmailContactContract.params)
+          optional(:phones).array(AcaEntities::Contracts::Contacts::PhoneContactContract.params)
           optional(:incomes).array(IncomeContract.params)
           optional(:benefits).array(BenefitContract.params)
           optional(:deductions).array(DeductionContract.params)

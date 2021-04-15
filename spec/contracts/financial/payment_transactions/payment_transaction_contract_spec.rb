@@ -9,9 +9,9 @@ RSpec.describe ::AcaEntities::Contracts::Financial::PaymentTransactions::Payment
     context "calling with params values as nil" do
       let(:invalid_params) { { enrollment_id: '', carrier_id: '', enrollment_effective_date: '' } }
       let(:error_message) do
-        { :carrier_id => ["Carrier id is blank"],
-          :enrollment_effective_date => ["must be a date"],
-          :enrollment_id => ["Enrollment id is blank"] }
+        { :carrier_id => ["must be filled"],
+          :enrollment_effective_date => ["must be filled"],
+          :enrollment_id => ["must be filled"] }
       end
 
       it 'should be a container-ready operation' do

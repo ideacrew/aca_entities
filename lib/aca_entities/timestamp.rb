@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Entities
+module AcaEntities
   class TimeStamp < Dry::Struct
 
     attribute :submitted_at,                        Types::Date.optional.meta(omittable: true)

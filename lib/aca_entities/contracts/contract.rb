@@ -72,66 +72,53 @@ module AcaEntities
           end
         end
 
-        if value.dig(:person, :consumer_role).is_a?(Hash)
-          value.dig(:person, :consumer_role).tap do |cr|
-            if cr[:is_applying_coverage] && value.dig(:person, :person_demographics, :is_incarcerated).to_s.empty?
-              key([:consumer_role, :is_applying_coverage]).failure(text: 'Incarceration question must be answered')
-            end
+        next unless value.dig(:person, :consumer_role).is_a?(Hash)
+        value.dig(:person, :consumer_role).tap do |cr|
+          if cr[:is_applying_coverage] && value.dig(:person, :person_demographics, :is_incarcerated).to_s.empty?
+            key([:consumer_role, :is_applying_coverage]).failure(text: 'Incarceration question must be answered')
+          end
 
-            if cr[:vlp_documents].is_a?(Array)
+          if cr[:vlp_documents].is_a?(Array)
 
-              cr[:vlp_documents].each_with_index do |vlpd, vlpd_index|
-                if vlpd[:alien_number] && (vlpd[:alien_number].length != 9)
-                  key([:vlp_documents, :alien_number, vlpd_index]).failure('Not a valid alien_number')
-                end
+            cr[:vlp_documents].each_with_index do |vlpd, vlpd_index|
+              if vlpd[:alien_number] && (vlpd[:alien_number].length != 9)
+                key([:vlp_documents, :alien_number, vlpd_index]).failure('Not a valid alien_number')
+              end
 
-                if vlpd[:citizenship_number] && !(6..12).cover?(vlpd[:citizenship_number].length)
-                  key([:vlp_documents, :citizenship_number,
-                       vlpd_index]).failure('Not a valid citizenship_number')
-                end
+              if vlpd[:citizenship_number] && !(6..12).cover?(vlpd[:citizenship_number].length)
+                key([:vlp_documents, :citizenship_number,
+                     vlpd_index]).failure('Not a valid citizenship_number')
+              end
 
-                if vlpd[:i94_number] && vlpd[:i94_number].length == 11
-                  key([:vlp_documents, :i94_number,
-                       vlpd_index]).failure('Not a valid i94_number')
-                end
+              if vlpd[:i94_number] && vlpd[:i94_number].length == 11
+                key([:vlp_documents, :i94_number,
+                     vlpd_index]).failure('Not a valid i94_number')
+              end
 
-                if vlpd[:naturalization_number] && !(6..12).cover?(vlpd[:naturalization_number].length)
-                  key([:vlp_documents, :naturalization_number,
-                       vlpd_index]).failure('Not a valid naturalization_number')
-                end
+              if vlpd[:naturalization_number] && !(6..12).cover?(vlpd[:naturalization_number].length)
+                key([:vlp_documents, :naturalization_number,
+                     vlpd_index]).failure('Not a valid naturalization_number')
+              end
 
-                if vlpd[:passport_number] && !(6..12).cover?(vlpd[:passport_number].length)
-                  key([:vlp_documents, :passport_number,
-                       vlpd_index]).failure('Not a valid passport_number')
-                end
+              if vlpd[:passport_number] && !(6..12).cover?(vlpd[:passport_number].length)
+                key([:vlp_documents, :passport_number,
+                     vlpd_index]).failure('Not a valid passport_number')
+              end
 
-                key([:vlp_documents, :sevis_id, vlpd_index]).failure('Not a valid sevis_id') if vlpd[:sevis_id] && vlpd[:sevis_id].length == 10
+              key([:vlp_documents, :sevis_id, vlpd_index]).failure('Not a valid sevis_id') if vlpd[:sevis_id] && vlpd[:sevis_id].length == 10
 
-                if vlpd[:visa_number] && vlpd[:visa_number].length == 8
-                  key([:vlp_documents, :visa_number, vlpd_index]).failure('Not a valid visa_number')
-                end
+              if vlpd[:visa_number] && vlpd[:visa_number].length == 8
+                key([:vlp_documents, :visa_number, vlpd_index]).failure('Not a valid visa_number')
+              end
 
-                if vlpd[:receipt_number] && vlpd[:receipt_number].length == 13
-                  key([:vlp_documents, :receipt_number, vlpd_index]).failure('Not a valid receipt_number')
-                end
+              if vlpd[:receipt_number] && vlpd[:receipt_number].length == 13
+                key([:vlp_documents, :receipt_number, vlpd_index]).failure('Not a valid receipt_number')
+              end
 
-                if vlpd[:card_number] && vlpd[:card_number].length == 13
-                  key([:vlp_documents, :card_number, vlpd_index]).failure('Not a valid card_number')
-                end
+              if vlpd[:card_number] && vlpd[:card_number].length == 13
+                key([:vlp_documents, :card_number, vlpd_index]).failure('Not a valid card_number')
               end
             end
-          end
-        end
-
-        next unless value.dig(:person, :addresses).is_a?(Array)
-        value.dig(:person, :addresses).each_with_index do |adr, adr_index|
-          key([:addresses, :kind, adr_index]).failure(text: 'Kind cannot be blank') if adr[:kind].to_s.empty?
-          key([:addresses, :address_1, adr_index]).failure(text: 'Address1 cannot be blank') if adr[:address_1].to_s.empty?
-          key([:addresses, :city, adr_index]).failure(text: 'City cannot be blank') if adr[:city].to_s.empty?
-          key([:addresses, :state, adr_index]).failure(text: 'State cannot be blank') if adr[:state].to_s.empty?
-          key([:addresses, :zip, adr_index]).failure(text: 'Zip cannot be blank') if adr[:zip].to_s.empty?
-          if adr[:zip].to_s.empty? && !/\A\d{5}(-\d{4})?\z/.match?(adr[:zip])
-            key([:addresses, :zip, adr_index]).failure(text: 'Zip should be in the form: 12345 or 12345-1234')
           end
         end
       end

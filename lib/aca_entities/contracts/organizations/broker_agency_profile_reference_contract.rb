@@ -18,7 +18,7 @@ module AcaEntities
         params do
           required(:hbx_id).filled(:string)
           required(:market_kind).filled(
-            AcaEntities::Types::BrokerMarketKinds
+            AcaEntities::Types::BrokerMarketKind
           )
           required(:name).filled(:string)
           optional(:dba).maybe(:string)
