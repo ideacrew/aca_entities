@@ -6,7 +6,7 @@ require 'aca_entities/magi_medicaid/libraries/iap_library'
 RSpec.describe ::AcaEntities::MagiMedicaid::Application, dbclean: :after_each do
 
   context 'with valid params' do
-    let(:name) { { first_name: 'first', last_name: 'last' } }
+    let(:name) { { first_name: 'first', middle_name: nil, last_name: 'last' } }
     let(:identifying_information) { { has_ssn: false } }
     let(:demographic) { { gender: 'Male', dob: Date.today.prev_year.to_s } }
     let(:attestation) { { is_disabled: false } }
@@ -126,7 +126,7 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Application, dbclean: :after_each do
 
     context 'with multiple applicants and relationships' do
       let(:applicant2) do
-        applicant.merge({ person_hbx_id: '101', name: { first_name: 'wifey', last_name: 'last' } })
+        applicant.merge({ person_hbx_id: '101', name: { first_name: 'wifey', middle_name: nil, last_name: 'last' } })
       end
 
       let(:applicant1_ref) do
