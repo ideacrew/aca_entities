@@ -84,6 +84,41 @@ RSpec.describe AcaEntities::Contracts::Contacts::PhoneContactContract,  dbclean:
         expect(@result.errors.to_h).to eq({ full_phone_number: ["length must be 10"] })
       end
     end
+
+    context 'alphabets as input for area_code' do
+      let(:input_params) { required_params.merge(optional_params).merge({ area_code: 'abc' }) }
+
+      before do
+        @result = subject.call(input_params)
+      end
+
+      it 'should return failure with error message' do
+        expect(@result.errors.to_h).to eq({ area_code: ['is in invalid format'] })
+      end
+    end
+
+    context 'alphabets as input for number' do
+      let(:input_params) { required_params.merge(optional_params).merge({ number: 'abcdefg' }) }
+
+      before do
+        @result = subject.call(input_params)
+      end
+
+      it 'should return failure with error message' do
+        expect(@result.errors.to_h).to eq({ number: ['is in invalid format'] })
+      end
+    end
+
+    context 'alphabets as input for full_phone_number' do
+      let(:input_params) { required_params.merge(optional_params).merge({ full_phone_number: 'abcdefghij' }) }
+
+      before do
+        @result = subject.call(input_params)
+      end
+
+      it 'should return failure with error message' do
+        expect(@result.errors.to_h).to eq({ full_phone_number: ['is in invalid format'] })
+      end
+    end
   end
 end
-
