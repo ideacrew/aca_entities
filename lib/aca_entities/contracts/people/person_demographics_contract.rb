@@ -20,17 +20,17 @@ module AcaEntities
         # @option opts [String] :language_code required
         # @return [Dry::Monads::Result]
         params do
-          required(:ssn).filled(:string)
-          required(:no_ssn).filled(:bool)
-          required(:gender).filled(:string)
-          required(:dob).filled(:date)
-          optional(:date_of_death).filled(:date)
-          optional(:dob_check).filled(:date)
+          required(:ssn).value(:str?)
+          optional(:no_ssn).maybe(:bool)
+          required(:gender).value(:str?)
+          required(:dob).value(:date?)
+          optional(:date_of_death).value(:date?)
+          optional(:dob_check).maybe(:date)
           required(:is_incarcerated).filled(:bool)
-          optional(:ethnicity).filled(:array)
-          optional(:race).filled(:string)
-          optional(:tribal_id).filled(:string)
-          optional(:language_code).filled(:string)
+          optional(:ethnicity).maybe(:array)
+          optional(:race).maybe(:string)
+          optional(:tribal_id).maybe(:string)
+          optional(:language_code).maybe(:string)
         end
       end
     end

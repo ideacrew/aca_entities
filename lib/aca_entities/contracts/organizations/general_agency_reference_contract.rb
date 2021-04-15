@@ -21,10 +21,10 @@ module AcaEntities
             AcaEntities::Types::GeneralAgencyMarketKinds
           )
           required(:name).filled(:string)
-          optional(:dba).filled(:string)
-          optional(:display_name).filled(:string)
           required(:fein).filled(:string)
-          optional(:corporate_npn).filled(:string)
+          optional(:dba).maybe(:string)
+          optional(:display_name).maybe(:string)
+          optional(:corporate_npn).maybe(:string)
         end
       end
     end

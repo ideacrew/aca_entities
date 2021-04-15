@@ -24,7 +24,7 @@ module AcaEntities
           required(:metal_level).filled(:string)
           required(:benefit_market_kind).filled(:string)  # TODO: types
           required(:product_kind).filled(:string) # TODO: types
-          required(:ehb_percent).filled(:string)
+          optional(:ehb_percent).maybe(:string)
           required(:issuer_profile_reference).hash(AcaEntities::Contracts::Organizations::IssuerProfileReferenceContract.params)
         end
       end

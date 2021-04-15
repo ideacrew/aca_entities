@@ -25,7 +25,7 @@ module AcaEntities
           optional(:update_reason).maybe(:string)
           optional(:rejected).maybe(:bool)
           optional(:external_service).maybe(:string)
-          optional(:due_date).maybe(:date)
+          optional(:due_date).value(:date?)
           optional(:due_date_type).maybe(:string)
           optional(:updated_by).hash(AcaEntities::Contracts::People::PersonReferenceContract.params)
           optional(:inactive).maybe(:bool)

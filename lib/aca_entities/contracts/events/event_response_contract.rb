@@ -11,7 +11,7 @@ module AcaEntities
         # @option opts [Date] :body optional
         # @return [Dry::Monads::Result]
         params do
-          optional(:received_at).maybe(:date)
+          optional(:received_at).value(:date?)
           optional(:body).maybe(:string)
         end
       end

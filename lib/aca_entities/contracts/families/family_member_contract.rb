@@ -20,7 +20,7 @@ module AcaEntities
         # @return [Dry::Monads::Result]
         params do
           optional(:hbx_id).filled(:string)  # TODO: until hbx_id added to family this is person hbx_id
-          required(:is_primary_applicant).filled(:bool)
+          required(:is_primary_applicant).value(:bool?)
           optional(:is_consent_applicant).maybe(:bool)
           optional(:is_coverage_applicant).maybe(:bool)
           optional(:is_active).maybe(:bool)

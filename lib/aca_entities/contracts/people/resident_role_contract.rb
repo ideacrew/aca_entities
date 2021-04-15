@@ -19,8 +19,8 @@ module AcaEntities
         params do
           required(:is_applicant).filled(:bool)
           optional(:is_active).maybe(:bool)
-          required(:is_state_resident).filled(:bool)
-          optional(:residency_determined_at).maybe(:date)
+          required(:is_state_resident).value(:bool?)
+          optional(:residency_determined_at).value(:date?)
           optional(:contact_method).maybe(:string)
           optional(:language_preference).maybe(:string)
           optional(:local_residency_responses).array(AcaEntities::Contracts::Events::EventResponseContract.params)

@@ -41,5 +41,4 @@ RSpec.describe ::AcaEntities::Contracts::People::PersonNameContract,  dbclean: :
       expect(subject.call(input_params)).to be_success
     end
   end
-
 end

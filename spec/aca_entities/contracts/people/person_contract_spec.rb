@@ -17,7 +17,7 @@ RSpec.describe AcaEntities::Contracts::People::PersonContract, type: :model, dbc
   let!(:person_health) do
     {
       is_tobacco_user: 'unknown',
-      is_physically_disabled: 'false'
+      is_physically_disabled: false
     }
   end
 
@@ -144,7 +144,7 @@ RSpec.describe AcaEntities::Contracts::People::PersonContract, type: :model, dbc
       is_active: true,
       bookmark_url: "/families/home",
       is_state_resident: true,
-      residency_determined_at: nil,
+      residency_determined_at: Date.today,
       contact_method: "Paper and Electronic communications",
       language_preference: "English",
       local_residency_responses: event_response,
@@ -200,7 +200,7 @@ RSpec.describe AcaEntities::Contracts::People::PersonContract, type: :model, dbc
         update_reason: nil,
         rejected: false,
         external_service: nil,
-        due_date: nil,
+        due_date: Date.today,
         due_date_type: nil,
         updated_by: person_reference,
         inactive: nil,
@@ -250,7 +250,6 @@ RSpec.describe AcaEntities::Contracts::People::PersonContract, type: :model, dbc
         description: nil,
         publisher: "dchl",
         contributor: nil,
-        date: nil,
         type: "text",
         format: "application/octet-stream",
         identifier: nil,
@@ -258,10 +257,9 @@ RSpec.describe AcaEntities::Contracts::People::PersonContract, type: :model, dbc
         language: "en",
         relation: nil,
         coverage: nil,
-        rights: nil,
+        rights: 'public',
         tags: [], size: nil,
         doc_identifier: nil,
-        _type: "VlpDocument",
         alien_number: "047122478",
         i94_number: nil,
         visa_number: nil,
@@ -272,7 +270,6 @@ RSpec.describe AcaEntities::Contracts::People::PersonContract, type: :model, dbc
         citizenship_number: nil,
         card_number: nil,
         country_of_citizenship: nil,
-        expiration_date: nil,
         issuing_country: nil,
         status: "not submitted",
         verification_type: "Citizenship",
@@ -290,12 +287,11 @@ RSpec.describe AcaEntities::Contracts::People::PersonContract, type: :model, dbc
         description: nil,
         publisher: "mhc",
         contributor: nil,
-        date: nil,
         type: "text",
         format: "application/octet-stream",
         identifier: nil, source: "enroll_system",
         language: "en", relation: nil, coverage: nil,
-        rights: nil,
+        rights: 'public',
         tags: [],
         size: nil,
         doc_identifier: nil,

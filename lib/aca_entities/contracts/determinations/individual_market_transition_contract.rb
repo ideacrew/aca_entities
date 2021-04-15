@@ -17,12 +17,12 @@ module AcaEntities
           required(:role_type).filled(
             AcaEntities::Types::MarketTransitionRoleTypes
           )
-          optional(:start_on).filled(:date)
-          optional(:end_on).filled(:date)
+          optional(:start_on).value(:date?)
+          optional(:end_on).value(:date?)
           required(:reason_code).filled(
             AcaEntities::Types::MarketTransitionReasonCodes
           )
-          required(:submitted_at).filled(:date)
+          required(:submitted_at).value(:date?)
         end
       end
     end

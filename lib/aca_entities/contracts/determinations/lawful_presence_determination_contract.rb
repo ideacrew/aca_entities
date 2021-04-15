@@ -20,7 +20,7 @@ module AcaEntities
         # @option opts [Array] :vlp_requests optional
         # @return [Dry::Monads::Result]
         params do
-          optional(:vlp_verified_at).maybe(:date)
+          optional(:vlp_verified_at).value(:date?)
           optional(:vlp_authority).maybe(:string)
           optional(:vlp_document_id).maybe(:string) # TODO: Revisit
           optional(:citizen_status).maybe(:string)
