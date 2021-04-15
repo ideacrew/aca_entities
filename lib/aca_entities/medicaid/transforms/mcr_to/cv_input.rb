@@ -1,24 +1,28 @@
+# frozen_string_literal: true
+
 # This file defines the maps
 module AcaEntities
   module Medicaid
     module Transforms
       module McrTo
+        # Transform Keys and Values
         class CvInput < ::AcaEntities::Operations::Transforms::Transform
           include ::AcaEntities::Operations::Transforms::Transformer
-          #import AcaEntities::Mcr::Transformations
+          # import AcaEntities::Mcr::Transformations
           # transform functions
 
           record_delimiter 'applications.identifier.result' # TODO: support wild card ex. applications.*.result (prefer Regex)
           # source_vocabulary :mcr
 
-          # TODO namespace_map "source || output"
+          # TODO: namespace_map "source || output"
 
           AgeOn = AcaEntities::Functions::AgeOn.new(on_date: "2020-1-1")
 
           namespace 'attestations' do
             rewrap 'family' do
               add_key 'hbx_id', 1234
-              # map 'renewEligibilityYearQuantity', 'renewal_consent_through_year' #, -> {|year | year + value_of("attestations.application.applicationSignatures")}
+              # map 'renewEligibilityYearQuantity', 'renewal_consent_through_year',
+              # -> {|year | year + value_of("attestations.application.applicationSignatures")}
               add_key 'vlp_documents_status'
               add_key 'min_verifications_due_date'
               add_key 'special_enrollment_periods'
@@ -36,15 +40,16 @@ module AcaEntities
               # map "application.contactInformation.email", "family_members.person.emails", AcaEntities::Functions::PrimaryApplicant
               # map "application.contactInformation.primaryPhoneNumber", "family_members.person.phones", AcaEntities::Functions::PrimaryApplicant
 
-              map 'application.contactMemberIdentifier', 'family.family_members.is_primary_applicant', {memoize: true, function: AcaEntities::Functions::PrimaryApplicantBuilder}
+              map 'application.contactMemberIdentifier', 'family.family_members.is_primary_applicant',
+                  { memoize: true, function: AcaEntities::Functions::PrimaryApplicantBuilder }
 
               # namespace 'members.*', context: {ref: 'members', element: 'id', type: 'members'} do
-              namespace 'members.*', nil, context: {name: 'members'} do
+              namespace 'members.*', nil, context: { name: 'members' } do
 
                 # rewrap 'attestations.members.*', 'family.family_members', type: :array do
                 rewrap 'family.family_members', type: :array do
 
-                  add_key 'is_primary_applicant', -> v { v.resolve('family.family_members.is_primary_applicant').item == v.resolve(:members).item }
+                  add_key 'is_primary_applicant', ->(v) { v.resolve('family.family_members.is_primary_applicant').item == v.resolve(:members).item }
 
                   namespace 'demographic' do
                     rewrap 'family.family_members.person' do
@@ -54,11 +59,11 @@ module AcaEntities
                       # add_key 'person_relationships', -> v { v.context(:person_relationships).person_relationships }
 
                       add_namespace 'identifiers', 'family.family_members.person.identifiers', type: :array do
-                        add_key 'source_system_key', 'ccr' #source_vocabulary
+                        add_key 'source_system_key', 'ccr' # source_vocabulary
 
                         add_namespace 'ids', 'family.family_members.person.identifiers.ids', type: :array do
-                          add_key 'key', -> v { v.resolve(:members).name } # should be derived based on context
-                          add_key 'item', -> v { v.resolve(:members).item } # should pick id from the source payload
+                          add_key 'key', ->(v) { v.resolve(:members).name } # should be derived based on context
+                          add_key 'item', ->(v) { v.resolve(:members).item } # should pick id from the source payload
                         end
                       end
 
@@ -72,7 +77,7 @@ module AcaEntities
                       map 'americanIndianAlaskanNativeIndicator', 'americanIndianAlaskanNativeIndicator'
 
                       add_key 'no_ssn', 'false'
-                      map 'ssn', 'encrypted_ssn'#, Dry::Transformer(:nest, :address, [:street, :zipcode])
+                      map 'ssn', 'encrypted_ssn' # , Dry::Transformer(:nest, :address, [:street, :zipcode])
                       # map 'birthDate', 'age', -> v { age_of(v) }
                       map 'birthDate', 'age', AgeOn
 
@@ -82,8 +87,8 @@ module AcaEntities
                       # end
 
                       # map 'type', 'kind',  '-> (value){ value.to_s.downcase }'
-                      map 'status', 'is_active',  -> (value){ boolean(value)}
-                      map 'sex', 'gender', -> (value){ value.to_s.downcase }
+                      map 'status', 'is_active',  ->(value) { boolean(value)}
+                      map 'sex', 'gender', ->(value) { value.to_s.downcase }
 
                       # map 'incarcerationType', 'is_incarcerated',  '-> (value){ AcaEntities::Types::McrToCvIncarcerationKind[value] }'
                       # map 'computed.members.*.ssnStatusReason', 'no_ssn'
@@ -103,7 +108,7 @@ module AcaEntities
                           add_key 'kind', 'mailing'
                           map 'streetName1', 'address_1'
                           # add_key 'address_2'
-                          map 'cityName', 'city'#
+                          map 'cityName', 'city' #
                           map 'countyName', 'county'
                           map 'countyFipsCode', 'county_code'
                           map 'stateCode', 'state'

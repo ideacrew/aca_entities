@@ -35,8 +35,8 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Contracts::FederalPovertyLevelContra
 
       let(:invalid_effective_dates) do
         {
-            aptc_effective_start_on: aptc_effective_start_on,
-            aptc_effective_end_on: invalid_aptc_effective_end_on
+          aptc_effective_start_on: aptc_effective_start_on,
+          aptc_effective_end_on: invalid_aptc_effective_end_on
         }
       end
 

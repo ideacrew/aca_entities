@@ -1,7 +1,11 @@
+# frozen_string_literal: true
+
+# rubocop:disable all
+
 module AcaEntities
   module MagiMedicaid
     module Db
-      # Note: these seed values are valid for Lower 48.  AK and HI have difference factors
+      # NOTE: these seed values are valid for Lower 48.  AK and HI have difference factors
       FederalPovertyLevelSeed = [
         {
           medicaid_year: 2013,
@@ -75,3 +79,5 @@ module AcaEntities
     end
   end
 end
+
+# rubocop:enable all

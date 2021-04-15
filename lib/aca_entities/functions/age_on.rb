@@ -2,6 +2,7 @@
 
 module AcaEntities
   module Functions
+    # Calculate age based on date of birth and on given date
     class AgeOn
       extend Dry::Transformer::Registry
       import Dry::Transformer::Coercions
@@ -38,8 +39,8 @@ module AcaEntities
       #
       # @api private
       def age_on(dob, on_date: @on_date || Date.today)
-        dob =  (t(:to_string).>>t(:to_date))[dob]
-        on_date =  (t(:to_string).>>t(:to_date))[on_date]
+        dob = (t(:to_string).>>t(:to_date))[dob]
+        on_date = (t(:to_string).>>t(:to_date))[on_date]
         age = on_date.year - dob.to_date.year
         return age - 1 unless on_date.month > dob.month || (on_date.month == dob.month && on_date.day >= dob.day)
         age

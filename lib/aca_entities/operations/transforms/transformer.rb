@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# rubocop:disable Naming/MemoizedInstanceVariableName
+# rubocop:disable Naming/MemoizedInstanceVariableName, Security/Eval, Metrics/CyclomaticComplexity, Lint/UselessMethodDefinition
 
 require 'dry/transformer/all'
 require "dry/inflector"
@@ -305,4 +305,4 @@ module AcaEntities
   end
 end
 
-# rubocop:enable Naming/MemoizedInstanceVariableName
+# rubocop:enable Naming/MemoizedInstanceVariableName, Security/Eval, Metrics/CyclomaticComplexity, Lint/UselessMethodDefinition

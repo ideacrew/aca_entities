@@ -10,8 +10,8 @@ RSpec.describe ::AcaEntities::Medicaid::Transforms::McrTo::CvInput do
     let(:source_file) { Pathname.pwd.join('spec', 'support', 'application.json') }
 
     it 'should parse and then transform when transform_mode set to batch' do
-      AcaEntities::Medicaid::Transforms::McrTo::CvInput.call(source_file, {transform_mode: :batch}) do |payload|
-        record = AcaEntities::Medicaid::Transforms::McrTo::CvInput.transform({payload: payload})
+      AcaEntities::Medicaid::Transforms::McrTo::CvInput.call(source_file, { transform_mode: :batch }) do |payload|
+        record = AcaEntities::Medicaid::Transforms::McrTo::CvInput.transform({ payload: payload })
         expect(record).to have_key(:family)
       end
     end

@@ -1,3 +1,4 @@
+# rubocop:disable all
 # functions:
 #   generate hbx ID for family, family member, person
 #   match primary family member with members instance
@@ -93,3 +94,5 @@
     hbx_enrollments: [{}]
   }
 }
+
+# rubocop:enable all

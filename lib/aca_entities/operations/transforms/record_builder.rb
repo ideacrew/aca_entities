@@ -1,10 +1,14 @@
 # frozen_string_literal: true
 
+# rubocop:disable Style/HashConversion, Style/OptionalBooleanParameter
+
 module AcaEntities
   module Operations
     module Transforms
+      # RecordBuilder for OJ stream and transform
       class RecordBuilder
-        attr_reader :root, :data_set, :parent_ns, :output_ns, :namespace
+        attr_accessor :namespace
+        attr_reader :root, :data_set, :parent_ns, :output_ns
 
         def initialize(root:, type:)
           @type = type
@@ -20,20 +24,16 @@ module AcaEntities
 
         def output
           value = if @type == :array
-            data_set.values
-          else
-            data_set
-          end
+                    data_set.values
+                  else
+                    data_set
+                  end
 
           wrap((output_namespaces - parent_namespaces), value)
         end
 
         def output_namespace=(output_ns)
           @output_ns = output_ns
-        end
-
-        def namespace=(namespace)
-          @namespace = namespace
         end
 
         def parent_namespace=(parent_namespace)
@@ -59,3 +59,5 @@ module AcaEntities
     end
   end
 end
+
+# rubocop:enable Style/HashConversion, Style/OptionalBooleanParameter
