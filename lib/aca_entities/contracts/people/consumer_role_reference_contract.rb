@@ -16,7 +16,7 @@ module AcaEntities
         # @return [Dry::Monads::Result]
         params do
           required(:is_active).filled(:bool)
-          required(:is_applying_coverage).filled(:bool)
+          required(:is_applying_coverage).value(:bool?)
           required(:is_applicant).filled(:bool)
           required(:is_state_resident).filled(:bool)
           required(:lawful_presence_determination).hash(AcaEntities::Contracts::Determinations::LawfulPresenceDeterminationContract.params)

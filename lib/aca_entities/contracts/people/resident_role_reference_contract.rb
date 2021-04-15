@@ -13,10 +13,10 @@ module AcaEntities
         # @option opts [String] :residency_determined_at optional
         # @return [Dry::Monads::Result]
         params do
-          required(:is_applicant).filled(:bool)
+          required(:is_applicant).value(:bool?)
           optional(:is_active).maybe(:bool)
-          required(:is_state_resident).filled(:bool)
-          optional(:residency_determined_at).maybe(:date)
+          required(:is_state_resident).value(:bool?)
+          optional(:residency_determined_at).value(:date?)
         end
       end
     end

@@ -18,8 +18,8 @@ module AcaEntities
         # @option opts [Hash] :broker_role optional
         # @return [Dry::Monads::Result]
         params do
-          optional(:start_date).maybe(:date)
-          optional(:end_date).maybe(:date)
+          optional(:start_date).value(:date?)
+          optional(:end_date).value(:date?)
           required(:is_immediate_family).filled(:bool)
           optional(:is_determination_split_household).maybe(:bool)
           optional(:aasm_state).maybe(:string)

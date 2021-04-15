@@ -4,7 +4,7 @@ module AcaEntities
   module Contracts
     module Documents
       # Schema and validation rules for {AcaEntities::Documents::RidpDocument}
-      class RidpDocument < Documents::DocumentContract
+      class RidpDocumentContract < Documents::DocumentContract
         # @!method call(opts)
         # @param [Hash] opts the parameters to validate using this contract
         # @option opts [String] :status required
@@ -16,7 +16,7 @@ module AcaEntities
           required(:status).filled(:string)
           optional(:ridp_verification_type).maybe(:string)
           optional(:comment).maybe(:string)
-          optional(:uploaded_at).maybe(:date)
+          optional(:uploaded_at).value(:date?)
         end
       end
     end

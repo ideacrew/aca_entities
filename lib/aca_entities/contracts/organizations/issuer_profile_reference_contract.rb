@@ -14,7 +14,7 @@ module AcaEntities
         # @option opts [Hash] :abbrev required
         # @return [Dry::Monads::Result]
         params do
-          required(:hbx_id).filled(:string)
+          required(:hbx_id).value(:str?)
           optional(:fein).filled(:string)
           optional(:hbx_carrier_id).filled(:string)
           required(:name).filled(:string)

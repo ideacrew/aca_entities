@@ -11,7 +11,7 @@ module AcaEntities
       # @return [Dry::Monads::Result]
       params do
         required(:cents).maybe(AcaEntities::Types::Money)
-        required(:currency_iso).filled(:string)
+        required(:currency_iso).value(:str?)
       end
     end
   end

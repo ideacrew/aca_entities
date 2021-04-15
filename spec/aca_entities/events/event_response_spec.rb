@@ -5,12 +5,10 @@ require 'spec_helper'
 RSpec.describe ::AcaEntities::Events::EventResponse, dbclean: :after_each do
 
   let(:input_params) do
-
     {
       received_at: Date.today,
       body: "response"
     }
-
   end
 
   describe 'with valid arguments' do

@@ -4,15 +4,6 @@ require 'spec_helper'
 
 RSpec.describe ::AcaEntities::Events::EventRequest, dbclean: :after_each do
 
-  # let(:input_params) do
-  #
-  #   {
-  #     received_at: Date.today,
-  #     body: "response"
-  #   }
-  #
-  # end
-
   let(:input_params) do
     {
       requested_at: Date.today,

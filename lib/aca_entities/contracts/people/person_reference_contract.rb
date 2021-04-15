@@ -17,13 +17,13 @@ module AcaEntities
         # @option opts [Hash] :gender required
         # @return [Dry::Monads::Result]
         params do
-          required(:hbx_id).filled(:string)
-          required(:first_name).filled(:string)
+          required(:hbx_id).value(:str?)
+          required(:first_name).value(:str?)
           optional(:middle_name).maybe(:string)
-          required(:last_name).filled(:string)
+          required(:last_name).value(:str?)
           optional(:ssn).maybe(:string)
           optional(:no_ssn).maybe(:bool)
-          required(:dob).filled(:date)
+          required(:dob).value(:date?)
           required(:gender).filled(:string)
         end
       end

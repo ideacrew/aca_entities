@@ -10,7 +10,7 @@ module AcaEntities
         # @option opts [String] :hbx_id required
         # @return [Dry::Monads::Result]
         params do
-          required(:hbx_id).maybe(:string) # TODO: Person hbx_id until we add hbx_id on family member
+          required(:hbx_id).value(:str?) # TODO: Person hbx_id until we add hbx_id on family member
         end
       end
     end

@@ -12,7 +12,7 @@ module AcaEntities
         # @return [Dry::Monads::Result]
         params do
           required(:relative).hash(AcaEntities::Contracts::People::PersonReferenceContract.params)
-          required(:kind).filled(:string)
+          required(:kind).value(:str?)
         end
       end
     end

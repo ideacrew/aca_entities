@@ -10,7 +10,7 @@ module AcaEntities
         # @option opts [String] :hbx_id required
         # @return [Dry::Monads::Result]
         params do
-          required(:hbx_id).maybe(:string)
+          required(:hbx_id).value(:str?)
         end
       end
     end

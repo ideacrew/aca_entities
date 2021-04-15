@@ -13,9 +13,9 @@ module AcaEntities
         # @option opts [Boolean] :is_active optional
         # @return [Dry::Monads::Result]
         params do
-          optional(:hbx_id).maybe(:string)
-          optional(:start_on).maybe(:date)
-          optional(:end_on).maybe(:date)
+          optional(:hbx_id).value(:str?)
+          optional(:start_on).value(:date?)
+          optional(:end_on).value(:date?)
           optional(:is_active).maybe(:bool)
         end
       end

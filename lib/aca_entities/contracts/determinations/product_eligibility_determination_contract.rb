@@ -19,12 +19,12 @@ module AcaEntities
         # @option opts [String] :magi_medicaid_category optional
         # @return [Dry::Monads::Result]
         params do
-          optional(:is_ia_eligible).maybe(:bool)
-          optional(:is_medicaid_chip_eligible).maybe(:bool)
-          optional(:is_non_magi_medicaid_eligible).maybe(:bool)
-          optional(:is_totally_ineligible).maybe(:bool)
-          optional(:is_without_assistance).maybe(:bool)
-          optional(:is_magi_medicaid).maybe(:bool)
+          optional(:is_ia_eligible).value(:bool?)
+          optional(:is_medicaid_chip_eligible).value(:bool?)
+          optional(:is_non_magi_medicaid_eligible).value(:bool?)
+          optional(:is_totally_ineligible).value(:bool?)
+          optional(:is_without_assistance).value(:bool?)
+          optional(:is_magi_medicaid).value(:bool?)
           optional(:magi_medicaid_monthly_household_income).hash(AcaEntities::Contracts::CurrencyContract.params)
           optional(:medicaid_household_size).maybe(:integer)
           optional(:magi_medicaid_monthly_income_limit).hash(AcaEntities::Contracts::CurrencyContract.params)

@@ -37,13 +37,13 @@ module AcaEntities
         # @return [Dry::Monads::Result]
         params do
           optional(:five_year_bar).maybe(:bool)
-          optional(:requested_coverage_start_date).maybe(:date)
+          optional(:requested_coverage_start_date).value(:date?)
           optional(:aasm_state).maybe(:string)
           optional(:is_applicant).filled(:bool)
           optional(:birth_location).maybe(:string)
           optional(:marital_status).maybe(:string)
           optional(:is_active).maybe(:bool)
-          optional(:is_applying_coverage).filled(:bool)
+          required(:is_applying_coverage).filled(:bool)
           optional(:raw_event_responses).maybe(:array)
           optional(:bookmark_url).maybe(:string)
           optional(:admin_bookmark_url).maybe(:string)
@@ -60,7 +60,7 @@ module AcaEntities
           # optional(:active_vlp_document_id).maybe(:hash) TODO: revisit
           optional(:documents).array(AcaEntities::Contracts::Documents::DocumentContract.params)
           optional(:vlp_documents).array(AcaEntities::Contracts::Documents::VlpDocumentContract.params)
-          optional(:ridp_documents).array(AcaEntities::Contracts::Documents::RidpDocument.params)
+          optional(:ridp_documents).array(AcaEntities::Contracts::Documents::RidpDocumentContract.params)
           optional(:verification_type_history_elements).array(AcaEntities::Contracts::Verifications::VerificationTypeHistoryElementContract.params)
           optional(:lawful_presence_determination).hash(AcaEntities::Contracts::Determinations::LawfulPresenceDeterminationContract.params)
           optional(:local_residency_responses).array(AcaEntities::Contracts::Events::EventRequestContract.params)

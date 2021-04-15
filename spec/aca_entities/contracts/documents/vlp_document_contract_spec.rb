@@ -4,14 +4,14 @@ require 'spec_helper'
 
 RSpec.describe AcaEntities::Contracts::Documents::VlpDocumentContract, dbclean: :after_each do
 
-  let(:vlp_documents) do
+  let(:required_params) do
     {
       title: "untitled",
       creator: "dchl",
       subject: "Naturalization Certificate",
       publisher: "dchl",
       contributor: nil,
-      date: nil,
+      date: Date.today,
       type: "text",
       format: "application/octet-stream",
       identifier: nil,
@@ -19,7 +19,7 @@ RSpec.describe AcaEntities::Contracts::Documents::VlpDocumentContract, dbclean: 
       language: "en",
       relation: nil,
       coverage: nil,
-      rights: nil,
+      rights: 'public',
       tags: [], size: nil,
       doc_identifier: nil,
       alien_number: "011020000",
@@ -43,7 +43,7 @@ RSpec.describe AcaEntities::Contracts::Documents::VlpDocumentContract, dbclean: 
 
   context "with invalid params" do
     it "should fail validation" do
-      result = subject.call(vlp_documents.reject { |k, _v| k == :title })
+      result = subject.call(required_params.reject { |k, _v| k == :title })
       expect(result.success?).to be_falsey
       expect(result.errors.to_h).to eq({ :title => ["is missing"] })
     end
@@ -51,9 +51,66 @@ RSpec.describe AcaEntities::Contracts::Documents::VlpDocumentContract, dbclean: 
 
   context "and all required and optional parameters" do
     it "should pass validation" do
-      result = subject.call(vlp_documents)
+      result = subject.call(required_params)
       expect(result.success?).to be_truthy
-      expect(result.to_h).to eq vlp_documents
+      expect(result.to_h).to eq required_params
+    end
+  end
+
+  context 'success case' do
+    before do
+      @result = subject.call(required_params)
+    end
+
+    it 'should return success' do
+      expect(@result.success?).to be_truthy
+    end
+
+    it 'should not have any errors' do
+      expect(@result.errors.empty?).to be_truthy
+    end
+  end
+
+  context 'failure case' do
+    context 'missing required param' do
+      before do
+        @result = subject.call(required_params.reject { |k, _v| k == :title })
+      end
+
+      it 'should return failure' do
+        expect(@result.failure?).to be_truthy
+      end
+
+      it 'should have any errors' do
+        expect(@result.errors.empty?).to be_falsy
+      end
+
+      it 'should return error message' do
+        expect(@result.errors.messages.first.text).to eq('is missing')
+      end
+    end
+
+    context 'with bad input data type' do
+      before do
+        @result = subject.call(required_params.merge(alien_number: '123'))
+      end
+
+      it 'should return failure' do
+        expect(@result.failure?).to be_truthy
+      end
+
+      it 'should have any errors' do
+        expect(@result.errors.empty?).to be_falsy
+      end
+
+      it 'should return error message' do
+        expect(@result.errors.messages.first.text).to eq('length must be 9')
+      end
+
+      it 'should return error message' do
+        result = subject.call(required_params.merge(expiration_date: nil))
+        expect(result.errors.messages.first.text).to eq('must be a date')
+      end
     end
   end
 end

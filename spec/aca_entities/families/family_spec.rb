@@ -727,9 +727,9 @@ RSpec.describe AcaEntities::Families::Family, dbclean: :after_each do
   let!(:irs_groups) do
     [
       {
-        hbx_id: nil,
+        hbx_id: '1233',
         start_on: Date.today,
-        end_on: nil,
+        end_on: Date.today,
         is_active: true
       }
     ]
