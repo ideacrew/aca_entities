@@ -57,7 +57,7 @@ RSpec.describe AcaEntities::Contracts::Contacts::PhoneContactContract,  dbclean:
       end
 
       it 'should return failure with error message' do
-        expect(@result.errors.to_h).to eq({ area_code: ['should be of length 3 and allows numbers only'] })
+        expect(@result.errors.to_h).to eq({ area_code: ["length must be 3"] })
       end
     end
 
@@ -69,7 +69,7 @@ RSpec.describe AcaEntities::Contracts::Contacts::PhoneContactContract,  dbclean:
       end
 
       it 'should return failure with error message' do
-        expect(@result.errors.to_h).to eq({ number: ['should be of length 7 and allows numbers only'] })
+        expect(@result.errors.to_h).to eq({ number: ["length must be 7"] })
       end
     end
 
@@ -81,7 +81,7 @@ RSpec.describe AcaEntities::Contracts::Contacts::PhoneContactContract,  dbclean:
       end
 
       it 'should return failure with error message' do
-        expect(@result.errors.to_h).to eq({ full_phone_number: ['should be of length 10 and allows numbers only'] })
+        expect(@result.errors.to_h).to eq({ full_phone_number: ["length must be 10"] })
       end
     end
   end
