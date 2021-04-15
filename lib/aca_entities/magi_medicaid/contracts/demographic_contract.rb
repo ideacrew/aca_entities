@@ -18,7 +18,7 @@ module AcaEntities
         end
 
         rule(:is_veteran_or_active_military) do
-          if key? && values[:is_applying_coverage] == true && check_if_blank?(value)
+          if values[:is_applying_coverage] && check_if_blank?(value)
             # This field is mandatory if person is applying for coverage in the UI.
             # XSD validation: <xs:element name="is_veteran" type="xs:boolean"/>
             key.failure(text: 'cannot be blank')

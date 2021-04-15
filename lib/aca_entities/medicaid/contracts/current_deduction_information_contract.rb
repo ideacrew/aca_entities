@@ -9,7 +9,7 @@ module AcaEntities
         params do
           optional(:category_code).maybe(Types::DeductionCategoryCode)
           optional(:amount).maybe(:float)
-          optional(:frequency_code).maybe(Iap::Types::DeductionFrequency)
+          optional(:frequency_code).maybe(MagiMedicaid::Types::DeductionFrequency)
           optional(:category_text).maybe(:string)
         end
 

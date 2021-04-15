@@ -7,23 +7,25 @@ RSpec.describe ::AcaEntities::MagiMedicaid::FederalPovertyLevel do
   describe 'with valid arguments' do
     let(:state_code) { 'me' }
     let(:household_size) { 1 }
+    let(:medicaid_year) { 2019 }
     let(:annual_poverty_guideline) { 12_000 }
-    let(:add_person_annual_amount) { 4_800 }
+    let(:annual_per_person_amount) { 4_800 }
     let(:monthly_poverty_guideline) { 1_000 }
-    let(:add_person_monthly_amount) { 400 }
-    let(:effective_start_on) { Date.today - 1 }
-    let(:effective_end_on) { Date.today }
+    let(:monthly_per_person_amount) { 400 }
+    let(:aptc_effective_start_on) { Date.today - 1 }
+    let(:aptc_effective_end_on) { Date.today }
 
     let(:required_params) do
       {
         state_code: state_code,
         household_size: household_size,
+        medicaid_year: medicaid_year,
         annual_poverty_guideline: annual_poverty_guideline,
-        add_person_annual_amount: add_person_annual_amount,
+        annual_per_person_amount: annual_per_person_amount,
         monthly_poverty_guideline: monthly_poverty_guideline,
-        add_person_monthly_amount: add_person_monthly_amount,
-        effective_start_on: effective_start_on,
-        effective_end_on: effective_end_on
+        monthly_per_person_amount: monthly_per_person_amount,
+        aptc_effective_start_on: aptc_effective_start_on,
+        aptc_effective_end_on: aptc_effective_end_on
       }
     end
 

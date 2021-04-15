@@ -1,60 +1,113 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
+require 'aca_entities/app_helper'
+require 'aca_entities/contracts/person_name_contract'
+require 'aca_entities/magi_medicaid/types'
+require 'aca_entities/magi_medicaid/contracts/identifying_information_contract'
+require 'aca_entities/magi_medicaid/contracts/demographic_contract'
+require 'aca_entities/magi_medicaid/contracts/attestation_contract'
+require 'aca_entities/magi_medicaid/contracts/native_american_information_contract'
+require 'aca_entities/magi_medicaid/contracts/citizenship_immigration_status_information_contract'
+require 'aca_entities/magi_medicaid/contracts/vlp_document_contract'
+require 'aca_entities/magi_medicaid/contracts/applicant_reference_contract'
+require 'aca_entities/magi_medicaid/contracts/student_contract'
+require 'aca_entities/magi_medicaid/contracts/foster_care_contract'
+require 'aca_entities/magi_medicaid/contracts/pregnancy_information_contract'
+require 'aca_entities/magi_medicaid/contracts/income_contract'
+require 'aca_entities/magi_medicaid/contracts/deduction_contract'
+require 'aca_entities/magi_medicaid/contracts/benefit_contract'
 require 'aca_entities/contracts/address_contract'
-require 'aca_entities/magi_medicaid/contracts/email_contract'
 require 'aca_entities/magi_medicaid/contracts/phone_contract'
+require 'aca_entities/magi_medicaid/contracts/email_contract'
 require 'aca_entities/magi_medicaid/contracts/applicant_contract'
 
 RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicantContract,  dbclean: :after_each do
+  context 'valid params' do
+    context 'applicant is not applying for coverage' do
+      let(:name) { { first_name: 'first', last_name: 'last' } }
+      let(:identifying_information) { { has_ssn: false } }
+      let(:demographic) { { is_applying_coverage: false, gender: 'Male', dob: Date.today.prev_year.to_s } }
+      let(:attestation) { { is_applying_coverage: false, is_disabled: false } }
+      let(:family_member_reference) { { hbx_id: '1000' } }
+      let(:pregnancy_information) { { is_applying_coverage: false, is_pregnant: false, is_post_partum_period: false } }
 
-  let(:required_params) do
-    {
-      first_name: "James", last_name: "Bond", ssn: "101010101", gender: "male", dob: Date.new(1993, 3, 8),
-      citizen_status: "US citizen", is_consumer_role: true, is_applying_coverage: false
-    }
-  end
-  let(:optional_params) do
-    {
-      name_pfx: nil, middle_name: nil, name_sfx: nil, is_primary_applicant: nil, person_hbx_id: nil,
-      family_member_id: nil, is_disabled: false, ethnicity: nil, race: nil, tribal_id: nil, language_code: nil,
-      no_dc_address: false, is_homeless: nil, is_temporarily_out_of_state: nil, vlp_subject: nil,
-      alien_number: nil, i94_number: nil, visa_number: nil, passport_number: nil, sevis_id: nil,
-      naturalization_number: nil, receipt_number: nil, citizenship_number: nil, card_number: nil,
-      vlp_description: nil, country_of_citizenship: nil, expiration_date: nil, issuing_country: nil,
-      no_ssn: nil, addresses: [], phones: [], emails: [], same_with_primary:  true,
-      indian_tribe_member: false, is_incarcerated: false
-    }
-  end
-  let(:all_params) { required_params.merge(optional_params) }
+      let(:input_params) do
+        { name: name,
+          identifying_information: identifying_information,
+          demographic: demographic,
+          attestation: attestation,
+          is_primary_applicant: true,
+          is_applying_coverage: false,
+          family_member_reference: family_member_reference,
+          person_hbx_id: '100',
+          is_required_to_file_taxes: false,
+          pregnancy_information: pregnancy_information,
+          has_job_income: false,
+          has_self_employment_income: false,
+          has_unemployment_income: false,
+          has_other_income: false,
+          has_deductions: false,
+          has_enrolled_health_coverage: false,
+          has_eligible_health_coverage: false }
+      end
 
-  context "Given invalid parameter scenarios" do
-    context "with empty parameters" do
-      it 'should list error for every required parameter' do
-        result = subject.call({})
+      before do
+        @result = subject.call(input_params)
+      end
 
-        expect(result.success?).to be_falsey
-        expect(result.errors.to_h.keys).to match_array required_params.keys
+      it 'should return success' do
+        expect(@result.success?).to be_truthy
+      end
+
+      it 'should return result with all the param keys' do
+        expect(@result.to_h.keys).to eq(input_params.keys)
       end
     end
 
-    context "with optional parameters only" do
-      it { expect(subject.call(optional_params).success?).to be_falsey }
-      it { expect(subject.call(optional_params).error?(required_params.first[0])).to be_truthy }
-    end
-  end
+    context 'applicant is applying for coverage' do
+      let(:name) { { first_name: 'first', last_name: 'last' } }
+      let(:identifying_information) { { has_ssn: false } }
+      let(:demographic) do
+        { is_applying_coverage: true,
+          gender: 'Male',
+          dob: Date.today.prev_year.to_s,
+          is_veteran_or_active_military: false }
+      end
+      let(:attestation) { { is_applying_coverage: true, is_disabled: false, is_incarcerated: false } }
+      let(:family_member_reference) { { hbx_id: '1000' } }
+      let(:pregnancy_information) { { is_applying_coverage: true, is_pregnant: false, is_post_partum_period: false } }
 
-  context "Given valid parameters" do
-    context "and required parameters only" do
-      it { expect(subject.call(required_params).success?).to be_truthy }
-      it { expect(subject.call(required_params).to_h).to eq required_params }
-    end
+      let(:input_params) do
+        { name: name,
+          identifying_information: identifying_information,
+          demographic: demographic,
+          attestation: attestation,
+          is_primary_applicant: true,
+          is_applying_coverage: true,
+          family_member_reference: family_member_reference,
+          person_hbx_id: '100',
+          is_required_to_file_taxes: false,
+          pregnancy_information: pregnancy_information,
+          has_job_income: false,
+          has_self_employment_income: false,
+          has_unemployment_income: false,
+          has_other_income: false,
+          has_deductions: false,
+          has_enrolled_health_coverage: false,
+          has_eligible_health_coverage: false }
+      end
 
-    context "and all required and optional parameters" do
-      it "should pass validation" do
-        result = subject.call(all_params)
-        expect(result.success?).to be_truthy
-        expect(result.to_h).to eq all_params
+      before do
+        @result = subject.call(input_params)
+      end
+
+      it 'should return success' do
+        expect(@result.success?).to be_truthy
+      end
+
+      it 'should return result with all the param keys' do
+        expect(@result.to_h.keys).to eq(input_params.keys)
       end
     end
   end

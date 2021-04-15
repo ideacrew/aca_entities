@@ -4,7 +4,6 @@ module AcaEntities
   module Questionnaires
     module Operations
       module Questionnaire
-
         # Create or update a questionnaire.
         class CreateOrUpdate
           send(:include, Dry::Monads[:result, :do])
@@ -14,24 +13,21 @@ module AcaEntities
           # @param [String] title
           # @param [String] description
           # @param [Array<Glossary>] glossaries
-          # @param [Array<OrderedTopics] ordered_topics
+          # @param [Array<OrderedTopics>] ordered_topics
           # @return [Dry::Monad::Result] result
           def call(params)
-            values    = yield validate(params)
-            question  = yield find_or_create(values)
+            values = yield validate(params)
+            question = yield find_or_create(values)
 
             Success(question)
           end
 
           private
 
-          def validate(params)
-          end
+          def validate(params); end
 
-          def find_or_create(values)
-          end
+          def find_or_create(values); end
         end
-
       end
     end
   end

@@ -10,7 +10,7 @@ module AcaEntities
           optional(:most_recent_hire_date).maybe(:date)
           optional(:termination_date).maybe(:date)
           optional(:pay_rate).maybe(:integer)
-          optional(:data_source_payment_frequency_code).maybe(Iap::Types::IncomeFrequency)
+          optional(:data_source_payment_frequency_code).maybe(MagiMedicaid::Types::IncomeFrequency)
         end
 
         rule(:pay_rate) do

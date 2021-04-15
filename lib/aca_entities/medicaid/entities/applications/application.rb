@@ -3,11 +3,9 @@
 module AcaEntities
   module Medicaid
     module Applications
-      # Entity for Application
-      # rubocop:disable Lint/EmptyClass
-      class Application
+      # entity for medicaid Application
+      class Application < Dry::Struct
       end
-      # rubocop:enable Lint/EmptyClass
     end
   end
 end

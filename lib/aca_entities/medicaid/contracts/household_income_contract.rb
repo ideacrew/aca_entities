@@ -8,9 +8,9 @@ module AcaEntities
 
         params do
           optional(:monthly_income_greater_than_fpl).maybe(:bool)
-          optional(:income_type).maybe(Iap::Types::IncomeType)
+          optional(:income_type).maybe(MagiMedicaid::Types::IncomeType)
           optional(:income_amount).maybe(:float)
-          optional(:income_frequency).maybe(Iap::Types::IncomeFrequency)
+          optional(:income_frequency).maybe(MagiMedicaid::Types::IncomeFrequency)
           optional(:income_from_tribal_source).maybe(:float)
           optional(:monthly_attested_medicaid_household_current_income).maybe(:float)
           optional(:annual_total_project_medicaid_household_current_income).maybe(:float)

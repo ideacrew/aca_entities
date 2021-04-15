@@ -7,9 +7,9 @@ module AcaEntities
       class CurrentIncomeInformationContract < Dry::Validation::Contract
 
         params do
-          optional(:income_type_code).maybe(Iap::Types::IncomeType)
+          optional(:income_type_code).maybe(MagiMedicaid::Types::IncomeType)
           optional(:income_type_amount).maybe(:float)
-          optional(:income_frequency_code).maybe(Iap::Types::IncomeFrequency)
+          optional(:income_frequency_code).maybe(MagiMedicaid::Types::IncomeFrequency)
           optional(:days_per_week).maybe(:integer)
           optional(:hours_per_week).maybe(:integer)
           optional(:is_income_subject_to_federal_restrictions).maybe(:bool)

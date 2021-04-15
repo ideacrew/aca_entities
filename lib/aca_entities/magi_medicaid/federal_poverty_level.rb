@@ -26,6 +26,11 @@ module AcaEntities
       # @return [Integer]
       attribute :household_size, Types::Integer.meta(omittable: false)
 
+      # @!attribute [r] medicaid_year
+      # The calendar year for the {annual_poverty_guideline}
+      # @return [Integer]
+      attribute :medicaid_year, Types::Integer.meta(omittable: false)
+
       # @!attribute [r] annual_poverty_guideline
       # The annual income figure below which the family/household
       # is considered extremely poor
@@ -33,11 +38,11 @@ module AcaEntities
       attribute :annual_poverty_guideline,
                 AcaEntities::Types::Money.meta(omittable: false)
 
-      # @!attribute [r] add_person_annual_amount
+      # @!attribute [r] annual_per_person_amount
       # The amount above the {annual_poverty_guideline} to add
       # for each additional person in the household
       # @return [BigDecimal]
-      attribute :add_person_annual_amount,
+      attribute :annual_per_person_amount,
                 AcaEntities::Types::Money.meta(omittable: false)
 
       # @!attribute [r] monthly_poverty_guideline
@@ -47,22 +52,22 @@ module AcaEntities
       attribute :monthly_poverty_guideline,
                 AcaEntities::Types::Money.meta(omittable: false)
 
-      # @!attribute [r] add_person_monthly_amount
+      # @!attribute [r] monthly_per_person_amount
       # The amount above the {monthly_poverty_guideline} to add
       # for each additional person in the household
       # @return [BigDecimal]
-      attribute :add_person_monthly_amount,
+      attribute :monthly_per_person_amount,
                 AcaEntities::Types::Money.meta(omittable: false)
 
-      # @!attribute [r] effective_start_on
+      # @!attribute [r] aptc_effective_start_on
       # The date on which this guideline becomes active
       # @return [Date]
-      attribute :effective_start_on, Types::Date.meta(omittable: false)
+      attribute :aptc_effective_start_on, Types::Date.meta(omittable: false)
 
-      # @!attribute [r] effective_end_on
+      # @!attribute [r] aptc_effective_end_on
       # The last day on which this guideline is active
       # @return [Date]
-      attribute :effective_end_on, Types::Date.meta(omittable: false)
+      attribute :aptc_effective_end_on, Types::Date.meta(omittable: false)
     end
   end
 end

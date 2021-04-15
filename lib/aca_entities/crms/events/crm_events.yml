@@ -1,0 +1,176 @@
+---
+asyncapi: 2.0.0
+info:
+  title: CRM Gateway Service
+  version: 0.1.0
+  description: This service provides accesss to third-party CusGeorgeer Relationship Mangement systems
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+servers:
+  production:
+    url: amqp://test.example.org
+    protocol: amqp
+    description: Test AMQP broker
+channels:
+  enroll.families.family.contact_created:
+    subscribe:
+      operationId: on_enroll_families_family_created
+      summary: Enroll Family Created
+      message:
+        $ref: "#/components/messages/enroll_families_family_created_event"
+  crms.sugar_crm_contacts.contact_created:
+    subscribe:
+      operationId: crms_sugar_crm_contacts_contact_created
+      summary: SugarCRM Contact Created
+      message:
+        $ref: "#/components/messages/crms_contacts_contact_created_event"
+  crms.contacts.contact_created:
+    publish:
+      operationId: on_crms_contacts_contact_created
+      summary: CRM Contact Created
+      message:
+        $ref: "#/components/messages/crms_contacts_contact_created_event"
+    subscribe:
+      operationId: crms_contacts_contact_created
+      summary: CRM Contact Created
+      message:
+        $ref: "#/components/messages/crms_contacts_contact_created_event"
+        tags:
+          - name: crm
+          - name: contact
+          - name: create
+        headers:
+          type: object
+          properties:
+            correlationId:
+              description: Correlation ID set by application
+              type: string
+            applicationInstanceId:
+              description: Unique identifier for a given instance of the publishing application
+              type: string
+        correlationId:
+          description: Default Correlation ID
+          location: $message.header#/correlationId
+        traits:
+          - $ref: "#/components/messageTraits/commonHeaders"
+    bindings:
+      amqp:
+        is: routingKey
+        queue:
+          name: my-queue-name
+          durable: true
+          exclusive: true
+          autoDelete: false
+          vhost: /
+        exchange:
+          name: myExchange
+          type: direct
+          durable: true
+          autoDelete: false
+          vhost: /
+        bindingVersion: 0.1.0
+  crms.accounts.account_created:
+    publish:
+      operationId: on_crms_accounts_account_created
+      summary: CRM Account Created
+      message:
+        $ref: "#/components/messages/crms_accounts_account_created_event"
+    subscribe:
+      operationId: crms_accounts_account_created
+      summary: CRM Account Created
+      message:
+        $ref: "#/components/messages/crms_accounts_account_created_event"
+components:
+  messages:
+    enroll_families_family_created_event:
+      title: Family created event
+      summary: Inform about a new Family registration in the Enroll system
+      contentType: application/json
+      payload:
+        $ref: "#/components/schemas/enroll_families_family_created_payload"
+    crms_contacts_contact_created_event:
+      title: CRM Contact created event
+      summary: Inform about a new Contact registration in the system
+      contentType: application/json
+      payload:
+        $ref: "#/components/schemas/crms_contacts_contact_created_payload"
+    crms_accounts_account_created_event:
+      title: CRM Contact created event
+      summary: Inform about a new Account registration in the system
+      contentType: application/json
+      payload:
+        $ref: "#/components/schemas/crms_accounts_account_created_payload"
+  schemas:
+    enroll_families_family_created_payload:
+      type: object
+      properties:
+        firstName:
+          type: string
+          description: "George"
+        lastName:
+          type: string
+          description: "Jetson"
+        email:
+          type: string
+          format: email
+          description: "george@spacely_sprokets.com"
+        createdAt:
+          type: string
+          format: date-time
+          description: "George"
+    crms_contacts_contact_created_payload:
+      type: object
+      properties:
+        firstName:
+          type: string
+          description: "George"
+        lastName:
+          type: string
+          description: "Jetson"
+        email:
+          type: string
+          format: email
+          description: "george@spacely_sprokets.com"
+        createdAt:
+          type: string
+          format: date-time
+          description: "George"
+    crms_accounts_account_created_payload:
+      type: object
+      properties:
+        firstName:
+          type: string
+          description: "George"
+        lastName:
+          type: string
+          description: "Jetson"
+        email:
+          type: string
+          format: email
+          description: "george@spacely_sprokets.com"
+        createdAt:
+          type: string
+          format: date-time
+          description: "George"
+# channels: {
+#     'enroll.people.person_created' => {
+#       meta: {
+#         application: 'enroll',
+#         event_key: 'people.person_created',
+#         title: 'Person created event',
+#         summary: 'Notify addition of new person record to Enroll service',
+#         message: {
+#           contentType: 'application/json',
+#           contract_key: 'people.person_created_contract'
+#         }
+#       },
+#       publish: {
+#         operation_id: on_people_person_created
+#       },
+#       subscribe: {
+#         operation_id: people_person_created
+#       }
+#     }
+#   }
+# }
