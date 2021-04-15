@@ -1957,6 +1957,9 @@ module AcaEntities
 
     EmailAddressRegex = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i.freeze
 
+    # Regex for PhoneNumber
+    NumbersOnlyRegex = /^[0-9]/.freeze
+
     ZipCodeRegex = /\A\d{5}(-\d{4})?\z/.freeze
 
     # List of the documents user can provide to verify Immigration status

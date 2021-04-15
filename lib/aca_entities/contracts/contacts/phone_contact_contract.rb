@@ -20,12 +20,17 @@ module AcaEntities
             AcaEntities::Types::PhoneKind
           )
           required(:primary).filled(:bool)
-          required(:area_code).filled(:string, size?: 3)
-          required(:number).filled(:string, size?: 7)
-
+          required(:area_code).filled do
+            str? & size?(3) & format?(Types::NumbersOnlyRegex)
+          end
+          required(:number).filled do
+            str? & size?(7) & format?(Types::NumbersOnlyRegex)
+          end
           optional(:country_code).maybe(:string)
           optional(:extension).maybe(:string)
-          optional(:full_phone_number).maybe(:string, size?: 10)
+          optional(:full_phone_number).maybe do
+            str? & size?(10) & format?(Types::NumbersOnlyRegex)
+          end
           optional(:start_on).maybe(:date)
           optional(:end_on).maybe(:date)
         end
