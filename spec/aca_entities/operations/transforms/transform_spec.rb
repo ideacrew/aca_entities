@@ -9,9 +9,9 @@ RSpec.describe ::AcaEntities::Operations::Transforms::Transform do
     let(:source_file) { Pathname.pwd.join('spec', 'support', 'application.json') }
 
     it 'should transform keys' do
-      result = AcaEntities::Medicaid::Transforms::McrTo::CvInput.call(source_file, "test.json", {})
-
-      expect(result).to eql(output)
+      AcaEntities::Medicaid::Transforms::McrTo::CvInput.call(source_file) do |result|
+        expect(result).to have_key(:family)
+      end
     end
   end
 end

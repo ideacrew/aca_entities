@@ -24,29 +24,6 @@ module AcaEntities
           construct_namespace_map
         end
 
-        # @api private
-        def construct_namespace_map
-          return if [:rewrap_keys, :add_namespace].include?(transform_action)
-          return unless source_ns.length == output_ns.length
-
-          source_ns.each_with_index do |namespace, index|
-            container_key = source_ns[0..index].join('.')
-            next if @mappings.key?(container_key)
-            @mappings[container_key] = if index == 0
-                                         Map.new(namespace,
-                                                 output_ns[index],
-                                                 nil,
-                                                 :rename_keys,
-                                                 proc: nil)
-                                       else
-                                         Map.new(source_ns[0..index].join('.'),
-                                                 output_ns[0..index].join('.'),
-                                                 nil, :rename_nested_keys,
-                                                 proc: nil)
-                                       end
-          end
-        end
-
         # @api public
         def map(source_key, output_key = nil, *args)
           options = args.first
@@ -150,7 +127,30 @@ module AcaEntities
           @mappings.merge!(map.mappings)
         end
 
-        private :construct_namespace_map
+        private
+
+        # @api private
+        def construct_namespace_map
+          return if [:rewrap_keys, :add_namespace].include?(transform_action)
+          return unless source_ns.length == output_ns.length
+
+          source_ns.each_with_index do |namespace, index|
+            container_key = source_ns[0..index].join('.')
+            next if @mappings.key?(container_key)
+            @mappings[container_key] = if index == 0
+                                         Map.new(namespace,
+                                                 output_ns[index],
+                                                 nil,
+                                                 :rename_keys,
+                                                 proc: nil)
+                                       else
+                                         Map.new(source_ns[0..index].join('.'),
+                                                 output_ns[0..index].join('.'),
+                                                 nil, :rename_nested_keys,
+                                                 proc: nil)
+                                       end
+          end
+        end
       end
 
       # setup DSL functions

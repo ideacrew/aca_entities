@@ -20,26 +20,33 @@ module AcaEntities
 
         BufferLength = 512
 
-        attr_reader :source_filename, :namespaces, :namespace_record_delimiter, :array_namespaces, :container, :record, :record_index
+        attr_reader :namespaces, :namespace_record_delimiter, :array_namespaces, :container, :record, :record_index
 
         class << self
           def call(*args, &block)
             service = new(*args)
+            service.namespace_record_delimiter = namespace_record_delimiter.map(&:to_sym)
             service.call(&block)
           end
 
+          def transform(payload)
+            service = new
+            service.namespace_record_delimiter = [:payload]
+            Oj.saj_parse(service, payload.to_json)
+            service.record
+          end
+
           def namespace_record_delimiter
-            @namespace_record_delimiter || '$/'
+            @namespace_record_delimiter || ['$/']
           end
 
           def record_delimiter(delimiter)
-            @namespace_record_delimiter = delimiter
+            @namespace_record_delimiter = delimiter.split('.')
           end
         end
 
-        def initialize(source_filename, output_filename, options = {})
-          @source_filename = source_filename
-          @namespace_record_delimiter = self.class.namespace_record_delimiter.split('.').map(&:to_sym)
+        def initialize(source = nil, options = {})
+          @source = source
           @namespaces = []
           @array_namespaces = []
           @container = self.class.mapping_container
@@ -47,17 +54,16 @@ module AcaEntities
           @record_queue = []
           @wild_char_matchers = []
           @contexts = {}
+          @transform_mode = options[:transform_mode]&.to_sym || :single
+        end
+
+        def namespace_record_delimiter=(delimiter)
+          @namespace_record_delimiter = delimiter
         end
 
         def call(&block)
           @record_processor = block
-          File.open(@source_filename, 'r') { |f| Oj.saj_parse(self, f) }
-          # close input and output files
-          # return Monad around file processing, output file close result
-        end
-
-        def t(*args)
-          ::Transform::TransformFunctions[*args]
+          File.open(@source, 'r') {|f| Oj.saj_parse(self, f)}
         end
 
         def record_start(key)
@@ -69,12 +75,12 @@ module AcaEntities
 
         def record_end(key)
           @record_processor.call(record) if @record_processor
+
           remove_instance_variable(:@record_namespace_offset)
         end
 
         def hash_start(key)
           find_or_build_namespace_mappping_for(key) if defined? @record_namespace_offset
-
           @namespaces.push(key&.to_sym)
           if namespace_record_delimiter_matched?(@namespaces)
             @record_namespace_offset ||= @namespaces.dup
@@ -89,7 +95,7 @@ module AcaEntities
           close_sub_record if record_builder && !record_builder.data_set.empty?
 
           @namespaces.pop
-          @contexts.delete(key)
+          @contexts.delete(key) unless batch_process?
 
           record_end(key&.to_sym) if matched
         end
@@ -128,6 +134,7 @@ module AcaEntities
         end
 
         def add_new_elements(key)
+          return if batch_process?
           namespaced_key = element_namespaces.join('.')
           namespaced_key = match_wildcard_chars(namespaced_key)
           process_add_namespaces(namespaced_key, key)
@@ -164,6 +171,7 @@ module AcaEntities
         end
 
         def close_sub_record(validate_namespace = true)
+          return if batch_process?
           record_builder = @record_queue.last
           return if validate_namespace && record_builder.root.split('.').size != element_namespaces.size
 
@@ -234,9 +242,17 @@ module AcaEntities
           @non_identifier_dict
         end
 
+        def batch_process?
+          @transform_mode == :batch
+        end
+
         def transform_data_for(key, value)
           return unless defined? @record_namespace_offset
 
+          if batch_process?
+            t(:build_nested_hash)[record, element_namespaces, Hash[key.to_sym, value]] 
+            return
+          end
           key_with_namespace = (element_namespaces + [key]).join('.')
           transformed_key = match_wildcard_chars(key_with_namespace.dup)
           record_unique_identifier = record_unique_identifier(key_with_namespace)
