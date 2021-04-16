@@ -24,6 +24,28 @@ module AcaEntities
           construct_namespace_map
         end
 
+        # map takes source_key, output_key and *args to build transform object.
+        # This method returns object which has a function for hash transformation.
+        #
+        # @visibility public
+        # @param source_key [#to_s] The input is a single key or a namespaced key
+        # @param output_key [#to_s] The output is a single key or a namespaced key
+        # @param args
+        #
+        # @example
+        #   map "firstname", "first_name"
+        #   # => Object
+        #
+        # @example
+        #   map "a.b.firstname", "c.d.first_name"
+        #   # => Object
+        #
+        # @example
+        #   map "a.b.dob", "c.d.age", -> v {age_on(v)}
+        #   # => Object
+        #
+        # @return [Object]
+        #
         # @api public
         def map(source_key, output_key = nil, *args)
           options = args.first
@@ -45,6 +67,23 @@ module AcaEntities
           @mappings[mapping.container_key] = mapping
         end
 
+        # add_key takes key and value(can be a value or a proc).
+        # This method returns object which has a function for hash transformation.
+        #
+        # @visibility public
+        # @param [String] key
+        # @param value describe a proc or a value(integer/string)
+        #
+        # @example
+        #   add_key "fname"
+        #   # => Object
+        #
+        # @example
+        #   add_key "fname", ->(v) { v.resolve(:members).name } # proc should be derived based on namespace method context
+        #   # => Object
+        #
+        # @return [Object]
+        #
         # @api public
         def add_key(key, value = nil)
           raise 'arg1 should not be empty string or an integer' if key.empty? || key.is_a?(Integer)
@@ -57,16 +96,21 @@ module AcaEntities
           @mappings[mapping.container_key] = mapping
         end
 
-        # @api public
-        def add_context(key, output_key, proc = nil)
-          map = Map.new(key,
-                        output_key,
-                        nil,
-                        :add_context,
-                        proc: proc)
-          @mappings[map.container_key] = map
-        end
-
+        # add_namespace takes source_ns_key, output_namespace, *args(for additional operations) and a block.
+        # This generates new hash with new key-value pair.
+        #
+        # @visibility public
+        #   @param source_ns_key [#to_s] The source_ns_key is a single key
+        #   @param output_namespace [#to_s] The output_namespace is a single key or a namespaced key
+        #   @param args [Symbol] describe hash param with key context:
+        #   @param [Object] block
+        #
+        # @example
+        #   add_namespace "IDs", "a.b.IDs", type: :array do end
+        #   # => Hash with namespaced key and value as object
+        #
+        # @return [Hash]
+        #
         # @api public
         def add_namespace(source_ns_key, output_namespace, *args, &block)
           raise 'expected arg1 not be empty string or an integer' if source_ns_key.empty? || source_ns_key.is_a?(Integer)
@@ -89,6 +133,24 @@ module AcaEntities
           @mappings.merge!(map.mappings)
         end
 
+        # Rewrap takes output_namespace, *args(for additional operations) and a block.
+        # This generated a new hash with existing or new key-value pairs
+        #
+        # @visibility public
+        #   @param output_namespace [#to_s] The output_namespace is a single key or a namespaced key
+        #   @param args [Symbol] describe hash param with key context:
+        #   @param [Object] block
+        #
+        # @example
+        #   rewrap "a" do end
+        #   # => Hash with namespaced key and value as object
+        #
+        # @example
+        #   rewrap "a",  type: :array do end
+        #   # => Hash with namespaced key and value as object
+        #
+        # @return (see #add_namespace)
+        #
         # @api public
         def rewrap(output_namespace = nil, *args, &block)
           raise 'no block given' unless block_given?
@@ -113,6 +175,25 @@ module AcaEntities
           @mappings.merge!(map.mappings)
         end
 
+        # Namespace takes source_namespace, output_namespace, *args(for additional operations) and a block
+        # This method returns hash with namespaced key and value as object(that has transform functions).
+        #
+        # @visibility public
+        #   @param source_namespace [#to_s] The source_namespace is a single key or a namespaced key
+        #   @param output_namespace [#to_s] The output_namespace is a single key or a namespaced key
+        #   @param args [Symbol] describe hash param with key context:
+        #   @param [Object] block
+        #
+        # @example
+        #   namespace "a" do end
+        #   # => Hash with namespaced key and value as object
+        #
+        # @example
+        #   namespace "a", nil, context: { name: 'members' } do end
+        #   # => Hash with namespaced key and value as object
+        #
+        # @return (see #rewrap)
+        #
         # @api public
         def namespace(source_namespace, output_namespace = nil, *args, &block)
           raise 'expected arg1 not be empty string or an integer' if source_namespace.empty? || source_namespace.is_a?(Integer)
@@ -128,6 +209,16 @@ module AcaEntities
         end
 
         private
+
+        # @api private
+        def add_context(key, output_key, proc = nil)
+          map = Map.new(key,
+                        output_key,
+                        nil,
+                        :add_context,
+                        proc: proc)
+          @mappings[map.container_key] = map
+        end
 
         # @api private
         def construct_namespace_map
@@ -163,6 +254,9 @@ module AcaEntities
         module ClassMethods
           # attr_reader :namespace
 
+          # @param [Hash] options the options to create a message with.
+          # @option options [String] :a The a
+          # @option options [String] :b ('nil')
           def map(source_key = nil, output_key = nil, options = {})
             mapping = Map.new(source_key, output_key, options)
             mapping_container.register(mapping.source_key, mapping)
@@ -286,11 +380,6 @@ module AcaEntities
           else
             @transproc.name
           end
-        end
-
-        # TODO
-        def type_change(value)
-          AcaEntities::Types::INCARCERATION_MAP[value.downcase.to_sym]
         end
 
         def container_key

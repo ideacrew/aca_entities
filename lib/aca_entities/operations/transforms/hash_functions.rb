@@ -15,18 +15,16 @@ module AcaEntities
 
         module_function
 
-        # Transform a value using namespace and a proc
+        # map_value takes input hash, namespaces  and proc to transform value.
+        # This method returns transformed hash.
         #
         # @param input The input hash
         # @param namespaces The namespaces is the array of nested keys
         # @param func is a proc
         #
         # @example
-        #   input: {:family=>{:family_members=>[{:person=>{:value=> "1969-03-01"}}]}}
-        #   namespaces: [:family, :family_members, :person]
-        #   func: proc
-        #
-        #   # => {:family=>{:family_members=>[{:person=>{:value=> 52}}]}}
+        #   map_value({:a => {:b => [{:person => {:age => "1969-03-01"}}]}}, [:a, :b, :person], -> v{v})
+        #   # => {:a => {:b => [{:person=>{:age => 52}}]}}
         #
         # @return [Hash]
         def map_value(input, namespaces, func)
@@ -49,18 +47,15 @@ module AcaEntities
           input
         end
 
-        # Add key using namespaced_key
+        # Add key to source hash using namespaced keys
         #
         # @param input The input hash
         # @param namespaced_keys The namespaced keys
         # @param value is a value
         #
         # @example
-        #   input: {:date_of_birth => nil}
-        #   namespaced_keys: [:family, :family_members, :person, :date_of_birth]
-        #   value: "1969-03-01"
-        #
-        #   # => {:family=>{:family_members=>[{:person=>{:date_of_birth=> "1969-03-01"}}]}}
+        #   add_key({:date_of_birth => nil}, [:a, :b, :person, :date_of_birth], "1969-03-01")
+        #   # => {:a=>{:b=>[{:person=>{:date_of_birth=> "1969-03-01"}}]}}
         #
         # @return [Hash]
         def add_key(input, namespaced_keys, value)
@@ -107,7 +102,7 @@ module AcaEntities
         # @param value The input value
         #
         # @example
-        #   value: "YES"
+        #   boolean("YES")
         #   # =>  true
         #
         # @return value
@@ -121,7 +116,7 @@ module AcaEntities
         # @param mapping The key-rename mapping
         #
         # @example
-        #   source_hash: {"a" => {"b" => { "c" => {"d" => "123"}}, "f" => {"d" => "456"}}}, mapping: [{"d" => "e"}], namespaces: ["a","b","c"]
+        #   rename_nested_keys({"a" => {"b" => { "c" => {"d" => "123"}}, "f" => {"d" => "456"}}},  [{"d" => "e"}], ["a","b","c"])
         #   # => {"a" => {"b" => { "c" => {"e" => "123"}}, "f" => {"d" => "456"}}}
         #
         # @return [Hash]
@@ -139,7 +134,7 @@ module AcaEntities
         # @param destination_namespaces accepts array of new key namespace
         #
         # @example
-        #   source_hash: { :foo => 'bar' }, "f" => {"d" => "456"}}}, source_namespaces: [:boo, :foo], destination_namespaces: [:boo, :too]
+        #   rewrap_keys({:foo => 'bar' }, [:boo, :foo], [:boo, :too])
         #   # => { :boo => { :too => 'bar' } }
         #
         # @return [Hash]
@@ -166,10 +161,7 @@ module AcaEntities
         # @param data Input hash that needed to be merged with the record
         #
         # @example
-        #   record: { :family => { :family_members => { :person => { :gender => 'female' } } } }
-        #   values: [:family, :family_members, :person]
-        #   data: { dob: '1969-03-01'}
-        #
+        #   build_nested_hash({ :family => { :family_members => { :person => { :gender => 'female' } } } }, [:family, :family_members, :person], { dob: '1969-03-01'})
         #   # => { :family => { :family_members => { :person => { :gender => 'female', :dob => '1969-03-01'} } } }
         #
         # @return [Hash]
@@ -194,8 +186,7 @@ module AcaEntities
         # @param data Input hash
         #
         # @example
-        #   data: {:family=>{:family_members=>{:person=>{:gender=> "female"}}}}
-        #
+        #   nested_hash_to_array({:family=>{:family_members=>{:person=>{:gender=> "female"}}}})
         #   # => [:family, :family_members, :person, :gender]
         #
         # @return [Array]
@@ -213,8 +204,8 @@ module AcaEntities
         # @param mapped_keys The key-rename mapping
         #
         # @example
-        #   source_hash: {"a" => {"b" => { "c" => {"d" => "123"}}, {"d" => "456"}}, mapping: {"d" => "e"}
-        #   # =>  {"a" => {"b" => { "c" => {"e" => "123"}}, {"e" => "456"}}
+        #   deep_rename_keys({"a" => {"b" => { "c" => {"d" => "123"}}, {"d" => "456"}}}, {"d" => "e"})
+        #   # => {"a" => {"b" => { "c" => {"e" => "123"}}, {"e" => "456"}}}
         #
         # @return [Hash]
         def deep_rename_keys(source_hash, mapped_keys)
