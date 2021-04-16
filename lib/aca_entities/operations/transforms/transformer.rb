@@ -258,8 +258,8 @@ module AcaEntities
           # @option options [String] :a The a
           # @option options [String] :b ('nil')
           def map(source_key = nil, output_key = nil, options = {})
-            mapping = Map.new(source_key, output_key, options)
-            mapping_container.register(mapping.source_key, mapping)
+            mapping = Map.new(source_key, output_key, nil, :rename_nested_keys)
+            mapping_container.register(mapping.container_key, mapping)
           end
 
           def add_key; end

@@ -25,23 +25,23 @@ module AcaEntities
         class << self
           def call(*args, &block)
             service = new(*args)
-            service.namespace_record_delimiter = namespace_record_delimiter.map(&:to_sym)
+            service.namespace_record_delimiter = namespace_record_delimiter || []
             service.call(&block)
           end
 
           def transform(payload)
             service = new
-            service.namespace_record_delimiter = [:payload]
+            service.namespace_record_delimiter = []
             Oj.saj_parse(service, payload.to_json)
             service.record
           end
 
           def namespace_record_delimiter
-            @namespace_record_delimiter || ['$/']
+            @namespace_record_delimiter # || ['$/']
           end
 
           def record_delimiter(delimiter)
-            @namespace_record_delimiter = delimiter.split('.')
+            @namespace_record_delimiter = delimiter&.split('.')&.map(&:to_sym)
           end
         end
 
@@ -69,7 +69,8 @@ module AcaEntities
         def record_start(key)
           first_delimiter_match_index = @namespaces.index(namespace_record_delimiter[0])
           max_delimier_index = non_identifier_delimiters.keys.last
-          @record_index = (first_delimiter_match_index + max_delimier_index) # (@namespaces.index(namespace_record_delimiter) + 1)
+          @record_index = first_delimiter_match_index
+          @record_index += max_delimier_index if max_delimier_index
           @record = {}
         end
 
@@ -227,6 +228,7 @@ module AcaEntities
         def namespace_record_delimiter_matched?(namespaces)
           return false if namespaces.empty?
           return false unless namespaces.index(namespace_record_delimiter[0])
+          return true if namespace_record_delimiter.empty? && namespaces.compact.empty?
 
           namespace_subset = namespaces[namespaces.index(namespace_record_delimiter.first)..-1]
           return false unless namespace_subset.size == namespace_record_delimiter.size

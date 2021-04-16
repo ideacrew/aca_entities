@@ -10,13 +10,17 @@ module AcaEntities
           include ::AcaEntities::Operations::Transforms::Transformer
           # import AcaEntities::Mcr::Transformations
           # transform functions
-
+          # record_delimiter ''
+          # record_delimiter nil
           record_delimiter 'applications.identifier.result' # TODO: support wild card ex. applications.*.result (prefer Regex)
           # source_vocabulary :mcr
 
           # TODO: namespace_map "source || output"
 
           AgeOn = AcaEntities::Functions::AgeOn.new(on_date: "2020-1-1")
+
+          map "coverageYear", 'calender_year'
+          map "insuranceApplicationIdentifier", 'application_identifier'
 
           namespace 'attestations' do
             rewrap '' do
@@ -40,6 +44,8 @@ module AcaEntities
               add_key 'documents'
               add_key 'payment_transactions'
               add_key 'financial_assistance_applications'
+
+              map 'sampleKey', 'sample_key'
 
               # add_context 'application.contactMemberIdentifier', AcaEntities::Functions::PrimaryApplicantBuilder
               # add_context 'household.familyRelationships', AcaEntities::Functions::PersonRelationshipBuilder
