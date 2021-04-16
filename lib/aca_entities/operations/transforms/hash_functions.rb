@@ -122,7 +122,7 @@ module AcaEntities
         # @return [Hash]
         def rename_nested_keys(source_hash, mapping, namespaces = [])
           source_hash.to_h.tap do |hash|
-            final_pair = hash.dig(*namespaces)
+            final_pair = namespaces.empty? ? hash : hash.dig(*namespaces)
             mapping.first.each {|k, v| final_pair[v] = final_pair.delete(k) if final_pair.key?(k)}
           end
         end

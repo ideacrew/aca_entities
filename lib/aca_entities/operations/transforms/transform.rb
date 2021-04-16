@@ -260,10 +260,12 @@ module AcaEntities
           return unless container.key?(transformed_key)
 
           input = if record_unique_identifier
-            t(:build_nested_hash)[{}, [], Hash[key.to_sym, value]]
-          else
-            t(:build_nested_hash)[{}, element_namespaces, Hash[key.to_sym, value]]
-          end
+                    t(:build_nested_hash)[{}, [], Hash[key.to_sym, value]]
+                  elsif element_namespaces.size == 1
+                    t(:build_nested_hash)[{}, [], Hash[key.to_sym, value]]
+                  else
+                    t(:build_nested_hash)[{}, element_namespaces, Hash[key.to_sym, value]]
+                  end
 
           data = container[transformed_key].call(input)
           if container[transformed_key].transproc_name == :add_context

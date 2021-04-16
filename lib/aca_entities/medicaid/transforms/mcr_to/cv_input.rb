@@ -19,7 +19,15 @@ module AcaEntities
           AgeOn = AcaEntities::Functions::AgeOn.new(on_date: "2020-1-1")
 
           namespace 'attestations' do
+            rewrap '' do
+              map "insuranceApplicationIdentifier", "insurance_application_identifier"
+              map "applicationVersionNumber", "application_version_number"
+              map "lastModifiedDateTime", "last_modified_date_time"
+              map "lastModifiedUserId", "last_modified_user_id"
+            end
+
             rewrap 'family' do
+              map "coverageYear", "coverage_year"
               add_key 'hbx_id', 1234
               # map 'renewEligibilityYearQuantity', 'renewal_consent_through_year',
               # -> {|year | year + value_of("attestations.application.applicationSignatures")}

@@ -196,7 +196,7 @@ module AcaEntities
         #
         # @api public
         def namespace(source_namespace, output_namespace = nil, *args, &block)
-          raise 'expected arg1 not be empty string or an integer' if source_namespace.empty? || source_namespace.is_a?(Integer)
+          # raise 'expected arg1 not be empty string or an integer' if source_namespace.empty? || source_namespace.is_a?(Integer)
           raise 'no block given' unless block_given?
 
           # @mappings << Map.new(source_namespace, output_namespace, :rename_keys) if output_namespace.present?
@@ -265,8 +265,29 @@ module AcaEntities
           def add_key; end
 
           # FIX ME: deprecate map serializer
+          # Namespace takes source_namespace, output_namespace, *args(for additional operations) and a block
+          # This method returns hash with namespaced key and value as object(that has transform functions).
+          #
+          # @visibility public
+          #   @param source_namespace [#to_s] The source_namespace is a single key or a namespaced key
+          #   @param output_namespace [#to_s] The output_namespace is a single key or a namespaced key
+          #   @param [Object] block
+          #
+          # @example
+          #   namespace "a" do end
+          #   # => Hash with namespaced key and value as object
+          #
+          # @example
+          #   namespace "a" do end
+          #     namespace "a", nil, context: { name: 'members' } do end
+          #   end
+          #   # => Hash with namespaced key and value as object
+          #
+          # @return (see #rewrap)
+          #
+          # @api public
           def namespace(source_namespace, output_namespace = nil, &block)
-            raise 'expected arg1 not be empty string or an integer' if source_namespace.empty? || source_namespace.is_a?(Integer)
+            # raise 'expected arg1 not be empty string or an integer' if source_namespace.empty? || source_namespace.is_a?(Integer)
             raise 'no block given' unless block_given?
 
             map = MapSerializer.new(source_namespace, output_namespace)

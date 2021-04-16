@@ -33,6 +33,13 @@
 					"useCase": "CIC"
 				},
 				"attestations": {
+					"coverageYear": 2019,
+					"insuranceApplicationIdentifier": 23025,
+					"applicationVersionNumber": 3,
+					"lastModifiedDateTime": "2019-12-30T17:00:59+00:00",
+					"lastModifiedUserId": "ses-consumerui",
+					"deletedIndicator": false,
+					"currentVersionIndicator": true,
 					"application": {
 						"comments": "Versioning For Change in Circumstance",
 						"legalAttestations": {
