@@ -161,7 +161,8 @@ module AcaEntities
         # @param data Input hash that needed to be merged with the record
         #
         # @example
-        #   build_nested_hash({ :family => { :family_members => { :person => { :gender => 'female' } } } }, [:family, :family_members, :person], { dob: '1969-03-01'})
+        #   build_nested_hash({ :family => { :family_members => { :person => { :gender => 'female' } } } },
+        #   [:family, :family_members, :person], { dob: '1969-03-01'})
         #   # => { :family => { :family_members => { :person => { :gender => 'female', :dob => '1969-03-01'} } } }
         #
         # @return [Hash]

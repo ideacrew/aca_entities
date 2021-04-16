@@ -10,7 +10,8 @@ RSpec.describe ::AcaEntities::Person, dbclean: :after_each do
 
   describe 'with valid arguments' do
     let(:input_params) do
-      { first_name: 'ivl40', last_name: '41',
+      { names: [],
+        first_name: 'ivl40', last_name: '41',
         dob: Date.today.prev_year, ssn: '345343243',
         gender: 'male', is_incarcerated: false,
         same_with_primary: true, indian_tribe_member: true, citizen_status: 'true',
