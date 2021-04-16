@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-# rubocop:disable all
-
 module AcaEntities
   module MagiMedicaid
     module Contracts
@@ -260,5 +258,3 @@ module AcaEntities
     end
   end
 end
-
-# rubocop:enable all
