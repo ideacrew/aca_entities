@@ -1,13 +1,12 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require 'aca_entities/app_helper'
-require 'aca_entities/magi_medicaid/contracts/demographic_contract'
+require 'aca_entities/magi_medicaid/libraries/iap_library'
 
 RSpec.describe ::AcaEntities::MagiMedicaid::Contracts::DemographicContract,  dbclean: :after_each do
   context 'applicant not applying for coverage' do
     let(:required_params) do
-      { gender: 'Male', dob: Date.today.prev_year, is_applying_coverage: false }
+      { gender: 'Male', dob: Date.today.prev_year }
     end
 
     # ["White", "Black or African American", "Asian Indian", "Chinese" ],
@@ -31,7 +30,7 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Contracts::DemographicContract,  dbc
       end
 
       it 'should return failure with error messages' do
-        expect(subject.call({}).errors.to_h).to eq({ gender: ['is missing'], dob: ['is missing'], is_applying_coverage: ['is missing'] })
+        expect(subject.call({}).errors.to_h).to eq({ gender: ['is missing'], dob: ['is missing'] })
       end
     end
 
@@ -50,34 +49,11 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Contracts::DemographicContract,  dbc
 
   context 'applicant applying for coverage' do
     let(:required_params) do
-      { gender: 'Male', dob: Date.today.prev_year, is_applying_coverage: true }
+      { gender: 'Male', dob: Date.today.prev_year }
     end
 
     let(:input_params) do
       required_params.merge(optional_params)
-    end
-
-    ['', nil].each do |vet_value|
-      context 'invalid params' do
-        let(:optional_params) do
-          { ethnicity: ['ethnicity'],
-            race: 'race',
-            is_veteran_or_active_military: vet_value,
-            is_vets_spouse_or_child: false }
-        end
-
-        before do
-          @result = subject.call(input_params)
-        end
-
-        it 'should return failure' do
-          expect(@result).to be_failure
-        end
-
-        it 'should return failure with error message' do
-          expect(@result.errors.to_h).to eq({ is_veteran_or_active_military: ['cannot be blank'] })
-        end
-      end
     end
 
     context 'valid params' do

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require 'aca_entities/magi_medicaid/native_american_information'
+require 'aca_entities/magi_medicaid/libraries/iap_library'
 
 RSpec.describe ::AcaEntities::MagiMedicaid::NativeAmericanInformation, dbclean: :after_each do
 
@@ -10,12 +10,17 @@ RSpec.describe ::AcaEntities::MagiMedicaid::NativeAmericanInformation, dbclean: 
       { indian_tribe_member: false }
     end
 
-    it 'should initialize' do
-      expect(described_class.new(input_params)).to be_a described_class
+    before do
+      nai_params = AcaEntities::MagiMedicaid::Contracts::NativeAmericanInformationContract.new.call(input_params).to_h
+      @result = described_class.new(nai_params)
     end
 
-    it 'should not raise error' do
-      expect { described_class.new(input_params) }.not_to raise_error
+    it 'should return NativeAmericanInformation entity object' do
+      expect(@result).to be_a(described_class)
+    end
+
+    it 'should return all keys of NativeAmericanInformation' do
+      expect(@result.to_h.keys).to eq(input_params.keys)
     end
   end
 

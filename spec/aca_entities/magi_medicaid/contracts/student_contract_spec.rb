@@ -1,9 +1,7 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require 'aca_entities/app_helper'
-require 'aca_entities/magi_medicaid/types'
-require 'aca_entities/magi_medicaid/contracts/student_contract'
+require 'aca_entities/magi_medicaid/libraries/iap_library'
 
 RSpec.describe ::AcaEntities::MagiMedicaid::Contracts::StudentContract,  dbclean: :after_each do
   context 'age of applicant is within (18..19)' do
@@ -23,22 +21,6 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Contracts::StudentContract,  dbclean
       end
 
       context 'invalid params' do
-        context 'missing values' do
-          let(:input_params) do
-            { age_of_applicant: (18..19).to_a.sample,
-              is_student: true,
-              student_kind: nil,
-              student_school_kind: nil,
-              student_status_end_on: nil }
-          end
-
-          it 'should return failure with error messages' do
-            err_msg = { student_kind: ['must be filled if age of applicant is within 18..19.'],
-                        student_school_kind: ['must be filled if age of applicant is within 18..19.'] }
-            expect(subject.call(input_params).errors.to_h).to eq(err_msg)
-          end
-        end
-
         context 'bad value for student_kind' do
           let(:input_params) do
             { age_of_applicant: (18..19).to_a.sample,

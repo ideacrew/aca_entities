@@ -4,9 +4,14 @@ module AcaEntities
   module MagiMedicaid
     module Mitc
       module Contracts
-        # Contract for Relationship
+        # Schema and validation rules for {AcaEntities::MagiMedicaid::Mitc::Relationship}
         class RelationshipContract < Dry::Validation::Contract
-
+          # @!method call(opts)
+          # @param [Hash] opts the parameters to validate using this contract
+          # @option opts [Integer] :other_id required
+          # @option opts [String] :attest_primary_responsibility required
+          # @option opts [String] :relationship_code required
+          # @return [Dry::Monads::Result]
           params do
             required(:other_id).filled(:integer)
             required(:attest_primary_responsibility).filled(Types::YesNoKind)

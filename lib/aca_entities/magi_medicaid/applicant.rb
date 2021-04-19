@@ -5,7 +5,7 @@ module AcaEntities
     # Cv3 IAP Entity for Applicant.
     class Applicant < Dry::Struct
       # All common entities across all the subs lives at aca_entities level just like address.
-      attribute :name, AcaEntities::PersonName.meta(omittable: false)
+      attribute :name, AcaEntities::People::PersonName.meta(omittable: false)
       attribute :identifying_information, IdentifyingInformation.meta(omittable: false)
       attribute :demographic, Demographic.meta(omittable: false)
       attribute :attestation, Attestation.optional.meta(omittable: true)
@@ -17,7 +17,9 @@ module AcaEntities
       attribute :is_resident_role, Types::Bool.optional.meta(omittable: true)
       attribute :is_applying_coverage, Types::Bool.optional.meta(omittable: true)
       attribute :is_consent_applicant, Types::Bool.optional.meta(omittable: true)
-      attribute :vlp_document, VlpDocument.optional.meta(omittable: true)
+      attribute :vlp_document, AcaEntities::Documents::VlpDocument.optional.meta(omittable: true)
+      attribute :family_member_reference, AcaEntities::Families::FamilyMemberReference.meta(omittable: false)
+
       attribute :person_hbx_id, Types::String.meta(omittable: false)
 
       attribute :is_required_to_file_taxes, Types::Bool.optional.meta(omittable: true)
@@ -49,14 +51,15 @@ module AcaEntities
       # Driver QNs.
       attribute :has_job_income, Types::Bool.optional.meta(omittable: true)
       attribute :has_self_employment_income, Types::Bool.optional.meta(omittable: true)
+      attribute :has_unemployment_income, Types::Bool.optional.meta(omittable: true)
       attribute :has_other_income, Types::Bool.optional.meta(omittable: true)
       attribute :has_deductions, Types::Bool.optional.meta(omittable: true)
       attribute :has_enrolled_health_coverage, Types::Bool.optional.meta(omittable: true)
       attribute :has_eligible_health_coverage, Types::Bool.optional.meta(omittable: true)
 
-      attribute :addresses, Types::Array.of(AcaEntities::Address).optional.meta(omittable: true)
-      attribute :emails, Types::Array.of(Email).optional.meta(omittable: true)
-      attribute :phones, Types::Array.of(Phone).optional.meta(omittable: true)
+      attribute :addresses, Types::Array.of(AcaEntities::Locations::Address).optional.meta(omittable: true)
+      attribute :emails, Types::Array.of(AcaEntities::Contacts::EmailContact).optional.meta(omittable: true)
+      attribute :phones, Types::Array.of(AcaEntities::Contacts::PhoneContact).optional.meta(omittable: true)
 
       attribute :incomes,         Types::Array.of(Income).optional.meta(omittable: true)
       attribute :benefits,        Types::Array.of(Benefit).optional.meta(omittable: true)

@@ -4,7 +4,7 @@ require 'spec_helper'
 require 'aca_entities/medicaid/atp/person_name'
 require 'aca_entities/medicaid/atp/identifying_information'
 require 'aca_entities/medicaid/atp/address'
-require 'aca_entities/phone'
+require 'aca_entities/contacts/phone_contact'
 require 'aca_entities/medicaid/atp/preference'
 require 'aca_entities/medicaid/atp/primary_contact'
 

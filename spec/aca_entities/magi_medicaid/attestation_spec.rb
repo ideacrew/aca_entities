@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require 'aca_entities/magi_medicaid/attestation'
+require 'aca_entities/magi_medicaid/libraries/iap_library'
 
 RSpec.describe ::AcaEntities::MagiMedicaid::Attestation, dbclean: :after_each do
 
@@ -10,12 +10,17 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Attestation, dbclean: :after_each do
       { is_incarcerated: false, is_disabled: false, is_self_attested_long_term_care: false }
     end
 
-    it 'should initialize' do
-      expect(described_class.new(input_params)).to be_a described_class
+    before do
+      att_params = AcaEntities::MagiMedicaid::Contracts::AttestationContract.new.call(input_params).to_h
+      @result = described_class.new(att_params)
     end
 
-    it 'should not raise error' do
-      expect { described_class.new(input_params) }.not_to raise_error
+    it 'should return attestation entity object' do
+      expect(@result).to be_a(described_class)
+    end
+
+    it 'should return all keys of attestation' do
+      expect(@result.to_h.keys).to eq(input_params.keys)
     end
   end
 

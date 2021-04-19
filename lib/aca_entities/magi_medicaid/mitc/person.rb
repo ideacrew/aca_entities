@@ -8,7 +8,7 @@ module AcaEntities
         # @!attribute [r] person_id
         # An integer representing the applicant, only for the use of the submitter
         # @return [Integer]
-        attribute :person_id,        Types::Integer.meta(omittible: false)
+        attribute :person_id,        Types::Integer.meta(omittable: false)
 
         # @!attribute [r] is_applicant
         # A boolean if the person applying for insurance.
@@ -108,7 +108,7 @@ module AcaEntities
         # The state where the applicant received foster care.
         # Two character state code. For example, "CA"
         # @return [String]
-        attribute :foster_care_us_state,    Types::UsStateAbbreviationKind.optional.meta(omittible: true)
+        attribute :foster_care_us_state,    Types::UsStateAbbreviationKind.optional.meta(omittable: true)
 
         # @!attribute [r] is_required_to_file_taxes
         # A boolean if the applicant meets the bar to be required to file taxes.
@@ -143,29 +143,29 @@ module AcaEntities
         # @!attribute [r] immigration_status
         # Code indicating the person's immigration status.
         # @return [String]
-        attribute :immigration_status,    Types::ImmigrationStatusKind.optional.meta(omittible: true)
+        attribute :immigration_status,    Types::ImmigrationStatusKind.optional.meta(omittable: true)
 
         # @!attribute [r] is_amerasian
         # Does the non-citizen have Amerasian status?
         # @return [String]
-        attribute :is_amerasian,    Types::YesNoKind.optional.meta(omittible: true)
+        attribute :is_amerasian,    Types::YesNoKind.optional.meta(omittable: true)
 
         # @!attribute [r] has_forty_title_ii_work_quarters
         # For non-citizens, have they earned 40 Title II work quarters.
         # In general, this is answered by whether the applicant has had 40 quarters
         # in which the applicant was employed in the US.
         # @return [String]
-        attribute :has_forty_title_ii_work_quarters,    Types::YesNoKind.optional.meta(omittible: true)
+        attribute :has_forty_title_ii_work_quarters,    Types::YesNoKind.optional.meta(omittable: true)
 
         # @!attribute [r] five_year_bar_applies
         # Is the non-citizen subject to the 5 year bar?
         # @return [String]
-        attribute :five_year_bar_applies,    Types::YesNoKind.optional.meta(omittible: true)
+        attribute :five_year_bar_applies,    Types::YesNoKind.optional.meta(omittable: true)
 
         # @!attribute [r] is_five_year_bar_met
         # Has the non-citizen applicant met the 5 year bar?
         # @return [String]
-        attribute :is_five_year_bar_met,    Types::YesNoKind.optional.meta(omittible: true)
+        attribute :is_five_year_bar_met,    Types::YesNoKind.optional.meta(omittable: true)
 
         # @!attribute [r] is_trafficking_victim
         # Is a victim of trafficking?
@@ -180,7 +180,7 @@ module AcaEntities
         # @!attribute [r] refugee_medical_assistance_start_date
         # Is the applicant eligible for refugee medical assistance?
         # @return [Date]
-        attribute :refugee_medical_assistance_start_date,    Types::Date.optional.meta(omittible: true)
+        attribute :refugee_medical_assistance_start_date,    Types::Date.optional.meta(omittable: true)
 
         # @!attribute [r] seven_year_limit_start_date
         # This date varies based on the person's immigration status:
@@ -201,12 +201,12 @@ module AcaEntities
         # @!attribute [r] income
         # a hash representing the income of the person.
         # @return Income
-        attribute :income, Income.meta(omittible: false)
+        attribute :income, Income.meta(omittable: false)
 
         # @!attribute [r] relationships
         # A list representing the relationships between this person and other people on the application.
         # @return [Array<Relationship>]
-        attribute :relationships,         Types::Array.of(Relationship).meta(omittible: false)
+        attribute :relationships,         Types::Array.of(Relationship).meta(omittable: false)
       end
     end
   end

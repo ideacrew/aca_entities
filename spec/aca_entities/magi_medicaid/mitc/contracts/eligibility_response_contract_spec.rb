@@ -1,15 +1,7 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require 'aca_entities/magi_medicaid/mitc/types'
-require 'aca_entities/magi_medicaid/mitc/contracts/relationship_contract'
-require 'aca_entities/magi_medicaid/mitc/contracts/deprived_child_contract'
-require 'aca_entities/magi_medicaid/mitc/contracts/qualified_child_contract'
-require 'aca_entities/magi_medicaid/mitc/contracts/person_reference_contract'
-require 'aca_entities/magi_medicaid/mitc/contracts/category_determination_contract'
-require 'aca_entities/magi_medicaid/mitc/contracts/household_contract'
-require 'aca_entities/magi_medicaid/mitc/contracts/applicant_contract'
-require 'aca_entities/magi_medicaid/mitc/contracts/eligibility_response_contract'
+require 'aca_entities/magi_medicaid/libraries/mitc_library'
 
 RSpec.describe ::AcaEntities::MagiMedicaid::Mitc::Contracts::EligibilityResponseContract do
   let(:applicant_params) do

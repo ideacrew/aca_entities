@@ -1,8 +1,7 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require 'aca_entities/magi_medicaid/types'
-require 'aca_entities/magi_medicaid/deduction'
+require 'aca_entities/magi_medicaid/libraries/iap_library'
 
 RSpec.describe ::AcaEntities::MagiMedicaid::Deduction, dbclean: :after_each do
 
@@ -15,12 +14,17 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Deduction, dbclean: :after_each do
         frequency_kind: 'Monthly' }
     end
 
-    it 'should initialize' do
-      expect(described_class.new(input_params)).to be_a described_class
+    before do
+      deduction_params = AcaEntities::MagiMedicaid::Contracts::DeductionContract.new.call(input_params).to_h
+      @result = described_class.new(deduction_params)
     end
 
-    it 'should not raise error' do
-      expect { described_class.new(input_params) }.not_to raise_error
+    it 'should return deduction entity object' do
+      expect(@result).to be_a(described_class)
+    end
+
+    it 'should return all keys of deduction' do
+      expect(@result.to_h.keys).to eq(input_params.keys)
     end
   end
 

@@ -1,10 +1,7 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require 'aca_entities/magi_medicaid/mitc/types'
-require 'aca_entities/magi_medicaid/mitc/contracts/relationship_contract'
-require 'aca_entities/magi_medicaid/mitc/contracts/income_contract'
-require 'aca_entities/magi_medicaid/mitc/contracts/person_contract'
+require 'aca_entities/magi_medicaid/libraries/mitc_library'
 
 RSpec.describe ::AcaEntities::MagiMedicaid::Mitc::Contracts::PersonContract do
   let(:required_params) do
@@ -70,21 +67,18 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Mitc::Contracts::PersonContract do
   end
 
   context 'invalid params' do
-    context 'with no parameters' do
-      it 'should return a failure' do
-        expect(subject.call({}).failure?).to be_truthy
-      end
+    let(:required_keys) do
+      [:person_id, :is_applicant, :is_blind_or_disabled, :is_full_time_student, :is_medicare_entitled,
+       :is_incarcerated, :resides_in_state_of_application, :is_claimed_as_dependent_by_non_applicant,
+       :is_self_attested_long_term_care, :has_insurance, :has_state_health_benefit, :had_prior_insurance,
+       :is_pregnant, :is_in_former_foster_care, :is_required_to_file_taxes, :age_of_applicant,
+       :hours_worked_per_week, :is_temporarily_out_of_state, :is_us_citizen,
+       :is_lawful_presence_self_attested, :is_trafficking_victim, :is_eligible_for_refugee_medical_assistance,
+       :is_veteran, :income, :relationships]
     end
 
-    context 'missing prior_insurance_end_date' do
-      before :each do
-        required_params.delete(:prior_insurance_end_date)
-        @result = subject.call(required_params)
-      end
-
-      it 'should return an error' do
-        expect(@result.errors.to_h).to eq({ :prior_insurance_end_date => ['cannot be empty.'] })
-      end
+    it 'should return a failure' do
+      expect(subject.call({}).errors.to_h.keys).to eq(required_keys)
     end
   end
 end

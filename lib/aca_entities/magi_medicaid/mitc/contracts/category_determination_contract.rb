@@ -4,9 +4,14 @@ module AcaEntities
   module MagiMedicaid
     module Mitc
       module Contracts
-        # Contract for CategoryDetermination.
+        # Schema and validation rules for {AcaEntities::MagiMedicaid::Mitc::CategoryDetermination}
         class CategoryDeterminationContract < Dry::Validation::Contract
-
+          # @!method call(opts)
+          # @param [Hash] opts the parameters to validate using this contract
+          # @option opts [String] :indicator_code required
+          # @option opts [Integer] :ineligibility_code required
+          # @option opts [String] :ineligibility_reason optional
+          # @return [Dry::Monads::Result]
           params do
             required(:indicator_code).filled(Types::DeterminationIndicatorKind)
             required(:ineligibility_code).filled(:integer)

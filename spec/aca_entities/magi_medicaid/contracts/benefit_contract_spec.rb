@@ -1,10 +1,7 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require 'aca_entities/app_helper'
-require 'aca_entities/magi_medicaid/types'
-require 'aca_entities/magi_medicaid/contracts/employer_contract'
-require 'aca_entities/magi_medicaid/contracts/benefit_contract'
+require 'aca_entities/magi_medicaid/libraries/iap_library'
 
 RSpec.describe ::AcaEntities::MagiMedicaid::Contracts::BenefitContract,  dbclean: :after_each do
   context 'valid params' do
@@ -69,21 +66,6 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Contracts::BenefitContract,  dbclean
       end
 
       context 'employer' do
-        context 'no employer key' do
-          let(:input_params) do
-            { kind: 'employer_sponsored_insurance',
-              status: 'is_enrolled',
-              esi_covered: 'self_and_spouse',
-              start_on: Date.today.prev_year.to_s,
-              employee_cost_frequency: 'Weekly',
-              employee_cost: 100.00 }
-          end
-
-          it 'should return failure with error message' do
-            expect(@result.errors.to_h).to eq({ employer: ['employer information missing for kind employer_sponsored_insurance.'] })
-          end
-        end
-
         context 'empty employer value' do
           let(:input_params) do
             { kind: 'employer_sponsored_insurance',
@@ -96,27 +78,25 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Contracts::BenefitContract,  dbclean
           end
 
           it 'should return failure with error message' do
-            err_msg = { employer: [{ error: { employer_id: ['is missing'], employer_name: ['is missing'] }, text: 'invalid employer.' }] }
+            err_msg = { employer: { employer_id: ['is missing'], employer_name: ['is missing'] } }
             expect(@result.errors.to_h).to eq(err_msg)
           end
         end
-      end
-    end
 
-    context 'with status is_enrolled' do
-      context 'missing start_on' do
-        let(:input_params) do
-          { kind: 'acf_refugee_medical_assistance',
-            status: 'is_enrolled' }
-        end
+        context 'bad employer id' do
+          let(:input_params) do
+            { kind: 'employer_sponsored_insurance',
+              status: 'is_enrolled',
+              employer: { employer_name: 'ABC employer', employer_id: '12344' },
+              esi_covered: 'self_and_spouse',
+              start_on: Date.today.prev_year.to_s,
+              employee_cost_frequency: 'Weekly',
+              employee_cost: 100.00 }
+          end
 
-        before do
-          @result = subject.call(input_params)
-        end
-
-        it 'should return failure with error message' do
-          err_msg = { start_on: ['is expected when kind is employer_sponsored_insurance or status is is_enrolled.'] }
-          expect(@result.errors.to_h).to eq(err_msg)
+          it 'should return failure with error message' do
+            expect(@result.errors.to_h).to eq({ employer: { employer_id: ['length must be 9'] } })
+          end
         end
       end
     end

@@ -9,7 +9,7 @@ module AcaEntities
         # @!attribute [r] person_id
         # An integer representing the applicant.
         # @return [Integer]
-        attribute :person_id,      Types::Integer.meta(omittible: false)
+        attribute :person_id,      Types::Integer.meta(omittable: false)
 
         # @!attribute [r] determination
         # Determinations: a hash containing only:
@@ -22,14 +22,14 @@ module AcaEntities
         # Deprived Child: a hash with only the hash:
         #   a) Indicator: does the person qualify as a Deprived Child.  Y/N
         # @return [Hash]
-        attribute :deprived_child,  DeprivedChild.meta(omittible: false)
+        attribute :deprived_child,  DeprivedChild.meta(omittable: false)
 
         # @!attribute [r] relationship
         # Relationship: a hash with only the hash:
         # a) Indicator: does the person have the necessary relationship with the containing person
         # to qualify the containing person for parent-caretaker status.  Y/N
         # @return [Hash]
-        attribute :relationship,   Relationship.meta(omittible: false)
+        attribute :relationship,   Relationship.meta(omittable: false)
       end
     end
   end

@@ -1793,7 +1793,7 @@ module AcaEntities
         'medicaid'
       )
 
-    ProductKinds =
+    ProductKind =
       Types::Coercible::String.enum(
         'health_catastrophic',
         'health',
@@ -1806,6 +1806,133 @@ module AcaEntities
         'snap',
         'tanf'
       )
+
+    ProductKinds = Types::Coercible::String.enum(
+      'health_catastrophic',
+      'health',
+      'dental'
+    )
+
+    DocumentRights = Types::Coercible::String.enum(
+      'public',
+      'pii_restricted'
+    )
+
+    ServiceMarketKind = Types::Coercible::String.enum(
+      'shop',
+      'individual',
+      'coverall'
+    )
+
+    GaState = Types::Coercible::String.enum(
+      'active',
+      'incactive'
+    )
+
+    IdKey = Types::Coercible::String.enum(
+      'curam_e_case_id'
+    )
+
+    IdentifierKindKey = Types::Coercible::String.enum(
+      'e_case'
+    )
+
+    IdentifierKindNamespace = Types::Coercible::String.enum(
+      'curam'
+    )
+
+    PremiumCreditStrategyKinds = Types::Coercible::String.enum(
+      'unassisted', 'employer_fixed_cost',
+      'employee_fixed_cost', 'allocated_lump_sum_credit',
+      'percentage_contribution', 'indexed_percentage_contribution',
+      'federal_employee_health_benefit'
+    )
+
+    BrokerMarketKind = Types::Coercible::String.enum(
+      'individual',
+      'shop',
+      'both'
+    )
+
+    GeneralAgencyMarketKinds = Types::Coercible::String.enum(
+      'individual',
+      'shop',
+      'both'
+    )
+
+    ProviderKinds = Types::Coercible::String.enum(
+      'broker',
+      'assister'
+    )
+
+    EmailKind = Types::Coercible::String.enum(
+      'home',
+      'work'
+    )
+
+    AddressKinds = Types::Coercible::String.enum(
+      'home', 'work',
+      'mailing', 'primary',
+      'mailing', 'branch'
+    )
+
+    PhoneKind = Types::Coercible::String.enum(
+      'home',
+      'work',
+      'mobile',
+      'main',
+      'fax',
+      'phone',
+      'main'
+    )
+
+    EligibilitySourceKinds = Types::Coercible::String.enum(
+      'Curam',
+      'Admin',
+      'Renewals',
+      'Faa'
+    )
+
+    EligibilityCsrKinds = Types::Coercible::String.enum(
+      'csr_100',
+      'csr_94',
+      'csr_87',
+      'csr_73',
+      'csr_0',
+      'csr_limited'
+    )
+
+    EnrollmentKind = Types::Coercible::String.enum(
+      'open_enrollment',
+      'special_enrollment'
+    )
+
+    EnrollmentMarketPlaceKind = Types::Coercible::String.enum(
+      'individual', 'employer_sponsored',
+      'employer_sponsored_cobra', 'coverall',
+      'unassisted_qhp', 'insurance_assisted_qhp',
+      'streamlined_medicaid', 'emergency_medicaid',
+      'hcr_chip'
+    )
+
+    EnrollmentExemptionKinds = Types::Coercible::String.enum(
+      'hardship', 'health_care_ministry_member',
+      'incarceration', 'indian_tribe_member',
+      'religious_conscience'
+    )
+
+    MarketTransitionRoleTypes = Types::Coercible::String.enum(
+      'consumer',
+      'resident'
+    )
+
+    MarketTransitionReasonCodes = Types::Coercible::String.enum(
+      'initial_individual_market_transition_created_using_data_migration',
+      'eligibility_failed_or_documents_not_received_by_due_date',
+      'eligibility_documents_provided',
+      'generating_consumer_role',
+      'generating_resident_role'
+    )
 
     ProductsByMarketPlaceKind = {
       aca_individual: %w[health_catastrophic health dental],
@@ -1832,6 +1959,32 @@ module AcaEntities
         'NoStreet',
         'NoCity'
       )
+
+    EmailAddressRegex = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i.freeze
+
+    # Regex for PhoneNumber
+    NumbersOnlyRegex = /^[0-9]/.freeze
+
+    ZipCodeRegex = /\A\d{5}(-\d{4})?\z/.freeze
+
+    # List of the documents user can provide to verify Immigration status
+    VlpDocumentKind = Types::Coercible::String.enum(
+      'I-327 (Reentry Permit)',
+      'I-551 (Permanent Resident Card)',
+      'I-571 (Refugee Travel Document)',
+      'I-766 (Employment Authorization Card)',
+      'Certificate of Citizenship',
+      'Naturalization Certificate',
+      'Machine Readable Immigrant Visa (with Temporary I-551 Language)',
+      'Temporary I-551 Stamp (on passport or I-94)',
+      'I-94 (Arrival/Departure Record)',
+      'I-94 (Arrival/Departure Record) in Unexpired Foreign Passport',
+      'Unexpired Foreign Passport',
+      'I-20 (Certificate of Eligibility for Nonimmigrant (F-1) Student Status)',
+      'DS2019 (Certificate of Eligibility for Exchange Visitor (J-1) Status)',
+      'Other (With Alien Number)',
+      'Other (With I-94 Number)'
+    )
   end
   # rubocop:enable Metrics/ModuleLength
 end

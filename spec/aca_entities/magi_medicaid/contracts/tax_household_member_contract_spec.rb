@@ -1,13 +1,15 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require 'aca_entities/magi_medicaid/types'
-require 'aca_entities/magi_medicaid/product_eligibility_determination'
-require 'aca_entities/magi_medicaid/tax_household_member'
-require 'aca_entities/magi_medicaid/contracts/product_eligibility_determination_contract'
-require 'aca_entities/magi_medicaid/contracts/tax_household_member_contract'
+require 'aca_entities/magi_medicaid/libraries/iap_library'
 
 RSpec.describe ::AcaEntities::MagiMedicaid::Contracts::TaxHouseholdMemberContract, dbclean: :around_each do
+  let(:applicant_reference) do
+    { first_name: 'first',
+      last_name: 'last',
+      dob: Date.today.prev_year.to_s,
+      person_hbx_id: '100' }
+  end
 
   let(:product_eligibility_determination) do
     { is_ia_eligible: true,
@@ -26,19 +28,26 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Contracts::TaxHouseholdMemberContrac
   let(:all_params) do
     {
       product_eligibility_determination: product_eligibility_determination,
-      applicant_reference: '100'
+      applicant_reference: applicant_reference
     }
   end
 
   let(:invalid_params) do
-    all_params.merge({ applicant_reference: 0o1010 })
+    all_params.merge({ applicant_reference: {} })
   end
 
   context "with invalid params" do
+    before do
+      @result = subject.call(invalid_params)
+    end
+
     it "should fail validation" do
-      result = subject.call(invalid_params)
-      expect(result.success?).to be_falsey
-      expect(result.errors.to_h).to eq({ :applicant_reference => ["must be a string"] })
+      expect(@result.success?).to be_falsey
+    end
+
+    it 'should return failure with error messages' do
+      err_msg = { applicant_reference: { dob: ['is missing'], first_name: ['is missing'], last_name: ['is missing'], person_hbx_id: ['is missing'] } }
+      expect(@result.errors.to_h).to eq(err_msg)
     end
   end
 
@@ -46,7 +55,6 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Contracts::TaxHouseholdMemberContrac
     it "should pass validation" do
       result = subject.call(all_params)
       expect(result.success?).to be_truthy
-      expect(result.to_h).to eq all_params
     end
   end
 end

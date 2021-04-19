@@ -1,0 +1,134 @@
+{
+  "State":"ID",
+  "Application Year":2014,
+  "Name":"application example",
+  "People":[
+     {
+        "Is Applicant":"Y",
+        "Applicant Attest Blind or Disabled":"Y",
+        "Student Indicator":"Y",
+        "Medicare Entitlement Indicator":"Y",
+        "Incarceration Status":"Y",
+        "Lives In State":"Y",
+        "Claimed as Dependent by Person Not on Application":"Y",
+        "Applicant Attest Long Term Care":"Y",
+        "Has Insurance":"Y",
+        "State Health Benefits Through Public Employee":"Y",
+        "Prior Insurance":"Y",
+        "Applicant Pregnant Indicator":"Y",
+        "Applicant Post Partum Period Indicator":"N",
+        "Former Foster Care":"Y",
+        "Required to File Taxes":"Y",
+        "US Citizen Indicator":"Y",
+        "Lawful Presence Attested":"Y",
+        "Immigration Status":"01",
+        "Refugee Status":"N",
+        "Amerasian Immigrant":"Y",
+        "Veteran Status":"Y",
+        "Victim of Trafficking":"Y",
+        "Seven Year Limit Start Date":"2001-07-01",
+        "Five Year Bar Applies":"Y",
+        "Five Year Bar Met":"Y",
+        "Applicant Has 40 Title II Work Quarters":"Y",
+        "Person ID":1,
+        "Applicant Age":27,
+        "Hours Worked Per Week":20,
+        "Claimer Is Out of State":"Y",
+        "Prior Insurance End Date":"2013-06-01",
+        "Number of Children Expected":1,
+        "Had Medicaid During Foster Care":"Y",
+        "Age Left Foster Care":22,
+        "Foster Care State":"ID",
+
+        "Income":{
+           "Monthly Income":0,
+           "Wages, Salaries, Tips":25128,
+           "Taxable Interest":60,
+           "Tax-Exempt Interest":60,
+           "Taxable Refunds, Credits, or Offsets of State and Local Income Taxes":60,
+           "Alimony":60,
+           "Capital Gain or Loss":60,
+           "Pensions and Annuities Taxable Amount":60,
+           "Farm Income or Loss":60,
+           "Unemployment Compensation":60,
+           "Other Income":60,
+           "MAGI Deductions":60
+        },
+        "Relationships":[
+           {
+              "Other ID":2,
+              "Relationship Code":"03"
+           }
+        ]
+     },
+     {
+        "Is Applicant":"Y",
+        "Applicant Attest Blind or Disabled":"N",
+        "Student Indicator":"N",
+        "Medicare Entitlement Indicator":"N",
+        "Incarceration Status":"N",
+        "Lives In State":"Y",
+        "Claimed as Dependent by Person Not on Application":"N",
+        "Applicant Attest Long Term Care":"N",
+        "Has Insurance":"N",
+        "State Health Benefits Through Public Employee":"N",
+        "Prior Insurance":"N",
+        "Applicant Pregnant Indicator":"N",
+        "Applicant Post Partum Period Indicator":"N",
+        "Former Foster Care":"N",
+        "Required to File Taxes":"N",
+        "US Citizen Indicator":"Y",
+        "Person ID":2,
+        "Applicant Age":5,
+        "Hours Worked Per Week":0,
+        "Income":{
+           "Monthly Income":0,
+           "Wages, Salaries, Tips":0,
+           "Taxable Interest":0,
+           "Tax-Exempt Interest":0,
+           "Taxable Refunds, Credits, or Offsets of State and Local Income Taxes":0,
+           "Alimony":0,
+           "Capital Gain or Loss":0,
+           "Pensions and Annuities Taxable Amount":0,
+           "Farm Income or Loss":0,
+           "Unemployment Compensation":0,
+           "Other Income":0,
+           "MAGI Deductions":0
+        },
+        "Relationships":[
+           {
+              "Other ID":1,
+              "Relationship Code":"04"
+           }
+        ]
+     }
+  ],
+  "Physical Households":[
+     {
+        "Household ID":"Household1",
+        "People":[
+           {
+              "Person ID":1
+           }
+        ]
+     },
+     {
+        "Household ID":"Household2",
+        "People":[
+           {
+              "Person ID":2
+           }
+        ]
+     }
+  ],
+  "Tax Returns":[
+     {
+        "Filers":[
+           
+        ],
+        "Dependents":[
+           
+        ]
+     }
+  ]
+}

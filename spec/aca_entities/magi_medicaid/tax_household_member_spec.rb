@@ -1,9 +1,7 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require 'aca_entities/magi_medicaid/types'
-require 'aca_entities/magi_medicaid/product_eligibility_determination'
-require 'aca_entities/magi_medicaid/tax_household_member'
+require 'aca_entities/magi_medicaid/libraries/iap_library'
 
 RSpec.describe ::AcaEntities::MagiMedicaid::TaxHouseholdMember, dbclean: :after_each do
 
@@ -22,23 +20,43 @@ RSpec.describe ::AcaEntities::MagiMedicaid::TaxHouseholdMember, dbclean: :after_
         magi_medicaid_category: 'parent_caretaker' }
     end
 
+    let(:applicant_reference) do
+      { first_name: 'First Test',
+        last_name: 'Last Test',
+        dob: Date.today.prev_year,
+        person_hbx_id: '1000' }
+    end
+
     let(:input_params) do
       { product_eligibility_determination: product_eligibility_determination,
-        applicant_reference: '100' }
+        applicant_reference: applicant_reference }
     end
 
-    it 'should initialize' do
-      expect(described_class.new(input_params)).to be_a described_class
+    before do
+      thh_params = AcaEntities::MagiMedicaid::Contracts::TaxHouseholdMemberContract.new.call(input_params).to_h
+      @result = described_class.new(thh_params)
     end
 
-    it 'should not raise error' do
-      expect { described_class.new(input_params) }.not_to raise_error
+    it 'should return thhm entity object' do
+      expect(@result).to be_a(described_class)
     end
-  end
 
-  describe 'with invalid arguments' do
-    it 'should raise error' do
-      expect { described_class.new(applicant_reference: 100) }.to raise_error(Dry::Struct::Error, /:applicant_reference violates constraints/)
+    it 'should return all keys of thhm' do
+      expect(@result.to_h.keys).to eq(input_params.keys)
+    end
+
+    it 'should match all the input keys of product_eligibility_determination' do
+      result_ped_keys = @result.to_h[:product_eligibility_determination].keys
+      input_ped_keys = product_eligibility_determination.keys
+      expect(result_ped_keys - input_ped_keys).to be_empty
+      expect(input_ped_keys - result_ped_keys).to be_empty
+    end
+
+    it 'should match all the input keys of applicant_reference' do
+      result_ar_keys = @result.to_h[:applicant_reference].keys
+      input_ar_keys = applicant_reference.keys
+      expect(result_ar_keys - input_ar_keys).to be_empty
+      expect(input_ar_keys - result_ar_keys).to be_empty
     end
   end
 end

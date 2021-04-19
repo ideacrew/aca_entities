@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require 'aca_entities/magi_medicaid/application_reference'
+require 'aca_entities/magi_medicaid/libraries/iap_library'
 
 RSpec.describe ::AcaEntities::MagiMedicaid::ApplicationReference, dbclean: :after_each do
 
@@ -10,12 +10,17 @@ RSpec.describe ::AcaEntities::MagiMedicaid::ApplicationReference, dbclean: :afte
       { hbx_id: '10001' }
     end
 
-    it 'should initialize' do
-      expect(described_class.new(input_params)).to be_a described_class
+    before do
+      appl_ref_params = AcaEntities::MagiMedicaid::Contracts::ApplicationReferenceContract.new.call(input_params).to_h
+      @result = described_class.new(appl_ref_params)
     end
 
-    it 'should not raise error' do
-      expect { described_class.new(input_params) }.not_to raise_error
+    it 'should return application_reference entity object' do
+      expect(@result).to be_a(described_class)
+    end
+
+    it 'should return all keys of application_reference' do
+      expect(@result.to_h.keys).to eq(input_params.keys)
     end
   end
 
