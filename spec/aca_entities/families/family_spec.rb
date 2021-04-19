@@ -757,7 +757,7 @@ RSpec.describe AcaEntities::Families::Family, dbclean: :after_each do
       vlp_documents_status: nil,
       family_members: family_member_params,
       households: household_params,
-      iap_application_references: application_references,
+      magi_medicaid_applications: application_references,
       documents: documents,
       special_enrollment_periods: special_enrollment_periods,
       broker_accounts: broker_accounts,

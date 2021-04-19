@@ -37,8 +37,7 @@ module AcaEntities
           # TODO: Move to appropriate model
           optional(:min_verification_due_date).maybe(:date)
           optional(:vlp_documents_status).maybe(:string)
-
-          optional(:iap_application_references).array(MagiMedicaid::Contracts::ApplicationReferenceContract.params)
+          optional(:magi_medicaid_applications).array(MagiMedicaid::Contracts::ApplicationReferenceContract.params)
           optional(:documents).array(AcaEntities::Contracts::Documents::DocumentContract.params)
           optional(:special_enrollment_periods).array(AcaEntities::Contracts::EnrollmentPeriods::SpecialEnrollmentPeriodContract.params)
           optional(:broker_accounts).array(AcaEntities::Contracts::Brokers::BrokerAccountContract.params)
