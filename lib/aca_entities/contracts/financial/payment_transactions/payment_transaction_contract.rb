@@ -16,6 +16,7 @@ module AcaEntities
             required(:enrollment_id).value(:string)
             required(:carrier_id).value(:string)
             required(:enrollment_effective_date).value(:date)
+            required(:source).value(:string)
           end
 
           rule(:enrollment_id) do
@@ -28,6 +29,10 @@ module AcaEntities
 
           rule(:enrollment_effective_date) do
             key.failure('Enrollment effective on is not a date') unless value.is_a?(Date)
+          end
+
+          rule(:source) do
+            key.failure('Source kind is blank') if value.empty?
           end
         end
       end

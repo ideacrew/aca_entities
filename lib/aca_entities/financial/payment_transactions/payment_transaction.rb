@@ -9,6 +9,7 @@ module AcaEntities
         attribute :enrollment_id,                Types::Strict::String
         attribute :carrier_id,                   Types::Strict::String
         attribute :enrollment_effective_date,    Types::Strict::Date
+        attribute :source,                       Types::Strict::String
       end
     end
   end

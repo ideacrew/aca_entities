@@ -4,11 +4,13 @@ require "../aca_entities/lib/aca_entities/financial/payment_transactions/payment
 
 RSpec.describe ::AcaEntities::Financial::PaymentTransactions::PaymentTransaction,  dbclean: :after_each do
 
+
   describe "Transaction Entity" do
     let(:input_params) do
       { :enrollment_id => "test",
         :carrier_id => "test",
-        :enrollment_effective_date => Date.today }
+        :enrollment_effective_date => Date.today,
+        :source => "test"}
     end
 
     context 'Passing invalid params' do

@@ -4,6 +4,7 @@ require "../aca_entities/lib/aca_entities/contracts/financial/payment_transactio
 
 RSpec.describe ::AcaEntities::Contracts::Financial::PaymentTransactions::PaymentTransactionContract,  dbclean: :after_each do
 
+
   describe "Transaction contract" do
 
     context "calling with params values as nil" do
@@ -11,7 +12,8 @@ RSpec.describe ::AcaEntities::Contracts::Financial::PaymentTransactions::Payment
       let(:error_message) do
         { :carrier_id => ["Carrier id is blank"],
           :enrollment_effective_date => ["must be a date"],
-          :enrollment_id => ["Enrollment id is blank"] }
+          :enrollment_id => ["Enrollment id is blank"],
+          :source=>["is missing"] }
       end
 
       it 'should be a container-ready operation' do
@@ -33,7 +35,8 @@ RSpec.describe ::AcaEntities::Contracts::Financial::PaymentTransactions::Payment
       let(:error_message) do
         { :carrier_id => ["is missing"],
           :enrollment_effective_date => ["is missing"],
-          :enrollment_id => ["is missing"] }
+          :enrollment_id => ["is missing"],
+          :source=>["is missing"] }
       end
 
       it 'should throw errors' do
@@ -46,7 +49,8 @@ RSpec.describe ::AcaEntities::Contracts::Financial::PaymentTransactions::Payment
       let(:valid_params) do
         { :enrollment_id => "test",
           :carrier_id => "test",
-          :enrollment_effective_date => Date.today }
+          :enrollment_effective_date => Date.today,
+          :source => "test"}
       end
 
       it 'should return Dry::Validation::Result object' do
@@ -57,6 +61,5 @@ RSpec.describe ::AcaEntities::Contracts::Financial::PaymentTransactions::Payment
         expect(subject.call(valid_params).errors.to_h).to be_empty
       end
     end
-
   end
 end
