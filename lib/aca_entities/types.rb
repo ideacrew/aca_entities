@@ -1824,6 +1824,11 @@ module AcaEntities
       'coverall'
     )
 
+    GaState = Types::Coercible::String.enum(
+      'active',
+      'incactive'
+    )
+
     IdKey = Types::Coercible::String.enum(
       'curam_e_case_id'
     )

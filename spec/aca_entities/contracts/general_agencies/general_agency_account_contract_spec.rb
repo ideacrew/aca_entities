@@ -37,7 +37,7 @@ RSpec.describe ::AcaEntities::Contracts::GeneralAgencies::GeneralAgencyAccountCo
       start_on: Date.today,
       end_on: Date.today,
       is_active: false,
-      aasm_state: nil,
+      aasm_state: 'active',
       general_agency_reference: general_agency_reference,
       broker_role_reference: broker_role_reference,
       updated_by: person_reference

@@ -19,7 +19,7 @@ module AcaEntities
           required(:start_on).value(:date?)
           optional(:end_on).value(:date?)
           optional(:is_active).maybe(:bool)
-          optional(:aasm_state).maybe(:string)
+          optional(:aasm_state).maybe(AcaEntities::Types::GaState)
           required(:broker_role_reference).hash(AcaEntities::Contracts::Brokers::BrokerRoleReferenceContract.params)
           required(:general_agency_reference).hash(AcaEntities::Contracts::Organizations::GeneralAgencyReferenceContract.params)
           optional(:updated_by).hash(AcaEntities::Contracts::People::PersonReferenceContract.params)
