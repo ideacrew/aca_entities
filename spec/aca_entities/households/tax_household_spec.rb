@@ -63,7 +63,11 @@ RSpec.describe ::AcaEntities::Households::TaxHousehold, dbclean: :after_each do
 
   let(:family_member_reference) do
     {
-      hbx_id: '1001'
+      family_member_hbx_id: '1001',
+      first_name: 'first name',
+      last_name: 'last name',
+      person_hbx_id: '1001',
+      is_primary_family_member: true
     }
   end
 

@@ -6,7 +6,11 @@ RSpec.describe ::AcaEntities::Contracts::Families::FamilyMemberReferenceContract
 
   let(:required_params) do
     {
-      hbx_id: '1001'
+      family_member_hbx_id: '1001',
+      first_name: 'first name',
+      last_name: 'last name',
+      person_hbx_id: '1001',
+      is_primary_family_member: true
     }
   end
 
@@ -27,7 +31,7 @@ RSpec.describe ::AcaEntities::Contracts::Families::FamilyMemberReferenceContract
   context 'failure case' do
     context 'missing required param' do
       before do
-        @result = subject.call(required_params.reject { |k, _v| k == :hbx_id })
+        @result = subject.call(required_params.reject { |k, _v| k == :family_member_hbx_id })
       end
 
       it 'should return failure' do
@@ -45,7 +49,7 @@ RSpec.describe ::AcaEntities::Contracts::Families::FamilyMemberReferenceContract
 
     context 'with bad input data type' do
       before do
-        @result = subject.call(required_params.merge(hbx_id: nil))
+        @result = subject.call(required_params.merge(family_member_hbx_id: nil))
       end
 
       it 'should return failure' do

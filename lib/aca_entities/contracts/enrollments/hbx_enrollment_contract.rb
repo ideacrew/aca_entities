@@ -77,9 +77,7 @@ module AcaEntities
           optional(:predecessor_enrollment).hash(AcaEntities::Contracts::Enrollments::HbxEnrollmentReferenceContract.params)
 
           optional(:coverage_household_reference).hash(AcaEntities::Contracts::Households::CoverageHouseholdReferenceContract.params)
-          optional(:family_reference).hash(AcaEntities::Contracts::Families::FamilyReferenceContract.params)
-          optional(:household_reference).hash(AcaEntities::Contracts::Households::HouseholdReferenceContract.params)
-
+          optional(:family_hbx_id).maybe(:string)
           optional(:special_enrollment_period_reference).hash(
             AcaEntities::Contracts::EnrollmentPeriods::SpecialEnrollmentPeriodReferenceContract.params
           )

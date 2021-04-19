@@ -15,8 +15,7 @@ module AcaEntities
       attribute :issuer_profile_reference,                        AcaEntities::Organizations::IssuerProfileReference.meta(omittable: false)
 
       attribute :coverage_household_reference,                    AcaEntities::Households::CoverageHouseholdReference.optional.meta(omittable: true)
-      attribute :family_reference,                                AcaEntities::Families::FamilyReference.optional.meta(omittable: true)
-      attribute :household_reference,                             AcaEntities::Households::HouseholdReference.optional.meta(omittable: true)
+      attribute :family_hbx_id,                                   Types::String.optional.meta(omittable: false)
       attribute :terminated_on,                                   Types::Date.optional.meta(omittable: true)
       attribute :terminate_reason,                                Types::String.optional.meta(omittable: true)
       attribute :termination_submitted_on,                        Types::Date.optional.meta(omittable: true)

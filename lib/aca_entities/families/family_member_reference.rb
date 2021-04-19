@@ -3,8 +3,11 @@
 module AcaEntities
   module Families
     class FamilyMemberReference < Dry::Struct
-      # TODO: Person hbx_id until we add hbx_id on family member
-      attribute :hbx_id,          Types::String.optional.meta(omittable: false)
+      attribute :family_member_hbx_id,          Types::String.optional.meta(omittable: false)
+      attribute :first_name,                    Types::String.optional.meta(omittable: false)
+      attribute :last_name,                     Types::String.optional.meta(omittable: false)
+      attribute :person_hbx_id,                 Types::String.optional.meta(omittable: false)
+      attribute :is_primary_family_member,      Types::Bool.optional.meta(omittable: false)
     end
   end
 end

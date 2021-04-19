@@ -12,7 +12,7 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Applicant, dbclean: :after_each do
     let(:identifying_information) { { has_ssn: false } }
     let(:demographic) { { gender: 'Male', dob: Date.today.prev_year.to_s } }
     let(:attestation) { { is_disabled: false } }
-    let(:family_member_reference) { { hbx_id: '1000' } }
+    let(:family_member_reference) { { family_member_hbx_id: '1000' } }
     let(:pregnancy_information) { { is_pregnant: false, is_post_partum_period: false } }
     let(:citizenship_immigration_status_information) { { citizen_status: 'us_citizen' } }
     let(:income) do

@@ -10,7 +10,7 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Application, dbclean: :after_each do
     let(:identifying_information) { { has_ssn: false } }
     let(:demographic) { { gender: 'Male', dob: Date.today.prev_year.to_s } }
     let(:attestation) { { is_disabled: false } }
-    let(:family_member_reference) { { hbx_id: '1000' } }
+    let(:family_member_reference) { { family_member_hbx_id: '1000' } }
     let(:pregnancy_information) { { is_pregnant: false, is_post_partum_period: false } }
 
     let(:applicant) do

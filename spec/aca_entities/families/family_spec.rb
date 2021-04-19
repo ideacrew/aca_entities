@@ -6,13 +6,11 @@ RSpec.describe AcaEntities::Families::Family, dbclean: :after_each do
 
   let(:family_member_reference) do
     {
-      hbx_id: '1001'
-    }
-  end
-
-  let(:family_reference) do
-    {
-      hbx_id: '1000'
+      family_member_hbx_id: '1001',
+      first_name: 'first name',
+      last_name: 'last name',
+      person_hbx_id: '1001',
+      is_primary_family_member: true
     }
   end
 
@@ -85,10 +83,6 @@ RSpec.describe AcaEntities::Families::Family, dbclean: :after_each do
     }
   end
 
-  let(:household_reference) do
-    {}
-  end
-
   let(:benefit_package_reference) do
     {
       title: 'test title',
@@ -145,8 +139,7 @@ RSpec.describe AcaEntities::Families::Family, dbclean: :after_each do
         termination_submitted_on: nil,
         external_enrollment: false,
         coverage_household_reference: coverage_household_reference,
-        household_reference: household_reference,
-        family_reference: family_reference,
+        family_hbx_id: "1234",
         special_enrollment_period_reference: special_enrollment_period_reference,
         product_reference: product_reference,
         issuer_profile_reference: issuer_profile_reference,
@@ -641,19 +634,13 @@ RSpec.describe AcaEntities::Families::Family, dbclean: :after_each do
   end
 
   let(:applicant_reference) do
-    {
+    [{
       first_name: "first name",
       last_name: "last name",
       dob: Date.today,
       person_hbx_id: "33333333",
       encrypted_ssn: nil
-    }
-  end
-
-  let(:former_family_reference) do
-    {
-      hbx_id: "33332"
-    }
+    }]
   end
 
   let(:application_references) do
@@ -674,9 +661,7 @@ RSpec.describe AcaEntities::Families::Family, dbclean: :after_each do
         is_consent_applicant: true,
         is_coverage_applicant: nil,
         is_active: true,
-        applicant_reference: applicant_reference,
-        former_family_reference: former_family_reference,
-        hbx_enrollment_exemptions: hbx_enrollment_exemptions,
+        magi_medicaid_application_applicants: applicant_reference,
         person: person,
         timestamp: timestamp
       }

@@ -345,22 +345,16 @@ RSpec.describe ::AcaEntities::Contracts::Families::FamilyMemberContract, dbclean
     }
   end
 
-  let(:former_family_reference) do
-    {
-      hbx_id: "33332"
-    }
-  end
-
   let(:hbx_enrollment_exemptions) { [] }
 
   let(:applicant_reference) do
-    {
+    [{
       first_name: "first name",
       last_name: "last name",
       dob: Date.today,
       person_hbx_id: "33333333",
       encrypted_ssn: nil
-    }
+    }]
   end
 
   let(:required_params) do
@@ -370,9 +364,7 @@ RSpec.describe ::AcaEntities::Contracts::Families::FamilyMemberContract, dbclean
       is_consent_applicant: true,
       is_coverage_applicant: nil,
       is_active: true,
-      applicant_reference: applicant_reference,
-      former_family_reference: former_family_reference,
-      hbx_enrollment_exemptions: hbx_enrollment_exemptions,
+      magi_medicaid_application_applicants: applicant_reference,
       person: person,
       timestamp: timestamp
     }

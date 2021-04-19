@@ -111,13 +111,11 @@ RSpec.describe ::AcaEntities::Households::Household, dbclean: :after_each do
 
   let(:family_member_reference) do
     {
-      hbx_id: '1001'
-    }
-  end
-
-  let(:family_reference) do
-    {
-      hbx_id: '1000'
+      family_member_hbx_id: '1001',
+      first_name: 'first name',
+      last_name: 'last name',
+      person_hbx_id: '1001',
+      is_primary_family_member: true
     }
   end
 
@@ -304,7 +302,7 @@ RSpec.describe ::AcaEntities::Households::Household, dbclean: :after_each do
         external_enrollment: false,
         coverage_household_reference: coverage_household_reference,
         household_reference: household_reference,
-        family_reference: family_reference,
+        family_hbx_id: "1000",
         special_enrollment_period_reference: special_enrollment_period_reference,
         product_reference: product_reference,
         issuer_profile_reference: issuer_profile_reference,

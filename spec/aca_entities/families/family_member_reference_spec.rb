@@ -6,7 +6,11 @@ RSpec.describe ::AcaEntities::Families::FamilyMemberReference, dbclean: :after_e
 
   let(:input_params) do
     {
-      hbx_id: '1001'
+      family_member_hbx_id: '1001',
+      first_name: 'first name',
+      last_name: 'last name',
+      person_hbx_id: '1001',
+      is_primary_family_member: true
     }
   end
 
@@ -23,7 +27,11 @@ RSpec.describe ::AcaEntities::Families::FamilyMemberReference, dbclean: :after_e
 
   describe 'with invalid arguments' do
     it 'should raise error' do
-      expect { described_class.new(input_params.reject { |k, _v| k == :hbx_id }) }.to raise_error(Dry::Struct::Error, /:hbx_id is missing/)
+      expect do
+        described_class.new(input_params.reject do |k, _v|
+                              k == :family_member_hbx_id
+                            end)
+      end.to raise_error(Dry::Struct::Error, /:family_member_hbx_id is missing/)
     end
   end
 end
