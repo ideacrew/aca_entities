@@ -144,6 +144,16 @@ module AcaEntities
         def process_add_namespaces(namespaced_key, key, root = true)
           initialize_sub_record(namespaced_key, key) unless root
 
+          if namespaced_key == ''
+            build_add_namespace('add_key', key)
+          else
+            build_add_namespace(namespaced_key, key)
+          end
+
+          close_sub_record(false) unless root
+        end
+
+        def build_add_namespace(namespaced_key, key)
           container.keys_under_namespace(namespaced_key).each do |key_under_ns|
             if container[key_under_ns].transproc_name == :add_namespace
               process_add_namespaces(key_under_ns, key, false)
@@ -152,7 +162,7 @@ module AcaEntities
             if container[key_under_ns].transproc_name == :add_key
               input = {source_hash: Hash[key_under_ns.split('.').last.to_sym, nil]}
               input.merge!(context: Context.new(@contexts)) unless @contexts.empty?
-              data  = container[key_under_ns].call(input)[:source_hash]
+              data = container[key_under_ns].call(input)[:source_hash]
               if record_builder
                 record_builder.append(record_builder.namespace, data)
               else
@@ -160,7 +170,6 @@ module AcaEntities
               end
             end
           end
-          close_sub_record(false) unless root
         end
 
         def initialize_sub_record(container_key, key)
@@ -262,8 +271,6 @@ module AcaEntities
           return unless container.key?(transformed_key)
 
           input = if record_unique_identifier
-                    t(:build_nested_hash)[{}, [], Hash[key.to_sym, value]]
-                  elsif element_namespaces.size == 1
                     t(:build_nested_hash)[{}, [], Hash[key.to_sym, value]]
                   else
                     t(:build_nested_hash)[{}, element_namespaces, Hash[key.to_sym, value]]

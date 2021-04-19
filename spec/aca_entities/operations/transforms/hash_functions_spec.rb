@@ -5,10 +5,17 @@ require 'spec_helper'
 RSpec.describe ::AcaEntities::Operations::Transforms::HashFunctions do
   describe 'with valid input file' do
     describe '.map_value' do
-      it 'returns a new hash with given proc applied to value' do
+      it 'returns a new hash with given proc applied to value with namespace' do
         input = { :boo => { :foo => 'BAR' } }
         output = { :boo => { :foo => 'bar' } }
         map_value = described_class.map_value(input, [:boo], proc {|value| value.to_s.downcase})
+        expect(map_value).to eql(output)
+      end
+
+      it 'returns a new hash with given proc applied to value without namespace' do
+        input = { :foo => 'BAR' }
+        output = { :foo => 'bar' }
+        map_value = described_class.map_value(input, [], proc {|value| value.to_s.downcase})
         expect(map_value).to eql(output)
       end
     end
@@ -45,7 +52,7 @@ RSpec.describe ::AcaEntities::Operations::Transforms::HashFunctions do
 
     describe '.rewrap_keys' do
       it 'returns a new hash with new namespaces' do
-        input = { :foo => 'bar' }
+        input = { :boo => { :foo => 'bar' } }
         output = { :boo => { :too => 'bar' } }
         map_value = described_class.rewrap_keys(input, [:boo, :foo], [:boo, :too])
         expect(map_value).to eql(output)

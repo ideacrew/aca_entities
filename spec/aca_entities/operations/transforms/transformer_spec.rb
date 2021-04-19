@@ -128,6 +128,28 @@ RSpec.describe AcaEntities::Operations::Transforms::Transformer::ClassMethods do
       end
     end
   end
+
+  describe '.map' do
+    describe 'with valid input' do
+      it 'should build dry transformer function' do
+        result = dummy_class.map('a', 'a1')
+
+        expect(result.is_a?(Object)).to eq true
+        expect(result._container.values.first.item.key_transforms).to eq [:rename_nested_keys]
+      end
+    end
+  end
+
+  describe '.add_key' do
+    describe 'with valid input' do
+      it 'should build dry transformer function' do
+        result = dummy_class.add_key('a', 123)
+
+        expect(result.is_a?(Object)).to eq true
+        expect(result._container.values.first.item.key_transforms).to eq [:add_key]
+      end
+    end
+  end
 end
 
 RSpec.describe AcaEntities::Operations::Transforms::Map do

@@ -31,16 +31,16 @@ module AcaEntities
           source_hash = input[:source_hash] || input
 
           source_hash.to_h.tap do |hash|
-            final_pair = hash.dig(*namespaces)
+            data_pair = namespaces.empty? ? hash : hash.dig(*namespaces)
 
             transformed_pair = if func.is_a? Proc
                                  if input[:context]
-                                   final_pair.update(final_pair) {|_k, _old_value| instance_exec(input[:context], &func)}
+                                   data_pair.update(data_pair) {|_k, _old_value| instance_exec(input[:context], &func)}
                                  else
-                                   final_pair.update(final_pair) {|_k, old_value| instance_exec(old_value, &func)}
+                                   data_pair.update(data_pair) {|_k, old_value| instance_exec(old_value, &func)}
                                  end
                                else
-                                 final_pair.transform_values!(&func)
+                                 data_pair.transform_values!(&func)
                                end
             build_nested_hash({}, namespaces[0..-2].dup, transformed_pair)
           end
@@ -66,7 +66,7 @@ module AcaEntities
             element = namespaced_keys.last
             output_hash = build_nested_hash({}, namespaced_keys[0..-2], Hash[element, value])
             hash[namespaced_keys[0]] = output_hash[namespaced_keys[0]]
-            hash.delete(element)
+            hash.delete(element) if namespaced_keys.size > 1
           end
 
           input
