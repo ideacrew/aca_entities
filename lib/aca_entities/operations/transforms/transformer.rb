@@ -411,12 +411,20 @@ module AcaEntities
 
           transform_procs = key_transforms.collect {|action| action_to_transproc(action, source_elements, output_elements)}
 
-          @transproc = if proc && !key_transforms.include?(:add_context)
-                         output = output_elements[0..-2]
-                         eval(transform_procs.flatten.join('.>> ')) >> t(:map_value, output.map(&:to_sym), proc)
-                       else
-                         eval(transform_procs.flatten.join('.>> '))
-                       end
+          @transproc =
+            if transform_procs.is_a?(String) || (transform_procs.is_a?(Array) && transform_procs.first.is_a?(String))
+              if proc && !key_transforms.include?(:add_context)
+                output = output_elements[0..-2]
+                eval(transform_procs.flatten.join('.>> ')) >> t(:map_value, output.map(&:to_sym), proc)
+              else
+                eval(transform_procs.flatten.join('.>> '))
+              end
+            elsif proc && !key_transforms.include?(:add_context)
+              output = output_elements[0..-2]
+              transform_procs.first >> t(:map_value, output.map(&:to_sym), proc)
+            else
+              transform_procs.first
+            end
         end
 
         def action_to_transproc(action, source_elements, output_elements)
@@ -434,7 +442,7 @@ module AcaEntities
             "t(:add_namespace, #{source_elements.map(&:to_sym)}, #{output_elements.map(&:to_sym)})"
           when :rename_nested_keys
             source = source_key.split('.').last
-            "t(:#{action}, [#{source}: :#{output_elements.last}], #{source_elements[0..-2].map(&:to_sym)})"
+            t(:"#{action}", ["#{source}": :"#{output_elements.last}"], source_elements[0..-2].map(&:to_sym))
           when :add_context
             "t(:add_context, #{source_elements.map(&:to_sym)}, #{output_elements.map(&:to_sym)}, #{proc})"
           else
