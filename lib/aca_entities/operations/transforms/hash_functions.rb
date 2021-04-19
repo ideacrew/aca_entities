@@ -31,16 +31,16 @@ module AcaEntities
           source_hash = input[:source_hash] || input
 
           source_hash.to_h.tap do |hash|
-            final_pair = hash.dig(*namespaces)
+            data_pair = namespaces.empty? ? hash : hash.dig(*namespaces)
 
             transformed_pair = if func.is_a? Proc
                                  if input[:context]
-                                   final_pair.update(final_pair) {|_k, _old_value| instance_exec(input[:context], &func)}
+                                   data_pair.update(data_pair) {|_k, _old_value| instance_exec(input[:context], &func)}
                                  else
-                                   final_pair.update(final_pair) {|_k, old_value| instance_exec(old_value, &func)}
+                                   data_pair.update(data_pair) {|_k, old_value| instance_exec(old_value, &func)}
                                  end
                                else
-                                 final_pair.transform_values!(&func)
+                                 data_pair.transform_values!(&func)
                                end
             build_nested_hash({}, namespaces[0..-2].dup, transformed_pair)
           end
@@ -66,7 +66,7 @@ module AcaEntities
             element = namespaced_keys.last
             output_hash = build_nested_hash({}, namespaced_keys[0..-2], Hash[element, value])
             hash[namespaced_keys[0]] = output_hash[namespaced_keys[0]]
-            hash.delete(element)
+            hash.delete(element) if namespaced_keys.size > 1
           end
 
           input
@@ -122,8 +122,8 @@ module AcaEntities
         # @return [Hash]
         def rename_nested_keys(source_hash, mapping, namespaces = [])
           source_hash.to_h.tap do |hash|
-            final_pair = namespaces.empty? ? hash : hash.dig(*namespaces)
-            mapping.first.each {|k, v| final_pair[v] = final_pair.delete(k) if final_pair.key?(k)}
+            data_pair = namespaces.empty? ? hash : hash.dig(*namespaces)
+            mapping.first.each {|k, v| data_pair[v] = data_pair.delete(k) if data_pair.key?(k)}
           end
         end
 
@@ -140,12 +140,12 @@ module AcaEntities
         # @return [Hash]
         def rewrap_keys(source_hash, source_namespaces, destination_namespaces = [])
           source_hash.to_h.tap do |source_data|
+            data_pair = source_data.dig(*source_namespaces[0..-2]) if source_namespaces.size > 1
+            data_pair ||= source_data
 
-            element = destination_namespaces.last
-            output = build_nested_hash({}, destination_namespaces[0..-2], Hash[element, source_data[source_namespaces.last]])
-
-            source_data.delete(source_namespaces.last)
-            source_data[destination_namespaces[0]] = output[destination_namespaces[0]]
+            output = build_nested_hash({}, destination_namespaces[0..-2], Hash[destination_namespaces.last, data_pair.values.first])
+            source_data.delete(source_namespaces.first)
+            source_data.merge!(output)
           end
         end
 

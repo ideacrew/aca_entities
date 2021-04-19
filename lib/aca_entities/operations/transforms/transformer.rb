@@ -252,17 +252,64 @@ module AcaEntities
 
         # setup DSL functions
         module ClassMethods
-          # attr_reader :namespace
 
-          # @param [Hash] options the options to create a message with.
-          # @option options [String] :a The a
-          # @option options [String] :b ('nil')
-          def map(source_key = nil, output_key = nil, options = {})
-            mapping = Map.new(source_key, output_key, options)
-            mapping_container.register(mapping.source_key, mapping)
+          # map takes source_key, output_key and *args to build transform object.
+          # This method returns object which has a function for hash transformation.
+          #
+          # @visibility public
+          # @param source_key [#to_s] The input is a single key or a namespaced key
+          # @param output_key [#to_s] The output is a single key or a namespaced key
+          # @param args
+          #
+          # @example
+          #   map "firstname", "first_name"
+          #   # => Object
+          #
+          # @example
+          #   map "a.b.firstname", "c.d.first_name"
+          #   # => Object
+          #
+          # @example
+          #   map "a.b.dob", "c.d.age", -> v {age_on(v)}
+          #   # => Object
+          #
+          # @return [Object]
+          #
+          # @api public
+          def map(source_key = nil, output_key = nil, *args)
+            mapping = Map.new(source_key, output_key, nil, :rename_nested_keys, proc: args.first)
+            mapping_container.register(mapping.container_key, mapping)
           end
 
-          def add_key; end
+          # add_key takes key and value(can be a value or a proc).
+          # This method returns object which has a function for hash transformation.
+          #
+          # @visibility public
+          # @param [String] key
+          # @param value describe a proc or a value(integer/string)
+          #
+          # @example
+          #   add_key "fname"
+          #   # => Object
+          #
+          # @example
+          #   add_key "fname", ->(v) { v.resolve(:members).name } # proc should be derived based on namespace method context
+          #   # => Object
+          #
+          # @return [Object]
+          #
+          # @api public
+          def add_key(key, value = nil)
+            raise 'arg1 should not be empty string or an integer' if key.empty? || key.is_a?(Integer)
+
+            mapping = Map.new(['add_key', key].join('.'),
+                              key,
+                              value,
+                              :add_key,
+                              proc: nil)
+
+            mapping_container.register(mapping.container_key, mapping)
+          end
 
           # FIX ME: deprecate map serializer
           # Namespace takes source_namespace, output_namespace, *args(for additional operations) and a block
@@ -360,7 +407,7 @@ module AcaEntities
 
         def transform
           source_elements = source_key.split('.')
-          output_elements = output_key.split('.')
+          output_elements =  output_key ? output_key.split('.') : source_elements
 
           transform_procs = key_transforms.collect {|action| action_to_transproc(action, source_elements, output_elements)}
 

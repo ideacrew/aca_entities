@@ -11,7 +11,10 @@ RSpec.describe ::AcaEntities::Medicaid::Transforms::McrTo::CvInput do
 
     it 'should parse and then transform when transform_mode set to batch' do
       AcaEntities::Medicaid::Transforms::McrTo::CvInput.call(source_file, { transform_mode: :batch }) do |payload|
-        record = AcaEntities::Medicaid::Transforms::McrTo::CvInput.transform({ payload: payload })
+        record = AcaEntities::Medicaid::Transforms::McrTo::CvInput.transform(payload)
+
+        expect(record).to have_key(:sample_add_key)
+        expect(record).to have_key(:calender_year)
         expect(record).to have_key(:family)
       end
     end
