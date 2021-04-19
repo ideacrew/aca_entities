@@ -67,7 +67,7 @@ module AcaEntities
           required(:is_applying_coverage).filled(:bool)
           optional(:is_consent_applicant).maybe(:bool)
           optional(:vlp_document).maybe(AcaEntities::Contracts::Documents::VlpDocumentContract.params)
-          required(:family_member_reference).filled(:hash) # AcaEntities::Contracts::References::FamilyMemberContract.params
+          required(:family_member_reference).hash(::AcaEntities::Contracts::Families::FamilyMemberReferenceContract.params)
           required(:person_hbx_id).filled(:string)
           required(:is_required_to_file_taxes).filled(:bool)
           optional(:is_joint_tax_filing).maybe(:bool)

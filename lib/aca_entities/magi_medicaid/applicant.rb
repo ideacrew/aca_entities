@@ -18,7 +18,7 @@ module AcaEntities
       attribute :is_applying_coverage, Types::Bool.optional.meta(omittable: true)
       attribute :is_consent_applicant, Types::Bool.optional.meta(omittable: true)
       attribute :vlp_document, AcaEntities::Documents::VlpDocument.optional.meta(omittable: true)
-      attribute :family_member_reference, Types::Hash.meta(omittable: false) # AcaEntities::References::FamilyMemberReference
+      attribute :family_member_reference, AcaEntities::Families::FamilyMemberReference.meta(omittable: false)
 
       attribute :person_hbx_id, Types::String.meta(omittable: false)
 

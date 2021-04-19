@@ -16,7 +16,7 @@ module AcaEntities
         # @option opts [Array] :applicants required
         # @return [Dry::Monads::Result]
         params do
-          required(:family_reference).filled(:hash) # AcaEntities::Contracts::References::FamilyContract.params
+          required(:family_reference).hash(::AcaEntities::Contracts::Families::FamilyReferenceContract.params)
           required(:assistance_year).filled(:integer)
           optional(:years_to_renew).maybe(:integer)
           optional(:renewal_consent_through_year).maybe(:integer)

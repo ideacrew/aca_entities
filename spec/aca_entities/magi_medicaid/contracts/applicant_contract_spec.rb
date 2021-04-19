@@ -9,7 +9,13 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicantContract,  dbclean
     let(:identifying_information) { { has_ssn: false } }
     let(:demographic) { { gender: 'Male', dob: Date.today.prev_year.to_s } }
     let(:attestation) { { is_disabled: false } }
-    let(:family_member_reference) { { family_member_hbx_id: '1000' } }
+    let(:family_member_reference) do
+      { family_member_hbx_id: '1000',
+        first_name: 'first',
+        last_name: 'last',
+        person_hbx_id: '100',
+        is_primary_family_member: true }
+    end
     let(:pregnancy_information) { { is_pregnant: false, is_post_partum_period: false } }
 
     let(:input_params) do
@@ -77,7 +83,13 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicantContract,  dbclean
         is_veteran_or_active_military: false }
     end
     let(:attestation) { { is_disabled: false, is_incarcerated: false } }
-    let(:family_member_reference) { { hbx_id: '1000' } }
+    let(:family_member_reference) do
+      { family_member_hbx_id: '1000',
+        first_name: 'First',
+        last_name: 'Last',
+        person_hbx_id: '100',
+        is_primary_family_member: true }
+    end
     let(:pregnancy_information) { { is_pregnant: false, is_post_partum_period: false } }
 
     let(:input_params) do
