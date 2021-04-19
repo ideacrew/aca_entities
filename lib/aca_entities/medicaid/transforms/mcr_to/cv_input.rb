@@ -19,6 +19,7 @@ module AcaEntities
 
           AgeOn = AcaEntities::Functions::AgeOn.new(on_date: "2020-1-1")
 
+          map 'test Key', 'test_key'
           map 'coverageYear', 'calender_year'
           map 'insuranceApplicationIdentifier', 'application_identifier'
           map 'Date', 'age', AgeOn
