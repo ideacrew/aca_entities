@@ -49,7 +49,7 @@ RSpec.describe ::AcaEntities::Contracts::Financial::PaymentTransactions::Payment
         { :enrollment_id => "test",
           :carrier_id => "test",
           :enrollment_effective_date => Date.today,
-          :source => "test" }
+          :source => "plan_shopping" }
       end
 
       it 'should return Dry::Validation::Result object' do
