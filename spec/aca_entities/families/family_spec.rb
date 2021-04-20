@@ -728,7 +728,7 @@ RSpec.describe AcaEntities::Families::Family, dbclean: :after_each do
         carrier_id: "122",
         enrollment_effective_date: Date.today,
         status: nil,
-        source: "test"
+        source: "plan_shopping"
       }
     ]
   end

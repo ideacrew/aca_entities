@@ -737,7 +737,7 @@ RSpec.describe AcaEntities::Contracts::Families::FamilyContract,  dbclean: :afte
         carrier_id: "123",
         enrollment_effective_date: Date.today,
         status: nil,
-        source: "test"
+        source: "plan_shopping"
       }
     ]
   end

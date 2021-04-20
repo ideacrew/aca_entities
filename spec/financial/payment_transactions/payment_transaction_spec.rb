@@ -9,7 +9,7 @@ RSpec.describe ::AcaEntities::Financial::PaymentTransactions::PaymentTransaction
       { :enrollment_id => "test",
         :carrier_id => "test",
         :enrollment_effective_date => Date.today,
-        :source => "test" }
+        :source => "plan_shopping" }
     end
 
     context 'Passing invalid params' do
