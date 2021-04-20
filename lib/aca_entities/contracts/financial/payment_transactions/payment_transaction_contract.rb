@@ -29,6 +29,7 @@ module AcaEntities
 
             optional(:status).maybe(:string)
             optional(:payment_transaction_id).maybe(:string)
+            required(:source).value(:string)
           end
         end
       end

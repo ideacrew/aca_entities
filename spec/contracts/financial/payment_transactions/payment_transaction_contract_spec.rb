@@ -11,7 +11,8 @@ RSpec.describe ::AcaEntities::Contracts::Financial::PaymentTransactions::Payment
       let(:error_message) do
         { :carrier_id => ["must be filled"],
           :enrollment_effective_date => ["must be filled"],
-          :enrollment_id => ["must be filled"] }
+          :enrollment_id => ["must be filled"],
+          :source => ["is missing"] }
       end
 
       it 'should be a container-ready operation' do
@@ -33,7 +34,8 @@ RSpec.describe ::AcaEntities::Contracts::Financial::PaymentTransactions::Payment
       let(:error_message) do
         { :carrier_id => ["is missing"],
           :enrollment_effective_date => ["is missing"],
-          :enrollment_id => ["is missing"] }
+          :enrollment_id => ["is missing"],
+          :source => ["is missing"] }
       end
 
       it 'should throw errors' do
@@ -46,7 +48,8 @@ RSpec.describe ::AcaEntities::Contracts::Financial::PaymentTransactions::Payment
       let(:valid_params) do
         { :enrollment_id => "test",
           :carrier_id => "test",
-          :enrollment_effective_date => Date.today }
+          :enrollment_effective_date => Date.today,
+          :source => "test" }
       end
 
       it 'should return Dry::Validation::Result object' do
