@@ -1,5 +1,8 @@
 name: Doc Generation
-on: push
+on: 
+  push:
+    paths:
+      - 'hugo/**'
 
 jobs:
   docs_deployment:
