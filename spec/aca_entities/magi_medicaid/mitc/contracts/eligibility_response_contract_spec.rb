@@ -4,9 +4,33 @@ require 'spec_helper'
 require 'aca_entities/magi_medicaid/libraries/mitc_library'
 
 RSpec.describe ::AcaEntities::MagiMedicaid::Mitc::Contracts::EligibilityResponseContract do
+  let(:category_determination) do
+    { category: 'Child Category',
+      indicator_code: 'N',
+      ineligibility_code: 115,
+      ineligibility_reason: 'Applicant is 19 years of age or older and the state does not cover young adults under age 20 or 21' }
+  end
+
+  let(:medicaid_household) do
+    { people: [{ person_id: 100 }],
+      magi_income: 25_608,
+      size: 1 }
+  end
+
+  let(:qualified_child) do
+    { person_id: 101,
+      determination: { dependent_age: { is_person_of_dependent_age: 'N' } },
+      deprived_child: { qualify_as_deprived_child: 'N' },
+      parent_caretaker_relationship: { qualify_for_parent_caretaker_status: 'N' } }
+  end
+
+  let(:other_output) do
+    { qualified_children_list: [qualified_child] }
+  end
+
   let(:applicant_params) do
     { person_id: 100,
-      medicaid_household: { household_id: '1000', people: [{ person_id: 100 }] },
+      medicaid_household: medicaid_household,
       is_medicaid_eligible: 'N',
       is_chip_eligible: 'N',
       medicaid_ineligibility_reasons: ['test'],
@@ -14,29 +38,19 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Mitc::Contracts::EligibilityResponse
       chip_ineligibility_reasons: ['test'],
       medicaid_category: 'Medicaid Category',
       medicaid_category_threshold: 100,
-      physical_households: [{ household_id: '1000', people: [{ person_id: 100 }] }],
       chip_category: 'Chip Category',
       chip_category_threshold: 50,
-      category_determination: { indicator_code: 'Y',
-                                ineligibility_code: 123,
-                                ineligibility_reason: 'Nothing' },
-      qualified_children: [{ person_id: 101,
-                             determination: { indicator_code: 'Y',
-                                              ineligibility_code: 123,
-                                              ineligibility_reason: 'Nothing' },
-                             deprived_child: { qualify_as_deprived_child: 'N' },
-                             relationship: { other_id: 100,
-                                             attest_primary_responsibility: 'Y',
-                                             relationship_code: '01' } }] }
+      determinations: [category_determination],
+      other_output: other_output }
   end
 
-  let(:required_params) do
+  let(:input_params) do
     { determination_date: Date.new, applicants: [applicant_params] }
   end
 
   context 'valid params' do
-    it { expect(subject.call(required_params).success?).to be_truthy }
-    it { expect(subject.call(required_params).to_h).to eq required_params }
+    it { expect(subject.call(input_params).success?).to be_truthy }
+    it { expect(subject.call(input_params).to_h).to eq input_params }
   end
 
   context 'invalid params' do
@@ -50,7 +64,7 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Mitc::Contracts::EligibilityResponse
       end
 
       it 'should list error for every required parameter' do
-        expect(@result.errors.to_h.keys).to match_array required_params.keys
+        expect(@result.errors.to_h.keys).to match_array input_params.keys
       end
     end
   end
