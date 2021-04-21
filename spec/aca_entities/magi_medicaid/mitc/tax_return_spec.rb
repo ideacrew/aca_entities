@@ -5,16 +5,19 @@ require 'aca_entities/magi_medicaid/libraries/mitc_library'
 
 RSpec.describe ::AcaEntities::MagiMedicaid::Mitc::TaxReturn do
   describe 'with valid arguments' do
-    let(:input_params) do
-      { filers: [{ person_id: 100 }], dependents: [{ person_id: 101 }] }
+    let(:tax_return) { { filers: [{ person_id: 100 }], dependents: [{ person_id: 101 }] } }
+
+    before do
+      contract_params = ::AcaEntities::MagiMedicaid::Mitc::Contracts::TaxReturnContract.new.call(tax_return).to_h
+      @result = described_class.new(contract_params)
     end
 
-    it 'should initialize' do
-      expect(described_class.new(input_params)).to be_a ::AcaEntities::MagiMedicaid::Mitc::TaxReturn
+    it 'should return tax_return entity object' do
+      expect(@result).to be_a(described_class)
     end
 
-    it 'should not raise error' do
-      expect { described_class.new(input_params) }.not_to raise_error
+    it 'should return all keys of tax_return' do
+      expect(@result.to_h.keys).to eq(tax_return.keys)
     end
   end
 

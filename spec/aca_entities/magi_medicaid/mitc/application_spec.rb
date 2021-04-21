@@ -4,7 +4,7 @@ require 'spec_helper'
 require 'aca_entities/magi_medicaid/libraries/mitc_library'
 
 RSpec.describe ::AcaEntities::MagiMedicaid::Mitc::Application, dbclean: :after_each do
-  let(:person_params) do
+  let(:person) do
     { person_id: 100,
       is_applicant: 'Y',
       is_blind_or_disabled: 'N',
@@ -63,26 +63,49 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Mitc::Application, dbclean: :after_e
                         relationship_code: '01' }] }
   end
 
-  let(:required_params) do
+  let(:household) { { household_id: '1000', people: [{ person_id: 100 }] } }
+  let(:tax_return) { { filers: [{ person_id: 100 }], dependents: [{ person_id: 101 }] } }
+
+  let(:application) do
     { name: 'Application 100',
       state: 'DC',
       application_year: 2021,
-      people: [person_params],
-      physical_households: [{ household_id: '1000', people: [{ person_id: 100 }] }],
-      tax_returns: [{ filers: [{ person_id: 100 }], dependents: [{ person_id: 101 }] }] }
+      people: [person],
+      physical_households: [household],
+      tax_returns: [tax_return] }
   end
 
-  context 'invalid params' do
-    context 'with empty params' do
-      it 'should raise error' do
-        expect {subject}.to raise_error(Dry::Struct::Error, /:name is missing in Hash input/)
-      end
-    end
+  before do
+    contract_params = ::AcaEntities::MagiMedicaid::Mitc::Contracts::ApplicationContract.new.call(application).to_h
+    @result = described_class.new(contract_params)
   end
 
-  context 'valid params' do
-    context 'required params only' do
-      it { expect(described_class.new(required_params).to_h).to eq required_params }
-    end
+  it 'should return application entity object' do
+    expect(@result).to be_a(described_class)
+  end
+
+  it 'should return all keys of application' do
+    expect(@result.to_h.keys).to eq(application.keys)
+  end
+
+  it 'should match all the input keys of person' do
+    result_person_keys = @result.to_h[:people].first.keys
+    input_person_keys = person.keys
+    expect(result_person_keys - input_person_keys).to be_empty
+    expect(input_person_keys - result_person_keys).to be_empty
+  end
+
+  it 'should match all the input keys of household' do
+    result_household_keys = @result.to_h[:physical_households].first.keys
+    input_household_keys = household.keys
+    expect(result_household_keys - input_household_keys).to be_empty
+    expect(input_household_keys - result_household_keys).to be_empty
+  end
+
+  it 'should match all the input keys of tax_return' do
+    result_tax_return_keys = @result.to_h[:tax_returns].first.keys
+    input_tax_return_keys = tax_return.keys
+    expect(result_tax_return_keys - input_tax_return_keys).to be_empty
+    expect(input_tax_return_keys - result_tax_return_keys).to be_empty
   end
 end

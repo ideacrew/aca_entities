@@ -5,16 +5,23 @@ require 'aca_entities/magi_medicaid/libraries/mitc_library'
 
 RSpec.describe ::AcaEntities::MagiMedicaid::Mitc::Relationship do
   describe 'with valid arguments' do
-    let(:input_params) do
-      { other_id: 100, attest_primary_responsibility: 'Y', relationship_code: '01' }
+    let(:relationship) do
+      { other_id: 101,
+        attest_primary_responsibility: 'Y',
+        relationship_code: '01' }
     end
 
-    it 'should initialize' do
-      expect(described_class.new(input_params)).to be_a ::AcaEntities::MagiMedicaid::Mitc::Relationship
+    before do
+      contract_params = ::AcaEntities::MagiMedicaid::Mitc::Contracts::RelationshipContract.new.call(relationship).to_h
+      @result = described_class.new(contract_params)
     end
 
-    it 'should not raise error' do
-      expect { described_class.new(input_params) }.not_to raise_error
+    it 'should return relationship entity object' do
+      expect(@result).to be_a(described_class)
+    end
+
+    it 'should return all keys of relationship' do
+      expect(@result.to_h.keys).to eq(relationship.keys)
     end
   end
 
