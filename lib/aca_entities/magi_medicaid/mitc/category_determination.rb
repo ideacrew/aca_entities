@@ -5,6 +5,11 @@ module AcaEntities
     module Mitc
       class CategoryDetermination < Dry::Struct
 
+        # @!attribute [r] category
+        # In which category the other attributes map to.
+        # @return [Types::CategoryDeterminationKind]
+        attribute :category,        Types::CategoryDeterminationKind.meta(ommittable: false)
+
         # @!attribute [r] indicator_code
         # Whether the {Applicant} qualifies for the category.
         # One character code, Y for yes, N for No, X for doesn't apply
