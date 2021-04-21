@@ -55,6 +55,11 @@ module AcaEntities
           @wild_char_matchers = []
           @contexts = {}
           @transform_mode = options[:transform_mode]&.to_sym || :single
+          @sub_records = []
+        end
+
+        def current_sub_record
+          @sub_records.last
         end
 
         def namespace_record_delimiter=(delimiter)
@@ -83,20 +88,43 @@ module AcaEntities
         def hash_start(key)
           find_or_build_namespace_mappping_for(key) if defined? @record_namespace_offset
           @namespaces.push(key&.to_sym)
-          if namespace_record_delimiter_matched?(@namespaces)
+
+          if namespace_record_delimiter_matched?(@namespaces) && @array_namespaces.empty?
             @record_namespace_offset ||= @namespaces.dup
             record_start(key&.to_sym)
           end
+
+          @sub_records.push({}) if batch_process?
 
           add_new_elements(key) if defined? @record_namespace_offset
         end
 
         def hash_end(key)
-          matched = namespace_record_delimiter_matched?(@namespaces)
+          matched = namespace_record_delimiter_matched?(@namespaces) && @array_namespaces.empty?
           close_sub_record if record_builder && !record_builder.data_set.empty?
 
           @namespaces.pop
           @contexts.delete(key) unless batch_process?
+
+          if batch_process?
+            sub_record = @sub_records.pop
+
+            if key
+              if sub_record && current_sub_record
+                t(:build_nested_hash)[current_sub_record, [], Hash[key.to_sym, sub_record]]
+              elsif sub_record && current_sub_record.nil?
+                t(:build_nested_hash)[record, element_namespaces, Hash[key.to_sym, sub_record]]
+              end
+            elsif current_sub_record
+              if current_sub_record.is_a?(Array)
+                current_sub_record.push(sub_record)
+              else
+                current_sub_record.deep_merge!(sub_record) unless current_sub_record.is_a?(Array)
+              end
+            else
+              record.deep_merge!(sub_record)
+            end
+          end
 
           record_end(key&.to_sym) if matched
         end
@@ -105,14 +133,36 @@ module AcaEntities
           @array_namespaces.push(key&.to_sym)
           @array_records = [] if key
           @array_record = []
+          @sub_records.push([]) if batch_process?
         end
 
         def array_end(key)
           @array_namespaces.pop
+          sub_record = @sub_records.pop if batch_process?
 
           if key
             value = @array_records.empty? ? @array_record : @array_records
-            transform_data_for(key, value)
+            if batch_process?
+              unless sub_record.is_a?(Array)
+                if current_sub_record
+                  t(:build_nested_hash)[current_sub_record, [], Hash[key.to_sym, value]]
+                else
+                  transform_data_for(key, value)
+                end
+              else
+                if current_sub_record
+                  # if current_sub_record.is_a?(Array)
+                  #   current_sub_record.push(sub_record)
+                  # else
+                    current_sub_record.deep_merge!(Hash[key.to_sym, sub_record]) unless current_sub_record.is_a?(Array)
+                  # end
+                else
+                  transform_data_for(key, sub_record)
+                end
+              end
+            else
+              transform_data_for(key, value)
+            end
           else
             @array_records.push(@array_record)
           end
@@ -120,7 +170,11 @@ module AcaEntities
 
         def add_value(value, key)
           unless array_namespaces.empty?
-            @array_record << (key.nil? ? value : Hash[key.to_sym, value])
+            if current_sub_record && key && batch_process?
+              t(:build_nested_hash)[current_sub_record, [], Hash[key.to_sym, value]]
+            else
+              @array_record << (key.nil? ? value : Hash[key.to_sym, value])
+            end
             return
           end
 
@@ -264,6 +318,7 @@ module AcaEntities
             t(:build_nested_hash)[record, element_namespaces, Hash[key.to_sym, value]] 
             return
           end
+
           key_with_namespace = (element_namespaces + [key]).join('.')
           transformed_key = match_wildcard_chars(key_with_namespace.dup)
           record_unique_identifier = record_unique_identifier(key_with_namespace)
