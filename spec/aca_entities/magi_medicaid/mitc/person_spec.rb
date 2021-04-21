@@ -5,7 +5,33 @@ require 'aca_entities/magi_medicaid/libraries/mitc_library'
 
 RSpec.describe ::AcaEntities::MagiMedicaid::Mitc::Person do
   describe 'with valid arguments' do
-    let(:input_params) do
+    let(:income) do
+      { amount: 100,
+        taxable_interest: 30,
+        tax_exempt_interest: 0,
+        taxable_refunds: 3,
+        alimony: 0,
+        capital_gain_or_loss: 0,
+        pensions_and_annuities_taxable_amount: 0,
+        farm_income_or_loss: 0,
+        unemployment_compensation: 0,
+        other_income: 1,
+        magi_deductions: 0,
+        adjusted_gross_income: 1,
+        deductible_part_of_self_employment_tax: 0,
+        ira_deduction: 5,
+        student_loan_interest_deduction: 0,
+        tution_and_fees: 0,
+        other_magi_eligible_income: 0 }
+    end
+
+    let(:relationship) do
+      { other_id: 101,
+        attest_primary_responsibility: 'Y',
+        relationship_code: '01' }
+    end
+
+    let(:person) do
       { person_id: 100,
         is_applicant: 'Y',
         is_blind_or_disabled: 'N',
@@ -42,34 +68,35 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Mitc::Person do
         refugee_medical_assistance_start_date: Date.new,
         seven_year_limit_start_date: Date.new,
         is_veteran: 'N',
-        income: { amount: 100,
-                  taxable_interest: 30,
-                  tax_exempt_interest: 0,
-                  taxable_refunds: 3,
-                  alimony: 0,
-                  capital_gain_or_loss: 0,
-                  pensions_and_annuities_taxable_amount: 0,
-                  farm_income_or_loss: 0,
-                  unemployment_compensation: 0,
-                  other_income: 1,
-                  magi_deductions: 0,
-                  adjusted_gross_income: 1,
-                  deductible_part_of_self_employment_tax: 0,
-                  ira_deduction: 5,
-                  student_loan_interest_deduction: 0,
-                  tution_and_fees: 0,
-                  other_magi_eligible_income: 0 },
-        relationships: [{ other_id: 101,
-                          attest_primary_responsibility: 'Y',
-                          relationship_code: '01' }] }
+        income: income,
+        relationships: [relationship] }
     end
 
-    it 'should initialize' do
-      expect(described_class.new(input_params)).to be_a ::AcaEntities::MagiMedicaid::Mitc::Person
+    before do
+      contract_params = ::AcaEntities::MagiMedicaid::Mitc::Contracts::PersonContract.new.call(person).to_h
+      @result = described_class.new(contract_params)
     end
 
-    it 'should not raise error' do
-      expect { described_class.new(input_params) }.not_to raise_error
+    it 'should return person entity object' do
+      expect(@result).to be_a(described_class)
+    end
+
+    it 'should return all keys of person' do
+      expect(@result.to_h.keys).to eq(person.keys)
+    end
+
+    it 'should match all the input keys of income' do
+      result_income_keys = @result.to_h[:income].keys
+      input_income_keys = income.keys
+      expect(result_income_keys - input_income_keys).to be_empty
+      expect(input_income_keys - result_income_keys).to be_empty
+    end
+
+    it 'should match all the input keys of relationship' do
+      result_relationship_keys = @result.to_h[:relationships].first.keys
+      input_relationship_keys = relationship.keys
+      expect(result_relationship_keys - input_relationship_keys).to be_empty
+      expect(input_relationship_keys - result_relationship_keys).to be_empty
     end
   end
 

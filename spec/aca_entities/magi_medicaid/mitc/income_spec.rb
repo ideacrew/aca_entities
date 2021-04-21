@@ -5,7 +5,7 @@ require 'aca_entities/magi_medicaid/libraries/mitc_library'
 
 RSpec.describe ::AcaEntities::MagiMedicaid::Mitc::Income do
   describe 'with valid arguments' do
-    let(:input_params) do
+    let(:income) do
       { amount: 100,
         taxable_interest: 30,
         tax_exempt_interest: 0,
@@ -25,12 +25,17 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Mitc::Income do
         other_magi_eligible_income: 0 }
     end
 
-    it 'should initialize' do
-      expect(described_class.new(input_params)).to be_a ::AcaEntities::MagiMedicaid::Mitc::Income
+    before do
+      contract_params = ::AcaEntities::MagiMedicaid::Mitc::Contracts::IncomeContract.new.call(income).to_h
+      @result = described_class.new(contract_params)
     end
 
-    it 'should not raise error' do
-      expect { described_class.new(input_params) }.not_to raise_error
+    it 'should return income entity object' do
+      expect(@result).to be_a(described_class)
+    end
+
+    it 'should return all keys of income' do
+      expect(@result.to_h.keys).to eq(income.keys)
     end
   end
 
