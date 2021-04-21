@@ -16,7 +16,7 @@ module AcaEntities
         #   a) Dependent Age: a hash with only the hash:
         #     i) Indicator: is the person of Dependent Age.  Y/N
         # @return [Hash]
-        attribute :determination,   CategoryDetermination.meta(omitttable: false)
+        attribute :determination,   Determination.meta(omitttable: false)
 
         # @!attribute [r] deprived_child
         # Deprived Child: a hash with only the hash:
@@ -24,12 +24,12 @@ module AcaEntities
         # @return [Hash]
         attribute :deprived_child,  DeprivedChild.meta(omittable: false)
 
-        # @!attribute [r] relationship
+        # @!attribute [r] parent_caretaker_relationship
         # Relationship: a hash with only the hash:
         # a) Indicator: does the person have the necessary relationship with the containing person
         # to qualify the containing person for parent-caretaker status.  Y/N
         # @return [Hash]
-        attribute :relationship,   Relationship.meta(omittable: false)
+        attribute :parent_caretaker_relationship,   ParentCaretakerRelationship.meta(omittable: true)
       end
     end
   end

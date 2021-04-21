@@ -64,15 +64,15 @@ module AcaEntities
         # @return [String]
         attribute :chip_category_threshold,    Types::Integer.meta(omittable: false)
 
-        # @!attribute [r] category_determination
-        # A hash of category determinations.
-        # @return category_determination
-        attribute :category_determination, CategoryDetermination.meta(omittable: false)
+        # @!attribute [r] determinations
+        # An array of category determinations.
+        # @return [Array<CategoryDetermination>]
+        attribute :determinations, Types::Array.of(CategoryDetermination).meta(omittable: false)
 
-        # @!attribute [r] qualified_children
+        # @!attribute [r] other_output
         # A list that currently contains only the Qualified Children List.
-        # @return [Array<QualifiedChild>]
-        attribute :qualified_children,    Types::Array.of(QualifiedChild).meta(omittable: false)
+        # @return [OtherOutput]
+        attribute :other_output,    OtherOutput.meta(omittable: false)
       end
     end
   end
