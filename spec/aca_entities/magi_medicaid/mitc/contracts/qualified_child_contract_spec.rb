@@ -5,15 +5,22 @@ require 'aca_entities/magi_medicaid/libraries/mitc_library'
 
 RSpec.describe ::AcaEntities::MagiMedicaid::Mitc::Contracts::QualifiedChildContract do
   let(:required_params) do
-    { person_id: 100,
-      determination: { indicator_code: 'Y', ineligibility_code: 123, ineligibility_reason: 'Nothing' },
-      deprived_child: { qualify_as_deprived_child: 'N' },
-      relationship: { other_id: 100, attest_primary_responsibility: 'Y', relationship_code: '01' } }
+    { person_id: 101,
+      determination: { dependent_age: { is_person_of_dependent_age: 'N' } },
+      deprived_child: { qualify_as_deprived_child: 'N' } }
+  end
+
+  let(:optional_params) do
+    { parent_caretaker_relationship: { qualify_for_parent_caretaker_status: 'N' } }
+  end
+
+  let(:input_params) do
+    required_params.merge(optional_params)
   end
 
   context 'valid params' do
-    it { expect(subject.call(required_params).success?).to be_truthy }
-    it { expect(subject.call(required_params).to_h).to eq required_params }
+    it { expect(subject.call(input_params).success?).to be_truthy }
+    it { expect(subject.call(input_params).to_h).to eq input_params }
   end
 
   context 'invalid params' do

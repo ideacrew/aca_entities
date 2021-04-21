@@ -5,10 +5,15 @@ require 'aca_entities/magi_medicaid/libraries/mitc_library'
 
 RSpec.describe ::AcaEntities::MagiMedicaid::Mitc::Contracts::CategoryDeterminationContract do
   let(:required_params) do
-    { indicator_code: 'Y',
-      ineligibility_code: 130 }
+    { category: 'Child Category',
+      indicator_code: 'N' }
   end
-  let(:optional_params) { { ineligibility_reason: 'Testing' } }
+
+  let(:optional_params) do
+    { ineligibility_code: 115,
+      ineligibility_reason: 'Applicant is 19 years of age or older and the state does not cover young adults under age 20 or 21' }
+  end
+
   let(:all_params) { required_params.merge(optional_params) }
 
   context 'valid params' do

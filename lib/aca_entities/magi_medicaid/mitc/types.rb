@@ -13,6 +13,32 @@ module AcaEntities
 
         DeterminationIndicatorKind = Types::Coercible::String.enum('Y', 'N', 'X')
 
+        CategoryDeterminationKind = Types::Coercible::String.enum('Residency',
+                                                                  'Adult Group Category',
+                                                                  'Parent Caretaker Category',
+                                                                  'Pregnancy Category',
+                                                                  'Child Category',
+                                                                  'Optional Targeted Low Income Child',
+                                                                  'CHIP Targeted Low Income Child',
+                                                                  'Unborn Child',
+                                                                  'Income Medicaid Eligible',
+                                                                  'Income CHIP Eligible',
+                                                                  'CHIPRA 214',
+                                                                  'Trafficking Victim',
+                                                                  'Seven Year Limit',
+                                                                  'Five Year Bar',
+                                                                  'Title II Work Quarters Met',
+                                                                  'Medicaid Citizen Or Immigrant',
+                                                                  'Former Foster Care Category',
+                                                                  'Work Quarters Override Income',
+                                                                  'State Health Benefits CHIP',
+                                                                  'CHIP Waiting Period Satisfied',
+                                                                  'Dependent Child Covered',
+                                                                  'Medicaid Non-MAGI Referral',
+                                                                  'Emergency Medicaid',
+                                                                  'Refugee Medical Assistance',
+                                                                  'APTC Referral')
+
         RelationshipCodeKind = Types::Coercible::String.enum('01',
                                                              '02',
                                                              '03',
