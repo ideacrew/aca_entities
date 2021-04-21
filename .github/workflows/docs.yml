@@ -12,10 +12,8 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: '12'
-      - name: Install global packages
-        run: |
-          yarn install
-          npm install -g postcss postcss-cli autoprefixer
+      - name: install hugo
+        run: sudo snap install hugo --channel=extended
       - uses: ruby/setup-ruby@v1
       - uses: actions/cache@v2
         with:
@@ -29,5 +27,4 @@ jobs:
           bundle install
       - name: Run yard
         run: bundle exec yard && cp -rf ./doc ./hugo/static/
-      - run: sudo snap install hugo --channel=extended
-      - run: cd hugo && hugo --minify
+      - run: cd hugo && npm install && hugo --minify
