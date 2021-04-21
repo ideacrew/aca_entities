@@ -1,0 +1,11 @@
+baseURL = "/"
+languageCode = "en-us"
+title = "ACA Entities"
+theme = "docsy"
+showToc = true
+relativeURLs = true
+disableKinds = ["taxonomy", "term"]
+
+[markup]
+  [markup.tableOfContents]
+    ordered = false
