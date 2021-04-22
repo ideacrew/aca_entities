@@ -21,7 +21,7 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Mitc::Contracts::EligibilityResponse
     { person_id: 101,
       determination: { dependent_age: { is_person_of_dependent_age: 'N' } },
       deprived_child: { qualify_as_deprived_child: 'N' },
-      parent_caretaker_relationship: { qualify_for_parent_caretaker_status: 'N' } }
+      parent_caretaker_relationship: { containing_person_is_qualified_for_parent_caretaker_status: 'N' } }
   end
 
   let(:other_output) do

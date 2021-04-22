@@ -11,7 +11,7 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Mitc::Contracts::QualifiedChildContr
   end
 
   let(:optional_params) do
-    { parent_caretaker_relationship: { qualify_for_parent_caretaker_status: 'N' } }
+    { parent_caretaker_relationship: { containing_person_is_qualified_for_parent_caretaker_status: 'N' } }
   end
 
   let(:input_params) do
