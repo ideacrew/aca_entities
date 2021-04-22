@@ -155,19 +155,26 @@ module AcaEntities
         def rewrap(output_namespace = nil, *args, &block)
           raise 'no block given' unless block_given?
 
-          unless args.empty?
+          if !args.empty?
             map = Map.new((source_ns).join('.'),
                           output_namespace,
                           nil,
                           :rewrap_keys,
                           proc: nil)
-            map.properties = args
+            map.properties = args unless args.empty?
             map.context = @context
             @mappings[map.container_key] = map
           end
 
-          map = self.class.new(source_ns,
-                               output_namespace.to_s.split('.'),
+          source_keys = source_ns
+          output_keys = output_namespace.to_s.split('.')
+          if args.first && args.first[:type].to_s == 'array' && !source_ns.include?("*")
+            source_keys << :no_key
+            output_keys << :no_key
+          end
+
+          map = self.class.new(source_keys,
+                               output_keys,
                                :rewrap_keys,
                                args)
           map.instance_exec(&block)

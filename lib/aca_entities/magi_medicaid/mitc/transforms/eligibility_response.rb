@@ -13,8 +13,8 @@ module AcaEntities
 
           namespace 'Applicants' do
             rewrap 'applicants', type: :array do
-              map 'Person ID', 'person_id'
-              map 'Medicaid Eligible', 'medicaid_eligible'
+              # map 'Person ID', 'person_id'
+              # map 'Medicaid Eligible', 'medicaid_eligible'
 
               namespace 'Medicaid Household' do
                 rewrap 'medicaid_household', type: :hash do
@@ -23,13 +23,19 @@ module AcaEntities
                 end
               end
 
-              # map 'Determinations', 'determinations'
+              # # map 'Determinations', 'determinations'
               map 'CHIP Ineligibility Reason', 'chip_ineligible_reason'
 
               namespace 'Determinations' do
                 rewrap 'determinations', type: :hash do
                   namespace 'Residency' do
                     rewrap 'residency', type: :hash do
+                      map 'Indicator', 'indicator'
+                    end
+                  end
+
+                  namespace 'Adult Group Category' do
+                    rewrap 'adult_group_category', type: :hash do
                       map 'Indicator', 'indicator'
                     end
                   end
