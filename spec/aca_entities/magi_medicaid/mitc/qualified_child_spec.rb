@@ -5,7 +5,7 @@ require 'aca_entities/magi_medicaid/libraries/mitc_library'
 
 RSpec.describe ::AcaEntities::MagiMedicaid::Mitc::QualifiedChild do
   describe 'with valid arguments' do
-    let(:parent_caretaker_relationship) { { qualify_for_parent_caretaker_status: 'N' } }
+    let(:parent_caretaker_relationship) { { containing_person_is_qualified_for_parent_caretaker_status: 'N' } }
     let(:deprived_child) { { qualify_as_deprived_child: 'N' } }
     let(:determination) { { dependent_age: { is_person_of_dependent_age: 'N' } } }
     let(:qualified_child) do
