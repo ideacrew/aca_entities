@@ -7,7 +7,7 @@
 				"href": "/applications/23025/versions/3"
 			},
 			"result": {
-				// "test Key": "1234",
+				"test Key": "1234",
 				"coverageYear": 2019,
 				"Date": "1969-03-01",
 				"insuranceApplicationIdentifier": 23025,
@@ -35,57 +35,57 @@
 					"useCase": "CIC"
 				},
 				"attestations": {
-					// "coverageYear": 2019,
+					"coverageYear": 2019,
 					"insuranceApplicationIdentifier": 23025,
-					// "applicationVersionNumber": 3,
-					// "lastModifiedDateTime": "2019-12-30T17:00:59+00:00",
-					// "lastModifiedUserId": "ses-consumerui",
-					// "deletedIndicator": false,
-					// "currentVersionIndicator": true,
-					// "sampleKey": "Hello world!!",
-					// "application": {
-					// 	"comments": "Versioning For Change in Circumstance",
-					// 	"legalAttestations": {
-					// 		"absentParentAgreementIndicator": true,
-					// 		"changeInformationAgreementIndicator": true,
-					// 		"medicaidRequirementAgreementIndicator": true,
-					// 		"renewEligibilityYearQuantity": 5,
-					// 		"nonIncarcerationAgreementIndicator": true,
-					// 		"penaltyOfPerjuryAgreementIndicator": true,
-					// 		"renewalAgreementIndicator": true,
-					// 		"terminateCoverageOtherMecFoundAgreementIndicator": true
-					// 	},
-					// 	"applicationSignatures": [{
-					// 		"applicationSignatureText": "Roslyn dshab",
-					// 		"applicationSignatureType": "APPLICANT",
-					// 		"applicationSignatureDate": "2019-01-04"
-					// 	}],
-					// 	"applicationAssistors": [{
-					// 		"applicationAssistorType": "NO_ASSISTANCE",
-					// 		"creationDateTime": "2019-03-06T21:53:40+00:00"
-					// 	}],
-					// 	"requestingFinancialAssistanceIndicator": false,
-					// 	"contactMemberIdentifier": "1435239665677772593",
-					// 	"contactMethod": ["EMAIL"],
-					// 	"contactInformation": {
-					// 		"email": "assewappemu-8843@yopmail.com",
-					// 		"primaryPhoneNumber": {
-					// 			"number": "2025547416",
-					// 			"ext": "1",
-					// 			"type": "HOME"
-					// 		}
-					// 	},
-					// 	"spokenLanguageType": "ENGLISH",
-					// 	"writtenLanguageType": "ENGLISH",
-					// 	"coverageState": "NV"
-					// },
-					// "household": {
-					// 	"familyRelationships": [
-					// 		["1435239665677772593", "SELF", "1435239665677772593", {
-					// 			"resideTogetherIndicator": true
-					// 		}]
-					// 	]
-					// },
+					"applicationVersionNumber": 3,
+					"lastModifiedDateTime": "2019-12-30T17:00:59+00:00",
+					"lastModifiedUserId": "ses-consumerui",
+					"deletedIndicator": false,
+					"currentVersionIndicator": true,
+					"sampleKey": "Hello world!!",
+					"application": {
+						"comments": "Versioning For Change in Circumstance",
+						"legalAttestations": {
+							"absentParentAgreementIndicator": true,
+							"changeInformationAgreementIndicator": true,
+							"medicaidRequirementAgreementIndicator": true,
+							"renewEligibilityYearQuantity": 5,
+							"nonIncarcerationAgreementIndicator": true,
+							"penaltyOfPerjuryAgreementIndicator": true,
+							"renewalAgreementIndicator": true,
+							"terminateCoverageOtherMecFoundAgreementIndicator": true
+						},
+						"applicationSignatures": [{
+							"applicationSignatureText": "Roslyn dshab",
+							"applicationSignatureType": "APPLICANT",
+							"applicationSignatureDate": "2019-01-04"
+						}],
+						"applicationAssistors": [{
+							"applicationAssistorType": "NO_ASSISTANCE",
+							"creationDateTime": "2019-03-06T21:53:40+00:00"
+						}],
+						"requestingFinancialAssistanceIndicator": false,
+						"contactMemberIdentifier": "1435239665677772593",
+						"contactMethod": ["EMAIL"],
+						"contactInformation": {
+							"email": "assewappemu-8843@yopmail.com",
+							"primaryPhoneNumber": {
+								"number": "2025547416",
+								"ext": "1",
+								"type": "HOME"
+							}
+						},
+						"spokenLanguageType": "ENGLISH",
+						"writtenLanguageType": "ENGLISH",
+						"coverageState": "NV"
+					},
+					"household": {
+						"familyRelationships": [
+						// 	["1435239665677772593", "SELF", "1435239665677772593", {
+						// 		"resideTogetherIndicator": true
+						// 	}]
+						]
+					},
 					"members": {
 						"1435239665677772593": {
 							"requestingCoverageIndicator": true,
@@ -95,9 +95,9 @@
 									"firstName": "Roslyn",
 									"lastName": "dshab"
 								},
-								// "sex": "FEMALE",
-								"noHomeAddressIndicator": false,
-								"liveOutsideStateTemporarilyIndicator": false,
+								// // "sex": "FEMALE",
+								// "noHomeAddressIndicator": false,
+								// "liveOutsideStateTemporarilyIndicator": false,
 								"americanIndianAlaskanNativeIndicator": false,
 								"mailingAddress": {
 									"streetName1": "2 commerce street",

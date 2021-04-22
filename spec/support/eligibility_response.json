@@ -2,29 +2,29 @@
   "Determination Date":"2013-12-16",
   "Applicants":[
      {
-        // "Person ID":1,
+        "Person ID":1,
         "Medicaid Household":{
-           // "People":[
-           //    1
-           // ],
+           "People":[
+              1
+           ],
            "MAGI":25608,
            "Size":2
         },
-        // "Medicaid Eligible":"N",
-        // "CHIP Eligible":"N",
-        // "Ineligibility Reason":[
-        //    "Applicant's MAGI above the threshold for category"
-        // ],
-        // "Non-MAGI Referral":"Y",
+        "Medicaid Eligible":"N",
+        "CHIP Eligible":"N",
+        "Ineligibility Reason":[
+           "Applicant's MAGI above the threshold for category"
+        ],
+        "Non-MAGI Referral":"Y",
         "CHIP Ineligibility Reason":[
            "Applicant did not meet the requirements for any CHIP category",
            "Applicant not eligible under state health benefits rule",
            "Applicant is incarcerated"
         ],
-        // "Category":"Pregnancy Category",
-        // "Category Threshold":21403,
-        // "CHIP Category":"None",
-        // "CHIP Category Threshold":0,
+        "Category":"Pregnancy Category",
+        "Category Threshold":21403,
+        "CHIP Category":"None",
+        "CHIP Category Threshold":0,
         "Determinations":{
            "Residency":{
               "Indicator":"Y"

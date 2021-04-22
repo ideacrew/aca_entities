@@ -13,8 +13,8 @@ module AcaEntities
 
           namespace 'Applicants' do
             rewrap 'applicants', type: :array do
-              # map 'Person ID', 'person_id'
-              # map 'Medicaid Eligible', 'medicaid_eligible'
+              map 'Person ID', 'person_id'
+              map 'Medicaid Eligible', 'medicaid_eligible'
 
               namespace 'Medicaid Household' do
                 rewrap 'medicaid_household', type: :hash do
