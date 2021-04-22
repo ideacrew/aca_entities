@@ -42,7 +42,7 @@ module AcaEntities
                                else
                                  data_pair.transform_values!(&func)
                                end
-            build_nested_hash({}, namespaces[0..-2].dup, transformed_pair)
+            legacy_build_nested_hash({}, namespaces[0..-2].dup, transformed_pair)
           end
           input
         end
@@ -64,7 +64,7 @@ module AcaEntities
           value = nil if value == ''
           source_hash.to_h.tap do |hash|
             element = namespaced_keys.last
-            output_hash = build_nested_hash({}, namespaced_keys[0..-2], Hash[element, value])
+            output_hash = legacy_build_nested_hash({}, namespaced_keys[0..-2], Hash[element, value])
             hash[namespaced_keys[0]] = output_hash[namespaced_keys[0]]
             hash.delete(element) if namespaced_keys.size > 1
           end
@@ -74,7 +74,7 @@ module AcaEntities
 
         def add_namespace(source_hash, _source_namespace, destination_namespace)
           source_hash.to_h.tap do |hash|
-            output_hash = build_nested_hash({}, destination_namespace[0..-2], hash)
+            output_hash = legacy_build_nested_hash({}, destination_namespace[0..-2], hash)
             hash.delete(destination_namespace.last)
             hash.merge!(output_hash)
           end
@@ -139,18 +139,81 @@ module AcaEntities
         #
         # @return [Hash]
         def rewrap_keys(source_hash, source_namespaces, destination_namespaces = [])
-          source_hash.to_h.tap do |source_data|
-            data_pair = source_data.dig(*source_namespaces[0..-2]) if source_namespaces.size > 1
-            data_pair ||= source_data
+          if source_namespaces.include?(:no_key)
+            last_pair = get_last_pair(source_hash)
+            source_hash.delete(source_namespaces.first)
+            source_hash.merge!(Hash[destination_namespaces.last, last_pair.values.first])
+          else
+            source_hash.to_h.tap do |source_data|
+              data_pair = source_data.dig(*source_namespaces[0..-2]) if source_namespaces.size > 1
+              data_pair ||= source_data.dup
 
-            output = build_nested_hash({}, destination_namespaces[0..-2], Hash[destination_namespaces.last, data_pair.values.first])
-            source_data.delete(source_namespaces.first)
-            source_data.merge!(output)
+              # output = legacy_build_nested_hash({}, destination_namespaces[0..-2], Hash[destination_namespaces.last, data_pair.values.first])
+              # binding.pry if data_pair.keys.first == :requestingCoverageIndicator
+              if source_data.key?(source_namespaces.first)
+                source_data.delete(source_namespaces.first)
+              else
+                source_data.delete(data_pair.keys.first)
+              end
+              output = Hash[destination_namespaces.last, data_pair.values.first]
+
+              source_data.merge!(output)
+            end
+          end
+        end
+
+        def get_last_pair(data)
+          if data.is_a?(Array)
+            if data.first.is_a?(Array) || data.first.is_a?(Hash)
+              get_last_pair(data.first)
+            else
+              data
+            end
+          elsif data.is_a?(Hash)
+            value = data.values.first
+            if value.is_a?(Hash) || (value.is_a?(Array) && value.first.is_a?(Hash))
+              get_last_pair(value)
+            else
+              data
+            end
           end
         end
 
         def add_context(source_hash, source_namespaces, destination_namespaces, func)
           func.call(destination_namespaces[0], source_hash.dig(*source_namespaces[0..-2]))
+        end
+
+        def build_nested_hash(record, values = [], data)
+          namespace_values = values.map(&:keys).flatten
+          if (current_namespace = namespace_values.first)
+            init_value = (values[0][current_namespace] == :array ? [] : {})
+            
+            current_record = if record.is_a?(Array)
+              record.push(init_value)
+              record.last
+            else
+              record[current_namespace] ||= init_value
+              record[current_namespace]
+            end
+
+            if namespace_values.empty?
+              if record.is_a?(Array)
+                current_record.is_a?(Array) ? current_record.push(data) : current_record.deep_merge!(data)
+              else
+                current_record.deep_merge!(data)
+              end
+            else
+              current_record = build_nested_hash(current_record, values[1..-1], data)
+            end
+          else
+            if record.is_a?(Array)
+              record.push(data)
+            else
+              record.deep_merge!(data)
+            end
+          end
+
+          record
         end
 
         # Convert data into a nested hash using values(namespaces) passed
@@ -166,14 +229,14 @@ module AcaEntities
         #   # => { :family => { :family_members => { :person => { :gender => 'female', :dob => '1969-03-01'} } } }
         #
         # @return [Hash]
-        def build_nested_hash(record, values = [], data)
+        def legacy_build_nested_hash(record, values = [], data)
           if (current_namespace = values.first)
             record[current_namespace] ||= {}
 
             if values.empty?
               record[current_namespace].deep_merge!(data)
             else
-              record[current_namespace] = build_nested_hash(record[current_namespace], values[1..-1], data)
+              record[current_namespace] = legacy_build_nested_hash(record[current_namespace], values[1..-1], data)
             end
           else
             record.deep_merge!(data)
