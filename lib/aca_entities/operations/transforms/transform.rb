@@ -55,17 +55,12 @@ module AcaEntities
           @wild_char_matchers = []
           @contexts = {}
           @transform_mode = options[:transform_mode]&.to_sym || :single
-          @sub_records = []
           @namespaces_with_types = []
           @documents = []
         end
 
         def current_document
           @documents.last
-        end
-
-        def current_sub_record
-          @sub_records.last
         end
 
         def namespace_record_delimiter=(delimiter)
@@ -87,15 +82,10 @@ module AcaEntities
 
         def record_end(key)
           @record_processor.call(record) if @record_processor
-
           remove_instance_variable(:@record_namespace_offset)
         end
 
         def hash_start(key)
-          # puts "---------------Hash started ---#{key}"
-
-          # binding.pry unless key
-
           key = :no_key unless key
           find_or_build_namespace_mappping_for(key) if defined? @record_namespace_offset
 
@@ -108,9 +98,6 @@ module AcaEntities
           end
 
           construct_document_with(key, :hash) if defined? @record_namespace_offset
-
-          # @sub_records.push({}) if batch_process?
-
           add_new_elements(key) if defined? @record_namespace_offset
         end
 
@@ -118,65 +105,42 @@ module AcaEntities
           key = :no_key unless key
 
           matched = namespace_record_delimiter_matched?(@namespaces) && @array_namespaces.empty?
-          # close_sub_record if record_builder && !record_builder.data_set.empty?
-  
           @namespaces.pop
-
           @contexts.delete(key) unless batch_process?
 
           merge_documents(key, :hash)
           @namespaces_with_types.pop
-        
+
           record_end(key&.to_sym) if matched
         end
 
         def array_start(key)
-          # puts "---------------Array started ---#{key}"
-
           key = :no_key unless key
           @array_namespaces.push(key&.to_sym)
           @namespaces_with_types.push(Hash[key.to_sym, :array])
           construct_document_with(key, :array) if defined? @record_namespace_offset
-          @array_records = [] if key
           @array_record = []
-          @sub_records.push([]) if batch_process?
         end
 
         def array_end(key)
           @array_namespaces.pop
           @namespaces_with_types.pop
-          sub_record = @sub_records.pop if batch_process?
 
           if key
-            value = @array_records.empty? ? @array_record : @array_records
-            unless batch_process? # Enable this
+            value = @array_record
+            unless batch_process?
               unless value.empty?
                 transform_data_for(key, value)
-                # current_document.output_namespace = [] if current_document
                 @array_record = []
               end
             end
-          else
-            @array_records.push(@array_record)
           end
-          
+
           merge_documents(key, :array)
         end
 
         def add_value(value, key)
-          # puts "-------Add Value--------_Key ---#{key.inspect}--- value #{value.inspect}"
-
           @array_record << value unless key
-
-          # unless array_namespaces.empty?
-          #   if current_sub_record && key && batch_process?
-          #     t(:build_nested_hash)[current_sub_record, [], Hash[key.to_sym, value]]
-          #   else
-          #     @array_record << (key.nil? ? value : Hash[key.to_sym, value])
-          #   end
-          #   return
-          # end
-
           return unless record_index
           transform_data_for(key, value)
         end
@@ -184,98 +148,64 @@ module AcaEntities
         private
 
         def construct_document_with(key, type)
-          if batch_process?
-            create_batch_document_for(key, type)
+          if batch_process? || key == :no_key
+            add_document(key: key, type: type)
           else
-            if key == :no_key
-              create_document(element_namespaces.join('.'), key)
-            else
-              transformed_key = match_wildcard_chars(element_namespaces.join('.'))
-              create_document_for(transformed_key, key, type, false)
-            end
+            transformed_key = match_wildcard_chars(element_namespaces.join('.'))
+            create_document_for(transformed_key, key, type, false)
           end
         end
 
-        def create_batch_document_for(key, type)
+        def add_document(key:, type:, source_namespace: nil, output_namespace: nil, regex: nil)
           document = if type == :hash
             AcaEntities::Operations::Transforms::HashDocument.new(key)
           elsif type == :array
             AcaEntities::Operations::Transforms::ArrayDocument.new(key)
           end
 
-          document.source_namespace = element_namespaces
-          document.output_namespace = element_namespaces
+          document.source_namespace = source_namespace || element_namespaces
+          document.output_namespace = output_namespace || element_namespaces
           document.parent_namespace = @documents.last&.output_namespace
-          # puts "-------created #{document.inspect}"
           @documents.push(document)
         end
 
         def create_document_for(namespaced_key, key, type, regex = false)
-          # puts "-----processing #{namespaced_key}---#{type}"
-
           return unless container.key?(namespaced_key)
 
           @wild_char_matchers.push(key) if regex
-
           mapping = container[namespaced_key]
           return unless mapping.type
 
           source_key = mapping.source_key 
           output_key = mapping.output_key
 
-          document = if mapping.type == :hash
-            AcaEntities::Operations::Transforms::HashDocument.new(key)
-          elsif mapping.type == :array
-            AcaEntities::Operations::Transforms::ArrayDocument.new(key)
-          end
-
-          document.source_namespace = source_key || element_namespaces
-          document.output_namespace = output_key&.split('.') || element_namespaces
-          document.parent_namespace = @documents.last&.output_namespace
-          document.regex_key = key if regex
-          # puts "----created #{document.inspect}"
-          @documents.push(document)
+          regex_key = key if regex
+          add_document(key: key, type: mapping.type, source_namespace: source_key, output_namespace: output_key&.split('.'), regex: regex_key)
 
           if mapping.type == :array && type == :hash
-            document = AcaEntities::Operations::Transforms::HashDocument.new(:no_key)
-            document.parent_namespace = @documents.last&.output_namespace
-            document.regex_key = key if regex
-             # puts "----created #{document.inspect}"
-            @documents.push(document)
+            add_document(key: :no_key, type: type, regex: regex_key)
           end
         end
 
         def merge_documents(key, type)
           return if @documents.empty?
-          # return unless key
-          # puts "-----deleted #{@documents.last.inspect}---#{key}---#{type}"
-
-          if type == :array
-            return if current_document&.is_a?(AcaEntities::Operations::Transforms::HashDocument)
-          end
+          return if type == :array && current_document&.is_a?(AcaEntities::Operations::Transforms::HashDocument)
 
           unless batch_process?
-          if type == :hash && key != :no_key
-            transformed_key = match_wildcard_chars(element_namespaces.join('.'))
-            # puts "----------->>>> #{container.key?(transformed_key)}--for--#{transformed_key}" 
-            return unless container.key?(transformed_key)
+            if type == :hash && key != :no_key
+              transformed_key = match_wildcard_chars(element_namespaces.join('.'))
+              return unless container.key?(transformed_key)
+            end
           end
-        end
-
 
           recent_document = @documents.pop
-           # puts "----deleted---#{recent_document.inspect}"
-
           if current_document
-            # puts "#{recent_document.class}---Recent Document--#{recent_document.output}"
-            # puts "#{current_document.class}---Current Document--#{current_document.output}"
             current_document.merge(recent_document.output)
           elsif recent_document
             record.deep_merge!(recent_document.output)
           end
 
           return if batch_process?
-
           namespaced_key = element_namespaces.join('.')
           transformed_key = match_wildcard_chars(namespaced_key)
 
@@ -288,7 +218,6 @@ module AcaEntities
 
         def element_namespaces
           @namespaces_with_types.map(&:keys).flatten[@record_namespace_offset.size..-1] || []
-          # namespaces - @record_namespace_offset
         end
 
         def element_namespaces_with_types
@@ -304,7 +233,10 @@ module AcaEntities
 
         def process_add_namespaces(namespaced_key, key, namespace_add = false)
           return unless current_document
-          create_document(namespaced_key, key) if namespace_add
+          if namespace_add
+            add_document(key: :no_key, type: :hash, output_namespace: namespaced_key)
+            current_document.parent_namespace = nil
+          end
      
           if namespaced_key == ''
             build_add_namespace('add_key', key)
@@ -313,13 +245,6 @@ module AcaEntities
           end
 
           merge_documents(key, :hash) if namespace_add
-        end
-
-        def create_document(namespaced_key, key)
-          document = AcaEntities::Operations::Transforms::HashDocument.new(:no_key)
-          document.output_namespace = namespaced_key.split('.')
-          # puts "----created #{document.inspect}"
-          @documents.push(document)
         end
 
         def build_add_namespace(namespaced_key, key)
@@ -355,7 +280,6 @@ module AcaEntities
             @contexts[key] = container_value.context.merge(item: key) if container_value.context
 
             if container_value.type == :array
-              # initialize_sub_record(namespaced_key, key)
               @wild_char_matchers.push(key) if namespaced_key.split('.').last == '*'
             end
           end
@@ -399,7 +323,6 @@ module AcaEntities
             record_unique_identifier = record_unique_identifier(key_with_namespace)
 
             return unless container.key?(transformed_key)
-
             input = if record_unique_identifier
                       t(:build_nested_hash)[{}, [], Hash[key.to_sym, value]]
                     else

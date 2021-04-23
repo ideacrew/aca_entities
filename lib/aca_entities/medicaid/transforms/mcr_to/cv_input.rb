@@ -157,7 +157,7 @@ module AcaEntities
                       add_key 'tribal_id'
                       # # add_key 'language_code' , "default: en"
                       map 'noHomeAddressIndicator', 'is_homeless'
-                      # map 'liveOutsideStateTemporarilyIndicator', 'is_temporarily_out_of_state'
+                      map 'liveOutsideStateTemporarilyIndicator', 'is_temporarily_out_of_state'
 
                       namespace 'mailingAddress' do
                         rewrap 'family.family_members.person.addresses', type: :array do
