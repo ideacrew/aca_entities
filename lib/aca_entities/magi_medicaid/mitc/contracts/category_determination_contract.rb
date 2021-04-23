@@ -13,8 +13,9 @@ module AcaEntities
           # @option opts [String] :ineligibility_reason optional
           # @return [Dry::Monads::Result]
           params do
+            required(:category).filled(Types::CategoryDeterminationKind)
             required(:indicator_code).filled(Types::DeterminationIndicatorKind)
-            required(:ineligibility_code).filled(:integer)
+            optional(:ineligibility_code).maybe(:integer)
             optional(:ineligibility_reason).maybe(:string)
           end
         end

@@ -13,7 +13,7 @@ module AcaEntities
         # @!attribute [r] name
         # A string representing the application, only for the use of the submitter
         # @return [String]
-        attribute :state,             Types::String.meta(omittable: false)
+        attribute :state,             Types::UsStateAbbreviationKind.meta(omittable: false)
 
         # @!attribute [r] application_year
         # Optional field. The year during which the application is being submitted (allows you

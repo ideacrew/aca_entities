@@ -161,13 +161,20 @@ module AcaEntities
                           nil,
                           :rewrap_keys,
                           proc: nil)
-            map.properties = args
+            map.properties = args unless args.empty?
             map.context = @context
             @mappings[map.container_key] = map
           end
 
-          map = self.class.new(source_ns,
-                               output_namespace.to_s.split('.'),
+          source_keys = source_ns
+          output_keys = output_namespace.to_s.split('.')
+          if args.first && args.first[:type].to_s == 'array' && !source_ns.include?("*")
+            source_keys << :no_key
+            output_keys << :no_key
+          end
+
+          map = self.class.new(source_keys,
+                               output_keys,
                                :rewrap_keys,
                                args)
           map.instance_exec(&block)
@@ -411,12 +418,20 @@ module AcaEntities
 
           transform_procs = key_transforms.collect {|action| action_to_transproc(action, source_elements, output_elements)}
 
-          @transproc = if proc && !key_transforms.include?(:add_context)
-                         output = output_elements[0..-2]
-                         eval(transform_procs.flatten.join('.>> ')) >> t(:map_value, output.map(&:to_sym), proc)
-                       else
-                         eval(transform_procs.flatten.join('.>> '))
-                       end
+          @transproc =
+            if transform_procs.is_a?(String) || (transform_procs.is_a?(Array) && transform_procs.first.is_a?(String))
+              if proc && !key_transforms.include?(:add_context)
+                output = output_elements[0..-2]
+                eval(transform_procs.flatten.join('.>> ')) >> t(:map_value, output.map(&:to_sym), proc)
+              else
+                eval(transform_procs.flatten.join('.>> '))
+              end
+            elsif proc && !key_transforms.include?(:add_context)
+              output = output_elements[0..-2]
+              transform_procs.first >> t(:map_value, output.map(&:to_sym), proc)
+            else
+              transform_procs.first
+            end
         end
 
         def action_to_transproc(action, source_elements, output_elements)
@@ -434,7 +449,7 @@ module AcaEntities
             "t(:add_namespace, #{source_elements.map(&:to_sym)}, #{output_elements.map(&:to_sym)})"
           when :rename_nested_keys
             source = source_key.split('.').last
-            "t(:#{action}, [#{source}: :#{output_elements.last}], #{source_elements[0..-2].map(&:to_sym)})"
+            t(:"#{action}", ["#{source}": :"#{output_elements.last}"], source_elements[0..-2].map(&:to_sym))
           when :add_context
             "t(:add_context, #{source_elements.map(&:to_sym)}, #{output_elements.map(&:to_sym)}, #{proc})"
           else
