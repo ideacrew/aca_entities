@@ -11,7 +11,7 @@ module AcaEntities
       send(:include, Dry::Logic)
 
       VersionKind = Types::Coercible::String.default('0.1.0').enum('0.1.0')
-      DataTypeKind = Types::Coercible::String.enum
+      DataTypeKind = Types::Coercible::Symbol.enum(:string, :boolean)
     end
   end
 end
