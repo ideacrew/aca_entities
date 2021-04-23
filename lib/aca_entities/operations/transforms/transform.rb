@@ -32,7 +32,6 @@ module AcaEntities
           def transform(payload)
             service = new
             service.namespace_record_delimiter = [:no_key]
-            binding.pry
             Oj.saj_parse(service, payload.to_json)
             service.record
           end
@@ -207,6 +206,7 @@ module AcaEntities
           document.source_namespace = element_namespaces
           document.output_namespace = element_namespaces
           document.parent_namespace = @documents.last&.output_namespace
+          # puts "-------created #{document.inspect}"
           @documents.push(document)
         end
 
@@ -248,20 +248,23 @@ module AcaEntities
         def merge_documents(key, type)
           return if @documents.empty?
           # return unless key
-      
           # puts "-----deleted #{@documents.last.inspect}---#{key}---#{type}"
 
           if type == :array
             return if current_document&.is_a?(AcaEntities::Operations::Transforms::HashDocument)
           end
 
-          if  type == :hash && key != :no_key
+          unless batch_process?
+          if type == :hash && key != :no_key
             transformed_key = match_wildcard_chars(element_namespaces.join('.'))
             # puts "----------->>>> #{container.key?(transformed_key)}--for--#{transformed_key}" 
             return unless container.key?(transformed_key)
           end
+        end
+
 
           recent_document = @documents.pop
+           # puts "----deleted---#{recent_document.inspect}"
 
           if current_document
             # puts "#{recent_document.class}---Recent Document--#{recent_document.output}"
@@ -417,9 +420,6 @@ module AcaEntities
           else
             t(:build_nested_hash)[record, [], data || input]
           end
-
-        # rescue
-        #   binding.pry
         end
 
         def record_unique_identifier(key)
