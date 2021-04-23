@@ -20,7 +20,7 @@ module AcaEntities
 
         BufferLength = 512
 
-        attr_reader :namespaces, :namespace_record_delimiter, :array_namespaces, :container, :record, :record_index
+        attr_reader :namespaces, :namespace_record_delimiter, :array_namespaces, :container, :record
 
         class << self
           def call(*args, &block)
@@ -50,8 +50,6 @@ module AcaEntities
           @namespaces = []
           @array_namespaces = []
           @container = self.class.mapping_container
-          @namespace_mappings = Hash.new
-          @record_queue = []
           @wild_char_matchers = []
           @contexts = {}
           @transform_mode = options[:transform_mode]&.to_sym || :single
@@ -73,10 +71,6 @@ module AcaEntities
         end
 
         def record_start(key)
-          first_delimiter_match_index = @namespaces.index(namespace_record_delimiter[0])
-          max_delimier_index = non_identifier_delimiters.keys.last
-          @record_index = first_delimiter_match_index
-          @record_index += max_delimier_index if max_delimier_index
           @record = {}
         end
 
@@ -128,11 +122,9 @@ module AcaEntities
 
           if key
             value = @array_record
-            unless batch_process?
-              unless value.empty?
-                transform_data_for(key, value)
-                @array_record = []
-              end
+            if !batch_process? && !value.empty?
+              transform_data_for(key, value)
+              @array_record = []
             end
           end
 
@@ -141,7 +133,6 @@ module AcaEntities
 
         def add_value(value, key)
           @array_record << value unless key
-          return unless record_index
           transform_data_for(key, value)
         end
 
@@ -275,7 +266,7 @@ module AcaEntities
         def initialize_new_record_for(namespaced_key, key)
           namespaced_key = match_wildcard_chars(namespaced_key)
 
-          if container.key?(namespaced_key) && (record_builder.nil? || record_builder.root != namespaced_key)
+          if container.key?(namespaced_key)
             container_value = container[namespaced_key]
             @contexts[key] = container_value.context.merge(item: key) if container_value.context
 
@@ -312,11 +303,8 @@ module AcaEntities
           return unless defined? @record_namespace_offset
       
           if batch_process?
-            input = if key
-              t(:build_nested_hash)[{}, [], Hash[key.to_sym, value]]
-            else
-              value
-            end
+            input = t(:build_nested_hash)[{}, [], Hash[key.to_sym, value]] if key
+            input ||= value
           else
             key_with_namespace = (element_namespaces + [key]).join('.')
             transformed_key = match_wildcard_chars(key_with_namespace.dup)
@@ -330,7 +318,6 @@ module AcaEntities
                     end
 
             data = container[transformed_key].call(input)
-
             if container[transformed_key].transproc_name == :add_context
               context_key = container[transformed_key].output_key
               @contexts[context_key] = {name: context_key, item: data.first[-1]}
@@ -353,10 +340,6 @@ module AcaEntities
         def match_wildcard_chars(key)
           return key if @wild_char_matchers.empty?
           key.gsub(/#{@wild_char_matchers.join('|')}/, '*')
-        end
-
-        def record_builder
-          @record_queue.last
         end
 
         def t(*args)
