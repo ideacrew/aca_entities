@@ -13,6 +13,8 @@ module AcaEntities
       attribute :applicants, Types::Array.of(Applicant).meta(omittable: false)
       attribute :tax_households, Types::Array.of(TaxHousehold).optional.meta(omittable: true)
       attribute :relationships, Types::Array.of(Relationship).optional.meta(omittable: true)
+
+      attribute :us_state, Types::UsStateAbbreviationKind.meta(omittable: false)
     end
   end
 end

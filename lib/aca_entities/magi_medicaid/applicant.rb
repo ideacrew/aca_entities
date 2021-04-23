@@ -64,6 +64,22 @@ module AcaEntities
       attribute :incomes,         Types::Array.of(Income).optional.meta(omittable: true)
       attribute :benefits,        Types::Array.of(Benefit).optional.meta(omittable: true)
       attribute :deductions,      Types::Array.of(Deduction).optional.meta(omittable: true)
+
+      # @!attribute [r] is_medicare_eligible
+      # A boolean that tells if applicant has any medicare benefits('medicare', 'medicare_advantage', or 'medicare_part_b').
+      # @return [Bool]
+      attribute :is_medicare_eligible, Types::Bool.optional.meta(omittable: true)
+
+      # @!attribute [r] has_insurance
+      # Applicant already has insurance coverage. Any benefits of type is_enrolled
+      # @return [Bool]
+      attribute :has_insurance, Types::Bool.optional.meta(omittable: true)
+
+      # @!attribute [r] has_state_health_benefit
+      # A boolean if applicant has health benefits by virtue working for a public entity or through a relative
+      # Any benefits of type medicaid
+      # @return [Bool]
+      attribute :has_state_health_benefit, Types::Bool.optional.meta(omittable: true)
     end
   end
 end

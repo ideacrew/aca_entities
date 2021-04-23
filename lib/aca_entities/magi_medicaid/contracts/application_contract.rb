@@ -25,6 +25,8 @@ module AcaEntities
           required(:applicants).array(ApplicantContract.params)
           optional(:relationships).array(RelationshipContract.params)
           optional(:tax_households).array(TaxHouseholdContract.params)
+
+          required(:us_state).filled(Types::UsStateAbbreviationKind)
         end
       end
     end
