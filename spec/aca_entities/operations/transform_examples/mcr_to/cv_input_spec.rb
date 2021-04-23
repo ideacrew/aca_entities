@@ -7,7 +7,7 @@ require 'benchmark'
 RSpec.describe ::AcaEntities::Operations::TransformExamples::McrTo::CvInput do
   describe 'When a valid json file passed' do
 
-    let(:source_file) { Pathname.pwd.join('spec', 'support', 'application.json') }
+    let(:source_file) { Pathname.pwd.join("spec/support/transform_example_payloads/application.json") }
 
     it 'should parse and then transform when transform_mode set to batch' do
       AcaEntities::Operations::TransformExamples::McrTo::CvInput.call(source_file, { transform_mode: :batch }) do |payload|
