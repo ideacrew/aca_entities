@@ -5,6 +5,8 @@ require 'aca_entities/operations/transform_examples/to_mitc_contract/eligibility
 
 RSpec.describe ::AcaEntities::Operations::TransformExamples::ToMitcContract::EligibilityResponse do
   describe 'When a valid json file passed' do
+    let(:source_file) {Pathname.pwd.join("spec/support/transform_example_payloads/eligibility_response.json")}
+
     it 'should parse and then transform when transform_mode set to batch' do
       AcaEntities::Operations::TransformExamples::ToMitcContract::EligibilityResponse.call(source_file, { transform_mode: :batch }) do |payload|
         record = AcaEntities::Operations::TransformExamples::ToMitcContract::EligibilityResponse.transform(payload)
