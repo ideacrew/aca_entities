@@ -95,9 +95,9 @@
 									"firstName": "Roslyn",
 									"lastName": "dshab"
 								},
-								// // "sex": "FEMALE",
-								// "noHomeAddressIndicator": false,
-								// "liveOutsideStateTemporarilyIndicator": false,
+								// "sex": "FEMALE",
+								"noHomeAddressIndicator": false,
+								"liveOutsideStateTemporarilyIndicator": false,
 								"americanIndianAlaskanNativeIndicator": false,
 								"mailingAddress": {
 									"streetName1": "2 commerce street",
