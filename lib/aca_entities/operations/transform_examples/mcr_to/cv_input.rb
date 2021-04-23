@@ -2,8 +2,8 @@
 
 # This file defines the maps
 module AcaEntities
-  module Medicaid
-    module Transforms
+  module Operations
+    module TransformExamples
       module McrTo
         # Transform Keys and Values
         class CvInput < ::AcaEntities::Operations::Transforms::Transform

@@ -2,9 +2,9 @@
 
 # This file defines the maps
 module AcaEntities
-  module MagiMedicaid
-    module Mitc
-      module Transforms
+  module Operations
+    module TransformExamples
+      module ToMitcContract
         # Transform Keys and Values
         class EligibilityResponse < ::AcaEntities::Operations::Transforms::Transform
           include ::AcaEntities::Operations::Transforms::Transformer
