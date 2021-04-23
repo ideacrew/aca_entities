@@ -1,17 +1,17 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require 'aca_entities/medicaid/transforms/mcr_to/cv_input'
+require 'aca_entities/operations/transform_examples/mcr_to/cv_input'
 require 'benchmark'
 
-RSpec.describe ::AcaEntities::Medicaid::Transforms::McrTo::CvInput do
+RSpec.describe ::AcaEntities::Operations::TransformExamples::McrTo::CvInput do
   describe 'When a valid json file passed' do
 
     let(:source_file) { Pathname.pwd.join('spec', 'support', 'application.json') }
 
     it 'should parse and then transform when transform_mode set to batch' do
-      AcaEntities::Medicaid::Transforms::McrTo::CvInput.call(source_file, { transform_mode: :batch }) do |payload|
-        record = AcaEntities::Medicaid::Transforms::McrTo::CvInput.transform(payload)
+      AcaEntities::Operations::TransformExamples::McrTo::CvInput.call(source_file, { transform_mode: :batch }) do |payload|
+        record = AcaEntities::Operations::TransformExamples::McrTo::CvInput.transform(payload)
         record[:family].tap do |family|
           expect(family).to have_key(:hbx_id)
           expect(family).to have_key(:vlp_documents_status)
@@ -46,7 +46,7 @@ RSpec.describe ::AcaEntities::Medicaid::Transforms::McrTo::CvInput do
     end
 
     it 'should transform the payload according to instructions' do
-      AcaEntities::Medicaid::Transforms::McrTo::CvInput.call(source_file) do |record|
+      AcaEntities::Operations::TransformExamples::McrTo::CvInput.call(source_file) do |record|
 
         record[:family].tap do |family|
           expect(family).to have_key(:hbx_id)
