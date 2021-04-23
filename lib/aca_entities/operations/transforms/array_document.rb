@@ -1,13 +1,15 @@
 # frozen_string_literal: true
 
-# rubocop:disable Style/HashConversion, Style/OptionalBooleanParameter
+# rubocop:disable Style/HashConversion
 
 module AcaEntities
   module Operations
     module Transforms
       # RecordBuilder for OJ stream and transform
       class ArrayDocument
-        attr_reader :root, :data_set, :source_namespace, :output_namespace, :parent_namespace, :regex_key
+        attr_accessor :source_namespace, :output_namespace
+        attr_reader :root, :data_set
+        attr_writer :parent_namespace, :regex_key
 
         def initialize(root)
           # @type = type
@@ -30,27 +32,9 @@ module AcaEntities
           end
         end
 
-        def source_namespace=(value)
-          @source_namespace = value
-        end
-
         def merge(data)
-# puts "------array merge #{data}-------#{data_set}"
           @data_set.push(data)
         end
-
-        def output_namespace=(value)
-          @output_namespace = value
-        end
-
-        def parent_namespace=(value)
-          @parent_namespace = value
-        end
-
-        def regex_key=(value)
-          @regex_key = value
-        end
-
 
         def output_namespaces
           output_namespace.map(&:to_sym)
@@ -71,3 +55,5 @@ module AcaEntities
     end
   end
 end
+
+# rubocop:enable Style/HashConversion

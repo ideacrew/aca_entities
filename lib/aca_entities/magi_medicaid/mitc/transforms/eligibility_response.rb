@@ -23,7 +23,10 @@ module AcaEntities
                 end
               end
 
-              # # map 'Determinations', 'determinations'
+              map 'CHIP Eligible', 'chip_eligible'
+              map 'Ineligibility Reason', 'ineligibility_reason'
+              map 'Non-MAGI Referral', 'non-magi_referral'
+
               map 'CHIP Ineligibility Reason', 'chip_ineligible_reason'
 
               namespace 'Determinations' do
@@ -39,6 +42,12 @@ module AcaEntities
                       map 'Indicator', 'indicator'
                     end
                   end
+                end
+              end
+
+              namespace 'Other Outputs' do
+                rewrap 'other_outputs', type: :hash do
+                  map 'Qualified Children List', 'qualified_children_list'
                 end
               end
 

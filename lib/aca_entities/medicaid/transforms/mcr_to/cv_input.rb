@@ -19,48 +19,10 @@ module AcaEntities
 
           AgeOn = AcaEntities::Functions::AgeOn.new(on_date: "2020-1-1")
 
-
-          # map "Determination Date", 'determination_date'
-          # namespace 'Applicants' do
-          #   rewrap 'applicants', type: :array do
-          #     map 'Person ID', 'person_id'
-          #     map 'Medicaid Eligible', 'medicaid_eligible'
-
-          #     namespace "Medicaid Household" do
-          #       rewrap 'medicaid_household', type: :hash do
-          #         map 'People', 'people'
-          #         map 'MAGI', 'magi'
-          #       end
-          #     end
-
-          #     # map "Determinations", "determinations"
-
-          #     map "CHIP Ineligibility Reason", 'chip_ineligible_reason'
-
-          #     namespace "Determinations" do 
-          #       rewrap 'determinations', type: :hash do 
-          #         namespace "Residency" do
-          #           rewrap 'residency', type: :hash do
-          #             map "Indicator", 'indicator'
-          #           end
-          #         end
-          #       end
-          #     end
-
-          #     namespace "cleanDets" do 
-          #       rewrap 'cleandets', type: :array do 
-          #         map "item", 'determination_kind'
-          #         map "indicator", 'status'
-          #       end
-          #     end
-          #   end
-          # end
-
-          # map 'test Key', 'test_key'
           map 'coverageYear', 'calender_year'
           map 'insuranceApplicationIdentifier', 'application_identifier'
           map 'Date', 'age', AgeOn
-          # add_key 'sample_add_key', 1234
+          add_key 'sample_add_key', 1234
 
           namespace 'attestations' do
             # rewrap '' do
