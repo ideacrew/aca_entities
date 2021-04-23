@@ -31,10 +31,30 @@ RSpec.describe ::AcaEntities::Operations::Transforms::HashFunctions do
 
     describe '.build_nested_hash' do
       it 'returns a new hash with new key value pair' do
-        record = { :family => { :family_members => { :person => { :gender => 'female' } } } }
-        values = [:family, :family_members, :person]
+        record = {}
+        values = []
         data = { dob: '1969-03-01' }
-        output = { :family => { :family_members => { :person => { :gender => 'female', :dob => '1969-03-01' } } } }
+        output = { :dob => '1969-03-01' }
+
+        map_value = described_class.build_nested_hash(record, values, data)
+        expect(map_value).to eql(output)
+      end
+
+      it 'returns a new hash with value as array of key value pair ' do
+        record = {}
+        values = [{ test: :array }]
+        data = { dob: '1969-03-01' }
+        output = { :test => [{ :dob => '1969-03-01' }] }
+
+        map_value = described_class.build_nested_hash(record, values, data)
+        expect(map_value).to eql(output)
+      end
+
+      it 'returns a new hash with no_key tag as top level key' do
+        record = {}
+        values = [{ :no_key => :hash }]
+        data = { dob: '1969-03-01' }
+        output = { :no_key => { :dob => '1969-03-01' } }
 
         map_value = described_class.build_nested_hash(record, values, data)
         expect(map_value).to eql(output)
@@ -53,9 +73,9 @@ RSpec.describe ::AcaEntities::Operations::Transforms::HashFunctions do
     describe '.rewrap_keys' do
       it 'returns a new hash with new namespaces' do
         input = { :boo => { :foo => 'bar' } }
-        output = { :boo => { :too => 'bar' } }
-        map_value = described_class.rewrap_keys(input, [:boo, :foo], [:boo, :too])
-        expect(map_value).to eql(output)
+        output = { :too => 'bar' }
+        rewrap_keys = described_class.rewrap_keys(input, [:boo, :foo], [:boo, :too])
+        expect(rewrap_keys).to eql(output)
       end
     end
 

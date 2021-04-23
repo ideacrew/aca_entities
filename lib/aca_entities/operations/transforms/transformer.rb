@@ -155,7 +155,7 @@ module AcaEntities
         def rewrap(output_namespace = nil, *args, &block)
           raise 'no block given' unless block_given?
 
-          if !args.empty?
+          unless args.empty?
             map = Map.new((source_ns).join('.'),
                           output_namespace,
                           nil,

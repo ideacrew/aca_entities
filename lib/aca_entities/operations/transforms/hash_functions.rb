@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# rubocop:disable Style/HashConversion, Style/OptionalArguments
+# rubocop:disable Style/HashConversion, Style/OptionalArguments, Metrics/BlockNesting
 require 'dry/transformer/all'
 require "dry/inflector"
 require 'deep_merge'
@@ -31,7 +31,11 @@ module AcaEntities
           source_hash = input[:source_hash] || input
 
           source_hash.to_h.tap do |hash|
-            data_pair = namespaces.empty? ? hash : hash.dig(*namespaces)
+            data_pair = if namespaces.empty?
+                          hash
+                        else
+                          hash.dig(*namespaces) || hash
+                        end
 
             transformed_pair = if func.is_a? Proc
                                  if input[:context]
@@ -163,13 +167,14 @@ module AcaEntities
         end
 
         def get_last_pair(data)
-          if data.is_a?(Array)
+          case data
+          when Array
             if data.first.is_a?(Array) || data.first.is_a?(Hash)
               get_last_pair(data.first)
             else
               data
             end
-          elsif data.is_a?(Hash)
+          when Hash
             value = data.values.first
             if value.is_a?(Hash) || (value.is_a?(Array) && value.first.is_a?(Hash))
               get_last_pair(value)
@@ -187,14 +192,14 @@ module AcaEntities
           namespace_values = values.map(&:keys).flatten
           if (current_namespace = namespace_values.first)
             init_value = (values[0][current_namespace] == :array ? [] : {})
-            
+
             current_record = if record.is_a?(Array)
-              record.push(init_value)
-              record.last
-            else
-              record[current_namespace] ||= init_value
-              record[current_namespace]
-            end
+                               record.push(init_value)
+                               record.last
+                             else
+                               record[current_namespace] ||= init_value
+                               record[current_namespace]
+                             end
 
             if namespace_values.empty?
               if record.is_a?(Array)
@@ -203,14 +208,12 @@ module AcaEntities
                 current_record.deep_merge!(data)
               end
             else
-              current_record = build_nested_hash(current_record, values[1..-1], data)
+              build_nested_hash(current_record, values[1..-1], data)
             end
+          elsif record.is_a?(Array)
+            record.push(data)
           else
-            if record.is_a?(Array)
-              record.push(data)
-            else
-              record.deep_merge!(data)
-            end
+            record.deep_merge!(data)
           end
 
           record
@@ -323,4 +326,4 @@ module AcaEntities
     end
   end
 end
-# rubocop:enable Style/HashConversion, Style/OptionalArguments
+# rubocop:enable Style/HashConversion, Style/OptionalArguments, Metrics/BlockNesting
