@@ -8,7 +8,7 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicantContract,  dbclean
     let(:name) { { first_name: 'first', last_name: 'last' } }
     let(:identifying_information) { { has_ssn: false } }
     let(:demographic) { { gender: 'Male', dob: Date.today.prev_year.to_s } }
-    let(:attestation) { { is_disabled: false } }
+    let(:attestation) { { is_self_attested_disabled: false, is_self_attested_blind: false } }
     let(:family_member_reference) do
       { family_member_hbx_id: '1000',
         first_name: 'first',
@@ -82,7 +82,7 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicantContract,  dbclean
         dob: Date.today.prev_year.to_s,
         is_veteran_or_active_military: false }
     end
-    let(:attestation) { { is_disabled: false, is_incarcerated: false } }
+    let(:attestation) { { is_self_attested_disabled: false, is_self_attested_blind: false, is_incarcerated: false } }
     let(:family_member_reference) do
       { family_member_hbx_id: '1000',
         first_name: 'First',

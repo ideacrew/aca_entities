@@ -80,6 +80,31 @@ module AcaEntities
       # Any benefits of type medicaid
       # @return [Bool]
       attribute :has_state_health_benefit, Types::Bool.optional.meta(omittable: true)
+
+      # @!attribute [r] had_prior_insurance
+      # Was the applicant receiving coverage that has expired?
+      # Any benefits of type is_enrolled and end dated.
+      # @return [Bool]
+      attribute :had_prior_insurance, Types::Bool.optional.meta(omittable: true)
+
+      # @!attribute [r] prior_insurance_end_date
+      # The date the prior coverage ended.A date in YYYY-MM-DD format
+      # @return [Bool]
+      attribute :prior_insurance_end_date, Types::Bool.optional.meta(omittable: true)
+
+      # @!attribute [r] age_of_applicant
+      # The age of the applicant
+      # @return [Integer]
+      attribute :age_of_applicant, Types::Integer.optional.meta(omittable: true)
+
+      # @!attribute [r] is_self_attested_long_term_care
+      # @return [Bool]
+      attribute :is_self_attested_long_term_care, Types::Bool.optional.meta(omittable: true)
+
+      # @!attribute [r] hours_worked_per_week
+      # @return [Integer]
+      attribute :hours_worked_per_week, Types::Integer.optional.meta(omittable: true)
+
     end
   end
 end

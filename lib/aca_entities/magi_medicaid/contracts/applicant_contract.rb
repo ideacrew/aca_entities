@@ -116,6 +116,17 @@ module AcaEntities
           optional(:incomes).array(IncomeContract.params)
           optional(:benefits).array(BenefitContract.params)
           optional(:deductions).array(DeductionContract.params)
+
+          optional(:is_medicare_eligible).filled(:bool)
+          optional(:is_self_attested_long_term_care).filled(:bool)
+          optional(:has_insurance).filled(:bool)
+          optional(:has_state_health_benefit).filled(:bool)
+          optional(:had_prior_insurance).filled(:bool)
+          optional(:prior_insurance_end_date).filled(:date)
+          optional(:age_of_applicant).filled(:integer)
+
+          optional(:hours_worked_per_week).filled(:integer)
+
         end
       end
     end

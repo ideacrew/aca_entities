@@ -9,7 +9,7 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Application, dbclean: :after_each do
     let(:name) { { first_name: 'first', middle_name: nil, last_name: 'last' } }
     let(:identifying_information) { { has_ssn: false } }
     let(:demographic) { { gender: 'Male', dob: Date.today.prev_year.to_s } }
-    let(:attestation) { { is_disabled: false } }
+    let(:attestation) { { is_self_attested_disabled: false, is_self_attested_blind: false } }
     let(:family_member_reference) do
       { family_member_hbx_id: '1000',
         first_name: 'First',
@@ -43,7 +43,8 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Application, dbclean: :after_each do
     let(:application_params) do
       { family_reference: family_reference,
         assistance_year: Date.today.year,
-        applicants: [applicant] }
+        applicants: [applicant],
+        us_state: 'DC' }
     end
 
     context 'with one applicant' do
@@ -112,7 +113,10 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Application, dbclean: :after_each do
       end
 
       it 'should return all keys of application' do
-        expect(@result.to_h.keys).to eq(app_with_thh.keys)
+        result_app_keys = @result.to_h.keys
+        input_app_keys = app_with_thh.keys
+        expect(result_app_keys - input_app_keys).to be_empty
+        expect(input_app_keys - result_app_keys).to be_empty
       end
 
       it 'should match all the input keys of applicant' do
@@ -164,7 +168,10 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Application, dbclean: :after_each do
       end
 
       it 'should return all keys of application' do
-        expect(@result.to_h.keys).to eq(app_with_multi_applicants.keys)
+        result_app_keys = @result.to_h.keys
+        input_app_keys = app_with_multi_applicants.keys
+        expect(result_app_keys - input_app_keys).to be_empty
+        expect(input_app_keys - result_app_keys).to be_empty
       end
 
       it 'should match all the input keys of applicant' do
