@@ -322,6 +322,18 @@ module AcaEntities
                                                        end
           end
         end
+
+        # Convert value to boolean string
+        # @param value The input value
+
+        # @example
+        #   boolean_string(true)
+        #   # =>  'Y'
+        #
+        # @return value
+        def boolean_string(value)
+          { true => 'Y', false => 'N' }[value]
+        end
       end
     end
   end

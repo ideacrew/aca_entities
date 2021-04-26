@@ -67,7 +67,12 @@ module AcaEntities
 
         def call(&block)
           @record_processor = block
-          File.open(@source, 'r') {|f| Oj.saj_parse(self, f)}
+
+          if json_input?(@source)
+            Oj.saj_parse(self, @source)
+          else
+            File.open(@source, 'r') {|f| Oj.saj_parse(self, f)}
+          end
         end
 
         def record_start(key)
@@ -137,6 +142,14 @@ module AcaEntities
         end
 
         private
+
+        def json_input?(source)
+          begin
+            JSON.parse(source)
+          rescue
+            false
+          end
+        end
 
         def construct_document_with(key, type)
           if batch_process? || key == :no_key
