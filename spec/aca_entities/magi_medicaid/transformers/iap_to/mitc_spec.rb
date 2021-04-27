@@ -212,8 +212,8 @@ RSpec.describe AcaEntities::MagiMedicaid::Transformers::IapTo::Mitc do
   # TODO: Will be moved to a class.
   def add_addtional_params(transform_result, iap_application)
     application_hash = JSON.parse(iap_application, symbolize_names: true)
-    transform_result.merge!({ physical_households: physical_households(transform_result, application_hash),
-                              tax_returns: tax_returns(transform_result, application_hash) })
+    transform_result.merge!({ physical_households: physical_households(application_hash),
+                              tax_returns: tax_returns(application_hash) })
     transform_result
   end
 
@@ -224,7 +224,7 @@ RSpec.describe AcaEntities::MagiMedicaid::Transformers::IapTo::Mitc do
   end
 
   # Only one household as PhysicalHousehold maps to Family
-  def physical_households(transform_result, application_hash)
+  def physical_households(application_hash)
     [{ household_id: '1', people: person_references(application_hash) }]
   end
 
@@ -239,16 +239,17 @@ RSpec.describe AcaEntities::MagiMedicaid::Transformers::IapTo::Mitc do
     dependents = []
     thh[:tax_household_members].each do |thh_member|
       applicant = applicant_by_reference(application_hash[:applicants], thh_member[:applicant_reference])
-      if applicant[:is_claimed_as_tax_dependent] == true
+      case applicant[:is_claimed_as_tax_dependent]
+      when true
         dependents << { person_id: thh_member[:applicant_reference][:person_hbx_id] }
-      elsif applicant[:is_claimed_as_tax_dependent] == false
+      when false
         filers << { person_id: thh_member[:applicant_reference][:person_hbx_id] }
       end
     end
     { filers: filers, dependents: dependents }
   end
 
-  def tax_returns(transform_result, application_hash)
+  def tax_returns(application_hash)
     application_hash[:tax_households].inject([]) do |tr_array, thh|
       tr_array << tax_return_hash(application_hash, thh)
     end

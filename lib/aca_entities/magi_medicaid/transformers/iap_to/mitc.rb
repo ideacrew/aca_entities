@@ -93,7 +93,9 @@ module AcaEntities
                   rewrap '' do
 
                     # map 'citizen_status', 'citizenship_immigration_status_information.citizen_status', { memoize: true }
-                    # add_key 'is_us_citizen', ->(v) { (v.resolve('citizenship_immigration_status_information.citizen_status').item == 'us_citizen') ? 'Y' : 'N' }
+                    # add_key 'is_us_citizen', ->(v) {
+                    #   (v.resolve('citizenship_immigration_status_information.citizen_status').item == 'us_citizen') ? 'Y' : 'N'
+                    # }
 
                     # value is citizenship_immigration_status_information.citizen_status == 'us_citizen'
                     # add_key 'is_us_citizen', value
