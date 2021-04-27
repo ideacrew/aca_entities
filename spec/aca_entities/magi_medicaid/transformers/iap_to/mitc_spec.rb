@@ -44,7 +44,7 @@ RSpec.describe AcaEntities::MagiMedicaid::Transformers::IapTo::Mitc do
         foster_care_us_state: 'MA',
         had_medicaid_during_foster_care: false }
     end
-    let(:applicant) do
+    let(:applicant_hash) do
       { name: name,
         identifying_information: identifying_information,
         citizenship_immigration_status_information: { citizen_status: 'us_citizen' },
@@ -54,7 +54,10 @@ RSpec.describe AcaEntities::MagiMedicaid::Transformers::IapTo::Mitc do
         is_applying_coverage: false,
         family_member_reference: family_member_reference,
         person_hbx_id: '100',
-        is_required_to_file_taxes: false,
+        is_required_to_file_taxes: true,
+        is_joint_tax_filing: false,
+        is_claimed_as_tax_dependent: false,
+        claimed_as_tax_dependent_by: nil,
         student: student,
         foster_care: foster_care,
         pregnancy_information: pregnancy_information,
@@ -79,15 +82,56 @@ RSpec.describe AcaEntities::MagiMedicaid::Transformers::IapTo::Mitc do
         is_refugee: false }
     end
     let(:family_reference) { { hbx_id: '10011' } }
+
+    let(:applicant_reference) do
+      { first_name: applicant_hash[:name][:first_name],
+        last_name: applicant_hash[:name][:last_name],
+        dob: applicant_hash[:demographic][:dob],
+        person_hbx_id: applicant_hash[:person_hbx_id] }
+    end
+
+    let(:product_eligibility_determination) do
+      { is_ia_eligible: true,
+        is_medicaid_chip_eligible: false,
+        is_non_magi_medicaid_eligible: false,
+        is_totally_ineligible: false,
+        is_without_assistance: false,
+        is_magi_medicaid: false,
+        magi_medicaid_monthly_household_income: 6474.42,
+        medicaid_household_size: 1,
+        magi_medicaid_monthly_income_limit: 3760.67,
+        magi_as_percentage_of_fpl: 10.0,
+        magi_medicaid_category: 'parent_caretaker' }
+    end
+
+    let(:tax_household_member) do
+      { product_eligibility_determination: product_eligibility_determination,
+        applicant_reference: applicant_reference }
+    end
+
+    let(:tax_hh) do
+      { max_aptc: 100.56,
+        csr: 73,
+        is_insurance_assistance_eligible: 'Yes',
+        tax_household_members: [tax_household_member] }
+    end
+
     let(:application) do
       { us_state: 'DC',
         family_reference: family_reference,
         assistance_year: Date.today.year,
-        applicants: [applicant] }
+        applicants: [applicant_hash],
+        tax_households: [tax_hh] }
     end
 
     let(:iap_application) do
       ::AcaEntities::MagiMedicaid::Contracts::ApplicationContract.new.call(application).to_h.to_json
+    end
+
+    before do
+      @transform_result = {}
+      described_class.call(iap_application) { |record| @transform_result = record }
+      @final_result = add_addtional_params(@transform_result, iap_application)
     end
 
     it 'should transform the payload according to instructions' do
@@ -127,8 +171,86 @@ RSpec.describe AcaEntities::MagiMedicaid::Transformers::IapTo::Mitc do
           expect(person).to have_key(:is_eligible_for_refugee_medical_assistance)
           expect(person).to have_key(:is_veteran)
         end
-
       end
+    end
+
+    context 'should add physical_households and embedded params' do
+      it 'should add key physical_households' do
+        expect(@final_result).to have_key(:physical_households)
+      end
+
+      it 'should add all the keys of each physical_household' do
+        household = @final_result[:physical_households].first
+        expect(household).to have_key(:household_id)
+        expect(household).to have_key(:people)
+      end
+
+      it 'should add all the keys of each person_reference' do
+        per_ref = @final_result[:physical_households].first[:people].first
+        expect(per_ref).to have_key(:person_id)
+      end
+    end
+
+    context 'should add tax_returns and embedded params' do
+      it 'should add key tax_returns' do
+        expect(@final_result).to have_key(:tax_returns)
+      end
+
+      it 'should add all the keys of each tax_return' do
+        tax_return = @final_result[:tax_returns].first
+        expect(tax_return).to have_key(:filers)
+        expect(tax_return).to have_key(:dependents)
+      end
+
+      it 'should add all the keys of each filer' do
+        filer = @final_result[:tax_returns].first[:filers].first
+        expect(filer).to have_key(:person_id)
+      end
+    end
+  end
+
+  # TODO: Will be moved to a class.
+  def add_addtional_params(transform_result, iap_application)
+    application_hash = JSON.parse(iap_application, symbolize_names: true)
+    transform_result.merge!({ physical_households: physical_households(transform_result, application_hash),
+                              tax_returns: tax_returns(transform_result, application_hash) })
+    transform_result
+  end
+
+  def person_references(application_hash)
+    application_hash[:applicants].inject([]) do |p_ref_array, applicant|
+      p_ref_array << { person_id: applicant[:family_member_reference][:person_hbx_id] }
+    end
+  end
+
+  # Only one household as PhysicalHousehold maps to Family
+  def physical_households(transform_result, application_hash)
+    [{ household_id: '1', people: person_references(application_hash) }]
+  end
+
+  def applicant_by_reference(applicants, applicant_reference)
+    applicants.detect do |applicant|
+      applicant[:family_member_reference][:person_hbx_id] == applicant_reference[:person_hbx_id]
+    end
+  end
+
+  def tax_return_hash(application_hash, thh)
+    filers = []
+    dependents = []
+    thh[:tax_household_members].each do |thh_member|
+      applicant = applicant_by_reference(application_hash[:applicants], thh_member[:applicant_reference])
+      if applicant[:is_claimed_as_tax_dependent] == true
+        dependents << { person_id: thh_member[:applicant_reference][:person_hbx_id] }
+      elsif applicant[:is_claimed_as_tax_dependent] == false
+        filers << { person_id: thh_member[:applicant_reference][:person_hbx_id] }
+      end
+    end
+    { filers: filers, dependents: dependents }
+  end
+
+  def tax_returns(transform_result, application_hash)
+    application_hash[:tax_households].inject([]) do |tr_array, thh|
+      tr_array << tax_return_hash(application_hash, thh)
     end
   end
 end
