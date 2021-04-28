@@ -48,28 +48,22 @@ module AcaEntities
         #
         # @api public
         def map(source_key, output_key = nil, *args)
-          # options = args.first
-          action = nil
-          proc = nil
-          args.each do |arg|
-            if arg.is_a?(Hash) && arg[:memoize]
-              add_context((source_ns + [source_key]).join('.'), output_key, arg[:function])
-              return
-            elsif arg.is_a?(Symbol)
-              action = arg
-            else
-              proc = arg unless arg.is_a?(Hash)
-            end
+          options = args.first || {}
+          if options.is_a?(Hash) && (options[:memoize] || options[:context])
+            add_context((source_ns + [source_key]).join('.'), output_key, options[:function])
           end
+          transform_action = options[:action] if options[:action]
 
-          transform_action = action if action
+          # Returns only when visble is set to false
+          return if options[:visible] == false
 
+          # Creats an output_key with source_key's value
           mapping = Map.new((source_ns + [source_key]).join('.'),
                             (output_ns + [output_key.to_s]).join('.'),
                             nil,
                             transform_action || :rename_nested_keys,
-                            proc: proc)
-          mapping.context = args.first[:context] if args.first.is_a?(Hash)
+                            proc: options[:function])
+
           @mappings[mapping.container_key] = mapping
         end
 
@@ -91,14 +85,15 @@ module AcaEntities
         # @return [Object]
         #
         # @api public
-        def add_key(key, value = nil)
+        def add_key(key, *args)
           raise 'arg1 should not be empty string or an integer' if key.empty? || key.is_a?(Integer)
 
+          options = args.first || {}
           mapping = Map.new((source_ns + [key.split('.').last]).join('.'),
                             (output_ns + [key]).join('.'),
-                            value,
+                            options[:value],
                             :add_key,
-                            proc: nil)
+                            proc: options[:function])
           @mappings[mapping.container_key] = mapping
         end
 

@@ -18,111 +18,111 @@ module AcaEntities
 
           namespace 'attestations' do
             rewrap 'family', type: :hash do
-              # map "insuranceApplicationIdentifier", "insurance_application_identifier"
+              map "insuranceApplicationIdentifier", "insurance_application_identifier"
 
-              # add_key 'hbx_id', ''
-              # map 'renewEligibilityYearQuantity', 'renewal_consent_through_year'
-              # add_key 'min_verifications_due_date'
-              # add_key 'special_enrollment_periods'
-              # add_key 'irs_groups'
-              # add_key 'broker_agency_accounts'
-              # add_key 'general_agency_accounts'
-              # add_key 'documents'
-              # add_key 'payment_transactions'
+              add_key 'hbx_id', value: ''
+              map 'renewEligibilityYearQuantity', 'renewal_consent_through_year'
+              add_key 'min_verifications_due_date'
+              add_key 'special_enrollment_periods'
+              add_key 'irs_groups'
+              add_key 'broker_agency_accounts'
+              add_key 'general_agency_accounts'
+              add_key 'documents'
+              add_key 'payment_transactions'
               map 'application.contactMemberIdentifier', 'family.family_members.is_primary_applicant',
-                  { memoize: true, function: AcaEntities::Functions::PrimaryApplicantBuilder }
+                memoize: true, visible: false, function: AcaEntities::Functions::PrimaryApplicantBuilder
 
               namespace 'members.*', nil, context: { name: 'members' } do
                 rewrap 'family.family_members', type: :array do
-                  # add_key 'hbx_id', ''
-                  # add_key 'is_primary_applicant', ->(v) { v.resolve('family.family_members.is_primary_applicant').item == v.resolve(:members).item }
-                  # map 'requestingCoverageIndicator', 'is_coverage_applicant'
+                  add_key 'hbx_id', value: ''
+                  add_key 'is_primary_applicant', function: ->(v) { v.resolve('family.family_members.is_primary_applicant').item == v.resolve(:members).item }
+                  map 'requestingCoverageIndicator', 'is_coverage_applicant'
 
                   namespace 'demographic' do
                     rewrap 'family.family_members.person', type: :hash do
-                      # add_key 'hbx_id', ''
+                      add_key 'hbx_id', value: ''
                       # add_key 'emails', -> v { v.context(:primary_contact_information).emails }
                       # add_key 'phones', -> v { v.context(:primary_contact_information).phones }
                       # add_key 'person_relationships', -> v { v.context(:person_relationships).person_relationships }
 
-                      # add_namespace 'identifiers', 'family.family_members.person.identifiers', type: :array do
-                      #   add_key 'source_system_key', 'ccr' # source_vocabulary
+                      add_namespace 'identifiers', 'family.family_members.person.identifiers', type: :array do
+                        add_key 'source_system_key', value: 'ccr' # source_vocabulary
 
-                      #   add_namespace 'ids', 'family.family_members.person.identifiers.ids', type: :array do
-                      #     add_key 'key', ->(v) { v.resolve(:members).name } # should be derived based on context
-                      #     add_key 'item', ->(v) { v.resolve(:members).item } # should pick id from the source payload
-                      #   end
-                      # end
+                        add_namespace 'ids', 'family.family_members.person.identifiers.ids', type: :array do
+                          add_key 'key', function: ->(v) { v.resolve(:members).name } # should be derived based on context
+                          add_key 'item', function: ->(v) { v.resolve(:members).item } # should pick id from the source payload
+                        end
+                      end
 
-                      # namespace 'name' do
-                      #   rewrap 'family.family_members.person.person_name', type: :hash do
-                      #     map 'firstName', 'first_name', context: { name: 'first_name' }
-                      #     map 'lastName', 'last_name', context: { name: 'last_name' }
-                      #      add_key 'full_name', ->(v) { [v.resolve(:first_name).item, v.resolve(:last_name).item].join(" ") }
-                      #   end
-                      # end
+                      namespace 'name' do
+                        rewrap 'family.family_members.person.person_name', type: :hash do
+                          map 'firstName', 'first_name', context: { name: 'first_name' }
+                          map 'lastName', 'last_name', context: { name: 'last_name' }
+                          add_key 'full_name', function: ->(v) { [v.resolve(:first_name).item, v.resolve(:last_name).item].join(" ") }
+                        end
+                      end
 
 
-                      map 'ssn', 'person_demographics.ency', :nest
-                      # map 'sex', 'person_demographics.sex', :nest,->(value) { value.to_s.downcase }
-                      # map 'birthDate', 'person_demographics.birthDate', :nest, AgeOn
-                      # add_key 'person_demographics.ethnicity'
-                      # add_key 'person_demographics.race'
-                      # add_key 'person_demographics.tribal_id'
-                      # add_key 'person_demographics.no_ssn', 'false'
+                      # map 'ssn', 'person_demographics.ency', :nest
+                      map 'sex', 'person_demographics.sex', action: :nest, function: ->(value) { value.to_s.downcase }
+                      map 'birthDate', 'person_demographics.birthDate', action: :nest, function: AgeOn
+                      add_key 'person_demographics.ethnicity'
+                      add_key 'person_demographics.race'
+                      add_key 'person_demographics.tribal_id'
+                      add_key 'person_demographics.no_ssn', value: 'false'
 
-                      # map 'americanIndianAlaskanNativeIndicator', 'americanIndianAlaskanNativeIndicator'
+                      map 'americanIndianAlaskanNativeIndicator', 'americanIndianAlaskanNativeIndicator'
 
-                      # # # map 'type', 'kind',  '-> (value){ value.to_s.downcase }'
-                      # # map 'sex', 'gender', ->(value) { value.to_s.downcase }
+                      # # map 'type', 'kind',  '-> (value){ value.to_s.downcase }'
+                      # map 'sex', 'gender', ->(value) { value.to_s.downcase }
 
-                      # # # # map 'incarcerationType', 'is_incarcerated',  '-> (value){ AcaEntities::Types::McrToCvIncarcerationKind[value] }'
-                      # # # # map 'computed.members.*.ssnStatusReason', 'no_ssn'
-                      # # # map 'blindOrDisabledIndicator', 'is_disabled'
+                      # # # map 'incarcerationType', 'is_incarcerated',  '-> (value){ AcaEntities::Types::McrToCvIncarcerationKind[value] }'
+                      # # # map 'computed.members.*.ssnStatusReason', 'no_ssn'
+                      # # map 'blindOrDisabledIndicator', 'is_disabled'
           
-                      # # # add_key 'language_code' , "default: en"
-                      # map 'noHomeAddressIndicator', 'is_homeless'
-                      # map 'liveOutsideStateTemporarilyIndicator', 'is_temporarily_out_of_state'
+                      # # add_key 'language_code' , "default: en"
+                      map 'noHomeAddressIndicator', 'is_homeless'
+                      map 'liveOutsideStateTemporarilyIndicator', 'is_temporarily_out_of_state'
 
-                      # namespace 'mailingAddress' do
-                      #   rewrap 'family.family_members.person.addresses', type: :array do
-                      #     # add_key 'has_fixed_address'
-                      #     # map 'mailingAddress', 'kind'
-                      #     add_key 'kind', 'mailing'
-                      #     map 'streetName1', 'address_1'
-                      #     # add_key 'address_2'
-                      #     map 'cityName', 'city' #
-                      #     map 'countyName', 'county'
-                      #     map 'countyFipsCode', 'county_code'
-                      #     map 'stateCode', 'state'
-                      #     map 'zipCode', 'zip'
-                      #     map 'countryCode', 'country_name'
-                      #     # add_key 'validation_status'
-                      #     # add_key 'start_on'
-                      #     # add_key 'end_on'
-                      #     # map 'liveOutsideStateTemporarilyIndicator', 'lives_outside_state_temporarily'
-                      #   end
-                      # end
+                      namespace 'mailingAddress' do
+                        rewrap 'family.family_members.person.addresses', type: :array do
+                          # add_key 'has_fixed_address'
+                          # map 'mailingAddress', 'kind'
+                          add_key 'kind', value: 'mailing'
+                          map 'streetName1', 'address_1'
+                          # add_key 'address_2'
+                          map 'cityName', 'city' #
+                          map 'countyName', 'county'
+                          map 'countyFipsCode', 'county_code'
+                          map 'stateCode', 'state'
+                          map 'zipCode', 'zip'
+                          map 'countryCode', 'country_name'
+                          # add_key 'validation_status'
+                          # add_key 'start_on'
+                          # add_key 'end_on'
+                          # map 'liveOutsideStateTemporarilyIndicator', 'lives_outside_state_temporarily'
+                        end
+                      end
 
-                      # namespace "homeAddress" do
-                      #   rewrap 'family.family_members.person.addresses', type: :array do
-                      #     # add_key 'has_fixed_address'
-                      #     # map 'homeAddress', 'kind'
-                      #     add_key 'kind', 'home'
-                      #     map 'streetName1', 'address_1'
-                      #     # add_key 'address_2'
-                      #     map 'cityName', 'city'
-                      #     map 'countyName', 'county'
-                      #     map 'countyFipsCode', 'county_code'
-                      #     map 'stateCode', 'state'
-                      #     map 'zipCode', 'zip'
-                      #     map 'countryCode', 'country_name'
-                      #     # add_key 'validation_status'
-                      #     # add_key 'start_on'
-                      #     # add_key 'end_on'
-                      #     # map 'liveOutsideStateTemporarilyIndicator', 'lives_outside_state_temporarily'
-                      #   end
-                      # end
+                      namespace "homeAddress" do
+                        rewrap 'family.family_members.person.addresses', type: :array do
+                          # add_key 'has_fixed_address'
+                          # map 'homeAddress', 'kind'
+                          add_key 'kind', value: 'home'
+                          map 'streetName1', 'address_1'
+                          # add_key 'address_2'
+                          map 'cityName', 'city'
+                          map 'countyName', 'county'
+                          map 'countyFipsCode', 'county_code'
+                          map 'stateCode', 'state'
+                          map 'zipCode', 'zip'
+                          map 'countryCode', 'country_name'
+                          # add_key 'validation_status'
+                          # add_key 'start_on'
+                          # add_key 'end_on'
+                          # map 'liveOutsideStateTemporarilyIndicator', 'lives_outside_state_temporarily'
+                        end
+                      end
                     end
                   end
                 end
