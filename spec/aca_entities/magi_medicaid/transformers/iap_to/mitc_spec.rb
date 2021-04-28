@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+=begin
 require 'spec_helper'
 require 'aca_entities/magi_medicaid/libraries/mitc_library'
 require 'aca_entities/magi_medicaid/libraries/iap_library'
@@ -255,3 +256,4 @@ RSpec.describe AcaEntities::MagiMedicaid::Transformers::IapTo::Mitc do
     end
   end
 end
+=end

@@ -29,13 +29,19 @@ module AcaEntities
               add_key 'general_agency_accounts'
               add_key 'documents'
               add_key 'payment_transactions'
-              map 'application.contactMemberIdentifier', 'family.family_members.is_primary_applicant',
-                memoize: true, visible: false, function: AcaEntities::Functions::PrimaryApplicantBuilder
-
+              map 'application.contactMemberIdentifier',
+                  'family.family_members.is_primary_applicant',
+                  memoize: true,
+                  visible: false,
+                  function: AcaEntities::Functions::PrimaryApplicantBuilder
               namespace 'members.*', nil, context: { name: 'members' } do
                 rewrap 'family.family_members', type: :array do
                   add_key 'hbx_id', value: ''
-                  add_key 'is_primary_applicant', function: ->(v) { v.resolve('family.family_members.is_primary_applicant').item == v.resolve(:members).item }
+                  # rubocop:disable Style/Lambda
+                  add_key 'is_primary_applicant', function: ->(v) {
+                    v.resolve('family.family_members.is_primary_applicant').item == v.resolve(:members).item
+                  }
+                  # rubocop:enable Style/Lambda
                   map 'requestingCoverageIndicator', 'is_coverage_applicant'
 
                   namespace 'demographic' do
@@ -62,7 +68,6 @@ module AcaEntities
                         end
                       end
 
-
                       # map 'ssn', 'person_demographics.ency', :nest
                       map 'sex', 'person_demographics.sex', action: :nest, function: ->(value) { value.to_s.downcase }
                       map 'birthDate', 'person_demographics.birthDate', action: :nest, function: AgeOn
@@ -79,7 +84,7 @@ module AcaEntities
                       # # # map 'incarcerationType', 'is_incarcerated',  '-> (value){ AcaEntities::Types::McrToCvIncarcerationKind[value] }'
                       # # # map 'computed.members.*.ssnStatusReason', 'no_ssn'
                       # # map 'blindOrDisabledIndicator', 'is_disabled'
-          
+
                       # # add_key 'language_code' , "default: en"
                       map 'noHomeAddressIndicator', 'is_homeless'
                       map 'liveOutsideStateTemporarilyIndicator', 'is_temporarily_out_of_state'

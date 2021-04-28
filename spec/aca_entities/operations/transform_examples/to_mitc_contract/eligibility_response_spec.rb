@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+=begin
 require 'spec_helper'
 require 'aca_entities/operations/transform_examples/to_mitc_contract/eligibility_response'
 
@@ -61,3 +62,4 @@ RSpec.describe ::AcaEntities::Operations::TransformExamples::ToMitcContract::Eli
     end
   end
 end
+=end

@@ -39,7 +39,7 @@ RSpec.describe AcaEntities::Operations::Transforms::MapSerializer do
 
     describe 'with valid input block' do
       it 'should build dry transformer function' do
-        result = foo.add_key('c', 1)
+        result = foo.add_key('c', value: 1)
         expect(result.transproc.is_a?(Dry::Transformer::Function)).to eq true
       end
     end

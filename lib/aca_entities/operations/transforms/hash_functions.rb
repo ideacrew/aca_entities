@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# rubocop:disable Style/HashConversion, Style/OptionalArguments, Metrics/BlockNesting
+# rubocop:disable Style/HashConversion, Style/OptionalArguments, Metrics/BlockNesting, Metrics/ModuleLength
 require 'dry/transformer/all'
 require "dry/inflector"
 require 'deep_merge'
@@ -137,9 +137,11 @@ module AcaEntities
 
           fns = []
           namespaces.each_with_index do |namespace, index|
-            fns << "t(:wrap, :#{namespace}, [:#{namespaces[index+1]}])"  if namespaces[index+1]
+            fns << "t(:wrap, :#{namespace}, [:#{namespaces[index + 1]}])"  if namespaces[index + 1]
           end
+          # rubocop:disable Security/Eval
           fns = eval(fns.reverse.flatten.join('.>> '))
+          # rubocop:enable Security/Eval
           fns ? fns.call([data_pair]).first : data_pair
         end
 
@@ -148,7 +150,7 @@ module AcaEntities
             obj
           elsif obj.respond_to?(:each)
             result = nil
-            obj.find{ |*a| result = nested_hash(a.last,key) }
+            obj.find { |*a| result = nested_hash(a.last, key) }
             result
           end
         end
@@ -360,4 +362,4 @@ module AcaEntities
     end
   end
 end
-# rubocop:enable Style/HashConversion, Style/OptionalArguments, Metrics/BlockNesting
+# rubocop:enable Style/HashConversion, Style/OptionalArguments, Metrics/BlockNesting, Metrics/ModuleLength

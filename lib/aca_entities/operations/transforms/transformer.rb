@@ -444,8 +444,6 @@ module AcaEntities
                 offset = -1 * i
                 "t(:nest, :#{output_elements[-2 + offset]}, [:#{output_elements[-1 + offset]}])" if output_elements[-2 + offset]
               end.compact
-            else
-
             end
           when :add_key
             "t(:add_key,  #{output_elements.map(&:to_sym)}, '#{value}')"
