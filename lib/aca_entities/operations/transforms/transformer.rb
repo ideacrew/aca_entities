@@ -48,22 +48,28 @@ module AcaEntities
         #
         # @api public
         def map(source_key, output_key = nil, *args)
-          options = args.first
-
-          if options
-            if options.is_a?(Hash) && options[:memoize]
-              add_context((source_ns + [source_key]).join('.'), output_key, options[:function])
+          # options = args.first
+          action = nil
+          proc = nil
+          args.each do |arg|
+            if arg.is_a?(Hash) && arg[:memoize]
+              add_context((source_ns + [source_key]).join('.'), output_key, arg[:function])
               return
+            elsif arg.is_a?(Symbol)
+              action = arg
             else
-              proc = options
+              proc = arg unless arg.is_a?(Hash)
             end
           end
+
+          transform_action = action if action
 
           mapping = Map.new((source_ns + [source_key]).join('.'),
                             (output_ns + [output_key.to_s]).join('.'),
                             nil,
                             transform_action || :rename_nested_keys,
                             proc: proc)
+          mapping.context = args.first[:context] if args.first.is_a?(Hash)
           @mappings[mapping.container_key] = mapping
         end
 
@@ -88,7 +94,7 @@ module AcaEntities
         def add_key(key, value = nil)
           raise 'arg1 should not be empty string or an integer' if key.empty? || key.is_a?(Integer)
 
-          mapping = Map.new((source_ns + [key]).join('.'),
+          mapping = Map.new((source_ns + [key.split('.').last]).join('.'),
                             (output_ns + [key]).join('.'),
                             value,
                             :add_key,
@@ -419,7 +425,7 @@ module AcaEntities
           transform_procs = key_transforms.collect {|action| action_to_transproc(action, source_elements, output_elements)}
 
           @transproc =
-            if transform_procs.is_a?(String) || (transform_procs.is_a?(Array) && transform_procs.first.is_a?(String))
+            if transform_procs.is_a?(String) || (transform_procs.flatten.is_a?(Array) && transform_procs.flatten.first.is_a?(String))
               if proc && !key_transforms.include?(:add_context)
                 output = output_elements[0..-2]
                 eval(transform_procs.flatten.join('.>> ')) >> t(:map_value, output.map(&:to_sym), proc)
@@ -437,10 +443,15 @@ module AcaEntities
         def action_to_transproc(action, source_elements, output_elements)
           case action
           when :nest
-            output_elements.size.times.collect do |i|
-              offset = -1 * i
-              "t(:nest, :#{output_elements[-2 + offset]}, [:#{output_elements[-1 + offset]}])" if output_elements[-2 + offset]
-            end.compact
+            # binding.pry
+            if source_elements[-1] == output_elements[-1]
+              output_elements.size.times.collect do |i|
+                offset = -1 * i
+                "t(:nest, :#{output_elements[-2 + offset]}, [:#{output_elements[-1 + offset]}])" if output_elements[-2 + offset]
+              end.compact
+            else
+
+            end
           when :add_key
             "t(:add_key,  #{output_elements.map(&:to_sym)}, '#{value}')"
           when :rewrap_keys
@@ -449,7 +460,7 @@ module AcaEntities
             "t(:add_namespace, #{source_elements.map(&:to_sym)}, #{output_elements.map(&:to_sym)})"
           when :rename_nested_keys
             source = source_key.split('.').last
-            t(:"#{action}", ["#{source}": :"#{output_elements.last}"], source_elements[0..-2].map(&:to_sym))
+            t(:"#{action}", ["#{source}": :"#{output_elements.last}"], output_elements.map(&:to_sym))
           when :add_context
             "t(:add_context, #{source_elements.map(&:to_sym)}, #{output_elements.map(&:to_sym)}, #{proc})"
           else
@@ -459,7 +470,11 @@ module AcaEntities
 
         def transproc_name
           if @transproc.respond_to?(:left)
-            transproc.left.name
+            if transproc.left.is_a?(Dry::Transformer::Composite)
+              ''
+            else
+              transproc.left&.name
+            end
           else
             @transproc.name
           end

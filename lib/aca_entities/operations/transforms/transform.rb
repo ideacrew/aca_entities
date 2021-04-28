@@ -76,6 +76,7 @@ module AcaEntities
         end
 
         def record_start(key)
+          # binding.pry
           @record = {}
         end
 
@@ -97,10 +98,11 @@ module AcaEntities
           end
 
           construct_document_with(key, :hash) if defined? @record_namespace_offset
-          add_new_elements(key) if defined? @record_namespace_offset
+          # add_new_elements(key) if defined? @record_namespace_offset
         end
 
         def hash_end(key)
+          add_new_elements(key) if defined? @record_namespace_offset
           key = :no_key unless key
 
           matched = namespace_record_delimiter_matched?(@namespaces) && @array_namespaces.empty?
@@ -324,12 +326,15 @@ module AcaEntities
             record_unique_identifier = record_unique_identifier(key_with_namespace)
 
             return unless container.key?(transformed_key)
+            container_value = container[transformed_key]
+            @contexts[key] = container_value.context.merge(item: value) if container_value.context
+
             input = if record_unique_identifier
                       t(:build_nested_hash)[{}, [], Hash[key.to_sym, value]]
                     else
                       t(:build_nested_hash)[{}, element_namespaces_with_types, Hash[key.to_sym, value]]
                     end
-
+# binding.pry if key == "ssn"
             data = container[transformed_key].call(input)
             if container[transformed_key].transproc_name == :add_context
               context_key = container[transformed_key].output_key
