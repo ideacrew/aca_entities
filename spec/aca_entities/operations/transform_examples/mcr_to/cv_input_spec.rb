@@ -20,6 +20,8 @@ RSpec.describe ::AcaEntities::Operations::TransformExamples::McrTo::CvInput do
           expect(family).to have_key(:irs_groups)
           expect(family).to have_key(:broker_agency_accounts)
 
+          expect(family[:family_members].any? { |fm| fm[:is_primary_applicant] == true }).to be_truthy
+
           family[:family_members].each do |family_member|
             expect(family_member).to have_key(:is_primary_applicant)
             family_member[:person].tap do |person|
@@ -48,7 +50,7 @@ RSpec.describe ::AcaEntities::Operations::TransformExamples::McrTo::CvInput do
     it 'should transform the payload according to instructions' do
       AcaEntities::Operations::TransformExamples::McrTo::CvInput.call(source_file) do |record|
         record[:family].tap do |family|
-          expect(family).to have_key(:hbx_id)
+          expect(record[:family]).to have_key(:hbx_id)
           # expect(family).to have_key(:vlp_documents_status)
           expect(family).to have_key(:min_verifications_due_date)
           expect(family).to have_key(:special_enrollment_periods)
@@ -57,6 +59,8 @@ RSpec.describe ::AcaEntities::Operations::TransformExamples::McrTo::CvInput do
           expect(family).to have_key(:general_agency_accounts)
           expect(family).to have_key(:payment_transactions)
           # expect(family).to have_key(:financial_assistance_applications)
+
+          expect(family[:family_members].any? { |fm| fm[:is_primary_applicant] == true }).to be_truthy
 
           family[:family_members].each do |family_member|
             expect(family_member).to have_key(:is_primary_applicant)

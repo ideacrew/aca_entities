@@ -18,7 +18,7 @@ module AcaEntities
 
           namespace 'attestations' do
             rewrap 'family', type: :hash do
-              map "insuranceApplicationIdentifier", "insurance_application_identifier"
+              map 'insuranceApplicationIdentifier', 'hbx_id'
 
               add_key 'hbx_id', value: ''
               map 'renewEligibilityYearQuantity', 'renewal_consent_through_year'

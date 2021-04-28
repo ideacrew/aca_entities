@@ -64,6 +64,11 @@ module AcaEntities
                             transform_action || :rename_nested_keys,
                             proc: options[:function])
 
+          if options[:context]
+            mapping.context = options[:context]
+          elsif options[:memoize]
+            mapping.context = { name: output_key }
+          end
           @mappings[mapping.container_key] = mapping
         end
 
