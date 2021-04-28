@@ -367,10 +367,10 @@ RSpec.describe AcaEntities::MagiMedicaid::Transformers::IapTo::Mitc do
       is_temporarily_out_of_state: is_temporarily_out_of_state,
       is_lawful_presence_self_attested: is_lawful_presence_self_attested,
       income: income,
-      relationships: person_relationships}
+      relationships: person_relationships }
   end
 
-  def person_income_params(applicant)
+  def person_income_params(_applicant)
     {}
   end
 
