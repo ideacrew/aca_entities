@@ -53,9 +53,40 @@ RSpec.describe AcaEntities::MagiMedicaid::Transformers::IapTo::Mitc do
         foster_care_us_state: 'MA',
         had_medicaid_during_foster_care: false }
     end
+    let(:address1) do
+      { has_fixed_address: true,
+        kind: 'home',
+        address_1: '1234',
+        address_3: 'person',
+        city: 'test',
+        county: '',
+        county_name: '',
+        state: 'DC',
+        zip: '12345',
+        country_name: 'USA',
+        validation_status: 'ValidMatch',
+        lives_outside_state_temporarily: false,
+        start_on: Date.today.to_s,
+        end_on: nil }
+    end
+    let(:address2) do
+      { has_fixed_address: true,
+        kind: 'mailing',
+        address_1: '1234',
+        address_3: 'person',
+        city: 'test',
+        county: '',
+        county_name: '',
+        state: 'DC',
+        zip: '12345',
+        country_name: 'USA',
+        validation_status: 'ValidMatch',
+        lives_outside_state_temporarily: true,
+        start_on: Date.today.to_s,
+        end_on: nil }
+    end
     let(:addresses) do
-      [{ lives_outside_state_temporarily: false, kind: 'home' },
-       { lives_outside_state_temporarily: true, kind: 'mailing' }]
+      [address1, address2]
     end
     let(:applicant_hash) do
       { name: name,
@@ -86,7 +117,6 @@ RSpec.describe AcaEntities::MagiMedicaid::Transformers::IapTo::Mitc do
         has_insurance: false,
         has_state_health_benefit: false,
         had_prior_insurance: false,
-        prior_insurance_end_date: nil,
         age_of_applicant: 20,
         hours_worked_per_week: 0,
         is_subject_to_five_year_bar: false,
@@ -125,7 +155,6 @@ RSpec.describe AcaEntities::MagiMedicaid::Transformers::IapTo::Mitc do
         has_insurance: false,
         has_state_health_benefit: false,
         had_prior_insurance: false,
-        prior_insurance_end_date: nil,
         age_of_applicant: 20,
         hours_worked_per_week: 0,
         is_subject_to_five_year_bar: false,
@@ -209,12 +238,16 @@ RSpec.describe AcaEntities::MagiMedicaid::Transformers::IapTo::Mitc do
     end
 
     let(:iap_application) do
-      ::AcaEntities::MagiMedicaid::Contracts::ApplicationContract.new.call(application).to_h.to_json
+      contract_result = ::AcaEntities::MagiMedicaid::Contracts::ApplicationContract.new.call(application)
+      contract_result.to_h.to_json
     end
 
     before do
       described_class.call(iap_application) { |record| @transform_result = record }
       @final_result = add_addtional_params(@transform_result, iap_application)
+      # mitc_application_result = ::AcaEntities::MagiMedicaid::Mitc::Contracts::ApplicationContract.new.call(@final_result)
+      # binding.pry
+      # mitc_application_result.errors.to_h
     end
 
     it 'should transform the payload according to instructions' do
@@ -243,7 +276,6 @@ RSpec.describe AcaEntities::MagiMedicaid::Transformers::IapTo::Mitc do
           expect(person).to have_key(:has_insurance)
           expect(person).to have_key(:has_state_health_benefit)
           expect(person).to have_key(:had_prior_insurance)
-          expect(person).to have_key(:prior_insurance_end_date)
           expect(person).to have_key(:is_pregnant)
           expect(person).to have_key(:children_expected_count)
           expect(person).to have_key(:is_in_post_partum_period)
@@ -254,7 +286,10 @@ RSpec.describe AcaEntities::MagiMedicaid::Transformers::IapTo::Mitc do
           expect(person).to have_key(:is_required_to_file_taxes)
           expect(person).to have_key(:age_of_applicant)
           expect(person).to have_key(:hours_worked_per_week)
+          expect(person).to have_key(:is_us_citizen)
+          expect(person[:is_us_citizen]).to eq('Y')
           expect(person).to have_key(:immigration_status)
+          expect(AcaEntities::MagiMedicaid::Mitc::Types::ImmigrationStatusCodeMap.values).to include(person[:immigration_status])
           expect(person).to have_key(:five_year_bar_applies)
           expect(person).to have_key(:is_five_year_bar_met)
           expect(person).to have_key(:is_trafficking_victim)
@@ -304,7 +339,39 @@ RSpec.describe AcaEntities::MagiMedicaid::Transformers::IapTo::Mitc do
     application_hash = JSON.parse(iap_application, symbolize_names: true)
     transform_result.merge!({ physical_households: physical_households(application_hash),
                               tax_returns: tax_returns(application_hash) })
+
+    # Merge Application Level params
+    transform_result.merge!({ name: 'IAP Application' })
+
+    # Merge each Applicant Level params
+    transform_result[:people].each do |mitc_person|
+      mitc_person.merge!(addtional_person_params(application_hash, mitc_person))
+    end
     transform_result
+  end
+
+  def addtional_person_params(application_hash, mitc_person)
+    # { :income=>["is missing"],
+    #   :relationships=>["is missing"] }
+    applicant = applicant_by_reference(application_hash[:applicants], mitc_person[:person_id])
+    home_address = applicant[:addresses].detect { |addr| addr[:kind] == 'home' }
+    # TODO: Get state name from ResourceRegistry
+    resides_in_state_of_application = (home_address[:state] == 'DC') ? 'Y' : 'N'
+    is_claimed_as_dependent_by_non_applicant = 'N'
+    is_temporarily_out_of_state = home_address[:lives_outside_state_temporarily] ? 'Y' : 'N'
+    is_lawful_presence_self_attested = 'Y'
+    income = person_income_params(applicant)
+    person_relationships = []
+    { resides_in_state_of_application: resides_in_state_of_application,
+      is_claimed_as_dependent_by_non_applicant: is_claimed_as_dependent_by_non_applicant,
+      is_temporarily_out_of_state: is_temporarily_out_of_state,
+      is_lawful_presence_self_attested: is_lawful_presence_self_attested,
+      income: income,
+      relationships: person_relationships}
+  end
+
+  def person_income_params(applicant)
+    {}
   end
 
   def person_references(application_hash)
@@ -318,9 +385,9 @@ RSpec.describe AcaEntities::MagiMedicaid::Transformers::IapTo::Mitc do
     [{ household_id: '1', people: person_references(application_hash) }]
   end
 
-  def applicant_by_reference(applicants, applicant_reference)
+  def applicant_by_reference(applicants, person_identifier)
     applicants.detect do |applicant|
-      applicant[:family_member_reference][:person_hbx_id] == applicant_reference[:person_hbx_id]
+      applicant[:family_member_reference][:person_hbx_id] == person_identifier
     end
   end
 
@@ -328,7 +395,7 @@ RSpec.describe AcaEntities::MagiMedicaid::Transformers::IapTo::Mitc do
     filers = []
     dependents = []
     thh[:tax_household_members].each do |thh_member|
-      applicant = applicant_by_reference(application_hash[:applicants], thh_member[:applicant_reference])
+      applicant = applicant_by_reference(application_hash[:applicants], thh_member[:applicant_reference][:person_hbx_id])
       case applicant[:is_claimed_as_tax_dependent]
       when true
         dependents << { person_id: thh_member[:applicant_reference][:person_hbx_id] }

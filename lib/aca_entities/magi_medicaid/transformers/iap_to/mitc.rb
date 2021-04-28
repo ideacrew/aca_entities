@@ -5,6 +5,7 @@ module AcaEntities
   module MagiMedicaid
     module Transformers
       module IapTo
+        # rubocop:disable Style/Lambda
         class Mitc < ::AcaEntities::Operations::Transforms::Transform
           include ::AcaEntities::Operations::Transforms::Transformer
 
@@ -31,13 +32,9 @@ module AcaEntities
                   rewrap '' do
                     map 'is_self_attested_blind', 'is_self_attested_blind', memoize: true, visible: false
                     map 'is_self_attested_disabled', 'is_self_attested_disabled', memoize: true, visible: false
-
-                    # rubocop:disable Style/Lambda
                     add_key 'is_blind_or_disabled', function: ->(v) {
                       (v.resolve('is_self_attested_blind').item || v.resolve('is_self_attested_disabled').item) ? 'Y' : 'N'
                     }
-                    # rubocop:enable Style/Lambda
-
                     map 'is_incarcerated', 'is_incarcerated', function: ->(value) { boolean_string(value) }
                   end
                 end
@@ -110,16 +107,13 @@ module AcaEntities
 
                 namespace 'citizenship_immigration_status_information' do
                   rewrap '' do
+                    map 'citizen_status', 'citizen_status', memoize: true, visible: false
+                    add_key 'is_us_citizen', function: ->(v) { (v.resolve('citizen_status').item == 'us_citizen') ? 'Y' : 'N' }
 
-                    # map 'citizen_status', 'citizenship_immigration_status_information.citizen_status', { memoize: true }
-                    # add_key 'is_us_citizen', ->(v) {
-                    #   (v.resolve('citizenship_immigration_status_information.citizen_status').item == 'us_citizen') ? 'Y' : 'N'
-                    # }
-
-                    # value is citizenship_immigration_status_information.citizen_status == 'us_citizen'
-                    # add_key 'is_us_citizen', value
-
-                    map 'citizen_status', 'immigration_status'
+                    # TODO: use mapper to determine the immigration status code from AcaEntities::MagiMedicaid::Mitc::Types::ImmigrationStatusCodeMap
+                    add_key 'immigration_status', function: ->(v) {
+                      AcaEntities::MagiMedicaid::Mitc::Types::ImmigrationStatusCodeMap[v.resolve('citizen_status').item] || '99'
+                    }
                   end
                 end
 
@@ -182,6 +176,7 @@ module AcaEntities
           map 'us_state', 'state'
 
         end
+        # rubocop:enable Style/Lambda
       end
     end
   end
