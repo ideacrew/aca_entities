@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-=begin
 require 'spec_helper'
+require 'aca_entities/functions/primary_applicant_builder'
 require 'aca_entities/magi_medicaid/libraries/mitc_library'
 require 'aca_entities/magi_medicaid/libraries/iap_library'
 require 'aca_entities/magi_medicaid/transformers/iap_to/mitc'
@@ -9,6 +9,7 @@ require 'aca_entities/magi_medicaid/transformers/iap_to/mitc'
 RSpec.describe AcaEntities::MagiMedicaid::Transformers::IapTo::Mitc do
   describe 'When a valid json file passed' do
     let(:name) { { first_name: 'first', last_name: 'last' } }
+    let(:name2) { { first_name: 'spouse', last_name: 'last' } }
     let(:identifying_information) { { has_ssn: false } }
     let(:demographic) do
       { gender: 'Male',
@@ -28,6 +29,13 @@ RSpec.describe AcaEntities::MagiMedicaid::Transformers::IapTo::Mitc do
         person_hbx_id: '100',
         is_primary_family_member: true }
     end
+    let(:family_member2_reference) do
+      { family_member_hbx_id: '1001',
+        first_name: name2[:first_name],
+        last_name: name2[:last_name],
+        person_hbx_id: '101',
+        is_primary_family_member: false }
+    end
     let(:pregnancy_information) do
       { is_pregnant: false,
         is_post_partum_period: false,
@@ -44,6 +52,10 @@ RSpec.describe AcaEntities::MagiMedicaid::Transformers::IapTo::Mitc do
         age_left_foster_care: 10,
         foster_care_us_state: 'MA',
         had_medicaid_during_foster_care: false }
+    end
+    let(:addresses) do
+      [{ lives_outside_state_temporarily: false, kind: 'home' },
+       { lives_outside_state_temporarily: true, kind: 'mailing' }]
     end
     let(:applicant_hash) do
       { name: name,
@@ -80,7 +92,47 @@ RSpec.describe AcaEntities::MagiMedicaid::Transformers::IapTo::Mitc do
         is_subject_to_five_year_bar: false,
         is_five_year_bar_met: false,
         is_trafficking_victim: false,
-        is_refugee: false }
+        is_refugee: false,
+        addresses: addresses }
+    end
+
+    let(:applicant2_hash) do
+      { name: name2,
+        identifying_information: identifying_information,
+        citizenship_immigration_status_information: { citizen_status: 'us_citizen' },
+        demographic: demographic,
+        attestation: attestation,
+        is_primary_applicant: true,
+        is_applying_coverage: false,
+        family_member_reference: family_member2_reference,
+        person_hbx_id: '101',
+        is_required_to_file_taxes: true,
+        is_joint_tax_filing: true,
+        is_claimed_as_tax_dependent: false,
+        claimed_as_tax_dependent_by: applicant_reference,
+        student: student,
+        foster_care: foster_care,
+        pregnancy_information: pregnancy_information,
+        has_job_income: false,
+        has_self_employment_income: false,
+        has_unemployment_income: false,
+        has_other_income: false,
+        has_deductions: false,
+        has_enrolled_health_coverage: false,
+        has_eligible_health_coverage: false,
+        is_medicare_eligible: false,
+        is_self_attested_long_term_care: false,
+        has_insurance: false,
+        has_state_health_benefit: false,
+        had_prior_insurance: false,
+        prior_insurance_end_date: nil,
+        age_of_applicant: 20,
+        hours_worked_per_week: 0,
+        is_subject_to_five_year_bar: false,
+        is_five_year_bar_met: false,
+        is_trafficking_victim: false,
+        is_refugee: false,
+        addresses: addresses }
     end
     let(:family_reference) { { hbx_id: '10011' } }
 
@@ -91,7 +143,33 @@ RSpec.describe AcaEntities::MagiMedicaid::Transformers::IapTo::Mitc do
         person_hbx_id: applicant_hash[:person_hbx_id] }
     end
 
+    let(:applicant2_reference) do
+      { first_name: applicant2_hash[:name][:first_name],
+        last_name: applicant2_hash[:name][:last_name],
+        dob: applicant2_hash[:demographic][:dob],
+        person_hbx_id: applicant2_hash[:person_hbx_id] }
+    end
+
     let(:product_eligibility_determination) do
+      { is_ia_eligible: true,
+        is_medicaid_chip_eligible: false,
+        is_non_magi_medicaid_eligible: false,
+        is_totally_ineligible: false,
+        is_without_assistance: false,
+        is_magi_medicaid: false,
+        magi_medicaid_monthly_household_income: 6474.42,
+        medicaid_household_size: 1,
+        magi_medicaid_monthly_income_limit: 3760.67,
+        magi_as_percentage_of_fpl: 10.0,
+        magi_medicaid_category: 'parent_caretaker' }
+    end
+
+    let(:tax_household_member2) do
+      { product_eligibility_determination: product_eligibility_determination,
+        applicant_reference: applicant2_reference }
+    end
+
+    let(:product_eligibility_determination2) do
       { is_ia_eligible: true,
         is_medicaid_chip_eligible: false,
         is_non_magi_medicaid_eligible: false,
@@ -110,18 +188,23 @@ RSpec.describe AcaEntities::MagiMedicaid::Transformers::IapTo::Mitc do
         applicant_reference: applicant_reference }
     end
 
+    let(:tax_household_member2) do
+      { product_eligibility_determination: product_eligibility_determination2,
+        applicant_reference: applicant2_reference }
+    end
+
     let(:tax_hh) do
       { max_aptc: 100.56,
         csr: 73,
         is_insurance_assistance_eligible: 'Yes',
-        tax_household_members: [tax_household_member] }
+        tax_household_members: [tax_household_member, tax_household_member2] }
     end
 
     let(:application) do
       { us_state: 'DC',
         family_reference: family_reference,
         assistance_year: Date.today.year,
-        applicants: [applicant_hash],
+        applicants: [applicant_hash, applicant2_hash],
         tax_households: [tax_hh] }
     end
 
@@ -130,7 +213,6 @@ RSpec.describe AcaEntities::MagiMedicaid::Transformers::IapTo::Mitc do
     end
 
     before do
-      @transform_result = {}
       described_class.call(iap_application) { |record| @transform_result = record }
       @final_result = add_addtional_params(@transform_result, iap_application)
     end
@@ -139,17 +221,24 @@ RSpec.describe AcaEntities::MagiMedicaid::Transformers::IapTo::Mitc do
       described_class.call(iap_application) do |record|
         expect(record).to have_key(:state)
         expect(record).to have_key(:application_year)
+        expect(record[:people].count).to eq(2)
 
         record[:people].each do |person|
           expect(person).to be_a(Hash)
           expect(person).to have_key(:person_id)
           expect(person).to have_key(:is_applicant)
-          # expect(record).to have_key(:is_blind_or_disabled)
-          # expect(record[:is_blind_or_disabled]).to eq('Y')
+          expect(person).not_to have_key(:is_self_attested_blind)
+          expect(person).not_to have_key(:is_self_attested_disabled)
+          expect(person).to have_key(:is_blind_or_disabled)
+          expect(person[:is_blind_or_disabled]).to eq('Y')
           expect(person).to have_key(:is_full_time_student)
           expect(person).to have_key(:is_medicare_entitled)
           expect(person).to have_key(:is_incarcerated)
+
+          # expect(person).not_to have_key(:lives_outside_state_temporarily)
           # expect(person).to have_key(:resides_in_state_of_application)
+          # expect(person[:resides_in_state_of_application]).to eq('N')
+
           expect(person).to have_key(:is_self_attested_long_term_care)
           expect(person).to have_key(:has_insurance)
           expect(person).to have_key(:has_state_health_benefit)
@@ -256,4 +345,3 @@ RSpec.describe AcaEntities::MagiMedicaid::Transformers::IapTo::Mitc do
     end
   end
 end
-=end

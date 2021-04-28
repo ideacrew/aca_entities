@@ -35,6 +35,12 @@ RSpec.describe ::AcaEntities::Operations::TransformExamples::McrTo::CvInput do
               # expect(person).to have_key(:is_homeless)
               # expect(person).to have_key(:is_temporarily_out_of_state)
               # expect(person).to have_key(:americanIndianAlaskanNativeIndicator)
+
+              person[:person_name].tap do |person_name|
+                expect(person_name).to have_key(:full_name)
+                expect(person_name[:full_name]).to eq("#{person_name[:first_name]} #{person_name[:last_name]}")
+              end
+
               person[:addresses].each do |address|
                 expect(address).to have_key(:kind)
                 expect(address).to have_key(:address_1)
@@ -76,6 +82,10 @@ RSpec.describe ::AcaEntities::Operations::TransformExamples::McrTo::CvInput do
               # expect(person).to have_key(:is_homeless)
               # expect(person).to have_key(:is_temporarily_out_of_state)
               # expect(person).to have_key(:americanIndianAlaskanNativeIndicator)
+              person[:person_name].tap do |person_name|
+                expect(person_name).to have_key(:full_name)
+                expect(person_name[:full_name]).to eq("#{person_name[:first_name]} #{person_name[:last_name]}")
+              end
               expect(person).to have_key(:addresses)
               expect(person[:addresses]).to be_a(Array)
               person[:addresses].each do |address|

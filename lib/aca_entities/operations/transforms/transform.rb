@@ -255,11 +255,11 @@ module AcaEntities
 
         def build_add_namespace(namespaced_key, key)
           container.keys_under_namespace(namespaced_key).each do |key_under_ns|
-            if container[key_under_ns].transproc_name == :add_namespace
+            if container[key_under_ns].transproc_name.to_s == 'add_namespace'
               process_add_namespaces(key_under_ns, key, true)
             end
 
-            if container[key_under_ns].transproc_name == :add_key
+            if container[key_under_ns].transproc_name.to_s == 'add_key'
               input = {source_hash: Hash[key_under_ns.split('.').last.to_sym, nil]}
               input.merge!(context: Context.new(@contexts)) unless @contexts.empty?
               data = container[key_under_ns].call(input)[:source_hash]
@@ -325,22 +325,20 @@ module AcaEntities
             transformed_key = match_wildcard_chars(key_with_namespace.dup)
             record_unique_identifier = record_unique_identifier(key_with_namespace)
 
-            return unless container.key?(transformed_key)
-            container_value = container[transformed_key]
-            @contexts[key] = container_value.context.merge(item: value) if container_value.context
+            if container.key?(transformed_key + '_context')
+              context_key = container[transformed_key + '_context'].output_key
+              @contexts[context_key] = {name: context_key, item: value}
+            end
 
+            return unless container.key?(transformed_key)
+            # container_value = container[transformed_key]
+            # @contexts[key] = container_value.context.merge(item: value) if container_value.context
             input = if record_unique_identifier
                       t(:build_nested_hash)[{}, [], Hash[key.to_sym, value]]
                     else
                       t(:build_nested_hash)[{}, element_namespaces_with_types, Hash[key.to_sym, value]]
                     end
-# binding.pry if key == "ssn"
             data = container[transformed_key].call(input)
-            if container[transformed_key].transproc_name == :add_context
-              context_key = container[transformed_key].output_key
-              @contexts[context_key] = {name: context_key, item: data.first[-1]}
-              return
-            end
           end
 
           if current_document

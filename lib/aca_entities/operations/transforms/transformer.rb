@@ -64,11 +64,6 @@ module AcaEntities
                             transform_action || :rename_nested_keys,
                             proc: options[:function])
 
-          if options[:context]
-            mapping.context = options[:context]
-          elsif options[:memoize]
-            mapping.context = { name: output_key }
-          end
           @mappings[mapping.container_key] = mapping
         end
 
@@ -411,6 +406,7 @@ module AcaEntities
         end
 
         def call(input)
+          return input unless transproc
           transproc.call(input)
         end
 
@@ -422,7 +418,7 @@ module AcaEntities
           source_elements = source_key.split('.')
           output_elements =  output_key ? output_key.split('.') : source_elements
 
-          transform_procs = key_transforms.collect {|action| action_to_transproc(action, source_elements, output_elements)}
+          transform_procs = key_transforms.collect {|action| action_to_transproc(action, source_elements, output_elements)}.compact
 
           @transproc =
             if transform_procs.is_a?(String) || (transform_procs.flatten.is_a?(Array) && transform_procs.flatten.first.is_a?(String))
@@ -460,7 +456,7 @@ module AcaEntities
             source = source_key.split('.').last
             t(:"#{action}", ["#{source}": :"#{output_elements.last}"], output_elements.map(&:to_sym))
           when :add_context
-            "t(:add_context, #{source_elements.map(&:to_sym)}, #{output_elements.map(&:to_sym)}, #{proc})"
+            "t(:add_context, #{source_elements.map(&:to_sym)}, #{output_elements.map(&:to_sym)}, #{proc})" if proc
           else
             "t(:#{action}, #{source_key}: :#{output_elements.last})"
           end
@@ -474,12 +470,16 @@ module AcaEntities
               transproc.left&.name
             end
           else
-            @transproc.name
+            @transproc&.name
           end
         end
 
         def container_key
-          source_key
+          if @key_transforms.include? :add_context
+            "#{source_key}_context"
+          else
+            source_key
+          end
         end
 
         def properties=(args)
