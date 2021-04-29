@@ -107,6 +107,7 @@ module AcaEntities
 
           matched = namespace_record_delimiter_matched?(@namespaces) && @array_namespaces.empty?
           @namespaces.pop
+          @contexts.delete(key) unless batch_process?
 
           merge_documents(key, :hash)
           @namespaces_with_types.pop
