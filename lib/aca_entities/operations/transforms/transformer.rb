@@ -287,7 +287,7 @@ module AcaEntities
           # @api public
           def map(source_key = nil, output_key = nil, *args)
             serializer = MapSerializer.new('')
-            serializer.map(source_key, output_key = nil, *args)
+            serializer.map(source_key, output_key, *args)
             serializer.mappings.each do |_key, mapping|
               mapping_container.register(mapping.container_key, mapping) unless mapping_container.key?(mapping.source_key)
             end
