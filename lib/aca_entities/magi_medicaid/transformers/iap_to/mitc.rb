@@ -12,6 +12,17 @@ module AcaEntities
           namespace 'applicants' do
             rewrap 'people', type: :array do
               rewrap '', type: :hash do
+
+                namespace 'mitc_relationships' do
+                  rewrap 'relationships', type: :array do
+                    rewrap '' do
+                      map 'other_id', 'other_id'
+                      map 'attest_primary_responsibility', 'attest_primary_responsibility'
+                      map 'relationship_code', 'relationship_code'
+                    end
+                  end
+                end
+
                 namespace 'family_member_reference' do
                   rewrap '' do
                     map 'person_hbx_id', 'person_id'
@@ -61,7 +72,7 @@ module AcaEntities
                   rewrap '' do
                     map 'is_former_foster_care', 'is_in_former_foster_care', function: ->(value) { boolean_string(value) }
                     map 'had_medicaid_during_foster_care', 'had_medicaid_during_foster_care', function: ->(value) { boolean_string(value) }
-                    map 'age_left_foster_care', 'age_left_foster_care', function: ->(value) { boolean_string(value) }
+                    map 'age_left_foster_care', 'age_left_foster_care'
                     map 'foster_care_us_state', 'foster_care_us_state'
                   end
                 end

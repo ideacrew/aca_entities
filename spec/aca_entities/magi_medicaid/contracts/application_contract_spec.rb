@@ -17,6 +17,11 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicationContract,  dbcle
   end
   let(:pregnancy_information) { { is_pregnant: false, is_post_partum_period: false } }
 
+  let(:mitc_relationships) do
+    [{ other_id: '100', attest_primary_responsibility: 'Y', relationship_code: '01' },
+     { other_id: '101', attest_primary_responsibility: 'Y', relationship_code: '02' }]
+  end
+
   let(:applicant) do
     { name: name,
       identifying_information: identifying_information,
@@ -35,7 +40,8 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicationContract,  dbcle
       has_other_income: false,
       has_deductions: false,
       has_enrolled_health_coverage: false,
-      has_eligible_health_coverage: false }
+      has_eligible_health_coverage: false,
+      mitc_relationships: mitc_relationships }
   end
   let(:family_reference) { { hbx_id: '10011' } }
 

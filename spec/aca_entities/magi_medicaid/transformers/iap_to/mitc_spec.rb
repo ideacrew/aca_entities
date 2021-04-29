@@ -86,6 +86,10 @@ RSpec.describe AcaEntities::MagiMedicaid::Transformers::IapTo::Mitc do
     let(:addresses) do
       [address1, address2]
     end
+    let(:applicant1_mitc_relationships) do
+      [{ other_id: '100', attest_primary_responsibility: 'Y', relationship_code: '01' },
+       { other_id: '101', attest_primary_responsibility: 'Y', relationship_code: '02' }]
+    end
     let(:applicant_hash) do
       { name: name,
         identifying_information: identifying_information,
@@ -122,9 +126,14 @@ RSpec.describe AcaEntities::MagiMedicaid::Transformers::IapTo::Mitc do
         is_trafficking_victim: false,
         is_refugee: false,
         addresses: addresses,
-        is_temporarily_out_of_state: false }
+        is_temporarily_out_of_state: false,
+        mitc_relationships: applicant1_mitc_relationships }
     end
 
+    let(:applicant2_mitc_relationships) do
+      [{ other_id: '101', attest_primary_responsibility: 'N', relationship_code: '01' },
+       { other_id: '100', attest_primary_responsibility: 'N', relationship_code: '02' }]
+    end
     let(:applicant2_hash) do
       { name: name2,
         identifying_information: identifying_information,
@@ -161,7 +170,8 @@ RSpec.describe AcaEntities::MagiMedicaid::Transformers::IapTo::Mitc do
         is_trafficking_victim: false,
         is_refugee: false,
         addresses: addresses,
-        is_temporarily_out_of_state: false }
+        is_temporarily_out_of_state: false,
+        mitc_relationships: applicant2_mitc_relationships }
     end
     let(:family_reference) { { hbx_id: '10011' } }
 
@@ -268,11 +278,11 @@ RSpec.describe AcaEntities::MagiMedicaid::Transformers::IapTo::Mitc do
     end
 
     it 'should transform the payload according to instructions' do
-      expect(@transform_result).to have_key(:state)
-      expect(@transform_result).to have_key(:application_year)
-      expect(@transform_result[:people].count).to eq(2)
+      expect(@final_result).to have_key(:state)
+      expect(@final_result).to have_key(:application_year)
+      expect(@final_result[:people].count).to eq(2)
 
-      @transform_result[:people].each do |person|
+      @final_result[:people].each do |person|
         expect(person).to be_a(Hash)
         expect(person).to have_key(:person_id)
         expect(person).to have_key(:is_applicant)
@@ -297,6 +307,7 @@ RSpec.describe AcaEntities::MagiMedicaid::Transformers::IapTo::Mitc do
         expect(person).to have_key(:is_in_former_foster_care)
         expect(person).to have_key(:had_medicaid_during_foster_care)
         expect(person).to have_key(:age_left_foster_care)
+        expect(person[:age_left_foster_care]).to eq(foster_care[:age_left_foster_care])
         expect(person).to have_key(:foster_care_us_state)
         expect(person).to have_key(:is_required_to_file_taxes)
         expect(person).to have_key(:age_of_applicant)
@@ -312,6 +323,13 @@ RSpec.describe AcaEntities::MagiMedicaid::Transformers::IapTo::Mitc do
         expect(person).to have_key(:is_trafficking_victim)
         expect(person).to have_key(:is_eligible_for_refugee_medical_assistance)
         expect(person).to have_key(:is_veteran)
+
+        person[:relationships].each do |relationship|
+          expect(relationship).to be_a(Hash)
+          expect(relationship).to have_key(:other_id)
+          expect(relationship).to have_key(:attest_primary_responsibility)
+          expect(relationship).to have_key(:relationship_code)
+        end
       end
     end
 
@@ -370,11 +388,9 @@ RSpec.describe AcaEntities::MagiMedicaid::Transformers::IapTo::Mitc do
     is_claimed_as_dependent_by_non_applicant = 'N'
     is_lawful_presence_self_attested = 'Y'
     income = {}
-    person_relationships = []
     { is_claimed_as_dependent_by_non_applicant: is_claimed_as_dependent_by_non_applicant,
       is_lawful_presence_self_attested: is_lawful_presence_self_attested,
-      income: income,
-      relationships: person_relationships }
+      income: income }
   end
 
   # def tax_return_hash(application_hash, thh)
