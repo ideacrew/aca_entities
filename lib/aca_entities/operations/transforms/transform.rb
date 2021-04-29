@@ -356,7 +356,7 @@ module AcaEntities
                       t(:build_nested_hash)[{}, element_namespaces_with_types, Hash[key.to_sym, value]]
                     end
 
-            if container.key?(transformed_key)
+            if container.key?(transformed_key) && !container[transformed_key].key_transforms.include?(:add_key)
               data = container[transformed_key].call(input)
             end
           end
