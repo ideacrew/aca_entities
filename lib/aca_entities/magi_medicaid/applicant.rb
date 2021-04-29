@@ -105,6 +105,10 @@ module AcaEntities
       # @return [Integer]
       attribute :hours_worked_per_week, Types::Integer.optional.meta(omittable: true)
 
+      # Set of attributes specific to MitC which helps to not have much logic in IapTo MitC Transform.
+      attribute :mitc_income, AcaEntities::MagiMedicaid::Mitc::Income.optional.meta(omittable: true)
+      attribute :mitc_relationships, Types::Array.of(AcaEntities::MagiMedicaid::Mitc::Relationship).optional.meta(omittable: true)
+
     end
   end
 end

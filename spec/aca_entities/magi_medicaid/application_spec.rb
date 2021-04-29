@@ -19,6 +19,10 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Application, dbclean: :after_each do
     end
     let(:pregnancy_information) { { is_pregnant: false, is_post_partum_period: false } }
 
+    let(:mitc_relationships) do
+      [{ other_id: '100', attest_primary_responsibility: 'Y', relationship_code: '01' }]
+    end
+
     let(:applicant) do
       { name: name,
         identifying_information: identifying_information,
@@ -37,7 +41,8 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Application, dbclean: :after_each do
         has_other_income: false,
         has_deductions: false,
         has_enrolled_health_coverage: false,
-        has_eligible_health_coverage: false }
+        has_eligible_health_coverage: false,
+        mitc_relationships: mitc_relationships }
     end
     let(:family_reference) { { hbx_id: '10011' } }
     let(:application_params) do
@@ -103,8 +108,21 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Application, dbclean: :after_each do
           tax_household_members: [tax_household_member] }
       end
 
+      let(:person_references) do
+        application_params[:applicants].collect { |appl| { person_id: appl[:family_member_reference][:person_hbx_id] } }
+      end
+
+      let(:mitc_households) do
+        [{ household_id: '1',
+           people: person_references }]
+      end
+
+      let(:tax_return_hash) do
+        { filers: person_references, dependents: [] }
+      end
+
       let(:app_with_thh) do
-        application_params.merge({ tax_households: [tax_hh] })
+        application_params.merge({ tax_households: [tax_hh], mitc_households: mitc_households, mitc_tax_returns: [tax_return_hash] })
       end
 
       before do
@@ -124,6 +142,20 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Application, dbclean: :after_each do
         input_appli_keys = applicant.keys
         expect(result_appli_keys - input_appli_keys).to be_empty
         expect(input_appli_keys - result_appli_keys).to be_empty
+      end
+
+      it 'should match all the input keys of mitc_households' do
+        result_mitc_hh_keys = @result.to_h[:mitc_households].first.keys
+        input_mitc_hh_keys = mitc_households.first.keys
+        expect(result_mitc_hh_keys - input_mitc_hh_keys).to be_empty
+        expect(input_mitc_hh_keys - result_mitc_hh_keys).to be_empty
+      end
+
+      it 'should match all the input keys of mitc_tax_returns' do
+        result_mitc_tr_keys = @result.to_h[:mitc_tax_returns].first.keys
+        input_mitc_tr_keys = tax_return_hash.keys
+        expect(result_mitc_tr_keys - input_mitc_tr_keys).to be_empty
+        expect(input_mitc_tr_keys - result_mitc_tr_keys).to be_empty
       end
 
       it 'should match all the input keys of tax_households' do

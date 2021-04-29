@@ -46,6 +46,10 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Applicant, dbclean: :after_each do
         end_on: Date.today.to_s }
     end
 
+    let(:mitc_relationships) do
+      [{ other_id: '100', attest_primary_responsibility: 'Y', relationship_code: '01' }]
+    end
+
     let(:input_params) do
       { name: name,
         identifying_information: identifying_information,
@@ -70,7 +74,8 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Applicant, dbclean: :after_each do
         phones: [],
         incomes: [income],
         benefits: [benefit],
-        deductions: [deduction] }
+        deductions: [deduction],
+        mitc_relationships: mitc_relationships }
     end
 
     before do
@@ -154,6 +159,13 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Applicant, dbclean: :after_each do
       input_deduction_keys = deduction.keys
       expect(result_deduction_keys - input_deduction_keys).to be_empty
       expect(input_deduction_keys - result_deduction_keys).to be_empty
+    end
+
+    it 'should match all the input keys of mitc_relationship' do
+      result_mitc_rel_keys = @result.to_h[:mitc_relationships].first.keys
+      input_mitc_rel_keys = mitc_relationships.first.keys
+      expect(result_mitc_rel_keys - input_mitc_rel_keys).to be_empty
+      expect(input_mitc_rel_keys - result_mitc_rel_keys).to be_empty
     end
   end
 end
