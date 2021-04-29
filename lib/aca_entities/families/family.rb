@@ -39,7 +39,7 @@ module AcaEntities
       # TODO: Domain model supports EA internal MagiMedicaid (IAP) applications only.  Extend to support other application types,
       # TODO: including: ME ACES, FFM ATP, Curam ATP
       attribute :magi_medicaid_applications,
-                Types::Array.of(AcaEntities::MagiMedicaid::ApplicationReference).optional.meta(omittable: true)
+                Types::Array.of(AcaEntities::MagiMedicaid::Application).optional.meta(omittable: true)
 
       attribute :renewal_consent_through_year,      Types::Integer.optional.meta(omittable: true)
 

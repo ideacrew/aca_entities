@@ -633,24 +633,6 @@ RSpec.describe AcaEntities::Families::Family, dbclean: :after_each do
     }
   end
 
-  let(:applicant_reference) do
-    [{
-      first_name: "first name",
-      last_name: "last name",
-      dob: Date.today,
-      person_hbx_id: "33333333",
-      encrypted_ssn: nil
-    }]
-  end
-
-  let(:application_references) do
-    [
-      {
-        hbx_id: "56666"
-      }
-    ]
-
-  end
   let(:hbx_enrollment_exemptions) { [] }
 
   let(:family_member_params) do
@@ -661,7 +643,6 @@ RSpec.describe AcaEntities::Families::Family, dbclean: :after_each do
         is_consent_applicant: true,
         is_coverage_applicant: nil,
         is_active: true,
-        magi_medicaid_application_applicants: applicant_reference,
         person: person,
         timestamp: timestamp
       }
@@ -757,7 +738,6 @@ RSpec.describe AcaEntities::Families::Family, dbclean: :after_each do
       vlp_documents_status: nil,
       family_members: family_member_params,
       households: household_params,
-      magi_medicaid_applications: application_references,
       documents: documents,
       special_enrollment_periods: special_enrollment_periods,
       broker_accounts: broker_accounts,

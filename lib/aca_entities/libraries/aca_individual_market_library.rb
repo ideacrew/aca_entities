@@ -5,9 +5,10 @@ module AcaEntities
   module Libraries
     module IndividualMarketLibrary
 
+      require 'aca_entities/magi_medicaid/libraries/iap_library'
+
       # contracts
       require 'aca_entities/types'
-      require 'aca_entities/magi_medicaid/types'
       require 'aca_entities/contracts/timestamp_contract'
       require 'aca_entities/contracts/currency_contract'
       require 'aca_entities/contracts/organizations/issuer_profile_reference_contract'
@@ -31,8 +32,6 @@ module AcaEntities
       require 'aca_entities/contracts/benefit_catalogs/benefit_package_reference_contract'
       require 'aca_entities/contracts/households/tax_household_member_contract'
       require 'aca_entities/contracts/households/tax_household_contract'
-      require 'aca_entities/magi_medicaid/contracts/applicant_reference_contract'
-      require 'aca_entities/magi_medicaid/contracts/application_reference_contract'
       require 'aca_entities/contracts/verifications/verification_type_contract'
       require 'aca_entities/contracts/verifications/verification_type_history_element_contract'
       require 'aca_entities/contracts/people/consumer_role_contract'
@@ -62,8 +61,6 @@ module AcaEntities
       require 'aca_entities/benefit_catalogs/benefit_package_reference'
       require 'aca_entities/households/tax_household_member'
       require 'aca_entities/households/tax_household'
-      require 'aca_entities/magi_medicaid/applicant_reference'
-      require 'aca_entities/magi_medicaid/application_reference'
       require 'aca_entities/verifications/verification_type'
       require 'aca_entities/verifications/verification_type_history_element'
       require 'aca_entities/people/consumer_role'
