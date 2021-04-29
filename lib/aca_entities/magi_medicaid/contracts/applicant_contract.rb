@@ -126,6 +126,11 @@ module AcaEntities
           optional(:age_of_applicant).filled(:integer)
 
           optional(:hours_worked_per_week).filled(:integer)
+          optional(:is_temporarily_out_of_state).filled(:bool)
+
+          # Set of attributes specific to MitC which helps to not have much logic in IapTo MitC Transform.
+          optional(:mitc_income).filled(AcaEntities::MagiMedicaid::Mitc::Contracts::IncomeContract.params)
+          optional(:mitc_relationships).array(AcaEntities::MagiMedicaid::Mitc::Contracts::RelationshipContract.params)
 
         end
       end

@@ -18,7 +18,7 @@ module AcaEntities
                   end
                 end
 
-                add_key 'is_applicant', value: 'Y'
+                map 'is_applying_coverage', 'is_applicant', function: ->(value) { boolean_string(value) }
 
                 namespace 'student' do
                   rewrap '' do
@@ -38,35 +38,6 @@ module AcaEntities
                     map 'is_incarcerated', 'is_incarcerated', function: ->(value) { boolean_string(value) }
                   end
                 end
-
-                # namespace 'addresses' do
-                #   rewrap 'addresses', type: :array do
-                #     rewrap '' do
-                #       map 'lives_outside_state_temporarily', 'lives_outside_state_temporarily'
-                #       # add_key 'resides_in_state_of_application', function: ->(v) { v.resolve('lives_outside_state_temporarily').item ? 'Y' : 'N' }
-                #     end
-                #   end
-                # end
-
-                # namespace 'addresses' do
-                #   rewrap '', type: :array do
-                #     rewrap '' do
-                #       map 'lives_outside_state_temporarily', 'lives_outside_state_temporarily', memoize: true, visible: false
-                #       add_key 'resides_in_state_of_application', function: ->(v) { v.resolve('lives_outside_state_temporarily').item ? 'Y' : 'N' }
-                #     end
-                #   end
-                # end
-
-                # addresses = [
-                #   { lives_outside_state_temporarily: true, kind: 'home' },
-                #   { lives_outside_state_temporarily: false, kind: 'mailing' }
-                # ]
-
-                # map 'application.contactMemberIdentifier', 'family.family_members.is_primary_applicant',
-                #   { memoize: true, function: AcaEntities::Functions::PrimaryApplicantBuilder }
-
-                # value should be one of addresses lives_outside_state_temporarily
-                # add_key 'resides_in_state_of_application', value
 
                 # value should be the new attributes, currently this is not mapped to anything.
                 # add_key 'is_claimed_as_dependent_by_non_applicant', value
@@ -99,8 +70,20 @@ module AcaEntities
                 map 'age_of_applicant', 'age_of_applicant'
                 map 'hours_worked_per_week', 'hours_worked_per_week'
 
-                # value should be one of addresses's lives_outside_state_temporarily
-                # add_key 'is_temporarily_out_of_state', value
+                map 'is_temporarily_out_of_state', 'is_temporarily_out_of_state', memoize: true, visible: false
+                add_key 'resides_in_state_of_application', function: ->(v) {
+                  boolean_string(v.resolve('is_temporarily_out_of_state').item)
+                }
+                add_key 'is_temporarily_out_of_state', function: ->(v) {
+                  boolean_string(v.resolve('is_temporarily_out_of_state').item)
+                }
+
+                # map 'is_temporarily_out_of_state', 'is_temporarily_out_of_state', function: ->(value) { boolean_string(value) }
+                # map 'resides_in_state_of_application', 'is_required_to_file_taxes', function: ->(value) { boolean_string(value) }
+
+                # map 'is_temporarily_out_of_state', 'out_of_state', context: { name: 'out_of_state' }, visible: false
+                # add_key 'resides_in_state_of_application', function: ->(v) { boolean_string(v.resolve('out_of_state').item) }
+                # add_key 'is_temporarily_out_of_state', function: ->(v) { boolean_string(v.resolve('out_of_state').item) }
 
                 # value should be the new attributes, currently this is not mapped to anything.
                 # add_key 'is_lawful_presence_self_attested', value
@@ -141,35 +124,48 @@ module AcaEntities
                 end
               end
             end
+          end
 
-            # ExpectedOutcome:
-            # physical_households = [
-            #   {
-            #     household_id: '1',
-            #     people: [
-            #       { person_id: 'applicant.family_member_reference.person_hbx_id' },
-            #       { person_id: 'applicant2.family_member_reference.person_hbx_id' },
-            #     ]
-            #   }
-            # ]
+          # map 'mitc_households', 'physical_households', memoize_record: true
+          # add_key 'physical_households', function: ->(v) { v.resolve('physical_households').item }
 
-            # add_key 'physical_households', []
-            # namespace 'physical_households', type: :array do
-            #   rewrap '', type: :hash do
-            #   end
-            # end
+          namespace 'mitc_households' do
+            rewrap 'physical_households', type: :array do
+              rewrap '' do
+                map 'household_id', 'household_id'
 
-            # add_namespace 'physical_households', 'physical_households', type: :array do
-            #   rewrap '', type: :hash do
-            #     add_key 'household_id', '1'
-            #     add_key 'people', ->(v) { v.resolve(:'applicant.family_member_reference.person_references') }
-            #     # add_namespace 'people', 'physical_households.people', type: :array do
-            #     #   rewrap '', type: :hash do
-            #     #     add_key 'person_id', value
-            #     #   end
-            #     # end
-            #   end
-            # end
+                namespace 'people' do
+                  rewrap 'people', type: :array do
+                    rewrap '' do
+                      map 'person_id', 'person_id'
+                    end
+                  end
+                end
+              end
+            end
+          end
+
+          namespace 'mitc_tax_returns' do
+            rewrap 'tax_returns', type: :array do
+              rewrap '' do
+
+                namespace 'filers' do
+                  rewrap 'filers', type: :array do
+                    rewrap '' do
+                      map 'person_id', 'person_id'
+                    end
+                  end
+                end
+
+                namespace 'dependents' do
+                  rewrap 'dependents', type: :array do
+                    rewrap '' do
+                      map 'person_id', 'person_id'
+                    end
+                  end
+                end
+              end
+            end
           end
 
           map 'assistance_year', 'application_year'

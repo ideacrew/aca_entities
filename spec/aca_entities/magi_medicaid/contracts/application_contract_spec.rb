@@ -8,7 +8,13 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicationContract,  dbcle
   let(:identifying_information) { { has_ssn: false } }
   let(:demographic) { { gender: 'Male', dob: Date.today.prev_year.to_s } }
   let(:attestation) { { is_self_attested_disabled: false, is_self_attested_blind: false } }
-  let(:family_member_reference) { { family_member_hbx_id: '1000' } }
+  let(:family_member_reference) do
+    { family_member_hbx_id: '1000',
+      first_name: name[:first_name],
+      last_name: name[:last_name],
+      dob: demographic[:dob],
+      person_hbx_id: '100' }
+  end
   let(:pregnancy_information) { { is_pregnant: false, is_post_partum_period: false } }
 
   let(:applicant) do
@@ -79,8 +85,21 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicationContract,  dbcle
           tax_household_members: [tax_household_member] }
       end
 
+      let(:person_references) do
+        input_params[:applicants].collect { |appl| { person_id: appl[:family_member_reference][:person_hbx_id] } }
+      end
+
+      let(:mitc_households) do
+        [{ household_id: '1',
+           people: person_references }]
+      end
+
+      let(:tax_return_hash) do
+        { filers: [{ person_id: applicant[:family_member_reference][:person_hbx_id] }], dependents: [] }
+      end
+
       let(:app_with_thh) do
-        input_params.merge({ tax_households: [tax_hh] })
+        input_params.merge({ tax_households: [tax_hh], mitc_households: mitc_households, mitc_tax_returns: [tax_return_hash] })
       end
 
       before do
@@ -93,6 +112,24 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicationContract,  dbcle
 
       it 'should include key tax_households' do
         expect(@result.to_h.keys).to include(:tax_households)
+      end
+
+      it 'should include key mitc_households' do
+        expect(@result.to_h.keys).to include(:mitc_households)
+      end
+
+      it 'should include all keys of each mitc_households' do
+        mitc_household = @result.to_h[:mitc_households].first
+        expect(mitc_household.keys).to include(:household_id)
+        expect(mitc_household.keys).to include(:people)
+        expect(mitc_household[:people].first.keys).to include(:person_id)
+      end
+
+      it 'should include all keys of each mitc_tax_returns' do
+        mitc_tax_return = @result.to_h[:mitc_tax_returns].first
+        expect(mitc_tax_return.keys).to include(:filers)
+        expect(mitc_tax_return.keys).to include(:dependents)
+        expect(mitc_tax_return[:filers].first.keys).to include(:person_id)
       end
     end
 

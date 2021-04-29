@@ -27,6 +27,10 @@ module AcaEntities
           optional(:tax_households).array(TaxHouseholdContract.params)
 
           required(:us_state).filled(Types::UsStateAbbreviationKind)
+
+          # Set of attributes specific to MitC which helps to not have much logic in IapTo MitC Transform.
+          optional(:mitc_households).array(AcaEntities::MagiMedicaid::Mitc::Contracts::HouseholdContract.params)
+          optional(:mitc_tax_returns).array(AcaEntities::MagiMedicaid::Mitc::Contracts::TaxReturnContract.params)
         end
       end
     end

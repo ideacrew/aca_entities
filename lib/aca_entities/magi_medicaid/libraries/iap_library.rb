@@ -5,6 +5,9 @@ module AcaEntities
   module MagiMedicaid
     module Libraries
       module IapLibrary
+
+        require 'aca_entities/magi_medicaid/libraries/mitc_library'
+
         require 'aca_entities/types'
         require 'aca_entities/app_helper'
         require 'aca_entities/people/person_name'

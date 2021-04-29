@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require 'aca_entities/functions/primary_applicant_builder'
-require 'aca_entities/magi_medicaid/libraries/mitc_library'
 require 'aca_entities/magi_medicaid/libraries/iap_library'
 require 'aca_entities/magi_medicaid/transformers/iap_to/mitc'
 
@@ -123,7 +121,8 @@ RSpec.describe AcaEntities::MagiMedicaid::Transformers::IapTo::Mitc do
         is_five_year_bar_met: false,
         is_trafficking_victim: false,
         is_refugee: false,
-        addresses: addresses }
+        addresses: addresses,
+        is_temporarily_out_of_state: false }
     end
 
     let(:applicant2_hash) do
@@ -161,7 +160,8 @@ RSpec.describe AcaEntities::MagiMedicaid::Transformers::IapTo::Mitc do
         is_five_year_bar_met: false,
         is_trafficking_victim: false,
         is_refugee: false,
-        addresses: addresses }
+        addresses: addresses,
+        is_temporarily_out_of_state: false }
     end
     let(:family_reference) { { hbx_id: '10011' } }
 
@@ -229,12 +229,29 @@ RSpec.describe AcaEntities::MagiMedicaid::Transformers::IapTo::Mitc do
         tax_household_members: [tax_household_member, tax_household_member2] }
     end
 
+    let(:iap_applicants) { [applicant_hash, applicant2_hash] }
+
+    let(:person_references) do
+      iap_applicants.collect { |appl| { person_id: appl[:family_member_reference][:person_hbx_id] } }
+    end
+
+    let(:mitc_households) do
+      [{ household_id: '1',
+         people: person_references }]
+    end
+
+    let(:tax_return_hash) do
+      { filers: person_references, dependents: [] }
+    end
+
     let(:application) do
       { us_state: 'DC',
         family_reference: family_reference,
         assistance_year: Date.today.year,
-        applicants: [applicant_hash, applicant2_hash],
-        tax_households: [tax_hh] }
+        applicants: iap_applicants,
+        tax_households: [tax_hh],
+        mitc_households: mitc_households,
+        mitc_tax_returns: [tax_return_hash] }
     end
 
     let(:iap_application) do
@@ -244,58 +261,57 @@ RSpec.describe AcaEntities::MagiMedicaid::Transformers::IapTo::Mitc do
 
     before do
       described_class.call(iap_application) { |record| @transform_result = record }
-      @final_result = add_addtional_params(@transform_result, iap_application)
+      @final_result = add_addtional_params(@transform_result)
       # mitc_application_result = ::AcaEntities::MagiMedicaid::Mitc::Contracts::ApplicationContract.new.call(@final_result)
       # binding.pry
       # mitc_application_result.errors.to_h
     end
 
     it 'should transform the payload according to instructions' do
-      described_class.call(iap_application) do |record|
-        expect(record).to have_key(:state)
-        expect(record).to have_key(:application_year)
-        expect(record[:people].count).to eq(2)
+      expect(@transform_result).to have_key(:state)
+      expect(@transform_result).to have_key(:application_year)
+      expect(@transform_result[:people].count).to eq(2)
 
-        record[:people].each do |person|
-          expect(person).to be_a(Hash)
-          expect(person).to have_key(:person_id)
-          expect(person).to have_key(:is_applicant)
-          expect(person).not_to have_key(:is_self_attested_blind)
-          expect(person).not_to have_key(:is_self_attested_disabled)
-          expect(person).to have_key(:is_blind_or_disabled)
-          expect(person[:is_blind_or_disabled]).to eq('Y')
-          expect(person).to have_key(:is_full_time_student)
-          expect(person).to have_key(:is_medicare_entitled)
-          expect(person).to have_key(:is_incarcerated)
-
-          # expect(person).not_to have_key(:lives_outside_state_temporarily)
-          # expect(person).to have_key(:resides_in_state_of_application)
-          # expect(person[:resides_in_state_of_application]).to eq('N')
-
-          expect(person).to have_key(:is_self_attested_long_term_care)
-          expect(person).to have_key(:has_insurance)
-          expect(person).to have_key(:has_state_health_benefit)
-          expect(person).to have_key(:had_prior_insurance)
-          expect(person).to have_key(:is_pregnant)
-          expect(person).to have_key(:children_expected_count)
-          expect(person).to have_key(:is_in_post_partum_period)
-          expect(person).to have_key(:is_in_former_foster_care)
-          expect(person).to have_key(:had_medicaid_during_foster_care)
-          expect(person).to have_key(:age_left_foster_care)
-          expect(person).to have_key(:foster_care_us_state)
-          expect(person).to have_key(:is_required_to_file_taxes)
-          expect(person).to have_key(:age_of_applicant)
-          expect(person).to have_key(:hours_worked_per_week)
-          expect(person).to have_key(:is_us_citizen)
-          expect(person[:is_us_citizen]).to eq('Y')
-          expect(person).to have_key(:immigration_status)
-          expect(AcaEntities::MagiMedicaid::Mitc::Types::ImmigrationStatusCodeMap.values).to include(person[:immigration_status])
-          expect(person).to have_key(:five_year_bar_applies)
-          expect(person).to have_key(:is_five_year_bar_met)
-          expect(person).to have_key(:is_trafficking_victim)
-          expect(person).to have_key(:is_eligible_for_refugee_medical_assistance)
-          expect(person).to have_key(:is_veteran)
-        end
+      @transform_result[:people].each do |person|
+        expect(person).to be_a(Hash)
+        expect(person).to have_key(:person_id)
+        expect(person).to have_key(:is_applicant)
+        expect(person[:is_applicant]).to eq('N')
+        expect(person).not_to have_key(:is_self_attested_blind)
+        expect(person).not_to have_key(:is_self_attested_disabled)
+        expect(person).to have_key(:is_blind_or_disabled)
+        expect(person[:is_blind_or_disabled]).to eq('Y')
+        expect(person).to have_key(:is_full_time_student)
+        expect(person).to have_key(:is_medicare_entitled)
+        expect(person).to have_key(:is_incarcerated)
+        expect(person).not_to have_key(:lives_outside_state_temporarily)
+        expect(person).to have_key(:resides_in_state_of_application)
+        expect(person[:resides_in_state_of_application]).to eq('N')
+        expect(person).to have_key(:is_self_attested_long_term_care)
+        expect(person).to have_key(:has_insurance)
+        expect(person).to have_key(:has_state_health_benefit)
+        expect(person).to have_key(:had_prior_insurance)
+        expect(person).to have_key(:is_pregnant)
+        expect(person).to have_key(:children_expected_count)
+        expect(person).to have_key(:is_in_post_partum_period)
+        expect(person).to have_key(:is_in_former_foster_care)
+        expect(person).to have_key(:had_medicaid_during_foster_care)
+        expect(person).to have_key(:age_left_foster_care)
+        expect(person).to have_key(:foster_care_us_state)
+        expect(person).to have_key(:is_required_to_file_taxes)
+        expect(person).to have_key(:age_of_applicant)
+        expect(person).to have_key(:hours_worked_per_week)
+        expect(person).to have_key(:is_temporarily_out_of_state)
+        expect(person[:is_temporarily_out_of_state]).to eq('N')
+        expect(person).to have_key(:is_us_citizen)
+        expect(person[:is_us_citizen]).to eq('Y')
+        expect(person).to have_key(:immigration_status)
+        expect(AcaEntities::MagiMedicaid::Mitc::Types::ImmigrationStatusCodeMap.values).to include(person[:immigration_status])
+        expect(person).to have_key(:five_year_bar_applies)
+        expect(person).to have_key(:is_five_year_bar_met)
+        expect(person).to have_key(:is_trafficking_victim)
+        expect(person).to have_key(:is_eligible_for_refugee_medical_assistance)
+        expect(person).to have_key(:is_veteran)
       end
     end
 
@@ -335,80 +351,44 @@ RSpec.describe AcaEntities::MagiMedicaid::Transformers::IapTo::Mitc do
   end
 
   # TODO: Will be moved to a class.
-  def add_addtional_params(transform_result, iap_application)
-    application_hash = JSON.parse(iap_application, symbolize_names: true)
-    transform_result.merge!({ physical_households: physical_households(application_hash),
-                              tax_returns: tax_returns(application_hash) })
+  def add_addtional_params(transform_result)
+    # application_hash = JSON.parse(iap_application, symbolize_names: true)
 
     # Merge Application Level params
     transform_result.merge!({ name: 'IAP Application' })
 
     # Merge each Applicant Level params
     transform_result[:people].each do |mitc_person|
-      mitc_person.merge!(addtional_person_params(application_hash, mitc_person))
+      mitc_person.merge!(addtional_person_params)
     end
     transform_result
   end
 
-  def addtional_person_params(application_hash, mitc_person)
+  def addtional_person_params
     # { :income=>["is missing"],
     #   :relationships=>["is missing"] }
-    applicant = applicant_by_reference(application_hash[:applicants], mitc_person[:person_id])
-    home_address = applicant[:addresses].detect { |addr| addr[:kind] == 'home' }
-    # TODO: Get state name from ResourceRegistry
-    resides_in_state_of_application = (home_address[:state] == 'DC') ? 'Y' : 'N'
     is_claimed_as_dependent_by_non_applicant = 'N'
-    is_temporarily_out_of_state = home_address[:lives_outside_state_temporarily] ? 'Y' : 'N'
     is_lawful_presence_self_attested = 'Y'
-    income = person_income_params(applicant)
+    income = {}
     person_relationships = []
-    { resides_in_state_of_application: resides_in_state_of_application,
-      is_claimed_as_dependent_by_non_applicant: is_claimed_as_dependent_by_non_applicant,
-      is_temporarily_out_of_state: is_temporarily_out_of_state,
+    { is_claimed_as_dependent_by_non_applicant: is_claimed_as_dependent_by_non_applicant,
       is_lawful_presence_self_attested: is_lawful_presence_self_attested,
       income: income,
       relationships: person_relationships }
   end
 
-  def person_income_params(_applicant)
-    {}
-  end
-
-  def person_references(application_hash)
-    application_hash[:applicants].inject([]) do |p_ref_array, applicant|
-      p_ref_array << { person_id: applicant[:family_member_reference][:person_hbx_id] }
-    end
-  end
-
-  # Only one household as PhysicalHousehold maps to Family
-  def physical_households(application_hash)
-    [{ household_id: '1', people: person_references(application_hash) }]
-  end
-
-  def applicant_by_reference(applicants, person_identifier)
-    applicants.detect do |applicant|
-      applicant[:family_member_reference][:person_hbx_id] == person_identifier
-    end
-  end
-
-  def tax_return_hash(application_hash, thh)
-    filers = []
-    dependents = []
-    thh[:tax_household_members].each do |thh_member|
-      applicant = applicant_by_reference(application_hash[:applicants], thh_member[:applicant_reference][:person_hbx_id])
-      case applicant[:is_claimed_as_tax_dependent]
-      when true
-        dependents << { person_id: thh_member[:applicant_reference][:person_hbx_id] }
-      when false
-        filers << { person_id: thh_member[:applicant_reference][:person_hbx_id] }
-      end
-    end
-    { filers: filers, dependents: dependents }
-  end
-
-  def tax_returns(application_hash)
-    application_hash[:tax_households].inject([]) do |tr_array, thh|
-      tr_array << tax_return_hash(application_hash, thh)
-    end
-  end
+  # def tax_return_hash(application_hash, thh)
+  #   filers = []
+  #   dependents = []
+  #   thh[:tax_household_members].each do |thh_member|
+  #     applicant = applicant_by_reference(application_hash[:applicants], thh_member[:applicant_reference][:person_hbx_id])
+  #     case applicant[:is_claimed_as_tax_dependent]
+  #     when true
+  #       dependents << { person_id: thh_member[:applicant_reference][:person_hbx_id] }
+  #     when false
+  #       filers << { person_id: thh_member[:applicant_reference][:person_hbx_id] }
+  #     end
+  #   end
+  #   { filers: filers, dependents: dependents }
+  # end
 end
