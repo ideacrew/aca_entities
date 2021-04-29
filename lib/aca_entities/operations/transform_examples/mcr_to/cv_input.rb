@@ -15,6 +15,7 @@ module AcaEntities
           AgeOn = AcaEntities::Functions::AgeOn.new(on_date: "2020-1-1")
 
           map 'coverageYear', 'family.magi_medicaid_applications.assistance_year'
+          map 'lastUpdateMetadata', 'lastUpdateMetadata', memoize_record: true
 
           namespace 'attestations' do
             rewrap 'family', type: :hash do

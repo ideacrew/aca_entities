@@ -49,8 +49,8 @@ module AcaEntities
         # @api public
         def map(source_key, output_key = nil, *args)
           options = args.first || {}
-          if options.is_a?(Hash) && (options[:memoize] || options[:context])
-            add_context((source_ns + [source_key]).join('.'), output_key, options[:function])
+          if options.is_a?(Hash) && (options[:memoize] || options[:context] || options[:memoize_record])
+            add_context((source_ns + [source_key]).join('.'), output_key, options)
           end
           transform_action = options[:action] if options[:action]
 
@@ -219,12 +219,13 @@ module AcaEntities
         private
 
         # @api private
-        def add_context(key, output_key, proc = nil)
+        def add_context(key, output_key, options)
           map = Map.new(key,
-                        output_key,
+                        output_key || key,
                         nil,
                         :add_context,
-                        proc: proc)
+                        proc: options[:function])
+          map.properties = options
           @mappings[map.container_key] = map
         end
 
@@ -285,8 +286,11 @@ module AcaEntities
           #
           # @api public
           def map(source_key = nil, output_key = nil, *args)
-            mapping = Map.new(source_key, output_key, nil, :rename_nested_keys, proc: args.first)
-            mapping_container.register(mapping.container_key, mapping)
+            serializer = MapSerializer.new('')
+            serializer.map(source_key, output_key = nil, *args)
+            serializer.mappings.each do |_key, mapping|
+              mapping_container.register(mapping.container_key, mapping) unless mapping_container.key?(mapping.source_key)
+            end
           end
 
           # add_key takes key and value(can be a value or a proc).
@@ -387,7 +391,7 @@ module AcaEntities
 
       # Creates transform proc
       class Map
-        attr_reader :source_key, :output_key, :value, :key_transforms, :result, :transproc, :proc, :type
+        attr_reader :source_key, :output_key, :value, :key_transforms, :result, :transproc, :proc, :type, :memoize_record
         attr_accessor :context
 
         def initialize(source_key = nil, output_key = nil, value = nil, *key_transforms, proc: nil)
@@ -439,7 +443,6 @@ module AcaEntities
         def action_to_transproc(action, source_elements, output_elements)
           case action
           when :nest
-            # binding.pry
             if source_elements[-1] == output_elements[-1]
               output_elements.size.times.collect do |i|
                 offset = -1 * i
@@ -483,7 +486,9 @@ module AcaEntities
         end
 
         def properties=(args)
-          @type = args.first[:type]
+          args = args.first unless args.is_a?(Hash)
+          @type = args[:type]
+          @memoize_record = args[:memoize_record] || false
         end
       end
     end

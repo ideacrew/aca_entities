@@ -76,12 +76,12 @@ module AcaEntities
         end
 
         def record_start(key)
-          # binding.pry
           @record = {}
         end
 
         def record_end(key)
           @record_processor.call(record) if @record_processor
+          @contexts = {}
           remove_instance_variable(:@record_namespace_offset)
         end
 
@@ -107,7 +107,6 @@ module AcaEntities
 
           matched = namespace_record_delimiter_matched?(@namespaces) && @array_namespaces.empty?
           @namespaces.pop
-          @contexts.delete(key) unless batch_process?
 
           merge_documents(key, :hash)
           @namespaces_with_types.pop
@@ -158,7 +157,11 @@ module AcaEntities
             add_document(key: key, type: type)
           else
             transformed_key = match_wildcard_chars(element_namespaces.join('.'))
-            create_document_for(transformed_key, key, type, false)
+            if container.key?(transformed_key)
+              create_document_for(transformed_key, key, type, false)
+            elsif container.key?(transformed_key+'_context')
+              add_document(key: key, type: type)
+            end
           end
         end
 
@@ -176,17 +179,15 @@ module AcaEntities
         end
 
         def create_document_for(namespaced_key, key, type, regex = false)
-          return unless container.key?(namespaced_key)
-
           @wild_char_matchers.push(key) if regex
           mapping = container[namespaced_key]
-          return unless mapping.type
+          mapping_type = mapping.type || type
 
           source_key = mapping.source_key 
           output_key = mapping.output_key
 
           regex_key = key if regex
-          add_document(key: key, type: mapping.type, source_namespace: source_key, output_namespace: output_key&.split('.'), regex: regex_key)
+          add_document(key: key, type: mapping_type, source_namespace: source_key, output_namespace: output_key&.split('.'), regex: regex_key)
 
           if mapping.type == :array && type == :hash
             add_document(key: :no_key, type: type, regex: regex_key)
@@ -200,15 +201,23 @@ module AcaEntities
           unless batch_process?
             if type == :hash && key != :no_key
               transformed_key = match_wildcard_chars(element_namespaces.join('.'))
-              return unless container.key?(transformed_key)
+              context_key = transformed_key + "_context"
+              record_context = container.key?(context_key) && container[context_key].memoize_record
+              return unless container.key?(transformed_key) || record_context
             end
           end
 
           recent_document = @documents.pop
-          if current_document
-            current_document.merge(recent_document.output)
-          elsif recent_document
-            record.deep_merge!(recent_document.output)
+
+          if record_context
+            output_key = container[context_key].output_key
+            @contexts[output_key] = {name: output_key, item: recent_document.output&.values&.first}
+          else
+            if current_document
+              current_document.merge(recent_document.output)
+            elsif recent_document
+              record.deep_merge!(recent_document.output)
+            end
           end
 
           return if batch_process?
@@ -314,6 +323,13 @@ module AcaEntities
           @transform_mode == :batch
         end
 
+        def record_context_matched?
+          key_with_namespace = element_namespaces.join('.')
+          transformed_key = match_wildcard_chars(key_with_namespace.dup)
+          transformed_key += '_context'
+          container.key?(transformed_key) && container[transformed_key].memoize_record
+        end
+
         def transform_data_for(key, value)
           return unless defined? @record_namespace_offset
       
@@ -330,7 +346,7 @@ module AcaEntities
               @contexts[context_key] = {name: context_key, item: value}
             end
 
-            return unless container.key?(transformed_key)
+            return unless container.key?(transformed_key) || record_context_matched?
             # container_value = container[transformed_key]
             # @contexts[key] = container_value.context.merge(item: value) if container_value.context
             input = if record_unique_identifier
@@ -338,7 +354,10 @@ module AcaEntities
                     else
                       t(:build_nested_hash)[{}, element_namespaces_with_types, Hash[key.to_sym, value]]
                     end
-            data = container[transformed_key].call(input)
+
+            if container.key?(transformed_key)
+              data = container[transformed_key].call(input)
+            end
           end
 
           if current_document
