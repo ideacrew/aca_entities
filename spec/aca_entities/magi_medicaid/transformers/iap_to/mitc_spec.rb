@@ -86,6 +86,27 @@ RSpec.describe AcaEntities::MagiMedicaid::Transformers::IapTo::Mitc do
     let(:addresses) do
       [address1, address2]
     end
+
+    let(:mitc_income) do
+      { amount: 300,
+        taxable_interest: 30,
+        tax_exempt_interest: 0,
+        taxable_refunds: 1,
+        alimony: 0,
+        capital_gain_or_loss: 0,
+        pensions_and_annuities_taxable_amount: 0,
+        farm_income_or_loss: 0,
+        unemployment_compensation: 0,
+        other_income: 0,
+        magi_deductions: 0,
+        adjusted_gross_income: 300,
+        deductible_part_of_self_employment_tax: 0,
+        ira_deduction: 1,
+        student_loan_interest_deduction: 9,
+        tution_and_fees: 10,
+        other_magi_eligible_income: 0 }
+    end
+
     let(:applicant1_mitc_relationships) do
       [{ other_id: '100', attest_primary_responsibility: 'Y', relationship_code: '01' },
        { other_id: '101', attest_primary_responsibility: 'Y', relationship_code: '02' }]
@@ -127,7 +148,8 @@ RSpec.describe AcaEntities::MagiMedicaid::Transformers::IapTo::Mitc do
         is_refugee: false,
         addresses: addresses,
         is_temporarily_out_of_state: false,
-        mitc_relationships: applicant1_mitc_relationships }
+        mitc_relationships: applicant1_mitc_relationships,
+        mitc_income: mitc_income }
     end
 
     let(:applicant2_mitc_relationships) do
@@ -171,7 +193,8 @@ RSpec.describe AcaEntities::MagiMedicaid::Transformers::IapTo::Mitc do
         is_refugee: false,
         addresses: addresses,
         is_temporarily_out_of_state: false,
-        mitc_relationships: applicant2_mitc_relationships }
+        mitc_relationships: applicant2_mitc_relationships,
+        mitc_income: mitc_income }
     end
     let(:family_reference) { { hbx_id: '10011' } }
 
@@ -330,6 +353,44 @@ RSpec.describe AcaEntities::MagiMedicaid::Transformers::IapTo::Mitc do
           expect(relationship).to have_key(:attest_primary_responsibility)
           expect(relationship).to have_key(:relationship_code)
         end
+
+        person[:income] do |income|
+          expect(income).to be_a(Hash)
+          expect(income).to have_key(:amount)
+          expect(income[:amount]).to eq(mitc_income[:amount])
+          expect(income).to have_key(:taxable_interest)
+          expect(income[:taxable_interest]).to eq(mitc_income[:taxable_interest])
+          expect(income).to have_key(:tax_exempt_interest)
+          expect(income[:tax_exempt_interest]).to eq(mitc_income[:tax_exempt_interest])
+          expect(income).to have_key(:taxable_refunds)
+          expect(income[:taxable_refunds]).to eq(mitc_income[:taxable_refunds])
+          expect(income).to have_key(:alimony)
+          expect(income[:alimony]).to eq(mitc_income[:alimony])
+          expect(income).to have_key(:capital_gain_or_loss)
+          expect(income[:capital_gain_or_loss]).to eq(mitc_income[:capital_gain_or_loss])
+          expect(income).to have_key(:pensions_and_annuities_taxable_amount)
+          expect(income[:pensions_and_annuities_taxable_amount]).to eq(mitc_income[:pensions_and_annuities_taxable_amount])
+          expect(income).to have_key(:farm_income_or_loss)
+          expect(income[:farm_income_or_loss]).to eq(mitc_income[:farm_income_or_loss])
+          expect(income).to have_key(:unemployment_compensation)
+          expect(income[:unemployment_compensation]).to eq(mitc_income[:unemployment_compensation])
+          expect(income).to have_key(:other_income)
+          expect(income[:other_income]).to eq(mitc_income[:other_income])
+          expect(income).to have_key(:magi_deductions)
+          expect(income[:magi_deductions]).to eq(mitc_income[:magi_deductions])
+          expect(income).to have_key(:adjusted_gross_income)
+          expect(income[:adjusted_gross_income]).to eq(mitc_income[:adjusted_gross_income])
+          expect(income).to have_key(:deductible_part_of_self_employment_tax)
+          expect(income[:deductible_part_of_self_employment_tax]).to eq(mitc_income[:deductible_part_of_self_employment_tax])
+          expect(income).to have_key(:ira_deduction)
+          expect(income[:ira_deduction]).to eq(mitc_income[:ira_deduction])
+          expect(income).to have_key(:student_loan_interest_deduction)
+          expect(income[:student_loan_interest_deduction]).to eq(mitc_income[:student_loan_interest_deduction])
+          expect(income).to have_key(:tution_and_fees)
+          expect(income[:tution_and_fees]).to eq(mitc_income[:tution_and_fees])
+          expect(income).to have_key(:other_magi_eligible_income)
+          expect(income[:other_magi_eligible_income]).to eq(mitc_income[:other_magi_eligible_income])
+        end
       end
     end
 
@@ -383,14 +444,10 @@ RSpec.describe AcaEntities::MagiMedicaid::Transformers::IapTo::Mitc do
   end
 
   def addtional_person_params
-    # { :income=>["is missing"],
-    #   :relationships=>["is missing"] }
-    is_claimed_as_dependent_by_non_applicant = 'N'
-    is_lawful_presence_self_attested = 'Y'
-    income = {}
-    { is_claimed_as_dependent_by_non_applicant: is_claimed_as_dependent_by_non_applicant,
-      is_lawful_presence_self_attested: is_lawful_presence_self_attested,
-      income: income }
+    { is_claimed_as_dependent_by_non_applicant: 'N',
+      is_lawful_presence_self_attested: 'Y',
+      has_forty_title_ii_work_quarters: 'N',
+      is_amerasian: 'N' }
   end
 
   # def tax_return_hash(application_hash, thh)

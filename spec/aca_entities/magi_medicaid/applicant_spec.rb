@@ -50,6 +50,26 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Applicant, dbclean: :after_each do
       [{ other_id: '100', attest_primary_responsibility: 'Y', relationship_code: '01' }]
     end
 
+    let(:mitc_income) do
+      { amount: 300,
+        taxable_interest: 30,
+        tax_exempt_interest: 0,
+        taxable_refunds: 1,
+        alimony: 0,
+        capital_gain_or_loss: 0,
+        pensions_and_annuities_taxable_amount: 0,
+        farm_income_or_loss: 0,
+        unemployment_compensation: 0,
+        other_income: 0,
+        magi_deductions: 0,
+        adjusted_gross_income: 300,
+        deductible_part_of_self_employment_tax: 0,
+        ira_deduction: 1,
+        student_loan_interest_deduction: 9,
+        tution_and_fees: 10,
+        other_magi_eligible_income: 0 }
+    end
+
     let(:input_params) do
       { name: name,
         identifying_information: identifying_information,
@@ -75,7 +95,8 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Applicant, dbclean: :after_each do
         incomes: [income],
         benefits: [benefit],
         deductions: [deduction],
-        mitc_relationships: mitc_relationships }
+        mitc_relationships: mitc_relationships,
+        mitc_income: mitc_income }
     end
 
     before do
@@ -88,7 +109,10 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Applicant, dbclean: :after_each do
     end
 
     it 'should return all keys of applicant' do
-      expect(@result.to_h.keys).to eq(input_params.keys)
+      result_app_keys = @result.to_h.keys
+      input_app_keys = input_params.keys
+      expect(result_app_keys - input_app_keys).to be_empty
+      expect(input_app_keys - result_app_keys).to be_empty
     end
 
     it 'should match all the input keys of name' do
@@ -166,6 +190,13 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Applicant, dbclean: :after_each do
       input_mitc_rel_keys = mitc_relationships.first.keys
       expect(result_mitc_rel_keys - input_mitc_rel_keys).to be_empty
       expect(input_mitc_rel_keys - result_mitc_rel_keys).to be_empty
+    end
+
+    it 'should match all the input keys of mitc_income' do
+      result_mitc_income_keys = @result.to_h[:mitc_income].keys
+      input_mitc_income_keys = mitc_income.keys
+      expect(result_mitc_income_keys - input_mitc_income_keys).to be_empty
+      expect(input_mitc_income_keys - result_mitc_income_keys).to be_empty
     end
   end
 end

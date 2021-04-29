@@ -23,6 +23,28 @@ module AcaEntities
                   end
                 end
 
+                namespace 'mitc_income' do
+                  rewrap 'income', type: :hash do
+                    map 'amount', 'amount'
+                    map 'taxable_interest', 'taxable_interest'
+                    map 'tax_exempt_interest', 'tax_exempt_interest'
+                    map 'taxable_refunds', 'taxable_refunds'
+                    map 'alimony', 'alimony'
+                    map 'capital_gain_or_loss', 'capital_gain_or_loss'
+                    map 'pensions_and_annuities_taxable_amount', 'pensions_and_annuities_taxable_amount'
+                    map 'farm_income_or_loss', 'farm_income_or_loss'
+                    map 'unemployment_compensation', 'unemployment_compensation'
+                    map 'other_income', 'other_income'
+                    map 'magi_deductions', 'magi_deductions'
+                    map 'adjusted_gross_income', 'adjusted_gross_income'
+                    map 'deductible_part_of_self_employment_tax', 'deductible_part_of_self_employment_tax'
+                    map 'ira_deduction', 'ira_deduction'
+                    map 'student_loan_interest_deduction', 'student_loan_interest_deduction'
+                    map 'tution_and_fees', 'tution_and_fees'
+                    map 'other_magi_eligible_income', 'other_magi_eligible_income'
+                  end
+                end
+
                 namespace 'family_member_reference' do
                   rewrap '' do
                     map 'person_hbx_id', 'person_id'

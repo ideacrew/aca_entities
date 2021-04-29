@@ -22,6 +22,26 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicationContract,  dbcle
      { other_id: '101', attest_primary_responsibility: 'Y', relationship_code: '02' }]
   end
 
+  let(:mitc_income) do
+    { amount: 300,
+      taxable_interest: 30,
+      tax_exempt_interest: 0,
+      taxable_refunds: 1,
+      alimony: 0,
+      capital_gain_or_loss: 0,
+      pensions_and_annuities_taxable_amount: 0,
+      farm_income_or_loss: 0,
+      unemployment_compensation: 0,
+      other_income: 0,
+      magi_deductions: 0,
+      adjusted_gross_income: 300,
+      deductible_part_of_self_employment_tax: 0,
+      ira_deduction: 1,
+      student_loan_interest_deduction: 9,
+      tution_and_fees: 10,
+      other_magi_eligible_income: 0 }
+  end
+
   let(:applicant) do
     { name: name,
       identifying_information: identifying_information,
@@ -41,7 +61,8 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicationContract,  dbcle
       has_deductions: false,
       has_enrolled_health_coverage: false,
       has_eligible_health_coverage: false,
-      mitc_relationships: mitc_relationships }
+      mitc_relationships: mitc_relationships,
+      mitc_income: mitc_income }
   end
   let(:family_reference) { { hbx_id: '10011' } }
 
