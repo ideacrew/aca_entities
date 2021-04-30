@@ -66,7 +66,7 @@ module AcaEntities
                     map 'is_self_attested_blind', 'is_self_attested_blind', memoize: true, visible: false
                     map 'is_self_attested_disabled', 'is_self_attested_disabled', memoize: true, visible: false
                     add_key 'is_blind_or_disabled', function: ->(v) {
-                      (v.resolve('is_self_attested_blind').item || v.resolve('is_self_attested_disabled').item) ? 'Y' : 'N'
+                      boolean_string(v.resolve('is_self_attested_blind').item || v.resolve('is_self_attested_disabled').item)
                     }
                     map 'is_incarcerated', 'is_incarcerated', function: ->(value) { boolean_string(value) }
                   end
@@ -124,7 +124,7 @@ module AcaEntities
                 namespace 'citizenship_immigration_status_information' do
                   rewrap '' do
                     map 'citizen_status', 'citizen_status', memoize: true, visible: false
-                    add_key 'is_us_citizen', function: ->(v) { (v.resolve('citizen_status').item == 'us_citizen') ? 'Y' : 'N' }
+                    add_key 'is_us_citizen', function: ->(v) { boolean_string(v.resolve('citizen_status').item == 'us_citizen') }
 
                     # TODO: use mapper to determine the immigration status code from AcaEntities::MagiMedicaid::Mitc::Types::ImmigrationStatusCodeMap
                     add_key 'immigration_status', function: ->(v) {
