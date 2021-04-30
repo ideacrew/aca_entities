@@ -114,7 +114,7 @@ RSpec.describe AcaEntities::MagiMedicaid::Transformers::IapTo::Mitc do
     let(:applicant_hash) do
       { name: name,
         identifying_information: identifying_information,
-        citizenship_immigration_status_information: { citizen_status: 'us_citizen' },
+        citizenship_immigration_status_information: { citizen_status: 'us_citizen', is_lawful_presence_self_attested: false },
         demographic: demographic,
         attestation: attestation,
         is_primary_applicant: true,
@@ -159,7 +159,7 @@ RSpec.describe AcaEntities::MagiMedicaid::Transformers::IapTo::Mitc do
     let(:applicant2_hash) do
       { name: name2,
         identifying_information: identifying_information,
-        citizenship_immigration_status_information: { citizen_status: 'us_citizen' },
+        citizenship_immigration_status_information: { citizen_status: 'us_citizen', is_lawful_presence_self_attested: false },
         demographic: demographic,
         attestation: attestation,
         is_primary_applicant: true,
@@ -340,6 +340,8 @@ RSpec.describe AcaEntities::MagiMedicaid::Transformers::IapTo::Mitc do
         expect(person).to have_key(:is_us_citizen)
         expect(person[:is_us_citizen]).to eq('Y')
         expect(person).to have_key(:immigration_status)
+        expect(person).to have_key(:is_lawful_presence_self_attested)
+        expect(person[:is_lawful_presence_self_attested]).to eq('N')
         expect(AcaEntities::MagiMedicaid::Mitc::Types::ImmigrationStatusCodeMap.values).to include(person[:immigration_status])
         expect(person).to have_key(:five_year_bar_applies)
         expect(person).to have_key(:is_five_year_bar_met)
@@ -445,7 +447,6 @@ RSpec.describe AcaEntities::MagiMedicaid::Transformers::IapTo::Mitc do
 
   def addtional_person_params
     { is_claimed_as_dependent_by_non_applicant: 'N',
-      is_lawful_presence_self_attested: 'Y',
       has_forty_title_ii_work_quarters: 'N',
       is_amerasian: 'N' }
   end

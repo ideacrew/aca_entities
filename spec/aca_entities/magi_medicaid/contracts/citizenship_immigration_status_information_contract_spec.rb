@@ -5,7 +5,7 @@ require 'aca_entities/magi_medicaid/libraries/iap_library'
 
 RSpec.describe ::AcaEntities::MagiMedicaid::Contracts::CitizenshipImmigrationStatusInformationContract,  dbclean: :after_each do
   context 'valid params' do
-    let(:all_params) { { citizen_status: 'us_citizen', is_resident_post_092296: true } }
+    let(:all_params) { { citizen_status: 'us_citizen', is_resident_post_092296: true, is_lawful_presence_self_attested: false } }
 
     before do
       @result = subject.call(all_params)
@@ -23,7 +23,7 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Contracts::CitizenshipImmigrationSta
   context 'invalid params' do
     context 'bad value for citizen_status' do
       before do
-        @result = subject.call({ citizen_status: 'test_status', is_resident_post_092296: true })
+        @result = subject.call({ citizen_status: 'test_status', is_resident_post_092296: true, is_lawful_presence_self_attested: false })
       end
 
       it 'should return failure' do

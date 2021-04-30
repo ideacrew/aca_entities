@@ -130,6 +130,8 @@ module AcaEntities
                     add_key 'immigration_status', function: ->(v) {
                       AcaEntities::MagiMedicaid::Mitc::Types::ImmigrationStatusCodeMap[v.resolve('citizen_status').item] || '99'
                     }
+
+                    map 'is_lawful_presence_self_attested', 'is_lawful_presence_self_attested', function: ->(value) { boolean_string(value) }
                   end
                 end
 
