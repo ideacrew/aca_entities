@@ -13,13 +13,13 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicantContract,  dbclean
       { family_member_hbx_id: '1000',
         first_name: 'first',
         last_name: 'last',
-        person_hbx_id: '100',
+        person_hbx_id: '95',
         is_primary_family_member: true }
     end
     let(:pregnancy_information) { { is_pregnant: false, is_post_partum_period: false } }
 
     let(:mitc_relationships) do
-      [{ other_id: '100', attest_primary_responsibility: 'Y', relationship_code: '01' }]
+      [{ other_id: '95', attest_primary_responsibility: 'Y', relationship_code: '01' }]
     end
 
     let(:mitc_income) do
@@ -51,7 +51,7 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicantContract,  dbclean
         citizenship_immigration_status_information: { citizen_status: 'us_citizen' },
         is_applying_coverage: false,
         family_member_reference: family_member_reference,
-        person_hbx_id: '100',
+        person_hbx_id: '95',
         is_required_to_file_taxes: false,
         pregnancy_information: pregnancy_information,
         has_job_income: false,
@@ -116,7 +116,7 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicantContract,  dbclean
       { family_member_hbx_id: '1000',
         first_name: 'First',
         last_name: 'Last',
-        person_hbx_id: '100',
+        person_hbx_id: '95',
         is_primary_family_member: true }
     end
     let(:pregnancy_information) { { is_pregnant: false, is_post_partum_period: false } }
@@ -130,7 +130,7 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicantContract,  dbclean
         citizenship_immigration_status_information: { citizen_status: 'us_citizen' },
         is_applying_coverage: true,
         family_member_reference: family_member_reference,
-        person_hbx_id: '100',
+        person_hbx_id: '95',
         is_required_to_file_taxes: false,
         pregnancy_information: pregnancy_information,
         has_job_income: false,

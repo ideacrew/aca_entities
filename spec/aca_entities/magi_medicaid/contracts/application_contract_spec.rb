@@ -13,13 +13,13 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicationContract,  dbcle
       first_name: name[:first_name],
       last_name: name[:last_name],
       dob: demographic[:dob],
-      person_hbx_id: '100' }
+      person_hbx_id: '95' }
   end
   let(:pregnancy_information) { { is_pregnant: false, is_post_partum_period: false } }
 
   let(:mitc_relationships) do
-    [{ other_id: '100', attest_primary_responsibility: 'Y', relationship_code: '01' },
-     { other_id: '101', attest_primary_responsibility: 'Y', relationship_code: '02' }]
+    [{ other_id: '95', attest_primary_responsibility: 'Y', relationship_code: '01' },
+     { other_id: '96', attest_primary_responsibility: 'Y', relationship_code: '02' }]
   end
 
   let(:mitc_income) do
@@ -51,7 +51,7 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicationContract,  dbcle
       is_primary_applicant: true,
       is_applying_coverage: false,
       family_member_reference: family_member_reference,
-      person_hbx_id: '100',
+      person_hbx_id: '95',
       is_required_to_file_taxes: false,
       pregnancy_information: pregnancy_information,
       has_job_income: false,
@@ -162,7 +162,7 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicationContract,  dbcle
 
     context 'with multiple applicants and relationships' do
       let(:applicant2) do
-        applicant.merge({ person_hbx_id: '101', name: { first_name: 'wifey', last_name: 'last' } })
+        applicant.merge({ person_hbx_id: '96', name: { first_name: 'wifey', last_name: 'last' } })
       end
 
       let(:applicant1_ref) do

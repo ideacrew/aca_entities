@@ -54,7 +54,7 @@ RSpec.describe ::AcaEntities::Medicaid::Contracts::CoverageSpecificInformationCo
     end
 
     context 'coverage_type_code is QHP' do
-      let(:input_params) { optional_params.merge({ coverage_type_code: 'QHP', qhp_issuer_id: '100', qhp_id: '04' }) }
+      let(:input_params) { optional_params.merge({ coverage_type_code: 'QHP', qhp_issuer_id: '95', qhp_id: '04' }) }
 
       before do
         @result = subject.call(input_params)

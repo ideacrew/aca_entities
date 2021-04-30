@@ -8,7 +8,7 @@ RSpec.describe ::AcaEntities::Medicaid::Atp::IdentifyingInformation do
   describe 'with valid arguments' do
     let(:input_params) do
       { ssn: '123456789',
-        hbx_id: '100',
+        hbx_id: '95',
         medicaid_id: 'medicaid_id',
         chip_id: 'chip_id',
         primary_insured: true,

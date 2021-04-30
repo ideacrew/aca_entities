@@ -9,13 +9,13 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::RelationshipContract,  dbcl
     { first_name: 'first',
       last_name: 'last',
       dob: Date.today.prev_year.to_s,
-      person_hbx_id: '100' }
+      person_hbx_id: '95' }
   end
   let(:relative) do
     { first_name: 'first',
       last_name: 'last',
       dob: Date.today.prev_year.to_s,
-      person_hbx_id: '101' }
+      person_hbx_id: '96' }
   end
   let(:required_params) { { kind: "spouse", applicant_reference: applicant, relative_reference: relative } }
   let(:optional_params) { { lives_with_household_member: true } }

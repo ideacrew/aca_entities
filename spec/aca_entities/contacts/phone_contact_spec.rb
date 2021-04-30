@@ -8,9 +8,9 @@ RSpec.describe ::AcaEntities::Contacts::PhoneContact, dbclean: :after_each do
     let(:input_params) do
       { kind: 'home',
         country_code: '1',
-        area_code: '100',
+        area_code: '95',
         number: '1234567',
-        extension: '101',
+        extension: '96',
         primary: true,
         full_phone_number: '1001234567' }
     end

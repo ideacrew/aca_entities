@@ -24,14 +24,14 @@ RSpec.describe AcaEntities::MagiMedicaid::Transformers::IapTo::Mitc do
       { family_member_hbx_id: '1000',
         first_name: name[:first_name],
         last_name: name[:last_name],
-        person_hbx_id: '100',
+        person_hbx_id: '95',
         is_primary_family_member: true }
     end
     let(:family_member2_reference) do
       { family_member_hbx_id: '1001',
         first_name: name2[:first_name],
         last_name: name2[:last_name],
-        person_hbx_id: '101',
+        person_hbx_id: '96',
         is_primary_family_member: false }
     end
     let(:pregnancy_information) do
@@ -108,8 +108,8 @@ RSpec.describe AcaEntities::MagiMedicaid::Transformers::IapTo::Mitc do
     end
 
     let(:applicant1_mitc_relationships) do
-      [{ other_id: '100', attest_primary_responsibility: 'Y', relationship_code: '01' },
-       { other_id: '101', attest_primary_responsibility: 'Y', relationship_code: '02' }]
+      [{ other_id: '95', attest_primary_responsibility: 'Y', relationship_code: '01' },
+       { other_id: '96', attest_primary_responsibility: 'Y', relationship_code: '02' }]
     end
     let(:applicant_hash) do
       { name: name,
@@ -120,7 +120,7 @@ RSpec.describe AcaEntities::MagiMedicaid::Transformers::IapTo::Mitc do
         is_primary_applicant: true,
         is_applying_coverage: false,
         family_member_reference: family_member_reference,
-        person_hbx_id: '100',
+        person_hbx_id: '95',
         is_required_to_file_taxes: true,
         is_joint_tax_filing: false,
         is_claimed_as_tax_dependent: false,
@@ -153,8 +153,8 @@ RSpec.describe AcaEntities::MagiMedicaid::Transformers::IapTo::Mitc do
     end
 
     let(:applicant2_mitc_relationships) do
-      [{ other_id: '101', attest_primary_responsibility: 'N', relationship_code: '01' },
-       { other_id: '100', attest_primary_responsibility: 'N', relationship_code: '02' }]
+      [{ other_id: '96', attest_primary_responsibility: 'N', relationship_code: '01' },
+       { other_id: '95', attest_primary_responsibility: 'N', relationship_code: '02' }]
     end
     let(:applicant2_hash) do
       { name: name2,
@@ -165,7 +165,7 @@ RSpec.describe AcaEntities::MagiMedicaid::Transformers::IapTo::Mitc do
         is_primary_applicant: true,
         is_applying_coverage: false,
         family_member_reference: family_member2_reference,
-        person_hbx_id: '101',
+        person_hbx_id: '96',
         is_required_to_file_taxes: true,
         is_joint_tax_filing: true,
         is_claimed_as_tax_dependent: false,
