@@ -288,20 +288,21 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Operations::RequestDeterminations::M
       mitc_tax_returns: [tax_return_hash] }
   end
 
-  # let(:iap_application_json) do
-  #   contract_result = ::AcaEntities::MagiMedicaid::Contracts::ApplicationContract.new.call(application)
-  #   contract_result.to_h.to_json
-  # end
+  before do
+    @result = subject.call(iap_application)
+    @request_payload_hash = JSON.parse(@result.success, symbolize_names: true)
+  end
 
-  context 'should successfully return the expected payload' do
-    before do
-      # JSON.parse(@result.success, symbolize_names: true)
-      @result = subject.call(iap_application)
-    end
+  it 'should return success' do
+    expect(@result).to be_success
+  end
 
-    it 'should return success' do
-      expect(@result).to be_success
-      # expect(@result.to_h).to eq(iap_application)
-    end
+  it 'should return all the application level attributes' do
+    expect(@request_payload_hash).to have_key(:State)
+    expect(@request_payload_hash).to have_key(:'Application Year')
+    expect(@request_payload_hash).to have_key(:Name)
+    expect(@request_payload_hash).to have_key(:People)
+    expect(@request_payload_hash).to have_key(:'Physical Households')
+    expect(@request_payload_hash).to have_key(:'Tax Returns')
   end
 end

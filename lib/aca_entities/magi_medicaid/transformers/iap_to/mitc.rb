@@ -6,6 +6,9 @@ module AcaEntities
     module Transformers
       module IapTo
         # rubocop:disable Style/Lambda
+        # This transformer is used for Transform the data of the IapApplication Contract params to MitcApplication Contract params.
+        # This class is PRIVATE and cannot be called from outside except from operation:
+        # AcaEntities::MagiMedicaid::Operations::RequestDeterminations::Mitc
         class Mitc < ::AcaEntities::Operations::Transforms::Transform
           include ::AcaEntities::Operations::Transforms::Transformer
 
@@ -110,16 +113,6 @@ module AcaEntities
                 add_key 'is_temporarily_out_of_state', function: ->(v) {
                   boolean_string(v.resolve('is_temporarily_out_of_state').item)
                 }
-
-                # map 'is_temporarily_out_of_state', 'is_temporarily_out_of_state', function: ->(value) { boolean_string(value) }
-                # map 'resides_in_state_of_application', 'is_required_to_file_taxes', function: ->(value) { boolean_string(value) }
-
-                # map 'is_temporarily_out_of_state', 'out_of_state', context: { name: 'out_of_state' }, visible: false
-                # add_key 'resides_in_state_of_application', function: ->(v) { boolean_string(v.resolve('out_of_state').item) }
-                # add_key 'is_temporarily_out_of_state', function: ->(v) { boolean_string(v.resolve('out_of_state').item) }
-
-                # value should be the new attributes, currently this is not mapped to anything.
-                # add_key 'is_lawful_presence_self_attested', value
 
                 namespace 'citizenship_immigration_status_information' do
                   rewrap '' do

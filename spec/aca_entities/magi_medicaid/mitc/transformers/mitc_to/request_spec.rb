@@ -36,8 +36,8 @@ RSpec.describe AcaEntities::MagiMedicaid::Mitc::Transformers::MitcTo::Request do
         is_self_attested_long_term_care: 'N',
         has_insurance: 'N',
         has_state_health_benefit: 'N',
-        had_prior_insurance: 'N',
-        prior_insurance_end_date: nil,
+        had_prior_insurance: 'Y',
+        prior_insurance_end_date: Date.today.prev_month,
         is_pregnant: 'N',
         children_expected_count: nil,
         is_in_post_partum_period: 'N',
@@ -77,8 +77,8 @@ RSpec.describe AcaEntities::MagiMedicaid::Mitc::Transformers::MitcTo::Request do
         is_self_attested_long_term_care: 'N',
         has_insurance: 'N',
         has_state_health_benefit: 'N',
-        had_prior_insurance: 'N',
-        prior_insurance_end_date: nil,
+        had_prior_insurance: 'Y',
+        prior_insurance_end_date: Date.today.prev_month,
         is_pregnant: 'N',
         children_expected_count: nil,
         is_in_post_partum_period: 'N',
@@ -148,36 +148,68 @@ RSpec.describe AcaEntities::MagiMedicaid::Mitc::Transformers::MitcTo::Request do
         expect(person).to have_key(:'Medicare Entitlement Indicator')
         expect(person[:'Medicare Entitlement Indicator']).to eq(person1[:is_medicare_entitled])
         expect(person).to have_key(:'Incarceration Status')
+        expect(person[:'Incarceration Status']).to eq(person1[:is_incarcerated])
         expect(person).to have_key(:'Lives In State')
+        expect(person[:'Lives In State']).to eq(person1[:resides_in_state_of_application])
         expect(person).to have_key(:'Claimed as Dependent by Person Not on Application')
+        expect(person[:'Claimed as Dependent by Person Not on Application']).to eq(person1[:is_claimed_as_dependent_by_non_applicant])
         expect(person).to have_key(:'Applicant Attest Long Term Care')
+        expect(person[:'Applicant Attest Long Term Care']).to eq(person1[:is_self_attested_long_term_care])
         expect(person).to have_key(:'Has Insurance')
+        expect(person[:'Has Insurance']).to eq(person1[:has_insurance])
         expect(person).to have_key(:'State Health Benefits Through Public Employee')
+        expect(person[:'State Health Benefits Through Public Employee']).to eq(person1[:has_state_health_benefit])
         expect(person).to have_key(:'Prior Insurance')
+        expect(person[:'Prior Insurance']).to eq(person1[:had_prior_insurance])
         expect(person).to have_key(:'Prior Insurance End Date')
+        expect(person[:'Prior Insurance End Date']).to eq(person1[:prior_insurance_end_date].to_s)
+        expect(person[:'Prior Insurance End Date']).to match(/\d{4}-\d{2}-\d{2}/)
         expect(person).to have_key(:'Applicant Pregnant Indicator')
+        expect(person[:'Applicant Pregnant Indicator']).to eq(person1[:is_pregnant])
         expect(person).to have_key(:'Number of Children Expected')
+        expect(person[:'Number of Children Expected']).to eq(person1[:children_expected_count])
         expect(person).to have_key(:'Applicant Post Partum Period Indicator')
+        expect(person[:'Applicant Post Partum Period Indicator']).to eq(person1[:is_in_post_partum_period])
         expect(person).to have_key(:'Former Foster Care')
+        expect(person[:'Former Foster Care']).to eq(person1[:is_in_former_foster_care])
         expect(person).to have_key(:'Had Medicaid During Foster Care')
+        expect(person[:'Had Medicaid During Foster Care']).to eq(person1[:had_medicaid_during_foster_care])
         expect(person).to have_key(:'Age Left Foster Care')
+        expect(person[:'Age Left Foster Care']).to eq(person1[:age_left_foster_care])
         expect(person).to have_key(:'Foster Care State')
+        expect(person[:'Foster Care State']).to eq(person1[:foster_care_us_state])
         expect(person).to have_key(:'Required to File Taxes')
+        expect(person[:'Required to File Taxes']).to eq(person1[:is_required_to_file_taxes])
         expect(person).to have_key(:'Applicant Age')
+        expect(person[:'Applicant Age']).to eq(person1[:age_of_applicant])
         expect(person).to have_key(:'Hours Worked Per Week')
+        expect(person[:'Hours Worked Per Week']).to eq(person1[:hours_worked_per_week])
         expect(person).to have_key(:'Claimer Is Out of State')
+        expect(person[:'Claimer Is Out of State']).to eq(person1[:is_temporarily_out_of_state])
         expect(person).to have_key(:'US Citizen Indicator')
+        expect(person[:'US Citizen Indicator']).to eq(person1[:is_us_citizen])
         expect(person).to have_key(:'Lawful Presence Attested')
+        expect(person[:'Lawful Presence Attested']).to eq(person1[:is_lawful_presence_self_attested])
         expect(person).to have_key(:'Immigration Status')
+        expect(person[:'Immigration Status']).to eq(person1[:immigration_status])
         expect(person).to have_key(:'Amerasian Immigrant')
+        expect(person[:'Amerasian Immigrant']).to eq(person1[:is_amerasian])
         expect(person).to have_key(:'Applicant Has 40 Title II Work Quarters')
+        expect(person[:'Applicant Has 40 Title II Work Quarters']).to eq(person1[:has_forty_title_ii_work_quarters])
         expect(person).to have_key(:'Five Year Bar Applies')
+        expect(person[:'Five Year Bar Applies']).to eq(person1[:five_year_bar_applies])
         expect(person).to have_key(:'Five Year Bar Met')
+        expect(person[:'Five Year Bar Met']).to eq(person1[:is_five_year_bar_met])
         expect(person).to have_key(:'Victim of Trafficking')
+        expect(person[:'Victim of Trafficking']).to eq(person1[:is_trafficking_victim])
         expect(person).to have_key(:'Refugee Status')
+        expect(person[:'Refugee Status']).to eq(person1[:is_eligible_for_refugee_medical_assistance])
         expect(person).to have_key(:'Refugee Medical Assistance Start Date')
+        expect(person[:'Refugee Medical Assistance Start Date']).to eq(person1[:refugee_medical_assistance_start_date])
         expect(person).to have_key(:'Seven Year Limit Start Date')
+        expect(person[:'Seven Year Limit Start Date']).to eq(person1[:seven_year_limit_start_date])
         expect(person).to have_key(:'Veteran Status')
+        expect(person[:'Veteran Status']).to eq(person1[:is_veteran])
 
         person[:Relationships].each do |relationship|
           expect(relationship).to be_a(Hash)

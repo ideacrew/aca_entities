@@ -74,7 +74,8 @@ module AcaEntities
 
           # 4. Transform Keys to match RequestDetermination
           def transform_mitc_keys(params)
-            Success(params.to_json)
+            ::AcaEntities::MagiMedicaid::Mitc::Transformers::MitcTo::Request.call(params.to_json) { |record| @key_transform_result = record }
+            Success(@key_transform_result.to_json)
           end
         end
       end

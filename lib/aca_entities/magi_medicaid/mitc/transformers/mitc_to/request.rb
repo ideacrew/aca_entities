@@ -6,7 +6,9 @@ module AcaEntities
     module Mitc
       module Transformers
         module MitcTo
-          # This transformer is used for Transform the keys
+          # This transformer is used for Transform the keys of the MitcApplication Contract params to MitcApiRequest keys
+          # This class is PRIVATE and cannot be called from outside except from operation:
+          # AcaEntities::MagiMedicaid::Operations::RequestDeterminations::Mitc
           class Request < ::AcaEntities::Operations::Transforms::Transform
             include ::AcaEntities::Operations::Transforms::Transformer
 
@@ -29,7 +31,6 @@ module AcaEntities
                   map 'has_insurance', 'Has Insurance'
                   map 'has_state_health_benefit', 'State Health Benefits Through Public Employee'
                   map 'had_prior_insurance', 'Prior Insurance'
-                  # Value Transform to required date string format. Example: 2001-07-01
                   map 'prior_insurance_end_date', 'Prior Insurance End Date'
                   map 'is_pregnant', 'Applicant Pregnant Indicator'
                   map 'children_expected_count', 'Number of Children Expected'
@@ -51,9 +52,7 @@ module AcaEntities
                   map 'is_five_year_bar_met', 'Five Year Bar Met'
                   map 'is_trafficking_victim', 'Victim of Trafficking'
                   map 'is_eligible_for_refugee_medical_assistance', 'Refugee Status'
-                  # Value Transform to required date string format. Example: 2001-07-01
                   map 'refugee_medical_assistance_start_date', 'Refugee Medical Assistance Start Date'
-                  # Value Transform to required date string format. Example: 2001-07-01
                   map 'seven_year_limit_start_date', 'Seven Year Limit Start Date'
                   map 'is_veteran', 'Veteran Status'
 
