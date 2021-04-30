@@ -88,7 +88,43 @@ module AcaEntities
                       map 'other_magi_eligible_income', 'Other MAGI-Eligible Income'
                     end
                   end
+                end
+              end
+            end
 
+            namespace 'physical_households' do
+              rewrap 'Physical Households', type: :array do
+                rewrap '', type: :hash do
+                  map 'household_id', 'Household ID'
+
+                  namespace 'people' do
+                    rewrap 'People', type: :array do
+                      rewrap '', type: :hash do
+                        map 'person_id', 'Person ID'
+                      end
+                    end
+                  end
+                end
+              end
+            end
+
+            namespace 'tax_returns' do
+              rewrap 'Tax Returns', type: :array do
+                rewrap '', type: :hash do
+                  namespace 'filers' do
+                    rewrap 'Filers', type: :array do
+                      rewrap '', type: :hash do
+                        map 'person_id', 'Person ID'
+                      end
+                    end
+                  end
+                  namespace 'dependents' do
+                    rewrap 'Dependents', type: :array do
+                      rewrap '', type: :hash do
+                        map 'person_id', 'Person ID'
+                      end
+                    end
+                  end
                 end
               end
             end

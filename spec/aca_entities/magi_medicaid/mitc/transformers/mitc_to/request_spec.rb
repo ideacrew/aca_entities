@@ -106,12 +106,13 @@ RSpec.describe AcaEntities::MagiMedicaid::Mitc::Transformers::MitcTo::Request do
         relationships: [{ other_id: 96, attest_primary_responsibility: 'N', relationship_code: '01' },
                         { other_id: 95, attest_primary_responsibility: 'N', relationship_code: '02' }] }
     end
+    let(:household) { { household_id: '1', people: [{ person_id: 95 }, { person_id: 96 }] } }
     let(:mitc_application) do
       { name: 'IAP Application',
         state: 'DC',
         application_year: 2021,
         people: [person1, person2],
-        physical_households: [{ household_id: '1', people: [{ person_id: 95 }, { person_id: 96 }] }],
+        physical_households: [household],
         tax_returns: [{ filers: [{ person_id: 95 }, { person_id: 96 }], dependents: [] }] }
     end
 
@@ -124,7 +125,7 @@ RSpec.describe AcaEntities::MagiMedicaid::Mitc::Transformers::MitcTo::Request do
       described_class.call(mitc_application_json) { |record| @transform_result = record }
     end
 
-    it 'should transform the payload according to instructions' do
+    it 'should transform all the application level attributes' do
       expect(@transform_result).to have_key(:State)
       expect(@transform_result[:State]).to eq(mitc_application[:state])
       expect(@transform_result).to have_key(:'Application Year')
@@ -132,7 +133,9 @@ RSpec.describe AcaEntities::MagiMedicaid::Mitc::Transformers::MitcTo::Request do
       expect(@transform_result).to have_key(:Name)
       expect(@transform_result[:Name]).to eq(mitc_application[:name])
       expect(@transform_result[:People].count).to eq(2)
+    end
 
+    it 'should transform all the applicant level attributes' do
       @transform_result[:People].each do |person|
         expect(person).to be_a(Hash)
         expect(person).to have_key(:'Person ID')
@@ -222,38 +225,30 @@ RSpec.describe AcaEntities::MagiMedicaid::Mitc::Transformers::MitcTo::Request do
       end
     end
 
-    # context 'should add physical_households and embedded params' do
-    #   it 'should add key physical_households' do
-    #     expect(@transform_result).to have_key(:physical_households)
-    #   end
+    it 'should transform all the physical_households level attributes' do
+      @transform_result[:'Physical Households'].each do |physical_hh|
+        expect(physical_hh).to be_a(Hash)
+        expect(physical_hh).to have_key(:'Household ID')
+        expect(physical_hh[:'Household ID']).to eq(household[:household_id])
+        expect(physical_hh).to have_key(:People)
+        expect(physical_hh[:People].map(&:values).flatten).to eq(household[:people].map(&:values).flatten)
+      end
+    end
 
-    #   it 'should add all the keys of each physical_household' do
-    #     household = @transform_result[:physical_households].first
-    #     expect(household).to have_key(:household_id)
-    #     expect(household).to have_key(:people)
-    #   end
+    it 'should transform all the tax_returns level attributes' do
+      @transform_result[:'Tax Returns'].each do |taxreturn|
+        expect(taxreturn).to be_a(Hash)
+        expect(taxreturn).to have_key(:Filers)
+        expect(taxreturn).to have_key(:Dependents)
 
-    #   it 'should add all the keys of each person_reference' do
-    #     per_ref = @transform_result[:physical_households].first[:people].first
-    #     expect(per_ref).to have_key(:person_id)
-    #   end
-    # end
+        taxreturn[:Filers].each do |filer|
+          expect(filer).to have_key(:'Person ID')
+        end
 
-    # context 'should add tax_returns and embedded params' do
-    #   it 'should add key tax_returns' do
-    #     expect(@transform_result).to have_key(:tax_returns)
-    #   end
-
-    #   it 'should add all the keys of each tax_return' do
-    #     tax_return = @transform_result[:tax_returns].first
-    #     expect(tax_return).to have_key(:filers)
-    #     expect(tax_return).to have_key(:dependents)
-    #   end
-
-    #   it 'should add all the keys of each filer' do
-    #     filer = @transform_result[:tax_returns].first[:filers].first
-    #     expect(filer).to have_key(:person_id)
-    #   end
-    # end
+        taxreturn[:Dependents].each do |filer|
+          expect(filer).to have_key(:'Person ID')
+        end
+      end
+    end
   end
 end
