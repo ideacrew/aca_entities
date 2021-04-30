@@ -69,23 +69,23 @@ module AcaEntities
 
                   namespace 'income' do
                     rewrap 'income', type: :hash do
-                      # map 'amount', "Wages, Salaries, Tips"
-                      # map 'taxable_interest', 'Taxable Interest'
-                      # map 'tax_exempt_interest', 'Tax-Exempt Interest'
-                      # map 'taxable_refunds', 'Taxable Refunds, Credits, or Offsets of State and Local Income Taxes'
+                      map 'amount', "Wages, Salaries, Tips"
+                      map 'taxable_interest', 'Taxable Interest'
+                      map 'tax_exempt_interest', 'Tax-Exempt Interest'
+                      map 'taxable_refunds', 'Taxable Refunds, Credits, or Offsets of State and Local Income Taxes'
                       map 'alimony', 'Alimony'
-                      # map 'capital_gain_or_loss', 'Capital Gain or Loss'
-                      # map 'pensions_and_annuities_taxable_amount', 'Pensions and Annuities Taxable Amount'
-                      # map 'farm_income_or_loss', 'Farm Income or Loss'
-                      # map 'unemployment_compensation', 'Unemployment Compensation'
-                      # map 'other_income', 'Other Income'
-                      # map 'magi_deductions', 'MAGI Deductions'
+                      map 'capital_gain_or_loss', 'Capital Gain or Loss'
+                      map 'pensions_and_annuities_taxable_amount', 'Pensions and Annuities Taxable Amount'
+                      map 'farm_income_or_loss', 'Farm Income or Loss'
+                      map 'unemployment_compensation', 'Unemployment Compensation'
+                      map 'other_income', 'Other Income'
+                      map 'magi_deductions', 'MAGI Deductions'
                       map 'adjusted_gross_income', 'AGI'
-                      # map 'deductible_part_of_self_employment_tax', 'Deductible Part of Self-Employment Tax'
-                      # map 'ira_deduction', 'IRA Deduction'
-                      # map 'student_loan_interest_deduction', 'Student Loan Interest Deduction'
-                      # map 'tution_and_fees', 'Tuition and Fees'
-                      # map 'other_magi_eligible_income', 'Other MAGI-Eligible Income'
+                      map 'deductible_part_of_self_employment_tax', 'Deductible Part of Self-Employment Tax'
+                      map 'ira_deduction', 'IRA Deduction'
+                      map 'student_loan_interest_deduction', 'Student Loan Interest Deduction'
+                      map 'tution_and_fees', 'Tuition and Fees'
+                      map 'other_magi_eligible_income', 'Other MAGI-Eligible Income'
                     end
                   end
 

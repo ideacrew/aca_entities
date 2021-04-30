@@ -140,7 +140,7 @@ module AcaEntities
 
           fns = []
           namespaces.each_with_index do |namespace, index|
-            fns << "t(:wrap, :#{namespace}, [:#{namespaces[index + 1]}])"  if namespaces[index + 1]
+            fns << "t(:wrap, :#{namespace}, [:'#{namespaces[index + 1]}'])"  if namespaces[index + 1]
           end
           # rubocop:disable Security/Eval
           fns = eval(fns.reverse.flatten.join('.>> '))
