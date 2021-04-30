@@ -48,6 +48,9 @@ module AcaEntities
           optional(:timestamp).hash(TimeStampContract.params)
         end
 
+        # Need to have below rule and cannot move all IapApplication level rules to AcaEntities::Contracts::Contract because
+        # we will be calling AcaEntities::MagiMedicaid::Contracts::ApplicationContract separately during determination requests to MitC
+        # and we do not want the params to be validated without the rules.
         rule(:magi_medicaid_applications).each do
           if key? && value
             if value.is_a?(Hash)
