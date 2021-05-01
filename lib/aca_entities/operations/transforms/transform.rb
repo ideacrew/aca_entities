@@ -55,6 +55,7 @@ module AcaEntities
           @transform_mode = options[:transform_mode]&.to_sym || :single
           @namespaces_with_types = []
           @documents = []
+          @memoize_record_context = false
         end
 
         def current_document
@@ -160,18 +161,19 @@ module AcaEntities
             transformed_key = match_wildcard_chars(element_namespaces.join('.'))
             if container.key?(transformed_key)
               create_document_for(transformed_key, key, type, false)
-            elsif container.key?(transformed_key+'_context')
+            elsif container.key?(transformed_key+'_context') || @memoize_record_context
               add_document(key: key, type: type)
             end
+            @memoize_record_context = container[transformed_key+'_context'].memoize_record if container.key?(transformed_key+'_context')
           end
         end
 
         def add_document(key:, type:, source_namespace: nil, output_namespace: nil, regex: nil)
           document = if type == :hash
-            AcaEntities::Operations::Transforms::HashDocument.new(key)
-          elsif type == :array
-            AcaEntities::Operations::Transforms::ArrayDocument.new(key)
-          end
+                       AcaEntities::Operations::Transforms::HashDocument.new(key)
+                     elsif type == :array
+                       AcaEntities::Operations::Transforms::ArrayDocument.new(key)
+                     end
 
           document.source_namespace = source_namespace || element_namespaces
           document.output_namespace = output_namespace || element_namespaces
@@ -184,7 +186,7 @@ module AcaEntities
           mapping = container[namespaced_key]
           mapping_type = mapping.type || type
 
-          source_key = mapping.source_key 
+          source_key = mapping.source_key
           output_key = mapping.output_key
 
           regex_key = key if regex
@@ -204,15 +206,16 @@ module AcaEntities
               transformed_key = match_wildcard_chars(element_namespaces.join('.'))
               context_key = transformed_key + "_context"
               record_context = container.key?(context_key) && container[context_key].memoize_record
-              return unless container.key?(transformed_key) || record_context
+              return unless container.key?(transformed_key) || record_context || @memoize_record_context
             end
           end
 
           recent_document = @documents.pop
 
           if record_context
-            output_key = container[context_key].output_key
-            @contexts[output_key] = {name: output_key, item: recent_document.output&.values&.first}
+            # output_key = container[context_key].output_key
+            @contexts[element_namespaces.join('.')] = {name: element_namespaces.join('.'), item: recent_document.output&.values&.first}
+            @memoize_record_context = false
           else
             if current_document
               current_document.merge(recent_document.output)
@@ -247,13 +250,13 @@ module AcaEntities
           process_add_namespaces(namespaced_key, key)
         end
 
-        def process_add_namespaces(namespaced_key, key, namespace_add = false)
+        def process_add_namespaces(namespaced_key, key, namespace_add = false, type: :hash)
           return unless current_document
           if namespace_add
-            add_document(key: :no_key, type: :hash, output_namespace: namespaced_key)
+            add_document(key: :no_key, type: type, output_namespace: namespaced_key&.split('.'))
             current_document.parent_namespace = nil
           end
-     
+
           if namespaced_key == ''
             build_add_namespace('add_key', key)
           else
@@ -266,7 +269,7 @@ module AcaEntities
         def build_add_namespace(namespaced_key, key)
           container.keys_under_namespace(namespaced_key).each do |key_under_ns|
             if container[key_under_ns].transproc_name.to_s == 'add_namespace'
-              process_add_namespaces(key_under_ns, key, true)
+              process_add_namespaces(key_under_ns, key, true, type: :hash)
             end
 
             if container[key_under_ns].transproc_name.to_s == 'add_key'
@@ -333,12 +336,12 @@ module AcaEntities
 
         def transform_data_for(key, value)
           return unless defined? @record_namespace_offset
-      
+
           if batch_process?
             input = t(:build_nested_hash)[{}, [], Hash[key.to_sym, value]] if key
             input ||= value
           else
-            key_with_namespace = (element_namespaces + [key]).join('.')
+            key_with_namespace = (element_namespaces + [key]).compact.join('.')
             transformed_key = match_wildcard_chars(key_with_namespace.dup)
             record_unique_identifier = record_unique_identifier(key_with_namespace)
 
@@ -347,9 +350,7 @@ module AcaEntities
               @contexts[context_key] = {name: context_key, item: value}
             end
 
-            return unless container.key?(transformed_key) || record_context_matched?
-            # container_value = container[transformed_key]
-            # @contexts[key] = container_value.context.merge(item: value) if container_value.context
+            return unless container.key?(transformed_key) || record_context_matched? || @memoize_record_context
             input = if record_unique_identifier
                       t(:build_nested_hash)[{}, [], Hash[key.to_sym, value]]
                     else
@@ -382,7 +383,9 @@ module AcaEntities
           TransformFunctions[*args]
         end
 
-        def error(message, line, column); end
+        def error(message, line, column)
+          ;
+        end
 
         # def each(&block)
         #   until @buffer.include?(namespace_record_delimiter)
