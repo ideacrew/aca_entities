@@ -23,7 +23,6 @@ RSpec.describe AcaEntities::Families::Family, dbclean: :after_each do
       abbrev: 'DDPA'
     }
   end
-
   let(:qualifying_life_event_kind_reference) do
     {
       start_on: Date.today,
@@ -32,7 +31,6 @@ RSpec.describe AcaEntities::Families::Family, dbclean: :after_each do
       market_kind: 'individual'
     }
   end
-
   let(:special_enrollment_period_reference) do
     {
       qualifying_life_event_kind_reference: qualifying_life_event_kind_reference,
@@ -41,7 +39,6 @@ RSpec.describe AcaEntities::Families::Family, dbclean: :after_each do
       end_on: Date.today, submitted_at: Date.today, effective_on: Date.today
     }
   end
-
   let(:consumer_role_reference) do
     {
       is_active: true,
@@ -65,7 +62,7 @@ RSpec.describe AcaEntities::Families::Family, dbclean: :after_each do
     {
       hios_id: '92479DC0020002',
       name: 'Access PPO',
-      active_year: 2020,
+      active_year: '2020',
       is_dental_only: false,
       metal_level: 'gold',
       product_kind: 'health',
@@ -269,7 +266,7 @@ RSpec.describe AcaEntities::Families::Family, dbclean: :after_each do
         allocated_aptc: currency,
         is_eligibility_determined: true,
         start_date: Date.today,
-        end_date: nil,
+        end_date: Date.today,
         tax_household_members: tax_household_members,
         eligibility_determinations: eligibility_determinations
       }
@@ -280,7 +277,7 @@ RSpec.describe AcaEntities::Families::Family, dbclean: :after_each do
     [
       {
         start_date: Date.today,
-        end_date: nil,
+        end_date: Date.today,
         is_active: true,
         submitted_at: Date.today,
         irs_group_reference: irs_group_reference,
@@ -362,7 +359,7 @@ RSpec.describe AcaEntities::Families::Family, dbclean: :after_each do
       vlp_verified_at: Date.today,
       vlp_authority: "curam",
       vlp_document_id: nil,
-      citizen_status: nil,
+      citizen_status: "some status",
       citizenship_result: nil,
       qualified_non_citizenship_result: nil,
       aasm_state: "verification_successful",
@@ -379,10 +376,10 @@ RSpec.describe AcaEntities::Families::Family, dbclean: :after_each do
         title: "untitled",
         creator: "dchl",
         subject: "Naturalization Certificate",
-        description: "",
+        description: "test",
         publisher: "dchl",
         contributor: nil,
-        date: nil,
+        date: Date.today,
         type: "text",
         format: "application/octet-stream",
         identifier: nil,
@@ -390,10 +387,9 @@ RSpec.describe AcaEntities::Families::Family, dbclean: :after_each do
         language: "en",
         relation: nil,
         coverage: nil,
-        rights: "public",
+        rights: 'public',
         tags: [], size: nil,
         doc_identifier: nil,
-        _type: "VlpDocument",
         alien_number: "047122478",
         i94_number: nil,
         visa_number: nil,
@@ -404,7 +400,7 @@ RSpec.describe AcaEntities::Families::Family, dbclean: :after_each do
         citizenship_number: nil,
         card_number: nil,
         country_of_citizenship: nil,
-        expiration_date: nil,
+        expiration_date: Date.today,
         issuing_country: nil,
         status: "not submitted",
         verification_type: "Citizenship",
@@ -419,15 +415,15 @@ RSpec.describe AcaEntities::Families::Family, dbclean: :after_each do
         title: "license - back.pdf",
         creator: "mhc",
         subject: "license - back.pdf",
-        description: "",
+        description: "test",
         publisher: "mhc",
         contributor: nil,
-        date: nil,
+        date: Date.today,
         type: "text",
         format: "application/octet-stream",
         identifier: nil, source: "enroll_system",
         language: "en", relation: nil, coverage: nil,
-        rights: "public",
+        rights: 'public',
         tags: [],
         size: nil,
         doc_identifier: nil,
@@ -486,7 +482,7 @@ RSpec.describe AcaEntities::Families::Family, dbclean: :after_each do
       is_active: true,
       bookmark_url: "/families/home",
       is_state_resident: true,
-      residency_determined_at: nil,
+      residency_determined_at: Date.today,
       contact_method: "Paper and Electronic communications",
       language_preference: "English",
       local_residency_responses: event_response,
@@ -515,7 +511,7 @@ RSpec.describe AcaEntities::Families::Family, dbclean: :after_each do
         update_reason: nil,
         rejected: false,
         external_service: nil,
-        due_date: nil,
+        due_date: Date.today,
         due_date_type: nil,
         updated_by: person_reference,
         inactive: nil,
@@ -660,10 +656,10 @@ RSpec.describe AcaEntities::Families::Family, dbclean: :after_each do
         start_on: Date.today,
         end_on: Date.today,
         qle_answer: nil,
-        next_poss_effective_date: nil,
-        option1_date: nil,
-        option2_date: nil,
-        option3_date: nil,
+        next_poss_effective_date: Date.today,
+        option1_date: Date.today,
+        option2_date: Date.today,
+        option3_date: Date.today,
         optional_effective_on: [],
         csl_num: nil,
         market_kind: nil,
@@ -720,7 +716,7 @@ RSpec.describe AcaEntities::Families::Family, dbclean: :after_each do
           key: 'e_case',
           namespace: 'curam',
           label: 'Curam Case Id',
-          description: " "
+          description: 'test'
         },
         start_on: Date.today,
         end_on: Date.today
@@ -747,23 +743,28 @@ RSpec.describe AcaEntities::Families::Family, dbclean: :after_each do
   end
 
   let(:family_params) do
-    AcaEntities::Contracts::Families::FamilyContract.new.call(input_params).to_h
+    AcaEntities::Contracts::Families::FamilyContract.new.call(input_params)
   end
 
   describe 'with valid arguments' do
+
+    it 'validates input params with contract' do
+      expect(family_params.success?).to be_truthy
+    end
+
     it 'should initialize' do
-      expect(described_class.new(family_params)).to be_a described_class
+      expect(described_class.new(family_params.to_h)).to be_a described_class
     end
 
     it 'should not raise error' do
-      expect { described_class.new(family_params) }.not_to raise_error
+      expect { described_class.new(family_params.to_h) }.not_to raise_error
     end
   end
 
   describe 'with invalid arguments' do
     it 'should raise error' do
       expect do
-        described_class.new(family_params.reject do |k, _v|
+        described_class.new(family_params.to_h.reject do |k, _v|
                               k == :family_members
                             end)
       end.to raise_error(Dry::Struct::Error, /:family_members is missing/)
