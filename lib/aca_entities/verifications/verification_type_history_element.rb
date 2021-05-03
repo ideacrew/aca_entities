@@ -9,8 +9,8 @@ module AcaEntities
       attribute :modifier,                          Types::String.optional.meta(omittable: false)
       attribute :update_reason,                     Types::String.optional.meta(omittable: false)
 
-      attribute :event_response_record,          AcaEntities::Events::EventResponse.optional.meta(omittable: true)
-      attribute :event_request_record,           AcaEntities::Events::EventRequest.optional.meta(omittable: true)
+      attribute :event_response_record,             AcaEntities::Events::EventResponse.optional.meta(omittable: true)
+      attribute :event_request_record,              AcaEntities::Events::EventRequest.optional.meta(omittable: true)
 
     end
   end

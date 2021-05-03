@@ -427,11 +427,10 @@ RSpec.describe AcaEntities::Families::Family, dbclean: :after_each do
         format: "application/octet-stream",
         identifier: nil, source: "enroll_system",
         language: "en", relation: nil, coverage: nil,
-        rights: nil,
+        rights: "public",
         tags: [],
         size: nil,
         doc_identifier: nil,
-        rights: "public",
         status: "downloaded",
         ridp_verification_type: "Identity",
         comment: nil,
@@ -445,8 +444,7 @@ RSpec.describe AcaEntities::Families::Family, dbclean: :after_each do
       { verification_type: "Social Security Number",
         action: "SSA Hub Request",
         modifier: "Enroll App",
-        update_reason: "Hub request",
-      }
+        update_reason: "Hub request" }
     ]
   end
 
