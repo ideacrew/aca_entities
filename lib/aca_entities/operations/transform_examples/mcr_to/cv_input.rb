@@ -81,10 +81,10 @@ module AcaEntities
                       # add_key 'family_Relationships', function: AcaEntities::Functions::BuildRelationships.new
                       add_key 'hbx_id', value: ''
 
-                      add_namespace 'identifiers', type: :array do
+                      add_namespace 'identifiers', 'family.family_members.person.identifiers', type: :hash do
                         add_key 'source_system_key', value: 'ccr' # source_vocabulary
 
-                        add_namespace 'ids', type: :array do
+                        add_namespace 'ids', 'family.family_members.person.identifiers.ids', type: :hash do
                           add_key 'key', function: ->(v) {v.resolve(:members).name} # should be derived based on context
                           add_key 'item', function: ->(v) {v.resolve(:members).item} # should pick id from the source payload
                         end
@@ -174,12 +174,12 @@ module AcaEntities
                       map 'liveOutsideStateTemporarilyIndicator', 'is_temporarily_out_of_state'
 
 
-                      add_namespace 'tax_household_members', type: :array do
-                        rewrap 'family.household.tax_households.tax_household_members', type: :array do
-                          add_key 'kind', value: 'home'
+                      # add_namespace 'tax_household_members', type: :array do
+                      #   rewrap 'family.household.tax_households.tax_household_members', type: :array do
+                      #     add_key 'kind', value: 'home'
                         
-                        end
-                      end
+                      #   end
+                      # end
 
                       namespace 'mailingAddress' do
                         rewrap 'family.family_members.person.addresses', type: :array do
@@ -213,18 +213,18 @@ module AcaEntities
                     end
                   end
 
-                  transform not working
-                  revist the code for values as array
-                  map 'income', 'income' , memoize_record: true
-                  # [1,2,3,4,5].each do |i|
-                  #   map "income.currentIncome.currentIncome#{i}","family.magi_medicaid_applications.'->(v){v.resolve(:members).item}'.income.currentIncome.currentIncome#{i}" , memoize_record: true, visible: false
-                  # end
+                  # transform not working
+                  # revist the code for values as array
+                  # map 'income', 'income' , memoize_record: true
+                  # # [1,2,3,4,5].each do |i|
+                  # #   map "income.currentIncome.currentIncome#{i}","family.magi_medicaid_applications.'->(v){v.resolve(:members).item}'.income.currentIncome.currentIncome#{i}" , memoize_record: true, visible: false
+                  # # end
 
                   map 'lawfulPresence.noAlienNumberIndicator', 'noAlienNumberIndicator', memoize: true, visible: false
                   map 'lawfulPresence.citizenshipIndicator', 'citizenshipIndicator', memoize: true, visible: false
                   map 'lawfulPresence.naturalizedCitizenIndicator', 'naturalizedCitizenIndicator', memoize: true, visible: false
 
-                  add_key 'person.consumer_role.lawful_presence_determination.citizen_status', function: AcaEntities::Functions::BuildLawfulPresenceDetermination.new
+                  # add_key 'person.consumer_role.lawful_presence_determination.citizen_status', function: AcaEntities::Functions::BuildLawfulPresenceDetermination.new
 
                   add_key 'person_health.is_tobacco_user'
                   map 'nonMagi.blindOrDisabledIndicator', 'person_health.is_physically_disabled'
