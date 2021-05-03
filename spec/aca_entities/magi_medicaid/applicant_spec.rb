@@ -100,8 +100,12 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Applicant, dbclean: :after_each do
     end
 
     before do
-      app_params = AcaEntities::MagiMedicaid::Contracts::ApplicantContract.new.call(input_params).to_h
-      @result = described_class.new(app_params)
+      app_params_result = AcaEntities::MagiMedicaid::Contracts::ApplicantContract.new.call(input_params)
+      @result = if app_params_result.failure?
+        app_params_result
+      else
+        described_class.new(app_params_result.to_h)
+      end
     end
 
     it 'should return applicant entity object' do

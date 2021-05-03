@@ -6,7 +6,7 @@ require 'aca_entities/magi_medicaid/libraries/iap_library'
 RSpec.describe ::AcaEntities::MagiMedicaid::Application, dbclean: :after_each do
 
   context 'with valid params' do
-    let(:name) { { first_name: 'first', middle_name: nil, last_name: 'last' } }
+    let(:name) { { first_name: 'first', last_name: 'last' } }
     let(:identifying_information) { { has_ssn: false } }
     let(:demographic) { { gender: 'Male', dob: Date.today.prev_year.to_s } }
     let(:attestation) { { is_self_attested_disabled: false, is_self_attested_blind: false } }
@@ -75,8 +75,12 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Application, dbclean: :after_each do
 
     context 'with one applicant' do
       before do
-        app_params = AcaEntities::MagiMedicaid::Contracts::ApplicationContract.new.call(application_params).to_h
-        @result = described_class.new(app_params)
+        app_params_result = AcaEntities::MagiMedicaid::Contracts::ApplicationContract.new.call(application_params)
+        @result = if app_params_result.failure?
+          app_params_result
+        else
+          described_class.new(app_params_result.to_h)
+        end
       end
 
       it 'should return application entity object' do
@@ -147,8 +151,12 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Application, dbclean: :after_each do
       end
 
       before do
-        app_params = AcaEntities::MagiMedicaid::Contracts::ApplicationContract.new.call(app_with_thh).to_h
-        @result = described_class.new(app_params)
+        app_params_result = AcaEntities::MagiMedicaid::Contracts::ApplicationContract.new.call(app_with_thh)
+        @result = if app_params_result.failure?
+          app_params_result
+        else
+          described_class.new(app_params_result.to_h)
+        end
       end
 
       it 'should return all keys of application' do
@@ -189,7 +197,7 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Application, dbclean: :after_each do
 
     context 'with multiple applicants and relationships' do
       let(:applicant2) do
-        applicant.merge({ person_hbx_id: '96', name: { first_name: 'wifey', middle_name: nil, last_name: 'last' } })
+        applicant.merge({ person_hbx_id: '96', name: { first_name: 'wifey', last_name: 'last' } })
       end
 
       let(:applicant1_ref) do
@@ -216,8 +224,12 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Application, dbclean: :after_each do
       end
 
       before do
-        app_params = AcaEntities::MagiMedicaid::Contracts::ApplicationContract.new.call(app_with_multi_applicants).to_h
-        @result = described_class.new(app_params)
+        app_params_result = AcaEntities::MagiMedicaid::Contracts::ApplicationContract.new.call(app_with_multi_applicants)
+        @result = if app_params_result.failure?
+          app_params_result
+        else
+          described_class.new(app_params_result.to_h)
+        end
       end
 
       it 'should return all keys of application' do
