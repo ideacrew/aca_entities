@@ -77,10 +77,10 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Application, dbclean: :after_each do
       before do
         app_params_result = AcaEntities::MagiMedicaid::Contracts::ApplicationContract.new.call(application_params)
         @result = if app_params_result.failure?
-          app_params_result
-        else
-          described_class.new(app_params_result.to_h)
-        end
+                    app_params_result
+                  else
+                    described_class.new(app_params_result.to_h)
+                  end
       end
 
       it 'should return application entity object' do
@@ -153,10 +153,10 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Application, dbclean: :after_each do
       before do
         app_params_result = AcaEntities::MagiMedicaid::Contracts::ApplicationContract.new.call(app_with_thh)
         @result = if app_params_result.failure?
-          app_params_result
-        else
-          described_class.new(app_params_result.to_h)
-        end
+                    app_params_result
+                  else
+                    described_class.new(app_params_result.to_h)
+                  end
       end
 
       it 'should return all keys of application' do
@@ -226,10 +226,10 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Application, dbclean: :after_each do
       before do
         app_params_result = AcaEntities::MagiMedicaid::Contracts::ApplicationContract.new.call(app_with_multi_applicants)
         @result = if app_params_result.failure?
-          app_params_result
-        else
-          described_class.new(app_params_result.to_h)
-        end
+                    app_params_result
+                  else
+                    described_class.new(app_params_result.to_h)
+                  end
       end
 
       it 'should return all keys of application' do
