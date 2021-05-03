@@ -63,8 +63,8 @@ module AcaEntities
           optional(:ridp_documents).array(AcaEntities::Contracts::Documents::RidpDocumentContract.params)
           optional(:verification_type_history_elements).array(AcaEntities::Contracts::Verifications::VerificationTypeHistoryElementContract.params)
           optional(:lawful_presence_determination).hash(AcaEntities::Contracts::Determinations::LawfulPresenceDeterminationContract.params)
-          optional(:local_residency_responses).array(AcaEntities::Contracts::Events::EventRequestContract.params)
-          optional(:local_residency_requests).array(AcaEntities::Contracts::Events::EventResponseContract.params)
+          optional(:local_residency_responses).array(AcaEntities::Contracts::Events::EventResponseContract.params)
+          optional(:local_residency_requests).array(AcaEntities::Contracts::Events::EventRequestContract.params)
         end
       end
     end

@@ -379,7 +379,7 @@ RSpec.describe AcaEntities::Families::Family, dbclean: :after_each do
         title: "untitled",
         creator: "dchl",
         subject: "Naturalization Certificate",
-        description: nil,
+        description: "",
         publisher: "dchl",
         contributor: nil,
         date: nil,
@@ -390,7 +390,7 @@ RSpec.describe AcaEntities::Families::Family, dbclean: :after_each do
         language: "en",
         relation: nil,
         coverage: nil,
-        rights: nil,
+        rights: "public",
         tags: [], size: nil,
         doc_identifier: nil,
         _type: "VlpDocument",
@@ -419,7 +419,7 @@ RSpec.describe AcaEntities::Families::Family, dbclean: :after_each do
         title: "license - back.pdf",
         creator: "mhc",
         subject: "license - back.pdf",
-        description: nil,
+        description: "",
         publisher: "mhc",
         contributor: nil,
         date: nil,
@@ -431,6 +431,7 @@ RSpec.describe AcaEntities::Families::Family, dbclean: :after_each do
         tags: [],
         size: nil,
         doc_identifier: nil,
+        rights: "public",
         status: "downloaded",
         ridp_verification_type: "Identity",
         comment: nil,
@@ -445,8 +446,7 @@ RSpec.describe AcaEntities::Families::Family, dbclean: :after_each do
         action: "SSA Hub Request",
         modifier: "Enroll App",
         update_reason: "Hub request",
-        event_response_record: {},
-        event_request_record: {} }
+      }
     ]
   end
 
@@ -722,7 +722,7 @@ RSpec.describe AcaEntities::Families::Family, dbclean: :after_each do
           key: 'e_case',
           namespace: 'curam',
           label: 'Curam Case Id',
-          description: ''
+          description: " "
         },
         start_on: Date.today,
         end_on: Date.today
@@ -748,20 +748,24 @@ RSpec.describe AcaEntities::Families::Family, dbclean: :after_each do
       timestamp: timestamp }
   end
 
+  let(:family_params) do
+    AcaEntities::Contracts::Families::FamilyContract.new.call(input_params).to_h
+  end
+
   describe 'with valid arguments' do
     it 'should initialize' do
-      expect(described_class.new(input_params)).to be_a described_class
+      expect(described_class.new(family_params)).to be_a described_class
     end
 
     it 'should not raise error' do
-      expect { described_class.new(input_params) }.not_to raise_error
+      expect { described_class.new(family_params) }.not_to raise_error
     end
   end
 
   describe 'with invalid arguments' do
     it 'should raise error' do
       expect do
-        described_class.new(input_params.reject do |k, _v|
+        described_class.new(family_params.reject do |k, _v|
                               k == :family_members
                             end)
       end.to raise_error(Dry::Struct::Error, /:family_members is missing/)
