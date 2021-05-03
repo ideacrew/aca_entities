@@ -2,7 +2,6 @@
 
 require 'spec_helper'
 require 'aca_entities/magi_medicaid/libraries/iap_library'
-require 'aca_entities/magi_medicaid/transformers/iap_to/mitc'
 
 RSpec.describe AcaEntities::MagiMedicaid::Transformers::IapTo::Mitc do
   describe 'When a valid json file passed' do

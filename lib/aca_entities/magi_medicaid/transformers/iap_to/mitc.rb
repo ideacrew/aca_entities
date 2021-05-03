@@ -8,7 +8,7 @@ module AcaEntities
         # rubocop:disable Style/Lambda
         # This transformer is used for Transform the data of the IapApplication Contract params to MitcApplication Contract params.
         # This class is PRIVATE and cannot be called from outside except from operation:
-        # AcaEntities::MagiMedicaid::Operations::RequestDeterminations::Mitc
+        # AcaEntities::MagiMedicaid::Operations::Mitc::GenerateRequestPayload
         class Mitc < ::AcaEntities::Operations::Transforms::Transform
           include ::AcaEntities::Operations::Transforms::Transformer
 

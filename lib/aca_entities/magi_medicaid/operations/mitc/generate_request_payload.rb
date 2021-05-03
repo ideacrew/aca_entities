@@ -6,12 +6,16 @@ require 'dry/monads/do'
 module AcaEntities
   module MagiMedicaid
     module Operations
-      module RequestDeterminations
+      module Mitc
         # DO NOT USE this operation, this class has some mocked attributes.
-        class Mitc
+        # This class takes IapApplication params as input and returns the MitcRequestPayload.
+        class GenerateRequestPayload
           include Dry::Monads[:result, :do]
           include AcaEntities::AppHelper
 
+          # @param [Hash] opts The options to generate Mitc MagiMedicaid Determination Request Payload
+          # @option opts [Hash] :params IapApplication params
+          # @return [Dry::Monads::Result]
           def call(params)
             # 1. Validate the params against IapApplication
             # 2. Transform IapToMitc
@@ -82,4 +86,3 @@ module AcaEntities
     end
   end
 end
-

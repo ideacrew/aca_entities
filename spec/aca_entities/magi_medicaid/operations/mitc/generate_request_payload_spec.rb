@@ -2,10 +2,8 @@
 
 require 'spec_helper'
 require 'aca_entities/magi_medicaid/libraries/iap_library'
-require 'aca_entities/magi_medicaid/transformers/iap_to/mitc'
-require 'aca_entities/magi_medicaid/operations/request_determinations/mitc'
 
-RSpec.describe ::AcaEntities::MagiMedicaid::Operations::RequestDeterminations::Mitc do
+RSpec.describe ::AcaEntities::MagiMedicaid::Operations::Mitc::GenerateRequestPayload do
 
   let(:name) { { first_name: 'first', last_name: 'last' } }
   let(:name2) { { first_name: 'spouse', last_name: 'last' } }

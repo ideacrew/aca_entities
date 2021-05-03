@@ -69,6 +69,12 @@ module AcaEntities
         require 'aca_entities/magi_medicaid/contracts/tax_household_member_contract'
         require 'aca_entities/magi_medicaid/contracts/tax_household_contract'
         require 'aca_entities/magi_medicaid/contracts/application_contract'
+
+        # Transformers
+        require 'aca_entities/magi_medicaid/transformers/iap_to/mitc'
+
+        # Operations
+        require 'aca_entities/magi_medicaid/operations/mitc/generate_request_payload'
       end
     end
   end
