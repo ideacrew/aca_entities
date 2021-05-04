@@ -48,22 +48,22 @@ module AcaEntities
         #
         # @api public
         def map(source_key, output_key = nil, *args)
-          options = args.first
-
-          if options
-            if options.is_a?(Hash) && options[:memoize]
-              add_context((source_ns + [source_key]).join('.'), output_key, options[:function])
-              return
-            else
-              proc = options
-            end
+          options = args.first || {}
+          if options.is_a?(Hash) && (options[:memoize] || options[:context] || options[:memoize_record])
+            add_context((source_ns + [source_key]).join('.'), output_key, options)
           end
+          transform_action = options[:action] if options[:action]
 
+          # Returns only when visble is set to false
+          return if options[:visible] == false
+
+          # Creats an output_key with source_key's value
           mapping = Map.new((source_ns + [source_key]).join('.'),
                             (output_ns + [output_key.to_s]).join('.'),
                             nil,
                             transform_action || :rename_nested_keys,
-                            proc: proc)
+                            proc: options[:function])
+
           @mappings[mapping.container_key] = mapping
         end
 
@@ -85,14 +85,15 @@ module AcaEntities
         # @return [Object]
         #
         # @api public
-        def add_key(key, value = nil)
+        def add_key(key, *args)
           raise 'arg1 should not be empty string or an integer' if key.empty? || key.is_a?(Integer)
 
-          mapping = Map.new((source_ns + [key]).join('.'),
+          options = args.first || {}
+          mapping = Map.new((source_ns + [key.split('.').last]).join('.'),
                             (output_ns + [key]).join('.'),
-                            value,
+                            options[:value],
                             :add_key,
-                            proc: nil)
+                            proc: options[:function])
           @mappings[mapping.container_key] = mapping
         end
 
@@ -218,12 +219,13 @@ module AcaEntities
         private
 
         # @api private
-        def add_context(key, output_key, proc = nil)
+        def add_context(key, output_key, options)
           map = Map.new(key,
-                        output_key,
+                        output_key || key,
                         nil,
                         :add_context,
-                        proc: proc)
+                        proc: options[:function])
+          map.properties = options
           @mappings[map.container_key] = map
         end
 
@@ -284,8 +286,11 @@ module AcaEntities
           #
           # @api public
           def map(source_key = nil, output_key = nil, *args)
-            mapping = Map.new(source_key, output_key, nil, :rename_nested_keys, proc: args.first)
-            mapping_container.register(mapping.container_key, mapping)
+            serializer = MapSerializer.new('')
+            serializer.map(source_key, output_key, *args)
+            serializer.mappings.each do |_key, mapping|
+              mapping_container.register(mapping.container_key, mapping) unless mapping_container.key?(mapping.source_key)
+            end
           end
 
           # add_key takes key and value(can be a value or a proc).
@@ -386,7 +391,7 @@ module AcaEntities
 
       # Creates transform proc
       class Map
-        attr_reader :source_key, :output_key, :value, :key_transforms, :result, :transproc, :proc, :type
+        attr_reader :source_key, :output_key, :value, :key_transforms, :result, :transproc, :proc, :type, :memoize_record
         attr_accessor :context
 
         def initialize(source_key = nil, output_key = nil, value = nil, *key_transforms, proc: nil)
@@ -405,6 +410,7 @@ module AcaEntities
         end
 
         def call(input)
+          return input unless transproc
           transproc.call(input)
         end
 
@@ -416,10 +422,10 @@ module AcaEntities
           source_elements = source_key.split('.')
           output_elements =  output_key ? output_key.split('.') : source_elements
 
-          transform_procs = key_transforms.collect {|action| action_to_transproc(action, source_elements, output_elements)}
+          transform_procs = key_transforms.collect {|action| action_to_transproc(action, source_elements, output_elements)}.compact
 
           @transproc =
-            if transform_procs.is_a?(String) || (transform_procs.is_a?(Array) && transform_procs.first.is_a?(String))
+            if transform_procs.is_a?(String) || (transform_procs.flatten.is_a?(Array) && transform_procs.flatten.first.is_a?(String))
               if proc && !key_transforms.include?(:add_context)
                 output = output_elements[0..-2]
                 eval(transform_procs.flatten.join('.>> ')) >> t(:map_value, output.map(&:to_sym), proc)
@@ -437,10 +443,12 @@ module AcaEntities
         def action_to_transproc(action, source_elements, output_elements)
           case action
           when :nest
-            output_elements.size.times.collect do |i|
-              offset = -1 * i
-              "t(:nest, :#{output_elements[-2 + offset]}, [:#{output_elements[-1 + offset]}])" if output_elements[-2 + offset]
-            end.compact
+            if source_elements[-1] == output_elements[-1]
+              output_elements.size.times.collect do |i|
+                offset = -1 * i
+                "t(:nest, :#{output_elements[-2 + offset]}, [:#{output_elements[-1 + offset]}])" if output_elements[-2 + offset]
+              end.compact
+            end
           when :add_key
             "t(:add_key,  #{output_elements.map(&:to_sym)}, '#{value}')"
           when :rewrap_keys
@@ -449,9 +457,9 @@ module AcaEntities
             "t(:add_namespace, #{source_elements.map(&:to_sym)}, #{output_elements.map(&:to_sym)})"
           when :rename_nested_keys
             source = source_key.split('.').last
-            t(:"#{action}", ["#{source}": :"#{output_elements.last}"], source_elements[0..-2].map(&:to_sym))
+            t(:"#{action}", ["#{source}": :"#{output_elements.last}"], output_elements.map(&:to_sym))
           when :add_context
-            "t(:add_context, #{source_elements.map(&:to_sym)}, #{output_elements.map(&:to_sym)}, #{proc})"
+            "t(:add_context, #{source_elements.map(&:to_sym)}, #{output_elements.map(&:to_sym)}, #{proc})" if proc
           else
             "t(:#{action}, #{source_key}: :#{output_elements.last})"
           end
@@ -459,18 +467,28 @@ module AcaEntities
 
         def transproc_name
           if @transproc.respond_to?(:left)
-            transproc.left.name
+            if transproc.left.is_a?(Dry::Transformer::Composite)
+              ''
+            else
+              transproc.left&.name
+            end
           else
-            @transproc.name
+            @transproc&.name
           end
         end
 
         def container_key
-          source_key
+          if @key_transforms.include? :add_context
+            "#{source_key}_context"
+          else
+            source_key
+          end
         end
 
         def properties=(args)
-          @type = args.first[:type]
+          args = args.first unless args.is_a?(Hash)
+          @type = args[:type]
+          @memoize_record = args[:memoize_record] || false
         end
       end
     end

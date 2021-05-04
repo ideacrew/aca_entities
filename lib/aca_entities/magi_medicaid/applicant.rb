@@ -64,6 +64,56 @@ module AcaEntities
       attribute :incomes,         Types::Array.of(Income).optional.meta(omittable: true)
       attribute :benefits,        Types::Array.of(Benefit).optional.meta(omittable: true)
       attribute :deductions,      Types::Array.of(Deduction).optional.meta(omittable: true)
+
+      # @!attribute [r] is_medicare_eligible
+      # A boolean that tells if applicant has any medicare benefits('medicare', 'medicare_advantage', or 'medicare_part_b').
+      # @return [Bool]
+      attribute :is_medicare_eligible, Types::Bool.optional.meta(omittable: true)
+
+      # @!attribute [r] has_insurance
+      # Applicant already has insurance coverage. Any benefits of type is_enrolled
+      # @return [Bool]
+      attribute :has_insurance, Types::Bool.optional.meta(omittable: true)
+
+      # @!attribute [r] has_state_health_benefit
+      # A boolean if applicant has health benefits by virtue working for a public entity or through a relative
+      # Any benefits of type medicaid
+      # @return [Bool]
+      attribute :has_state_health_benefit, Types::Bool.optional.meta(omittable: true)
+
+      # @!attribute [r] had_prior_insurance
+      # Was the applicant receiving coverage that has expired?
+      # Any benefits of type is_enrolled and end dated.
+      # @return [Bool]
+      attribute :had_prior_insurance, Types::Bool.optional.meta(omittable: true)
+
+      # @!attribute [r] prior_insurance_end_date
+      # The date the prior coverage ended.A date in YYYY-MM-DD format
+      # @return [Bool]
+      attribute :prior_insurance_end_date, Types::Bool.optional.meta(omittable: true)
+
+      # @!attribute [r] age_of_applicant
+      # The age of the applicant
+      # @return [Integer]
+      attribute :age_of_applicant, Types::Integer.optional.meta(omittable: true)
+
+      # @!attribute [r] is_self_attested_long_term_care
+      # @return [Bool]
+      attribute :is_self_attested_long_term_care, Types::Bool.optional.meta(omittable: true)
+
+      # @!attribute [r] hours_worked_per_week
+      # @return [Integer]
+      attribute :hours_worked_per_week, Types::Integer.optional.meta(omittable: true)
+
+      # @!attribute [r] is_claimed_as_dependent_by_non_applicant
+      # Applicant is claimed as dependent by a person who is not applying for coverage(is_applying_coverage).
+      # @return [Bool]
+      attribute :is_claimed_as_dependent_by_non_applicant, Types::Bool.optional.meta(omittable: true)
+
+      # Set of attributes specific to MitC which helps to not have much logic in IapTo MitC Transform.
+      attribute :mitc_income, AcaEntities::MagiMedicaid::Mitc::Income.optional.meta(omittable: true)
+      attribute :mitc_relationships, Types::Array.of(AcaEntities::MagiMedicaid::Mitc::Relationship).optional.meta(omittable: true)
+
     end
   end
 end

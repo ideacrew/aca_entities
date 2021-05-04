@@ -7,9 +7,40 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicationContract,  dbcle
   let(:name) { { first_name: 'first', last_name: 'last' } }
   let(:identifying_information) { { has_ssn: false } }
   let(:demographic) { { gender: 'Male', dob: Date.today.prev_year.to_s } }
-  let(:attestation) { { is_disabled: false } }
-  let(:family_member_reference) { { family_member_hbx_id: '1000' } }
+  let(:attestation) { { is_self_attested_disabled: false, is_self_attested_blind: false } }
+  let(:family_member_reference) do
+    { family_member_hbx_id: '1000',
+      first_name: name[:first_name],
+      last_name: name[:last_name],
+      dob: demographic[:dob],
+      person_hbx_id: '95' }
+  end
   let(:pregnancy_information) { { is_pregnant: false, is_post_partum_period: false } }
+
+  let(:mitc_relationships) do
+    [{ other_id: '95', attest_primary_responsibility: 'Y', relationship_code: '01' },
+     { other_id: '96', attest_primary_responsibility: 'Y', relationship_code: '02' }]
+  end
+
+  let(:mitc_income) do
+    { amount: 300,
+      taxable_interest: 30,
+      tax_exempt_interest: 0,
+      taxable_refunds: 1,
+      alimony: 0,
+      capital_gain_or_loss: 0,
+      pensions_and_annuities_taxable_amount: 0,
+      farm_income_or_loss: 0,
+      unemployment_compensation: 0,
+      other_income: 0,
+      magi_deductions: 0,
+      adjusted_gross_income: 300,
+      deductible_part_of_self_employment_tax: 0,
+      ira_deduction: 1,
+      student_loan_interest_deduction: 9,
+      tution_and_fees: 10,
+      other_magi_eligible_income: 0 }
+  end
 
   let(:applicant) do
     { name: name,
@@ -20,7 +51,7 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicationContract,  dbcle
       is_primary_applicant: true,
       is_applying_coverage: false,
       family_member_reference: family_member_reference,
-      person_hbx_id: '100',
+      person_hbx_id: '95',
       is_required_to_file_taxes: false,
       pregnancy_information: pregnancy_information,
       has_job_income: false,
@@ -29,7 +60,9 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicationContract,  dbcle
       has_other_income: false,
       has_deductions: false,
       has_enrolled_health_coverage: false,
-      has_eligible_health_coverage: false }
+      has_eligible_health_coverage: false,
+      mitc_relationships: mitc_relationships,
+      mitc_income: mitc_income }
   end
   let(:family_reference) { { hbx_id: '10011' } }
 
@@ -37,7 +70,9 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicationContract,  dbcle
     let(:input_params) do
       { family_reference: family_reference,
         assistance_year: Date.today.year,
-        applicants: [applicant] }
+        applicants: [applicant],
+        us_state: 'DC',
+        hbx_id: '200000123' }
     end
 
     it 'should return success' do
@@ -78,8 +113,21 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicationContract,  dbcle
           tax_household_members: [tax_household_member] }
       end
 
+      let(:person_references) do
+        input_params[:applicants].collect { |appl| { person_id: appl[:family_member_reference][:person_hbx_id] } }
+      end
+
+      let(:mitc_households) do
+        [{ household_id: '1',
+           people: person_references }]
+      end
+
+      let(:tax_return_hash) do
+        { filers: [{ person_id: applicant[:family_member_reference][:person_hbx_id] }], dependents: [] }
+      end
+
       let(:app_with_thh) do
-        input_params.merge({ tax_households: [tax_hh] })
+        input_params.merge({ tax_households: [tax_hh], mitc_households: mitc_households, mitc_tax_returns: [tax_return_hash] })
       end
 
       before do
@@ -93,11 +141,29 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicationContract,  dbcle
       it 'should include key tax_households' do
         expect(@result.to_h.keys).to include(:tax_households)
       end
+
+      it 'should include key mitc_households' do
+        expect(@result.to_h.keys).to include(:mitc_households)
+      end
+
+      it 'should include all keys of each mitc_households' do
+        mitc_household = @result.to_h[:mitc_households].first
+        expect(mitc_household.keys).to include(:household_id)
+        expect(mitc_household.keys).to include(:people)
+        expect(mitc_household[:people].first.keys).to include(:person_id)
+      end
+
+      it 'should include all keys of each mitc_tax_returns' do
+        mitc_tax_return = @result.to_h[:mitc_tax_returns].first
+        expect(mitc_tax_return.keys).to include(:filers)
+        expect(mitc_tax_return.keys).to include(:dependents)
+        expect(mitc_tax_return[:filers].first.keys).to include(:person_id)
+      end
     end
 
     context 'with multiple applicants and relationships' do
       let(:applicant2) do
-        applicant.merge({ person_hbx_id: '101', name: { first_name: 'wifey', last_name: 'last' } })
+        applicant.merge({ person_hbx_id: '96', name: { first_name: 'wifey', last_name: 'last' } })
       end
 
       let(:applicant1_ref) do
@@ -139,7 +205,13 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicationContract,  dbcle
 
   context 'invalid params' do
     context 'applicants' do
-      let(:input_params) { { family_reference: family_reference, assistance_year: Date.today.year, applicants: [] } }
+      let(:input_params) do
+        { family_reference: family_reference,
+          assistance_year: Date.today.year,
+          applicants: [],
+          us_state: 'DC',
+          hbx_id: '200000123' }
+      end
 
       context 'missing applicants' do
         it 'should return a failure with error message' do
@@ -247,7 +319,13 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicationContract,  dbcle
       end
 
       context 'benefits' do
-        let(:input_params) { { family_reference: family_reference, assistance_year: Date.today.year, applicants: [local_applicant] } }
+        let(:input_params) do
+          { family_reference: family_reference,
+            assistance_year: Date.today.year,
+            applicants: [local_applicant],
+            us_state: 'DC',
+            hbx_id: '200000123' }
+        end
         let(:benefit) do
           { kind: 'employer_sponsored_insurance',
             status: 'is_eligible',
@@ -344,7 +422,13 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicationContract,  dbcle
       end
 
       context 'deductions' do
-        let(:input_params) { { family_reference: family_reference, assistance_year: Date.today.year, applicants: [local_applicant] } }
+        let(:input_params) do
+          { family_reference: family_reference,
+            assistance_year: Date.today.year,
+            applicants: [local_applicant],
+            us_state: 'DC',
+            hbx_id: '200000123' }
+        end
         let(:local_deduction) do
           { kind: 'tuition_and_fees',
             amount: 1000.67,
@@ -682,7 +766,9 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicationContract,  dbcle
       end
 
       it 'should return failure with error message' do
-        expect(subject.call(input_params).errors.to_h).to eq({ assistance_year: ['is missing'] })
+        expect(subject.call(input_params).errors.to_h).to eq({ assistance_year: ['is missing'],
+                                                               hbx_id: ['is missing'],
+                                                               us_state: ['is missing'] })
       end
     end
 
@@ -698,7 +784,9 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicationContract,  dbcle
       end
 
       it 'should return failure with error message' do
-        expect(subject.call(input_params).errors.to_h).to eq({ assistance_year: ['must be an integer'] })
+        expect(subject.call(input_params).errors.to_h).to eq({ assistance_year: ['must be an integer'],
+                                                               hbx_id: ['is missing'],
+                                                               us_state: ['is missing'] })
       end
     end
   end

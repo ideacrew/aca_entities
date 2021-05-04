@@ -34,7 +34,7 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Contracts::ApplicantReferenceContrac
       { first_name: 'first',
         last_name: 'last',
         dob: Date.today.prev_year.to_s,
-        person_hbx_id: '100' }
+        person_hbx_id: '95' }
     end
 
     it 'passes' do

@@ -37,7 +37,7 @@ module AcaEntities
           # TODO: Move to appropriate model
           optional(:min_verification_due_date).maybe(:date)
           optional(:vlp_documents_status).maybe(:string)
-          optional(:magi_medicaid_applications).array(MagiMedicaid::Contracts::ApplicationReferenceContract.params)
+          optional(:magi_medicaid_applications).array(MagiMedicaid::Contracts::ApplicationContract.params)
           optional(:documents).array(AcaEntities::Contracts::Documents::DocumentContract.params)
           optional(:special_enrollment_periods).array(AcaEntities::Contracts::EnrollmentPeriods::SpecialEnrollmentPeriodContract.params)
           optional(:broker_accounts).array(AcaEntities::Contracts::Brokers::BrokerAccountContract.params)
@@ -46,6 +46,20 @@ module AcaEntities
           optional(:payment_transactions).array(Financial::PaymentTransactions::PaymentTransactionContract.params)
           optional(:updated_by).hash(AcaEntities::Contracts::People::PersonReferenceContract.params)
           optional(:timestamp).hash(TimeStampContract.params)
+        end
+
+        # Need to have below rule and cannot move all MagiMedicaidApplication level rules to AcaEntities::Contracts::Contract because
+        # we will be calling AcaEntities::MagiMedicaid::Contracts::ApplicationContract separately during determination requests to MitC
+        # and we do not want the params to be validated without the rules.
+        rule(:magi_medicaid_applications).each do |index:|
+          if key? && value
+            if value.is_a?(Hash)
+              result = MagiMedicaid::Contracts::ApplicationContract.new.call(value)
+              key([:applications, index]).failure(text: 'invalid magi_medicaid application', error: result.errors.to_h) if result&.failure?
+            else
+              key([:applications, index]).failure(text: 'invalid magi_medicaid applications. Expected a hash.')
+            end
+          end
         end
       end
     end

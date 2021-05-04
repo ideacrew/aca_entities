@@ -11,12 +11,12 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Applicant, dbclean: :after_each do
     end
     let(:identifying_information) { { has_ssn: false } }
     let(:demographic) { { gender: 'Male', dob: Date.today.prev_year.to_s } }
-    let(:attestation) { { is_disabled: false } }
+    let(:attestation) { { is_self_attested_disabled: false, is_self_attested_blind: false } }
     let(:family_member_reference) do
       { family_member_hbx_id: '1000',
         first_name: 'First',
         last_name: 'Last',
-        person_hbx_id: '100',
+        person_hbx_id: '95',
         is_primary_family_member: true }
     end
     let(:pregnancy_information) { { is_pregnant: false, is_post_partum_period: false } }
@@ -46,6 +46,30 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Applicant, dbclean: :after_each do
         end_on: Date.today.to_s }
     end
 
+    let(:mitc_relationships) do
+      [{ other_id: '95', attest_primary_responsibility: 'Y', relationship_code: '01' }]
+    end
+
+    let(:mitc_income) do
+      { amount: 300,
+        taxable_interest: 30,
+        tax_exempt_interest: 0,
+        taxable_refunds: 1,
+        alimony: 0,
+        capital_gain_or_loss: 0,
+        pensions_and_annuities_taxable_amount: 0,
+        farm_income_or_loss: 0,
+        unemployment_compensation: 0,
+        other_income: 0,
+        magi_deductions: 0,
+        adjusted_gross_income: 300,
+        deductible_part_of_self_employment_tax: 0,
+        ira_deduction: 1,
+        student_loan_interest_deduction: 9,
+        tution_and_fees: 10,
+        other_magi_eligible_income: 0 }
+    end
+
     let(:input_params) do
       { name: name,
         identifying_information: identifying_information,
@@ -55,7 +79,7 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Applicant, dbclean: :after_each do
         citizenship_immigration_status_information: citizenship_immigration_status_information,
         is_applying_coverage: false,
         family_member_reference: family_member_reference,
-        person_hbx_id: '100',
+        person_hbx_id: '95',
         is_required_to_file_taxes: false,
         pregnancy_information: pregnancy_information,
         has_job_income: true,
@@ -70,12 +94,19 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Applicant, dbclean: :after_each do
         phones: [],
         incomes: [income],
         benefits: [benefit],
-        deductions: [deduction] }
+        deductions: [deduction],
+        is_claimed_as_dependent_by_non_applicant: false,
+        mitc_relationships: mitc_relationships,
+        mitc_income: mitc_income }
     end
 
     before do
-      app_params = AcaEntities::MagiMedicaid::Contracts::ApplicantContract.new.call(input_params).to_h
-      @result = described_class.new(app_params)
+      app_params_result = AcaEntities::MagiMedicaid::Contracts::ApplicantContract.new.call(input_params)
+      @result = if app_params_result.failure?
+                  app_params_result
+                else
+                  described_class.new(app_params_result.to_h)
+                end
     end
 
     it 'should return applicant entity object' do
@@ -83,7 +114,10 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Applicant, dbclean: :after_each do
     end
 
     it 'should return all keys of applicant' do
-      expect(@result.to_h.keys).to eq(input_params.keys)
+      result_app_keys = @result.to_h.keys
+      input_app_keys = input_params.keys
+      expect(result_app_keys - input_app_keys).to be_empty
+      expect(input_app_keys - result_app_keys).to be_empty
     end
 
     it 'should match all the input keys of name' do
@@ -154,6 +188,20 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Applicant, dbclean: :after_each do
       input_deduction_keys = deduction.keys
       expect(result_deduction_keys - input_deduction_keys).to be_empty
       expect(input_deduction_keys - result_deduction_keys).to be_empty
+    end
+
+    it 'should match all the input keys of mitc_relationship' do
+      result_mitc_rel_keys = @result.to_h[:mitc_relationships].first.keys
+      input_mitc_rel_keys = mitc_relationships.first.keys
+      expect(result_mitc_rel_keys - input_mitc_rel_keys).to be_empty
+      expect(input_mitc_rel_keys - result_mitc_rel_keys).to be_empty
+    end
+
+    it 'should match all the input keys of mitc_income' do
+      result_mitc_income_keys = @result.to_h[:mitc_income].keys
+      input_mitc_income_keys = mitc_income.keys
+      expect(result_mitc_income_keys - input_mitc_income_keys).to be_empty
+      expect(input_mitc_income_keys - result_mitc_income_keys).to be_empty
     end
   end
 end

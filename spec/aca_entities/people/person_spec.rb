@@ -158,9 +158,7 @@ RSpec.describe ::AcaEntities::People::Person, dbclean: :after_each do
         { verification_type: "Social Security Number",
           action: "SSA Hub Request",
           modifier: "Enroll App",
-          update_reason: "Hub request",
-          event_response_record: {},
-          event_request_record: {} }
+          update_reason: "Hub request" }
       ]
     end
 

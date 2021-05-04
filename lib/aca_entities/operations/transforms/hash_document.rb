@@ -20,9 +20,9 @@ module AcaEntities
         def append(data, _dig = true)
           if root == :no_key
             value = data.dig(*parent_namespaces) unless parent_namespaces.empty?
-            @data_set.merge!(value || data)
+            @data_set.deep_merge!(value || data)
           elsif output_namespaces.empty?
-            @data_set.merge!(data)
+            @data_set.deep_merge!(data)
           else
             @data_set[output_namespaces.last] ||= {}
             if data.keys.size == 1 && @data_set[output_namespaces.last].key?(data.keys.first)
@@ -31,13 +31,13 @@ module AcaEntities
                 if value.is_a?(Array)
                   value.push(*data.values.first)
                 else
-                  value.merge!(data.values.first)
+                  value.deep_merge!(data.values.first)
                 end
-                data_hash.merge!(Hash[data.keys.first, value])
+                data_hash.deep_merge!(Hash[data.keys.first, value])
               end
             else
               value = data.dig(*output_namespaces) unless output_namespaces.empty?
-              @data_set[output_namespaces.last].merge!(value || data)
+              @data_set[output_namespaces.last].deep_merge!(value || data)
             end
           end
         end

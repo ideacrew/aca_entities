@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# rubocop:disable Style/HashConversion, Style/OptionalArguments, Metrics/BlockNesting
+# rubocop:disable Style/HashConversion, Style/OptionalArguments, Metrics/BlockNesting, Metrics/ModuleLength
 require 'dry/transformer/all'
 require "dry/inflector"
 require 'deep_merge'
@@ -12,6 +12,8 @@ module AcaEntities
       module HashFunctions
         extend Dry::Transformer::Registry
         import Dry::Transformer::Coercions
+        import Dry::Transformer::HashTransformations
+        import Dry::Transformer::ArrayTransformations
 
         module_function
 
@@ -110,6 +112,9 @@ module AcaEntities
         #   # =>  true
         #
         # @return value
+
+        # MitC to IAP transform.
+        # https://github.com/dry-rb/dry-transformer/blob/master/lib/dry/transformer/coercions.rb
         def boolean(value)
           t(:to_boolean)[value.to_s.downcase]
         end
@@ -125,9 +130,31 @@ module AcaEntities
         #
         # @return [Hash]
         def rename_nested_keys(source_hash, mapping, namespaces = [])
-          source_hash.to_h.tap do |hash|
-            data_pair = namespaces.empty? ? hash : hash.dig(*namespaces)
-            mapping.first.each {|k, v| data_pair[v] = data_pair.delete(k) if data_pair.key?(k)}
+          data_pair = if namespaces.empty?
+                        source_hash
+                      else
+                        nested_hash(source_hash,   mapping.map(&:keys).flatten.first)
+                      end
+
+          mapping.first.each {|k, v| data_pair[v] = data_pair.delete(k) if data_pair.key?(k)}
+
+          fns = []
+          namespaces.each_with_index do |namespace, index|
+            fns << "t(:wrap, :#{namespace}, [:'#{namespaces[index + 1]}'])"  if namespaces[index + 1]
+          end
+          # rubocop:disable Security/Eval
+          fns = eval(fns.reverse.flatten.join('.>> '))
+          # rubocop:enable Security/Eval
+          fns ? fns.call([data_pair]).first : data_pair
+        end
+
+        def nested_hash(obj, key)
+          if obj.respond_to?(:key?) && obj.key?(key)
+            obj
+          elsif obj.respond_to?(:each)
+            result = nil
+            obj.find { |*a| result = nested_hash(a.last, key) }
+            result
           end
         end
 
@@ -322,8 +349,20 @@ module AcaEntities
                                                        end
           end
         end
+
+        # Convert value to boolean string
+        # @param value The input value
+
+        # @example
+        #   boolean_string(true)
+        #   # =>  'Y'
+        #
+        # @return value
+        def boolean_string(value)
+          { true => 'Y', false => 'N' }[value]
+        end
       end
     end
   end
 end
-# rubocop:enable Style/HashConversion, Style/OptionalArguments, Metrics/BlockNesting
+# rubocop:enable Style/HashConversion, Style/OptionalArguments, Metrics/BlockNesting, Metrics/ModuleLength

@@ -6,7 +6,7 @@ require 'aca_entities/magi_medicaid/libraries/iap_library'
 RSpec.describe ::AcaEntities::MagiMedicaid::Contracts::AttestationContract,  dbclean: :after_each do
   context 'applicant not applying for coverage' do
     context 'valid params' do
-      let(:required_params) { { is_disabled: false } }
+      let(:required_params) { { is_self_attested_disabled: false, is_self_attested_blind: false } }
       let(:optional_params) do
         { is_incarcerated: nil,
           is_self_attested_long_term_care: nil }
@@ -36,13 +36,13 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Contracts::AttestationContract,  dbc
       end
 
       it 'should return a failure with error messages' do
-        expect(@result.errors.to_h).to eq({ is_disabled: ['is missing'] })
+        expect(@result.errors.to_h).to eq({ is_self_attested_blind: ['is missing'], is_self_attested_disabled: ['is missing'] })
       end
     end
   end
 
   context 'applicant applying for coverage' do
-    let(:required_params) { { is_disabled: false } }
+    let(:required_params) { { is_self_attested_disabled: false, is_self_attested_blind: false } }
     let(:all_params) { required_params.merge(optional_params) }
 
     context 'valid params' do
@@ -74,7 +74,7 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Contracts::AttestationContract,  dbc
       end
 
       it 'should return failure with error messages' do
-        expect(@result.errors.to_h).to eq({ is_disabled: ['is missing'] })
+        expect(@result.errors.to_h).to eq({ is_self_attested_blind: ['is missing'], is_self_attested_disabled: ['is missing'] })
       end
     end
   end

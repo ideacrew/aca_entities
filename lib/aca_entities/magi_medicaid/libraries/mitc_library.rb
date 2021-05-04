@@ -44,6 +44,14 @@ module AcaEntities
         require 'aca_entities/magi_medicaid/mitc/contracts/applicant_contract'
         require 'aca_entities/magi_medicaid/mitc/contracts/eligibility_response_contract'
         require 'aca_entities/magi_medicaid/mitc/contracts/application_contract'
+
+        # Transformers
+        require 'aca_entities/operations/transforms/array_document'
+        require 'aca_entities/operations/transforms/hash_document'
+        require 'aca_entities/operations/transforms/hash_functions'
+        require 'aca_entities/operations/transforms/transform'
+        require 'aca_entities/operations/transforms/transformer'
+        require 'aca_entities/magi_medicaid/mitc/transformers/mitc_to/request'
       end
     end
   end

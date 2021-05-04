@@ -450,9 +450,7 @@ RSpec.describe AcaEntities::Contracts::Families::FamilyContract,  dbclean: :afte
       { verification_type: "Social Security Number",
         action: "SSA Hub Request",
         modifier: "Enroll App",
-        update_reason: "Hub request",
-        event_response_record: {},
-        event_request_record: {} }
+        update_reason: "Hub request" }
     ]
   end
 
@@ -639,26 +637,6 @@ RSpec.describe AcaEntities::Contracts::Families::FamilyContract,  dbclean: :afte
     }
   end
 
-  let(:applicant_reference) do
-    [
-      {
-        first_name: "first name",
-        last_name: "last name",
-        dob: Date.today,
-        person_hbx_id: "33333333",
-        encrypted_ssn: nil
-      }
-    ]
-  end
-
-  let(:application_references) do
-    [
-      {
-        hbx_id: "56666"
-      }
-    ]
-
-  end
   let(:hbx_enrollment_exemptions) { [] }
 
   let(:family_member_params) do
@@ -669,7 +647,6 @@ RSpec.describe AcaEntities::Contracts::Families::FamilyContract,  dbclean: :afte
         is_consent_applicant: true,
         is_coverage_applicant: nil,
         is_active: true,
-        magi_medicaid_application_applicants: applicant_reference,
         person: person,
         timestamp: timestamp
       }
@@ -766,7 +743,6 @@ RSpec.describe AcaEntities::Contracts::Families::FamilyContract,  dbclean: :afte
       vlp_documents_status: nil,
       family_members: family_member_params,
       households: household_params,
-      magi_medicaid_applications: application_references,
       documents: documents,
       special_enrollment_periods: special_enrollment_periods,
       broker_accounts: broker_accounts,
@@ -830,6 +806,59 @@ RSpec.describe AcaEntities::Contracts::Families::FamilyContract,  dbclean: :afte
       it 'should return error message' do
         result = subject.call(required_params.merge(renewal_consent_through_year: 2012))
         expect(result.errors.messages.first.text).to eq('must be one of: 2014 - 2025')
+      end
+    end
+
+    context 'with magi_medicaid_applications' do
+      let(:applicant) do
+        { name: {},
+          identifying_information: {},
+          citizenship_immigration_status_information: { citizen_status: 'us_citizen' },
+          demographic: {},
+          attestation: {},
+          is_primary_applicant: true,
+          is_applying_coverage: false,
+          family_member_reference: {},
+          person_hbx_id: '95',
+          is_required_to_file_taxes: false,
+          pregnancy_information: {},
+          has_job_income: false,
+          has_self_employment_income: false,
+          has_unemployment_income: false,
+          has_other_income: false,
+          has_deductions: false,
+          has_enrolled_health_coverage: false,
+          has_eligible_health_coverage: false }
+      end
+      let(:magi_medicaid_applications) do
+        [{ family_reference: {}, assistance_year: Date.today.year, applicants: [], us_state: 'DC', hbx_id: '200000123' },
+         { applicants: [applicant] }]
+      end
+
+      let(:family_with_magi_medicaid_apps) do
+        required_params.merge({ magi_medicaid_applications: magi_medicaid_applications })
+      end
+
+      before do
+        @errors = subject.call(family_with_magi_medicaid_apps).errors.to_h
+      end
+
+      it 'should return errors for first magi_medicaid_application' do
+        expect(@errors[:magi_medicaid_applications][0]).to eq({ family_reference: { hbx_id: ['is missing'] } })
+      end
+
+      it 'should return errors for second magi_medicaid_application' do
+        error_hash = { family_reference: ['is missing'],
+                       assistance_year: ['is missing'],
+                       applicants: { 0 => { name: { first_name: ['is missing'], last_name: ['is missing'] },
+                                            identifying_information: ["must be filled"],
+                                            demographic: ["must be filled"],
+                                            attestation: ["must be filled"],
+                                            family_member_reference: { family_member_hbx_id: ['is missing'] },
+                                            pregnancy_information: { is_pregnant: ['is missing'] } } },
+                       us_state: ['is missing'],
+                       hbx_id: ['is missing'] }
+        expect(@errors[:magi_medicaid_applications][1]).to eq(error_hash)
       end
     end
   end

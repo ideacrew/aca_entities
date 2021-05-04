@@ -7,7 +7,7 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Attestation, dbclean: :after_each do
 
   describe 'with valid arguments' do
     let(:input_params) do
-      { is_incarcerated: false, is_disabled: false, is_self_attested_long_term_care: false }
+      { is_incarcerated: false, is_self_attested_disabled: false, is_self_attested_long_term_care: false }
     end
 
     before do

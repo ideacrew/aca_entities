@@ -7,7 +7,7 @@ RSpec.describe ::AcaEntities::MagiMedicaid::CitizenshipImmigrationStatusInformat
 
   describe 'with valid arguments' do
     let(:input_params) do
-      { citizen_status: 'us_citizen' }
+      { citizen_status: 'us_citizen', is_lawful_presence_self_attested: false }
     end
 
     before do

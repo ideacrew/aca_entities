@@ -13,8 +13,8 @@ module AcaEntities
         # @return [Dry::Monads::Result]
         params do
           optional(:is_incarcerated).maybe(:bool)
-          # is_self_attested_disabled
-          required(:is_disabled).filled(:bool)
+          required(:is_self_attested_disabled).filled(:bool)
+          required(:is_self_attested_blind).filled(:bool)
           optional(:is_self_attested_long_term_care).maybe(:bool)
         end
       end

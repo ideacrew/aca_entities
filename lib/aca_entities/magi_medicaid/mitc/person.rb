@@ -36,13 +36,13 @@ module AcaEntities
         attribute :is_incarcerated,    Types::YesNoKind.meta(ommittable: false)
 
         # @!attribute [r] resides_in_state_of_application
-        # If the person  currently reside in the state of application(Y/N).
+        # If the person currently reside in the state of application(Y/N).
         # @return [String]
         attribute :resides_in_state_of_application,    Types::YesNoKind.meta(ommittable: false)
 
         # @!attribute [r] is_claimed_as_dependent_by_non_applicant
         # A boolean if the person is claimed as dependent person not in this data structure.
-        # is the person  claimed by a person not in this data structure (like an absent parent)
+        # is the person claimed by a person not in this data structure (like an absent parent)
         # @return [String]
         attribute :is_claimed_as_dependent_by_non_applicant,    Types::YesNoKind.meta(ommittable: false)
 

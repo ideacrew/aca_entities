@@ -14,25 +14,33 @@ RSpec.describe ::AcaEntities::Operations::TransformExamples::McrTo::CvInput do
         record = AcaEntities::Operations::TransformExamples::McrTo::CvInput.transform(payload)
         record[:family].tap do |family|
           expect(family).to have_key(:hbx_id)
-          expect(family).to have_key(:vlp_documents_status)
+          # expect(family).to have_key(:vlp_documents_status)
           expect(family).to have_key(:min_verifications_due_date)
           expect(family).to have_key(:special_enrollment_periods)
           expect(family).to have_key(:irs_groups)
           expect(family).to have_key(:broker_agency_accounts)
 
+          expect(family[:family_members].any? { |fm| fm[:is_primary_applicant] == true }).to be_truthy
+
           family[:family_members].each do |family_member|
             expect(family_member).to have_key(:is_primary_applicant)
             family_member[:person].tap do |person|
               expect(person).to have_key(:identifiers)
-              expect(person).to have_key(:no_ssn)
-              expect(person).to have_key(:ethnicity)
-              expect(person).to have_key(:tribal_id)
-              expect(person).to have_key(:names)
-              expect(person).to have_key(:age)
-              expect(person).to have_key(:gender)
-              expect(person).to have_key(:is_homeless)
+              # expect(person).to have_key(:no_ssn)
+              # expect(person).to have_key(:ethnicity)
+              # expect(person).to have_key(:tribal_id)
+              # expect(person).to have_key(:names)
+              # expect(person).to have_key(:age)
+              # expect(person).to have_key(:gender)
+              # expect(person).to have_key(:is_homeless)
               # expect(person).to have_key(:is_temporarily_out_of_state)
               # expect(person).to have_key(:americanIndianAlaskanNativeIndicator)
+
+              person[:person_name].tap do |person_name|
+                expect(person_name).to have_key(:full_name)
+                expect(person_name[:full_name]).to eq("#{person_name[:first_name]} #{person_name[:last_name]}")
+              end
+
               person[:addresses].each do |address|
                 expect(address).to have_key(:kind)
                 expect(address).to have_key(:address_1)
@@ -47,32 +55,37 @@ RSpec.describe ::AcaEntities::Operations::TransformExamples::McrTo::CvInput do
 
     it 'should transform the payload according to instructions' do
       AcaEntities::Operations::TransformExamples::McrTo::CvInput.call(source_file) do |record|
-
         record[:family].tap do |family|
-          expect(family).to have_key(:hbx_id)
-          expect(family).to have_key(:vlp_documents_status)
+          expect(record[:family]).to have_key(:hbx_id)
+          # expect(family).to have_key(:vlp_documents_status)
           expect(family).to have_key(:min_verifications_due_date)
           expect(family).to have_key(:special_enrollment_periods)
           expect(family).to have_key(:irs_groups)
           expect(family).to have_key(:broker_agency_accounts)
           expect(family).to have_key(:general_agency_accounts)
           expect(family).to have_key(:payment_transactions)
-          expect(family).to have_key(:financial_assistance_applications)
+          # expect(family).to have_key(:financial_assistance_applications)
+
+          expect(family[:family_members].any? { |fm| fm[:is_primary_applicant] == true }).to be_truthy
 
           family[:family_members].each do |family_member|
             expect(family_member).to have_key(:is_primary_applicant)
             family_member[:person].tap do |person|
               expect(person).to have_key(:identifiers)
-              expect(person).to have_key(:no_ssn)
-              expect(person).to have_key(:ethnicity)
-              expect(person).to have_key(:race)
-              expect(person).to have_key(:tribal_id)
-              expect(person).to have_key(:age)
-              expect(person).to have_key(:names)
-              expect(person).to have_key(:gender)
-              expect(person).to have_key(:is_homeless)
+              # expect(person).to have_key(:no_ssn)
+              # expect(person).to have_key(:ethnicity)
+              # expect(person).to have_key(:race)
+              # expect(person).to have_key(:tribal_id)
+              # expect(person).to have_key(:age)
+              # expect(person).to have_key(:names)
+              # expect(person).to have_key(:gender)
+              # expect(person).to have_key(:is_homeless)
               # expect(person).to have_key(:is_temporarily_out_of_state)
               # expect(person).to have_key(:americanIndianAlaskanNativeIndicator)
+              person[:person_name].tap do |person_name|
+                expect(person_name).to have_key(:full_name)
+                expect(person_name[:full_name]).to eq("#{person_name[:first_name]} #{person_name[:last_name]}")
+              end
               expect(person).to have_key(:addresses)
               expect(person[:addresses]).to be_a(Array)
               person[:addresses].each do |address|
