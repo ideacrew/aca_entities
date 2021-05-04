@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
-# This file defines the maps
 module AcaEntities
   module MagiMedicaid
     module Transformers
       module IapTo
         # rubocop:disable Style/Lambda
-        # This transformer is used for Transform the data of the IapApplication Contract params to MitcApplication Contract params.
+        # This transformer is used for Transform the data of the MagiMedicaidApplication Contract params
+        # to MitcApplication Contract params.
         # This class is PRIVATE and cannot be called from outside except from operation:
         # AcaEntities::MagiMedicaid::Operations::Mitc::GenerateRequestPayload
         class Mitc < ::AcaEntities::Operations::Transforms::Transform

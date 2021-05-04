@@ -808,5 +808,58 @@ RSpec.describe AcaEntities::Contracts::Families::FamilyContract,  dbclean: :afte
         expect(result.errors.messages.first.text).to eq('must be one of: 2014 - 2025')
       end
     end
+
+    context 'with magi_medicaid_applications' do
+      let(:applicant) do
+        { name: {},
+          identifying_information: {},
+          citizenship_immigration_status_information: { citizen_status: 'us_citizen' },
+          demographic: {},
+          attestation: {},
+          is_primary_applicant: true,
+          is_applying_coverage: false,
+          family_member_reference: {},
+          person_hbx_id: '95',
+          is_required_to_file_taxes: false,
+          pregnancy_information: {},
+          has_job_income: false,
+          has_self_employment_income: false,
+          has_unemployment_income: false,
+          has_other_income: false,
+          has_deductions: false,
+          has_enrolled_health_coverage: false,
+          has_eligible_health_coverage: false }
+      end
+      let(:magi_medicaid_applications) do
+        [{ family_reference: {}, assistance_year: Date.today.year, applicants: [], us_state: 'DC', hbx_id: '200000123' },
+         { applicants: [applicant] }]
+      end
+
+      let(:family_with_magi_medicaid_apps) do
+        required_params.merge({ magi_medicaid_applications: magi_medicaid_applications })
+      end
+
+      before do
+        @errors = subject.call(family_with_magi_medicaid_apps).errors.to_h
+      end
+
+      it 'should return errors for first magi_medicaid_application' do
+        expect(@errors[:magi_medicaid_applications][0]).to eq({ family_reference: { hbx_id: ['is missing'] } })
+      end
+
+      it 'should return errors for second magi_medicaid_application' do
+        error_hash = { family_reference: ['is missing'],
+                       assistance_year: ['is missing'],
+                       applicants: { 0 => { name: { first_name: ['is missing'], last_name: ['is missing'] },
+                                            identifying_information: ["must be filled"],
+                                            demographic: ["must be filled"],
+                                            attestation: ["must be filled"],
+                                            family_member_reference: { family_member_hbx_id: ['is missing'] },
+                                            pregnancy_information: { is_pregnant: ['is missing'] } } },
+                       us_state: ['is missing'],
+                       hbx_id: ['is missing'] }
+        expect(@errors[:magi_medicaid_applications][1]).to eq(error_hash)
+      end
+    end
   end
 end
