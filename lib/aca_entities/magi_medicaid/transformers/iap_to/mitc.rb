@@ -75,9 +75,7 @@ module AcaEntities
                   end
                 end
 
-                # value should be the new attributes, currently this is not mapped to anything.
-                # add_key 'is_claimed_as_dependent_by_non_applicant', value
-
+                map 'is_claimed_as_dependent_by_non_applicant', 'is_claimed_as_dependent_by_non_applicant', function: ->(v) { boolean_string(v) }
                 map 'is_self_attested_long_term_care', 'is_self_attested_long_term_care', function: ->(value) { boolean_string(value) }
                 map 'has_insurance', 'has_insurance', function: ->(value) { boolean_string(value) }
                 map 'has_state_health_benefit', 'has_state_health_benefit', function: ->(value) { boolean_string(value) }
@@ -198,6 +196,7 @@ module AcaEntities
 
           map 'assistance_year', 'application_year'
           map 'us_state', 'state'
+          map 'hbx_id', 'name'
 
         end
         # rubocop:enable Style/Lambda

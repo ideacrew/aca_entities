@@ -147,6 +147,7 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Operations::Mitc::GenerateRequestPay
       is_refugee: false,
       addresses: addresses,
       is_temporarily_out_of_state: false,
+      is_claimed_as_dependent_by_non_applicant: false,
       mitc_relationships: applicant1_mitc_relationships,
       mitc_income: mitc_income }
   end
@@ -192,6 +193,7 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Operations::Mitc::GenerateRequestPay
       is_refugee: false,
       addresses: addresses,
       is_temporarily_out_of_state: false,
+      is_claimed_as_dependent_by_non_applicant: false,
       mitc_relationships: applicant2_mitc_relationships,
       mitc_income: mitc_income }
   end
@@ -278,6 +280,7 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Operations::Mitc::GenerateRequestPay
 
   let(:iap_application) do
     { us_state: 'DC',
+      hbx_id: '200000123',
       family_reference: family_reference,
       assistance_year: Date.today.year,
       applicants: iap_applicants,
@@ -299,6 +302,7 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Operations::Mitc::GenerateRequestPay
     expect(@request_payload_hash).to have_key(:State)
     expect(@request_payload_hash).to have_key(:'Application Year')
     expect(@request_payload_hash).to have_key(:Name)
+    expect(@request_payload_hash[:Name]).to eq(iap_application[:hbx_id])
     expect(@request_payload_hash).to have_key(:People)
     expect(@request_payload_hash).to have_key(:'Physical Households')
     expect(@request_payload_hash).to have_key(:'Tax Returns')

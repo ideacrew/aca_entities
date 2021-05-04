@@ -105,6 +105,11 @@ module AcaEntities
       # @return [Integer]
       attribute :hours_worked_per_week, Types::Integer.optional.meta(omittable: true)
 
+      # @!attribute [r] is_claimed_as_dependent_by_non_applicant
+      # Applicant is claimed as dependent by a person who is not applying for coverage(is_applying_coverage).
+      # @return [Bool]
+      attribute :is_claimed_as_dependent_by_non_applicant, Types::Bool.optional.meta(omittable: true)
+
       # Set of attributes specific to MitC which helps to not have much logic in IapTo MitC Transform.
       attribute :mitc_income, AcaEntities::MagiMedicaid::Mitc::Income.optional.meta(omittable: true)
       attribute :mitc_relationships, Types::Array.of(AcaEntities::MagiMedicaid::Mitc::Relationship).optional.meta(omittable: true)

@@ -53,6 +53,18 @@ module AcaEntities
         # @option opts [Array] :incomes optional
         # @option opts [Array] :benefits optional
         # @option opts [Array] :deductions optional
+        # @option opts [Boolean] :is_medicare_eligible optional
+        # @option opts [Boolean] :is_self_attested_long_term_care optional
+        # @option opts [Boolean] :has_insurance optional
+        # @option opts [Boolean] :has_state_health_benefit optional
+        # @option opts [Boolean] :had_prior_insurance optional
+        # @option opts [Date] :prior_insurance_end_date optional
+        # @option opts [Integer] :age_of_applicant optional
+        # @option opts [Integer] :hours_worked_per_week optional
+        # @option opts [Boolean] :is_temporarily_out_of_state optional
+        # @option opts [Boolean] :is_claimed_as_dependent_by_non_applicant optional
+        # @option opts [hash] :mitc_income optional
+        # @option opts [Array] :mitc_relationships optional
         # @return [Dry::Monads::Result]
         params do
           required(:name).hash(AcaEntities::Contracts::People::PersonNameContract.params)
@@ -127,6 +139,7 @@ module AcaEntities
 
           optional(:hours_worked_per_week).filled(:integer)
           optional(:is_temporarily_out_of_state).filled(:bool)
+          optional(:is_claimed_as_dependent_by_non_applicant).filled(:bool)
 
           # Set of attributes specific to MitC which helps to not have much logic in IapTo MitC Transform.
           optional(:mitc_income).hash(AcaEntities::MagiMedicaid::Mitc::Contracts::IncomeContract.params)

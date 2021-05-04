@@ -71,7 +71,8 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicationContract,  dbcle
       { family_reference: family_reference,
         assistance_year: Date.today.year,
         applicants: [applicant],
-        us_state: 'DC' }
+        us_state: 'DC',
+        hbx_id: '200000123' }
     end
 
     it 'should return success' do
@@ -204,7 +205,13 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicationContract,  dbcle
 
   context 'invalid params' do
     context 'applicants' do
-      let(:input_params) { { family_reference: family_reference, assistance_year: Date.today.year, applicants: [], us_state: 'DC' } }
+      let(:input_params) do
+        { family_reference: family_reference,
+          assistance_year: Date.today.year,
+          applicants: [],
+          us_state: 'DC',
+          hbx_id: '200000123' }
+      end
 
       context 'missing applicants' do
         it 'should return a failure with error message' do
@@ -312,7 +319,13 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicationContract,  dbcle
       end
 
       context 'benefits' do
-        let(:input_params) { { family_reference: family_reference, assistance_year: Date.today.year, applicants: [local_applicant], us_state: 'DC' } }
+        let(:input_params) do
+          { family_reference: family_reference,
+            assistance_year: Date.today.year,
+            applicants: [local_applicant],
+            us_state: 'DC',
+            hbx_id: '200000123' }
+        end
         let(:benefit) do
           { kind: 'employer_sponsored_insurance',
             status: 'is_eligible',
@@ -409,7 +422,13 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicationContract,  dbcle
       end
 
       context 'deductions' do
-        let(:input_params) { { family_reference: family_reference, assistance_year: Date.today.year, applicants: [local_applicant], us_state: 'DC' } }
+        let(:input_params) do
+          { family_reference: family_reference,
+            assistance_year: Date.today.year,
+            applicants: [local_applicant],
+            us_state: 'DC',
+            hbx_id: '200000123' }
+        end
         let(:local_deduction) do
           { kind: 'tuition_and_fees',
             amount: 1000.67,
@@ -747,7 +766,9 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicationContract,  dbcle
       end
 
       it 'should return failure with error message' do
-        expect(subject.call(input_params).errors.to_h).to eq({ assistance_year: ['is missing'], us_state: ['is missing'] })
+        expect(subject.call(input_params).errors.to_h).to eq({ assistance_year: ['is missing'],
+                                                               hbx_id: ['is missing'],
+                                                               us_state: ['is missing'] })
       end
     end
 
@@ -763,7 +784,9 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicationContract,  dbcle
       end
 
       it 'should return failure with error message' do
-        expect(subject.call(input_params).errors.to_h).to eq({ assistance_year: ['must be an integer'], us_state: ['is missing'] })
+        expect(subject.call(input_params).errors.to_h).to eq({ assistance_year: ['must be an integer'],
+                                                               hbx_id: ['is missing'],
+                                                               us_state: ['is missing'] })
       end
     end
   end

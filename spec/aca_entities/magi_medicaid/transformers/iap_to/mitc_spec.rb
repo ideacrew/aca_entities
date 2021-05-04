@@ -147,6 +147,7 @@ RSpec.describe AcaEntities::MagiMedicaid::Transformers::IapTo::Mitc do
         is_refugee: false,
         addresses: addresses,
         is_temporarily_out_of_state: false,
+        is_claimed_as_dependent_by_non_applicant: false,
         mitc_relationships: applicant1_mitc_relationships,
         mitc_income: mitc_income }
     end
@@ -192,6 +193,7 @@ RSpec.describe AcaEntities::MagiMedicaid::Transformers::IapTo::Mitc do
         is_refugee: false,
         addresses: addresses,
         is_temporarily_out_of_state: false,
+        is_claimed_as_dependent_by_non_applicant: false,
         mitc_relationships: applicant2_mitc_relationships,
         mitc_income: mitc_income }
     end
@@ -278,6 +280,7 @@ RSpec.describe AcaEntities::MagiMedicaid::Transformers::IapTo::Mitc do
 
     let(:application) do
       { us_state: 'DC',
+        hbx_id: '200000123',
         family_reference: family_reference,
         assistance_year: Date.today.year,
         applicants: iap_applicants,
@@ -301,6 +304,8 @@ RSpec.describe AcaEntities::MagiMedicaid::Transformers::IapTo::Mitc do
 
     it 'should transform the payload according to instructions' do
       expect(@final_result).to have_key(:state)
+      expect(@final_result).to have_key(:name)
+      expect(@final_result[:name]).to eq(application[:hbx_id])
       expect(@final_result).to have_key(:application_year)
       expect(@final_result[:people].count).to eq(2)
 
@@ -319,6 +324,8 @@ RSpec.describe AcaEntities::MagiMedicaid::Transformers::IapTo::Mitc do
         expect(person).not_to have_key(:lives_outside_state_temporarily)
         expect(person).to have_key(:resides_in_state_of_application)
         expect(person[:resides_in_state_of_application]).to eq('N')
+        expect(person).to have_key(:is_claimed_as_dependent_by_non_applicant)
+        expect(person[:is_claimed_as_dependent_by_non_applicant]).to eq('N')
         expect(person).to have_key(:is_self_attested_long_term_care)
         expect(person).to have_key(:has_insurance)
         expect(person).to have_key(:has_state_health_benefit)
@@ -434,9 +441,6 @@ RSpec.describe AcaEntities::MagiMedicaid::Transformers::IapTo::Mitc do
   def add_addtional_params(transform_result)
     # application_hash = JSON.parse(iap_application, symbolize_names: true)
 
-    # Merge Application Level params
-    transform_result.merge!({ name: 'IAP Application' })
-
     # Merge each Applicant Level params
     transform_result[:people].each do |mitc_person|
       mitc_person.merge!(addtional_person_params)
@@ -445,8 +449,7 @@ RSpec.describe AcaEntities::MagiMedicaid::Transformers::IapTo::Mitc do
   end
 
   def addtional_person_params
-    { is_claimed_as_dependent_by_non_applicant: 'N',
-      has_forty_title_ii_work_quarters: 'N',
+    { has_forty_title_ii_work_quarters: 'N',
       is_amerasian: 'N' }
   end
 

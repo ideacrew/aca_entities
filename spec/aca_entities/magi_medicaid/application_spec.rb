@@ -70,7 +70,8 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Application, dbclean: :after_each do
       { family_reference: family_reference,
         assistance_year: Date.today.year,
         applicants: [applicant],
-        us_state: 'DC' }
+        us_state: 'DC',
+        hbx_id: '200000123' }
     end
 
     context 'with one applicant' do

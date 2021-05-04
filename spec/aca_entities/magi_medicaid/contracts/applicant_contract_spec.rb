@@ -67,6 +67,7 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicantContract,  dbclean
         incomes: [],
         benefits: [],
         deductions: [],
+        is_claimed_as_dependent_by_non_applicant: false,
         mitc_relationships: mitc_relationships,
         mitc_income: mitc_income }
     end
@@ -145,7 +146,8 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicantContract,  dbclean
         phones: [],
         incomes: [],
         benefits: [],
-        deductions: [] }
+        deductions: [],
+        is_claimed_as_dependent_by_non_applicant: false }
     end
 
     context 'valid params' do
