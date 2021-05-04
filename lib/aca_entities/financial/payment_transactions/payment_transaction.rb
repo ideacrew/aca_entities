@@ -14,6 +14,7 @@ module AcaEntities
 
         attribute :payment_transaction_id,       Types::String.optional.meta(omittable: true)
         attribute :status,                       Types::String.optional.meta(omittable: true)
+        attribute :source,                       Types::Strict::String
 
       end
     end

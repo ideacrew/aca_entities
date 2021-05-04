@@ -1926,6 +1926,11 @@ module AcaEntities
       'resident'
     )
 
+    PaymentTransactionSourceKind = Types::Coercible::String.enum(
+      'plan_shopping',
+      'enrollment_tile'
+    )
+
     MarketTransitionReasonCodes = Types::Coercible::String.enum(
       'initial_individual_market_transition_created_using_data_migration',
       'eligibility_failed_or_documents_not_received_by_due_date',
