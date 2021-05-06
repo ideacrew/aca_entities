@@ -15,20 +15,24 @@ RSpec.describe AcaEntities::MagiMedicaid::Transformers::IapTo::Mitc do
 
     before do
       described_class.call(magi_medicaid_application) { |record| @transform_result = record }
-      @final_result = add_addtional_params(@transform_result)
-      # mitc_application_result = ::AcaEntities::MagiMedicaid::Mitc::Contracts::ApplicationContract.new.call(@final_result)
+      # mitc_application_result = ::AcaEntities::MagiMedicaid::Mitc::Contracts::ApplicationContract.new.call(@transform_result)
       # binding.pry
       # mitc_application_result.errors.to_h
     end
 
     it 'should transform the payload according to instructions' do
-      expect(@final_result).to have_key(:state)
-      expect(@final_result).to have_key(:name)
-      expect(@final_result[:name]).to eq(iap_application[:hbx_id])
-      expect(@final_result).to have_key(:application_year)
-      expect(@final_result[:people].count).to eq(2)
+      expect(@transform_result).to have_key(:state)
+      expect(@transform_result).to have_key(:name)
+      expect(@transform_result[:name]).to eq(iap_application[:hbx_id])
+      expect(@transform_result).to have_key(:application_year)
+      expect(@transform_result[:people].count).to eq(2)
 
-      @final_result[:people].each do |person|
+      @transform_result[:people].each do |person|
+
+        # Mocked attributes
+        expect(person).to have_key(:has_forty_title_ii_work_quarters)
+        expect(person).to have_key(:is_amerasian)
+
         expect(person).to be_a(Hash)
         expect(person).to have_key(:person_id)
         expect(person).to have_key(:is_applicant)
@@ -123,53 +127,37 @@ RSpec.describe AcaEntities::MagiMedicaid::Transformers::IapTo::Mitc do
 
     context 'should add physical_households and embedded params' do
       it 'should add key physical_households' do
-        expect(@final_result).to have_key(:physical_households)
+        expect(@transform_result).to have_key(:physical_households)
       end
 
       it 'should add all the keys of each physical_household' do
-        household = @final_result[:physical_households].first
+        household = @transform_result[:physical_households].first
         expect(household).to have_key(:household_id)
         expect(household).to have_key(:people)
       end
 
       it 'should add all the keys of each person_reference' do
-        per_ref = @final_result[:physical_households].first[:people].first
+        per_ref = @transform_result[:physical_households].first[:people].first
         expect(per_ref).to have_key(:person_id)
       end
     end
 
     context 'should add tax_returns and embedded params' do
       it 'should add key tax_returns' do
-        expect(@final_result).to have_key(:tax_returns)
+        expect(@transform_result).to have_key(:tax_returns)
       end
 
       it 'should add all the keys of each tax_return' do
-        tax_return = @final_result[:tax_returns].first
+        tax_return = @transform_result[:tax_returns].first
         expect(tax_return).to have_key(:filers)
         expect(tax_return).to have_key(:dependents)
       end
 
       it 'should add all the keys of each filer' do
-        filer = @final_result[:tax_returns].first[:filers].first
+        filer = @transform_result[:tax_returns].first[:filers].first
         expect(filer).to have_key(:person_id)
       end
     end
-  end
-
-  # TODO: Will be moved to a class.
-  def add_addtional_params(transform_result)
-    # application_hash = JSON.parse(magi_medicaid_application, symbolize_names: true)
-
-    # Merge each Applicant Level params
-    transform_result[:people].each do |mitc_person|
-      mitc_person.merge!(addtional_person_params)
-    end
-    transform_result
-  end
-
-  def addtional_person_params
-    { has_forty_title_ii_work_quarters: 'N',
-      is_amerasian: 'N' }
   end
 
   # def tax_return_hash(application_hash, thh)

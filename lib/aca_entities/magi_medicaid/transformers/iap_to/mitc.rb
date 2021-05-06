@@ -9,12 +9,17 @@ module AcaEntities
         # to MitcApplication Contract params.
         # This class is PRIVATE and cannot be called from outside except from operation:
         # AcaEntities::MagiMedicaid::Operations::Mitc::GenerateRequestPayload
+        # TODO: Remove the mocked attributes
         class Mitc < ::AcaEntities::Operations::Transforms::Transform
           include ::AcaEntities::Operations::Transforms::Transformer
 
           namespace 'applicants' do
             rewrap 'people', type: :array do
               rewrap '', type: :hash do
+
+                # TODO: Remove below mocked attributes
+                add_key 'has_forty_title_ii_work_quarters', value: 'N'
+                add_key 'is_amerasian', value: 'N'
 
                 namespace 'mitc_relationships' do
                   rewrap 'relationships', type: :array do
