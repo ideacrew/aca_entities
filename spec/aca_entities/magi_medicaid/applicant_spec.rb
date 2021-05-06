@@ -95,6 +95,7 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Applicant, dbclean: :after_each do
         incomes: [income],
         benefits: [benefit],
         deductions: [deduction],
+        is_temporarily_out_of_state: false,
         is_claimed_as_dependent_by_non_applicant: false,
         mitc_relationships: mitc_relationships,
         mitc_income: mitc_income }

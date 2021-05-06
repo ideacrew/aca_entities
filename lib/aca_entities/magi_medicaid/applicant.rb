@@ -105,6 +105,11 @@ module AcaEntities
       # @return [Integer]
       attribute :hours_worked_per_week, Types::Integer.optional.meta(omittable: true)
 
+      # @!attribute [r] is_temporarily_out_of_state
+      # Applicant is currently living outside State of Application
+      # @return [Bool]
+      attribute :is_temporarily_out_of_state, Types::Bool.optional.meta(omittable: true)
+
       # @!attribute [r] is_claimed_as_dependent_by_non_applicant
       # Applicant is claimed as dependent by a person who is not applying for coverage(is_applying_coverage).
       # @return [Bool]
