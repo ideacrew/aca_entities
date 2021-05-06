@@ -114,9 +114,9 @@ module AcaEntities
         #
         # @api public
         def add_namespace(source_ns_key, output_namespace, *args, &block)
-          raise 'expected arg1 not be empty string or an integer' if source_ns_key.empty? || source_ns_key.is_a?(Integer)
-          raise 'expected arg2 not be empty string or an integer' if output_namespace.empty? || output_namespace.is_a?(Integer)
-          raise 'expected arg3 not be empty' if args.empty?
+          # raise 'expected arg1 not be empty string or an integer' if source_ns_key.empty? || source_ns_key.is_a?(Integer)
+          # raise 'expected arg2 not be empty string or an integer' if output_namespace.empty? || output_namespace.is_a?(Integer)
+          # raise 'expected arg3 not be empty' if args.empty?
 
           map = Map.new((source_ns + [source_ns_key]).join('.'),
                         output_namespace,
@@ -210,7 +210,13 @@ module AcaEntities
           # @mappings << Map.new(source_namespace, output_namespace, :rename_keys) if output_namespace.present?
           map = self.class.new(source_ns + source_namespace.split('.'),
                                output_ns + output_namespace.to_s.split('.'))
-          map.context = args.first[:context] if args.first && args.first[:context]
+          
+          # TODO: refactor map.context with below add_context to memoize the identifier with namespaces key identifier 
+          # this helps to store namespaced identifier in attestation member and computed members                  
+          add_context((source_ns + [source_namespace]).join('.'), output_namespace, args.first[:context]) if args.first && args.first[:context]
+          
+          # using below will not have the ability to store all the same identifiers in the different loops 
+          # map.context = args.first[:context] if args.first && args.first[:context]
           map.instance_exec(&block)
 
           @mappings.merge!(map.mappings)
@@ -218,12 +224,16 @@ module AcaEntities
 
         private
 
+        # build context with namespaced identifier key
+        # append_identifier arg to notify the context builder that there is a wild card, which should be appended to the key.
         # @api private
         def add_context(key, output_key, options)
+          arg2 = output_key || key.split('.*').first
           map = Map.new(key,
-                        output_key || key,
+                        arg2,
                         nil,
                         :add_context,
+                        append_identifier: options[:append_identifier] || false,
                         proc: options[:function])
           map.properties = options
           @mappings[map.container_key] = map
@@ -298,7 +308,7 @@ module AcaEntities
           #
           # @visibility public
           # @param [String] key
-          # @param value describe a proc or a value(integer/string)
+          # @param args describe as value with a proc or (integer/string) and function with a proc or a custom build funtion
           #
           # @example
           #   add_key "fname"
@@ -311,14 +321,16 @@ module AcaEntities
           # @return [Object]
           #
           # @api public
-          def add_key(key, value = nil)
+          def add_key(key, *args)
+            # value, and a function can be passed to the top level add key
             raise 'arg1 should not be empty string or an integer' if key.empty? || key.is_a?(Integer)
 
+            options = args.first || {}
             mapping = Map.new(['add_key', key].join('.'),
                               key,
-                              value,
+                              options[:value],
                               :add_key,
-                              proc: nil)
+                              proc: options[:function])
 
             mapping_container.register(mapping.container_key, mapping)
           end
@@ -374,7 +386,13 @@ module AcaEntities
         def keys_under_namespace(namespace)
           # return @keys_by_namespace[namespace] if @keys_by_namespace[namespace]
           # @keys_by_namespace[namespace] =
-          keys.select { |key| key.match?(/^#{Regexp.escape(namespace)}\.\w+$/) }
+          if namespace == "add_key"
+            # When the namespace is a add_key, Regexp should match the namespace along with the other namespaced keys
+            # "add_key.family.family_member.hbx_id"
+            keys.select { |key| key.match?(/^#{Regexp.escape(namespace)}\.\w+/) }
+          else
+            keys.select { |key| key.match?(/^#{Regexp.escape(namespace)}\.\w+$/) }
+          end
         end
       end
 
@@ -390,14 +408,16 @@ module AcaEntities
       end
 
       # Creates transform proc
+      # add append_identifier with default values false
       class Map
-        attr_reader :source_key, :output_key, :value, :key_transforms, :result, :transproc, :proc, :type, :memoize_record
+        attr_reader :source_key, :output_key, :value, :key_transforms, :result, :transproc, :proc, :type, :memoize_record, :append_identifier
         attr_accessor :context
 
-        def initialize(source_key = nil, output_key = nil, value = nil, *key_transforms, proc: nil)
+        def initialize(source_key = nil, output_key = nil, value = nil, *key_transforms, append_identifier: false, proc: nil)
           @source_key = source_key
           @output_key = output_key
           @key_transforms = key_transforms
+          @append_identifier = append_identifier
           @proc = proc
 
           if value.is_a?(Proc)

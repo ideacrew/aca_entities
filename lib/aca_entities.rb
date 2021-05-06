@@ -22,6 +22,9 @@ require 'aca_entities/shop_market'
 require 'aca_entities/transform'
 require 'aca_entities/functions/age_on'
 require 'aca_entities/functions/primary_applicant_builder'
+require 'aca_entities/functions/build_lawful_presence_determination'
+require 'aca_entities/functions/build_application'
+require 'aca_entities/functions/build_household'
 
 # TODO: Decide how to incorporate versioning? e.g. Iap::V3_0::Application
 # TODO: Should we insure unique namespacing with prefix? e.g. AcaIap::Application
