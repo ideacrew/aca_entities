@@ -74,6 +74,7 @@ module AcaEntities
         require 'aca_entities/magi_medicaid/transformers/iap_to/mitc'
 
         # Operations
+        require 'aca_entities/magi_medicaid/operations/initialize_application'
         require 'aca_entities/magi_medicaid/operations/mitc/generate_request_payload'
       end
     end
