@@ -8,7 +8,11 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Operations::Mitc::GenerateRequestPay
   include_context 'setup magi_medicaid application with two applicants'
 
   before do
-    @result = subject.call(iap_application)
+    @mm_application = ::AcaEntities::MagiMedicaid::Operations::InitializeApplication.new.call(iap_application).success
+  end
+
+  before do
+    @result = subject.call(@mm_application)
     @request_payload_hash = JSON.parse(@result.success, symbolize_names: true)
   end
 
