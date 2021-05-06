@@ -13,7 +13,7 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Operations::Mitc::GenerateRequestPay
 
   before do
     @result = subject.call(@mm_application)
-    @request_payload_hash = JSON.parse(@result.success, symbolize_names: true)
+    @request_payload_hash = @result.success
   end
 
   it 'should return success' do
