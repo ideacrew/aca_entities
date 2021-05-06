@@ -1,31 +1,33 @@
+# frozen_string_literal: true
+
 module AcaEntities
   module Crms
     module SugarCrm
       module Leads
 
-          # {
-          #   "id":"ecba9f86-4a4a-def6-359c-505a5b33f014",
-          #   "name":"John Smith",
-          #   "date_entered":"2012-09-19T23:54:54+0000",
-          #   "date_modified":"2012-09-19T23:54:54+0000",
-          #   "modified_user_id":"1",
-          #   "created_by":"1",
-          #   "deleted":0,
-          #   "team_id":"1",
-          #   "team_set_id":"1",
-          #   "first_name":"John",
-          #   "last_name":"Smith",
-          #   "full_name":"John Smith",
-          #   "do_not_call":false,
-          #   "converted":false,
-          #   "lead_source":"Support Portal User Registration",
-          #   "status":"New",
-          #   "preferred_language":"en_us",
-          #   "email":[
+        # {
+        #   "id":"ecba9f86-4a4a-def6-359c-505a5b33f014",
+        #   "name":"John Smith",
+        #   "date_entered":"2012-09-19T23:54:54+0000",
+        #   "date_modified":"2012-09-19T23:54:54+0000",
+        #   "modified_user_id":"1",
+        #   "created_by":"1",
+        #   "deleted":0,
+        #   "team_id":"1",
+        #   "team_set_id":"1",
+        #   "first_name":"John",
+        #   "last_name":"Smith",
+        #   "full_name":"John Smith",
+        #   "do_not_call":false,
+        #   "converted":false,
+        #   "lead_source":"Support Portal User Registration",
+        #   "status":"New",
+        #   "preferred_language":"en_us",
+        #   "email":[
 
-          #   ],
-          #   "my_favorite":false
-          # }
+        #   ],
+        #   "my_favorite":false
+        # }
         # Contract for sugar_crm Leads
         class LeadContract < ApplicationContract
 

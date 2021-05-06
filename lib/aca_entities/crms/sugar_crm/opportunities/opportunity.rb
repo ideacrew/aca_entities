@@ -114,7 +114,7 @@ module AcaEntities
           attribute :following,                   Types::Strict::String.meta(omittable: true)
           attribute :_module,                     Types::Strict::String.meta(omittable: true)
           attribute :duplicate_check_rank,        Types::Strict::Integer.meta(omittable: true)
-        
+
         end
       end
     end

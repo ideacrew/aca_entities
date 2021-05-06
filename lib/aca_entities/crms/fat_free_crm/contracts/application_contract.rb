@@ -4,6 +4,7 @@ Dry::Validation.load_extensions(:monads)
 
 # Configuration values and shared rules and macros for domain model validation contracts
 module FatFreeCrm
+  # Application Contract
   class ApplicationContract < Dry::Validation::Contract
     config.messages.default_locale = :en
 

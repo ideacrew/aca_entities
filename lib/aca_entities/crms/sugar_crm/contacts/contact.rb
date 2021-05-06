@@ -6,7 +6,7 @@ module AcaEntities
       module Contacts
         # entity for sugar_crm Contacts
         class Contact < Dry::Struct
-          
+
           attribute :deleted,              Types::Strict::String.meta(omittable: true)
           attribute :do_not_call,          Types::Strict::String.meta(omittable: true)
           attribute :portal_active,        Types::Strict::String.meta(omittable: true)
@@ -36,7 +36,7 @@ module AcaEntities
           attrubute :primary_address,       Locations::Address.meta(omittable: true)
 
           attribute :campaign_id,           Types::Strict::String.meta(omittable: true)
-          attribute :campaign_name,         Types::Strict::String.meta(omittable: true) 
+          attribute :campaign_name,         Types::Strict::String.meta(omittable: true)
 
         end
       end
