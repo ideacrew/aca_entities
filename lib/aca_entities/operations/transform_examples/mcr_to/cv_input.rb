@@ -9,45 +9,58 @@ module AcaEntities
         class CvInput < ::AcaEntities::Operations::Transforms::Transform
           include ::AcaEntities::Operations::Transforms::Transformer
 
+          # start transform from this record_delimiter key in the given JSON record
           record_delimiter 'applications.identifier.result'
-          # source_vocabulary :mcr
 
-          AgeOn = AcaEntities::Functions::AgeOn.new(on_date: '2020-1-1')
+          # map 'source key from hash', 'namespaced output key/rename key',
+          ### memoize: (to store this particular key in memory for later use),
+          ### visible: (to display of not display in output hash)
+          map 'coverageYear', 'family.magi_medicaid_applications.assistance_year', memoize: true, visible: false
 
-        
-          map 'coverageYear', 'family.magi_medicaid_applications.assistance_year'
-          map 'insuranceApplicationIdentifier', 'family.hbx_id'
+          ### function: (for value transform)
+          map 'insuranceApplicationIdentifier', 'family.hbx_id', function: ->(value) { value.to_s }
+
+          ### memoize_record: (to store entire hash under this particular key in memory for later use)
           map 'lastUpdateMetadata', 'lastUpdateMetadata', memoize_record: true
 
+          # namespace 'source key from hash' and block
           namespace 'attestations' do
-          
+            # rewrap elements under attestations to family
+            ### type: (build family as :hash or :array)
             rewrap 'family', type: :hash do
-              map 'insuranceApplicationIdentifier', 'hbx_id'
-              add_key 'foreign_keys'
+              # Only elements mentioned in rewrap is assigned to family
+
+              # add_key 'new key/ namespaced key'
+              ### value: ->(_v) {}
+              ### function:  as a proc or a custom build function
+              add_key 'foreign_keys', value: ->(_v) { [] }
               namespace 'application' do
                 map 'spokenLanguageType', 'family_members.person.consumer_role.language_preference', memoize: true, visible: false
 
                 namespace 'legalAttestations' do
-                  map 'renewEligibilityYearQuantity', 'renewal_consent_through_year'
-                  map 'absentParentAgreementIndicator', 'magi_medicaid_applications.parent_living_out_of_home_terms'
-                  map 'changeInformationAgreementIndicator', 'magi_medicaid_applications.report_change_terms'
-                  map 'medicaidRequirementAgreementIndicator', 'magi_medicaid_applications.medicaid_terms'
-                  map 'renewalAgreementIndicator', 'magi_medicaid_applications.is_renewal_authorized'
+                  map 'renewEligibilityYearQuantity', 'renewal_consent_through_year', function: ->(_value) { Date.today.year }
+                  map 'absentParentAgreementIndicator', 'magi_medicaid_applications.parent_living_out_of_home_terms', memoize: true, visible: false
+                  map 'changeInformationAgreementIndicator', 'magi_medicaid_applications.report_change_terms', memoize: true, visible: false
+                  map 'medicaidRequirementAgreementIndicator', 'magi_medicaid_applications.medicaid_terms', memoize: true, visible: false
+                  map 'renewalAgreementIndicator', 'magi_medicaid_applications.is_renewal_authorized', memoize: true, visible: false
                 end
               end
 
-              add_key 'general_agency_accounts', value: ->(_v) {[]}
-              add_key 'special_enrollment_periods', value: ->(_v) {[]}
-              add_key 'irs_groups', value: ->(_v) {[]}
-              add_key 'broker_accounts', value: ->(_v) {[]}
-              add_key 'documents', value: ->(_v) {[]}
-              add_key 'payment_transactions', value: ->(_v) {[]}
+              add_key 'general_agency_accounts', value: ->(_v) { [] }
+              add_key 'special_enrollment_periods', value: ->(_v) { [] }
+              add_key 'irs_groups', value: ->(_v) { [] }
+              add_key 'broker_accounts', value: ->(_v) { [] }
+              add_key 'documents', value: ->(_v) { [] }
+              add_key 'payment_transactions', value: ->(_v) { [] }
               map 'application.contactMemberIdentifier', 'family.family_members.is_primary_applicant', memoize: true, visible: false
               map 'application.contactInformation.email', 'family.family_members.person.email.address', memoize: true, visible: false
-              map 'application.contactInformation.primaryPhoneNumber.number', 'family.family_members.person.phone.number', memoize: true, visible: false
+              map 'application.contactInformation.primaryPhoneNumber.number', 'family.family_members.person.phone.number', memoize: true,
+                                                                                                                           visible: false
               map 'application.contactInformation.primaryPhoneNumber.ext', 'family.family_members.person.phone.ext', memoize: true, visible: false
               map 'application.contactInformation.primaryPhoneNumber.type', 'family.family_members.person.phone.type', memoize: true, visible: false
-              # map 'application.contactMethod', 'family.family_members.person.consumer_role.contact_method', memoize_record: true, visible: false
+
+              # original key is also passed to the output hash, revist code for this scenario
+              map 'application.contactMethod', 'family.family_members.person.consumer_role.contact_method', memoize: true, visible: false
 
               # transform not working
               # revist the code for values as array
@@ -60,112 +73,141 @@ module AcaEntities
               #       map
               #     end
               #   end
+              # map 'household.familyRelationships', 'household.familyRelationships'
 
-              #   map 'household.familyRelationships', 'family.family_members.person.family_Relationships', memoize: true
+              # map 'household', 'family.family_members.person.family_Relationships', memoize_record: true, visible: false
+              # namespace 'household.familyRelationships' do
+              #   rewrap  'family.family_members.person.family_Relationships', type: :array do
+              #     rewrap '', type: :array do
+              #     end
+              #   end
+              # end
               # end
 
-              namespace 'members.*', nil, context: {name: 'members'} do
+              ### context: (to store this particular wild card key in memory for later use),
+              namespace 'members.*', nil, context: { name: 'members' } do
                 rewrap 'family.family_members', type: :array do
                   # rubocop:disable Style/Lambda
                   add_key 'is_primary_applicant', function: ->(v) {
-                    v.resolve('family.family_members.is_primary_applicant').item == v.resolve(:members).item
+                    v.resolve('family.family_members.is_primary_applicant').item == v.find(/attestations.members.(\w+)$/).map(&:item).last
                   }
                   # rubocop:enable Style/Lambda
                   map 'requestingCoverageIndicator', 'is_coverage_applicant'
                   add_key 'is_active'
                   add_key 'is_consent_applicant'
-                  add_key 'foreign_keys'
+                  add_key 'foreign_keys', value: ->(_v) { [] }
+                  add_key 'hbx_id', value: ''
 
                   namespace 'demographic' do
                     rewrap 'family.family_members.person', type: :hash do
                       # add_key 'family_Relationships', function: AcaEntities::Functions::BuildRelationships.new
                       add_key 'hbx_id', value: ''
 
+                      # add_namespace 'new namespace key', 'namespace path for new namespace key', type: :hash
+                      # add new namespace of type hash as provided in output namespaced key
                       add_namespace 'identifiers', 'family.family_members.person.identifiers', type: :hash do
                         add_key 'source_system_key', value: 'ccr' # source_vocabulary
 
                         add_namespace 'ids', 'family.family_members.person.identifiers.ids', type: :hash do
-                          add_key 'key', function: ->(v) {v.resolve(:members).name} # should be derived based on context
-                          add_key 'item', function: ->(v) {v.resolve(:members).item} # should pick id from the source payload
+                          add_key 'key', function: lambda { |v|
+                                                     v.resolve('attestations.members', identifier: true).name
+                                                   }
+                          #->(v) {v.find(Regexp.new("attestations.members")).map(&:name).last} # should be derived based on context
+                          add_key 'item', function: lambda { |v|
+                                                      v.resolve('attestations.members', identifier: true).item
+                                                    }
+                          # should pick id from the source payload
                         end
                       end
 
-                      # namespace 'name' do
-                      #   rewrap 'family.family_members.person.person_name', type: :hash do
-                      #     map 'firstName', 'first_name', context: {name: 'first_name'}
-                      #     map 'lastName', 'last_name', context: {name: 'last_name'}
-                      #     add_key 'full_name', function: ->(v) {[v.resolve(:first_name).item, v.resolve(:last_name).item].join(' ')}
-                      #   end
-                      # end
+                      namespace 'name' do
+                        rewrap 'family.family_members.person.person_name', type: :hash do
+                          map 'firstName', 'first_name', memoize: true, append_identifier: true
+                          map 'lastName', 'last_name', memoize: true, append_identifier: true
+                          add_key 'full_name',
+                                  function: lambda { |v|
+                                              [v.resolve(:first_name, identifier: true).item, v.resolve(:last_name, identifier: true).item].join(' ')
+                                            }
+                        end
+                      end
+
                       map 'noHomeAddressIndicator', 'is_homeless'
                       map 'liveOutsideStateTemporarilyIndicator', 'is_temporarily_out_of_state'
                       map 'requestingFinancialAssistanceIndicator', 'is_applying_for_assistance'
-                      add_key 'is_active'
-                      add_key 'is_disabled'
-                      add_key 'person_relationships', value: ->(_v) {[]}
-                      add_key 'consumer_role', value: ->(_v) {{}}
-                      add_key 'consumer_role.requested_coverage_start_date'
-                      add_key 'consumer_role.aasm_state'
-                      add_key 'consumer_role.is_applicant'
-                      add_key 'consumer_role.birth_location'
+                      add_key 'is_active', value: true
+                      add_key 'person_relationships', value: ->(_v) { [] }
                       map 'maritalStatus', 'consumer_role.marital_status'
-                      add_key 'consumer_role.is_active'
-                      add_key 'consumer_role.is_applying_coverage'
-                      add_key 'consumer_role.bookmark_url'
-                      add_key 'consumer_role.admin_bookmark_url'
-                      # transform not working
-                      # revist the code for values as array
-                      # add_key 'consumer_role.contact_method', function: ->(v) {  v.resolve("family.family_members.person.consumer_role.contact_method").item}
-                      add_key 'consumer_role.language_preference', function: ->(v) {v.resolve('family_members.person.consumer_role.language_preference').item}
-                      add_key 'consumer_role.is_state_resident'
-                      add_key 'consumer_role.identity_validation'
-                      add_key 'consumer_role.identity_update_reason'
-                      add_key 'consumer_role.application_validation'
-                      add_key 'consumer_role.application_update_reason'
-                      add_key 'consumer_role.identity_rejected'
-                      add_key 'consumer_role.application_rejected'
-                      add_key 'consumer_role.documents', value: ->(_v) {[]}
-                      add_key 'consumer_role.vlp_documents', value: ->(_v) {[]}
-                      add_key 'consumer_role.ridp_documents', value: ->(_v) {[]}
-                      add_key 'consumer_role.verification_type_history_elements', value: ->(_v) {[]}
+                      add_namespace 'consumer_role', 'family.family_members.person.consumer_role', type: :hash do
+                        add_key 'five_year_bar'
+                        add_key 'requested_coverage_start_date', value: ->(_v) { Date.today }
+                        add_key 'aasm_state'
+                        add_key 'is_applicant', function: lambda { |v|
+                          v.resolve('family.family_members.is_primary_applicant').item == v.find(/attestations.members.(\w+)$/).map(&:item).last
+                        }
+                        add_key 'birth_location'
+                        add_key 'is_active'
+                        add_key 'is_applying_coverage', value: true
+                        add_key 'bookmark_url'
+                        add_key 'admin_bookmark_url'
+                        add_key 'contact_method',
+                                function: ->(v) { v.resolve('family.family_members.person.consumer_role.contact_method').item.first }
+                        add_key 'language_preference',
+                                function: ->(v) { v.resolve('family_members.person.consumer_role.language_preference').item }
+                        add_key 'is_state_resident'
+                        add_key 'identity_validation'
+                        add_key 'identity_update_reason'
+                        add_key 'application_validation'
+                        add_key 'application_update_reason'
+                        add_key 'identity_rejected'
+                        add_key 'application_rejected'
+                        add_key 'documents', value: ->(_v) { [] }
+                        add_key 'vlp_documents', value: ->(_v) { [] }
+                        add_key 'ridp_documents', value: ->(_v) { [] }
+                        add_key 'verification_type_history_elements', value: ->(_v) { [] }
+                        add_key 'local_residency_responses', value: ->(_v) { [] }
+                        add_key 'local_residency_requests', value: ->(_v) { [] }
+                      end
 
-                      add_key 'consumer_role.local_residency_responses', value: ->(_v) {[]}
-                      add_key 'consumer_role.local_residency_requests', value: ->(_v) {[]}
-
-                      add_key 'resident_role'
-                      add_key 'individual_market_transitions', value: ->(_v) {[]}
-                      add_key 'verification_types', value: ->(_v) {[]}
-                      add_key 'broker_role'
-                      # , function : ->(v) {
-                      #   v.resolve('family.family_members.is_primary_applicant').item == v.resolve(:members).item
-                      # }
-                      add_key 'emails', function: ->(v) {
-                        if v.resolve('family.family_members.is_primary_applicant').item == v.resolve(:members).item
-                          [{address: v.resolve('family.family_members.person.email.address').item, kind: 'home'}]
-                        end
+                      # add_key 'resident_role'
+                      add_key 'individual_market_transitions', value: ->(_v) { [] }
+                      add_key 'verification_types', value: ->(_v) { [] }
+                      # add_key 'broker_role'
+                      add_key 'emails', function: lambda { |v|
+                        # revisit if condition for emails and phone for dependents
+                        # if v.resolve('family.family_members.is_primary_applicant').item == v.find(Regexp.new("attestations.members")).map(&:item).last
+                        [{ address: v.resolve('family.family_members.person.email.address').item, kind: 'home' }]
+                        # end
                       }
-                      add_key 'phones', function: lambda {|v|
-                        if v.resolve('family.family_members.is_primary_applicant').item == v.resolve(:members).item
-                          [{extension: v.resolve('family.family_members.person.phone.ext').item,
-                            kind: v.resolve('family.family_members.person.phone.type').item,
-                            area_code: v.resolve('family.family_members.person.phone.number').item[0..2],
-                            number: v.resolve('family.family_members.person.phone.number').item[3..9],
-                            primary: nil,
-                            full_phone_number: [v.resolve('family.family_members.person.phone.ext').item, v.resolve('family.family_members.person.phone.number').item].join(''),
-                            start_on: nil,
-                            end_on: nil}]
-                        end
+                      add_key 'phones', function: lambda { |v|
+                        # revisit if condition for emails and phone for dependents
+                        # if v.resolve('family.family_members.is_primary_applicant').item == v.find(Regexp.new("attestations.members")).map(&:item).last
+                        [{ extension: v.resolve('family.family_members.person.phone.ext').item,
+                           kind: v.resolve('family.family_members.person.phone.type').item.to_s.downcase,
+                           area_code: v.resolve('family.family_members.person.phone.number').item[0..2],
+                           number: v.resolve('family.family_members.person.phone.number').item[3..9],
+                           primary: true,
+                           full_phone_number: v.resolve('family.family_members.person.phone.number').item,
+                           start_on: nil,
+                           end_on: nil }]
+                        # end
                       }
-                      add_key 'documents', value: ->(_v) {[]}
+                      add_key 'documents', value: ->(_v) { [] }
                       add_key 'age_off_excluded'
-                      map 'sex', 'person_demographics.sex', action: :nest, function: ->(value) {value.to_s.downcase}
-                      map 'birthDate', 'person_demographics.birthDate', action: :nest, function: AgeOn
-                      # transform not working
+                      map 'sex', 'person_demographics.gender', function: ->(value) { value.to_s.downcase }
+                      map 'birthDate', 'person_demographics.dob', function: ->(value) { convert_to_date(value) }
+                      map 'ssn', 'person_demographics.ssn', memoize_record: true
+
+                      # map transform not working for values with arrays
                       # revist the code for values as array
-                      # map 'ethnicity', 'person_demographics.ethnicity'
-                      # map 'race', 'person_demographics.race'
+                      # work around is to memoize_record
+                      # map 'ethnicity', 'person_demographics.ethnicity', memoize_record: true, visible: false
+                      # map 'race', 'person_demographics.race', memoize_record: true, visible: false
+
+                      # add_key 'person_demographics.ethnicity', value: ->(v) {v.resolve('ethnicity').item}
+                      # add_key 'person_demographics.race', value: ->(v) {v.resolve('race').item}
+
                       add_key 'person_demographics.tribal_id'
-                      add_key 'person_demographics.no_ssn'
+                      add_key 'person_demographics.no_ssn', value: ->(v) { v.resolve('person_demographics.ssn').item.nil? }
                       add_key 'person_demographics.language_code'
                       add_key 'person_demographics.date_of_death'
                       add_key 'person_demographics.dob_check'
@@ -173,11 +215,10 @@ module AcaEntities
                       map 'noHomeAddressIndicator', 'is_homeless'
                       map 'liveOutsideStateTemporarilyIndicator', 'is_temporarily_out_of_state'
 
-
                       # add_namespace 'tax_household_members', type: :array do
                       #   rewrap 'family.household.tax_households.tax_household_members', type: :array do
                       #     add_key 'kind', value: 'home'
-                        
+
                       #   end
                       # end
 
@@ -219,30 +260,47 @@ module AcaEntities
                   # # [1,2,3,4,5].each do |i|
                   # #   map "income.currentIncome.currentIncome#{i}","family.magi_medicaid_applications.'->(v){v.resolve(:members).item}'.income.currentIncome.currentIncome#{i}" , memoize_record: true, visible: false
                   # # end
+                  map 'income.currentIncome', 'income.currentIncome', memoize_record: true, visible: false
+                  map 'family', 'family', memoize_record: true, visible: false # , append_identifier: true
+                  map 'nonMagi', 'nonMagi', memoize_record: true, visible: false
+                  # map 'lawfulPresence.naturalizedCitizenIndicator', 'naturalizedCitizenIndicator', memoize: true, visible: false
 
                   map 'lawfulPresence.noAlienNumberIndicator', 'noAlienNumberIndicator', memoize: true, visible: false
                   map 'lawfulPresence.citizenshipIndicator', 'citizenshipIndicator', memoize: true, visible: false
                   map 'lawfulPresence.naturalizedCitizenIndicator', 'naturalizedCitizenIndicator', memoize: true, visible: false
+                  map 'insuranceCoverage.employerSponsoredCoverageOffers', 'insuranceCoverage.employerSponsoredCoverageOffers',
+                      memoize_record: true, visible: false
+                  add_key 'person.consumer_role.lawful_presence_determination.citizen_status',
+                          function: AcaEntities::Functions::BuildLawfulPresenceDetermination.new
 
-                  # add_key 'person.consumer_role.lawful_presence_determination.citizen_status', function: AcaEntities::Functions::BuildLawfulPresenceDetermination.new
+                  add_key 'person.person_health.is_tobacco_user', value: 'unknown'
+                  add_key 'person.person_health.is_physically_disabled',
+                          function: lambda { |v|
+                                      v.find(Regexp.new('attestations.members.*.nonMagi')).map(&:item).last[:blindOrDisabledIndicator]
+                                    }
+                  add_key 'person.is_disabled',
+                          function: lambda { |v|
+                                      v.find(Regexp.new('attestations.members.*.nonMagi')).map(&:item).last[:blindOrDisabledIndicator]
+                                    }
 
-                  add_key 'person_health.is_tobacco_user'
-                  map 'nonMagi.blindOrDisabledIndicator', 'person_health.is_physically_disabled'
                   map 'other.americanIndianAlaskanNative.personRecognizedTribeIndicator',
                       'person.person_demographics.personRecognizedTribeIndicator'
-                  map 'other.incarcerationType', 'person.person_demographics.is_incarcerated', function: ->(value) {AcaEntities::Types::McrToCvIncarcerationKind[value]}
+                  map 'other.incarcerationType', 'person.person_demographics.is_incarcerated',
+                      function: lambda { |value|
+                                  AcaEntities::Types::McrToCvIncarcerationKind[value]
+                                }
                 end
               end
 
-              add_key 'household.start_date'
-              add_key 'household.end_date'
-              add_key 'household.is_active'
-              add_key 'household.irs_group'
-              add_key 'household.tax_households', value: ->(_v) {[]}
+              # add_key 'household.start_date'
+              # add_key 'household.end_date'
+              # add_key 'household.is_active'
+              add_key 'household.irs_group_reference', value: ->(_v) { {} }
+              # add_key 'household.tax_households', function: AcaEntities::Functions::Build.new
               # add_key 'household.tax_households.tax_household_members' {}
               # add_key 'household.tax_households.eligibility_determinations', value: ->(_v) {Array.new}
-              add_key 'household.coverage_households', value: ->(_v) {[]}
-              add_key 'household.hbx_enrollments', value: ->(_v) {[]}
+              add_key 'households', function: AcaEntities::Functions::BuildHousehold.new
+              # add_key 'household.hbx_enrollments', value: ->(_v) {[]}
 
               # transform not working to build array (type: array for add namespace)
               # revist the code
@@ -290,130 +348,26 @@ module AcaEntities
               #     end
               #   end
               # end
-
-
-              # namespace 'application' do
-              #   namespace 'legalAttestations' do
-              #     rewrap 'magi_medicaid_applications', type: :hash do
-              #       map "absentParentAgreementIndicator", "parent_living_out_of_home_terms"
-              #       map "changeInformationAgreementIndicator", "report_change_terms"
-              #       map "medicaidRequirementAgreementIndicator", "medicaid_terms"
-              #       map "renewalAgreementIndicator", "is_renewal_authorized"
-              #     end
-              #   end
-              # end
-
-           
-              # add_namespace 'applicants', 'magi_medicaid_applications.applicants', type: :array do
-              #   add_key 'name'
-              #   add_key 'identifying_information'
-              #   add_key 'demographic'
-              #   add_key 'attestation'
-              #   add_key 'is_primary_applicant'
-              #   add_key 'native_american_information'
-              #   add_key 'citizenship_immigration_status_information'
-
-              #   add_key 'is_consumer_role'
-              #   add_key 'is_resident_role'
-              #   add_key 'is_applying_coverage'
-              #   add_key 'is_consent_applicant'
-              #   add_key 'vlp_document'
-              #   add_key 'family_member_reference'
-
-              #   add_key 'person_hbx_id'
-
-              #   add_key 'is_required_to_file_taxes'
-              #   add_key 'tax_filer_kind'
-              #   add_key 'is_joint_tax_filing'
-              #   add_key 'is_claimed_as_tax_dependent'
-              #   add_key 'claimed_as_tax_dependent_by'
-
-              #   add_key 'student'
-              #   add_key 'is_refugee'
-              #   add_key 'is_trafficking_victim'
-              #   add_key 'foster_care'
-              #   add_key 'pregnancy_information'
-
-              #   # TODO: do we want to move these anywhere?
-              #   add_key 'is_subject_to_five_year_bar'
-              #   add_key 'is_five_year_bar_met'
-              #   add_key 'is_forty_quarters'
-              #   add_key 'is_ssn_applied'
-              #   add_key 'non_ssn_apply_reason'
-              #   # 5 Yr. Bar QNs.
-              #   add_key 'moved_on_or_after_welfare_reformed_law'
-              #   add_key 'is_currently_enrolled_in_health_plan'
-
-              #   # Other QNs.
-              #   add_key 'has_daily_living_help'
-              #   add_key 'need_help_paying_bills'
-
-              #   # Driver QNs.
-              #   add_key 'has_job_income'
-              #   add_key 'has_self_employment_income'
-              #   add_key 'has_unemployment_income'
-              #   add_key 'has_other_income'
-              #   add_key 'has_deductions'
-              #   add_key 'has_enrolled_health_coverage'
-              #   add_key 'has_eligible_health_coverage'
-
-              #   add_namespace 'incomes', 'magi_medicaid_applications.applicants.incomes', type: :array do
-              #     add_key 'title'
-              #     add_key 'kind'
-              #     add_key 'wage_type'
-              #     add_key 'hours_per_week'
-              #     # transform not working for array values
-              #     # revist the code
-              #     # add_key 'amount', function: ->(v) { v.resolve("family.magi_medicaid_applications.'->(v){v.resolve(:members).item}'.income.currentIncome.currentIncome#{i}").item }
-              #     add_key 'amount_tax_exempt'
-              #     add_key 'frequency_kind'
-              #     add_key 'start_on'
-              #     add_key 'end_on'
-              #     add_key 'is_projected'
-              #     add_key 'employer'
-              #     add_key 'has_property_usage_rights'
-              #     add_key 'submitted_at'
-              #   end
-
-              #   add_namespace 'benefits', 'magi_medicaid_applications.applicants.benefits', type: :array do
-              #     add_key 'name'
-              #     # insurance_kind
-              #     add_key 'kind'
-              #     # kind
-              #     add_key 'status'
-              #     add_key 'is_employer_sponsored'
-              #     add_key 'employer'
-              #     add_key 'esi_covered'
-              #     add_key 'is_esi_waiting_period'
-              #     add_key 'is_esi_mec_met'
-              #     # Money
-              #     add_key 'employee_cost'
-              #     add_key 'employee_cost_frequency'
-              #     add_key 'start_on'
-              #     add_key 'end_on'
-              #     add_key 'submitted_at'
-              #   end
-
-              #   add_namespace 'deductions', 'magi_medicaid_applications.applicants.deductions', type: :array do
-              #     add_key 'name'
-              #     add_key 'kind'
-              #     add_key 'amount'
-              #     add_key 'start_on'
-              #     add_key 'end_on'
-              #     add_key 'frequency_kind'
-              #     add_key 'submitted_at'
-              #   end
-              # end
             end
           end
-          # namespace 'computed' do 
-          #   namespace 'members' do
-          #   map "*" , "member" , memoize_record: true
-          #   end
-          # end
-          # add_key 'family.magi_medicaid_applications.applicants', function:  AcaEntities::Functions::BuildApplicants.new
-         
-
+          namespace 'computed' do
+            #   # rewrap 'family', type:hash do
+            rewrap 'family', type: :hash do
+              # add_key 'magi_medicaid_applicationsassistance_year', function: ->(v) {v.resolve("assistance_year").item}
+              # add_key 'parent_living_out_of_home_terms', function: ->(v) {v.resolve("parent_living_out_of_home_terms").item}
+              # add_key 'report_change_terms', function: ->(v) {v.resolve("report_change_terms").item}
+              # add_key 'medicaid_terms', function: ->(v) {v.resolve('medicaid_terms').item}
+              # add_key 'is_renewal_authorized', function: ->(v) {v.resolve('is_renewal_authorized').item}
+              #
+              namespace 'members' do
+                map '*', 'member', memoize_record: true
+                #       # rewrap 'family.magi_medicaid_applications.applicants', type: :array do
+                #       #   # map 'personTrackingNumber', 'person_Tracking_Number'
+                #       # end
+              end
+              add_key 'magi_medicaid_applications', function: AcaEntities::Functions::BuildApplication.new
+            end
+          end
 
           # namespace "computed" do
           #   rewrap 'family', type: :hash do

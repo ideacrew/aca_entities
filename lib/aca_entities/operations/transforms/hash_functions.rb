@@ -39,12 +39,13 @@ module AcaEntities
                           hash.dig(*namespaces) || hash
                         end
 
-            transformed_pair = if func.is_a? Proc
-                                 if input[:context]
-                                   data_pair.update(data_pair) {|_k, _old_value| instance_exec(input[:context], &func)}
-                                 else
-                                   data_pair.update(data_pair) {|_k, old_value| instance_exec(old_value, &func)}
-                                 end
+            transformed_pair = if input[:context] && func.is_a?(Proc)
+                                 data_pair.update(data_pair) {|_k, _old_value| instance_exec(input[:context], &func)}
+                               elsif input[:context]
+                                 # this condition is for custom build non proc functions
+                                 data_pair.update(data_pair) {|_k, _old_value| func.call(input[:context])}
+                               elsif func.is_a?(Proc)
+                                 data_pair.update(data_pair) {|_k, old_value| instance_exec(old_value, &func)}
                                else
                                  data_pair.transform_values!(&func)
                                end
@@ -133,14 +134,14 @@ module AcaEntities
           data_pair = if namespaces.empty?
                         source_hash
                       else
-                        nested_hash(source_hash,   mapping.map(&:keys).flatten.first)
+                        nested_hash(source_hash, mapping.map(&:keys).flatten.first)
                       end
 
           mapping.first.each {|k, v| data_pair[v] = data_pair.delete(k) if data_pair.key?(k)}
 
           fns = []
           namespaces.each_with_index do |namespace, index|
-            fns << "t(:wrap, :#{namespace}, [:'#{namespaces[index + 1]}'])"  if namespaces[index + 1]
+            fns << "t(:wrap, :#{namespace}, [:'#{namespaces[index + 1]}'])" if namespaces[index + 1]
           end
           # rubocop:disable Security/Eval
           fns = eval(fns.reverse.flatten.join('.>> '))
@@ -360,6 +361,19 @@ module AcaEntities
         # @return value
         def boolean_string(value)
           { true => 'Y', false => 'N' }[value]
+        end
+
+        # Convert date string to date
+        # @param value The input value
+
+        # @example
+        #   convert_to_date("1999-1-1")
+        #   # => #<Date: 1963-01-01 ((2438031j,0s,0n),+0s,2299161j)>
+        #
+        # @return date
+        # @api public
+        def convert_to_date(value)
+          t(:to_date)[value]
         end
       end
     end
