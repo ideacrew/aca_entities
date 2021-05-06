@@ -44,7 +44,7 @@ RSpec.describe ::AcaEntities::Medicaid::Atp::AptcEligibilityHeader,  dbclean: :a
     end
   end
 
-  context 'success case' do
+  context 'failure case' do
     context 'with required params' do
       it 'should initialize and return passed params' do
         result = described_class.new(required_params)
