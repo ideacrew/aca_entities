@@ -234,7 +234,7 @@ module AcaEntities
                         nil,
                         :add_context,
                         append_identifier: options[:append_identifier] || false,
-                        proc: options[:function])
+                        proc: options[:function].is_a?(Proc) ? nil : options[:function])
           map.properties = options
           @mappings[map.container_key] = map
         end
