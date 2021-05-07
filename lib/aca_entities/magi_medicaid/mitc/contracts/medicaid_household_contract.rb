@@ -15,6 +15,7 @@ module AcaEntities
           params do
             required(:people).array(PersonReferenceContract.params)
             required(:magi_income).filled(:integer)
+            required(:magi_as_percentage_of_fpl).filled(:integer)
             required(:size).filled(:integer)
           end
         end

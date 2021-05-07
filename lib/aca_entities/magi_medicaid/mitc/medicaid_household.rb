@@ -15,6 +15,11 @@ module AcaEntities
         # @return [Integer]
         attribute :magi_income,   Types::Integer.meta(omittable: false)
 
+        # @!attribute [r] magi_as_percentage_of_fpl
+        # The Modified Adjusted Gross Income as Percentage of FPL
+        # @return [Integer]
+        attribute :magi_as_percentage_of_fpl,   Types::Integer.meta(omittable: false)
+
         # @!attribute [r] size
         # The number of people in the household.
         # @return [Integer]

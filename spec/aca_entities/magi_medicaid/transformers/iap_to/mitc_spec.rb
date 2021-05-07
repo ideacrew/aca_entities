@@ -36,7 +36,7 @@ RSpec.describe AcaEntities::MagiMedicaid::Transformers::IapTo::Mitc do
         expect(person).to be_a(Hash)
         expect(person).to have_key(:person_id)
         expect(person).to have_key(:is_applicant)
-        expect(person[:is_applicant]).to eq('N')
+        expect(person[:is_applicant]).to eq('Y')
         expect(person).not_to have_key(:is_self_attested_blind)
         expect(person).not_to have_key(:is_self_attested_disabled)
         expect(person).to have_key(:is_blind_or_disabled)
