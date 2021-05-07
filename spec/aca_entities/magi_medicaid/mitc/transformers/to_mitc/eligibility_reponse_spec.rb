@@ -12,6 +12,10 @@ RSpec.describe AcaEntities::MagiMedicaid::Mitc::Transformers::ToMitc::Eligibilit
   end
 
   context 'return a hash with all the required transforms' do
+    # it 'should not return any errors when validated against the MitcEligibilityResponseContract' do
+    #   expect(::AcaEntities::MagiMedicaid::Mitc::Contracts::EligibilityResponseContract.new.call(@transform_result).errors.to_h).to be_empty
+    # end
+
     it 'should transform all the eligibility response level attributes' do
       expect(@transform_result).to have_key(:determination_date)
       expect(@transform_result[:determination_date]).to eq(mitc_response[:'Determination Date'])
@@ -43,8 +47,12 @@ RSpec.describe AcaEntities::MagiMedicaid::Mitc::Transformers::ToMitc::Eligibilit
         expect(applicant[:chip_category]).to eq(applicant1[:"CHIP Category"])
         expect(applicant[:chip_category_threshold]).to eq(applicant1[:"CHIP Category Threshold"])
 
+        expect(applicant).to have_key(:determinations)
+        cat_det = ::AcaEntities::MagiMedicaid::Mitc::Contracts::CategoryDeterminationContract.new
+        applicant[:determinations].each do |category_determination|
+          expect(cat_det.call(category_determination).errors.to_h).to be_empty
+        end
       end
     end
   end
-
 end

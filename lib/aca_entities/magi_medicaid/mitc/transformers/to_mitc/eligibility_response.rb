@@ -6,6 +6,7 @@ module AcaEntities
     module Mitc
       module Transformers
         module ToMitc
+          # rubocop:disable Style/Lambda
           # This transformer is used for Transform the keys of the MitcEligibilityResponsePayload to match with MitcEligibilityReponse
           # This class is PRIVATE and cannot be called from outside except from operation:
           # MitcService::AddMitcDeterminationToApplication
@@ -46,10 +47,27 @@ module AcaEntities
                   map 'Category Threshold', 'medicaid_category_threshold'
                   map 'CHIP Category', 'chip_category'
                   map 'CHIP Category Threshold', 'chip_category_threshold'
+
+                  map 'Determinations', 'Determinations', memoize_record: true
+                  add_key 'determinations', function: ->(v) {
+                    input_determinations = v.resolve('Applicants.no_key.Determinations').item
+                    category_determinations = []
+                    input_determinations.each do |key, value|
+                      category_determinations << {
+                        category: key,
+                        indicator_code: value[:Indicator],
+                        ineligibility_code: value[:"Ineligibility Code"],
+                        ineligibility_reason: value[:"Ineligibility Reason"]
+                      }
+                    end
+                    category_determinations
+                  }
+
                 end
               end
             end
           end
+          # rubocop:enable Style/Lambda
         end
       end
     end
