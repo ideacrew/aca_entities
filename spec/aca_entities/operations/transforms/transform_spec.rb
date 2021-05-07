@@ -6,7 +6,7 @@ require 'aca_entities/operations/transform_examples/mcr_to/cv_input'
 RSpec.describe ::AcaEntities::Operations::TransformExamples::McrTo::CvInput do
   describe 'with valid input file' do
 
-    let(:source_file) { Pathname.pwd.join('spec', 'support', 'application.json') }
+    let(:source_file) { Pathname.pwd.join("spec/support/transform_example_payloads/application.json") }
 
     it 'should transform keys' do
       AcaEntities::Operations::TransformExamples::McrTo::CvInput.call(source_file) do |result|

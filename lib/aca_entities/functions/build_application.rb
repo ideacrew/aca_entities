@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity, Metrics/MethodLength, Layout/LineLength
 module AcaEntities
   module Functions
     # build application and applicants
@@ -10,9 +11,11 @@ module AcaEntities
 
         result = @memoized_data.find('computed.members').each_with_object([]) do |member, collector|
           @member_identifier = member.name.split('.').last
-          @attestations_family_hash = @memoized_data.find(Regexp.new("attestations.members.#{@member_identifier}.family"))&.first&.item
-          @attestations_income_hash = @memoized_data.find(Regexp.new("attestations.members.#{@member_identifier}.income"))&.first&.item
-          @attestations_insurance_coverage_hash = @memoized_data.find(Regexp.new("attestations.members.#{@member_identifier}.insuranceCoverage"))&.first&.item
+
+          m_identifier = "attestations.members.#{@member_identifier}"
+          @attestations_family_hash = @memoized_data.find(Regexp.new("#{m_identifier}.family"))&.first&.item
+          @attestations_income_hash = @memoized_data.find(Regexp.new("#{m_identifier}.income"))&.first&.item
+          @insurance_coverage_hash = @memoized_data.find(Regexp.new("#{m_identifier}.insuranceCoverage"))&.first&.item
 
           collector << member.item.merge!(applicant_hash)
           collector
@@ -59,16 +62,18 @@ module AcaEntities
 
       def name_hash
         { first_name: @memoized_data.find(Regexp.new("first_name.#{@member_identifier}"))&.first&.item,
-          middle_name: @memoized_data.find(Regexp.new("middle_name.#{@member_identifier}"))&.first&.item || 'nil', # deefault value, create new contract and entities for create family and IAP
+          middle_name: @memoized_data.find(Regexp.new("middle_name.#{@member_identifier}"))&.first&.item || 'nil',
+          # default value, create new contract and entities for create family and IAP
           last_name: @memoized_data.find(Regexp.new("last_name.#{@member_identifier}"))&.first&.item,
           name_sfx: @memoized_data.find(Regexp.new("name_sfx.#{@member_identifier}"))&.first&.item || 'nil',
           name_pfx: @memoized_data.find(Regexp.new("name_pfx.#{@member_identifier}"))&.first&.item || 'nil',
-          full_name: [@memoized_data.find(Regexp.new("first_name.#{@member_identifier}"))&.first&.item, @memoized_data.find(Regexp.new("last_name.#{@member_identifier}"))&.first&.item].join('.'),
+          full_name: [@memoized_data.find(Regexp.new("first_name.#{@member_identifier}"))&.first&.item,
+                      @memoized_data.find(Regexp.new("last_name.#{@member_identifier}"))&.first&.item].join('.'),
           alternate_name: @memoized_data.find(Regexp.new("alternate_name.#{@member_identifier}"))&.first&.item || 'nil' }
       end
 
       def demographic_hash
-        { gender: @memoized_data.find(Regexp.new("person_demographics.gender.#{@member_identifier}"))&.first&.item.capitalize,
+        { gender: @memoized_data.find(Regexp.new("person_demographics.gender.#{@member_identifier}"))&.first&.item&.capitalize,
           dob: @memoized_data.find(Regexp.new("person_demographics.dob.#{@member_identifier}"))&.first&.item,
           ethnicity: [],
           race: nil,
@@ -77,11 +82,14 @@ module AcaEntities
       end
 
       def attestation_hash
+        m_identifier_non_magi = "attestations.members.#{@member_identifier}.nonMagi"
+        non_magi = @memoized_data.find(Regexp.new(m_identifier_non_magi)).map(&:item).last
+
         {
           is_incarcerated: false, # default value
-          is_self_attested_disabled: @memoized_data.find(Regexp.new("attestations.members.#{@member_identifier}.nonMagi")).map(&:item).last[:blindOrDisabledIndicator],
-          is_self_attested_blind: @memoized_data.find(Regexp.new("attestations.members.#{@member_identifier}.nonMagi")).map(&:item).last[:blindOrDisabledIndicator],
-          is_self_attested_long_term_care: @memoized_data.find(Regexp.new('attestations.members.*.nonMagi')).map(&:item).last[:longTermCareIndicator]
+          is_self_attested_disabled: non_magi[:blindOrDisabledIndicator],
+          is_self_attested_blind: non_magi[:blindOrDisabledIndicator],
+          is_self_attested_long_term_care: non_magi[:longTermCareIndicator]
         }
       end
 
@@ -149,7 +157,8 @@ module AcaEntities
           person_hbx_id: '1234', # default value
           is_required_to_file_taxes: false, # default value
           tax_filer_kind: 'single', # default value . #To memoise and extract data from taxRelationships
-          is_joint_tax_filing: true, # @attestations_family_hash[:taxReturnFilingStatusType],# default value # add method to check for joint filing using this value
+          is_joint_tax_filing: true, # @attestations_family_hash[:taxReturnFilingStatusType],# default value
+          # # add method to check for joint filing using this value
           is_claimed_as_tax_dependent: @attestations_family_hash[:taxDependentIndicator],
           claimed_as_tax_dependent_by: nil,
           student: student_hash,
@@ -166,7 +175,7 @@ module AcaEntities
           is_currently_enrolled_in_health_plan: nil,
           has_daily_living_help: nil,
           need_help_paying_bills: nil,
-          has_job_income: income_hash.nil? ? false : true,
+          has_job_income: !income_hash.nil?,
           has_self_employment_income: false, # default value
           has_unemployment_income: false, # default value
           has_other_income: false, # default value
@@ -184,7 +193,8 @@ module AcaEntities
           has_state_health_benefit: false, # default value
           had_prior_insurance: false, # default value
           # prior_insurance_end_date: Date.today, # default value
-          age_of_applicant: AcaEntities::Functions::AgeOn.new(on_date: Date.today).call(@memoized_data.find(Regexp.new("person_demographics.dob.#{@member_identifier}"))&.first&.item),
+          age_of_applicant: AcaEntities::Functions::AgeOn.new(on_date: Date.today)
+                                                         .call(@memoized_data.find(Regexp.new("person_demographics.dob.#{@member_identifier}"))&.first&.item),
           is_self_attested_long_term_care: @memoized_data.find(Regexp.new('attestations.members.*.nonMagi')).map(&:item).last[:longTermCareIndicator],
           hours_worked_per_week: '2'
         }
@@ -192,3 +202,4 @@ module AcaEntities
     end
   end
 end
+# rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity, Metrics/MethodLength, Layout/LineLength
