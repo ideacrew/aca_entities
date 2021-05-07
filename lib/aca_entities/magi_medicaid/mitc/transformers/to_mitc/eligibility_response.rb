@@ -46,8 +46,6 @@ module AcaEntities
                   map 'Category Threshold', 'medicaid_category_threshold'
                   map 'CHIP Category', 'chip_category'
                   map 'CHIP Category Threshold', 'chip_category_threshold'
-
-
                 end
               end
             end
