@@ -50,6 +50,7 @@ module AcaEntities
 
                   map 'Determinations', 'Determinations', memoize_record: true
                   add_key 'determinations', function: ->(v) {
+                    # TODO: Fix the key name issue. Name should be 'Determinations' and not 'Applicants.no_key.Determinations'
                     input_determinations = v.resolve('Applicants.no_key.Determinations').item
                     category_determinations = []
                     input_determinations.each do |key, value|
@@ -62,6 +63,20 @@ module AcaEntities
                     end
                     category_determinations
                   }
+
+                  # TODO: Enhance below once we have response payload with valid Other Outputs
+                  namespace 'Other Outputs' do
+                    rewrap 'other_output', type: :hash do
+                      namespace 'Qualified Children List' do
+                        rewrap 'qualified_children_list', type: :array do
+                          # rubocop:disable Lint/EmptyBlock
+                          rewrap '', type: :hash do
+                          end
+                          # rubocop:enable Lint/EmptyBlock
+                        end
+                      end
+                    end
+                  end
 
                 end
               end
