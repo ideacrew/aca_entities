@@ -13,7 +13,7 @@ RSpec.describe ::AcaEntities::Operations::TransformExamples::McrTo::CvInput do
       AcaEntities::Operations::TransformExamples::McrTo::CvInput.call(source_file, { transform_mode: :batch }) do |payload|
         record = AcaEntities::Operations::TransformExamples::McrTo::CvInput.transform(payload)
         record_with_string_keys = JSON.parse(record.to_json)
-        example_output_hash = JSON.parse(File.read(Pathname.pwd.join("spec/support/transform_example_payloads/family_transform_result.txt")))
+        example_output_hash = JSON.parse(File.read(Pathname.pwd.join("spec/support/transform_example_payloads/family_transform_result.json")))
 
         expect(record_with_string_keys).to match(example_output_hash)
 
