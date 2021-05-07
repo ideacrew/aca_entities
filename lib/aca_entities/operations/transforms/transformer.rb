@@ -210,12 +210,12 @@ module AcaEntities
           # @mappings << Map.new(source_namespace, output_namespace, :rename_keys) if output_namespace.present?
           map = self.class.new(source_ns + source_namespace.split('.'),
                                output_ns + output_namespace.to_s.split('.'))
-          
-          # TODO: refactor map.context with below add_context to memoize the identifier with namespaces key identifier 
-          # this helps to store namespaced identifier in attestation member and computed members                  
+
+          # TODO: refactor map.context with below add_context to memoize the identifier with namespaces key identifier
+          # this helps to store namespaced identifier in attestation member and computed members
           add_context((source_ns + [source_namespace]).join('.'), output_namespace, args.first[:context]) if args.first && args.first[:context]
-          
-          # using below will not have the ability to store all the same identifiers in the different loops 
+
+          # using below will not have the ability to store all the same identifiers in the different loops
           # map.context = args.first[:context] if args.first && args.first[:context]
           map.instance_exec(&block)
 
@@ -233,8 +233,9 @@ module AcaEntities
                         arg2,
                         nil,
                         :add_context,
-                        append_identifier: options[:append_identifier] || false,
                         proc: options[:function].is_a?(Proc) ? nil : options[:function])
+
+          map.append_identifier = options[:append_identifier] || false
           map.properties = options
           @mappings[map.container_key] = map
         end
@@ -410,14 +411,14 @@ module AcaEntities
       # Creates transform proc
       # add append_identifier with default values false
       class Map
-        attr_reader :source_key, :output_key, :value, :key_transforms, :result, :transproc, :proc, :type, :memoize_record, :append_identifier
-        attr_accessor :context
+        attr_reader :source_key, :output_key, :value, :key_transforms, :result, :transproc, :proc, :type, :memoize_record
+        attr_accessor :context, :append_identifier
 
-        def initialize(source_key = nil, output_key = nil, value = nil, *key_transforms, append_identifier: false, proc: nil)
+        def initialize(source_key = nil, output_key = nil, value = nil, *key_transforms, proc: nil)
           @source_key = source_key
           @output_key = output_key
           @key_transforms = key_transforms
-          @append_identifier = append_identifier
+          # @append_identifier = append_identifier
           @proc = proc
 
           if value.is_a?(Proc)
@@ -440,24 +441,23 @@ module AcaEntities
 
         def transform
           source_elements = source_key.split('.')
-          output_elements =  output_key ? output_key.split('.') : source_elements
+          output_elements = output_key ? output_key.split('.') : source_elements
 
           transform_procs = key_transforms.collect {|action| action_to_transproc(action, source_elements, output_elements)}.compact
 
-          @transproc =
-            if transform_procs.is_a?(String) || (transform_procs.flatten.is_a?(Array) && transform_procs.flatten.first.is_a?(String))
-              if proc && !key_transforms.include?(:add_context)
-                output = output_elements[0..-2]
-                eval(transform_procs.flatten.join('.>> ')) >> t(:map_value, output.map(&:to_sym), proc)
-              else
-                eval(transform_procs.flatten.join('.>> '))
-              end
-            elsif proc && !key_transforms.include?(:add_context)
-              output = output_elements[0..-2]
-              transform_procs.first >> t(:map_value, output.map(&:to_sym), proc)
-            else
-              transform_procs.first
-            end
+          @transproc = if transform_procs.is_a?(String) || (transform_procs.flatten.is_a?(Array) && transform_procs.flatten.first.is_a?(String))
+                         if proc && !key_transforms.include?(:add_context)
+                           output = output_elements[0..-2]
+                           eval(transform_procs.flatten.join('.>> ')) >> t(:map_value, output.map(&:to_sym), proc)
+                         else
+                           eval(transform_procs.flatten.join('.>> '))
+                         end
+                       elsif proc && !key_transforms.include?(:add_context)
+                         output = output_elements[0..-2]
+                         transform_procs.first >> t(:map_value, output.map(&:to_sym), proc)
+                       else
+                         transform_procs.first
+                       end
         end
 
         def action_to_transproc(action, source_elements, output_elements)

@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 module AcaEntities
   module Functions
     # hash methods
@@ -33,14 +34,14 @@ module AcaEntities
         member = input.find(/attestations.members.(\w+)$/)&.map(&:item)&.last
         member_identifier = m_identifier || member
 
-        noAlienNumberIndicator = input.find(Regexp.new("noAlienNumberIndicator.#{member_identifier}"))&.first
-        citizenshipIndicator = input.find(Regexp.new("citizenshipIndicator.#{member_identifier}"))&.first
-        naturalizedCitizenIndicator = input.find(Regexp.new("naturalizedCitizenIndicator.#{member_identifier}"))&.first
+        no_alien_number_indicator = input.find(Regexp.new("noAlienNumberIndicator.#{member_identifier}"))&.first
+        citizenship_indicator = input.find(Regexp.new("citizenshipIndicator.#{member_identifier}"))&.first
+        naturalized_citizen_indicator = input.find(Regexp.new("naturalizedCitizenIndicator.#{member_identifier}"))&.first
 
         hash = {
-          noAlienNumberIndicator&.name.split('.').first => noAlienNumberIndicator.item,
-          citizenshipIndicator&.name.split('.').first => citizenshipIndicator.item,
-          naturalizedCitizenIndicator&.name.split('.').first => naturalizedCitizenIndicator.item
+          no_alien_number_indicator&.name&.split('.')&.first => no_alien_number_indicator.item,
+          citizenship_indicator&.name&.split('.')&.first => citizenship_indicator.item,
+          naturalized_citizen_indicator&.name&.split('.')&.first => naturalized_citizen_indicator.item
         }
 
         val = hash.keys.find { |_k| hash.key(true) }
@@ -53,3 +54,4 @@ module AcaEntities
     end
   end
 end
+# rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity

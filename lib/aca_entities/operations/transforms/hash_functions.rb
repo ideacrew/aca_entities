@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-# rubocop:disable Style/HashConversion, Style/OptionalArguments, Metrics/BlockNesting, Metrics/ModuleLength
+# rubocop:disable Style/OptionalArguments, Metrics/BlockNesting, Metrics/ModuleLength, Style/HashConversion
 require 'dry/transformer/all'
-require "dry/inflector"
+require 'dry/inflector'
 require 'deep_merge'
 
 module AcaEntities
@@ -40,12 +40,12 @@ module AcaEntities
                         end
 
             transformed_pair = if input[:context] && func.is_a?(Proc)
-                                 data_pair.update(data_pair) {|_k, _old_value| instance_exec(input[:context], &func)}
+                                 data_pair.update(data_pair) { |_k, _old_value| instance_exec(input[:context], &func) }
                                elsif input[:context]
                                  # this condition is for custom build non proc functions
-                                 data_pair.update(data_pair) {|_k, _old_value| func.call(input[:context])}
+                                 data_pair.update(data_pair) { |_k, _old_value| func.call(input[:context]) }
                                elsif func.is_a?(Proc)
-                                 data_pair.update(data_pair) {|_k, old_value| instance_exec(old_value, &func)}
+                                 data_pair.update(data_pair) { |_k, old_value| instance_exec(old_value, &func) }
                                else
                                  data_pair.transform_values!(&func)
                                end
@@ -126,8 +126,8 @@ module AcaEntities
         # @param mapping The key-rename mapping
         #
         # @example
-        #   rename_nested_keys({"a" => {"b" => { "c" => {"d" => "123"}}, "f" => {"d" => "456"}}},  [{"d" => "e"}], ["a","b","c"])
-        #   # => {"a" => {"b" => { "c" => {"e" => "123"}}, "f" => {"d" => "456"}}}
+        #   rename_nested_keys({ :d => '123' },  [{ :d => :e }], [:a, :b, :c, :e])
+        #   # => {:a=>{:b=>{:c=>{:e=>"123"}}}}
         #
         # @return [Hash]
         def rename_nested_keys(source_hash, mapping, namespaces = [])
@@ -287,6 +287,7 @@ module AcaEntities
         # @return [Array]
         def nested_hash_to_array(data)
           return [] unless data
+
           data.reduce([]) do |keys, (key, value)|
             keys.push(key)
             keys.concat(nested_hash_to_array(value)) if value.is_a?(Hash)
@@ -322,6 +323,7 @@ module AcaEntities
         def deep_accept_keys(source_hash, permitted_keys)
           source_hash.each_with_object({}) do |(key, value), output|
             next unless permitted_keys.include? key
+
             output[key] = case value
                           when ::Hash
                             deep_accept_keys(value, permitted_keys)
@@ -379,4 +381,4 @@ module AcaEntities
     end
   end
 end
-# rubocop:enable Style/HashConversion, Style/OptionalArguments, Metrics/BlockNesting, Metrics/ModuleLength
+# rubocop:enable Style/OptionalArguments, Metrics/BlockNesting, Metrics/ModuleLength, Style/HashConversion
