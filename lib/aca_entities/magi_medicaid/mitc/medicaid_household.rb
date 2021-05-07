@@ -8,7 +8,7 @@ module AcaEntities
         # @!attribute [r] people
         # A list of person references.
         # @return [Array<PersonReference>]
-        attribute :people,        Types::Array.of(PersonReference).meta(omittable: false)
+        attribute :people,        Types::Array.of(Types::Integer).meta(omittable: false)
 
         # @!attribute [r] magi_income
         # The Modified Adjusted Gross Income for the household, expressed as a dollar amount.

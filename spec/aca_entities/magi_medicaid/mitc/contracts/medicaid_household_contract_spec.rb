@@ -5,7 +5,7 @@ require 'aca_entities/magi_medicaid/libraries/mitc_library'
 
 RSpec.describe ::AcaEntities::MagiMedicaid::Mitc::Contracts::MedicaidHouseholdContract do
   let(:required_params) do
-    { people: [{ person_id: 100 }, { person_id: 101 }],
+    { people: [100, 101],
       magi_income: 100,
       magi_as_percentage_of_fpl: 3,
       size: 2 }

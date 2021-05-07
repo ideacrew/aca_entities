@@ -13,7 +13,7 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Mitc::Applicant do
     end
 
     let(:medicaid_household) do
-      { people: [{ person_id: 100 }],
+      { people: [100],
         magi_income: 25_608,
         magi_as_percentage_of_fpl: 3,
         size: 1 }
