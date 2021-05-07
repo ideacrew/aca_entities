@@ -7,7 +7,7 @@ module AcaEntities
   module MagiMedicaid
     module Operations
       module Mitc
-        # DO NOT USE this operation, this class has some mocked attributes.
+        # DO NOT USE this operation, the AcaEntities::MagiMedicaid::Transformers::IapTo::Mitc has some mocked attributes
         # This class takes AcaEntities::MagiMedicaid::Application as input and returns the MitcRequestPayload hash.
         class GenerateRequestPayload
           include Dry::Monads[:result, :do]

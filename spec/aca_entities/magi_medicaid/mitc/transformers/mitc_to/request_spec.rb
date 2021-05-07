@@ -218,7 +218,7 @@ RSpec.describe AcaEntities::MagiMedicaid::Mitc::Transformers::MitcTo::Request do
           expect(relationship).to have_key(:'Relationship Code')
         end
 
-        income = person[:income]
+        income = person[:Income]
         expect(income).to be_a(Hash)
         expect(income).to have_key(:"Wages, Salaries, Tips")
         expect(income[:'Wages, Salaries, Tips']).to eq(mitc_income[:amount])
