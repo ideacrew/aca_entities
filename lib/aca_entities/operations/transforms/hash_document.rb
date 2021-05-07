@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # require 'dig-deep'
 # rubocop:disable Style/HashConversion, Style/OptionalBooleanParameter
 
