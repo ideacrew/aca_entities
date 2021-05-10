@@ -10,7 +10,7 @@ module AcaEntities
           # This transformer is used for Transform the keys of the MitcEligibilityResponsePayload to match with MitcEligibilityReponse
           # This class is PRIVATE and cannot be called from outside except from operation:
           # MitcService::AddMitcDeterminationToApplication
-          class EligibilityReponse < ::AcaEntities::Operations::Transforms::Transform
+          class EligibilityResponse < ::AcaEntities::Operations::Transforms::Transform
             include ::AcaEntities::Operations::Transforms::Transformer
 
             map 'Determination Date', 'determination_date'

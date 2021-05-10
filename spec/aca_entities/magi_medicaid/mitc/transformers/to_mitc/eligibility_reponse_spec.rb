@@ -4,7 +4,7 @@ require 'spec_helper'
 require 'aca_entities/magi_medicaid/libraries/mitc_library'
 require 'aca_entities/magi_medicaid/shared_contexts/magi_medicaid_application_data'
 
-RSpec.describe AcaEntities::MagiMedicaid::Mitc::Transformers::ToMitc::EligibilityReponse do
+RSpec.describe AcaEntities::MagiMedicaid::Mitc::Transformers::ToMitc::EligibilityResponse do
   include_context 'setup magi_medicaid application with two applicants'
 
   before do
