@@ -6,8 +6,6 @@ source "https://rubygems.org"
 gemspec
 
 gem "rake", "~> 12.0"
-gem "oj"
-gem "deep_merge"
 
 group :development, :test do
   gem "rspec"
