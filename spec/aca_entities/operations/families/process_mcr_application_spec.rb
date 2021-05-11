@@ -2,13 +2,13 @@
 
 require 'spec_helper'
 require 'aca_entities/operations/families/process_mcr_application'
-require 'aca_entities/operations/transform_examples/mcr_to/cv_input'
-require 'aca_entities/operations/families/build_family'
+require 'aca_entities/ffe/operations/mcr_to/family'
+require 'aca_entities/ffe/transformers/mcr_to/family'
 
 RSpec.describe ::AcaEntities::Operations::Families::ProcessMcrApplication do
   describe 'When a valid json file passed' do
     let(:path) { 'spec/support/transform_example_payloads/application.json' }
-    let(:klass) { ::AcaEntities::Operations::TransformExamples::McrTo::CvInput }
+    let(:klass) { ::AcaEntities::Ffe::Transformers::McrTo::Family }
     let(:worker_mode) {:batch}
 
     it 'should parse and then transform when transform_mode set to batch' do

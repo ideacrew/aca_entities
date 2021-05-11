@@ -43,14 +43,14 @@ module AcaEntities
           klass.call(file_path, { transform_mode: worker_mode }) do |payload|
             record = klass.transform(payload)
 
-            result << ::AcaEntities::Operations::Families::BuildFamily.new.call(record: record[:family])
+            result << ::AcaEntities::Ffe::Operations::McrTo::Family.new.call(record: record[:family])
           end
 
           Success(result)
         end
 
         def default_klass
-          ::AcaEntities::Operations::TransformExamples::McrTo::CvInput
+          ::AcaEntities::Ffe::Transformers::McrTo::Family
         end
 
         def default_path
