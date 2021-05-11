@@ -17,6 +17,8 @@ module AcaEntities
           optional(:csr).maybe(:integer)
           optional(:is_insurance_assistance_eligible).maybe(Types::IaEligibilityKind)
           optional(:tax_household_members).array(TaxHouseholdMemberContract.params)
+
+          optional(:tax_household_income).maybe(:float)
         end
       end
     end

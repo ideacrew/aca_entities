@@ -11,6 +11,8 @@ module AcaEntities
       # ['UnDetermined', 'True', 'False']
       attribute :is_insurance_assistance_eligible, Types::IaEligibilityKind.optional.meta(omittable: true)
       attribute :tax_household_members, Types::Array.of(TaxHouseholdMember).optional.meta(omittable: true)
+
+      attribute :tax_household_income, Types::Float.optional.meta(omittable: true)
     end
   end
 end
