@@ -159,13 +159,33 @@ module AcaEntities
 
       MagiMedicaidCategoryType = Types::Coercible::String.enum(
         'none',
+        'residency',
         'adult_group',
-        'child',
-        'chip_targeted_low_income_child',
-        'optional_targeted_low_income_child',
         'parent_caretaker',
         'pregnancy',
-        'unborn_child'
+        'child',
+        'optional_targeted_low_income_child',
+        'chip_targeted_low_income_child',
+        'unborn_child',
+        'income_medicaid_eligible',
+        'income_chip_eligible',
+        'medicaid_chipra_214',
+        'chip_chipra_214',
+        'trafficking_victim',
+        'seven_year_limit',
+        'five_year_bar',
+        'title_ii_work_quarters_met',
+        'medicaid_citizen_or_immigrant',
+        'chip_citizen_or_immigrant',
+        'former_foster_care_category',
+        'work_quarters_override_income',
+        'state_health_benefits_chip',
+        'chip_waiting_period_satisfied',
+        'dependent_child_covered',
+        'medicaid_non_magi_referral',
+        'emergency_medicaid',
+        'refugee_medical_assistance',
+        'aptc_referral'
       )
 
       BenefitTermMap = {}.freeze
