@@ -10,6 +10,7 @@ module AcaEntities
       attribute :start_on,                                    Types::Date.meta(omittable: false)
       attribute :end_on,                                      Types::Date.meta(omittable: false)
       attribute :effective_on,                                Types::Date.meta(omittable: false)
+      attribute :submitted_at,                                Types::Date.meta(omittable: false)
 
       attribute :next_poss_effective_date,                    Types::Date.optional.meta(omittable: true)
       attribute :option1_date,                                Types::Date.optional.meta(omittable: true)

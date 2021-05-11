@@ -12,7 +12,7 @@ module AcaEntities
       attribute :applied_aptc_amount,       AcaEntities::Curreny.meta(omittable: false)
       attribute :eligibility_date,          Types::Date.meta(omittable: false)
       attribute :coverage_start_on,         Types::Date.meta(omittable: false)
-      attribute :coverage_end_on,           Types::Date.optional.meta(omittable: false)
+      attribute :coverage_end_on,           Types::Date.optional.meta(omittable: true)
     end
   end
 end
