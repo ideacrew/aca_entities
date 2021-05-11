@@ -11,8 +11,8 @@ module AcaEntities
         members = input.find(/attestations.members.(\w+)$/).map(&:item)
         primary_applicant_id = input.resolve('family.family_members.is_primary_applicant').item
 
-        [start_date: Date.today,
-         end_date: Date.today,
+        [start_date: Date.parse("2021-05-07"),
+         end_date: Date.parse("2021-05-07"),
          irs_group_reference: {},
          is_active: true,
          irs_group: nil,

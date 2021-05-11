@@ -39,7 +39,7 @@ module AcaEntities
                 map 'spokenLanguageType', 'family_members.person.consumer_role.language_preference', memoize: true, visible: false
 
                 namespace 'legalAttestations' do
-                  map 'renewEligibilityYearQuantity', 'renewal_consent_through_year', function: ->(_value) { Date.today.year }
+                  map 'renewEligibilityYearQuantity', 'renewal_consent_through_year', function: ->(_value) { Date.parse("2021-05-07").year }
                   map 'absentParentAgreementIndicator', 'parent_living_out_of_home_terms', memoize: true, visible: false
                   map 'changeInformationAgreementIndicator', 'report_change_terms', memoize: true, visible: false
                   map 'medicaidRequirementAgreementIndicator', 'medicaid_terms', memoize: true, visible: false
@@ -154,7 +154,7 @@ module AcaEntities
                       map 'maritalStatus', 'consumer_role.marital_status'
                       add_namespace 'consumer_role', 'family.family_members.person.consumer_role', type: :hash do
                         add_key 'five_year_bar'
-                        add_key 'requested_coverage_start_date', value: ->(_v) { Date.today }  # default value
+                        add_key 'requested_coverage_start_date', value: ->(_v) { Date.parse("2021-05-07") }  # default value
                         add_key 'aasm_state'
                         add_key 'is_applicant', function: lambda { |v|
                           v.resolve('family.family_members.is_primary_applicant').item == v.find(/attestations.members.(\w+)$/).map(&:item).last
@@ -230,7 +230,7 @@ module AcaEntities
                       add_key 'person_demographics.tribal_id'
                       add_key 'person_demographics.no_ssn', value: ->(v) { v.resolve('person_demographics.ssn').item.nil? }
                       add_key 'person_demographics.language_code'
-                      add_key 'person_demographics.date_of_death', value: ->(_v) { Date.today}  # default value
+                      add_key 'person_demographics.date_of_death', value: ->(_v) { Date.parse("2021-05-07")}  # default value
                       add_key 'person_demographics.dob_check'
 
                       map 'noHomeAddressIndicator', 'is_homeless'
