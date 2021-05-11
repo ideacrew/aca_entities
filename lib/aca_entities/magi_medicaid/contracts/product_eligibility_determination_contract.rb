@@ -31,6 +31,16 @@ module AcaEntities
           optional(:magi_medicaid_monthly_income_limit).maybe(:float)
           optional(:magi_as_percentage_of_fpl).maybe(:float)
           optional(:magi_medicaid_category).maybe(Types::MagiMedicaidCategoryType)
+
+          optional(:medicaid_ineligibility_reasons).array(:string)
+          optional(:is_eligible_for_non_magi_reasons).maybe(:bool)
+          optional(:chip_ineligibility_reasons).array(:string)
+          optional(:magi_medicaid_category_threshold).maybe(:float)
+          optional(:medicaid_chip_category).maybe(:string)
+          optional(:medicaid_chip_category_threshold).maybe(:float)
+
+          optional(:category_determinations).array(CategoryDeterminationContract.params)
+
         end
       end
     end
