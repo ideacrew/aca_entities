@@ -50,7 +50,7 @@ module AcaEntities
                       amount: current_income[:incomeAmount],
                       amount_tax_exempt: nil,
                       frequency_kind: current_income[:incomeFrequencyType].capitalize,
-                      start_on: Date.today, # default value
+                      start_on: Date.parse("2021-05-07"), # default value
                       end_on: nil,
                       is_projected: nil,
                       employer: current_income[:jobIncome] ? current_income[:jobIncome]['employerName'] : nil,
@@ -192,8 +192,8 @@ module AcaEntities
           has_insurance: false, # default value
           has_state_health_benefit: false, # default value
           had_prior_insurance: false, # default value
-          # prior_insurance_end_date: Date.today, # default value
-          age_of_applicant: AcaEntities::Functions::AgeOn.new(on_date: Date.today)
+          # prior_insurance_end_date: Date.parse("2021-05-07"), # default value
+          age_of_applicant: AcaEntities::Functions::AgeOn.new(on_date: Date.parse("2021-05-07"))
                                                          .call(@memoized_data.find(Regexp.new("person_demographics.dob.#{@member_identifier}"))&.first&.item),
           is_self_attested_long_term_care: @memoized_data.find(Regexp.new('attestations.members.*.nonMagi')).map(&:item).last[:longTermCareIndicator],
           hours_worked_per_week: '2'
