@@ -119,6 +119,11 @@ module AcaEntities
       attribute :mitc_income, AcaEntities::MagiMedicaid::Mitc::Income.optional.meta(omittable: true)
       attribute :mitc_relationships, Types::Array.of(AcaEntities::MagiMedicaid::Mitc::Relationship).optional.meta(omittable: true)
 
+      def monthly_qsehra_amount
+        0
+        # qsehra_benefits = benefits.select { |benefit| benefit.kind == 'qsehra' }
+        # qsehra_benefits.map(&:monthly_amount)
+      end
     end
   end
 end

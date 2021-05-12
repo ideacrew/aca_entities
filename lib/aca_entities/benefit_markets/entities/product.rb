@@ -2,6 +2,7 @@
 
 module AcaEntities
   module BenefitMarkets
+    # Cv3 Entity for BenefitMarkets::Product
     class Product < Dry::Struct
       transform_keys(&:to_sym)
 
@@ -28,6 +29,13 @@ module AcaEntities
 
       attribute :sbc_document,                BenefitMarkets::Document.optional.meta(omittable: true)
       attribute :premium_tables,              Types::Array.of(BenefitMarkets::PremiumTable)
+
+      def member_premium(effective_date, age)
+        p_table = premium_tables.detect do |table|
+          table.effective_period.cover?(effective_date)
+        end
+        p_table&.member_premium(age)
+      end
     end
   end
 end
