@@ -25,7 +25,8 @@ module AcaEntities
 
           def transform(input)
             result = []
-            AcaEntities::Operations::TransformExamples::McrTo::CvInput.call(input) do |payload|
+
+            ::AcaEntities::Ffe::Transformers::McrTo::Family.call(input.read) do |payload|
               result << payload
             end
 
