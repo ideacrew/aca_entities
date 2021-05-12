@@ -8,17 +8,19 @@ module AcaEntities
         send(:include, Dry::Monads[:result, :do])
         send(:include, Dry::Monads[:try])
 
-        attr_reader :worker_mode, :klass, :path
+        attr_reader :worker_mode, :klass, :path, :source_hash
 
         def initialize(*args)
           handler = args.first
           @worker_mode = handler[:worker] || :batch
           @path = handler[:path] || nil
+          @source_hash = handler[:source_hash]
           @klass = handler[:klass] || default_klass
         end
 
         def call
-          family_params = yield transform
+          # app_params = yield validate_mcr(source_hash)
+          family_params = yield transform # (app_params)
           # family_params2 = yield validate(family_params.first)
 
           Success(family_params.first.success)
@@ -34,14 +36,18 @@ module AcaEntities
         end
 
         def file_path
+          return nil if source_hash
           source_path = path || default_path
           Pathname.pwd.join(source_path)
         end
 
+        # (app_params)
         def transform
           result = []
-          klass.call(file_path, { transform_mode: worker_mode }) do |payload|
-            record = klass.transform(payload)
+          input = file_path || source_hash # (app_params)
+
+          klass.call(input, { transform_mode: worker_mode }) do |payload|
+            record = worker_mode == :batch ? klass.transform(payload) : payload
 
             result << ::AcaEntities::Ffe::Operations::McrTo::Family.new.call(record: record[:family])
           end
