@@ -12,6 +12,8 @@ module AcaEntities
 
       VersionKind = Types::Coercible::String.default('0.1.0').enum('0.1.0')
 
+      Money = Types.Constructor(BigDecimal) { |val| BigDecimal(val.to_s) }
+
       BenefitKind = Types::Coercible::String.enum(
         'acf_refugee_medical_assistance',
         'americorps_health_benefits',

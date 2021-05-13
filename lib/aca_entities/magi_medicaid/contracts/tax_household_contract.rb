@@ -13,12 +13,12 @@ module AcaEntities
         # @option opts [Array] :tax_household_members optional
         # @return [Dry::Monads::Result]
         params do
-          optional(:max_aptc).maybe(:float)
+          optional(:max_aptc).maybe(Types::Money)
           optional(:csr).maybe(:integer)
           optional(:is_insurance_assistance_eligible).maybe(Types::IaEligibilityKind)
           optional(:tax_household_members).array(TaxHouseholdMemberContract.params)
 
-          optional(:tax_household_income).maybe(:float)
+          optional(:annual_tax_household_income).maybe(Types::Money)
         end
       end
     end

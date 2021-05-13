@@ -35,7 +35,8 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Contracts::TaxHouseholdContract, dbc
       max_aptc: 100.56,
       csr: 73,
       is_insurance_assistance_eligible: 'Yes',
-      tax_household_members: [tax_household_member]
+      tax_household_members: [tax_household_member],
+      annual_tax_household_income: 50_000.00
     }
   end
 
