@@ -23,6 +23,29 @@ module AcaEntities
 
       # Should have Product, PremiumTable and PremiumTuple
       # attribute :benchmark_product, ::AcaEntities::BenefitMarkets::Product.meta(omittable: false)
+
+      # Method to return relationship from applicant to relative
+      # Example: if A is parent to B, relationship_kind(A, B) returns 'parent'
+      def relationship_kind(applicant, relative)
+        return 'self' if applicant.person_hbx_id == relative.person_hbx_id
+
+        relation = relationships.detect do |rel|
+          rel.applicant_reference.person_hbx_id == applicant.person_hbx_id &&
+            rel.relative_reference.person_hbx_id == relative.person_hbx_id
+        end
+
+        relation&.kind
+      end
+
+      def applicant_relationships(applicant)
+        relationships.select do |rel|
+          rel.applicant_reference.person_hbx_id == applicant.person_hbx_id
+        end
+      end
+
+      def primary_applicant
+        applicants.detect(&:is_primary_applicant)
+      end
     end
   end
 end
