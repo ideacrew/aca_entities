@@ -28,6 +28,7 @@ module AcaEntities
       # Example: if A is parent to B, relationship_kind(A, B) returns 'parent'
       def relationship_kind(applicant, relative)
         return 'self' if applicant.person_hbx_id == relative.person_hbx_id
+        return nil if relationships.blank?
 
         relation = relationships.detect do |rel|
           rel.applicant_reference.person_hbx_id == applicant.person_hbx_id &&
@@ -38,6 +39,8 @@ module AcaEntities
       end
 
       def applicant_relationships(applicant)
+        return [] if relationships.blank?
+
         relationships.select do |rel|
           rel.applicant_reference.person_hbx_id == applicant.person_hbx_id
         end
