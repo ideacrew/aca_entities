@@ -703,7 +703,7 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicationContract,  dbcle
               assistance_year: Date.today.year,
               aptc_effective_date: Date.today,
               applicants: [local_applicant] }
-            end
+          end
           let(:local_phone) do
             { kind: 'home',
               area_code: '100',
@@ -729,7 +729,7 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicationContract,  dbcle
               assistance_year: Date.today.year,
               aptc_effective_date: Date.today,
               applicants: [local_applicant] }
-            end
+          end
           let(:local_email) do
             { kind: 'home',
               address: 'test@tt.com',
@@ -752,7 +752,7 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicationContract,  dbcle
               assistance_year: Date.today.year,
               aptc_effective_date: Date.today,
               applicants: [local_applicant] }
-            end
+          end
           let(:local_address) do
             { has_fixed_address: true,
               kind: 'home',
