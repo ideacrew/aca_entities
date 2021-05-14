@@ -2,8 +2,8 @@
 
 module AcaEntities
   module BenefitMarkets
+    # Entity for benefirmarkets BenefitSponsorCatalog
     class BenefitSponsorCatalog < Dry::Struct
-      transform_keys(&:to_sym)
 
       attribute :effective_date,          Types::Strict::Date
       attribute :effective_period,        Types::Range
