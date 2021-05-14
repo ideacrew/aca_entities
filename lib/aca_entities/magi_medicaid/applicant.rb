@@ -124,6 +124,14 @@ module AcaEntities
         # qsehra_benefits = benefits.select { |benefit| benefit.kind == 'qsehra' }
         # qsehra_benefits.map(&:monthly_amount)
       end
+
+      def minimum_essential_coverages
+        return [] if benefits.blank?
+
+        benefits.select do |benefit|
+          Types::MinimumEssentialCoverageBenefitKinds.include?(benefit.kind)
+        end
+      end
     end
   end
 end

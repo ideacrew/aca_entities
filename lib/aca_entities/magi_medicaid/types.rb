@@ -14,6 +14,14 @@ module AcaEntities
 
       Money = Types.Constructor(BigDecimal) { |val| BigDecimal(val.to_s) }
 
+      MinimumEssentialCoverageBenefitKinds = [
+        'medicaid',
+        'medicare',
+        'medicare_advantage',
+        'medicare_part_b',
+        'employer_sponsored_insurance'
+      ].freeze
+
       BenefitKind = Types::Coercible::String.enum(
         'acf_refugee_medical_assistance',
         'americorps_health_benefits',
