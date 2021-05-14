@@ -2,10 +2,10 @@
 
 module AcaEntities
   module BenefitMarkets
+    # Entity for benefirmarkets FixedDollarContributionUnit
     class FixedDollarContributionUnit < BenefitMarkets::ContributionUnit
-      transform_keys(&:to_sym)
 
-      attribute :default_contribution_amount,                      Types::Strict::Float
+      attribute :default_contribution_amount,    Types::Strict::Float.meta(omittable: false)
 
     end
   end
