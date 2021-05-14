@@ -831,7 +831,12 @@ RSpec.describe AcaEntities::Contracts::Families::FamilyContract,  dbclean: :afte
           has_eligible_health_coverage: false }
       end
       let(:magi_medicaid_applications) do
-        [{ family_reference: {}, assistance_year: Date.today.year, applicants: [], us_state: 'DC', hbx_id: '200000123' },
+        [{ family_reference: {},
+          assistance_year: Date.today.year,
+          aptc_effective_date: Date.today,
+          applicants: [],
+          us_state: 'DC',
+          hbx_id: '200000123' },
          { applicants: [applicant] }]
       end
 
@@ -850,6 +855,7 @@ RSpec.describe AcaEntities::Contracts::Families::FamilyContract,  dbclean: :afte
       it 'should return errors for second magi_medicaid_application' do
         error_hash = { family_reference: ['is missing'],
                        assistance_year: ['is missing'],
+                       aptc_effective_date: ['is missing'],
                        applicants: { 0 => { name: { first_name: ['is missing'], last_name: ['is missing'] },
                                             identifying_information: ["must be filled"],
                                             demographic: ["must be filled"],

@@ -69,6 +69,7 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Application, dbclean: :after_each do
     let(:application_params) do
       { family_reference: family_reference,
         assistance_year: Date.today.year,
+        aptc_effective_date: Date.today,
         applicants: [applicant],
         us_state: 'DC',
         hbx_id: '200000123' }

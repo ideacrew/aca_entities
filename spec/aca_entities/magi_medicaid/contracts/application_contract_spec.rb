@@ -70,6 +70,7 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicationContract,  dbcle
     let(:input_params) do
       { family_reference: family_reference,
         assistance_year: Date.today.year,
+        aptc_effective_date: Date.today,
         applicants: [applicant],
         us_state: 'DC',
         hbx_id: '200000123' }
@@ -208,6 +209,7 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicationContract,  dbcle
       let(:input_params) do
         { family_reference: family_reference,
           assistance_year: Date.today.year,
+          aptc_effective_date: Date.today,
           applicants: [],
           us_state: 'DC',
           hbx_id: '200000123' }
@@ -322,6 +324,7 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicationContract,  dbcle
         let(:input_params) do
           { family_reference: family_reference,
             assistance_year: Date.today.year,
+            aptc_effective_date: Date.today,
             applicants: [local_applicant],
             us_state: 'DC',
             hbx_id: '200000123' }
@@ -425,6 +428,7 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicationContract,  dbcle
         let(:input_params) do
           { family_reference: family_reference,
             assistance_year: Date.today.year,
+            aptc_effective_date: Date.today,
             applicants: [local_applicant],
             us_state: 'DC',
             hbx_id: '200000123' }
@@ -520,7 +524,12 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicationContract,  dbcle
       end
 
       context 'incomes' do
-        let(:input_params) { { family_reference: family_reference, assistance_year: Date.today.year, applicants: [local_applicant] } }
+        let(:input_params) do
+          { family_reference: family_reference,
+            assistance_year: Date.today.year,
+            aptc_effective_date: Date.today,
+            applicants: [local_applicant] }
+        end
         let(:income) do
           { kind: 'alimony_and_maintenance',
             amount: 100.67,
@@ -689,7 +698,12 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicationContract,  dbcle
 
       context 'phones' do
         context 'end_on' do
-          let(:input_params) { { family_reference: family_reference, assistance_year: Date.today.year, applicants: [local_applicant] } }
+          let(:input_params) do
+            { family_reference: family_reference,
+              assistance_year: Date.today.year,
+              aptc_effective_date: Date.today,
+              applicants: [local_applicant] }
+            end
           let(:local_phone) do
             { kind: 'home',
               area_code: '100',
@@ -710,7 +724,12 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicationContract,  dbcle
 
       context 'emails' do
         context 'end_on' do
-          let(:input_params) { { family_reference: family_reference, assistance_year: Date.today.year, applicants: [local_applicant] } }
+          let(:input_params) do
+            { family_reference: family_reference,
+              assistance_year: Date.today.year,
+              aptc_effective_date: Date.today,
+              applicants: [local_applicant] }
+            end
           let(:local_email) do
             { kind: 'home',
               address: 'test@tt.com',
@@ -728,7 +747,12 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicationContract,  dbcle
 
       context 'addresses' do
         context 'end_on' do
-          let(:input_params) { { family_reference: family_reference, assistance_year: Date.today.year, applicants: [local_applicant] } }
+          let(:input_params) do
+            { family_reference: family_reference,
+              assistance_year: Date.today.year,
+              aptc_effective_date: Date.today,
+              applicants: [local_applicant] }
+            end
           let(:local_address) do
             { has_fixed_address: true,
               kind: 'home',
@@ -767,6 +791,7 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicationContract,  dbcle
 
       it 'should return failure with error message' do
         expect(subject.call(input_params).errors.to_h).to eq({ assistance_year: ['is missing'],
+                                                               aptc_effective_date: ['is missing'],
                                                                hbx_id: ['is missing'],
                                                                us_state: ['is missing'] })
       end
@@ -785,6 +810,7 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicationContract,  dbcle
 
       it 'should return failure with error message' do
         expect(subject.call(input_params).errors.to_h).to eq({ assistance_year: ['must be an integer'],
+                                                               aptc_effective_date: ['is missing'],
                                                                hbx_id: ['is missing'],
                                                                us_state: ['is missing'] })
       end

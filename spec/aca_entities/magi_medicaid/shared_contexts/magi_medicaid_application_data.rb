@@ -280,6 +280,7 @@ RSpec.shared_context 'setup magi_medicaid application with two applicants', :sha
       hbx_id: '200000123',
       family_reference: family_reference,
       assistance_year: Date.today.year,
+      aptc_effective_date: Date.today,
       applicants: iap_applicants,
       tax_households: [tax_hh],
       mitc_households: mitc_households,

@@ -5,7 +5,17 @@ module AcaEntities
     # Entity for IAP Application.
     class Application < Dry::Struct
       attribute :family_reference, AcaEntities::Families::FamilyReference.meta(omittable: false)
+
+      # The year to which the application is applicable for
+      # Year that is used on which to determine APTC Eligibility
       attribute :assistance_year, Types::Integer.meta(omittable: false)
+      # Date that is used on which to determine APTC Eligibility
+      attribute :aptc_effective_date, Types::Date.meta(omittable: false)
+
+      # Add validation,
+      # i) the assistance_year should be same as of effective_date.year(or)
+      # ii) the assistance_year should be same as of (effective_date.year + 1)
+
       attribute :years_to_renew, Types::Integer.optional.meta(omittable: true)
       attribute :renewal_consent_through_year, Types::Integer.optional.meta(omittable: true)
       attribute :is_ridp_verified, Types::Bool.optional.meta(omittable: true)
