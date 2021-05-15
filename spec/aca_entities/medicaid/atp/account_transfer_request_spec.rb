@@ -1,41 +1,7 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require 'aca_entities/medicaid/atp/person_name'
-require 'aca_entities/medicaid/atp/address'
-require 'aca_entities/medicaid/atp/demographic'
-require 'aca_entities/medicaid/atp/identifying_information'
-require 'aca_entities/medicaid/atp/identifying_numbers_from_document'
-require 'aca_entities/medicaid/atp/citizenship_immigration_status_information'
-require 'aca_entities/medicaid/atp/immigration_document'
-require 'aca_entities/medicaid/atp/native_american_information'
-require 'aca_entities/medicaid/atp/employer_sponsored_insurance_information'
-require 'aca_entities/medicaid/atp/lowest_cost_plan'
-require 'aca_entities/medicaid/atp/current_income'
-require 'aca_entities/medicaid/atp/ssa_income_information'
-require 'aca_entities/medicaid/atp/ssa_information'
-require 'aca_entities/medicaid/atp/ssa_work_quarter'
-require 'aca_entities/medicaid/atp/medicaid_specific_information'
-require 'aca_entities/medicaid/atp/other_insurance_coverage_information'
-require 'aca_entities/medicaid/atp/other_insurance_detail'
-require 'aca_entities/medicaid/atp/person_description_identifier'
-require 'aca_entities/medicaid/atp/attestation'
-require 'aca_entities/medicaid/atp/dhs_save'
-require 'aca_entities/medicaid/atp/coverage_specific_information'
-require 'aca_entities/medicaid/atp/coverage_period'
-require 'aca_entities/medicaid/atp/relationship'
-require 'aca_entities/medicaid/atp/foster_care'
-require 'aca_entities/medicaid/atp/basis_for_outcome'
-require 'aca_entities/medicaid/atp/applicant'
-require 'aca_entities/medicaid/atp/transfer_header'
-require 'aca_entities/medicaid/atp/sender'
-require 'aca_entities/medicaid/atp/receiver'
-require 'aca_entities/medicaid/atp/application_metadata'
-require 'aca_entities/medicaid/atp/insurance_application'
-require 'aca_entities/medicaid/atp/household_income'
-require 'aca_entities/medicaid/atp/household_composition'
-require 'aca_entities/medicaid/atp/medicaid_household'
-require 'aca_entities/medicaid/atp/account_transfer_request'
+require 'aca_entities/medicaid/atp'
 
 RSpec.describe ::AcaEntities::Medicaid::Atp::AccountTransferRequest, dbclean: :after_each do
   let(:transfer_header_params) do
@@ -44,7 +10,7 @@ RSpec.describe ::AcaEntities::Medicaid::Atp::AccountTransferRequest, dbclean: :a
       transfer_date: Date.today.to_datetime,
       number_of_referrals: 4,
       recipient_code: 'code',
-      medicaid_chip_state: 'MA'
+      state_code: 'MA'
     }
   end
   let(:person_params) do
@@ -55,7 +21,7 @@ RSpec.describe ::AcaEntities::Medicaid::Atp::AccountTransferRequest, dbclean: :a
   end
 
   let(:insurance_application_params) do
-    { application_metadta: { application_id: '12345', application_signature_date: DateTime.new,
+    { application_metadata: { application_id: '12345', application_signature_date: DateTime.new,
                              creation_date: DateTime.new, identification_category_text: 'state' },
       attestation: { is_incarcerated: false, attested_not_incarcerated_indicator: false,
                      attested_if_information_changes_indicator: true, attested_non_perjury_indicator: true,
