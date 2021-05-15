@@ -32,7 +32,7 @@ module AcaEntities
               mapper.application_submission = ApplicationSubmission.domain_to_mapper(insurance_application)
               mapper.application_identifications = [
                 ApplicationIdentification.domain_to_mapper(insurance_application.application_metadata.application_id)
-
+                
               ]
               mapper.insurance_applicants = [
                 InsuranceApplicant.domain_to_mapper(insurance_application)
