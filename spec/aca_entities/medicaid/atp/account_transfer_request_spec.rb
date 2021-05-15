@@ -22,7 +22,11 @@ RSpec.describe ::AcaEntities::Medicaid::Atp::AccountTransferRequest, dbclean: :a
 
   let(:insurance_application_params) do
     { application_metadata: { application_id: '12345', application_signature_date: DateTime.new,
-                             creation_date: DateTime.new, identification_category_text: 'state' },
+                             creation_date: DateTime.new, identification_category_text: 'state',
+                             submission_date: DateTime.new,
+                             financial_assistance_indicator: true,
+                             medicaid_determination_indicator: true
+                            },
       attestation: { is_incarcerated: false, attested_not_incarcerated_indicator: false,
                      attested_if_information_changes_indicator: true, attested_non_perjury_indicator: true,
                      tax_return_access_indicator: true, tax_return_access: true } }
