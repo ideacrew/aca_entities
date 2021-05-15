@@ -8,6 +8,7 @@ PATH
       dry-transformer (~> 0.1.1)
       dry-types (~> 1.0)
       dry-validation (~> 1.2)
+      nokogiri-happymapper
       oj (~> 3.11)
 
 GEM
@@ -64,6 +65,12 @@ GEM
       dry-schema (~> 1.5, >= 1.5.2)
     ice_nine (0.11.2)
     method_source (1.0.0)
+    mini_portile2 (2.5.1)
+    nokogiri (1.11.3)
+      mini_portile2 (~> 2.5.0)
+      racc (~> 1.4)
+    nokogiri-happymapper (0.8.1)
+      nokogiri (~> 1.5)
     oj (3.11.5)
     parallel (1.20.1)
     parser (3.0.0.0)
@@ -74,6 +81,7 @@ GEM
     pry-byebug (3.9.0)
       byebug (~> 11.0)
       pry (~> 0.13.0)
+    racc (1.5.2)
     rainbow (3.0.0)
     rake (12.3.3)
     regexp_parser (2.1.1)

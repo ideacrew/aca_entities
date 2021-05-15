@@ -1,0 +1,1182 @@
+<!--AT-041916-MD/XMLschemas/constraint/XMLschemas/niem/domains/hix/0.1/hix-core/hix-core.xsd--><xsd:schema attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://hix.cms.gov/0.1/hix-core" version="1" xmlns:hix-core="http://hix.cms.gov/0.1/hix-core" xmlns:hix-ee="http://hix.cms.gov/0.1/hix-ee" xmlns:hix-types="http://hix.cms.gov/0.1/hix-types" xmlns:i="http://niem.gov/niem/appinfo/2.0" xmlns:i2="http://niem.gov/niem/appinfo/2.1" xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:usps="http://niem.gov/niem/usps_states/2.0" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <xsd:annotation>
+      <xsd:appinfo>
+         <i:ConformantIndicator>true</i:ConformantIndicator>
+      </xsd:appinfo>
+      <xsd:documentation source="">A reference model containing data components that either a) are good candidates for inclusion in NIEM-Core or b) are needed to support web services.</xsd:documentation>
+   </xsd:annotation>
+   <xsd:import namespace="http://hix.cms.gov/0.1/hix-ee" schemaLocation="hix_cms_gov_hix_ee.xsd"/>
+   <xsd:import namespace="http://hix.cms.gov/0.1/hix-types" schemaLocation="hix_cms_gov_hix_types.xsd"/>
+   <xsd:import namespace="http://niem.gov/niem/appinfo/2.0" schemaLocation="niem_gov_appinfo_2_0.xsd"/>
+   <xsd:import namespace="http://niem.gov/niem/appinfo/2.1" schemaLocation="niem_gov_appinfo_2_1.xsd"/>
+   <xsd:import namespace="http://niem.gov/niem/niem-core/2.0" schemaLocation="niem_gov_niem_core_2_0.xsd"/>
+   <xsd:import namespace="http://niem.gov/niem/proxy/xsd/2.0" schemaLocation="niem_gov_niem_proxy_xsd_2_0.xsd"/>
+   <xsd:import namespace="http://niem.gov/niem/structures/2.0" schemaLocation="niem_gov_niem_structures_2_0.xsd"/>
+   <xsd:import namespace="http://niem.gov/niem/usps_states/2.0" schemaLocation="niem_gov_usps_states_2_0.xsd"/>
+   <xsd:element name="AddressVerificationCode" type="hix-types:AddressVerificationCodeType">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:Base i:name="VerificationCode" i:namespace="http://hix.cms.gov/0.1/hix-core"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">A verification of an address.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="ApplicationCreation" nillable="true" type="nc:ActivityType">
+      <xsd:annotation>
+         <xsd:documentation source="">An activity indicating that an object has been created.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="ApplicationIdentification" type="nc:IdentificationType">
+      <xsd:annotation>
+         <xsd:documentation source="">An identification of an application.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="ApplicationSubmission" nillable="true" type="nc:ActivityType">
+      <xsd:annotation>
+         <xsd:documentation source="">An activity indicating that an object has been submitted to some authority for further action.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="ApplicationUpdate" type="nc:ActivityType">
+      <xsd:annotation>
+         <xsd:documentation source="">An activity indicating that an object has been updated.
+</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="ContactInformation" type="nc:ContactInformationType">
+      <xsd:annotation>
+         <xsd:documentation source="">Details about how to contact a person or an organization.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="ContactInformationCategoryCode" nillable="true" type="hix-types:ContactInformationCategoryCodeType">
+      <xsd:annotation>
+         <xsd:documentation source="">A kind of contact information.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element name="DHS-G845VerificationCode" type="hix-types:G845CodeType">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:Base i:name="VerificationCode" i:namespace="http://hix.cms.gov/0.1/hix-core"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">A verification of a document, established by the Department of Homeland Security (DHS) Systematic Alien Verification for Entitlements (SAVE) program.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element name="DHS-SAVEVerificationCode" type="hix-types:DHS-SAVEVerificationCodeType">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:Base i:name="VerificationCode" i:namespace="http://hix.cms.gov/0.1/hix-core"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">A verification of information about a person, provided by the Department of Homeland Security (DHS) Systematic Alien Verification for Entitlements (SAVE) verification program.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element name="DHS-SAVEVerificationSupplement" type="hix-core:DHS-SAVEVerificationSupplementType">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:Base i:name="VerificationSupplement" i:namespace="http://hix.cms.gov/0.1/hix-core"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">A verification supplement provided by the Department of Homeland Security (DHS) Systematic Alien Verification for Entitlements (SAVE) program.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="Employer" type="hix-core:OrganizationType">
+      <xsd:annotation>
+         <xsd:documentation source="">An organization that has employed a person.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="EmploymentHistoryCreditedQuarterQuantity" type="nc:QuantityType">
+      <xsd:annotation>
+         <xsd:documentation source="">A number of credited quarters of employment history.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="EmploymentHistoryYearDate" type="niem-xsd:gYear">
+      <xsd:annotation>
+         <xsd:documentation source="">A year for which employment history is reported.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="EmploymentStatus" type="hix-core:EmploymentStatusType">
+      <xsd:annotation>
+         <xsd:documentation source="">A status of a person's employment.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="EmploymentStatusCode" type="hix-types:EmploymentStatusCodeType">
+      <xsd:annotation>
+         <xsd:documentation source="">A kind of employment status.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="true" name="EntityRole">
+      <xsd:annotation>
+         <xsd:documentation source="">A data concept for an entity.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="true" name="EntityRoleReference" type="s:ReferenceType">
+      <xsd:annotation>
+         <xsd:documentation source="">A data concept for an entity.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="ExpenseAmount" type="nc:AmountType">
+      <xsd:annotation>
+         <xsd:documentation source="">An amount of an expense.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="true" name="ExpenseCategory">
+      <xsd:annotation>
+         <xsd:documentation source="">A data concept for a kind of expense.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element name="ExpenseCategoryCode" type="hix-types:ExpenseCategoryCodeType">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:Base i:name="ExpenseCategory" i:namespace="http://hix.cms.gov/0.1/hix-core"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">A kind of expense.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element name="ExpenseCategoryText" type="nc:TextType">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:Base i:name="ExpenseCategory" i:namespace="http://hix.cms.gov/0.1/hix-core"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">A description of a kind of expense.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="ExpenseFrequency" nillable="true" type="hix-core:FrequencyType">
+      <xsd:annotation>
+         <xsd:documentation source="">A frequency with which an expense is paid or incurred.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element name="FFEVerificationCode" type="hix-types:FFEVerificationCodeType">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:Base i:name="VerificationCode" i:namespace="http://hix.cms.gov/0.1/hix-core"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">A verification of information, established by the Federally Facilitated Exchange verification process. (The process starts in the pending (P) state, followed by verified (Y) or inconsistent (I). If resolved, I transitions to verified (Y); if not resolved, I transitions to not verified (N). Additional states exist to capture delays in the verification process.)</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element name="FamilyRelationship">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:Base i:name="PersonRelationship" i:namespace="http://hix.cms.gov/0.1/hix-core"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">A data concept for a family relationship between two people.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element name="FamilyRelationshipCode" nillable="false" type="hix-types:FamilyRelationshipHIPAACodeType">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:Base i:name="FamilyRelationship" i:namespace="http://hix.cms.gov/0.1/hix-core"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">A kind of family relationship between two people.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="FiveYearBarMetVerificationCode" type="hix-types:FFEVerificationCodeType">
+      <xsd:annotation>
+         <xsd:documentation source="">A status for a verification that a person previously subject to a five-year bar from services has completed the period of the bar.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="FiveYearBarVerificationCode" type="hix-types:FFEVerificationCodeType">
+      <xsd:annotation>
+         <xsd:documentation source="">A status of a verification that an individual is barred from services for five years.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element name="FrequencyCode" type="hix-types:FrequencyCodeType">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:Base i:name="FrequencyRepresentation" i:namespace="http://hix.cms.gov/0.1/hix-core"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">A kind of frequency with which an activity recurs.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="true" name="FrequencyRepresentation">
+      <xsd:annotation>
+         <xsd:documentation source="">A data concept for a frequency with which an activity recurs.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="ImmigrationStatusGrantDate" type="nc:DateType">
+      <xsd:annotation>
+         <xsd:documentation source="">A date a person's asylum, parolee, refugee or lawful permanent resident status was granted.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="IncarcerationDate" type="nc:DateType">
+      <xsd:annotation>
+         <xsd:documentation source="">A date the prisoner was confined.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="IncarcerationIndicator" type="niem-xsd:boolean">
+      <xsd:annotation>
+         <xsd:documentation source="">True if the person is incarcerated; false otherwise.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="Income" type="hix-core:IncomeType">
+      <xsd:annotation>
+         <xsd:documentation source="">A monetary payment received, usually on a regular basis.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="IncomeAmount" nillable="true" type="nc:AmountType">
+      <xsd:annotation>
+         <xsd:documentation source="">An amount of money (in dollars) earned.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="true" name="IncomeCategory">
+      <xsd:annotation>
+         <xsd:documentation source="">A data concept for a kind of income (e.g., wages, interest, etc.).</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element name="IncomeCategoryCode" nillable="true" type="hix-types:IncomeCategoryCodeType">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:Base i:name="IncomeCategory" i:namespace="http://hix.cms.gov/0.1/hix-core"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">A kind of income.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="IncomeDate" nillable="true" type="nc:DateType">
+      <xsd:annotation>
+         <xsd:documentation source="">A date that an income was received.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element name="IncomeDaysPerWeekMeasure" nillable="true" type="nc:NumericType">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:Base i:name="IncomeWorkPeriodMeasure" i:namespace="http://hix.cms.gov/0.1/hix-core"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">A number of days worked per week.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="IncomeEarnedDateRange" type="nc:DateRangeType">
+      <xsd:annotation>
+         <xsd:documentation source="">A date range during which an income was earned.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="IncomeEmploymentDescriptionText" nillable="true" type="nc:TextType">
+      <xsd:annotation>
+         <xsd:documentation source="">A description of the work for which an income is received (usually referring to self-employment income).</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="IncomeFederalPovertyLevelPercent" type="hix-types:PercentageType">
+      <xsd:annotation>
+         <xsd:documentation source="">A percent of the federal poverty level that this income represents.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="IncomeFrequency" nillable="true" type="hix-core:FrequencyType">
+      <xsd:annotation>
+         <xsd:documentation source="">A frequency with which an income is earned.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element name="IncomeHoursPerPayPeriodMeasure" nillable="true" type="nc:NumericType">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:Base i:name="IncomeWorkPeriodMeasure" i:namespace="http://hix.cms.gov/0.1/hix-core"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">A number of hours worked per pay period.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element name="IncomeHoursPerWeekMeasure" nillable="true" type="nc:NumericType">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:Base i:name="IncomeWorkPeriodMeasure" i:namespace="http://hix.cms.gov/0.1/hix-core"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">A number of hours worked per week.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="IncomePaymentFrequency" nillable="true" type="hix-core:FrequencyType">
+      <xsd:annotation>
+         <xsd:documentation source="">A frequency with which an income is paid.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="true" name="IncomeSource" type="s:ReferenceType">
+      <xsd:annotation>
+         <xsd:documentation source="">A data concept for a source of income.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element name="IncomeSourceOrganizationReference" type="s:ReferenceType">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:Base i:name="IncomeSource" i:namespace="http://hix.cms.gov/0.1/hix-core"/>
+            <i:ReferenceTarget i:name="OrganizationType" i:namespace="http://hix.cms.gov/0.1/hix-core"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">An organization that provides (is the source of) an income.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="IncomeSubjectToFederalRestrictionsIndicator" nillable="true" type="niem-xsd:boolean">
+      <xsd:annotation>
+         <xsd:documentation source="">True if an income is from a statutorily excluded American Indian / Alaska Native source (see 42 C.F.R. Section 435.603(e)(3)); false otherwise.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="IncomeUnemploymentSourceText" nillable="true" type="nc:TextType">
+      <xsd:annotation>
+         <xsd:documentation source="">A description of the source of an income received as unemployment compensation (e.g. the name of a state or employer).</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="IncomeVariableIndicator" type="niem-xsd:boolean">
+      <xsd:annotation>
+         <xsd:documentation source="">True if an income is expected to fluctuate significantly throughout a year; false otherwise.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="IncomeWorkPeriodMeasure" type="nc:NumericType">
+      <xsd:annotation>
+         <xsd:documentation source="">A data concept for a measure of a period worked (e.g., hours or days) to earn an income.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="InformationExchangeSystemCategoryCode" type="hix-types:InformationExchangeSystemCategoryCodeType">
+      <xsd:annotation>
+         <xsd:documentation source="">A kind of system that participates in the exchange of electronic information.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="InformationExchangeSystemCountyName" type="nc:ProperNameTextType">
+      <xsd:annotation>
+         <xsd:documentation source="">A county responsible for an information exchange system.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="InformationExchangeSystemStateCode" type="usps:USStateCodeType">
+      <xsd:annotation>
+         <xsd:documentation source="">A  state responsible for an information exchange system.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="LawfulPresenceVerificationCode" type="hix-types:FFEVerificationCodeType">
+      <xsd:annotation>
+         <xsd:documentation source="">A status of a verification of lawful presence.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="Organization" type="hix-core:OrganizationType">
+      <xsd:annotation>
+         <xsd:documentation source="">A unit which conducts some sort of business or operations.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element name="OrganizationAugmentation" type="hix-core:OrganizationAugmentationType">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:AppliesTo i:name="OrganizationType" i:namespace="http://niem.gov/niem/niem-core/2.0"/>
+         </xsd:appinfo>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="Person" type="hix-core:PersonType">
+      <xsd:annotation>
+         <xsd:documentation source="">A human being.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="PersonAdoptionDate" type="nc:DateType">
+      <xsd:annotation>
+         <xsd:documentation source="">A date a person was adopted.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="PersonAmericanIndianOrAlaskaNativeIndicator" nillable="true" type="niem-xsd:boolean">
+      <xsd:annotation>
+         <xsd:documentation source="">True if the person is an American Indian or Alaska Native by race or ethnicity; false otherwise.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="PersonAssociation" type="hix-core:PersonAssociationType">
+      <xsd:annotation>
+         <xsd:documentation source="">A relationship between two people.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element name="PersonAugmentation" type="hix-core:PersonAugmentationType">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:AppliesTo i:name="PersonType" i:namespace="http://niem.gov/niem/niem-core/2.0"/>
+         </xsd:appinfo>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="PersonCHIPIdentification" nillable="true" type="nc:IdentificationType">
+      <xsd:annotation>
+         <xsd:documentation source="">An identification assigned by a Children’s Health Insurance Program (CHIP) program to an individual.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="PersonCaretakerDependentCode" type="hix-types:CaretakerDependentCodeType">
+      <xsd:annotation>
+         <xsd:documentation source="">An indication of whether a person is a dependent deprived of parental support whose care is provided by a caretaker under Medicaid rules, including the dependent's health coverage status.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="PersonContactInformationAssociation" type="hix-core:PersonContactInformationAssociationType">
+      <xsd:annotation>
+         <xsd:documentation source="">A relationship between a person and contact information.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="PersonContributesWorkCreditIndicator" type="niem-xsd:boolean">
+      <xsd:annotation>
+         <xsd:documentation source="">True if this person's work history is to be used to provide credit for quarters worked for another person (usually to establish eligibility); false otherwise.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="PersonEmploymentAssociation" type="hix-core:PersonEmploymentAssociationType">
+      <xsd:annotation>
+         <xsd:documentation source="">A relationship between an employer and an employee.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element name="PersonEmploymentAugmentation" type="hix-core:PersonEmploymentAugmentationType">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:AppliesTo i:name="PersonEmploymentAssociationType" i:namespace="http://hix.cms.gov/0.1/hix-core"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">Supplements an employment relationship.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="PersonEmploymentHistory" type="hix-core:EmploymentHistoryType">
+      <xsd:annotation>
+         <xsd:documentation source="">An employment history for a person.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="PersonExpense" type="hix-core:ExpenseType">
+      <xsd:annotation>
+         <xsd:documentation source="">An outgoing monetary payment.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="PersonIdentification" type="nc:IdentificationType">
+      <xsd:annotation>
+         <xsd:documentation source="">An identification assigned to an individual.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="PersonIncome" type="hix-core:IncomeType">
+      <xsd:annotation>
+         <xsd:documentation source="">A monetary payment received, usually on a regular basis.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="PersonMarriedIndicator" nillable="true" type="niem-xsd:boolean">
+      <xsd:annotation>
+         <xsd:documentation source="">True if a person is married; false otherwise.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="PersonMedicaidIdentification" nillable="true" type="nc:IdentificationType">
+      <xsd:annotation>
+         <xsd:documentation source="">An identification assigned by a Medicaid program to an individual.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="PersonOrganizationAssociation" type="hix-core:PersonOrganizationAssociationType">
+      <xsd:annotation>
+         <xsd:documentation source="">A relationship between a person and an organization.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="PersonPreferredLanguage" type="nc:PersonLanguageType">
+      <xsd:annotation>
+         <xsd:documentation source="">A capacity of a person for a language with which that person has the strongest preference.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="PersonPregnancyStatus" nillable="true" type="hix-core:PregnancyStatusType">
+      <xsd:annotation>
+         <xsd:documentation source="">A pregnancy status of a person.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="PersonRecognizedTribeIndicator" type="niem-xsd:boolean">
+      <xsd:annotation>
+         <xsd:documentation source="">True if a person is a member of a recognized tribe; false otherwise.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="true" name="PersonRelationship">
+      <xsd:annotation>
+         <xsd:documentation source="">A data concept for a relationship between two people.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="true" name="PersonTribe">
+      <xsd:annotation>
+         <xsd:documentation source="">A data concept for a person's tribal affiliation.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element name="PersonTribeName" type="nc:ProperNameTextType">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:Base i:name="PersonTribe" i:namespace="http://hix.cms.gov/0.1/hix-core"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">A name of a native tribe.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="PersonUSVeteranIndicator" type="niem-xsd:boolean">
+      <xsd:annotation>
+         <xsd:documentation source="">True if a person is a U.S. veteran; false otherwise.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="PregnancyStatusExpectedBabyQuantity" type="nc:QuantityType">
+      <xsd:annotation>
+         <xsd:documentation source="">A number of babies a pregnant person is expecting.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="QualifiedNonCitizenVerificationCode" type="hix-types:FFEVerificationCodeType">
+      <xsd:annotation>
+         <xsd:documentation source="">A status of a verification that a person is a qualified non-citizen.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="Receiver" type="hix-core:InformationExchangeSystemType">
+      <xsd:annotation>
+         <xsd:documentation source="">An information exchange system receiving information.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="true" name="Response">
+      <xsd:annotation>
+         <xsd:documentation source="">A data concept for a response made to a request.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element name="ResponseCode" type="nc:TextType">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:Base i:name="Response" i:namespace="http://hix.cms.gov/0.1/hix-core"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">A coded response.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element name="ResponseDescriptionText" type="nc:TextType">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:Base i:name="Response" i:namespace="http://hix.cms.gov/0.1/hix-core"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">A description of a response.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element name="RoleOfPersonReference" nillable="false" type="s:ReferenceType">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:Base i:name="EntityRole" i:namespace="http://hix.cms.gov/0.1/hix-core"/>
+            <i:ReferenceTarget i:name="PersonType" i:namespace="http://hix.cms.gov/0.1/hix-core"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">Acts as A human being.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element name="RolePlayedByPerson" type="hix-core:PersonType">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:Base i:name="EntityRole" i:namespace="http://hix.cms.gov/0.1/hix-core"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">A human being.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="Sender" type="hix-core:InformationExchangeSystemType">
+      <xsd:annotation>
+         <xsd:documentation source="">An information exchange system sending information.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="SignatureDate" nillable="true" type="nc:DateType">
+      <xsd:annotation>
+         <xsd:documentation source="">A date that a document was signed.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="SignatureName" type="nc:PersonNameType">
+      <xsd:annotation>
+         <xsd:documentation source="">A name of a person signing a document.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="StatusIndicator" type="niem-xsd:boolean">
+      <xsd:annotation>
+         <xsd:documentation source="">True if the status holds; false otherwise.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="StatusValidDateRange" type="nc:DateRangeType">
+      <xsd:annotation>
+         <xsd:documentation source="">A date range for which the status is valid.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="StepID" type="niem-xsd:string">
+      <xsd:annotation>
+         <xsd:documentation source="">A step in the Department of Homeland Security (DHS) Systematic Alien Verification for Entitlements (SAVE) process.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element name="TDSResponseDescriptionText" type="nc:TextType">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:Base i:name="Response" i:namespace="http://hix.cms.gov/0.1/hix-core"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">A description of a response from a data source designated as trusted (a trusted data source or TDS) by the Centers for Medicare &amp; Medicaid Services.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="TINIdentification" nillable="false" type="nc:IdentificationType">
+      <xsd:annotation>
+         <xsd:documentation source="">An identification assigned by the Internal Revenue Service for tax purposes.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element name="TribalAugmentation" type="hix-core:TribalAugmentationType">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:AppliesTo i:name="PersonType" i:namespace="http://niem.gov/niem/niem-core/2.0"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">Supplements an nc:Person with tribal information.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="USCitizenshipVerificationCode" type="hix-types:FFEVerificationCodeType">
+      <xsd:annotation>
+         <xsd:documentation source="">A status for a verification that a person is a U.S. citizen.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="USNaturalizedCitizenIndicator" type="niem-xsd:boolean">
+      <xsd:annotation>
+         <xsd:documentation source="">True if a person is a naturalized citizen of the US; false otherwise.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="true" name="VerificationAuthority">
+      <xsd:annotation>
+         <xsd:documentation source="">A data concept for an authority that verifies information.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element name="VerificationAuthorityName" type="nc:TextType">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:Base i:name="VerificationAuthority" i:namespace="http://hix.cms.gov/0.1/hix-core"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">A name of a verification authority.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element name="VerificationAuthorityTDS-FEPS-AlphaCode" type="hix-types:TDS-FEPS-AlphaCodeType">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:Base i:name="VerificationAuthority" i:namespace="http://hix.cms.gov/0.1/hix-core"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">A trusted data source, as specified by the Centers for Medicare &amp; Medicaid Services.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="VerificationCategoryCode" type="hix-types:VerificationCategoryCodeType">
+      <xsd:annotation>
+         <xsd:documentation source="">A kind of verification.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="true" name="VerificationCode">
+      <xsd:annotation>
+         <xsd:documentation source="">A data concept for a A verification code assigned by some authority.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="VerificationDate" type="nc:DateType">
+      <xsd:annotation>
+         <xsd:documentation source="">A date a verification was performed.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="VerificationDescriptionText" type="nc:TextType">
+      <xsd:annotation>
+         <xsd:documentation source="">A comment from a verifier.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="VerificationID" type="niem-xsd:string">
+      <xsd:annotation>
+         <xsd:documentation source="">An identification for a verification.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="VerificationInconsistencyAcceptableIndicator" type="niem-xsd:boolean">
+      <xsd:annotation>
+         <xsd:documentation source="">True if an acceptable justification for an inconsistency has been provided; false otherwise.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="VerificationInconsistencyJustificationText" type="nc:TextType">
+      <xsd:annotation>
+         <xsd:documentation source="">A justification of an inconsistency identified during verification (regardless of the acceptability of the justification).</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="VerificationIndicator" type="niem-xsd:boolean">
+      <xsd:annotation>
+         <xsd:documentation source="">True if the information has been verified as accurate; false if the information has been rejected as inaccurate.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="VerificationMetadata" type="hix-core:VerificationMetadataType">
+      <xsd:annotation>
+         <xsd:documentation source="">A Metadata about any object, provided by a verifying authority.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="VerificationRequestingSystem" type="hix-core:InformationExchangeSystemType">
+      <xsd:annotation>
+         <xsd:documentation source="">An information exchange system that requested a verification.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="VerificationStatus" type="hix-core:VerificationStatusType">
+      <xsd:annotation>
+         <xsd:documentation source="">A Documented Component</xsd:documentation>
+         <xsd:documentation source="">A status of a verification.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="VerificationStatusCode" type="hix-types:VerificationStatusCodeType">
+      <xsd:annotation>
+         <xsd:documentation source="">A kind of verification status.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="true" name="VerificationSupplement" type="hix-core:VerificationSupplementType">
+      <xsd:annotation>
+         <xsd:documentation source="">A supplement containing additional information provided by a verifying authority.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:complexType abstract="false" mixed="false" name="ActivityType">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:Base i:name="ActivityType" i:namespace="http://niem.gov/niem/niem-core/2.0"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">A data type for A single or set of related actions, events, or process steps.</xsd:documentation>
+      </xsd:annotation>
+      <xsd:complexContent>
+         <xsd:extension base="nc:ActivityType">
+            <xsd:sequence/>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:complexType abstract="false" mixed="false" name="ApplicantType">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:Base i:name="Object" i:namespace="http://niem.gov/niem/structures/2.0"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">A data type for an entity making a request via an application.</xsd:documentation>
+      </xsd:annotation>
+      <xsd:complexContent>
+         <xsd:extension base="s:ComplexObjectType">
+            <xsd:sequence>
+               <xsd:element maxOccurs="1" minOccurs="1" ref="hix-core:RoleOfPersonReference"/>
+            </xsd:sequence>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:complexType abstract="false" mixed="false" name="ApplicationType">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:Base i:name="Object" i:namespace="http://niem.gov/niem/structures/2.0"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">A data type for a formal application (or request).</xsd:documentation>
+      </xsd:annotation>
+      <xsd:complexContent>
+         <xsd:extension base="s:ComplexObjectType">
+            <xsd:sequence>
+               <xsd:element maxOccurs="1" minOccurs="1" ref="hix-core:ApplicationCreation"/>
+               <xsd:element maxOccurs="1" minOccurs="1" ref="hix-core:ApplicationSubmission"/>
+               <xsd:element maxOccurs="unbounded" minOccurs="0" ref="hix-core:ApplicationUpdate"/>
+               <xsd:element maxOccurs="2" minOccurs="1" ref="hix-core:ApplicationIdentification"/>
+            </xsd:sequence>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:complexType abstract="false" mixed="false" name="DHS-SAVEVerificationSupplementType">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:Base i:name="VerificationSupplementType" i:namespace="http://hix.cms.gov/0.1/hix-core"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">A data type for supplemental information provided by the Department of Homeland Security (DHS) for a Systematic Alien Verification for Entitlements (SAVE) program.</xsd:documentation>
+      </xsd:annotation>
+      <xsd:complexContent>
+         <xsd:extension base="hix-core:VerificationSupplementType">
+            <xsd:sequence>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-core:StepID"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-core:LawfulPresenceVerificationCode"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-core:FiveYearBarVerificationCode"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-core:QualifiedNonCitizenVerificationCode"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-core:FiveYearBarMetVerificationCode"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-core:USCitizenshipVerificationCode"/>
+               <xsd:element maxOccurs="unbounded" minOccurs="0" ref="hix-core:ImmigrationStatusGrantDate"/>
+            </xsd:sequence>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:complexType abstract="false" mixed="false" name="EmploymentHistoryType">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:Base i:name="Object" i:namespace="http://niem.gov/niem/structures/2.0"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">A data type for a history of employment.</xsd:documentation>
+      </xsd:annotation>
+      <xsd:complexContent>
+         <xsd:extension base="s:ComplexObjectType">
+            <xsd:sequence>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-core:EmploymentHistoryYearDate"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-core:EmploymentHistoryCreditedQuarterQuantity"/>
+            </xsd:sequence>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:complexType abstract="false" mixed="false" name="EmploymentStatusType">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:Base i:name="StatusType" i:namespace="http://hix.cms.gov/0.1/hix-core"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">A data type for a status of a person's employment.</xsd:documentation>
+      </xsd:annotation>
+      <xsd:complexContent>
+         <xsd:extension base="hix-core:StatusType">
+            <xsd:sequence>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-core:EmploymentStatusCode"/>
+            </xsd:sequence>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:complexType abstract="false" mixed="false" name="ExpenseType">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:Base i:name="Object" i:namespace="http://niem.gov/niem/structures/2.0"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">A data type for an outgoing monetary payment.</xsd:documentation>
+      </xsd:annotation>
+      <xsd:complexContent>
+         <xsd:extension base="s:ComplexObjectType">
+            <xsd:sequence>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-core:ExpenseAmount"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-core:ExpenseCategoryText"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-core:ExpenseCategoryCode"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-core:ExpenseFrequency"/>
+            </xsd:sequence>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:complexType abstract="false" mixed="false" name="FrequencyType">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:Base i:name="Object" i:namespace="http://niem.gov/niem/structures/2.0"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">A data type for a frequency with which an activity recurs.</xsd:documentation>
+      </xsd:annotation>
+      <xsd:complexContent>
+         <xsd:extension base="s:ComplexObjectType">
+            <xsd:sequence>
+               <xsd:element maxOccurs="1" minOccurs="1" ref="hix-core:FrequencyCode"/>
+            </xsd:sequence>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:complexType abstract="false" mixed="false" name="IncarcerationType">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:Base i:name="SupervisionType" i:namespace="http://niem.gov/niem/niem-core/2.0"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">A data type for a mandatory confined supervision of a person.</xsd:documentation>
+      </xsd:annotation>
+      <xsd:complexContent>
+         <xsd:extension base="nc:SupervisionType">
+            <xsd:sequence>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-core:IncarcerationDate"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-core:IncarcerationIndicator"/>
+            </xsd:sequence>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:complexType abstract="false" mixed="false" name="IncomeType">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:Base i:name="Object" i:namespace="http://niem.gov/niem/structures/2.0"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">A data type for a monetary payment received, usually on a regular basis.</xsd:documentation>
+      </xsd:annotation>
+      <xsd:complexContent>
+         <xsd:extension base="s:ComplexObjectType">
+            <xsd:sequence>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-core:IncomeFrequency"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-core:IncomeAmount"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-core:IncomeHoursPerWeekMeasure"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-core:IncomeHoursPerPayPeriodMeasure"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-core:IncomeDaysPerWeekMeasure"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-core:IncomeCategoryCode"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-core:IncomeDate"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-core:IncomeSourceOrganizationReference"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-core:IncomeFederalPovertyLevelPercent"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-core:IncomeSubjectToFederalRestrictionsIndicator"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-core:IncomeVariableIndicator"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-core:IncomePaymentFrequency"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-core:IncomeEarnedDateRange"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-core:IncomeEmploymentDescriptionText"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-core:IncomeUnemploymentSourceText"/>
+            </xsd:sequence>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:complexType abstract="false" mixed="false" name="InformationExchangeSystemType">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:Base i:name="Object" i:namespace="http://niem.gov/niem/structures/2.0"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">A data type for a system that participates in the exchange of electronic information (such as a Medicaid system, the Federally Facilitated Exchange, an issuer system, a Social Security Administration system, etc.).</xsd:documentation>
+      </xsd:annotation>
+      <xsd:complexContent>
+         <xsd:extension base="s:ComplexObjectType">
+            <xsd:sequence>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-core:InformationExchangeSystemCategoryCode"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-core:InformationExchangeSystemStateCode"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-core:InformationExchangeSystemCountyName"/>
+            </xsd:sequence>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:complexType abstract="false" mixed="false" name="OrganizationAugmentationType">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:Base i:name="AugmentationType" i:namespace="http://niem.gov/niem/structures/2.0"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">A data type that supplements an nc:Organization with health insurance specific information.</xsd:documentation>
+      </xsd:annotation>
+      <xsd:complexContent>
+         <xsd:extension base="s:AugmentationType">
+            <xsd:sequence>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-core:TINIdentification"/>
+            </xsd:sequence>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:complexType abstract="false" mixed="false" name="OrganizationType">
+      <xsd:annotation>
+         <xsd:appinfo>true<AugmentedTypeIndicator xmlns="http://niem.gov/niem/appinfo/2.1">true</AugmentedTypeIndicator>
+            <i:Base i:name="OrganizationType" i:namespace="http://niem.gov/niem/niem-core/2.0"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">A data type for an applied augmentation for type nc:OrganizationType.</xsd:documentation>
+      </xsd:annotation>
+      <xsd:complexContent>
+         <xsd:extension base="nc:OrganizationType">
+            <xsd:sequence>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-core:OrganizationAugmentation"/>
+            </xsd:sequence>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:complexType abstract="false" mixed="false" name="PersonAssociationType">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:Base i:name="PersonAssociationType" i:namespace="http://niem.gov/niem/niem-core/2.0"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">A relationship A data type for a relationship between two people.</xsd:documentation>
+      </xsd:annotation>
+      <xsd:complexContent>
+         <xsd:extension base="nc:PersonAssociationType">
+            <xsd:sequence>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-core:FamilyRelationshipCode"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-core:PersonCaretakerDependentCode"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-core:PersonContributesWorkCreditIndicator"/>
+            </xsd:sequence>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:complexType abstract="false" mixed="false" name="PersonAugmentationType">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:Base i:name="AugmentationType" i:namespace="http://niem.gov/niem/structures/2.0"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">A data type that supplements an nc:Person with health insurance specific information.</xsd:documentation>
+      </xsd:annotation>
+      <xsd:complexContent>
+         <xsd:extension base="s:AugmentationType">
+            <xsd:sequence>
+               <xsd:element maxOccurs="unbounded" minOccurs="0" ref="hix-core:PersonAssociation"/>
+               <xsd:element maxOccurs="unbounded" minOccurs="0" ref="hix-core:PersonContactInformationAssociation"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-core:PersonOrganizationAssociation"/>
+               <xsd:element maxOccurs="unbounded" minOccurs="0" ref="hix-core:PersonEmploymentAssociation"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-core:PersonPregnancyStatus"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-core:PersonMedicaidIdentification"/>
+               <xsd:element maxOccurs="unbounded" minOccurs="0" ref="hix-core:PersonIncome"/>
+               <xsd:element maxOccurs="2" minOccurs="0" ref="hix-core:PersonPreferredLanguage"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-core:PersonCHIPIdentification"/>
+               <xsd:element maxOccurs="unbounded" minOccurs="0" ref="hix-core:PersonEmploymentHistory"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-core:PersonAdoptionDate"/>
+               <xsd:element maxOccurs="unbounded" minOccurs="0" ref="hix-core:USNaturalizedCitizenIndicator"/>
+               <xsd:element maxOccurs="unbounded" minOccurs="0" ref="hix-core:PersonIdentification"/>
+               <xsd:element maxOccurs="unbounded" minOccurs="0" ref="hix-core:PersonExpense"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-core:PersonMarriedIndicator"/>
+               <xsd:element maxOccurs="unbounded" minOccurs="0" ref="hix-core:PersonUSVeteranIndicator"/>
+            </xsd:sequence>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:complexType abstract="false" mixed="false" name="PersonContactInformationAssociationType">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:Base i:name="PersonContactInformationAssociationType" i:namespace="http://niem.gov/niem/niem-core/2.0"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">A relationship A data type for a relationship between a person and contact information.</xsd:documentation>
+      </xsd:annotation>
+      <xsd:complexContent>
+         <xsd:extension base="nc:PersonContactInformationAssociationType">
+            <xsd:sequence>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-core:ContactInformation"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-core:ContactInformationCategoryCode"/>
+            </xsd:sequence>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:complexType abstract="false" mixed="false" name="PersonEmploymentAssociationType">
+      <xsd:annotation>
+         <xsd:appinfo>true<AugmentedTypeIndicator xmlns="http://niem.gov/niem/appinfo/2.1">true</AugmentedTypeIndicator>
+            <i:Base i:name="PersonEmploymentAssociationType" i:namespace="http://niem.gov/niem/niem-core/2.0"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">A relationship A data type for a relationship between an employer and an employee.</xsd:documentation>
+      </xsd:annotation>
+      <xsd:complexContent>
+         <xsd:extension base="nc:PersonEmploymentAssociationType">
+            <xsd:sequence>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:ESIAugmentation"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-core:Employer"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-core:EmploymentStatus"/>
+            </xsd:sequence>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:complexType abstract="false" mixed="false" name="PersonEmploymentAugmentationType">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:Base i:name="AugmentationType" i:namespace="http://niem.gov/niem/structures/2.0"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">A data type that supplements an employment relationship.</xsd:documentation>
+      </xsd:annotation>
+      <xsd:complexContent>
+         <xsd:extension base="s:AugmentationType">
+            <xsd:sequence/>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:complexType abstract="false" mixed="false" name="PersonOrganizationAssociationType">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:Base i:name="PersonOrganizationAssociationType" i:namespace="http://niem.gov/niem/niem-core/2.0"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">A relationship A data type for a relationship between a person and an organization.</xsd:documentation>
+      </xsd:annotation>
+      <xsd:complexContent>
+         <xsd:extension base="nc:PersonOrganizationAssociationType">
+            <xsd:sequence>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-core:Organization"/>
+            </xsd:sequence>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:complexType abstract="false" mixed="false" name="PersonType">
+      <xsd:annotation>
+         <xsd:appinfo>true<AugmentedTypeIndicator xmlns="http://niem.gov/niem/appinfo/2.1">true</AugmentedTypeIndicator>
+            <i:Base i:name="PersonType" i:namespace="http://niem.gov/niem/niem-core/2.0"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">A data type for an applied augmentation for type nc:PersonType.</xsd:documentation>
+      </xsd:annotation>
+      <xsd:complexContent>
+         <xsd:extension base="nc:PersonType">
+            <xsd:sequence>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-core:TribalAugmentation"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-core:PersonAugmentation"/>
+            </xsd:sequence>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:complexType abstract="false" mixed="false" name="PregnancyStatusType">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:Base i:name="StatusType" i:namespace="http://hix.cms.gov/0.1/hix-core"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">A data type for a pregnancy status of a person.</xsd:documentation>
+      </xsd:annotation>
+      <xsd:complexContent>
+         <xsd:extension base="hix-core:StatusType">
+            <xsd:sequence>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-core:PregnancyStatusExpectedBabyQuantity"/>
+            </xsd:sequence>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:complexType abstract="false" mixed="false" name="ResponseMetadataType">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:Base i:name="MetadataType" i:namespace="http://niem.gov/niem/structures/2.0"/>
+            <i:AppliesTo i:name="Object" i:namespace="http://niem.gov/niem/structures/2.0"/>
+            <i:AppliesTo i:name="Association" i:namespace="http://niem.gov/niem/structures/2.0"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">A data type for metadata about a response.</xsd:documentation>
+      </xsd:annotation>
+      <xsd:complexContent>
+         <xsd:extension base="s:MetadataType">
+            <xsd:sequence>
+               <xsd:element maxOccurs="1" minOccurs="1" ref="hix-core:ResponseCode"/>
+               <xsd:element maxOccurs="1" minOccurs="1" ref="hix-core:ResponseDescriptionText"/>
+               <xsd:element maxOccurs="unbounded" minOccurs="0" ref="hix-core:TDSResponseDescriptionText"/>
+            </xsd:sequence>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:complexType abstract="false" mixed="false" name="SignatureType">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:Base i:name="Object" i:namespace="http://niem.gov/niem/structures/2.0"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">A data type for a signature on a physical or electronic document.</xsd:documentation>
+      </xsd:annotation>
+      <xsd:complexContent>
+         <xsd:extension base="s:ComplexObjectType">
+            <xsd:sequence>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-core:SignatureName"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-core:SignatureDate"/>
+            </xsd:sequence>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:complexType abstract="false" mixed="false" name="StatusType">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:Base i:name="Object" i:namespace="http://niem.gov/niem/structures/2.0"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">A data type for a state of something or someone.</xsd:documentation>
+      </xsd:annotation>
+      <xsd:complexContent>
+         <xsd:extension base="s:ComplexObjectType">
+            <xsd:sequence>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-core:StatusValidDateRange"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-core:StatusIndicator"/>
+            </xsd:sequence>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:complexType abstract="false" mixed="false" name="TribalAugmentationType">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:Base i:name="AugmentationType" i:namespace="http://niem.gov/niem/structures/2.0"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">A data type that supplements an nc:Person with tribal information.</xsd:documentation>
+      </xsd:annotation>
+      <xsd:complexContent>
+         <xsd:extension base="s:AugmentationType">
+            <xsd:sequence>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-core:PersonRecognizedTribeIndicator"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-core:PersonAmericanIndianOrAlaskaNativeIndicator"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-core:PersonTribeName"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="nc:LocationStateUSPostalServiceCode"/>
+            </xsd:sequence>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:complexType abstract="false" mixed="false" name="VerificationMetadataType">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:Base i:name="MetadataType" i:namespace="http://niem.gov/niem/structures/2.0"/>
+            <i:AppliesTo i:name="Object" i:namespace="http://niem.gov/niem/structures/2.0"/>
+            <i:AppliesTo i:name="Association" i:namespace="http://niem.gov/niem/structures/2.0"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">A data type for metadata about any object, provided by a verifying authority.</xsd:documentation>
+      </xsd:annotation>
+      <xsd:complexContent>
+         <xsd:extension base="s:MetadataType">
+            <xsd:sequence>
+               <xsd:choice maxOccurs="1" minOccurs="0">
+                  <xsd:element ref="hix-core:AddressVerificationCode"/>
+                  <xsd:element ref="hix-core:DHS-G845VerificationCode"/>
+                  <xsd:element ref="hix-core:DHS-SAVEVerificationCode"/>
+                  <xsd:element ref="hix-core:FFEVerificationCode"/>
+               </xsd:choice>
+               <xsd:choice maxOccurs="1" minOccurs="1">
+                  <xsd:element ref="hix-core:VerificationAuthorityName"/>
+                  <xsd:element ref="hix-core:VerificationAuthorityTDS-FEPS-AlphaCode"/>
+               </xsd:choice>
+               <xsd:element maxOccurs="1" minOccurs="1" ref="hix-core:VerificationDate"/>
+               <xsd:element maxOccurs="1" minOccurs="1" ref="hix-core:VerificationRequestingSystem"/>
+               <xsd:choice maxOccurs="1" minOccurs="0">
+                  <xsd:element ref="hix-core:DHS-SAVEVerificationSupplement"/>
+               </xsd:choice>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-core:VerificationIndicator"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-core:VerificationID"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-core:VerificationDescriptionText"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-core:VerificationInconsistencyJustificationText"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-core:VerificationInconsistencyAcceptableIndicator"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-core:VerificationStatus"/>
+               <xsd:element maxOccurs="unbounded" minOccurs="0" ref="hix-core:VerificationCategoryCode"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-core:ResponseCode"/>
+            </xsd:sequence>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:complexType abstract="false" mixed="false" name="VerificationStatusType">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:Base i:name="StatusType" i:namespace="http://hix.cms.gov/0.1/hix-core"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">A data type for a status of a verification.</xsd:documentation>
+      </xsd:annotation>
+      <xsd:complexContent>
+         <xsd:extension base="hix-core:StatusType">
+            <xsd:sequence>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-core:VerificationStatusCode"/>
+            </xsd:sequence>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:complexType abstract="false" mixed="false" name="VerificationSupplementType">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:Base i:name="Object" i:namespace="http://niem.gov/niem/structures/2.0"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">A data type for a supplement containing additional verification metadata provided by a verifying authority.</xsd:documentation>
+      </xsd:annotation>
+      <xsd:complexContent>
+         <xsd:extension base="s:ComplexObjectType">
+            <xsd:sequence/>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+</xsd:schema>
