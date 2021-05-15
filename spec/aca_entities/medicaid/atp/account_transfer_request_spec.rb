@@ -9,7 +9,7 @@ RSpec.describe ::AcaEntities::Medicaid::Atp::AccountTransferRequest, dbclean: :a
       transfer_id: '1234567890',
       transfer_date: Date.today.to_datetime,
       number_of_referrals: 4,
-      recipient_code: 'code',
+      recipient_code: 'MedicaidCHIP',
       state_code: 'MA'
     }
   end
@@ -37,7 +37,7 @@ RSpec.describe ::AcaEntities::Medicaid::Atp::AccountTransferRequest, dbclean: :a
     }
   end
 
-  let(:sender_params) {{ sender_code: nil, sender_medicaid_chip_state: nil }}
+  let(:sender_params) {{ sender_code: nil}}
   let(:receiver_params) {{ recipient_code: '12345' }}
   let(:physical_household) {{ household_size_quantity: 2, household_member_reference: [5_762_879, 762_839] }}
   let(:required_params) do

@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require_relative "atp/types"
 require_relative "atp/transfer_header"
 require_relative "atp/sender"
 require_relative "atp/receiver"
