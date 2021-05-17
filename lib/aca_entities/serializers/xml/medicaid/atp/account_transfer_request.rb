@@ -15,13 +15,12 @@ module AcaEntities
 
             attribute :version, String, tag: "atVersionText", namespace: "ext"
 
-            has_one :transfer_header, TransferHeader 
+            has_one :transfer_header, TransferHeader
             has_many :senders, Sender
             has_many :receivers, Receiver
             has_one :insurance_application, InsuranceApplication
             has_many :people, Person
             has_many :physical_households, PhysicalHousehold
-
 
             def self.domain_to_mapper(account_transfer_request)
               mapper = self.new

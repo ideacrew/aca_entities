@@ -12,9 +12,8 @@ module AcaEntities
             tag 'PhysicalHousehold'
             namespace 'ext'
 
-            def self.domain_to_mapper(date_time)
-              mapper = self.new
-              mapper
+            def self.domain_to_mapper(_date_time)
+              self.new
             end
           end
         end
