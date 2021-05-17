@@ -7,7 +7,7 @@ module AcaEntities
 
       attribute :product_reference,           AcaEntities::BenefitMarkets::ProductReference.meta(omittable: false)
       attribute :benefit_market_kind,         Types::Strict::Symbol.meta(omittable: false)
-      attribute :application_period,          Types::Range..meta(omittable: false)
+      attribute :application_period,          Types::Range.meta(omittable: false)
       attribute :hbx_id,                      Types::String.optional.meta(omittable: true)
       attribute :title,                       Types::Strict::String.meta(omittable: false)
       attribute :description,                 Types::String.optional.meta(omittable: true)
@@ -26,7 +26,7 @@ module AcaEntities
       attribute :network_information,         Types::String.optional.meta(omittable: true)
       attribute :nationwide,                  Types::Bool.optional.meta(omittable: true)
       attribute :dc_in_network,               Types::Bool.optional.meta(omittable: false)
-      attribute :renewal_product_reference,   AcaEntities::BenefitMarkets::ProductReference.meta(omittable: false)
+      attribute :renewal_product_reference,   AcaEntities::BenefitMarkets::ProductReference.optional.meta(omittable: false)
 
       attribute :sbc_document,                BenefitMarkets::Document.optional.meta(omittable: true)
       attribute :premium_tables,              Types::Array.of(BenefitMarkets::PremiumTable).meta(omittable: false)

@@ -11,7 +11,7 @@ module AcaEntities
       attribute :probation_period_kinds,  Types::Strict::Array
       # attribute :benefit_application_id,  Types::String.optional
       attribute :product_packages,        Types::Array.of(BenefitMarkets::ProductPackage)
-      attribute :service_area_ids,        Types::Strict::Array
+      # attribute :service_area_ids,        Types::Strict::Array
 
     end
   end

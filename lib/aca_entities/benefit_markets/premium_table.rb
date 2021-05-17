@@ -6,7 +6,7 @@ module AcaEntities
     class PremiumTable < Dry::Struct
 
       attribute :effective_period,    Types::Range.meta(omittable: false)
-      attribute :rating_area,         Types::Bson.meta(omittable: false)
+      attribute :rating_area,         BenefitMarkets::RatingArea.meta(omittable: false)
       attribute :premium_tuples,      Types::Array.of(BenefitMarkets::PremiumTuple).optional.meta(omittable: true)
 
       def member_premium(age)
