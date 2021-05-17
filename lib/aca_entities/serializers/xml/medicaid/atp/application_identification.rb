@@ -5,6 +5,7 @@ module AcaEntities
     module Xml
       module Medicaid
         module Atp
+          # Include XML element and type definitions.
           class ApplicationIdentification
             include HappyMapper
             register_namespace 'hix-core', 'http://hix.cms.gov/0.1/hix-core'

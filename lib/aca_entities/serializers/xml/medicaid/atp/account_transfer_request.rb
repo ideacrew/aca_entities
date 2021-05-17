@@ -5,6 +5,8 @@ module AcaEntities
     module Xml
       module Medicaid
         module Atp
+          # Happymapper implementation for the root object of an
+          # AccountTransferRequest.
           class AccountTransferRequest
             include HappyMapper
             register_namespace 'ex', 'http://at.dsh.cms.gov/exchange/1.0'
