@@ -12,9 +12,8 @@ module AcaEntities
             tag 'PersonName'
             namespace 'nc'
 
-            def self.domain_to_mapper(person)
-              mapper = self.new
-              mapper
+            def self.domain_to_mapper(_person)
+              self.new
             end
           end
         end

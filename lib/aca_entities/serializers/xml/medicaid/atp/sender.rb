@@ -16,9 +16,8 @@ module AcaEntities
             element :state_code, String, tag: "InformationExchangeSystemStateCode", namespace: 'hix-core'
             element :county_name, String, tag: "InformationExchangeSystemCountyName", namespace: 'hix-core'
 
-            def self.domain_to_mapper(account_transfer_request)
-              mapper = self.new
-              mapper
+            def self.domain_to_mapper(_account_transfer_request)
+              self.new
             end
           end
         end

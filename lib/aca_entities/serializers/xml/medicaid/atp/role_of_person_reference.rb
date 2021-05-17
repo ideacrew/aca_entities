@@ -15,7 +15,7 @@ module AcaEntities
 
             attribute :ref, String, namespace: "niem-s"
 
-            def self.domain_to_mapper(insurance_application)
+            def self.domain_to_mapper(_insurance_application)
               mapper = self.new
               mapper.ref = "a-person-id"
               mapper
