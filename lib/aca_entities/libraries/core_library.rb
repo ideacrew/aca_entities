@@ -62,7 +62,7 @@ module AcaEntities
       require 'aca_entities/benefit_markets/contracts/locations/county_zip_contract'
       require 'aca_entities/benefit_markets/contracts/locations/rating_area_contract'
       require 'aca_entities/benefit_markets/contracts/locations/service_area_contract'
-      require 'aca_entities/benefit_markets/contracts/products/Premium_tuple_contract'
+      require 'aca_entities/benefit_markets/contracts/products/premium_tuple_contract'
       require 'aca_entities/benefit_markets/contracts/products/premium_table_contract'
       require 'aca_entities/benefit_markets/contracts/products/product_reference_contract'
       require 'aca_entities/benefit_markets/contracts/products/product_contract'
