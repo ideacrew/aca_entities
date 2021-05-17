@@ -104,8 +104,7 @@ RSpec.shared_context 'setup magi_medicaid application with two applicants', :sha
   end
 
   let(:applicant1_mitc_relationships) do
-    [{ other_id: '95', attest_primary_responsibility: 'Y', relationship_code: '01' },
-     { other_id: '96', attest_primary_responsibility: 'Y', relationship_code: '02' }]
+    [{ other_id: '96', attest_primary_responsibility: 'Y', relationship_code: '02' }]
   end
   let(:applicant_hash) do
     { name: name,
@@ -118,6 +117,7 @@ RSpec.shared_context 'setup magi_medicaid application with two applicants', :sha
       family_member_reference: family_member_reference,
       person_hbx_id: '95',
       is_required_to_file_taxes: true,
+      tax_filer_kind: 'tax_filer',
       is_joint_tax_filing: false,
       is_claimed_as_tax_dependent: false,
       claimed_as_tax_dependent_by: nil,
@@ -151,8 +151,7 @@ RSpec.shared_context 'setup magi_medicaid application with two applicants', :sha
   end
 
   let(:applicant2_mitc_relationships) do
-    [{ other_id: '96', attest_primary_responsibility: 'N', relationship_code: '01' },
-     { other_id: '95', attest_primary_responsibility: 'N', relationship_code: '02' }]
+    [{ other_id: '95', attest_primary_responsibility: 'N', relationship_code: '02' }]
   end
   let(:applicant2_hash) do
     { name: name2,
@@ -165,6 +164,7 @@ RSpec.shared_context 'setup magi_medicaid application with two applicants', :sha
       family_member_reference: family_member2_reference,
       person_hbx_id: '96',
       is_required_to_file_taxes: true,
+      tax_filer_kind: 'tax_filer',
       is_joint_tax_filing: true,
       is_claimed_as_tax_dependent: false,
       claimed_as_tax_dependent_by: applicant_reference,
@@ -278,12 +278,18 @@ RSpec.shared_context 'setup magi_medicaid application with two applicants', :sha
     { filers: person_references, dependents: [] }
   end
 
+  let(:relationships) do
+    [{ kind: 'spouse', applicant_reference: applicant_reference, relative_reference: applicant2_reference },
+     { kind: 'spouse', applicant_reference: applicant2_reference, relative_reference: applicant_reference }]
+  end
+
   let(:iap_application) do
     { us_state: 'DC',
       hbx_id: '200000123',
       family_reference: family_reference,
       assistance_year: Date.today.year,
       aptc_effective_date: Date.today,
+      relationships: relationships,
       applicants: iap_applicants,
       tax_households: [tax_hh],
       mitc_households: mitc_households,
@@ -293,7 +299,7 @@ RSpec.shared_context 'setup magi_medicaid application with two applicants', :sha
   # mitc_response is the actual response from MitC for the above magi_medicaid_application.
   # mitc_response does not contain any PII.
   let(:mitc_response) do
-    { :"Determination Date" => "2021-05-07",
+    { :"Determination Date" => Date.today.to_s,
       :Applicants =>
        [{ :"Person ID" => 95,
           :"Medicaid Household" => { :People => [95, 96], :MAGI => 662, :"MAGI as Percentage of FPL" => 3, :Size => 2 },
