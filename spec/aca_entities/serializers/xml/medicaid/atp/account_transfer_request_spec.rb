@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 require 'aca_entities/medicaid/atp'
-require 'aca_entities/serializers/xml'
+require 'aca_entities/serializers/xml/medicaid/atp'
 
 RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequest do
   let(:account_transfer_request) do
