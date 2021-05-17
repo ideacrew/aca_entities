@@ -20,7 +20,8 @@ module AcaEntities
 
         def call
           # app_params = yield validate_mcr(source_hash)
-          family_params = yield transform # (app_params)
+          family_params = yield transform_batch if @worker_mode == :batch # (app_params)
+          family_params = yield transform_single if @worker_mode == :single
           # family_params2 = yield validate(family_params.first)
 
           Success(family_params.first.success)
@@ -41,8 +42,15 @@ module AcaEntities
           Pathname.pwd.join(source_path)
         end
 
+        def transform_single
+          record = klass.transform(payload)
+          result = ::AcaEntities::Ffe::Operations::McrTo::Family.new.call(record: record[:family])
+
+          Success(result)
+        end
+
         # (app_params)
-        def transform
+        def transform_batch
           result = []
           input = file_path || source_hash # (app_params)
 
