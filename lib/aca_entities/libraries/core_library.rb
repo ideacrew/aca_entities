@@ -128,7 +128,7 @@ module AcaEntities
       require 'aca_entities/benefit_markets/rating_area'
       require 'aca_entities/benefit_markets/service_area'
       require 'aca_entities/benefit_markets/tiered_pricing_unit'
-      require 'aca_entities/benefit_markets/Premium_tuple'
+      require 'aca_entities/benefit_markets/premium_tuple'
       require 'aca_entities/benefit_markets/premium_table'
       require 'aca_entities/benefit_markets/product_reference'
       require 'aca_entities/benefit_markets/product'
