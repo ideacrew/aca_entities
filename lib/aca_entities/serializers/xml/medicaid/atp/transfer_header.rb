@@ -5,6 +5,8 @@ module AcaEntities
     module Xml
       module Medicaid
         module Atp
+          # element: A entity that starts the referral process.
+          # type: A data type for An entity that started the referral process.
           class TransferHeader
             include HappyMapper
             register_namespace 'ext', 'http://at.dsh.cms.gov/extension/1.0'

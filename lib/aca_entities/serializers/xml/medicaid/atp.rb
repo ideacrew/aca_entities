@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "happymapper"
+
 require_relative "atp/activity_identification"
 require_relative "atp/activity_date"
 require_relative "atp/transfer_activity"
@@ -22,6 +24,7 @@ module AcaEntities
   module Serializers
     module Xml
       module Medicaid
+        # XML serialization for Account Transfer Protocol (ATP) objects.
         module Atp
         end
       end
