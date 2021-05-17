@@ -5,6 +5,7 @@ module AcaEntities
     module Xml
       module Medicaid
         module Atp
+          # Include XML element and type definitions.
           class InsuranceApplicant
             include HappyMapper
             register_namespace 'hix-ee', 'http://hix.cms.gov/0.1/hix-ee'

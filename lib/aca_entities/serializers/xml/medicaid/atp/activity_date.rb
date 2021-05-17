@@ -5,6 +5,7 @@ module AcaEntities
     module Xml
       module Medicaid
         module Atp
+          # Include XML element and type definitions.
           class ActivityDate
             include HappyMapper
             register_namespace 'nc', 'http://niem.gov/niem/niem-core/2.0'
