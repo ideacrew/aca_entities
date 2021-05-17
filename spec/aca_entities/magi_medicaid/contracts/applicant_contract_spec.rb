@@ -67,7 +67,9 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicantContract,  dbclean
         incomes: [],
         benefits: [],
         deductions: [],
+        age_of_applicant: 45,
         is_claimed_as_dependent_by_non_applicant: false,
+        slcsp_premium: 496.02,
         mitc_relationships: mitc_relationships,
         mitc_income: mitc_income }
     end
@@ -147,7 +149,9 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicantContract,  dbclean
         incomes: [],
         benefits: [],
         deductions: [],
-        is_claimed_as_dependent_by_non_applicant: false }
+        age_of_applicant: 45,
+        is_claimed_as_dependent_by_non_applicant: false,
+        slcsp_premium: 496.02 }
     end
 
     context 'valid params' do

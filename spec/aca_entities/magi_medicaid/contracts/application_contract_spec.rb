@@ -61,6 +61,8 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicationContract,  dbcle
       has_deductions: false,
       has_enrolled_health_coverage: false,
       has_eligible_health_coverage: false,
+      age_of_applicant: 45,
+      slcsp_premium: 496.02,
       mitc_relationships: mitc_relationships,
       mitc_income: mitc_income }
   end
@@ -165,7 +167,10 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicationContract,  dbcle
 
     context 'with multiple applicants and relationships' do
       let(:applicant2) do
-        applicant.merge({ person_hbx_id: '96', name: { first_name: 'wifey', last_name: 'last' } })
+        applicant.merge({ person_hbx_id: '96',
+                          name: { first_name: 'wifey', last_name: 'last' },
+                          age_of_applicant: 43,
+                          slcsp_premium: 459.48 })
       end
 
       let(:applicant1_ref) do
@@ -247,7 +252,8 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicationContract,  dbcle
            :citizenship_immigration_status_information, :is_applying_coverage, :family_member_reference,
            :person_hbx_id, :is_required_to_file_taxes, :pregnancy_information, :has_job_income,
            :has_self_employment_income, :has_unemployment_income, :has_other_income, :has_deductions,
-           :has_enrolled_health_coverage, :has_eligible_health_coverage]
+           :has_enrolled_health_coverage, :has_eligible_health_coverage,
+           :age_of_applicant, :slcsp_premium]
         end
 
         it 'should return a failure with error message' do

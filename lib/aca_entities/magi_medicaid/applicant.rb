@@ -95,7 +95,7 @@ module AcaEntities
       # @!attribute [r] age_of_applicant
       # The age of the applicant
       # @return [Integer]
-      attribute :age_of_applicant, Types::Integer.optional.meta(omittable: true)
+      attribute :age_of_applicant, Types::Integer.meta(omittable: false)
 
       # @!attribute [r] is_self_attested_long_term_care
       # @return [Bool]
@@ -114,6 +114,11 @@ module AcaEntities
       # Applicant is claimed as dependent by a person who is not applying for coverage(is_applying_coverage).
       # @return [Bool]
       attribute :is_claimed_as_dependent_by_non_applicant, Types::Bool.optional.meta(omittable: true)
+
+      # @!attribute [r] slcsp_premium
+      # Member Premium of the Second Lowest Cost Silver Plan of the applicant based on the age_of_applicant
+      # @return [Money]
+      attribute :slcsp_premium, Types::Money.meta(omittable: false)
 
       # Set of attributes specific to MitC which helps to not have much logic in IapTo MitC Transform.
       attribute :mitc_income, AcaEntities::MagiMedicaid::Mitc::Income.optional.meta(omittable: true)
