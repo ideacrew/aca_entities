@@ -12,9 +12,8 @@ module AcaEntities
             tag 'Receiver'
             namespace 'hix-core'
 
-            def self.domain_to_mapper(account_transfer_request)
-              mapper = self.new
-              mapper
+            def self.domain_to_mapper(_account_transfer_request)
+              self.new
             end
           end
         end
