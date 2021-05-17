@@ -15,6 +15,7 @@ module AcaEntities
         params do
           optional(:max_aptc).maybe(Types::Money)
           optional(:csr).maybe(:integer)
+          required(:hbx_id).filled(:string)
           optional(:is_insurance_assistance_eligible).maybe(Types::IaEligibilityKind)
           optional(:tax_household_members).array(TaxHouseholdMemberContract.params)
 

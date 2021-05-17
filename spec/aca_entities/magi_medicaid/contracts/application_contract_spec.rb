@@ -110,6 +110,7 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicationContract,  dbcle
       let(:tax_hh) do
         { max_aptc: 100.56,
           csr: 73,
+          hbx_id: '12345',
           is_insurance_assistance_eligible: 'Yes',
           tax_household_members: [tax_household_member] }
       end
