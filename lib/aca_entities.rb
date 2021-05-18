@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-require 'pry'
 require 'dry/validation'
 require 'dry/monads/result'
 
