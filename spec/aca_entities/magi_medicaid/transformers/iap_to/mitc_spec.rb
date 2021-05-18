@@ -46,7 +46,7 @@ RSpec.describe AcaEntities::MagiMedicaid::Transformers::IapTo::Mitc do
         expect(person).to have_key(:is_incarcerated)
         expect(person).not_to have_key(:lives_outside_state_temporarily)
         expect(person).to have_key(:resides_in_state_of_application)
-        expect(person[:resides_in_state_of_application]).to eq('N')
+        expect(person[:resides_in_state_of_application]).to eq('Y')
         expect(person).to have_key(:is_claimed_as_dependent_by_non_applicant)
         expect(person[:is_claimed_as_dependent_by_non_applicant]).to eq('N')
         expect(person).to have_key(:is_self_attested_long_term_care)

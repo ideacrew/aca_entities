@@ -111,7 +111,7 @@ module AcaEntities
 
                 map 'is_temporarily_out_of_state', 'is_temporarily_out_of_state', memoize: true, visible: false
                 add_key 'resides_in_state_of_application', function: ->(v) {
-                  boolean_string(v.resolve('is_temporarily_out_of_state').item)
+                  boolean_string(!v.resolve('is_temporarily_out_of_state').item)
                 }
                 add_key 'is_temporarily_out_of_state', function: ->(v) {
                   boolean_string(v.resolve('is_temporarily_out_of_state').item)
