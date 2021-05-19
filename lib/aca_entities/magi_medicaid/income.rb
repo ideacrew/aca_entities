@@ -17,6 +17,10 @@ module AcaEntities
       attribute :employer, Employer.optional.meta(omittable: true)
       attribute :has_property_usage_rights, Types::Bool.optional.meta(omittable: true)
       attribute :submitted_at, Types::DateTime.optional.meta(omittable: true)
+
+      def earned?
+        Types::EarnedIncomeKinds.include?(kind)
+      end
     end
   end
 end

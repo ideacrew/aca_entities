@@ -87,6 +87,12 @@ module AcaEntities
         'income_from_irs'
       )
 
+      EarnedIncomeKinds = [
+        'wages_and_salaries',
+        'net_self_employment',
+        'scholorship_payments'
+      ]
+
       DeductionKind = Types::Coercible::String.enum(
         'alimony_paid',
         'deductable_part_of_self_employment_taxes',
