@@ -91,7 +91,7 @@ module AcaEntities
         'wages_and_salaries',
         'net_self_employment',
         'scholorship_payments'
-      ]
+      ].freeze
 
       DeductionKind = Types::Coercible::String.enum(
         'alimony_paid',
