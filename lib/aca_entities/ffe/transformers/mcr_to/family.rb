@@ -226,7 +226,9 @@ module AcaEntities
                       # add_key 'person_demographics.race', value: ->(v) {v.resolve('race').item}
 
                       add_key 'person_demographics.tribal_id'
-                      add_key 'person_demographics.no_ssn', value: ->(v) {v.resolve('person_demographics.ssn').item.nil?}
+                      add_key 'person_demographics.no_ssn', value: lambda { |v|
+                                                                     v.resolve('person_demographics.ssn', identifier: true).item.nil? ? "1" : "0"
+                                                                   }
                       add_key 'person_demographics.language_code'
                       add_key 'person_demographics.date_of_death', value: ->(_v) {Date.parse("2021-05-07")} # default value
                       add_key 'person_demographics.dob_check'
