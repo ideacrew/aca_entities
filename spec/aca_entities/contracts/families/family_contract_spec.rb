@@ -863,7 +863,8 @@ RSpec.describe AcaEntities::Contracts::Families::FamilyContract,  dbclean: :afte
                                             family_member_reference: { family_member_hbx_id: ['is missing'] },
                                             pregnancy_information: { is_pregnant: ['is missing'] },
                                             age_of_applicant: ['is missing'],
-                                            slcsp_premium: ['is missing'] } },
+                                            slcsp_premium: ['is missing'],
+                                            lcsp_premium: ['is missing'] } },
                        us_state: ['is missing'],
                        hbx_id: ['is missing'] }
         expect(@errors[:magi_medicaid_applications][1]).to eq(error_hash)

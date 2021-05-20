@@ -120,6 +120,11 @@ module AcaEntities
       # @return [Money]
       attribute :slcsp_premium, Types::Money.meta(omittable: false)
 
+      # @!attribute [r] lcsp_premium
+      # Member Premium of the Lowest Cost Silver Plan of the applicant based on the age_of_applicant
+      # @return [Money]
+      attribute :lcsp_premium, Types::Money.meta(omittable: false)
+
       # Set of attributes specific to MitC which helps to not have much logic in IapTo MitC Transform.
       attribute :mitc_income, AcaEntities::MagiMedicaid::Mitc::Income.optional.meta(omittable: true)
       attribute :mitc_relationships, Types::Array.of(AcaEntities::MagiMedicaid::Mitc::Relationship).optional.meta(omittable: true)

@@ -65,6 +65,8 @@ module AcaEntities
         # @option opts [Boolean] :is_claimed_as_dependent_by_non_applicant optional
         # @option opts [hash] :mitc_income optional
         # @option opts [Array] :mitc_relationships optional
+        # @option opts [BigDecimal] :slcsp_premium required
+        # @option opts [BigDecimal] :lcsp_premium required
         # @return [Dry::Monads::Result]
         params do
           required(:name).hash(AcaEntities::Contracts::People::PersonNameContract.params)
@@ -141,6 +143,7 @@ module AcaEntities
           optional(:is_temporarily_out_of_state).filled(:bool)
           optional(:is_claimed_as_dependent_by_non_applicant).filled(:bool)
           required(:slcsp_premium).filled(Types::Money)
+          required(:lcsp_premium).filled(Types::Money)
 
           # Set of attributes specific to MitC which helps to not have much logic in IapTo MitC Transform.
           optional(:mitc_income).hash(AcaEntities::MagiMedicaid::Mitc::Contracts::IncomeContract.params)
