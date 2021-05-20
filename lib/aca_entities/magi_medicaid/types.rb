@@ -218,6 +218,15 @@ module AcaEntities
         'non_native_citizen'
       )
 
+      # TODO: verify list
+      LawfulPresentCitizenKinds = [
+        'us_citizen',
+        'naturalized_citizen',
+        'alien_lawfully_present',
+        'lawful_permanent_resident',
+        'non_native_citizen'
+      ].freeze
+
       IncomeType = Types::Coercible::String.enum(
         'CapitalGains',
         'Interest',

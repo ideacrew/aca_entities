@@ -56,6 +56,14 @@ module AcaEntities
         end
       end
 
+      def spouse_relationships(applicant)
+        return [] if relationships.blank?
+
+        relationships.select do |rel|
+          rel.applicant_reference.person_hbx_id == applicant.person_hbx_id && rel.kind == 'spouse'
+        end
+      end
+
       def primary_applicant
         applicants.detect(&:is_primary_applicant)
       end

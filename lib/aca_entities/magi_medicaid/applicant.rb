@@ -127,7 +127,7 @@ module AcaEntities
       def monthly_qsehra_amount
         0
         # qsehra_benefits = benefits.select { |benefit| benefit.kind == 'qsehra' }
-        # qsehra_benefits.map(&:monthly_amount)
+        # qsehra_benefits.map(&:monthly_employee_cost)
       end
 
       def minimum_essential_coverages
@@ -135,6 +135,23 @@ module AcaEntities
 
         benefits.select do |benefit|
           Types::MinimumEssentialCoverageBenefitKinds.include?(benefit.kind)
+        end
+      end
+
+      def incarcerated?
+        attestation&.is_incarcerated
+      end
+
+      # US citizen or immigrant lawfully present
+      def lawfully_present_in_us?
+        citizen_status = citizenship_immigration_status_information&.citizen_status
+        return nil unless citizen_status
+        Types::LawfulPresentCitizenKinds.include?(citizen_status)
+      end
+
+      def eligible_benefit_esis
+        benefits.select do |benefit|
+          benefit.status == 'is_eligible' && kind == 'employer_sponsored_insurance'
         end
       end
     end
