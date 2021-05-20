@@ -300,11 +300,13 @@ module AcaEntities
                   add_key 'person.person_health.is_tobacco_user', value: 'unknown'
                   add_key 'person.person_health.is_physically_disabled',
                           function: lambda {|v|
-                            v.find(Regexp.new('attestations.members.*.nonMagi')).map(&:item).last[:blindOrDisabledIndicator]
+                            attr = v.find(Regexp.new('attestations.members.*.nonMagi')).map(&:item).last
+                            attr.nil? ? nil : attr[:blindOrDisabledIndicator]
                           }
                   add_key 'person.is_disabled',
                           function: lambda {|v|
-                            v.find(Regexp.new('attestations.members.*.nonMagi')).map(&:item).last[:blindOrDisabledIndicator]
+                            attr = v.find(Regexp.new('attestations.members.*.nonMagi')).map(&:item).last
+                            attr.nil? ? nil : attr[:blindOrDisabledIndicator]
                           }
 
                   map 'other.americanIndianAlaskanNative.personRecognizedTribeIndicator',

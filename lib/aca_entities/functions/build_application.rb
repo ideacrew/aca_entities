@@ -87,9 +87,9 @@ module AcaEntities
 
         {
           is_incarcerated: false, # default value
-          is_self_attested_disabled: non_magi[:blindOrDisabledIndicator],
-          is_self_attested_blind: non_magi[:blindOrDisabledIndicator],
-          is_self_attested_long_term_care: non_magi[:longTermCareIndicator]
+          is_self_attested_disabled: non_magi.nil? ? nil : non_magi[:blindOrDisabledIndicator],
+          is_self_attested_blind: non_magi.nil? ? nil : non_magi[:blindOrDisabledIndicator],
+          is_self_attested_long_term_care: non_magi.nil? ? nil : non_magi[:longTermCareIndicator]
         }
       end
 
@@ -139,6 +139,8 @@ module AcaEntities
       end
 
       def applicant_hash
+        non_magi = @memoized_data.find(Regexp.new('attestations.members.*.nonMagi')).map(&:item).last
+
         {
           is_primary_applicant: @member_identifier == @primary_applicant_identifier,
           name: name_hash,
@@ -195,7 +197,7 @@ module AcaEntities
           # prior_insurance_end_date: Date.parse("2021-05-07"), # default value
           age_of_applicant: AcaEntities::Functions::AgeOn.new(on_date: Date.parse("2021-05-07"))
                                                          .call(@memoized_data.find(Regexp.new("person_demographics.dob.#{@member_identifier}"))&.first&.item),
-          is_self_attested_long_term_care: @memoized_data.find(Regexp.new('attestations.members.*.nonMagi')).map(&:item).last[:longTermCareIndicator],
+          is_self_attested_long_term_care: non_magi.nil? ? nil : non_magi[:longTermCareIndicator],
           hours_worked_per_week: '2'
         }
       end
