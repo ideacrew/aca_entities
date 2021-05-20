@@ -39,7 +39,7 @@ module AcaEntities
         naturalized_citizen_indicator = input.find(Regexp.new("naturalizedCitizenIndicator.#{member_identifier}"))&.first
 
         hash = {
-          no_alien_number_indicator&.name&.split('.')&.first => no_alien_number_indicator.item,
+          no_alien_number_indicator&.name&.split('.')&.first => no_alien_number_indicator&.item,
           citizenship_indicator&.name&.split('.')&.first => citizenship_indicator.item,
           naturalized_citizen_indicator&.name&.split('.')&.first => naturalized_citizen_indicator.item
         }
