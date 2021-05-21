@@ -117,6 +117,7 @@ module AcaEntities
 
       # @!attribute [r] slcsp_premium
       # Member Premium of the Second Lowest Cost Silver Plan of the applicant based on the age_of_applicant
+      # For state Maine: If member aged above 19 then health-only SLCSP else health-and-dental SLCSP
       # @return [Money]
       attribute :slcsp_premium, Types::Money.meta(omittable: false)
 
@@ -130,7 +131,7 @@ module AcaEntities
       attribute :mitc_relationships, Types::Array.of(AcaEntities::MagiMedicaid::Mitc::Relationship).optional.meta(omittable: true)
 
       def monthly_qsehra_amount
-        0
+        BigDecimal('0')
         # qsehra_benefits = benefits.select { |benefit| benefit.kind == 'qsehra' }
         # qsehra_benefits.map(&:monthly_employee_cost)
       end
