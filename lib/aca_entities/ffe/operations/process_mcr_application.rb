@@ -24,8 +24,7 @@ module AcaEntities
           params = yield transform_single if @worker_mode == :single
           # family_params2 = yield validate(family_params.first)
 
-          family_params = (@worker_mode == :single) ? params.success : params.first.success
-          Success(family_params)
+          Success(params)
         end
 
         private
