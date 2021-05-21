@@ -270,7 +270,7 @@ module AcaEntities
           value[:tax_household_members].each_with_index do |thhm, thhm_index|
             ped = thhm[:product_eligibility_determination]
 
-            if check_if_present?(ped[:is_csr_eligible]) && check_if_blank?(ped[:csr])
+            if ped[:is_csr_eligible] && check_if_blank?(ped[:csr])
               key_name = [:tax_households, index, :tax_household_members, thhm_index, :product_eligibility_determination, :csr]
               key(key_name).failure(text: 'cannot be empty when is_csr_eligible is answered.')
             end
