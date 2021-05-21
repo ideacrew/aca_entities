@@ -160,6 +160,11 @@ module AcaEntities
           benefit.status == 'is_eligible' && kind == 'employer_sponsored_insurance'
         end
       end
+
+      # TODO: fix below
+      def attested_for_aian?
+        false
+      end
     end
   end
 end
