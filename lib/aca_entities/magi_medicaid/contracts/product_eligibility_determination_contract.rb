@@ -13,6 +13,8 @@ module AcaEntities
         # @option opts [Boolean] :is_totally_ineligible optional
         # @option opts [Boolean] :is_without_assistance optional
         # @option opts [Boolean] :is_magi_medicaid optional
+        # @option opts [Boolean] :is_csr_eligible optional
+        # @option opts [String] :csr optional
         # @option opts [Float] :magi_medicaid_monthly_household_income optional
         # @option opts [Integer] :medicaid_household_size optional
         # @option opts [Float] :magi_medicaid_monthly_income_limit optional
@@ -26,6 +28,10 @@ module AcaEntities
           optional(:is_totally_ineligible).maybe(:bool)
           optional(:is_without_assistance).maybe(:bool)
           optional(:is_magi_medicaid).maybe(:bool)
+
+          optional(:is_csr_eligible).maybe(:bool)
+          optional(:csr).maybe(Types::CsrKind)
+
           optional(:magi_medicaid_monthly_household_income).maybe(Types::Money)
           optional(:medicaid_household_size).maybe(:integer)
           optional(:magi_medicaid_monthly_income_limit).maybe(Types::Money)
@@ -40,7 +46,6 @@ module AcaEntities
           optional(:medicaid_chip_category_threshold).maybe(Types::Money)
 
           optional(:category_determinations).array(CategoryDeterminationContract.params)
-
         end
       end
     end

@@ -34,7 +34,6 @@ RSpec.describe ::AcaEntities::MagiMedicaid::TaxHousehold, dbclean: :after_each d
 
     let(:input_params) do
       { max_aptc: 100.56,
-        csr: 73,
         hbx_id: '12345',
         is_insurance_assistance_eligible: 'Yes',
         tax_household_members: [tax_household_member],

@@ -69,7 +69,7 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicationContract,  dbcle
   end
   let(:family_reference) { { hbx_id: '10011' } }
 
-  context 'valid params' do
+  context 'with valid & invalid input params' do
     let(:input_params) do
       { family_reference: family_reference,
         assistance_year: Date.today.year,
@@ -91,20 +91,6 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicationContract,  dbcle
           person_hbx_id: applicant[:person_hbx_id] }
       end
 
-      let(:product_eligibility_determination) do
-        { is_ia_eligible: true,
-          is_medicaid_chip_eligible: false,
-          is_non_magi_medicaid_eligible: false,
-          is_totally_ineligible: false,
-          is_without_assistance: false,
-          is_magi_medicaid: false,
-          magi_medicaid_monthly_household_income: 6474.42,
-          medicaid_household_size: 1,
-          magi_medicaid_monthly_income_limit: 3760.67,
-          magi_as_percentage_of_fpl: 10.0,
-          magi_medicaid_category: 'parent_caretaker' }
-      end
-
       let(:tax_household_member) do
         { product_eligibility_determination: product_eligibility_determination,
           applicant_reference: applicant_reference }
@@ -112,7 +98,6 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicationContract,  dbcle
 
       let(:tax_hh) do
         { max_aptc: 100.56,
-          csr: 73,
           hbx_id: '12345',
           is_insurance_assistance_eligible: 'Yes',
           tax_household_members: [tax_household_member] }
@@ -139,30 +124,96 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicationContract,  dbcle
         @result = subject.call(app_with_thh)
       end
 
-      it 'should return success' do
-        expect(@result).to be_success
+      context 'with valid thh params' do
+        let(:product_eligibility_determination) do
+          { is_ia_eligible: true,
+            is_medicaid_chip_eligible: false,
+            is_non_magi_medicaid_eligible: false,
+            is_totally_ineligible: false,
+            is_without_assistance: false,
+            is_magi_medicaid: false,
+            is_csr_eligible: true,
+            csr: '73',
+            magi_medicaid_monthly_household_income: 6474.42,
+            medicaid_household_size: 1,
+            magi_medicaid_monthly_income_limit: 3760.67,
+            magi_as_percentage_of_fpl: 10.0,
+            magi_medicaid_category: 'parent_caretaker' }
+        end
+
+        it 'should return success' do
+          expect(@result).to be_success
+        end
+
+        it 'should include key tax_households' do
+          expect(@result.to_h.keys).to include(:tax_households)
+        end
+
+        it 'should include key mitc_households' do
+          expect(@result.to_h.keys).to include(:mitc_households)
+        end
+
+        it 'should include all keys of each mitc_households' do
+          mitc_household = @result.to_h[:mitc_households].first
+          expect(mitc_household.keys).to include(:household_id)
+          expect(mitc_household.keys).to include(:people)
+          expect(mitc_household[:people].first.keys).to include(:person_id)
+        end
+
+        it 'should include all keys of each mitc_tax_returns' do
+          mitc_tax_return = @result.to_h[:mitc_tax_returns].first
+          expect(mitc_tax_return.keys).to include(:filers)
+          expect(mitc_tax_return.keys).to include(:dependents)
+          expect(mitc_tax_return[:filers].first.keys).to include(:person_id)
+        end
       end
 
-      it 'should include key tax_households' do
-        expect(@result.to_h.keys).to include(:tax_households)
-      end
+      context 'with invalid thh params' do
+        context 'with more than one member eligibility as true' do
+          let(:product_eligibility_determination) do
+            { is_ia_eligible: true,
+              is_medicaid_chip_eligible: true,
+              is_non_magi_medicaid_eligible: true,
+              is_totally_ineligible: false,
+              is_without_assistance: false,
+              is_magi_medicaid: false,
+              is_csr_eligible: true,
+              csr: '73',
+              magi_medicaid_monthly_household_income: 6474.42,
+              medicaid_household_size: 1,
+              magi_medicaid_monthly_income_limit: 3760.67,
+              magi_as_percentage_of_fpl: 10.0,
+              magi_medicaid_category: 'parent_caretaker' }
+          end
 
-      it 'should include key mitc_households' do
-        expect(@result.to_h.keys).to include(:mitc_households)
-      end
+          it 'should return failure with error messages' do
+            err_msg = /Member is eligible for more than one eligibilities:/
+            expect(@result.errors.to_h[:tax_households][0][:tax_household_members][0][:product_eligibility_determination].first).to match(err_msg)
+          end
+        end
 
-      it 'should include all keys of each mitc_households' do
-        mitc_household = @result.to_h[:mitc_households].first
-        expect(mitc_household.keys).to include(:household_id)
-        expect(mitc_household.keys).to include(:people)
-        expect(mitc_household[:people].first.keys).to include(:person_id)
-      end
+        context 'where member is_csr_eligible but no csr value' do
+          let(:product_eligibility_determination) do
+            { is_ia_eligible: true,
+              is_medicaid_chip_eligible: false,
+              is_non_magi_medicaid_eligible: false,
+              is_totally_ineligible: false,
+              is_without_assistance: false,
+              is_magi_medicaid: false,
+              is_csr_eligible: true,
+              csr: ['', nil].sample,
+              magi_medicaid_monthly_household_income: 6474.42,
+              medicaid_household_size: 1,
+              magi_medicaid_monthly_income_limit: 3760.67,
+              magi_as_percentage_of_fpl: 10.0,
+              magi_medicaid_category: 'parent_caretaker' }
+          end
 
-      it 'should include all keys of each mitc_tax_returns' do
-        mitc_tax_return = @result.to_h[:mitc_tax_returns].first
-        expect(mitc_tax_return.keys).to include(:filers)
-        expect(mitc_tax_return.keys).to include(:dependents)
-        expect(mitc_tax_return[:filers].first.keys).to include(:person_id)
+          it 'should return failure with error messages' do
+            err_msg = 'cannot be empty when is_csr_eligible is answered.'
+            expect(@result.errors.to_h[:tax_households][0][:tax_household_members][0][:product_eligibility_determination][:csr]).to include(err_msg)
+          end
+        end
       end
     end
 
@@ -212,7 +263,7 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicationContract,  dbcle
     end
   end
 
-  context 'invalid params' do
+  context 'with invalid params' do
     context 'applicants' do
       let(:input_params) do
         { family_reference: family_reference,

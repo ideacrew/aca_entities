@@ -11,6 +11,8 @@ module AcaEntities
       attribute :is_totally_ineligible, Types::Bool.optional.meta(omittable: true)
       attribute :is_without_assistance, Types::Bool.optional.meta(omittable: true)
       attribute :is_magi_medicaid, Types::Bool.optional.meta(omittable: true)
+      attribute :is_csr_eligible, Types::Bool.optional.meta(omittable: true)
+      attribute :csr, Types::CsrKind.optional.meta(omittable: true)
 
       attribute :magi_medicaid_monthly_household_income, Types::Money.optional.meta(omittable: true)
       attribute :medicaid_household_size, Types::Integer.optional.meta(omittable: true)

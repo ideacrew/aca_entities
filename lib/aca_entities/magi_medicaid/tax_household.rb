@@ -6,7 +6,6 @@ module AcaEntities
     class TaxHousehold < Dry::Struct
 
       attribute :max_aptc, Types::Money.optional.meta(omittable: true)
-      attribute :csr, Types::Integer.optional.meta(omittable: true)
       attribute :hbx_id, Types::String
 
       # ['UnDetermined', 'True', 'False']

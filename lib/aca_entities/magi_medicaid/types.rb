@@ -381,6 +381,13 @@ module AcaEntities
 
       # Student related questions are asked if the age of applicant falls within below range.
       StudentRange = (18..19).freeze
+
+      CsrKind = Types::Coercible::String.enum('0',
+                                              '73',
+                                              '87',
+                                              '94',
+                                              '100',
+                                              'limited')
     end
     # rubocop:enable Metrics/ModuleLength
   end
