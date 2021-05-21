@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 module AcaEntities
-  module Operations
-    module Families
+  module Ffe
+    module Operations
       # Open and read contents of a file
       class ProcessMcrApplication
         send(:include, Dry::Monads[:result, :do])
@@ -45,9 +45,7 @@ module AcaEntities
 
         def transform_single
           record = klass.transform(@source_hash)
-          result = AcaEntities::Ffe::Operations::McrTo::Family.new.call(record: record[:family])
-
-          result.success? ? result.success : result.failure
+          AcaEntities::Ffe::Operations::McrTo::Family.new.call(record: record[:family])
         end
 
         # (app_params)
@@ -57,7 +55,7 @@ module AcaEntities
 
           klass.call(input, { transform_mode: worker_mode }) do |payload|
             record = worker_mode == :batch ? klass.transform(payload) : payload
-
+            # TODO: broken
             result << ::AcaEntities::Ffe::Operations::McrTo::Family.new.call(record: record[:family])
           end
 
