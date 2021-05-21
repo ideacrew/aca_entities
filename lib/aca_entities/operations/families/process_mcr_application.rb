@@ -47,7 +47,7 @@ module AcaEntities
           record = klass.transform(@source_hash)
           result = AcaEntities::Ffe::Operations::McrTo::Family.new.call(record: record[:family])
 
-          result.success? ? Success(result) : Failure(result)
+          result.success? ? result.success : result.failure
         end
 
         # (app_params)
