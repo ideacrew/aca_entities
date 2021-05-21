@@ -18,7 +18,7 @@ module AcaEntities
       attribute :medicaid_household_size, Types::Integer.optional.meta(omittable: true)
       attribute :magi_medicaid_monthly_income_limit, Types::Money.optional.meta(omittable: true)
       attribute :magi_as_percentage_of_fpl, Types::Money.optional.meta(omittable: true)
-      attribute :magi_medicaid_category, Types::MagiMedicaidCategoryType
+      attribute :magi_medicaid_category, Types::MagiMedicaidCategoryType.optional.meta(omittable: true)
 
       attribute :magi_medicaid_ineligibility_reasons, Types::Array.of(Types::String).optional.meta(omittable: true)
       # Is the person potentially eligible for non-MAGI reasons?
