@@ -8,7 +8,7 @@ module AcaEntities
       # Whether applicant has a fixed address.
       # @return [String]
       attribute :has_fixed_address, Types::Bool.optional.meta(omittable: true)
-      attribute :kind,              Types::String.optional.meta(omittable: false)
+      attribute :kind,              Types::AddressKinds.optional.meta(omittable: false)
       attribute :address_1,         Types::String.optional.meta(omittable: false)
       attribute :address_2,         Types::String.optional.meta(omittable: true)
       attribute :address_3,         Types::String.optional.meta(omittable: true)
@@ -20,7 +20,7 @@ module AcaEntities
       # @return [String]
       attribute :county_code,       Types::String.optional.meta(omittable: true)
 
-      attribute :state,             Types::String.optional.meta(omittable: false)
+      attribute :state,             Types::UsStateAbbreviationKind.optional.meta(omittable: false)
       attribute :zip,               Types::String.optional.meta(omittable: false)
       attribute :country_name,      Types::String.optional.meta(omittable: true)
 

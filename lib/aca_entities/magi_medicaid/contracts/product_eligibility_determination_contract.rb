@@ -13,6 +13,7 @@ module AcaEntities
         # @option opts [Boolean] :is_totally_ineligible optional
         # @option opts [Boolean] :is_without_assistance optional
         # @option opts [Boolean] :is_magi_medicaid optional
+        # @option opts [Boolean] :is_uqhp_eligible optional
         # @option opts [Boolean] :is_csr_eligible optional
         # @option opts [String] :csr optional
         # @option opts [Float] :magi_medicaid_monthly_household_income optional
@@ -24,13 +25,14 @@ module AcaEntities
         params do
           optional(:is_ia_eligible).maybe(:bool)
           optional(:is_medicaid_chip_eligible).maybe(:bool)
-          optional(:is_non_magi_medicaid_eligible).maybe(:bool)
           optional(:is_totally_ineligible).maybe(:bool)
-          optional(:is_without_assistance).maybe(:bool)
           optional(:is_magi_medicaid).maybe(:bool)
-
+          optional(:is_uqhp_eligible).maybe(:bool)
           optional(:is_csr_eligible).maybe(:bool)
           optional(:csr).maybe(Types::CsrKind)
+
+          optional(:is_non_magi_medicaid_eligible).maybe(:bool)
+          optional(:is_without_assistance).maybe(:bool)
 
           optional(:magi_medicaid_monthly_household_income).maybe(Types::Money)
           optional(:medicaid_household_size).maybe(:integer)

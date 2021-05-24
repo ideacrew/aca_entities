@@ -262,7 +262,7 @@ module AcaEntities
                       :is_medicaid_chip_eligible,
                       :is_magi_medicaid,
                       :is_totally_ineligible,
-                      :is_without_assistance)
+                      :is_uqhp_eligible)
           determination_key_values.values.count(true) > 1
         end
 

@@ -126,6 +126,11 @@ module AcaEntities
       # @return [Money]
       attribute :lcsp_premium, Types::Money.meta(omittable: false)
 
+      # @!attribute [r] is_homeless
+      # This person is a state resident who is experiencing homeless(insured.dependent_dc_homeless)
+      # @return [Bool]
+      attribute :is_homeless, Types::Bool
+
       # Set of attributes specific to MitC which helps to not have much logic in IapTo MitC Transform.
       attribute :mitc_income, AcaEntities::MagiMedicaid::Mitc::Income.optional.meta(omittable: true)
       attribute :mitc_relationships, Types::Array.of(AcaEntities::MagiMedicaid::Mitc::Relationship).optional.meta(omittable: true)
@@ -161,9 +166,16 @@ module AcaEntities
         end
       end
 
-      # TODO: fix below
       def attested_for_aian?
-        false
+        native_american_information&.indian_tribe_member
+      end
+
+      def home_address
+        return [] if addresses.nil?
+
+        addresses.select do |address|
+          address.kind == 'home'
+        end
       end
     end
   end

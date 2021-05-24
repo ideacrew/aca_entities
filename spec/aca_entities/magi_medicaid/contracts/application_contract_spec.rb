@@ -64,6 +64,7 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicationContract,  dbcle
       age_of_applicant: 45,
       slcsp_premium: 496.02,
       lcsp_premium: 430.48,
+      is_homeless: false,
       mitc_relationships: mitc_relationships,
       mitc_income: mitc_income }
   end
@@ -222,7 +223,8 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicationContract,  dbcle
                           name: { first_name: 'wifey', last_name: 'last' },
                           age_of_applicant: 43,
                           slcsp_premium: 459.48,
-                          lcsp_premium: 430.48 })
+                          lcsp_premium: 430.48,
+                          is_homeless: false })
       end
 
       let(:applicant1_ref) do
@@ -305,7 +307,7 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicationContract,  dbcle
            :person_hbx_id, :is_required_to_file_taxes, :pregnancy_information, :has_job_income,
            :has_self_employment_income, :has_unemployment_income, :has_other_income, :has_deductions,
            :has_enrolled_health_coverage, :has_eligible_health_coverage,
-           :age_of_applicant, :slcsp_premium, :lcsp_premium]
+           :age_of_applicant, :slcsp_premium, :lcsp_premium, :is_homeless]
         end
 
         it 'should return a failure with error message' do
