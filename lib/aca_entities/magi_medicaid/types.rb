@@ -82,7 +82,7 @@ module AcaEntities
         'social_security_benefit',
         'supplemental_security_income',
         'tax_exempt_interest',
-        'unemployment_insurance',
+        'unemployment_income',
         'wages_and_salaries',
         'income_from_irs'
       )
