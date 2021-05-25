@@ -178,9 +178,9 @@ module AcaEntities
       end
 
       def home_address
-        return [] if addresses.nil?
+        return if addresses.nil?
 
-        addresses.select do |address|
+        addresses.detect do |address|
           address.kind == 'home'
         end
       end
