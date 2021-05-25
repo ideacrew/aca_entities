@@ -160,6 +160,13 @@ module AcaEntities
         Types::LawfulPresentCitizenKinds.include?(citizen_status)
       end
 
+      # Not US citizen and did not attest to having an eligible immigration status.
+      def non_citizen_and_no_lawful_presence_attestation
+        citizen_status = citizenship_immigration_status_information&.citizen_status
+        return nil unless citizen_status
+        citizen_status != 'us_citizen' && !citizenship_immigration_status_information.is_lawful_presence_self_attested
+      end
+
       def eligible_benefit_esis
         benefits.select do |benefit|
           benefit.status == 'is_eligible' && kind == 'employer_sponsored_insurance'
