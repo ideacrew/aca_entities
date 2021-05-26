@@ -28,10 +28,10 @@ module AcaEntities
             attribute :grantDate,                       Types::Strict::Date.meta(omittable: true)
             attribute :grantDateReasonCd,               Types::Strict::String.meta(omittable: true)
             attribute :sponsorDataFoundIndicator,       Types::Strict::Bool.meta(omittable: true)
-            attribute :arrayOfSponsorshipData,          Types::Array.of(Fdsh::Sim::Ee::Vlp::SponsorshipData).meta(omittable: true)
+            attribute :arrayOfSponsorshipData,          Types::Array.of(Fdsh::Sim::Ee::Vlp::SponsorshipDataType).meta(omittable: true)
             attribute :sponsorshipReasonCd,             Types::Strict::String.meta(omittable: true)
             attribute :photoIncludedIndicator,          Types::Strict::Bool.meta(omittable: true)
-            attribute :photoBinaryAttachment,           Types::Strict::String.meta(omittable: true) # todo: type byte[]
+            attribute :photoBinaryAttachment,           Types::Strict::String.meta(omittable: true) # TODO: type byte[]
             attribute :caseSentToSecondaryIndicator,    Types::Strict::Bool.meta(omittable: true)
             attribute :dshAutoTriggerStepTwo,           Types::Strict::Bool.meta(omittable: true)
             attribute :fiveYearBarApplyCode,            Types::Strict::String.meta(omittable: false)

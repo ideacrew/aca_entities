@@ -8,7 +8,7 @@ module AcaEntities
           # Entity for Fdsh Vlp Agency3InitVerifRequestSetType
           class Agency3InitVerifRequestSetType < Dry::Struct
 
-            attribute :dhsid,                                Types::Strict::String.meta(omittable: false)  # todo types id
+            attribute :dhsid,                                Types::Strict::String.meta(omittable: false)  # TODO: types id
             attribute :firstName,                            Types::Strict::String.meta(omittable: false)
             attribute :middleName,                           Types::Strict::String.meta(omittable: true)
             attribute :lastName,                             Types::Strict::String.meta(omittable: false)

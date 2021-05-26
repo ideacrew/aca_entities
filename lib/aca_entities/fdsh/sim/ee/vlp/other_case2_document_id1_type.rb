@@ -12,7 +12,7 @@ module AcaEntities
             attribute :passportCountry,     Fdsh::Sim::Ee::Vlp::PassportCountryType.meta(omittable: true)
             attribute :sevisid,             Types::Strict::String.meta(omittable: true)
             attribute :docExpirationDate,   Types::Strict::Date.meta(omittable: true)
-            attribute :docDescReq,          Types::Strict::String.meta(omittable: false)s
+            attribute :docDescReq,          Types::Strict::String.meta(omittable: false)
           end
         end
       end
