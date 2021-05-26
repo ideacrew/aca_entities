@@ -47,6 +47,10 @@ module AcaEntities
         # @option opts [Boolean] :has_deductions required
         # @option opts [Boolean] :has_enrolled_health_coverage required
         # @option opts [Boolean] :has_eligible_health_coverage required
+        # @option opts [Boolean] :job_coverage_ended_in_past_3_months optional
+        # @option opts [Date] :job_coverage_end_date optional
+        # @option opts [AcaEntities::MagiMedicaid::Contracts::MedicaidCubcareContract] :medicaid_cubcare optional
+        # @option opts [AcaEntities::MagiMedicaid::Contracts::OtherHealthServiceContract] :other_health_service optional
         # @option opts [Array] :addresses optional
         # @option opts [Array] :emails optional
         # @option opts [Array] :phones optional
@@ -124,6 +128,15 @@ module AcaEntities
           # Does this person currently have access to other health coverage that they are not enrolled in,
           # including coverage they could get through another person?
           required(:has_eligible_health_coverage).filled(:bool)
+
+          # Did this person have coverage through a job (for example, a parent's job)
+          # that ended in the last 3 months?
+          optional(:job_coverage_ended_in_past_3_months).maybe(:bool)
+          # What was the last day this person had coverage through the job?
+          optional(:job_coverage_end_date).maybe(:date)
+
+          optional(:medicaid_cubcare).maybe(MedicaidCubcareContract.params)
+          optional(:other_health_service).maybe(OtherHealthServiceContract.params)
 
           optional(:addresses).array(AcaEntities::Contracts::Locations::AddressContract.params)
           optional(:emails).array(AcaEntities::Contracts::Contacts::EmailContactContract.params)

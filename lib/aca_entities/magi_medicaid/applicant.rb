@@ -57,6 +57,21 @@ module AcaEntities
       attribute :has_enrolled_health_coverage, Types::Bool.optional.meta(omittable: true)
       attribute :has_eligible_health_coverage, Types::Bool.optional.meta(omittable: true)
 
+      # @!attribute [r] job_coverage_ended_in_past_3_months
+      # Did this person have coverage through a job (for example, a parent's job)
+      # that ended in the last 3 months?
+      # @return [Bool]
+      attribute :job_coverage_ended_in_past_3_months, Types::Bool.optional.meta(omittable: true)
+
+      # @!attribute [r] job_coverage_end_date
+      # This relates to job_coverage_ended_in_past_3_months
+      # What was the last day this person had coverage through the job?
+      # @return [Bool]
+      attribute :job_coverage_end_date, Types::Bool.optional.meta(omittable: true)
+
+      attribute :medicaid_cubcare, MedicaidCubcare.optional.meta(omittable: true)
+      attribute :other_health_service, OtherHealthService.optional.meta(omittable: true)
+
       attribute :addresses, Types::Array.of(AcaEntities::Locations::Address).optional.meta(omittable: true)
       attribute :emails, Types::Array.of(AcaEntities::Contacts::EmailContact).optional.meta(omittable: true)
       attribute :phones, Types::Array.of(AcaEntities::Contacts::PhoneContact).optional.meta(omittable: true)
