@@ -8,7 +8,8 @@ module AcaEntities
           # Entity for Fdsh Vlp Agency3InitVerifResponseSetType
           class Agency3InitVerifResponseSetType < Dry::Struct
 
-            attribute :agency3InitVerifIndividualResponse,  Types::Array.of(Fdsh::Sim::Ee::Vlp::Agency3InitVerifIndividualResponseType).meta(omittable: false)
+            attribute :agency3InitVerifIndividualResponse,
+                      Types::Array.of(Fdsh::Sim::Ee::Vlp::Agency3InitVerifIndividualResponseType).meta(omittable: false)
           end
         end
       end
