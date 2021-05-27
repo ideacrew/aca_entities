@@ -3,7 +3,7 @@
 require 'spec_helper'
 require 'aca_entities/magi_medicaid/libraries/iap_library'
 
-RSpec.describe ::AcaEntities::MagiMedicaid::MedicaidCubcare, dbclean: :after_each do
+RSpec.describe ::AcaEntities::MagiMedicaid::MedicaidAndChip, dbclean: :after_each do
 
   describe 'with valid arguments' do
     let(:input_params) do
@@ -17,15 +17,15 @@ RSpec.describe ::AcaEntities::MagiMedicaid::MedicaidCubcare, dbclean: :after_eac
     end
 
     before do
-      medicaid_cubcare_params = AcaEntities::MagiMedicaid::Contracts::MedicaidCubcareContract.new.call(input_params).to_h
+      medicaid_cubcare_params = AcaEntities::MagiMedicaid::Contracts::MedicaidAndChipContract.new.call(input_params).to_h
       @result = described_class.new(medicaid_cubcare_params)
     end
 
-    it 'should return MedicaidCubcare entity object' do
+    it 'should return MedicaidAndChip entity object' do
       expect(@result).to be_a(described_class)
     end
 
-    it 'should return all keys of MedicaidCubcare' do
+    it 'should return all keys of MedicaidAndChip' do
       expect(@result.to_h.keys).to eq(input_params.keys)
     end
   end

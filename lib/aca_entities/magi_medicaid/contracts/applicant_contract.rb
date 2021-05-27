@@ -49,7 +49,7 @@ module AcaEntities
         # @option opts [Boolean] :has_eligible_health_coverage required
         # @option opts [Boolean] :job_coverage_ended_in_past_3_months optional
         # @option opts [Date] :job_coverage_end_date optional
-        # @option opts [AcaEntities::MagiMedicaid::Contracts::MedicaidCubcareContract] :medicaid_cubcare optional
+        # @option opts [AcaEntities::MagiMedicaid::Contracts::MedicaidAndChipContract] :medicaid_and_chip optional
         # @option opts [AcaEntities::MagiMedicaid::Contracts::OtherHealthServiceContract] :other_health_service optional
         # @option opts [Array] :addresses optional
         # @option opts [Array] :emails optional
@@ -135,7 +135,7 @@ module AcaEntities
           # What was the last day this person had coverage through the job?
           optional(:job_coverage_end_date).maybe(:date)
 
-          optional(:medicaid_cubcare).maybe(MedicaidCubcareContract.params)
+          optional(:medicaid_and_chip).maybe(MedicaidAndChipContract.params)
           optional(:other_health_service).maybe(OtherHealthServiceContract.params)
 
           optional(:addresses).array(AcaEntities::Contracts::Locations::AddressContract.params)

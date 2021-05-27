@@ -3,8 +3,8 @@
 module AcaEntities
   module MagiMedicaid
     module Contracts
-      # Schema and validation rules for {AcaEntities::MagiMedicaid::MedicaidCubcare}
-      class MedicaidCubcareContract < Dry::Validation::Contract
+      # Schema and validation rules for {AcaEntities::MagiMedicaid::MedicaidAndChip}
+      class MedicaidAndChipContract < Dry::Validation::Contract
         # @!method call(opts)
         # @param [Hash] opts the parameters to validate using this contract
         # @option opts [Bool] :not_eligible_in_last_90_days required

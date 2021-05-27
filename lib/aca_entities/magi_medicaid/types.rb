@@ -23,29 +23,33 @@ module AcaEntities
       ].freeze
 
       BenefitKind = Types::Coercible::String.enum(
+        'private_individual_and_family_coverage', # 'marketplace_coverage'
         'acf_refugee_medical_assistance',
         'americorps_health_benefits',
-        'child_health_insurance_plan',
         'medicaid',
+        'child_health_insurance_program', # 'chip'
         'medicare',
         'medicare_advantage',
         'medicare_part_b',
-        'private_individual_and_family_coverage',
         'state_supplementary_payment',
         'tricare',
         'veterans_benefits',
         'naf_health_benefit_program',
         'health_care_for_peace_corp_volunteers',
         'department_of_defense_non_appropriated_health_benefits',
-        'cobra',
         'employer_sponsored_insurance',
+        'health_reimbursement_arrangement',
+        'cobra',
         'self_funded_student_health_coverage',
         'foreign_government_health_coverage',
         'private_health_insurance_plan',
         'coverage_obtained_through_another_exchange',
         'coverage_under_the_state_health_benefits_risk_pool',
+        'retiree_health_benefits',
         'veterans_administration_health_benefits',
-        'peace_corps_health_benefits'
+        'peace_corps_health_benefits',
+        'other_full_benefit_coverage',
+        'other_limited_benefit_coverage'
       )
 
       BenefitStatusKind = Types::Coercible::String.enum('is_eligible', 'is_enrolled')

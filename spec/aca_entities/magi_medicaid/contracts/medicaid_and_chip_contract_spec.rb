@@ -3,7 +3,7 @@
 require 'spec_helper'
 require 'aca_entities/magi_medicaid/libraries/iap_library'
 
-RSpec.describe ::AcaEntities::MagiMedicaid::Contracts::MedicaidCubcareContract, dbclean: :around_each do
+RSpec.describe ::AcaEntities::MagiMedicaid::Contracts::MedicaidAndChipContract, dbclean: :around_each do
 
   let(:all_params) do
     { not_eligible_in_last_90_days: true,

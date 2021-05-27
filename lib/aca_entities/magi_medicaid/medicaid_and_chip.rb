@@ -2,8 +2,8 @@
 
 module AcaEntities
   module MagiMedicaid
-    # Canonical Vocabulary Entity for MAGI Medicaid MedicaidCubcare.
-    class MedicaidCubcare < Dry::Struct
+    # Canonical Vocabulary Entity for MAGI Medicaid MedicaidAndChip.
+    class MedicaidAndChip < Dry::Struct
       # @!attribute [r] not_eligible_in_last_90_days
       # Was this person found not eligible for MaineCare (Medicaid) or
       # CubCare (Children's Health Insurance Program) within the last 90 days?

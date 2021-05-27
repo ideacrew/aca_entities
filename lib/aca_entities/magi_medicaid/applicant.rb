@@ -69,7 +69,7 @@ module AcaEntities
       # @return [Bool]
       attribute :job_coverage_end_date, Types::Bool.optional.meta(omittable: true)
 
-      attribute :medicaid_cubcare, MedicaidCubcare.optional.meta(omittable: true)
+      attribute :medicaid_and_chip, MedicaidAndChip.optional.meta(omittable: true)
       attribute :other_health_service, OtherHealthService.optional.meta(omittable: true)
 
       attribute :addresses, Types::Array.of(AcaEntities::Locations::Address).optional.meta(omittable: true)
