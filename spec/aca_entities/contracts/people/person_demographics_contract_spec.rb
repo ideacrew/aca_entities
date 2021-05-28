@@ -68,7 +68,7 @@ RSpec.describe ::AcaEntities::Contracts::People::PersonDemographicsContract, dbc
       end
 
       it 'should return error message' do
-        expect(@result.errors.messages.first.text).to eq('must be a date')
+        expect(@result.errors.messages.first.text).to eq('must be filled')
       end
     end
   end

@@ -44,7 +44,7 @@ RSpec.describe ::AcaEntities::Ffe::Transformers::McrTo::Family  do
     end
 
     # TODO: below spec is failing for relationships fix and additional code added in transform and hash document,
-    # fix while refactoring
+    # fix while refactoring transform
     # it 'should transform the payload according to instructions' do
     #   ::AcaEntities::Ffe::Transformers::McrTo::Family.call(source_file) do |record|
     #     record[:family].tap do |family|

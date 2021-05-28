@@ -23,7 +23,7 @@ module AcaEntities
           required(:last_name).value(:str?)
           optional(:ssn).maybe(:string)
           optional(:no_ssn).maybe(:bool)
-          required(:dob).value(:date?)
+          required(:dob).filled(:date)
           required(:gender).filled(:string)
         end
       end

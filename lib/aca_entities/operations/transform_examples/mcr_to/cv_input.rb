@@ -63,7 +63,7 @@ module AcaEntities
               map 'application.contactMemberIdentifier', 'family.family_members.is_primary_applicant', memoize: true, visible: false
               map 'application.contactInformation.email', 'family.family_members.person.email.address', memoize: true, visible: false
               map 'application.contactInformation.primaryPhoneNumber.number', 'family.family_members.person.phone.number', memoize: true,
-                                                                                                                            visible: false
+                                                                                                                           visible: false
               map 'application.contactInformation.primaryPhoneNumber.ext', 'family.family_members.person.phone.ext', memoize: true, visible: false
               map 'application.contactInformation.primaryPhoneNumber.type', 'family.family_members.person.phone.type', memoize: true, visible: false
 
@@ -204,13 +204,13 @@ module AcaEntities
                         # if v.resolve('family.family_members.is_primary_applicant').item ==
                         #     v.find(Regexp.new("attestations.members")).map(&:item).last
                         [{ extension: v.resolve('family.family_members.person.phone.ext').item,
-                            kind: v.resolve('family.family_members.person.phone.type').item.to_s.downcase,
-                            area_code: v.resolve('family.family_members.person.phone.number').item[0..2],
-                            number: v.resolve('family.family_members.person.phone.number').item[3..9],
-                            primary: true,
-                            full_phone_number: v.resolve('family.family_members.person.phone.number').item,
-                            start_on: nil,
-                            end_on: nil }]
+                           kind: v.resolve('family.family_members.person.phone.type').item.to_s.downcase,
+                           area_code: v.resolve('family.family_members.person.phone.number').item[0..2],
+                           number: v.resolve('family.family_members.person.phone.number').item[3..9],
+                           primary: true,
+                           full_phone_number: v.resolve('family.family_members.person.phone.number').item,
+                           start_on: nil,
+                           end_on: nil }]
                         # end
                       }
                       add_key 'documents', value: ->(_v) {[]}
@@ -234,8 +234,8 @@ module AcaEntities
 
                       add_key 'person_demographics.tribal_id'
                       add_key 'person_demographics.no_ssn', value: lambda { |v|
-                                                                      v.resolve('person_demographics.ssn', identifier: true).item.nil? ? "1" : "0"
-                                                                    }
+                                                                     v.resolve('person_demographics.ssn', identifier: true).item.nil? ? "1" : "0"
+                                                                   }
                       add_key 'person_demographics.language_code'
                       add_key 'person_demographics.date_of_death', value: ->(_v) {Date.parse("2021-05-07")} # default value
                       add_key 'person_demographics.dob_check'
@@ -298,7 +298,7 @@ module AcaEntities
                   map 'lawfulPresence.noAlienNumberIndicator', 'noAlienNumberIndicator', memoize: true, visible: false, append_identifier: true
                   map 'lawfulPresence.citizenshipIndicator', 'citizenshipIndicator', memoize: true, visible: false, append_identifier: true
                   map 'lawfulPresence.naturalizedCitizenIndicator', 'naturalizedCitizenIndicator', memoize: true, visible: false,
-                                                                                                    append_identifier: true
+                                                                                                   append_identifier: true
                   map 'insuranceCoverage.employerSponsoredCoverageOffers', 'insuranceCoverage.employerSponsoredCoverageOffers',
                       memoize_record: true, visible: false
                   add_key 'person.consumer_role.lawful_presence_determination.citizen_status',

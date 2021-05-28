@@ -23,7 +23,7 @@ module AcaEntities
           optional(:ssn).maybe(:string)
           optional(:no_ssn).maybe(:bool)
           required(:gender).value(:str?)
-          required(:dob).value(:date?)
+          required(:dob).filled(:date)
           optional(:date_of_death).value(:date?)
           optional(:dob_check).maybe(:date)
           required(:is_incarcerated).filled(:bool)
