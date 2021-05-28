@@ -14,24 +14,13 @@ module AcaEntities
           #   { state_code: 'ME', medicaid_year: 2021, household_size: 1, annual_poverty_guideline: 12_880, annual_per_person_amount: 4_540 }
           # @return [Dry::Monads::Result]
           def call(*args)
-            fpl_params = yield transform(args.first[:input]) unless args.first[:record]
-            valid_params = yield validate(args.first[:record] || fpl_params[:family])
+            valid_params = yield validate(args.first[:record])
             family_hash = yield build_family_hash(valid_params)
 
             Success(family_hash)
           end
 
           private
-
-          def transform(input)
-            result = []
-
-            ::AcaEntities::Ffe::Transformers::McrTo::Family.call(input.read) do |payload|
-              result << payload
-            end
-
-            Success(result.first)
-          end
 
           def validate(record)
             result = AcaEntities::Contracts::Families::FamilyContract.new.call(record)

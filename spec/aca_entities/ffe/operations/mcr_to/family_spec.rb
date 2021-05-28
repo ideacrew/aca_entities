@@ -6,15 +6,15 @@ require 'aca_entities/ffe/transformers/mcr_to/family'
 
 RSpec.describe ::AcaEntities::Ffe::Operations::McrTo::Family do
   describe 'When a valid json file passed' do
-    let(:path) { Pathname.pwd.join('spec/support/transform_example_payloads/application.json') }
-    let(:example_output_hash) { JSON.parse(File.read(Pathname.pwd.join("spec/support/transform_example_payloads/family_transform_result.json"))) }
-    let(:klass) { ::AcaEntities::Ffe::Transformers::McrTo::Family }
-    let(:worker_mode) {:batch}
+    let(:source_file) { Pathname.pwd.join("spec/support/transform_example_payloads/application.json") }
 
     it 'should pass transform hash' do
-      result = described_class.new.call(input: path)
+      ::AcaEntities::Ffe::Transformers::McrTo::Family.call(source_file, { transform_mode: :batch }) do |payload|
+        record = ::AcaEntities::Ffe::Transformers::McrTo::Family.transform(payload)
+        @result = described_class.new.call(record: record[:family])
+      end
 
-      expect(result).to be_a(Dry::Monads::Result::Success)
+      expect(@result).to be_a(Dry::Monads::Result::Success)
     end
   end
 end
