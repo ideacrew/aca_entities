@@ -1,5 +1,12 @@
 # frozen_string_literal: true
 
+require 'aca_entities/functions/relationship_builder'
+require 'aca_entities/functions/age_on'
+require 'aca_entities/functions/primary_applicant_builder'
+require 'aca_entities/functions/build_lawful_presence_determination'
+require 'aca_entities/functions/build_application'
+require 'aca_entities/functions/build_household'
+
 # rubocop:disable Metrics/ClassLength
 # This file defines the maps
 module AcaEntities
@@ -74,9 +81,9 @@ module AcaEntities
               #       map
               #     end
               #   end
-              # map 'household.familyRelationships', 'household.familyRelationships'
+              # map 'household.familyRelationships', 'household.family_Relationships'
 
-              # map 'household', 'family.family_members.person.family_Relationships', memoize_record: true, visible: false
+              map 'household', 'family.family_members.person.family_Relationships', memoize_record: true, visible: false
               # namespace 'household.familyRelationships' do
               #   rewrap  'family.family_members.person.family_Relationships', type: :array do
               #     rewrap '', type: :array do
@@ -148,7 +155,7 @@ module AcaEntities
                       map 'liveOutsideStateTemporarilyIndicator', 'is_temporarily_out_of_state'
                       map 'requestingFinancialAssistanceIndicator', 'is_applying_for_assistance'
                       add_key 'is_active', value: true # default value
-                      add_key 'person_relationships', value: ->(_v) {[]}
+                      add_key 'person_relationships', function: AcaEntities::Functions::RelationshipBuilder.new
                       map 'maritalStatus', 'consumer_role.marital_status'
                       add_namespace 'consumer_role', 'family.family_members.person.consumer_role', type: :hash do
                         add_key 'five_year_bar'
