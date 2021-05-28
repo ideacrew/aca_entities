@@ -197,7 +197,7 @@ module AcaEntities
           # prior_insurance_end_date: Date.parse("2021-05-07"), # default value
           age_of_applicant: AcaEntities::Functions::AgeOn.new(on_date: Date.parse("2021-05-07"))
                                                          .call(@memoized_data.find(Regexp.new("person_demographics.dob.#{@member_identifier}"))&.first&.item),
-          is_self_attested_long_term_care: non_magi.nil? ? nil : non_magi[:longTermCareIndicator],
+          is_self_attested_long_term_care: non_magi.nil? ? false : non_magi[:longTermCareIndicator],
           hours_worked_per_week: '2'
         }
       end

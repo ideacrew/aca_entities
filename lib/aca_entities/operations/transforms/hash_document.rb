@@ -31,7 +31,7 @@ module AcaEntities
             @data_set.deep_merge!(data)
           else
             @data_set[output_namespaces.last] ||= {}
-            if data.keys.size == 1 && @data_set[output_namespaces.last].key?(data.keys.first)
+            if data.size == 1 && @data_set[output_namespaces.last].key?(data.keys.first)
               @data_set[output_namespaces.last].tap do |data_hash|
                 value = data_hash[data.keys.first]
                 if value.is_a?(Array)
