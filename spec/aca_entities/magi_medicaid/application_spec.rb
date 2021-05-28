@@ -63,8 +63,7 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Application, dbclean: :after_each do
         has_enrolled_health_coverage: false,
         has_eligible_health_coverage: false,
         age_of_applicant: 45,
-        slcsp_premium: 496.02,
-        lcsp_premium: 430.48,
+        benchmark_premium: { slcsp_premium: 496.02, lcsp_premium: 430.48 },
         is_homeless: false,
         mitc_relationships: mitc_relationships,
         mitc_income: mitc_income }
@@ -76,7 +75,8 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Application, dbclean: :after_each do
         aptc_effective_date: Date.today,
         applicants: [applicant],
         us_state: 'DC',
-        hbx_id: '200000123' }
+        hbx_id: '200000123',
+        oe_start_on: Date.new(Date.today.year, 11, 1) }
     end
 
     context 'with one applicant' do

@@ -14,7 +14,12 @@ module AcaEntities
         # @option opts [Integer] :renewal_consent_through_year optional
         # @option opts [Boolean] :is_ridp_verified optional
         # @option opts [Boolean] :is_renewal_authorized optional
-        # @option opts [Array] :applicants required
+        # @option opts [AcaEntities::MagiMedicaid::ApplicantContract] :applicants required
+        # @option opts [AcaEntities::MagiMedicaid::RelationshipContract] :relationships optional
+        # @option opts [AcaEntities::MagiMedicaid::TaxHouseholdContract] :tax_households optional
+        # @option opts [String] :us_state required
+        # @option opts [String] :hbx_id required
+        # @option opts [Date] :oe_start_on required
         # @return [Dry::Monads::Result]
         params do
           required(:family_reference).hash(::AcaEntities::Contracts::Families::FamilyReferenceContract.params)
@@ -30,6 +35,8 @@ module AcaEntities
 
           required(:us_state).filled(Types::UsStateAbbreviationKind)
           required(:hbx_id).filled(:string)
+
+          required(:oe_start_on).filled(:date)
 
           # Set of attributes specific to MitC which helps to not have much logic in IapTo MitC Transform.
           optional(:mitc_households).array(AcaEntities::MagiMedicaid::Mitc::Contracts::HouseholdContract.params)

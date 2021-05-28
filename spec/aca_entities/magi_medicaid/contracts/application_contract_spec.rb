@@ -62,8 +62,7 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicationContract,  dbcle
       has_enrolled_health_coverage: false,
       has_eligible_health_coverage: false,
       age_of_applicant: 45,
-      slcsp_premium: 496.02,
-      lcsp_premium: 430.48,
+      benchmark_premium: { slcsp_premium: 496.02, lcsp_premium: 430.48 },
       is_homeless: false,
       mitc_relationships: mitc_relationships,
       mitc_income: mitc_income }
@@ -77,6 +76,7 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicationContract,  dbcle
         aptc_effective_date: Date.today,
         applicants: [applicant],
         us_state: 'DC',
+        oe_start_on: Date.new(Date.today.year, 11, 1),
         hbx_id: '200000123' }
     end
 
@@ -222,8 +222,7 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicationContract,  dbcle
         applicant.merge({ person_hbx_id: '96',
                           name: { first_name: 'wifey', last_name: 'last' },
                           age_of_applicant: 43,
-                          slcsp_premium: 459.48,
-                          lcsp_premium: 430.48,
+                          benchmark_premium: { slcsp_premium: 459.48, lcsp_premium: 430.48 },
                           is_homeless: false })
       end
 
@@ -272,6 +271,7 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicationContract,  dbcle
           aptc_effective_date: Date.today,
           applicants: [],
           us_state: 'DC',
+          oe_start_on: Date.new(Date.today.year, 11, 1),
           hbx_id: '200000123' }
       end
 
@@ -307,7 +307,7 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicationContract,  dbcle
            :person_hbx_id, :is_required_to_file_taxes, :pregnancy_information, :has_job_income,
            :has_self_employment_income, :has_unemployment_income, :has_other_income, :has_deductions,
            :has_enrolled_health_coverage, :has_eligible_health_coverage,
-           :age_of_applicant, :slcsp_premium, :lcsp_premium, :is_homeless]
+           :age_of_applicant, :benchmark_premium, :is_homeless]
         end
 
         it 'should return a failure with error message' do
@@ -388,6 +388,7 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicationContract,  dbcle
             aptc_effective_date: Date.today,
             applicants: [local_applicant],
             us_state: 'DC',
+            oe_start_on: Date.new(Date.today.year, 11, 1),
             hbx_id: '200000123' }
         end
         let(:benefit) do
@@ -492,6 +493,7 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicationContract,  dbcle
             aptc_effective_date: Date.today,
             applicants: [local_applicant],
             us_state: 'DC',
+            oe_start_on: Date.new(Date.today.year, 11, 1),
             hbx_id: '200000123' }
         end
         let(:local_deduction) do
@@ -854,7 +856,8 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicationContract,  dbcle
         expect(subject.call(input_params).errors.to_h).to eq({ assistance_year: ['is missing'],
                                                                aptc_effective_date: ['is missing'],
                                                                hbx_id: ['is missing'],
-                                                               us_state: ['is missing'] })
+                                                               us_state: ['is missing'],
+                                                               oe_start_on: ['is missing'] })
       end
     end
 
@@ -873,7 +876,8 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicationContract,  dbcle
         expect(subject.call(input_params).errors.to_h).to eq({ assistance_year: ['must be an integer'],
                                                                aptc_effective_date: ['is missing'],
                                                                hbx_id: ['is missing'],
-                                                               us_state: ['is missing'] })
+                                                               us_state: ['is missing'],
+                                                               oe_start_on: ['is missing'] })
       end
     end
   end

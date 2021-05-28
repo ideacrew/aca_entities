@@ -69,8 +69,7 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicantContract,  dbclean
         deductions: [],
         age_of_applicant: 45,
         is_claimed_as_dependent_by_non_applicant: false,
-        slcsp_premium: 496.02,
-        lcsp_premium: 430.48,
+        benchmark_premium: { slcsp_premium: 496.02, lcsp_premium: 430.48 },
         is_homeless: false,
         mitc_relationships: mitc_relationships,
         mitc_income: mitc_income }
@@ -153,8 +152,7 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicantContract,  dbclean
         deductions: [],
         age_of_applicant: 45,
         is_claimed_as_dependent_by_non_applicant: false,
-        slcsp_premium: 496.02,
-        lcsp_premium: 430.48,
+        benchmark_premium: { slcsp_premium: 496.02, lcsp_premium: 430.48 },
         is_homeless: false }
     end
 

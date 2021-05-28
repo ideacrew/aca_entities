@@ -836,6 +836,7 @@ RSpec.describe AcaEntities::Contracts::Families::FamilyContract,  dbclean: :afte
            aptc_effective_date: Date.today,
            applicants: [],
            us_state: 'DC',
+           oe_start_on: Date.new(Date.today.year, 11, 1),
            hbx_id: '200000123' },
          { applicants: [applicant] }]
       end
@@ -863,10 +864,10 @@ RSpec.describe AcaEntities::Contracts::Families::FamilyContract,  dbclean: :afte
                                             family_member_reference: { family_member_hbx_id: ['is missing'] },
                                             pregnancy_information: { is_pregnant: ['is missing'] },
                                             age_of_applicant: ['is missing'],
-                                            slcsp_premium: ['is missing'],
-                                            lcsp_premium: ['is missing'],
+                                            benchmark_premium: ['is missing'],
                                             is_homeless: ['is missing'] } },
                        us_state: ['is missing'],
+                       oe_start_on: ['is missing'],
                        hbx_id: ['is missing'] }
         expect(@errors[:magi_medicaid_applications][1]).to eq(error_hash)
       end
