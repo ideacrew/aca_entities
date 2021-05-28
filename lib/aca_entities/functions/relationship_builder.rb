@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# rubocop:disable Style/GuardClause, Metrics/CyclomaticComplexity
+# rubocop:disable Metrics/CyclomaticComplexity
 module AcaEntities
   module Functions
     # builds hash for primary and non primary applicant
@@ -12,14 +12,16 @@ module AcaEntities
         household = cache.resolve('attestations.household').item
 
         relationship = ''
-        household[:familyRelationships].each do |a|
-          primary_match = a[:no_key][1][:no_key][0] == @primary_applicant_id
-          current_member_match = a[:no_key][1][:no_key][2] == current_member
+        household[:familyRelationships].each do |family_relationship|
+          primary_match = family_relationship[:no_key][1][:no_key].include?(@primary_applicant_id)
+          current_member_match = family_relationship[:no_key][1][:no_key].include?(current_member)
 
-          if primary_match && current_member_match
-            relationship = a[:no_key][1][:no_key][1].downcase
-          else
-            next
+          if @primary_applicant_id == current_member
+            relationship = 'self'
+            break
+          elsif primary_match && current_member_match
+            relationship = family_relationship[:no_key][1][:no_key][1].downcase
+            break
           end
         end
         [{ relative: person_hash, kind: relationship }]
@@ -38,4 +40,4 @@ module AcaEntities
     end
   end
 end
-# rubocop:enable Style/GuardClause, Metrics/CyclomaticComplexity
+# rubocop:enable Metrics/CyclomaticComplexity
