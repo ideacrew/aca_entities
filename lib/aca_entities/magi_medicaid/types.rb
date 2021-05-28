@@ -27,7 +27,7 @@ module AcaEntities
         'acf_refugee_medical_assistance',
         'americorps_health_benefits',
         'medicaid',
-        'child_health_insurance_program', # 'chip'
+        'child_health_insurance_plan', # 'chip'
         'medicare',
         'medicare_advantage',
         'medicare_part_b',

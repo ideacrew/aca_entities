@@ -63,7 +63,7 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Application, dbclean: :after_each do
         has_enrolled_health_coverage: false,
         has_eligible_health_coverage: false,
         age_of_applicant: 45,
-        benchmark_premium: { slcsp_premium: 496.02, lcsp_premium: 430.48 },
+        benchmark_premium: { monthly_slcsp_premium: 496.02, monthly_lcsp_premium: 430.48 },
         is_homeless: false,
         mitc_relationships: mitc_relationships,
         mitc_income: mitc_income }

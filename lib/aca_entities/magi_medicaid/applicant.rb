@@ -175,8 +175,16 @@ module AcaEntities
 
       def eligible_benefit_esis
         benefits.select do |benefit|
-          benefit.status == 'is_eligible' && kind == 'employer_sponsored_insurance'
+          benefit.status == 'is_eligible' && benefit.kind == 'employer_sponsored_insurance'
         end
+      end
+
+      def ichra_benefits
+        benefits.select { |ben| ben.kind == 'ichra' }
+      end
+
+      def qhehra_benefits
+        benefits.select { |ben| ben.kind == 'qhehra' }
       end
 
       def attested_for_aian?

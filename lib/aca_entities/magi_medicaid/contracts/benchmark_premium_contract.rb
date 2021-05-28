@@ -7,12 +7,12 @@ module AcaEntities
       class BenchmarkPremiumContract < Dry::Validation::Contract
         # @!method call(opts)
         # @param [Hash] opts the parameters to validate using this contract
-        # @option opts [BigDecimal] :slcsp_premium required
-        # @option opts [BigDecimal] :lcsp_premium required
+        # @option opts [BigDecimal] :monthly_slcsp_premium required
+        # @option opts [BigDecimal] :monthly_lcsp_premium required
         # @return [Dry::Monads::Result]
         params do
-          required(:slcsp_premium).filled(Types::Money)
-          required(:lcsp_premium).filled(Types::Money)
+          required(:monthly_slcsp_premium).filled(Types::Money)
+          required(:monthly_lcsp_premium).filled(Types::Money)
         end
       end
     end
