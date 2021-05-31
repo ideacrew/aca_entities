@@ -131,6 +131,7 @@ module AcaEntities
             # map 'allocatedAPTCAmount', 'elected_aptc_pct', function: ->(v) {{ cents: 0.0, currency_iso: 'USD' }} # TODO
             # map 'receivedFromOtherQHPAmount'
             map 'appliedAPTCAmount', 'applied_aptc_amount', function: ->(v) {{ cents: v.to_f, currency_iso: 'USD' }}
+            map 'exchangeRateAreaReference', 'rating_area'
             # map 'distributedToOtherQHPAmount'
             # map 'distributedToSADPAmount'
             # map 'systemElectedAPTCAmount'
