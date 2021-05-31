@@ -31,7 +31,7 @@ module AcaEntities
           map 'insurancePlanVariantName', 'product_reference.name' # TODO: check
           map 'coverageYear', 'product_reference.active_year'
           map 'associatedMetalTierTypeCodeName', 'product_reference.metal_level'
-          add_key 'product_reference.benefit_market_kind', value: 'ivl' # TODO: revisit
+          add_key 'product_reference.benefit_market_kind', value: 'aca_individual' # TODO: revisit
           add_key 'product_reference.is_dental_only', value: false # TODO: revisit
           add_key 'product_reference.product_kind', function: ->(v) { { HEALTHCARE: "health" }[v.resolve('product_kind').item.to_sym]}
 
@@ -121,16 +121,16 @@ module AcaEntities
           # add_key 'broker_role_reference.broker_agency_reference.display_name'
           # add_key 'broker_role_reference.broker_agency_reference.fein'
           # add_key 'broker_role_reference.broker_agency_reference.corporate_npn'
-          add_key 'elected_amount', function: ->(_v) {{ cents: 0.0, currency_iso: 'US' }}
-          add_key 'elected_premium_credit', function: ->(_v) {{ cents: 0.0, currency_iso: 'US' }}
-          add_key 'applied_premium_credit', function: ->(_v) {{ cents: 0.0, currency_iso: 'US' }}
+          add_key 'elected_amount', function: ->(_v) {{ cents: 0.0, currency_iso: 'USD' }}
+          add_key 'elected_premium_credit', function: ->(_v) {{ cents: 0.0, currency_iso: 'USD' }}
+          add_key 'applied_premium_credit', function: ->(_v) {{ cents: 0.0, currency_iso: 'USD' }}
           namespace 'insurancePolicyPremium' do
             # map 'monthlyPolicyPremiumAmount'
             # map 'exchangeRateAreaReference'
             # map 'ehbPremiumAmount'
-            # map 'allocatedAPTCAmount', 'elected_aptc_pct', function: ->(v) {{ cents: 0.0, currency_iso: 'US' }} # TODO
+            # map 'allocatedAPTCAmount', 'elected_aptc_pct', function: ->(v) {{ cents: 0.0, currency_iso: 'USD' }} # TODO
             # map 'receivedFromOtherQHPAmount'
-            map 'appliedAPTCAmount', 'applied_aptc_amount', function: ->(v) {{ cents: v.to_f, currency_iso: 'US' }}
+            map 'appliedAPTCAmount', 'applied_aptc_amount', function: ->(v) {{ cents: v.to_f, currency_iso: 'USD' }}
             # map 'distributedToOtherQHPAmount'
             # map 'distributedToSADPAmount'
             # map 'systemElectedAPTCAmount'
@@ -197,8 +197,8 @@ module AcaEntities
                 # map 'identifyingTobaccoUseTypeCodeName'
                 # map 'definingInsurancePolicyStatusTypeCodeName'
                 # map 'memberEhbPremiumAmount'
-                map 'memberMonthlyPolicyPremiumAmount', 'premium_amount', function: ->(v) {{ cents: v.to_f, currency_iso: 'US' }}
-                map 'memberAllocatedAPTCAmount', 'applied_aptc_amount', function: ->(v) {{ cents: v.to_f, currency_iso: 'US' }}
+                map 'memberMonthlyPolicyPremiumAmount', 'premium_amount', function: ->(v) {{ cents: v.to_f, currency_iso: 'USD' }}
+                map 'memberAllocatedAPTCAmount', 'applied_aptc_amount', function: ->(v) {{ cents: v.to_f, currency_iso: 'USD' }}
                 add_key 'eligibility_date', function: ->(v) {v.resolve('effective_on').item}
                 add_key 'coverage_start_on', function: ->(v) {v.resolve('effective_on').item}
                 add_key 'terminated_on', function: ->(v) {v.resolve('terminated_on').item}
