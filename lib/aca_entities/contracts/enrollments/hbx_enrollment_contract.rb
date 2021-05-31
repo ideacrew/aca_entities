@@ -106,7 +106,7 @@ module AcaEntities
           # optional(:benefit_sponsorship_reference).filled(:hash)
           # optional(:sponsored_benefit_package_reference).filled(:hash)
           # optional(:sponsored_benefit_reference).filled(:hash)
-          # optional(:rating_area_reference).filled(:hash)
+          optional(:rating_area).maybe(:string)
 
           optional(:updated_by).hash(AcaEntities::Contracts::People::PersonReferenceContract.params)
           optional(:timestamp).hash(AcaEntities::Contracts::TimeStampContract.params)
