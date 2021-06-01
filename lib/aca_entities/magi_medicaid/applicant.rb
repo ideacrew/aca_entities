@@ -185,10 +185,10 @@ module AcaEntities
         benefits.select { |ben| ben.kind == 'ichra' }
       end
 
-      def qhehra_benefits
+      def qsehra_benefits
         return [] if benefits.blank?
 
-        benefits.select { |ben| ben.kind == 'qhehra' }
+        benefits.select { |ben| ben.kind == 'qsehra' }
       end
 
       def attested_for_aian?
