@@ -180,10 +180,14 @@ module AcaEntities
       end
 
       def ichra_benefits
+        return [] if benefits.blank?
+
         benefits.select { |ben| ben.kind == 'ichra' }
       end
 
       def qhehra_benefits
+        return [] if benefits.blank?
+
         benefits.select { |ben| ben.kind == 'qhehra' }
       end
 
