@@ -55,7 +55,13 @@ module AcaEntities
       attribute :has_other_income, Types::Bool.optional.meta(omittable: true)
       attribute :has_deductions, Types::Bool.optional.meta(omittable: true)
       attribute :has_enrolled_health_coverage, Types::Bool.optional.meta(omittable: true)
+
+      # @!attribute [r] has_eligible_health_coverage
+      # Does this person currently have access to other health coverage that they are not enrolled in,
+      # including coverage they could get through another person?
+      # @return [Bool]
       attribute :has_eligible_health_coverage, Types::Bool.optional.meta(omittable: true)
+      # Driver QNs.
 
       # @!attribute [r] job_coverage_ended_in_past_3_months
       # Did this person have coverage through a job (for example, a parent's job)
@@ -174,6 +180,8 @@ module AcaEntities
       end
 
       def eligible_benefit_esis
+        return [] unless has_eligible_health_coverage
+
         benefits.select do |benefit|
           benefit.status == 'is_eligible' && benefit.kind == 'employer_sponsored_insurance'
         end
@@ -182,13 +190,17 @@ module AcaEntities
       def ichra_benefits
         return [] if benefits.blank?
 
-        benefits.select { |ben| ben.kind == 'ichra' }
+        benefits.select do |ben|
+          ben.kind == 'health_reimbursement_arrangement' && ben.hra_kind == :ichra
+        end
       end
 
       def qsehra_benefits
         return [] if benefits.blank?
 
-        benefits.select { |ben| ben.kind == 'qsehra' }
+        benefits.select do |ben|
+          ben.kind == 'health_reimbursement_arrangement' && ben.hra_kind == :qsehra
+        end
       end
 
       def attested_for_aian?

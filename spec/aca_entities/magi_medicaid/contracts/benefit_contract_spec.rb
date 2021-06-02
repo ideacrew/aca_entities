@@ -57,6 +57,24 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Contracts::BenefitContract,  dbclean
         expect(@result).to be_success
       end
     end
+
+    context 'Health Reimbursement Arrangement' do
+      let(:input_params) do
+        { kind: 'health_reimbursement_arrangement',
+          status: 'is_enrolled',
+          start_on: Date.today.prev_year.to_s,
+          hra_kind: [:ichra, :qsehra].sample,
+          end_on: nil }
+      end
+
+      before do
+        @result = subject.call(input_params)
+      end
+
+      it 'should return success' do
+        expect(@result).to be_success
+      end
+    end
   end
 
   context 'invalid params' do

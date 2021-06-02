@@ -22,6 +22,8 @@ module AcaEntities
         'employer_sponsored_insurance'
       ].freeze
 
+      HraKind = Types::Coercible::Symbol.enum(:ichra, :qsehra)
+
       BenefitKind = Types::Coercible::String.enum(
         'private_individual_and_family_coverage', # 'marketplace_coverage'
         'acf_refugee_medical_assistance',

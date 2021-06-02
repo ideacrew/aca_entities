@@ -20,6 +20,7 @@ module AcaEntities
         # @option opts [Date] :start_on optional
         # @option opts [Date] :end_on optional
         # @option opts [DateTime] :submitted_at optional
+        # @option opts [Symbol] :hra_kind optional
         # @return [Dry::Monads::Result]
         params do
           # title
@@ -38,6 +39,8 @@ module AcaEntities
           optional(:start_on).maybe(:date)
           optional(:end_on).maybe(:date)
           optional(:submitted_at).maybe(:date_time)
+
+          optional(:hra_kind).maybe(Types::HraKind)
         end
       end
     end

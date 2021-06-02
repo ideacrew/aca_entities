@@ -28,6 +28,8 @@ module AcaEntities
       attribute :end_on,                  Types::Date.optional.meta(omittable: true)
       attribute :submitted_at,            Types::DateTime.optional.meta(omittable: true)
 
+      attribute :hra_kind,                Types::HraKind.optional.meta(omittable: true)
+
       # attribute :workflow,                Iap::Workflow.meta(omittable: true)
 
       # rubocop:disable Naming/PredicateName
