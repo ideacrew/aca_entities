@@ -1,0 +1,52 @@
+<?xml version= '1.0' encoding= 'UTF-8' ?>
+<xsd:schema xmlns:exch="http://vci.dsh.cms.gov/exchange/1.0"
+            xmlns:ext="http://vci.dsh.cms.gov/extension/1.0"
+            xmlns:i="http://niem.gov/niem/appinfo/2.0"
+            xmlns:i2="http://niem.gov/niem/appinfo/2.1"
+            xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0"
+            xmlns:s="http://niem.gov/niem/structures/2.0"
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            attributeFormDefault="qualified" elementFormDefault="qualified"
+            targetNamespace="http://vci.dsh.cms.gov/exchange/1.0" version="1">
+    <xsd:annotation>
+        <xsd:appinfo>
+            <i:ConformantIndicator>true</i:ConformantIndicator>
+        </xsd:appinfo>
+        <xsd:documentation source="">An exchange schema to verify Current
+                                     household income information from Equifax
+                                     Trusted Data Source (TDS) for use in
+                                     evaluating an applicant’s eligibility and
+                                     an enrollee’s continued eligibility for
+                                     insurance affordability programs.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:import namespace="http://niem.gov/niem/appinfo/2.0"
+                schemaLocation="appinfo.xsd"/>
+    <xsd:import namespace="http://niem.gov/niem/appinfo/2.1"
+                schemaLocation="appinfo_1.xsd"/>
+    <xsd:import namespace="http://niem.gov/niem/proxy/xsd/2.0"
+                schemaLocation="xsd.xsd"/>
+    <xsd:import namespace="http://niem.gov/niem/structures/2.0"
+                schemaLocation="structures.xsd"/>
+    <xsd:import namespace="http://vci.dsh.cms.gov/extension/1.0"
+                schemaLocation="ExtensionModel.xsd"/>
+    <xsd:element abstract="false" name="CurrentIncomeRequest" nillable="false"
+                 type="ext:CurrentIncomeRequestPayloadType">
+        <xsd:annotation>
+            <xsd:documentation source="">A Current Income Request Payload</xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    <xsd:element abstract="false" name="CurrentIncomeResponse" nillable="false">
+        <xsd:annotation>
+            <xsd:documentation source="">A Current Income Response Payload</xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexType>
+            <xsd:complexContent>
+                <xsd:extension base="ext:CurrentIncomeResponsePayloadType">
+                    <xsd:sequence>
+                        <xsd:element name="RequestNumber" type="xsd:string"/>
+                    </xsd:sequence>
+                </xsd:extension>
+            </xsd:complexContent>
+        </xsd:complexType>
+    </xsd:element>
+</xsd:schema>
