@@ -1,0 +1,1498 @@
+<?xml version= '1.0' encoding= 'UTF-8' ?>
+<xsd:schema xmlns:Q1="http://niem.gov/niem/niem-core/2.0"
+            xmlns:ext="http://vci.dsh.cms.gov/extension/1.0"
+            xmlns:hix-core="http://hix.cms.gov/0.1/hix-core"
+            xmlns:i="http://niem.gov/niem/appinfo/2.0"
+            xmlns:i2="http://niem.gov/niem/appinfo/2.1"
+            xmlns:nc="http://niem.gov/niem/niem-core/2.0"
+            xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0"
+            xmlns:s="http://niem.gov/niem/structures/2.0"
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            attributeFormDefault="qualified" elementFormDefault="qualified"
+            targetNamespace="http://vci.dsh.cms.gov/extension/1.0" version="1">
+    <xsd:annotation>
+        <xsd:appinfo>
+            <i:ConformantIndicator>true</i:ConformantIndicator>
+        </xsd:appinfo>
+        <xsd:documentation source="">An extension schema to verify Current
+                                     household income information from Equifax
+                                     Trusted Data Source (TDS) for use in
+                                     evaluating an applicant’s eligibility and
+                                     an enrollee’s continued eligibility for
+                                     insurance affordability programs.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:import namespace="http://hix.cms.gov/0.1/hix-core"
+                schemaLocation="hix_core.xsd"/>
+    <xsd:import namespace="http://niem.gov/niem/appinfo/2.0"
+                schemaLocation="appinfo.xsd"/>
+    <xsd:import namespace="http://niem.gov/niem/appinfo/2.1"
+                schemaLocation="appinfo_1.xsd"/>
+    <xsd:import namespace="http://niem.gov/niem/niem-core/2.0"
+                schemaLocation="niem_core.xsd"/>
+    <xsd:import namespace="http://niem.gov/niem/proxy/xsd/2.0"
+                schemaLocation="xsd.xsd"/>
+    <xsd:import namespace="http://niem.gov/niem/structures/2.0"
+                schemaLocation="structures.xsd"/>
+    <xsd:element abstract="false" name="AnnualCompensation"
+                 type="ext:AnnualCompensationType">
+        <xsd:annotation>
+            <xsd:documentation source="">Annual Compensation Information</xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    <xsd:element abstract="false" name="AnnualCompensationInformation"
+                 type="ext:AnnualCompensationInformationType">
+        <xsd:annotation>
+            <xsd:documentation source="">Annual Compensation Information</xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    <xsd:element abstract="false" name="AnnualizedIncome" nillable="false"
+                 type="ext:AmountRestrictionType">
+        <xsd:annotation>
+            <xsd:documentation source="">Calculation of Current Income that
+                                         extrapolates it to Annual Income based
+                                         on Pay Rate and Annual Income</xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    <xsd:element abstract="false" name="AsOfDate" nillable="false"
+                 type="ext:DateOnlyDateType">
+        <xsd:annotation>
+            <xsd:documentation source="">Date this record was effective. This is
+                                         typically the pay date, but some
+                                         clients use pay end date or file
+                                         creation date.</xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    <xsd:element abstract="false" name="BaseCompensation"
+                 type="ext:AmountRestrictionType">
+        <xsd:annotation>
+            <xsd:documentation source="">Base Compensation for Year</xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    <xsd:element abstract="false" name="BaseCompensationInformation"
+                 nillable="false" type="ext:BaseCompensationInfoType">
+        <xsd:annotation>
+            <xsd:documentation source="">Base compensation information</xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    <xsd:element abstract="false" name="CurrentIncomeInformation"
+                 type="ext:CurrentHouseholdIncomeType">
+        <xsd:annotation>
+            <xsd:documentation source="">Current Income Information</xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    <xsd:element abstract="false" name="EmployeeInformation" nillable="false"
+                 type="nc:PersonType">
+        <xsd:annotation>
+            <xsd:documentation source="">Employee Information</xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    <xsd:element abstract="false" name="EmployeeStatusCode" nillable="false"
+                 type="ext:EmployeeStatusCodeType">
+        <xsd:annotation>
+            <xsd:documentation source="">Employee status code that is used to
+                                         map to employment status type.</xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    <xsd:element abstract="false" name="EmployeeStatusMessage" nillable="false"
+                 type="ext:EmployeeStatusMessageCodeType">
+        <xsd:annotation>
+            <xsd:documentation source="">Employee status description that is
+                                         used to map to employment status type.</xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    <xsd:element abstract="false" name="EmployerAddress" nillable="false"
+                 type="nc:StructuredAddressType">
+        <xsd:annotation>
+            <xsd:documentation source="">Employer Address</xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    <xsd:element abstract="false" name="EmployerInformation" nillable="false"
+                 type="ext:EmployerInfoType">
+        <xsd:annotation>
+            <xsd:documentation source="">Employer Information</xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    <xsd:element abstract="false" name="EmployerOrganization" nillable="false"
+                 type="nc:OrganizationType">
+        <xsd:annotation>
+            <xsd:documentation source="">Employer name and FEIN</xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    <xsd:element abstract="false" name="EmploymentInformation" nillable="false"
+                 type="ext:EmploymentInfoType">
+        <xsd:annotation>
+            <xsd:documentation source="">Employment Information</xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    <xsd:element abstract="false" name="IncomeDetail" nillable="false"
+                 type="ext:IncomeDetailRestrictionType">
+        <xsd:annotation>
+            <xsd:documentation source="">Pay Period Information</xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    <xsd:element abstract="false" name="IncomeYear"
+                 type="ext:YearOnlyRestrictionType">
+        <xsd:annotation>
+            <xsd:documentation source="">Year that the income represents</xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    <xsd:element abstract="false" name="PayFrequencyCode" nillable="false"
+                 type="ext:PayFrequencyCodeType">
+        <xsd:annotation>
+            <xsd:documentation source="">Pay frequency code provided by the
+                                         employer that can be used with Rate of
+                                         Pay to determine annual pay rate.</xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    <xsd:element abstract="false" name="PayFrequencyMessage" nillable="false"
+                 type="ext:PayFrequencyMessageCodeType">
+        <xsd:annotation>
+            <xsd:documentation source="">Pay frequency description provided by
+                                         the employer that can be used with Rate
+                                         of Pay to determine annual pay rate.</xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    <xsd:element abstract="false" name="PayPeriod" type="ext:PayPeriodInfoType">
+        <xsd:annotation>
+            <xsd:documentation source="">Pay Period Information (up to 12 months)</xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    <xsd:element abstract="false" name="PayPeriodEndDate" nillable="false"
+                 type="ext:DateOnlyDateType">
+        <xsd:annotation>
+            <xsd:documentation source="">End Date for Pay period</xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    <xsd:element abstract="false" name="PayPeriodFrequencyCode" nillable="false"
+                 type="ext:PayPeriodFrequencyCodeType">
+        <xsd:annotation>
+            <xsd:documentation source="">Code for how often an employee is paid.</xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    <xsd:element abstract="false" name="PayPeriodFrequencyMessage"
+                 nillable="false" type="ext:PayPeriodFrequencyMessageCodeType">
+        <xsd:annotation>
+            <xsd:documentation source="">Description for how often an employee
+                                         is paid.</xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    <xsd:element abstract="false" name="PayPeriodInformation"
+                 type="ext:PayPeriodInformationType">
+        <xsd:annotation>
+            <xsd:documentation source="">Pay Period Information (up to 12 months)</xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    <xsd:element abstract="false" name="PayRate" nillable="false"
+                 type="ext:PayRateRestrictionType">
+        <xsd:annotation>
+            <xsd:documentation source="">Pay amount per Pay Frequency</xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    <xsd:element abstract="false" name="Person" nillable="false"
+                 type="nc:PersonType">
+        <xsd:annotation>
+            <xsd:documentation source="">A human being</xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    <xsd:element abstract="false" name="PersonEmploymentAssociation"
+                 nillable="false"
+                 type="hix-core:PersonEmploymentAssociationType">
+        <xsd:annotation>
+            <xsd:documentation source="">Employee recent hire, original hire and
+                                         terminated date.</xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    <xsd:element abstract="false" name="ResponseInformation" nillable="false"
+                 type="ext:CurrentIncomeInfoType">
+        <xsd:annotation>
+            <xsd:documentation source="">Current income information</xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    <xsd:element abstract="false" name="ResponseMetadata"
+                 type="hix-core:ResponseMetadataType">
+        <xsd:annotation>
+            <xsd:documentation source="">Response status from HUB to requester</xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    <xsd:element abstract="false" name="Tier" nillable="false"
+                 type="ext:TierRestrictionSimpleType">
+        <xsd:annotation>
+            <xsd:documentation source="">Tier 1 or 2</xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    <xsd:element abstract="false" name="TotalCompensation"
+                 type="ext:AmountRestrictionType">
+        <xsd:annotation>
+            <xsd:documentation source="">Total Compensation for Year</xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    <xsd:element abstract="false" name="VerificationMetadata" nillable="false"
+                 type="hix-core:VerificationMetadataType">
+        <xsd:annotation>
+            <xsd:documentation source="">Unique identifier for this verification</xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    <xsd:complexType abstract="false" mixed="false"
+                     name="AmountRestrictionType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <Base xmlns="http://niem.gov/niem/appinfo/2.0" i:name="Object"
+                      i:namespace="http://niem.gov/niem/structures/2.0"/>
+            </xsd:appinfo>
+            <xsd:documentation source="">A data type for A restricted data type
+                                         for Amount</xsd:documentation>
+        </xsd:annotation>
+        <xsd:simpleContent>
+            <xsd:restriction base="nc:AmountType">
+                <xsd:fractionDigits value="2"/>
+                <xsd:totalDigits value="10"/>
+                <xsd:attributeGroup ref="s:SimpleObjectAttributeGroup"/>
+            </xsd:restriction>
+        </xsd:simpleContent>
+    </xsd:complexType>
+    <xsd:complexType abstract="false" mixed="false"
+                     name="AnnualCompensationInformationType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <i:Base i:name="Object"
+                        i:namespace="http://niem.gov/niem/structures/2.0"/>
+            </xsd:appinfo>
+            <xsd:documentation source="">A data type for Annual Compensation
+                                         Information</xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="s:ComplexObjectType">
+                <xsd:sequence>
+                    <xsd:element maxOccurs="1" minOccurs="0"
+                                 ref="ext:IncomeYear"/>
+                    <xsd:element maxOccurs="1" minOccurs="0"
+                                 ref="ext:BaseCompensation"/>
+                    <xsd:element maxOccurs="1" minOccurs="0"
+                                 ref="ext:TotalCompensation"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:complexType abstract="false" mixed="false"
+                     name="AnnualCompensationType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <i:Base i:name="Object"
+                        i:namespace="http://niem.gov/niem/structures/2.0"/>
+            </xsd:appinfo>
+            <xsd:documentation source="">A data type for Annual Compensation
+                                         Information</xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="s:ComplexObjectType">
+                <xsd:sequence>
+                    <xsd:element maxOccurs="unbounded" minOccurs="0"
+                                 ref="ext:AnnualCompensationInformation"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:complexType abstract="false" mixed="false"
+                     name="BaseCompensationInfoType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <i:Base i:name="Object"
+                        i:namespace="http://niem.gov/niem/structures/2.0"/>
+            </xsd:appinfo>
+            <xsd:documentation source="">A data type for Base Compensation
+                                         Information</xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="s:ComplexObjectType">
+                <xsd:sequence>
+                    <xsd:element maxOccurs="1" minOccurs="0" ref="ext:PayRate"/>
+                    <xsd:element maxOccurs="1" minOccurs="0"
+                                 ref="ext:PayFrequencyCode"/>
+                    <xsd:element maxOccurs="1" minOccurs="0"
+                                 ref="ext:PayFrequencyMessage"/>
+                    <xsd:element maxOccurs="1" minOccurs="0"
+                                 ref="ext:PayPeriodFrequencyCode"/>
+                    <xsd:element maxOccurs="1" minOccurs="0"
+                                 ref="ext:PayPeriodFrequencyMessage"/>
+                    <xsd:element maxOccurs="1" minOccurs="0"
+                                 ref="ext:AnnualizedIncome"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:complexType abstract="false" mixed="false"
+                     name="CurrentHouseholdIncomeType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <i:Base i:name="Object"
+                        i:namespace="http://niem.gov/niem/structures/2.0"/>
+            </xsd:appinfo>
+            <xsd:documentation source="">A data type for Current Household
+                                         Income Information</xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="s:ComplexObjectType">
+                <xsd:sequence>
+                    <xsd:element maxOccurs="1" minOccurs="1" ref="ext:Tier"/>
+                    <xsd:element maxOccurs="1" minOccurs="1"
+                                 ref="ext:AsOfDate"/>
+                    <xsd:element maxOccurs="1" minOccurs="1"
+                                 ref="ext:VerificationMetadata"/>
+                    <xsd:element maxOccurs="1" minOccurs="1"
+                                 ref="ext:EmployeeInformation"/>
+                    <xsd:element maxOccurs="1" minOccurs="1"
+                                 ref="ext:EmployerInformation"/>
+                    <xsd:element maxOccurs="1" minOccurs="1"
+                                 ref="ext:EmploymentInformation"/>
+                    <xsd:element maxOccurs="1" minOccurs="0"
+                                 ref="ext:BaseCompensationInformation"/>
+                    <xsd:element maxOccurs="1" minOccurs="0"
+                                 ref="ext:AnnualCompensation"/>
+                    <xsd:element maxOccurs="1" minOccurs="1"
+                                 ref="ext:PayPeriod"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:complexType abstract="false" mixed="false"
+                     name="CurrentIncomeInfoType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <i:Base i:name="Object"
+                        i:namespace="http://niem.gov/niem/structures/2.0"/>
+            </xsd:appinfo>
+            <xsd:documentation source="">A data type for Current Income
+                                         Information</xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="s:ComplexObjectType">
+                <xsd:sequence>
+                    <xsd:element maxOccurs="1" minOccurs="1"
+                                 ref="ext:ResponseMetadata"/>
+                    <xsd:element maxOccurs="1" minOccurs="0"
+                                 ref="ext:EmployeeInformation"/>
+                    <xsd:element maxOccurs="unbounded" minOccurs="0"
+                                 ref="ext:CurrentIncomeInformation"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:complexType abstract="false" mixed="false"
+                     name="CurrentIncomeRequestPayloadType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <i:Base i:name="Object"
+                        i:namespace="http://niem.gov/niem/structures/2.0"/>
+            </xsd:appinfo>
+            <xsd:documentation source="">A data type for Current Income Request.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="s:ComplexObjectType">
+                <xsd:sequence>
+                    <xsd:element maxOccurs="unbounded" minOccurs="1"
+                                 ref="ext:Person"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:complexType abstract="false" mixed="false"
+                     name="CurrentIncomeResponsePayloadType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <i:Base i:name="Object"
+                        i:namespace="http://niem.gov/niem/structures/2.0"/>
+            </xsd:appinfo>
+            <xsd:documentation source="">A data type for Current Income Response</xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="s:ComplexObjectType">
+                <xsd:choice>
+                    <xsd:element maxOccurs="1" minOccurs="1"
+                                 ref="ext:ResponseMetadata"/>
+                    <xsd:element maxOccurs="unbounded" minOccurs="1"
+                                 ref="ext:ResponseInformation"/>
+                </xsd:choice>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:complexType abstract="false" mixed="false" name="DateOnlyDateType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <Base xmlns="http://niem.gov/niem/appinfo/2.0" i:name="DateType"
+                      i:namespace="http://niem.gov/niem/niem-core/2.0"/>
+            </xsd:appinfo>
+            <xsd:documentation source="">A data type for Date only restriction</xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:restriction base="nc:DateType">
+                <xsd:sequence>
+                    <xsd:element maxOccurs="1" minOccurs="1" ref="nc:Date"/>
+                </xsd:sequence>
+            </xsd:restriction>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:simpleType name="EmployeeStatusCodeSimpleType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <i:Base i:name="Object"
+                        i:namespace="http://niem.gov/niem/structures/2.0"/>
+            </xsd:appinfo>
+            <xsd:documentation source="">A data type for Employee Status Code</xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:token">
+            <xsd:enumeration value="1">
+                <xsd:annotation>
+                    <xsd:documentation source="">Active</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="2">
+                <xsd:annotation>
+                    <xsd:documentation source="">On International Assignment</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="3">
+                <xsd:annotation>
+                    <xsd:documentation source="">Casual</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="4">
+                <xsd:annotation>
+                    <xsd:documentation source="">On Long Term Disability</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="5">
+                <xsd:annotation>
+                    <xsd:documentation source="">Sick Leave</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="6">
+                <xsd:annotation>
+                    <xsd:documentation source="">Surviving Spouse</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="7">
+                <xsd:annotation>
+                    <xsd:documentation source="">No Longer Employed</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="8">
+                <xsd:annotation>
+                    <xsd:documentation source="">Inactive</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="9">
+                <xsd:annotation>
+                    <xsd:documentation source="">On Leave</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="10">
+                <xsd:annotation>
+                    <xsd:documentation source="">Multiple Positions</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="11">
+                <xsd:annotation>
+                    <xsd:documentation source="">New Employee</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="12">
+                <xsd:annotation>
+                    <xsd:documentation source="">Lay Off</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="13">
+                <xsd:annotation>
+                    <xsd:documentation source="">Part Time</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="14">
+                <xsd:annotation>
+                    <xsd:documentation source="">Retired</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="15">
+                <xsd:annotation>
+                    <xsd:documentation source="">Separated</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="16">
+                <xsd:annotation>
+                    <xsd:documentation source="">Inactive</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="17">
+                <xsd:annotation>
+                    <xsd:documentation source="">Seasonal</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="18">
+                <xsd:annotation>
+                    <xsd:documentation source="">Temporary</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="19">
+                <xsd:annotation>
+                    <xsd:documentation source="">Intern</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="20">
+                <xsd:annotation>
+                    <xsd:documentation source="">Transferred</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="37">
+                <xsd:annotation>
+                    <xsd:documentation source="">Deceased</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="38">
+                <xsd:annotation>
+                    <xsd:documentation source="">Severed with Pay</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="42">
+                <xsd:annotation>
+                    <xsd:documentation source="">Currently Employed</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="43">
+                <xsd:annotation>
+                    <xsd:documentation source="">On Sabbatical</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="46">
+                <xsd:annotation>
+                    <xsd:documentation source="">Part of Divested Population</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="52">
+                <xsd:annotation>
+                    <xsd:documentation source="">Temporarily Inactive</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="53">
+                <xsd:annotation>
+                    <xsd:documentation source="">Full-Time</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="54">
+                <xsd:annotation>
+                    <xsd:documentation source="">Non-employee Beneficiary</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="55">
+                <xsd:annotation>
+                    <xsd:documentation source="">Not Currently on Assignment</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="56">
+                <xsd:annotation>
+                    <xsd:documentation source="">Not Currently on Payroll</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:complexType abstract="false" mixed="false"
+                     name="EmployeeStatusCodeType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <i:Base i:name="Object"
+                        i:namespace="http://niem.gov/niem/structures/2.0"/>
+            </xsd:appinfo>
+            <xsd:documentation source="">A data type for Employee Status Code</xsd:documentation>
+        </xsd:annotation>
+        <xsd:simpleContent>
+            <xsd:extension base="ext:EmployeeStatusCodeSimpleType">
+                <xsd:attributeGroup ref="s:SimpleObjectAttributeGroup"/>
+            </xsd:extension>
+        </xsd:simpleContent>
+    </xsd:complexType>
+    <xsd:simpleType name="EmployeeStatusMessageCodeSimpleType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <i:Base i:name="Object"
+                        i:namespace="http://niem.gov/niem/structures/2.0"/>
+            </xsd:appinfo>
+            <xsd:documentation source="">A data type for Employee Status Message</xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:token">
+            <xsd:enumeration value="Active">
+                <xsd:annotation>
+                    <xsd:documentation source="">Active</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="On International Assignment">
+                <xsd:annotation>
+                    <xsd:documentation source="">On International Assignment</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="Casual">
+                <xsd:annotation>
+                    <xsd:documentation source="">Casual</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="On Long Term Disability">
+                <xsd:annotation>
+                    <xsd:documentation source="">On Long Term Disability</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="Sick Leave">
+                <xsd:annotation>
+                    <xsd:documentation source="">Sick Leave</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="Surviving Spouse">
+                <xsd:annotation>
+                    <xsd:documentation source="">Surviving Spouse</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="No Longer Employed">
+                <xsd:annotation>
+                    <xsd:documentation source="">No Longer Employed</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="Inactive">
+                <xsd:annotation>
+                    <xsd:documentation source="">Inactive</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="On Leave">
+                <xsd:annotation>
+                    <xsd:documentation source="">On Leave</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="Multiple Positions">
+                <xsd:annotation>
+                    <xsd:documentation source="">Multiple Positions</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="New Employee">
+                <xsd:annotation>
+                    <xsd:documentation source="">New Employee</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="Lay Off">
+                <xsd:annotation>
+                    <xsd:documentation source="">Lay Off</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="Part Time">
+                <xsd:annotation>
+                    <xsd:documentation source="">Part Time</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="Retired">
+                <xsd:annotation>
+                    <xsd:documentation source="">Retired</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="Separated">
+                <xsd:annotation>
+                    <xsd:documentation source="">Separated</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="Seasonal">
+                <xsd:annotation>
+                    <xsd:documentation source="">Seasonal</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="Temporary">
+                <xsd:annotation>
+                    <xsd:documentation source="">Temporary</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="Intern">
+                <xsd:annotation>
+                    <xsd:documentation source="">Intern</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="Transferred">
+                <xsd:annotation>
+                    <xsd:documentation source="">Transferred</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="Deceased">
+                <xsd:annotation>
+                    <xsd:documentation source="">Deceased</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="Severed with Pay">
+                <xsd:annotation>
+                    <xsd:documentation source="">Severed with Pay</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="Currently Employed">
+                <xsd:annotation>
+                    <xsd:documentation source="">Currently Employed</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="On Sabbatical">
+                <xsd:annotation>
+                    <xsd:documentation source="">On Sabbatical</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="Part of Divested Population">
+                <xsd:annotation>
+                    <xsd:documentation source="">Part of Divested Population</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="Temporarily Inactive">
+                <xsd:annotation>
+                    <xsd:documentation source="">Temporarily Inactive</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="Full-Time">
+                <xsd:annotation>
+                    <xsd:documentation source="">Full-Time</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="Non-employee Beneficiary">
+                <xsd:annotation>
+                    <xsd:documentation source="">Non-employee Beneficiary</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="Not Currently on Assignment">
+                <xsd:annotation>
+                    <xsd:documentation source="">Not Currently on Assignment</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="Not Currently on Payroll">
+                <xsd:annotation>
+                    <xsd:documentation source="">Not Currently on Payroll</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:complexType abstract="false" mixed="false"
+                     name="EmployeeStatusMessageCodeType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <i:Base i:name="Object"
+                        i:namespace="http://niem.gov/niem/structures/2.0"/>
+            </xsd:appinfo>
+            <xsd:documentation source="">A data type for Employee Status Message</xsd:documentation>
+        </xsd:annotation>
+        <xsd:simpleContent>
+            <xsd:extension base="ext:EmployeeStatusMessageCodeSimpleType">
+                <xsd:attributeGroup ref="s:SimpleObjectAttributeGroup"/>
+            </xsd:extension>
+        </xsd:simpleContent>
+    </xsd:complexType>
+    <xsd:complexType abstract="false" mixed="false" name="EmployerInfoType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <i:Base i:name="Object"
+                        i:namespace="http://niem.gov/niem/structures/2.0"/>
+            </xsd:appinfo>
+            <xsd:documentation source="">A data type for Employer Information</xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="s:ComplexObjectType">
+                <xsd:sequence>
+                    <xsd:element maxOccurs="1" minOccurs="1"
+                                 ref="ext:EmployerOrganization"/>
+                    <xsd:element maxOccurs="1" minOccurs="0"
+                                 ref="ext:EmployerAddress"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:complexType abstract="false" mixed="false" name="EmploymentInfoType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <i:Base i:name="Object"
+                        i:namespace="http://niem.gov/niem/structures/2.0"/>
+            </xsd:appinfo>
+            <xsd:documentation source="">A data type for Employment Information</xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="s:ComplexObjectType">
+                <xsd:sequence>
+                    <xsd:element maxOccurs="1" minOccurs="1"
+                                 ref="ext:EmployeeStatusCode"/>
+                    <xsd:element maxOccurs="1" minOccurs="1"
+                                 ref="ext:EmployeeStatusMessage"/>
+                    <xsd:element maxOccurs="1" minOccurs="0"
+                                 ref="ext:PersonEmploymentAssociation"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:complexType abstract="false" mixed="false" name="FEIN-ProxyType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <i:Base i:name="Object"
+                        i:namespace="http://niem.gov/niem/structures/2.0"/>
+            </xsd:appinfo>
+            <xsd:documentation source="">A data type for Federal Employer
+                                         Identification Restriction</xsd:documentation>
+        </xsd:annotation>
+        <xsd:simpleContent>
+            <xsd:extension base="niem-xsd:string"/>
+        </xsd:simpleContent>
+    </xsd:complexType>
+    <xsd:complexType abstract="false" mixed="false" name="HoursWorkedType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <Base xmlns="http://niem.gov/niem/appinfo/2.0" i:name="Object"
+                      i:namespace="http://niem.gov/niem/structures/2.0"/>
+            </xsd:appinfo>
+            <xsd:documentation source="">A data type for A restricted data type
+                                         for hours worked</xsd:documentation>
+        </xsd:annotation>
+        <xsd:simpleContent>
+            <xsd:restriction base="nc:NumericType">
+                <xsd:fractionDigits value="2"/>
+                <xsd:totalDigits value="4"/>
+                <xsd:attributeGroup ref="s:SimpleObjectAttributeGroup"/>
+            </xsd:restriction>
+        </xsd:simpleContent>
+    </xsd:complexType>
+    <xsd:complexType abstract="false" mixed="false"
+                     name="IncomeDetailRestrictionType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <Base xmlns="http://niem.gov/niem/appinfo/2.0"
+                      i:name="IncomeType"
+                      i:namespace="http://hix.cms.gov/0.1/hix-core"/>
+            </xsd:appinfo>
+            <xsd:documentation source="">A data type for Income Detail
+                                         Restriction</xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:restriction base="hix-core:IncomeType">
+                <xsd:sequence>
+                    <xsd:element maxOccurs="1" minOccurs="1"
+                                 ref="hix-core:IncomeAmount"/>
+                    <xsd:element maxOccurs="1" minOccurs="0"
+                                 ref="hix-core:IncomeHoursPerWeekMeasure"/>
+                    <xsd:element maxOccurs="1" minOccurs="1"
+                                 ref="hix-core:IncomeDate"/>
+                    <xsd:element maxOccurs="1" minOccurs="0"
+                                 ref="hix-core:IncomeNetPaymentAmount"/>
+                </xsd:sequence>
+            </xsd:restriction>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:complexType abstract="false" mixed="false" name="LocationCityNameType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <Base xmlns="http://niem.gov/niem/appinfo/2.0" i:name="Object"
+                      i:namespace="http://niem.gov/niem/structures/2.0"/>
+            </xsd:appinfo>
+            <xsd:documentation source="">A data type for A restricted data type
+                                         for location city name</xsd:documentation>
+        </xsd:annotation>
+        <xsd:simpleContent>
+            <xsd:restriction base="nc:ProperNameTextType">
+                <xsd:maxLength value="20"/>
+                <xsd:minLength value="1"/>
+                <xsd:attributeGroup ref="s:SimpleObjectAttributeGroup"/>
+            </xsd:restriction>
+        </xsd:simpleContent>
+    </xsd:complexType>
+    <xsd:simpleType name="LocationPostalCodeSimpleType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <i:Base i:name="Object"
+                        i:namespace="http://niem.gov/niem/structures/2.0"/>
+            </xsd:appinfo>
+            <xsd:documentation source="">A data type for A restricted data type
+                                         for location postal code</xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="10"/>
+            <xsd:minLength value="4"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:complexType abstract="false" mixed="false" name="NameRestrictionType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <Base xmlns="http://niem.gov/niem/appinfo/2.0" i:name="Object"
+                      i:namespace="http://niem.gov/niem/structures/2.0"/>
+            </xsd:appinfo>
+            <xsd:documentation source="">A data type for A restricted data type
+                                         for Person Name</xsd:documentation>
+        </xsd:annotation>
+        <xsd:simpleContent>
+            <xsd:restriction base="nc:PersonNameTextType">
+                <xsd:maxLength value="50"/>
+                <xsd:minLength value="1"/>
+                <xsd:attributeGroup ref="s:SimpleObjectAttributeGroup"/>
+            </xsd:restriction>
+        </xsd:simpleContent>
+    </xsd:complexType>
+    <xsd:complexType abstract="false" mixed="false" name="OrganizationFEINType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <Base xmlns="http://niem.gov/niem/appinfo/2.0" i:name="Object"
+                      i:namespace="http://niem.gov/niem/structures/2.0"/>
+            </xsd:appinfo>
+            <xsd:documentation source="">A data type for A restricted data type
+                                         for organization FEIN (Federal Employer
+                                         Identification)</xsd:documentation>
+        </xsd:annotation>
+        <xsd:simpleContent>
+            <xsd:restriction base="ext:FEIN-ProxyType">
+                <xsd:maxLength value="10"/>
+                <xsd:minLength value="8"/>
+                <xsd:attributeGroup ref="s:SimpleObjectAttributeGroup"/>
+            </xsd:restriction>
+        </xsd:simpleContent>
+    </xsd:complexType>
+    <xsd:complexType abstract="false" mixed="false" name="OrganizationNameType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <Base xmlns="http://niem.gov/niem/appinfo/2.0" i:name="Object"
+                      i:namespace="http://niem.gov/niem/structures/2.0"/>
+            </xsd:appinfo>
+            <xsd:documentation source="">A data type for A restricted data type
+                                         for organization number</xsd:documentation>
+        </xsd:annotation>
+        <xsd:simpleContent>
+            <xsd:restriction base="nc:TextType">
+                <xsd:maxLength value="60"/>
+                <xsd:minLength value="1"/>
+                <xsd:attributeGroup ref="s:SimpleObjectAttributeGroup"/>
+            </xsd:restriction>
+        </xsd:simpleContent>
+    </xsd:complexType>
+    <xsd:simpleType name="PayFrequencyCodeSimpleType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <i:Base i:name="Object"
+                        i:namespace="http://niem.gov/niem/structures/2.0"/>
+            </xsd:appinfo>
+            <xsd:documentation source="">A data type for Pay Frequency Code</xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:token">
+            <xsd:enumeration value="1">
+                <xsd:annotation>
+                    <xsd:documentation source="">Annual</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="2">
+                <xsd:annotation>
+                    <xsd:documentation source="">SemiAnnual</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="4">
+                <xsd:annotation>
+                    <xsd:documentation source="">Monthly</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="5">
+                <xsd:annotation>
+                    <xsd:documentation source="">SemiMonthly</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="6">
+                <xsd:annotation>
+                    <xsd:documentation source="">BiWeekly</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="7">
+                <xsd:annotation>
+                    <xsd:documentation source="">Weekly</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="8">
+                <xsd:annotation>
+                    <xsd:documentation source="">Daily</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="9">
+                <xsd:annotation>
+                    <xsd:documentation source="">Hourly</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="10">
+                <xsd:annotation>
+                    <xsd:documentation source="">13 Times/Year</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="11">
+                <xsd:annotation>
+                    <xsd:documentation source="">Commission Only</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="12">
+                <xsd:annotation>
+                    <xsd:documentation source="">10 Times/Year</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="13">
+                <xsd:annotation>
+                    <xsd:documentation source="">Guaranteed Income</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="14">
+                <xsd:annotation>
+                    <xsd:documentation source="">11 Times/Year</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="15">
+                <xsd:annotation>
+                    <xsd:documentation source="">Owner Base Pay</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="16">
+                <xsd:annotation>
+                    <xsd:documentation source="">Hourly w/o Commission</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="17">
+                <xsd:annotation>
+                    <xsd:documentation source="">Hourly + Commission</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="18">
+                <xsd:annotation>
+                    <xsd:documentation source="">Quarterly</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="19">
+                <xsd:annotation>
+                    <xsd:documentation source="">Monthly Pension</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="20">
+                <xsd:annotation>
+                    <xsd:documentation source="">Monthly – 2x Jan.; no pay Dec</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="21">
+                <xsd:annotation>
+                    <xsd:documentation source="">Hourly or Commission</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:complexType abstract="false" mixed="false" name="PayFrequencyCodeType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <i:Base i:name="Object"
+                        i:namespace="http://niem.gov/niem/structures/2.0"/>
+            </xsd:appinfo>
+            <xsd:documentation source="">A data type for Pay Frequency Code</xsd:documentation>
+        </xsd:annotation>
+        <xsd:simpleContent>
+            <xsd:extension base="ext:PayFrequencyCodeSimpleType">
+                <xsd:attributeGroup ref="s:SimpleObjectAttributeGroup"/>
+            </xsd:extension>
+        </xsd:simpleContent>
+    </xsd:complexType>
+    <xsd:simpleType name="PayFrequencyMessageCodeSimpleType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <i:Base i:name="Object"
+                        i:namespace="http://niem.gov/niem/structures/2.0"/>
+            </xsd:appinfo>
+            <xsd:documentation source="">A data type for Pay Frequency Message</xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:token">
+            <xsd:enumeration value="Annual">
+                <xsd:annotation>
+                    <xsd:documentation source="">Annual</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="Semi-Annual">
+                <xsd:annotation>
+                    <xsd:documentation source="">Semi-Annual</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="Monthly">
+                <xsd:annotation>
+                    <xsd:documentation source="">Monthly</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="Semi-Monthly">
+                <xsd:annotation>
+                    <xsd:documentation source="">Semi-Monthly</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="Bi-Weekly">
+                <xsd:annotation>
+                    <xsd:documentation source="">Bi-Weekly</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="Weekly">
+                <xsd:annotation>
+                    <xsd:documentation source="">Weekly</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="Daily">
+                <xsd:annotation>
+                    <xsd:documentation source="">Daily</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="Hourly">
+                <xsd:annotation>
+                    <xsd:documentation source="">Hourly</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="13 Times/Year">
+                <xsd:annotation>
+                    <xsd:documentation source="">13 Times/Year</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="Commission Only">
+                <xsd:annotation>
+                    <xsd:documentation source="">Commission Only</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="10 Times/Year">
+                <xsd:annotation>
+                    <xsd:documentation source="">10 Times/Year</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="Guaranteed Income">
+                <xsd:annotation>
+                    <xsd:documentation source="">Guaranteed Income</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="11 Times/Year">
+                <xsd:annotation>
+                    <xsd:documentation source="">11 Times/Year</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="Owner Base Pay">
+                <xsd:annotation>
+                    <xsd:documentation source="">Owner Base Pay</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="Hourly w/o Commission">
+                <xsd:annotation>
+                    <xsd:documentation source="">Hourly w/o Commission</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="Hourly + Commission">
+                <xsd:annotation>
+                    <xsd:documentation source="">Hourly + Commission</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="Quarterly">
+                <xsd:annotation>
+                    <xsd:documentation source="">Quarterly</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="Monthly Pension">
+                <xsd:annotation>
+                    <xsd:documentation source="">Monthly Pension</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="Monthly - 2x Jan.; no pay Dec.">
+                <xsd:annotation>
+                    <xsd:documentation source="">Monthly – 2x Jan.; no pay Dec.</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="Hourly or Commission">
+                <xsd:annotation>
+                    <xsd:documentation source="">Hourly or Commission</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:complexType abstract="false" mixed="false"
+                     name="PayFrequencyMessageCodeType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <i:Base i:name="Object"
+                        i:namespace="http://niem.gov/niem/structures/2.0"/>
+            </xsd:appinfo>
+            <xsd:documentation source="">A data type for Pay Frequency Message</xsd:documentation>
+        </xsd:annotation>
+        <xsd:simpleContent>
+            <xsd:extension base="ext:PayFrequencyMessageCodeSimpleType">
+                <xsd:attributeGroup ref="s:SimpleObjectAttributeGroup"/>
+            </xsd:extension>
+        </xsd:simpleContent>
+    </xsd:complexType>
+    <xsd:simpleType name="PayPeriodFrequencyCodeSimpleType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <i:Base i:name="Object"
+                        i:namespace="http://niem.gov/niem/structures/2.0"/>
+            </xsd:appinfo>
+            <xsd:documentation source="">A data type for Pay Period Frequency
+                                         Code</xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:token">
+            <xsd:enumeration value="1">
+                <xsd:annotation>
+                    <xsd:documentation source="">Annual</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="2">
+                <xsd:annotation>
+                    <xsd:documentation source="">SemiAnnual</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="4">
+                <xsd:annotation>
+                    <xsd:documentation source="">Monthly</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="5">
+                <xsd:annotation>
+                    <xsd:documentation source="">SemiMonthly</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="6">
+                <xsd:annotation>
+                    <xsd:documentation source="">BiWeekly</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="7">
+                <xsd:annotation>
+                    <xsd:documentation source="">Weekly</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="8">
+                <xsd:annotation>
+                    <xsd:documentation source="">Daily</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:complexType abstract="false" mixed="false"
+                     name="PayPeriodFrequencyCodeType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <i:Base i:name="Object"
+                        i:namespace="http://niem.gov/niem/structures/2.0"/>
+            </xsd:appinfo>
+            <xsd:documentation source="">A data type for Pay Period Frequency
+                                         Code</xsd:documentation>
+        </xsd:annotation>
+        <xsd:simpleContent>
+            <xsd:extension base="ext:PayPeriodFrequencyCodeSimpleType">
+                <xsd:attributeGroup ref="s:SimpleObjectAttributeGroup"/>
+            </xsd:extension>
+        </xsd:simpleContent>
+    </xsd:complexType>
+    <xsd:simpleType name="PayPeriodFrequencyMessageCodeSimpleType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <i:Base i:name="Object"
+                        i:namespace="http://niem.gov/niem/structures/2.0"/>
+            </xsd:appinfo>
+            <xsd:documentation source="">A data type for Pay Period Frequency
+                                         Message</xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:token">
+            <xsd:enumeration value="Annual">
+                <xsd:annotation>
+                    <xsd:documentation source="">Annual</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="Semi-Annual">
+                <xsd:annotation>
+                    <xsd:documentation source="">Semi-Annual</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="Monthly">
+                <xsd:annotation>
+                    <xsd:documentation source="">Monthly</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="Semi-Monthly">
+                <xsd:annotation>
+                    <xsd:documentation source="">Semi-Monthly</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="Bi-Weekly">
+                <xsd:annotation>
+                    <xsd:documentation source="">Bi-Weekly</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="Weekly">
+                <xsd:annotation>
+                    <xsd:documentation source="">Weekly</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="Daily">
+                <xsd:annotation>
+                    <xsd:documentation source="">Daily</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:complexType abstract="false" mixed="false"
+                     name="PayPeriodFrequencyMessageCodeType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <i:Base i:name="Object"
+                        i:namespace="http://niem.gov/niem/structures/2.0"/>
+            </xsd:appinfo>
+            <xsd:documentation source="">A data type for Pay Period Frequency
+                                         Message</xsd:documentation>
+        </xsd:annotation>
+        <xsd:simpleContent>
+            <xsd:extension base="ext:PayPeriodFrequencyMessageCodeSimpleType">
+                <xsd:attributeGroup ref="s:SimpleObjectAttributeGroup"/>
+            </xsd:extension>
+        </xsd:simpleContent>
+    </xsd:complexType>
+    <xsd:complexType abstract="false" mixed="false" name="PayPeriodInfoType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <i:Base i:name="Object"
+                        i:namespace="http://niem.gov/niem/structures/2.0"/>
+            </xsd:appinfo>
+            <xsd:documentation source="">A data type for Pay Period Information</xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="s:ComplexObjectType">
+                <xsd:sequence>
+                    <xsd:element maxOccurs="unbounded" minOccurs="0"
+                                 ref="ext:PayPeriodInformation"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:complexType abstract="false" mixed="false"
+                     name="PayPeriodInformationType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <i:Base i:name="Object"
+                        i:namespace="http://niem.gov/niem/structures/2.0"/>
+            </xsd:appinfo>
+            <xsd:documentation source="">A data type for Pay Period Information</xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="s:ComplexObjectType">
+                <xsd:sequence>
+                    <xsd:element maxOccurs="1" minOccurs="1"
+                                 ref="ext:PayPeriodEndDate"/>
+                    <xsd:element maxOccurs="1" minOccurs="1"
+                                 ref="ext:IncomeDetail"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:complexType abstract="false" mixed="false"
+                     name="PayRateRestrictionType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <Base xmlns="http://niem.gov/niem/appinfo/2.0"
+                      i:name="IncomeType"
+                      i:namespace="http://hix.cms.gov/0.1/hix-core"/>
+            </xsd:appinfo>
+            <xsd:documentation source="">A data type for Pay Rate Restriction</xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:restriction base="hix-core:IncomeType">
+                <xsd:sequence>
+                    <xsd:element maxOccurs="1" minOccurs="0"
+                                 ref="hix-core:IncomeAmount"/>
+                </xsd:sequence>
+            </xsd:restriction>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:complexType abstract="false" mixed="false" name="SSN-ProxyType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <i:Base i:name="Object"
+                        i:namespace="http://niem.gov/niem/structures/2.0"/>
+            </xsd:appinfo>
+            <xsd:documentation source="">A data type for Social Security Number
+                                         Restriction</xsd:documentation>
+        </xsd:annotation>
+        <xsd:simpleContent>
+            <xsd:extension base="niem-xsd:string"/>
+        </xsd:simpleContent>
+    </xsd:complexType>
+    <xsd:complexType abstract="false" mixed="false" name="SSNRestrictionType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <Base xmlns="http://niem.gov/niem/appinfo/2.0" i:name="Object"
+                      i:namespace="http://niem.gov/niem/structures/2.0"/>
+            </xsd:appinfo>
+            <xsd:documentation source="">A data type for A restricted data type
+                                         for social security number</xsd:documentation>
+        </xsd:annotation>
+        <xsd:simpleContent>
+            <xsd:restriction base="ext:SSN-ProxyType">
+                <xsd:length value="9"/>
+                <xsd:pattern value="\d{0,9}"/>
+                <xsd:attributeGroup ref="s:SimpleObjectAttributeGroup"/>
+            </xsd:restriction>
+        </xsd:simpleContent>
+    </xsd:complexType>
+    <xsd:complexType abstract="false" mixed="false" name="StreetTextType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <Base xmlns="http://niem.gov/niem/appinfo/2.0" i:name="Object"
+                      i:namespace="http://niem.gov/niem/structures/2.0"/>
+            </xsd:appinfo>
+            <xsd:documentation source="">A data type for A restricted data type
+                                         for street name</xsd:documentation>
+        </xsd:annotation>
+        <xsd:simpleContent>
+            <xsd:restriction base="nc:TextType">
+                <xsd:maxLength value="30"/>
+                <xsd:minLength value="1"/>
+                <xsd:attributeGroup ref="s:SimpleObjectAttributeGroup"/>
+            </xsd:restriction>
+        </xsd:simpleContent>
+    </xsd:complexType>
+    <xsd:simpleType name="TierRestrictionSimpleType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <i:Base i:name="Object"
+                        i:namespace="http://niem.gov/niem/structures/2.0"/>
+            </xsd:appinfo>
+            <xsd:documentation source="">A data type for A restricted data type
+                                         for TIER restriction</xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:integer">
+            <xsd:maxInclusive value="2"/>
+            <xsd:minInclusive value="1"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:simpleType name="VerificationIDSimpleType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <i:Base i:name="Object"
+                        i:namespace="http://niem.gov/niem/structures/2.0"/>
+            </xsd:appinfo>
+            <xsd:documentation source="">A data type for A restricted data type
+                                         for verification identification</xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="40"/>
+            <xsd:minLength value="1"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:complexType abstract="false" mixed="false"
+                     name="YearOnlyRestrictionType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <Base xmlns="http://niem.gov/niem/appinfo/2.0" i:name="DateType"
+                      i:namespace="http://niem.gov/niem/niem-core/2.0"/>
+            </xsd:appinfo>
+            <xsd:documentation source="">A data type for Year Only Restriction</xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:restriction base="nc:DateType">
+                <xsd:sequence>
+                    <xsd:element maxOccurs="1" minOccurs="1" ref="nc:Year"/>
+                </xsd:sequence>
+            </xsd:restriction>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:simpleType name="YearRestrictionSimpleType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <i:Base i:name="Object"
+                        i:namespace="http://niem.gov/niem/structures/2.0"/>
+            </xsd:appinfo>
+            <xsd:documentation source="">A data type for Year Restriction</xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:gYear">
+            <xsd:maxInclusive value="9999"/>
+            <xsd:minInclusive value="1111"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+</xsd:schema>
