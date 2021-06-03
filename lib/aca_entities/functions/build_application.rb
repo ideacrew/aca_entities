@@ -18,7 +18,7 @@ module AcaEntities
           @insurance_coverage_hash = @memoized_data.find(Regexp.new("#{m_identifier}.insuranceCoverage"))&.first&.item
 
           # collector << member.item.merge!(applicant_hash)
-          collector << applicant_hash.merge(person_hbx_id: member.item[:personTrackingNumber])
+          collector << applicant_hash.merge(person_hbx_id: "#{@member_identifier}:#{member.item[:personTrackingNumber]}")
           collector
         end
 
