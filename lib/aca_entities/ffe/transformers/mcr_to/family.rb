@@ -112,7 +112,7 @@ module AcaEntities
                   add_key 'is_primary_applicant', function: lambda { |v|
                     v.resolve('family.family_members.is_primary_applicant').item == v.find(/attestations.members.(\w+)$/).map(&:item).last
                   }
-                  map 'requestingCoverageIndicator', 'is_coverage_applicant'
+                  map 'requestingCoverageIndicator', 'is_coverage_applicant', memoize: true, append_identifier: true
                   add_key 'is_active'
                   add_key 'is_consent_applicant'
                   add_key 'foreign_keys', value: ->(_v) {[]}
@@ -121,7 +121,9 @@ module AcaEntities
                   namespace 'demographic' do
                     rewrap 'family.family_members.person', type: :hash do
                       # add_key 'family_Relationships', function: AcaEntities::Functions::BuildRelationships.new
-                      add_key 'hbx_id', value: '1234' # default value
+                      add_key 'hbx_id', function: lambda {|v|
+                        v.resolve('attestations.members', identifier: true).item
+                      }
 
                       # add_namespace 'new namespace key', 'namespace path for new namespace key', type: :hash
                       # add new namespace of type hash as provided in output namespaced key
@@ -293,13 +295,14 @@ module AcaEntities
                   map 'income.currentIncome', 'income.currentIncome', memoize_record: true, visible: false
                   map 'family', 'family', memoize_record: true, visible: false # , append_identifier: true
                   map 'nonMagi', 'nonMagi', memoize_record: true, visible: false
+                  map 'other.veteranIndicator', 'veteranIndicator', memoize: true, visible: false, append_identifier: true
                   # map 'lawfulPresence.naturalizedCitizenIndicator', 'naturalizedCitizenIndicator', memoize: true, visible: false
 
                   map 'lawfulPresence.noAlienNumberIndicator', 'noAlienNumberIndicator', memoize: true, visible: false, append_identifier: true
                   map 'lawfulPresence.citizenshipIndicator', 'citizenshipIndicator', memoize: true, visible: false, append_identifier: true
                   map 'lawfulPresence.naturalizedCitizenIndicator', 'naturalizedCitizenIndicator', memoize: true, visible: false,
                                                                                                    append_identifier: true
-                  map 'insuranceCoverage.employerSponsoredCoverageOffers', 'insuranceCoverage.employerSponsoredCoverageOffers',
+                  map 'insuranceCoverage', 'insuranceCoverage',
                       memoize_record: true, visible: false
                   add_key 'person.consumer_role.lawful_presence_determination.citizen_status',
                           function: AcaEntities::Functions::BuildLawfulPresenceDetermination.new
@@ -308,12 +311,12 @@ module AcaEntities
                   add_key 'person.person_health.is_physically_disabled',
                           function: lambda {|v|
                             attr = v.find(Regexp.new('attestations.members.*.nonMagi')).map(&:item).last
-                            attr.nil? ? nil : attr[:blindOrDisabledIndicator]
+                            attr.nil? ? false : attr[:blindOrDisabledIndicator]
                           }
                   add_key 'person.is_disabled',
                           function: lambda {|v|
                             attr = v.find(Regexp.new('attestations.members.*.nonMagi')).map(&:item).last
-                            attr.nil? ? nil : attr[:blindOrDisabledIndicator]
+                            attr.nil? ? false : attr[:blindOrDisabledIndicator]
                           }
 
                   map 'other.americanIndianAlaskanNative.personRecognizedTribeIndicator',
