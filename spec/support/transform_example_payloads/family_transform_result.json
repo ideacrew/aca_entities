@@ -79,7 +79,7 @@
                             "address_3": null
                         }
                     ],
-                    "hbx_id": "1234",
+                    "hbx_id": "1437478148886635679",
                     "identifiers": {
                         "source_system_key": "ccr",
                         "ids": {
@@ -210,7 +210,7 @@
                             "address_3": null
                         }
                     ],
-                    "hbx_id": "1234",
+                    "hbx_id": "1437478148886635680",
                     "identifiers": {
                         "source_system_key": "ccr",
                         "ids": {
@@ -341,7 +341,7 @@
                             "address_3": null
                         }
                     ],
-                    "hbx_id": "1234",
+                    "hbx_id": "1437478148886635681",
                     "identifiers": {
                         "source_system_key": "ccr",
                         "ids": {
@@ -471,128 +471,6 @@
                 },
                 "applicants": [
                     {
-                        "personTrackingNumber": "1437548400634897549",
-                        "indianStatus": "NO",
-                        "indianStatusReason": "178_ATSTD_NOT_INDIAN",
-                        "nonEscMecStatus": "NO",
-                        "nonEscMecStatusReason": "999_N_A",
-                        "qhpStatus": "YES",
-                        "qhpStatusReason": "999_N_A",
-                        "ssnStatus": "YES",
-                        "ssnStatusReason": "999_N_A",
-                        "medicaidLawfulPresenceStatus": "NOT_APPLICABLE",
-                        "medicaidLawfulPresenceStatusReason": "569_APPLICANT_ATSTD_CITIZEN",
-                        "under100FplWithLawfulPresenceDmiIndicator": false,
-                        "aptcStatus": "YES",
-                        "aptcStatusReason": "999_N_A",
-                        "secretaryHardshipExemptionIndicator": false,
-                        "citizenshipStatus": "YES",
-                        "citizenshipStatusReason": "999_N_A",
-                        "citizenshipDataEventStatus": "HUB_CALL_COMPLETED",
-                        "citizenshipDataFoundIndicator": true,
-                        "preliminaryMedicaidStatus": "NO",
-                        "preliminaryMedicaidStatusReason": "106_NOT_ALL_MDCAID_ELGBLT_CRITERIA_MET",
-                        "preliminaryChipStatus": "NO",
-                        "preliminaryChipStatusReason": "107_NOT_CHIP_ELGBL",
-                        "preliminaryAptcStatus": "YES",
-                        "preliminaryAptcStatusReason": "999_N_A",
-                        "preliminaryEmergencyMedicaidStatus": "NO",
-                        "preliminaryEmergencyMedicaidStatusReason": "109_NOT_MEET_REQUIREMENTS_FOR_EMERGENCY_MDCAID",
-                        "dependentChildCoveredStatus": "NOT_APPLICABLE",
-                        "dependentChildCoveredStatusReason": "652_NOT_PRELIM_MEDICAID_OR_PRELIM_CHIP_ELIGIBLE",
-                        "chipStateHealthBenefitStatus": "NOT_APPLICABLE",
-                        "chipStateHealthBenefitStatusReason": "652_NOT_PRELIM_MEDICAID_OR_PRELIM_CHIP_ELIGIBLE",
-                        "chipWaitingPeriodStatus": "NOT_APPLICABLE",
-                        "chipWaitingPeriodStatusReason": "652_NOT_PRELIM_MEDICAID_OR_PRELIM_CHIP_ELIGIBLE",
-                        "emergencyMedicaidStatus": "NO",
-                        "emergencyMedicaidStatusReason": "109_NOT_MEET_REQUIREMENTS_FOR_EMERGENCY_MDCAID",
-                        "unbornChildChipStatus": "NOT_APPLICABLE",
-                        "unbornChildChipStatusReason": "555_N_A_RULE_DOES_NOT_APPLY",
-                        "qhpLawfulPresenceStatus": "NOT_APPLICABLE",
-                        "qhpLawfulPresenceStatusReason": "569_APPLICANT_ATSTD_CITIZEN",
-                        "csrStatus": "NO",
-                        "csrStatusReason": "419_GREATER_THAN_250FPL_AND_NOT_INDIAN",
-                        "csrVariant": "NOT_APPLICABLE",
-                        "medicaidStatus": "NO",
-                        "medicaidStatusReason": "106_NOT_ALL_MDCAID_ELGBLT_CRITERIA_MET",
-                        "chipStatus": "NO",
-                        "chipStatusReason": "107_NOT_CHIP_ELGBL",
-                        "medicaidChipStandard": {
-                            "medicaidStandardPercent": 133,
-                            "medicaidStandardBasisType": "ADULT_GROUP_CATEGORY",
-                            "chipStandardPercent": 0,
-                            "adultGroupCategoryStatus": "YES",
-                            "childCaretakerDeprivedStatus": "NOT_APPLICABLE",
-                            "parentCaretakerCategoryStatus": "YES",
-                            "parentCaretakerChildList": [
-                                {
-                                    "parentCaretakerChildList": [
-                                        "1437478148886635680",
-                                        "1437478148886635681"
-                                    ]
-                                }
-                            ]
-                        },
-                        "escMecStatus": "NO",
-                        "escMecStatusReason": "999_N_A",
-                        "incarcerationStatus": "NO",
-                        "incarcerationStatusReason": "100_ONLY_SSA_DATA_AVAILABLE_BUT_NOT_COMPATIBLE",
-                        "income": {
-                            "medicaidIncomeStatus": "NO",
-                            "chipIncomeStatus": "NO",
-                            "medicaidChipIncomeStatusReason": "533_ATSTD_ABOVE_MDCAID_STANDARD_CHIP_STANDARD_IS_0_INELGBLE_FOR_MDCAID_CHIP",
-                            "attestedMonthlyIndividualIncomeAmt": 2212.51,
-                            "disregardAdjustAttestedMonthlyMedicaidHouseholdIncomePercent": 250.52,
-                            "adjustAttestedMonthlyMedicaidHouseholdIncomeAmount": 4424.68,
-                            "adjustAttestedAnnualMedicaidHouseholdIncomeAmount": 53096.08,
-                            "attestedAnnualizedAptcIndividualIncomeAmt": 26550.08,
-                            "irsDataStatus": "HUB_CALL_COMPLETED",
-                            "irsDataStatusReason": "999"
-                        },
-                        "medicaidHouseholdComposition": {
-                            "medicaidTaxRoleType": "JOINT_TAX_FILER",
-                            "medicaidHouseHoldStatus": "YES",
-                            "medicaidHouseHoldStatusReason": "999",
-                            "medicaidHouseholdSize": 3,
-                            "medicaidHouseholdMemberIdentifiers": [
-                                {
-                                    "medicaidHouseholdMemberIdentifiers": [
-                                        "1437478148886635679",
-                                        "1437478148886635680",
-                                        "1437478148886635681"
-                                    ]
-                                }
-                            ]
-                        },
-                        "medicaidNonMagiReferralStatus": "NO",
-                        "medicaidNonMagiReferralStatusReason": "108_NOT_MEET_REQUIREMENTS_FOR_NON_MAGI_REFERRAL",
-                        "qhpResidency": {
-                            "qhpResidencyStatus": "YES",
-                            "qhpResidencyStatusReason": "999_N_A",
-                            "taxHouseholdResidencyAppliesIndicator": false
-                        },
-                        "medicaidResidencyStatus": "YES",
-                        "medicaidResidencyStatusReason": "999_N_A",
-                        "eligibleSEP": [
-                            {
-                                "status": "YES",
-                                "statusReason": "999_N_A",
-                                "startDate": "2019-02-15",
-                                "endDate": "2019-04-16",
-                                "sepType": "LAWFUL_PRESENCE_SEP"
-                            }
-                        ],
-                        "fiveYearBarStatus": "NOT_APPLICABLE",
-                        "fiveYearBarStatusReason": "569_APPLICANT_ATSTD_CITIZEN",
-                        "residencyAddress": {
-                            "residencyAddressSourceType": "HOME",
-                            "streetName1": "1227 jkdyfdcrej",
-                            "cityName": "Harrington",
-                            "stateCode": "NV",
-                            "zipCode": "89316",
-                            "countyName": "Eureka",
-                            "countyFipsCode": "32011"
-                        },
                         "is_primary_applicant": true,
                         "name": {
                             "first_name": "Fatheroevwg",
@@ -639,15 +517,15 @@
                             "person_hbx_id": "1234",
                             "is_primary_family_member": true
                         },
-                        "person_hbx_id": "1234",
-                        "is_required_to_file_taxes": false,
-                        "tax_filer_kind": "single",
+                        "person_hbx_id": "1437548400634897549",
+                        "is_required_to_file_taxes": true,
+                        "tax_filer_kind": "tax_filer",
                         "is_joint_tax_filing": true,
                         "is_claimed_as_tax_dependent": false,
                         "claimed_as_tax_dependent_by": null,
                         "student": {
-                            "is_student": null,
-                            "student_kind": "full_time",
+                            "is_student": true,
+                            "student_kind": null,
                             "student_school_kind": null,
                             "student_status_end_on": null
                         },
@@ -680,7 +558,7 @@
                         "has_self_employment_income": false,
                         "has_unemployment_income": false,
                         "has_other_income": false,
-                        "has_deductions": false,
+                        "has_deductions": true,
                         "has_enrolled_health_coverage": false,
                         "has_eligible_health_coverage": false,
                         "addresses": [],
@@ -688,68 +566,140 @@
                         "phones": [],
                         "incomes": [
                             {
-                                "title": null,
-                                "kind": "alimony_and_maintenance",
-                                "wage_type": null,
-                                "hours_per_week": null,
-                                "amount": -197.77,
-                                "amount_tax_exempt": null,
-                                "frequency_kind": "Monthly",
-                                "start_on": "2021-05-07",
-                                "end_on": null,
-                                "is_projected": null,
-                                "employer": null,
-                                "has_property_usage_rights": null,
-                                "submitted_at": null
-                            },
-                            {
-                                "title": null,
-                                "kind": "alimony_and_maintenance",
-                                "wage_type": null,
-                                "hours_per_week": null,
+                                "kind": "wages_and_salaries",
                                 "amount": 99.37,
-                                "amount_tax_exempt": null,
+                                "amount_tax_exempt": 0,
+                                "employer_name": "ABCD Inc.1",
                                 "frequency_kind": "Weekly",
                                 "start_on": "2021-05-07",
                                 "end_on": null,
-                                "is_projected": null,
-                                "employer": null,
-                                "has_property_usage_rights": null,
-                                "submitted_at": null
+                                "is_projected": false,
+                                "employer_address": {
+                                    "address_1": "123test",
+                                    "address_2": "",
+                                    "address_3": "",
+                                    "county": "",
+                                    "country_name": "",
+                                    "kind": "work",
+                                    "city": "was",
+                                    "state": "DC",
+                                    "zip": "23421"
+                                },
+                                "employer_phone": {
+                                    "kind": "work",
+                                    "country_code": "",
+                                    "area_code": "987",
+                                    "number": "6547890",
+                                    "extension": "",
+                                    "full_phone_number": "9876547890"
+                                }
                             },
                             {
-                                "title": null,
-                                "kind": "alimony_and_maintenance",
-                                "wage_type": null,
-                                "hours_per_week": null,
+                                "kind": "wages_and_salaries",
                                 "amount": 5159.17,
-                                "amount_tax_exempt": null,
+                                "amount_tax_exempt": 0,
+                                "employer_name": "ABCD Inc.1",
                                 "frequency_kind": "Annually",
                                 "start_on": "2021-05-07",
                                 "end_on": null,
-                                "is_projected": null,
-                                "employer": null,
-                                "has_property_usage_rights": null,
-                                "submitted_at": null
+                                "is_projected": false,
+                                "employer_address": {
+                                    "address_1": "123test",
+                                    "address_2": "",
+                                    "address_3": "",
+                                    "county": "",
+                                    "country_name": "",
+                                    "kind": "work",
+                                    "city": "was",
+                                    "state": "DC",
+                                    "zip": "23421"
+                                },
+                                "employer_phone": {
+                                    "kind": "work",
+                                    "country_code": "",
+                                    "area_code": "987",
+                                    "number": "6547890",
+                                    "extension": "",
+                                    "full_phone_number": "9876547890"
+                                }
                             },
                             {
-                                "title": null,
-                                "kind": "alimony_and_maintenance",
-                                "wage_type": null,
-                                "hours_per_week": null,
+                                "kind": "wages_and_salaries",
                                 "amount": 18600.88,
-                                "amount_tax_exempt": null,
+                                "amount_tax_exempt": 0,
+                                "employer_name": "ABCD Inc.1",
                                 "frequency_kind": "Annually",
                                 "start_on": "2021-05-07",
                                 "end_on": null,
-                                "is_projected": null,
-                                "employer": null,
-                                "has_property_usage_rights": null,
-                                "submitted_at": null
+                                "is_projected": false,
+                                "employer_address": {
+                                    "address_1": "123test",
+                                    "address_2": "",
+                                    "address_3": "",
+                                    "county": "",
+                                    "country_name": "",
+                                    "kind": "work",
+                                    "city": "was",
+                                    "state": "DC",
+                                    "zip": "23421"
+                                },
+                                "employer_phone": {
+                                    "kind": "work",
+                                    "country_code": "",
+                                    "area_code": "987",
+                                    "number": "6547890",
+                                    "extension": "",
+                                    "full_phone_number": "9876547890"
+                                }
                             }
                         ],
-                        "benefits": [],
-                        "deductions": [],
+                        "benefits": [
+                            {
+                                "employee_cost": 500.0,
+                                "kind": "employer_sponsored_insurance",
+                                "status": "is_enrolled",
+                                "employer": {
+                                    "employer_name": "ncrbt",
+                                    "employer_id": "123456789"
+                                },
+                                "is_esi_waiting_period": false,
+                                "is_esi_mec_met": "YES",
+                                "esi_covered": "self",
+                                "start_on": "2021-05-07",
+                                "end_on": null,
+                                "employee_cost_frequency": "Monthly",
+                                "employer_address": {
+                                    "address_1": "21313312",
+                                    "address_2": "",
+                                    "address_3": "",
+                                    "county": "",
+                                    "country_name": "",
+                                    "kind": "work",
+                                    "city": "was",
+                                    "state": "DC",
+                                    "zip": "31232"
+                                },
+                                "employer_phone": {
+                                    "kind": "work",
+                                    "country_code": "",
+                                    "area_code": "123",
+                                    "number": "4123412",
+                                    "extension": "",
+                                    "full_phone_number": "1234123412"
+                                }
+                            }
+                        ],
+                        "deductions": [
+                            {
+                                "kind": "alimony_paid",
+                                "amount": -197.77,
+                                "amount_tax_exempt": 0,
+                                "frequency_kind": "Monthly",
+                                "start_on": "2021-05-07",
+                                "end_on": null,
+                                "is_projected": false
+                            }
+                        ],
                         "is_medicare_eligible": false,
                         "has_insurance": false,
                         "has_state_health_benefit": false,
@@ -759,118 +709,6 @@
                         "hours_worked_per_week": "2"
                     },
                     {
-                        "personTrackingNumber": "1437548400634897550",
-                        "indianStatus": "NO",
-                        "indianStatusReason": "178_ATSTD_NOT_INDIAN",
-                        "nonEscMecStatus": "YES",
-                        "nonEscMecStatusReason": "571_STATUS_SET_BASED_ON_NONESC_MEC_ATTESTATION",
-                        "qhpStatus": "YES",
-                        "qhpStatusReason": "999_N_A",
-                        "ssnStatus": "YES",
-                        "ssnStatusReason": "999_N_A",
-                        "medicaidLawfulPresenceStatus": "NOT_APPLICABLE",
-                        "medicaidLawfulPresenceStatusReason": "569_APPLICANT_ATSTD_CITIZEN",
-                        "under100FplWithLawfulPresenceDmiIndicator": false,
-                        "aptcStatus": "NO",
-                        "aptcStatusReason": "414_NOT_APTC_ELGBLE_ENROLLED_OR_OFFER_FROM_OTHER_MEC",
-                        "secretaryHardshipExemptionIndicator": false,
-                        "citizenshipStatus": "YES",
-                        "citizenshipStatusReason": "999_N_A",
-                        "citizenshipDataEventStatus": "HUB_CALL_COMPLETED",
-                        "citizenshipDataFoundIndicator": true,
-                        "preliminaryMedicaidStatus": "NO",
-                        "preliminaryMedicaidStatusReason": "106_NOT_ALL_MDCAID_ELGBLT_CRITERIA_MET",
-                        "preliminaryChipStatus": "NO",
-                        "preliminaryChipStatusReason": "107_NOT_CHIP_ELGBL",
-                        "preliminaryAptcStatus": "YES",
-                        "preliminaryAptcStatusReason": "999_N_A",
-                        "preliminaryEmergencyMedicaidStatus": "NO",
-                        "preliminaryEmergencyMedicaidStatusReason": "109_NOT_MEET_REQUIREMENTS_FOR_EMERGENCY_MDCAID",
-                        "dependentChildCoveredStatus": "NOT_APPLICABLE",
-                        "dependentChildCoveredStatusReason": "652_NOT_PRELIM_MEDICAID_OR_PRELIM_CHIP_ELIGIBLE",
-                        "chipStateHealthBenefitStatus": "NOT_APPLICABLE",
-                        "chipStateHealthBenefitStatusReason": "652_NOT_PRELIM_MEDICAID_OR_PRELIM_CHIP_ELIGIBLE",
-                        "chipWaitingPeriodStatus": "NOT_APPLICABLE",
-                        "chipWaitingPeriodStatusReason": "652_NOT_PRELIM_MEDICAID_OR_PRELIM_CHIP_ELIGIBLE",
-                        "emergencyMedicaidStatus": "NO",
-                        "emergencyMedicaidStatusReason": "109_NOT_MEET_REQUIREMENTS_FOR_EMERGENCY_MDCAID",
-                        "unbornChildChipStatus": "NOT_APPLICABLE",
-                        "unbornChildChipStatusReason": "555_N_A_RULE_DOES_NOT_APPLY",
-                        "qhpLawfulPresenceStatus": "NOT_APPLICABLE",
-                        "qhpLawfulPresenceStatusReason": "569_APPLICANT_ATSTD_CITIZEN",
-                        "csrStatus": "NO",
-                        "csrStatusReason": "176_APTC_INELGBL_AND_NOT_INDIAN",
-                        "csrVariant": "NOT_APPLICABLE",
-                        "medicaidStatus": "NO",
-                        "medicaidStatusReason": "106_NOT_ALL_MDCAID_ELGBLT_CRITERIA_MET",
-                        "chipStatus": "NO",
-                        "chipStatusReason": "107_NOT_CHIP_ELGBL",
-                        "medicaidChipStandard": {
-                            "medicaidStandardPercent": 133,
-                            "medicaidStandardBasisType": "ADULT_GROUP_CATEGORY",
-                            "chipStandardPercent": 0,
-                            "adultGroupCategoryStatus": "YES",
-                            "childCaretakerDeprivedStatus": "NOT_APPLICABLE",
-                            "parentCaretakerCategoryStatus": "YES",
-                            "parentCaretakerChildList": [
-                                {
-                                    "parentCaretakerChildList": [
-                                        "1437478148886635681"
-                                    ]
-                                }
-                            ]
-                        },
-                        "escMecStatus": "NO",
-                        "escMecStatusReason": "999_N_A",
-                        "incarcerationStatus": "NO",
-                        "incarcerationStatusReason": "100_ONLY_SSA_DATA_AVAILABLE_BUT_NOT_COMPATIBLE",
-                        "income": {
-                            "medicaidIncomeStatus": "NO",
-                            "chipIncomeStatus": "NO",
-                            "medicaidChipIncomeStatusReason": "533_ATSTD_ABOVE_MDCAID_STANDARD_CHIP_STANDARD_IS_0_INELGBLE_FOR_MDCAID_CHIP",
-                            "attestedMonthlyIndividualIncomeAmt": 2212.17,
-                            "disregardAdjustAttestedMonthlyMedicaidHouseholdIncomePercent": 250.52,
-                            "adjustAttestedMonthlyMedicaidHouseholdIncomeAmount": 4424.68,
-                            "adjustAttestedAnnualMedicaidHouseholdIncomeAmount": 53096.08,
-                            "attestedAnnualizedAptcIndividualIncomeAmt": 26546.0,
-                            "irsDataStatus": "HUB_CALL_COMPLETED",
-                            "irsDataStatusReason": "999"
-                        },
-                        "medicaidHouseholdComposition": {
-                            "medicaidTaxRoleType": "JOINT_TAX_FILER",
-                            "medicaidHouseHoldStatus": "YES",
-                            "medicaidHouseHoldStatusReason": "999",
-                            "medicaidHouseholdSize": 3,
-                            "medicaidHouseholdMemberIdentifiers": [
-                                {
-                                    "medicaidHouseholdMemberIdentifiers": [
-                                        "1437478148886635679",
-                                        "1437478148886635680",
-                                        "1437478148886635681"
-                                    ]
-                                }
-                            ]
-                        },
-                        "medicaidNonMagiReferralStatus": "NO",
-                        "medicaidNonMagiReferralStatusReason": "108_NOT_MEET_REQUIREMENTS_FOR_NON_MAGI_REFERRAL",
-                        "qhpResidency": {
-                            "qhpResidencyStatus": "YES",
-                            "qhpResidencyStatusReason": "999_N_A",
-                            "taxHouseholdResidencyAppliesIndicator": false
-                        },
-                        "medicaidResidencyStatus": "YES",
-                        "medicaidResidencyStatusReason": "999_N_A",
-                        "fiveYearBarStatus": "NOT_APPLICABLE",
-                        "fiveYearBarStatusReason": "569_APPLICANT_ATSTD_CITIZEN",
-                        "residencyAddress": {
-                            "residencyAddressSourceType": "HOME",
-                            "streetName1": "1227 jkdyfdcrej",
-                            "cityName": "Concord",
-                            "stateCode": "NV",
-                            "zipCode": "89316",
-                            "countyName": "Eureka",
-                            "countyFipsCode": "32011"
-                        },
                         "is_primary_applicant": false,
                         "name": {
                             "first_name": "Spouserfmkj",
@@ -917,15 +755,15 @@
                             "person_hbx_id": "1234",
                             "is_primary_family_member": false
                         },
-                        "person_hbx_id": "1234",
-                        "is_required_to_file_taxes": false,
-                        "tax_filer_kind": "single",
+                        "person_hbx_id": "1437548400634897550",
+                        "is_required_to_file_taxes": true,
+                        "tax_filer_kind": "tax_filer",
                         "is_joint_tax_filing": true,
                         "is_claimed_as_tax_dependent": false,
                         "claimed_as_tax_dependent_by": null,
                         "student": {
-                            "is_student": null,
-                            "student_kind": "full_time",
+                            "is_student": true,
+                            "student_kind": null,
                             "student_school_kind": null,
                             "student_status_end_on": null
                         },
@@ -959,29 +797,90 @@
                         "has_unemployment_income": false,
                         "has_other_income": false,
                         "has_deductions": false,
-                        "has_enrolled_health_coverage": false,
-                        "has_eligible_health_coverage": false,
+                        "has_enrolled_health_coverage": true,
+                        "has_eligible_health_coverage": true,
                         "addresses": [],
                         "emails": [],
                         "phones": [],
                         "incomes": [
                             {
-                                "title": null,
-                                "kind": "alimony_and_maintenance",
-                                "wage_type": null,
-                                "hours_per_week": null,
+                                "kind": "wages_and_salaries",
                                 "amount": 26546.0,
-                                "amount_tax_exempt": null,
+                                "amount_tax_exempt": 0,
+                                "employer_name": "ABCD Inc.1",
                                 "frequency_kind": "Annually",
                                 "start_on": "2021-05-07",
                                 "end_on": null,
-                                "is_projected": null,
-                                "employer": null,
-                                "has_property_usage_rights": null,
-                                "submitted_at": null
+                                "is_projected": false,
+                                "employer_address": {
+                                    "address_1": "123test",
+                                    "address_2": "",
+                                    "address_3": "",
+                                    "county": "",
+                                    "country_name": "",
+                                    "kind": "work",
+                                    "city": "was",
+                                    "state": "DC",
+                                    "zip": "23421"
+                                },
+                                "employer_phone": {
+                                    "kind": "work",
+                                    "country_code": "",
+                                    "area_code": "987",
+                                    "number": "6547890",
+                                    "extension": "",
+                                    "full_phone_number": "9876547890"
+                                }
                             }
                         ],
-                        "benefits": [],
+                        "benefits": [
+                            {
+                                "kind": "tricare",
+                                "status": "is_enrolled",
+                                "start_on": "2021-05-07",
+                                "end_on": null
+                            },
+                            {
+                                "kind": "tricare",
+                                "status": "is_eligible",
+                                "start_on": "2021-05-07",
+                                "end_on": null
+                            },
+                            {
+                                "employee_cost": 500.0,
+                                "kind": "employer_sponsored_insurance",
+                                "status": "is_enrolled",
+                                "employer": {
+                                    "employer_name": "ilpjr",
+                                    "employer_id": "123456789"
+                                },
+                                "is_esi_waiting_period": false,
+                                "is_esi_mec_met": "YES",
+                                "esi_covered": "self",
+                                "start_on": "2021-05-07",
+                                "end_on": null,
+                                "employee_cost_frequency": "Monthly",
+                                "employer_address": {
+                                    "address_1": "21313312",
+                                    "address_2": "",
+                                    "address_3": "",
+                                    "county": "",
+                                    "country_name": "",
+                                    "kind": "work",
+                                    "city": "was",
+                                    "state": "DC",
+                                    "zip": "31232"
+                                },
+                                "employer_phone": {
+                                    "kind": "work",
+                                    "country_code": "",
+                                    "area_code": "123",
+                                    "number": "4123412",
+                                    "extension": "",
+                                    "full_phone_number": "1234123412"
+                                }
+                            }
+                        ],
                         "deductions": [],
                         "is_medicare_eligible": false,
                         "has_insurance": false,
@@ -992,120 +891,6 @@
                         "hours_worked_per_week": "2"
                     },
                     {
-                        "personTrackingNumber": "1437548400634897551",
-                        "indianStatus": "NO",
-                        "indianStatusReason": "178_ATSTD_NOT_INDIAN",
-                        "nonEscMecStatus": "NO",
-                        "nonEscMecStatusReason": "999_N_A",
-                        "qhpStatus": "YES",
-                        "qhpStatusReason": "999_N_A",
-                        "ssnStatus": "YES",
-                        "ssnStatusReason": "999_N_A",
-                        "medicaidLawfulPresenceStatus": "NOT_APPLICABLE",
-                        "medicaidLawfulPresenceStatusReason": "569_APPLICANT_ATSTD_CITIZEN",
-                        "under100FplWithLawfulPresenceDmiIndicator": false,
-                        "aptcStatus": "YES",
-                        "aptcStatusReason": "999_N_A",
-                        "secretaryHardshipExemptionIndicator": false,
-                        "citizenshipStatus": "YES",
-                        "citizenshipStatusReason": "999_N_A",
-                        "citizenshipDataEventStatus": "HUB_CALL_COMPLETED",
-                        "citizenshipDataFoundIndicator": true,
-                        "preliminaryMedicaidStatus": "NO",
-                        "preliminaryMedicaidStatusReason": "106_NOT_ALL_MDCAID_ELGBLT_CRITERIA_MET",
-                        "preliminaryChipStatus": "NO",
-                        "preliminaryChipStatusReason": "107_NOT_CHIP_ELGBL",
-                        "preliminaryAptcStatus": "YES",
-                        "preliminaryAptcStatusReason": "999_N_A",
-                        "preliminaryEmergencyMedicaidStatus": "NO",
-                        "preliminaryEmergencyMedicaidStatusReason": "109_NOT_MEET_REQUIREMENTS_FOR_EMERGENCY_MDCAID",
-                        "dependentChildCoveredStatus": "NOT_APPLICABLE",
-                        "dependentChildCoveredStatusReason": "652_NOT_PRELIM_MEDICAID_OR_PRELIM_CHIP_ELIGIBLE",
-                        "chipStateHealthBenefitStatus": "NOT_APPLICABLE",
-                        "chipStateHealthBenefitStatusReason": "652_NOT_PRELIM_MEDICAID_OR_PRELIM_CHIP_ELIGIBLE",
-                        "chipWaitingPeriodStatus": "NOT_APPLICABLE",
-                        "chipWaitingPeriodStatusReason": "652_NOT_PRELIM_MEDICAID_OR_PRELIM_CHIP_ELIGIBLE",
-                        "emergencyMedicaidStatus": "NO",
-                        "emergencyMedicaidStatusReason": "109_NOT_MEET_REQUIREMENTS_FOR_EMERGENCY_MDCAID",
-                        "unbornChildChipStatus": "NOT_APPLICABLE",
-                        "unbornChildChipStatusReason": "555_N_A_RULE_DOES_NOT_APPLY",
-                        "qhpLawfulPresenceStatus": "NOT_APPLICABLE",
-                        "qhpLawfulPresenceStatusReason": "569_APPLICANT_ATSTD_CITIZEN",
-                        "csrStatus": "NO",
-                        "csrStatusReason": "419_GREATER_THAN_250FPL_AND_NOT_INDIAN",
-                        "csrVariant": "NOT_APPLICABLE",
-                        "medicaidStatus": "NO",
-                        "medicaidStatusReason": "106_NOT_ALL_MDCAID_ELGBLT_CRITERIA_MET",
-                        "chipStatus": "NO",
-                        "chipStatusReason": "107_NOT_CHIP_ELGBL",
-                        "medicaidChipStandard": {
-                            "medicaidStandardPercent": 133,
-                            "medicaidStandardBasisType": "CHILD_CATEGORY",
-                            "chipStandardPercent": 200,
-                            "chipStandardBasisType": "OPTNL_TARGETED_LOW_INCOME_CHILD_CATEGORY",
-                            "adultGroupCategoryStatus": "NO",
-                            "childCaretakerDeprivedStatus": "NOT_APPLICABLE",
-                            "parentCaretakerCategoryStatus": "NO",
-                            "parentCaretakerChildList": [
-                                {
-                                    "parentCaretakerChildList": [
-                                        "1437478148886635679",
-                                        "1437478148886635680"
-                                    ]
-                                }
-                            ]
-                        },
-                        "escMecStatus": "NO",
-                        "escMecStatusReason": "999_N_A",
-                        "incarcerationStatus": "NO",
-                        "incarcerationStatusReason": "100_ONLY_SSA_DATA_AVAILABLE_BUT_NOT_COMPATIBLE",
-                        "income": {
-                            "medicaidIncomeStatus": "NO",
-                            "chipIncomeStatus": "NO",
-                            "medicaidChipIncomeStatusReason": "408_ATSTD_ABOVE_MDCAID_CHIP_STANDARD",
-                            "attestedMonthlyIndividualIncomeAmt": 0.0,
-                            "disregardAdjustAttestedMonthlyMedicaidHouseholdIncomePercent": 250.52,
-                            "adjustAttestedMonthlyMedicaidHouseholdIncomeAmount": 4424.68,
-                            "adjustAttestedAnnualMedicaidHouseholdIncomeAmount": 53096.08,
-                            "attestedAnnualizedAptcIndividualIncomeAmt": 0.0,
-                            "irsDataStatus": "HUB_CALL_COMPLETED",
-                            "irsDataStatusReason": "999"
-                        },
-                        "medicaidHouseholdComposition": {
-                            "medicaidTaxRoleType": "DEPENDENT_ON_PARENT",
-                            "medicaidHouseHoldStatus": "YES",
-                            "medicaidHouseHoldStatusReason": "999",
-                            "medicaidHouseholdSize": 3,
-                            "medicaidHouseholdMemberIdentifiers": [
-                                {
-                                    "medicaidHouseholdMemberIdentifiers": [
-                                        "1437478148886635679",
-                                        "1437478148886635680",
-                                        "1437478148886635681"
-                                    ]
-                                }
-                            ]
-                        },
-                        "medicaidNonMagiReferralStatus": "NO",
-                        "medicaidNonMagiReferralStatusReason": "108_NOT_MEET_REQUIREMENTS_FOR_NON_MAGI_REFERRAL",
-                        "qhpResidency": {
-                            "qhpResidencyStatus": "YES",
-                            "qhpResidencyStatusReason": "999_N_A",
-                            "taxHouseholdResidencyAppliesIndicator": false
-                        },
-                        "medicaidResidencyStatus": "YES",
-                        "medicaidResidencyStatusReason": "999_N_A",
-                        "fiveYearBarStatus": "NOT_APPLICABLE",
-                        "fiveYearBarStatusReason": "569_APPLICANT_ATSTD_CITIZEN",
-                        "residencyAddress": {
-                            "residencyAddressSourceType": "HOME",
-                            "streetName1": "1227 jkdyfdcrej",
-                            "cityName": "Concord",
-                            "stateCode": "NV",
-                            "zipCode": "89316",
-                            "countyName": "Eureka",
-                            "countyFipsCode": "32011"
-                        },
                         "is_primary_applicant": false,
                         "name": {
                             "first_name": "Sonolsub",
@@ -1152,15 +937,15 @@
                             "person_hbx_id": "1234",
                             "is_primary_family_member": false
                         },
-                        "person_hbx_id": "1234",
+                        "person_hbx_id": "1437548400634897551",
                         "is_required_to_file_taxes": false,
-                        "tax_filer_kind": "single",
-                        "is_joint_tax_filing": true,
+                        "tax_filer_kind": "tax_filer",
+                        "is_joint_tax_filing": false,
                         "is_claimed_as_tax_dependent": true,
                         "claimed_as_tax_dependent_by": null,
                         "student": {
-                            "is_student": null,
-                            "student_kind": "full_time",
+                            "is_student": true,
+                            "student_kind": null,
                             "student_school_kind": null,
                             "student_status_end_on": null
                         },
@@ -1200,7 +985,42 @@
                         "emails": [],
                         "phones": [],
                         "incomes": [],
-                        "benefits": [],
+                        "benefits": [
+                            {
+                                "employee_cost": 500.0,
+                                "kind": "employer_sponsored_insurance",
+                                "status": "is_enrolled",
+                                "employer": {
+                                    "employer_name": "egvvw",
+                                    "employer_id": "123456789"
+                                },
+                                "is_esi_waiting_period": false,
+                                "is_esi_mec_met": "YES",
+                                "esi_covered": "self",
+                                "start_on": "2021-05-07",
+                                "end_on": null,
+                                "employee_cost_frequency": "Monthly",
+                                "employer_address": {
+                                    "address_1": "21313312",
+                                    "address_2": "",
+                                    "address_3": "",
+                                    "county": "",
+                                    "country_name": "",
+                                    "kind": "work",
+                                    "city": "was",
+                                    "state": "DC",
+                                    "zip": "31232"
+                                },
+                                "employer_phone": {
+                                    "kind": "work",
+                                    "country_code": "",
+                                    "area_code": "123",
+                                    "number": "4123412",
+                                    "extension": "",
+                                    "full_phone_number": "1234123412"
+                                }
+                            }
+                        ],
                         "deductions": [],
                         "is_medicare_eligible": false,
                         "has_insurance": false,

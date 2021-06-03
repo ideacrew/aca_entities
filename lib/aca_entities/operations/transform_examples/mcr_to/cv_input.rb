@@ -26,7 +26,7 @@ module AcaEntities
           map 'coverageYear', 'assistance_year', memoize: true, visible: false
 
           ### function: (for value transform)
-          map 'insuranceApplicationIdentifier', 'family.hbx_id', function: ->(value) { value.to_s }, memoize: true
+          map 'insuranceApplicationIdentifier', 'family.hbx_id', function: ->(value) {value.to_s}, memoize: true
 
           ### memoize_record: (to store entire hash under this particular key in memory for later use)
           map 'lastUpdateMetadata', 'lastUpdateMetadata', memoize_record: true
@@ -41,12 +41,12 @@ module AcaEntities
               # add_key 'new key/ namespaced key'
               ### value: ->(_v) {}
               ### function:  as a proc or a custom build function
-              add_key 'foreign_keys', value: ->(_v) { [] }
+              add_key 'foreign_keys', value: ->(_v) {[]}
               namespace 'application' do
                 map 'spokenLanguageType', 'family_members.person.consumer_role.language_preference', memoize: true, visible: false
 
                 namespace 'legalAttestations' do
-                  map 'renewEligibilityYearQuantity', 'renewal_consent_through_year', function: ->(_value) { Date.parse("2021-05-07").year }
+                  map 'renewEligibilityYearQuantity', 'renewal_consent_through_year', function: ->(_value) {Date.parse("2021-05-07").year}
                   map 'absentParentAgreementIndicator', 'parent_living_out_of_home_terms', memoize: true, visible: false
                   map 'changeInformationAgreementIndicator', 'report_change_terms', memoize: true, visible: false
                   map 'medicaidRequirementAgreementIndicator', 'medicaid_terms', memoize: true, visible: false
@@ -54,12 +54,12 @@ module AcaEntities
                 end
               end
 
-              add_key 'general_agency_accounts', value: ->(_v) { [] }
-              add_key 'special_enrollment_periods', value: ->(_v) { [] }
-              add_key 'irs_groups', value: ->(_v) { [] }
-              add_key 'broker_accounts', value: ->(_v) { [] }
-              add_key 'documents', value: ->(_v) { [] }
-              add_key 'payment_transactions', value: ->(_v) { [] }
+              add_key 'general_agency_accounts', value: ->(_v) {[]}
+              add_key 'special_enrollment_periods', value: ->(_v) {[]}
+              add_key 'irs_groups', value: ->(_v) {[]}
+              add_key 'broker_accounts', value: ->(_v) {[]}
+              add_key 'documents', value: ->(_v) {[]}
+              add_key 'payment_transactions', value: ->(_v) {[]}
               map 'application.contactMemberIdentifier', 'family.family_members.is_primary_applicant', memoize: true, visible: false
               map 'application.contactInformation.email', 'family.family_members.person.email.address', memoize: true, visible: false
               map 'application.contactInformation.primaryPhoneNumber.number', 'family.family_members.person.phone.number', memoize: true,
@@ -81,7 +81,7 @@ module AcaEntities
               #       map
               #     end
               #   end
-              # map 'household.familyRelationships', 'household.familyRelationships'
+              # map 'household.familyRelationships', 'household.family_Relationships'
 
               map 'household', 'family.family_members.person.family_Relationships', memoize_record: true, visible: false
               # namespace 'household.familyRelationships' do
@@ -112,17 +112,18 @@ module AcaEntities
                   add_key 'is_primary_applicant', function: lambda { |v|
                     v.resolve('family.family_members.is_primary_applicant').item == v.find(/attestations.members.(\w+)$/).map(&:item).last
                   }
-                  map 'requestingCoverageIndicator', 'is_coverage_applicant'
+                  map 'requestingCoverageIndicator', 'is_coverage_applicant', memoize: true, append_identifier: true
                   add_key 'is_active'
                   add_key 'is_consent_applicant'
-                  add_key 'foreign_keys', value: ->(_v) { [] }
+                  add_key 'foreign_keys', value: ->(_v) {[]}
                   add_key 'hbx_id', value: '1234'
 
                   namespace 'demographic' do
                     rewrap 'family.family_members.person', type: :hash do
                       # add_key 'family_Relationships', function: AcaEntities::Functions::BuildRelationships.new
-                      add_key 'hbx_id', value: '1234' # default value
-
+                      add_key 'hbx_id', function: lambda {|v|
+                        v.resolve('attestations.members', identifier: true).item
+                      }
                       # add_namespace 'new namespace key', 'namespace path for new namespace key', type: :hash
                       # add new namespace of type hash as provided in output namespaced key
                       add_namespace 'identifiers', 'family.family_members.person.identifiers', type: :hash do
@@ -293,13 +294,14 @@ module AcaEntities
                   map 'income.currentIncome', 'income.currentIncome', memoize_record: true, visible: false
                   map 'family', 'family', memoize_record: true, visible: false # , append_identifier: true
                   map 'nonMagi', 'nonMagi', memoize_record: true, visible: false
+                  map 'other.veteranIndicator', 'veteranIndicator', memoize: true, visible: false, append_identifier: true
                   # map 'lawfulPresence.naturalizedCitizenIndicator', 'naturalizedCitizenIndicator', memoize: true, visible: false
 
                   map 'lawfulPresence.noAlienNumberIndicator', 'noAlienNumberIndicator', memoize: true, visible: false, append_identifier: true
                   map 'lawfulPresence.citizenshipIndicator', 'citizenshipIndicator', memoize: true, visible: false, append_identifier: true
                   map 'lawfulPresence.naturalizedCitizenIndicator', 'naturalizedCitizenIndicator', memoize: true, visible: false,
                                                                                                    append_identifier: true
-                  map 'insuranceCoverage.employerSponsoredCoverageOffers', 'insuranceCoverage.employerSponsoredCoverageOffers',
+                  map 'insuranceCoverage', 'insuranceCoverage',
                       memoize_record: true, visible: false
                   add_key 'person.consumer_role.lawful_presence_determination.citizen_status',
                           function: AcaEntities::Functions::BuildLawfulPresenceDetermination.new
@@ -308,12 +310,12 @@ module AcaEntities
                   add_key 'person.person_health.is_physically_disabled',
                           function: lambda {|v|
                             attr = v.find(Regexp.new('attestations.members.*.nonMagi')).map(&:item).last
-                            attr.nil? ? nil : attr[:blindOrDisabledIndicator]
+                            attr.nil? ? false : attr[:blindOrDisabledIndicator]
                           }
                   add_key 'person.is_disabled',
                           function: lambda {|v|
                             attr = v.find(Regexp.new('attestations.members.*.nonMagi')).map(&:item).last
-                            attr.nil? ? nil : attr[:blindOrDisabledIndicator]
+                            attr.nil? ? false : attr[:blindOrDisabledIndicator]
                           }
 
                   map 'other.americanIndianAlaskanNative.personRecognizedTribeIndicator',
