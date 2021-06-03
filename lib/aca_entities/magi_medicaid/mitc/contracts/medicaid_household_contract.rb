@@ -13,8 +13,9 @@ module AcaEntities
           # @option opts [Integer] :size required
           # @return [Dry::Monads::Result]
           params do
-            required(:people).array(PersonReferenceContract.params)
+            required(:people).array(:integer)
             required(:magi_income).filled(:integer)
+            required(:magi_as_percentage_of_fpl).filled(:integer)
             required(:size).filled(:integer)
           end
         end

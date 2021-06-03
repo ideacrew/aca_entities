@@ -17,14 +17,14 @@ module AcaEntities
         end
 
         # rule(:benefit_application) do
-        #   if key? && value
+        #   if key && value
         #     result = BenefitApplicationContract.new.call(value)
         #     key.failure(text: "invalid benefit application", error: result.errors.to_h) if result&.failure?
         #   end
         # end
 
         # rule(:product_packages).each do
-        #   if key? && value
+        #   if key && value
         #     result = BenefitMarkets::Products::ProductPackageContract.new.call(value)
         #     key.failure(text: "invalid product package", error: result.errors.to_h) if result&.failure?
         #   end

@@ -12,30 +12,46 @@ module AcaEntities
 
       VersionKind = Types::Coercible::String.default('0.1.0').enum('0.1.0')
 
-      BenefitKind = Types::Coercible::String.enum(
-        'acf_refugee_medical_assistance',
-        'americorps_health_benefits',
-        'child_health_insurance_plan',
+      Money = Types.Constructor(BigDecimal) { |val| BigDecimal(val.to_s) }
+
+      MinimumEssentialCoverageBenefitKinds = [
         'medicaid',
         'medicare',
         'medicare_advantage',
         'medicare_part_b',
-        'private_individual_and_family_coverage',
+        'employer_sponsored_insurance'
+      ].freeze
+
+      HraKind = Types::Coercible::Symbol.enum(:ichra, :qsehra)
+
+      BenefitKind = Types::Coercible::String.enum(
+        'private_individual_and_family_coverage', # 'marketplace_coverage'
+        'acf_refugee_medical_assistance',
+        'americorps_health_benefits',
+        'medicaid',
+        'child_health_insurance_plan', # 'chip'
+        'medicare',
+        'medicare_advantage',
+        'medicare_part_b',
         'state_supplementary_payment',
         'tricare',
         'veterans_benefits',
         'naf_health_benefit_program',
         'health_care_for_peace_corp_volunteers',
         'department_of_defense_non_appropriated_health_benefits',
-        'cobra',
         'employer_sponsored_insurance',
+        'health_reimbursement_arrangement',
+        'cobra',
         'self_funded_student_health_coverage',
         'foreign_government_health_coverage',
         'private_health_insurance_plan',
         'coverage_obtained_through_another_exchange',
         'coverage_under_the_state_health_benefits_risk_pool',
+        'retiree_health_benefits',
         'veterans_administration_health_benefits',
-        'peace_corps_health_benefits'
+        'peace_corps_health_benefits',
+        'other_full_benefit_coverage',
+        'other_limited_benefit_coverage'
       )
 
       BenefitStatusKind = Types::Coercible::String.enum('is_eligible', 'is_enrolled')
@@ -72,10 +88,16 @@ module AcaEntities
         'social_security_benefit',
         'supplemental_security_income',
         'tax_exempt_interest',
-        'unemployment_insurance',
+        'unemployment_income',
         'wages_and_salaries',
         'income_from_irs'
       )
+
+      EarnedIncomeKinds = [
+        'wages_and_salaries',
+        'net_self_employment',
+        'scholorship_payments'
+      ].freeze
 
       DeductionKind = Types::Coercible::String.enum(
         'alimony_paid',
@@ -159,13 +181,33 @@ module AcaEntities
 
       MagiMedicaidCategoryType = Types::Coercible::String.enum(
         'none',
+        'residency',
         'adult_group',
-        'child',
-        'chip_targeted_low_income_child',
-        'optional_targeted_low_income_child',
         'parent_caretaker',
         'pregnancy',
-        'unborn_child'
+        'child',
+        'optional_targeted_low_income_child',
+        'chip_targeted_low_income_child',
+        'unborn_child',
+        'income_medicaid_eligible',
+        'income_chip_eligible',
+        'medicaid_chipra_214',
+        'chip_chipra_214',
+        'trafficking_victim',
+        'seven_year_limit',
+        'five_year_bar',
+        'title_ii_work_quarters_met',
+        'medicaid_citizen_or_immigrant',
+        'chip_citizen_or_immigrant',
+        'former_foster_care_category',
+        'work_quarters_override_income',
+        'state_health_benefits_chip',
+        'chip_waiting_period_satisfied',
+        'dependent_child_covered',
+        'medicaid_non_magi_referral',
+        'emergency_medicaid',
+        'refugee_medical_assistance',
+        'aptc_referral'
       )
 
       BenefitTermMap = {}.freeze
@@ -181,6 +223,15 @@ module AcaEntities
         'ssn_pass_citizenship_fails_with_SSA',
         'non_native_citizen'
       )
+
+      # TODO: verify list
+      LawfulPresentCitizenKinds = [
+        'us_citizen',
+        'naturalized_citizen',
+        'alien_lawfully_present',
+        'lawful_permanent_resident',
+        'non_native_citizen'
+      ].freeze
 
       IncomeType = Types::Coercible::String.enum(
         'CapitalGains',
@@ -336,6 +387,13 @@ module AcaEntities
 
       # Student related questions are asked if the age of applicant falls within below range.
       StudentRange = (18..19).freeze
+
+      CsrKind = Types::Coercible::String.enum('0',
+                                              '73',
+                                              '87',
+                                              '94',
+                                              '100',
+                                              'limited')
     end
     # rubocop:enable Metrics/ModuleLength
   end

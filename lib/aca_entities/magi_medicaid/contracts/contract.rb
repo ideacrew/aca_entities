@@ -4,6 +4,7 @@ module AcaEntities
   module MagiMedicaid
     module Contracts
       # Configuration values and shared rules and macros for {AcaEntities::MagiMedicaid} validation contracts
+      # rubocop:disable Metrics/ClassLength
       class Contract < Dry::Validation::Contract
         include AcaEntities::AppHelper
         # config.messages.backend - the localization backend to use. Supported values are: :yaml and :i18n
@@ -254,7 +255,39 @@ module AcaEntities
           end
           # rubocop:enable Style/Next
         end
+
+        def more_than_one_determination?(ped)
+          determination_key_values =
+            ped.slice(:is_ia_eligible,
+                      :is_medicaid_chip_eligible,
+                      :is_magi_medicaid,
+                      :is_totally_ineligible,
+                      :is_uqhp_eligible)
+          determination_key_values.values.count(true) > 1
+        end
+
+        rule(:tax_households).each do |index:|
+          value[:tax_household_members].each_with_index do |thhm, thhm_index|
+            ped = thhm[:product_eligibility_determination]
+
+            if ped[:is_csr_eligible] && check_if_blank?(ped[:csr])
+              key_name = [:tax_households, index, :tax_household_members, thhm_index, :product_eligibility_determination, :csr]
+              key(key_name).failure(text: 'cannot be empty when is_csr_eligible is answered.')
+            end
+
+            # rubocop:disable Style/Next
+            if more_than_one_determination?(ped)
+              key_name = [:tax_households, index, :tax_household_members, thhm_index, :product_eligibility_determination]
+              msg = 'Member is eligible for more than one eligibilities:'\
+                    ' [:is_ia_eligible, :is_medicaid_chip_eligible, :is_magi_medicaid,'\
+                    ' :is_totally_ineligible, :is_without_assistance]'
+              key(key_name).failure(text: msg)
+            end
+            # rubocop:enable Style/Next
+          end
+        end
       end
+      # rubocop:enable Metrics/ClassLength
     end
   end
 end

@@ -8,15 +8,16 @@ module AcaEntities
         # @!method call(opts)
         # @param [Hash] opts the parameters to validate using this contract
         # @option opts [Float] :max_aptc optional
-        # @option opts [Integer] :csr optional
         # @option opts [String] :is_insurance_assistance_eligible optional
         # @option opts [Array] :tax_household_members optional
         # @return [Dry::Monads::Result]
         params do
-          optional(:max_aptc).maybe(:float)
-          optional(:csr).maybe(:integer)
+          optional(:max_aptc).maybe(Types::Money)
+          required(:hbx_id).filled(:string)
           optional(:is_insurance_assistance_eligible).maybe(Types::IaEligibilityKind)
           optional(:tax_household_members).array(TaxHouseholdMemberContract.params)
+
+          optional(:annual_tax_household_income).maybe(Types::Money)
         end
       end
     end

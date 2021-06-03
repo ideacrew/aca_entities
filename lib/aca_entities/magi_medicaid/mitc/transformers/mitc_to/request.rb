@@ -67,7 +67,7 @@ module AcaEntities
                   end
 
                   namespace 'income' do
-                    rewrap 'income', type: :hash do
+                    rewrap 'Income', type: :hash do
                       map 'amount', "Wages, Salaries, Tips"
                       map 'taxable_interest', 'Taxable Interest'
                       map 'tax_exempt_interest', 'Tax-Exempt Interest'

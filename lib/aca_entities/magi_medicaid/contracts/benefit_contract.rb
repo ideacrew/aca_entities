@@ -20,6 +20,7 @@ module AcaEntities
         # @option opts [Date] :start_on optional
         # @option opts [Date] :end_on optional
         # @option opts [DateTime] :submitted_at optional
+        # @option opts [Symbol] :hra_kind optional
         # @return [Dry::Monads::Result]
         params do
           # title
@@ -33,11 +34,13 @@ module AcaEntities
           optional(:esi_covered).maybe(Types::EsiCoveredKind)
           optional(:is_esi_waiting_period).maybe(:bool)
           optional(:is_esi_mec_met).maybe(:bool)
-          optional(:employee_cost).maybe(:float)
+          optional(:employee_cost).maybe(Types::Money)
           optional(:employee_cost_frequency).maybe(Types::EmployeeCostFrequency)
           optional(:start_on).maybe(:date)
           optional(:end_on).maybe(:date)
           optional(:submitted_at).maybe(:date_time)
+
+          optional(:hra_kind).maybe(Types::HraKind)
         end
       end
     end
