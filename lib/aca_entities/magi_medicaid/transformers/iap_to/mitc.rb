@@ -87,7 +87,7 @@ module AcaEntities
                     map 'is_pregnant', 'is_pregnant', function: ->(value) { boolean_string(value) }
                     map 'expected_children_count', 'children_expected_count'
 
-                    map 'is_post_partum_period', 'is_in_post_partum_period', function: ->(value) { boolean_string(value) }
+                    map 'is_postpartum_period', 'is_in_postpartum_period', function: ->(value) { boolean_string(value) }
                   end
                 end
 

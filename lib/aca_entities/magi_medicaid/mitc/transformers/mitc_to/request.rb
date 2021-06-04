@@ -34,7 +34,7 @@ module AcaEntities
                   map 'prior_insurance_end_date', 'Prior Insurance End Date'
                   map 'is_pregnant', 'Applicant Pregnant Indicator'
                   map 'children_expected_count', 'Number of Children Expected'
-                  map 'is_in_post_partum_period', 'Applicant Post Partum Period Indicator'
+                  map 'is_in_postpartum_period', 'Applicant Postpartum Period Indicator'
                   map 'is_in_former_foster_care', 'Former Foster Care'
                   map 'had_medicaid_during_foster_care', 'Had Medicaid During Foster Care'
                   map 'age_left_foster_care', 'Age Left Foster Care'

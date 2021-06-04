@@ -19,7 +19,7 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Applicant, dbclean: :after_each do
         person_hbx_id: '95',
         is_primary_family_member: true }
     end
-    let(:pregnancy_information) { { is_pregnant: false, is_post_partum_period: false } }
+    let(:pregnancy_information) { { is_pregnant: false, is_postpartum_period: false } }
     let(:citizenship_immigration_status_information) { { citizen_status: 'us_citizen' } }
     let(:income) do
       { kind: 'alimony_and_maintenance',

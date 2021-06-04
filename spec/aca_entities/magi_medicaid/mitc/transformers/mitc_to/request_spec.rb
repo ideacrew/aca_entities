@@ -40,7 +40,7 @@ RSpec.describe AcaEntities::MagiMedicaid::Mitc::Transformers::MitcTo::Request do
         prior_insurance_end_date: Date.today.prev_month,
         is_pregnant: 'N',
         children_expected_count: nil,
-        is_in_post_partum_period: 'N',
+        is_in_postpartum_period: 'N',
         is_in_former_foster_care: 'Y',
         had_medicaid_during_foster_care: 'N',
         age_left_foster_care: 10,
@@ -81,7 +81,7 @@ RSpec.describe AcaEntities::MagiMedicaid::Mitc::Transformers::MitcTo::Request do
         prior_insurance_end_date: Date.today.prev_month,
         is_pregnant: 'N',
         children_expected_count: nil,
-        is_in_post_partum_period: 'N',
+        is_in_postpartum_period: 'N',
         is_in_former_foster_care: 'Y',
         had_medicaid_during_foster_care: 'N',
         age_left_foster_care: 10,
@@ -168,8 +168,8 @@ RSpec.describe AcaEntities::MagiMedicaid::Mitc::Transformers::MitcTo::Request do
         expect(person[:'Applicant Pregnant Indicator']).to eq(person1[:is_pregnant])
         expect(person).to have_key(:'Number of Children Expected')
         expect(person[:'Number of Children Expected']).to eq(person1[:children_expected_count])
-        expect(person).to have_key(:'Applicant Post Partum Period Indicator')
-        expect(person[:'Applicant Post Partum Period Indicator']).to eq(person1[:is_in_post_partum_period])
+        expect(person).to have_key(:'Applicant Postpartum Period Indicator')
+        expect(person[:'Applicant Postpartum Period Indicator']).to eq(person1[:is_in_postpartum_period])
         expect(person).to have_key(:'Former Foster Care')
         expect(person[:'Former Foster Care']).to eq(person1[:is_in_former_foster_care])
         expect(person).to have_key(:'Had Medicaid During Foster Care')

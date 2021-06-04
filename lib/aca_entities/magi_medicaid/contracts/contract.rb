@@ -185,15 +185,15 @@ module AcaEntities
           pregnancy_failure_key = [:applicants, index, :pregnancy_information]
 
           if pregnancy[:is_pregnant] == false
-            if check_if_blank?(pregnancy[:is_post_partum_period])
-              key(pregnancy_failure_key + [:is_post_partum_period]).failure(text: 'must be filled if the applicant is not pregnant')
+            if check_if_blank?(pregnancy[:is_postpartum_period])
+              key(pregnancy_failure_key + [:is_postpartum_period]).failure(text: 'must be filled if the applicant is not pregnant')
             end
 
-            if pregnancy[:is_post_partum_period] && check_if_blank?(pregnancy[:pregnancy_end_on])
+            if pregnancy[:is_postpartum_period] && check_if_blank?(pregnancy[:pregnancy_end_on])
               key(pregnancy_failure_key + [:pregnancy_end_on]).failure(text: 'must be filled if the applicant is not pregnant')
 
               if value[:is_applying_coverage]
-                error_text = 'must be filled if the applicant is not applying for coverage, not pregnant and is in post partum period'
+                error_text = 'must be filled if the applicant is not applying for coverage, not pregnant and is in postpartum period'
                 key(pregnancy_failure_key + [:is_enrolled_on_medicaid]).failure(text: error_text)
               end
             end

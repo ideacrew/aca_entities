@@ -15,7 +15,7 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicationContract,  dbcle
       dob: demographic[:dob],
       person_hbx_id: '95' }
   end
-  let(:pregnancy_information) { { is_pregnant: false, is_post_partum_period: false } }
+  let(:pregnancy_information) { { is_pregnant: false, is_postpartum_period: false } }
 
   let(:mitc_relationships) do
     [{ other_id: '95', attest_primary_responsibility: 'Y', relationship_code: '01' },
@@ -575,20 +575,20 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicationContract,  dbcle
             pregnancy_due_on: Date.today.next_month.to_s }
         end
 
-        context 'is_post_partum_period' do
+        context 'is_postpartum_period' do
           let(:local_pregnancy) do
             pregnancy_information.merge({ is_pregnant: false })
           end
 
           it 'should return failure with error message' do
-            err = obj_call.errors.to_h[:applicants][0][:pregnancy_information][:is_post_partum_period].first
+            err = obj_call.errors.to_h[:applicants][0][:pregnancy_information][:is_postpartum_period].first
             expect(err).to eq('must be filled if the applicant is not pregnant')
           end
         end
 
         context 'pregnancy_end_on' do
           let(:local_pregnancy) do
-            pregnancy_information.merge({ is_pregnant: false, is_post_partum_period: true })
+            pregnancy_information.merge({ is_pregnant: false, is_postpartum_period: true })
           end
 
           it 'should return failure with error message' do
@@ -603,12 +603,12 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicationContract,  dbcle
             subject.call(input_params.merge({ applicants: [appl_params] }))
           end
           let(:local_pregnancy) do
-            pregnancy_information.merge({ is_pregnant: false, is_post_partum_period: true })
+            pregnancy_information.merge({ is_pregnant: false, is_postpartum_period: true })
           end
 
           it 'should return failure with error message' do
             err = obj_call.errors.to_h[:applicants][0][:pregnancy_information][:is_enrolled_on_medicaid].first
-            expect(err).to eq('must be filled if the applicant is not applying for coverage, not pregnant and is in post partum period')
+            expect(err).to eq('must be filled if the applicant is not applying for coverage, not pregnant and is in postpartum period')
           end
         end
 
