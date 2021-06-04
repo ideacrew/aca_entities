@@ -23,8 +23,8 @@ module AcaEntities
                 key([:people, index, :children_expected_count]).failure('cannot be blank when is_pregnant is Y')
               end
 
-              if check_if_blank?(value[:is_in_post_partum_period])
-                key([:people, index, :is_in_post_partum_period]).failure('cannot be blank when is_pregnant is Y')
+              if check_if_blank?(value[:is_in_postpartum_period])
+                key([:people, index, :is_in_postpartum_period]).failure('cannot be blank when is_pregnant is Y')
               end
             end
 

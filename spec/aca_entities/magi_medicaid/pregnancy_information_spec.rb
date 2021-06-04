@@ -9,7 +9,7 @@ RSpec.describe ::AcaEntities::MagiMedicaid::PregnancyInformation, dbclean: :afte
     let(:input_params) do
       { is_pregnant: true,
         is_enrolled_on_medicaid: false,
-        is_post_partum_period: false,
+        is_postpartum_period: false,
         expected_children_count: 1,
         pregnancy_due_on: Date.today.next_month,
         pregnancy_end_on: nil }

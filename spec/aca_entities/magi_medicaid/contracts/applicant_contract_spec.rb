@@ -16,7 +16,7 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicantContract,  dbclean
         person_hbx_id: '95',
         is_primary_family_member: true }
     end
-    let(:pregnancy_information) { { is_pregnant: false, is_post_partum_period: false } }
+    let(:pregnancy_information) { { is_pregnant: false, is_postpartum_period: false } }
 
     let(:mitc_relationships) do
       [{ other_id: '95', attest_primary_responsibility: 'Y', relationship_code: '01' }]
@@ -120,7 +120,7 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicantContract,  dbclean
         person_hbx_id: '95',
         is_primary_family_member: true }
     end
-    let(:pregnancy_information) { { is_pregnant: false, is_post_partum_period: false } }
+    let(:pregnancy_information) { { is_pregnant: false, is_postpartum_period: false } }
 
     let(:input_params) do
       { name: name,

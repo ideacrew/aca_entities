@@ -35,7 +35,7 @@ RSpec.describe AcaEntities::MagiMedicaid::Transformers::IapTo::Mitc do
     end
     let(:pregnancy_information) do
       { is_pregnant: false,
-        is_post_partum_period: false,
+        is_postpartum_period: false,
         expected_children_count: nil }
     end
     let(:student) do
@@ -332,7 +332,7 @@ RSpec.describe AcaEntities::MagiMedicaid::Transformers::IapTo::Mitc do
         expect(person).to have_key(:had_prior_insurance)
         expect(person).to have_key(:is_pregnant)
         expect(person).to have_key(:children_expected_count)
-        expect(person).to have_key(:is_in_post_partum_period)
+        expect(person).to have_key(:is_in_postpartum_period)
         expect(person).to have_key(:is_in_former_foster_care)
         expect(person).to have_key(:had_medicaid_during_foster_care)
         expect(person).to have_key(:age_left_foster_care)

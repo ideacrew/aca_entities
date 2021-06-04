@@ -35,7 +35,7 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Operations::Mitc::GenerateRequestPay
   end
   let(:pregnancy_information) do
     { is_pregnant: false,
-      is_post_partum_period: false,
+      is_postpartum_period: false,
       expected_children_count: nil }
   end
   let(:student) do

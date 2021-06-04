@@ -20,7 +20,7 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Mitc::Application, dbclean: :after_e
       prior_insurance_end_date: Date.new,
       is_pregnant: 'N',
       children_expected_count: 0,
-      is_in_post_partum_period: 'N',
+      is_in_postpartum_period: 'N',
       is_in_former_foster_care: 'N',
       had_medicaid_during_foster_care: 'N',
       age_left_foster_care: 0,

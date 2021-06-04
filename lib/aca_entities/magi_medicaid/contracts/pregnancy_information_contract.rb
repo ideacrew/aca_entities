@@ -9,7 +9,7 @@ module AcaEntities
         # @param [Hash] opts the parameters to validate using this contract
         # @option opts [Boolean] :is_pregnant required
         # @option opts [Boolean] :is_enrolled_on_medicaid optional
-        # @option opts [Boolean] :is_post_partum_period optional
+        # @option opts [Boolean] :is_postpartum_period optional
         # @option opts [Integer] :expected_children_count optional
         # @option opts [Date] :pregnancy_due_on optional
         # @option opts [Date] :pregnancy_end_on optional
@@ -17,7 +17,7 @@ module AcaEntities
         params do
           required(:is_pregnant).filled(:bool)
           optional(:is_enrolled_on_medicaid).maybe(:bool)
-          optional(:is_post_partum_period).maybe(:bool)
+          optional(:is_postpartum_period).maybe(:bool)
           optional(:expected_children_count).maybe(:integer)
           optional(:pregnancy_due_on).maybe(:date)
           optional(:pregnancy_end_on).maybe(:date)

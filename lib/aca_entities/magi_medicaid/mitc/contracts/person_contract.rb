@@ -23,7 +23,7 @@ module AcaEntities
           # @option opts [Date] :prior_insurance_end_date optional
           # @option opts [String] :is_pregnant required
           # @option opts [Integer] :children_expected_count optional
-          # @option opts [String] :is_in_post_partum_period optional
+          # @option opts [String] :is_in_postpartum_period optional
           # @option opts [String] :is_in_former_foster_care required
           # @option opts [String] :had_medicaid_during_foster_care optional
           # @option opts [Integer] :age_left_foster_care optional
@@ -63,7 +63,7 @@ module AcaEntities
             optional(:prior_insurance_end_date).maybe(:date)
             required(:is_pregnant).filled(Types::YesNoKind)
             optional(:children_expected_count).maybe(:integer)
-            optional(:is_in_post_partum_period).maybe(Types::YesNoKind)
+            optional(:is_in_postpartum_period).maybe(Types::YesNoKind)
             required(:is_in_former_foster_care).filled(Types::YesNoKind)
             optional(:had_medicaid_during_foster_care).maybe(Types::YesNoKind)
             optional(:age_left_foster_care).maybe(:integer)

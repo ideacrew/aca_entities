@@ -81,13 +81,13 @@ module AcaEntities
         # @return [Integer]
         attribute :children_expected_count,    Types::Integer.optional.meta(omittable: true)
 
-        # @!attribute [r] is_in_post_partum_period
-        # Applicant is currently within the post-partum period.
-        # The post-partum periodis defined as the time period starting from when the applicant gave birth,
+        # @!attribute [r] is_in_postpartum_period
+        # Applicant is currently within the postpartum period.
+        # The postpartum periodis defined as the time period starting from when the applicant gave birth,
         # continuing for at least 60 days,
         # and ending on the last day of the month in which the 60-day period ended.
         # @return [String]
-        attribute :is_in_post_partum_period,    Types::YesNoKind.optional.meta(ommittable: true)
+        attribute :is_in_postpartum_period,    Types::YesNoKind.optional.meta(ommittable: true)
 
         # @!attribute [r] is_in_former_foster_care
         # A boolean if applicant was in foster care previously.

@@ -26,12 +26,12 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::PregnancyInformationContrac
   end
 
   context 'applicant is not pregnant' do
-    context 'applicant is in is_post_partum_period' do
+    context 'applicant is in is_postpartum_period' do
       context 'valid params' do
         let(:input_params) do
           { is_applying_coverage: true,
             is_pregnant: false,
-            is_post_partum_period: true,
+            is_postpartum_period: true,
             is_enrolled_on_medicaid: false,
             pregnancy_end_on: Date.today.next_month.to_s }
         end

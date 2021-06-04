@@ -20,7 +20,7 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Mitc::Contracts::ApplicationContract
       prior_insurance_end_date: Date.new,
       is_pregnant: 'N',
       children_expected_count: 0,
-      is_in_post_partum_period: 'N',
+      is_in_postpartum_period: 'N',
       is_in_former_foster_care: 'N',
       had_medicaid_during_foster_care: 'N',
       age_left_foster_care: 0,
@@ -122,11 +122,11 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Mitc::Contracts::ApplicationContract
           end
         end
 
-        context 'is_in_post_partum_period' do
-          let(:local_person) { person_params.merge({ is_pregnant: 'Y', is_in_post_partum_period: [nil, ''].sample }) }
+        context 'is_in_postpartum_period' do
+          let(:local_person) { person_params.merge({ is_pregnant: 'Y', is_in_postpartum_period: [nil, ''].sample }) }
 
           it 'should return failure with error message' do
-            err = { people: { 0 => { is_in_post_partum_period: ['cannot be blank when is_pregnant is Y'] } } }
+            err = { people: { 0 => { is_in_postpartum_period: ['cannot be blank when is_pregnant is Y'] } } }
             expect(contract_call.errors.to_h).to eq(err)
           end
         end
