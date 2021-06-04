@@ -1,0 +1,9 @@
+components:
+  messages:
+    families_family_message:
+      payload:
+        type: object
+        properties:
+          name: type; string
+          email:
+            type: string

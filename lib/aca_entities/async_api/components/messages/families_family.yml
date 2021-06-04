@@ -1,0 +1,9 @@
+components:
+  messages:
+    families_family:
+      name: Family
+      title: Family
+      summary: Family core message model
+      content_type: application/json
+      payload:
+        $ref: "../schemas/families_family.yml"
