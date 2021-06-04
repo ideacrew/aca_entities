@@ -1,0 +1,29 @@
+components:
+  schemas:
+    families_family:
+      type: object
+      required:
+        - hbx_id
+        - family_members
+        - households
+      properties:
+        hbx_id:
+          type: string
+          description: HBX-assigned unique identifier for this family
+        family_members:
+          type: string
+          format: array
+          description: All current and past members of this family
+        households:
+          type: string
+          format: array
+          description: Collection of physical households over time with family_member composition
+        irs_groups:
+          type: string
+          format: dateTime
+          description: "foo"
+        renewal_consent_through_year:
+          type: integer
+          format: int32
+          minimum: 2013
+          description: The calendar year through which applicant has granted automatic access to eligibility information for benefit renetermination
