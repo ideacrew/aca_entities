@@ -2,7 +2,6 @@
 
 module AcaEntities
   module Error
-
     # @api private
     module ErrorInitalizer
       attr_reader :original
@@ -23,9 +22,5 @@ module AcaEntities
     class LoadException < RuntimeError
       include ErrorInitalizer
     end
-
-    # FeatureNotFoundError      = Class.new(Error)
-    # DuplicateFeatureError     = Class.new(Error)
-    # InitializationFileError   = Class.new(LoadException)
   end
 end
