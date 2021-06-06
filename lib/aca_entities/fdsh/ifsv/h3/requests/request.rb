@@ -13,7 +13,7 @@ module AcaEntities
             # within a given message (both requests and responses)
             # 1-9 characters - numeric only
             # @return [String]
-            attribute :"RequestID",
+            attribute :RequestID,
                       Types::Fdsh::Ifsv::H3::RequestIDType.meta(
                         omittable: false
                       )
@@ -21,7 +21,7 @@ module AcaEntities
             # @!attribute [r] PersonSSNIdentification
             # Person SSN Identification
             # @return [String]
-            attribute :"PersonSSNIdentification",
+            attribute :PersonSSNIdentification,
                       Types::Fdsh::Ifsv::H3::FullyRestrictedSSNType.meta(
                         omittable: false
                       )
@@ -29,23 +29,23 @@ module AcaEntities
             # @!attribute [r] PersonGivenName
             # Applicant first name
             # @return [String]
-            attribute :"PersonGivenName", Types::String.meta(omittable: false)
+            attribute :PersonGivenName, Types::String.meta(omittable: false)
 
             # @!attribute [r] PersonMiddleName
             # Person Middle Name or Initial
             # @return [String]
-            attribute :"PersonMiddleName",
+            attribute :PersonMiddleName,
                       Types::String.optional.meta(omittable: true)
 
             # @!attribute [r] PersonSurName
             # Applicant last name
             # @return [String]
-            attribute :"PersonSurName", Types::String.meta(omittable: false)
+            attribute :PersonSurName, Types::String.meta(omittable: false)
 
             # @!attribute [r] TaxFilerCategoryCode
             # TaxFilerCategoryCode
             # @return [String]
-            attribute :"TaxFilerCategoryCode",
+            attribute :TaxFilerCategoryCode,
                       Types::Fdsh::Ifsv::H3::TaxFilerCategoryCodeType.meta(
                         omittable: false
                       )
