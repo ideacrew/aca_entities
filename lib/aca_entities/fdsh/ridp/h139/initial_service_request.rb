@@ -24,6 +24,7 @@ module AcaEntities
                     AcaEntities::Fdsh::Ridp::H139::Types::LevelOfProofingCodeKind.optional.meta(omittable: true)
 
           attribute :person_language_preference,               AcaEntities::Fdsh::Ridp::H139::Types::PersonLanguagePreference.meta(omittable: true)
+
           attribute :subscriber_number,                        Types::String.optional.meta(omittable: true)
         end
       end
