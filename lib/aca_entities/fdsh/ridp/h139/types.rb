@@ -12,6 +12,12 @@ module AcaEntities
           include Dry.Types
           include Dry::Logic
 
+          LevelOfProofingCodeKind = Types::Coercible::String.enum("LevelTwo",
+                                                                  "LevelThree",
+                                                                  "OptionThree").freeze
+
+          PersonLanguagePreference = Types::Coercible::String.default('eng').enum("eng", "spa").freeze
+
           PayPeriodFrequencyCodeSimplekind = Types::Coercible::String.enum("Annual",
                                                                            "SemiAnnual",
                                                                            "Monthly",
