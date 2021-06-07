@@ -18,7 +18,7 @@ module AcaEntities
         params do
           optional(:name).maybe(:string)
           required(:kind).filled(Types::DeductionKind)
-          required(:amount).filled(:float)
+          required(:amount).filled(Types::Money)
           required(:start_on).filled(:date)
           optional(:end_on).maybe(:date)
           required(:frequency_kind).filled(Types::DeductionFrequency)

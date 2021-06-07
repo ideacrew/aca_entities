@@ -1,0 +1,593 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema targetNamespace="http://vclpsav.ee.sim.dsh.cms.hhs.gov" elementFormDefault="qualified"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:vlpres="http://vclpsav.ee.sim.dsh.cms.hhs.gov"
+    version="1.1">
+    
+    <xsd:annotation>
+        <xsd:documentation>
+            <SchemaComponent>
+                <EffectiveDt>2013-05-01</EffectiveDt>
+                <VersionDt>2013-04-17</VersionDt>
+                <VersionDescriptionTxt>
+                    This is the initial version of v33 SubmitAgency3DHSResub request and response.
+                    
+                    1.1 - added RequesterCommentsForHub and CategoryCode.
+                </VersionDescriptionTxt>
+                <DescriptionTxt>Request and Response payloads for the SOA service SubmitAgency3DHSResub
+                    of Verify Lawful Presence.
+                </DescriptionTxt>
+            </SchemaComponent>
+        </xsd:documentation>
+    </xsd:annotation>
+    
+    <!--##########################################################-->
+    <!--#                                                        #-->
+    <!--#                        Root Nodes                      #-->
+    <!--#                                                        #-->
+    <!--##########################################################-->
+    
+    <xsd:element name="SubmitAgency3DHSResubRequest" type="vlpres:SubmitAgency3DHSResubRequestType">
+        <xsd:annotation>
+            <xsd:documentation>
+                <Component>
+                    <DictionaryEntryNm>Request Message - SubmitAgency3DHSResub of VLP </DictionaryEntryNm>
+                    <DescriptionTxt>Request payload for the SOA service SubmitAgency3DHSResub (from
+                        Verify Lawful Presence)</DescriptionTxt>
+                </Component>
+            </xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    
+    <xsd:element name="SubmitAgency3DHSResubResponse" type="vlpres:SubmitAgency3DHSResubResponseType">
+        <xsd:annotation>
+            <xsd:documentation>
+                <Component>
+                    <DictionaryEntryNm>Response Message - SubmitAgency3DHSResub of VLP  </DictionaryEntryNm>
+                    <DescriptionTxt>Response payload for the SOA service SubmitAgency3DHSResub (from
+                        Verify Lawful Presence)</DescriptionTxt>
+                </Component>
+            </xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    
+    <!--##########################################################-->
+    <!--#                                                        #-->
+    <!--#                      Complex Types                     #-->
+    <!--#                                                        #-->
+    <!--##########################################################-->
+    
+    <xsd:complexType name="SubmitAgency3DHSResubRequestType">
+        <xsd:sequence>
+            <xsd:element ref="vlpres:CaseNumber"/>
+            <xsd:element ref="vlpres:SEVISID"/>
+            <xsd:element ref="vlpres:RequestedCoverageStartDate"/>
+            <xsd:element ref="vlpres:FiveYearBarApplicabilityIndicator"/>
+            <xsd:element ref="vlpres:RequesterCommentsForHub"/>
+            <xsd:element ref="vlpres:CategoryCode"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    
+    <xsd:complexType name="SubmitAgency3DHSResubResponseType">
+        <xsd:sequence>
+            <xsd:element ref="vlpres:SubmitAgency3DHSResubResponseSet" minOccurs="0"/>
+            <xsd:element ref="vlpres:ResponseMetadata"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    
+    <xsd:complexType name="SubmitAgency3DHSResubResponseSetType">
+        <xsd:sequence>
+            <xsd:element ref="vlpres:CaseNumber"/>
+            <xsd:element ref="vlpres:NonCitLastName" minOccurs="0"/>
+            <xsd:element ref="vlpres:NonCitFirstName" minOccurs="0"/>
+            <xsd:element ref="vlpres:NonCitMiddleName" minOccurs="0"/>
+            <xsd:element ref="vlpres:NonCitBirthDate" minOccurs="0"/>
+            <xsd:element ref="vlpres:NonCitEntryDate" minOccurs="0"/>
+            <xsd:element ref="vlpres:NonCitAdmittedToDate" minOccurs="0"/>
+            <xsd:element ref="vlpres:NonCitAdmittedToText" minOccurs="0"/>
+            <xsd:element ref="vlpres:NonCitCountryBirthCd" minOccurs="0"/>
+            <xsd:element ref="vlpres:NonCitCountryCitCd" minOccurs="0"/>
+            <xsd:element ref="vlpres:NonCitCoaCode" minOccurs="0"/>
+            <xsd:element ref="vlpres:EligStatementCd"/>
+            <xsd:element ref="vlpres:EligStatementTxt"/>
+            <xsd:element ref="vlpres:WebServSftwrVer"/>
+            <xsd:element ref="vlpres:FiveYearBarApplyCode"/>
+            <xsd:element ref="vlpres:LawfulPresenceVerifiedCode"/>
+            <xsd:element ref="vlpres:DSHAutoTriggerStepTwo"/>
+            <xsd:element ref="vlpres:QualifiedNonCitizenCode"/>
+            <xsd:element ref="vlpres:FiveYearBarMetCode"/>
+            <xsd:element ref="vlpres:USCitizenCode"/>
+        </xsd:sequence>
+    </xsd:complexType>
+        
+    <xsd:complexType name="ResponseMetadataType">
+        <xsd:sequence>
+            <xsd:element ref="vlpres:ResponseCode"/>
+            <xsd:element ref="vlpres:ResponseDescriptionText"/>
+            <xsd:element ref="vlpres:TDSResponseDescriptionText" minOccurs="0"/>
+        </xsd:sequence>
+    </xsd:complexType>  
+    
+    <!--##########################################################-->
+    <!--#                                                        #-->
+    <!--#                      Simple Types                     #-->
+    <!--#                                                        #-->
+    <!--##########################################################-->
+    
+    <xsd:simpleType name="RequestedCoverageStartDateType">
+        <xsd:restriction base="xsd:date">
+        </xsd:restriction>
+    </xsd:simpleType>
+    
+    <xsd:simpleType name="CountryOfIssuanceType">
+        <xsd:restriction base="xsd:string">
+            <xsd:minLength value="1" />
+            <xsd:maxLength value="5" />
+        </xsd:restriction>
+    </xsd:simpleType>
+    
+    <xsd:simpleType name="FiveYearBarApplicabilityIndicatorType">
+        <xsd:restriction base="xsd:boolean"/>        
+    </xsd:simpleType>
+    
+    <xsd:simpleType name="RequesterCommentsForHubType">
+        <xsd:restriction base="xsd:string">
+        </xsd:restriction>
+    </xsd:simpleType>
+    
+    <xsd:simpleType name="CategoryCodeType">
+        <xsd:restriction base="xsd:string">
+        </xsd:restriction>
+    </xsd:simpleType>
+    
+    <xsd:simpleType name="AlienNumberType">
+        <xsd:restriction base="xsd:string">
+            <xsd:length value="9"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    
+    <xsd:simpleType name="I94NumberType">
+        <xsd:restriction base="xsd:string">
+            <xsd:length value="11" />
+        </xsd:restriction>
+    </xsd:simpleType>
+    
+    <xsd:simpleType name="SEVISIDType">
+        <xsd:restriction base="xsd:string">
+            <xsd:pattern value="[0-9]{10}"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    
+    <xsd:simpleType name="PassportNumberType">
+        <xsd:restriction base="xsd:string">
+            <xsd:minLength value="6"/>
+            <xsd:maxLength value="12"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    
+    <xsd:simpleType name="NaturalizationNumberType">
+        <xsd:restriction base="xsd:string">
+            <xsd:pattern value="[0-9]{7,12}"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    
+    <xsd:simpleType name="CitizenshipNumberType">
+        <xsd:restriction base="xsd:string">
+            <xsd:pattern value="[0-9]{7,12}"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    
+    <xsd:simpleType name="ReceiptNumberType">
+        <xsd:restriction base="xsd:string">
+            <xsd:length value="13"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+        
+    <xsd:simpleType name="FirstNameType">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="50" />
+            <xsd:minLength value="1" />
+        </xsd:restriction>
+    </xsd:simpleType>
+    
+    <xsd:simpleType name="MiddleNameType">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="50" />
+            <xsd:minLength value="1" />
+        </xsd:restriction>
+    </xsd:simpleType>
+    
+    <xsd:simpleType name="LastNameType">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="50" />
+            <xsd:minLength value="1" />
+        </xsd:restriction>
+    </xsd:simpleType>
+    
+    <xsd:simpleType name="DateType">
+        <xsd:restriction base="xsd:date">
+        </xsd:restriction>
+    </xsd:simpleType>
+    
+    <xsd:simpleType name="VisaNumberType">
+        <xsd:restriction base="xsd:string">
+            <xsd:length value="8"/>
+        </xsd:restriction>
+    </xsd:simpleType> 
+    
+    <xsd:simpleType name="LawfulPresenceVerifiedCodeType">
+        <xsd:restriction base="xsd:string">
+            <xsd:pattern value="[ynpYNP]" />
+        </xsd:restriction>
+    </xsd:simpleType>
+    
+    <xsd:simpleType name="FiveYearBarApplyCodeType">
+        <xsd:restriction base="xsd:string">
+            <xsd:pattern value="[ynpxYNPX]" />
+        </xsd:restriction>
+    </xsd:simpleType>
+        
+    <xsd:simpleType name="QualifiedNonCitizenCodeType">
+        <xsd:annotation>
+            <xsd:documentation>This element identifies the qualified non-citizen status 
+                of the individual.  (Y-Yes, N-No or P-Pending).  This indicator is 
+                created in the Hub.
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:string">
+            <xsd:pattern value="[ynpYNP]" />
+        </xsd:restriction>
+    </xsd:simpleType>
+    
+    <xsd:simpleType name="CaseNumberType">
+        <xsd:annotation>
+            <xsd:documentation>The unique case verification number assigned to this 
+                query. The last two characters in the case number must be upper case.
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:string">
+            <xsd:pattern value="[a-z|A-Z|0-9]{13}[A-Z]{2}"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    
+    <xsd:simpleType name="FiveYearBarMetCodeType">
+        <xsd:annotation>
+            <xsd:documentation>
+                FiveYearBarMetIndicator: This element identifies the individuals who 
+                were barred from services for 5 years have met the timeline requirement.
+                For Sprint 10, this field will be populated with 'P' (Pending). In the 
+                future, logic will dictate the value, and update the value for the
+                fiveYearBarIndicator as appropriate.
+                FiveYearBarIndicator: Identifies if the individual is barred from 
+                services for 5 years (Y–Yes, N-No, P-Pending, X-N/A) – this indicator is 
+                created in the Hub.
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:string">
+            <xsd:pattern value="[ynpxYNPX]" />
+        </xsd:restriction>
+    </xsd:simpleType>
+    
+    <xsd:simpleType name="USCitizenCodeType">
+        <xsd:annotation>
+            <xsd:documentation>Identifies if the individual is a US Citizen.
+                (Y–Yes, N-No, P-Pending, X-N/A) – this indicator is 
+                created in the Hub.
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:string">
+            <xsd:pattern value="[ynpxYNPX]" />
+        </xsd:restriction>
+    </xsd:simpleType>
+    
+    <xsd:simpleType name="NonCitAdmittedToTextType">
+        <xsd:restriction base="xsd:string">
+            <xsd:minLength value="1"/>
+            <xsd:maxLength value="10"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    
+    <xsd:simpleType name="NonCitCountryBirthCdType">
+        <xsd:restriction base="xsd:string">
+            <xsd:minLength value="1"/>
+            <xsd:maxLength value="5"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    
+    <xsd:simpleType name="NonCitCountryCitCdType">
+        <xsd:restriction base="xsd:string">
+            <xsd:minLength value="1"/>
+            <xsd:maxLength value="5"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    
+    <xsd:simpleType name="NonCitCoaCodeType">
+        <xsd:restriction base="xsd:string">
+            <xsd:minLength value="1"/>
+            <xsd:maxLength value="3"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    
+    <xsd:simpleType name="EligStatementCdType">
+        <xsd:restriction base="xsd:integer"> 
+        </xsd:restriction>
+    </xsd:simpleType>
+    
+    <xsd:simpleType name="EligStatementTxtType">
+        <xsd:restriction base="xsd:string">
+            <xsd:minLength value="1"/>
+            <xsd:maxLength value="64"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    
+    <xsd:simpleType name="WebServSftwrVerType">
+        <xsd:restriction base="xsd:string">
+            <xsd:minLength value="1"/>
+            <xsd:maxLength value="30"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    
+    <xsd:simpleType name="DSHAutoTriggerStepTwoType">
+        <xsd:restriction base="xsd:boolean"/>
+    </xsd:simpleType>
+    
+    <!-- ============================================-->
+    <!--          Error Handling SimpleTypes         -->
+    <!-- ============================================-->
+    
+    <xsd:simpleType name="ResponseCodeType">
+        <xsd:annotation>
+            <xsd:documentation>
+                Response code in initiated by the HUB indicating failure or success of the request.
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:string">
+            <xsd:length value="8"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    
+    <xsd:simpleType name="ResponseDescriptionTextType">
+        <xsd:annotation>
+            <xsd:documentation>
+                Description of the Response Code.
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:string">
+        </xsd:restriction>
+    </xsd:simpleType>
+    
+    <xsd:simpleType name="TDSResponseDescriptionTextType">
+        <xsd:annotation>
+            <xsd:documentation>
+                In the event that a TDS sends the Hub a new error code, this field will be populated
+                with a description of the new code.
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:string">
+        </xsd:restriction>
+    </xsd:simpleType>
+    
+    <!--##########################################################-->
+    <!--#                                                        #-->
+    <!--#                       Elements                         #-->
+    <!--#                                                        #-->
+    <!--##########################################################-->
+              
+    <xsd:element name="CaseNumber" type="vlpres:CaseNumberType">
+        <xsd:annotation>
+            <xsd:documentation>The unique case verification number assigned to this 
+                query. The last two characters in the case number must be upper case.
+            </xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    <xsd:element name="RequestedCoverageStartDate" type="vlpres:RequestedCoverageStartDateType">
+        <xsd:annotation>
+            <xsd:documentation>The date when the applicant desires coverage to begin.
+            </xsd:documentation>
+        </xsd:annotation>
+    </xsd:element> 
+    <xsd:element name="FiveYearBarApplicabilityIndicator" 
+        type="vlpres:FiveYearBarApplicabilityIndicatorType">
+        <xsd:annotation>
+            <xsd:documentation>Identifies if the Hub needs to check five-year bar apply criteria for the 
+                applicant (true-Yes, false-No) based on 08/22/1996 entry.
+                If the applicant entered the country before 08/22/1996, the indicator will be set to “False”. 
+                If the applicant entered the country on or after 08/22/1996, the indicator will be set to “True”.
+                Note: The Administering Entity (Requester) sends this indicator to the hub.
+            </xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>   
+    <xsd:element name="RequesterCommentsForHub" type="vlpres:RequesterCommentsForHubType">
+        <xsd:annotation>
+            <xsd:documentation>     ********************
+            </xsd:documentation>
+        </xsd:annotation>
+    </xsd:element> 
+    <xsd:element name="CategoryCode" type="vlpres:CategoryCodeType">
+        <xsd:annotation>
+            <xsd:documentation>     ************************
+            </xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    
+    <xsd:element name="SEVISID" type="vlpres:SEVISIDType">
+        <xsd:annotation>
+            <xsd:documentation>The SEVIS ID of the applicant.
+                Note to End User: SEVIS IDs start with the letter N followed by 10 digits. In 
+                this interface, remove the leading letter N and pass only the 10 digits.
+            </xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>      
+    
+    <xsd:element name="SubmitAgency3DHSResubResponseSet" type="vlpres:SubmitAgency3DHSResubResponseSetType">
+        <xsd:annotation>
+            <xsd:documentation>This is an optional object within the root response element (the other object
+                being ResponseMetadata) In the event that DHS could not provide the data for whatever reason, 
+                the data in this object will not be populated.
+                If the Hub is able to get response data from DHS, this will be popluated with said data.
+            </xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    <xsd:element name="LawfulPresenceVerifiedCode" type="vlpres:LawfulPresenceVerifiedCodeType">
+        <xsd:annotation>
+            <xsd:documentation>Identifies the lawful presence (Y-Yes, N-No, or P-Pending)
+                Note: The Hub creates this indicator.
+            </xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    <xsd:element name="NonCitLastName" type="vlpres:LastNameType">
+        <xsd:annotation>
+            <xsd:documentation>The non-citizen last name, as found in the DHS DB.
+            </xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    <xsd:element name="NonCitFirstName" type="vlpres:FirstNameType">
+        <xsd:annotation>
+            <xsd:documentation>The non-citizen first name, as found in the DHS DB.
+            </xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    <xsd:element name="NonCitMiddleName" type="vlpres:MiddleNameType">
+        <xsd:annotation>
+            <xsd:documentation>The non-citizen middle name, as found in the DHS DB.
+            </xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    <xsd:element name="NonCitBirthDate" type="vlpres:DateType">
+        <xsd:annotation>
+            <xsd:documentation>The non-citizen birth date, as found in the DHS DB.
+            </xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    <xsd:element name="NonCitEntryDate" type="vlpres:DateType">
+        <xsd:annotation>
+            <xsd:documentation>The non-citizen entry date, as found in the DHS DB.
+            </xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    <xsd:element name="NonCitAdmittedToDate" type="vlpres:DateType">
+        <xsd:annotation>
+            <xsd:documentation>The date non-citizen is admitted until, as found in the DHS DB.
+            </xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    <xsd:element name="NonCitAdmittedToText" type="vlpres:NonCitAdmittedToTextType">
+        <xsd:annotation>
+            <xsd:documentation>If the AdmittedToDate member specifies no actual date, this data element 
+                contains a textual string. It may contain the values Indefinite or D/S (denoting duration 
+                of stay).
+            </xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    <xsd:element name="NonCitCountryBirthCd" type="vlpres:NonCitCountryBirthCdType">
+        <xsd:annotation>
+            <xsd:documentation>The non-citizen country of birth as found in the DHS DB.
+            </xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    <xsd:element name="NonCitCountryCitCd" type="vlpres:NonCitCountryCitCdType">
+        <xsd:annotation>
+            <xsd:documentation>The non-citizen country of citizenship as found in the DHS DB.
+            </xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    <xsd:element name="NonCitCoaCode" type="vlpres:NonCitCoaCodeType">
+        <xsd:annotation>
+            <xsd:documentation>The COA code, as found in the DHS DB.
+            </xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    <xsd:element name="EligStatementCd" type="vlpres:EligStatementCdType">
+        <xsd:annotation>
+            <xsd:documentation>CPS unique Eligibility Statement code (a.k.a. message code).
+            </xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    <xsd:element name="EligStatementTxt" type="vlpres:EligStatementTxtType">
+        <xsd:annotation>
+            <xsd:documentation>The Eligibility Statement text.
+            </xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    <xsd:element name="WebServSftwrVer" type="vlpres:WebServSftwrVerType">
+        <xsd:annotation>
+            <xsd:documentation>The version number of the CPS software that executed this Web Service method.
+            </xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    <xsd:element name="DSHAutoTriggerStepTwo" type="vlpres:DSHAutoTriggerStepTwoType">
+        <xsd:annotation>
+            <xsd:documentation>A Hub derived field that denotes the auto invoking of the Step 2 
+                lawful presence service.
+            </xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    <xsd:element name="FiveYearBarApplyCode" type="vlpres:FiveYearBarApplyCodeType">
+        <xsd:annotation>
+            <xsd:documentation>Identifies if the individual is barred from services for 
+                5 years (Y-Yes, N-No, P-Pending, X-N/A)
+            </xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    <xsd:element name="QualifiedNonCitizenCode" type="vlpres:QualifiedNonCitizenCodeType">
+        <xsd:annotation>
+            <xsd:documentation>This element identifies the qualified non-citizen status 
+                of the individual.  (Y-Yes, N-No or P-Pending).  This indicator is 
+                created in the Hub.
+            </xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    <xsd:element name="FiveYearBarMetCode" type="vlpres:FiveYearBarMetCodeType">
+        <xsd:annotation>
+            <xsd:documentation>
+                FiveYearBarMetIndicator: This element identifies the individuals who 
+                were barred from services for 5 years have met the timeline requirement.
+                For Sprint 10, this field will be populated with 'P' (Pending). In the 
+                future, logic will dictate the value, and update the value for the
+                fiveYearBarIndicator as appropriate.
+                FiveYearBarIndicator: Identifies if the individual is barred from 
+                services for 5 years (Y–Yes, N-No, P-Pending, X-N/A) – this indicator is 
+                created in the Hub.
+            </xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    <xsd:element name="USCitizenCode" type="vlpres:USCitizenCodeType">
+        <xsd:annotation>
+            <xsd:documentation>Identifies if the individual is a US Citizen.
+                (Y–Yes, N-No, P-Pending, X-N/A) – this indicator is 
+                created in the Hub.
+            </xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>        
+          
+    <xsd:element name="ResponseMetadata" type="vlpres:ResponseMetadataType">
+        <xsd:annotation>
+            <xsd:documentation>Standard Hub level response code. TBD: Full set of code values and
+                descriptions. </xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    
+    <xsd:element name="ResponseCode" type="vlpres:ResponseCodeType">
+        <xsd:annotation>
+            <xsd:documentation>Standard Hub level response code. TBD: Full set of code values and
+                descriptions. </xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    
+    <xsd:element name="ResponseDescriptionText" type="vlpres:ResponseDescriptionTextType">
+        <xsd:annotation>
+            <xsd:documentation>Standard Hub level response code description. </xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    
+    <xsd:element name="TDSResponseDescriptionText" type="vlpres:TDSResponseDescriptionTextType">
+        <xsd:annotation>
+            <xsd:documentation>
+                In the event that a TDS sends the Hub a new error code, this field will be populated
+                with a description of the new code.
+            </xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    
+</xsd:schema>

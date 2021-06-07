@@ -13,6 +13,9 @@ module AcaEntities
         # @option opts [Boolean] :is_totally_ineligible optional
         # @option opts [Boolean] :is_without_assistance optional
         # @option opts [Boolean] :is_magi_medicaid optional
+        # @option opts [Boolean] :is_uqhp_eligible optional
+        # @option opts [Boolean] :is_csr_eligible optional
+        # @option opts [String] :csr optional
         # @option opts [Float] :magi_medicaid_monthly_household_income optional
         # @option opts [Integer] :medicaid_household_size optional
         # @option opts [Float] :magi_medicaid_monthly_income_limit optional
@@ -22,15 +25,29 @@ module AcaEntities
         params do
           optional(:is_ia_eligible).maybe(:bool)
           optional(:is_medicaid_chip_eligible).maybe(:bool)
-          optional(:is_non_magi_medicaid_eligible).maybe(:bool)
           optional(:is_totally_ineligible).maybe(:bool)
-          optional(:is_without_assistance).maybe(:bool)
           optional(:is_magi_medicaid).maybe(:bool)
-          optional(:magi_medicaid_monthly_household_income).maybe(:float)
+          optional(:is_uqhp_eligible).maybe(:bool)
+          optional(:is_csr_eligible).maybe(:bool)
+          optional(:csr).maybe(Types::CsrKind)
+
+          optional(:is_non_magi_medicaid_eligible).maybe(:bool)
+          optional(:is_without_assistance).maybe(:bool)
+
+          optional(:magi_medicaid_monthly_household_income).maybe(Types::Money)
           optional(:medicaid_household_size).maybe(:integer)
-          optional(:magi_medicaid_monthly_income_limit).maybe(:float)
-          optional(:magi_as_percentage_of_fpl).maybe(:float)
+          optional(:magi_medicaid_monthly_income_limit).maybe(Types::Money)
+          optional(:magi_as_percentage_of_fpl).maybe(Types::Money)
           optional(:magi_medicaid_category).maybe(Types::MagiMedicaidCategoryType)
+
+          optional(:medicaid_ineligibility_reasons).array(:string)
+          optional(:is_eligible_for_non_magi_reasons).maybe(:bool)
+          optional(:chip_ineligibility_reasons).array(:string)
+          optional(:magi_medicaid_category_threshold).maybe(Types::Money)
+          optional(:medicaid_chip_category).maybe(:string)
+          optional(:medicaid_chip_category_threshold).maybe(Types::Money)
+
+          optional(:category_determinations).array(CategoryDeterminationContract.params)
         end
       end
     end

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'dry-types'
 
 module AcaEntities
@@ -6,7 +7,6 @@ module AcaEntities
     module Ifsv
       module H3
         # Extend DryTypes to include MagiMedicaid
-        # rubocop:disable Metrics/ModuleLength
         module Types
           send(:include, Dry.Types)
           include Dry::Logic
@@ -22,14 +22,16 @@ module AcaEntities
             "6":
               'Married Taxpayer filing a Separate Return (Spouse exemption IS claimed)',
             "7": 'Head of Household (Dependent is NOT Claimed)'
-          }
+          }.freeze
 
           TaxFilerType = (TaxFiler PrimaryTaxFiler SpouseTaxFiler)
           TaxFilerCategoryCodeType =
             Types::Coercible::String.enum('PRIMARY', 'SPOUSE', 'DEPENDENT')
 
           # run through validation code
-          FullyRestrictedSSNType = nil # regex: ([1-57-8][0-9]{2}|0([1-9][0-9]|[0-9][1-9])|6([0-57-9][0-9]|[0-9][0-57-9]))([1-9][0-9]|[0-9][1-9])([1-9]\d{3}|\d[1-9]\d{2}|\d{2}[1-9]\d|\d{3}[1-9])
+          FullyRestrictedSSNType = nil
+          # regex: ([1-57-8][0-9]{2}|0([1-9][0-9]|[0-9][1-9])|6([0-57-9][0-9]
+          #   |[0-9][0-57-9]))([1-9][0-9]|[0-9][1-9])([1-9]\d{3}|\d[1-9]\d{2}|\d{2}[1-9]\d|\d{3}[1-9])
 
           BenefitKind =
             Types::Coercible::String.enum('acf_refugee_medical_assistance')

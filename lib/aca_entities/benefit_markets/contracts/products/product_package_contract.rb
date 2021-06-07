@@ -12,16 +12,16 @@ module AcaEntities
           required(:benefit_kind).filled(:symbol)
           required(:product_kind).filled(:symbol)
           required(:title).filled(:string)
-          required(:contribution_models).value(:array)
-          required(:pricing_model).filled(:hash)
-          required(:products).value(:array)
+          required(:contribution_models).array(BenefitMarkets::ContributionModels::ContributionModelContract.params)
+          required(:pricing_model).filled(BenefitMarkets::PricingModels::PricingModelContract.params)
+          required(:products).array(:hash)
           optional(:description).maybe(:string)
-          required(:contribution_model).value(:any)
-          required(:assigned_contribution_model).value(:any)
+          required(:contribution_model).value(BenefitMarkets::ContributionModels::ContributionModelContract.params)
+          required(:assigned_contribution_model).value(BenefitMarkets::ContributionModels::ContributionModelContract.params)
         end
 
         rule(:assigned_contribution_model) do
-          if key? && value && !value.is_a?(BenefitMarkets::ContributionModel)
+          if key && value && !value.is_a?(BenefitMarkets::ContributionModel)
             if value.is_a?(Hash)
               result = BenefitMarkets::ContributionModels::ContributionModelContract.new.call(value)
               key.failure(text: "invalid assigned contribution model", error: result.errors.to_h) if result&.failure?
