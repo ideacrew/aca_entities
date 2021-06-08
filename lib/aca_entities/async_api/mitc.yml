@@ -31,7 +31,7 @@ channels:
           method: POST
           headers:
             Content-Type: application/json
-            Acccept: application/json
+            Accept: application/json
   /on/determinations/eval:
     subscribe:
       operationId: /on/determinations/eval
@@ -42,7 +42,7 @@ channels:
           method: GET
           headers:
             Content-Type: application/json
-            Acccept: application/json
+            Accept: application/json
 
 tags:
   - name: linter_tag
