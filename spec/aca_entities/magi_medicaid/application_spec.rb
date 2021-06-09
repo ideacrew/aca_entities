@@ -10,8 +10,8 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Application, dbclean: :after_each do
     let(:identifying_information) { { has_ssn: false } }
     let(:demographic) { { gender: 'Male', dob: Date.today.prev_year.to_s } }
     let(:benchmark_premium) do
-      { lcsp_premiums: [{ member_identifier: '95', monthly_premium: 310.50 },
-                        { member_identifier: '96', monthly_premium: 310.60 }],
+      { health_only_lcsp_premiums: [{ member_identifier: '95', monthly_premium: 310.50 },
+                                    { member_identifier: '96', monthly_premium: 310.60 }],
         health_only_slcsp_premiums: [{ member_identifier: '95', monthly_premium: 320.50 },
                                      { member_identifier: '96', monthly_premium: 320.60 }] }
     end

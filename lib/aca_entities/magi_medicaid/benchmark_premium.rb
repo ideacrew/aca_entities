@@ -8,7 +8,7 @@ module AcaEntities
       # @!attribute [r] lcsp_premiums
       # Monthly Member Premium of the Lowest Cost Silver Plan of the applicant based on the age_of_applicant
       # @return [Array<AcaEntities::MagiMedicaid::MemberPremium>]
-      attribute :lcsp_premiums, Types::Array.of(AcaEntities::MagiMedicaid::MemberPremium)
+      attribute :health_only_lcsp_premiums, Types::Array.of(AcaEntities::MagiMedicaid::MemberPremium)
 
       # @!attribute [r] health_only_slcsp_premiums
       # Monthly Member Premium of the Second Lowest Cost Silver Plan of

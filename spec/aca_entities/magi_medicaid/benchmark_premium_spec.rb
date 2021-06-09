@@ -11,7 +11,7 @@ RSpec.describe ::AcaEntities::MagiMedicaid::BenchmarkPremium, dbclean: :after_ea
     let(:member1_slcsp_premium) { { member_identifier: '95', monthly_premium: 320.50 } }
     let(:member2_slcsp_premium) { { member_identifier: '96', monthly_premium: 320.60 } }
     let(:input_params) do
-      { lcsp_premiums: [member1_lcsp_premium, member2_lcsp_premium],
+      { health_only_lcsp_premiums: [member1_lcsp_premium, member2_lcsp_premium],
         health_only_slcsp_premiums: [member1_slcsp_premium, member2_slcsp_premium] }
     end
 
@@ -29,7 +29,7 @@ RSpec.describe ::AcaEntities::MagiMedicaid::BenchmarkPremium, dbclean: :after_ea
     end
 
     it 'should match all the input keys of lcsp_premiums' do
-      result_lcsp_keys = @result.to_h[:lcsp_premiums][0].keys
+      result_lcsp_keys = @result.to_h[:health_only_lcsp_premiums][0].keys
       input_lcsp_keys = member1_lcsp_premium.keys
       expect(result_lcsp_keys - input_lcsp_keys).to be_empty
       expect(input_lcsp_keys - result_lcsp_keys).to be_empty
@@ -43,14 +43,14 @@ RSpec.describe ::AcaEntities::MagiMedicaid::BenchmarkPremium, dbclean: :after_ea
     end
 
     it 'should match all the input keys of slcsp_premiums' do
-      result_slcsp_keys = @result.to_h[:lcsp_premiums][0].keys
+      result_slcsp_keys = @result.to_h[:health_only_lcsp_premiums][0].keys
       input_slcsp_keys = member1_slcsp_premium.keys
       expect(result_slcsp_keys - input_slcsp_keys).to be_empty
       expect(input_slcsp_keys - result_slcsp_keys).to be_empty
     end
 
     it 'should match all the input keys of slcsp_premiums' do
-      result_slcsp_keys = @result.to_h[:lcsp_premiums][1].keys
+      result_slcsp_keys = @result.to_h[:health_only_lcsp_premiums][1].keys
       input_slcsp_keys = member2_slcsp_premium.keys
       expect(result_slcsp_keys - input_slcsp_keys).to be_empty
       expect(input_slcsp_keys - result_slcsp_keys).to be_empty
@@ -59,8 +59,8 @@ RSpec.describe ::AcaEntities::MagiMedicaid::BenchmarkPremium, dbclean: :after_ea
 
   describe 'with invalid arguments' do
     it 'should raise error' do
-      msg = /invalid type for :lcsp_premiums violates constraints/
-      expect { described_class.new(lcsp_premiums: 'Test') }.to raise_error(Dry::Struct::Error, msg)
+      msg = /invalid type for :health_only_lcsp_premiums violates constraints/
+      expect { described_class.new(health_only_lcsp_premiums: 'Test') }.to raise_error(Dry::Struct::Error, msg)
     end
   end
 end
