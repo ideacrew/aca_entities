@@ -2,7 +2,7 @@ asyncapi: "2.0.0"
 info:
   title: FDSH Hub
   version: 0.1.0
-  description: Configuration for accessing CMS FDSH services
+  description: CMS FDSH services for State-based Excahnges
   contact:
     name: IdeaCrew
     url: https://ideacrew.com
@@ -12,14 +12,15 @@ info:
     url: https://opensource.org/licenses/MIT
 
 servers:
-  test:
-    url: http://dev.hub.cms.gov:5443
+  production:
+    url: http://impl.hub.cms.gov:5443
     protocol: http
     protocolVersion: 0.1.0
     description: HIX DSH Hub Connectivity Service
+
     variables:
       uri:
-        default: http://dev.hub.cms.gov:5443
+        default: http://impl.hub.cms.gov:5443
         description: ConnectionManager key
       cert_file:
         default: /path/to/cert.pem
@@ -27,6 +28,10 @@ servers:
         default: /path/to/key.pem
       ttl:
         default: "60"
+      user_name:
+        default: my_user
+      password:
+        default: my_pwd
 
 defaultContentType: application/soap+xml
 
@@ -34,7 +39,7 @@ channels:
   HubConnectivityService:
     publish:
       operationId: HubConnectivityService
-      description: HIX DSH Hub Connectivity Service
+      description: HIX DSH Hub Connectivity Service Request
       bindings:
         http:
           type: request
@@ -45,7 +50,7 @@ channels:
   on/HubConnectivityService:
     subscribe:
       operationId: on/HubConnectivityService
-      description: Subscriber that publishes HIX DSH Hub Connectivity Service responses
+      description: HIX DSH Hub Connectivity Service Response
       bindings:
         http:
           type: response
@@ -57,7 +62,7 @@ channels:
   VerifySSACompositeService:
     publish:
       operationId: VerifySSACompositeService
-      description: Verify SSA Composite Service
+      description: Verify SSA Composite Service Request
       bindings:
         http:
           type: request
@@ -68,7 +73,7 @@ channels:
   on/VerifySSACompositeService:
     subscribe:
       operationId: /on/VerifySSACompositeService
-      description: Subscriber that publishes Verify SSA Composite Service responses
+      description: Verify SSA Composite Service Response
       bindings:
         http:
           type: response
