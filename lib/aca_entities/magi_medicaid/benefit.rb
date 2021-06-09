@@ -66,26 +66,11 @@ module AcaEntities
         else BigDecimal('0')
         end
       end
+      # rubocop:enable Metrics/CyclomaticComplexity
 
       def monthly_employee_cost
-        return BigDecimal('0') if check_if_blank?(employee_cost_frequency) || check_if_blank?(employee_cost)
-
-        case employee_cost_frequency
-        when 'Weekly' then (employee_cost * 4)
-        when 'Monthly' then employee_cost
-        when 'Annually' then (employee_cost / 12)
-        when 'BiWeekly', 'SemiMonthly' then (employee_cost * 2)
-        when 'Quarterly' then (employee_cost / 3)
-        when 'Hourly' then (employee_cost * 8 * 5 * 4)
-        when 'Daily' then (employee_cost * 5 * 4)
-        when 'SemiAnnually' then (employee_cost / 6)
-        when '13xPerYear' then ((employee_cost * 13) / 12)
-        when '11xPerYear' then ((employee_cost * 11) / 12)
-        when '10xPerYear' then ((employee_cost * 10) / 12)
-        else BigDecimal('0')
-        end
+        annual_employee_cost / 12
       end
-      # rubocop:enable Metrics/CyclomaticComplexity
     end
   end
 end

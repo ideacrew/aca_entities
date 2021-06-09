@@ -9,6 +9,12 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Application, dbclean: :after_each do
     let(:name) { { first_name: 'first', last_name: 'last' } }
     let(:identifying_information) { { has_ssn: false } }
     let(:demographic) { { gender: 'Male', dob: Date.today.prev_year.to_s } }
+    let(:benchmark_premium) do
+      { lcsp_premiums: [{ member_identifier: '95', monthly_premium: 310.50 },
+                        { member_identifier: '96', monthly_premium: 310.60 }],
+        health_only_slcsp_premiums: [{ member_identifier: '95', monthly_premium: 320.50 },
+                                     { member_identifier: '96', monthly_premium: 320.60 }] }
+    end
     let(:attestation) { { is_self_attested_disabled: false, is_self_attested_blind: false } }
     let(:family_member_reference) do
       { family_member_hbx_id: '1000',
@@ -63,7 +69,7 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Application, dbclean: :after_each do
         has_enrolled_health_coverage: false,
         has_eligible_health_coverage: false,
         age_of_applicant: 45,
-        benchmark_premium: { monthly_slcsp_premium: 496.02, monthly_lcsp_premium: 430.48 },
+        benchmark_premium: benchmark_premium,
         is_homeless: false,
         mitc_relationships: mitc_relationships,
         mitc_income: mitc_income }
