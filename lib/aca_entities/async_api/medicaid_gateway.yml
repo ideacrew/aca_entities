@@ -37,6 +37,8 @@ channels:
       bindings:
         amqp:
           exchange:
+            app_id: medicaid_gateway
+            type: magi_medicaid.mitc.eligibilities
             routing_key: magi_medicaid.mitc.eligibilities.determined_uqhp_eligible
             expiration: 100_000
             deliveryMode: 2
@@ -63,6 +65,8 @@ channels:
       bindings:
         amqp:
           exchange:
+            app_id: medicaid_gateway
+            type: magi_medicaid.mitc.eligibilities
             routing_key: magi_medicaid.mitc.eligibilities.determined_mixed_eligible
             expiration: 100_000
             deliveryMode: 2
@@ -89,6 +93,8 @@ channels:
       bindings:
         amqp:
           exchange:
+            app_id: medicaid_gateway
+            type: magi_medicaid.mitc.eligibilities
             routing_key: magi_medicaid.mitc.eligibilities.determined_mixed_eligible
             expiration: 100_000
             deliveryMode: 2
@@ -114,6 +120,8 @@ channels:
       bindings:
         amqp:
           exchange:
+            app_id: medicaid_gateway
+            type: magi_medicaid.mitc.eligibilities
             routing_key: magi_medicaid.mitc.eligibilities.determined_mixed_eligible
             expiration: 100_000
             deliveryMode: 2
@@ -140,6 +148,8 @@ channels:
       bindings:
         amqp:
           exchange:
+            app_id: medicaid_gateway
+            type: magi_medicaid.mitc.eligibilities
             routing_key: magi_medicaid.mitc.eligibilities.determined_mixed_eligible
             expiration: 100_000
             deliveryMode: 2
@@ -149,54 +159,6 @@ channels:
             bindingVersion: 0.2.0
       operationId: magi_medicaid.mitc.eligibilities.determined_mixed_eligible
       description: MitC determined some applicants eligible for Medicaid/CHIP and/or APTC/CSR financial assistance
-
-      # This goes in enroll.yml
-  enroll.magi_medicaid.mitc.eligibilities:
-    bindings:
-      amqp:
-        is: queue
-        queue:
-          name: on_enroll_magi_medicaid_mitc_eligibilities
-          durable: true
-          exclusive: false
-          autoDelete: false
-          vhost: /
-    subscribe:
-      bindings:
-        amqp:
-          routing_key: magi_medicaid.*.eligibilities.*
-          durable: true
-          auto_delete: false
-          ack: true
-          exclusive: false
-          arguments:
-            exchange_name: magi_medicaid.mitc.eligibilities
-      operationId: on_enroll_magi_medicaid_mitc_eligibilities
-      description: Events - MitC eligibility determinations for Medicaid/CHIP and/or APTC/CSR financial assistance
-
-      # This goes in polypress.yml
-  polypress.magi_medicaid.mitc.eligibilities:
-    bindings:
-      amqp:
-        is: queue
-        queue:
-          name: on_polypress_magi_medicaid_mitc_eligibilities
-          durable: true
-          exclusive: false
-          autoDelete: false
-          vhost: /
-    subscribe:
-      bindings:
-        amqp:
-          routing_key: magi_medicaid.*.eligibilities.*
-          durable: true
-          auto_delete: false
-          ack: true
-          exclusive: false
-          arguments:
-            exchange_name: magi_medicaid.mitc.eligibilities
-      operationId: on_polypress_magi_medicaid_mitc_eligibilities
-      description: Events - MitC eligibility determinations for Medicaid/CHIP and/or APTC/CSR financial assistance
 
 tags:
   - name: linter_tag
