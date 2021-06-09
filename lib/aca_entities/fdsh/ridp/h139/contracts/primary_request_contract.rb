@@ -4,8 +4,8 @@ module AcaEntities
   module Fdsh
     module Ridp
       module H139
-        # contract for InitialServiceRequest
-        class InitialServiceRequestContract < Dry::Validation::Contract
+        # contract for PrimaryRequest
+        class PrimaryRequestContract < Dry::Validation::Contract
 
           params do
             required(:person_given_name).filled(:string)

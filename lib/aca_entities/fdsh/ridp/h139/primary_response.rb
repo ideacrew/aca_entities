@@ -4,8 +4,8 @@ module AcaEntities
   module Fdsh
     module Ridp
       module H139
-        # Entity for InitialServiceResponse
-        class InitialServiceResponse < Dry::Struct
+        # Entity for PrimaryResponse
+        class PrimaryResponse < Dry::Struct
           attribute :response_code,                       Types::String.meta(omittable: false)
           attribute :response_description_text,           Types::String.meta(omittable: false)
           attribute :tds_response_description_text,       Types::String.meta(omittable: false)

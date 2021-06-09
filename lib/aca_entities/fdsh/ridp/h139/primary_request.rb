@@ -4,8 +4,8 @@ module AcaEntities
   module Fdsh
     module Ridp
       module H139
-        # Entity for InitialServiceRequest
-        class InitialServiceRequest < Dry::Struct
+        # Entity for PrimaryRequest
+        class PrimaryRequest < Dry::Struct
           attribute :person_given_name,                       Types::String.meta(omittable: false)
           attribute :person_sur_name,                         Types::String.meta(omittable: false)
           attribute :person_middle_name,                      Types::String.optional.meta(omittable: true)

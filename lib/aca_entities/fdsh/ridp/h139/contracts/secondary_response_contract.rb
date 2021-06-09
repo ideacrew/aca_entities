@@ -4,8 +4,8 @@ module AcaEntities
   module Fdsh
     module Ridp
       module H139
-        # contract for SubsequentServiceResponse
-        class SubsequentServiceResponseContract < Dry::Validation::Contract
+        # contract for SecondaryResponse
+        class SecondaryResponseContract < Dry::Validation::Contract
 
           params do
             required(:response_code).filled(:string)
