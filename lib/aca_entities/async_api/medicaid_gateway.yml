@@ -31,7 +31,7 @@ channels:
           type: direct
           durable: true
           autoDelete: false
-          vhost: /
+          vhost: /event_source
         bindingVersion: 0.1.0
     publish:
       bindings:
@@ -57,7 +57,7 @@ channels:
           content_type: application/json
           durable: true
           autoDelete: false
-          vhost: /
+          vhost: /event_source
         bindingVersion: 0.1.0
     publish:
       bindings:
@@ -83,7 +83,7 @@ channels:
           content_type: application/json
           durable: true
           autoDelete: false
-          vhost: /
+          vhost: /event_source
         bindingVersion: 0.1.0
     publish:
       bindings:
@@ -108,7 +108,7 @@ channels:
           type: direct
           durable: true
           autoDelete: false
-          vhost: /
+          vhost: /event_source
         bindingVersion: 0.1.0
     publish:
       bindings:
@@ -134,7 +134,7 @@ channels:
           content_type: application/json
           durable: true
           autoDelete: false
-          vhost: /
+          vhost: /event_source
         bindingVersion: 0.1.0
     publish:
       bindings:
