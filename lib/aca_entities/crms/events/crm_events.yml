@@ -62,13 +62,13 @@ channels:
           durable: true
           exclusive: true
           autoDelete: false
-          vhost: /
+          vhost: /event_source
         exchange:
           name: myExchange
           type: direct
           durable: true
           autoDelete: false
-          vhost: /
+          vhost: /event_source
         bindingVersion: 0.1.0
   crms.accounts.account_created:
     publish:
