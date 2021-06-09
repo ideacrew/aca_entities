@@ -21,7 +21,10 @@ module AcaEntities
                   omittable: false
                 )
 
-      attribute :workflow_state_transitions
+      attribute :workflow_state_transitions,
+                AcaEntities::Transitions::WorkflowStateTransition.optional.meta(
+                  omittable: false
+                )
     end
   end
 end
