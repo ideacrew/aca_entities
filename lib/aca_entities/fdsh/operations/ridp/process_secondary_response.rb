@@ -18,7 +18,6 @@ module AcaEntities
             valid_family               = yield validate_family(family)
             primary_person             = yield fetch_primary_family_members_person(valid_family)
             primary_request_params     = yield transform_person_to_primary_request(primary_person)
-            binding.pry
             validated_primary_request  = yield validate_primary_request(primary_request_params)
             primary_request_json       = yield primary_request_entity_json(validated_primary_request)
 
@@ -36,7 +35,7 @@ module AcaEntities
             end
           end
 
-          def fetch_primary_family_members_person(family)
+          def fetch_primary_family_member(family)
             primary_family_member = family.family_members.detect { |family_member| family_member.is_primary_applicant }
             if primary_family_member
               Success(primary_family_member.person)

@@ -61,6 +61,12 @@ module AcaEntities
       require 'aca_entities/fdsh/ridp/h139/current_income_response'
       require 'aca_entities/fdsh/ridp/h139/current_income_response_payload_type'
 
+      # transformers
+      require 'aca_entities/fdsh/transformers/ridp/person_to_primary_request'
+
+      # operations
+      require 'aca_entities/fdsh/operations/ridp/generate_primary_request_payload'
+
     end
   end
 end
