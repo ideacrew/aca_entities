@@ -6,9 +6,9 @@ module AcaEntities
       module H139
         # Entity for SecondaryRequest
         class SecondaryRequest < Dry::Struct
-          attribute :session_identification,          Types::String.meta(omittable: false)
-          attribute :verification_answer,             Types::Integer.meta(omittable: false)
-          attribute :verification_question_number,    Types::Integer.meta(omittable: false)
+          attribute :SessionIdentification,          Types::String.meta(omittable: false)
+          attribute :VerificationAnswer,             Types::Integer.meta(omittable: false)
+          attribute :VerificationQuestionNumber,    Types::Integer.meta(omittable: false)
 
         end
       end

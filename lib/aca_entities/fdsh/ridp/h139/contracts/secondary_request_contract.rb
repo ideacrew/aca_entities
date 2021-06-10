@@ -7,9 +7,9 @@ module AcaEntities
         # contract for SecondaryRequest
         class SecondaryRequestContract < Dry::Validation::Contract
           params do
-            required(:session_identification).filled(:string)
-            required(:verification_answer).filled(:integer)
-            required(:verification_question_number).filled(:integer)
+            required(:SessionIdentification).filled(:string)
+            required(:VerificationAnswer).filled(:integer)
+            required(:VerificationQuestionNumber).filled(:integer)
           end
         end
       end

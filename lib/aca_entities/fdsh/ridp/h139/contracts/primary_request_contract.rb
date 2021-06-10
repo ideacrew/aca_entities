@@ -8,23 +8,23 @@ module AcaEntities
         class PrimaryRequestContract < Dry::Validation::Contract
 
           params do
-            required(:person_given_name).filled(:string)
-            required(:person_sur_name).filled(:string)
-            optional(:person_middle_name).maybe(:string)
-            optional(:person_name_suffix_text).maybe(:string)
-            optional(:person_birth_date).maybe(:date)
-            optional(:person_ssn_identification).maybe(:string)
+            required(:PersonGivenName).filled(:string)
+            required(:PersonSurName).filled(:string)
+            optional(:PersonMiddleName).maybe(:string)
+            optional(:PersonNameSuffixText).maybe(:string)
+            optional(:PersonBirthDate).maybe(:date)
+            optional(:PersonSSNIdentification).maybe(:string)
 
-            required(:street_name).filled(:string)
-            required(:location_city_name).filled(:string)
-            required(:location_state_us_postal_service_code).filled(:string)
-            required(:location_postal_code).filled(:string)
-            optional(:location_postal_extension_code).maybe(:string)
+            required(:StreetName).filled(:string)
+            required(:LocationCityName).filled(:string)
+            required(:LocationStateUSPostalServiceCode).filled(AcaEntities::Fdsh::Ridp::H139::Types::UsStateAbbreviationKind)
+            required(:LocationPostalCode).filled(:string)
+            optional(:LocationPostalExtensionCode).maybe(:string)
 
-            optional(:full_telephone_number).maybe(:string)
-            optional(:level_of_proofing_code).maybe(:string)
+            optional(:FullTelephoneNumber).maybe(:string)
+            optional(:LevelOfProofingCode).maybe(AcaEntities::Fdsh::Ridp::H139::Types::LevelOfProofingCodeKind)
 
-            optional(:PersonLanguagePreference).maybe(:string)
+            optional(:PersonLanguagePreference).maybe(AcaEntities::Fdsh::Ridp::H139::Types::PersonLanguagePreference)
             optional(:SubscriberNumber).maybe(:string)
           end
         end

@@ -8,12 +8,12 @@ module AcaEntities
         class SecondaryResponseContract < Dry::Validation::Contract
 
           params do
-            required(:response_code).filled(:string)
-            required(:response_description_text).filled(:string)
-            required(:final_decision_code).filled(:string)
-            required(:dsh_reference_number).filled(:string)
-            optional(:tds_response_description_text).maybe(:string)
-            optional(:session_identification).maybe(:string)
+            required(:ResponseCode).filled(:string)
+            required(:ResponseDescriptionText).filled(:string)
+            required(:FinalDecisionCode).filled(:string)
+            required(:DSHReferenceNumber).filled(:string)
+            optional(:TDSResponseDescriptionText).maybe(:string)
+            optional(:SessionIdentification).maybe(:string)
           end
         end
       end

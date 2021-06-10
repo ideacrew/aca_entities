@@ -6,14 +6,14 @@ module AcaEntities
       module H139
         # Entity for PrimaryResponse
         class PrimaryResponse < Dry::Struct
-          attribute :response_code,                       Types::String.meta(omittable: false)
-          attribute :response_description_text,           Types::String.meta(omittable: false)
-          attribute :tds_response_description_text,       Types::String.meta(omittable: false)
-          attribute :session_identification,              Types::String.optional.meta(omittable: true)
-          attribute :dsh_reference_number,                Types::String.optional.meta(omittable: true)
-          attribute :final_decision_code,                 Types::String.optional.meta(omittable: true) # TODO: enum
-          attribute :verification_question_text,          Types::Array.of(Types::String).meta(omittable: false)
-          attribute :verification_answer_choice_text,     Types::Array.of(Types::String).meta(omittable: false)
+          attribute :ResponseCode,                      Types::String.meta(omittable: false)
+          attribute :ResponseDescriptionText,           Types::String.meta(omittable: false)
+          attribute :TDSResponseDescriptionText,        Types::String.meta(omittable: true)
+          attribute :SessionIdentification,             Types::String.optional.meta(omittable: true)
+          attribute :DSHReferenceNumber,                Types::String.optional.meta(omittable: true)
+          attribute :FinalDecisionCode,                 Types::String.optional.meta(omittable: true) # TODO: enum
+          attribute :VerificationQuestionText,          Types::Array.of(Types::String).meta(omittable: false)
+          attribute :VerificationAnswerChoiceText,       Types::Array.of(Types::String).meta(omittable: false)
         end
       end
     end
