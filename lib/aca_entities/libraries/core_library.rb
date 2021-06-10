@@ -108,6 +108,7 @@ module AcaEntities
       require 'aca_entities/people/person_relationship'
       require 'aca_entities/people/person_health'
       require 'aca_entities/people/person_demographics'
+      require 'aca_entities/accounts/user'
       require 'aca_entities/people/person'
       require 'aca_entities/households/household'
       require 'aca_entities/families/family_member'
