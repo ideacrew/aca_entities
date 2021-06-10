@@ -27,7 +27,7 @@ module AcaEntities
                   .optional
                   .meta(omittable: true)
 
-      attribute :roles, AcaEntities::Roles::Role.optional.meta(omittable: true)
+#      attribute :roles, AcaEntities::Roles::Role.optional.meta(omittable: true)
 
       ### Deprecate individual attributes for each role type
       attribute :consumer_role,
