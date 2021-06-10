@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# require "aca_entities/serializers/xml/fdsh/ridp/person_name"
+
 module AcaEntities
   module Serializers
     module Xml
@@ -18,10 +20,13 @@ module AcaEntities
             element :PersonSSNIdentification, String, tag: 'PersonSSNIdentification'
 
             def self.domain_to_mapper(person_data)
+              binding.pry
               mapper = self.new
+              binding.pry
               mapper.person_name = PersonName.domain_to_mapper(person_data)
               mapper.PersonBirthDate = person_data.PersonBirthDate
               mapper.PersonSSNIdentification = person_data.PersonSSNIdentification
+              binding.pry
               mapper
             end
           end

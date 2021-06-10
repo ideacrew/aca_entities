@@ -20,7 +20,6 @@ module AcaEntities
 
             def self.domain_to_mapper(initial_response)
               mapper = self.new
-              mapper.version = "1.0"
               mapper.ResponseCode = initial_response.ResponseCode
               mapper.ResponseDescriptionText = initial_response.response_description_text
               mapper.TDSResponseDescriptionText = initial_response.TDSResponseDescriptionText

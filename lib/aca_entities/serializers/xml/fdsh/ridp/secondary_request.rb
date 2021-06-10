@@ -19,7 +19,6 @@ module AcaEntities
 
             def self.domain_to_mapper(secondary_response)
               mapper = self.new
-              mapper.version = "1.0"
               mapper.verification_answer_set = VerificationAnswerSet.domain_to_mapper(secondary_response.verification_answer_set)
               mapper.SessionIdentification = secondary_response.SessionIdentification
               mapper

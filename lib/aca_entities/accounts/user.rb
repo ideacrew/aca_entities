@@ -4,7 +4,7 @@ module AcaEntities
   module Accounts
     class User < Dry::Struct
 
-      attribute :attestations,                            Types::Array.of(AcaEntities::Attestations::Attestation).optioal.meta(omittable: true)
+      attribute :attestations,                            Types::Array.of(AcaEntities::Attestations::Attestation).optional.meta(omittable: true)
 
       attribute :approved,                                Types::Bool.optional.meta(omittable: true)
       attribute :email,                                   Types::String.meta(omittable: false)
@@ -22,7 +22,7 @@ module AcaEntities
       attribute :last_portal_visited,                     Types::String.optional.meta(omittable: true)
       attribute :preferred_language,                      Types::String.optional.meta(omittable: true)
       attribute :profile_type,                            Types::String.optional.meta(omittable: true)
-      attribute :roles,                                   Types::Array.of(Types::String).optioal.meta(omittable: true)
+      attribute :roles,                                   Types::Array.of(Types::String).optional.meta(omittable: true)
       attribute :timestamp,                               AcaEntities::TimeStamp.meta(omittable: true)
     end
   end

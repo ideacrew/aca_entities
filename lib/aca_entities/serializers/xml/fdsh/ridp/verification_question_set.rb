@@ -19,7 +19,6 @@ module AcaEntities
 
             def self.domain_to_mapper(verification_question_set)
               mapper = self.new
-              mapper.version = "1.0"
               mapper.VerificationQuestionText = verification_question_set.VerificationQuestionText
               mapper.VerificationAnswerChoiceText = verification_question_set.VerificationAnswerChoiceText
               mapper

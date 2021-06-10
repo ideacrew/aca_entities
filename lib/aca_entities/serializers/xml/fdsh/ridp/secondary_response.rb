@@ -17,7 +17,6 @@ module AcaEntities
 
             def self.domain_to_mapper(secondary_response)
               mapper = self.new
-              mapper.version = "1.0"
               mapper.response_metadata = ResponseMetadata.domain_to_mapper(secondary_response.response_metadata)
               mapper.verification_response = VerificationResponse.domain_to_mapper(secondary_response.verification_response)
               mapper

@@ -6,8 +6,8 @@ module AcaEntities
       module Fdsh
         module Ridp
           # Happymapper implementation for the root object of an
-          # InitialServiceRequest.
-          class InitialServiceRequest
+          # PrimaryRequest.
+          class PrimaryRequest
             include HappyMapper
             register_namespace 'ex', 'http://ridp.dsh.cms.gov/exchange/1.0'
             register_namespace 'ext', 'http://ridp.dsh.cms.gov/extension/1.0'
@@ -24,7 +24,7 @@ module AcaEntities
 
             def self.domain_to_mapper(initial_primary_request)
               mapper = self.new
-              mapper.version = "1.0"
+              binding.pry
               mapper.person = Person.domain_to_mapper(initial_primary_request.person)
               mapper.current_address = CurrentAddress.domain_to_mapper(initial_primary_request.current_address)
               mapper.contact_information = ContactInformation.domain_to_mapper(initial_primary_request.contact_information)
@@ -32,6 +32,7 @@ module AcaEntities
               mapper.LevelOfProofingCode = initial_primary_request.LevelOfProofingCode
               mapper.SubscriberNumber = initial_primary_request.SubscriberNumber
               mapper.PersonLanguagePreference = initial_primary_request.PersonLanguagePreference
+              binding.pry
               mapper
             end
           end

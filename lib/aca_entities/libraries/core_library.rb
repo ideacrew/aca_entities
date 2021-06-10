@@ -77,6 +77,8 @@ module AcaEntities
       require 'aca_entities/currency'
       require 'aca_entities/identifiers/identifier_kind'
       require 'aca_entities/identifiers/id'
+      require 'aca_entities/attestations/attestation'
+      require 'aca_entities/accounts/user'
       require 'aca_entities/organizations/issuer_profile_reference'
       require 'aca_entities/products/product_reference'
       require 'aca_entities/people/person_reference'

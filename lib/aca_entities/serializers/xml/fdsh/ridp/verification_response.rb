@@ -22,7 +22,6 @@ module AcaEntities
 
             def self.domain_to_mapper(verification_response)
               mapper = self.new
-              mapper.version = "1.0"
               mapper.SessionIdentification = verification_response.SessionIdentification
               mapper.DSHReferenceNumber = verification_response.DSHReferenceNumber
               mapper.FinalDecisionCode = verification_response.FinalDecisionCode

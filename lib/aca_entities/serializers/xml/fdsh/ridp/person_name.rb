@@ -3,8 +3,8 @@
 module AcaEntities
   module Serializers
     module Xml
-      module Medicaid
-        module Atp
+      module Fdsh
+        module Ridp
           # Include XML element and type definitions.
           class PersonName
             include HappyMapper

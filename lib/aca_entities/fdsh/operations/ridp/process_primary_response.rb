@@ -7,15 +7,16 @@ module AcaEntities
   module Fdsh
     module Operations
       module Ridp
-        # This class takes AcaEntities::Families::Famlily as input and returns the ridp primary request hash.
-        class GeneratePrimaryRequestPayload
+        # This class takes happy mapper hash as input and returns the ridp_attestation entity.
+        class Process_primary_response
           include Dry::Monads[:result, :do, :try]
           include AcaEntities::AppHelper
 
-          # @param [Hash] opts The options to generate Ridp Primary Request Payload
+          # @param [Hash] opts The options to generate ridp_attestation entity
           # @return [Dry::Monads::Result]
-          def call(family)
-            valid_family               = yield validate_family(family)
+          def call(payload)
+            valid_response             = yield validate_primary_response(payload)
+
             primary_person             = yield fetch_primary_family_members_person(valid_family)
             primary_request_params     = yield transform_person_to_primary_request(primary_person)
             validated_primary_request  = yield validate_primary_request(primary_request_params)
@@ -27,7 +28,9 @@ module AcaEntities
           private
 
           # Validate input object
-          def validate_family(family)
+          def validate_primary_response(payload)
+            result = ::AcaEntities::Fdsh::Ridp::H139::PrimaryResponseContract.new.call(payload)
+
             if family.is_a?(::AcaEntities::Families::Family)
               Success(family)
             else

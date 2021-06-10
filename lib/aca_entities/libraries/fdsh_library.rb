@@ -67,6 +67,9 @@ module AcaEntities
       # operations
       require 'aca_entities/fdsh/operations/ridp/generate_primary_request_payload'
 
+      # happymapper
+      require 'aca_entities/serializers/xml/fdsh/ridp'
+
     end
   end
 end
