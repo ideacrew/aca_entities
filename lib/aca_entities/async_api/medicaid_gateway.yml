@@ -14,7 +14,12 @@ info:
 
 servers:
   test:
-    url: http://localhost:5672
+    url: amqp://amqp:5672/event_source
+    protocol: amqp
+    protocolVersion: 0.9.2
+    description: Medicaid Gateway Test Server
+  development:
+    url: amqp://amqp:5672/event_source
     protocol: amqp
     protocolVersion: 0.9.2
     description: Medicaid Gateway Test Server
@@ -25,12 +30,12 @@ channels:
   magi_medicaid.mitc.eligibilities.determined_uqhp_eligible:
     bindings:
       amqp:
-        is: routingKey
+        is: :routing_key
         exchange:
           name: magi_medicaid.mitc.eligibilities
           type: direct
           durable: true
-          autoDelete: false
+          auto_delete: false
           vhost: /event_source
         bindingVersion: 0.1.0
     publish:
@@ -52,13 +57,13 @@ channels:
   magi_medicaid.mitc.eligibilities.determined_aqhp_eligible:
     bindings:
       amqp:
-        is: routingKey
+        is: :routing_key
         exchange:
           name: magi_medicaid.mitc.eligibilities
           type: direct
           content_type: application/json
           durable: true
-          autoDelete: false
+          auto_delete: false
           vhost: /event_source
         bindingVersion: 0.1.0
     publish:
@@ -80,13 +85,13 @@ channels:
   magi_medicaid.mitc.eligibilities.determined_medicaid_eligible:
     bindings:
       amqp:
-        is: routingKey
+        is: :routing_key
         exchange:
           name: magi_medicaid.mitc.eligibilities
           type: direct
           content_type: application/json
           durable: true
-          autoDelete: false
+          auto_delete: false
           vhost: /event_source
         bindingVersion: 0.1.0
     publish:
@@ -108,12 +113,12 @@ channels:
   magi_medicaid.mitc.eligibilities.determined_chip_eligible:
     bindings:
       amqp:
-        is: routingKey
+        is: :routing_key
         exchange:
           name: magi_medicaid.mitc.eligibilities
           type: direct
           durable: true
-          autoDelete: false
+          auto_delete: false
           vhost: /event_source
         bindingVersion: 0.1.0
     publish:
@@ -135,13 +140,13 @@ channels:
   magi_medicaid.mitc.eligibilities.determined_mixed_eligible:
     bindings:
       amqp:
-        is: routingKey
+        is: :routing_key
         exchange:
           name: magi_medicaid.mitc.eligibilities
           type: direct
           content_type: application/json
           durable: true
-          autoDelete: false
+          auto_delete: false
           vhost: /event_source
         bindingVersion: 0.1.0
     publish:
