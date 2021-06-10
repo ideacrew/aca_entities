@@ -96,7 +96,7 @@ module AcaEntities
       EarnedIncomeKinds = [
         'wages_and_salaries',
         'net_self_employment',
-        'scholorship_payments'
+        'scholarship_payments'
       ].freeze
 
       DeductionKind = Types::Coercible::String.enum(
