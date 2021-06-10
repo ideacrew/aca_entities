@@ -18,9 +18,9 @@ module AcaEntities
             has_one :person, Person
             has_one :current_address, CurrentAddress
             has_one :contact_information, ContactInformation
-            element :level_of_proofing_code, String, tag: 'LevelOfProofingCode'
-            element :subscriber_number, String, tag: 'SubscriberNumber'
-            element :person_language_preference, String, tag: 'PersonLanguagePreference'
+            element :LevelOfProofingCode, String, tag: 'LevelOfProofingCode'
+            element :SubscriberNumber, String, tag: 'SubscriberNumber'
+            element :PersonLanguagePreference, String, tag: 'PersonLanguagePreference'
 
             def self.domain_to_mapper(initial_primary_request)
               mapper = self.new
@@ -29,9 +29,9 @@ module AcaEntities
               mapper.current_address = CurrentAddress.domain_to_mapper(initial_primary_request.current_address)
               mapper.contact_information = ContactInformation.domain_to_mapper(initial_primary_request.contact_information)
 
-              mapper.level_of_proofing_code = initial_primary_request.contact_information
-              mapper.subscriber_number = initial_primary_request.contact_information
-              mapper.person_language_preference = initial_primary_request.contact_information
+              mapper.LevelOfProofingCode = initial_primary_request.LevelOfProofingCode
+              mapper.SubscriberNumber = initial_primary_request.SubscriberNumber
+              mapper.PersonLanguagePreference = initial_primary_request.PersonLanguagePreference
               mapper
             end
           end

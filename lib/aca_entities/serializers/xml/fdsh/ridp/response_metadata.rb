@@ -14,16 +14,16 @@ module AcaEntities
             tag 'hix-core:ResponseMetadata'
             namespace 'hix-core'
 
-            element :response_code, String, tag: "ResponseCode", namespace: 'hix-core'
-            element :response_description_text, String, tag: "ResponseDescriptionText", namespace: 'hix-core'
-            element :tds_response_description_text, String, tag: "TDSResponseDescriptionText", namespace: 'hix-core'
+            element :ResponseCode, String, tag: "ResponseCode", namespace: 'hix-core'
+            element :ResponseDescriptionText, String, tag: "ResponseDescriptionText", namespace: 'hix-core'
+            element :TDSResponseDescriptionText, String, tag: "TDSResponseDescriptionText", namespace: 'hix-core'
 
             def self.domain_to_mapper(initial_response)
               mapper = self.new
               mapper.version = "1.0"
-              mapper.response_code = initial_response.response_code
-              mapper.response_description_text = initial_response.response_description_text
-              mapper.tds_response_description_text = initial_response.response_description_text
+              mapper.ResponseCode = initial_response.ResponseCode
+              mapper.ResponseDescriptionText = initial_response.response_description_text
+              mapper.TDSResponseDescriptionText = initial_response.TDSResponseDescriptionText
               mapper
             end
           end

@@ -13,17 +13,17 @@ module AcaEntities
             tag 'PersonName'
             namespace 'nc'
 
-            element :person_given_name, String, tag: 'PersonGivenName'
-            element :person_sur_name, String, tag: 'PersonSurName'
-            element :person_middle_name, String, tag: 'PersonMiddleName'
-            element :person_name_suffix_text, String, tag: 'PersonNameSuffixText'
+            element :PersonGivenName, String, tag: 'PersonGivenName'
+            element :PersonSurName, String, tag: 'PersonSurName'
+            element :PersonMiddleName, String, tag: 'PersonMiddleName'
+            element :PersonNameSuffixText, String, tag: 'PersonNameSuffixText'
 
             def self.domain_to_mapper(person)
               mapper = self.new
-              mapper.person_given_name = person.person_given_name
-              mapper.person_sur_name = person.person_sur_name
-              mapper.person_middle_name = person.person_middle_name
-              mapper.person_name_suffix_text = person.person_name_suffix_text
+              mapper.PersonGivenName = person.PersonGivenName
+              mapper.PersonSurName = person.PersonSurName
+              mapper.PersonMiddleName = person.PersonMiddleName
+              mapper.PersonNameSuffixText = person.PersonNameSuffixText
               mapper
             end
           end

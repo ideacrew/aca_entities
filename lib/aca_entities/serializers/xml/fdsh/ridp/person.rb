@@ -14,14 +14,14 @@ module AcaEntities
             namespace 'hix-core'
 
             has_one :person_name, PersonName
-            element :person_birth_date, Date, tag: 'PersonBirthDate'
-            element :person_ssn_identification, String, tag: 'PersonSsnIdentification'
+            element :PersonBirthDate, Date, tag: 'PersonBirthDate'
+            element :PersonSSNIdentification, String, tag: 'PersonSSNIdentification'
 
             def self.domain_to_mapper(person_data)
               mapper = self.new
               mapper.person_name = PersonName.domain_to_mapper(person_data)
-              mapper.person_birth_date = person_data.person_birth_date
-              mapper.person_ssn_identification = person_data.person_ssn_identification
+              mapper.PersonBirthDate = person_data.PersonBirthDate
+              mapper.PersonSSNIdentification = person_data.PersonSSNIdentification
               mapper
             end
           end

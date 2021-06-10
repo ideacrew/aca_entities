@@ -14,14 +14,14 @@ module AcaEntities
 
             tag 'VerificationQuestionSet'
 
-            element :verification_question_text, String, tag: 'VerificationQuestionText'
-            element :verification_answer_choice_text, String, tag: 'VerificationAnswerChoiceText'
+            element :VerificationQuestionText, String, tag: 'VerificationQuestionText'
+            element :VerificationAnswerChoiceText, String, tag: 'VerificationAnswerChoiceText'
 
             def self.domain_to_mapper(verification_question_set)
               mapper = self.new
               mapper.version = "1.0"
-              mapper.verification_question_text = verification_question_set.verification_question_text
-              mapper.verification_answer_choice_text = verification_question_set.verification_answer_choice_text
+              mapper.VerificationQuestionText = verification_question_set.VerificationQuestionText
+              mapper.VerificationAnswerChoiceText = verification_question_set.VerificationAnswerChoiceText
               mapper
             end
           end

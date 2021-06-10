@@ -7,21 +7,21 @@ module AcaEntities
   module Fdsh
     module Operations
       module Ridp
-        # This class takes AcaEntities::Families::Famlily as input and returns the ridp primary request hash.
-        class GeneratePrimaryRequestPayload
+        # This class takes AcaEntities::Families::Famlily as input and returns the ridp secondary request hash.
+        class GenerateSecondaryRequestPayload
           include Dry::Monads[:result, :do, :try]
           include AcaEntities::AppHelper
 
-          # @param [Hash] opts The options to generate Ridp Primary Request Payload
+          # @param [Hash] opts The options to generate Ridp secondary Request Payload
           # @return [Dry::Monads::Result]
           def call(family)
-            valid_family               = yield validate_family(family)
-            primary_person             = yield fetch_primary_family_members_person(valid_family)
-            primary_request_params     = yield transform_person_to_primary_request(primary_person)
-            validated_primary_request  = yield validate_primary_request(primary_request_params)
-            primary_request_json       = yield primary_request_entity_json(validated_primary_request)
+            valid_family                 = yield validate_family(family)
+            primary_person               = yield fetch_primary_family_members_person(valid_family)
+            secondary_request_params     = yield transform_person_to_secondary_request(primary_person)
+            validated_secondary_request  = yield validate_secondary_request(secondary_request_params)
+            secondary_request_json       = yield secondary_request_entity_json(validated_secondary_request)
 
-            Success(primary_request_json)
+            Success(secondary_request_json)
           end
 
           private
@@ -44,15 +44,15 @@ module AcaEntities
             end
           end
 
-          # Transform Person params To PrimaryRequest Contract params
-          def transform_person_to_primary_request(person)
-            ::AcaEntities::Fdsh::Transformers::Ridp::PersonToPrimaryRequest.call(person.to_h.to_json) { |record| @transform_result = record }
+          # Transform Person params To SecondaryRequest Contract params
+          def transform_person_to_secondary_request(person)
+            ::AcaEntities::Fdsh::Transformers::Ridp::PersonToSecondaryRequest.call(person.to_h.to_json) { |record| @transform_result = record }
             Success(@transform_result)
           end
 
-          # Validate PrimaryRequest params against PrimaryRequest Contract
-          def validate_primary_request(params)
-            result = ::AcaEntities::Fdsh::Ridp::H139::PrimaryRequestContract.new.call(params)
+          # Validate SecondaryRequest params against SecondaryRequest Contract
+          def validate_secondary_request(params)
+            result = ::AcaEntities::Fdsh::Ridp::H139::SecondaryRequestContract.new.call(params)
 
             if result.success?
               Success(result.to_h)
@@ -61,8 +61,8 @@ module AcaEntities
             end
           end
 
-          def primary_request_entity_json(values)
-            result = ::AcaEntities::Fdsh::Ridp::H139::PrimaryRequest.new(values.to_h)
+          def secondary_request_entity_json(values)
+            result = ::AcaEntities::Fdsh::Ridp::H139::SecondaryRequest.new(values.to_h)
 
             Success(result.to_h.to_json)
           end

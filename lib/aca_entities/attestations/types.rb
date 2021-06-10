@@ -9,7 +9,7 @@ module AcaEntities
       include Dry.Types
       include Dry::Logic
 
-      RidpStatusKind = Types::Coercible::String.enum('in progress', 'completed')
+      RidpStatusKind = Types::Coercible::String.enum('initial', 'in_progress', 'success', 'failure', 'no_response')
     end
   end
 end

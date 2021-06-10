@@ -14,14 +14,14 @@ module AcaEntities
 
             tag 'SecondaryRequest'
 
-            element :session_identification, String, tag: 'SessionIdentification'
+            element :SessionIdentification, String, tag: 'SessionIdentification'
             has_one :verification_answer_set, VerificationAnswerSet, namespace: 'VerificationAnswerSet'
 
             def self.domain_to_mapper(secondary_response)
               mapper = self.new
               mapper.version = "1.0"
-              mapper.session_identification = VerificationAnswerSet.domain_to_mapper(secondary_response.verification_answer_set)
-              mapper.session_identification = secondary_response.session_identification
+              mapper.verification_answer_set = VerificationAnswerSet.domain_to_mapper(secondary_response.verification_answer_set)
+              mapper.SessionIdentification = secondary_response.SessionIdentification
               mapper
             end
           end
