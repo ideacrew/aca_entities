@@ -84,7 +84,7 @@ module AcaEntities
         'permanent_workers_compensation',
         'prizes_and_awards',
         'rental_and_royalty',
-        'scholorship_payments',
+        'scholarship_payments',
         'social_security_benefit',
         'supplemental_security_income',
         'tax_exempt_interest',
