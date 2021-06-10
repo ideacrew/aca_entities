@@ -101,7 +101,7 @@ module AcaEntities
 
       DeductionKind = Types::Coercible::String.enum(
         'alimony_paid',
-        'deductable_part_of_self_employment_taxes',
+        'deductible_part_of_self_employment_taxes',
         'domestic_production_activities',
         'penalty_on_early_withdrawal_of_savings',
         'educator_expenses',
