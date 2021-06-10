@@ -37,7 +37,15 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
   let(:insurance_application) do
     {
       application_metadata: application_metadata,
-      attestation: attestation
+      attestation: attestation,
+      signature: signature
+    }
+  end
+
+  let(:signature) do
+    {
+      signature_name: 'signature name',
+      signature_date: DateTime.now
     }
   end
 
@@ -49,7 +57,8 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
       submission_date: DateTime.now,
       identification_category_text: "ID CATEGORY TEXT",
       financial_assistance_indicator: false,
-      medicaid_determination_indicator: false
+      medicaid_determination_indicator: false,
+      original_signature_date: DateTime.now
     }
   end
 
@@ -57,7 +66,10 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
     {
       attested_if_information_changes_indicator: false,
       attested_non_perjury_indicator: false,
-      tax_return_access_indicator: false
+      tax_return_access_indicator: false,
+      attested_not_incarcerated_indicator: false,
+      attested_if_information_changes_indicator: false,
+      attested_non_perjury_indicator: false
     }
   end
 

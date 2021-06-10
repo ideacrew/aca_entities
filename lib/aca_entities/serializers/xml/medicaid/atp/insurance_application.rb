@@ -17,13 +17,14 @@ module AcaEntities
             has_one :application_submission, ApplicationSubmission
             has_many :application_identifications, ApplicationIdentification
 
-            has_many :insurance_applicants, InsuranceApplicant
+            has_one :ssf_signer, SsfSigner
+            element :coverage_renewal_year_qty, Integer, tag: "InsuranceApplicationCoverageRenewalYearQuantity", namespace: "hix-ee"
 
+            # Required fields
+            has_many :insurance_applicants, InsuranceApplicant
             element :requesting_financial_assistance, Boolean, tag: 'InsuranceApplicationRequestingFinancialAssistanceIndicator', namespace: "hix-ee"
             element :requesting_medicaid, Boolean, tag: "InsuranceApplicationRequestingMedicaidIndicator", namespace: "hix-ee"
-
             has_one :ssf_primary_contact, SsfPrimaryContact
-
             element :tax_return_access, Boolean, tag: "InsuranceApplicationTaxReturnAccessIndicator", namespace: "hix-ee"
 
             def self.domain_to_mapper(insurance_application)
@@ -41,6 +42,7 @@ module AcaEntities
               mapper.requesting_medicaid = insurance_application.application_metadata.medicaid_determination_indicator
               mapper.tax_return_access = insurance_application.attestation.tax_return_access_indicator
               mapper.ssf_primary_contact = SsfPrimaryContact.domain_to_mapper(insurance_application)
+              mapper.ssf_signer = SsfSigner.domain_to_mapper(insurance_application)
               mapper.requesting_financial_assistance = insurance_application.application_metadata.financial_assistance_indicator
               mapper
             end
