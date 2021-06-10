@@ -9,19 +9,16 @@ module AcaEntities
           # ContactInformation.
           class ContactInformation
             include HappyMapper
-            register_namespace 'ex', 'http://ridp.dsh.cms.gov/exchange/1.0'
             register_namespace 'ext', 'http://ridp.dsh.cms.gov/extension/1.0'
-            register_namespace 'nc', 'http://niem.gov/niem/niem-core/2.0'
-
 
             tag 'ContactInformation'
             namespace 'ext'
 
-            has_one :FullTelephoneNumber, namespace: 'nc:ContactTelephoneNumber', tag: 'FullTelephoneNumber'
+            has_one :ContactTelephoneNumber, ContactTelephoneNumber
 
             def self.domain_to_mapper(contact_information)
               mapper = self.new
-              mapper.FullTelephoneNumber = ResponseMetadata.domain_to_mapper(contact_information.FullTelephoneNumber)
+              mapper.ContactTelephoneNumber = ContactTelephoneNumber.domain_to_mapper(contact_information)
               mapper
             end
           end

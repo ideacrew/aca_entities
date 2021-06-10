@@ -10,17 +10,17 @@ module AcaEntities
           # Include XML element and type definitions.
           class Person
             include HappyMapper
-            register_namespace 'hix-core', 'http://hix.cms.gov/0.1/hix-core'
+            register_namespace 'ext', 'http://ridp.dsh.cms.gov/extension/1.0'
+            register_namespace 'nc', 'http://niem.gov/niem/niem-core/2.0'
 
             tag 'Person'
-            namespace 'hix-core'
+            namespace 'ext'
 
             has_one :person_name, PersonName
-            element :PersonBirthDate, Date, tag: 'PersonBirthDate'
-            element :PersonSSNIdentification, String, tag: 'PersonSSNIdentification'
+            element :PersonBirthDate, Date, tag: 'PersonBirthDate', namespace: 'nc'
+            element :PersonSSNIdentification, String, tag: 'PersonSSNIdentification', namespace: 'nc'
 
             def self.domain_to_mapper(person_data)
-              binding.pry
               mapper = self.new
               binding.pry
               mapper.person_name = PersonName.domain_to_mapper(person_data)
