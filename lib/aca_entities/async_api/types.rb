@@ -1,0 +1,22 @@
+# frozen_string_literal: true
+
+require 'dry-types'
+
+module AcaEntities
+  module AsyncApi
+    # Extend DryTypes to include AsyncApi
+    # rubocop:disable Metrics/ModuleLength
+    module Types
+      send(:include, Dry.Types)
+
+      ServiceNameKind =
+        Types::Coercible::String.enum(
+          'medicaid_gateway',
+          'polypress',
+          'fdsh_gateway',
+          'enroll'
+        ).freeze
+    end
+    # rubocop:enable Metrics/ModuleLength
+  end
+end
