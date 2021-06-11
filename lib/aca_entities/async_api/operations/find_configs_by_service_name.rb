@@ -1,0 +1,59 @@
+# frozen_string_literal: true
+
+require 'dry/monads'
+require 'dry/monads/do'
+
+module AcaEntities
+  module AsyncApi
+    module Operations
+      # Find AsyncApi configuration files for a given application or service and return as an
+      # array of hashes
+      class FindConfigsByServiceName
+        send(:include, Dry::Monads[:result, :do, :try])
+
+        # @param params [Hash] opts The options to initialize MagiMedicaidApplicationEntity
+        # @option opts [String] :service_name AcaEntities::AsyncApi::Types::ServiceNameKind
+        # @return [Dry::Monads::Result]
+        def call(params)
+          # service_name = yield validate_service_name(params)
+          service_name = params[:service_name]
+          config_file_names = yield find_config_files(service_name)
+          config_params = yield parse_files(config_file_names)
+
+          Success(config_params)
+        end
+
+        private
+
+        def validate_service_name(params)
+          service_name = params[:service_name]
+          AcaEntities::AsyncApi::Types::ServiceNameKind.try(service_name)
+        end
+
+        def find_config_files(service_name)
+          files =
+            Gem.find_files("aca_entities/async_api/#{service_name}/**/*.yml")
+          Success(files)
+        end
+
+        def parse_files(config_file_names)
+          configs =
+            config_file_names.reduce([]) do |config_params, config_file_name|
+              conf =
+                Try() do
+                  AcaEntities::Operations::Files.Read(
+                    filename: config_file_name
+                  )
+                end.to_result.bind do |config_yml|
+                  AcaEntities::Operations::Yaml.Deserialize(yaml: config_yaml)
+                end.to_result
+
+              conf.success? ? config_params << conf.success : conf
+              config_params
+            end
+          Success(configs)
+        end
+      end
+    end
+  end
+end
