@@ -8,11 +8,11 @@ module AcaEntities
         # @!method call(opts)
         # @param [Hash] opts the parameters to validate using this contract
         # @option opts [Hash] :product_eligibility_determination optional
-        # @option opts [Hash] :applicant_reference optional
+        # @option opts [Hash] :applicant_reference required
         # @return [Dry::Monads::Result]
         params do
           optional(:product_eligibility_determination).maybe(ProductEligibilityDeterminationContract.params)
-          optional(:applicant_reference).maybe(ApplicantReferenceContract.params)
+          required(:applicant_reference).maybe(ApplicantReferenceContract.params)
         end
       end
     end
