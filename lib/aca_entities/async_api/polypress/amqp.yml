@@ -13,8 +13,18 @@ info:
     url: https://opensource.org/licenses/MIT
 
 servers:
+  development:
+    url: amqp://amqp:5672/event_source
+    protocol: amqp
+    protocolVersion: 0.9.2
+    description: Medicaid Gateway Test Server
   test:
-    url: http://localhost:5672
+    url: amqp://amqp:5672/event_source
+    protocol: amqp
+    protocolVersion: 0.9.2
+    description: Medicaid Gateway Test Server
+  production:
+    url: amqp://rabbitmq:5672/event_source
     protocol: amqp
     protocolVersion: 0.9.2
     description: Medicaid Gateway Test Server
