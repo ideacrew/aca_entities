@@ -21,7 +21,7 @@ module AcaEntities
         private
 
         def transform(params)
-          result = YAML.safe_load(ERB.new(params[:yaml]).result)
+          result = YAML.safe_load(ERB.new(params[:yaml]).result, [Symbol])
           Success(result || {})
         rescue Psych::SyntaxError => e
           raise "YAML syntax error occurred while parsing #{params}. " \
