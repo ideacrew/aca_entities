@@ -4,7 +4,7 @@ require 'spec_helper'
 
 RSpec.describe AcaEntities::Contracts::Documents::VlpDocumentContract, dbclean: :after_each do
 
-  let(:required_params) do
+  let(:input_params) do
     {
       title: "untitled",
       creator: "dchl",
@@ -34,32 +34,29 @@ RSpec.describe AcaEntities::Contracts::Documents::VlpDocumentContract, dbclean: 
       country_of_citizenship: nil,
       expiration_date: Date.new(2022, 3, 8),
       issuing_country: "USA",
-      description: 'it is a test description',
-      status: "not submitted",
-      verification_type: "Citizenship",
-      comment: nil
+      description: 'it is a test description'
     }
   end
 
   context "with invalid params" do
     it "should fail validation" do
-      result = subject.call(required_params.reject { |k, _v| k == :title })
+      result = subject.call(input_params.reject { |k, _v| k == :subject })
       expect(result.success?).to be_falsey
-      expect(result.errors.to_h).to eq({ :title => ["is missing"] })
+      expect(result.errors.to_h).to eq({ :subject => ["is missing"] })
     end
   end
 
   context "and all required and optional parameters" do
     it "should pass validation" do
-      result = subject.call(required_params)
+      result = subject.call(input_params)
       expect(result.success?).to be_truthy
-      expect(result.to_h).to eq required_params
+      expect(result.to_h).to eq input_params
     end
   end
 
   context 'success case' do
     before do
-      @result = subject.call(required_params)
+      @result = subject.call(input_params)
     end
 
     it 'should return success' do
@@ -74,7 +71,7 @@ RSpec.describe AcaEntities::Contracts::Documents::VlpDocumentContract, dbclean: 
   context 'failure case' do
     context 'missing required param' do
       before do
-        @result = subject.call(required_params.reject { |k, _v| k == :title })
+        @result = subject.call(input_params.reject { |k, _v| k == :subject })
       end
 
       it 'should return failure' do
@@ -92,7 +89,7 @@ RSpec.describe AcaEntities::Contracts::Documents::VlpDocumentContract, dbclean: 
 
     context 'with bad input data type' do
       before do
-        @result = subject.call(required_params.merge(alien_number: '123'))
+        @result = subject.call(input_params.merge(alien_number: '123'))
       end
 
       it 'should return failure' do
@@ -108,7 +105,7 @@ RSpec.describe AcaEntities::Contracts::Documents::VlpDocumentContract, dbclean: 
       end
 
       it 'should return error message' do
-        result = subject.call(required_params.merge(expiration_date: nil))
+        result = subject.call(input_params.merge(expiration_date: nil))
         expect(result.errors.messages.first.text).to eq('must be a date')
       end
     end
