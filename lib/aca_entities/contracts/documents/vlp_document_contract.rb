@@ -33,7 +33,7 @@ module AcaEntities
           optional(:citizenship_number).maybe(:string, size?: 6..12)
           optional(:card_number).maybe(:string, size?: 13)
           optional(:country_of_citizenship).maybe(:string)
-          optional(:expiration_date).value(:date?)
+          optional(:expiration_date).maybe(:date?)
           optional(:issuing_country).maybe(:string)
         end
       end

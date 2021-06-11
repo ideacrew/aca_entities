@@ -105,7 +105,7 @@ RSpec.describe AcaEntities::Contracts::Documents::VlpDocumentContract, dbclean: 
       end
 
       it 'should return error message' do
-        result = subject.call(input_params.merge(expiration_date: nil))
+        result = subject.call(input_params.merge(expiration_date: 'date string'))
         expect(result.errors.messages.first.text).to eq('must be a date')
       end
     end
