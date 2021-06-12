@@ -1,11 +1,8 @@
 # frozen_string_literal: true
-
 require 'spec_helper'
-
 RSpec.describe AcaEntities::Operations::Yaml::Deserialize do
   # include RegistryDataSeed
-
-  subject { described_class.new.call(input) }
+  subject { described_class.new.call(yaml: input) }
 
   context 'When valid file IO passed' do
     let(:file_path) do
@@ -14,12 +11,22 @@ RSpec.describe AcaEntities::Operations::Yaml::Deserialize do
     let(:input) { IO.read(file_path) }
     let(:async_api_params) do
       {
-        'syncapi' => '2.0.0',
+        'asyncapi' => '2.0.0',
+        'id' => 'https://github.com/ideacrew/event_source-server',
         'info' => {
           'title' => 'CRM Gateway Service',
           'version' => '1.0.0',
           'description' =>
-            'This service provides accesss to third-party Customer Relationship Mangement systems'
+            'This service provides accesss to third-party Customer Relationship Mangement systems',
+          'contact' => {
+            'name' => 'IdeaCrew',
+            'url' => 'https://ideacrew.com',
+            'email' => 'info@ideacrew.com'
+          },
+          'license' => {
+            'name' => 'MIT',
+            'url' => 'https://opensource.org/licenses/MIT'
+          }
         },
         'servers' => {
           'production' => {
@@ -31,8 +38,8 @@ RSpec.describe AcaEntities::Operations::Yaml::Deserialize do
         'channels' => {
           'sugar_crm.contacts.contact_created' => {
             'publish' => {
-              'operationId' => 'on_sugarcrm_contacts_contact_created',
-              'summary' => 'SugarCRM Contact Created',
+              'operationId' => 'sugarcrm_contacts_contact_created',
+              'description' => 'SugarCRM Contact Created',
               'message' => {
                 '$ref' => '#/components/messages/contract_created_message',
                 'payload' => {
@@ -41,8 +48,8 @@ RSpec.describe AcaEntities::Operations::Yaml::Deserialize do
               }
             },
             'subscribe' => {
-              'operationId' => 'sugarcrm_contacts_contact_created',
-              'summary' => 'SugarCRM Contact Created',
+              'operationId' => 'on_sugarcrm_contacts_contact_created',
+              'description' => 'On SugarCRM Contact Created',
               'message' => {
                 '$ref' => '#/components/messages/contract_created_message',
                 'payload' => {
@@ -89,7 +96,13 @@ RSpec.describe AcaEntities::Operations::Yaml::Deserialize do
               }
             }
           }
-        }
+        },
+        'tags' => [
+          {
+            'name' => 'linter_tag',
+            'description' => 'placeholder that satisfies the linter'
+          }
+        ]
       }
     end
 
