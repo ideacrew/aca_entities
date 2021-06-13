@@ -54,7 +54,7 @@ channels:
         amqp:
           ack: true
           exclusive: false
-          routing_key: magi_medicaid.#.eligibilities.#
+          routing_key: magi_medicaid.mitc.eligibilities.*
           bindingVersion: "0.2.0"
       operationId: on_polypress.magi_medicaid.mitc.eligibilities
       description: Events - MitC eligibility determinations for Medicaid/CHIP and/or APTC/CSR financial assistance
