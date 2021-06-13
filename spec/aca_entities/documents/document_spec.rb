@@ -55,7 +55,7 @@ RSpec.describe ::AcaEntities::Documents::Document, dbclean: :after_each do
 
   describe 'with invalid arguments' do
     it 'should raise error' do
-      expect { described_class.new(input_params.reject { |k, _v| k == :title }) }.to raise_error(Dry::Struct::Error, /:title is missing/)
+      expect { described_class.new({ title: 100 }) }.to raise_error(Dry::Struct::Error, /:title violates constraints/)
     end
   end
 end

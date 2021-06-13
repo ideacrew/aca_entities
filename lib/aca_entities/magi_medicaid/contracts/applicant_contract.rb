@@ -149,7 +149,7 @@ module AcaEntities
           optional(:has_insurance).filled(:bool)
           optional(:has_state_health_benefit).filled(:bool)
           optional(:had_prior_insurance).filled(:bool)
-          optional(:prior_insurance_end_date).filled(:date)
+          optional(:prior_insurance_end_date).maybe(:date)
           required(:age_of_applicant).filled(:integer)
 
           optional(:hours_worked_per_week).filled(:integer)

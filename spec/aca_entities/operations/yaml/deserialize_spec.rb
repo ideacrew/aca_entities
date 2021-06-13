@@ -1,10 +1,7 @@
 # frozen_string_literal: true
-
 require 'spec_helper'
-
 RSpec.describe AcaEntities::Operations::Yaml::Deserialize do
   # include RegistryDataSeed
-
   subject { described_class.new.call(input) }
 
   context 'When valid file IO passed' do

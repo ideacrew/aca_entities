@@ -7,12 +7,16 @@ module AcaEntities
       class BenchmarkPremiumContract < Dry::Validation::Contract
         # @!method call(opts)
         # @param [Hash] opts the parameters to validate using this contract
-        # @option opts [BigDecimal] :monthly_slcsp_premium required
-        # @option opts [BigDecimal] :monthly_lcsp_premium required
+        # @option opts [Array] :health_only_lcsp_premiums required
+        # @option opts [Array] :health_only_slcsp_premiums required
+        # @option opts [Array] :health_and_dental_slcsp_premiums required
+        # @option opts [Array] :health_and_ped_dental_slcsp_premiums required
         # @return [Dry::Monads::Result]
         params do
-          required(:monthly_slcsp_premium).filled(Types::Money)
-          required(:monthly_lcsp_premium).filled(Types::Money)
+          required(:health_only_lcsp_premiums).array(AcaEntities::MagiMedicaid::Contracts::MemberPremiumContract.params)
+          required(:health_only_slcsp_premiums).array(AcaEntities::MagiMedicaid::Contracts::MemberPremiumContract.params)
+          optional(:health_and_dental_slcsp_premiums).array(AcaEntities::MagiMedicaid::Contracts::MemberPremiumContract.params)
+          optional(:health_and_ped_dental_slcsp_premiums).array(AcaEntities::MagiMedicaid::Contracts::MemberPremiumContract.params)
         end
       end
     end

@@ -8,6 +8,12 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicantContract,  dbclean
     let(:name) { { first_name: 'first', last_name: 'last' } }
     let(:identifying_information) { { has_ssn: false } }
     let(:demographic) { { gender: 'Male', dob: Date.today.prev_year.to_s } }
+    let(:benchmark_premium) do
+      { health_only_lcsp_premiums: [{ member_identifier: '95', monthly_premium: 310.50 },
+                                    { member_identifier: '96', monthly_premium: 310.60 }],
+        health_only_slcsp_premiums: [{ member_identifier: '95', monthly_premium: 320.50 },
+                                     { member_identifier: '96', monthly_premium: 320.60 }] }
+    end
     let(:attestation) { { is_self_attested_disabled: false, is_self_attested_blind: false } }
     let(:family_member_reference) do
       { family_member_hbx_id: '1000',
@@ -67,9 +73,10 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicantContract,  dbclean
         incomes: [],
         benefits: [],
         deductions: [],
+        prior_insurance_end_date: nil,
         age_of_applicant: 45,
         is_claimed_as_dependent_by_non_applicant: false,
-        benchmark_premium: { monthly_slcsp_premium: 496.02, monthly_lcsp_premium: 430.48 },
+        benchmark_premium: benchmark_premium,
         is_homeless: false,
         mitc_relationships: mitc_relationships,
         mitc_income: mitc_income }
@@ -115,6 +122,12 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicantContract,  dbclean
         dob: Date.today.prev_year.to_s,
         is_veteran_or_active_military: false }
     end
+    let(:benchmark_premium) do
+      { health_only_lcsp_premiums: [{ member_identifier: '95', monthly_premium: 310.50 },
+                                    { member_identifier: '96', monthly_premium: 310.60 }],
+        health_only_slcsp_premiums: [{ member_identifier: '95', monthly_premium: 320.50 },
+                                     { member_identifier: '96', monthly_premium: 320.60 }] }
+    end
     let(:attestation) { { is_self_attested_disabled: false, is_self_attested_blind: false, is_incarcerated: false } }
     let(:family_member_reference) do
       { family_member_hbx_id: '1000',
@@ -150,9 +163,10 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicantContract,  dbclean
         incomes: [],
         benefits: [],
         deductions: [],
+        prior_insurance_end_date: nil,
         age_of_applicant: 45,
         is_claimed_as_dependent_by_non_applicant: false,
-        benchmark_premium: { monthly_slcsp_premium: 496.02, monthly_lcsp_premium: 430.48 },
+        benchmark_premium: benchmark_premium,
         is_homeless: false }
     end
 

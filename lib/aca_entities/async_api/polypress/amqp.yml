@@ -47,7 +47,7 @@ channels:
           name: on_polypress.magi_medicaid.mitc.eligibilities
           durable: true
           exclusive: false
-          autoDelete: false
+          auto_delete: false
           vhost: /event_source
     subscribe:
       bindings:

@@ -5,6 +5,12 @@ RSpec.shared_context 'setup magi_medicaid application with two applicants', :sha
   let(:name) { { first_name: 'first', last_name: 'last' } }
   let(:name2) { { first_name: 'spouse', last_name: 'last' } }
   let(:identifying_information) { { has_ssn: false } }
+  let(:benchmark_premium) do
+    { health_only_lcsp_premiums: [{ member_identifier: '95', monthly_premium: 310.50 },
+                                  { member_identifier: '96', monthly_premium: 310.60 }],
+      health_only_slcsp_premiums: [{ member_identifier: '95', monthly_premium: 320.50 },
+                                   { member_identifier: '96', monthly_premium: 320.60 }] }
+  end
   let(:demographic) do
     { gender: 'Male',
       dob: Date.today.prev_year.to_s,
@@ -145,7 +151,7 @@ RSpec.shared_context 'setup magi_medicaid application with two applicants', :sha
       is_temporarily_out_of_state: false,
       age_of_applicant: 45,
       is_claimed_as_dependent_by_non_applicant: false,
-      benchmark_premium: { monthly_slcsp_premium: 496.02, monthly_lcsp_premium: 430.48 },
+      benchmark_premium: benchmark_premium,
       is_homeless: false,
       mitc_relationships: applicant1_mitc_relationships,
       mitc_income: mitc_income }
@@ -193,7 +199,7 @@ RSpec.shared_context 'setup magi_medicaid application with two applicants', :sha
       is_temporarily_out_of_state: false,
       age_of_applicant: 43,
       is_claimed_as_dependent_by_non_applicant: false,
-      benchmark_premium: { monthly_slcsp_premium: 459.48, monthly_lcsp_premium: 430.48 },
+      benchmark_premium: benchmark_premium,
       is_homeless: false,
       mitc_relationships: applicant2_mitc_relationships,
       mitc_income: mitc_income }

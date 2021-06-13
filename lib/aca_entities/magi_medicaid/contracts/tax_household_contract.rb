@@ -15,7 +15,7 @@ module AcaEntities
           optional(:max_aptc).maybe(Types::Money)
           required(:hbx_id).filled(:string)
           optional(:is_insurance_assistance_eligible).maybe(Types::IaEligibilityKind)
-          optional(:tax_household_members).array(TaxHouseholdMemberContract.params)
+          required(:tax_household_members).array(TaxHouseholdMemberContract.params)
 
           optional(:annual_tax_household_income).maybe(Types::Money)
         end

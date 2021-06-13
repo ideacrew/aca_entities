@@ -6,7 +6,7 @@ module AcaEntities
     class TaxHouseholdMember < Dry::Struct
 
       attribute :product_eligibility_determination, ProductEligibilityDetermination.optional.meta(omittable: true)
-      attribute :applicant_reference, ApplicantReference.optional.meta(omittable: true)
+      attribute :applicant_reference, ApplicantReference.meta(omittable: false)
     end
   end
 end
