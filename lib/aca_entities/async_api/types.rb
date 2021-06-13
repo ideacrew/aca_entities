@@ -5,7 +5,6 @@ require 'dry-types'
 module AcaEntities
   module AsyncApi
     # Extend DryTypes to include AsyncApi
-    # rubocop:disable Metrics/ModuleLength
     module Types
       send(:include, Dry.Types)
 
@@ -17,6 +16,5 @@ module AcaEntities
           'enroll'
         ).freeze
     end
-    # rubocop:enable Metrics/ModuleLength
   end
 end

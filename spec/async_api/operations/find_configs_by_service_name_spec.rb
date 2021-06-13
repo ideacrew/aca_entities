@@ -1,19 +1,18 @@
 # frozen_string_literal: true
-require 'spec_helper'
 
+require 'spec_helper'
 # require "../aca_entities/lib/aca_entities/contracts/financial/payment_transactions/payment_transaction_contract"
 
 RSpec.describe ::AcaEntities::AsyncApi::Operations::FindConfigsByServiceName do
 
   describe "Find Configs" do
 
-    let(:params) { {service_name: service_name } }
+    let(:params) { { service_name: service_name } }
     let(:service_name) { 'medicaid_gateway' }
 
     subject { described_class.new.call(params) }
 
     context "with valid service name" do
-    
       it 'should return array of configurations' do
         result = subject
 

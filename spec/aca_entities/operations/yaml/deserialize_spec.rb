@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'spec_helper'
 RSpec.describe AcaEntities::Operations::Yaml::Deserialize do
   # include RegistryDataSeed
@@ -8,7 +9,7 @@ RSpec.describe AcaEntities::Operations::Yaml::Deserialize do
     let(:file_path) do
       Pathname.pwd.join('spec', 'support', 'seedfiles', 'async_api_example.yml')
     end
-    let(:input) { {yaml: IO.read(file_path)} }
+    let(:input) { { yaml: IO.read(file_path) } }
 
     it 'should return success with hash output' do
       expect(subject).to be_a Dry::Monads::Result::Success
