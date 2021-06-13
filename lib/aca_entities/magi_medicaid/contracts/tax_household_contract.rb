@@ -18,6 +18,8 @@ module AcaEntities
           required(:tax_household_members).array(TaxHouseholdMemberContract.params)
 
           optional(:annual_tax_household_income).maybe(Types::Money)
+
+          optional(:effective_on).maybe(:date)
         end
       end
     end
