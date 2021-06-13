@@ -40,7 +40,7 @@ channels:
           name: on_medicaid_gateway.enroll.iap.applications
           durable: true
           exclusive: false
-          autoDelete: false
+          auto_delete: false
           vhost: /event_source
     subscribe:
       bindings:
