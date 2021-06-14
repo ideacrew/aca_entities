@@ -11,6 +11,7 @@ module AcaEntities
         # @option opts [String] :is_insurance_assistance_eligible optional
         # @option opts [Array] :tax_household_members optional
         # @option opts [Array] :annual_tax_household_income optional
+        # @option opts [Array] :csr_annual_income_limit optional
         # @option opts [Array] :effective_on optional
         # @option opts [Array] :determined_on optional
         # @return [Dry::Monads::Result]
@@ -21,6 +22,7 @@ module AcaEntities
           required(:tax_household_members).array(TaxHouseholdMemberContract.params)
 
           optional(:annual_tax_household_income).maybe(Types::Money)
+          optional(:csr_annual_income_limit).maybe(Types::Money)
 
           optional(:effective_on).maybe(:date)
           optional(:determined_on).maybe(:date)
