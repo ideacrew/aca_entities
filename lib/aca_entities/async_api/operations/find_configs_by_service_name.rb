@@ -34,6 +34,7 @@ module AcaEntities
           Success(files)
         end
 
+        # rubocop:disable Style/MultilineBlockChain
         def parse_files(config_file_names)
           configs =
             config_file_names.reduce([]) do |config_params, config_file_name|
@@ -50,6 +51,7 @@ module AcaEntities
             end
           Success(configs)
         end
+        # rubocop:enable Style/MultilineBlockChain
       end
     end
   end
