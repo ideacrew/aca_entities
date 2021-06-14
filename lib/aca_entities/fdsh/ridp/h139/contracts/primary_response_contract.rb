@@ -7,16 +7,25 @@ module AcaEntities
         # contract for PrimaryResponse
         class PrimaryResponseContract < Dry::Validation::Contract
           params do
-            required(:ResponseCode).filled(:string)
-            required(:ResponseDescriptionText).filled(:string)
-            optional(:TDSResponseDescriptionText).maybe(:string)
-            optional(:SessionIdentification).maybe(:string)
-            optional(:DSHReferenceNumber).maybe(:string)
-            optional(:FinalDecisionCode).maybe(:string)
+            required(:Response).schema do
+              required(:ResponseMetadata).schema do
+                required(:ResponseCode).filled(:string)
+                required(:ResponseDescriptionText).filled(:string)
+                optional(:TDSResponseDescriptionText).maybe(:string)
+              end
 
-            required(:VerificationQuestionSet).array(:hash) do
-              required(:VerificationQuestionText).filled(:string)
-              required(:VerificationAnswerChoiceText).filled(:string)
+              required(:VerificationResponse).schema do
+                optional(:SessionIdentification).maybe(:string)
+                optional(:DSHReferenceNumber).maybe(:string)
+                optional(:FinalDecisionCode).maybe(:string)
+
+                required(:VerificationQuestions).schema do
+                  required(:VerificationQuestionSet).array(:hash) do
+                    required(:VerificationQuestionText).filled(:string)
+                    required(:VerificationAnswerChoiceText).filled(:string)
+                  end
+                end
+              end
             end
           end
         end

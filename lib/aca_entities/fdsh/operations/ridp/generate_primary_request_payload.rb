@@ -66,7 +66,7 @@ module AcaEntities
           def primary_request_entity_json(values)
             result = ::AcaEntities::Fdsh::Ridp::H139::PrimaryRequest.new(values.to_h)
 
-            Success(result.to_h.to_json)
+            Success(result)
           end
         end
       end

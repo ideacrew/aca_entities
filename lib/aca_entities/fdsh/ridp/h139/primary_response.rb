@@ -6,16 +6,26 @@ module AcaEntities
       module H139
         # Entity for PrimaryResponse
         class PrimaryResponse < Dry::Struct
-          attribute :ResponseCode,                      Types::String.meta(omittable: false)
-          attribute :ResponseDescriptionText,           Types::String.meta(omittable: false)
-          attribute :TDSResponseDescriptionText,        Types::String.meta(omittable: true)
-          attribute :SessionIdentification,             Types::String.optional.meta(omittable: true)
-          attribute :DSHReferenceNumber,                Types::String.optional.meta(omittable: true)
-          attribute :FinalDecisionCode,                 Types::String.optional.meta(omittable: true) # TODO: enum
 
-          attribute :VerificationQuestionSet, Types::Array do
-            attribute :VerificationQuestionText,        Types::String.meta(omittable: false)
-            attribute :VerificationAnswerChoiceText,    Types::String.meta(omittable: false)
+          attribute :Response do
+            attribute :ResponseMetadata do
+              attribute :ResponseCode,                      Types::String.meta(omittable: false)
+              attribute :ResponseDescriptionText,           Types::String.meta(omittable: false)
+              attribute :TDSResponseDescriptionText,        Types::String.meta(omittable: true)
+            end
+
+            attribute :VerificationResponse do
+              attribute :SessionIdentification,             Types::String.optional.meta(omittable: true)
+              attribute :DSHReferenceNumber,                Types::String.optional.meta(omittable: true)
+              attribute :FinalDecisionCode,                 Types::String.optional.meta(omittable: true) # TODO: enum
+
+              attribute :VerificationQuestions do
+                attribute :VerificationQuestionSet, Types::Array do
+                  attribute :VerificationQuestionText,        Types::String.meta(omittable: false)
+                  attribute :VerificationAnswerChoiceText,    Types::String.meta(omittable: false)
+                end
+              end
+            end
           end
         end
       end

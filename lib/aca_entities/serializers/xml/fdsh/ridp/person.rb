@@ -16,15 +16,13 @@ module AcaEntities
             tag 'Person'
             namespace 'ext'
 
-            has_one :person_name, PersonName
+            has_one :PersonName, PersonName
             element :PersonBirthDate, Date, tag: 'PersonBirthDate', namespace: 'nc'
             element :PersonSSNIdentification, String, tag: 'PersonSSNIdentification', namespace: 'nc'
 
             def self.domain_to_mapper(person_data)
               mapper = self.new
               mapper.person_name = PersonName.domain_to_mapper(person_data)
-              mapper.PersonBirthDate = person_data.PersonBirthDate
-              mapper.PersonSSNIdentification = person_data.PersonSSNIdentification
               mapper
             end
           end

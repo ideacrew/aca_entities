@@ -34,12 +34,19 @@ module AcaEntities
 
           def construct_params(parsed_xml)
             result_hash = {
-              ResponseCode: parsed_xml.response_metadata.ResponseCode,
-              ResponseDescriptionText: parsed_xml.response_metadata.ResponseDescriptionText,
-              TDSResponseDescriptionText: parsed_xml.response_metadata.TDSResponseDescriptionText,
-              SessionIdentification: parsed_xml.verification_response.SessionIdentification,
-              DSHReferenceNumber: parsed_xml.verification_response.DSHReferenceNumber,
-              FinalDecisionCode: parsed_xml.verification_response.FinalDecisionCode
+              Response: {
+                ResponseMetadata: {
+                  ResponseCode: parsed_xml.response_metadata.ResponseCode,
+                  ResponseDescriptionText: parsed_xml.response_metadata.ResponseDescriptionText,
+                  TDSResponseDescriptionText: parsed_xml.response_metadata.TDSResponseDescriptionText
+                },
+
+                VerificationResponse: {
+                  SessionIdentification: parsed_xml.verification_response.SessionIdentification,
+                  DSHReferenceNumber: parsed_xml.verification_response.DSHReferenceNumber,
+                  FinalDecisionCode: parsed_xml.verification_response.FinalDecisionCode
+                }
+              }
             }
 
             Success(result_hash)

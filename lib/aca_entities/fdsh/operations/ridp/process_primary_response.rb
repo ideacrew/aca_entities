@@ -20,8 +20,9 @@ module AcaEntities
             valid_response     = yield validate_primary_response(params)
             primary_response   = yield create_primary_response(valid_response)
             ridp_attestation   = yield create_ridp_attestation(primary_response)
+            attestation        = yield create_attestation(ridp_attestation)
 
-            Success(ridp_attestation)
+            Success(attestation)
           end
 
           private
@@ -39,13 +40,20 @@ module AcaEntities
               }
             end
             result_hash = {
-              ResponseCode: parsed_xml.response_metadata.ResponseCode,
-              ResponseDescriptionText: parsed_xml.response_metadata.ResponseDescriptionText,
-              TDSResponseDescriptionText: parsed_xml.response_metadata.TDSResponseDescriptionText,
-              SessionIdentification: parsed_xml.verification_response.SessionIdentification,
-              DSHReferenceNumber: parsed_xml.verification_response.DSHReferenceNumber,
-              FinalDecisionCode: parsed_xml.verification_response.FinalDecisionCode,
-              VerificationQuestionSet: questions_set
+              Response: {
+                ResponseMetadata: {
+                  ResponseCode: parsed_xml.response_metadata.ResponseCode,
+                  ResponseDescriptionText: parsed_xml.response_metadata.ResponseDescriptionText,
+                  TDSResponseDescriptionText: parsed_xml.response_metadata.TDSResponseDescriptionText
+                },
+
+                VerificationResponse: {
+                  SessionIdentification: parsed_xml.verification_response.SessionIdentification,
+                  DSHReferenceNumber: parsed_xml.verification_response.DSHReferenceNumber,
+                  FinalDecisionCode: parsed_xml.verification_response.FinalDecisionCode,
+                  VerificationQuestions: { VerificationQuestionSet: questions_set }
+                }
+              }
             }
 
             Success(result_hash)
@@ -68,6 +76,10 @@ module AcaEntities
 
           def create_ridp_attestation(primary_response)
             ::AcaEntities::Fdsh::Operations::Ridp::CreateRidpAttestation.call(primary_response)
+          end
+
+          def create_attestation(_ridp_attestation)
+            Success(::AcaEntities::Attestations::Attestation.new({ ridp_attestation: 'ridp_attestation' }))
           end
         end
       end

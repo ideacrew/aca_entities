@@ -18,7 +18,7 @@ module AcaEntities
 
             def self.domain_to_mapper(verification_answer_set)
               mapper = self.new
-              mapper.verification_answers = [verification_answer_set.verification_answers]
+              mapper.verification_answers = [VerificationAnswer.domain_to_mapper(verification_answer_set.verification_answers)]
               mapper
             end
           end

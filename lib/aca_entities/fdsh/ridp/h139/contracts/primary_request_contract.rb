@@ -8,20 +8,38 @@ module AcaEntities
         class PrimaryRequestContract < Dry::Validation::Contract
 
           params do
-            required(:PersonGivenName).filled(:string)
-            required(:PersonSurName).filled(:string)
-            optional(:PersonMiddleName).maybe(:string)
-            optional(:PersonNameSuffixText).maybe(:string)
-            optional(:PersonBirthDate).maybe(:date)
-            optional(:PersonSSNIdentification).maybe(:string)
+            required(:Person).schema do
+              required(:PersonName).schema do
+                required(:PersonGivenName).filled(:string)
+                required(:PersonSurName).filled(:string)
+                optional(:PersonMiddleName).maybe(:string)
+                optional(:PersonNameSuffixText).maybe(:string)
+              end
 
-            required(:StreetName).filled(:string)
-            required(:LocationCityName).filled(:string)
-            required(:LocationStateUSPostalServiceCode).filled(AcaEntities::Fdsh::Ridp::H139::Types::UsStateAbbreviationKind)
-            required(:LocationPostalCode).filled(:string)
-            optional(:LocationPostalExtensionCode).maybe(:string)
+              optional(:PersonBirthDate).maybe(:date)
+              optional(:PersonSSNIdentification).maybe(:string)
+            end
 
-            optional(:FullTelephoneNumber).maybe(:string)
+            required(:CurrentAddress).schema do
+              required(:LocationAddress).schema do
+                required(:StructuredAddress).schema do
+                  required(:LocationStreet).schema do
+                    required(:StreetName).filled(:string)
+                  end
+                  required(:LocationCityName).filled(:string)
+                  required(:LocationStateUSPostalServiceCode).filled(AcaEntities::Fdsh::Ridp::H139::Types::UsStateAbbreviationKind)
+                  required(:LocationPostalCode).filled(:string)
+                  optional(:LocationPostalExtensionCode).maybe(:string)
+                end
+              end
+            end
+
+            optional(:ContactInformation).schema do
+              optional(:ContactTelephoneNumber).schema do
+                optional(:FullTelephoneNumber).maybe(:string)
+              end
+            end
+
             optional(:LevelOfProofingCode).maybe(AcaEntities::Fdsh::Ridp::H139::Types::LevelOfProofingCodeKind)
 
             optional(:PersonLanguagePreference).maybe(AcaEntities::Fdsh::Ridp::H139::Types::PersonLanguagePreference)
