@@ -14,8 +14,9 @@ module AcaEntities
 
       attribute :annual_tax_household_income, Types::Money.optional.meta(omittable: true)
 
-      # The start date of the tax household
+      # The effective on date of the tax household
       attribute :effective_on, Types::Date.optional.meta(omittable: true)
+      attribute :determined_on, Types::Date.optional.meta(omittable: true)
     end
   end
 end
