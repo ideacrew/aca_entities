@@ -57,9 +57,9 @@ RSpec.describe AcaEntities::Documents::VlpDocument, dbclean: :after_each do
     it 'should raise error' do
       expect do
         described_class.new(input_params.reject do |k, _v|
-                              k == :alien_number
+                              k == :subject
                             end)
-      end.to raise_error(Dry::Struct::Error, /:alien_number is missing/)
+      end.to raise_error(Dry::Struct::Error, /:subject is missing/)
     end
   end
 end

@@ -6,21 +6,19 @@ module AcaEntities
     class VlpDocument < AcaEntities::Documents::Document
       # attribute :identification_number,   Types::String.optional.meta(omittable: false)
 
-      attribute :subject,      Types::VlpDocumentKind.optional.meta(omittable: false)
-      attribute :alien_number, Types::String.optional.meta(omittable: false)
-      attribute :i94_number, Types::String.optional.meta(omittable: false)
-      attribute :visa_number, Types::String.optional.meta(omittable: false)
-      attribute :passport_number, Types::String.optional.meta(omittable: false)
-      attribute :sevis_id, Types::String.optional.meta(omittable: false)
-      attribute :naturalization_number, Types::String.optional.meta(omittable: false)
-      attribute :receipt_number, Types::String.optional.meta(omittable: false)
-      attribute :citizenship_number, Types::String.optional.meta(omittable: false)
-      attribute :card_number, Types::String.optional.meta(omittable: false)
-      attribute :country_of_citizenship, Types::String.optional.meta(omittable: false)
-      attribute :expiration_date, Types::Date.optional.meta(omittable: false)
-      attribute :issuing_country, Types::String.optional.meta(omittable: false)
-
-      attribute :description, Types::String.optional.meta(omittable: false)
+      attribute :subject,      Types::VlpDocumentKind.meta(omittable: false)
+      attribute :alien_number, Types::String.optional.meta(omittable: true)
+      attribute :i94_number, Types::String.optional.meta(omittable: true)
+      attribute :visa_number, Types::String.optional.meta(omittable: true)
+      attribute :passport_number, Types::String.optional.meta(omittable: true)
+      attribute :sevis_id, Types::String.optional.meta(omittable: true)
+      attribute :naturalization_number, Types::String.optional.meta(omittable: true)
+      attribute :receipt_number, Types::String.optional.meta(omittable: true)
+      attribute :citizenship_number, Types::String.optional.meta(omittable: true)
+      attribute :card_number, Types::String.optional.meta(omittable: true)
+      attribute :country_of_citizenship, Types::String.optional.meta(omittable: true)
+      attribute :expiration_date, Types::Date.optional.meta(omittable: true)
+      attribute :issuing_country, Types::String.optional.meta(omittable: true)
 
       # The name of country issuing the foreign passport.
       # Three uppercase letter country code (ISO 3166-1).

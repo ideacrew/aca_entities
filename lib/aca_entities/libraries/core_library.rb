@@ -137,8 +137,9 @@ module AcaEntities
       require 'aca_entities/benefit_markets/dental_product'
       require 'aca_entities/benefit_markets/product_package'
       require 'aca_entities/benefit_markets/benefit_sponsor_catalog'
+      require 'aca_entities/operations/operation'
+      require 'aca_entities/async_api/async_api'
 
-      require 'aca_entities/operations/yaml/deserialize'
     end
   end
 end

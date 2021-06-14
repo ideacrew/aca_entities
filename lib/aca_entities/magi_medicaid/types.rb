@@ -84,7 +84,7 @@ module AcaEntities
         'permanent_workers_compensation',
         'prizes_and_awards',
         'rental_and_royalty',
-        'scholorship_payments',
+        'scholarship_payments',
         'social_security_benefit',
         'supplemental_security_income',
         'tax_exempt_interest',
@@ -96,12 +96,12 @@ module AcaEntities
       EarnedIncomeKinds = [
         'wages_and_salaries',
         'net_self_employment',
-        'scholorship_payments'
+        'scholarship_payments'
       ].freeze
 
       DeductionKind = Types::Coercible::String.enum(
         'alimony_paid',
-        'deductable_part_of_self_employment_taxes',
+        'deductible_part_of_self_employment_taxes',
         'domestic_production_activities',
         'penalty_on_early_withdrawal_of_savings',
         'educator_expenses',

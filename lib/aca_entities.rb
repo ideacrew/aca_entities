@@ -29,4 +29,8 @@ require 'aca_entities/functions/primary_applicant_builder'
 # AcaEntities provides a shared interface for the serialization and deserialization
 # of shared ACA entities across applications.
 module AcaEntities
+
+  def self.async_api_config_find_by_service_name(service_name)
+    ::AcaEntities::AsyncApi::Operations::FindConfigsByServiceName.new.call(service_name: service_name)
+  end
 end

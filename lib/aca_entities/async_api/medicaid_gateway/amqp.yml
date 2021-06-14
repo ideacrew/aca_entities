@@ -38,7 +38,7 @@ channels:
         is: :routing_key
         exchange:
           name: magi_medicaid.mitc.eligibilities
-          type: direct
+          type: topic
           durable: true
           auto_delete: false
           vhost: /event_source
@@ -46,16 +46,15 @@ channels:
     publish:
       bindings:
         amqp:
-          exchange:
-            app_id: medicaid_gateway
-            type: magi_medicaid.mitc.eligibilities
-            routing_key: magi_medicaid.mitc.eligibilities.determined_uqhp_eligible
-            expiration: 100_000
-            deliveryMode: 2
-            mandatory: true
-            timestamp: true
-            content_type: application/json
-            bindingVersion: 0.2.0
+          app_id: medicaid_gateway
+          type: magi_medicaid.mitc.eligibilities
+          routing_key: magi_medicaid.mitc.eligibilities.determined_uqhp_eligible
+          expiration: 100_000
+          deliveryMode: 2
+          mandatory: true
+          timestamp: true
+          content_type: application/json
+          bindingVersion: 0.2.0
       operationId: magi_medicaid.mitc.eligibilities.determined_uqhp_eligible
       description: MitC determined applicants ineligible for Medicaid/CHIP financial assistance
 
@@ -65,7 +64,7 @@ channels:
         is: :routing_key
         exchange:
           name: magi_medicaid.mitc.eligibilities
-          type: direct
+          type: topic
           content_type: application/json
           durable: true
           auto_delete: false
@@ -74,16 +73,15 @@ channels:
     publish:
       bindings:
         amqp:
-          exchange:
-            app_id: medicaid_gateway
-            type: magi_medicaid.mitc.eligibilities
-            routing_key: magi_medicaid.mitc.eligibilities.determined_mixed_eligible
-            expiration: 100_000
-            deliveryMode: 2
-            mandatory: true
-            timestamp: true
-            content_type: application/json
-            bindingVersion: 0.2.0
+          app_id: medicaid_gateway
+          type: magi_medicaid.mitc.eligibilities
+          routing_key: magi_medicaid.mitc.eligibilities.determined_mixed_eligible
+          expiration: 100_000
+          deliveryMode: 2
+          mandatory: true
+          timestamp: true
+          content_type: application/json
+          bindingVersion: 0.2.0
       operationId: magi_medicaid.mitc.eligibilities.determined_aqhp_eligible
       description: MitC determined applicants eligible for APTC/CSR financial assistance
 
@@ -93,7 +91,7 @@ channels:
         is: :routing_key
         exchange:
           name: magi_medicaid.mitc.eligibilities
-          type: direct
+          type: topic
           content_type: application/json
           durable: true
           auto_delete: false
@@ -102,16 +100,15 @@ channels:
     publish:
       bindings:
         amqp:
-          exchange:
-            app_id: medicaid_gateway
-            type: magi_medicaid.mitc.eligibilities
-            routing_key: magi_medicaid.mitc.eligibilities.determined_mixed_eligible
-            expiration: 100_000
-            deliveryMode: 2
-            mandatory: true
-            timestamp: true
-            content_type: application/json
-            bindingVersion: 0.2.0
+          app_id: medicaid_gateway
+          type: magi_medicaid.mitc.eligibilities
+          routing_key: magi_medicaid.mitc.eligibilities.determined_mixed_eligible
+          expiration: 100_000
+          deliveryMode: 2
+          mandatory: true
+          timestamp: true
+          content_type: application/json
+          bindingVersion: 0.2.0
       operationId: magi_medicaid.mitc.eligibilities.determined_medicaid_eligible
       description: MitC determined applicants eligible for Medicaid/CHIP financial assistance
 
@@ -121,7 +118,7 @@ channels:
         is: :routing_key
         exchange:
           name: magi_medicaid.mitc.eligibilities
-          type: direct
+          type: topic
           durable: true
           auto_delete: false
           vhost: /event_source
@@ -129,16 +126,15 @@ channels:
     publish:
       bindings:
         amqp:
-          exchange:
-            app_id: medicaid_gateway
-            type: magi_medicaid.mitc.eligibilities
-            routing_key: magi_medicaid.mitc.eligibilities.determined_mixed_eligible
-            expiration: 100_000
-            deliveryMode: 2
-            mandatory: true
-            timestamp: true
-            content_type: application/json
-            bindingVersion: 0.2.0
+          app_id: medicaid_gateway
+          type: magi_medicaid.mitc.eligibilities
+          routing_key: magi_medicaid.mitc.eligibilities.determined_mixed_eligible
+          expiration: 100_000
+          deliveryMode: 2
+          mandatory: true
+          timestamp: true
+          content_type: application/json
+          bindingVersion: 0.2.0
       operationId: magi_medicaid.mitc.eligibilities.determined_chip_eligible
       description: MitC determined applicants eligible for CHIP financial assistance
 
@@ -148,7 +144,7 @@ channels:
         is: :routing_key
         exchange:
           name: magi_medicaid.mitc.eligibilities
-          type: direct
+          type: topic
           content_type: application/json
           durable: true
           auto_delete: false
@@ -157,16 +153,15 @@ channels:
     publish:
       bindings:
         amqp:
-          exchange:
-            app_id: medicaid_gateway
-            type: magi_medicaid.mitc.eligibilities
-            routing_key: magi_medicaid.mitc.eligibilities.determined_mixed_eligible
-            expiration: 100_000
-            deliveryMode: 2
-            mandatory: true
-            timestamp: true
-            content_type: application/json
-            bindingVersion: 0.2.0
+          app_id: medicaid_gateway
+          type: magi_medicaid.mitc.eligibilities
+          routing_key: magi_medicaid.mitc.eligibilities.determined_mixed_eligible
+          expiration: 100_000
+          deliveryMode: 2
+          mandatory: true
+          timestamp: true
+          content_type: application/json
+          bindingVersion: 0.2.0
       operationId: magi_medicaid.mitc.eligibilities.determined_mixed_eligible
       description: MitC determined some applicants eligible for Medicaid/CHIP and/or APTC/CSR financial assistance
 

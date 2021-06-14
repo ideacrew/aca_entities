@@ -7,10 +7,10 @@ module AcaEntities
       class DocumentContract < Dry::Validation::Contract
         # @!method call(opts)
         # @param [Hash] opts the parameters to validate using this contract
-        # @option opts [String] :title required
+        # @option opts [String] :title optional
         # @option opts [String] :creator optional
         # @option opts [String] :subject optional
-        # @option opts [String] :description required
+        # @option opts [String] :description optional
         # @option opts [String] :publisher optional
         # @option opts [String] :contributor optional
         # @option opts [Date] :date optional
@@ -18,22 +18,22 @@ module AcaEntities
         # @option opts [String] :format optional
         # @option opts [String] :identifier optional
         # @option opts [String] :source optional
-        # @option opts [String] :language required
+        # @option opts [String] :language optional
         # @option opts [String] :relation optional
-        # @option opts [String] :coverage required
+        # @option opts [String] :coverage optional
         # @option opts [String] :rights optional
         # @option opts [Array] :tags optional
         # @option opts [String] :size optional
         # @return [Dry::Monads::Result]
         params do
-          required(:title).filled(:string)
-          required(:creator).filled(:string)
-          required(:subject).filled(:string)
-          required(:publisher).filled(:string)
-          required(:source).filled(:string)
-          required(:language).filled(:string)
-          required(:type).filled(:string)
-          required(:format).filled(:string)
+          optional(:title).filled(:string)
+          optional(:creator).filled(:string)
+          optional(:subject).filled(:string)
+          optional(:publisher).filled(:string)
+          optional(:source).filled(:string)
+          optional(:language).filled(:string)
+          optional(:type).filled(:string)
+          optional(:format).filled(:string)
 
           optional(:description).maybe(:string)
           optional(:contributor).maybe(:string)
