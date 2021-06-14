@@ -17,9 +17,8 @@ module AcaEntities
           def call(family)
             valid_family                 = yield validate_family(family)
             primary_person               = yield fetch_primary_family_members_person(valid_family)
-            secondary_request_params     = yield transform_person_to_secondary_request(primary_person)
-            validated_secondary_request  = yield validate_secondary_request(secondary_request_params)
-            secondary_request_json       = yield secondary_request_entity_json(validated_secondary_request)
+            secondary_request_evidence   = yield fetch_secondary_request_evidence(primary_person)
+            secondary_request_json       = yield fetch_secondary_request(secondary_request_evidence)
 
             Success(secondary_request_json)
           end
@@ -36,7 +35,7 @@ module AcaEntities
           end
 
           def fetch_primary_family_member(family)
-            primary_family_member = family.family_members.detect { |family_member| family_member.is_primary_applicant }
+            primary_family_member = family.family_members.detect(&:is_primary_applicant)
             if primary_family_member
               Success(primary_family_member.person)
             else
@@ -44,27 +43,20 @@ module AcaEntities
             end
           end
 
-          # Transform Person params To SecondaryRequest Contract params
-          def transform_person_to_secondary_request(person)
-            ::AcaEntities::Fdsh::Transformers::Ridp::PersonToSecondaryRequest.call(person.to_h.to_json) { |record| @transform_result = record }
-            Success(@transform_result)
-          end
-
-          # Validate SecondaryRequest params against SecondaryRequest Contract
-          def validate_secondary_request(params)
-            result = ::AcaEntities::Fdsh::Ridp::H139::SecondaryRequestContract.new.call(params)
-
-            if result.success?
-              Success(result.to_h)
-            else
-              Failure(result)
+          def fetch_secondary_request_evidence(primary_person)
+            Try do
+              primary_person.user.attestations[:ridp_attestation].evidences.detect do |evidence|
+                evidence.secondary_request.present?
+              end
             end
           end
 
-          def secondary_request_entity_json(values)
-            result = ::AcaEntities::Fdsh::Ridp::H139::SecondaryRequest.new(values.to_h)
-
-            Success(result.to_h.to_json)
+          def fetch_secondary_request(evidence)
+            if evidence.is_a?(::AcaEntities::Evidences::RidpEvidence)
+              Success(evidence.secondary_request.to_h.to_json)
+            else
+              Failure("Invalid Evidence, given value is not a AcaEntities::Evidences::RidpEvidence, input_value:#{evidence}")
+            end
           end
         end
       end

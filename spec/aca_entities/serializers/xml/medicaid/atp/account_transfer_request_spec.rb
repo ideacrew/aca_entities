@@ -108,7 +108,6 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
   end
 
   it "is schema valid" do
-    binding.pry
     document = Nokogiri::XML(mapper.to_xml)
     expect(schema.valid?(document)).to be_truthy
   end

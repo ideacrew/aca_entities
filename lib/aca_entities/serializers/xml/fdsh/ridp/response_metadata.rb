@@ -11,18 +11,18 @@ module AcaEntities
             include HappyMapper
             register_namespace 'hix-core', 'http://hix.cms.gov/0.1/hix-core'
 
-            tag 'hix-core:ResponseMetadata'
+            tag 'ResponseMetadata'
             namespace 'hix-core'
 
-            element :ResponseCode, String, tag: "ResponseCode", namespace: 'hix-core'
-            element :ResponseDescriptionText, String, tag: "ResponseDescriptionText", namespace: 'hix-core'
-            element :TDSResponseDescriptionText, String, tag: "TDSResponseDescriptionText", namespace: 'hix-core'
+            element :ResponseCode, String, tag: "ResponseCode"
+            element :ResponseDescriptionText, String, tag: "ResponseDescriptionText"
+            element :TDSResponseDescriptionText, String, tag: "TDSResponseDescriptionText"
 
-            def self.domain_to_mapper(initial_response)
+            def self.domain_to_mapper(response_metadate)
               mapper = self.new
-              mapper.ResponseCode = initial_response.ResponseCode
-              mapper.ResponseDescriptionText = initial_response.response_description_text
-              mapper.TDSResponseDescriptionText = initial_response.TDSResponseDescriptionText
+              mapper.ResponseCode = response_metadate.ResponseCode
+              mapper.ResponseDescriptionText = response_metadate.response_description_text
+              mapper.TDSResponseDescriptionText = response_metadate.TDSResponseDescriptionText
               mapper
             end
           end

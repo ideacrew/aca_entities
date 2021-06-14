@@ -10,18 +10,15 @@ module AcaEntities
           class VerificationQuestionSet
             include HappyMapper
             register_namespace 'ext', 'http://ridp.dsh.cms.gov/extension/1.0'
-            register_namespace 'hix-core', 'http://hix.cms.gov/0.1/hix-core'
 
             tag 'VerificationQuestionSet'
+            namespace 'ext'
 
             element :VerificationQuestionText, String, tag: 'VerificationQuestionText'
             element :VerificationAnswerChoiceText, String, tag: 'VerificationAnswerChoiceText'
 
-            def self.domain_to_mapper(verification_question_set)
-              mapper = self.new
-              mapper.VerificationQuestionText = verification_question_set.VerificationQuestionText
-              mapper.VerificationAnswerChoiceText = verification_question_set.VerificationAnswerChoiceText
-              mapper
+            def self.domain_to_mapper(_verification_question_set)
+              self.new
             end
           end
         end

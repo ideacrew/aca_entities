@@ -12,8 +12,11 @@ module AcaEntities
           attribute :SessionIdentification,             Types::String.optional.meta(omittable: true)
           attribute :DSHReferenceNumber,                Types::String.optional.meta(omittable: true)
           attribute :FinalDecisionCode,                 Types::String.optional.meta(omittable: true) # TODO: enum
-          attribute :VerificationQuestionText,          Types::Array.of(Types::String).meta(omittable: false)
-          attribute :VerificationAnswerChoiceText,       Types::Array.of(Types::String).meta(omittable: false)
+
+          attribute :VerificationQuestionSet, Types::Array do
+            attribute :VerificationQuestionText,        Types::String.meta(omittable: false)
+            attribute :VerificationAnswerChoiceText,    Types::String.meta(omittable: false)
+          end
         end
       end
     end

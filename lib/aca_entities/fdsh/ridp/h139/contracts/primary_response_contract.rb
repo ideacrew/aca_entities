@@ -13,8 +13,11 @@ module AcaEntities
             optional(:SessionIdentification).maybe(:string)
             optional(:DSHReferenceNumber).maybe(:string)
             optional(:FinalDecisionCode).maybe(:string)
-            required(:VerificationQuestionText).array(:string)
-            required(:VerificationAnswerChoiceText).array(:string)
+
+            required(:VerificationQuestionSet).array(:hash) do
+              required(:VerificationQuestionText).filled(:string)
+              required(:VerificationAnswerChoiceText).filled(:string)
+            end
           end
         end
       end

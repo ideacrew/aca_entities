@@ -9,8 +9,10 @@ module AcaEntities
           # SecondaryResponse.
           class SecondaryResponse
             include HappyMapper
-            register_namespace 'ex', 'http://ridp.dsh.cms.gov/exchange/1.0'
-            register_namespace 'ext', 'http://ridp.dsh.cms.gov/extension/1.0'
+            register_namespace 'exch', 'http://ridp.dsh.cms.gov/exchange/1.0'
+
+            tag 'Response'
+            namespace 'exch'
 
             has_one :response_metadata, ResponseMetadata, namespace: 'hix-core:ResponseMetadata'
             has_one :verification_response, VerificationResponse, namespace: 'VerificationResponse'

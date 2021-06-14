@@ -730,7 +730,6 @@ RSpec.describe ::AcaEntities::Fdsh::Operations::Ridp::GeneratePrimaryRequestPayl
   end
 
   it 'should return success' do
-    binding.pry
     expect(@result).to be_success
   end
 end

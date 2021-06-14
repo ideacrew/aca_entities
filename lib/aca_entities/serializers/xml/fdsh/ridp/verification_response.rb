@@ -10,21 +10,18 @@ module AcaEntities
           class VerificationResponse
             include HappyMapper
             register_namespace 'ext', 'http://ridp.dsh.cms.gov/extension/1.0'
-            register_namespace 'hix-core', 'http://hix.cms.gov/0.1/hix-core'
 
             tag 'VerificationResponse'
+            namespace 'ext'
 
-            element :SessionIdentification, String, tag: 'SessionIdentification', namespace: 'ext'
-            element :DSHReferenceNumber, String, tag: 'DSHReferenceNumber', namespace: 'ext'
-            element :FinalDecisionCode, String, tag: 'FinalDecisionCode', namespace: 'ext'
+            element :SessionIdentification, String, tag: 'SessionIdentification'
+            element :DSHReferenceNumber, String, tag: 'DSHReferenceNumber'
+            element :FinalDecisionCode, String, tag: 'FinalDecisionCode'
 
-            has_one :verification_questions, VerificationQuestion, namespace: 'VerificationQuestions'
+            has_one :verification_questions, VerificationQuestion
 
             def self.domain_to_mapper(verification_response)
               mapper = self.new
-              mapper.SessionIdentification = verification_response.SessionIdentification
-              mapper.DSHReferenceNumber = verification_response.DSHReferenceNumber
-              mapper.FinalDecisionCode = verification_response.FinalDecisionCode
               mapper.verification_questions = VerificationQuestion.domain_to_mapper(verification_response.verification_questions)
               mapper
             end

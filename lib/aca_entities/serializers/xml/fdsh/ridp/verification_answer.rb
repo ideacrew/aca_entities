@@ -6,20 +6,19 @@ module AcaEntities
       module Fdsh
         module Ridp
           # Happymapper implementation for the root object of an
-          # VerificationAnswerSet.
-          class VerificationAnswerSet
+          # VerificationAnswer.
+          class VerificationAnswer
             include HappyMapper
             register_namespace 'ext', 'http://ridp.dsh.cms.gov/extension/1.0'
 
-            tag 'VerificationAnswerSet'
+            tag 'VerificationAnswers'
             namespace 'ext'
 
-            has_many :verification_answers, VerificationAnswer
+            element :VerificationQuestionNumber, String, tag: 'VerificationQuestionNumber'
+            element :VerificatonAnswer, String, tag: 'VerificatonAnswer'
 
-            def self.domain_to_mapper(verification_answer_set)
-              mapper = self.new
-              mapper.verification_answers = [verification_answer_set.verification_answers]
-              mapper
+            def self.domain_to_mapper(_verification_questions)
+              self.new
             end
           end
         end

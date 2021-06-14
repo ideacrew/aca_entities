@@ -2,6 +2,7 @@
 
 module AcaEntities
   module People
+    # entity for person
     class Person < Dry::Struct
       attribute :hbx_id, Types::String.optional.meta(omittable: false)
       attribute :person_name,
@@ -80,6 +81,18 @@ module AcaEntities
                   .meta(omittable: true)
 
       attribute :timestamp, AcaEntities::TimeStamp.meta(omittable: true)
+
+      def home_address
+        return nil if addresses.empty?
+
+        addresses.detect { |addr| addr.kind == 'home' }
+      end
+
+      def home_phone
+        return nil if phones.empty?
+
+        phones.detect { |phone| phone.kind == 'home' }
+      end
     end
   end
 end

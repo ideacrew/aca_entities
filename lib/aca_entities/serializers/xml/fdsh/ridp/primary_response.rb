@@ -9,11 +9,13 @@ module AcaEntities
           # PrimaryResponse.
           class PrimaryResponse
             include HappyMapper
-            register_namespace 'ex', 'http://ridp.dsh.cms.gov/exchange/1.0'
-            register_namespace 'ext', 'http://ridp.dsh.cms.gov/extension/1.0'
+            register_namespace 'exch', 'http://ridp.dsh.cms.gov/exchange/1.0'
 
-            has_one :response_metadata, ResponseMetadata, namespace: 'hix-core:ResponseMetadata'
-            has_one :verification_response, VerificationResponse, namespace: 'VerificationResponse'
+            tag 'Response'
+            namespace 'exch'
+
+            has_one :response_metadata, ResponseMetadata
+            has_one :verification_response, VerificationResponse
 
             def self.domain_to_mapper(initial_response)
               mapper = self.new

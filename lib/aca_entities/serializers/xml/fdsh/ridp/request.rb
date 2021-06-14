@@ -15,10 +15,12 @@ module AcaEntities
             namespace 'exch'
 
             has_one :PrimaryRequest, PrimaryRequest
+            has_one :SecondaryRequest, SecondaryRequest
 
-            def self.domain_to_mapper(initial_primary_request)
+            def self.domain_to_mapper(request)
               mapper = self.new
-              mapper.PrimaryRequest = PrimaryRequest.domain_to_mapper(initial_primary_request)
+              mapper.PrimaryRequest = PrimaryRequest.domain_to_mapper(request)
+              mapper.SecondaryRequest = SecondaryRequest.domain_to_mapper(request)
               mapper
             end
           end

@@ -18,7 +18,6 @@ module AcaEntities
             valid_family               = yield validate_family(family)
             primary_person             = yield fetch_primary_family_members_person(valid_family)
             primary_request_params     = yield transform_person_to_primary_request(primary_person)
-            binding.pry
             validated_primary_request  = yield validate_primary_request(primary_request_params)
             primary_request_json       = yield primary_request_entity_json(validated_primary_request)
 
@@ -37,7 +36,7 @@ module AcaEntities
           end
 
           def fetch_primary_family_members_person(family)
-            primary_family_member = family.family_members.detect { |family_member| family_member.is_primary_applicant }
+            primary_family_member = family.family_members.detect(&:is_primary_applicant)
             if primary_family_member
               Success(primary_family_member.person)
             else
@@ -47,12 +46,14 @@ module AcaEntities
 
           # Transform Person params To PrimaryRequest Contract params
           def transform_person_to_primary_request(person)
-            ::AcaEntities::Fdsh::Transformers::Ridp::PersonToPrimaryRequest.call(person.to_h.to_json) { |record| @transform_result = record }
+            input_hash = person.to_h.merge({ home_address: person.home_address.to_h, home_phone: person.home_phone.to_h })
+            ::AcaEntities::Fdsh::Transformers::Ridp::PersonToPrimaryRequest.call(input_hash.to_json) { |record| @transform_result = record }
             Success(@transform_result)
           end
 
           # Validate PrimaryRequest params against PrimaryRequest Contract
           def validate_primary_request(params)
+            params.merge!({ LevelOfProofingCode: "LevelThree" })
             result = ::AcaEntities::Fdsh::Ridp::H139::PrimaryRequestContract.new.call(params)
 
             if result.success?

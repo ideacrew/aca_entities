@@ -21,7 +21,8 @@ module AcaEntities
           attribute :LocationPostalExtensionCode,           Types::String.optional.meta(omittable: true)
 
           attribute :FullTelephoneNumber,                   Types::String.optional.meta(omittable: true)
-          attribute :LevelOfProofingCode,                   AcaEntities::Fdsh::Ridp::H139::Types::LevelOfProofingCodeKind.optional.meta(omittable: true)
+          attribute :LevelOfProofingCode,
+                    AcaEntities::Fdsh::Ridp::H139::Types::LevelOfProofingCodeKind.optional.meta(omittable: true)
 
           attribute :PersonLanguagePreference,              AcaEntities::Fdsh::Ridp::H139::Types::PersonLanguagePreference.meta(omittable: true)
           attribute :SubscriberNumber,                      Types::String.optional.meta(omittable: true)
