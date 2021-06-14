@@ -14,18 +14,18 @@ module AcaEntities
             tag 'PrimaryRequest'
             namespace 'ext'
 
-            has_one :person, Person
-            has_one :current_address, CurrentAddress
-            has_one :contact_information, ContactInformation
+            has_one :Person, Person
+            has_one :CurrentAddress, CurrentAddress
+            has_one :ContactInformation, ContactInformation
             element :LevelOfProofingCode, String, tag: 'LevelOfProofingCode'
             element :SubscriberNumber, String, tag: 'SubscriberNumber'
             element :PersonLanguagePreference, String, tag: 'PersonLanguagePreference'
 
             def self.domain_to_mapper(initial_primary_request)
               mapper = self.new
-              mapper.person = Person.domain_to_mapper(initial_primary_request.person)
-              mapper.current_address = CurrentAddress.domain_to_mapper(initial_primary_request.current_address)
-              mapper.contact_information = ContactInformation.domain_to_mapper(initial_primary_request.contact_information)
+              mapper.Person = Person.domain_to_mapper(initial_primary_request.Person)
+              mapper.CurrentAddress = CurrentAddress.domain_to_mapper(initial_primary_request.CurrentAddress)
+              mapper.ContactInformation = ContactInformation.domain_to_mapper(initial_primary_request.ContactInformation)
 
               mapper.LevelOfProofingCode = initial_primary_request.LevelOfProofingCode
               mapper.SubscriberNumber = initial_primary_request.SubscriberNumber

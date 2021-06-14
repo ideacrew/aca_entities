@@ -18,7 +18,7 @@ module AcaEntities
 
             def self.domain_to_mapper(location_address)
               mapper = self.new
-              mapper.StructuredAddress = StructuredAddress.domain_to_mapper(location_address)
+              mapper.StructuredAddress = StructuredAddress.domain_to_mapper(location_address.StructuredAddress)
               mapper
             end
           end

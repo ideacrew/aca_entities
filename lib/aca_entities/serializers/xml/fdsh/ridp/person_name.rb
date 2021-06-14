@@ -18,8 +18,13 @@ module AcaEntities
             element :PersonMiddleName, String, tag: 'PersonMiddleName'
             element :PersonNameSuffixText, String, tag: 'PersonNameSuffixText'
 
-            def self.domain_to_mapper(_person)
-              self.new
+            def self.domain_to_mapper(person)
+              mapper = self.new
+              mapper.PersonGivenName = person.PersonGivenName
+              mapper.PersonSurName = person.PersonSurName
+              mapper.PersonMiddleName = person.PersonMiddleName
+              mapper.PersonNameSuffixText = person.PersonNameSuffixText
+              mapper
             end
           end
         end

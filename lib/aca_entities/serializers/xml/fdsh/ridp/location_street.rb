@@ -16,8 +16,10 @@ module AcaEntities
 
             element :StreetName, String, tag: 'StreetName'
 
-            def self.domain_to_mapper(_location_address)
-              self.new
+            def self.domain_to_mapper(location_address)
+              mapper = self.new
+              mapper.StreetName = location_address.StreetName
+              mapper
             end
           end
         end

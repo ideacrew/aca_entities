@@ -17,10 +17,10 @@ module AcaEntities
             has_one :PrimaryRequest, PrimaryRequest
             has_one :SecondaryRequest, SecondaryRequest
 
-            def self.domain_to_mapper(request)
+            def self.domain_to_mapper(request, type)
               mapper = self.new
-              mapper.PrimaryRequest = PrimaryRequest.domain_to_mapper(request)
-              mapper.SecondaryRequest = SecondaryRequest.domain_to_mapper(request)
+              mapper.PrimaryRequest = PrimaryRequest.domain_to_mapper(request) if type == 'primary_request'
+              mapper.SecondaryRequest = SecondaryRequest.domain_to_mapper(request) if type == 'secondary_request'
               mapper
             end
           end

@@ -16,8 +16,10 @@ module AcaEntities
 
             element :FullTelephoneNumber, String, tag: 'FullTelephoneNumber'
 
-            def self.domain_to_mapper(_contact_information)
-              self.new
+            def self.domain_to_mapper(contact_telephone_number)
+              mapper = self.new
+              mapper.FullTelephoneNumber = contact_telephone_number.FullTelephoneNumber
+              mapper
             end
           end
         end

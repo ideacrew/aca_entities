@@ -20,9 +20,13 @@ module AcaEntities
             element :LocationPostalCode, String, tag: 'LocationPostalCode'
             element :LocationPostalExtensionCode, String, tag: 'LocationPostalExtensionCode'
 
-            def self.domain_to_mapper(location_address)
+            def self.domain_to_mapper(structured_address)
               mapper = self.new
-              mapper.LocationStreet = LocationStreet.domain_to_mapper(location_address)
+              mapper.LocationStreet = LocationStreet.domain_to_mapper(structured_address.LocationStreet)
+              mapper.LocationCityName = structured_address.LocationCityName
+              mapper.LocationStateUSPostalServiceCode = structured_address.LocationStateUSPostalServiceCode
+              mapper.LocationPostalCode = structured_address.LocationPostalCode
+              mapper.LocationPostalExtensionCode = structured_address.LocationPostalExtensionCode
               mapper
             end
           end

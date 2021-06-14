@@ -15,11 +15,12 @@ module AcaEntities
             namespace 'ext'
 
             element :SessionIdentification, String, tag: 'SessionIdentification'
-            has_one :verification_answer_set, VerificationAnswerSet
+            has_one :VerificationAnswerSet, VerificationAnswerSet
 
-            def self.domain_to_mapper(secondary_response)
+            def self.domain_to_mapper(secondary_request)
               mapper = self.new
-              mapper.verification_answer_set = VerificationAnswerSet.domain_to_mapper(secondary_response.verification_answer_set)
+              mapper.SessionIdentification = secondary_request.SessionIdentification
+              mapper.VerificationAnswerSet = VerificationAnswerSet.domain_to_mapper(secondary_request.VerificationAnswerSet)
               mapper
             end
           end

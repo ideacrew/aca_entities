@@ -18,7 +18,7 @@ module AcaEntities
 
             def self.domain_to_mapper(current_address)
               mapper = self.new
-              mapper.LocationAddress = LocationAddress.domain_to_mapper(current_address)
+              mapper.LocationAddress = LocationAddress.domain_to_mapper(current_address.LocationAddress)
               mapper
             end
           end
