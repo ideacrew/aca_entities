@@ -6,7 +6,7 @@ module AcaEntities
       # entity for #atp application meta data
       class ApplicationMetadata < Dry::Struct
 
-        attribute :application_id, Types::String
+        attribute :application_ids, Types::Array.of(ApplicationIdentity).meta(omittable: false)
         attribute :original_signature_date, Types::Date.optional.meta(omittable: true)
         attribute :application_signature_date, Types::DateTime
         attribute :creation_date, Types::DateTime

@@ -13,12 +13,12 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
   let(:atp_properties) do
     {
       transfer_header: transfer_header,
-      sender: {},
-      receiver: {},
-      physical_household: {
+      sender: [sender],
+      receiver: [receiver],
+      physical_household: [{
         household_size_quantity: 1,
         household_member_reference: []
-      },
+      }],
       insurance_application: insurance_application,
       medicaid_household: {},
       person: person
@@ -43,7 +43,7 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
 
   let(:application_metadata) do
     {
-      application_id: "an application id",
+      application_ids: [{identification_id: "an application id"}],
       application_signature_date: DateTime.now,
       creation_date: DateTime.now,
       submission_date: DateTime.now,
@@ -59,6 +59,14 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
       attested_non_perjury_indicator: false,
       tax_return_access_indicator: false
     }
+  end
+
+  let(:sender) do
+    {sender_code: "a unique id"}
+  end
+
+  let(:receiver) do
+    {recipient_code: "a unique id"}
   end
 
   let(:person) do
@@ -109,6 +117,10 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
 
   it "is schema valid" do
     document = Nokogiri::XML(mapper.to_xml)
+    schema.validate(document).each do |error|
+      puts "\n\n======= Schema Error ======="
+      puts error.message
+    end
     expect(schema.valid?(document)).to be_truthy
   end
 
