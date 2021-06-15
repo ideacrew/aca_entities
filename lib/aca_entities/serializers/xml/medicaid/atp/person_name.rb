@@ -13,6 +13,12 @@ module AcaEntities
             tag 'PersonName'
             namespace 'nc'
 
+            element :given, String, tag: "PersonGivenName", namespace: "nc"
+            element :middle, String, tag: "PersonMiddleName", namespace: "nc"
+            element :sur, String, tag: "PersonSurName", namespace: "nc"
+            element :suffix, String, tag: 'PersonNameSuffixText', namespace: "nc"
+            element :full, String, tag: 'PersonFullName', namespace: "nc"
+
             def self.domain_to_mapper(_person)
               self.new
             end

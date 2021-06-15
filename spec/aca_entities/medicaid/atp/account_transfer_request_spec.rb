@@ -21,7 +21,7 @@ RSpec.describe ::AcaEntities::Medicaid::Atp::AccountTransferRequest, dbclean: :a
   end
 
   let(:insurance_application_params) do
-    { application_metadata: { application_id: '12345', application_signature_date: DateTime.new,
+    { application_metadata: { application_ids: [{identification_id:'12345'}], application_signature_date: DateTime.new,
                               creation_date: DateTime.new, identification_category_text: 'state',
                               submission_date: DateTime.new,
                               financial_assistance_indicator: true,
@@ -40,9 +40,9 @@ RSpec.describe ::AcaEntities::Medicaid::Atp::AccountTransferRequest, dbclean: :a
     }
   end
 
-  let(:sender_params) {{ sender_code: nil }}
-  let(:receiver_params) {{ recipient_code: '12345' }}
-  let(:physical_household) {{ household_size_quantity: 2, household_member_reference: [5_762_879, 762_839] }}
+  let(:sender_params) {[{ sender_code: '123' }]}
+  let(:receiver_params) {[{ recipient_code: '12345' }]}
+  let(:physical_household) {[{ household_size_quantity: 2, household_member_reference: [5_762_879, 762_839] }]}
   let(:required_params) do
     {
       transfer_header: transfer_header_params, person: person_params, insurance_application: insurance_application_params,

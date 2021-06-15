@@ -11,10 +11,10 @@ module AcaEntities
           required(:insurance_application).filled(:hash)
           required(:medicaid_household).filled(:hash)
           required(:person).filled(:hash)
-          required(:sender).filled(:hash)
-          required(:receiver).filed(:hash)
+          required(:sender).filled(:array)
+          required(:receiver).filed(:array)
 
-          required(:physical_household).schema do
+          required(:physical_household).array(:hash) do
             required(:household_size_quantity).filled(:integer)
             required(:household_member_reference).array(:integer)
           end
