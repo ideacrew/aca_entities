@@ -23,6 +23,9 @@ module AcaEntities
             has_one :insurance_application, InsuranceApplication
             has_many :people, Person
             has_many :physical_households, PhysicalHousehold
+            has_one :assister, Assister
+            has_one :authorized_representative, AuthorizedRepresentative
+            has_many :medicaid_households, MedicaidHousehold
 
             def self.domain_to_mapper(account_transfer_request)
               mapper = self.new
