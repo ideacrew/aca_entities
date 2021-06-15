@@ -17,9 +17,9 @@ module AcaEntities
             element :identification_category_text, String, tag: "IdentificationCategoryText", namespace: "nc"
             element :identification_jurisdication, String, tag: "IdentificationJurisdictionISO3166Alpha3Code", namespace: "nc"
 
-            def self.domain_to_mapper(id)
+            def self.domain_to_mapper(identification)
               mapper = self.new
-              mapper.identification_id = id
+              mapper.identification_id = identification
               mapper
             end
           end
