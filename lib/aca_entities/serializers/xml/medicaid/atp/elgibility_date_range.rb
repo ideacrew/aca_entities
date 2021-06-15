@@ -1,0 +1,27 @@
+# frozen_string_literal: true
+
+module AcaEntities
+  module Serializers
+    module Xml
+      module Medicaid
+        module Atp
+          class EligibilityDateRange
+            include HappyMapper
+            register_namespace 'hix-ee', 'http://hix.cms.gov/0.1/hix-ee'
+
+            tag 'EligibilityDateRange'
+            namespace 'hix-ee'
+
+            has_one :end_date, EndDate
+            has_one :start_date, StartDate
+
+            def self.domain_to_mapper(date_range)
+              mapper = self.new
+              mapper
+            end
+          end
+        end
+      end
+    end
+  end
+end

@@ -6,7 +6,7 @@ module AcaEntities
       # Contract for ApplicationMetadataContract.
       class ApplicationMetadataContract < Dry::Validation::Contract
         params do
-          required(:application_id).filled(:string)
+          required(:application_ids).value(:array, max_size?: 2)
           optional(:original_signature_date).maybe(:date)
           required(:application_signature_date).filled(:date_time)
           required(:creation_date).filled(:date_time)
