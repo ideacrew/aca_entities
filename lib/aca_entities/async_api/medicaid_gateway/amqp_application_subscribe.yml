@@ -49,7 +49,7 @@ channels:
           exclusive: false
           routing_key: enroll.iap.applications.determine_eligibility
           bindingVersion: "0.2.0"
-      operationId: on_medicaid_gateway.enroll.iap.applications.determine_eligibility
+      operationId: on_medicaid_gateway.enroll.iap.applications
       description: Events - magi medicaid eligibility determination Request
 
 tags:
