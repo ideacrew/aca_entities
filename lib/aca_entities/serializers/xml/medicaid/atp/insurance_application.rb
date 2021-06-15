@@ -24,15 +24,22 @@ module AcaEntities
 
             has_one :ssf_primary_contact, SsfPrimaryContact
 
+            has_one :ssf_signer, SsfSigner
+
+            has_one :assister_association, InsuranceApplicationAssisterAssociation
+
             element :tax_return_access, Boolean, tag: "InsuranceApplicationTaxReturnAccessIndicator", namespace: "hix-ee"
+
+            #A number of years for which a signer allows an exchange to renew coverage and determine eligibility (including reuse of tax data).
+            element :coverage_renewal_year_quantity, Integer, tag: 'InsuranceApplicationCoverageRenewalYearQuantity'
 
             def self.domain_to_mapper(insurance_application)
               mapper = self.new
               mapper.application_creation = ApplicationCreation.domain_to_mapper(insurance_application)
               mapper.application_submission = ApplicationSubmission.domain_to_mapper(insurance_application)
               mapper.application_identifications = [
-                ApplicationIdentification.domain_to_mapper(insurance_application.application_metadata.application_id)
-                
+                ApplicationIdentification.domain_to_mapper(insurance_application.application_metadata.application_ids)
+
               ]
               mapper.insurance_applicants = [
                 InsuranceApplicant.domain_to_mapper(insurance_application)

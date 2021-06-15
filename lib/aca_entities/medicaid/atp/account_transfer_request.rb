@@ -7,10 +7,10 @@ module AcaEntities
       class AccountTransferRequest < Dry::Struct
 
         attribute :transfer_header,   TransferHeader.meta(omittable: false)
-        attribute :sender,            Sender.meta(omittable: false)
-        attribute :receiver,          Receiver.meta(omittable: false)
+        attribute :sender,            Types::Array.of(Sender).meta(omittable: false)
+        attribute :receiver,          Types::Array.of(Receiver).meta(omittable: false)
 
-        attribute :physical_household do
+        attribute :physical_household, Types::Array do
           attribute :household_size_quantity,    Types::Integer.optional.meta(omittable: false)
           attribute :household_member_reference, Types::Array.of(Types::Integer).meta(omittable: false)
         end
