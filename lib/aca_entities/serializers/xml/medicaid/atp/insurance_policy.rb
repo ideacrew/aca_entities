@@ -26,7 +26,7 @@ module AcaEntities
             element :source_code, String, tag: 'InsurancePolicySourceCode'
 
             #A date range for which a policy is actually effective (i.e., taking into consideration when the policy actually took effect, was cancelled, etc.).
-            element :applied_effective_date_range, Date, tag: 'InsurancePolicyAppliedEffectiveDateRange'
+            element :applied_effective_date_range, String, tag: 'InsurancePolicyAppliedEffectiveDateRange'
 
             def self.domain_to_mapper(insurance_policy)
               mapper = self.new

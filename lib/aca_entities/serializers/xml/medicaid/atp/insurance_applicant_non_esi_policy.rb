@@ -15,7 +15,7 @@ module AcaEntities
 
             element :member, String, tag: 'InsuranceMember'
 
-            element :applied_effective_date_range, DateTime, tag: 'InsurancePolicyAppliedEffectiveDateRange'
+            element :applied_effective_date_range, String, tag: 'InsurancePolicyAppliedEffectiveDateRange'
 
             has_one :identification, InsurancePolicyIdentification
 
