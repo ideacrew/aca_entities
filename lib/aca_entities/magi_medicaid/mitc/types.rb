@@ -170,9 +170,6 @@ module AcaEntities
           'WI',
           'WY'
         )
-
-        # An integer representing the applicant. Must be between 1 and 100.
-        PersonIdRange = (1..100).freeze
       end
     end
   end
