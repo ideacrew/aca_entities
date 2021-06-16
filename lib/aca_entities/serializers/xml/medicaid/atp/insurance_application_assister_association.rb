@@ -14,8 +14,8 @@ module AcaEntities
             tag 'InsuranceApplicationAssisterAssociation'
             namespace 'hix-ee'
 
-            element :begin_date, Date, tag: 'AssociationBeginDate', namespace: 'nc'
-            element :end_date, Date, tag: 'AssociationEndDate', namespace: 'nc'
+            has_one :begin_date, AssociationBeginDate
+            element :end_date, AssociationEndDate
 
             def self.domain_to_mapper(reference)
               mapper = self.new

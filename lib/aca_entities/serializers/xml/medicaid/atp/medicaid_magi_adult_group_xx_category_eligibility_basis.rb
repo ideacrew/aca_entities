@@ -4,8 +4,6 @@ module AcaEntities
     module Xml
       module Medicaid
         module Atp
-          # A basis for Medicaid MAGI (Modified Adjusted Gross Income) eligibility 
-          # based on optional adult group category rules (subclause (XX) of 42 C.F.R. Section 1902(a)(10)(a)(ii))
           class MedicaidMagiAdultGroupXxCategoryEligibilityBasis
             include HappyMapper
             register_namespace 'hix-ee', 'http://hix.cms.gov/0.1/hix-ee'
