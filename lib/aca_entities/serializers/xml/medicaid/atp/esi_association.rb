@@ -20,8 +20,7 @@ module AcaEntities
             element :enrolled_indicator, Boolean, tag: "InsuranceApplicantESIEnrolledIndicator", namespace: "hix-ee"
 
             #A date range an insurance applicant plans for coverage to be effective under an employer sponsored insurance (ESI) plan.
-            has_many :planned_coverage_date_ranges, tag: 'InsuranceApplicantESIPlannedCoverageDateRange'
-            #element :planned_coverage_date_ranges, Boolean, tag: "InsuranceApplicantESIPlannedCoverageDateRange", namespace: "hix-ee"
+            has_many :planned_coverage_date_ranges, InsuranceApplicantEsiPlannedCoverageDateRange
 
             #True if it is unknown whether an applicant is eligible for an employer sponsored insurance (ESI) plan; false otherwise.
             element :eligibility_unknown_indicator, Boolean, tag: "InsuranceApplicantESIEligibilityUnknownIndicator", namespace: "hix-ee"
