@@ -165,7 +165,7 @@ channels:
       operationId: magi_medicaid.mitc.eligibilities.determined_medicaid_chip_eligible
       description: MitC determined some applicants eligible for Medicaid/CHIP and/or APTC/CSR financial assistance
 
-    magi_medicaid.mitc.eligibilities.determined_aptc_eligible:
+  magi_medicaid.mitc.eligibilities.determined_aptc_eligible:
     bindings:
       amqp:
         is: :routing_key
@@ -190,7 +190,7 @@ channels:
           content_type: application/json
           bindingVersion: 0.2.0
       operationId: magi_medicaid.mitc.eligibilities.determined_aptc_eligible
-      description: MitC determined some applicants eligible for Medicaid/CHIP and/or APTC/CSR financial assistance    
+      description: MitC determined some applicants eligible for Medicaid/CHIP and/or APTC/CSR financial assistance
 
 tags:
   - name: linter_tag

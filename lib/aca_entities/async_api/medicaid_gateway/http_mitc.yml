@@ -13,17 +13,17 @@ info:
 
 servers:
   production:
-    url: http://localhost:3000
+    url: http://mitc:3001
     protocol: http
     protocolVersion: 0.1.0
     description: MitC Development Server
   development:
-    url: http://localhost:3000
+    url: http://mitc:3001
     protocol: http
     protocolVersion: 0.1.0
     description: MitC Development Server
   test:
-    url: http://localhost:3000
+    url: http://mitc:3001
     protocol: http
     protocolVersion: 0.1.0
     description: MitC Test Server
