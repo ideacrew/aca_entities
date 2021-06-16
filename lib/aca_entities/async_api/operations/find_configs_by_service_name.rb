@@ -24,13 +24,17 @@ module AcaEntities
         private
 
         def validate_service_name(params)
+          return Success(nil) unless params[:service_name]
           value = AcaEntities::AsyncApi::Types::ServiceNameKind.try(params[:service_name])
           value.success? ? Success(value.input) : Failure(value.error)
         end
 
         def find_config_files(service_name)
-          files =
-            Gem.find_files("aca_entities/async_api/#{service_name}/**/*.yml")
+          if service_name
+            files = Gem.find_files("aca_entities/async_api/#{service_name}/**/*.yml")
+          else
+            files = Gem.find_files("aca_entities/async_api/**/*.yml")
+          end
           Success(files)
         end
 

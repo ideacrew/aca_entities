@@ -31,5 +31,19 @@ RSpec.describe ::AcaEntities::AsyncApi::Operations::FindConfigsByServiceName do
         expect(result).to be_failure
       end
     end
+
+    context "with no service name" do
+      let(:service_name) { nil }
+      let(:async_api_key) { "asyncapi" }
+
+      it "should return all schemas" do
+        result = subject
+
+        expect(result).to be_success
+        output = result.success
+        expect(output.first.keys[0]).to eq(async_api_key)
+        expect(output.last.keys[0]).to eq(async_api_key)
+      end
+    end
   end
 end
