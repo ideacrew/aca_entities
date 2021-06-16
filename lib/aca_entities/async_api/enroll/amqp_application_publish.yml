@@ -30,10 +30,10 @@ channels:
         is: :routing_key
         exchange:
           name: enroll.iap.applications
-          type: direct
+          type: topic
           content_type: application/json
           durable: true
-          autoDelete: false
+          auto_delete: false
           vhost: /event_source
         binding_version: "0.2.0"
     publish:
@@ -41,14 +41,13 @@ channels:
       summary: Events - eligibility determination Request
       bindings:
         amqp:
-          exchange:
-            app_id: enroll
-            type: enroll.iap.applications
-            routing_key: enroll.iap.applications.determine_eligibility
-            expiration: 100_000
-            deliveryMode: 2
-            mandatory: true
-            timestamp: true
-            content_type: application/json
-            bindingVersion: 0.2.0
+          app_id: enroll
+          type: enroll.iap.applications
+          routing_key: enroll.iap.applications.determine_eligibility
+          expiration: 100_000
+          deliveryMode: 2
+          mandatory: true
+          timestamp: true
+          content_type: application/json
+          bindingVersion: 0.2.0
    

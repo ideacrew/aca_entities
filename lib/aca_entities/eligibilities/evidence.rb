@@ -1,31 +1,35 @@
 # frozen_string_literal: true
+
 module AcaEntities
+  # All types Eligibilities
   module Eligibilities
-          {
+    # rubocop:disable Lint/Void
+    {
       marketplace: 'aca_individual_market',
       products: [
         {
           catastrophic_plans: false,
-          eligibility_evidences: [ {key: :enrollment_members_overage_30, evidences: []} ] ,
-        financial_assistance: {} },
+          eligibility_evidences: [{ key: :enrollment_members_overage_30, evidences: [] }],
+          financial_assistance: {}
+        }
       ]
-      }
-​
+    }
+
     each Evidence has one Determination
-​
+
     class Determination
       # @!attribute [r] indicator_code
       # Whether the {Applicant} qualifies for the category.
       # One character code, Y for yes, N for No, X for doesn't apply
       # @return [Types::Mitc::DeterminationIndicatorKind]
       attribute :indicator_code,        Types::DeterminationIndicatorKind.meta(ommittable: false)
-​
+
       # @!attribute [r] ineligibility_code
       # An FFM code.  3 digit code
       # One character code, Y for yes, N for No, X for doesn't apply
       # @return [Integer]
       attribute :ineligibility_code,    Types::Integer.optional.meta(ommittable: true)
-​
+
       # @!attribute [r] ineligibility_reason
       # A string describing why the {Applicant} is ineligible
       # @example
@@ -33,11 +37,17 @@ module AcaEntities
       # @return [String]
       attribute :ineligibility_reason,  Types::String.optional.meta(ommittable: true)
     end
-​
+
+    # rubocop:disable Lint/EmptyClass
     class EligibilitySnapshot
     end
+
     class EnrollmentligibilityCriteria
     end
+    # rubocop:enable Lint/EmptyClass
+
+    # rubocop:disable Lint/BooleanSymbol
+    # EnrollmentEligibilityEvidence
     class EnrollmentEligibilityEvidence
       # Event: 'aca_individual_market.verification_of_lawful_presence.expired'
       # Event: 'aca_individual_market.verification_of_lawful_presence.den'
@@ -177,5 +187,7 @@ module AcaEntities
       attribute :expires_on
       attribure :workflow
     end
+    # rubocop:enable Lint/BooleanSymbol
+    # rubocop:enable Lint/Void
   end
 end
