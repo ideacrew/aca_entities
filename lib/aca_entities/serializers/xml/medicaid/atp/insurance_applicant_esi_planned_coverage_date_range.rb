@@ -5,18 +5,19 @@ module AcaEntities
     module Xml
       module Medicaid
         module Atp
-          # A certified assister (such as a navigator) who helps individuals complete an insurance application.
-          class Assister
+          class InsuranceApplicantEsiPlannedCoverageDateRange
             include HappyMapper
             register_namespace 'hix-ee', 'http://hix.cms.gov/0.1/hix-ee'
 
-            tag 'Assister'
+            tag 'InsuranceApplicantESIPlannedCoverageDateRange'
             namespace 'hix-ee'
 
-            has_one :role_played_by_person, RolePlayedByPerson
+            has_one :end_date, EndDate
+            has_one :start_date, StartDate
 
-            def self.domain_to_mapper(assister)
-              self.new
+            def self.domain_to_mapper(date_range)
+              mapper = self.new
+              mapper
             end
           end
         end

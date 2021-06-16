@@ -9,9 +9,12 @@ module AcaEntities
           class MedicaidMagiEligibility
             include HappyMapper
             register_namespace 'hix-ee', 'http://hix.cms.gov/0.1/hix-ee'
+            register_namespace 'niem-s', "http://niem.gov/niem/structures/2.0"
 
             tag 'MedicaidMAGIEligibility'
             namespace 'hix-ee'
+
+            attribute :id, String, namespace: "niem-s"
 
             has_one :income_eligibility_basis, MedicaidMagiIncomeEligibilityBasis
             has_one :residency_eligibility_basis, MedicaidMagiResidencyEligibilityBasis
@@ -20,7 +23,7 @@ module AcaEntities
             has_one :pregnancy_category_eligibility_basis, MedicaidMagiPregnancyCategoryEligibilityBasis
             has_one :child_category_eligibility_basis, MedicaidMagiChildCategoryEligibilityBasis
             has_one :adult_group_category_eligibility_basis, MedicaidMagiAdultGroupCategoryEligibilityBasis
-            has_one :adult_group_xx_category_eligibility_basis, tag: MedicaidMagiAdultGroupXxCategoryEligibilityBasis
+            has_one :adult_group_xx_category_eligibility_basis, MedicaidMagiAdultGroupXxCategoryEligibilityBasis
             has_one :optional_targeted_low_income_child_eligibility_basis, MedicaidMagiOptionalTargetedLowIncomeChildEligibilityBasis
             has_one :citizen_or_immigrant_eligibility_basis, MedicaidMagiCitizenOrImmigrantEligibilityBasis
             has_one :chipra214_eligibility_basis, MedicaidMagiChipRa214EligibilityBasis

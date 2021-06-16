@@ -14,7 +14,7 @@ module AcaEntities
             tag 'Signature'
             namespace 'hix-ee'
 
-            element :signature, Date, tag: 'SignatureDate', namespace: 'hix-core'
+            element :signature, DateTime, tag: 'SignatureDate', namespace: 'hix-core'
 
             def self.domain_to_mapper(signature)
               self.new
