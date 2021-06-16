@@ -34,7 +34,7 @@ channels:
         is: :routing_key
         exchange:
           name: polypress.document_builder
-          type: direct
+          type: topic
           content_type: application/json
           durable: true
           auto_delete: false
