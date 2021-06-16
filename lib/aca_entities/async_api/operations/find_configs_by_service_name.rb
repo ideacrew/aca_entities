@@ -30,11 +30,12 @@ module AcaEntities
         end
 
         def find_config_files(service_name)
-          if service_name
-            files = Gem.find_files("aca_entities/async_api/#{service_name}/**/*.yml")
-          else
-            files = Gem.find_files("aca_entities/async_api/**/*.yml")
-          end
+          files =
+            if service_name
+              Gem.find_files("aca_entities/async_api/#{service_name}/**/*.yml")
+            else
+              Gem.find_files("aca_entities/async_api/**/*.yml")
+            end
           Success(files)
         end
 
