@@ -42,7 +42,6 @@ channels:
           headers:
             Content-Type: application/json
             Accept: application/json
-  /on/determinations/eval:
     subscribe:
       operationId: /on/determinations/eval
       description: EventSource Subscriber that publishes MitC eligibility determination responses
