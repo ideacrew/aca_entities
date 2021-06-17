@@ -48,7 +48,7 @@ channels:
           durable: true
           exclusive: false
           auto_delete: false
-          vhost: /event_source
+          vhost: event_source
     subscribe:
       bindings:
         amqp:

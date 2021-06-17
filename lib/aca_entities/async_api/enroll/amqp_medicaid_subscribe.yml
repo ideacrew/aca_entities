@@ -30,22 +30,21 @@ servers:
     description: RabbitMQ Test Server
 channels:
   on_enroll.magi_medicaid.mitc.eligibilities:
+    bindings:
+      amqp:
+        is: queue
+        queue:
+          name: on_enroll.magi_medicaid.mitc.eligibilities
+          durable: true
+          exclusive: false
+          auto_delete: false
+          vhost: event_source
+    subscribe:
       bindings:
         amqp:
-          is: queue
-          queue:
-            name: on_enroll.magi_medicaid.mitc.eligibilities
-            durable: true
-            exclusive: false
-            auto_delete: false
-            vhost: /event_source
-      subscribe:
-        bindings:
-          amqp:
-            ack: true
-            exclusive: false
-            routing_key: magi_medicaid.#.eligibilities.#
-            bindingVersion: "0.2.0"
-        operationId: on_enroll.magi_medicaid.mitc.eligibilities
-        description: Events - MitC eligibility determinations for Medicaid/CHIP and/or APTC/CSR financial assistance
-         
+          ack: true
+          exclusive: false
+          routing_key: magi_medicaid.#.eligibilities.#
+          bindingVersion: "0.2.0"
+      operationId: on_enroll.magi_medicaid.mitc.eligibilities
+      description: Events - MitC eligibility determinations for Medicaid/CHIP and/or APTC/CSR financial assistance

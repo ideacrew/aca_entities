@@ -41,7 +41,7 @@ channels:
           type: topic
           durable: true
           auto_delete: false
-          vhost: /event_source
+          vhost: event_source
         bindingVersion: 0.1.0
     publish:
       bindings:
@@ -68,7 +68,7 @@ channels:
           content_type: application/json
           durable: true
           auto_delete: false
-          vhost: /event_source
+          vhost: event_source
         bindingVersion: 0.1.0
     publish:
       bindings:
@@ -95,7 +95,7 @@ channels:
           content_type: application/json
           durable: true
           auto_delete: false
-          vhost: /event_source
+          vhost: event_source
         bindingVersion: 0.1.0
     publish:
       bindings:
@@ -121,7 +121,7 @@ channels:
           type: topic
           durable: true
           auto_delete: false
-          vhost: /event_source
+          vhost: event_source
         bindingVersion: 0.1.0
     publish:
       bindings:
@@ -148,7 +148,7 @@ channels:
           content_type: application/json
           durable: true
           auto_delete: false
-          vhost: /event_source
+          vhost: event_source
         bindingVersion: 0.1.0
     publish:
       bindings:
@@ -175,7 +175,7 @@ channels:
           content_type: application/json
           durable: true
           auto_delete: false
-          vhost: /event_source
+          vhost: event_source
         bindingVersion: 0.1.0
     publish:
       bindings:
