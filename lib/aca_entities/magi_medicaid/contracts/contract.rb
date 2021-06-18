@@ -153,13 +153,6 @@ module AcaEntities
 
           if check_if_present?(value[:incomes]) && value[:incomes].is_a?(Array)
             value[:incomes].each_with_index do |income, i_index|
-              income_failure_key = [:applicants, index, :incomes, i_index]
-              if check_if_present?(income[:employer]) &&
-                 check_if_present?(income[:employer][:employer_id]) &&
-                 !income[:employer][:employer_id].match?(/^[0-9]$/)
-                key(income_failure_key + [:employer, :employer_id]).failure(text: 'must be numbers only')
-              end
-
               # end_on
               if check_if_present?(income[:end_on]) && income[:start_on] && income[:end_on] < income[:start_on]
                 key([:applicants, index, :incomes, i_index, :end_on]).failure(text: 'must be after income start_on')

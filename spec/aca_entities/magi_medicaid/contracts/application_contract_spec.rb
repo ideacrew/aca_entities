@@ -596,17 +596,6 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicationContract,  dbcle
         end
         let(:local_applicant) { applicant.merge({ incomes: [local_income] }) }
 
-        context 'employer_id' do
-          let(:local_income) do
-            income.merge({ employer: { employer_name: 'ABC Employer', employer_id: '12345asdv' } })
-          end
-
-          it 'should return failure with error message' do
-            err = subject.call(input_params).errors.to_h[:applicants][0][:incomes][0][:employer][:employer_id].first
-            expect(err).to eq('must be numbers only')
-          end
-        end
-
         context 'end_on' do
           let(:local_income) do
             income.merge({ end_on: Date.today.prev_year.prev_month.to_s })
