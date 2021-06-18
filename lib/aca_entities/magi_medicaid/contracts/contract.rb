@@ -4,7 +4,6 @@ module AcaEntities
   module MagiMedicaid
     module Contracts
       # Configuration values and shared rules and macros for {AcaEntities::MagiMedicaid} validation contracts
-      # rubocop:disable Metrics/ClassLength
       class Contract < Dry::Validation::Contract
         include AcaEntities::AppHelper
         # config.messages.backend - the localization backend to use. Supported values are: :yaml and :i18n
@@ -67,13 +66,6 @@ module AcaEntities
           if check_if_present?(value[:benefits]) && value[:benefits].is_a?(Array)
             value[:benefits].each_with_index do |benefit, b_index|
               failure_key = [:applicants, index, :benefits, b_index]
-
-              if check_if_present?(benefit[:employer]) &&
-                 check_if_present?(benefit[:employer][:employer_id]) &&
-                 !benefit[:employer][:employer_id].match?(/^[0-9]$/)
-                key(failure_key + [:employer, :employer_id]).failure(text: 'must be numbers only')
-              end
-
               if benefit_kind_esi?(benefit[:kind])
                 # employer
                 if check_if_blank?(benefit[:employer])
@@ -287,7 +279,6 @@ module AcaEntities
           end
         end
       end
-      # rubocop:enable Metrics/ClassLength
     end
   end
 end

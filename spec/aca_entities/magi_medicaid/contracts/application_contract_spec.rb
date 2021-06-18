@@ -420,17 +420,6 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicationContract,  dbcle
           end
         end
 
-        context 'employer_id' do
-          let(:local_benefit) do
-            benefit.merge({ employer: { employer_name: 'ABC Employer', employer_id: '12345asdv' } })
-          end
-
-          it 'should return failure with error message' do
-            err = subject.call(input_params).errors.to_h[:applicants][0][:benefits][0][:employer][:employer_id].first
-            expect(err).to eq('must be numbers only')
-          end
-        end
-
         context 'esi_covered' do
           let(:local_benefit) do
             benefit.delete(:esi_covered)
