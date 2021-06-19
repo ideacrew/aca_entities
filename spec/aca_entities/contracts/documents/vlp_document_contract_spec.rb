@@ -38,6 +38,19 @@ RSpec.describe AcaEntities::Contracts::Documents::VlpDocumentContract, dbclean: 
     }
   end
 
+  context 'for expiration_date as string' do
+    let(:valid_params) { input_params.merge({ expiration_date: '2021-07-31' }) }
+
+    before do
+      @result = subject.call(valid_params)
+    end
+
+    it 'should return success with coercing expiration_date' do
+      expect(@result).to be_success
+      expect(@result.to_h[:expiration_date]).to be_a(Date)
+    end
+  end
+
   context "with invalid params" do
     it "should fail validation" do
       result = subject.call(input_params.reject { |k, _v| k == :subject })
