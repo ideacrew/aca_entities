@@ -12,7 +12,7 @@ module AcaEntities
         # @option opts [Boolean] :is_lawful_presence_self_attested optional
         # @return [Dry::Monads::Result]
         params do
-          required(:citizen_status).filled(Types::CitizenKinds)
+          optional(:citizen_status).maybe(Types::CitizenKinds)
           optional(:is_resident_post_092296).maybe(:bool)
           optional(:is_lawful_presence_self_attested).maybe(:bool)
         end
