@@ -608,18 +608,6 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicationContract,  dbcle
         end
       end
 
-      context 'native_american_information' do
-        let(:obj_call) do
-          appl_params = applicant.merge({ native_american_information: { indian_tribe_member: true, tribal_id: '1234567ab' } })
-          subject.call(input_params.merge({ applicants: [appl_params] }))
-        end
-
-        it 'should return failure with error message' do
-          err = obj_call.errors.to_h[:applicants][0][:native_american_information][:tribal_id].first
-          expect(err).to eq('must be numbers only')
-        end
-      end
-
       context 'pregnancy_information' do
         let(:obj_call) do
           appl_params = applicant.merge({ pregnancy_information: local_pregnancy })

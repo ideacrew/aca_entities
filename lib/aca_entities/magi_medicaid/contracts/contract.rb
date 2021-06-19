@@ -160,12 +160,6 @@ module AcaEntities
             end
           end
 
-          if check_if_present?(value[:native_american_information]) &&
-             check_if_present?(value[:native_american_information][:tribal_id]) &&
-             !value[:native_american_information][:tribal_id].match?(/^[0-9]$/)
-            key([:applicants, index, :native_american_information, :tribal_id]).failure(text: 'must be numbers only')
-          end
-
           # PregnancyInformation
           pregnancy = value[:pregnancy_information]
           pregnancy_failure_key = [:applicants, index, :pregnancy_information]

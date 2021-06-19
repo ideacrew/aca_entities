@@ -98,20 +98,6 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicantContract,  dbclean
         expect(input_app_keys - result_app_keys).to be_empty
       end
     end
-
-    context 'invalid params' do
-
-      context 'invalid tribal_id length' do
-        let(:native_american_information) { { indian_tribe_member: true, tribal_id: '123456' } }
-        let(:obj_call) do
-          subject.call(input_params.merge({ native_american_information: native_american_information }))
-        end
-
-        it 'should return failure with error messages' do
-          expect(obj_call.errors.to_h).to eq({ native_american_information: { tribal_id: ['length must be 9'] } })
-        end
-      end
-    end
   end
 
   context 'applicant is applying for coverage' do
