@@ -236,13 +236,10 @@ module AcaEntities
         end
 
         def more_than_one_determination?(ped)
-          determination_key_values =
-            ped.slice(:is_ia_eligible,
-                      :is_medicaid_chip_eligible,
-                      :is_magi_medicaid,
-                      :is_totally_ineligible,
-                      :is_uqhp_eligible)
-          determination_key_values.values.count(true) > 1
+          [ped[:is_ia_eligible],
+           ped[:is_medicaid_chip_eligible] || ped[:is_magi_medicaid],
+           ped[:is_totally_ineligible],
+           ped[:is_uqhp_eligible]].count(true) > 1
         end
 
         rule(:tax_households).each do |index:|

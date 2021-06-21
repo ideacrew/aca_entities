@@ -132,45 +132,68 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicationContract,  dbcle
       end
 
       context 'with valid thh params' do
-        let(:product_eligibility_determination) do
-          { is_ia_eligible: true,
-            is_medicaid_chip_eligible: false,
-            is_non_magi_medicaid_eligible: false,
-            is_totally_ineligible: false,
-            is_without_assistance: false,
-            is_magi_medicaid: false,
-            is_csr_eligible: false,
-            magi_medicaid_monthly_household_income: 6474.42,
-            medicaid_household_size: 1,
-            magi_medicaid_monthly_income_limit: 3760.67,
-            magi_as_percentage_of_fpl: 10.0,
-            magi_medicaid_category: 'parent_caretaker' }
+        context 'for aptc' do
+          let(:product_eligibility_determination) do
+            { is_ia_eligible: true,
+              is_medicaid_chip_eligible: false,
+              is_non_magi_medicaid_eligible: false,
+              is_totally_ineligible: false,
+              is_without_assistance: false,
+              is_magi_medicaid: false,
+              is_csr_eligible: false,
+              magi_medicaid_monthly_household_income: 6474.42,
+              medicaid_household_size: 1,
+              magi_medicaid_monthly_income_limit: 3760.67,
+              magi_as_percentage_of_fpl: 10.0,
+              magi_medicaid_category: 'parent_caretaker' }
+          end
+
+          it 'should return success' do
+            expect(@result).to be_success
+          end
+
+          it 'should include key tax_households' do
+            expect(@result.to_h.keys).to include(:tax_households)
+          end
+
+          it 'should include key mitc_households' do
+            expect(@result.to_h.keys).to include(:mitc_households)
+          end
+
+          it 'should include all keys of each mitc_households' do
+            mitc_household = @result.to_h[:mitc_households].first
+            expect(mitc_household.keys).to include(:household_id)
+            expect(mitc_household.keys).to include(:people)
+            expect(mitc_household[:people].first.keys).to include(:person_id)
+          end
+
+          it 'should include all keys of each mitc_tax_returns' do
+            mitc_tax_return = @result.to_h[:mitc_tax_returns].first
+            expect(mitc_tax_return.keys).to include(:filers)
+            expect(mitc_tax_return.keys).to include(:dependents)
+            expect(mitc_tax_return[:filers].first.keys).to include(:person_id)
+          end
         end
 
-        it 'should return success' do
-          expect(@result).to be_success
-        end
+        context 'for Medicaid & Chip' do
+          let(:product_eligibility_determination) do
+            { is_ia_eligible: false,
+              is_medicaid_chip_eligible: true,
+              is_non_magi_medicaid_eligible: false,
+              is_totally_ineligible: false,
+              is_without_assistance: false,
+              is_magi_medicaid: true,
+              is_csr_eligible: false,
+              magi_medicaid_monthly_household_income: 6474.42,
+              medicaid_household_size: 1,
+              magi_medicaid_monthly_income_limit: 3760.67,
+              magi_as_percentage_of_fpl: 10.0,
+              magi_medicaid_category: 'parent_caretaker' }
+          end
 
-        it 'should include key tax_households' do
-          expect(@result.to_h.keys).to include(:tax_households)
-        end
-
-        it 'should include key mitc_households' do
-          expect(@result.to_h.keys).to include(:mitc_households)
-        end
-
-        it 'should include all keys of each mitc_households' do
-          mitc_household = @result.to_h[:mitc_households].first
-          expect(mitc_household.keys).to include(:household_id)
-          expect(mitc_household.keys).to include(:people)
-          expect(mitc_household[:people].first.keys).to include(:person_id)
-        end
-
-        it 'should include all keys of each mitc_tax_returns' do
-          mitc_tax_return = @result.to_h[:mitc_tax_returns].first
-          expect(mitc_tax_return.keys).to include(:filers)
-          expect(mitc_tax_return.keys).to include(:dependents)
-          expect(mitc_tax_return[:filers].first.keys).to include(:person_id)
+          it 'should return success' do
+            expect(@result).to be_success
+          end
         end
       end
 
