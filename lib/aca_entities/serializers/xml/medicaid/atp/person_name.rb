@@ -22,6 +22,16 @@ module AcaEntities
             def self.domain_to_mapper(_person)
               self.new
             end
+
+            def to_hash
+              {
+                given: given,
+                middle: middle,
+                sur: sur,
+                suffix: suffix,
+                full: full
+              }
+            end
           end
         end
       end
