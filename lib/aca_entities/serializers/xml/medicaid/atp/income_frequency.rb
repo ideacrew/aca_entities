@@ -18,6 +18,12 @@ module AcaEntities
               mapper = self.new
               mapper
             end
+
+            def to_hash
+              {
+                frequency_code: frequency_code
+              }
+            end
           end
         end
       end
