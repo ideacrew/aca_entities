@@ -13,8 +13,8 @@ module AcaEntities
             tag 'PersonAugmentation'
             namespace 'hix-core'
 
-            has_many :us_naturalized_citizen_indicator, Boolean, tag: "USNaturalizedCitizenIndicator", namespace: "hix-core"
-            has_many :us_verteran_indicator, Boolean, tag: "PersonUSVeteranIndicator", namespace: "hix-core"
+            element :us_naturalized_citizen_indicator, Boolean, tag: "USNaturalizedCitizenIndicator", namespace: "hix-core"
+            element :us_verteran_indicator, Boolean, tag: "PersonUSVeteranIndicator", namespace: "hix-core"
             element :married_indicator, Boolean, tag: 'PersonMarriedIndicator', namespace: "hix-core"
             has_one :pregancy_status, PersonPregnancyStatus
             has_one :medicaid_id, PersonMedicaidIdentification
@@ -29,6 +29,23 @@ module AcaEntities
             def self.domain_to_mapper(person)
               mapper = self.new
               mapper
+            end
+
+            def to_hash
+              {
+                us_naturalized_citizen_indicator: us_naturalized_citizen_indicator,
+                us_verteran_indicator: us_verteran_indicator,
+                married_indicator: married_indicator,
+                pregancy_status: pregancy_status&.to_hash,
+                medicaid_id: medicaid_id&.to_hash,
+                chip_id: chip_id&.to_hash,
+                preferred_languages: preferred_languages.map(&:to_hash),
+                incomes: incomes.map(&:to_hash),
+                expenses: expenses.map(&:to_hash),
+                employments: employments.map(&:to_hash),
+                contacts: contacts.map(&:to_hash),
+                persons: persons.map(&:to_hash)
+              }
             end
           end
         end
