@@ -21,6 +21,13 @@ module AcaEntities
               mapper = self.new
               mapper
             end
+
+            def to_hash
+              {
+                eligibility_date_range: eligibility_date_range.to_hash,
+                EligibilityEstablishingSystem: EligibilityEstablishingSystem.to_hash
+              }
+            end
           end
         end
       end

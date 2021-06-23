@@ -29,6 +29,15 @@ module AcaEntities
               mapper = self.new
               mapper
             end
+
+            def to_hash
+              {
+                eligible_indicator: eligible_indicator,
+                enrolled_indicator: enrolled_indicator,
+                planned_coverage_date_ranges: planned_coverage_date_ranges.map(&:to_hash),
+                eligibility_unknown_indicator: eligibility_unknown_indicator,
+              }
+            end
           end
         end
       end
