@@ -19,6 +19,13 @@ module AcaEntities
               mapper = self.new
               mapper
             end
+
+            def to_hash
+              {
+                status_indicator: status_indicator,
+                eligibility_basis_status_code: eligibility_basis_status_code
+              }
+            end
           end
         end
       end

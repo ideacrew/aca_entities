@@ -20,6 +20,12 @@ module AcaEntities
               mapper = self.new
               mapper
             end
+
+            def to_hash
+              {
+                identification_id: identification_id
+              }
+            end
           end
         end
       end

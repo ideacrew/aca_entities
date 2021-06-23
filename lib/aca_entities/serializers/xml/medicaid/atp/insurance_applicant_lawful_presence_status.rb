@@ -23,6 +23,13 @@ module AcaEntities
               mapper = self.new
               mapper
             end
+
+            def to_hash
+              {
+                arrived_before_1996_indicator: arrived_before_1996_indicator,
+                eligibility: eligibility.to_hash
+              }
+            end
           end
         end
       end
