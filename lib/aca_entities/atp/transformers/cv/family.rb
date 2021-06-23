@@ -12,7 +12,7 @@ module AcaEntities
                 rewrap '', :array do
                   map 'given', 'person.person_name.first_name'
                   map 'middle', 'person.person_name.middle_name'
-                  map 'sur', 'person.person_name.last_namee'
+                  map 'sur', 'person.person_name.last_name'
                   map 'full', 'person.person_name.full_name'
                 end
               end
