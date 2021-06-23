@@ -21,6 +21,12 @@ module AcaEntities
               mapper.ref = "organization-id"
               mapper
             end
+
+            def to_hash
+              {
+                ref: ref
+              }              
+            end
           end
         end
       end

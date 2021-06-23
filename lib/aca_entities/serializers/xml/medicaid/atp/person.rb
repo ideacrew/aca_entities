@@ -37,13 +37,15 @@ module AcaEntities
 
             def to_hash
               {
-                person_name: person_name.to_hash,
+                person_name: person_name&.to_hash,
                 us_citizen_indicator: us_citizen_indicator,
                 living_indicator: living_indicator,
                 ssn: ssn,
                 sex: sex,
                 race: race,
-                ethnicity: ethnicity
+                ethnicity: ethnicity,
+                birth_date: birth_date&.to_hash,
+                augementation: augementation&.to_hash
               }
             end
           end

@@ -28,6 +28,15 @@ module AcaEntities
               mapper = self.new
               mapper
             end
+            
+            def to_hash
+              {
+                category_text: category_text,
+                amount: amount,
+                frequency: frequency&.to_hash,
+                category_code: category_code,
+              }
+            end
           end
         end
       end

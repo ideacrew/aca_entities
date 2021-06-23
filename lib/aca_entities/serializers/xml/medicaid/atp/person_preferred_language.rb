@@ -16,11 +16,19 @@ module AcaEntities
 
             element :speaks_language_indicator, Boolean, tag: 'PersonSpeaksLanguageIndicator', namespace: "nc"
             element :writes_language_indicator, Boolean, tag: 'PersonWritesLanguageIndicator', namespace: "nc"
-            has_many :language_name, String, tag: "LanguageName", namespace: "nc"
+            element :language_name, String, tag: "LanguageName", namespace: "nc"
 
             def self.domain_to_mapper(person)
               mapper = self.new
               mapper
+            end
+
+            def to_hash
+              {
+                speaks_language_indicator: speaks_language_indicator,
+                writes_language_indicator: writes_language_indicator,
+                language_name: language_name
+              }              
             end
           end
         end

@@ -28,6 +28,16 @@ module AcaEntities
               mapper = self.new
               mapper
             end
+
+            def to_hash
+              {
+                begin_date: begin_date&.to_hash,
+                end_date: end_date&.to_hash,
+                person: person&.to_hash,
+                family_relationship_code: family_relationship_code,
+                caretaker_dependent_code: caretaker_dependent_code
+              }
+            end
           end
         end
       end
