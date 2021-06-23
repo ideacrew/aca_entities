@@ -26,8 +26,8 @@ module AcaEntities
 
             def to_hash
               {
-                date: date,
-                date_time: date_time,
+                date: date.to_s,
+                date_time: date_time.to_s,
                 year: year,
                 year_month: year_month
               }
