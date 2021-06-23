@@ -40,6 +40,29 @@ module AcaEntities
               mapper = self.new
               mapper
             end
+
+            def to_hash
+              {
+                income_eligibility_basis: income_eligibility_basis&.to_hash,
+                residency_eligibility_basis: residency_eligibility_basis&.to_hash,
+                household_size_eligibility_basis: household_size_eligibility_basis&.to_hash,
+                parent_caretaker_category_eligibility_basis: parent_caretaker_category_eligibility_basis&.to_hash,
+                pregnancy_category_eligibility_basis: pregnancy_category_eligibility_basis&.to_hash,
+                child_category_eligibility_basis: child_category_eligibility_basis&.to_hash,
+                adult_group_category_eligibility_basis: adult_group_category_eligibility_basis&.to_hash,
+                adult_group_xx_category_eligibility_basis: adult_group_xx_category_eligibility_basis&.to_hash,
+                optional_targeted_low_income_child_eligibility_basis: optional_targeted_low_income_child_eligibility_basis&.to_hash,
+                citizen_or_immigrant_eligibility_basis: citizen_or_immigrant_eligibility_basis&.to_hash,
+                chipra214_eligibility_basis: chipra214_eligibility_basis&.to_hash,
+                seven_year_limit_eligibility_basis: seven_year_limit_eligibility_basis&.to_hash,
+                former_foster_care_category_eligibility_basis: former_foster_care_category_eligibility_basis&.to_hash,
+                dependent_child_coverage_eligibility_basis: dependent_child_coverage_eligibility_basis&.to_hash,
+                five_year_bar_eligibility_basis: five_year_bar_eligibility_basis&.to_hash,
+                ssn_verification_eligibility_basis: ssn_verification_eligibility_basis&.to_hash,
+                eligibility_date_range: eligibility_date_range&.to_hash,
+                eligibility_establishing_system: eligibility_establishing_system&.to_hash
+              }
+            end
           end
         end
       end

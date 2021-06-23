@@ -12,12 +12,19 @@ module AcaEntities
             tag 'MedicaidMAGIPregnancyCategoryEligibilityBasis'
             namespace 'hix-ee'
 
-            has_one :status_indicator, StatusIndicator
-            has_one :eligibility_basis_status_code, EligibilityBasisStatusCode
+            element :status_indicator, Boolean, tag: 'StatusIndicator', namespace: "ns3"
+            element :eligibility_basis_status_code, Boolean, tag: 'EligibilityBasisStatusCode', namespace: "ns5"
 
             def self.domain_to_mapper(medicaid_eligibility)
               mapper = self.new
               mapper
+            end
+
+            def to_hash
+              {
+                status_indicator: status_indicator,
+                eligibility_basis_status_code: eligibility_basis_status_code
+              }
             end
           end
         end
