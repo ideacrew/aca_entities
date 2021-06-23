@@ -15,11 +15,18 @@ module AcaEntities
             namespace 'hix-ee'
 
             has_one :begin_date, AssociationBeginDate
-            element :end_date, AssociationEndDate
+            has_one :end_date, AssociationEndDate
 
             def self.domain_to_mapper(reference)
               mapper = self.new
               mapper
+            end
+
+            def to_hash
+              {
+                begin_date: begin_date&.to_hash,
+                end_date: end_date&.to_hash
+              }
             end
           end
         end

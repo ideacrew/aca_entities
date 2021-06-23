@@ -41,6 +41,19 @@ module AcaEntities
             def self.domain_to_mapper(attestation)
               self.new
             end
+
+            def to_hash
+              {     
+                collections_agreement_indicator: collections_agreement_indicator,
+                medicaid_obligations_indicator: medicaid_obligations_indicator,
+                non_perjury_indicator: non_perjury_indicator,
+                not_incarcerated_indicator: not_incarcerated_indicator,
+                privacy_agreement_indicator: privacy_agreement_indicator,
+                pending_charges_indicator: pending_charges_indicator,
+                information_changes_indicator: information_changes_indicator,
+                application_terms_indicator: application_terms_indicator
+              }
+            end
           end
         end
       end

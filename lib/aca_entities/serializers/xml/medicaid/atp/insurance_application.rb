@@ -51,6 +51,22 @@ module AcaEntities
               mapper.requesting_financial_assistance = insurance_application.application_metadata.financial_assistance_indicator
               mapper
             end
+
+            def to_hash
+              {
+                application_creation: application_creation&.to_hash,
+                application_submission: application_submission&.to_hash,
+                application_identifications: application_identifications.map(&:to_hash),
+                insurance_applicants: insurance_applicants.map(&:to_hash),
+                requesting_financial_assistance: requesting_financial_assistance,
+                requesting_medicaid: requesting_medicaid,
+                ssf_primary_contact: ssf_primary_contact&.to_hash,
+                ssf_signer: ssf_signer&.to_hash,
+                assister_association: assister_association&.to_hash,
+                tax_return_access: tax_return_access,
+                coverage_renewal_year_quantity: coverage_renewal_year_quantity,
+              }
+            end
           end
         end
       end

@@ -21,6 +21,13 @@ module AcaEntities
               mapper.ref = "reference-id"
               mapper
             end
+
+            def to_hash
+              {
+                start_date: start_date.to_hash,
+                end_date: end_date.to_hash
+              }
+            end
           end
         end
       end

@@ -22,6 +22,15 @@ module AcaEntities
             def self.domain_to_mapper(signer)
               self.new
             end
+
+            def to_hash
+              {
+                # revisit this element
+                # AuthorizedRepresentativeReference: AuthorizedRepresentativeReference
+                ssf_signer_authorized_representative_association: ssf_signer_authorized_representative_association.to_hash,
+                ssf_attestation: ssf_attestation.to_hash
+              }
+            end
           end
         end
       end

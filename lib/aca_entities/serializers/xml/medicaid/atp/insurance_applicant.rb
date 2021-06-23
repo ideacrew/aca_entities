@@ -108,14 +108,14 @@ module AcaEntities
 
             def to_hash
               {
-                role_reference: role_reference.to_hash,
+                role_reference: role_reference&.to_hash,
                 esi_eligible_indicator: esi_eligible_indicator,
                 fixed_address_indicator: fixed_address_indicator,
                 absent_parent_or_spouse_code: absent_parent_or_spouse_code,
                 blindness_or_disability_indicator: blindness_or_disability_indicator,
                 coverage_during_previous_six_months_indicator: coverage_during_previous_six_months_indicator,
                 eligible_itu_services_indicator: eligible_itu_services_indicator,
-                lawful_presence_status: lawful_presence_status.to_hash,
+                lawful_presence_status: lawful_presence_status&.to_hash,
                 long_term_care_indicator: long_term_care_indicator,
                 non_esi_policies: non_esi_policies,
                 parent_caretaker_indicator: parent_caretaker_indicator,
@@ -138,7 +138,7 @@ module AcaEntities
                 had_medicaid_during_foster_care_indicator: had_medicaid_during_foster_care_indicator,
                 lives_with_minor_age_dependent_indicator: lives_with_minor_age_dependent_indicator,
                 household_exception_indicator: household_exception_indicator,
-                referral_activity: referral_activity,
+                # referral_activity: referral_activity&to_hash, # revisit this element
                 foster_care_indicator: foster_care_indicator,
                 parent_average_hours_worked_per_week_values: parent_average_hours_worked_per_week_values
               }

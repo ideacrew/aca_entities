@@ -33,7 +33,7 @@ module AcaEntities
               {
                 member: member,
                 applied_effective_date_range: applied_effective_date_range,
-                identification: identification.to_hash,
+                identification: identification&.to_hash,
                 source_code: source_code,
                 premium: premium
               }
