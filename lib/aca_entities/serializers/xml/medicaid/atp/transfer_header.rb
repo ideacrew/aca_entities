@@ -14,12 +14,18 @@ module AcaEntities
             tag 'TransferHeader'
             namespace 'ext'
 
-            element :transfer_activity, TransferActivity
+            has_one :transfer_activity, TransferActivity
 
             def self.domain_to_mapper(transfer_header)
               mapper = self.new
               mapper.transfer_activity = TransferActivity.domain_to_mapper(transfer_header)
               mapper
+            end
+
+            def to_hash
+              {
+                transfer_activity: transfer_activity&.to_hash
+              }
             end
           end
         end
