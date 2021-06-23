@@ -21,6 +21,14 @@ module AcaEntities
               mapper = self.new
               mapper
             end
+
+            def to_hash
+              {
+                status_indicator: status_indicator,
+                status_valid_date_range: status_valid_date_range&.to_hash,
+                expected_baby_quantity: expected_baby_quantity
+              }
+            end
           end
         end
       end

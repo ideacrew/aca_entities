@@ -21,6 +21,13 @@ module AcaEntities
               mapper = self.new
               mapper
             end
+
+            def to_hash
+              {
+                category_text: category_text,
+                organization_primary_contact_information: organization_primary_contact_information&.to_hash
+              }
+            end
           end
         end
       end

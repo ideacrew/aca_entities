@@ -49,6 +49,24 @@ module AcaEntities
               mapper = self.new
               mapper
             end
+
+            def to_hash
+              {
+                employment_source_text: employment_source_text,
+                amount: amount,
+                days_per_week: days_per_week,
+                hours_per_pay_period: hours_per_pay_period,
+                hours_per_week: hours_per_week,
+                category_code: category_code,
+                description_text: description_text,
+                subject_to_federal_restrictions_indicator: subject_to_federal_restrictions_indicator,
+                date: date&.to_hash,
+                earned_date_range: earned_date_range&.to_hash,
+                frequency: frequency&.to_hash,
+                payment_frequency: payment_frequency&.to_hash,
+                source_organization_reference: source_organization_reference&.to_hash
+              }
+            end
           end
         end
       end

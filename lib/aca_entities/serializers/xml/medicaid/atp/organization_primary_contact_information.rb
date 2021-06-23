@@ -26,6 +26,14 @@ module AcaEntities
               mapper = self.new
               mapper
             end
+
+            def to_hash
+              {
+                email_id: email_id,
+                mailing_address: mailing_address&.to_hash,
+                telephone_number: telephone_number&.to_hash
+              }
+            end
           end
         end
       end
