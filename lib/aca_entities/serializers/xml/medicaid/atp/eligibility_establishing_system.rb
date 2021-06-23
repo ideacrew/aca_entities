@@ -22,6 +22,14 @@ module AcaEntities
               mapper = self.new
               mapper
             end
+
+            def to_hash
+              {
+                category_code: category_code,
+                state_code: state_code,
+                county_name: county_name
+              }
+            end
           end
         end
       end

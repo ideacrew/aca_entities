@@ -20,6 +20,13 @@ module AcaEntities
               mapper = self.new
               mapper
             end
+
+            def to_hash
+              {
+                telephone_number_full_id: telephone_number_full_id,
+                telephone_suffix_id: telephone_suffix_id
+              }
+            end
           end
         end
       end

@@ -23,6 +23,15 @@ module AcaEntities
               mapper.date_time = date_time
               mapper
             end
+
+            def to_hash
+              {
+                date: date,
+                date_time: date_time,
+                year: year,
+                year_month: year_month
+              }
+            end
           end
         end
       end

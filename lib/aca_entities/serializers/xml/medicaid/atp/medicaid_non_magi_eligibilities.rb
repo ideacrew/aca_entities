@@ -28,6 +28,15 @@ module AcaEntities
               mapper = self.new
               mapper
             end
+
+            def to_hash
+              {
+                medicare_entitlement_eligibility_basis: medicare_entitlement_eligibility_basis.to_hash,
+                blindness_or_disability_eligibility_basis: blindness_or_disability_eligibility_basis.to_hash,
+                eligibility_date_range: eligibility_date_range.to_hash,
+                eligibility_establishing_system: eligibility_establishing_system.to_hash
+              }
+            end
           end
         end
       end

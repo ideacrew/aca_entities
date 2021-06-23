@@ -25,6 +25,18 @@ module AcaEntities
               mapper = self.new
               mapper
             end
+
+            def to_hash
+              {
+                location_street: location_street.to_hash,
+                address_secondary_unit_text: address_secondary_unit_text,
+                location_city_name: location_city_name,
+                location_county_name: location_county_name,
+                location_county_code: location_county_code,
+                location_state_us_postal_service_code: location_state_us_postal_service_code,
+                location_postal_code: location_postal_code
+              }
+            end
           end
         end
       end
