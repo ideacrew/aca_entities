@@ -105,6 +105,44 @@ module AcaEntities
               mapper.role_reference = RoleOfPersonReference.domain_to_mapper(insurance_application)
               mapper
             end
+
+            def to_hash
+              {
+                role_reference: role_reference.to_hash,
+                esi_eligible_indicator: esi_eligible_indicator,
+                fixed_address_indicator: fixed_address_indicator,
+                absent_parent_or_spouse_code: absent_parent_or_spouse_code,
+                blindness_or_disability_indicator: blindness_or_disability_indicator,
+                coverage_during_previous_six_months_indicator: coverage_during_previous_six_months_indicator,
+                eligible_itu_services_indicator: eligible_itu_services_indicator,
+                lawful_presence_status: lawful_presence_status.to_hash,
+                long_term_care_indicator: long_term_care_indicator,
+                non_esi_policies: non_esi_policies,
+                parent_caretaker_indicator: parent_caretaker_indicator,
+                received_itu_services_indicator: received_itu_services_indicator,
+                recent_medical_bills_indicator: recent_medical_bills_indicator,
+                state_benefits_through_public_employee_indicator: state_benefits_through_public_employee_indicator,
+                student_indicator: student_indicator,
+                esi_associations: esi_associations.map(&:to_hash),
+                non_esi_policies: non_esi_policies.map(&:to_hash),
+                emergency_medicaid_eligibilities: emergency_medicaid_eligibilities.map(&:to_hash),
+                medicaid_magi_eligibilities: medicaid_magi_eligibilities.map(&:to_hash),
+                medicaid_non_magi_eligibilities: medicaid_non_magi_eligibilities.map(&:to_hash),
+                aptc_eligibilities: aptc_eligibilities.map(&:to_hash),
+                exchange_eligibilities: exchange_eligibilities.map(&:to_hash),
+                csr_eligibilities: csr_eligibilities.map(&:to_hash),
+                chip_eligibilities: chip_eligibilities.map(&:to_hash),
+                temporarily_lives_outside_application_state_indicator: temporarily_lives_outside_application_state_indicator,
+                age_left_foster_care: age_left_foster_care,
+                foster_care_state: foster_care_state,
+                had_medicaid_during_foster_care_indicator: had_medicaid_during_foster_care_indicator,
+                lives_with_minor_age_dependent_indicator: lives_with_minor_age_dependent_indicator,
+                household_exception_indicator: household_exception_indicator,
+                referral_activity: referral_activity,
+                foster_care_indicator: foster_care_indicator,
+                parent_average_hours_worked_per_week_values: parent_average_hours_worked_per_week_values
+              }
+            end
           end
         end
       end
