@@ -26,6 +26,18 @@ module AcaEntities
               mapper = self.new
               mapper
             end
+
+            def to_hash
+              {
+                activity_date: activity_date&.to_hash,
+                activity_id: activity_id&.to_hash,
+                reason_code: reason_code,
+                receiver_reference: receiver_reference&.to_hash,
+                sender_reference: sender_reference&.to_hash,
+                status: status&.to_hash,
+                eligibility_reason_reference: eligibility_reason_reference.map(&:eligibility_reason_reference)
+              }
+            end
           end
         end
       end

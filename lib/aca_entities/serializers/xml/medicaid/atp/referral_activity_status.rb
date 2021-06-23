@@ -22,6 +22,14 @@ module AcaEntities
               mapper.ref = "reference-id"
               mapper
             end
+
+            def to_hash
+              {
+                status_code: status_code,
+                overall_verification_status_code: overall_verification_status_code,
+                valid_date_range: valid_date_range&.to_hash
+              }
+            end
           end
         end
       end

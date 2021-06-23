@@ -21,6 +21,13 @@ module AcaEntities
             def self.domain_to_mapper(household)
               self.new
             end
+
+            def to_hash
+              {
+                household_member_references: household_member_references.map(&:to_hash),
+                household_size_quantity: household_size_quantity
+              }
+            end
           end
         end
       end

@@ -21,6 +21,13 @@ module AcaEntities
             def self.domain_to_mapper(representative)
               self.new
             end
+
+            def to_hash
+              {
+                signature: signature,
+                authorized_representative_reference: authorized_representative_reference.to_hash
+              }
+            end
           end
         end
       end

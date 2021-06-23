@@ -37,11 +37,11 @@ module AcaEntities
 
             def to_hash
               {
-                residency_eligibility_basis: residency_eligibility_basis.to_hash,
-                income_eligibility_basis: income_eligibility_basis.to_hash,
+                residency_eligibility_basis: residency_eligibility_basis&.to_hash,
+                income_eligibility_basis: income_eligibility_basis&.to_hash,
                 citizen_or_immigrant_eligibility_basis: citizen_or_immigrant_eligibility_basis.map(&:to_hash),
-                eligibility_date_range: eligibility_date_range.to_hash,
-                eligibility_establishing_system: eligibility_establishing_system.to_hash
+                eligibility_date_range: eligibility_date_range&.to_hash,
+                eligibility_establishing_system: eligibility_establishing_system&.to_hash
               }
             end
           end
