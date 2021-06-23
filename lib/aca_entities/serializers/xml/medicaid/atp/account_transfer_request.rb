@@ -38,6 +38,18 @@ module AcaEntities
               mapper.physical_households = [PhysicalHousehold.domain_to_mapper(account_transfer_request.physical_household)]
               mapper
             end
+
+            def to_hash
+              {
+                version: "2.4",
+                senders: [],
+                receivers: [],
+                transfer_header: transfer_header,
+                insurance_application: insurance_application,
+                people: people.map(&:to_hash),
+                physical_households: physical_households
+              }
+            end
           end
         end
       end
