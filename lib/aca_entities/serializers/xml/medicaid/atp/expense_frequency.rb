@@ -12,11 +12,17 @@ module AcaEntities
             tag 'ExpenseFrequency'
             namespace 'hix-core'
 
-            has_one :frequency_code, String, tag: 'FrequencyCode', namespace: "hix-core"
+            element :frequency_code, String, tag: 'FrequencyCode', namespace: "hix-core"
 
             def self.domain_to_mapper(date_range)
               mapper = self.new
               mapper
+            end
+
+            def to_hash
+              {
+                frequency_code: frequency_code
+              }
             end
           end
         end

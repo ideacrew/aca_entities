@@ -22,6 +22,14 @@ module AcaEntities
               mapper = self.new
               mapper
             end
+
+            def to_hash
+              {
+                begin_date: begin_date&.to_hash,
+                end_date: end_date&.to_hash,
+                employer: employer&.to_hash,
+              }
+            end
           end
         end
       end
