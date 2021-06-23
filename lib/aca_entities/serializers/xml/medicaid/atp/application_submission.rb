@@ -22,6 +22,13 @@ module AcaEntities
               transfer_activity.creation_date = ActivityDate.domain_to_mapper(application.application_metadata.submission_date)
               transfer_activity
             end
+
+            def to_hash
+              {
+                creation_id: creation_id&.to_hash,
+                creation_date: creation_date&.to_hash
+              }
+            end
           end
         end
       end

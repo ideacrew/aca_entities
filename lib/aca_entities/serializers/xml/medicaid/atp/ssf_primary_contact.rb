@@ -22,6 +22,13 @@ module AcaEntities
               mapper.contact_preference = "Email"
               mapper
             end
+
+            def to_hash
+              {
+                role_reference: role_reference.to_hash,
+                contact_preference: contact_preference
+              }
+            end
           end
         end
       end

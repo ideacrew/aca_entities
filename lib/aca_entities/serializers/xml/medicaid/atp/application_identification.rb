@@ -23,6 +23,14 @@ module AcaEntities
               mapper.identification_id = id
               mapper
             end
+
+            def to_hash
+              {
+                identification_id: identification_id,
+                identification_category_text: identification_category_text,
+                identification_jurisdication: identification_jurisdication
+              }
+            end
           end
         end
       end
