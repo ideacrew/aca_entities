@@ -28,6 +28,16 @@ module AcaEntities
               mapper = self.new
               mapper
             end
+
+            def to_hash
+              {
+                member: member,
+                applied_effective_date_range: applied_effective_date_range,
+                identification: identification.to_hash,
+                source_code: source_code,
+                premium: premium
+              }
+            end
           end
         end
       end
