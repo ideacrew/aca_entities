@@ -13,9 +13,8 @@ module AcaEntities
             tag 'StatusIndicator'
             namespace 'hix-core'
 
-            def self.domain_to_mapper(medicaid_eligibility)
-              mapper = self.new
-              mapper
+            def self.domain_to_mapper(_medicaid_eligibility)
+              self.new
             end
           end
         end

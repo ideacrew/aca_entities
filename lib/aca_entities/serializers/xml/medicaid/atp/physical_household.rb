@@ -18,7 +18,7 @@ module AcaEntities
 
             element :household_size_quantity, Integer, tag: 'HouseholdSizeQuantity', namespace: 'hix-ee'
 
-            def self.domain_to_mapper(household)
+            def self.domain_to_mapper(_household)
               self.new
             end
 

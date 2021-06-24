@@ -14,11 +14,10 @@ module AcaEntities
             tag 'PersonMedicaidIdentification'
             namespace 'hix-core'
 
-            element :identification_id, String, tag: 'IdentificationID', namespace:'nc'
+            element :identification_id, String, tag: 'IdentificationID', namespace: 'nc'
 
-            def self.domain_to_mapper(id)
-              mapper = self.new
-              mapper
+            def self.domain_to_mapper(_id)
+              self.new
             end
 
             def to_hash

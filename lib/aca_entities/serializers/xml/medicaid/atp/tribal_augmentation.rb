@@ -14,21 +14,20 @@ module AcaEntities
             tag 'TribalAugmentation'
             namespace 'hix-core'
 
-            #True if a person is a member of a recognized tribe; false otherwise.
+            # True if a person is a member of a recognized tribe; false otherwise.
             element :recognized_tribe_indicator, Boolean, tag: 'PersonRecognizedTribeIndicator'
 
-            #True if the person is an American Indian or Alaska Native by race or ethnicity; false otherwise.
+            # True if the person is an American Indian or Alaska Native by race or ethnicity; false otherwise.
             element :american_indian_or_alaska_native_indicator, Boolean, tag: 'PersonAmericanIndianOrAlaskaNativeIndicator'
 
-            #A name of a native tribe.
+            # A name of a native tribe.
             element :person_tribe_name, String, tag: 'PersonTribeName'
-            
-            #A state, commonwealth, province, or other such geopolitical subdivision of a country.
+
+            # A state, commonwealth, province, or other such geopolitical subdivision of a country.
             element :location_state_us_postal_service_code, String, tag: 'LocationStateUSPostalServiceCode', namespace: 'nc'
 
-            def self.domain_to_mapper(tribal_augmentation)
-              tribal_augmentation = self.new
-              tribal_augmentation
+            def self.domain_to_mapper(_tribal_augmentation)
+              self.new
             end
           end
         end

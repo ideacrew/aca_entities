@@ -13,7 +13,7 @@ RSpec.describe ::AcaEntities::Atp::Operations::Family, dbclean: :after_each do
       @result = described_class.new(worker_mode: :single, path: xml_path).call
     end
 
-    it 'should return transformed hash' do
-    end
+    # it 'should return transformed hash' do
+    # end
   end
 end

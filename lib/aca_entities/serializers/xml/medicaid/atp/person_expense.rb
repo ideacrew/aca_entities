@@ -24,17 +24,16 @@ module AcaEntities
             # A kind of expense.
             element :category_code, String, tag: 'ExpenseCategoryCode', namespace: "hix-core"
 
-            def self.domain_to_mapper(expense)
-              mapper = self.new
-              mapper
+            def self.domain_to_mapper(_expense)
+              self.new
             end
-            
+
             def to_hash
               {
                 category_text: category_text,
                 amount: amount,
                 frequency: frequency&.to_hash,
-                category_code: category_code,
+                category_code: category_code
               }
             end
           end
