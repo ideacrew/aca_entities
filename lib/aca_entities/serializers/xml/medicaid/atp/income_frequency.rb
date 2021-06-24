@@ -8,7 +8,6 @@ module AcaEntities
           # xml mapping for Atp::IncomeFrequency
           class IncomeFrequency
             include HappyMapper
-            register_namespace 'hix-core', 'http://hix.cms.gov/0.1/hix-core'
 
             tag 'IncomeFrequency'
             namespace 'hix-core'

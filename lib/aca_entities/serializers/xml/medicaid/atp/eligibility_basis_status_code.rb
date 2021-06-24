@@ -8,7 +8,6 @@ module AcaEntities
           # A status of an eligibility basis determination.
           class EligibilityBasisStatusCode
             include HappyMapper
-            register_namespace 'hix-ee', 'http://hix.cms.gov/0.1/hix-ee'
 
             tag 'EligibilityBasisStatusCode'
             namespace 'hix-ee'

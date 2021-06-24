@@ -8,8 +8,6 @@ module AcaEntities
           # Include XML element and type definitions.
           class ReferralActivityEligibilityReasonReference
             include HappyMapper
-            register_namespace 'hix-ee', 'http://hix.cms.gov/0.1/hix-ee'
-            register_namespace 'niem-s', 'http://niem.gov/niem/structures/2.0'
 
             tag 'ReferralActivityEligibilityReasonReference'
             namespace 'hix-ee'

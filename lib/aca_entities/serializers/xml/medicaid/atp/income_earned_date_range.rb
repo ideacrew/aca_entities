@@ -8,7 +8,6 @@ module AcaEntities
           # xml mapping for Atp::IncomeEarnedDateRange
           class IncomeEarnedDateRange
             include HappyMapper
-            register_namespace 'hix-core', 'http://hix.cms.gov/0.1/hix-core'
 
             tag 'IncomeEarnedDateRange'
             namespace 'hix-core'

@@ -8,7 +8,6 @@ module AcaEntities
           # A basis for Medicaid MAGI (Modified Adjusted Gross Income) eligibility based on income rules.
           class MedicaidNonMagiMedicareEntitlementEligibilityBasis
             include HappyMapper
-            register_namespace 'hix-ee', 'http://hix.cms.gov/0.1/hix-ee'
 
             tag 'MedicaidNonMAGIMedicareEntitlementEligibilityBasis'
             namespace 'hix-ee'

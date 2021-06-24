@@ -8,7 +8,6 @@ module AcaEntities
           # A data type for a monetary payment received, usually on a regular basis.
           class PersonIncome
             include HappyMapper
-            register_namespace 'hix-core', 'http://hix.cms.gov/0.1/hix-core'
 
             tag 'PersonIncome'
             namespace 'hix-core'

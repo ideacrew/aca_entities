@@ -8,8 +8,6 @@ module AcaEntities
           # An outgoing monetary payment.
           class Employer
             include HappyMapper
-            register_namespace 'hix-core', 'http://hix.cms.gov/0.1/hix-core'
-            register_namespace 'nc', 'http://niem.gov/niem/niem-core/2.0'
 
             tag 'Employer'
             namespace 'hix-core'
