@@ -5,7 +5,7 @@ module AcaEntities
     module Xml
       module Medicaid
         module Atp
-          # A data type for an assessment of a person's suitability to participate 
+          # A data type for an assessment of a person's suitability to participate
           # in a Children's Health Insurance Program (CHIP) program based on various criteria.
           class ChipEligibility
             include HappyMapper
@@ -21,7 +21,7 @@ module AcaEntities
             has_one :medicaid_residency_eligibility_basis, ChipMedicaidResidencyEligibilityBasis
             has_one :medicaid_citizen_or_immigrant_eligibility_basis, ChipMedicaidCitizenOrImmigrantEligibilityBasis
             has_one :pregnancy_category_eligibility_basis, ChipPregnancyCategoryEligibilityBasis
-            has_one :state_health_benefits_eligibility_basis, ChipStateHealthBenefitsEligibilityBasis 
+            has_one :state_health_benefits_eligibility_basis, ChipStateHealthBenefitsEligibilityBasis
             has_one :targeted_low_income_child_eligibility_basis, ChipTargetedLowIncomeChildEligibilityBasis
             has_one :title_ii_workquarters_met_eligibility_basis, ChipTitleIiWorkQuartersMetEligibilityBasis
             has_one :trafficking_victim_category_eligibility_basis, ChipTraffickingVictimCategoryEligibilityBasis
@@ -30,13 +30,11 @@ module AcaEntities
             has_one :eligibility_date_range, EligibilityDateRange
             has_one :eligibility_establishing_system, EligibilityEstablishingSystem
 
-
-            def self.domain_to_mapper(medicaid_eligibility)
-              mapper = self.new
-              mapper
+            def self.domain_to_mapper(_medicaid_eligibility)
+              self.new
             end
 
-            def to_hash
+            def to_hash # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
               {
                 ssn_verification_eligibility_basis: ssn_verification_eligibility_basis&.to_hash,
                 household_size_eligibility_basis: household_size_eligibility_basis&.to_hash,

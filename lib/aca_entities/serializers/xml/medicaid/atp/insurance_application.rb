@@ -30,7 +30,7 @@ module AcaEntities
 
             element :tax_return_access, Boolean, tag: "InsuranceApplicationTaxReturnAccessIndicator", namespace: "hix-ee"
 
-            #A number of years for which a signer allows an exchange to renew coverage and determine eligibility (including reuse of tax data).
+            # A number of years for which a signer allows an exchange to renew coverage and determine eligibility (including reuse of tax data).
             element :coverage_renewal_year_quantity, Integer, tag: 'InsuranceApplicationCoverageRenewalYearQuantity'
 
             def self.domain_to_mapper(insurance_application)
@@ -64,7 +64,7 @@ module AcaEntities
                 ssf_signer: ssf_signer&.to_hash,
                 assister_association: assister_association&.to_hash,
                 tax_return_access: tax_return_access,
-                coverage_renewal_year_quantity: coverage_renewal_year_quantity,
+                coverage_renewal_year_quantity: coverage_renewal_year_quantity
               }
             end
           end

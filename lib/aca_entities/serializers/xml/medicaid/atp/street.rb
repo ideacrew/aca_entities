@@ -15,9 +15,8 @@ module AcaEntities
 
             has_one :street_full_text, Street, tag: 'StreetFullText'
 
-            def self.domain_to_mapper(contact_info)
-              mapper = self.new
-              mapper
+            def self.domain_to_mapper(_contact_info)
+              self.new
             end
           end
         end

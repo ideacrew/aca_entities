@@ -21,7 +21,7 @@ RSpec.describe ::AcaEntities::Medicaid::Atp::AccountTransferRequest, dbclean: :a
   end
 
   let(:insurance_application_params) do
-    { application_metadata: { application_ids: [{identification_id:'12345'}], application_signature_date: DateTime.new,
+    { application_metadata: { application_ids: [{ identification_id: '12345' }], application_signature_date: DateTime.new,
                               creation_date: DateTime.new, identification_category_text: 'state',
                               submission_date: DateTime.new,
                               financial_assistance_indicator: true,

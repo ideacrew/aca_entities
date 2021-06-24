@@ -26,9 +26,8 @@ module AcaEntities
             has_many :contacts, PersonContactInformationAssociation
             has_many :persons, PersonAssociation
 
-            def self.domain_to_mapper(person)
-              mapper = self.new
-              mapper
+            def self.domain_to_mapper(_person)
+              self.new
             end
 
             def to_hash
