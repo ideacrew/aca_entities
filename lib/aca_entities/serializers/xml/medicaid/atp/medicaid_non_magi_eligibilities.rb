@@ -10,9 +10,12 @@ module AcaEntities
           class MedicaidNonMagiEligibility
             include HappyMapper
             register_namespace 'hix-ee', 'http://hix.cms.gov/0.1/hix-ee'
+            register_namespace 'niem-s', "http://niem.gov/niem/structures/2.0"
 
             tag 'MedicaidNonMAGIEligibility'
             namespace 'hix-ee'
+
+            attribute :id, String, namespace: "niem-s"
 
             #A basis for Medicaid non-MAGI Eligibility by reason of eligibility for Medicare.
             has_one :medicare_entitlement_eligibility_basis, MedicaidNonMagiMedicareEntitlementEligibilityBasis

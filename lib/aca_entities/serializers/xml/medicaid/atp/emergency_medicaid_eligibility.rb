@@ -9,9 +9,12 @@ module AcaEntities
           class EmergencyMedicaidEligibility
             include HappyMapper
             register_namespace 'hix-ee', 'http://hix.cms.gov/0.1/hix-ee'
+            register_namespace 'niem-s', "http://niem.gov/niem/structures/2.0"
 
             tag 'EmergencyMedicaidEligibility'
             namespace 'hix-ee'
+
+            attribute :id, String, namespace: "niem-s"
 
             #A basis for emergency Medicaid eligibility based on residency rules.
             has_one :residency_eligibility_basis, EmergencyMedicaidResidencyEligibilityBasis
