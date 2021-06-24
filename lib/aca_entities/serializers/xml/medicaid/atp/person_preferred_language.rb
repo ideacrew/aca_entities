@@ -16,7 +16,7 @@ module AcaEntities
 
             element :speaks_language_indicator, Boolean, tag: 'PersonSpeaksLanguageIndicator', namespace: "nc"
             element :writes_language_indicator, Boolean, tag: 'PersonWritesLanguageIndicator', namespace: "nc"
-            has_many :language_names, String, tag: "LanguageName", namespace: "nc"
+            has_many :language_name, String, tag: "LanguageName", namespace: "nc"
 
             def self.domain_to_mapper(person)
               mapper = self.new

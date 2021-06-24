@@ -13,7 +13,7 @@ module AcaEntities
             tag 'SsfSigner'
             namespace 'hix-ee'
 
-            has_one :AuthorizedRepresentativeReference, Signature
+            has_one :authorized_representative_reference, Signature
 
             has_one :ssf_signer_authorized_representative_association, SsfSignerAuthorizedRepresentativeAssociation
 
