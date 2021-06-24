@@ -17,10 +17,10 @@ module AcaEntities
             element :email_id, String, tag: 'ContactEmailID'
 
             #A postal address by which a person or organization may be contacted.
-            has_one :mailing_address, StructuredAddress, tag: 'ContactMailingAddress'
+            has_one :mailing_address, StructuredAddress
 
             #A telephone number for a telecommunication device by which a person or organization may be contacted.
-            has_one :telephone_number, FullTelephone, tag: 'ContactTelephoneNumber'
+            has_one :telephone_number, FullTelephone
 
             def self.domain_to_mapper(contact_info)
               mapper = self.new

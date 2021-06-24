@@ -14,7 +14,6 @@ module AcaEntities
             namespace 'hix-ee'
 
             has_one :eligibility_date_range, EligibilityDateRange
-
             has_one :eligibility_establishing_system, EligibilityEstablishingSystem
 
             def self.domain_to_mapper(eligibility)
