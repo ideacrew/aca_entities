@@ -8,8 +8,6 @@ module AcaEntities
           # Include XML element and type definitions.
           class InsuranceApplicationAssisterAssociation
             include HappyMapper
-            register_namespace 'hix-ee', 'http://hix.cms.gov/0.1/hix-ee'
-            register_namespace 'nc', 'http://niem.gov/niem/niem-core/2.0'
 
             tag 'InsuranceApplicationAssisterAssociation'
             namespace 'hix-ee'

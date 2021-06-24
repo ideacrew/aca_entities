@@ -7,8 +7,6 @@ module AcaEntities
           # Include XML element and type definitions. A human being.
           class RolePlayedByPerson
             include HappyMapper
-            register_namespace 'hix-ee', 'http://hix.cms.gov/0.1/hix-ee'
-            register_namespace 'nc', 'http://niem.gov/niem/niem-core/2.0'
 
             tag 'RolePlayedByPerson'
             namespace 'hix-ee'
@@ -20,6 +18,14 @@ module AcaEntities
             def self.domain_to_mapper(role)
               mapper = self.new
               mapper
+            end
+
+            def to_hash
+              {
+                person_name: person_name&.to_hash,
+                sex: sex,
+                birth_date: birth_date&.to_hash
+              }
             end
           end
         end

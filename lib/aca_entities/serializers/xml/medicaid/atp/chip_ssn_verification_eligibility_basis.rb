@@ -7,13 +7,12 @@ module AcaEntities
           # A basis for Children's Health Insurance Program (CHIP) eligibility based on social security number verification.
           class ChipSsnVerificationEligibilityBasis
             include HappyMapper
-            register_namespace 'hix-ee', 'http://hix.cms.gov/0.1/hix-ee'
 
             tag 'CHIP-SSNVerificationEligibilityBasis'
             namespace 'hix-ee'
 
-            element :status_indicator, Boolean, tag: 'StatusIndicator', namespace: "ns3"
-            element :eligibility_basis_status_code, Boolean, tag: 'EligibilityBasisStatusCode', namespace: "ns5"
+            element :status_indicator, Boolean, tag: 'StatusIndicator', namespace: "hix-core"
+            element :eligibility_basis_status_code, Boolean, tag: 'EligibilityBasisStatusCode', namespace: "hix-ee"
 
             def self.domain_to_mapper(medicaid_eligibility)
               mapper = self.new

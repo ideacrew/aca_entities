@@ -7,7 +7,6 @@ module AcaEntities
         module Atp
           class EligibilityDateRange
             include HappyMapper
-            register_namespace 'hix-ee', 'http://hix.cms.gov/0.1/hix-ee'
 
             tag 'EligibilityDateRange'
             namespace 'hix-ee'

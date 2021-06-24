@@ -8,7 +8,6 @@ module AcaEntities
           # An attestation a signer makes when submitting an application.
           class SsfAttestation
             include HappyMapper
-            register_namespace 'hix-ee', 'http://hix.cms.gov/0.1/hix-ee'
 
             tag 'SSFAttestation'
             namespace 'hix-ee'

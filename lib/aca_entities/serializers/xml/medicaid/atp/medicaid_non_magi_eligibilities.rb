@@ -9,8 +9,6 @@ module AcaEntities
           # in a Medicaid program based on criteria other than Modified Adjusted Gross Income (MAGI).
           class MedicaidNonMagiEligibility
             include HappyMapper
-            register_namespace 'hix-ee', 'http://hix.cms.gov/0.1/hix-ee'
-            register_namespace 'niem-s', "http://niem.gov/niem/structures/2.0"
 
             tag 'MedicaidNonMAGIEligibility'
             namespace 'hix-ee'

@@ -8,7 +8,6 @@ module AcaEntities
           # A status of the applicant's lawful presence in the United States.
           class InsuranceApplicantLawfulPresenceStatus
             include HappyMapper
-            register_namespace 'hix-ee', 'http://hix.cms.gov/0.1/hix-ee'
 
             tag 'InsuranceApplicantLawfulPresenceStatus'
             namespace 'hix-ee'

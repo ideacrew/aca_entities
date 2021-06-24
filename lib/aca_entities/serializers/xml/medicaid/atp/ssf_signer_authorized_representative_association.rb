@@ -9,7 +9,6 @@ module AcaEntities
           # and is therefore able to make decisions regarding the application (including assigning an authorized representative).
           class SsfSignerAuthorizedRepresentativeAssociation
             include HappyMapper
-            register_namespace 'hix-ee', 'http://hix.cms.gov/0.1/hix-ee'
 
             tag 'SSFSignerAuthorizedRepresentativeAssociation'
             namespace 'hix-ee'

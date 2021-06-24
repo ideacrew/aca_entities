@@ -8,7 +8,6 @@ module AcaEntities
           # A data type that supplements an nc:Person with health insurance specific information.
           class PersonAugmentation
             include HappyMapper
-            register_namespace 'hix-core', 'http://hix.cms.gov/0.1/hix-core'
 
             tag 'PersonAugmentation'
             namespace 'hix-core'

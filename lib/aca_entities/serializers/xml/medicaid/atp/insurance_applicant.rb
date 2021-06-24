@@ -8,7 +8,6 @@ module AcaEntities
           # A person requesting insurance coverage (either to obtain a new policy or to maintain enrollment in an existing policy).
           class InsuranceApplicant
             include HappyMapper
-            register_namespace 'hix-ee', 'http://hix.cms.gov/0.1/hix-ee'
 
             tag 'InsuranceApplicant'
             namespace 'hix-ee'
@@ -38,9 +37,6 @@ module AcaEntities
 
             #True if an applicant requires long term care; false otherwise.
             element :long_term_care_indicator, Boolean, tag: 'InsuranceApplicantLongTermCareIndicator'
-
-            #An insurance policy associated with an applicant that is not an employer sponsored insurance (ESI) arrangement.
-            has_many :non_esi_policies, InsurancePolicy
 
             #True if an applicant is a parent or caretaker of a child on the application; false otherwise.
             element :parent_caretaker_indicator, Boolean, tag: 'InsuranceApplicantParentCaretakerIndicator'
@@ -117,7 +113,6 @@ module AcaEntities
                 eligible_itu_services_indicator: eligible_itu_services_indicator,
                 lawful_presence_status: lawful_presence_status&.to_hash,
                 long_term_care_indicator: long_term_care_indicator,
-                non_esi_policies: non_esi_policies,
                 parent_caretaker_indicator: parent_caretaker_indicator,
                 received_itu_services_indicator: received_itu_services_indicator,
                 recent_medical_bills_indicator: recent_medical_bills_indicator,
@@ -138,7 +133,7 @@ module AcaEntities
                 had_medicaid_during_foster_care_indicator: had_medicaid_during_foster_care_indicator,
                 lives_with_minor_age_dependent_indicator: lives_with_minor_age_dependent_indicator,
                 household_exception_indicator: household_exception_indicator,
-                # referral_activity: referral_activity&to_hash, # revisit this element
+                # referral_activity: referral_activity&.to_hash, # revisit this element
                 foster_care_indicator: foster_care_indicator,
                 parent_average_hours_worked_per_week_values: parent_average_hours_worked_per_week_values
               }

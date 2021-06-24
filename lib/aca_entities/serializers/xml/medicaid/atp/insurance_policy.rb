@@ -8,7 +8,6 @@ module AcaEntities
           # A data type for an agreement by an issuer to provide coverage under an insurance plan to a set of members who subscribe as a unit.
           class InsurancePolicy
             include HappyMapper
-            register_namespace 'hix-ee', 'http://hix.cms.gov/0.1/hix-ee'
 
             tag 'InsurancePolicy'
             namespace 'hix-ee'
@@ -31,6 +30,16 @@ module AcaEntities
             def self.domain_to_mapper(insurance_policy)
               mapper = self.new
               mapper
+            end
+
+            def to_hash
+              {
+                member: member,
+                policy_id: policy_id,
+                premium: premium,
+                source_code: source_code,
+                applied_effective_date_range: applied_effective_date_range
+              }
             end
           end
         end

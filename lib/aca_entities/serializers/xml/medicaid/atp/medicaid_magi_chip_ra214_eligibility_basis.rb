@@ -7,13 +7,12 @@ module AcaEntities
           # A basis for Medicaid MAGI (Modified Adjusted Gross Income) eligibility based on CHIPRA 214 category rules
           class MedicaidMagiChipRa214EligibilityBasis
             include HappyMapper
-            register_namespace 'hix-ee', 'http://hix.cms.gov/0.1/hix-ee'
 
             tag 'MedicaidMAGI-CHIPRA214EligibilityBasis'
             namespace 'hix-ee'
 
-            element :status_indicator, Boolean, tag: 'StatusIndicator', namespace: "ns3"
-            element :eligibility_basis_status_code, Boolean, tag: 'EligibilityBasisStatusCode', namespace: "ns5"
+            element :status_indicator, Boolean, tag: 'StatusIndicator', namespace: "hix-core"
+            element :eligibility_basis_status_code, Boolean, tag: 'EligibilityBasisStatusCode', namespace: "hix-ee"
 
             def self.domain_to_mapper(medicaid_eligibility)
               mapper = self.new

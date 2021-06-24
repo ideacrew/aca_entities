@@ -8,7 +8,6 @@ module AcaEntities
           # A data type for an Advance Premium Tax Credit (APTC) eligibility determination outcome
           class AptcEligibility
             include HappyMapper
-            register_namespace 'hix-ee', 'http://hix.cms.gov/0.1/hix-ee'
 
             tag 'APTCEligibility'
             namespace 'hix-ee'

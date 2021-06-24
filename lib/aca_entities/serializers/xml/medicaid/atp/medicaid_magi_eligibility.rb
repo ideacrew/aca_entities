@@ -8,8 +8,6 @@ module AcaEntities
           # A data type for an assessment of a person's suitability to participate in an emergency Medicaid program based on various criteria.
           class MedicaidMagiEligibility
             include HappyMapper
-            register_namespace 'hix-ee', 'http://hix.cms.gov/0.1/hix-ee'
-            register_namespace 'niem-s', "http://niem.gov/niem/structures/2.0"
 
             tag 'MedicaidMAGIEligibility'
             namespace 'hix-ee'

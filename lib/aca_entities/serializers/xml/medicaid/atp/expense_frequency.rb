@@ -7,7 +7,6 @@ module AcaEntities
         module Atp
           class ExpenseFrequency
             include HappyMapper
-            register_namespace 'hix-core', 'http://hix.cms.gov/0.1/hix-core'
 
             tag 'ExpenseFrequency'
             namespace 'hix-core'

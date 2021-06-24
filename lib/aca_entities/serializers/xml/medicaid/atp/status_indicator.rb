@@ -8,7 +8,6 @@ module AcaEntities
           # True if the status holds; false otherwise.
           class StatusIndicator
             include HappyMapper
-            register_namespace 'hix-core', 'http://hix.cms.gov/0.1/hix-core'
 
             tag 'StatusIndicator'
             namespace 'hix-core'

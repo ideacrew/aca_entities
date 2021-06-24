@@ -30,6 +30,15 @@ module AcaEntities
               tribal_augmentation = self.new
               tribal_augmentation
             end
+
+            def to_hash
+              {
+                recognized_tribe_indicator: recognized_tribe_indicator,
+                american_indian_or_alaska_native_indicator: american_indian_or_alaska_native_indicator,
+                person_tribe_name: person_tribe_name,
+                location_state_us_postal_service_code: location_state_us_postal_service_code
+              }
+            end
           end
         end
       end

@@ -8,8 +8,6 @@ module AcaEntities
           # An identification assigned by a Children’s Health Insurance Program (CHIP) program to an individual.
           class PersonChipIdentification
             include HappyMapper
-            register_namespace 'hix-core', 'http://hix.cms.gov/0.1/hix-core'
-            register_namespace 'nc', 'http://niem.gov/niem/niem-core/2.0'
 
             tag 'PersonCHIPIdentification'
             namespace 'hix-core'
@@ -19,6 +17,12 @@ module AcaEntities
             def self.domain_to_mapper(id)
               mapper = self.new
               mapper
+            end
+
+            def to_hash
+              {
+                identification_id: identification_id
+              }
             end
           end
         end

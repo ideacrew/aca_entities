@@ -11,6 +11,10 @@ module AcaEntities
             include HappyMapper
             register_namespace 'ex', 'http://at.dsh.cms.gov/exchange/1.0'
             register_namespace 'ext', 'http://at.dsh.cms.gov/extension/1.0'
+            register_namespace 'nc', 'http://niem.gov/niem/niem-core/2.0'
+            register_namespace 'hix-core', 'http://hix.cms.gov/0.1/hix-core'
+            register_namespace 'hix-ee', 'http://hix.cms.gov/0.1/hix-ee'
+            register_namespace 'niem-s', 'http://niem.gov/niem/structures/2.0'
 
             tag 'AccountTransferRequest'
             namespace 'ex'

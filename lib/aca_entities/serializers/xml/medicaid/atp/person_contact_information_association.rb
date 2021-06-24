@@ -8,8 +8,6 @@ module AcaEntities
           # A data type for a relationship between a person and contact information.
           class PersonContactInformationAssociation
             include HappyMapper
-            register_namespace 'hix-core', 'http://hix.cms.gov/0.1/hix-core'
-            register_namespace 'nc', 'http://niem.gov/niem/niem-core/2.0'
 
             tag 'PersonContactInformationAssociation'
             namespace 'hix-core'
