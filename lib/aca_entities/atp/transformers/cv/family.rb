@@ -11,7 +11,7 @@ module AcaEntities
           namespace 'people' do
             rewrap 'family_members' do
               namespace 'person_name' do
-                rewrap '', {type: :array} do
+                rewrap '', { type: :array } do
                   map 'given', 'person.person_name.first_name'
                   map 'middle', 'person.person_name.middle_name'
                   map 'sur', 'person.person_name.last_name'
