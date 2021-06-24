@@ -19,7 +19,7 @@ module AcaEntities
 
             has_one :ssf_attestation, SsfAttestation
 
-            def self.domain_to_mapper(signer)
+            def self.domain_to_mapper(_signer)
               self.new
             end
 

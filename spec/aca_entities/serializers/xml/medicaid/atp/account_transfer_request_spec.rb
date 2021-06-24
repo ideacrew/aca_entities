@@ -43,7 +43,7 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
 
   let(:application_metadata) do
     {
-      application_ids: [{identification_id: "an application id"}],
+      application_ids: [{ identification_id: "an application id" }],
       application_signature_date: DateTime.now,
       creation_date: DateTime.now,
       submission_date: DateTime.now,
@@ -62,11 +62,11 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
   end
 
   let(:sender) do
-    {sender_code: "a unique id"}
+    { sender_code: "a unique id" }
   end
 
   let(:receiver) do
-    {recipient_code: "a unique id"}
+    { recipient_code: "a unique id" }
   end
 
   let(:person) do

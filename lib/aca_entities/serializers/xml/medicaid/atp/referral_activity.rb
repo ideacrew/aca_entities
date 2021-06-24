@@ -22,9 +22,8 @@ module AcaEntities
             has_one :status, ReferralActivityStatus
             has_many :eligibility_reason_reference, ReferralActivityEligibilityReasonReference
 
-            def self.domain_to_mapper(policy)
-              mapper = self.new
-              mapper
+            def self.domain_to_mapper(_policy)
+              self.new
             end
 
             def to_hash

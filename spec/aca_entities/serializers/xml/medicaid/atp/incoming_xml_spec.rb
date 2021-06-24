@@ -28,7 +28,7 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
   end
 
   it "can parse elements" do
-    #TODO Expand/add examples!!
+    # TODO: Expand/add examples!!
     expect(mapper.transfer_header.transfer_activity.transfer_id.identification_id).to eq("fakeidme12345")
   end
 
