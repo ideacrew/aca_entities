@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module AcaEntities
   module Serializers
     module Xml
@@ -14,9 +15,8 @@ module AcaEntities
             element :status_indicator, Boolean, tag: 'StatusIndicator', namespace: "hix-core"
             element :eligibility_basis_status_code, Boolean, tag: 'EligibilityBasisStatusCode', namespace: "hix-ee"
 
-            def self.domain_to_mapper(eligibility)
-              mapper = self.new
-              mapper
+            def self.domain_to_mapper(_eligibility)
+              self.new
             end
 
             def to_hash

@@ -12,9 +12,8 @@ module AcaEntities
             tag 'EligibilityBasisStatusCode'
             namespace 'hix-ee'
 
-            def self.domain_to_mapper(medicaid_eligibility)
-              mapper = self.new
-              mapper
+            def self.domain_to_mapper(_medicaid_eligibility)
+              self.new
             end
           end
         end

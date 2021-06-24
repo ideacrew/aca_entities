@@ -14,7 +14,7 @@ module AcaEntities
 
             attribute :ref, String, namespace: "niem-s"
 
-            def self.domain_to_mapper(rep)
+            def self.domain_to_mapper(_rep)
               mapper = self.new
               mapper.ref = "organization-id"
               mapper

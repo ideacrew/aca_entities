@@ -5,6 +5,7 @@ module AcaEntities
     module Xml
       module Medicaid
         module Atp
+          # Mapping xml's EligibilityDateRange
           class EligibilityDateRange
             include HappyMapper
 
@@ -14,9 +15,8 @@ module AcaEntities
             has_one :end_date, EndDate
             has_one :start_date, StartDate
 
-            def self.domain_to_mapper(date_range)
-              mapper = self.new
-              mapper
+            def self.domain_to_mapper(_date_range)
+              self.new
             end
 
             def to_hash

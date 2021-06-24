@@ -14,7 +14,7 @@ module AcaEntities
 
             has_one :role_played_by_person, RolePlayedByPerson
 
-            def self.domain_to_mapper(assister)
+            def self.domain_to_mapper(_assister)
               self.new
             end
 

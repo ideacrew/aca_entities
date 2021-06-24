@@ -12,16 +12,14 @@ module AcaEntities
             tag 'MedicaidHouseholdSizeEligibilityBasis'
             namespace 'hix-ee'
 
-            #A method of verifying household size.
+            # A method of verifying household size.
             element :verification_method, Integer, tag: 'MedicaidHouseholdSizeEligibilityBasisVerificationMethod'
 
             element :status_indicator, Boolean, tag: 'StatusIndicator', namespace: "hix-core"
             element :eligibility_basis_status_code, Boolean, tag: 'EligibilityBasisStatusCode', namespace: "hix-ee"
 
-
-            def self.domain_to_mapper(medicaid_eligibility)
-              mapper = self.new
-              mapper
+            def self.domain_to_mapper(_medicaid_eligibility)
+              self.new
             end
 
             def to_hash

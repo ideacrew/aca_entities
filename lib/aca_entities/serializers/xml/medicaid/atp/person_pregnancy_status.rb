@@ -5,7 +5,7 @@ module AcaEntities
     module Xml
       module Medicaid
         module Atp
-          # 
+          # xml mapping for Atp::PersonPregnancyStatus
           class PersonPregnancyStatus
             include HappyMapper
 
@@ -14,11 +14,10 @@ module AcaEntities
 
             element :status_indicator, Boolean, tag: 'StatusIndicator', namespace: "hix-core"
             has_one :status_valid_date_range, StatusValidDateRange
-            element :expected_baby_quantity, Integer, tag: 'PregnancyStatusExpectedBabyQuantity', namespace:'hix-core'
+            element :expected_baby_quantity, Integer, tag: 'PregnancyStatusExpectedBabyQuantity', namespace: 'hix-core'
 
-            def self.domain_to_mapper(person)
-              mapper = self.new
-              mapper
+            def self.domain_to_mapper(_person)
+              self.new
             end
 
             def to_hash

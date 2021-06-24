@@ -18,14 +18,13 @@ module AcaEntities
 
             has_one :identification, InsurancePolicyIdentification
 
-            #A source that offers insurance policies
+            # A source that offers insurance policies
             element :source_code, String, tag: 'InsurancePolicySourceCode'
 
             element :premium, String, tag: 'InsurancePremium'
 
-            def self.domain_to_mapper(insurance_policy)
-              mapper = self.new
-              mapper
+            def self.domain_to_mapper(_insurance_policy)
+              self.new
             end
 
             def to_hash

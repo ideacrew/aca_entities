@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module AcaEntities
   module Serializers
     module Xml
@@ -14,10 +15,9 @@ module AcaEntities
             has_one :person_name, PersonName
             has_one :birth_date, PersonBirthDate
             element :sex, String, tag: "PersonSexText", namespace: "nc"
-            
-            def self.domain_to_mapper(role)
-              mapper = self.new
-              mapper
+
+            def self.domain_to_mapper(_role)
+              self.new
             end
 
             def to_hash

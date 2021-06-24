@@ -15,7 +15,7 @@ module AcaEntities
             has_many :household_member_references, HouseholdMemberReference
             element :household_size_quantity, Integer, tag: 'HouseholdSizeQuantity', namespace: 'hix-ee'
 
-            def self.domain_to_mapper(household)
+            def self.domain_to_mapper(_household)
               self.new
             end
 

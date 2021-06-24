@@ -5,7 +5,7 @@ module AcaEntities
     module Xml
       module Medicaid
         module Atp
-          # A data type for a person who signs a Single Streamlined Form (SSF) insurance application, including the attestations, 
+          # A data type for a person who signs a Single Streamlined Form (SSF) insurance application, including the attestations,
           # and is therefore able to make decisions regarding the application (including assigning an authorized representative).
           class SsfSignerAuthorizedRepresentativeAssociation
             include HappyMapper
@@ -17,7 +17,7 @@ module AcaEntities
 
             has_one :authorized_representative_reference, AuthorizedRepresentativeReference
 
-            def self.domain_to_mapper(representative)
+            def self.domain_to_mapper(_representative)
               self.new
             end
 
