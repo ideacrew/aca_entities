@@ -10,7 +10,9 @@ RSpec.describe ::AcaEntities::Medicaid::Contracts::PersonNameContract, dbclean: 
   let(:optional_params) do
     { middle_name: 'middle',
       name_sfx: 'suffix',
-      name_pfx: 'prefix' }
+      name_pfx: 'prefix',
+      full_name: 'prefix first middle last suffix'
+     }
   end
   let(:all_params) { required_params.merge(optional_params)}
 

@@ -12,6 +12,7 @@ module AcaEntities
           required(:last_name).filled(:string)
           optional(:name_sfx).maybe(:string)
           optional(:name_pfx).maybe(:string)
+          optional(:full_name).maybe(:string)
         end
       end
     end
