@@ -8,8 +8,6 @@ module AcaEntities
           # A system making an eligibility determination.
           class EligibilityEstablishingSystem
             include HappyMapper
-            register_namespace 'hix-ee', 'http://hix.cms.gov/0.1/hix-ee'
-            register_namespace 'hix-core', 'http://hix.cms.gov/0.1/hix-core'
 
             tag 'EligibilityEstablishingSystem'
             namespace 'hix-ee'

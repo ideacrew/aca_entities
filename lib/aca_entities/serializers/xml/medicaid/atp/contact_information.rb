@@ -8,19 +8,18 @@ module AcaEntities
           # Include XML element and type definitions. A data type for how to contact a person or an organization.
           class ContactInformation
             include HappyMapper
-            register_namespace 'nc', 'http://niem.gov/niem/niem-core/2.0'
 
             tag 'ContactInformation'
-            namespace 'nc'
-
-            # An electronic mailing address by which a person or organization may be contacted.
+            namespace 'hix-core'
+            
+            #An electronic mailing address by which a person or organization may be contacted.
             element :email_id, String, tag: "ContactEmailID", namespace: "nc"
 
-            # A postal address by which a person or organization may be contacted.
-            has_one :mailing_address, StructuredAddress, tag: 'ContactMailingAddress'
+            #A postal address by which a person or organization may be contacted.
+            has_one :mailing_address, ContactMailingAddress
 
-            # A telephone number for a telecommunication device by which a person or organization may be contacted.
-            has_one :telephone_number, FullTelephone, tag: 'ContactTelephoneNumber'
+            #A telephone number for a telecommunication device by which a person or organization may be contacted.
+            has_one :telephone_number, ContactTelephoneNumber
 
             def self.domain_to_mapper(_contact_info)
               self.new

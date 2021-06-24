@@ -8,7 +8,6 @@ module AcaEntities
           # An outgoing monetary payment.
           class PersonExpense
             include HappyMapper
-            register_namespace 'hix-core', 'http://hix.cms.gov/0.1/hix-core'
 
             tag 'PersonExpense'
             namespace 'hix-core'

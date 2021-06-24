@@ -8,7 +8,6 @@ module AcaEntities
           # Include XML element and type definitions.
           class StatusValidDateRange
             include HappyMapper
-            register_namespace 'hix-core', 'http://hix.cms.gov/0.1/hix-core'
 
             tag 'StatusValidDateRange'
             namespace 'hix-core'

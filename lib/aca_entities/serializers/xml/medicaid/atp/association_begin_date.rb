@@ -8,7 +8,6 @@ module AcaEntities
           # Include XML element and type definitions.
           class AssociationBeginDate
             include HappyMapper
-            register_namespace 'nc', 'http://niem.gov/niem/niem-core/2.0'
 
             tag 'AssociationBeginDate'
             namespace 'nc'

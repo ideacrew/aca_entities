@@ -8,7 +8,6 @@ module AcaEntities
           # An insurance policy associated with an applicant that is not an employer sponsored insurance (ESI) arrangement.
           class InsuranceApplicantNonEsiPolicy
             include HappyMapper
-            register_namespace 'hix-ee', 'http://hix.cms.gov/0.1/hix-ee'
 
             tag 'InsuranceApplicantNonESIPolicy'
             namespace 'hix-ee'

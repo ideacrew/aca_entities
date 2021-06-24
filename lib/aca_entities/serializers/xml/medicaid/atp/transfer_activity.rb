@@ -8,7 +8,6 @@ module AcaEntities
           # type: A data type for An entity that started the referral activity.
           class TransferActivity
             include HappyMapper
-            register_namespace 'ext', 'http://at.dsh.cms.gov/extension/1.0'
 
             tag 'TransferActivity'
             namespace 'ext'

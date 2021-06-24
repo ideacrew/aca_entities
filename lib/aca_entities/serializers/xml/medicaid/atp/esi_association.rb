@@ -8,7 +8,6 @@ module AcaEntities
           # A data type for an agreement by an issuer to provide coverage under an insurance plan to a set of members who subscribe as a unit.
           class EsiAssociation
             include HappyMapper
-            register_namespace 'hix-ee', 'http://hix.cms.gov/0.1/hix-ee'
 
             tag 'InsuranceApplicantESIAssociation'
             namespace 'hix-ee'
