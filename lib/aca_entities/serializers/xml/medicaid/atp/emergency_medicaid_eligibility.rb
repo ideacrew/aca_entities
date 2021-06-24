@@ -16,23 +16,21 @@ module AcaEntities
 
             attribute :id, String, namespace: "niem-s"
 
-            #A basis for emergency Medicaid eligibility based on residency rules.
+            # A basis for emergency Medicaid eligibility based on residency rules.
             has_one :residency_eligibility_basis, EmergencyMedicaidResidencyEligibilityBasis
 
-            #A basis for emergency Medicaid eligibility based on income rules.
+            # A basis for emergency Medicaid eligibility based on income rules.
             has_one :income_eligibility_basis, EmergencyMedicaidIncomeEligibilityBasis
 
-            #A basis for emergency Medicaid eligibility based on Medicaid citizen or immigrant rules.
+            # A basis for emergency Medicaid eligibility based on Medicaid citizen or immigrant rules.
             has_many :citizen_or_immigrant_eligibility_basis, EmergencyMedicaidCitizenOrImmigrantEligibilityBasis
 
             has_one :eligibility_date_range, EligibilityDateRange
 
             has_one :eligibility_establishing_system, EligibilityEstablishingSystem
 
-
-            def self.domain_to_mapper(medicaid_eligibility)
-              mapper = self.new
-              mapper
+            def self.domain_to_mapper(_medicaid_eligibility)
+              self.new
             end
 
             def to_hash

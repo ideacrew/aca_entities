@@ -13,20 +13,19 @@ module AcaEntities
             tag 'PersonAssociation'
             namespace 'hix-core'
 
-            has_one :begin_date, AssociationBeginDate 
-            has_one :end_date, AssociationEndDate 
+            has_one :begin_date, AssociationBeginDate
+            has_one :end_date, AssociationEndDate
             has_one :person, PersonReference
 
             # A kind of family relationship between two people.
-            element :family_relationship_code, Integer, tag: 'FamilyRelationshipCode', namespace: "hix-core" 
+            element :family_relationship_code, Integer, tag: 'FamilyRelationshipCode', namespace: "hix-core"
 
-            # An indication of whether a person is a dependent deprived of parental support 
+            # An indication of whether a person is a dependent deprived of parental support
             # whose care is provided by a caretaker under Medicaid rules, including the dependent's health coverage status.
-            element :caretaker_dependent_code, String, tag: 'PersonCaretakerDependentCode', namespace: "hix-core" 
+            element :caretaker_dependent_code, String, tag: 'PersonCaretakerDependentCode', namespace: "hix-core"
 
-            def self.domain_to_mapper(person)
-              mapper = self.new
-              mapper
+            def self.domain_to_mapper(_person)
+              self.new
             end
 
             def to_hash

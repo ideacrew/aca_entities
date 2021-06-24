@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module AcaEntities
   module Medicaid
     module Atp
