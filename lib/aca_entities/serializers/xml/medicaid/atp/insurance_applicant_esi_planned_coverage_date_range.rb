@@ -8,7 +8,6 @@ module AcaEntities
           # xml mapping Atp::InsuranceApplicantEsiPlannedCoverageDateRange
           class InsuranceApplicantEsiPlannedCoverageDateRange
             include HappyMapper
-            register_namespace 'hix-ee', 'http://hix.cms.gov/0.1/hix-ee'
 
             tag 'InsuranceApplicantESIPlannedCoverageDateRange'
             namespace 'hix-ee'

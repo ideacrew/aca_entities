@@ -9,7 +9,6 @@ module AcaEntities
           # type: A data type for An entity that started the referral process.
           class TransferHeader
             include HappyMapper
-            register_namespace 'ext', 'http://at.dsh.cms.gov/extension/1.0'
 
             tag 'TransferHeader'
             namespace 'ext'

@@ -8,8 +8,6 @@ module AcaEntities
           # Include XML element and type definitions.
           class RoleOfPersonReference
             include HappyMapper
-            register_namespace 'hix-core', 'http://hix.cms.gov/0.1/hix-core'
-            register_namespace 'niem-s', 'http://niem.gov/niem/structures/2.0'
 
             tag 'RoleOfPersonReference'
             namespace 'hix-core'

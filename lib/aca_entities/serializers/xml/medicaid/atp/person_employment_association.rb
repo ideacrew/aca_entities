@@ -8,7 +8,6 @@ module AcaEntities
           # A relationship A data type for a relationship between an employer and an employee.
           class PersonEmploymentAssociation
             include HappyMapper
-            register_namespace 'hix-core', 'http://hix.cms.gov/0.1/hix-core'
 
             tag 'PersonEmploymentAssociation'
             namespace 'hix-core'

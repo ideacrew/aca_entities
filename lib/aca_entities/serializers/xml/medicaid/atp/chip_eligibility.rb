@@ -9,7 +9,6 @@ module AcaEntities
           # in a Children's Health Insurance Program (CHIP) program based on various criteria.
           class ChipEligibility
             include HappyMapper
-            register_namespace 'hix-ee', 'http://hix.cms.gov/0.1/hix-ee'
 
             tag 'CHIPEligibility'
             namespace 'hix-ee'

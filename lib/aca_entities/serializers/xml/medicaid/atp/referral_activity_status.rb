@@ -8,7 +8,6 @@ module AcaEntities
           # Include XML element and type definitions.
           class ReferralActivityStatus
             include HappyMapper
-            register_namespace 'hix-ee', 'http://hix.cms.gov/0.1/hix-ee'
 
             tag 'ReferralActivityStatus'
             namespace 'hix-ee'

@@ -12,7 +12,6 @@ module AcaEntities
           #       Security Administration system, etc.).
           class Sender
             include HappyMapper
-            register_namespace 'hix-core', 'http://hix.cms.gov/0.1/hix-core'
 
             tag 'Sender'
             namespace 'hix-core'
@@ -23,6 +22,14 @@ module AcaEntities
 
             def self.domain_to_mapper(_account_transfer_request)
               self.new
+            end
+
+            def to_hash
+              {
+                category_code: category_code,
+                state_code: state_code,
+                county_name: county_name
+              }
             end
           end
         end
