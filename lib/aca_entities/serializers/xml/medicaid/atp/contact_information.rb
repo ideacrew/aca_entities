@@ -11,7 +11,7 @@ module AcaEntities
 
             tag 'ContactInformation'
             namespace 'hix-core'
-            
+
             # An electronic mailing address by which a person or organization may be contacted.
             element :email_id, String, tag: "ContactEmailID", namespace: "nc"
 
