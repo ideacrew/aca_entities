@@ -12,17 +12,16 @@ module AcaEntities
             tag 'ContactTelephoneNumber'
             namespace 'nc'
 
-            #A postal address by which a person or organization may be contacted.
+            # A postal address by which a person or organization may be contacted.
             has_one :telephone, FullTelephone
 
-            def self.domain_to_mapper(contact_info)
+            def self.domain_to_mapper(_contact_info)
               mapper = self.new
-              mapper
             end
 
             def to_hash
               {
-                telephone: telephone&.to_hash,
+                telephone: telephone&.to_hash
               }
             end
           end
