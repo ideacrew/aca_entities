@@ -38,7 +38,7 @@ module AcaEntities
             # True if an applicant requires long term care; false otherwise.
             element :long_term_care_indicator, Boolean, tag: 'InsuranceApplicantLongTermCareIndicator'
 
-            #True if an applicant is a parent or caretaker of a child on the application; false otherwise.
+            # True if an applicant is a parent or caretaker of a child on the application; false otherwise.
             element :parent_caretaker_indicator, Boolean, tag: 'InsuranceApplicantParentCaretakerIndicator'
 
             # True if an applicant has ever received Indian Health Service/Tribal/Urban Indian Health (I/T/U) services; false otherwise.
