@@ -12,17 +12,16 @@ module AcaEntities
             tag 'ContactMailingAddress'
             namespace 'nc'
 
-            #A postal address by which a person or organization may be contacted.
+            # A postal address by which a person or organization may be contacted.
             has_one :address, StructuredAddress
 
-            def self.domain_to_mapper(contact_info)
+            def self.domain_to_mapper(_contact_info)
               mapper = self.new
-              mapper
             end
 
             def to_hash
               {
-                address: address&.to_hash,
+                address: address&.to_hash
               }
             end
           end
