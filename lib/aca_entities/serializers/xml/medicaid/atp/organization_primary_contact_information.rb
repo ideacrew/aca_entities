@@ -22,7 +22,7 @@ module AcaEntities
             has_one :telephone_number, ContactTelephoneNumber
 
             def self.domain_to_mapper(_contact_info)
-              mapper = self.new
+              self.new
             end
 
             def to_hash
