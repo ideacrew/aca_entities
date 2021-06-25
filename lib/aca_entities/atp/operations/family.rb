@@ -25,7 +25,7 @@ module AcaEntities
           #   params = yield batch_json_transform if @worker_mode == :batch # (app_params)
           transform_result = yield single_json_transform(params) if worker_mode == :single
 
-          Success(transform_result)
+          Success(true)
         end
 
         private
@@ -42,12 +42,12 @@ module AcaEntities
 
         def xml_transform
           result = AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequest.parse(input_xml)
-          Success(result.to_hash)
+          Success(result.to_hash(identifier: true))
         end
 
         def single_json_transform(params)
           record = ::AcaEntities::Atp::Transformers::Cv::Family.transform(params)
-          Successs(record)
+          Success(record)
         end
 
         # TODO: (app_params)
