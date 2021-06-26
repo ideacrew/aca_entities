@@ -69,6 +69,7 @@ RSpec.describe AcaEntities::MagiMedicaid::Transformers::IapTo::Mitc do
         expect(person).to have_key(:is_us_citizen)
         expect(person[:is_us_citizen]).to eq('Y')
         expect(person).to have_key(:immigration_status)
+        expect(person[:immigration_status]).to eq('01')
         expect(person).to have_key(:is_lawful_presence_self_attested)
         expect(person[:is_lawful_presence_self_attested]).to eq('N')
         expect(AcaEntities::MagiMedicaid::Mitc::Types::ImmigrationStatusCodeMap.values).to include(person[:immigration_status])
