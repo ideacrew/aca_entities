@@ -51,12 +51,13 @@ module AcaEntities
               mapper
             end
 
-            def to_hash
+            def to_hash(identifier: false)
               {
                 application_creation: application_creation&.to_hash,
                 application_submission: application_submission&.to_hash,
                 application_identifications: application_identifications.map(&:to_hash),
-                insurance_applicants: insurance_applicants.map(&:to_hash),
+                applicants_record: identifier ? {insurance_applicants: insurance_applicants.map(&:to_hash).group_by{|h| h[:id]}.transform_keys(&:to_s).transform_values(&:first)} : nil,
+                insurance_applicants: identifier ? nil : insurance_applicants.map(&:to_hash),
                 requesting_financial_assistance: requesting_financial_assistance,
                 requesting_medicaid: requesting_medicaid,
                 ssf_primary_contact: ssf_primary_contact&.to_hash,

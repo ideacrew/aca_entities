@@ -18,7 +18,7 @@ module AcaEntities
 
             element :us_citizen_indicator, Boolean, tag: "PersonUSCitizenIndicator", namespace: "nc"
             element :living_indicator, Boolean, tag: "PersonLivingIndicator", namespace: "nc"
-            element :ssn, String, tag: "PersonSSNIdentification/ns2:IdentificationID", namespace: "nc"
+            element :ssn, String, tag: "PersonSSNIdentification/nc:IdentificationID", namespace: "nc"
             element :sex, String, tag: "PersonSexText", namespace: "nc"
             element :race, String, tag: "PersonRaceText", namespace: "nc"
             element :ethnicity, String, tag: "PersonEthnicityText", namespace: "nc"

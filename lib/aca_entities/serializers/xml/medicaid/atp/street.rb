@@ -17,6 +17,12 @@ module AcaEntities
             def self.domain_to_mapper(_contact_info)
               self.new
             end
+
+            def to_hash
+              {
+                street_full_text: street_full_text
+              }
+            end
           end
         end
       end

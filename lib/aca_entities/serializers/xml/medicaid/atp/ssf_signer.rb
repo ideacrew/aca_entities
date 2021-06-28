@@ -24,9 +24,9 @@ module AcaEntities
 
             def to_hash
               {
-                signature: signature.to_hash,
-                ssf_signer_authorized_representative_association: ssf_signer_authorized_representative_association.to_hash,
-                ssf_attestation: ssf_attestation.to_hash
+                signature: signature&.to_hash,
+                ssf_signer_authorized_representative_association: ssf_signer_authorized_representative_association&.to_hash,
+                ssf_attestation: ssf_attestation&.to_hash
               }
             end
           end
