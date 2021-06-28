@@ -105,6 +105,7 @@ module AcaEntities
 
             def to_hash # rubocop:disable Metrics/CyclomaticComplexity, Metrics/MethodLength
               {
+                id: role_reference&.to_hash[:ref],
                 role_reference: role_reference&.to_hash,
                 esi_eligible_indicator: esi_eligible_indicator,
                 fixed_address_indicator: fixed_address_indicator,
