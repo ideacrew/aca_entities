@@ -10,9 +10,9 @@ module AcaEntities
             include HappyMapper
 
             tag 'PersonReference'
-            namespace 'hix-core'
+            namespace 'hix-ee'
 
-            attribute :ref, String, namespace: "niem-s"
+            attribute :ref, String
 
             def self.domain_to_mapper(_person)
               mapper = self.new

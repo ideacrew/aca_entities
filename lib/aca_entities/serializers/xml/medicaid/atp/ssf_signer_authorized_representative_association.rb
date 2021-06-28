@@ -24,7 +24,7 @@ module AcaEntities
             def to_hash
               {
                 signature: signature,
-                authorized_representative_reference: authorized_representative_reference.to_hash
+                authorized_representative_reference: authorized_representative_reference&.to_hash
               }
             end
           end
