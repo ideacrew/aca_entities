@@ -11,6 +11,10 @@ module AcaEntities
             include HappyMapper
             register_namespace 'ex', 'http://at.dsh.cms.gov/exchange/1.0'
             register_namespace 'ext', 'http://at.dsh.cms.gov/extension/1.0'
+            register_namespace 'nc', 'http://niem.gov/niem/niem-core/2.0'
+            register_namespace 'hix-core', 'http://hix.cms.gov/0.1/hix-core'
+            register_namespace 'hix-ee', 'http://hix.cms.gov/0.1/hix-ee'
+            register_namespace 'niem-s', 'http://niem.gov/niem/structures/2.0'
 
             tag 'AccountTransferRequest'
             namespace 'ex'
@@ -39,14 +43,15 @@ module AcaEntities
               mapper
             end
 
-            def to_hash
+            def to_hash(identifier: false)
               {
                 version: "2.4",
                 senders: [],
                 receivers: [],
                 transfer_header: transfer_header.to_hash,
-                insurance_application: insurance_application.to_hash,
-                people: people.map(&:to_hash),
+                insurance_application: insurance_application.to_hash(identifier: true),
+                record: identifier ? { people: people.map(&:to_hash).group_by {|h| h[:id]}.transform_keys(&:to_s).transform_values(&:first) } : nil,
+                people: identifier ? nil : people.map(&:to_hash),
                 physical_households: physical_households.map(&:to_hash)
               }
             end

@@ -8,9 +8,6 @@ module AcaEntities
           # Include XML element and type definitions.
           class Person
             include HappyMapper
-            register_namespace 'hix-core', 'http://hix.cms.gov/0.1/hix-core'
-            register_namespace 'nc', 'http://niem.gov/niem/niem-core/2.0'
-            register_namespace 'niem-s', 'http://niem.gov/niem/structures/2.0'
 
             tag 'Person'
             namespace 'hix-core'
@@ -21,7 +18,7 @@ module AcaEntities
 
             element :us_citizen_indicator, Boolean, tag: "PersonUSCitizenIndicator", namespace: "nc"
             element :living_indicator, Boolean, tag: "PersonLivingIndicator", namespace: "nc"
-            element :ssn, String, tag: "PersonSSNIdentification/ns2:IdentificationID", namespace: "nc"
+            element :ssn, String, tag: "PersonSSNIdentification/nc:IdentificationID", namespace: "nc"
             element :sex, String, tag: "PersonSexText", namespace: "nc"
             element :race, String, tag: "PersonRaceText", namespace: "nc"
             element :ethnicity, String, tag: "PersonEthnicityText", namespace: "nc"
@@ -37,6 +34,7 @@ module AcaEntities
 
             def to_hash
               {
+                id: id,
                 person_name: person_name&.to_hash,
                 us_citizen_indicator: us_citizen_indicator,
                 living_indicator: living_indicator,

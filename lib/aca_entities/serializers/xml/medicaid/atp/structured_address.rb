@@ -8,7 +8,6 @@ module AcaEntities
           # Include XML element and type definitions. A data type for how to contact a person or an organization.
           class StructuredAddress
             include HappyMapper
-            register_namespace 'nc', 'http://niem.gov/niem/niem-core/2.0'
 
             tag 'StructuredAddress'
             namespace 'nc'
@@ -21,14 +20,13 @@ module AcaEntities
             element :location_state_us_postal_service_code, String, tag: 'LocationStateUSPostalServiceCode'
             element :location_postal_code, String, tag: 'LocationPostalCode'
 
-            def self.domain_to_mapper(contact_info)
-              mapper = self.new
-              mapper
+            def self.domain_to_mapper(_contact_info)
+              self.new
             end
 
             def to_hash
               {
-                location_street: location_street.to_hash,
+                location_street: location_street&.to_hash,
                 address_secondary_unit_text: address_secondary_unit_text,
                 location_city_name: location_city_name,
                 location_county_name: location_county_name,

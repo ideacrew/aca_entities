@@ -8,7 +8,6 @@ module AcaEntities
           # Include XML element and type definitions.
           class PersonName
             include HappyMapper
-            register_namespace 'nc', 'http://niem.gov/niem/niem-core/2.0'
 
             tag 'PersonName'
             namespace 'nc'
@@ -29,7 +28,7 @@ module AcaEntities
                 middle: middle,
                 sur: sur,
                 suffix: suffix,
-                full: full
+                full: [given, middle, sur].reject(&:nil?).join(' ')
               }
             end
           end

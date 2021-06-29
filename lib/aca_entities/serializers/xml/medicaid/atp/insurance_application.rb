@@ -8,7 +8,6 @@ module AcaEntities
           # Include XML element and type definitions.
           class InsuranceApplication
             include HappyMapper
-            register_namespace 'hix-ee', 'http://hix.cms.gov/0.1/hix-ee'
 
             tag 'InsuranceApplication'
             namespace 'hix-ee'
@@ -30,7 +29,7 @@ module AcaEntities
 
             element :tax_return_access, Boolean, tag: "InsuranceApplicationTaxReturnAccessIndicator", namespace: "hix-ee"
 
-            #A number of years for which a signer allows an exchange to renew coverage and determine eligibility (including reuse of tax data).
+            # A number of years for which a signer allows an exchange to renew coverage and determine eligibility (including reuse of tax data).
             element :coverage_renewal_year_quantity, Integer, tag: 'InsuranceApplicationCoverageRenewalYearQuantity'
 
             def self.domain_to_mapper(insurance_application)
@@ -52,19 +51,25 @@ module AcaEntities
               mapper
             end
 
-            def to_hash
+            def to_hash(identifier: false) # rubocop:disable Metrics/CyclomaticComplexity
               {
                 application_creation: application_creation&.to_hash,
                 application_submission: application_submission&.to_hash,
                 application_identifications: application_identifications.map(&:to_hash),
-                insurance_applicants: insurance_applicants.map(&:to_hash),
+                insurance_applicants: if identifier
+                                     insurance_applicants.map(&:to_hash).group_by do |h|
+                                                               h[:id]
+                                                             end.transform_keys(&:to_s).transform_values(&:first)
+                                      else
+                                        insurance_applicants.map(&:to_hash)
+                                   end,
                 requesting_financial_assistance: requesting_financial_assistance,
                 requesting_medicaid: requesting_medicaid,
                 ssf_primary_contact: ssf_primary_contact&.to_hash,
                 ssf_signer: ssf_signer&.to_hash,
                 assister_association: assister_association&.to_hash,
                 tax_return_access: tax_return_access,
-                coverage_renewal_year_quantity: coverage_renewal_year_quantity,
+                coverage_renewal_year_quantity: coverage_renewal_year_quantity
               }
             end
           end

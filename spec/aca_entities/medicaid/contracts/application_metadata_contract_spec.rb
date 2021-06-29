@@ -10,7 +10,7 @@ RSpec.describe AcaEntities::Medicaid::Contracts::ApplicationMetadataContract, ty
   end
 
   let(:input_params) do
-    { application_ids: [{identification_id:  '12345'}], application_signature_date: DateTime.new,
+    { application_ids: [{ identification_id:  '12345' }], application_signature_date: DateTime.new,
       creation_date: DateTime.new, identification_category_text: 'state' }
   end
 

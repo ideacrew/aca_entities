@@ -5,9 +5,9 @@ module AcaEntities
     module Xml
       module Medicaid
         module Atp
+          # xml mapping Atp::InsuranceApplicantEsiPlannedCoverageDateRange
           class InsuranceApplicantEsiPlannedCoverageDateRange
             include HappyMapper
-            register_namespace 'hix-ee', 'http://hix.cms.gov/0.1/hix-ee'
 
             tag 'InsuranceApplicantESIPlannedCoverageDateRange'
             namespace 'hix-ee'
@@ -15,9 +15,8 @@ module AcaEntities
             has_one :end_date, EndDate
             has_one :start_date, StartDate
 
-            def self.domain_to_mapper(date_range)
-              mapper = self.new
-              mapper
+            def self.domain_to_mapper(_date_range)
+              self.new
             end
 
             def to_hash

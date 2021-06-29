@@ -8,7 +8,6 @@ module AcaEntities
           # Include XML element and type definitions.
           class StatusValidDateRange
             include HappyMapper
-            register_namespace 'hix-core', 'http://hix.cms.gov/0.1/hix-core'
 
             tag 'StatusValidDateRange'
             namespace 'hix-core'
@@ -16,7 +15,7 @@ module AcaEntities
             has_one :start_date, StartDate
             has_one :end_date, EndDate
 
-            def self.domain_to_mapper(reference)
+            def self.domain_to_mapper(_reference)
               mapper = self.new
               mapper.ref = "reference-id"
               mapper

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module AcaEntities
   module Serializers
     module Xml
@@ -7,7 +8,6 @@ module AcaEntities
           # A basis for Medicaid MAGI (Modified Adjusted Gross Income) eligibility based on income rules.
           class MedicaidNonMagiMedicareEntitlementEligibilityBasis
             include HappyMapper
-            register_namespace 'hix-ee', 'http://hix.cms.gov/0.1/hix-ee'
 
             tag 'MedicaidNonMAGIMedicareEntitlementEligibilityBasis'
             namespace 'hix-ee'
@@ -15,9 +15,8 @@ module AcaEntities
             element :status_indicator, Boolean, tag: 'StatusIndicator', namespace: "ns3"
             element :eligibility_basis_status_code, Boolean, tag: 'EligibilityBasisStatusCode', namespace: "ns5"
 
-            def self.domain_to_mapper(medicaid_eligibility)
-              mapper = self.new
-              mapper
+            def self.domain_to_mapper(_medicaid_eligibility)
+              self.new
             end
 
             def to_hash

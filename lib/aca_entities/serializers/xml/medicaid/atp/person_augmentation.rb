@@ -8,7 +8,6 @@ module AcaEntities
           # A data type that supplements an nc:Person with health insurance specific information.
           class PersonAugmentation
             include HappyMapper
-            register_namespace 'hix-core', 'http://hix.cms.gov/0.1/hix-core'
 
             tag 'PersonAugmentation'
             namespace 'hix-core'
@@ -26,9 +25,8 @@ module AcaEntities
             has_many :contacts, PersonContactInformationAssociation
             has_many :persons, PersonAssociation
 
-            def self.domain_to_mapper(person)
-              mapper = self.new
-              mapper
+            def self.domain_to_mapper(_person)
+              self.new
             end
 
             def to_hash
@@ -44,7 +42,7 @@ module AcaEntities
                 expenses: expenses.map(&:to_hash),
                 employments: employments.map(&:to_hash),
                 contacts: contacts.map(&:to_hash),
-                persons: persons.map(&:to_hash)
+                family_relationships: persons.map(&:to_hash)
               }
             end
           end

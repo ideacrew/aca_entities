@@ -8,8 +8,6 @@ module AcaEntities
           # A data type for a referral of an insurance applicant from one information exchange system to another.
           class ReferralActivity
             include HappyMapper
-            register_namespace 'hix-ee', 'http://hix.cms.gov/0.1/hix-ee'
-            register_namespace 'nc', 'http://niem.gov/niem/niem-core/2.0'
 
             tag 'ReferralActivity'
             namespace 'hix-ee'
@@ -22,9 +20,8 @@ module AcaEntities
             has_one :status, ReferralActivityStatus
             has_many :eligibility_reason_reference, ReferralActivityEligibilityReasonReference
 
-            def self.domain_to_mapper(policy)
-              mapper = self.new
-              mapper
+            def self.domain_to_mapper(_policy)
+              self.new
             end
 
             def to_hash
@@ -35,7 +32,7 @@ module AcaEntities
                 receiver_reference: receiver_reference&.to_hash,
                 sender_reference: sender_reference&.to_hash,
                 status: status&.to_hash,
-                eligibility_reason_reference: eligibility_reason_reference.map(&:eligibility_reason_reference)
+                eligibility_reason_reference: eligibility_reason_reference.map(&:to_hash)
               }
             end
           end

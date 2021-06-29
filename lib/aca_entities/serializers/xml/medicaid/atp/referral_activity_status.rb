@@ -8,7 +8,6 @@ module AcaEntities
           # Include XML element and type definitions.
           class ReferralActivityStatus
             include HappyMapper
-            register_namespace 'hix-ee', 'http://hix.cms.gov/0.1/hix-ee'
 
             tag 'ReferralActivityStatus'
             namespace 'hix-ee'
@@ -17,7 +16,7 @@ module AcaEntities
             element :overall_verification_status_code, String, tag: 'ReferralActivityOverallVerificationStatusCode'
             has_one :valid_date_range, StatusValidDateRange
 
-            def self.domain_to_mapper(reference)
+            def self.domain_to_mapper(_reference)
               mapper = self.new
               mapper.ref = "reference-id"
               mapper

@@ -8,14 +8,12 @@ module AcaEntities
           # A status of an eligibility basis determination.
           class EligibilityBasisStatusCode
             include HappyMapper
-            register_namespace 'hix-ee', 'http://hix.cms.gov/0.1/hix-ee'
 
             tag 'EligibilityBasisStatusCode'
             namespace 'hix-ee'
 
-            def self.domain_to_mapper(medicaid_eligibility)
-              mapper = self.new
-              mapper
+            def self.domain_to_mapper(_medicaid_eligibility)
+              self.new
             end
           end
         end

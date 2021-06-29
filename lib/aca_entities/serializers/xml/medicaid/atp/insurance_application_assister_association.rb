@@ -8,8 +8,6 @@ module AcaEntities
           # Include XML element and type definitions.
           class InsuranceApplicationAssisterAssociation
             include HappyMapper
-            register_namespace 'hix-ee', 'http://hix.cms.gov/0.1/hix-ee'
-            register_namespace 'nc', 'http://niem.gov/niem/niem-core/2.0'
 
             tag 'InsuranceApplicationAssisterAssociation'
             namespace 'hix-ee'
@@ -17,9 +15,8 @@ module AcaEntities
             has_one :begin_date, AssociationBeginDate
             has_one :end_date, AssociationEndDate
 
-            def self.domain_to_mapper(reference)
-              mapper = self.new
-              mapper
+            def self.domain_to_mapper(_reference)
+              self.new
             end
 
             def to_hash

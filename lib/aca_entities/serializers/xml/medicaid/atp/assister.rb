@@ -8,15 +8,20 @@ module AcaEntities
           # A certified assister (such as a navigator) who helps individuals complete an insurance application.
           class Assister
             include HappyMapper
-            register_namespace 'hix-ee', 'http://hix.cms.gov/0.1/hix-ee'
 
             tag 'Assister'
             namespace 'hix-ee'
 
             has_one :role_played_by_person, RolePlayedByPerson
 
-            def self.domain_to_mapper(assister)
+            def self.domain_to_mapper(_assister)
               self.new
+            end
+
+            def to_hash
+              {
+                role_played_by_person: role_played_by_person&.to_hash
+              }
             end
           end
         end

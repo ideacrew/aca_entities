@@ -8,16 +8,20 @@ module AcaEntities
           # Include XML element and type definitions. A data type for how to contact a person or an organization.
           class Street
             include HappyMapper
-            register_namespace 'nc', 'http://niem.gov/niem/niem-core/2.0'
 
             tag 'Street'
             namespace 'nc'
 
-            has_one :street_full_text, Street, tag: 'StreetFullText'
+            has_one :street_full_text, String, tag: 'StreetFullText'
 
-            def self.domain_to_mapper(contact_info)
-              mapper = self.new
-              mapper
+            def self.domain_to_mapper(_contact_info)
+              self.new
+            end
+
+            def to_hash
+              {
+                street_full_text: street_full_text
+              }
             end
           end
         end

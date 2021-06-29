@@ -8,7 +8,6 @@ module AcaEntities
           # Include XML element and type definitions. A data type for how to contact a person or an organization.
           class FullTelephone
             include HappyMapper
-            register_namespace 'nc', 'http://niem.gov/niem/niem-core/2.0'
 
             tag 'FullTelephone'
             namespace 'nc'
@@ -16,9 +15,8 @@ module AcaEntities
             element :telephone_number_full_id, String, tag: "TelephoneNumberFullID", namespace: "nc"
             element :telephone_suffix_id, String, tag: "TelephoneSuffixID", namespace: "nc"
 
-            def self.domain_to_mapper(contact_info)
-              mapper = self.new
-              mapper
+            def self.domain_to_mapper(_contact_info)
+              self.new
             end
 
             def to_hash

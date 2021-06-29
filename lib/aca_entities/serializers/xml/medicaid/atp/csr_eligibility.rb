@@ -8,18 +8,15 @@ module AcaEntities
           # An assessment of a person's suitability to participate in an exchange eligibility program
           class CsrEligibility
             include HappyMapper
-            register_namespace 'hix-ee', 'http://hix.cms.gov/0.1/hix-ee'
 
             tag 'CSREligibility'
             namespace 'hix-ee'
 
             has_one :eligibility_date_range, EligibilityDateRange
-
             has_one :eligibility_establishing_system, EligibilityEstablishingSystem
 
-            def self.domain_to_mapper(eligibility)
-              mapper = self.new
-              mapper
+            def self.domain_to_mapper(_eligibility)
+              self.new
             end
 
             def to_hash
