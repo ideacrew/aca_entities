@@ -2,6 +2,7 @@
 
 require "aca_entities/atp/functions/address_builder"
 require "aca_entities/atp/functions/relationship_builder"
+require "aca_entities/atp/functions/lawful_presence_determination_builder"
 module AcaEntities
   module Atp
     module Transformers
@@ -115,7 +116,8 @@ module AcaEntities
                     end
                     result
                   }
-                  map 'us_citizen_indicator', 'person.consumer_role.lawful_presence_determination.citizen_status'
+                  map 'us_citizen_indicator', 'us_citizen_indicator', memoize: true, append_identifier: true, visible: false
+                  add_key 'person.consumer_role.lawful_presence_determination.citizen_status', function: AcaEntities::Atp::Functions::LawfulPresenceDeterminationBuilder.new
                   add_key 'person.consumer_role.language_preference', function: lambda { |v|
                     preference_language = v.find(Regexp.new('record.people.*.augementation')).map(&:item).last[:preferred_languages]&.first
                     preference_language ? preference_language[:language_name].downcase : nil
