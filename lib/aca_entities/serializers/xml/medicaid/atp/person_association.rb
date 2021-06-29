@@ -29,7 +29,7 @@ module AcaEntities
 
             def to_hash
               {
-                relative_id: person&.to_hash[:ref],
+                relative_id: person ? person.to_hash[:ref] : nil,
                 family_relationship_code: family_relationship_code,
                 caretaker_dependent_code: caretaker_dependent_code
               }
