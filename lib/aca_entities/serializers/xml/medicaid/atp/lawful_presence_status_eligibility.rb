@@ -5,7 +5,7 @@ module AcaEntities
     module Xml
       module Medicaid
         module Atp
-          # An eligibility of a person to receive benefits under the Affordable Care Act. 
+          # mapping xml Atp::LawfulPresenceStatusEligibility
           class LawfulPresenceStatusEligibility
             include HappyMapper
 
