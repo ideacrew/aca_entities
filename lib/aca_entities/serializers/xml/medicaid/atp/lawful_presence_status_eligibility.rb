@@ -5,15 +5,15 @@ module AcaEntities
     module Xml
       module Medicaid
         module Atp
-          # mapping xml Atp::LawfulPresenceStatusEligibility
+          # An eligibility of a person to receive benefits under the Affordable Care Act. 
           class LawfulPresenceStatusEligibility
             include HappyMapper
 
             tag 'LawfulPresenceStatusEligibility'
             namespace 'hix-ee'
 
-            element :status_indicator, Boolean, tag: 'StatusIndicator', namespace: "hix-core"
-            element :eligibility_basis_status_code, Boolean, tag: 'EligibilityBasisStatusCode', namespace: "hix-ee"
+            element :eligibility_indicator, Boolean, tag: 'EligibilityIndicator', namespace: "hix-ee"
+            element :eligibility_basis_status_code, String, tag: 'EligibilityBasisStatusCode', namespace: "hix-ee"
 
             def self.domain_to_mapper(_medicaid_eligibility)
               self.new
@@ -21,7 +21,7 @@ module AcaEntities
 
             def to_hash
               {
-                status_indicator: status_indicator,
+                eligibility_indicator: eligibility_indicator,
                 eligibility_basis_status_code: eligibility_basis_status_code
               }
             end
