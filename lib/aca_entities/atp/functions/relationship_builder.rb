@@ -19,12 +19,12 @@ module AcaEntities
               relationship = 'self'
               break
             elsif primary_match
-              rel_code = family_relationship[:family_relationship_code].to_s.rjust(2, "0") 
+              rel_code = family_relationship[:family_relationship_code].to_s.rjust(2, "0")
               relationship = Types::RelationshipToTaxFilerCodeMap[:"#{rel_code}"].downcase
               break
             end
           end
-          
+
           [{ relative: person_hash, kind: relationship }]
         end
 
