@@ -17,7 +17,7 @@ module AcaEntities
             element :arrived_before_1996_indicator, Boolean, tag: 'LawfulPresenceStatusArrivedBefore1996Indicator'
 
             #An eligibility of a person to receive benefits under the Affordable Care Act
-            has_one :eligibility, LawfulPresenceStatusEligibility
+            has_one :lawful_presence_status_eligibility, LawfulPresenceStatusEligibility
 
             def self.domain_to_mapper(presence_status)
               mapper = self.new

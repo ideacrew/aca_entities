@@ -77,7 +77,7 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
       },
       demographic: {
         dob: Date.today,
-        gender: "A GENDER"
+        gender: "A GENDER",
       },
       citizenship_immigration_status_information: {
         us_citizen: true
@@ -117,6 +117,7 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
 
   it "is schema valid" do
     document = Nokogiri::XML(mapper.to_xml)
+    puts document
     schema.validate(document).each do |error|
       puts "\n\n======= Schema Error ======="
       puts error.message

@@ -27,7 +27,7 @@ module AcaEntities
             element :ethnicity, String, tag: "PersonEthnicityText", namespace: "nc"
 
             has_one :birth_date, PersonBirthDate
-            has_one :augementation, PersonAugmentation
+            has_one :augmentation, PersonAugmentation
 
             def self.domain_to_mapper(applicant)
               mapper = self.new
