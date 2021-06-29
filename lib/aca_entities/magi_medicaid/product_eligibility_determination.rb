@@ -32,6 +32,21 @@ module AcaEntities
 
       attribute :category_determinations, Types::Array.of(CategoryDetermination).optional.meta(omittable: true)
 
+      # MagiMedicaid Category Determination for type Income
+      def medicaid_cd_for_income
+        return nil unless category_determinations
+        category_determinations.detech do |cat_det|
+          cat_det.category == 'Income Medicaid Eligible'
+        end
+      end
+
+      # MedicaidChip Category Determination for type Income
+      def chip_cd_for_income
+        return nil unless category_determinations
+        category_determinations.detech do |cat_det|
+          cat_det.category == 'Income CHIP Eligible'
+        end
+      end
     end
   end
 end
