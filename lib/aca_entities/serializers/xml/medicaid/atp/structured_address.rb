@@ -12,7 +12,7 @@ module AcaEntities
             tag 'StructuredAddress'
             namespace 'nc'
 
-            has_one :location_street, Street, tag: 'LocationStreet'
+            has_one :location_street, LocationStreet, tag: 'LocationStreet'
             element :address_secondary_unit_text, String, tag: 'AddressSecondaryUnitText'
             element :location_city_name, String, tag: 'LocationCityName'
             element :location_county_name, String, tag: 'LocationCountyName'

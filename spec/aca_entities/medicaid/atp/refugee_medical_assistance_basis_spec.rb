@@ -11,7 +11,7 @@ RSpec.describe ::AcaEntities::Medicaid::Atp::RefugeeMedicalAssistanceBasis,  dbc
     required_params.merge(
       status_indicator: true,
       determination_date: DateTime.now,
-      ineligibility_reason: "reason for in eligibility",
+      ineligibility_reason: "reason for ineligibility",
       medical_assistance_end_date: Date.today
     )
   end
