@@ -26,7 +26,7 @@ module AcaEntities
 
             def to_hash
               {
-                location_street: location_street.to_hash,
+                location_street: location_street&.to_hash,
                 address_secondary_unit_text: address_secondary_unit_text,
                 location_city_name: location_city_name,
                 location_county_name: location_county_name,

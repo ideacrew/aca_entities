@@ -42,7 +42,7 @@ module AcaEntities
                 expenses: expenses.map(&:to_hash),
                 employments: employments.map(&:to_hash),
                 contacts: contacts.map(&:to_hash),
-                persons: persons.map(&:to_hash)
+                family_relationships: persons.map(&:to_hash)
               }
             end
           end

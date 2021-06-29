@@ -14,7 +14,7 @@ module AcaEntities
 
             has_one :begin_date, AssociationBeginDate
             has_one :end_date, AssociationEndDate
-            has_one :person, PersonReference
+            has_one :person, PersonReference, :tag => 'PersonReference', namespace: "nc"
 
             # A kind of family relationship between two people.
             element :family_relationship_code, Integer, tag: 'FamilyRelationshipCode', namespace: "hix-core"
@@ -29,9 +29,7 @@ module AcaEntities
 
             def to_hash
               {
-                begin_date: begin_date&.to_hash,
-                end_date: end_date&.to_hash,
-                person: person&.to_hash,
+                relative_id: person ? person.to_hash[:ref] : nil,
                 family_relationship_code: family_relationship_code,
                 caretaker_dependent_code: caretaker_dependent_code
               }

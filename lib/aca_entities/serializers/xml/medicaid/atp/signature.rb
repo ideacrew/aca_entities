@@ -17,6 +17,12 @@ module AcaEntities
             def self.domain_to_mapper(_signature)
               self.new
             end
+
+            def to_hash
+              {
+                signature: signature
+              }
+            end
           end
         end
       end

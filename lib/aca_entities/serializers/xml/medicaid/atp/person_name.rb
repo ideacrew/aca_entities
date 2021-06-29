@@ -28,7 +28,7 @@ module AcaEntities
                 middle: middle,
                 sur: sur,
                 suffix: suffix,
-                full: full
+                full: [given, middle, sur].reject(&:nil?).join(' ')
               }
             end
           end
