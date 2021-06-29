@@ -35,7 +35,7 @@ module AcaEntities
       # MagiMedicaid Category Determination for type Income
       def medicaid_cd_for_income
         return nil unless category_determinations
-        category_determinations.detech do |cat_det|
+        category_determinations.detect do |cat_det|
           cat_det.category == 'Income Medicaid Eligible'
         end
       end
@@ -43,7 +43,7 @@ module AcaEntities
       # MedicaidChip Category Determination for type Income
       def chip_cd_for_income
         return nil unless category_determinations
-        category_determinations.detech do |cat_det|
+        category_determinations.detect do |cat_det|
           cat_det.category == 'Income CHIP Eligible'
         end
       end
