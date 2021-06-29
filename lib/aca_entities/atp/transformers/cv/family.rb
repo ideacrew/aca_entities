@@ -10,7 +10,10 @@ module AcaEntities
         class Family < ::AcaEntities::Operations::Transforms::Transform
           include ::AcaEntities::Operations::Transforms::Transformer
 
+          map "transfer_header.transfer_activity.transfer_id.identification_id", "family.ext_app_id"
+          map 'insurance_application.insurance_applicants', 'applicants', memoize_record: true, visible: false
           map 'insurance_application.ssf_primary_contact.role_reference.ref', 'primary_applicant_identifier', memoize_record: true, visible: false
+          map 'insurance_application.ssf_signer.ssf_attestation', 'ssf_attestation', memoize_record: true, visible: false
 
           namespace 'record' do
             rewrap 'family', type: :hash do
@@ -42,15 +45,29 @@ module AcaEntities
                       add_key 'hbx_id', value: 1234
                       add_key 'person_health.is_tobacco_user', value: nil
                       add_key 'person_health.is_physically_disabled', value: nil
-                      add_key 'is_homeless', value: nil
-                      add_key 'is_temporarily_out_of_state', value: nil
+                      add_key 'is_homeless', function: lambda { |v|
+                        member_id = v.find(/record.people.(\w+)$/).map(&:item).last
+                        applicants = v.resolve(:'insurance_application.insurance_applicants').item
+                        return false unless applicants[member_id.to_sym]
+                        !applicants[member_id.to_sym][:fixed_address_indicator]
+                      }
+                      add_key 'is_temporarily_out_of_state', function: lambda { |v|
+                        member_id = v.find(/record.people.(\w+)$/).map(&:item).last
+                        applicants = v.resolve(:'insurance_application.insurance_applicants').item
+                        return false unless applicants[member_id.to_sym]
+                        applicants[member_id.to_sym][:temporarily_lives_outside_application_state_indicator]
+                      }
                       add_key 'age_off_excluded', value: nil
                       add_key 'is_active'
-                      add_key 'is_disabled', value: nil
+                      add_key 'is_disabled', function: lambda { |v|
+                        member_id = v.find(/record.people.(\w+)$/).map(&:item).last
+                        applicants = v.resolve(:'insurance_application.insurance_applicants').item
+                        return false unless applicants[member_id.to_sym]
+                        applicants[member_id.to_sym][:blindness_or_disability_indicator]
+                      }
                     end
                   end
 
-                  map 'living_indicator', 'person.person_demographics.is_homeless' # code to update
                   map 'ssn', 'person.person_demographics.ssn', memoize: true, append_identifier: true
                   map 'sex', 'person.person_demographics.gender', memoize: true, append_identifier: true, function: ->(value) {value.downcase}
                   add_key 'person.person_demographics.no_ssn', function: lambda { |v|
@@ -84,13 +101,14 @@ module AcaEntities
                     #     v.find(Regexp.new("attestations.members")).map(&:item).last
                     contacts_information = v.find(Regexp.new('record.people.*.augementation')).map(&:item).last[:contacts]
                     result = contacts_information.each_with_object([]) do |contact_info, collector|
-                      phone = contact_info.dig(:contact, :telephone_number, :telephone)
+                      phone = contact_info.dig(:contact, :telephone_number, :telephone, :telephone_number_full_id)
                       next unless phone
+
                       collector << { extension: nil,
                                      kind: contact_info[:category_code].to_s.downcase,
                                      area_code: phone.to_s[0..2],
                                      number: phone.to_s[3..9],
-                                     primary: true,
+                                     primary: true, # default value
                                      full_phone_number: phone,
                                      start_on: nil,
                                      end_on: nil }
