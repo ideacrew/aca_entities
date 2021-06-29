@@ -125,6 +125,7 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
   end
 
   it "passes business rule validation" do
+    # This test will always be green locally unless you have Java JDK installed on your machine!
     data = mapper.to_xml
     output, _err = Open3.capture3("java -jar atp_validator-0.1.0-jar-with-dependencies.jar --oneshot", stdin_data: data, binmode: true,
                                                                                                        chdir: schematron_location)
