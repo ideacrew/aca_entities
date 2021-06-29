@@ -27,7 +27,6 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
 
     output, _err = Open3.capture3("java -jar atp_validator-0.1.0-jar-with-dependencies.jar --oneshot", stdin_data: data, binmode: true,
                                                                                                        chdir: schematron_location)
-    puts output.inspect
     error_doc = Nokogiri::XML(output)
     error_objects = error_doc.xpath("//svrl:failed-assert", business_error_ns).map do |node|
       location = node.at_xpath("@location").content
