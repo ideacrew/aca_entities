@@ -34,9 +34,21 @@ require_relative "atp/relationship"
 require_relative "atp/foster_care"
 require_relative "atp/dhs_save"
 require_relative "atp/basis_for_outcome"
+require_relative "atp/location_street"
+require_relative "atp/structured_address"
+require_relative "atp/full_telephone"
+require_relative "atp/contact_information"
+require_relative "atp/person_contact_information_association"
+require_relative "atp/person_preferred_language"
+require_relative "atp/person_reference"
+require_relative "atp/person_association"
+require_relative "atp/person_augmentation"
 require_relative "atp/person_name"
+require_relative "atp/birth_date"
+require_relative "atp/person"
 require_relative "atp/applicant"
 require_relative "atp/account_transfer_request"
+
 
 module AcaEntities
   module Medicaid
