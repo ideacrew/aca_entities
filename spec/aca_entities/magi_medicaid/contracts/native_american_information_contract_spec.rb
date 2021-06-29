@@ -11,14 +11,4 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::NativeAmericanInformationCo
       expect(subject.call(input_params)).to be_success
     end
   end
-
-  context 'invalid params' do
-    context 'invalid value for tribal_id' do
-      let(:input_params) { { indian_tribe_member: true, tribal_id: '12345' } }
-
-      it 'should return failure' do
-        expect(subject.call(input_params).errors.to_h).to eq({ tribal_id: ['length must be 9'] })
-      end
-    end
-  end
 end

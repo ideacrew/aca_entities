@@ -1,9 +1,18 @@
 ---
-syncapi: 2.0.0
+asyncapi: 2.0.0
+id: "https://github.com/ideacrew/event_source-server"
 info:
   title: CRM Gateway Service
   version: 1.0.0
   description: This service provides accesss to third-party Customer Relationship Mangement systems
+  contact:
+    name: IdeaCrew
+    url: https://ideacrew.com
+    email: info@ideacrew.com
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+
 servers:
   production:
     url: amqp://test.example.org
@@ -12,15 +21,15 @@ servers:
 channels:
   sugar_crm.contacts.contact_created:
     publish:
-      operationId: on_sugarcrm_contacts_contact_created
-      summary: SugarCRM Contact Created
+      operationId: sugarcrm_contacts_contact_created
+      description: SugarCRM Contact Created
       message:
         $ref: "#/components/messages/contract_created_message"
         payload:
           type: object
     subscribe:
-      operationId: sugarcrm_contacts_contact_created
-      summary: SugarCRM Contact Created
+      operationId: on_sugarcrm_contacts_contact_created
+      description: On SugarCRM Contact Created
       message:
         $ref: "#/components/messages/contract_created_message"
         payload:
@@ -51,3 +60,6 @@ components:
           type: string
           format: date-time
           description: "foo"
+tags:
+  - name: linter_tag
+    description: placeholder that satisfies the linter

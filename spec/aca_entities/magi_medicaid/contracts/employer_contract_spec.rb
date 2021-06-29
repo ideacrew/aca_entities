@@ -31,23 +31,7 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Contracts::EmployerContract,  dbclea
       end
 
       it 'should return a failure with error messages' do
-        expect(@result.errors.to_h).to eq({ employer_name: ['is missing'], employer_id: ['is missing'] })
-      end
-    end
-
-    context 'invalid data for employer id' do
-      let(:all_params) do
-        { employer_name: 'ABC employer', employer_id: '123456' }
-      end
-
-      before { @result = subject.call(all_params) }
-
-      it 'should return failure' do
-        expect(@result).to be_failure
-      end
-
-      it 'should return a failure with error message' do
-        expect(@result.errors.to_h).to eq({ employer_id: ['length must be 9'] })
+        expect(@result.errors.to_h).to eq({ employer_name: ['is missing'] })
       end
     end
   end

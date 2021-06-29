@@ -363,6 +363,7 @@ module AcaEntities
           end
 
           if current_document
+            input = Hash[key.to_sym, value] unless (data || batch_process?)
             current_document.append(data || input)
           else
             t(:build_nested_hash)[record, [], data || input]

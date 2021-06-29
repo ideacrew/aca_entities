@@ -8,6 +8,12 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicantContract,  dbclean
     let(:name) { { first_name: 'first', last_name: 'last' } }
     let(:identifying_information) { { has_ssn: false } }
     let(:demographic) { { gender: 'Male', dob: Date.today.prev_year.to_s } }
+    let(:benchmark_premium) do
+      { health_only_lcsp_premiums: [{ member_identifier: '95', monthly_premium: 310.50 },
+                                    { member_identifier: '96', monthly_premium: 310.60 }],
+        health_only_slcsp_premiums: [{ member_identifier: '95', monthly_premium: 320.50 },
+                                     { member_identifier: '96', monthly_premium: 320.60 }] }
+    end
     let(:attestation) { { is_self_attested_disabled: false, is_self_attested_blind: false } }
     let(:family_member_reference) do
       { family_member_hbx_id: '1000',
@@ -67,7 +73,11 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicantContract,  dbclean
         incomes: [],
         benefits: [],
         deductions: [],
+        prior_insurance_end_date: nil,
+        age_of_applicant: 45,
         is_claimed_as_dependent_by_non_applicant: false,
+        benchmark_premium: benchmark_premium,
+        is_homeless: false,
         mitc_relationships: mitc_relationships,
         mitc_income: mitc_income }
     end
@@ -88,20 +98,6 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicantContract,  dbclean
         expect(input_app_keys - result_app_keys).to be_empty
       end
     end
-
-    context 'invalid params' do
-
-      context 'invalid tribal_id length' do
-        let(:native_american_information) { { indian_tribe_member: true, tribal_id: '123456' } }
-        let(:obj_call) do
-          subject.call(input_params.merge({ native_american_information: native_american_information }))
-        end
-
-        it 'should return failure with error messages' do
-          expect(obj_call.errors.to_h).to eq({ native_american_information: { tribal_id: ['length must be 9'] } })
-        end
-      end
-    end
   end
 
   context 'applicant is applying for coverage' do
@@ -111,6 +107,12 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicantContract,  dbclean
       { gender: 'Male',
         dob: Date.today.prev_year.to_s,
         is_veteran_or_active_military: false }
+    end
+    let(:benchmark_premium) do
+      { health_only_lcsp_premiums: [{ member_identifier: '95', monthly_premium: 310.50 },
+                                    { member_identifier: '96', monthly_premium: 310.60 }],
+        health_only_slcsp_premiums: [{ member_identifier: '95', monthly_premium: 320.50 },
+                                     { member_identifier: '96', monthly_premium: 320.60 }] }
     end
     let(:attestation) { { is_self_attested_disabled: false, is_self_attested_blind: false, is_incarcerated: false } }
     let(:family_member_reference) do
@@ -147,7 +149,11 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicantContract,  dbclean
         incomes: [],
         benefits: [],
         deductions: [],
-        is_claimed_as_dependent_by_non_applicant: false }
+        prior_insurance_end_date: nil,
+        age_of_applicant: 45,
+        is_claimed_as_dependent_by_non_applicant: false,
+        benchmark_premium: benchmark_premium,
+        is_homeless: false }
     end
 
     context 'valid params' do

@@ -23,10 +23,4 @@ RSpec.describe ::AcaEntities::MagiMedicaid::CitizenshipImmigrationStatusInformat
       expect(@result.to_h.keys).to eq(input_params.keys)
     end
   end
-
-  describe 'with invalid arguments' do
-    it 'should raise error' do
-      expect { subject }.to raise_error(Dry::Struct::Error, /:citizen_status is missing/)
-    end
-  end
 end

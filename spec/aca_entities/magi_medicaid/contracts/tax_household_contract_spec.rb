@@ -33,9 +33,10 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Contracts::TaxHouseholdContract, dbc
   let(:all_params) do
     {
       max_aptc: 100.56,
-      csr: 73,
+      hbx_id: '12345',
       is_insurance_assistance_eligible: 'Yes',
-      tax_household_members: [tax_household_member]
+      tax_household_members: [tax_household_member],
+      annual_tax_household_income: 50_000.00
     }
   end
 
@@ -48,6 +49,24 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Contracts::TaxHouseholdContract, dbc
       result = subject.call(invalid_params)
       expect(result.success?).to be_falsey
       expect(result.errors.to_h).to eq({ :tax_household_members => ["must be an array"] })
+    end
+
+    context 'without any TaxHouseholdMembers' do
+      let(:invalid_thh) do
+        { max_aptc: 100.56,
+          hbx_id: '12345',
+          is_insurance_assistance_eligible: 'Yes',
+          tax_household_members: [{}],
+          annual_tax_household_income: 50_000.00 }
+      end
+
+      before do
+        @result = subject.call(invalid_thh)
+      end
+
+      it 'should return error message' do
+        expect(@result.failure?).to be_truthy
+      end
     end
   end
 

@@ -113,8 +113,6 @@ module AcaEntities
         #
         # @return value
 
-        # MitC to IAP transform.
-        # https://github.com/dry-rb/dry-transformer/blob/master/lib/dry/transformer/coercions.rb
         def boolean(value)
           t(:to_boolean)[value.to_s.downcase]
         end

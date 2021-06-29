@@ -7,6 +7,12 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicationContract,  dbcle
   let(:name) { { first_name: 'first', last_name: 'last' } }
   let(:identifying_information) { { has_ssn: false } }
   let(:demographic) { { gender: 'Male', dob: Date.today.prev_year.to_s } }
+  let(:benchmark_premium) do
+    { health_only_lcsp_premiums: [{ member_identifier: '95', monthly_premium: 310.50 },
+                                  { member_identifier: '96', monthly_premium: 310.60 }],
+      health_only_slcsp_premiums: [{ member_identifier: '95', monthly_premium: 320.50 },
+                                   { member_identifier: '96', monthly_premium: 320.60 }] }
+  end
   let(:attestation) { { is_self_attested_disabled: false, is_self_attested_blind: false } }
   let(:family_member_reference) do
     { family_member_hbx_id: '1000',
@@ -61,17 +67,22 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicationContract,  dbcle
       has_deductions: false,
       has_enrolled_health_coverage: false,
       has_eligible_health_coverage: false,
+      age_of_applicant: 45,
+      benchmark_premium: benchmark_premium,
+      is_homeless: false,
       mitc_relationships: mitc_relationships,
       mitc_income: mitc_income }
   end
   let(:family_reference) { { hbx_id: '10011' } }
 
-  context 'valid params' do
+  context 'with valid & invalid input params' do
     let(:input_params) do
       { family_reference: family_reference,
         assistance_year: Date.today.year,
+        aptc_effective_date: Date.today,
         applicants: [applicant],
         us_state: 'DC',
+        oe_start_on: Date.new(Date.today.year, 11, 1),
         hbx_id: '200000123' }
     end
 
@@ -87,20 +98,6 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicationContract,  dbcle
           person_hbx_id: applicant[:person_hbx_id] }
       end
 
-      let(:product_eligibility_determination) do
-        { is_ia_eligible: true,
-          is_medicaid_chip_eligible: false,
-          is_non_magi_medicaid_eligible: false,
-          is_totally_ineligible: false,
-          is_without_assistance: false,
-          is_magi_medicaid: false,
-          magi_medicaid_monthly_household_income: 6474.42,
-          medicaid_household_size: 1,
-          magi_medicaid_monthly_income_limit: 3760.67,
-          magi_as_percentage_of_fpl: 10.0,
-          magi_medicaid_category: 'parent_caretaker' }
-      end
-
       let(:tax_household_member) do
         { product_eligibility_determination: product_eligibility_determination,
           applicant_reference: applicant_reference }
@@ -108,7 +105,7 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicationContract,  dbcle
 
       let(:tax_hh) do
         { max_aptc: 100.56,
-          csr: 73,
+          hbx_id: '12345',
           is_insurance_assistance_eligible: 'Yes',
           tax_household_members: [tax_household_member] }
       end
@@ -134,36 +131,128 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicationContract,  dbcle
         @result = subject.call(app_with_thh)
       end
 
-      it 'should return success' do
-        expect(@result).to be_success
+      context 'with valid thh params' do
+        context 'for aptc' do
+          let(:product_eligibility_determination) do
+            { is_ia_eligible: true,
+              is_medicaid_chip_eligible: false,
+              is_non_magi_medicaid_eligible: false,
+              is_totally_ineligible: false,
+              is_without_assistance: false,
+              is_magi_medicaid: false,
+              is_csr_eligible: false,
+              magi_medicaid_monthly_household_income: 6474.42,
+              medicaid_household_size: 1,
+              magi_medicaid_monthly_income_limit: 3760.67,
+              magi_as_percentage_of_fpl: 10.0,
+              magi_medicaid_category: 'parent_caretaker' }
+          end
+
+          it 'should return success' do
+            expect(@result).to be_success
+          end
+
+          it 'should include key tax_households' do
+            expect(@result.to_h.keys).to include(:tax_households)
+          end
+
+          it 'should include key mitc_households' do
+            expect(@result.to_h.keys).to include(:mitc_households)
+          end
+
+          it 'should include all keys of each mitc_households' do
+            mitc_household = @result.to_h[:mitc_households].first
+            expect(mitc_household.keys).to include(:household_id)
+            expect(mitc_household.keys).to include(:people)
+            expect(mitc_household[:people].first.keys).to include(:person_id)
+          end
+
+          it 'should include all keys of each mitc_tax_returns' do
+            mitc_tax_return = @result.to_h[:mitc_tax_returns].first
+            expect(mitc_tax_return.keys).to include(:filers)
+            expect(mitc_tax_return.keys).to include(:dependents)
+            expect(mitc_tax_return[:filers].first.keys).to include(:person_id)
+          end
+        end
+
+        context 'for Medicaid & Chip' do
+          let(:product_eligibility_determination) do
+            { is_ia_eligible: false,
+              is_medicaid_chip_eligible: true,
+              is_non_magi_medicaid_eligible: false,
+              is_totally_ineligible: false,
+              is_without_assistance: false,
+              is_magi_medicaid: true,
+              is_csr_eligible: false,
+              magi_medicaid_monthly_household_income: 6474.42,
+              medicaid_household_size: 1,
+              magi_medicaid_monthly_income_limit: 3760.67,
+              magi_as_percentage_of_fpl: 10.0,
+              magi_medicaid_category: 'parent_caretaker' }
+          end
+
+          it 'should return success' do
+            expect(@result).to be_success
+          end
+        end
       end
 
-      it 'should include key tax_households' do
-        expect(@result.to_h.keys).to include(:tax_households)
-      end
+      context 'with invalid thh params' do
+        context 'with more than one member eligibility as true' do
+          let(:product_eligibility_determination) do
+            { is_ia_eligible: true,
+              is_medicaid_chip_eligible: true,
+              is_non_magi_medicaid_eligible: true,
+              is_totally_ineligible: false,
+              is_without_assistance: false,
+              is_magi_medicaid: false,
+              is_csr_eligible: true,
+              csr: '73',
+              magi_medicaid_monthly_household_income: 6474.42,
+              medicaid_household_size: 1,
+              magi_medicaid_monthly_income_limit: 3760.67,
+              magi_as_percentage_of_fpl: 10.0,
+              magi_medicaid_category: 'parent_caretaker' }
+          end
 
-      it 'should include key mitc_households' do
-        expect(@result.to_h.keys).to include(:mitc_households)
-      end
+          it 'should return failure with error messages' do
+            err_msg = /Member is eligible for more than one eligibilities:/
+            expect(@result.errors.to_h[:tax_households][0][:tax_household_members][0][:product_eligibility_determination].first).to match(err_msg)
+          end
+        end
 
-      it 'should include all keys of each mitc_households' do
-        mitc_household = @result.to_h[:mitc_households].first
-        expect(mitc_household.keys).to include(:household_id)
-        expect(mitc_household.keys).to include(:people)
-        expect(mitc_household[:people].first.keys).to include(:person_id)
-      end
+        context 'where member is_csr_eligible but no csr value' do
+          let(:product_eligibility_determination) do
+            { is_ia_eligible: true,
+              is_medicaid_chip_eligible: false,
+              is_non_magi_medicaid_eligible: false,
+              is_totally_ineligible: false,
+              is_without_assistance: false,
+              is_magi_medicaid: false,
+              is_csr_eligible: true,
+              csr: ['', nil].sample,
+              magi_medicaid_monthly_household_income: 6474.42,
+              medicaid_household_size: 1,
+              magi_medicaid_monthly_income_limit: 3760.67,
+              magi_as_percentage_of_fpl: 10.0,
+              magi_medicaid_category: 'parent_caretaker' }
+          end
 
-      it 'should include all keys of each mitc_tax_returns' do
-        mitc_tax_return = @result.to_h[:mitc_tax_returns].first
-        expect(mitc_tax_return.keys).to include(:filers)
-        expect(mitc_tax_return.keys).to include(:dependents)
-        expect(mitc_tax_return[:filers].first.keys).to include(:person_id)
+          it 'should return failure with error messages' do
+            err_msg = 'cannot be empty when is_csr_eligible is answered.'
+            expect(@result.errors.to_h[:tax_households][0][:tax_household_members][0][:product_eligibility_determination][:csr]).to include(err_msg)
+          end
+        end
       end
     end
 
     context 'with multiple applicants and relationships' do
       let(:applicant2) do
-        applicant.merge({ person_hbx_id: '96', name: { first_name: 'wifey', last_name: 'last' } })
+        applicant.merge({ person_hbx_id: '96',
+                          name: { first_name: 'wifey', last_name: 'last' },
+                          age_of_applicant: 43,
+                          benchmark_premium: benchmark_premium,
+                          is_homeless: false })
       end
 
       let(:applicant1_ref) do
@@ -203,13 +292,15 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicationContract,  dbcle
     end
   end
 
-  context 'invalid params' do
+  context 'with invalid params' do
     context 'applicants' do
       let(:input_params) do
         { family_reference: family_reference,
           assistance_year: Date.today.year,
+          aptc_effective_date: Date.today,
           applicants: [],
           us_state: 'DC',
+          oe_start_on: Date.new(Date.today.year, 11, 1),
           hbx_id: '200000123' }
       end
 
@@ -244,7 +335,8 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicationContract,  dbcle
            :citizenship_immigration_status_information, :is_applying_coverage, :family_member_reference,
            :person_hbx_id, :is_required_to_file_taxes, :pregnancy_information, :has_job_income,
            :has_self_employment_income, :has_unemployment_income, :has_other_income, :has_deductions,
-           :has_enrolled_health_coverage, :has_eligible_health_coverage]
+           :has_enrolled_health_coverage, :has_eligible_health_coverage,
+           :age_of_applicant, :benchmark_premium, :is_homeless]
         end
 
         it 'should return a failure with error message' do
@@ -322,8 +414,10 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicationContract,  dbcle
         let(:input_params) do
           { family_reference: family_reference,
             assistance_year: Date.today.year,
+            aptc_effective_date: Date.today,
             applicants: [local_applicant],
             us_state: 'DC',
+            oe_start_on: Date.new(Date.today.year, 11, 1),
             hbx_id: '200000123' }
         end
         let(:benefit) do
@@ -346,17 +440,6 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicationContract,  dbcle
           it 'should return failure with error message' do
             err = subject.call(input_params).errors.to_h[:applicants][0][:benefits][0][:employer].first
             expect(err).to eq('cannot be blank if benefit kind is employer_sponsored_insurance')
-          end
-        end
-
-        context 'employer_id' do
-          let(:local_benefit) do
-            benefit.merge({ employer: { employer_name: 'ABC Employer', employer_id: '12345asdv' } })
-          end
-
-          it 'should return failure with error message' do
-            err = subject.call(input_params).errors.to_h[:applicants][0][:benefits][0][:employer][:employer_id].first
-            expect(err).to eq('must be numbers only')
           end
         end
 
@@ -425,8 +508,10 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicationContract,  dbcle
         let(:input_params) do
           { family_reference: family_reference,
             assistance_year: Date.today.year,
+            aptc_effective_date: Date.today,
             applicants: [local_applicant],
             us_state: 'DC',
+            oe_start_on: Date.new(Date.today.year, 11, 1),
             hbx_id: '200000123' }
         end
         let(:local_deduction) do
@@ -520,7 +605,12 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicationContract,  dbcle
       end
 
       context 'incomes' do
-        let(:input_params) { { family_reference: family_reference, assistance_year: Date.today.year, applicants: [local_applicant] } }
+        let(:input_params) do
+          { family_reference: family_reference,
+            assistance_year: Date.today.year,
+            aptc_effective_date: Date.today,
+            applicants: [local_applicant] }
+        end
         let(:income) do
           { kind: 'alimony_and_maintenance',
             amount: 100.67,
@@ -528,17 +618,6 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicationContract,  dbcle
             start_on: Date.today.prev_year.to_s }
         end
         let(:local_applicant) { applicant.merge({ incomes: [local_income] }) }
-
-        context 'employer_id' do
-          let(:local_income) do
-            income.merge({ employer: { employer_name: 'ABC Employer', employer_id: '12345asdv' } })
-          end
-
-          it 'should return failure with error message' do
-            err = subject.call(input_params).errors.to_h[:applicants][0][:incomes][0][:employer][:employer_id].first
-            expect(err).to eq('must be numbers only')
-          end
-        end
 
         context 'end_on' do
           let(:local_income) do
@@ -549,18 +628,6 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicationContract,  dbcle
             err = subject.call(input_params).errors.to_h[:applicants][0][:incomes][0][:end_on].first
             expect(err).to eq('must be after income start_on')
           end
-        end
-      end
-
-      context 'native_american_information' do
-        let(:obj_call) do
-          appl_params = applicant.merge({ native_american_information: { indian_tribe_member: true, tribal_id: '1234567ab' } })
-          subject.call(input_params.merge({ applicants: [appl_params] }))
-        end
-
-        it 'should return failure with error message' do
-          err = obj_call.errors.to_h[:applicants][0][:native_american_information][:tribal_id].first
-          expect(err).to eq('must be numbers only')
         end
       end
 
@@ -689,7 +756,12 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicationContract,  dbcle
 
       context 'phones' do
         context 'end_on' do
-          let(:input_params) { { family_reference: family_reference, assistance_year: Date.today.year, applicants: [local_applicant] } }
+          let(:input_params) do
+            { family_reference: family_reference,
+              assistance_year: Date.today.year,
+              aptc_effective_date: Date.today,
+              applicants: [local_applicant] }
+          end
           let(:local_phone) do
             { kind: 'home',
               area_code: '100',
@@ -710,7 +782,12 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicationContract,  dbcle
 
       context 'emails' do
         context 'end_on' do
-          let(:input_params) { { family_reference: family_reference, assistance_year: Date.today.year, applicants: [local_applicant] } }
+          let(:input_params) do
+            { family_reference: family_reference,
+              assistance_year: Date.today.year,
+              aptc_effective_date: Date.today,
+              applicants: [local_applicant] }
+          end
           let(:local_email) do
             { kind: 'home',
               address: 'test@tt.com',
@@ -728,7 +805,12 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicationContract,  dbcle
 
       context 'addresses' do
         context 'end_on' do
-          let(:input_params) { { family_reference: family_reference, assistance_year: Date.today.year, applicants: [local_applicant] } }
+          let(:input_params) do
+            { family_reference: family_reference,
+              assistance_year: Date.today.year,
+              aptc_effective_date: Date.today,
+              applicants: [local_applicant] }
+          end
           let(:local_address) do
             { has_fixed_address: true,
               kind: 'home',
@@ -767,8 +849,10 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicationContract,  dbcle
 
       it 'should return failure with error message' do
         expect(subject.call(input_params).errors.to_h).to eq({ assistance_year: ['is missing'],
+                                                               aptc_effective_date: ['is missing'],
                                                                hbx_id: ['is missing'],
-                                                               us_state: ['is missing'] })
+                                                               us_state: ['is missing'],
+                                                               oe_start_on: ['is missing'] })
       end
     end
 
@@ -785,8 +869,10 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicationContract,  dbcle
 
       it 'should return failure with error message' do
         expect(subject.call(input_params).errors.to_h).to eq({ assistance_year: ['must be an integer'],
+                                                               aptc_effective_date: ['is missing'],
                                                                hbx_id: ['is missing'],
-                                                               us_state: ['is missing'] })
+                                                               us_state: ['is missing'],
+                                                               oe_start_on: ['is missing'] })
       end
     end
   end

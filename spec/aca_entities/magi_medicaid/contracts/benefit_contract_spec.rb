@@ -57,6 +57,24 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Contracts::BenefitContract,  dbclean
         expect(@result).to be_success
       end
     end
+
+    context 'Health Reimbursement Arrangement' do
+      let(:input_params) do
+        { kind: 'health_reimbursement_arrangement',
+          status: 'is_enrolled',
+          start_on: Date.today.prev_year.to_s,
+          hra_kind: [:ichra, :qsehra].sample,
+          end_on: nil }
+      end
+
+      before do
+        @result = subject.call(input_params)
+      end
+
+      it 'should return success' do
+        expect(@result).to be_success
+      end
+    end
   end
 
   context 'invalid params' do
@@ -78,24 +96,8 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Contracts::BenefitContract,  dbclean
           end
 
           it 'should return failure with error message' do
-            err_msg = { employer: { employer_id: ['is missing'], employer_name: ['is missing'] } }
+            err_msg = { employer: { employer_name: ['is missing'] } }
             expect(@result.errors.to_h).to eq(err_msg)
-          end
-        end
-
-        context 'bad employer id' do
-          let(:input_params) do
-            { kind: 'employer_sponsored_insurance',
-              status: 'is_enrolled',
-              employer: { employer_name: 'ABC employer', employer_id: '12344' },
-              esi_covered: 'self_and_spouse',
-              start_on: Date.today.prev_year.to_s,
-              employee_cost_frequency: 'Weekly',
-              employee_cost: 100.00 }
-          end
-
-          it 'should return failure with error message' do
-            expect(@result.errors.to_h).to eq({ employer: { employer_id: ['length must be 9'] } })
           end
         end
       end

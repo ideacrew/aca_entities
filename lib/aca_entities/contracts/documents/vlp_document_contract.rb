@@ -7,6 +7,7 @@ module AcaEntities
       class VlpDocumentContract < Documents::DocumentContract
         # @!method call(opts)
         # @param [Hash] opts the parameters to validate using this contract
+        # @option opts [String] :subject required
         # @option opts [String] :alien_number optional
         # @option opts [String] :i94_number optional
         # @option opts [String] :visa_number optional
@@ -19,11 +20,9 @@ module AcaEntities
         # @option opts [String] :country_of_citizenship optional
         # @option opts [Date] :expiration_date optional
         # @option opts [String] :issuing_country optional
-        # @option opts [String] :status optional
-        # @option opts [String] :verification_type optional
-        # @option opts [String] :comment optional
         # @return [Dry::Monads::Result]
         params do
+          required(:subject).filled(Types::VlpDocumentKind)
           optional(:alien_number).maybe(:string, size?: 9)
           optional(:i94_number).maybe(:string, size?: 11)
           optional(:visa_number).maybe(:string, size?: 8)
@@ -34,11 +33,8 @@ module AcaEntities
           optional(:citizenship_number).maybe(:string, size?: 6..12)
           optional(:card_number).maybe(:string, size?: 13)
           optional(:country_of_citizenship).maybe(:string)
-          optional(:expiration_date).value(:date?)
+          optional(:expiration_date).maybe(:date)
           optional(:issuing_country).maybe(:string)
-          optional(:status).maybe(:string)
-          optional(:verification_type).maybe(:string)
-          optional(:comment).maybe(:string)
         end
       end
     end

@@ -12,7 +12,7 @@ module AcaEntities
         # @return [Dry::Monads::Result]
         params do
           optional(:indian_tribe_member).maybe(:bool)
-          optional(:tribal_id).maybe(:string, size?: 9)
+          optional(:tribal_id).maybe(:string)
         end
       end
     end
