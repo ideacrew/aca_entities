@@ -7,7 +7,7 @@ module AcaEntities
       class RoleOfPersonReferenceContract < Dry::Validation::Contract
 
         params do
-          optional(:ref).maybe(:string)
+          required(:ref).filled(:string)
         end
       end
     end

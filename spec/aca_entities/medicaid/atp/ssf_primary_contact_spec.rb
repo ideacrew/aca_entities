@@ -24,7 +24,7 @@ RSpec.describe ::AcaEntities::Medicaid::Atp::SsfPrimaryContact, dbclean: :after_
 
   describe 'with invalid arguments' do
     it 'should raise error' do
-      expect { subject }.to raise_error(Dry::Struct::Error, /:contact_preference is missing in Hash input/)
+      expect { subject }.to raise_error(Dry::Struct::Error, /:ref is missing in Hash input/)
     end
   end
 end
