@@ -37,7 +37,8 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
   let(:insurance_application) do
     {
       application_metadata: application_metadata,
-      attestation: attestation
+      attestation: attestation,
+      applicants: []
     }
   end
 
