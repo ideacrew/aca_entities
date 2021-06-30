@@ -33,13 +33,20 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
   let(:schema) { Nokogiri::XML::Schema(File.open(schema_location)) }
 
   it "is schema valid" do
+    # Line numbers must be adjusted for accurate error messages
+    line_adjust = 0
     payloads.each_index do |i|
       doc = Nokogiri::XML(payloads[i])
       schema.validate(doc).each do |error|
-        puts "\n\n======= Schema Error in Payload #{i+1} ======="
-        puts error.message
+        # Get payload specific line number from error message and adjust
+        error_line_no = error.to_s[0..2].to_i + line_adjust
+        puts "\n\n======= Schema Error in Payload #{i+1} at line #{error_line_no} ======="
+        # Ignore unhelpful line number
+        puts error.message.to_s[7..]
       end 
       expect(schema.valid?(doc)).to be_truthy
+
+      line_adjust += payloads[i].count("\n")
     end
   end
 end
