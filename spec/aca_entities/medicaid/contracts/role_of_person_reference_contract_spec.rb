@@ -5,9 +5,9 @@ require 'aca_entities/medicaid/contracts/role_of_person_reference_contract'
 
 RSpec.describe ::AcaEntities::Medicaid::Contracts::RoleOfPersonReferenceContract, dbclean: :after_each do
 
-  let(:required_params) { {} }
+  let(:required_params) { { ref: "a-person-id" } }
 
-  let(:optional_params) { { ref: "a-person-id" } }
+  let(:optional_params) { {} }
 
   let(:all_params) { required_params.merge(optional_params)}
 
@@ -17,18 +17,16 @@ RSpec.describe ::AcaEntities::Medicaid::Contracts::RoleOfPersonReferenceContract
         expect(subject.call({}).errors.to_h.keys).to match_array required_params.keys
       end
     end
+
+    context 'with optional parameters only' do
+      it { expect(subject.call(optional_params).error?(required_params.first[0])).to be_truthy }
+    end
   end
 
   context 'valid parameters' do
     context 'with required parameters only' do
-      let(:input_params) { {} }
-
-      before do
-        @result = subject.call(input_params)
-      end
-
-      it { expect(@result.success?).to be_truthy }
-      it { expect(@result.to_h).to eq input_params }
+      it { expect(subject.call(required_params).success?).to be_truthy }
+      it { expect(subject.call(required_params).to_h).to eq required_params }
     end
 
     context 'with all required and optional parameters' do

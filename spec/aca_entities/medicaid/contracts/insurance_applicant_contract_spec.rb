@@ -5,7 +5,9 @@ require 'aca_entities/medicaid/contracts/insurance_applicant_contract'
 
 RSpec.describe ::AcaEntities::Medicaid::Contracts::InsuranceApplicantContract, dbclean: :after_each do
 
-  let(:required_params) { {} }
+  let(:required_params) do
+    { role_reference: { ref: "a-person-id" } }  
+  end
 
   let(:optional_params) do 
     { age_left_foster_care: 14,
@@ -30,14 +32,8 @@ RSpec.describe ::AcaEntities::Medicaid::Contracts::InsuranceApplicantContract, d
 
   context 'valid parameters' do
     context 'with required parameters only' do
-      let(:input_params) { {} }
-
-      before do
-        @result = subject.call(input_params)
-      end
-
-      it { expect(@result.success?).to be_truthy }
-      it { expect(@result.to_h).to eq input_params }
+      it { expect(subject.call(required_params).success?).to be_truthy }
+      it { expect(subject.call(required_params).to_h).to eq required_params }
     end
 
     context 'with all required and optional parameters' do
