@@ -16,4 +16,10 @@ RSpec.describe ::AcaEntities::Medicaid::Atp::RoleOfPersonReference, dbclean: :af
       expect { described_class.new(input_params) }.not_to raise_error
     end
   end
+
+  describe 'with invalid arguments' do
+    it 'should raise error' do
+      expect { subject }.to raise_error(Dry::Struct::Error, /:ref is missing in Hash input/)
+    end
+  end
 end
