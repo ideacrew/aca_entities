@@ -3,6 +3,7 @@
 require "aca_entities/atp/functions/address_builder"
 require "aca_entities/atp/functions/relationship_builder"
 require "aca_entities/atp/functions/lawful_presence_determination_builder"
+require "aca_entities/atp/functions/build_application"
 module AcaEntities
   module Atp
     module Transformers
@@ -40,9 +41,9 @@ module AcaEntities
                   namespace 'person_name' do
                     rewrap 'family.family_members.person', type: :hash do
                       map 'given', 'person_name.first_name', memoize: true, append_identifier: true
-                      map 'middle', 'person_name.middle_name'
+                      map 'middle', 'person_name.middle_name', memoize: true, append_identifier: true
                       map 'sur', 'person_name.last_name', memoize: true, append_identifier: true
-                      map 'full', 'person_name.full_name'
+                      map 'full', 'person_name.full_name', memoize: true, append_identifier: true
                       add_key 'hbx_id', value: 1234
                       add_key 'person_health.is_tobacco_user', value: nil
                       add_key 'person_health.is_physically_disabled', value: nil
@@ -56,7 +57,7 @@ module AcaEntities
                         member_id = v.find(/record.people.(\w+)$/).map(&:item).last
                         applicants = v.resolve(:'insurance_application.insurance_applicants').item
                         return false unless applicants[member_id.to_sym]
-                        applicants[member_id.to_sym][:temporarily_lives_outside_application_state_indicator]
+                        applicants[member_id.to_sym][:temporarily_lives_outside_application_state_indicator] || false #default value
                       }
                       add_key 'age_off_excluded', value: nil
                       add_key 'is_active'
@@ -164,6 +165,8 @@ module AcaEntities
                   map 'ethnicity', 'person.ethnicity'
                 end
               end
+
+              # add_key 'magi_medicaid_applications', function: AcaEntities::Atp::Functions::BuildApplication.new
             end
           end
         end
