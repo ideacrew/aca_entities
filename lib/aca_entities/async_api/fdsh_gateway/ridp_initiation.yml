@@ -1,0 +1,60 @@
+asyncapi: "2.0.0"
+info:
+  title: RIDP - Initiation
+  version: 0.1.0
+  description: Initiate connection to the RIDP service and begin a session.
+  contact:
+    name: IdeaCrew
+    url: https://ideacrew.com
+    email: info@ideacrew.com
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+
+servers:
+  production:
+    url: http://ridp-service/initial
+    protocol: http
+    protocolVersion: 0.1.0
+    description: RIDP Initial Service
+  development:
+    url: http://ridp-service/initial
+    protocol: http
+    protocolVersion: 0.1.0
+    description: RIDP Initial Service
+  test:
+    url: http://ridp-service/initial
+    protocol: http
+    protocolVersion: 0.1.0
+    description: RIDP Initial Service
+
+defaultContentType: application/soap+xml
+
+channels:
+  /RIDP/Initiate:
+    publish:
+      operationId: /RIDP/Initiate
+      description: Send the initial request to begin an RIDP session.
+      bindings:
+        http:
+          type: request
+          method: POST
+          contentType: application/soap+xml
+          headers:
+            Content-Type: application/soap+xml
+            Accept: application/soap+xml
+    subscribe:
+      operationId: /on/RIDP/Initiate
+      description: Response to RIDP Initiation - contains failure or a list of questions.
+      bindings:
+        http:
+          type: response
+          method: GET
+          contentType: application/soap+xml
+          headers:
+            Content-Type: application/soap+xml
+            Accept: application/soap+xml
+
+tags:
+  - name: linter_tag
+    description: placeholder that satisfies the linter
