@@ -10,15 +10,19 @@ module AcaEntities
 
       def initialize(on_date: Date.today)
         @on_date = on_date
-        to_proc
+        # to_proc
+      end
+
+      def call(value)
+        age_on(value)
       end
 
       private
 
       # @api private
-      def to_proc
-        ->(arg1) {age_on(arg1)}
-      end
+      # def to_proc
+      #   ->(arg1) {age_on(arg1)}
+      # end
 
       # Convert dob to age
       #

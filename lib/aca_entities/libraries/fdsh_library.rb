@@ -8,10 +8,10 @@ module AcaEntities
       # contracts
       require 'aca_entities/types'
       require 'aca_entities/fdsh/ridp/h139/types'
-      require 'aca_entities/fdsh/ridp/h139/contracts/initial_service_request_contract'
-      require 'aca_entities/fdsh/ridp/h139/contracts/initial_service_response_contract'
-      require 'aca_entities/fdsh/ridp/h139/contracts/subsequent_service_request_contract'
-      require 'aca_entities/fdsh/ridp/h139/contracts/subsequent_service_response_contract'
+      require 'aca_entities/fdsh/ridp/h139/contracts/primary_request_contract'
+      require 'aca_entities/fdsh/ridp/h139/contracts/primary_response_contract'
+      require 'aca_entities/fdsh/ridp/h139/contracts/secondary_request_contract'
+      require 'aca_entities/fdsh/ridp/h139/contracts/secondary_response_contract'
       require 'aca_entities/fdsh/ridp/h139/contracts/fars_request_contract'
       require 'aca_entities/fdsh/ridp/h139/contracts/fars_response_contract'
       require 'aca_entities/fdsh/ridp/h139/contracts/verification_metadata_type_contract'
@@ -35,10 +35,10 @@ module AcaEntities
       require 'aca_entities/fdsh/ridp/h139/contracts/current_income_response_payload_type_contract'
 
       # entities
-      require 'aca_entities/fdsh/ridp/h139/initial_service_request'
-      require 'aca_entities/fdsh/ridp/h139/initial_service_response'
-      require 'aca_entities/fdsh/ridp/h139/subsequent_service_request'
-      require 'aca_entities/fdsh/ridp/h139/subsequent_service_response'
+      require 'aca_entities/fdsh/ridp/h139/primary_request'
+      require 'aca_entities/fdsh/ridp/h139/primary_response'
+      require 'aca_entities/fdsh/ridp/h139/secondary_request'
+      require 'aca_entities/fdsh/ridp/h139/secondary_response'
       require 'aca_entities/fdsh/ridp/h139/fars_request'
       require 'aca_entities/fdsh/ridp/h139/fars_response'
       require 'aca_entities/fdsh/ridp/h139/verification_metadata_type'
@@ -60,6 +60,15 @@ module AcaEntities
       require 'aca_entities/fdsh/ridp/h139/current_income_request_payload_type'
       require 'aca_entities/fdsh/ridp/h139/current_income_response'
       require 'aca_entities/fdsh/ridp/h139/current_income_response_payload_type'
+
+      # transformers
+      require 'aca_entities/fdsh/transformers/ridp/person_to_primary_request'
+
+      # operations
+      require 'aca_entities/fdsh/operations/ridp/generate_primary_request_payload'
+
+      # happymapper
+      require 'aca_entities/serializers/xml/fdsh/ridp'
 
     end
   end

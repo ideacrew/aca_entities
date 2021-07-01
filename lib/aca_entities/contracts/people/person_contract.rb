@@ -12,7 +12,7 @@ module AcaEntities
         # @option opts [Hash] :person_demographics required
         # @option opts [Hash] :person_health required
         # @option opts [Boolean] :is_active required
-        # @option opts [Boolean] :is_disabled required
+        # @option opts [Boolean] :is_disabled optional
         # @option opts [Boolean] :no_dc_address optional
         # @option opts [Boolean] :no_dc_address_reason optional
         # @option opts [Boolean] :is_homeless optional
@@ -41,7 +41,7 @@ module AcaEntities
           required(:person_demographics).hash(AcaEntities::Contracts::People::PersonDemographicsContract.params)
           required(:person_health).hash(AcaEntities::Contracts::People::PersonHealthContract.params)
           required(:is_active).maybe(:bool)
-          required(:is_disabled).filled(:bool)
+          optional(:is_disabled).maybe(:bool)
           optional(:no_dc_address).maybe(:bool)
           optional(:no_dc_address_reason).maybe(:bool)
           optional(:is_homeless).maybe(:bool)

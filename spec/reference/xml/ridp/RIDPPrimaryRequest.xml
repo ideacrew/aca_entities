@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<exch:Request xmlns:exch="http://ridp.dsh.cms.gov/exchange/1.0"
+ xmlns:ext="http://ridp.dsh.cms.gov/extension/1.0"
+ xmlns:i="http://niem.gov/niem/appinfo/2.0"
+ xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0"
+ xmlns:s="http://niem.gov/niem/structures/2.0"
+ xmlns:nc="http://niem.gov/niem/niem-core/2.0"
+ xmlns:usps="http://niem.gov/niem/usps_states/2.0"
+ xmlns:ns0="http://niem.gov/niem/appinfo/2.1"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:schemaLocation="http://ridp.dsh.cms.gov/exchange/1.0 ../XMLschemas/constraint/XMLschemas/exchange/ExchangeModel.xsd">
+    <ext:PrimaryRequest>
+        <ext:Person>
+            <nc:PersonBirthDate>
+                <nc:Date>2006-05-04</nc:Date>
+            </nc:PersonBirthDate>
+            <nc:PersonName>
+                <nc:PersonGivenName>FirstName</nc:PersonGivenName>
+                <nc:PersonMiddleName>MiddleName</nc:PersonMiddleName>
+                <nc:PersonSurName>SurName</nc:PersonSurName>
+                <nc:PersonNameSuffixText>SR</nc:PersonNameSuffixText>
+            </nc:PersonName>
+            <nc:PersonSSNIdentification>123-45-6789</nc:PersonSSNIdentification>
+        </ext:Person>
+        <ext:CurrentAddress>
+            <nc:LocationAddress>
+                <nc:StructuredAddress>
+                    <nc:LocationStreet>
+                        <nc:StreetName>StreetName0</nc:StreetName>
+                    </nc:LocationStreet>
+                    <nc:LocationCityName> </nc:LocationCityName>
+                    <nc:LocationStateUSPostalServiceCode>AK</nc:LocationStateUSPostalServiceCode>
+                    <nc:LocationPostalCode>00000</nc:LocationPostalCode>
+                    <nc:LocationPostalExtensionCode>0000</nc:LocationPostalExtensionCode>
+                </nc:StructuredAddress>
+            </nc:LocationAddress>
+        </ext:CurrentAddress>
+        <ext:ContactInformation>
+            <nc:ContactTelephoneNumber>
+                <nc:FullTelephoneNumber>(410)888-8888</nc:FullTelephoneNumber>
+            </nc:ContactTelephoneNumber>
+        </ext:ContactInformation>
+        <ext:SubscriberNumber>1234567</ext:SubscriberNumber>
+        <ext:SubscriberNumber>1234567</ext:SubscriberNumber>
+    </ext:PrimaryRequest>
+</exch:Request>

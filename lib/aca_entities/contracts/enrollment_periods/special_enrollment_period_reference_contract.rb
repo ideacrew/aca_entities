@@ -35,7 +35,7 @@ module AcaEntities
           optional(:option1_date).value(:date?)
           optional(:option2_date).value(:date?)
           optional(:option3_date).value(:date?)
-          optional(:optional_effective_on).value(:date?)
+          optional(:optional_effective_on).value(:array?)
           optional(:timestamp).hash(AcaEntities::Contracts::TimeStampContract.params)
         end
       end

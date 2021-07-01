@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-# rubocop:disable Style/HashConversion, Style/OptionalArguments, Metrics/BlockNesting, Metrics/ModuleLength
+# rubocop:disable Style/OptionalArguments, Metrics/BlockNesting, Metrics/ModuleLength, Style/HashConversion
 require 'dry/transformer/all'
-require "dry/inflector"
+require 'dry/inflector'
 require 'deep_merge'
 
 module AcaEntities
@@ -39,12 +39,13 @@ module AcaEntities
                           hash.dig(*namespaces) || hash
                         end
 
-            transformed_pair = if func.is_a? Proc
-                                 if input[:context]
-                                   data_pair.update(data_pair) {|_k, _old_value| instance_exec(input[:context], &func)}
-                                 else
-                                   data_pair.update(data_pair) {|_k, old_value| instance_exec(old_value, &func)}
-                                 end
+            transformed_pair = if input[:context] && func.is_a?(Proc)
+                                 data_pair.update(data_pair) { |_k, _old_value| instance_exec(input[:context], &func) }
+                               elsif input[:context]
+                                 # this condition is for custom build non proc functions
+                                 data_pair.update(data_pair) { |_k, _old_value| func.call(input[:context]) }
+                               elsif func.is_a?(Proc)
+                                 data_pair.update(data_pair) { |_k, old_value| instance_exec(old_value, &func) }
                                else
                                  data_pair.transform_values!(&func)
                                end
@@ -123,22 +124,22 @@ module AcaEntities
         # @param mapping The key-rename mapping
         #
         # @example
-        #   rename_nested_keys({"a" => {"b" => { "c" => {"d" => "123"}}, "f" => {"d" => "456"}}},  [{"d" => "e"}], ["a","b","c"])
-        #   # => {"a" => {"b" => { "c" => {"e" => "123"}}, "f" => {"d" => "456"}}}
+        #   rename_nested_keys({ :d => '123' },  [{ :d => :e }], [:a, :b, :c, :e])
+        #   # => {:a=>{:b=>{:c=>{:e=>"123"}}}}
         #
         # @return [Hash]
         def rename_nested_keys(source_hash, mapping, namespaces = [])
           data_pair = if namespaces.empty?
                         source_hash
                       else
-                        nested_hash(source_hash,   mapping.map(&:keys).flatten.first)
+                        nested_hash(source_hash, mapping.map(&:keys).flatten.first)
                       end
 
           mapping.first.each {|k, v| data_pair[v] = data_pair.delete(k) if data_pair.key?(k)}
 
           fns = []
           namespaces.each_with_index do |namespace, index|
-            fns << "t(:wrap, :#{namespace}, [:'#{namespaces[index + 1]}'])"  if namespaces[index + 1]
+            fns << "t(:wrap, :#{namespace}, [:'#{namespaces[index + 1]}'])" if namespaces[index + 1]
           end
           # rubocop:disable Security/Eval
           fns = eval(fns.reverse.flatten.join('.>> '))
@@ -284,6 +285,7 @@ module AcaEntities
         # @return [Array]
         def nested_hash_to_array(data)
           return [] unless data
+
           data.reduce([]) do |keys, (key, value)|
             keys.push(key)
             keys.concat(nested_hash_to_array(value)) if value.is_a?(Hash)
@@ -319,6 +321,7 @@ module AcaEntities
         def deep_accept_keys(source_hash, permitted_keys)
           source_hash.each_with_object({}) do |(key, value), output|
             next unless permitted_keys.include? key
+
             output[key] = case value
                           when ::Hash
                             deep_accept_keys(value, permitted_keys)
@@ -359,8 +362,21 @@ module AcaEntities
         def boolean_string(value)
           { true => 'Y', false => 'N' }[value]
         end
+
+        # Convert date string to date
+        # @param value The input value
+
+        # @example
+        #   convert_to_date("1999-1-1")
+        #   # => #<Date: 1963-01-01 ((2438031j,0s,0n),+0s,2299161j)>
+        #
+        # @return date
+        # @api public
+        def convert_to_date(value)
+          t(:to_date)[value]
+        end
       end
     end
   end
 end
-# rubocop:enable Style/HashConversion, Style/OptionalArguments, Metrics/BlockNesting, Metrics/ModuleLength
+# rubocop:enable Style/OptionalArguments, Metrics/BlockNesting, Metrics/ModuleLength, Style/HashConversion

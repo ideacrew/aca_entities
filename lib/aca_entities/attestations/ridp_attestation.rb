@@ -2,6 +2,7 @@
 
 module AcaEntities
   module Attestations
+    # entity for RidpAttestation
     class RidpAttestation < Dry::Stuct
       attribute :is_satisfied?, Types::Bool.optional.meta(omittable: false)
       attribute :is_self_attested?, Types::Bool.optional.meta(omittable: false)
@@ -9,7 +10,7 @@ module AcaEntities
       attribute :documents,
                 Types::Array
                   .of(AcaEntities::Documents::RidpDocument)
-                  .meta(omittable: false)
+      optional.meta(omittable: false)
 
       attribute :evidences,
                 Types::Array

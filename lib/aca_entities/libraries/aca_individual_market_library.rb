@@ -66,6 +66,7 @@ module AcaEntities
       require 'aca_entities/people/consumer_role'
       require 'aca_entities/people/resident_role'
 
+      require_relative 'fdsh_library'
       require_relative 'core_library'
     end
   end

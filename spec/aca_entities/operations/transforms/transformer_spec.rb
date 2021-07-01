@@ -80,12 +80,6 @@ RSpec.describe AcaEntities::Operations::Transforms::MapSerializer do
         expect(result.values.first.transproc.is_a?(Dry::Transformer::Function)).to eq true
       end
     end
-
-    describe 'with invalid input' do
-      it 'should not build dry transformer function' do
-        expect {foo.add_namespace('b', 'd')}.to raise_error 'expected arg3 not be empty'
-      end
-    end
   end
 
   describe '.namespace' do
@@ -144,7 +138,7 @@ RSpec.describe AcaEntities::Operations::Transforms::Transformer::ClassMethods do
   describe '.add_key' do
     describe 'with valid input' do
       it 'should build dry transformer function' do
-        result = dummy_class.add_key('a', 123)
+        result = dummy_class.add_key('a', value: 123)
 
         expect(result.is_a?(Object)).to eq true
         expect(result._container.values.first.item.key_transforms).to eq [:add_key]

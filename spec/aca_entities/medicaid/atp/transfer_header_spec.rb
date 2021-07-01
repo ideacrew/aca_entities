@@ -11,7 +11,7 @@ RSpec.describe ::AcaEntities::Medicaid::Atp::TransferHeader do
         transfer_id: 'id',
         transfer_date: Date.today.to_datetime,
         number_of_referrals: 4,
-        recipient_code: 'code',
+        recipient_code: 'MedicaidCHIP',
         medicaid_chip_state: 'MA'
       }
     end
