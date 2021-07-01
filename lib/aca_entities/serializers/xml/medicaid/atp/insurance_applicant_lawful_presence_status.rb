@@ -18,8 +18,9 @@ module AcaEntities
             #An eligibility of a person to receive benefits under the Affordable Care Act
             has_one :lawful_presence_status_eligibility, LawfulPresenceStatusEligibility
 
-            def self.domain_to_mapper(_presence_status)
-              self.new
+            def self.domain_to_mapper(lawful_presence_status)
+              mapper = self.new
+              mapper.lawful_presence_status_eligibility = LawfulPresenceStatusEligibility.domain_to_mapper(lawful_presence_status.lawful_presence_status_eligibility)
             end
 
             def to_hash

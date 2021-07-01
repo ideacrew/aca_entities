@@ -97,9 +97,10 @@ module AcaEntities
             # An average number of hours worked (in total) by a parent of an applicant. Max of two values.
             element :parent_average_hours_worked_per_week_values, Float, tag: 'InsuranceApplicantParentAverageHoursWorkedPerWeekValue'
 
-            def self.domain_to_mapper(insurance_application)
+            def self.domain_to_mapper(insurance_applicant)
               mapper = self.new
-              mapper.role_reference = RoleOfPersonReference.domain_to_mapper(insurance_application)
+              mapper.role_reference = RoleOfPersonReference.domain_to_mapper(insurance_applicant.role_reference)
+              mapper.lawful_presence_status = InsuranceApplicantLawfulPresenceStatus.domain_to_mapper(insurance_applicant.lawful_presence_status)
               mapper
             end
 

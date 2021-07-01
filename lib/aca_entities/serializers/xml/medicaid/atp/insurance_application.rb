@@ -41,7 +41,7 @@ module AcaEntities
 
               ]
               mapper.insurance_applicants = [
-                InsuranceApplicant.domain_to_mapper(insurance_application)
+                InsuranceApplicant.domain_to_mapper(insurance_application.applicant)
               ]
               mapper.requesting_financial_assistance = insurance_application.application_metadata.financial_assistance_indicator
               mapper.requesting_medicaid = insurance_application.application_metadata.medicaid_determination_indicator

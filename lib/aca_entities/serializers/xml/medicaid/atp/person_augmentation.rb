@@ -25,8 +25,11 @@ module AcaEntities
             has_many :contacts, PersonContactInformationAssociation
             has_many :persons, PersonAssociation
 
-            def self.domain_to_mapper(_person)
-              self.new
+            def self.domain_to_mapper(person_augmentation)
+              mapper = self.new
+              mapper.preferred_languages = [PersonPreferredLanguage.domain_to_mapper(person_augmentation.person_preferred_language)]
+              mapper.contacts = [PersonContactInformationAssociation.domain_to_mapper(person_augmentation.contact)]
+              mapper.persons = [PersonAssociation.domain_to_mapper(person_augmentation.person)]
             end
 
             def to_hash

@@ -29,6 +29,7 @@ module AcaEntities
             def self.domain_to_mapper(applicant)
               mapper = self.new
               mapper.person_name = PersonName.domain_to_mapper(applicant)
+  
               mapper
             end
 

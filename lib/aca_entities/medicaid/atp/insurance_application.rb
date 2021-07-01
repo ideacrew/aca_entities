@@ -6,7 +6,7 @@ module AcaEntities
       # entity for atp InsuranceApplication
       class InsuranceApplication < Dry::Struct
 
-        attribute :applicants, Types::Array.of(InsuranceApplicant).meta(omittable: false) 
+        attribute :insurance_applicants, Types::Array.of(InsuranceApplicant).meta(omittable: false) 
         attribute :requesting_financial_assistance, Types::Bool.meta(omittable: false)
         attribute :requesting_medicaid, Types::Bool.meta(omittable: false)
         attribute :ssf_primary_contact, SsfPrimaryContact.meta(omittable: false)
