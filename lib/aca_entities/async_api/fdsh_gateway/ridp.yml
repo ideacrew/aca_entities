@@ -1,8 +1,8 @@
 asyncapi: "2.0.0"
 info:
-  title: RIDP - Initiation
+  title: RIDP
   version: 0.1.0
-  description: Initiate connection to the RIDP service and begin a session.
+  description: Interact with the RIDP Service
   contact:
     name: IdeaCrew
     url: https://ideacrew.com
@@ -13,17 +13,17 @@ info:
 
 servers:
   production:
-    url: http://ridp-service/initial
+    url: http://ridp-service/endpoint
     protocol: http
     protocolVersion: 0.1.0
     description: RIDP Initial Service
   development:
-    url: http://ridp-service/initial
+    url: http://ridp-service/endpoint
     protocol: http
     protocolVersion: 0.1.0
     description: RIDP Initial Service
   test:
-    url: http://ridp-service/initial
+    url: http://ridp-service/endpoint
     protocol: http
     protocolVersion: 0.1.0
     description: RIDP Initial Service
@@ -46,6 +46,29 @@ channels:
     subscribe:
       operationId: /on/RIDP/Initiate
       description: Response to RIDP Initiation - contains failure or a list of questions.
+      bindings:
+        http:
+          type: response
+          method: GET
+          contentType: application/soap+xml
+          headers:
+            Content-Type: application/soap+xml
+            Accept: application/soap+xml
+  /RIDP/Respond:
+    publish:
+      operationId: /RIDP/Respond
+      description: Respond to questions posed by RIDP.
+      bindings:
+        http:
+          type: request
+          method: POST
+          contentType: application/soap+xml
+          headers:
+            Content-Type: application/soap+xml
+            Accept: application/soap+xml
+    subscribe:
+      operationId: /on/RIDP/Respond
+      description: Determination provided as a result of answering questions.
       bindings:
         http:
           type: response
