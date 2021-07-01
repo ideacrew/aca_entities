@@ -1,0 +1,58 @@
+asyncapi: "2.0.0"
+info:
+  title: RIDP
+  version: 0.1.0
+  description: Configuration for accessing MitC Medicaid and CHIP eligibility determination services
+  contact:
+    name: IdeaCrew
+    url: https://ideacrew.com
+    email: info@ideacrew.com
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+
+servers:
+  production:
+    url: https://impl.hub.cms.gov
+    protocol: http
+    protocolVersion: 0.1.0
+    description: MitC Development Server
+  development:
+    url: http://mitc:3001
+    protocol: http
+    protocolVersion: 0.1.0
+    description: MitC Development Server
+  test:
+    url: http://mitc:3001
+    protocol: http
+    protocolVersion: 0.1.0
+    description: MitC Test Server
+
+defaultContentType: application/json
+
+channels:
+  /Imp1/RIDPService:
+    publish:
+      operationId: /Imp1/RIDPService
+      description: HTTP endpoint for MitC eligibility determination requests
+      bindings:
+        http:
+          type: request
+          method: POST
+          headers:
+            Content-Type: xml
+            Accept: xml
+    subscribe:
+      operationId: /on/determinations/eval
+      description: EventSource Subscriber that publishes MitC eligibility determination responses
+      bindings:
+        http:
+          type: response
+          method: GET
+          headers:
+            Content-Type: xml
+            Accept: xml
+
+tags:
+  - name: linter_tag
+    description: placeholder that satisfies the linter
