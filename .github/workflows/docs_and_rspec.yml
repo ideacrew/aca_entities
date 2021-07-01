@@ -1,0 +1,69 @@
+name: Docs and RSpec
+on: push
+
+jobs:
+  rspec:
+    runs-on: ubuntu-16.04
+    steps:
+      - uses: actions/checkout@v2
+      - uses: wbari/start-mongoDB@v0.2
+        with:
+          mongoDBVersion: '4.2'
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 2.6
+      - name: Cache Gems
+        uses: actions/cache@v1
+        with:
+          path: vendor/bundle
+          key: ${{ runner.os }}-aca_entities-gems-${{ hashFiles('**/Gemfile.lock') }}-${{ hashFiles('**/Gemfile' ) }}
+          restore-keys: |
+            ${{ runner.os }}-aca_entities-gems-${{ hashFiles('**/Gemfile.lock') }}-${{ hashFiles('**/Gemfile' ) }}
+      - name: bundle install
+        run: |
+          bundle config path vendor/bundle
+          bundle install
+      - name: run rubocop
+        run: |
+          bundle exec rubocop
+      - name: run tests
+        run: |
+          bundle exec rspec
+  docs:
+    needs:
+      - rspec
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          submodules: recursive
+      - uses: nelonoel/branch-name@v1.0.1
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '12'
+      - name: install hugo
+        run: sudo snap install hugo --channel=extended
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 2.6
+      - uses: actions/cache@v2
+        with:
+          path: vendor/bundle
+          key: ${{ runner.os }}-aca_entities-gems-${{ hashFiles('**/Gemfile.lock') }}-${{ hashFiles('**/Gemfile' ) }}
+          restore-keys: |
+            ${{ runner.os }}-aca_entities-gems-${{ hashFiles('**/Gemfile.lock') }}-${{ hashFiles('**/Gemfile' ) }}
+      - name: Install project gems
+        run: |
+          bundle config path vendor/bundle
+          bundle install
+      - name: Run yard
+        run: bundle exec yard && cp -rf ./doc ./hugo/static/
+      - run: cd hugo && npm install && hugo --minify
+      - uses: nelonoel/branch-name@v1.0.1
+      - uses: jakejarvis/s3-sync-action@master
+        env:
+          AWS_S3_BUCKET: ${{ secrets.YARD_S3_BUCKET }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.YARD_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.YARD_SECRET_ACCESS_KEY }}
+          SOURCE_DIR: hugo/public
+          DEST_DIR: ${{ env.BRANCH_NAME }}

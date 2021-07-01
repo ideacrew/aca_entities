@@ -68,7 +68,7 @@ RSpec.describe ::AcaEntities::Contracts::People::PersonReferenceContract, dbclea
 
       it 'should return error message' do
         result = subject.call(required_params.merge(dob: nil))
-        expect(result.errors.messages.first.text).to eq('must be a date')
+        expect(result.errors.messages.first.text).to eq('must be filled')
       end
     end
   end

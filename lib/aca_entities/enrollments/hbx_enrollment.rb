@@ -52,7 +52,7 @@ module AcaEntities
       # attribute :benefit_sponsorship,                             AcaEntities::References::BenefitSponsorship.optional.meta(omittable: false)
       # attribute :sponsored_benefit_package,                       AcaEntities::References::SponsoredBenefitPackage.optional.meta(omittable: false)
       # attribute :sponsored_benefit,                               AcaEntities::References::SponsoredBenefit.optional.meta(omittable: false)
-      # attribute :rating_area,                                     AcaEntities::References::RatingArea.optional.meta(omittable: false)
+      attribute :rating_area,                                       Types::String.optional.meta(omittable: true)
 
       attribute :hbx_enrollment_members,
                 Types::Array.of(AcaEntities::Enrollments::HbxEnrollmentMember).meta(omittable: false)
