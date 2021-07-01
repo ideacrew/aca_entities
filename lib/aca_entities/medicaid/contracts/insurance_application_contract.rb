@@ -6,8 +6,12 @@ module AcaEntities
       # Contract for InsuranceApplicationContract
       class InsuranceApplicationContract < Dry::Validation::Contract
         params do
-          # required(:application_metadta).filled(:hash)
+          required(:application_metadata).filled(:hash)
           # required(:attestation).filled(:hash)
+
+          # required(:application_creation).filled(:hash), 
+          # required(:application_submission).filled(:hash), 
+          # required(:application_identifications).filled(:array), 
 
           required(:insurance_applicants).filled(:array) 
           required(:requesting_financial_assistance).filled(:bool)

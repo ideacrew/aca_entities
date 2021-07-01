@@ -34,12 +34,12 @@ module AcaEntities
             def self.domain_to_mapper(account_transfer_request)
               mapper = self.new
               mapper.version = "2.4"
-              mapper.senders = [Sender.domain_to_mapper(account_transfer_request.sender)]
-              mapper.receivers = [Receiver.domain_to_mapper(account_transfer_request.receiver)]
+              mapper.senders = [Sender.domain_to_mapper(account_transfer_request.senders)]
+              mapper.receivers = [Receiver.domain_to_mapper(account_transfer_request.receivers)]
               mapper.transfer_header = TransferHeader.domain_to_mapper(account_transfer_request.transfer_header)
               mapper.insurance_application = InsuranceApplication.domain_to_mapper(account_transfer_request.insurance_application)
-              mapper.people = [Person.domain_to_mapper(account_transfer_request.person)]
-              mapper.physical_households = [PhysicalHousehold.domain_to_mapper(account_transfer_request.physical_household)]
+              mapper.people = [Person.domain_to_mapper(account_transfer_request.people)]
+              mapper.physical_households = [PhysicalHousehold.domain_to_mapper(account_transfer_request.physical_households)]
               mapper
             end
 

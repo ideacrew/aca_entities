@@ -11,11 +11,24 @@ RSpec.describe AcaEntities::Medicaid::Contracts::InsuranceApplicationContract, t
 
   let(:required_params) do
     {
+      application_metadata: application_metadata,
       insurance_applicants: [insurance_applicant],
       requesting_financial_assistance: false, 
       requesting_medicaid: false, 
       ssf_primary_contact: ssf_primary_contact, 
       tax_return_access_indicator: false
+    }
+  end
+  
+  let(:application_metadata) do
+    {
+      application_ids: [{ identification_id: "an application id" }],
+      application_signature_date: DateTime.now,
+      creation_date: DateTime.now,
+      submission_date: DateTime.now,
+      identification_category_text: "ID CATEGORY TEXT",
+      financial_assistance_indicator: false,
+      medicaid_determination_indicator: false
     }
   end
 

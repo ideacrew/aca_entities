@@ -13,14 +13,14 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
   let(:atp_properties) do
     {
       transfer_header: transfer_header,
-      sender: [sender],
-      receiver: [receiver],
+      senders: [sender],
+      receivers: [receiver],
       physical_households: [{
         household_size_quantity: 1,
         household_member_reference: []
       }],
       insurance_application: insurance_application,
-      medicaid_household: [{}],
+      medicaid_households: [{}],
       people: [person]
     }
   end
@@ -37,27 +37,28 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
 
   let(:insurance_application) do
     {
-      # application_metadata: application_metadata,
+      application_metadata: application_metadata,
       # attestation: attestation,
-      insurance_applicants: [applicant],
+
+      insurance_applicants: [insurance_applicant],
       requesting_financial_assistance: false, 
       requesting_medicaid: false, 
-      ssf_primary_contact: { ssf_primary_contact }, 
+      ssf_primary_contact: ssf_primary_contact, 
       tax_return_access_indicator: false
     }
   end
 
-  # let(:application_metadata) do
-  #   {
-  #     application_ids: [{ identification_id: "an application id" }],
-  #     application_signature_date: DateTime.now,
-  #     creation_date: DateTime.now,
-  #     submission_date: DateTime.now,
-  #     identification_category_text: "ID CATEGORY TEXT",
-  #     financial_assistance_indicator: false,
-  #     medicaid_determination_indicator: false
-  #   }
-  # end
+  let(:application_metadata) do
+    {
+      application_ids: [{ identification_id: "an application id" }],
+      application_signature_date: DateTime.now,
+      creation_date: DateTime.now,
+      submission_date: DateTime.now,
+      identification_category_text: "ID CATEGORY TEXT",
+      financial_assistance_indicator: false,
+      medicaid_determination_indicator: false
+    }
+  end
 
   # let(:attestation) do
   #   {
@@ -80,20 +81,21 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
       role_reference: { ref: "a-person-id" },
       age_left_foster_care: 14,
       blindness_or_disability_indicator: false,
-      lawful_presence_status: { lawful_presence_status }, 
+      lawful_presence_status: lawful_presence_status, 
       temporarily_lives_outside_application_state_indicator: false, 
     }
   end
 
   let(:person) do
     {
-      person_name: { person_name },
+      person_name: person_name,
       ssn: "012345678",
       sex: "SEX",
-      race: "RACE",
-      ethnicity: "ETHNICITY", 
-      birth_date: Date.today,
-      person_augmentation: { person_augmentation },
+      # race: "RACE",
+      # ethnicity: ["eth1", "eth2"], 
+      # birth_date: Date.today - 30,
+      # person_augmentation: person_augmentation,
+
       # demographic: {
       #   dob: Date.today,
       #   gender: "A GENDER",
@@ -123,8 +125,8 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
     {
       married_indicator: true,
       preferred_languages: [{ language_name: "English" }],
-      contacts: [{ contact_information_association }],  
-      persons: [person_association],
+      contacts: [contact_information_association],  
+      persons: [person_association]
     }
 
   end
@@ -148,7 +150,7 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
 
   let(:contact_information_association) do
     {
-      contact: { contact_information },
+      contact: contact_information,
       category_code: "Home"
     }
 
@@ -157,8 +159,8 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
   let(:contact_information) do
     {
       contact_email_id: "satriales@deli.com",
-      mailing_address: { structured_address },
-      telephone_number: { full_telephone }
+      mailing_address: structured_address,
+      telephone_number: full_telephone
     }
   end
 

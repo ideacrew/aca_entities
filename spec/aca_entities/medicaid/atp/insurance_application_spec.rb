@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
+require 'aca_entities/medicaid/atp/application_identity'
+require 'aca_entities/medicaid/atp/application_metadata'
 require 'aca_entities/medicaid/atp/role_of_person_reference'
 require 'aca_entities/medicaid/atp/ssf_primary_contact'
 require 'aca_entities/medicaid/atp/lawful_presence_status_eligibility'
@@ -14,6 +16,7 @@ RSpec.describe ::AcaEntities::Medicaid::Atp::InsuranceApplication, dbclean: :aft
     
     let(:input_params) do
       {
+        application_metadata: application_metadata,
         insurance_applicants: [insurance_applicant],
         requesting_financial_assistance: false, 
         requesting_medicaid: false, 
@@ -21,6 +24,18 @@ RSpec.describe ::AcaEntities::Medicaid::Atp::InsuranceApplication, dbclean: :aft
         tax_return_access_indicator: false
       }
     end
+
+  let(:application_metadata) do
+    {
+      application_ids: [{ identification_id: "an application id" }],
+      application_signature_date: DateTime.now,
+      creation_date: DateTime.now,
+      submission_date: DateTime.now,
+      identification_category_text: "ID CATEGORY TEXT",
+      financial_assistance_indicator: false,
+      medicaid_determination_indicator: false
+    }
+  end
 
     let(:insurance_applicant) do
       { 
@@ -46,7 +61,7 @@ RSpec.describe ::AcaEntities::Medicaid::Atp::InsuranceApplication, dbclean: :aft
 
   describe 'with invalid arguments' do
     it 'should raise error' do
-      expect { subject }.to raise_error(Dry::Struct::Error, /:ref is missing in Hash input/)
+      expect { subject }.to raise_error(Dry::Struct::Error, /:application_ids is missing in Hash input/)
     end
   end
 end
