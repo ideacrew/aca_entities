@@ -17,6 +17,7 @@ module AcaEntities
           required(:requesting_financial_assistance).filled(:bool)
           required(:requesting_medicaid).filled(:bool)
           required(:ssf_primary_contact).filled(:hash) 
+          optional(:ssf_signer).maybe(:hash) 
           required(:tax_return_access_indicator).filled(:bool)
         end
       end

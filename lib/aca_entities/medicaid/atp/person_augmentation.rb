@@ -5,6 +5,7 @@ module AcaEntities
     module Atp
       # entity for atp PersonAugmentation
       class PersonAugmentation < Dry::Struct
+        attribute :us_verteran_indicator, Types::Bool.optional.meta(omittable: true)
         attribute :married_indicator, Types::Bool.optional.meta(omittable: true)
         attribute :preferred_languages, Types::Array.of(PersonPreferredLanguage).optional.meta(omittable: true) 
         attribute :contacts, Types::Array.of(PersonContactInformationAssociation).optional.meta(omittable: true) 

@@ -45,7 +45,17 @@ RSpec.describe AcaEntities::Medicaid::Contracts::InsuranceApplicationContract, t
     }
   end
 
-  let(:optional_params) { {} }
+  let(:optional_params) do
+    { ssf_signer:
+      { ssf_attestation:
+          { non_perjury_indicator: true,
+            not_incarcerated_indicator: true,
+            information_changes_indicator: false
+          }
+      }
+    }
+    
+  end
 
   let(:all_params) { required_params.merge(optional_params)}
 
@@ -90,5 +100,4 @@ RSpec.describe AcaEntities::Medicaid::Contracts::InsuranceApplicationContract, t
       end
     end
   end
-
 end

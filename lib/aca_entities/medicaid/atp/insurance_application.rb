@@ -15,6 +15,7 @@ module AcaEntities
         attribute :requesting_financial_assistance, Types::Bool.meta(omittable: false)
         attribute :requesting_medicaid, Types::Bool.meta(omittable: false)
         attribute :ssf_primary_contact, SsfPrimaryContact.meta(omittable: false)
+        attribute :ssf_signer, SsfSigner.optional.meta(omittable: true)
         attribute :tax_return_access_indicator, Types::Bool.meta(omittable: false)
       end
     end

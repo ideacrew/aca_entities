@@ -43,6 +43,7 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
       requesting_financial_assistance: false, 
       requesting_medicaid: false, 
       ssf_primary_contact: ssf_primary_contact, 
+      ssf_signer: ssf_signer,
       tax_return_access_indicator: false
     }
   end
@@ -116,13 +117,14 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
       last_name: "Moltisanti",
       name_sfx: "",
       name_pfx: "",
-      full_name: "Dicky Moltisanti",
+      full_name: "Dickie Moltisanti",
     }
 
   end
 
   let(:person_augmentation) do
     {
+      us_verteran_indicator: false,
       married_indicator: true,
       preferred_languages: [preferred_language],
       contacts: [contact_information_association],  
@@ -140,6 +142,15 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
     {
       role_reference: { ref: "a-person-id" },
       contact_preference: "Mail"
+    }
+  end
+
+  let(:ssf_signer) { ssf_attestation }
+    
+  let(:ssf_attestation) do
+    { non_perjury_indicator: true,
+      not_incarcerated_indicator: true,
+      information_changes_indicator: false
     }
   end
 

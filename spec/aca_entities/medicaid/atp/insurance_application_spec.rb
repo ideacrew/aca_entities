@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
+require 'aca_entities/medicaid/atp/ssf_attestation'
+require 'aca_entities/medicaid/atp/ssf_signer'
 require 'aca_entities/medicaid/atp/application_identity'
 require 'aca_entities/medicaid/atp/application_metadata'
 require 'aca_entities/medicaid/atp/role_of_person_reference'
@@ -20,7 +22,8 @@ RSpec.describe ::AcaEntities::Medicaid::Atp::InsuranceApplication, dbclean: :aft
         insurance_applicants: [insurance_applicant],
         requesting_financial_assistance: false, 
         requesting_medicaid: false, 
-        ssf_primary_contact: ssf_primary_contact, 
+        ssf_primary_contact: ssf_primary_contact,
+        ssf_signer: ssf_signer,
         tax_return_access_indicator: false
       }
     end
@@ -47,6 +50,15 @@ RSpec.describe ::AcaEntities::Medicaid::Atp::InsuranceApplication, dbclean: :aft
       { 
         role_reference: { ref: "a-person-id" },
         contact_preference: "Email"
+      }
+    end
+
+    let(:ssf_signer) { ssf_attestation }
+    
+    let(:ssf_attestation) do
+      { non_perjury_indicator: true,
+        not_incarcerated_indicator: true,
+        information_changes_indicator: false
       }
     end
 
