@@ -53,6 +53,7 @@ module AcaEntities
         params do
           optional(:hbx_id).maybe(:string)
           required(:effective_on).filled(:date)
+          # TODO change aasm state to state
           required(:aasm_state).filled(:string)
           required(:market_place_kind).filled(
             AcaEntities::Types::EnrollmentMarketPlaceKind
@@ -69,10 +70,7 @@ module AcaEntities
 
           optional(:is_active).maybe(:bool)
           optional(:terminated_on).maybe(:date)
-          optional(:terminate_reason).maybe(:string)
-          optional(:termination_submitted_on).maybe(:date)
-          optional(:waiver_reason).maybe(:string)
-          optional(:review_status).maybe(:string)
+
           optional(:external_enrollment).maybe(:bool)
           optional(:predecessor_enrollment).hash(AcaEntities::Contracts::Enrollments::HbxEnrollmentReferenceContract.params)
 
@@ -81,9 +79,13 @@ module AcaEntities
           optional(:special_enrollment_period_reference).hash(
             AcaEntities::Contracts::EnrollmentPeriods::SpecialEnrollmentPeriodReferenceContract.params
           )
+
+          # broker
           optional(:broker_agency_reference).hash(AcaEntities::Contracts::Organizations::BrokerAgencyProfileReferenceContract.params)
           optional(:broker_role_reference).hash(AcaEntities::Contracts::Brokers::BrokerRoleReferenceContract.params)
 
+          # IVL
+          optional(:review_status).maybe(:string)
           optional(:elected_amount).hash(AcaEntities::Contracts::CurrencyContract.params)
           optional(:elected_premium_credit).hash(AcaEntities::Contracts::CurrencyContract.params)
           optional(:applied_premium_credit).hash(AcaEntities::Contracts::CurrencyContract.params)
@@ -107,6 +109,9 @@ module AcaEntities
           # optional(:sponsored_benefit_package_reference).filled(:hash)
           # optional(:sponsored_benefit_reference).filled(:hash)
           # optional(:rating_area_reference).filled(:hash)
+          optional(:terminate_reason).maybe(:string)
+          optional(:termination_submitted_on).maybe(:date)
+          optional(:waiver_reason).maybe(:string)
 
           optional(:updated_by).hash(AcaEntities::Contracts::People::PersonReferenceContract.params)
           optional(:timestamp).hash(AcaEntities::Contracts::TimeStampContract.params)
