@@ -24,13 +24,15 @@ module AcaEntities
             element :ethnicity, String, tag: "PersonEthnicityText", namespace: "nc"
 
             has_one :birth_date, PersonBirthDate
-            has_one :augmentation, PersonAugmentation
+            has_one :person_augmentation, PersonAugmentation
+            has_one :tribal_augmentation, TribalAugmentation
 
             def self.domain_to_mapper(person)
               mapper = self.new
               mapper.person_name = PersonName.domain_to_mapper(person.person_name)
               mapper.birth_date = PersonBirthDate.domain_to_mapper(person.birth_date)
-              mapper.augmentation = PersonAugmentation.domain_to_mapper(person.augmentation)
+              mapper.person_augmentation = PersonAugmentation.domain_to_mapper(person.person_augmentation)
+              mapper.tribal_augmentation = TribalAugmentation.domain_to_mapper(person.tribal_augmentation)
               mapper
             end
 

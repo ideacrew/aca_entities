@@ -97,7 +97,7 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
       # ethnicity: ["eth1", "eth2"], 
       # birth_date: Date.today - 30,
       person_augmentation: person_augmentation,
-
+      tribal_augmentation: tribal_augmentation
       # demographic: {
       #   dob: Date.today,
       #   gender: "A GENDER",
@@ -121,6 +121,14 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
       full_name: "Dickiea Moltisanti",
     }
 
+  end
+
+  let(tribal_augmentation) do
+    { recognized_tribe_indicator: true,
+      american_indian_or_alaska_native_indicator: true,
+      person_tribe_name: "Tribe Name",
+      location_state_us_postal_service_code: "ME"
+    }
   end
 
   let(:person_augmentation) do
