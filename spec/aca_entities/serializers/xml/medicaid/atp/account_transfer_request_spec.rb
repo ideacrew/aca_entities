@@ -39,7 +39,6 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
     {
       application_metadata: application_metadata,
       # attestation: attestation,
-
       insurance_applicants: [insurance_applicant],
       requesting_financial_assistance: false, 
       requesting_medicaid: false, 
@@ -78,7 +77,7 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
 
   let(:insurance_applicant) do
     { 
-      role_reference: { ref: "a-person-id" },
+      role_reference: { ref: "pe123" },
       age_left_foster_care: 14,
       blindness_or_disability_indicator: false,
       lawful_presence_status: lawful_presence_status, 
@@ -91,10 +90,11 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
       person_name: person_name,
       ssn: "012345678",
       sex: "SEX",
+      # id: "pe123",
       # race: "RACE",
       # ethnicity: ["eth1", "eth2"], 
       # birth_date: Date.today - 30,
-      # person_augmentation: person_augmentation,
+      person_augmentation: person_augmentation,
 
       # demographic: {
       #   dob: Date.today,
@@ -124,11 +124,16 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
   let(:person_augmentation) do
     {
       married_indicator: true,
-      preferred_languages: [{ language_name: "English" }],
+      preferred_languages: [preferred_language],
       contacts: [contact_information_association],  
       persons: [person_association]
     }
+  end
 
+  let(:preferred_language) do
+    { 
+      language_name: "English" 
+    } 
   end
 
   let(:ssf_primary_contact) do
@@ -219,7 +224,6 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
 
   it "is schema valid" do
     document = Nokogiri::XML(mapper.to_xml)
-    puts document
     schema.validate(document).each do |error|
       puts "\n\n======= Schema Error ======="
       puts error.message

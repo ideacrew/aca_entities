@@ -1,19 +1,18 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require 'aca_entities/medicaid/contracts/birth_date_contract'
+require 'aca_entities/medicaid/contracts/ssf_attestation_contract'
 
-RSpec.describe ::AcaEntities::Medicaid::Contracts::BirthDateContract, dbclean: :after_each do
+RSpec.describe ::AcaEntities::Medicaid::Contracts::SsfAttestationContract, dbclean: :after_each do
 
-  let(:required_params) { {} }
-
-  let(:optional_params) do
-    { date: Date.today,
-      date_time: DateTime.now, 
-      year: "2021",
-      year_month: "2021/12"
+  let(:required_params) do 
+    { non_perjury_indicator: true,
+      not_incarcerated_indicator: true,
+      information_changes_indicator: false
     }
   end
+
+  let(:optional_params) { {} }
 
   let(:all_params) { required_params.merge(optional_params)}
 
@@ -23,18 +22,16 @@ RSpec.describe ::AcaEntities::Medicaid::Contracts::BirthDateContract, dbclean: :
         expect(subject.call({}).errors.to_h.keys).to match_array required_params.keys
       end
     end
+
+    context 'with optional parameters only' do
+      it { expect(subject.call(optional_params).error?(required_params.first[0])).to be_truthy }
+    end
   end
 
   context 'valid parameters' do
     context 'with required parameters only' do
-      let(:input_params) { {} }
-
-      before do
-        @result = subject.call(input_params)
-      end
-
-      it { expect(@result.success?).to be_truthy }
-      it { expect(@result.to_h).to eq input_params }
+      it { expect(subject.call(required_params).success?).to be_truthy }
+      it { expect(subject.call(required_params).to_h).to eq required_params }
     end
 
     context 'with all required and optional parameters' do

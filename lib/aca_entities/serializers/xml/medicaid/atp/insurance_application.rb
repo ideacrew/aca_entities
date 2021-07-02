@@ -39,9 +39,14 @@ module AcaEntities
               mapper.application_identifications = [
                 ApplicationIdentification.domain_to_mapper(insurance_application.application_metadata.application_ids)
               ]
-              mapper.insurance_applicants = [
-                InsuranceApplicant.domain_to_mapper(insurance_application.insurance_applicants)
-              ]
+
+              mapper.insurance_applicants = insurance_application.insurance_applicants.map { |insurance_applicant|
+                InsuranceApplicant.domain_to_mapper(insurance_applicant)
+              }
+              # [
+              #   InsuranceApplicant.domain_to_mapper(insurance_application.insurance_applicants)
+              # ]
+
               mapper.requesting_financial_assistance = insurance_application.requesting_financial_assistance
               mapper.requesting_medicaid = insurance_application.requesting_medicaid
               mapper.tax_return_access = insurance_application.tax_return_access_indicator

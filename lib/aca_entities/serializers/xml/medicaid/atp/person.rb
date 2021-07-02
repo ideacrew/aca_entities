@@ -26,10 +26,11 @@ module AcaEntities
             has_one :birth_date, PersonBirthDate
             has_one :augmentation, PersonAugmentation
 
-            def self.domain_to_mapper(applicant)
+            def self.domain_to_mapper(person)
               mapper = self.new
-              mapper.person_name = PersonName.domain_to_mapper(applicant)
-  
+              mapper.person_name = PersonName.domain_to_mapper(person.person_name)
+              mapper.birth_date = PersonBirthDate.domain_to_mapper(person.birth_date)
+              mapper.augmentation = PersonAugmentation.domain_to_mapper(person.augmentation)
               mapper
             end
 

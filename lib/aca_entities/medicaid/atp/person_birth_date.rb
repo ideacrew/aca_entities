@@ -3,8 +3,8 @@
 module AcaEntities
   module Medicaid
     module Atp
-      # entity for atp BirthDate
-      class BirthDate < Dry::Struct
+      # entity for atp PersonBirthDate
+      class PersonBirthDate < Dry::Struct
         
         attribute :date, Types::Date.optional.meta(omittable: true)
         attribute :date_time, Types::DateTime.optional.meta(omittable: true)

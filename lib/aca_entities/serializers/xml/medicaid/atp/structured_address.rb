@@ -20,8 +20,10 @@ module AcaEntities
             element :location_state_us_postal_service_code, String, tag: 'LocationStateUSPostalServiceCode'
             element :location_postal_code, String, tag: 'LocationPostalCode'
 
-            def self.domain_to_mapper(_contact_info)
-              self.new
+            def self.domain_to_mapper(address)
+              mapper = self.new
+              mapper.location_street = LocationStreet.domain_to_mapper(address.location_street)
+              mapper
             end
 
             def to_hash

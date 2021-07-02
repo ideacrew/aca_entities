@@ -14,10 +14,8 @@ module AcaEntities
 
             attribute :ref, String, namespace: "niem-s"
 
-            def self.domain_to_mapper(role_reference)
-              mapper = self.new
-              mapper.ref = role_reference
-              mapper
+            def self.domain_to_mapper(_role_reference)
+              self.new
             end
 
             def to_hash

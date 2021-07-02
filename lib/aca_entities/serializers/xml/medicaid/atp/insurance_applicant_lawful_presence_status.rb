@@ -21,6 +21,7 @@ module AcaEntities
             def self.domain_to_mapper(lawful_presence_status)
               mapper = self.new
               mapper.lawful_presence_status_eligibility = LawfulPresenceStatusEligibility.domain_to_mapper(lawful_presence_status.lawful_presence_status_eligibility)
+              mapper
             end
 
             def to_hash

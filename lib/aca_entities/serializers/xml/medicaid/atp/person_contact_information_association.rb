@@ -22,9 +22,9 @@ module AcaEntities
             # A kind of contact information.
             element :is_primary_indicator, Boolean, tag: 'ContactInformationIsPrimaryIndicator', namespace: 'nc'
 
-            def self.domain_to_mapper(contact)
+            def self.domain_to_mapper(contact_association)
               mapper = self.new
-              mapper.contact = ContactInformation.domain_to_mapper(contact.contact)
+              mapper.contact = ContactInformation.domain_to_mapper(contact_association.contact)
             end
 
             def to_hash

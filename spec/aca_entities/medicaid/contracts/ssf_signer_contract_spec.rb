@@ -1,17 +1,20 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require 'aca_entities/medicaid/contracts/ssf_primary_contact_contract'
+require 'aca_entities/medicaid/contracts/ssf_signer_contract'
 
-RSpec.describe ::AcaEntities::Medicaid::Contracts::SsfPrimaryContactContract, dbclean: :after_each do
+RSpec.describe ::AcaEntities::Medicaid::Contracts::SsfSignerContract, dbclean: :after_each do
 
-  let(:required_params) do 
-    { role_reference: { ref: "a-person-id" },
-      contact_preference: "Email"
+  let(:required_params) { {} }
+
+  let(:optional_params) do
+    { ssf_attestation: 
+        { non_perjury_indicator: true,
+          not_incarcerated_indicator: true,
+          information_changes_indicator: false
+        }
     }
   end
-
-  let(:optional_params) { {} }
 
   let(:all_params) { required_params.merge(optional_params)}
 
@@ -20,10 +23,6 @@ RSpec.describe ::AcaEntities::Medicaid::Contracts::SsfPrimaryContactContract, db
       it 'should list error for every required parameter' do
         expect(subject.call({}).errors.to_h.keys).to match_array required_params.keys
       end
-    end
-
-    context 'with optional parameters only' do
-      it { expect(subject.call(optional_params).error?(required_params.first[0])).to be_truthy }
     end
   end
 

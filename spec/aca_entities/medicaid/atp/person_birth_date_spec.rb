@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require 'aca_entities/medicaid/atp/birth_date'
+require 'aca_entities/medicaid/atp/person_birth_date'
 
-RSpec.describe ::AcaEntities::Medicaid::Atp::BirthDate,  dbclean: :around_each do
+RSpec.describe ::AcaEntities::Medicaid::Atp::PersonBirthDate,  dbclean: :around_each do
   
   describe 'with valid arguments' do
     let(:required_params) { {} }

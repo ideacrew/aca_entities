@@ -3,8 +3,8 @@
 module AcaEntities
   module Medicaid
     module Contracts
-      # Contract for BirthDate.
-      class BirthDateContract < Dry::Validation::Contract
+      # Contract for PersonBirthDateContract.
+      class PersonBirthDateContract < Dry::Validation::Contract
 
         params do
           optional(:date).maybe(:date)

@@ -38,7 +38,10 @@ module AcaEntities
               mapper.receivers = [Receiver.domain_to_mapper(account_transfer_request.receivers)]
               mapper.transfer_header = TransferHeader.domain_to_mapper(account_transfer_request.transfer_header)
               mapper.insurance_application = InsuranceApplication.domain_to_mapper(account_transfer_request.insurance_application)
-              mapper.people = [Person.domain_to_mapper(account_transfer_request.people)]
+              mapper.people = account_transfer_request.people.map{ |person| 
+                Person.domain_to_mapper(person)
+              }              
+              # [Person.domain_to_mapper(account_transfer_request.people)]
               mapper.physical_households = [PhysicalHousehold.domain_to_mapper(account_transfer_request.physical_households)]
               mapper
             end

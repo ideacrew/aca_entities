@@ -13,11 +13,10 @@ module AcaEntities
             tag 'LocationStreet'
             namespace 'nc'
 
-            has_one :street_full_text, String, tag: 'StreetFullText'
+            element :street_full_text, String, tag: 'StreetFullText'
 
-            def self.domain_to_mapper(contact_info)
-              mapper = self.new
-              mapper
+            def self.domain_to_mapper(_location_street)
+              self.new
             end
           end
         end
