@@ -82,6 +82,7 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
       age_left_foster_care: 14,
       blindness_or_disability_indicator: false,
       lawful_presence_status: lawful_presence_status, 
+      long_term_care_indicator: false, 
       temporarily_lives_outside_application_state_indicator: false, 
     }
   end
@@ -117,7 +118,7 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
       last_name: "Moltisanti",
       name_sfx: "",
       name_pfx: "",
-      full_name: "Dickie Moltisanti",
+      full_name: "Dickiea Moltisanti",
     }
 
   end

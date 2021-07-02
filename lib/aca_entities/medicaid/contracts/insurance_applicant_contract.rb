@@ -11,6 +11,7 @@ module AcaEntities
           optional(:age_left_foster_care).maybe(:integer)
           optional(:blindness_or_disability_indicator).maybe(:bool)
           optional(:lawful_presence_status).maybe(:hash)
+          optional(:long_term_care_indicator).maybe(:bool)
           optional(:temporarily_lives_outside_application_state_indicator).maybe(:bool)
         end
       end
