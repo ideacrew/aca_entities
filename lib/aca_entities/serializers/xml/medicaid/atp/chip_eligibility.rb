@@ -29,8 +29,13 @@ module AcaEntities
             has_one :eligibility_date_range, EligibilityDateRange
             has_one :eligibility_establishing_system, EligibilityEstablishingSystem
 
-            def self.domain_to_mapper(_medicaid_eligibility)
-              self.new
+            def self.domain_to_mapper(chip_eligibility)
+              mapper = self.new
+              mapper.trafficking_victim_category_eligibility_basis = 
+                ChipTraffickingVictimCategoryEligibilityBasis.domain_to_mapper(
+                  chip_eligibility.trafficking_victim_category_eligibility_basis
+                )
+              mapper
             end
 
             def to_hash # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity

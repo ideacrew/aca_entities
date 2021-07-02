@@ -13,15 +13,15 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
   let(:atp_properties) do
     {
       transfer_header: transfer_header,
-      sender: [sender],
-      receiver: [receiver],
-      physical_household: [{
+      senders: [sender],
+      receivers: [receiver],
+      physical_households: [{
         household_size_quantity: 1,
         household_member_reference: []
       }],
       insurance_application: insurance_application,
-      medicaid_household: {},
-      person: person
+      medicaid_households: [{}],
+      people: [person]
     }
   end
 
@@ -30,15 +30,21 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
       transfer_id: "ABCDE",
       transfer_date: DateTime.now,
       number_of_referrals: 5,
-      recipient_code: "MedicaidCHIP"
+      recipient_code: "MedicaidCHIP",
+      state_code: "ME"
     }
   end
 
   let(:insurance_application) do
     {
       application_metadata: application_metadata,
-      attestation: attestation,
-      applicants: []
+      # attestation: attestation,
+      insurance_applicants: [insurance_applicant],
+      requesting_financial_assistance: false, 
+      requesting_medicaid: false, 
+      ssf_primary_contact: ssf_primary_contact, 
+      ssf_signer: ssf_signer,
+      tax_return_access_indicator: false
     }
   end
 
@@ -54,13 +60,13 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
     }
   end
 
-  let(:attestation) do
-    {
-      attested_if_information_changes_indicator: false,
-      attested_non_perjury_indicator: false,
-      tax_return_access_indicator: false
-    }
-  end
+  # let(:attestation) do
+  #   {
+  #     attested_if_information_changes_indicator: false,
+  #     attested_non_perjury_indicator: false,
+  #     tax_return_access_indicator: false
+  #   }
+  # end
 
   let(:sender) do
     { sender_code: "a unique id" }
@@ -70,22 +76,149 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
     { recipient_code: "a unique id" }
   end
 
+  let(:insurance_applicant) do
+    { 
+      role_reference: { ref: "pe123" },
+      age_left_foster_care: 14,
+      blindness_or_disability_indicator: false,
+      lawful_presence_status: lawful_presence_status, 
+      long_term_care_indicator: false,
+      chip_eligibility: trafficking_victim_category_eligibility_basis,
+      temporarily_lives_outside_application_state_indicator: false, 
+    }
+  end
+
   let(:person) do
     {
-      person_name: {
-        first_name: "A FIRST NAME",
-        last_name: "A LAST NAME"
-      },
-      demographic: {
-        dob: Date.today,
-        gender: "A GENDER",
-      },
-      citizenship_immigration_status_information: {
-        us_citizen: true
-      },
-      native_american_information: {
-        is_native_american_or_alaska_native: false
+      person_name: person_name,
+      ssn: "012345678",
+      sex: "SEX",
+      # id: "pe123",
+      # race: "RACE",
+      # ethnicity: ["eth1", "eth2"], 
+      # birth_date: Date.today - 30,
+      person_augmentation: person_augmentation,
+      tribal_augmentation: tribal_augmentation
+      # demographic: {
+      #   dob: Date.today,
+      #   gender: "A GENDER",
+      # },
+      # citizenship_immigration_status_information: {
+      #   us_citizen: true
+      # },
+      # native_american_information: {
+      #   is_native_american_or_alaska_native: false
+      # }
+    }
+  end
+
+  let(:person_name) do
+    {
+      first_name: "Dickie",
+      middle_name: "",
+      last_name: "Moltisanti",
+      name_sfx: "",
+      name_pfx: "",
+      full_name: "Dickiea Moltisanti",
+    }
+
+  end
+
+  let(:tribal_augmentation) do
+    { recognized_tribe_indicator: true,
+      american_indian_or_alaska_native_indicator: true,
+      person_tribe_name: "Tribe Name",
+      location_state_us_postal_service_code: "ME"
+    }
+  end
+
+  let(:person_augmentation) do
+    {
+      us_verteran_indicator: false,
+      married_indicator: true,
+      preferred_languages: [preferred_language],
+      contacts: [contact_information_association],  
+      persons: [person_association]
+    }
+  end
+
+  let(:preferred_language) do
+    { 
+      language_name: "English" 
+    } 
+  end
+
+  let(:ssf_primary_contact) do
+    {
+      role_reference: { ref: "a-person-id" },
+      contact_preference: "Mail"
+    }
+  end
+
+  let(:ssf_signer) { ssf_attestation }
+    
+  let(:ssf_attestation) do
+    { non_perjury_indicator: true,
+      not_incarcerated_indicator: true,
+      information_changes_indicator: false
+    }
+  end
+
+  let(:lawful_presence_status) do
+    {
+      arrived_before_1996_indicator: false,
+      lawful_presence_status_eligibility: {
+        eligibility_indicator: true,
+        eligibility_basis_status_code: "Complete"
       }
+    }
+  end
+
+  let(:trafficking_victim_category_eligibility_basis) do
+    {
+      status_indicator: true
+    } 
+  end
+
+  let(:contact_information_association) do
+    {
+      contact: contact_information,
+      category_code: "Home"
+    }
+
+  end
+
+  let(:contact_information) do
+    {
+      contact_email_id: "satriales@deli.com",
+      mailing_address: structured_address,
+      telephone_number: full_telephone
+    }
+  end
+
+  let(:structured_address) do
+    {
+      location_street: { street_full_text: "123 Easy Street" }, 
+      address_secondary_unit_text: "", 
+      location_city_name: "Newark", 
+      location_county_name: "Bergen", 
+      location_county_code: "",
+      location_state_us_postal_service_code: "NJ",
+      location_postal_code: "01234",
+    }
+  end
+
+  let(:full_telephone) do
+    {
+      telephone_number_full_id: "1235556666",
+      telephone_suffix_id: ""
+    }
+  end
+
+  let(:person_association) do
+    {
+      person: { person_id: "a-person-id" },
+      family_relationship_code: "19"
     }
   end
 
@@ -118,7 +251,6 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
 
   it "is schema valid" do
     document = Nokogiri::XML(mapper.to_xml)
-    puts document
     schema.validate(document).each do |error|
       puts "\n\n======= Schema Error ======="
       puts error.message
@@ -142,6 +274,6 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
       puts error.first
       puts error.last
     end
-    # expect(error_objects).to be_empty
+    expect(error_objects).to be_empty
   end
 end

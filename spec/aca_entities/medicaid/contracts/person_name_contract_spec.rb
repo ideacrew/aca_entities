@@ -14,6 +14,7 @@ RSpec.describe ::AcaEntities::Medicaid::Contracts::PersonNameContract, dbclean: 
       full_name: 'prefix first middle last suffix'
      }
   end
+  
   let(:all_params) { required_params.merge(optional_params)}
 
   context 'invalid parameters' do

@@ -16,10 +16,14 @@ RSpec.describe ::AcaEntities::Medicaid::Contracts::InsuranceApplicantContract, d
         { arrived_before_1996_indicator: false,
           lawful_presence_status_eligibility: { eligibility_indicator: false }
         },
+      long_term_care_indicator: false,
+      chip_eligibility: trafficking_victim_category_eligibility_basis,
       temporarily_lives_outside_application_state_indicator: false
     } 
   end
   
+  let(:trafficking_victim_category_eligibility_basis) { {status_indicator: true} }
+
   let(:all_params) { required_params.merge(optional_params)}
 
   context 'invalid parameters' do

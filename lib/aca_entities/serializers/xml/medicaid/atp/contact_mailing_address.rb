@@ -15,8 +15,10 @@ module AcaEntities
             # A postal address by which a person or organization may be contacted.
             has_one :address, StructuredAddress
 
-            def self.domain_to_mapper(_contact_info)
-              self.new
+            def self.domain_to_mapper(mailing_address)
+              mapper = self.new
+              mapper.address = StructuredAddress.domain_to_mapper(mailing_address.address)
+              mapper
             end
 
             def to_hash

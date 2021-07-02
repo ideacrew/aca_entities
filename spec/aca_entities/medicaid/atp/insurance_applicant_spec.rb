@@ -20,6 +20,7 @@ RSpec.describe ::AcaEntities::Medicaid::Atp::InsuranceApplicant, dbclean: :aroun
           { arrived_before_1996_indicator: false,
             lawful_presence_status_eligibility: { eligibility_indicator: false }
           },
+        long_term_care_indicator: false,
         temporarily_lives_outside_application_state_indicator: false
       } 
     end

@@ -9,7 +9,7 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
     loc = File.join(
       File.dirname(__FILE__),
       "..", "..", "..", "..", "..",
-      "reference", "xml", "atp",
+      "support", "atp", "sample_payloads",
       "sample_payloads.xml"
     )
     File.expand_path(loc)
