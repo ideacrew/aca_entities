@@ -19,6 +19,12 @@ module AcaEntities
               mapper = self.new
               mapper
             end
+
+            def to_hash
+              {
+                street_full_text: street_full_text
+              }
+            end
           end
         end
       end

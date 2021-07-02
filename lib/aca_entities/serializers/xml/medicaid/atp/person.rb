@@ -43,7 +43,7 @@ module AcaEntities
                 race: race,
                 ethnicity: ethnicity,
                 birth_date: birth_date&.to_hash,
-                augementation: augementation&.to_hash
+                augementation: augmentation&.to_hash # update the name in family transform
               }
             end
           end
