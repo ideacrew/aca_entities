@@ -101,6 +101,9 @@ module AcaEntities
               mapper = self.new
               mapper.role_reference = RoleOfPersonReference.domain_to_mapper(insurance_applicant.role_reference)
               mapper.lawful_presence_status = InsuranceApplicantLawfulPresenceStatus.domain_to_mapper(insurance_applicant.lawful_presence_status)
+              mapper.chip_eligibilities = insurance_applicant.chip_eligibilities.map { |chip_eligibility|
+                ChipEligibility.domain_to_mapper(chip_eligibility) 
+              }
               mapper
             end
 

@@ -56,6 +56,8 @@ require_relative "atp/tribal_augmentation"
 require_relative "atp/person_name"
 require_relative "atp/person_birth_date"
 require_relative "atp/person"
+require_relative 'atp/chip_trafficking_victim_category_eligibility_basis'
+require_relative "atp/chip_eligibility"
 require_relative "atp/applicant"
 require_relative "atp/account_transfer_request"
 
