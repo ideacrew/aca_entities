@@ -3,7 +3,7 @@
 require "aca_entities/atp/functions/address_builder"
 require "aca_entities/atp/functions/relationship_builder"
 require "aca_entities/atp/functions/lawful_presence_determination_builder"
-require "aca_entities/atp/functions/build_application"
+# require "aca_entities/atp/functions/build_application"
 module AcaEntities
   module Atp
     module Transformers
