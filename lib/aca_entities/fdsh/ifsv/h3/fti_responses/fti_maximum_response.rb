@@ -6,13 +6,13 @@ module AcaEntities
       module H3
         module FtiResponses
           # Response data elements the IRS submits to the Requester via the Hub
-          class Response
+          class MaximumResponse < Dry::Struct
             # An HBX-assigned  numeric ID that uniquely identifies the request
             #   within a given message (both requests and responses)
             #   1-9 characters - numeric only
-            # @return [Types::Fdsh::Irs::RequestIDType]
+            # @return [AcaEntities::Fdsh::Irs::RequeTypes::stIDType]
             attribute :RequestID,
-                      Types::Fdsh::Ifsv::H3::RequestIDType.meta(
+                      AcaEntities::Fdsh::Ifsv::H3::Types::RequestIDType.meta(
                         omittable: false
                       )
 
@@ -20,9 +20,9 @@ module AcaEntities
             #   listed on the application and provided in the request to IRS.
             #   The household aggregate income includes a combined (joint) tax
             #   filer/spouse income if the tax filer/spouse filed a joint tax return
-            # @return [Types::Money]
+            # @return [AcaEntities::Types::Money]
             attribute :HouseholdIncomeAmount,
-                      Types::Money.meta(omittable: false)
+                      AcaEntities::Types::Money.meta(omittable: false)
 
             # SSN for each individual provided in the request for whom tax
             #   data is requested
@@ -30,18 +30,20 @@ module AcaEntities
 
             # Return-level Income is provided for returns found by IRS for tax
             #   filers included in the request.
-            attribute :TaxReturnMAGIAmount, Types::Money.meta(omittable: true)
+            attribute :TaxReturnMAGIAmount,
+                      AcaEntities::Types::Money.meta(omittable: true)
 
             # Identifies AGI for each adjusted return.
             # Note: AGI will not be included in the (Household) Income Amount.
-            attribute :TaxReturnAGIAmount, Types::Money.meta(omittable: true)
+            attribute :TaxReturnAGIAmount,
+                      AcaEntities::Types::Money.meta(omittable: true)
 
             # Identifies the amount of taxable Social Security benefits included
             #  in the individual's Tax Return Income Amount
             # Note: Tax Return Taxable Social Security Benefits Amount is not
             #   provided for adjusted returns.
             attribute :TaxReturnTaxableSocialSecurityBenefitsAmount,
-                      Types::Money.meta(omittable: true)
+                      AcaEntities::Types::Money.meta(omittable: true)
 
             # Identifies the tax year for which IRS is providing data. Typically,
             #   this is be the most recent tax year available for the individual.
@@ -50,15 +52,13 @@ module AcaEntities
             #   (e.g., 2011) may be returned, if available. (In other words,
             #   most recent year or second most recent year filed.)
             attribute :TaxReturnYear,
-                      Types::Fdsh::Ifsv::H3::TaxReturnYearType.meta(
-                        omittable: true
-                      )
+                      AcaEntities::Fdsh::Ifsv::H3::Types::TaxReturnYearType
+                        .meta(omittable: true)
 
             # Identifies the filing status of the individual(s) who filed the return
             attribute :TaxReturnFilingStatusCode,
-                      Types::Fdsh::Ifsv::H3::TaxReturnFilingStatusCode.meta(
-                        omittable: true
-                      )
+                      AcaEntities::Fdsh::Ifsv::H3::Types::TaxReturnFilingStatusCode
+                        .meta(omittable: true)
 
             # Identifies the spouse's SSN on a married filing joint tax return
             #   when both individuals are applicants
@@ -92,8 +92,7 @@ module AcaEntities
 
             # IRS returns a code to the Requester if the request cannot be completed
             #   because of errors
-            attribute :MessageResponseCode,
-                      Types::String.meta(omittable: true)
+            attribute :MessageResponseCode, Types::String.meta(omittable: true)
 
             #  IRS returns a message description to the Requester that corresponds
             #   to the message response code if the request cannot be completed

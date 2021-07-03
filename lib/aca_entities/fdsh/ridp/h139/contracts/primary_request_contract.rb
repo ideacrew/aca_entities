@@ -6,7 +6,6 @@ module AcaEntities
       module H139
         # contract for PrimaryRequest
         class PrimaryRequestContract < Dry::Validation::Contract
-
           params do
             required(:Person).schema do
               required(:PersonName).schema do
@@ -27,7 +26,9 @@ module AcaEntities
                     required(:StreetName).filled(:string)
                   end
                   required(:LocationCityName).filled(:string)
-                  required(:LocationStateUSPostalServiceCode).filled(AcaEntities::Fdsh::Ridp::H139::Types::UsStateAbbreviationKind)
+                  required(:LocationStateUSPostalServiceCode).filled(
+                    AcaEntities::Types::UsStateAbbreviationKind
+                  )
                   required(:LocationPostalCode).filled(:string)
                   optional(:LocationPostalExtensionCode).maybe(:string)
                 end
@@ -40,9 +41,13 @@ module AcaEntities
               end
             end
 
-            optional(:LevelOfProofingCode).maybe(AcaEntities::Fdsh::Ridp::H139::Types::LevelOfProofingCodeKind)
+            optional(:LevelOfProofingCode).maybe(
+              AcaEntities::Fdsh::Ridp::H139::Types::LevelOfProofingCodeKind
+            )
 
-            optional(:PersonLanguagePreference).maybe(AcaEntities::Fdsh::Ridp::H139::Types::PersonLanguagePreference)
+            optional(:PersonLanguagePreference).maybe(
+              AcaEntities::Fdsh::Ridp::H139::Types::PersonLanguagePreference
+            )
             optional(:SubscriberNumber).maybe(:string)
           end
         end
