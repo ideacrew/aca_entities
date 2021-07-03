@@ -11,6 +11,22 @@ module AcaEntities
           send(:include, Dry.Types)
           include Dry::Logic
 
+          BenefitKind =
+            Types::Coercible::String.enum('acf_refugee_medical_assistance')
+
+          RequestIDType = Types::Coercible::String # Integer # 1 -9 chars
+
+          TaxFilerCategoryCodeKind =
+            Types::Coercible::String.enum('PRIMARY', 'SPOUSE', 'DEPENDENT')
+              .freeze
+
+          TaxFilerType =
+            Types::Coercible::String.enum(
+              'TaxFiler',
+              'PrimaryTaxFiler',
+              'SpouseTaxFiler'
+            ).freeze
+
           TaxReturnFilingStatusCode =
             Types::Coercible::String.enum(
               '0', #: 'Single, Filing Declaration of Estimated Income Tax',
@@ -22,27 +38,6 @@ module AcaEntities
               '6', #: 'Married Taxpayer filing a Separate Return (Spouse exemption IS claimed)',
               '7' #: 'Head of Household (Dependent is NOT Claimed)'
             ).freeze
-
-          TaxFilerType =
-            Types::Coercible::String.enum(
-              'TaxFiler',
-              'PrimaryTaxFiler',
-              'SpouseTaxFiler'
-            )
-
-          TaxFilerCategoryCodeKind =
-            Types::Coercible::String.enum('PRIMARY', 'SPOUSE', 'DEPENDENT')
-
-          # run through validation code
-          FullyRestrictedSSNType = Types::String
-
-          # regex: ([1-57-8][0-9]{2}|0([1-9][0-9]|[0-9][1-9])|6([0-57-9][0-9]
-          #   |[0-9][0-57-9]))([1-9][0-9]|[0-9][1-9])([1-9]\d{3}|\d[1-9]\d{2}|\d{2}[1-9]\d|\d{3}[1-9])
-
-          BenefitKind =
-            Types::Coercible::String.enum('acf_refugee_medical_assistance')
-
-          RequestIDType = Types::Coercible::String # Integer # 1 -9 chars
 
           TaxReturnYearType = Types::Coercible::Integer # # 1000 -> 9999
         end
