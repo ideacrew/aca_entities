@@ -18,8 +18,8 @@ module AcaEntities
           # @!attribute [r] person_name
           # Applicant full name
           # @return [String]
-          # attribute :person_name,
-          #           AcaEntities::Fdsh::Person::PersonName.meta(omittable: false)
+          attribute :person_name,
+                    AcaEntities::Fdsh::Person::PersonName.meta(omittable: false)
 
           # @!attribute [r] identification_id
           # Applicant SSN Identification

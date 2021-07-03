@@ -4,7 +4,7 @@ module AcaEntities
   module Fdsh
     module All
       # dependencies
-      # require 'fdsh'
+      require_relative 'fdsh'
 
       # services
       require_relative 'ifsv'

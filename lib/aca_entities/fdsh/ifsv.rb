@@ -12,8 +12,8 @@ require_relative 'ifsv/h3/contracts/request_contract'
 # entitites
 # require_relative 'ifsv/h3/ifsv_requests/maximum_request'
 
-require_relative 'ifsv/h3/fti_applicant_verification'
 require_relative 'ifsv/h3/fti_tax_return'
+require_relative 'ifsv/h3/fti_applicant_verification'
 require_relative 'ifsv/h3/fti_response_metadata'
 require_relative 'ifsv/h3/fti_error_message'
 require_relative 'ifsv/h3/fti_household'

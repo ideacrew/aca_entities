@@ -6,7 +6,7 @@ module AcaEntities
       module H3
         class FtiApplicantVerification < Dry::Struct
           attribute :fti_tax_return,
-                    AcaEntities::Fdsh::Isvf::H3::FtiTaxReturn.meta(
+                    AcaEntities::Fdsh::Ifsv::H3::FtiTaxReturn.meta(
                       omittable: false
                     )
         end
