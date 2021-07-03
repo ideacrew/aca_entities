@@ -4,6 +4,7 @@ module AcaEntities
   module Fdsh
     module Ifsv
       module H3
+        # Applicant Information
         class Applicant < Dry::Struct
           attribute :Person do
             # @!attribute [r] PersonName

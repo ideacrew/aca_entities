@@ -1,8 +1,10 @@
 # frozen_string_literal: true
+
 module AcaEntities
   module Fdsh
     module Ifsv
       module H3
+        # The group of information related to a IFSV applicant
         class FtiHousehold < Dry::Struct
           # An amount of money received by the household in a particular year
           attribute :Income do

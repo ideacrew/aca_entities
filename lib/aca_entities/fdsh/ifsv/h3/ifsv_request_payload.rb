@@ -4,6 +4,7 @@ module AcaEntities
   module Fdsh
     module Ifsv
       module H3
+        #  A data type for the payload
         class IfsvRequestPayload < Dry::Struct
           attribute :Person do
             # @!attribute [r] PersonName

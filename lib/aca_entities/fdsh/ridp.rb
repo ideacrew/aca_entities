@@ -1,4 +1,6 @@
-#types
+# frozen_string_literal: true
+
+# types
 require 'aca_entities/types'
 require_relative 'ridp/h139/types'
 
