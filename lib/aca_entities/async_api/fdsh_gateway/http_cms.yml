@@ -1,4 +1,5 @@
-asyncapi: "2.0.0"
+---
+asyncapi: 2.0.0
 info:
   title: CMS FDSH Hub Services
   version: 0.1.0
@@ -11,11 +12,6 @@ info:
     name: MIT
     url: https://opensource.org/licenses/MIT
 servers:
-  production:
-    url: https://impl.hub.cms.gov/Imp1
-    protocol: http
-    protocolVersion: 0.1.0
-    description: RIDP Initial Service
   development:
     url: https://impl.hub.cms.gov/Imp1
     protocol: http
@@ -23,6 +19,11 @@ servers:
     description: RIDP Initial Service
   test:
     url: https://impl.hub.cms.gov/Imp1
+    protocol: http
+    protocolVersion: 0.1.0
+    description: RIDP Initial Service
+  production:
+    url: https://impl.hub.cms.gov
     protocol: http
     protocolVersion: 0.1.0
     description: RIDP Initial Service
