@@ -5,8 +5,8 @@ require 'dry/monads/do'
 
 module AcaEntities
   module Fdsh
-    module Operations
-      module Ridp
+    module Ridp
+      module Operations
         # This class takes AcaEntities::Families::Famlily as input and returns the ridp primary request hash.
         class GeneratePrimaryRequestPayload
           include Dry::Monads[:result, :do, :try]
@@ -14,12 +14,11 @@ module AcaEntities
 
           # @param [Hash] opts The options to generate Ridp Primary Request Payload
           # @return [Dry::Monads::Result]
-          def call(family)
-            valid_family               = yield validate_family(family)
-            primary_person             = yield fetch_primary_family_members_person(valid_family)
-            primary_request_params     = yield transform_person_to_primary_request(primary_person)
-            validated_primary_request  = yield validate_primary_request(primary_request_params)
-            primary_request_json       = yield primary_request_entity_json(validated_primary_request)
+          def call(person)
+            valid_person              = yield validate_person(person)
+            primary_request_params    = yield transform_person_to_primary_request(valid_person)
+            validated_primary_request = yield validate_primary_request(primary_request_params)
+            primary_request_json      = yield primary_request_entity_json(validated_primary_request)
 
             Success(primary_request_json)
           end
@@ -27,20 +26,11 @@ module AcaEntities
           private
 
           # Validate input object
-          def validate_family(family)
-            if family.is_a?(::AcaEntities::Families::Family)
-              Success(family)
+          def validate_person(person)
+            if person.is_a?(::AcaEntities::People::Person)
+              Success(person)
             else
-              Failure("Invalid Family, given value is not a ::AcaEntities::Families::Family, input_value:#{family}")
-            end
-          end
-
-          def fetch_primary_family_members_person(family)
-            primary_family_member = family.family_members.detect(&:is_primary_applicant)
-            if primary_family_member
-              Success(primary_family_member.person)
-            else
-              Failure("No Primary Applicant in family members")
+              Failure("Invalid person, given value is not a AcaEntities::People::Person, input_value:#{person}")
             end
           end
 

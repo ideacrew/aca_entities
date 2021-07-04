@@ -74,9 +74,9 @@ RSpec.describe AcaEntities::Contracts::People::PersonContract, type: :model, dbc
 
   let(:timestamp) do
     {
-      submitted_at: Date.today,
-      created_at: Date.today,
-      modified_at: Date.today
+      submitted_at: DateTime.now,
+      created_at: DateTime.now,
+      modified_at: DateTime.now
     }
   end
 

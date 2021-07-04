@@ -6,9 +6,9 @@ RSpec.describe ::AcaEntities::Contracts::TimeStampContract, dbclean: :after_each
 
   let(:required_params) do
     {
-      submitted_at: Date.today,
-      created_at: Date.today,
-      modified_at: Date.today
+      submitted_at: DateTime.now,
+      created_at: DateTime.now,
+      modified_at: DateTime.now
     }
   end
 
@@ -47,7 +47,7 @@ RSpec.describe ::AcaEntities::Contracts::TimeStampContract, dbclean: :after_each
 
     context 'with bad input data type' do
       before do
-        @result = subject.call(required_params.merge(submitted_at: nil))
+        @result = subject.call(required_params.merge(created_at: nil))
       end
 
       it 'should return failure' do
@@ -59,7 +59,7 @@ RSpec.describe ::AcaEntities::Contracts::TimeStampContract, dbclean: :after_each
       end
 
       it 'should return error message' do
-        expect(@result.errors.messages.first.text).to eq('must be a date')
+        expect(@result.errors.messages.first.text).to eq('must be a date time')
       end
     end
   end

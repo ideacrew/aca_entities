@@ -12,8 +12,7 @@ module AcaEntities
       attribute :person_health,
                 AcaEntities::People::PersonHealth.meta(omittable: false)
       attribute :no_dc_address, Types::Bool.optional.meta(omittable: true)
-      attribute :no_dc_address_reason,
-                Types::Bool.optional.meta(omittable: true)
+      attribute :no_dc_address_reason, Types::String.optional.meta(omittable: true)
       attribute :is_homeless, Types::Bool.optional.meta(omittable: true)
       attribute :is_temporarily_out_of_state,
                 Types::Bool.optional.meta(omittable: true)
@@ -21,7 +20,7 @@ module AcaEntities
       attribute :is_applying_for_assistance,
                 Types::Bool.optional.meta(omittable: true)
       attribute :is_active, Types::Bool.optional.meta(omittable: true)
-      attribute :is_disabled, Types::Bool.meta(omittable: true)
+      attribute :is_disabled, Types::Bool.optional.meta(omittable: true)
       attribute :person_relationships,
                 Types::Array
                   .of(AcaEntities::People::PersonRelationship)
