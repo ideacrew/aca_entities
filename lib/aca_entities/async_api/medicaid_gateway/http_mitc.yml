@@ -1,0 +1,58 @@
+asyncapi: "2.0.0"
+info:
+  title: MAGI in the Cloud (MitC)
+  version: 0.1.0
+  description: Configuration for accessing MitC Medicaid and CHIP eligibility determination services
+  contact:
+    name: IdeaCrew
+    url: https://ideacrew.com
+    email: info@ideacrew.com
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+
+servers:
+  production:
+    url: http://mitc:3001
+    protocol: http
+    protocolVersion: 0.1.0
+    description: MitC Development Server
+  development:
+    url: http://mitc:3001
+    protocol: http
+    protocolVersion: 0.1.0
+    description: MitC Development Server
+  test:
+    url: http://mitc:3001
+    protocol: http
+    protocolVersion: 0.1.0
+    description: MitC Test Server
+
+defaultContentType: application/json
+
+channels:
+  /determinations/eval:
+    publish:
+      operationId: /determinations/eval
+      description: HTTP endpoint for MitC eligibility determination requests
+      bindings:
+        http:
+          type: request
+          method: POST
+          headers:
+            Content-Type: application/json
+            Accept: application/json
+    subscribe:
+      operationId: /on/determinations/eval
+      description: EventSource Subscriber that publishes MitC eligibility determination responses
+      bindings:
+        http:
+          type: response
+          method: GET
+          headers:
+            Content-Type: application/json
+            Accept: application/json
+
+tags:
+  - name: linter_tag
+    description: placeholder that satisfies the linter

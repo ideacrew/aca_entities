@@ -8,7 +8,7 @@ module AcaEntities
       # title
       attribute :name,            Types::String.optional.meta(omittable: true)
       attribute :kind,            Types::DeductionKind.optional.meta(omittable: true)
-      attribute :amount,          Types::Float.optional.meta(omittable: true)
+      attribute :amount,          Types::Money.optional.meta(omittable: true)
       attribute :start_on,        Types::Date.optional.meta(omittable: true)
       attribute :end_on,          Types::Date.optional.meta(omittable: true)
       attribute :frequency_kind,  Types::DeductionFrequency.optional.meta(omittable: true)

@@ -10,8 +10,9 @@ module AcaEntities
       class Deserialize
         send(:include, Dry::Monads[:result, :do])
 
-        # @param [String] params YAML String to be transformed deserialized
-        # @return [Dry::Monad] parsed values
+        # @param [Hash] params the params to read file
+        # @options params [String] yaml String of YAML-structured values
+        # @return [Hash] contents in haah form wrapped in Dry::Monads::Result
         def call(params)
           values = yield transform(params)
           Success(values)
@@ -20,7 +21,8 @@ module AcaEntities
         private
 
         def transform(params)
-          result = YAML.safe_load(ERB.new(params).result)
+          result = YAML.safe_load(ERB.new(params[:yaml]).result, [Symbol])
+
           Success(result || {})
         rescue Psych::SyntaxError => e
           raise "YAML syntax error occurred while parsing #{params}. " \

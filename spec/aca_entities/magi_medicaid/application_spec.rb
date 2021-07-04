@@ -9,6 +9,12 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Application, dbclean: :after_each do
     let(:name) { { first_name: 'first', last_name: 'last' } }
     let(:identifying_information) { { has_ssn: false } }
     let(:demographic) { { gender: 'Male', dob: Date.today.prev_year.to_s } }
+    let(:benchmark_premium) do
+      { health_only_lcsp_premiums: [{ member_identifier: '95', monthly_premium: 310.50 },
+                                    { member_identifier: '96', monthly_premium: 310.60 }],
+        health_only_slcsp_premiums: [{ member_identifier: '95', monthly_premium: 320.50 },
+                                     { member_identifier: '96', monthly_premium: 320.60 }] }
+    end
     let(:attestation) { { is_self_attested_disabled: false, is_self_attested_blind: false } }
     let(:family_member_reference) do
       { family_member_hbx_id: '1000',
@@ -62,6 +68,9 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Application, dbclean: :after_each do
         has_deductions: false,
         has_enrolled_health_coverage: false,
         has_eligible_health_coverage: false,
+        age_of_applicant: 45,
+        benchmark_premium: benchmark_premium,
+        is_homeless: false,
         mitc_relationships: mitc_relationships,
         mitc_income: mitc_income }
     end
@@ -69,9 +78,11 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Application, dbclean: :after_each do
     let(:application_params) do
       { family_reference: family_reference,
         assistance_year: Date.today.year,
+        aptc_effective_date: Date.today,
         applicants: [applicant],
         us_state: 'DC',
-        hbx_id: '200000123' }
+        hbx_id: '200000123',
+        oe_start_on: Date.new(Date.today.year, 11, 1) }
     end
 
     context 'with one applicant' do
@@ -129,7 +140,7 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Application, dbclean: :after_each do
 
       let(:tax_hh) do
         { max_aptc: 100.56,
-          csr: 73,
+          hbx_id: '12345',
           is_insurance_assistance_eligible: 'Yes',
           tax_household_members: [tax_household_member] }
       end

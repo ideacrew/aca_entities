@@ -1,0 +1,79 @@
+asyncapi: "2.0.0"
+info:
+  title: CMS FDSH Hub Services
+  version: 0.1.0
+  description: Access CMS Services that support State-based Exchange Activities
+  contact:
+    name: IdeaCrew
+    url: https://ideacrew.com
+    email: info@ideacrew.com
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+servers:
+  production:
+    url: https://impl.hub.cms.gov/Imp1
+    protocol: http
+    protocolVersion: 0.1.0
+    description: RIDP Initial Service
+  development:
+    url: https://impl.hub.cms.gov/Imp1
+    protocol: http
+    protocolVersion: 0.1.0
+    description: RIDP Initial Service
+  test:
+    url: https://impl.hub.cms.gov/Imp1
+    protocol: http
+    protocolVersion: 0.1.0
+    description: RIDP Initial Service
+defaultContentType: application/soap+xml
+channels:
+  /RIDPService:
+    publish:
+      operationId: /RIDPService
+      description: Send request to RIDP endpoint
+      bindings:
+        http:
+          type: request
+          method: POST
+          contentType: application/soap+xml
+          headers:
+            Content-Type: application/soap+xml
+            Accept: application/soap+xml
+    subscribe:
+      operationId: /on/RIDPService
+      description: Receive response from RIDP request
+      bindings:
+        http:
+          type: response
+          method: GET
+          contentType: application/soap+xml
+          headers:
+            Content-Type: application/soap+xml
+            Accept: application/soap+xml
+  /HubConnectivityService:
+    publish:
+      operationId: /HubConnectivityService
+      description: Send request to Hub Connectivity endpoint
+      bindings:
+        http:
+          type: request
+          method: POST
+          contentType: application/soap+xml
+          headers:
+            Content-Type: application/soap+xml
+            Accept: application/soap+xml
+    subscribe:
+      operationId: /on/HubConnectivityService
+      description: Receive response from Hub Connectivity request
+      bindings:
+        http:
+          type: response
+          method: GET
+          contentType: application/soap+xml
+          headers:
+            Content-Type: application/soap+xml
+            Accept: application/soap+xml
+tags:
+  - name: linter_tag
+    description: placeholder that satisfies the linter

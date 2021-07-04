@@ -34,7 +34,7 @@ module AcaEntities
           required(:city).filled(:string)
           optional(:county).maybe(:string)
           optional(:county_code).maybe(:string)
-          required(:state).filled(:string)
+          required(:state).filled(Types::UsStateAbbreviationKind)
           required(:zip).filled do
             str? & format?(Types::ZipCodeRegex)
           end

@@ -14,8 +14,7 @@ module AcaEntities
       include Dry::Logic
 
       # Emails              = Array.of(Types::Email)
-      PositiveInteger     = Coercible::Integer.constrained(gteq: 0)
-      Bson                = Types.Constructor(BSON::ObjectId) { |val| BSON::ObjectId val }
+      PositiveInteger = Coercible::Integer.constrained(gteq: 0)
     end
   end
 end

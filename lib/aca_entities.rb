@@ -11,6 +11,7 @@ require 'aca_entities/version'
 require 'aca_entities/error'
 
 require 'aca_entities/libraries/aca_individual_market_library'
+require 'aca_entities/libraries/fdsh_library'
 require 'aca_entities/libraries/core_library'
 
 # require 'aca_entities/operations/operation'
@@ -26,4 +27,8 @@ require 'aca_entities/transform'
 # AcaEntities provides a shared interface for the serialization and deserialization
 # of shared ACA entities across applications.
 module AcaEntities
+
+  def self.async_api_config_find_by_service_name(service_name = nil)
+    ::AcaEntities::AsyncApi::Operations::FindConfigsByServiceName.new.call(service_name: service_name)
+  end
 end

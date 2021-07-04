@@ -7,16 +7,22 @@ module AcaEntities
       class PremiumTableContract < Dry::Validation::Contract
 
         params do
-          # required(:_id).filled(Types::Bson)
           required(:effective_period).filled(type?: Range)
-          # required(:rating_area_id).filled(Types::Bson)
-          optional(:premium_tuples).array(:hash)
+          required(:rating_area).filled(BenefitMarkets::Locations::RatingAreaContract.params)
+          optional(:premium_tuples).array(BenefitMarkets::Products::PremiumTupleContract.params)
         end
 
         rule(:premium_tuples).each do
-          if key? && value
+          if key && value
             result = PremiumTupleContract.new.call(value)
             key.failure(text: "invalid premium tuple", error: result.errors.to_h) if result&.failure?
+          end
+        end
+
+        rule(:rating_area).each do
+          if key && value
+            result = BenefitMarkets::Locations::RatingAreaContract.new.call(value)
+            key.failure(text: "invalid prating area", error: result.errors.to_h) if result&.failure?
           end
         end
       end

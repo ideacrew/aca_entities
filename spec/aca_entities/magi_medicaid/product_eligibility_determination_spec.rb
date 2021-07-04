@@ -30,7 +30,10 @@ RSpec.describe ::AcaEntities::MagiMedicaid::ProductEligibilityDetermination, dbc
     end
 
     it 'should return all keys of ProductEligibilityDetermination' do
-      expect(@result.to_h.keys).to eq(input_params.keys)
+      result_app_keys = @result.to_h.keys
+      input_app_keys = input_params.keys
+      expect(result_app_keys - input_app_keys).to be_empty
+      expect(input_app_keys - result_app_keys).to be_empty
     end
   end
 

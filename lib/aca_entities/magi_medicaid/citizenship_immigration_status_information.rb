@@ -5,7 +5,7 @@ module AcaEntities
     # Cv3 IAP Entity for CitizenshipImmigrationStatusInformation.
     class CitizenshipImmigrationStatusInformation < Dry::Struct
 
-      attribute :citizen_status, Types::CitizenKinds.meta(omittable: false)
+      attribute :citizen_status, Types::CitizenKinds.optional.meta(omittable: true)
       attribute :is_resident_post_092296, Types::Bool.optional.meta(omittable: true)
 
       # @!attribute [r] is_lawful_presence_self_attested

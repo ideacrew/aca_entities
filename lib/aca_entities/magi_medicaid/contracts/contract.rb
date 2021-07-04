@@ -160,24 +160,11 @@ module AcaEntities
 
           if check_if_present?(value[:incomes]) && value[:incomes].is_a?(Array)
             value[:incomes].each_with_index do |income, i_index|
-              income_failure_key = [:applicants, index, :incomes, i_index]
-              if check_if_present?(income[:employer]) &&
-                 check_if_present?(income[:employer][:employer_id]) &&
-                 !income[:employer][:employer_id].match?(/^[0-9]$/)
-                key(income_failure_key + [:employer, :employer_id]).failure(text: 'must be numbers only')
-              end
-
               # end_on
               if check_if_present?(income[:end_on]) && income[:start_on] && income[:end_on] < income[:start_on]
                 key([:applicants, index, :incomes, i_index, :end_on]).failure(text: 'must be after income start_on')
               end
             end
-          end
-
-          if check_if_present?(value[:native_american_information]) &&
-             check_if_present?(value[:native_american_information][:tribal_id]) &&
-             !value[:native_american_information][:tribal_id].match?(/^[0-9]$/)
-            key([:applicants, index, :native_american_information, :tribal_id]).failure(text: 'must be numbers only')
           end
 
           # PregnancyInformation
@@ -253,6 +240,34 @@ module AcaEntities
             end
           end
           # rubocop:enable Style/Next
+        end
+
+        def more_than_one_determination?(ped)
+          [ped[:is_ia_eligible],
+           ped[:is_medicaid_chip_eligible] || ped[:is_magi_medicaid],
+           ped[:is_totally_ineligible],
+           ped[:is_uqhp_eligible]].count(true) > 1
+        end
+
+        rule(:tax_households).each do |index:|
+          value[:tax_household_members].each_with_index do |thhm, thhm_index|
+            ped = thhm[:product_eligibility_determination]
+
+            if ped[:is_csr_eligible] && check_if_blank?(ped[:csr])
+              key_name = [:tax_households, index, :tax_household_members, thhm_index, :product_eligibility_determination, :csr]
+              key(key_name).failure(text: 'cannot be empty when is_csr_eligible is answered.')
+            end
+
+            # rubocop:disable Style/Next
+            if more_than_one_determination?(ped)
+              key_name = [:tax_households, index, :tax_household_members, thhm_index, :product_eligibility_determination]
+              msg = 'Member is eligible for more than one eligibilities:'\
+                    ' [:is_ia_eligible, :is_medicaid_chip_eligible, :is_magi_medicaid,'\
+                    ' :is_totally_ineligible, :is_without_assistance]'
+              key(key_name).failure(text: msg)
+            end
+            # rubocop:enable Style/Next
+          end
         end
       end
     end

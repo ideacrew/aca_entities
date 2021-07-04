@@ -34,7 +34,12 @@ module AcaEntities
         require 'aca_entities/magi_medicaid/income'
         require 'aca_entities/magi_medicaid/benefit'
         require 'aca_entities/magi_medicaid/deduction'
+        require 'aca_entities/magi_medicaid/other_health_service'
+        require 'aca_entities/magi_medicaid/medicaid_and_chip'
+        require 'aca_entities/magi_medicaid/member_premium'
+        require 'aca_entities/magi_medicaid/benchmark_premium'
         require 'aca_entities/magi_medicaid/applicant'
+        require 'aca_entities/magi_medicaid/category_determination'
         require 'aca_entities/magi_medicaid/product_eligibility_determination'
         require 'aca_entities/magi_medicaid/tax_household_member'
         require 'aca_entities/magi_medicaid/tax_household'
@@ -64,7 +69,12 @@ module AcaEntities
         require 'aca_entities/magi_medicaid/contracts/deduction_contract'
         require 'aca_entities/magi_medicaid/contracts/benefit_contract'
         require 'aca_entities/contracts/locations/address_contract'
+        require 'aca_entities/magi_medicaid/contracts/other_health_service_contract'
+        require 'aca_entities/magi_medicaid/contracts/medicaid_and_chip_contract'
+        require 'aca_entities/magi_medicaid/contracts/member_premium_contract'
+        require 'aca_entities/magi_medicaid/contracts/benchmark_premium_contract'
         require 'aca_entities/magi_medicaid/contracts/applicant_contract'
+        require 'aca_entities/magi_medicaid/contracts/category_determination_contract'
         require 'aca_entities/magi_medicaid/contracts/product_eligibility_determination_contract'
         require 'aca_entities/magi_medicaid/contracts/tax_household_member_contract'
         require 'aca_entities/magi_medicaid/contracts/tax_household_contract'
@@ -74,6 +84,7 @@ module AcaEntities
         require 'aca_entities/magi_medicaid/transformers/iap_to/mitc'
 
         # Operations
+        require 'aca_entities/magi_medicaid/operations/initialize_application'
         require 'aca_entities/magi_medicaid/operations/mitc/generate_request_payload'
       end
     end

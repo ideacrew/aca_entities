@@ -9,12 +9,17 @@ module AcaEntities
         # to MitcApplication Contract params.
         # This class is PRIVATE and cannot be called from outside except from operation:
         # AcaEntities::MagiMedicaid::Operations::Mitc::GenerateRequestPayload
+        # TODO: Remove the mocked attributes
         class Mitc < ::AcaEntities::Operations::Transforms::Transform
           include ::AcaEntities::Operations::Transforms::Transformer
 
           namespace 'applicants' do
             rewrap 'people', type: :array do
               rewrap '', type: :hash do
+
+                # TODO: Remove below mocked attributes
+                add_key 'has_forty_title_ii_work_quarters', value: 'N'
+                add_key 'is_amerasian', value: 'N'
 
                 namespace 'mitc_relationships' do
                   rewrap 'relationships', type: :array do
@@ -100,13 +105,13 @@ module AcaEntities
                   end
                 end
 
-                map 'is_required_to_file_taxes', 'is_required_to_file_taxes', function: ->(value) { boolean_string(value) }
+                map 'mitc_is_required_to_file_taxes', 'is_required_to_file_taxes', function: ->(value) { boolean_string(value) }
                 map 'age_of_applicant', 'age_of_applicant'
                 map 'hours_worked_per_week', 'hours_worked_per_week'
 
                 map 'is_temporarily_out_of_state', 'is_temporarily_out_of_state', memoize: true, visible: false
                 add_key 'resides_in_state_of_application', function: ->(v) {
-                  boolean_string(v.resolve('is_temporarily_out_of_state').item)
+                  boolean_string(!v.resolve('is_temporarily_out_of_state').item)
                 }
                 add_key 'is_temporarily_out_of_state', function: ->(v) {
                   boolean_string(v.resolve('is_temporarily_out_of_state').item)
@@ -118,8 +123,9 @@ module AcaEntities
                     add_key 'is_us_citizen', function: ->(v) { boolean_string(v.resolve('citizen_status').item == 'us_citizen') }
 
                     # TODO: use mapper to determine the immigration status code from AcaEntities::MagiMedicaid::Mitc::Types::ImmigrationStatusCodeMap
+                    # Currently defaulting immigration_status to 01 which maps to 'Lawful Permanent Resident (LPR/Green Card Holder)'
                     add_key 'immigration_status', function: ->(v) {
-                      AcaEntities::MagiMedicaid::Mitc::Types::ImmigrationStatusCodeMap[v.resolve('citizen_status').item] || '99'
+                      AcaEntities::MagiMedicaid::Mitc::Types::ImmigrationStatusCodeMap[v.resolve('citizen_status').item] || '01'
                     }
 
                     map 'is_lawful_presence_self_attested', 'is_lawful_presence_self_attested', function: ->(value) { boolean_string(value) }

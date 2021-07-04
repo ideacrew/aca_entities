@@ -1,9 +1,21 @@
----
+c---
 asyncapi: 2.0.0
+id: "https://github.com/ideacrew/crm_gateway-server"
 info:
   title: SugarCRM Gateway Adapter Service
   version: 0.1.0
   description: This service provides accesss to SugarCRM Customer Relationship Mangement systems
+servers:
+  production:
+    url: https://example.com
+    protocol: amqp
+    protocolVersion: "0.9.2"
+    description: RabbitMQ Production Server
+  test:
+    url: https://test.example.com
+    protocol: amqp
+    protocolVersion: "0.9.2"
+    description: RabbitMQ Test Server
 channels:
   crm.contact_created:
     subscribe:
@@ -11,21 +23,48 @@ channels:
       summary: CRM Contact Created
       message:
         $ref: "#/components/messages/crm_contacts_contact_created_event"
-  crm.sugar_crm.contacts.contact_created:
-    publish:
-      operationId: on_crm_sugarcrm_contacts_contact_created
-      summary: SugarCRM Contact Created
-      message:
-        $ref: "#/components/messages/crm_sugar_crm_contacts_contact_created_event"
-        payload:
-          type: object
-    subscribe:
-      operationId: crm_sugarcrm_contacts_contact_created
-      summary: SugarCRM Contact Created
-      message:
-        $ref: "#/components/messages/crm_sugar_crm_contacts_contact_created_event"
-        payload:
-          type: object
+    bindings:
+      amqp:
+        is: routing_key
+        binding_version: "0.2.0"
+        exchange:
+          name: "crm.contact_created"
+          type: fanout
+          durable: true
+          auto_delete: true
+          vhost: "/"
+          amqp:
+            is: :queue,
+            binding_version: "0.2.0"
+            queue:
+              name: "crm.contact_created"
+              durable: true,
+              auto_delete: true,
+              vhost: "/"
+              exclusive: true
+      amqp:
+        is: :queue
+          binding_version: "0.2.0"
+          crm.sugar_crm.contact_created:
+          publish:
+            operationId: on_crm_sugarcrm_contacts_contact_created
+        summary: SugarCRM Contact Created
+        message:
+          $ref: "#/components/messages/crm_sugar_crm_contacts_contact_created_event"
+          payload:
+            type: object
+      subscribe:
+        operationId: crm_sugarcrm_contacts_contact_created
+        summary: SugarCRM Contact Created
+        message:
+          $ref: "#/components/messages/crm_sugar_crm_contacts_contact_created_event"
+          payload:
+            type: object
+        bindings:
+          expiration: 1
+          timestamp: true
+          ack: true
+          binding_version: 0.2.0
 components:
   messages:
     crm_contacts_contact_created_event:

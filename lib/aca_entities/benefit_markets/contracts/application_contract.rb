@@ -11,7 +11,7 @@ module AcaEntities
       #   Validates a nested array of $0 params
       #   @!method rule(product_packages)
       rule(:product_packages).each do
-        if key? && value && !value.is_a?(BenefitMarkets::ProductPackage)
+        if key && value && !value.is_a?(BenefitMarkets::ProductPackage)
           if value.is_a?(Hash)
             result = BenefitMarkets::Products::ProductPackageContract.new.call(value)
             key.failure(text: "invalid product package", error: result.errors.to_h) if result&.failure?
@@ -25,11 +25,16 @@ module AcaEntities
       #   Validates a nested array of $0 params
       #   @!method rule(products)
       rule(:products).each do
-        if key? && value && !value.is_a?(BenefitMarkets::Product)
+        if key && value && !value.is_a?(BenefitMarkets::Product)
           if value.is_a?(Hash)
-            contract_class = "BenefitMarkets::Products::#{value[:kind].to_s.camelize}ProductContract".constantize
+            kind = value[:kind].to_s.split('_').collect(&:capitalize).join
+            contract_class = Class.const_get("AcaEntities::BenefitMarkets::Products::#{kind}ProductContract")
             result = contract_class.new.call(value)
-            key.failure(text: "invalid product", error: result.errors.to_h) if result&.failure?
+            if result&.failure?
+              key.failure(text: "invalid product", error: result.errors.to_h)
+            else
+              value.merge!(result.to_h)
+            end
           else
             key.failure(text: "invalid products. expected a hash or product entity")
           end
@@ -40,7 +45,7 @@ module AcaEntities
       #   Validates a nested array of $0 params
       #   @!method rule(contribution_models)
       rule(:contribution_models).each do
-        if key? && value && !value.is_a?(BenefitMarkets::ContributionModel)
+        if key && value && !value.is_a?(BenefitMarkets::ContributionModel)
           if value.is_a?(Hash)
             result = BenefitMarkets::ContributionModels::ContributionModelContract.new.call(value)
             key.failure(text: "invalid contribution model", error: result.errors.to_h) if result&.failure?
@@ -54,7 +59,7 @@ module AcaEntities
       #   Validates a nested array of $0 params
       #   @!method rule(contribution_model)
       rule(:contribution_model) do
-        if key? && value && !value.is_a?(BenefitMarkets::ContributionModel)
+        if key && value && !value.is_a?(BenefitMarkets::ContributionModel)
           if value.is_a?(Hash)
             result = BenefitMarkets::ContributionModels::ContributionModelContract.new.call(value)
             key.failure(text: "invalid contribution model", error: result.errors.to_h) if result&.failure?
@@ -65,7 +70,7 @@ module AcaEntities
       end
 
       rule(:pricing_model) do
-        if key? && value
+        if key && value
           result = BenefitMarkets::PricingModels::PricingModelContract.new.call(value)
           key.failure(text: "invalid pricing model", error: result.errors.to_h) if result&.failure?
         end

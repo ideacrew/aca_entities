@@ -52,6 +52,7 @@ module AcaEntities
         require 'aca_entities/operations/transforms/transform'
         require 'aca_entities/operations/transforms/transformer'
         require 'aca_entities/magi_medicaid/mitc/transformers/mitc_to/request'
+        require 'aca_entities/magi_medicaid/mitc/transformers/to_mitc/eligibility_response'
       end
     end
   end
