@@ -311,9 +311,9 @@ RSpec.describe ::AcaEntities::Fdsh::Ridp::Operations::GeneratePrimaryRequestPayl
 
     let(:timestamp) do
       {
-        submitted_at:DateTime.now,
-        created_at:DateTime.now,
-        modified_at:DateTime.now
+        submitted_at: DateTime.now,
+        created_at: DateTime.now,
+        modified_at: DateTime.now
       }
     end
 
