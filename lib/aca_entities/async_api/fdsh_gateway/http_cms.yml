@@ -13,12 +13,12 @@ info:
     url: https://opensource.org/licenses/MIT
 servers:
   development:
-    url: https://impl.hub.cms.gov/Imp1
+    url: https://impl.hub.cms.gov
     protocol: http
     protocolVersion: 0.1.0
     description: RIDP Initial Service
   test:
-    url: https://impl.hub.cms.gov/Imp1
+    url: https://impl.hub.cms.gov
     protocol: http
     protocolVersion: 0.1.0
     description: RIDP Initial Service
@@ -29,9 +29,9 @@ servers:
     description: RIDP Initial Service
 defaultContentType: application/soap+xml
 channels:
-  /RIDPService:
+  /impl/RIDPService:
     publish:
-      operationId: /RIDPService
+      operationId: /impl/RIDPService
       description: Send request to RIDP endpoint
       bindings:
         http:
@@ -42,7 +42,7 @@ channels:
             Content-Type: application/soap+xml
             Accept: application/soap+xml
     subscribe:
-      operationId: /on/RIDPService
+      operationId: /on/impl/RIDPService
       description: Receive response from RIDP request
       bindings:
         http:
@@ -54,7 +54,7 @@ channels:
             Accept: application/soap+xml
   /HubConnectivityService:
     publish:
-      operationId: /HubConnectivityService
+      operationId: /impl/HubConnectivityService
       description: Send request to Hub Connectivity endpoint
       bindings:
         http:
@@ -65,7 +65,7 @@ channels:
             Content-Type: application/soap+xml
             Accept: application/soap+xml
     subscribe:
-      operationId: /on/HubConnectivityService
+      operationId: /on/impl/HubConnectivityService
       description: Receive response from Hub Connectivity request
       bindings:
         http:
