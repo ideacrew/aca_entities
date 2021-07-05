@@ -25,8 +25,9 @@ module AcaEntities
           # Applicant SSN Identification
           # @return [String]
           attribute :identification_id,
-                    AcaEntities::Fdsh::Ifsv::H3::Types::FullyRestrictedSSNType
-                      .meta(omittable: false)
+                    AcaEntities::Fdsh::Types::FullyRestrictedSSNType.meta(
+                      omittable: false
+                    )
 
           # @!attribute [r] tax_filer_category_code
           # TaxFilerCategoryCode
