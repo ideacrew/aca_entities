@@ -7,6 +7,12 @@ AllCops:
     - "bin/**/*"
     - "vendor/**/*"
 
+## Begin: conventions that conflict with Prettier formatting
+Layout/MultilineMethodCallIndentation:
+  Enabled: false
+
+## End: conventions that conflict with Prettier formatting
+
 Layout/EmptyLineAfterGuardClause:
   Enabled: false
 
