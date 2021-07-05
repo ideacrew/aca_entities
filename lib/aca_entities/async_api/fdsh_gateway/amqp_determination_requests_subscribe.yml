@@ -32,12 +32,12 @@ servers:
 defaultContentType: application/json
 
 channels:
-  on_fdsh.determination_requests.ridp:
+  on_fdsh_gateway.fdsh.determination_requests.ridp:
     bindings:
       amqp:
         is: queue
         queue:
-          name: on_fdsh.determination_requests.ridp
+          name: on_fdsh_gateway.fdsh.determination_requests.ridp
           durable: true
           exclusive: false
           auto_delete: false
@@ -47,9 +47,9 @@ channels:
         amqp:
           ack: true
           exclusive: false
-          routing_key: fdsh.determination_requests.ridp.*
+          routing_key: fdsh.determination_requests.ridp.#
           bindingVersion: "0.2.0"
-      operationId: on_fdsh.determination_requests.ridp
+      operationId: on_fdsh_gateway.fdsh.determination_requests.ridp
       description: Events - CMS FDSH RIDP Service requests
 
 tags:

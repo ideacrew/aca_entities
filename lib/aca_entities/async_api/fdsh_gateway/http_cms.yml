@@ -29,9 +29,9 @@ servers:
     description: RIDP Initial Service
 defaultContentType: application/soap+xml
 channels:
-  /impl/RIDPService:
+  /RIDPService:
     publish:
-      operationId: /impl/RIDPService
+      operationId: /RIDPService
       description: Send request to RIDP endpoint
       bindings:
         http:
@@ -42,7 +42,7 @@ channels:
             Content-Type: application/soap+xml
             Accept: application/soap+xml
     subscribe:
-      operationId: /on/impl/RIDPService
+      operationId: /on/RIDPService
       description: Receive response from RIDP request
       bindings:
         http:
@@ -54,7 +54,7 @@ channels:
             Accept: application/soap+xml
   /HubConnectivityService:
     publish:
-      operationId: /impl/HubConnectivityService
+      operationId: /HubConnectivityService
       description: Send request to Hub Connectivity endpoint
       bindings:
         http:
@@ -65,7 +65,7 @@ channels:
             Content-Type: application/soap+xml
             Accept: application/soap+xml
     subscribe:
-      operationId: /on/impl/HubConnectivityService
+      operationId: /on/HubConnectivityService
       description: Receive response from Hub Connectivity request
       bindings:
         http:
