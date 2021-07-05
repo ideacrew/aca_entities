@@ -5,8 +5,8 @@ require 'dry/monads/do'
 
 module AcaEntities
   module Fdsh
-    module Operations
-      module Ridp
+    module Ridp
+      module Operations
         # This class takes happy mapper hash as input and returns
         class CreateRidpAttestation
           include Dry::Monads[:result, :do, :try]

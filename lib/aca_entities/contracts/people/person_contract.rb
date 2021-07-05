@@ -36,7 +36,7 @@ module AcaEntities
         # @option opts [Hash] :timestamp optional
         # @return [Dry::Monads::Result]
         params do
-          optional(:hbx_id).maybe(:string)
+          required(:hbx_id).maybe(:string)
           required(:person_name).hash(AcaEntities::Contracts::People::PersonNameContract.params)
           required(:person_demographics).hash(AcaEntities::Contracts::People::PersonDemographicsContract.params)
           required(:person_health).hash(AcaEntities::Contracts::People::PersonHealthContract.params)
@@ -48,16 +48,18 @@ module AcaEntities
           optional(:is_temporarily_out_of_state).maybe(:bool)
           optional(:age_off_excluded).maybe(:bool)
           optional(:is_applying_for_assistance).maybe(:bool)
-          optional(:person_relationships).array(AcaEntities::Contracts::People::PersonRelationshipContract.params)
-          optional(:consumer_role).hash(AcaEntities::Contracts::People::ConsumerRoleContract.params)
-          optional(:resident_role).hash(AcaEntities::Contracts::People::ResidentRoleContract.params)
-          optional(:individual_market_transitions).array(AcaEntities::Contracts::Determinations::IndividualMarketTransitionContract.params)
-          optional(:verification_types).array(AcaEntities::Contracts::Verifications::VerificationTypeContract.params)
-          optional(:broker_role).hash(AcaEntities::Contracts::Brokers::BrokerRoleContract.params)
-          optional(:addresses).array(AcaEntities::Contracts::Locations::AddressContract.params)
-          optional(:phones).array(AcaEntities::Contracts::Contacts::PhoneContactContract.params)
-          optional(:emails).array(AcaEntities::Contracts::Contacts::EmailContactContract.params)
-          optional(:documents).array(AcaEntities::Contracts::Documents::DocumentContract.params)
+          optional(:person_relationships).maybe(:array).each(AcaEntities::Contracts::People::PersonRelationshipContract.params)
+          optional(:consumer_role).maybe(AcaEntities::Contracts::People::ConsumerRoleContract.params)
+          optional(:resident_role).maybe(AcaEntities::Contracts::People::ResidentRoleContract.params)
+          optional(:individual_market_transitions).maybe(:array).each(
+            AcaEntities::Contracts::Determinations::IndividualMarketTransitionContract.params
+          )
+          optional(:verification_types).maybe(:array).each(AcaEntities::Contracts::Verifications::VerificationTypeContract.params)
+          optional(:broker_role).maybe(AcaEntities::Contracts::Brokers::BrokerRoleContract.params)
+          optional(:addresses).maybe(:array).each(AcaEntities::Contracts::Locations::AddressContract.params)
+          optional(:phones).maybe(:array).each(AcaEntities::Contracts::Contacts::PhoneContactContract.params)
+          optional(:emails).maybe(:array).each(AcaEntities::Contracts::Contacts::EmailContactContract.params)
+          optional(:documents).maybe(:array).each(AcaEntities::Contracts::Documents::DocumentContract.params)
           optional(:timestamp).hash(TimeStampContract.params)
 
           # TODO: Add contracts
