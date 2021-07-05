@@ -28,6 +28,7 @@ servers:
     protocol: :amqp
     protocolVersion: "0.9.2"
     description: RabbitMQ Test Server
+
 channels:
   enroll.iap.applications.determine_eligibility:
     bindings:
@@ -43,7 +44,7 @@ channels:
         binding_version: "0.2.0"
     publish:
       operationId: enroll.iap.applications.determine_eligibility
-      summary: Events - eligibility determination Request
+      description: Events - eligibility determination Request
       bindings:
         amqp:
           app_id: enroll
@@ -55,3 +56,61 @@ channels:
           timestamp: true
           content_type: application/json
           bindingVersion: 0.2.0
+
+  fdsh.determination_requests.ridp.primary_determination_requested:
+    bindings:
+      amqp:
+        is: :routing_key
+        exchange:
+          name: fdsh.determination_requests.ridp
+          type: topic
+          content_type: application/json
+          durable: true
+          auto_delete: false
+          vhost: event_source
+        binding_version: "0.2.0"
+    publish:
+      operationId: fdsh.determination_requests.ridp.primary_determination_requested
+      description: Events - eligibility determination Request
+      bindings:
+        amqp:
+          app_id: enroll
+          type: fdsh.determination_requests.ridp
+          routing_key: fdsh.determination_requests.ridp.primary_determination_requested
+          expiration: 100_000
+          deliveryMode: 2
+          mandatory: true
+          timestamp: true
+          content_type: application/json
+          bindingVersion: 0.2.0
+
+  fdsh.determination_requests.ridp.secondary_determination_requested:
+    bindings:
+      amqp:
+        is: :routing_key
+        exchange:
+          name: fdsh.determination_requests.ridp
+          type: topic
+          content_type: application/json
+          durable: true
+          auto_delete: false
+          vhost: event_source
+        binding_version: "0.2.0"
+    publish:
+      operationId: fdsh.determination_requests.ridp.secondary_determination_requested
+      description: Events - eligibility determination Request
+      bindings:
+        amqp:
+          app_id: enroll
+          type: fdsh.determination_requests.ridp
+          routing_key: fdsh.determination_requests.ridp.secondary_determination_requested
+          expiration: 100_000
+          deliveryMode: 2
+          mandatory: true
+          timestamp: true
+          content_type: application/json
+          bindingVersion: 0.2.0
+
+tags:
+  - name: linter_tag
+    description: placeholder that satisfies the linter

@@ -22,7 +22,7 @@ module AcaEntities
               #   AcaEntities::Fdsh::Person::PersonName
               # )
               required(:identification_id).filled(
-                AcaEntities::Fdsh::Ifsv::H3::Types::FullyRestrictedSSNType
+                AcaEntities::Fdsh::Types::FullyRestrictedSSNType
               )
               required(:tax_filer_category_code).filled(
                 AcaEntities::Fdsh::Ifsv::H3::Types::TaxFilerCategoryCodeKind

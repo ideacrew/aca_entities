@@ -48,3 +48,7 @@ channels:
           bindingVersion: "0.2.0"
       operationId: on_enroll.magi_medicaid.mitc.eligibilities
       description: Events - MitC eligibility determinations for Medicaid/CHIP and/or APTC/CSR financial assistance
+
+tags:
+  - name: linter_tag
+    description: placeholder that satisfies the linter
