@@ -33,6 +33,8 @@ channels:
     publish:
       operationId: /RIDPService
       description: Send request to RIDP endpoint
+      message:
+        contentType: application/soap+xml
       bindings:
         http:
           type: request
@@ -44,6 +46,8 @@ channels:
     subscribe:
       operationId: /on/RIDPService
       description: Receive response from RIDP request
+      message:
+        contentType: application/soap+xml
       bindings:
         http:
           type: response
