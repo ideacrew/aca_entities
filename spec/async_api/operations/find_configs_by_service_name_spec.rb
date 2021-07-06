@@ -9,6 +9,7 @@ RSpec.describe ::AcaEntities::AsyncApi::Operations::FindConfigsByServiceName do
 
     let(:params) { { service_name: service_name } }
     let(:service_name) { 'medicaid_gateway' }
+    let(:async_api_key) { "asyncapi" }
 
     subject { described_class.new.call(params) }
 
@@ -33,7 +34,6 @@ RSpec.describe ::AcaEntities::AsyncApi::Operations::FindConfigsByServiceName do
 
     context "with no service name" do
       let(:service_name) { nil }
-      let(:async_api_key) { "asyncapi" }
 
       it "should return all schemas" do
         result = subject
@@ -42,6 +42,56 @@ RSpec.describe ::AcaEntities::AsyncApi::Operations::FindConfigsByServiceName do
         output = result.success
         expect(output.first.keys[0]).to eq(async_api_key)
         expect(output.last.keys[0]).to eq(async_api_key)
+      end
+    end
+
+    context "with requested all schemas" do
+      let(:params) { nil }
+
+      it "should return all schemas" do
+        result = subject
+
+        expect(result).to be_success
+        output = result.success
+
+        expect(output.first.keys[0]).to eq(async_api_key)
+        expect(output.last.keys[0]).to eq(async_api_key)
+      end
+    end
+
+    context "with service name and protocol" do
+      let(:params) { { service_name: 'medicaid_gateway', protocol: protocol } }
+
+      context "when http protocol passed" do
+
+        let(:protocol) { 'http' }
+
+        it "should return all http schemas" do
+          result = subject
+
+          expect(result).to be_success
+          resources = result.success
+          expect(resources).not_to be_empty
+          resources.each do |resource|
+            resource['servers']['production']['protocol'] == params[:protocol].to_s
+          end
+        end
+      end
+
+      context "when amqp protocol passed" do
+
+        let(:protocol) { 'amqp' }
+
+        it "should return all amqp schemas" do
+          result = subject
+
+          expect(result).to be_success
+          resources = result.success
+          expect(resources).not_to be_empty
+          resources.each do |resource|
+            resource['servers']['production']['protocol'] == params[:protocol].to_s
+          end
+        end
       end
     end
   end
