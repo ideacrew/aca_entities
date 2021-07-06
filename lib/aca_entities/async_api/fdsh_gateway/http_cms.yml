@@ -23,7 +23,7 @@ servers:
     protocolVersion: 0.1.0
     description: RIDP Initial Service
   production:
-    url: https://impl.hub.cms.gov
+    url: https://impl.hub.cms.gov/Imp1
     protocol: http
     protocolVersion: 0.1.0
     description: RIDP Initial Service
