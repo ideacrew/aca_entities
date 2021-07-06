@@ -60,6 +60,8 @@ channels:
     publish:
       operationId: /HubConnectivityService
       description: Send request to Hub Connectivity endpoint
+      message:
+        contentType: application/soap+xml
       bindings:
         http:
           type: request
@@ -71,6 +73,8 @@ channels:
     subscribe:
       operationId: /on/HubConnectivityService
       description: Receive response from Hub Connectivity request
+      message:
+        contentType: application/soap+xml
       bindings:
         http:
           type: response
