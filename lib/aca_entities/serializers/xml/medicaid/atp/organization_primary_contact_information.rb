@@ -21,8 +21,11 @@ module AcaEntities
             # A telephone number for a telecommunication device by which a person or organization may be contacted.
             has_one :telephone_number, ContactTelephoneNumber
 
-            def self.domain_to_mapper(_contact_info)
-              self.new
+            def self.domain_to_mapper(organization_primary_contact_information)
+              mapper = self.new
+              mapper.mailing_address = ContactMailingAddress.domain_to_mapper(organization_primary_contact_information.mailing_address)
+              mapper.telephone_number = ContactTelephoneNumber.domain_to_mapper(organization_primary_contact_information.telephone_number)
+              mapper
             end
 
             def to_hash

@@ -79,12 +79,16 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
   let(:insurance_applicant) do
     { 
       role_reference: { ref: "pe123" },
+      esi_eligible_indicator: false,
       age_left_foster_care: 14,
+      foster_care_state: "n/a",
+      had_medicaid_during_foster_care_indicator: false,
       blindness_or_disability_indicator: false,
       lawful_presence_status: lawful_presence_status, 
       long_term_care_indicator: false,
       chip_eligibility: trafficking_victim_category_eligibility_basis,
       temporarily_lives_outside_application_state_indicator: false, 
+      foster_care_indicator: false
     }
   end
 
@@ -134,11 +138,14 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
 
   let(:person_augmentation) do
     {
-      us_verteran_indicator: false,
+      us_veteran_indicator: false,
       married_indicator: true,
+      person_pregnancy_status: person_pregnancy_status,
       preferred_languages: [preferred_language],
       contacts: [contact_information_association],  
-      persons: [person_association]
+      persons: [person_association],
+      incomes: [income],
+      employments: [employment]
     }
   end
 
@@ -146,6 +153,21 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
     { 
       language_name: "English" 
     } 
+  end
+
+  let(:person_pregnancy_status) do
+    { status_indicator: false,
+      status_valid_date_range: status_valid_date_range,
+      expected_baby_quantity: 1
+    }
+  end
+
+  let(:status_valid_date_range) do
+    { date: Date.today,
+      date_time: DateTime.now,
+      year: "2021",
+      year_month: "12/2021"
+    }
   end
 
   let(:ssf_primary_contact) do
@@ -222,6 +244,102 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
     }
   end
 
+  let(:income) do
+    { employment_source_text: "Acme",
+      amount: 50000.00, 
+      days_per_week: 5.0,
+      hours_per_pay_period: 80.0, 
+      hours_per_week: 40.0,
+      category_code: "Salary", 
+      description_text: "Robot", 
+      subject_to_federal_restrictions_indicator: false, 
+      date: income_date,
+      earned_date_range: income_earned_date_range,
+      frequency: income_frequency,
+      payment_frequency: payment_frequency,
+      source_organization_reference: source_organization_reference
+    }
+  end
+
+  let(:income_date) do
+    { date: start_date,
+      date_time: end_date,
+      year: "2021",
+      year_month: "12/2021"
+    }
+  end
+
+  let(:start_date) do
+    { date: Date.today,
+      date_time: DateTime.now,
+      year: "2020",
+      year_month: "12/2020"
+    }
+  end
+
+  let(:end_date) do
+    { date: Date.today,
+      date_time: DateTime.now,
+      year: "2021",
+      year_month: "12/2021"
+    }
+  end
+
+  let(:income_earned_date_range) do
+    { start_date: Date.today - 1,
+      end_date: Date.today
+    }
+  end
+
+  let(:income_frequency) do
+    { frequency_code: "BiWeekly" } 
+  end
+
+  let(:payment_frequency) do
+    { frequency_code: "Weekly" } 
+  end
+
+  let(:source_organization_reference) do
+    { ref: "ref123" }
+  end
+
+  let(:employment) do
+    { start_date: start_date,
+      end_date: end_date,
+      employer: employer
+    }
+  end
+
+  let(:start_date) do
+    { date: Date.today,
+      date_time: DateTime.now,
+      year: "2020",
+      year_month: "12/2020"
+    }
+  end
+
+  let(:end_date) do
+    { date: Date.today,
+      date_time: DateTime.now,
+      year: "2021",
+      year_month: "12/2021"
+    }
+  end
+
+  let(:employer) do
+    { id: "em123",
+      category_text: "Acme",
+      organization_primary_contact_information: contact_information
+    }
+  end
+
+  let(:contact_information) do
+    { email: "fake@test.com",
+      mailing_address: structured_address,
+      telephone_number: full_telephone
+    }
+  end
+
   let(:mapper) { described_class.domain_to_mapper(account_transfer_request) }
   let(:schema) { Nokogiri::XML::Schema(File.open(schema_location)) }
   let(:schema_location) do
@@ -251,6 +369,7 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
 
   it "is schema valid" do
     document = Nokogiri::XML(mapper.to_xml)
+    puts mapper.to_xml
     schema.validate(document).each do |error|
       puts "\n\n======= Schema Error ======="
       puts error.message

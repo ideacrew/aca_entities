@@ -8,7 +8,7 @@ RSpec.describe ::AcaEntities::Medicaid::Contracts::PersonAugmentationContract, d
   let(:required_params) { {} }
 
   let(:optional_params) do 
-    { us_verteran_indicator: false,
+    { us_veteran_indicator: false,
       married_indicator: true,
       preferred_languages: 
       [

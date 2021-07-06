@@ -16,8 +16,10 @@ module AcaEntities
             has_one :status_valid_date_range, StatusValidDateRange
             element :expected_baby_quantity, Integer, tag: 'PregnancyStatusExpectedBabyQuantity', namespace: 'hix-core'
 
-            def self.domain_to_mapper(_person)
-              self.new
+            def self.domain_to_mapper(pregnancy_status)
+              mapper = self.new
+              mapper.status_valid_date_range = StatusValidDateRange.domain_to_mapper(pregnancy_status.status_valid_date_range)
+              mapper
             end
 
             def to_hash

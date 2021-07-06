@@ -17,7 +17,7 @@ RSpec.describe ::AcaEntities::Medicaid::Atp::PersonAugmentation,  dbclean: :arou
     let(:required_params) { {} }
 
     let(:optional_params) do
-      { us_verteran_indicator: false,
+      { us_veteran_indicator: false,
         married_indicator: true,
         preferred_languages: 
         [

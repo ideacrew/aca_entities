@@ -7,7 +7,7 @@ module AcaEntities
       class PersonAugmentationContract < Dry::Validation::Contract
 
         params do
-          optional(:us_verteran_indicator).maybe(:bool)
+          optional(:us_veteran_indicator).maybe(:bool)
           optional(:married_indicator).maybe(:bool)
           optional(:preferred_languages).maybe(:array)        
           optional(:contacts).maybe(:array)        
