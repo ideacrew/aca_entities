@@ -15,9 +15,12 @@ module AcaEntities
         # @option opts [String] :service_name AcaEntities::AsyncApi::Types::ServiceNameKind
         # @return [Dry::Monads::Result]
         def call(params)
+          params ||= {}
           service_name = yield validate_service_name(params)
+          protocol = yield validate_protocol(params)
           config_file_names = yield find_config_files(service_name)
-          config_params = yield parse_files(config_file_names)
+          config_params = yield parse_files(config_file_names, protocol)
+
           Success(config_params)
         end
 
@@ -26,6 +29,12 @@ module AcaEntities
         def validate_service_name(params)
           return Success(nil) unless params[:service_name]
           value = AcaEntities::AsyncApi::Types::ServiceNameKind.try(params[:service_name])
+          value.success? ? Success(value.input) : Failure(value.error)
+        end
+
+        def validate_protocol(params)
+          return Success(nil) unless params[:protocol]
+          value = AcaEntities::AsyncApi::Types::ProtocolNameKind.try(params[:protocol])
           value.success? ? Success(value.input) : Failure(value.error)
         end
 
@@ -40,7 +49,7 @@ module AcaEntities
         end
 
         # rubocop:disable Style/MultilineBlockChain
-        def parse_files(config_file_names)
+        def parse_files(config_file_names, protocol = nil)
           configs =
             config_file_names.reduce([]) do |config_params, config_file_name|
               conf =
@@ -51,10 +60,23 @@ module AcaEntities
                 end.to_result.bind do |config_yml|
                   AcaEntities::Operations::Yaml::Deserialize.new.call(yaml: config_yml.success)
                 end
-              conf.success? ? config_params << conf.success : conf
+
+              if conf.success?
+                if protocol.nil? || (resource_protocol(conf.success) && resource_protocol(conf.success) == protocol)
+                  config_params << conf.success
+                end
+              end
+
               config_params
             end
+
           Success(configs)
+        end
+
+        def resource_protocol(resource_hash)
+          return unless resource_hash['servers']
+          return unless resource_hash['servers']['production']
+          resource_hash['servers']['production']['protocol']&.to_s
         end
         # rubocop:enable Style/MultilineBlockChain
       end

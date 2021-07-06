@@ -15,6 +15,12 @@ module AcaEntities
           'fdsh_gateway',
           'enroll'
         ).freeze
+
+      ProtocolNameKind =
+        Types::Coercible::String.enum(
+          'http',
+          'amqp'
+        ).freeze
     end
   end
 end

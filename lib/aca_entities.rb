@@ -28,7 +28,7 @@ require 'aca_entities/transform'
 # of shared ACA entities across applications.
 module AcaEntities
 
-  def self.async_api_config_find_by_service_name(service_name = nil)
-    ::AcaEntities::AsyncApi::Operations::FindConfigsByServiceName.new.call(service_name: service_name)
+  def self.async_api_config_find_by_service_name(args)
+    ::AcaEntities::AsyncApi::Operations::FindConfigsByServiceName.new.call(args)
   end
 end
