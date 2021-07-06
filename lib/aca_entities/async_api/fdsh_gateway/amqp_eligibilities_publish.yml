@@ -32,7 +32,7 @@ servers:
 defaultContentType: application/json
 
 channels:
-  fdsh.eligibilities.ridp.determined_primary_eligible:
+  fdsh.eligibilities.ridp.primary_determination_complete:
     bindings:
       amqp:
         is: :routing_key
@@ -48,42 +48,15 @@ channels:
         amqp:
           app_id: fdsh_gateway
           type: fdsh.eligibilities.ridp
-          routing_key: fdsh.eligibilities.ridp.determined_primary_eligible
+          routing_key: fdsh.eligibilities.ridp.primary_determination_complete
           expiration: 100_000
           deliveryMode: 2
           mandatory: true
           timestamp: true
           content_type: application/json
           bindingVersion: 0.2.0
-      operationId: fdsh.eligibilities.ridp.determined_primary_eligible
-      description: MitC determined applicants ineligible for Medicaid/CHIP financial assistance
-
-  fdsh.eligibilities.ridp.determined_primary_ineligible:
-    bindings:
-      amqp:
-        is: :routing_key
-        exchange:
-          name: fdsh.eligibilities.ridp
-          type: topic
-          content_type: application/json
-          durable: true
-          auto_delete: false
-          vhost: event_source
-        bindingVersion: 0.1.0
-    publish:
-      bindings:
-        amqp:
-          app_id: fdsh_gateway
-          type: fdsh.eligibilities.ridp
-          routing_key: fdsh.eligibilities.ridp.determined_primary_ineligible
-          expiration: 100_000
-          deliveryMode: 2
-          mandatory: true
-          timestamp: true
-          content_type: application/json
-          bindingVersion: 0.2.0
-      operationId: fdsh.eligibilities.ridp.determined_primary_ineligible
-      description: MitC determined applicants eligible for APTC/CSR financial assistance
+      operationId: fdsh.eligibilities.ridp.primary_determination_complete
+      description: RIDP Determination has completed the primary phase.
 
   fdsh.eligibilities.ridp.determined_secondary_eligible:
     bindings:
