@@ -1,8 +1,11 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
+require 'aca_entities/medicaid/atp/location_street'
 require 'aca_entities/medicaid/atp/structured_address'
 require 'aca_entities/medicaid/atp/full_telephone'
+require 'aca_entities/medicaid/atp/contact_telephone_number'
+require 'aca_entities/medicaid/atp/contact_mailing_address'
 require 'aca_entities/medicaid/atp/organization_primary_contact_information'
 require 'aca_entities/medicaid/atp/employer'
 
@@ -20,9 +23,13 @@ RSpec.describe ::AcaEntities::Medicaid::Atp::Employer,  dbclean: :around_each do
 
     let(:contact_information) do
       { email: "fake@test.com",
-        mailing_address: structured_address,
-        telephone_number: full_telephone
+        mailing_address: contact_mailing_address,
+        telephone_number: contact_telephone
       }
+    end
+
+    let(:contact_mailing_address) do
+      { address: structured_address }
     end
 
     let(:structured_address) do
@@ -34,6 +41,10 @@ RSpec.describe ::AcaEntities::Medicaid::Atp::Employer,  dbclean: :around_each do
       location_state_us_postal_service_code: "ME",
       location_postal_code: "01234"
     }
+    end
+    
+    let(:contact_telephone) do
+      { telephone: full_telephone }
     end
 
     let(:full_telephone) do

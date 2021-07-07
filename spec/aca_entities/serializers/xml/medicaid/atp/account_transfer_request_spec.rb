@@ -38,7 +38,6 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
   let(:insurance_application) do
     {
       application_metadata: application_metadata,
-      # attestation: attestation,
       insurance_applicants: [insurance_applicant],
       requesting_financial_assistance: false, 
       requesting_medicaid: false, 
@@ -60,14 +59,6 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
     }
   end
 
-  # let(:attestation) do
-  #   {
-  #     attested_if_information_changes_indicator: false,
-  #     attested_non_perjury_indicator: false,
-  #     tax_return_access_indicator: false
-  #   }
-  # end
-
   let(:sender) do
     { sender_code: "a unique id" }
   end
@@ -86,7 +77,7 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
       blindness_or_disability_indicator: false,
       lawful_presence_status: lawful_presence_status, 
       long_term_care_indicator: false,
-      chip_eligibility: trafficking_victim_category_eligibility_basis,
+      chip_eligibilities: [trafficking_victim_category_eligibility_basis],
       temporarily_lives_outside_application_state_indicator: false, 
       foster_care_indicator: false
     }
@@ -97,37 +88,29 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
       person_name: person_name,
       ssn: "012345678",
       sex: "SEX",
-      # id: "pe123",
-      # race: "RACE",
-      # ethnicity: ["eth1", "eth2"], 
-      # birth_date: Date.today - 30,
+      race: "RACE",
+      ethnicity: ["eth1", "eth2"],
+      birth_date: person_birth_date,
       person_augmentation: person_augmentation,
       tribal_augmentation: tribal_augmentation
-      # demographic: {
-      #   dob: Date.today,
-      #   gender: "A GENDER",
-      # },
-      # citizenship_immigration_status_information: {
-      #   us_citizen: true
-      # },
-      # native_american_information: {
-      #   is_native_american_or_alaska_native: false
-      # }
     }
   end
 
   let(:person_name) do
     {
-      first_name: "Dickie",
+      first_name: "First",
       middle_name: "",
-      last_name: "Moltisanti",
+      last_name: "Last",
       name_sfx: "",
       name_pfx: "",
-      full_name: "Dickiea Moltisanti",
+      full_name: "First Last",
     }
-
   end
 
+  let(:person_birth_date) do
+    { date: Date.today - 50 }  
+  end
+  
   let(:tribal_augmentation) do
     { recognized_tribe_indicator: true,
       american_indian_or_alaska_native_indicator: true,
@@ -137,15 +120,14 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
   end
 
   let(:person_augmentation) do
-    {
-      us_veteran_indicator: false,
+    { us_veteran_indicator: false,
       married_indicator: true,
-      person_pregnancy_status: person_pregnancy_status,
+      pregnancy_status: pregnancy_status,
       preferred_languages: [preferred_language],
-      contacts: [contact_information_association],  
-      persons: [person_association],
       incomes: [income],
-      employments: [employment]
+      contacts: [contact_association],
+      employments: [employment_association],
+      persons: [person_association]
     }
   end
 
@@ -155,7 +137,7 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
     } 
   end
 
-  let(:person_pregnancy_status) do
+  let(:pregnancy_status) do
     { status_indicator: false,
       status_valid_date_range: status_valid_date_range,
       expected_baby_quantity: 1
@@ -163,11 +145,7 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
   end
 
   let(:status_valid_date_range) do
-    { date: Date.today,
-      date_time: DateTime.now,
-      year: "2021",
-      year_month: "12/2021"
-    }
+    { end_date: end_date }
   end
 
   let(:ssf_primary_contact) do
@@ -198,50 +176,8 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
 
   let(:trafficking_victim_category_eligibility_basis) do
     {
-      status_indicator: true
+      status_indicator: false
     } 
-  end
-
-  let(:contact_information_association) do
-    {
-      contact: contact_information,
-      category_code: "Home"
-    }
-
-  end
-
-  let(:contact_information) do
-    {
-      contact_email_id: "satriales@deli.com",
-      mailing_address: structured_address,
-      telephone_number: full_telephone
-    }
-  end
-
-  let(:structured_address) do
-    {
-      location_street: { street_full_text: "123 Easy Street" }, 
-      address_secondary_unit_text: "", 
-      location_city_name: "Newark", 
-      location_county_name: "Bergen", 
-      location_county_code: "",
-      location_state_us_postal_service_code: "NJ",
-      location_postal_code: "01234",
-    }
-  end
-
-  let(:full_telephone) do
-    {
-      telephone_number_full_id: "1235556666",
-      telephone_suffix_id: ""
-    }
-  end
-
-  let(:person_association) do
-    {
-      person: { person_id: "a-person-id" },
-      family_relationship_code: "19"
-    }
   end
 
   let(:income) do
@@ -262,10 +198,16 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
   end
 
   let(:income_date) do
-    { date: start_date,
-      date_time: end_date,
+    { date: Date.today,
+      date_time: DateTime.now,
       year: "2021",
       year_month: "12/2021"
+    }
+  end
+
+  let(:income_earned_date_range) do
+    { start_date: start_date,
+      end_date: end_date
     }
   end
 
@@ -282,12 +224,6 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
       date_time: DateTime.now,
       year: "2021",
       year_month: "12/2021"
-    }
-  end
-
-  let(:income_earned_date_range) do
-    { start_date: Date.today - 1,
-      end_date: Date.today
     }
   end
 
@@ -303,43 +239,84 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
     { ref: "ref123" }
   end
 
-  let(:employment) do
-    { start_date: start_date,
+  let(:contact_association) do
+    { contact: contact,
+      category_code: "Home"
+    }
+  end
+
+  let(:contact) do
+    { contact_email_id: "fake@test.com",
+      mailing_address: mailing_address,
+      telephone_number: contact_telephone
+    }
+  end
+
+  let(:employment_association) do
+    { begin_date: start_date,
       end_date: end_date,
       employer: employer
-    }
-  end
-
-  let(:start_date) do
-    { date: Date.today,
-      date_time: DateTime.now,
-      year: "2020",
-      year_month: "12/2020"
-    }
-  end
-
-  let(:end_date) do
-    { date: Date.today,
-      date_time: DateTime.now,
-      year: "2021",
-      year_month: "12/2021"
-    }
+    }    
   end
 
   let(:employer) do
     { id: "em123",
       category_text: "Acme",
-      organization_primary_contact_information: contact_information
+      organization_primary_contact_information: employer_contact
     }
   end
 
-  let(:contact_information) do
+  let(:employer_contact) do
     { email: "fake@test.com",
-      mailing_address: structured_address,
-      telephone_number: full_telephone
+      mailing_address: mailing_address,
+      telephone_number: contact_telephone
     }
   end
 
+  let(:mailing_address) do
+    { address: structured_address }
+  end
+
+  let(:structured_address) do
+    {
+      location_street: location_street, 
+      address_secondary_unit_text: "", 
+      location_city_name: "Newark", 
+      location_county_name: "Bergen", 
+      location_county_code: "",
+      location_state_us_postal_service_code: "NJ",
+      location_postal_code: "01234",
+    }
+  end
+
+  let(:location_street) do
+    { street_full_text: "123 Easy Street" }
+  end
+
+  let(:contact_telephone) do
+    { telephone: full_telephone }
+  end
+
+  let(:full_telephone) do
+    { telephone_number_full_id: "1231231234",
+      telephone_suffix_id: "0"
+    }
+  end
+
+  let(:person_association) do
+    { person: { ref: "pe123" },
+      family_relationship_code: 01
+    }
+  end
+
+  let(:tribal_augmentation) do
+    { recognized_tribe_indicator: true,
+      american_indian_or_alaska_native_indicator: true,
+      person_tribe_name: "Tribe Name",
+      location_state_us_postal_service_code: "ME"
+    }
+  end
+  
   let(:mapper) { described_class.domain_to_mapper(account_transfer_request) }
   let(:schema) { Nokogiri::XML::Schema(File.open(schema_location)) }
   let(:schema_location) do

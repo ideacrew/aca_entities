@@ -25,16 +25,28 @@ RSpec.describe ::AcaEntities::Medicaid::Contracts::PersonIncomeContract, dbclean
   end
 
   let(:income_date) do
+    start_date
+  end
+
+  let(:income_earned_date_range) do
+    { start_date: start_date,
+      end_date: end_date
+    }
+  end
+
+  let(:start_date) do
+    { date: Date.today,
+      date_time: DateTime.now,
+      year: "2020",
+      year_month: "12/2020"
+    }
+  end
+
+  let(:end_date) do
     { date: Date.today,
       date_time: DateTime.now,
       year: "2021",
       year_month: "12/2021"
-    }
-  end
-
-  let(:income_earned_date_range) do
-    { start_date: Date.today - 1,
-      end_date: Date.today
     }
   end
 
@@ -49,7 +61,7 @@ RSpec.describe ::AcaEntities::Medicaid::Contracts::PersonIncomeContract, dbclean
   let(:source_organization_reference) do
     { ref: "ref123" }
   end
-
+  
   let(:all_params) { required_params.merge(optional_params)}
 
   context 'invalid parameters' do

@@ -24,6 +24,7 @@ module AcaEntities
                 street_full_text: street_full_text
               }
             end
+          end
         end
       end
     end

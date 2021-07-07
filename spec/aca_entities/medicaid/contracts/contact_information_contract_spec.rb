@@ -9,22 +9,36 @@ RSpec.describe ::AcaEntities::Medicaid::Contracts::ContactInformationContract, d
 
   let(:optional_params) do
     { contact_email_id: "fake@test.com",
-      mailing_address: 
-        { location_street: { street_full_text: "123 Easy Street" },
-          address_secondary_unit_text: "address",
-          location_city_name: "Wheaton",
-          location_county_name: "Montgomery", 
-          location_county_code: "code",
-          location_state_us_postal_service_code: "ME",
-          location_postal_code: "01234"
-        },
-      telephone_number:       
-        { telephone_number_full_id: "1231231234",
-          telephone_suffix_id: "0"
-        },
+      mailing_address: contact_mailing_address,
+      telephone_number: contact_telephone_number
     }
   end
 
+  let(:contact_mailing_address) do
+    { address: structured_address }
+  end
+
+  let(:structured_address) do
+    { location_street: { street_full_text: "123 Easy Street" },
+      address_secondary_unit_text: "address",
+      location_city_name: "Wheaton",
+      location_county_name: "Montgomery", 
+      location_county_code: "code",
+      location_state_us_postal_service_code: "ME",
+      location_postal_code: "01234"
+    }
+  end
+
+  let(:contact_telephone_number) do
+    { telephone: full_telephone }
+  end
+
+  let(:full_telephone) do
+    { telephone_number_full_id: "1231231234",
+      telephone_suffix_id: "0"
+    }
+  end
+  
   let(:all_params) { required_params.merge(optional_params)}
 
   context 'invalid parameters' do

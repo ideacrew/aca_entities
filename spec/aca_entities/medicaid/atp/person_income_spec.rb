@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
+require 'aca_entities/medicaid/atp/start_date'
+require 'aca_entities/medicaid/atp/end_date'
 require 'aca_entities/medicaid/atp/income_date'
 require 'aca_entities/medicaid/atp/income_earned_date_range'
 require 'aca_entities/medicaid/atp/income_frequency'
@@ -31,11 +33,7 @@ RSpec.describe ::AcaEntities::Medicaid::Atp::PersonIncome,  dbclean: :around_eac
     end
 
     let(:income_date) do
-      { date: Date.today,
-        date_time: DateTime.now,
-        year: "2021",
-        year_month: "12/2021"
-      }
+      start_date
     end
 
     let(:income_earned_date_range) do

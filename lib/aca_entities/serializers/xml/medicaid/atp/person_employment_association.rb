@@ -16,9 +16,9 @@ module AcaEntities
             has_one :end_date, AssociationEndDate
             has_one :employer, Employer
 
-            def self.domain_to_mapper(employment)
+            def self.domain_to_mapper(employment_association)
               mapper = self.new
-              mapper.employer = Employer.domain_to_mapper(employment.employer)
+              mapper.employer = Employer.domain_to_mapper(employment_association.employer)
               mapper
             end
 

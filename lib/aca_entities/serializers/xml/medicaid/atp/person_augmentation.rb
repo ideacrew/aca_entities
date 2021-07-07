@@ -34,8 +34,8 @@ module AcaEntities
               mapper.incomes = person_augmentation.incomes.map{ |income|
                 PersonIncome.domain_to_mapper(income)
               }
-              mapper.employments = person_augmentation.employments.map{ |employment|
-                PersonEmploymentAssociation.domain_to_mapper(employment)
+              mapper.employments = person_augmentation.employments.map{ |employment_association|
+                PersonEmploymentAssociation.domain_to_mapper(employment_association)
               }
               # [PersonPreferredLanguage.domain_to_mapper(augmentation.person_preferred_language)]
               mapper.contacts = person_augmentation.contacts.map { |contact_association| 

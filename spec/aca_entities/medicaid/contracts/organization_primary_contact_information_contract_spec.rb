@@ -9,9 +9,13 @@ RSpec.describe ::AcaEntities::Medicaid::Contracts::OrganizationPrimaryContactInf
 
   let(:optional_params) do
     { email_id: "fake@test.com",
-      mailing_address: structured_address,
-      telephone_number: full_telephone
+      mailing_address: mailing_address,
+      telephone_number: telephone_number
     }
+  end
+
+  let(:mailing_address) do
+    { address: structured_address }
   end
 
   let(:structured_address) do
@@ -23,6 +27,10 @@ RSpec.describe ::AcaEntities::Medicaid::Contracts::OrganizationPrimaryContactInf
     location_state_us_postal_service_code: "ME",
     location_postal_code: "01234"
   }
+  end
+
+  let(:telephone_number) do
+    { telephone: full_telephone }
   end
 
   let(:full_telephone) do

@@ -9,6 +9,8 @@ module AcaEntities
         attribute :married_indicator, Types::Bool.optional.meta(omittable: true)
         attribute :pregnancy_status, PersonPregnancyStatus.optional.meta(omittable: true)
         attribute :preferred_languages, Types::Array.of(PersonPreferredLanguage).optional.meta(omittable: true) 
+        attribute :incomes, Types::Array.of(PersonIncome).optional.meta(omittable: true) 
+        attribute :employments, Types::Array.of(PersonEmploymentAssociation).optional.meta(omittable: true) 
         attribute :contacts, Types::Array.of(PersonContactInformationAssociation).optional.meta(omittable: true) 
         attribute :persons, Types::Array.of(PersonAssociation).optional.meta(omittable: true)
       end
