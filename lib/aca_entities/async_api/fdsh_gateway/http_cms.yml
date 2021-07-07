@@ -13,17 +13,17 @@ info:
     url: https://opensource.org/licenses/MIT
 servers:
   development:
-    url: https://impl.hub.cms.gov/Imp1/
+    url: https://impl.hub.cms.gov/Imp1
     protocol: http
     protocolVersion: 0.1.0
     description: RIDP Initial Service
   test:
-    url: https://impl.hub.cms.gov/Imp1/
+    url: https://impl.hub.cms.gov/Imp1
     protocol: http
     protocolVersion: 0.1.0
     description: RIDP Initial Service
   production:
-    url: https://impl.hub.cms.gov/Imp1/
+    url: https://impl.hub.cms.gov/Imp1
     protocol: http
     protocolVersion: 0.1.0
     description: RIDP Initial Service
