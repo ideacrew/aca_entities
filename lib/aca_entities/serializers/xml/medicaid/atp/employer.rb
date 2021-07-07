@@ -16,8 +16,10 @@ module AcaEntities
             element :category_text, String, tag: 'OrganizationName', namespace: "nc"
             has_one :organization_primary_contact_information, OrganizationPrimaryContactInformation
 
-            def self.domain_to_mapper(_expense)
-              self.new
+            def self.domain_to_mapper(employer)
+              mapper = self.new
+              mapper.organization_primary_contact_information = OrganizationPrimaryContactInformation.domain_to_mapper(employer.organization_primary_contact_information)
+              mapper
             end
 
             def to_hash

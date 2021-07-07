@@ -14,14 +14,18 @@ RSpec.describe ::AcaEntities::Medicaid::Atp::InsuranceApplicant, dbclean: :aroun
     end
 
     let(:optional_params) do 
-      { age_left_foster_care: 14,
+      { esi_eligible_indicator: false,
+        age_left_foster_care: 14,
+        foster_care_state: "n/a",
         blindness_or_disability_indicator: false,
+        had_medicaid_during_foster_care_indicator: false,
         lawful_presence_status:   
           { arrived_before_1996_indicator: false,
             lawful_presence_status_eligibility: { eligibility_indicator: false }
           },
         long_term_care_indicator: false,
-        temporarily_lives_outside_application_state_indicator: false
+        temporarily_lives_outside_application_state_indicator: false,
+        foster_care_indicator: false
       } 
     end
 

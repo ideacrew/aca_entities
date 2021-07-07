@@ -10,7 +10,7 @@ RSpec.describe ::AcaEntities::Medicaid::Atp::StructuredAddress,  dbclean: :aroun
     let(:required_params) { {} }
 
     let(:optional_params) do
-      { location_street: { street_full_text: "123 Easy Street" },
+      { location_street: location_street,
         address_secondary_unit_text: "address",
         location_city_name: "Wheaton",
         location_county_name: "Montgomery", 
@@ -18,6 +18,10 @@ RSpec.describe ::AcaEntities::Medicaid::Atp::StructuredAddress,  dbclean: :aroun
         location_state_us_postal_service_code: "ME",
         location_postal_code: "01234"
       }
+    end
+
+    let(:location_street) do
+      { street_full_text: "123 Easy Street" }
     end
 
     let(:all_params) { required_params.merge(optional_params)}

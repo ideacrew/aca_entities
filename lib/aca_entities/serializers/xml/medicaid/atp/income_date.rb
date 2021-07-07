@@ -19,7 +19,7 @@ module AcaEntities
 
             def self.domain_to_mapper(date_time)
               mapper = self.new
-              mapper.date_time = date_time
+              # mapper.date_time = date_time
               mapper
             end
 

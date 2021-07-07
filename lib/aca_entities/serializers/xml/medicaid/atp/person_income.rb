@@ -43,8 +43,14 @@ module AcaEntities
             has_one :payment_frequency, IncomePaymentFrequency
             has_one :source_organization_reference, IncomeSourceOrganizationReference
 
-            def self.domain_to_mapper(_person)
-              self.new
+            def self.domain_to_mapper(person_income)
+              mapper = self.new
+              mapper.date = IncomeDate.domain_to_mapper(person_income.date)
+              mapper.earned_date_range = IncomeEarnedDateRange.domain_to_mapper(person_income.earned_date_range)
+              mapper.frequency = IncomeFrequency.domain_to_mapper(person_income.frequency)
+              mapper.payment_frequency = IncomePaymentFrequency.domain_to_mapper(person_income.payment_frequency)
+              mapper.source_organization_reference = IncomeSourceOrganizationReference.domain_to_mapper(person_income.source_organization_reference)
+              mapper
             end
 
             def to_hash

@@ -35,7 +35,13 @@ RSpec.describe ::AcaEntities::Medicaid::Atp::AccountTransferRequest, dbclean: :a
                               medicaid_determination_indicator: true },
       attestation: { is_incarcerated: false, attested_not_incarcerated_indicator: false,
                      attested_if_information_changes_indicator: true, attested_non_perjury_indicator: true,
-                     tax_return_access_indicator: true, tax_return_access: true } }
+                     tax_return_access_indicator: true, tax_return_access: true }, 
+      insurance_applicants: [{ role_reference: { ref: "a-person-id" } }],
+      requesting_financial_assistance: false, 
+      requesting_medicaid: false, 
+      ssf_primary_contact: { role_reference: { ref: "a-person-id" }, contact_preference: "Email" },
+      tax_return_access_indicator: false
+    }
   end
 
   let(:medicaid_household_params) do
