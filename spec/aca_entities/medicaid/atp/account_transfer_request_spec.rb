@@ -4,6 +4,7 @@ require 'spec_helper'
 require 'aca_entities/medicaid/atp'
 
 RSpec.describe ::AcaEntities::Medicaid::Atp::AccountTransferRequest, dbclean: :after_each do
+  
   let(:transfer_header_params) do
     {
       transfer_id: '1234567890',
@@ -13,11 +14,17 @@ RSpec.describe ::AcaEntities::Medicaid::Atp::AccountTransferRequest, dbclean: :a
       state_code: 'MA'
     }
   end
+
   let(:person_params) do
-    { person_name: { first_name: 'ivl40', last_name: '41' },
-      demographic: { dob: Date.new(2000, 1, 1), gender: 'Male' },
-      citizenship_immigration_status_information: { us_citizen: true },
-      native_american_information: { is_native_american_or_alaska_native: false } }
+    [{ 
+      person_name: { first_name: "first", last_name: "last" },
+      ssn: '012345678',
+      sex: 'Sex',
+    }]
+    # { person_name: { first_name: 'ivl40', last_name: '41' },
+      # demographic: { dob: Date.new(2000, 1, 1), gender: 'Male' },
+      # citizenship_immigration_status_information: { us_citizen: true },
+      # native_american_information: { is_native_american_or_alaska_native: false } }
   end
 
   let(:insurance_application_params) do
@@ -32,12 +39,12 @@ RSpec.describe ::AcaEntities::Medicaid::Atp::AccountTransferRequest, dbclean: :a
   end
 
   let(:medicaid_household_params) do
-    {
+    [{
       household_income: { monthly_income_greater_than_fpl: true, income_type_code: 'CapitalGains',  income_amount: 500.00,
                           income_frequency: 'Weekly', income_from_tribal_source: 120.00, monthly_attested_medicaid_household_current_income: nil,
                           annual_total_project_medicaid_household_current_income: nil },
       household_composition: { medicaid_household_size: 3, qualified_children_list: 'Sansa, Stark' }
-    }
+    }]
   end
 
   let(:sender_params) {[{ sender_code: '123' }]}
@@ -45,8 +52,8 @@ RSpec.describe ::AcaEntities::Medicaid::Atp::AccountTransferRequest, dbclean: :a
   let(:physical_household) {[{ household_size_quantity: 2, household_member_reference: [5_762_879, 762_839] }]}
   let(:required_params) do
     {
-      transfer_header: transfer_header_params, person: person_params, insurance_application: insurance_application_params,
-      medicaid_household: medicaid_household_params, sender: sender_params, receiver: receiver_params, physical_household: physical_household
+      transfer_header: transfer_header_params, people: person_params, insurance_application: insurance_application_params,
+      medicaid_households: medicaid_household_params, senders: sender_params, receivers: receiver_params, physical_households: physical_household
     }
   end
   context 'valid params' do

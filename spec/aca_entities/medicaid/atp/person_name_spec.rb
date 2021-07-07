@@ -12,7 +12,8 @@ RSpec.describe ::AcaEntities::Medicaid::Atp::PersonName, dbclean: :after_each do
         last_name: 'last',
         name_sfx: 'suffix',
         name_pfx: 'prefix',
-        full_name: 'prefix first middle last suffix' }
+        full_name: 'prefix first middle last suffix'
+      }
     end
 
     it 'should initialize' do

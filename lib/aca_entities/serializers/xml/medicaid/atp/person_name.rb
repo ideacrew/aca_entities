@@ -18,7 +18,7 @@ module AcaEntities
             element :suffix, String, tag: 'PersonNameSuffixText', namespace: "nc"
             element :full, String, tag: 'PersonFullName', namespace: "nc"
 
-            def self.domain_to_mapper(_person)
+            def self.domain_to_mapper(_person_name)
               self.new
             end
 

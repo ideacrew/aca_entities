@@ -4,12 +4,12 @@ require 'spec_helper'
 require 'aca_entities/medicaid/atp/location_street'
 
 RSpec.describe ::AcaEntities::Medicaid::Atp::LocationStreet,  dbclean: :around_each do
-
+  
   describe 'with valid arguments' do
     let(:required_params) { {} }
 
-    let(:optional_params) { { street_full_text: "123 Easy Street" } }
-
+    let(:optional_params) { {street_full_text: "123 Easy Street"} }
+    
     let(:all_params) { required_params.merge(optional_params)}
 
     it 'should initialize' do

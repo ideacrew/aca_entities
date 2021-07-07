@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
+require 'aca_entities/medicaid/atp/person_birth_date'
+require 'aca_entities/medicaid/atp/person_name'
+require 'aca_entities/medicaid/atp/person_preferred_language'
 require 'aca_entities/medicaid/atp/location_street'
 require 'aca_entities/medicaid/atp/structured_address'
 require 'aca_entities/medicaid/atp/full_telephone'

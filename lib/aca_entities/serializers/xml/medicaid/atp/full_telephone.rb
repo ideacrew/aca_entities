@@ -15,7 +15,7 @@ module AcaEntities
             element :telephone_number_full_id, String, tag: "TelephoneNumberFullID", namespace: "nc"
             element :telephone_suffix_id, String, tag: "TelephoneSuffixID", namespace: "nc"
 
-            def self.domain_to_mapper(_contact_info)
+            def self.domain_to_mapper(_telephone)
               self.new
             end
 

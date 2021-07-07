@@ -9,7 +9,8 @@ RSpec.describe ::AcaEntities::Medicaid::Contracts::PersonAssociationContract, db
 
   let(:optional_params) do
     { person: { ref: "pe123" },
-      family_relationship_code: 123 }
+      family_relationship_code: 123
+    }
   end
 
   let(:all_params) { required_params.merge(optional_params)}

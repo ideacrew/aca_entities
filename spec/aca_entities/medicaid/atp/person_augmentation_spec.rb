@@ -29,7 +29,7 @@ require 'aca_entities/medicaid/atp/person_pregnancy_status'
 require 'aca_entities/medicaid/atp/person_augmentation'
 
 RSpec.describe ::AcaEntities::Medicaid::Atp::PersonAugmentation,  dbclean: :around_each do
-
+  
   describe 'with valid arguments' do
     let(:required_params) { {} }
 

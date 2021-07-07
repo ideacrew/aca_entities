@@ -13,15 +13,15 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
   let(:atp_properties) do
     {
       transfer_header: transfer_header,
-      sender: [sender],
-      receiver: [receiver],
-      physical_household: [{
+      senders: [sender],
+      receivers: [receiver],
+      physical_households: [{
         household_size_quantity: 1,
         household_member_reference: []
       }],
       insurance_application: insurance_application,
-      medicaid_household: {},
-      person: person
+      medicaid_households: [{}],
+      people: [person]
     }
   end
 
@@ -30,7 +30,8 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
       transfer_id: "ABCDE",
       transfer_date: DateTime.now,
       number_of_referrals: 5,
-      recipient_code: "MedicaidCHIP"
+      recipient_code: "MedicaidCHIP",
+      state_code: "ME"
     }
   end
 
@@ -345,7 +346,6 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
 
   it "is schema valid" do
     document = Nokogiri::XML(mapper.to_xml)
-    puts document
     schema.validate(document).each do |error|
       puts "\n\n======= Schema Error ======="
       puts error.message
@@ -369,6 +369,6 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
       puts error.first
       puts error.last
     end
-    # expect(error_objects).to be_empty
+    expect(error_objects).to be_empty
   end
 end

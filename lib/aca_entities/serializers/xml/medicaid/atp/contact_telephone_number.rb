@@ -15,8 +15,10 @@ module AcaEntities
             # A postal address by which a person or organization may be contacted.
             has_one :telephone, FullTelephone, tag: 'FullTelephoneNumber'
 
-            def self.domain_to_mapper(_contact_info)
-              self.new
+            def self.domain_to_mapper(telephone_number)
+              mapper = self.new
+              mapper.telephone = FullTelephone.domain_to_mapper(telephone_number.telephone)
+              mapper
             end
 
             def to_hash

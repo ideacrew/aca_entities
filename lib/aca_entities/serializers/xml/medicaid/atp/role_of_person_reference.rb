@@ -14,10 +14,14 @@ module AcaEntities
 
             attribute :ref, String, namespace: "niem-s"
 
-            def self.domain_to_mapper(_insurance_application)
-              mapper = self.new
-              mapper.ref = "a-person-id"
-              mapper
+            def self.domain_to_mapper(_role_reference)
+              self.new
+            end
+
+            def to_hash
+              {
+                ref: ref
+              }
             end
 
             def to_hash

@@ -9,7 +9,7 @@ require 'aca_entities/medicaid/atp/contact_telephone_number'
 require 'aca_entities/medicaid/atp/contact_information'
 
 RSpec.describe ::AcaEntities::Medicaid::Atp::ContactInformation,  dbclean: :around_each do
-
+  
   describe 'with valid arguments' do
     let(:required_params) { {} }
 

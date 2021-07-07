@@ -3,14 +3,13 @@
 require 'spec_helper'
 require 'aca_entities/serializers/xml/medicaid/atp'
 
-# rubocop:disable Lint/Syntax
 RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequest do
   
   let(:sample_location) do
     loc = File.join(
       File.dirname(__FILE__),
       "..", "..", "..", "..", "..",
-      "reference", "xml", "atp",
+      "support", "atp", "sample_payloads",
       "sample_payloads.xml"
     )
     File.expand_path(loc)

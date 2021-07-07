@@ -5,13 +5,14 @@ require 'aca_entities/medicaid/atp/person_reference'
 require 'aca_entities/medicaid/atp/person_association'
 
 RSpec.describe ::AcaEntities::Medicaid::Atp::PersonAssociation,  dbclean: :around_each do
-
+  
   describe 'with valid arguments' do
     let(:required_params) { {} }
 
     let(:optional_params) do
       { person: { ref: "pe123" },
-        family_relationship_code: 0o1 }
+        family_relationship_code: 01
+      }
     end
 
     let(:all_params) { required_params.merge(optional_params)}

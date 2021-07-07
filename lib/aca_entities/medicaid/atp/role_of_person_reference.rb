@@ -6,7 +6,7 @@ module AcaEntities
       # entity for atp RoleOfPersonReference
       class RoleOfPersonReference < Dry::Struct
 
-        attribute :ref, Types::String.meta(omittable: false)
+        attribute :ref, Types::String.meta(omittable: false)      
       end
     end
   end
