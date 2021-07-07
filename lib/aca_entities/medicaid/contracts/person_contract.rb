@@ -12,8 +12,9 @@ module AcaEntities
           required(:sex).filled(:string)
           optional(:race).maybe(:string)
           optional(:ethnicity).maybe(:array)
-          optional(:birth_date).maybe(:date)
-          optional(:augmentation).maybe(:hash)
+          optional(:birth_date).maybe(:hash)
+          optional(:person_augmentation).maybe(:hash)
+          optional(:tribal_augmentation).maybe(:hash)
         end
       end
     end

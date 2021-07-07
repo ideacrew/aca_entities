@@ -25,8 +25,27 @@ module AcaEntities
             has_many :contacts, PersonContactInformationAssociation
             has_many :persons, PersonAssociation
 
-            def self.domain_to_mapper(_person)
-              self.new
+            def self.domain_to_mapper(person_augmentation)
+              mapper = self.new
+              mapper.pregnancy_status = PersonPregnancyStatus.domain_to_mapper(person_augmentation.pregnancy_status)
+              mapper.preferred_languages = person_augmentation.preferred_languages.map{ |preferred_language|
+                PersonPreferredLanguage.domain_to_mapper(preferred_language)
+              }
+              mapper.incomes = person_augmentation.incomes.map{ |income|
+                PersonIncome.domain_to_mapper(income)
+              }
+              mapper.employments = person_augmentation.employments.map{ |employment_association|
+                PersonEmploymentAssociation.domain_to_mapper(employment_association)
+              }
+              # [PersonPreferredLanguage.domain_to_mapper(augmentation.person_preferred_language)]
+              mapper.contacts = person_augmentation.contacts.map { |contact_association| 
+                PersonContactInformationAssociation.domain_to_mapper(contact_association) 
+              }
+              # [PersonContactInformationAssociation.domain_to_mapper(augmentation.contact)]
+              mapper.persons = person_augmentation.persons.map { |person_association|
+                PersonAssociation.domain_to_mapper(person_association)
+              }            
+              # [PersonAssociation.domain_to_mapper(augmentation.person)]
             end
 
             def to_hash

@@ -3,20 +3,28 @@
 require 'spec_helper'
 require 'aca_entities/medicaid/atp/location_street'
 require 'aca_entities/medicaid/atp/structured_address'
-require 'aca_entities/medicaid/atp/contact_mailing_address'
 require 'aca_entities/medicaid/atp/full_telephone'
 require 'aca_entities/medicaid/atp/contact_telephone_number'
-require 'aca_entities/medicaid/atp/contact_information'
+require 'aca_entities/medicaid/atp/contact_mailing_address'
+require 'aca_entities/medicaid/atp/organization_primary_contact_information'
+require 'aca_entities/medicaid/atp/employer'
 
-RSpec.describe ::AcaEntities::Medicaid::Atp::ContactInformation,  dbclean: :around_each do
-
+RSpec.describe ::AcaEntities::Medicaid::Atp::Employer,  dbclean: :around_each do
+  
   describe 'with valid arguments' do
     let(:required_params) { {} }
 
     let(:optional_params) do
-      { contact_email_id: "fake@test.com",
+      { id: "em123",
+        category_text: "Acme",
+        organization_primary_contact_information: contact_information
+      }
+    end
+
+    let(:contact_information) do
+      { email: "fake@test.com",
         mailing_address: contact_mailing_address,
-        telephone_number: contact_telephone_number
+        telephone_number: contact_telephone
       }
     end
 
@@ -26,16 +34,16 @@ RSpec.describe ::AcaEntities::Medicaid::Atp::ContactInformation,  dbclean: :arou
 
     let(:structured_address) do
       { location_street: { street_full_text: "123 Easy Street" },
-        address_secondary_unit_text: "address",
-        location_city_name: "Wheaton",
-        location_county_name: "Montgomery", 
-        location_county_code: "code",
-        location_state_us_postal_service_code: "ME",
-        location_postal_code: "01234"
-      }
+      address_secondary_unit_text: "address",
+      location_city_name: "Wheaton",
+      location_county_name: "Montgomery", 
+      location_county_code: "code",
+      location_state_us_postal_service_code: "ME",
+      location_postal_code: "01234"
+    }
     end
-
-    let(:contact_telephone_number) do
+    
+    let(:contact_telephone) do
       { telephone: full_telephone }
     end
 
@@ -53,13 +61,6 @@ RSpec.describe ::AcaEntities::Medicaid::Atp::ContactInformation,  dbclean: :arou
 
     it 'should not raise error' do
       expect { described_class.new(all_params) }.not_to raise_error
-    end
-
-    context 'with only optional parameters' do
-      it 'should contain all optional keys and values' do
-        result = described_class.new(optional_params)
-        expect(result.to_h).to eq optional_params
-      end
     end
   end  
 end

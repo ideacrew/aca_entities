@@ -1,41 +1,41 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
+require 'aca_entities/medicaid/atp/full_telephone'
+require 'aca_entities/medicaid/atp/contact_telephone_number'
 require 'aca_entities/medicaid/atp/location_street'
 require 'aca_entities/medicaid/atp/structured_address'
 require 'aca_entities/medicaid/atp/contact_mailing_address'
-require 'aca_entities/medicaid/atp/full_telephone'
-require 'aca_entities/medicaid/atp/contact_telephone_number'
-require 'aca_entities/medicaid/atp/contact_information'
+require 'aca_entities/medicaid/atp/organization_primary_contact_information'
 
-RSpec.describe ::AcaEntities::Medicaid::Atp::ContactInformation,  dbclean: :around_each do
-
+RSpec.describe ::AcaEntities::Medicaid::Atp::OrganizationPrimaryContactInformation,  dbclean: :around_each do
+  
   describe 'with valid arguments' do
     let(:required_params) { {} }
 
     let(:optional_params) do
-      { contact_email_id: "fake@test.com",
-        mailing_address: contact_mailing_address,
-        telephone_number: contact_telephone_number
+      { email_id: "fake@test.com",
+        mailing_address: mailing_address,
+        telephone_number: telephone_number
       }
     end
 
-    let(:contact_mailing_address) do
+    let(:mailing_address) do
       { address: structured_address }
     end
 
     let(:structured_address) do
       { location_street: { street_full_text: "123 Easy Street" },
-        address_secondary_unit_text: "address",
-        location_city_name: "Wheaton",
-        location_county_name: "Montgomery", 
-        location_county_code: "code",
-        location_state_us_postal_service_code: "ME",
-        location_postal_code: "01234"
-      }
+      address_secondary_unit_text: "address",
+      location_city_name: "Wheaton",
+      location_county_name: "Montgomery", 
+      location_county_code: "code",
+      location_state_us_postal_service_code: "ME",
+      location_postal_code: "01234"
+    }
     end
 
-    let(:contact_telephone_number) do
+    let(:telephone_number) do
       { telephone: full_telephone }
     end
 
@@ -44,7 +44,7 @@ RSpec.describe ::AcaEntities::Medicaid::Atp::ContactInformation,  dbclean: :arou
         telephone_suffix_id: "0"
       }
     end
-
+ 
     let(:all_params) { required_params.merge(optional_params)}
 
     it 'should initialize' do

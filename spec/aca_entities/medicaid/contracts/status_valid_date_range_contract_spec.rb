@@ -1,26 +1,24 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require 'aca_entities/medicaid/contracts/structured_address_contract'
+require 'aca_entities/medicaid/contracts/status_valid_date_range_contract'
 
-RSpec.describe ::AcaEntities::Medicaid::Contracts::StructuredAddressContract, dbclean: :after_each do
+RSpec.describe ::AcaEntities::Medicaid::Contracts::StatusValidDateRangeContract, dbclean: :after_each do
 
   let(:required_params) { {} }
 
   let(:optional_params) do
-    { location_street: location_street,
-      address_secondary_unit_text: "address",
-      location_city_name: "Wheaton",
-      location_county_name: "Montgomery",
-      location_county_code: "code",
-      location_state_us_postal_service_code: "ME",
-      location_postal_code: "01234" }
+    { end_date: end_date }
   end
 
-  let(:location_street) do
-    { street_full_text: "123 Easy Street" }
+  let(:end_date) do
+    { date: Date.today,
+      date_time: DateTime.now,
+      year: "2021",
+      year_month: "12/2021"
+    }
   end
-
+  
   let(:all_params) { required_params.merge(optional_params)}
 
   context 'invalid parameters' do

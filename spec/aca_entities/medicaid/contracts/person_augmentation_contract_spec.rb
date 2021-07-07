@@ -1,41 +1,13 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require 'aca_entities/medicaid/contracts/person_contract'
+require 'aca_entities/medicaid/contracts/person_augmentation_contract'
 
-RSpec.describe ::AcaEntities::Medicaid::Contracts::PersonContract, dbclean: :after_each do
+RSpec.describe ::AcaEntities::Medicaid::Contracts::PersonAugmentationContract, dbclean: :after_each do
 
-  let(:required_params) do
-    { person_name: person_name,
-      ssn: "012345678",
-      sex: "SEX",
-    }
-  end
+  let(:required_params) { {} }
 
   let(:optional_params) do
-    { race: "RACE",
-      ethnicity: ["eth1", "eth2"],
-      birth_date: person_birth_date,
-      person_augmentation: person_augmentation,
-      tribal_augmentation: tribal_augmentation
-    }
-  end
-
-  let(:person_name) do 
-    { first_name: 'first',
-      middle_name: 'middle',
-      last_name: 'last',
-      name_sfx: 'suffix',
-      name_pfx: 'prefix',
-      full_name: 'prefix first middle last suffix'
-    }
-  end
-
-  let(:person_birth_date) do
-    { date: Date.today - 50 }  
-  end
-
-  let(:person_augmentation) do
     { us_veteran_indicator: false,
       married_indicator: true,
       pregnancy_status: pregnancy_status,
@@ -190,15 +162,6 @@ RSpec.describe ::AcaEntities::Medicaid::Contracts::PersonContract, dbclean: :aft
     }
   end
 
-  let(:tribal_augmentation) do
-    { recognized_tribe_indicator: true,
-      american_indian_or_alaska_native_indicator: true,
-      person_tribe_name: "Tribe Name",
-      location_state_us_postal_service_code: "ME"
-    }
-  end
-
-
   let(:all_params) { required_params.merge(optional_params)}
 
   context 'invalid parameters' do
@@ -207,16 +170,18 @@ RSpec.describe ::AcaEntities::Medicaid::Contracts::PersonContract, dbclean: :aft
         expect(subject.call({}).errors.to_h.keys).to match_array required_params.keys
       end
     end
-
-    context 'with optional parameters only' do
-      it { expect(subject.call(optional_params).error?(required_params.first[0])).to be_truthy }
-    end
   end
 
   context 'valid parameters' do
     context 'with required parameters only' do
-      it { expect(subject.call(required_params).success?).to be_truthy }
-      it { expect(subject.call(required_params).to_h).to eq required_params }
+      let(:input_params) { {} }
+
+      before do
+        @result = subject.call(input_params)
+      end
+
+      it { expect(@result.success?).to be_truthy }
+      it { expect(@result.to_h).to eq input_params }
     end
 
     context 'with all required and optional parameters' do

@@ -1,24 +1,42 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require 'aca_entities/medicaid/contracts/structured_address_contract'
+require 'aca_entities/medicaid/contracts/organization_primary_contact_information_contract'
 
-RSpec.describe ::AcaEntities::Medicaid::Contracts::StructuredAddressContract, dbclean: :after_each do
+RSpec.describe ::AcaEntities::Medicaid::Contracts::OrganizationPrimaryContactInformationContract, dbclean: :after_each do
 
   let(:required_params) { {} }
 
   let(:optional_params) do
-    { location_street: location_street,
-      address_secondary_unit_text: "address",
-      location_city_name: "Wheaton",
-      location_county_name: "Montgomery",
-      location_county_code: "code",
-      location_state_us_postal_service_code: "ME",
-      location_postal_code: "01234" }
+    { email_id: "fake@test.com",
+      mailing_address: mailing_address,
+      telephone_number: telephone_number
+    }
   end
 
-  let(:location_street) do
-    { street_full_text: "123 Easy Street" }
+  let(:mailing_address) do
+    { address: structured_address }
+  end
+
+  let(:structured_address) do
+    { location_street: { street_full_text: "123 Easy Street" },
+    address_secondary_unit_text: "address",
+    location_city_name: "Wheaton",
+    location_county_name: "Montgomery", 
+    location_county_code: "code",
+    location_state_us_postal_service_code: "ME",
+    location_postal_code: "01234"
+  }
+  end
+
+  let(:telephone_number) do
+    { telephone: full_telephone }
+  end
+
+  let(:full_telephone) do
+    { telephone_number_full_id: "1231231234",
+      telephone_suffix_id: "0"
+    }
   end
 
   let(:all_params) { required_params.merge(optional_params)}
