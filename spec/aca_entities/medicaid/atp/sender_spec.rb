@@ -8,9 +8,9 @@ RSpec.describe ::AcaEntities::Medicaid::Atp::Sender do
   describe 'with valid arguments' do
     let(:input_params) do
       {
-        sender_code: '123',
-        sender_medicaid_chip_state: nil,
-        sender_medicaid_chip_county: nil
+        category_code: 'Exchange',
+        state_code: nil,
+        county_name: nil
       }
     end
 

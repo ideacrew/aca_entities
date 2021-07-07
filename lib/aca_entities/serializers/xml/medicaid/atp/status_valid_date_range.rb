@@ -15,9 +15,10 @@ module AcaEntities
             has_one :start_date, StartDate
             has_one :end_date, EndDate
 
-            def self.domain_to_mapper(_reference)
+            def self.domain_to_mapper(dr)
               mapper = self.new
-              mapper.ref = "reference-id"
+              mapper.start_date = StartDate.domain_to_mapper(dr.start_date)
+              mapper.end_date = EndDate.domain_to_mapper(dr.end_date)
               mapper
             end
 

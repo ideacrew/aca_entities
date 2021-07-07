@@ -16,8 +16,12 @@ module AcaEntities
             has_one :birth_date, PersonBirthDate
             element :sex, String, tag: "PersonSexText", namespace: "nc"
 
-            def self.domain_to_mapper(_role)
-              self.new
+            def self.domain_to_mapper(role)
+              mapper = self.new
+              mapper.person_name = PersonName.domain_to_mapper(role.person_name)
+              mapper.birth_date = PersonName.domain_to_mapper(role.birth_date)
+              mapper.sex = role.sex
+              mapper
             end
 
             def to_hash

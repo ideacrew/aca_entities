@@ -16,9 +16,11 @@ module AcaEntities
             element :overall_verification_status_code, String, tag: 'ReferralActivityOverallVerificationStatusCode'
             has_one :valid_date_range, StatusValidDateRange
 
-            def self.domain_to_mapper(_reference)
+            def self.domain_to_mapper(ras)
               mapper = self.new
-              mapper.ref = "reference-id"
+              mapper.status_code = ras.status_code
+              mapper.overall_verification_status_code = ras.overall_verification_status_code
+              mapper.valid_date_range = StatusValidDateRange.domain_to_mapper(ras.valid_date_range)
               mapper
             end
 

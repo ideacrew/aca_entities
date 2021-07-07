@@ -8,11 +8,17 @@ RSpec.describe ::AcaEntities::Medicaid::Atp::TransferHeader do
   describe 'with valid arguments' do
     let(:input_params) do
       {
-        transfer_id: 'id',
-        transfer_date: Date.today.to_datetime,
-        number_of_referrals: 4,
+        transfer_activity: transfer_activity,
+      }
+    end
+
+    let(:transfer_activity) do
+      {
+        transfer_id: {identification_id: '2163565'},
+        transfer_date: {date_time: DateTime.now},
+        number_of_referrals: 1,
         recipient_code: 'MedicaidCHIP',
-        medicaid_chip_state: 'MA'
+        state_code: 'ME'
       }
     end
 
@@ -24,11 +30,5 @@ RSpec.describe ::AcaEntities::Medicaid::Atp::TransferHeader do
       expect { described_class.new(input_params) }.not_to raise_error
     end
 
-    context 'invalid input for transfer_date' do
-      let(:output) { described_class.new(input_params.merge(transfer_date: Date.today.to_date)) }
-      it 'should return error message' do
-        expect { output }.to raise_error(Dry::Struct::Error, /has invalid type for :transfer_date/)
-      end
-    end
   end
 end

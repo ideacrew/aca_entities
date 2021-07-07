@@ -5,24 +5,24 @@ module AcaEntities
     module Xml
       module Medicaid
         module Atp
-          # Include XML element and type definitions.
-          class HouseholdMemberReference
+          # A signature on a physical or electronic document.
+          class SignatureDate
             include HappyMapper
 
-            tag 'HouseholdMemberReference'
-            namespace 'hix-ee'
+            tag 'SignatureDate'
+            namespace 'hix-core'
 
-            attribute :ref, String, namespace: "niem-s"
+            element :date, Date, tag: 'Date', namespace: 'nc'
 
-            def self.domain_to_mapper(reference)
+            def self.domain_to_mapper(signature_date)
               mapper = self.new
-              mapper.ref = reference.ref
+              mapper.date = signature_date.date
               mapper
             end
 
             def to_hash
               {
-                ref: ref
+                date: date
               }
             end
           end

@@ -12,11 +12,14 @@ module AcaEntities
             tag 'PhysicalHousehold'
             namespace 'ext'
 
-            has_many :household_member_references, HouseholdMemberReference
             element :household_size_quantity, Integer, tag: 'HouseholdSizeQuantity', namespace: 'hix-ee'
+            has_many :household_member_references, HouseholdMemberReference
 
-            def self.domain_to_mapper(_household)
-              self.new
+            def self.domain_to_mapper(household)
+              mapper = self.new
+              mapper.household_member_references = household.household_member_references.map{|m| HouseholdMemberReference.domain_to_mapper(m)}
+              mapper.household_size_quantity = household.household_size_quantity
+              mapper
             end
 
             def to_hash

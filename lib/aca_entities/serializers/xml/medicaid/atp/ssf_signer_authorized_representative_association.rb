@@ -13,17 +13,19 @@ module AcaEntities
             tag 'SSFSignerAuthorizedRepresentativeAssociation'
             namespace 'hix-ee'
 
-            element :signature, String, tag: 'Signature'
+            has_one :signature, Signature
 
             has_one :authorized_representative_reference, AuthorizedRepresentativeReference
 
-            def self.domain_to_mapper(_representative)
-              self.new
+            def self.domain_to_mapper(rep)
+              mapper = self.new
+              mapper.signature = Signature.domain_to_mapper(rep.signature)
+              mapper.authorized_representative_reference = AuthorizedRepresentativeReference.domain_to_mapper(rep.authorized_representative_reference)
             end
 
             def to_hash
               {
-                signature: signature,
+                signature: signature&.to_hash,
                 authorized_representative_reference: authorized_representative_reference&.to_hash
               }
             end

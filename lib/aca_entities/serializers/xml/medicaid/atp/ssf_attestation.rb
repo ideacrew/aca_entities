@@ -23,9 +23,7 @@ module AcaEntities
             element :non_perjury_indicator, Boolean, tag: 'SSFAttestationNonPerjuryIndicator'
 
             # True if a signer attests that they are not currently incarcerated; false otherwise.
-            # element :not_incarcerated_indicator, Boolean, tag: 'SSFAttestationNotIncarceratedIndicator'
             has_many :not_incarcerated_indicators, NotIncarceratedIndicator
-            # has_many :not_incarcerated_indicators, Boolean, attributes: { metadata: String}
 
             # True if a signer attests that they understand how their information will be used; false otherwise
             element :privacy_agreement_indicator, Boolean, tag: 'SSFAttestationPrivacyAgreementIndicator'
@@ -39,8 +37,17 @@ module AcaEntities
             # True if a signer attests that they agree to the terms of the insurance application; false otherwise.
             element :application_terms_indicator, Boolean, tag: 'SSFAttestationApplicationTermsIndicator'
 
-            def self.domain_to_mapper(_attestation)
-              self.new
+            def self.domain_to_mapper(attestation)
+              mapper = self.new
+              mapper.not_incarcerated_indicators = attestation.not_incarcerated_indicators.map{|i| NotIncarceratedIndicator.domain_to_mapper(i)}
+              mapper.collections_agreement_indicator = attestation.collections_agreement_indicator
+              mapper.medicaid_obligations_indicator = attestation.medicaid_obligations_indicator
+              mapper.non_perjury_indicator = attestation.non_perjury_indicator
+              mapper.privacy_agreement_indicator = attestation.privacy_agreement_indicator
+              mapper.pending_charges_indicator = attestation.pending_charges_indicator
+              mapper.information_changes_indicator = attestation.information_changes_indicator
+              mapper.application_terms_indicator = attestation.application_terms_indicator
+              mapper
             end
 
             def to_hash

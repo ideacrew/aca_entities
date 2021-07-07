@@ -13,11 +13,11 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
   let(:atp_properties) do
     {
       transfer_header: transfer_header,
-      senders: [sender],
+      senders: senders,
       receivers: [receiver],
       physical_households: [{
         household_size_quantity: 1,
-        household_member_reference: []
+        household_member_references: [{ref: "a-person-id"}]
       }],
       insurance_application: insurance_application,
       medicaid_households: [{}],
@@ -27,23 +27,31 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
 
   let(:transfer_header) do
     {
-      transfer_id: "ABCDE",
-      transfer_date: DateTime.now,
-      number_of_referrals: 5,
-      recipient_code: "MedicaidCHIP",
-      state_code: "ME"
+      transfer_activity: transfer_activity
     }
   end
 
   let(:insurance_application) do
     {
-      application_metadata: application_metadata,
       insurance_applicants: [insurance_applicant],
-      requesting_financial_assistance: false, 
-      requesting_medicaid: false, 
-      ssf_primary_contact: ssf_primary_contact, 
+      requesting_financial_assistance: true,
+      coverage_renewal_year_quantity: 2,
+      requesting_medicaid: false,
+      tax_return_access: true,
+      ssf_primary_contact: {contact_preference: 'Email', role_reference: role_reference},
       ssf_signer: ssf_signer,
-      tax_return_access_indicator: false
+      application_creation: application_creation,
+      application_submission: application_submission,
+      application_identifications: [application_identification]
+      
+      
+      
+    }
+  end
+
+  let(:application_identification) do
+    {
+      identification_id: "Exchange"
     }
   end
 
@@ -69,7 +77,7 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
 
   let(:insurance_applicant) do
     { 
-      role_reference: { ref: "pe123" },
+      role_reference: role_reference,
       esi_eligible_indicator: false,
       age_left_foster_care: 14,
       foster_care_state: "n/a",
@@ -79,20 +87,64 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
       long_term_care_indicator: false,
       chip_eligibilities: [trafficking_victim_category_eligibility_basis],
       temporarily_lives_outside_application_state_indicator: false, 
-      foster_care_indicator: false
+      foster_care_indicator: false,
+      fixed_address_indicator: true
     }
   end
 
-  let(:sender) do
-    { sender_code: "a unique id" }
+  let(:ssf_signer) do
+    {
+      role_reference: role_reference,
+      signature: signature,
+      ssf_attestation: ssf_attestation
+    }
   end
 
-  let(:receiver) do
-    { recipient_code: "a unique id" }
+  let(:ssf_attestation) do 
+    {
+      non_perjury_indicator: true,
+      not_incarcerated_indicators: [{metadata: nil, value: true}],
+      information_changes_indicator: false
+    }
+  end
+
+  let(:signature) do
+    {
+      date_time: {date: DateTime.now.to_date}
+    }
+  end
+
+  let(:role_reference) do
+    { ref: "a-person-id" }
+  end
+
+  let(:application_creation) do
+    {
+      creation_id: {identification_id: '2163565'},
+      creation_date: {date_time: DateTime.now},
+    }
+  end
+
+  let(:application_submission) do
+    {
+      activity_id: {identification_id: '2163565'},
+      activity_date: {date_time: DateTime.now},
+    }
+  end
+
+  let(:transfer_activity) do
+    {
+      transfer_id: {identification_id: '2163565'},
+      transfer_date: {date_time: DateTime.now},
+      number_of_referrals: 1,
+      recipient_code: 'MedicaidCHIP',
+      state_code: 'ME'
+    }
   end
 
   let(:person) do
     {
+      id: "a-person-id",
       person_name: person_name,
       ssn: "012345678",
       sex: "SEX",
@@ -106,12 +158,10 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
 
   let(:person_name) do
     {
-      first_name: "First",
-      middle_name: "",
-      last_name: "Last",
-      name_sfx: "",
-      name_pfx: "",
-      full_name: "First Last",
+      given: "First",
+      middle: "",
+      sur: "Last",
+      full: "First Last",
     }
   end
 
@@ -147,28 +197,14 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
 
   let(:pregnancy_status) do
     { status_indicator: false,
-      status_valid_date_range: status_valid_date_range,
-      expected_baby_quantity: 1
+      # status_valid_date_range: status_valid_date_range,
+      expected_baby_quantity: 0
     }
   end
 
   let(:status_valid_date_range) do
-    { end_date: end_date }
-  end
-
-  let(:ssf_primary_contact) do
-    {
-      role_reference: { ref: "a-person-id" },
-      contact_preference: "Mail"
-    }
-  end
-
-  let(:ssf_signer) { ssf_attestation }
-    
-  let(:ssf_attestation) do
-    { non_perjury_indicator: true,
-      not_incarcerated_indicator: true,
-      information_changes_indicator: false
+    { start_date: start_date, 
+      end_date: end_date 
     }
   end
 
@@ -325,12 +361,28 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
     }
   end
   
+  let(:senders) do
+    [
+      {category_code: 'Exchange'}
+    ]
+  end
+
+  let(:receiver) do
+    {
+      category_code: 'Exchange'
+    }
+  end
+
+  let(:application_identity) do
+    {
+      identification_id: "A UUID"
+    }
+  end
+
   let(:mapper) { described_class.domain_to_mapper(account_transfer_request) }
   let(:schema) { Nokogiri::XML::Schema(File.open(schema_location)) }
   let(:schema_location) do
-    loc = File.join(
-      File.dirname(__FILE__),
-      "..", "..", "..", "..", "..",
+    loc = File.join(File.dirname(__FILE__),"..", "..", "..", "..", "..",
       "reference", "xml", "atp",
       "atp_service.xsd"
     )
@@ -354,6 +406,7 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
 
   it "is schema valid" do
     document = Nokogiri::XML(mapper.to_xml)
+    puts mapper.to_xml
     schema.validate(document).each do |error|
       puts "\n\n======= Schema Error ======="
       puts error.message

@@ -14,8 +14,10 @@ module AcaEntities
 
             has_one :street_full_text, String, tag: 'StreetFullText'
 
-            def self.domain_to_mapper(_contact_info)
-              self.new
+            def self.domain_to_mapper(s)
+              mapper = self.new
+              mapper.street_full_text = sa.street_full_text
+              mapper
             end
 
             def to_hash
