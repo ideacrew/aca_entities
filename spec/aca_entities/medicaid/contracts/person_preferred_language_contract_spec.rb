@@ -8,8 +8,7 @@ RSpec.describe ::AcaEntities::Medicaid::Contracts::PersonPreferredLanguageContra
   let(:required_params) { {} }
 
   let(:optional_params) do
-    { language_name: "Spanish"
-    }
+    { language_name: "Spanish" }
   end
 
   let(:all_params) { required_params.merge(optional_params)}

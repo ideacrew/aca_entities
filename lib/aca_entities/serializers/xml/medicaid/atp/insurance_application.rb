@@ -39,14 +39,12 @@ module AcaEntities
               mapper.application_identifications = [
                 ApplicationIdentification.domain_to_mapper(insurance_application.application_metadata.application_ids)
               ]
-
               mapper.insurance_applicants = insurance_application.insurance_applicants.map { |insurance_applicant|
                 InsuranceApplicant.domain_to_mapper(insurance_applicant)
               }
               # [
               #   InsuranceApplicant.domain_to_mapper(insurance_application.insurance_applicants)
               # ]
-
               mapper.requesting_financial_assistance = insurance_application.requesting_financial_assistance
               mapper.requesting_medicaid = insurance_application.requesting_medicaid
               mapper.tax_return_access = insurance_application.tax_return_access_indicator
@@ -61,12 +59,12 @@ module AcaEntities
                 application_submission: application_submission&.to_hash,
                 application_identifications: application_identifications.map(&:to_hash),
                 insurance_applicants: if identifier
-                                     insurance_applicants.map(&:to_hash).group_by do |h|
-                                                               h[:id]
-                                                             end.transform_keys(&:to_s).transform_values(&:first)
+                                        insurance_applicants.map(&:to_hash).group_by do |h|
+                                          h[:id]
+                                        end.transform_keys(&:to_s).transform_values(&:first)
                                       else
                                         insurance_applicants.map(&:to_hash)
-                                   end,
+                                      end,
                 requesting_financial_assistance: requesting_financial_assistance,
                 requesting_medicaid: requesting_medicaid,
                 ssf_primary_contact: ssf_primary_contact&.to_hash,

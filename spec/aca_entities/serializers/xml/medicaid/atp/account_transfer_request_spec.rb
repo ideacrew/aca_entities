@@ -88,6 +88,14 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
     }
   end
 
+  let(:sender) do
+    { sender_code: "a unique id" }
+  end
+
+  let(:receiver) do
+    { recipient_code: "a unique id" }
+  end
+
   let(:person) do
     {
       person_name: person_name,

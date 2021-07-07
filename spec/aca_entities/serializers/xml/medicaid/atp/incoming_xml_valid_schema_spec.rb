@@ -50,3 +50,4 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
     end
   end
 end
+# rubocop:enable Lint/Syntax

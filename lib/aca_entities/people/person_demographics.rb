@@ -9,7 +9,7 @@ module AcaEntities
       attribute :gender,                  Types::String.meta(omittable: false)
       attribute :dob,                     Types::Date.meta(omittable: false)
       attribute :date_of_death,           Types::Date.optional.meta(omittable: true)
-      attribute :dob_check,               Types::Date.optional.meta(omittable: true)
+      attribute :dob_check,               Types::Bool.optional.meta(omittable: true)
       attribute :is_incarcerated,         Types::Bool.meta(omittable: false)
       attribute :ethnicity,               Types::Array.optional.meta(omittable: true)
       attribute :race,                    Types::String.optional.meta(omittable: true)

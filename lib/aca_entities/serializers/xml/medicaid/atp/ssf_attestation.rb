@@ -23,7 +23,9 @@ module AcaEntities
             element :non_perjury_indicator, Boolean, tag: 'SSFAttestationNonPerjuryIndicator'
 
             # True if a signer attests that they are not currently incarcerated; false otherwise.
-            element :not_incarcerated_indicator, Boolean, tag: 'SSFAttestationNotIncarceratedIndicator'
+            # element :not_incarcerated_indicator, Boolean, tag: 'SSFAttestationNotIncarceratedIndicator'
+            has_many :not_incarcerated_indicators, NotIncarceratedIndicator
+            # has_many :not_incarcerated_indicators, Boolean, attributes: { metadata: String}
 
             # True if a signer attests that they understand how their information will be used; false otherwise
             element :privacy_agreement_indicator, Boolean, tag: 'SSFAttestationPrivacyAgreementIndicator'
@@ -46,7 +48,7 @@ module AcaEntities
                 collections_agreement_indicator: collections_agreement_indicator,
                 medicaid_obligations_indicator: medicaid_obligations_indicator,
                 non_perjury_indicator: non_perjury_indicator,
-                not_incarcerated_indicator: not_incarcerated_indicator,
+                not_incarcerated_indicators: not_incarcerated_indicators&.to_hash,
                 privacy_agreement_indicator: privacy_agreement_indicator,
                 pending_charges_indicator: pending_charges_indicator,
                 information_changes_indicator: information_changes_indicator,

@@ -27,7 +27,6 @@ RSpec.describe ::AcaEntities::Medicaid::Atp::InsuranceApplicant, dbclean: :aroun
 
     let(:all_params) { required_params.merge(optional_params) }
 
-   
     it 'should initialize' do
       expect(described_class.new(all_params)).to be_a described_class
     end

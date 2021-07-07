@@ -28,21 +28,14 @@ RSpec.describe ::AcaEntities::Medicaid::Atp::AccountTransferRequest, dbclean: :a
   end
 
   let(:insurance_application_params) do
-    # { application_metadata: { application_ids: [{ identification_id: '12345' }], application_signature_date: DateTime.new,
-    #                           creation_date: DateTime.new, identification_category_text: 'state',
-    #                           submission_date: DateTime.new,
-    #                           financial_assistance_indicator: true,
-    #                           medicaid_determination_indicator: true },
-    #   attestation: { is_incarcerated: false, attested_not_incarcerated_indicator: false,
-    #                  attested_if_information_changes_indicator: true, attested_non_perjury_indicator: true,
-    #                  tax_return_access_indicator: true, tax_return_access: true } }
-    {
-      insurance_applicants: [{ role_reference: { ref: "a-person-id" } }],
-      requesting_financial_assistance: false, 
-      requesting_medicaid: false, 
-      ssf_primary_contact: { role_reference: { ref: "a-person-id" }, contact_preference: "Email" }, 
-      tax_return_access_indicator: false
-    }
+    { application_metadata: { application_ids: [{ identification_id: '12345' }], application_signature_date: DateTime.new,
+                              creation_date: DateTime.new, identification_category_text: 'state',
+                              submission_date: DateTime.new,
+                              financial_assistance_indicator: true,
+                              medicaid_determination_indicator: true },
+      attestation: { is_incarcerated: false, attested_not_incarcerated_indicator: false,
+                     attested_if_information_changes_indicator: true, attested_non_perjury_indicator: true,
+                     tax_return_access_indicator: true, tax_return_access: true } }
   end
 
   let(:medicaid_household_params) do

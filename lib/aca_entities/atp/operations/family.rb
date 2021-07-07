@@ -23,7 +23,7 @@ module AcaEntities
           # valid_params = yield validate_atp(source_hash)
           params = yield xml_transform
           #   params = yield batch_json_transform if @worker_mode == :batch # (app_params)
-          transform_result = yield single_json_transform(params) if worker_mode == :single
+          yield single_json_transform(params) if worker_mode == :single
 
           Success(true)
         end

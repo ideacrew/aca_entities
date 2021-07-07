@@ -57,7 +57,7 @@ module AcaEntities
                         member_id = v.find(/record.people.(\w+)$/).map(&:item).last
                         applicants = v.resolve(:'insurance_application.insurance_applicants').item
                         return false unless applicants[member_id.to_sym]
-                        applicants[member_id.to_sym][:temporarily_lives_outside_application_state_indicator] || false #default value
+                        applicants[member_id.to_sym][:temporarily_lives_outside_application_state_indicator] || false # default value
                       }
                       add_key 'age_off_excluded', value: nil
                       add_key 'is_active'
@@ -72,9 +72,8 @@ module AcaEntities
 
                   map 'ssn', 'person.person_demographics.ssn', memoize: true, append_identifier: true
                   map 'sex', 'person.person_demographics.gender', memoize: true, append_identifier: true, function: ->(value) {value.downcase}
-                  add_key 'person.person_demographics.no_ssn', function: lambda { |v|
-                                                                           v.resolve(:'person_demographics.ssn', identifier: true).item.nil? ? "1" : "0"
-                                                                         }
+                  add_key 'person.person_demographics.no_ssn',
+                          function: ->(v) { v.resolve(:'person_demographics.ssn', identifier: true).item.nil? ? "1" : "0"}
                   map 'birth_date.date', 'person.person_demographics.dob', memoize: true, append_identifier: true
                   add_key 'person.person_demographics.date_of_death'
                   add_key 'person.person_demographics.dob_check'
@@ -118,7 +117,8 @@ module AcaEntities
                     result
                   }
                   map 'us_citizen_indicator', 'us_citizen_indicator', memoize: true, append_identifier: true, visible: false
-                  add_key 'person.consumer_role.lawful_presence_determination.citizen_status', function: AcaEntities::Atp::Functions::LawfulPresenceDeterminationBuilder.new
+                  add_key 'person.consumer_role.lawful_presence_determination.citizen_status',
+                          function: AcaEntities::Atp::Functions::LawfulPresenceDeterminationBuilder.new
                   add_key 'person.consumer_role.language_preference', function: lambda { |v|
                     preference_language = v.find(Regexp.new('record.people.*.augementation')).map(&:item).last[:preferred_languages]&.first
                     preference_language ? preference_language[:language_name].downcase : nil

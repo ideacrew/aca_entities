@@ -603,9 +603,9 @@ RSpec.describe AcaEntities::Contracts::Families::FamilyContract,  dbclean: :afte
 
   let(:timestamp) do
     {
-      submitted_at: Date.today,
-      created_at: Date.today,
-      modified_at: Date.today
+      submitted_at: DateTime.now,
+      created_at: DateTime.now,
+      modified_at: DateTime.now
     }
   end
 

@@ -23,6 +23,12 @@ module AcaEntities
                 ref: ref
               }
             end
+
+            def to_hash
+              {
+                ref: ref
+              }
+            end
           end
         end
       end

@@ -7,7 +7,7 @@ RSpec.describe ::AcaEntities::Medicaid::Contracts::LocationStreetContract, dbcle
 
   let(:required_params) { {} }
 
-  let(:optional_params) { {street_full_text: "123 Easy Street"} }
+  let(:optional_params) { { street_full_text: "123 Easy Street" } }
 
   let(:all_params) { required_params.merge(optional_params)}
 

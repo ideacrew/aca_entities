@@ -63,6 +63,6 @@ RSpec.describe ::AcaEntities::Medicaid::Atp::PersonAugmentation,  dbclean: :arou
     it 'should not raise error' do
       expect { described_class.new(all_params) }.not_to raise_error
     end
-  end  
+  end
 end
 

@@ -26,7 +26,7 @@ RSpec.describe ::AcaEntities::Medicaid::Atp::Person, dbclean: :after_each do
         birth_date: { date: Date.today },
         augementation:
           { married_indicator: true,
-            preferred_languages: 
+            preferred_languages:
             [
               { language_name: "Spanish" },
               { language_name: "English" }
