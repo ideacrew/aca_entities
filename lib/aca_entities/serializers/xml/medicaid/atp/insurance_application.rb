@@ -57,12 +57,12 @@ module AcaEntities
                 application_submission: application_submission&.to_hash,
                 application_identifications: application_identifications.map(&:to_hash),
                 insurance_applicants: if identifier
-                                     insurance_applicants.map(&:to_hash).group_by do |h|
-                                                               h[:id]
-                                                             end.transform_keys(&:to_s).transform_values(&:first)
+                                        insurance_applicants.map(&:to_hash).group_by do |h|
+                                          h[:id]
+                                        end.transform_keys(&:to_s).transform_values(&:first)
                                       else
                                         insurance_applicants.map(&:to_hash)
-                                   end,
+                                      end,
                 requesting_financial_assistance: requesting_financial_assistance,
                 requesting_medicaid: requesting_medicaid,
                 ssf_primary_contact: ssf_primary_contact&.to_hash,

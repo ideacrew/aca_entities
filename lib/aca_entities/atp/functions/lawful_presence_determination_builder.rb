@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 module AcaEntities
   module Atp
     module Functions
@@ -31,11 +30,10 @@ module AcaEntities
         # ALIEN_LAWFULLY_PRESENT_STATUS = 'alien_lawfully_present'
         # INELIGIBLE_CITIZEN_VERIFICATION = %w[not_lawfully_present_in_us non_native_not_lawfully_present_in_us].freeze
 
-        def call(cache, m_identifier = nil)
-          us_citizen_indicator = cache.resolve(:'us_citizen_indicator', identifier: true).item
-          us_naturalized_citizen_indicator = cache.find(Regexp.new('record.people.*.augementation')).map(&:item).last[:us_naturalized_citizen_indicator]
-             
-          
+        def call(cache, _m_identifier = nil)
+          us_citizen_indicator = cache.resolve(:us_citizen_indicator, identifier: true).item
+          naturalized_indicator = cache.find(Regexp.new('record.people.*.augementation')).map(&:item).last[:us_naturalized_citizen_indicator]
+
           # member = input.find(/attestations.members.(\w+)$/)&.map(&:item)&.last
           # member_identifier = m_identifier || member
 
@@ -46,7 +44,7 @@ module AcaEntities
           hash = {
             # no_alien_number_indicator&.name&.split('.')&.first => no_alien_number_indicator&.item,
             'citizenshipIndicator' => us_citizen_indicator,
-            'naturalizedCitizenIndicator' => us_naturalized_citizen_indicator
+            'naturalizedCitizenIndicator' => naturalized_indicator
           }
 
           val = hash.keys.find { |_k| hash.key(true) }
@@ -60,4 +58,3 @@ module AcaEntities
     end
   end
 end
-# rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity

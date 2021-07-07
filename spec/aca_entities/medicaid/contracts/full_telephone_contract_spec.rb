@@ -9,8 +9,7 @@ RSpec.describe ::AcaEntities::Medicaid::Contracts::FullTelephoneContract, dbclea
 
   let(:optional_params) do
     { telephone_number_full_id: "1231231234",
-      telephone_suffix_id: "0"
-    }
+      telephone_suffix_id: "0" }
   end
 
   let(:all_params) { required_params.merge(optional_params)}

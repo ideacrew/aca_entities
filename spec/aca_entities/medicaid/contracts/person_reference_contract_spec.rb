@@ -7,7 +7,7 @@ RSpec.describe ::AcaEntities::Medicaid::Contracts::PersonReferenceContract, dbcl
 
   let(:required_params) { {} }
 
-  let(:optional_params) { {ref: "pe123"} }
+  let(:optional_params) { { ref: "pe123" } }
 
   let(:all_params) { required_params.merge(optional_params)}
 

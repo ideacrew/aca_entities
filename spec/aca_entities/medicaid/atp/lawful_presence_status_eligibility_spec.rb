@@ -4,7 +4,7 @@ require 'spec_helper'
 require 'aca_entities/medicaid/atp/lawful_presence_status_eligibility'
 
 RSpec.describe ::AcaEntities::Medicaid::Atp::LawfulPresenceStatusEligibility,  dbclean: :around_each do
-  
+
   describe 'with valid arguments' do
     let(:required_params) { { eligibility_indicator: true } }
 

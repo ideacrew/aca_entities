@@ -7,39 +7,38 @@ module AcaEntities
       # builds relationship attributes
       class RelationshipBuilder
 
-        MAPPING_RELATIONS = 
-        { 'Spouse' => 'spouse',
-          'Parent (father or mother)' => 'parent',
-          'Grandparent (grandfather or grandmother)' => 'grandparent',
-          'Grandchild (grandson or granddaughter)' => 'grandchild',
-          'Uncle or aunt' => 'aunt_or_uncle',
-          'Nephew or niece' => 'nephew_or_niece',
-          'First cousin' => 'other_relationship', # no related mapping in enroll
-          'Adopted son or daughter' => 'adopted_child',
-          'Foster child (foster son or foster daughter)' => 'foster_child',
-          'Son-in-law or daughter-in-law' => 'daughter_or_son_in_law',
-          'Brother-in-law or sister-in-law' => 'brother_or_sister_in_law',
-          'Mother-in-law or father-in law' => 'father_or_mother_in_law',
-          'Sibling (brother or sister)' => 'sibling',
-          'Ward' => 'ward',
-          'Stepparent (stepfather or stepmother)' => 'stepparent',
-          'Stepchild (stepson or stepdaughter)' => 'stepchild',
-          'Self' => 'self',
-          'Child (son or daughter)' => 'child',
-          'Sponsored dependent' => 'sponsored_dependent',
-          'Dependent of a minor dependent' => 'dependent_of_a_minor_dependent',
-          'Former spouse' => 'other_relationship', # no related mapping in enroll
-          'Guardian' => 'guardian',
-          'Court-appointed guardian' => 'court_appointed_guardian',
-          'Collateral dependent' => 'collateral_dependent',
-          'Domestic partner' => 'life_partner',
-          'Annuitant' => 'annuitant',
-          'Trustee' => 'trustee',
-          'Unspecified relationship' => 'other_relationship', # no related mapping in enroll
-          'Unspecified relative' => 'other_relationship', # no related mapping in enroll
-          "Parent's domestic partner" => 'other_relationship', # no related mapping in enroll
-          'Child of domestic partner' => 'other_relationship' # no related mapping in enroll
-         }.freeze
+        MAPPING_RELATIONS =
+          { 'Spouse' => 'spouse',
+            'Parent (father or mother)' => 'parent',
+            'Grandparent (grandfather or grandmother)' => 'grandparent',
+            'Grandchild (grandson or granddaughter)' => 'grandchild',
+            'Uncle or aunt' => 'aunt_or_uncle',
+            'Nephew or niece' => 'nephew_or_niece',
+            'First cousin' => 'other_relationship', # no related mapping in enroll
+            'Adopted son or daughter' => 'adopted_child',
+            'Foster child (foster son or foster daughter)' => 'foster_child',
+            'Son-in-law or daughter-in-law' => 'daughter_or_son_in_law',
+            'Brother-in-law or sister-in-law' => 'brother_or_sister_in_law',
+            'Mother-in-law or father-in law' => 'father_or_mother_in_law',
+            'Sibling (brother or sister)' => 'sibling',
+            'Ward' => 'ward',
+            'Stepparent (stepfather or stepmother)' => 'stepparent',
+            'Stepchild (stepson or stepdaughter)' => 'stepchild',
+            'Self' => 'self',
+            'Child (son or daughter)' => 'child',
+            'Sponsored dependent' => 'sponsored_dependent',
+            'Dependent of a minor dependent' => 'dependent_of_a_minor_dependent',
+            'Former spouse' => 'other_relationship', # no related mapping in enroll
+            'Guardian' => 'guardian',
+            'Court-appointed guardian' => 'court_appointed_guardian',
+            'Collateral dependent' => 'collateral_dependent',
+            'Domestic partner' => 'life_partner',
+            'Annuitant' => 'annuitant',
+            'Trustee' => 'trustee',
+            'Unspecified relationship' => 'other_relationship', # no related mapping in enroll
+            'Unspecified relative' => 'other_relationship', # no related mapping in enroll
+            "Parent's domestic partner" => 'other_relationship', # no related mapping in enroll
+            'Child of domestic partner' => 'other_relationship' }.freeze  # no related mapping in enroll
 
         def call(cache)
           @memoized_data = cache

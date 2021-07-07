@@ -78,7 +78,7 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
       },
       demographic: {
         dob: Date.today,
-        gender: "A GENDER",
+        gender: "A GENDER"
       },
       citizenship_immigration_status_information: {
         us_citizen: true

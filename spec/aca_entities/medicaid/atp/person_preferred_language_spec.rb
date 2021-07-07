@@ -4,7 +4,7 @@ require 'spec_helper'
 require 'aca_entities/medicaid/atp/person_preferred_language'
 
 RSpec.describe ::AcaEntities::Medicaid::Atp::PersonPreferredLanguage,  dbclean: :around_each do
-  
+
   describe 'with valid arguments' do
     let(:required_params) { {} }
 
@@ -21,6 +21,6 @@ RSpec.describe ::AcaEntities::Medicaid::Atp::PersonPreferredLanguage,  dbclean: 
     it 'should not raise error' do
       expect { described_class.new(all_params) }.not_to raise_error
     end
-  end  
+  end
 end
 

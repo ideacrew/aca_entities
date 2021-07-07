@@ -3,6 +3,7 @@
 require 'spec_helper'
 require 'aca_entities/serializers/xml/medicaid/atp'
 
+# rubocop:disable Lint/Syntax
 RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequest do
   
   let(:sample_location) do
@@ -50,3 +51,4 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
     end
   end
 end
+# rubocop:enable Lint/Syntax

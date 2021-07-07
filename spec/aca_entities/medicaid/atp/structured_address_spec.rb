@@ -5,7 +5,7 @@ require 'aca_entities/medicaid/atp/location_street'
 require 'aca_entities/medicaid/atp/structured_address'
 
 RSpec.describe ::AcaEntities::Medicaid::Atp::StructuredAddress,  dbclean: :around_each do
-  
+
   describe 'with valid arguments' do
     let(:required_params) { {} }
 
@@ -13,11 +13,10 @@ RSpec.describe ::AcaEntities::Medicaid::Atp::StructuredAddress,  dbclean: :aroun
       { location_street: { street_full_text: "123 Easy Street" },
         address_secondary_unit_text: "address",
         location_city_name: "Wheaton",
-        location_county_name: "Montgomery", 
+        location_county_name: "Montgomery",
         location_county_code: "code",
         location_state_us_postal_service_code: "ME",
-        location_postal_code: "01234"
-      }
+        location_postal_code: "01234" }
     end
 
     let(:all_params) { required_params.merge(optional_params)}
@@ -29,6 +28,6 @@ RSpec.describe ::AcaEntities::Medicaid::Atp::StructuredAddress,  dbclean: :aroun
     it 'should not raise error' do
       expect { described_class.new(all_params) }.not_to raise_error
     end
-  end  
+  end
 end
 

@@ -5,17 +5,15 @@ require 'aca_entities/medicaid/contracts/person_contract'
 
 RSpec.describe ::AcaEntities::Medicaid::Contracts::PersonContract, dbclean: :after_each do
 
-  let(:required_params) do 
+  let(:required_params) do
     { person_name: { first_name: 'first', last_name: 'last' },
       ssn: "012345678",
-      sex: "F"
-    }
+      sex: "F" }
   end
 
   let(:optional_params) do
     { race: 'Race',
-      ethnicity: ['eth1', 'eth2'],
-     }
+      ethnicity: ['eth1', 'eth2'] }
   end
 
   let(:all_params) { required_params.merge(optional_params)}
