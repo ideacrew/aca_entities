@@ -54,7 +54,6 @@ require_relative "atp/person"
 require_relative "atp/applicant"
 require_relative "atp/account_transfer_request"
 
-
 module AcaEntities
   module Medicaid
     # Domain objects representing Account Transfer Protocol.

@@ -8,9 +8,9 @@ module AcaEntities
 
         params do
           optional(:married_indicator).maybe(:bool)
-          optional(:preferred_languages).maybe(:array)        
-          optional(:contacts).maybe(:array)        
-          optional(:persons).maybe(:array)        
+          optional(:preferred_languages).maybe(:array)
+          optional(:contacts).maybe(:array)
+          optional(:persons).maybe(:array)
         end
       end
     end

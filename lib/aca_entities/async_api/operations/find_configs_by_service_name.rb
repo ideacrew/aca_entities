@@ -51,7 +51,11 @@ module AcaEntities
                 end.to_result.bind do |config_yml|
                   AcaEntities::Operations::Yaml::Deserialize.new.call(yaml: config_yml.success)
                 end
-              conf.success? ? config_params << conf.success : conf
+
+              if conf.success? && (protocol.nil? || (resource_protocol(conf.success) && resource_protocol(conf.success) == protocol))
+                config_params << conf.success
+              end
+
               config_params
             end
           Success(configs)

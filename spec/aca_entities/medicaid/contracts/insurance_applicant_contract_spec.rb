@@ -6,20 +6,18 @@ require 'aca_entities/medicaid/contracts/insurance_applicant_contract'
 RSpec.describe ::AcaEntities::Medicaid::Contracts::InsuranceApplicantContract, dbclean: :after_each do
 
   let(:required_params) do
-    { role_reference: { ref: "a-person-id" } }  
+    { role_reference: { ref: "a-person-id" } }
   end
 
-  let(:optional_params) do 
+  let(:optional_params) do
     { age_left_foster_care: 14,
       blindness_or_disability_indicator: false,
-      lawful_presence_status:   
+      lawful_presence_status:
         { arrived_before_1996_indicator: false,
-          lawful_presence_status_eligibility: { eligibility_indicator: false }
-        },
-      temporarily_lives_outside_application_state_indicator: false
-    } 
+          lawful_presence_status_eligibility: { eligibility_indicator: false } },
+      temporarily_lives_outside_application_state_indicator: false }
   end
-  
+
   let(:all_params) { required_params.merge(optional_params)}
 
   context 'invalid parameters' do

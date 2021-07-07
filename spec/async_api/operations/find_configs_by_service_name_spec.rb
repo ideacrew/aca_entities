@@ -44,5 +44,57 @@ RSpec.describe ::AcaEntities::AsyncApi::Operations::FindConfigsByServiceName do
         expect(output.last.keys[0]).to eq(async_api_key)
       end
     end
+
+    context "with requested all schemas" do
+      let(:params) { nil }
+
+      it "should return all schemas" do
+        result = subject
+
+        expect(result).to be_success
+        output = result.success
+
+        expect(output.first.keys[0]).to eq(async_api_key)
+        expect(output.last.keys[0]).to eq(async_api_key)
+      end
+    end
+
+    # rubocop:disable Lint/Void
+    context "with service name and protocol" do
+      let(:params) { { service_name: 'medicaid_gateway', protocol: protocol } }
+
+      context "when http protocol passed" do
+
+        let(:protocol) { 'http' }
+
+        it "should return all http schemas" do
+          result = subject
+
+          expect(result).to be_success
+          resources = result.success
+          expect(resources).not_to be_empty
+          resources.each do |resource|
+            resource['servers']['production']['protocol'] == params[:protocol].to_s
+          end
+        end
+      end
+
+      context "when amqp protocol passed" do
+
+        let(:protocol) { 'amqp' }
+
+        it "should return all amqp schemas" do
+          result = subject
+
+          expect(result).to be_success
+          resources = result.success
+          expect(resources).not_to be_empty
+          resources.each do |resource|
+            resource['servers']['production']['protocol'] == params[:protocol].to_s
+          end
+        end
+      end
+    end
+    # rubocop:enable Lint/Void
   end
 end
