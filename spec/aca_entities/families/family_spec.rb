@@ -179,7 +179,7 @@ RSpec.describe AcaEntities::Families::Family, dbclean: :after_each do
 
   let!(:currency) do
     {
-      cents: 0.0,
+      cents: BigDecimal(0),
       currency_iso: "USD"
     }
   end
