@@ -14,8 +14,8 @@ module AcaEntities
 
           # @param [Hash] opts The options to process
           # @return [Dry::Monads::Result]
-          def call(_response)
-            params    = yield construct_attestation_params(primary_response)
+          def call(response)
+            params    = yield construct_attestation_params(response)
             values    = yield validate(params)
             entity    = yield create(values)
 
@@ -26,7 +26,7 @@ module AcaEntities
 
           def construct_attestation_params(response)
             {
-              is_satisfied?: primary_response.FinalDecisionCode == 'ACC',
+              is_satisfied?: response.Response.VerificationResponse.FinalDecisionCode == 'ACC',
               is_self_attested?: true,
               satisfied_at: DateTime.now,
               evidences: create_evidence(response),
@@ -36,8 +36,8 @@ module AcaEntities
 
           def create_evidence(response)
             input_hash = case response
-                         when is_a?(AcaEntities::Fdsh::Ridp::H139::Primaryesponse)
-                           { primary_request: response }
+                         when is_a?(AcaEntities::Fdsh::Ridp::H139::PrimaryResponse)
+                           { primary_response: response }
                          when is_a?(AcaEntities::Fdsh::Ridp::H139::SecondaryResponse)
                            { secondary_response: response }
                          end

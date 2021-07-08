@@ -28,7 +28,7 @@ module AcaEntities
       # @!attribute [r] households
       # Physical households over time with family_member composition
       # @return [Array<Household>]
-      attribute :households,                        Types::Array.of(AcaEntities::Households::Household).meta(omittable: false)
+      attribute :households,                        Types::Array.of(AcaEntities::Households::Household).optional.meta(omittable: true)
 
       attribute :irs_groups,                        Types::Array.of(AcaEntities::Groups::IrsGroup).optional.meta(omittable: true)
 
