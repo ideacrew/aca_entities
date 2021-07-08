@@ -48,16 +48,6 @@ RSpec.describe ::AcaEntities::Determinations::LawfulPresenceDetermination, dbcle
       expect { described_class.new(input_params) }.not_to raise_error
     end
   end
-
-  describe 'with invalid arguments' do
-    it 'should raise error' do
-      expect do
-        described_class.new(input_params.reject do |k, _v|
-                              k == :citizen_status
-                            end)
-      end.to raise_error(Dry::Struct::Error, /:citizen_status is missing/)
-    end
-  end
 end
 
 
