@@ -13,9 +13,9 @@ module AcaEntities
             namespace 'hix-core'
 
             element :us_naturalized_citizen_indicator, Boolean, tag: "USNaturalizedCitizenIndicator", namespace: "hix-core"
-            element :us_verteran_indicator, Boolean, tag: "PersonUSVeteranIndicator", namespace: "hix-core"
+            element :us_veteran_indicator, Boolean, tag: "PersonUSVeteranIndicator", namespace: "hix-core"
             element :married_indicator, Boolean, tag: 'PersonMarriedIndicator', namespace: "hix-core"
-            has_one :pregancy_status, PersonPregnancyStatus
+            has_one :pregnancy_status, PersonPregnancyStatus
             has_one :medicaid_id, PersonMedicaidIdentification
             has_one :chip_id, PersonMedicaidIdentification
             has_many :preferred_languages, PersonPreferredLanguage
@@ -51,9 +51,9 @@ module AcaEntities
             def to_hash
               {
                 us_naturalized_citizen_indicator: us_naturalized_citizen_indicator,
-                us_verteran_indicator: us_verteran_indicator,
+                us_veteran_indicator: us_veteran_indicator,
                 married_indicator: married_indicator,
-                pregancy_status: pregancy_status&.to_hash,
+                pregnancy_status: pregnancy_status&.to_hash,
                 medicaid_id: medicaid_id&.to_hash,
                 chip_id: chip_id&.to_hash,
                 preferred_languages: preferred_languages.map(&:to_hash),
