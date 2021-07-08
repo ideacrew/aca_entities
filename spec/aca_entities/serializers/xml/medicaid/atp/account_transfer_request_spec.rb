@@ -17,7 +17,7 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
       receivers: [receiver],
       physical_households: [{
         household_size_quantity: 1,
-        household_member_references: [{ref: "a-person-id"}]
+        household_member_references: [{ref: "pe123"}]
       }],
       insurance_application: insurance_application,
       medicaid_households: [{}],
@@ -115,7 +115,7 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
   end
 
   let(:role_reference) do
-    { ref: "a-person-id" }
+    { ref: "pe123" }
   end
 
   let(:application_creation) do
@@ -143,24 +143,24 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
   end
 
   let(:person) do
-    { birth_date: person_birth_date, 
-      ethnicities: ["eth1", "eth2"],
+    { id: "pe123",
+      birth_date: person_birth_date, 
+      ethnicities: ["ethnicity1", "ethnicity2"],
       person_name: person_name,
+      sex: "Female",
       race: "RACE",
-      sex: "SEX",
       ssn_identification: { identification_id: "012345678"},
+      us_citizen_indicator: true,
       person_augmentation: person_augmentation,
       tribal_augmentation: tribal_augmentation,
-      id: "a-person-id",
     }
   end
 
   let(:person_name) do
     {
       given: "First",
-      middle: "",
+      middle: "M",
       sur: "Last",
-      full: "First Last",
     }
   end
 
@@ -323,10 +323,10 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
   let(:structured_address) do
     {
       location_street: location_street, 
-      address_secondary_unit_text: "", 
+      address_secondary_unit_text: "A", 
       location_city_name: "Newark", 
       location_county_name: "Bergen", 
-      location_county_code: "",
+      location_county_code: "123",
       location_state_us_postal_service_code: "NJ",
       location_postal_code: "01234",
     }

@@ -15,8 +15,10 @@ module AcaEntities
 
             element :street_full_text, String, tag: 'StreetFullText'
 
-            def self.domain_to_mapper(_location_street)
-              self.new
+            def self.domain_to_mapper(location_street)
+              mapper = self.new
+              mapper. street_full_text = location_street.street_full_text
+              mapper
             end
 
             def to_hash

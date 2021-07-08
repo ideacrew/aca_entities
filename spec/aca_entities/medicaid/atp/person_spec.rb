@@ -48,7 +48,8 @@ RSpec.describe ::AcaEntities::Medicaid::Atp::Person, dbclean: :after_each do
     end
 
     let(:optional_params) do
-      { race: "RACE",
+      { us_citizen_indicator: true,
+        race: "RACE",
         ethnicity: ["eth1", "eth2"],
         birth_date: person_birth_date,
         person_augmentation: person_augmentation,

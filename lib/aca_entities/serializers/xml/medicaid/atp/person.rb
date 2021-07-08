@@ -16,7 +16,6 @@ module AcaEntities
 
             has_one :birth_date, PersonBirthDate
             has_one :person_name, PersonName
-            # element :ssn, String, tag: "PersonSSNIdentification/nc:IdentificationID", namespace: "nc"
             has_one :ssn_identification, PersonSsnIdentification
 
             element :us_citizen_indicator, Boolean, tag: "PersonUSCitizenIndicator", namespace: "nc"
@@ -35,11 +34,12 @@ module AcaEntities
               mapper = self.new
               mapper.id = person.id
               mapper.birth_date = PersonBirthDate.domain_to_mapper(person.birth_date)
-              mapper.person_name = PersonName.domain_to_mapper(person.person_name)
-              mapper.ssn_identification = PersonSsnIdentification.domain_to_mapper(person.ssn_identification)
-              mapper.sex = person.sex
-              mapper.race = person.race
               mapper.ethnicities = person.ethnicities
+              mapper.person_name = PersonName.domain_to_mapper(person.person_name)
+              mapper.race = person.race
+              mapper.sex = person.sex
+              mapper.ssn_identification = PersonSsnIdentification.domain_to_mapper(person.ssn_identification)
+              mapper.us_citizen_indicator = person.us_citizen_indicator
               mapper.person_augmentation = PersonAugmentation.domain_to_mapper(person.person_augmentation)
               mapper.tribal_augmentation = TribalAugmentation.domain_to_mapper(person.tribal_augmentation)
               mapper
