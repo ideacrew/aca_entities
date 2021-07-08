@@ -20,6 +20,9 @@ module AcaEntities
             # True if the applicant has a fixed address; false otherwise.
             element :fixed_address_indicator, Boolean, tag: 'InsuranceApplicantFixedAddressIndicator'
 
+            # A description of the applicant's incarceration history.
+            has_many :incarcerations, Incarceration
+
             # An indication of whether or not the applicant has an absent parent or spouse.
             element :absent_parent_or_spouse_code, String, tag: 'InsuranceApplicantAbsentParentOrSpouseCode'
 
@@ -100,6 +103,9 @@ module AcaEntities
             def self.domain_to_mapper(insurance_applicant)
               mapper = self.new
               mapper.role_reference = RoleOfPersonReference.domain_to_mapper(insurance_applicant.role_reference)
+              if insurance_applicant.incarcerations
+                mapper.incarcerations = insurance_applicant.incarcerations.map{ |inc| Incarceration.domain_to_mapper(inc) }
+              end
               mapper.lawful_presence_status = InsuranceApplicantLawfulPresenceStatus.domain_to_mapper(insurance_applicant.lawful_presence_status)
               mapper.chip_eligibilities = insurance_applicant.chip_eligibilities.map { |chip_eligibility|
                 ChipEligibility.domain_to_mapper(chip_eligibility) 

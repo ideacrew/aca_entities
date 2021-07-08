@@ -18,6 +18,8 @@ module AcaEntities
         attribute :temporarily_lives_outside_application_state_indicator, Types::Bool.optional.meta(omittable: true)
         attribute :foster_care_indicator, Types::Bool.optional.meta(omittable: true)
         attribute :fixed_address_indicator, Types::Bool.meta(omittable: false)
+        attribute :incarcerations, Types::Array.of(Incarceration).optional.meta(omittable: true)
+
       end
     end
   end
