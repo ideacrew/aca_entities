@@ -12,14 +12,14 @@ module AcaEntities
             tag 'ApplicationSubmission'
             namespace 'hix-core'
 
-            has_one :creation_id, ActivityIdentification
-            has_one :creation_date, ActivityDate
+            has_one :activity_id, ActivityIdentification
+            has_one :activity_date, ActivityDate
 
             def self.domain_to_mapper(application)
-              transfer_activity = self.new
-              transfer_activity.creation_id = ActivityIdentification.domain_to_mapper(application.application_metadata.application_ids)
-              transfer_activity.creation_date = ActivityDate.domain_to_mapper(application.application_metadata.submission_date)
-              transfer_activity
+              mapper = self.new
+              mapper.activity_id = ActivityIdentification.domain_to_mapper(application.activity_id)
+              mapper.activity_date = ActivityDate.domain_to_mapper(application.activity_date)
+              mapper
             end
 
             def to_hash

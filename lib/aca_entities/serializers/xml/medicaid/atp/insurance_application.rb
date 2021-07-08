@@ -12,12 +12,12 @@ module AcaEntities
             tag 'InsuranceApplication'
             namespace 'hix-ee'
 
+            
+
             has_one :application_creation, ApplicationCreation
             has_one :application_submission, ApplicationSubmission
             has_many :application_identifications, ApplicationIdentification
-
             has_many :insurance_applicants, InsuranceApplicant
-
             element :requesting_financial_assistance, Boolean, tag: 'InsuranceApplicationRequestingFinancialAssistanceIndicator', namespace: "hix-ee"
             # A number of years for which a signer allows an exchange to renew coverage and determine eligibility (including reuse of tax data).
             element :coverage_renewal_year_quantity, Integer, tag: 'InsuranceApplicationCoverageRenewalYearQuantity'
@@ -31,22 +31,18 @@ module AcaEntities
 
             def self.domain_to_mapper(insurance_application)
               mapper = self.new
-              mapper.application_creation = ApplicationCreation.domain_to_mapper(insurance_application)
-              mapper.application_submission = ApplicationSubmission.domain_to_mapper(insurance_application)
-              mapper.application_identifications = [
-                ApplicationIdentification.domain_to_mapper(insurance_application.application_metadata.application_ids)
-              ]
+              mapper.application_creation = ApplicationCreation.domain_to_mapper(insurance_application.application_creation)
+              mapper.application_submission = ApplicationSubmission.domain_to_mapper(insurance_application.application_submission)
               mapper.insurance_applicants = insurance_application.insurance_applicants.map { |insurance_applicant|
                 InsuranceApplicant.domain_to_mapper(insurance_applicant)
               }
-              # [
-              #   InsuranceApplicant.domain_to_mapper(insurance_application.insurance_applicants)
-              # ]
+              mapper.application_identifications = insurance_application.application_identifications.map{|ai| ApplicationIdentification.domain_to_mapper(ai)}
               mapper.requesting_financial_assistance = insurance_application.requesting_financial_assistance
               mapper.requesting_medicaid = insurance_application.requesting_medicaid
-              mapper.tax_return_access = insurance_application.tax_return_access_indicator
-              mapper.ssf_primary_contact = SsfPrimaryContact.domain_to_mapper(insurance_application)
-              #mapper.requesting_financial_assistance = insurance_application.requesting_financial_assistance
+              mapper.tax_return_access = insurance_application.tax_return_access
+              mapper.ssf_primary_contact = SsfPrimaryContact.domain_to_mapper(insurance_application.ssf_primary_contact)
+              mapper.ssf_signer = SsfSigner.domain_to_mapper(insurance_application.ssf_signer)
+              mapper.coverage_renewal_year_quantity = insurance_application.coverage_renewal_year_quantity
               mapper
             end
 

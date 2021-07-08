@@ -17,7 +17,7 @@ module AcaEntities
 
             def self.domain_to_mapper(transfer_header)
               mapper = self.new
-              mapper.transfer_activity = TransferActivity.domain_to_mapper(transfer_header)
+              mapper.transfer_activity = TransferActivity.domain_to_mapper(transfer_header.transfer_activity)
               mapper
             end
 

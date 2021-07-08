@@ -7,13 +7,13 @@ module AcaEntities
       class ReceiverContract < Dry::Validation::Contract
 
         params do
-          optional(:recipient_code).maybe(:string)
+          required(:category_code).filled(:string)
           optional(:recipient_medicaid_chip_state).maybe(:string)
           optional(:recipient_medicaid_chip_county).maybe(:string)
         end
 
         # TODO: Fix these rules later
-        rule(:recipient_code) do
+        rule(:category_code) do
           # key.failure(text: 'Recipient Code is invalid') if key? && value
         end
 

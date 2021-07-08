@@ -17,8 +17,8 @@ module AcaEntities
 
             def self.domain_to_mapper(application)
               transfer_activity = self.new
-              transfer_activity.creation_id = ActivityIdentification.domain_to_mapper(application.application_metadata.application_ids)
-              transfer_activity.creation_date = ActivityDate.domain_to_mapper(application.application_metadata.creation_date)
+              transfer_activity.creation_id = ActivityIdentification.domain_to_mapper(application.creation_id)
+              transfer_activity.creation_date = ActivityDate.domain_to_mapper(application.creation_date)
               transfer_activity
             end
 

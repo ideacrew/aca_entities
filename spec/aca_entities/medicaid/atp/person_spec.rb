@@ -40,7 +40,8 @@ RSpec.describe ::AcaEntities::Medicaid::Atp::Person, dbclean: :after_each do
 
   describe 'with valid arguments' do
     let(:required_params) do
-      { person_name: person_name,
+      { id: 'a-person-id',
+        person_name: person_name,
         ssn: "012345678",
         sex: "SEX",
       }
@@ -56,12 +57,10 @@ RSpec.describe ::AcaEntities::Medicaid::Atp::Person, dbclean: :after_each do
     end
 
     let(:person_name) do 
-      { first_name: 'first',
-        middle_name: 'middle',
-        last_name: 'last',
-        name_sfx: 'suffix',
-        name_pfx: 'prefix',
-        full_name: 'prefix first middle last suffix'
+      { given: 'first',
+        middle: 'middle',
+        sur: 'last',
+        full: 'prefix first middle last suffix'
       }
     end
 
@@ -245,7 +244,7 @@ RSpec.describe ::AcaEntities::Medicaid::Atp::Person, dbclean: :after_each do
 
   describe 'with invalid arguments' do
     it 'should raise error' do
-      expect { subject }.to raise_error(Dry::Struct::Error, /:first_name is missing in Hash input/)
+      expect { subject }.to raise_error(Dry::Struct::Error, /:given is missing in Hash input/)
     end
   end
 end

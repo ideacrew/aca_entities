@@ -7,6 +7,7 @@ module AcaEntities
       class PersonContract < Dry::Validation::Contract
 
         params do
+          required(:id).filled(:string)
           required(:person_name).filled(:hash)
           required(:ssn).filled(:string)
           required(:sex).filled(:string)
