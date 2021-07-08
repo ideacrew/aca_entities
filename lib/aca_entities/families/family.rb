@@ -53,6 +53,7 @@ module AcaEntities
       attribute :documents,                         Types::Array.of(AcaEntities::Documents::Document).optional.meta(omittable: true)
       attribute :updated_by,                        AcaEntities::People::PersonReference.optional.meta(omittable: true)
       attribute :timestamp,                         AcaEntities::TimeStamp.optional.meta(omittable: true)
+      attribute :documents_needed,                  Types::Bool.optional.meta(omittable: true)
     end
   end
 end

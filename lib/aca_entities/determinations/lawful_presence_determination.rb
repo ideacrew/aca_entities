@@ -7,7 +7,7 @@ module AcaEntities
       attribute :vlp_verified_at,                     Types::Date.optional.meta(omittable: true)
       attribute :vlp_authority,                       Types::String.optional.meta(omittable: true)
       attribute :vlp_document_id,                     Types::String.optional.meta(omittable: true) # TODO: check this
-      attribute :citizen_status,                      Types::String.optional.meta(omittable: false)
+      attribute :citizen_status,                      Types::String.optional.meta(omittable: true)
       attribute :citizenship_result,                  Types::String.optional.meta(omittable: true)
       attribute :qualified_non_citizenship_result,    Types::String.optional.meta(omittable: true)
       attribute :aasm_state,                          Types::String.optional.meta(omittable: true)
