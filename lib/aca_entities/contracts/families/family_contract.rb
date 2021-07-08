@@ -27,7 +27,7 @@ module AcaEntities
         # @return [Dry::Monads::Result]
         params do
           required(:family_members).array(AcaEntities::Contracts::Families::FamilyMemberContract.params)
-          optional(:households).maybe{array?{AcaEntities::Contracts::Households::HouseholdContract.params}}
+          optional(:households).maybe {array? {AcaEntities::Contracts::Households::HouseholdContract.params}}
 
           optional(:hbx_id).filled(:string)
           optional(:foreign_keys).array(AcaEntities::Contracts::Identifiers::IdContract.params)
