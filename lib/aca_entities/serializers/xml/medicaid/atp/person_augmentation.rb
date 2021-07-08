@@ -12,21 +12,24 @@ module AcaEntities
             tag 'PersonAugmentation'
             namespace 'hix-core'
 
-            element :us_naturalized_citizen_indicator, Boolean, tag: "USNaturalizedCitizenIndicator", namespace: "hix-core"
-            element :us_veteran_indicator, Boolean, tag: "PersonUSVeteranIndicator", namespace: "hix-core"
-            element :married_indicator, Boolean, tag: 'PersonMarriedIndicator', namespace: "hix-core"
+            has_many :persons, PersonAssociation
+            has_many :contacts, PersonContactInformationAssociation
+            has_many :employments, PersonEmploymentAssociation
             has_one :pregnancy_status, PersonPregnancyStatus
             has_one :medicaid_id, PersonMedicaidIdentification
-            has_one :chip_id, PersonMedicaidIdentification
-            has_many :preferred_languages, PersonPreferredLanguage
             has_many :incomes, PersonIncome
+            has_many :preferred_languages, PersonPreferredLanguage
+            has_one :chip_id, PersonMedicaidIdentification
+            element :us_naturalized_citizen_indicator, Boolean, tag: "USNaturalizedCitizenIndicator", namespace: "hix-core"
             has_many :expenses, PersonExpense
-            has_many :employments, PersonEmploymentAssociation
-            has_many :contacts, PersonContactInformationAssociation
-            has_many :persons, PersonAssociation
+            element :married_indicator, Boolean, tag: 'PersonMarriedIndicator', namespace: "hix-core"
+            element :us_veteran_indicator, Boolean, tag: "PersonUSVeteranIndicator", namespace: "hix-core"
 
             def self.domain_to_mapper(person_augmentation)
               mapper = self.new
+              mapper.us_veteran_indicator = person_augmentation.us_veteran_indicator
+              mapper.married_indicator = person_augmentation.married_indicator
+              mapper.us_veteran_indicator = person_augmentation.us_veteran_indicator
               mapper.pregnancy_status = PersonPregnancyStatus.domain_to_mapper(person_augmentation.pregnancy_status)
               mapper.preferred_languages = person_augmentation.preferred_languages.map{ |preferred_language|
                 PersonPreferredLanguage.domain_to_mapper(preferred_language)
@@ -46,6 +49,7 @@ module AcaEntities
                 PersonAssociation.domain_to_mapper(person_association)
               }            
               # [PersonAssociation.domain_to_mapper(augmentation.person)]
+              mapper
             end
 
             def to_hash

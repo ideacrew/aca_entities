@@ -12,11 +12,14 @@ module AcaEntities
             tag 'IncomeEarnedDateRange'
             namespace 'hix-core'
 
-            has_one :end_date, EndDate
             has_one :start_date, StartDate
+            has_one :end_date, EndDate
 
-            def self.domain_to_mapper(_date_range)
-              self.new
+            def self.domain_to_mapper(dr)
+              mapper = self.new
+              mapper.end_date = EndDate.domain_to_mapper(dr.end_date)
+              mapper.start_date = StartDate.domain_to_mapper(dr.start_date)
+              mapper
             end
 
             def to_hash

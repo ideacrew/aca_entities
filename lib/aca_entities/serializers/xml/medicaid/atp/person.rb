@@ -12,20 +12,23 @@ module AcaEntities
             tag 'Person'
             namespace 'hix-core'
 
-            has_one :person_name, PersonName
-
             attribute :id, String, namespace: "niem-s"
+
+            has_one :birth_date, PersonBirthDate
+            has_one :person_name, PersonName
+            element :ssn, String, tag: "PersonSSNIdentification/nc:IdentificationID", namespace: "nc"
 
             element :us_citizen_indicator, Boolean, tag: "PersonUSCitizenIndicator", namespace: "nc"
             element :living_indicator, Boolean, tag: "PersonLivingIndicator", namespace: "nc"
-            element :ssn, String, tag: "PersonSSNIdentification/nc:IdentificationID", namespace: "nc"
+            
             element :sex, String, tag: "PersonSexText", namespace: "nc"
             element :race, String, tag: "PersonRaceText", namespace: "nc"
             element :ethnicity, String, tag: "PersonEthnicityText", namespace: "nc"
 
-            has_one :birth_date, PersonBirthDate
-            has_one :person_augmentation, PersonAugmentation
+            
+            
             has_one :tribal_augmentation, TribalAugmentation
+            has_one :person_augmentation, PersonAugmentation
 
             def self.domain_to_mapper(person)
               mapper = self.new

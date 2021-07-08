@@ -17,8 +17,8 @@ module AcaEntities
 
             def self.domain_to_mapper(insurance_application)
               mapper = self.new
-              mapper.role_reference = RoleOfPersonReference.domain_to_mapper(insurance_application)
-              mapper.contact_preference = "Email"
+              mapper.role_reference = RoleOfPersonReference.domain_to_mapper(insurance_application.role_reference)
+              mapper.contact_preference = insurance_application.contact_preference
               mapper
             end
 

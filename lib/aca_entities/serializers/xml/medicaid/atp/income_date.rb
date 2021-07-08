@@ -10,16 +10,16 @@ module AcaEntities
             include HappyMapper
 
             tag 'IncomeDate'
-            namespace 'nc'
+            namespace 'hix-core'
 
             element :date, Date, tag: "Date", namespace: "nc"
             element :date_time, DateTime, tag: "DateTime", namespace: "nc"
             element :year, String, tag: "Year", namespace: "nc"
             element :year_month, String, tag: "YearMonth", namespace: "nc"
 
-            def self.domain_to_mapper(date_time)
+            def self.domain_to_mapper(dt)
               mapper = self.new
-              mapper.date_time = date_time
+              mapper.date_time = dt.date_time
               mapper
             end
 

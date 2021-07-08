@@ -15,8 +15,11 @@ module AcaEntities
             element :status_indicator, Boolean, tag: 'StatusIndicator', namespace: "hix-core"
             element :eligibility_basis_status_code, Boolean, tag: 'EligibilityBasisStatusCode', namespace: "hix-ee"
 
-            def self.domain_to_mapper(_medicaid_eligibility)
-              self.new
+            def self.domain_to_mapper(eb)
+              mapper = self.new
+              mapper.status_indicator = eb.status_indicator
+              mapper.eligibility_basis_status_code = eb.eligibility_basis_status_code
+              mapper
             end
 
             def to_hash

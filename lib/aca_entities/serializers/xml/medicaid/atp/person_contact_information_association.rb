@@ -25,6 +25,7 @@ module AcaEntities
             def self.domain_to_mapper(contact_association)
               mapper = self.new
               mapper.contact = ContactInformation.domain_to_mapper(contact_association.contact)
+              mapper
             end
 
             def to_hash

@@ -25,6 +25,7 @@ module AcaEntities
               mapper = self.new
               mapper.mailing_address = ContactMailingAddress.domain_to_mapper(contact.mailing_address)
               mapper.telephone_number = ContactTelephoneNumber.domain_to_mapper(contact.telephone_number)
+              mapper
             end
 
             def to_hash

@@ -6,7 +6,7 @@ module AcaEntities
       # entity for atp StatusValidDateRange
       class StatusValidDateRange < Dry::Struct
 
-        # attribute :start_date, StartDate.optional.meta(omittable: true)
+        attribute :start_date, StartDate.optional.meta(omittable: true)
         attribute :end_date, EndDate.optional.meta(omittable: true)
       end
     end

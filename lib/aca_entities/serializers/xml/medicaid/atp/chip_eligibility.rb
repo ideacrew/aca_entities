@@ -31,10 +31,12 @@ module AcaEntities
 
             def self.domain_to_mapper(chip_eligibility)
               mapper = self.new
+              if chip_eligibility.trafficking_victim_category_eligibility_basis
               mapper.trafficking_victim_category_eligibility_basis = 
                 ChipTraffickingVictimCategoryEligibilityBasis.domain_to_mapper(
                   chip_eligibility.trafficking_victim_category_eligibility_basis
                 )
+              end
               mapper
             end
 

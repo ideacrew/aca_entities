@@ -12,11 +12,11 @@ module AcaEntities
             tag 'PersonReference'
             namespace 'hix-ee'
 
-            attribute :ref, String
+            attribute :ref, String, namespace: "niem-s"
 
-            def self.domain_to_mapper(_person)
+            def self.domain_to_mapper(person)
               mapper = self.new
-              # mapper.ref = "a-person-id"
+              mapper.ref = person.ref
               mapper
             end
 
