@@ -5,7 +5,7 @@ module AcaEntities
     module Atp
       # entity for atp Signature
       class Signature < Dry::Struct
-        attribute :date_time, SignatureDate.meta(omittable: false)
+        attribute :signature_date, SignatureDate.meta(omittable: false)
       end
     end
   end

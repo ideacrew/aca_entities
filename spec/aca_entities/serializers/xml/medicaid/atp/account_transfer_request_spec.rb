@@ -110,7 +110,7 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
 
   let(:signature) do
     {
-      date_time: {date: DateTime.now.to_date}
+      signature_date: {date: DateTime.now.to_date}
     }
   end
 
@@ -143,16 +143,15 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
   end
 
   let(:person) do
-    {
-      id: "a-person-id",
+    { birth_date: person_birth_date, 
+      ethnicities: ["eth1", "eth2"],
       person_name: person_name,
-      ssn: "012345678",
-      sex: "SEX",
       race: "RACE",
-      ethnicity: ["eth1", "eth2"],
-      birth_date: person_birth_date,
+      sex: "SEX",
+      ssn_identification: { identification_id: "012345678"},
       person_augmentation: person_augmentation,
-      tribal_augmentation: tribal_augmentation
+      tribal_augmentation: tribal_augmentation,
+      id: "a-person-id",
     }
   end
 
@@ -406,7 +405,9 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
 
   it "is schema valid" do
     document = Nokogiri::XML(mapper.to_xml)
-    puts mapper.to_xml
+    # puts mapper.to_xml
+    File.open('spec.xml', 'w') { |file| file.write(mapper.to_xml.to_s) }
+
     schema.validate(document).each do |error|
       puts "\n\n======= Schema Error ======="
       puts error.message

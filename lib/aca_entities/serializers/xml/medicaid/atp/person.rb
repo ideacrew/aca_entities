@@ -16,14 +16,15 @@ module AcaEntities
 
             has_one :birth_date, PersonBirthDate
             has_one :person_name, PersonName
-            element :ssn, String, tag: "PersonSSNIdentification/nc:IdentificationID", namespace: "nc"
+            # element :ssn, String, tag: "PersonSSNIdentification/nc:IdentificationID", namespace: "nc"
+            has_one :ssn_identification, PersonSsnIdentification
 
             element :us_citizen_indicator, Boolean, tag: "PersonUSCitizenIndicator", namespace: "nc"
             element :living_indicator, Boolean, tag: "PersonLivingIndicator", namespace: "nc"
             
             element :sex, String, tag: "PersonSexText", namespace: "nc"
             element :race, String, tag: "PersonRaceText", namespace: "nc"
-            element :ethnicity, String, tag: "PersonEthnicityText", namespace: "nc"
+            has_many :ethnicities, String, tag: "PersonEthnicityText", namespace: "nc"
 
             
             
@@ -33,8 +34,12 @@ module AcaEntities
             def self.domain_to_mapper(person)
               mapper = self.new
               mapper.id = person.id
-              mapper.person_name = PersonName.domain_to_mapper(person.person_name)
               mapper.birth_date = PersonBirthDate.domain_to_mapper(person.birth_date)
+              mapper.person_name = PersonName.domain_to_mapper(person.person_name)
+              mapper.ssn_identification = PersonSsnIdentification.domain_to_mapper(person.ssn_identification)
+              mapper.sex = person.sex
+              mapper.race = person.race
+              mapper.ethnicities = person.ethnicities
               mapper.person_augmentation = PersonAugmentation.domain_to_mapper(person.person_augmentation)
               mapper.tribal_augmentation = TribalAugmentation.domain_to_mapper(person.tribal_augmentation)
               mapper

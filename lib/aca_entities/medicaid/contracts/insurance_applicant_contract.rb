@@ -8,6 +8,7 @@ module AcaEntities
 
         params do
           required(:role_reference).filled(:hash)
+          required(:fixed_address_indicator).filled(:bool)
           optional(:age_left_foster_care).maybe(:integer)
           optional(:blindness_or_disability_indicator).maybe(:bool)
           optional(:lawful_presence_status).maybe(:hash)

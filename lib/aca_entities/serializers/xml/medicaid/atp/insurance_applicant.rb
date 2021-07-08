@@ -99,6 +99,7 @@ module AcaEntities
 
             def self.domain_to_mapper(insurance_applicant)
               mapper = self.new
+              mapper.fixed_address_indicator = insurance_applicant.fixed_address_indicator
               mapper.role_reference = RoleOfPersonReference.domain_to_mapper(insurance_applicant.role_reference)
               mapper.lawful_presence_status = InsuranceApplicantLawfulPresenceStatus.domain_to_mapper(insurance_applicant.lawful_presence_status)
               mapper.chip_eligibilities = insurance_applicant.chip_eligibilities.map { |chip_eligibility|

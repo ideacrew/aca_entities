@@ -12,10 +12,12 @@ module AcaEntities
             tag 'Signature'
             namespace 'hix-ee'
 
-            element :signature, DateTime, tag: 'SignatureDate', namespace: 'hix-core'
+            element :signature_date, SignatureDate, tag: 'SignatureDate', namespace: 'hix-core'
 
-            def self.domain_to_mapper(_signature)
-              self.new
+            def self.domain_to_mapper(signature)
+              mapper = self.new
+              mapper.signature_date = SignatureDate.domain_to_mapper(signature.signature_date)
+              mapper
             end
 
             def to_hash

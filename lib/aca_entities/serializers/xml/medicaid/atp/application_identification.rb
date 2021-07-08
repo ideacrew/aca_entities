@@ -18,7 +18,7 @@ module AcaEntities
 
             def self.domain_to_mapper(id)
               mapper = self.new
-              mapper.identification_id = id
+              mapper.identification_id = id.identification_id
               mapper
             end
 

@@ -6,7 +6,9 @@ require 'aca_entities/medicaid/contracts/insurance_applicant_contract'
 RSpec.describe ::AcaEntities::Medicaid::Contracts::InsuranceApplicantContract, dbclean: :after_each do
 
   let(:required_params) do
-    { role_reference: { ref: "a-person-id" } }  
+    { role_reference: { ref: "a-person-id" },
+      fixed_address_indicator: true
+    }
   end
 
   let(:optional_params) do 
