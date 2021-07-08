@@ -5,8 +5,8 @@ module AcaEntities
     module Atp
       # entity for atp Insurance Applicant Incarceration
       class Incarceration < Dry::Struct
-        attribute :metadata, Types::String.meta(omittable:true)
-        attribute :role_reference, IncarcerationDate.optional.meta(omittable: true)
+        attribute :metadata, Types::String.meta(omittable: true)
+        attribute :incarceration_date, IncarcerationDate.optional.meta(omittable: true)
         attribute :incarceration_indicator, Types::Bool.optional.meta(omittable: true)
 
       end
