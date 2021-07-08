@@ -121,7 +121,7 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
   let(:application_creation) do
     {
       creation_id: {identification_id: '2163565'},
-      creation_date: {date_time: DateTime.now},
+      creation_date: {date_time: DateTime.now}
     }
   end
 

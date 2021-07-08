@@ -26,6 +26,8 @@ require_relative "atp/lawful_presence_status_eligibility"
 require_relative "atp/insurance_applicant_lawful_presence_status"
 require_relative 'atp/chip_trafficking_victim_category_eligibility_basis'
 require_relative "atp/chip_eligibility"
+require_relative "atp/incarceration_date"
+require_relative "atp/incarceration"
 require_relative "atp/insurance_applicant"
 require_relative "atp/insurance_application"
 require_relative "atp/household_composition"
@@ -64,8 +66,6 @@ require_relative "atp/person_contact_information_association"
 require_relative "atp/person_preferred_language"
 require_relative "atp/person_reference"
 require_relative "atp/person_association"
-require_relative "atp/ssf_attestation"
-require_relative "atp/ssf_signer"
 require_relative "atp/start_date"
 require_relative "atp/end_date"
 require_relative "atp/status_valid_date_range"
@@ -90,7 +90,6 @@ require_relative "atp/person"
 require_relative "atp/applicant"
 require_relative "atp/household_member_reference"
 require_relative "atp/account_transfer_request"
-
 
 module AcaEntities
   module Medicaid

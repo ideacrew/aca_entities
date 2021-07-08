@@ -15,6 +15,7 @@ module AcaEntities
           optional(:long_term_care_indicator).maybe(:bool)
           optional(:chip_eligibility).maybe(:hash)
           optional(:temporarily_lives_outside_application_state_indicator).maybe(:bool)
+          optional(:incarcerations).maybe(:hash)
         end
       end
     end
