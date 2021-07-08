@@ -788,7 +788,7 @@ RSpec.describe AcaEntities::Contracts::Families::FamilyContract,  dbclean: :afte
 
     context 'with bad input data type' do
       before do
-        @result = subject.call(required_params.merge(households: nil))
+        @result = subject.call(required_params.merge(households: {}))
       end
 
       it 'should return failure' do
