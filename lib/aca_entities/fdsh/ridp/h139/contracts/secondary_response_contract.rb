@@ -16,7 +16,7 @@ module AcaEntities
               end
               required(:VerificationResponse).schema do
                 required(:FinalDecisionCode).filled(:string)
-                required(:DSHReferenceNumber).filled(:string)
+                required(:DSHReferenceNumber).maybe(:string)
                 optional(:SessionIdentification).maybe(:string)
               end
             end
