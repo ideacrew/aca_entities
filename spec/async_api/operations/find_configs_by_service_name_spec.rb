@@ -73,7 +73,7 @@ RSpec.describe ::AcaEntities::AsyncApi::Operations::FindConfigsByServiceName do
           resources = result.success
           expect(resources).not_to be_empty
           resources.each do |resource|
-            resource['servers']['production']['protocol'] == params[:protocol].to_s
+            expect(resource['servers']['production']['protocol']).to eq(params[:protocol].to_s)
           end
         end
       end
@@ -89,7 +89,7 @@ RSpec.describe ::AcaEntities::AsyncApi::Operations::FindConfigsByServiceName do
           resources = result.success
           expect(resources).not_to be_empty
           resources.each do |resource|
-            resource['servers']['production']['protocol'] == params[:protocol].to_s
+            expect(resource['servers']['production']['protocol']).to eq(params[:protocol].to_s)
           end
         end
       end
