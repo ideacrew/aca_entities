@@ -30,6 +30,7 @@ module AcaEntities
         # @option opts [Hash] :special_enrollment_period optional
         # @option opts [Hash] :elected_amount optional
         # @option opts [Hash] :elected_premium_credit optional
+        # @option opts [Hash] :total_premium optional
         # @option opts [Hash] :applied_premium_credit optional
         # @option opts [Hash] :applied_aptc_amount optional
         # @option opts [Flaot] :elected_aptc_pct optional
@@ -87,10 +88,12 @@ module AcaEntities
           optional(:elected_amount).hash(AcaEntities::Contracts::CurrencyContract.params)
           optional(:elected_premium_credit).hash(AcaEntities::Contracts::CurrencyContract.params)
           optional(:applied_premium_credit).hash(AcaEntities::Contracts::CurrencyContract.params)
+          optional(:total_premium).maybe(:float)
           optional(:elected_aptc_pct).maybe(:float)
           optional(:applied_aptc_amount).hash(AcaEntities::Contracts::CurrencyContract.params)
           optional(:aggregate_aptc_amount).hash(AcaEntities::Contracts::CurrencyContract.params)
 
+          optional(:is_receiving_assistance).maybe(:bool)
           optional(:is_any_enrollment_member_outstanding).maybe(:bool)
           optional(:special_verification_period).maybe(:date)
           optional(:enrollment_signature).maybe(:string)

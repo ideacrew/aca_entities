@@ -4,7 +4,7 @@ module AcaEntities
   module Households
     class CoverageHouseholdMember < Dry::Struct
 
-      attribute :family_member_reference,                  AcaEntities::Families::FamilyMemberReference.optional.meta(omittable: false)
+      attribute :family_member_reference,                  AcaEntities::Families::FamilyMemberReference.optional.meta(omittable: true)
       attribute :is_subscriber,                            Types::Bool.meta(omittable: false)
     end
   end
