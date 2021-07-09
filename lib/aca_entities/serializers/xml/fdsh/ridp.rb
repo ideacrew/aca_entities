@@ -21,6 +21,7 @@ require_relative "ridp/primary_response"
 require_relative "ridp/secondary_request"
 require_relative "ridp/secondary_response"
 require_relative "ridp/request"
+require_relative "ridp/operations"
 
 module AcaEntities
   module Serializers
