@@ -3,6 +3,7 @@
 require "happymapper"
 
 require_relative "ridp/person_name"
+require_relative "ridp/person_birth_date"
 require_relative "ridp/person"
 require_relative "ridp/response_metadata"
 require_relative "ridp/verification_question_set"

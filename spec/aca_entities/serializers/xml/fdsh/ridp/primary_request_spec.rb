@@ -12,7 +12,8 @@ RSpec.describe AcaEntities::Serializers::Xml::Fdsh::Ridp::PrimaryRequest,
                                                           PersonName: {
                                                             PersonGivenName: "AGivenName",
                                                             PersonSurName: "A Sur Name"
-                                                          }
+                                                          },
+                                                          PersonBirthDate: Date.new(2017,1,1)
                                                         },
                                                         CurrentAddress: {
                                                           LocationAddress: {
@@ -38,6 +39,7 @@ RSpec.describe AcaEntities::Serializers::Xml::Fdsh::Ridp::PrimaryRequest,
 
   it "creates a schema valid result" do
     validation_result = AcaEntities::Serializers::Xml::Fdsh::Ridp::Operations::ValidateRidpPayloadXml.new.call(subject)
+    puts validation_result.inspect
     expect(validation_result.success?).to be_truthy
   end
 end
