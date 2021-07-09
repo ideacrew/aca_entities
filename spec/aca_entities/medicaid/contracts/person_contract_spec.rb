@@ -150,7 +150,7 @@ RSpec.describe ::AcaEntities::Medicaid::Contracts::PersonContract, dbclean: :aft
   end
 
   let(:structured_address) do
-    { location_street: { street_full_text: "123 Easy Street" },
+    { location_street: location_street,
       address_secondary_unit_text:  "address",
       location_city_name: "Wheaton",
       location_county_name: "Montgomery",
@@ -161,6 +161,10 @@ RSpec.describe ::AcaEntities::Medicaid::Contracts::PersonContract, dbclean: :aft
 
   let(:contact_telephone) do
     { telephone: full_telephone }
+  end
+
+  let(:location_street) do
+    { street_full_text: "123 Easy Street" }
   end
 
   let(:full_telephone) do
