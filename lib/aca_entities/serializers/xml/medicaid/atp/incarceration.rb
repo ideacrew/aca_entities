@@ -31,7 +31,7 @@ module AcaEntities
             def to_hash
               {
                 incarceration_indicator: incarceration_indicator,
-                incarceration_date: incarceration_date.to_hash
+                incarceration_date: incarceration_date&.to_hash
               }
             end
           end

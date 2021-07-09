@@ -22,7 +22,7 @@ module AcaEntities
 
             def to_hash
               {
-                ref: ref
+                identification_id: identification_id
               }
             end
           end

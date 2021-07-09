@@ -22,7 +22,7 @@ module AcaEntities
 
             def to_hash
               {
-                signature: signature
+                signature_date: signature_date
               }
             end
           end

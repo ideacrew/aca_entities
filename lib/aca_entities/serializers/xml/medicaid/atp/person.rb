@@ -45,12 +45,13 @@ module AcaEntities
                 person_name: person_name&.to_hash,
                 us_citizen_indicator: us_citizen_indicator,
                 living_indicator: living_indicator,
-                ssn: ssn,
+                ssn_identification: ssn_identification&.to_hash,
                 sex: sex,
                 race: race,
-                ethnicity: ethnicity,
+                ethnicities: [],
                 birth_date: birth_date&.to_hash,
-                augementation: augmentation&.to_hash # update the name in family transform
+                tribal_augmentation: tribal_augmentation&.to_hash,
+                augementation: person_augmentation&.to_hash # update the name in family transform
               }
             end
           end
