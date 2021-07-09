@@ -14,7 +14,7 @@ module AcaEntities
             tag 'ContactTelephoneNumber'
             namespace 'nc'
 
-            element :FullTelephoneNumber, String, tag: 'FullTelephoneNumber'
+            element :FullTelephoneNumber, String, tag: 'FullTelephoneNumber', namespace: "nc"
 
             def self.domain_to_mapper(contact_telephone_number)
               mapper = self.new

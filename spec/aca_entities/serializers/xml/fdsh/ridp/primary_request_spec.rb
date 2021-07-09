@@ -39,7 +39,6 @@ RSpec.describe AcaEntities::Serializers::Xml::Fdsh::Ridp::PrimaryRequest,
 
   it "creates a schema valid result" do
     validation_result = AcaEntities::Serializers::Xml::Fdsh::Ridp::Operations::ValidateRidpPayloadXml.new.call(subject)
-    puts validation_result.inspect
     expect(validation_result.success?).to be_truthy
   end
 end

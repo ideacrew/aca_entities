@@ -18,7 +18,9 @@ module AcaEntities
 
             def self.domain_to_mapper(contact_information)
               mapper = self.new
-              mapper.ContactTelephoneNumber = ContactTelephoneNumber.domain_to_mapper(contact_information&.ContactTelephoneNumber)
+              if contact_information&.ContactTelephoneNumber
+                mapper.ContactTelephoneNumber = ContactTelephoneNumber.domain_to_mapper(contact_information&.ContactTelephoneNumber)
+              end
               mapper
             end
           end
