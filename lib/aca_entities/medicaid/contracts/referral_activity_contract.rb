@@ -12,7 +12,7 @@ module AcaEntities
           required(:receiver_reference).filled(:hash)
           optional(:activity_identification).maybe(:hash)
           optional(:reason_code).maybe(:string)
-          optional(:status).maybe(:hash)
+          required(:status).filled(:hash)
           # optional(:eligibility_reason_reference).maybe(:hash)
         end
       end
