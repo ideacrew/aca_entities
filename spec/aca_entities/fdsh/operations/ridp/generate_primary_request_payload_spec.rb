@@ -20,16 +20,6 @@ RSpec.describe ::AcaEntities::Fdsh::Ridp::Operations::GeneratePrimaryRequestPayl
       }
     end
 
-    let!(:person_demographics) do
-      {
-        ssn: "123456789",
-        no_ssn: false,
-        gender: 'male',
-        dob: Date.today,
-        is_incarcerated: false
-      }
-    end
-
     let!(:person_reference) do
       {
         hbx_id: '1234',
@@ -358,9 +348,42 @@ RSpec.describe ::AcaEntities::Fdsh::Ridp::Operations::GeneratePrimaryRequestPayl
       @request_payload_hash = @result.success
     end
 
-    it 'should return success' do
-      expect(@result).to be_success
-      expect(@result.value!).to be_a(AcaEntities::Fdsh::Ridp::H139::PrimaryRequest)
+    context 'with language_code' do
+      let!(:person_demographics) do
+        {
+          ssn: "123456789",
+          no_ssn: false,
+          gender: 'male',
+          dob: Date.today,
+          is_incarcerated: false,
+          language_code: 'es'
+        }
+      end
+
+      it 'should return success' do
+        expect(@result).to be_success
+        expect(@result.value!).to be_a(AcaEntities::Fdsh::Ridp::H139::PrimaryRequest)
+      end
+
+      it 'should return spa for es' do
+        expect(@result.success.to_h[:PersonLanguagePreference]).to eq('spa')
+      end
+    end
+
+    context 'without language_code' do
+      let!(:person_demographics) do
+        {
+          ssn: "123456789",
+          no_ssn: false,
+          gender: 'male',
+          dob: Date.today,
+          is_incarcerated: false
+        }
+      end
+
+      it 'should return eng as it is default' do
+        expect(@result.success.to_h[:PersonLanguagePreference]).to eq('eng')
+      end
     end
   end
 end
