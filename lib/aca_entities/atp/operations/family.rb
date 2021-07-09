@@ -41,7 +41,8 @@ module AcaEntities
         end
 
         def xml_transform
-          result = AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequest.parse(input_xml)
+          record = AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequest.parse(input_xml)
+          result = record.is_a?(Array) ? record.first : record
           Success(result.to_hash(identifier: true))
         end
 

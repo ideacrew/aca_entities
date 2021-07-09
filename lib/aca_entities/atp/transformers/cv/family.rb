@@ -3,7 +3,8 @@
 require "aca_entities/atp/functions/address_builder"
 require "aca_entities/atp/functions/relationship_builder"
 require "aca_entities/atp/functions/lawful_presence_determination_builder"
-# require "aca_entities/atp/functions/build_application"
+require "aca_entities/atp/functions/build_application"
+require "aca_entities/functions/age_on"
 module AcaEntities
   module Atp
     module Transformers
@@ -70,7 +71,7 @@ module AcaEntities
                     end
                   end
 
-                  map 'ssn', 'person.person_demographics.ssn', memoize: true, append_identifier: true
+                  map 'ssn_identification.identification_id', 'person.person_demographics.ssn', memoize: true, append_identifier: true
                   map 'sex', 'person.person_demographics.gender', memoize: true, append_identifier: true, function: ->(value) {value.downcase}
                   add_key 'person.person_demographics.no_ssn',
                           function: ->(v) { v.resolve(:'person_demographics.ssn', identifier: true).item.nil? ? "1" : "0"}
@@ -162,11 +163,11 @@ module AcaEntities
                   add_key 'person.person_relationships', function: AcaEntities::Atp::Functions::RelationshipBuilder.new
 
                   map 'race', 'person.race'
-                  map 'ethnicity', 'person.ethnicity'
+                  map 'ethnicities', 'person.ethnicity'
                 end
               end
 
-              # add_key 'magi_medicaid_applications', function: AcaEntities::Atp::Functions::BuildApplication.new
+              add_key 'magi_medicaid_applications', function: AcaEntities::Atp::Functions::BuildApplication.new
             end
           end
         end

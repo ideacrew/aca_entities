@@ -5,9 +5,10 @@ module AcaEntities
     module Functions
       # build application and applicants
       class AddressBuilder
-        def call(cache)
+        def call(cache, m_identifier = nil)
           @memoized_data = cache
-          contacts_information = @memoized_data.find(Regexp.new('record.people.*.augementation')).map(&:item).last[:contacts]
+          member_id = m_identifier || '*'
+          contacts_information = @memoized_data.find(Regexp.new("record.people.#{member_id}.augementation")).map(&:item).last[:contacts]
 
           contacts_information.each_with_object([]) do |contact_info, collector|
             next if contact_info[:category_code].downcase == 'residency'
@@ -36,7 +37,3 @@ module AcaEntities
     end
   end
 end
-
-# File.open(Pathname.pwd.join('spec/support/atp/sample_payloads/aml.json'), "w+") do |f|
-#   f << record.to_json
-# end
