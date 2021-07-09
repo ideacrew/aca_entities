@@ -10,10 +10,9 @@ RSpec.describe ::AcaEntities::Medicaid::Contracts::PersonNameContract, dbclean: 
   let(:optional_params) do
     { middle: 'middle',
       suffix: 'suffix',
-      full: 'first middle last suffix'
-     }
+      full: 'first middle last suffix' }
   end
-  
+
   let(:all_params) { required_params.merge(optional_params)}
 
   context 'invalid parameters' do

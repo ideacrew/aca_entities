@@ -15,8 +15,8 @@ RSpec.describe ::AcaEntities::Medicaid::Atp::TransferHeader do
 
     let(:transfer_activity) do
       {
-        transfer_id: {identification_id: '2163565'},
-        transfer_date: {date_time: DateTime.now},
+        transfer_id: { identification_id: '2163565' },
+        transfer_date: { date_time: DateTime.now },
         number_of_referrals: 1,
         recipient_code: 'MedicaidCHIP',
         state_code: 'ME'

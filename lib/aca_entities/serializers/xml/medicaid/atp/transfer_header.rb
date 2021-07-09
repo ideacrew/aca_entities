@@ -19,9 +19,7 @@ module AcaEntities
             def self.domain_to_mapper(transfer_header)
               mapper = self.new
               mapper.transfer_activity = TransferActivity.domain_to_mapper(transfer_header.transfer_activity)
-              if transfer_header.recipient_state_code
-                mapper.recipient_state_code = transfer_header.recipient_state_code
-              end
+              mapper.recipient_state_code = transfer_header.recipient_state_code
               mapper
             end
 

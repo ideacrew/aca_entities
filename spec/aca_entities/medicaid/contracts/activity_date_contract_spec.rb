@@ -9,7 +9,7 @@ RSpec.describe ::AcaEntities::Medicaid::Contracts::ActivityDateContract, dbclean
 
   let(:optional_params) do
     { date: Date.today,
-      date_time: DateTime.now, 
+      date_time: DateTime.now,
       year: "2021",
       year_month: "2021/12" }
   end

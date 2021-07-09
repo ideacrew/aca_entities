@@ -13,8 +13,8 @@ RSpec.describe AcaEntities::Medicaid::Contracts::TransferHeaderContract, type: :
     {
       recipient_state_code: "ME",
       transfer_activity: {
-        transfer_id: {identification_id: '2163565'},
-        transfer_date: {date_time: DateTime.now},
+        transfer_id: { identification_id: '2163565' },
+        transfer_date: { date_time: DateTime.now },
         number_of_referrals: 1,
         recipient_code: 'MedicaidCHIP',
         state_code: 'ME'

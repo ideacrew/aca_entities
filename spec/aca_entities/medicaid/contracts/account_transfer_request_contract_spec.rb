@@ -18,7 +18,7 @@ RSpec.describe AcaEntities::Medicaid::Contracts::AccountTransferRequestContract,
       coverage_renewal_year_quantity: 2,
       requesting_medicaid: false,
       tax_return_access: true,
-      ssf_primary_contact: {contact_preference: 'Email', role_reference: role_reference},
+      ssf_primary_contact: { contact_preference: 'Email', role_reference: role_reference },
       ssf_signer: ssf_signer,
       application_creation: application_creation,
       application_submission: application_submission,
@@ -53,20 +53,18 @@ RSpec.describe AcaEntities::Medicaid::Contracts::AccountTransferRequestContract,
   end
 
   let(:insurance_applicant) do
-    { 
-      role_reference: role_reference,
+    { role_reference: role_reference,
       esi_eligible_indicator: false,
       age_left_foster_care: 14,
       foster_care_state: "n/a",
       had_medicaid_during_foster_care_indicator: false,
       blindness_or_disability_indicator: false,
-      lawful_presence_status: lawful_presence_status, 
+      lawful_presence_status: lawful_presence_status,
       long_term_care_indicator: false,
       chip_eligibilities: [trafficking_victim_category_eligibility_basis],
-      temporarily_lives_outside_application_state_indicator: false, 
+      temporarily_lives_outside_application_state_indicator: false,
       foster_care_indicator: false,
-      fixed_address_indicator: true
-    }
+      fixed_address_indicator: true }
   end
 
   let(:ssf_signer) do
@@ -77,17 +75,17 @@ RSpec.describe AcaEntities::Medicaid::Contracts::AccountTransferRequestContract,
     }
   end
 
-  let(:ssf_attestation) do 
+  let(:ssf_attestation) do
     {
       non_perjury_indicator: true,
-      not_incarcerated_indicators: [{metadata: nil, value: true}],
+      not_incarcerated_indicators: [{ metadata: nil, value: true }],
       information_changes_indicator: false
     }
   end
 
   let(:signature) do
     {
-      date_time: {date: DateTime.now.to_date}
+      date_time: { date: DateTime.now.to_date }
     }
   end
 
@@ -97,8 +95,8 @@ RSpec.describe AcaEntities::Medicaid::Contracts::AccountTransferRequestContract,
 
   let(:application_creation) do
     {
-      creation_id: {identification_id: '2163565'},
-      creation_date: {date_time: DateTime.now}
+      creation_id: { identification_id: '2163565' },
+      creation_date: { date_time: DateTime.now }
     }
   end
 
@@ -138,20 +136,19 @@ RSpec.describe AcaEntities::Medicaid::Contracts::AccountTransferRequestContract,
       given: "First",
       middle: "",
       sur: "Last",
-      full: "First Last",
+      full: "First Last"
     }
   end
 
   let(:person_birth_date) do
-    { date: Date.today - 50 }  
+    { date: Date.today - 50 }
   end
   
   let(:tribal_augmentation) do
     { recognized_tribe_indicator: true,
       american_indian_or_alaska_native_indicator: true,
       person_tribe_name: "Tribe Name",
-      location_state_us_postal_service_code: "ME"
-    }
+      location_state_us_postal_service_code: "ME" }
   end
 
   let(:person_augmentation) do
@@ -162,27 +159,22 @@ RSpec.describe AcaEntities::Medicaid::Contracts::AccountTransferRequestContract,
       incomes: [income],
       contacts: [contact_association],
       employments: [employment_association],
-      persons: [person_association]
-    }
+      persons: [person_association] }
   end
 
   let(:preferred_language) do
-    { 
-      language_name: "English" 
-    } 
+    { language_name: "English" }
   end
 
   let(:pregnancy_status) do
     { status_indicator: false,
       # status_valid_date_range: status_valid_date_range,
-      expected_baby_quantity: 0
-    }
+      expected_baby_quantity: 0 }
   end
 
   let(:status_valid_date_range) do
     { start_date: start_date, 
-      end_date: end_date 
-    }
+      end_date: end_date }
   end
 
   let(:lawful_presence_status) do
@@ -198,62 +190,57 @@ RSpec.describe AcaEntities::Medicaid::Contracts::AccountTransferRequestContract,
   let(:trafficking_victim_category_eligibility_basis) do
     {
       status_indicator: false
-    } 
+    }
   end
 
   let(:income) do
     { employment_source_text: "Acme",
-      amount: 50000.00, 
+      amount: 50_000.00,
       days_per_week: 5.0,
-      hours_per_pay_period: 80.0, 
+      hours_per_pay_period: 80.0,
       hours_per_week: 40.0,
-      category_code: "Salary", 
-      description_text: "Robot", 
-      subject_to_federal_restrictions_indicator: false, 
+      category_code: "Salary",
+      description_text: "Robot",
+      subject_to_federal_restrictions_indicator: false,
       date: income_date,
       earned_date_range: income_earned_date_range,
       frequency: income_frequency,
       payment_frequency: payment_frequency,
-      source_organization_reference: source_organization_reference
-    }
+      source_organization_reference: source_organization_reference }
   end
 
   let(:income_date) do
     { date: Date.today,
       date_time: DateTime.now,
       year: "2021",
-      year_month: "12/2021"
-    }
+      year_month: "12/2021" }
   end
 
   let(:income_earned_date_range) do
     { start_date: start_date,
-      end_date: end_date
-    }
+      end_date: end_date }
   end
 
   let(:start_date) do
     { date: Date.today,
       date_time: DateTime.now,
       year: "2020",
-      year_month: "12/2020"
-    }
+      year_month: "12/2020" }
   end
 
   let(:end_date) do
     { date: Date.today,
       date_time: DateTime.now,
       year: "2021",
-      year_month: "12/2021"
-    }
+      year_month: "12/2021" }
   end
 
   let(:income_frequency) do
-    { frequency_code: "BiWeekly" } 
+    { frequency_code: "BiWeekly" }
   end
 
   let(:payment_frequency) do
-    { frequency_code: "Weekly" } 
+    { frequency_code: "Weekly" }
   end
 
   let(:source_organization_reference) do
@@ -262,36 +249,31 @@ RSpec.describe AcaEntities::Medicaid::Contracts::AccountTransferRequestContract,
 
   let(:contact_association) do
     { contact: contact,
-      category_code: "Home"
-    }
+      category_code: "Home" }
   end
 
   let(:contact) do
     { contact_email_id: "fake@test.com",
       mailing_address: mailing_address,
-      telephone_number: contact_telephone
-    }
+      telephone_number: contact_telephone }
   end
 
   let(:employment_association) do
     { begin_date: start_date,
       end_date: end_date,
-      employer: employer
-    }    
+      employer: employer }
   end
 
   let(:employer) do
     { id: "em123",
       category_text: "Acme",
-      organization_primary_contact_information: employer_contact
-    }
+      organization_primary_contact_information: employer_contact }
   end
 
   let(:employer_contact) do
     { email: "fake@test.com",
       mailing_address: mailing_address,
-      telephone_number: contact_telephone
-    }
+      telephone_number: contact_telephone }
   end
 
   let(:mailing_address) do
@@ -300,13 +282,13 @@ RSpec.describe AcaEntities::Medicaid::Contracts::AccountTransferRequestContract,
 
   let(:structured_address) do
     {
-      location_street: location_street, 
-      address_secondary_unit_text: "", 
-      location_city_name: "Newark", 
-      location_county_name: "Bergen", 
+      location_street: location_street,
+      address_secondary_unit_text: "",
+      location_city_name: "Newark",
+      location_county_name: "Bergen",
       location_county_code: "",
       location_state_us_postal_service_code: "NJ",
-      location_postal_code: "01234",
+      location_postal_code: "01234"
     }
   end
 
@@ -320,27 +302,24 @@ RSpec.describe AcaEntities::Medicaid::Contracts::AccountTransferRequestContract,
 
   let(:full_telephone) do
     { telephone_number_full_id: "1231231234",
-      telephone_suffix_id: "0"
-    }
+      telephone_suffix_id: "0" }
   end
 
   let(:person_association) do
     { person: { ref: "pe123" },
-      family_relationship_code: 01
-    }
+      family_relationship_code: 1 }
   end
 
   let(:tribal_augmentation) do
     { recognized_tribe_indicator: true,
       american_indian_or_alaska_native_indicator: true,
       person_tribe_name: "Tribe Name",
-      location_state_us_postal_service_code: "ME"
-    }
+      location_state_us_postal_service_code: "ME" }
   end
-  
+
   let(:senders) do
     [
-      {category_code: 'Exchange'}
+      { category_code: 'Exchange' }
     ]
   end
 
@@ -357,12 +336,11 @@ RSpec.describe AcaEntities::Medicaid::Contracts::AccountTransferRequestContract,
   end
 
   let(:physical_household) do
-    { 
+    {
       household_size_quantity: 1,
-      household_member_references: [ { ref: "a-person-id" } ]
+      household_member_references: [{ ref: "a-person-id" }]
     }
   end
-
 
   let(:required_params) do
     {
@@ -375,10 +353,9 @@ RSpec.describe AcaEntities::Medicaid::Contracts::AccountTransferRequestContract,
     }
   end
 
-  let(:optional_params) { { version: "2.4" , medicaid_households: [{}], authorized_representative: {} } }
-  
-  let(:all_params) { required_params.merge(optional_params) }
+  let(:optional_params) { { version: "2.4", medicaid_households: [{}], authorized_representative: {} } }
 
+  let(:all_params) { required_params.merge(optional_params) }
 
   context 'invalid parameters' do
     context 'with empty parameters' do

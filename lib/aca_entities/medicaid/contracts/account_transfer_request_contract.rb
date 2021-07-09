@@ -20,11 +20,6 @@ module AcaEntities
           optional(:authorized_representative).maybe(:hash)
           required(:physical_households).value(:array, min_size?: 1)
         end
-
-        # rule(:physical_households).each do
-          # key.failure('household_size_quantity is required') unless value[:household_size_quantity]
-          # key.failure('household_member_reference is required') unless value[:household_member_reference]
-        # end
       end
     end
   end

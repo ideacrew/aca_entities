@@ -8,13 +8,11 @@ RSpec.describe ::AcaEntities::Medicaid::Contracts::SsfSignerContract, dbclean: :
   let(:required_params) { { role_reference: { ref: "a-person-id" } } }
 
   let(:optional_params) do
-    { signature: { date_time: {date: DateTime.now.to_date} },
+    { signature: { date_time: { date: DateTime.now.to_date } },
       ssf_attestation: {
         non_perjury_indicator: true,
-        not_incarcerated_indicators: [{metadata: nil, value: true}],
-        information_changes_indicator: false
-      }
-    }
+        not_incarcerated_indicators: [{ metadata: nil, value: true }],
+        information_changes_indicator: false }
   end
 
   let(:all_params) { required_params.merge(optional_params)}

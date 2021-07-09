@@ -22,17 +22,16 @@ RSpec.describe AcaEntities::Medicaid::Contracts::InsuranceApplicationContract, t
       application_identifications: [{ identification_id: "Exchange" }]
     }
   end
-  
 
   let(:insurance_applicant) do
-    { 
+    {
       role_reference: role_reference,
-      fixed_address_indicator: true 
+      fixed_address_indicator: true
     }
   end
 
   let(:ssf_primary_contact) do
-    { 
+    {
       role_reference: { ref: "a-person-id" },
       contact_preference: "Email"
     }
@@ -46,17 +45,17 @@ RSpec.describe AcaEntities::Medicaid::Contracts::InsuranceApplicationContract, t
     }
   end
 
-  let(:ssf_attestation) do 
+  let(:ssf_attestation) do
     {
       non_perjury_indicator: true,
-      not_incarcerated_indicators: [{metadata: nil, value: true}],
+      not_incarcerated_indicators: [{ metadata: nil, value: true }],
       information_changes_indicator: false
     }
   end
 
   let(:signature) do
     {
-      date_time: {date: DateTime.now.to_date}
+      date_time: { date: DateTime.now.to_date }
     }
   end
 
@@ -66,15 +65,15 @@ RSpec.describe AcaEntities::Medicaid::Contracts::InsuranceApplicationContract, t
 
   let(:application_creation) do
     {
-      creation_id: {identification_id: '2163565'},
-      creation_date: {date_time: DateTime.now}
+      creation_id: { identification_id: '2163565' },
+      creation_date: { date_time: DateTime.now }
     }
   end
 
   let(:application_submission) do
     {
-      activity_id: {identification_id: '2163565'},
-      activity_date: {date_time: DateTime.now},
+      activity_id: { identification_id: '2163565' },
+      activity_date: { date_time: DateTime.now }
     }
   end
 
@@ -82,7 +81,7 @@ RSpec.describe AcaEntities::Medicaid::Contracts::InsuranceApplicationContract, t
     { coverage_renewal_year_quantity: 2 }
   end
 
-let(:all_params) { required_params.merge(optional_params)}
+  let(:all_params) { required_params.merge(optional_params)}
 
   context 'invalid parameters' do
     context 'with empty parameters' do
