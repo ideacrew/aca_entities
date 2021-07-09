@@ -8,17 +8,16 @@ RSpec.describe ::AcaEntities::Medicaid::Contracts::ReferralActivityContract, dbc
   let(:required_params) do
     { activity_id: { identification_id: "01234" },
       activity_date: { date_time: DateTime.now },
-      sender_reference: {ref: "Sender" },
+      sender_reference: { ref: "Sender" },
       receiver_reference: { ref: "Receiver" },
-      status: { status_code: "Initiated" }
-    }
+      status: { status_code: "Initiated" } }
   end
 
   let(:optional_params) do
-    { 
+    {
       # activity_identification: {},
-      reason_code: "reason-code",
-    }    
+      reason_code: "reason-code"
+    }
   end
 
   let(:all_params) { required_params.merge(optional_params)}

@@ -86,7 +86,7 @@ RSpec.describe ::AcaEntities::Medicaid::Atp::AccountTransferRequest, dbclean: :a
 
   let(:signature) do
     {
-      signature_date: {date: DateTime.now.to_date }
+      signature_date: { date: DateTime.now.to_date }
     }
   end
 
