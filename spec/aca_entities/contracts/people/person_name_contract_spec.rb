@@ -11,8 +11,7 @@ RSpec.describe ::AcaEntities::Contracts::People::PersonNameContract,  dbclean: :
   let(:optional_params) do
     { middle: 'middle',
       full: 'first last',
-      suffix: 'suffix'
-    }
+      suffix: 'suffix' }
   end
 
   let(:input_params) do

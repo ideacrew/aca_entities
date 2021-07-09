@@ -151,7 +151,7 @@ RSpec.describe ::AcaEntities::Medicaid::Contracts::PersonContract, dbclean: :aft
 
   let(:structured_address) do
     { location_street: location_street,
-      address_secondary_unit_text:  "address",
+      address_secondary_unit_text: "address",
       location_city_name: "Wheaton",
       location_county_name: "Montgomery",
       location_county_code: "code",

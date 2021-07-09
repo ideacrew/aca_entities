@@ -8,10 +8,8 @@ RSpec.describe ::AcaEntities::Medicaid::Contracts::SsfSignerContract, dbclean: :
   let(:required_params) { { role_reference: { ref: "a-person-id" } } }
 
   let(:optional_params) do
-    { signature: {
-      date_time: {date: DateTime.now.to_date} },
-      ssf_attestation: ssf_attestation
-    }
+    { signature: { date_time: { date: DateTime.now.to_date } },
+      ssf_attestation: ssf_attestation }
   end
 
   let(:ssf_attestation) do

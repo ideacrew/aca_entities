@@ -102,15 +102,15 @@ RSpec.describe AcaEntities::Medicaid::Contracts::AccountTransferRequestContract,
 
   let(:application_submission) do
     {
-      activity_id: {identification_id: '2163565'},
-      activity_date: {date_time: DateTime.now},
+      activity_id: { identification_id: '2163565' },
+      activity_date: { date_time: DateTime.now }
     }
   end
 
   let(:transfer_activity) do
     {
-      transfer_id: {identification_id: '2163565'},
-      transfer_date: {date_time: DateTime.now},
+      transfer_id: { identification_id: '2163565' },
+      transfer_date: { date_time: DateTime.now },
       number_of_referrals: 1,
       recipient_code: 'MedicaidCHIP',
       state_code: 'ME'
@@ -143,7 +143,7 @@ RSpec.describe AcaEntities::Medicaid::Contracts::AccountTransferRequestContract,
   let(:person_birth_date) do
     { date: Date.today - 50 }
   end
-  
+
   let(:tribal_augmentation) do
     { recognized_tribe_indicator: true,
       american_indian_or_alaska_native_indicator: true,
@@ -173,7 +173,7 @@ RSpec.describe AcaEntities::Medicaid::Contracts::AccountTransferRequestContract,
   end
 
   let(:status_valid_date_range) do
-    { start_date: start_date, 
+    { start_date: start_date,
       end_date: end_date }
   end
 
