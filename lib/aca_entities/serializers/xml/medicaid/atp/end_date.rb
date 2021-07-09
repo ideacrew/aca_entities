@@ -17,9 +17,9 @@ module AcaEntities
             element :year, String, tag: "Year", namespace: "nc"
             element :year_month, String, tag: "YearMonth", namespace: "nc"
 
-            def self.domain_to_mapper(ed)
+            def self.domain_to_mapper(end_date)
               mapper = self.new
-              mapper.date = ed.date
+              mapper.date = end_date.date
               # mapper.date_time = ed.date_time
               # mapper.year = ed.year
               # mapper.year_month = ed.year_month

@@ -15,14 +15,10 @@ module AcaEntities
             has_one :start_date, StartDate
             has_one :end_date, EndDate
 
-            def self.domain_to_mapper(dr)
+            def self.domain_to_mapper(valid_date_range)
               mapper = self.new
-              if dr.start_date?
-                mapper.start_date = StartDate.domain_to_mapper(dr.start_date)
-              end
-              if dr.end_date
-                mapper.end_date = EndDate.domain_to_mapper(dr.end_date)
-              end
+              mapper.start_date = StartDate.domain_to_mapper(valid_date_range.start_date) if valid_date_range.start_date?
+              mapper.end_date = EndDate.domain_to_mapper(valid_date_range.end_date) if valid_date_range.end_date
               mapper
             end
 

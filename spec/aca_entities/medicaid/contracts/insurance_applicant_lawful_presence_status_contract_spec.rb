@@ -9,8 +9,7 @@ RSpec.describe ::AcaEntities::Medicaid::Contracts::InsuranceApplicantLawfulPrese
 
   let(:optional_params) do
     { arrived_before_1996_indicator: false,
-      lawful_presence_status_eligibility: { eligibility_indicator: false }
-    }
+      lawful_presence_status_eligibility: { eligibility_indicator: false } }
   end
 
   let(:all_params) { required_params.merge(optional_params)}

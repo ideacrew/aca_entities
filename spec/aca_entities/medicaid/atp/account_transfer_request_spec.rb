@@ -4,36 +4,35 @@ require 'spec_helper'
 require 'aca_entities/medicaid/atp'
 
 RSpec.describe ::AcaEntities::Medicaid::Atp::AccountTransferRequest, dbclean: :after_each do
-  
+
   let(:transfer_header_params) do
     {
-      transfer_activity: { transfer_id: {identification_id: '2163565'},
-        transfer_date: {date_time: DateTime.now},
-        number_of_referrals: 1,
-        recipient_code: 'MedicaidCHIP',
-        state_code: 'ME'
-      }
+      transfer_activity: { transfer_id: { identification_id: '2163565' },
+                           transfer_date: { date_time: DateTime.now },
+                           number_of_referrals: 1,
+                           recipient_code: 'MedicaidCHIP',
+                           state_code: 'ME' }
     }
   end
 
   let(:person_params) do
-    [{ 
+    [{
       id: 'a-person-id',
       person_name: { given: "first", sur: "last" },
-      ssn: '012345678',
+      ssn_identification: { identification_id: '012345678' },
       sex: 'Sex'
     }]
     # { person_name: { first_name: 'ivl40', last_name: '41' },
-      # demographic: { dob: Date.new(2000, 1, 1), gender: 'Male' },
-      # citizenship_immigration_status_information: { us_citizen: true },
-      # native_american_information: { is_native_american_or_alaska_native: false } }
+    # demographic: { dob: Date.new(2000, 1, 1), gender: 'Male' },
+    # citizenship_immigration_status_information: { us_citizen: true },
+    # native_american_information: { is_native_american_or_alaska_native: false } }
   end
 
   let(:insurance_application_params) do
-    { 
+    {
       insurance_applicants: [{ role_reference: { ref: "a-person-id" }, fixed_address_indicator: true }],
-      requesting_financial_assistance: false, 
-      requesting_medicaid: false, 
+      requesting_financial_assistance: false,
+      requesting_medicaid: false,
       ssf_primary_contact: { role_reference: { ref: "a-person-id" }, contact_preference: "Email" },
       ssf_signer: ssf_signer,
       tax_return_access: false,
@@ -52,13 +51,13 @@ RSpec.describe ::AcaEntities::Medicaid::Atp::AccountTransferRequest, dbclean: :a
     }]
   end
 
-  let(:sender_params) {[{ category_code: 'Exchange' }]}
-  let(:receiver_params) {[{ category_code: 'Exchange' }]}
+  let(:sender_params) {[{ id: "Sender", category_code: 'Exchange' }]}
+  let(:receiver_params) {[{ id: "Receiver", category_code: 'Exchange' }]}
 
   let(:physical_household) do
     {
-        household_size_quantity: 1,
-        household_member_references: [{ ref: "a-person-id" }]
+      household_size_quantity: 1,
+      household_member_references: [{ ref: "a-person-id" }]
     }
   end
 
@@ -77,31 +76,31 @@ RSpec.describe ::AcaEntities::Medicaid::Atp::AccountTransferRequest, dbclean: :a
     }
   end
 
-  let(:ssf_attestation) do 
+  let(:ssf_attestation) do
     {
       non_perjury_indicator: true,
-      not_incarcerated_indicators: [{metadata: nil, value: true}],
+      not_incarcerated_indicators: [{ metadata: nil, value: true }],
       information_changes_indicator: false
     }
   end
 
   let(:signature) do
     {
-      date_time: {date: DateTime.now.to_date}
+      signature_date: {date: DateTime.now.to_date }
     }
   end
 
   let(:application_creation) do
     {
-      creation_id: {identification_id: '2163565'},
-      creation_date: {date_time: DateTime.now},
+      creation_id: { identification_id: '2163565' },
+      creation_date: { date_time: DateTime.now }
     }
   end
 
   let(:application_submission) do
     {
-      activity_id: {identification_id: '2163565'},
-      activity_date: {date_time: DateTime.now},
+      activity_id: { identification_id: '2163565' },
+      activity_date: { date_time: DateTime.now }
     }
   end
 

@@ -18,8 +18,14 @@ module AcaEntities
             element :suffix, String, tag: 'PersonNameSuffixText', namespace: "nc"
             element :full, String, tag: 'PersonFullName', namespace: "nc"
 
-            def self.domain_to_mapper(_person_name)
-              self.new
+            def self.domain_to_mapper(person_name)
+              mapper = self.new
+              mapper.given = person_name.given
+              mapper.middle = person_name.middle
+              mapper.sur = person_name.sur
+              mapper.suffix = person_name.suffix
+              mapper.full = person_name.full
+              mapper
             end
 
             def to_hash

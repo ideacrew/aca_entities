@@ -14,17 +14,15 @@ module AcaEntities
 
             has_one :begin_date, AssociationBeginDate
             has_one :end_date, AssociationEndDate
-            has_one :contact, ContactInformation
-
-            # A kind of contact information.
-            element :category_code, String, tag: 'ContactInformationCategoryCode', namespace: 'hix-core'
-
-            # A kind of contact information.
             element :is_primary_indicator, Boolean, tag: 'ContactInformationIsPrimaryIndicator', namespace: 'nc'
+            has_one :contact, ContactInformation
+            element :category_code, String, tag: 'ContactInformationCategoryCode', namespace: 'hix-core'
 
             def self.domain_to_mapper(contact_association)
               mapper = self.new
               mapper.contact = ContactInformation.domain_to_mapper(contact_association.contact)
+              mapper.category_code = contact_association.category_code
+              mapper.is_primary_indicator = contact_association.is_primary_indicator
               mapper
             end
 

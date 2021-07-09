@@ -7,12 +7,11 @@ RSpec.describe ::AcaEntities::Medicaid::Contracts::TribalAugmentationContract, d
 
   let(:required_params) { {} }
 
-  let(:optional_params) do 
+  let(:optional_params) do
     { recognized_tribe_indicator: true,
       american_indian_or_alaska_native_indicator: true,
       person_tribe_name: "Tribe Name",
-      location_state_us_postal_service_code: "ME"
-    }
+      location_state_us_postal_service_code: "ME" }
   end
 
   let(:all_params) { required_params.merge(optional_params) }
@@ -38,7 +37,7 @@ RSpec.describe ::AcaEntities::Medicaid::Contracts::TribalAugmentationContract, d
     end
 
     context 'with all required and optional parameters' do
-      it 'should pass validation' do        
+      it 'should pass validation' do
         result = subject.call(all_params)
         expect(result.success?).to be_truthy
         expect(result.to_h).to eq all_params

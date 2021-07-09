@@ -25,7 +25,8 @@ module AcaEntities
               mapper.role_reference = RoleOfPersonReference.domain_to_mapper(signer.role_reference)
               mapper.signature = Signature.domain_to_mapper(signer.signature)
               if signer.ssf_signer_authorized_representative_association
-                mapper.ssf_signer_authorized_representative_association = SsfSignerAuthorizedRepresentativeAssociation.domain_to_mapper(signer.ssf_signer_authorized_representative_association)
+                mapper.ssf_signer_authorized_representative_association =
+                  SsfSignerAuthorizedRepresentativeAssociation.domain_to_mapper(signer.ssf_signer_authorized_representative_association)
               end
               mapper.ssf_attestation = SsfAttestation.domain_to_mapper(signer.ssf_attestation)
               mapper

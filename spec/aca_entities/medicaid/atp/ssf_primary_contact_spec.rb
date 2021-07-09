@@ -9,8 +9,7 @@ RSpec.describe ::AcaEntities::Medicaid::Atp::SsfPrimaryContact, dbclean: :after_
   describe 'with valid arguments' do
     let(:input_params) do
       { role_reference: { ref: "a-person-id" },
-        contact_preference: "Email"
-      }
+        contact_preference: "Email" }
     end
 
     it 'should initialize' do

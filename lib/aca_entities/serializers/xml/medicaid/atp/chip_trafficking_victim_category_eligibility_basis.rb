@@ -15,10 +15,10 @@ module AcaEntities
             element :status_indicator, Boolean, tag: 'StatusIndicator', namespace: "hix-core"
             element :eligibility_basis_status_code, Boolean, tag: 'EligibilityBasisStatusCode', namespace: "hix-ee"
 
-            def self.domain_to_mapper(eb)
+            def self.domain_to_mapper(chip_trafficking_victim_category_eb)
               mapper = self.new
-              mapper.status_indicator = eb.status_indicator
-              mapper.eligibility_basis_status_code = eb.eligibility_basis_status_code
+              mapper.status_indicator = chip_trafficking_victim_category_eb.status_indicator
+              mapper.eligibility_basis_status_code = chip_trafficking_victim_category_eb.eligibility_basis_status_code
               mapper
             end
 

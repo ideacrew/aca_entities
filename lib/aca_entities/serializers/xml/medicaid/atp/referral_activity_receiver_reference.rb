@@ -10,13 +10,13 @@ module AcaEntities
             include HappyMapper
 
             tag 'ReferralActivityReceiverReference'
-            namespace 'hix-core'
+            namespace 'hix-ee'
 
             attribute :ref, String, namespace: "niem-s"
 
-            def self.domain_to_mapper(_insurance_application)
+            def self.domain_to_mapper(receiver_reference)
               mapper = self.new
-              mapper.ref = "Exchange"
+              mapper.ref = receiver_reference.ref
               mapper
             end
 

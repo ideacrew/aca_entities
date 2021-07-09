@@ -27,16 +27,6 @@ RSpec.describe AcaEntities::Medicaid::Contracts::InsuranceApplicationContract, t
   let(:insurance_applicant) do
     { 
       role_reference: role_reference,
-      esi_eligible_indicator: false,
-      age_left_foster_care: 14,
-      foster_care_state: "n/a",
-      had_medicaid_during_foster_care_indicator: false,
-      blindness_or_disability_indicator: false,
-      lawful_presence_status: lawful_presence_status, 
-      long_term_care_indicator: false,
-      chip_eligibilities: [trafficking_victim_category_eligibility_basis],
-      temporarily_lives_outside_application_state_indicator: false, 
-      foster_care_indicator: false,
       fixed_address_indicator: true 
     }
   end
@@ -86,22 +76,6 @@ RSpec.describe AcaEntities::Medicaid::Contracts::InsuranceApplicationContract, t
       activity_id: {identification_id: '2163565'},
       activity_date: {date_time: DateTime.now},
     }
-  end
-
-  let(:lawful_presence_status) do
-    {
-      arrived_before_1996_indicator: false,
-      lawful_presence_status_eligibility: {
-        eligibility_indicator: true,
-        eligibility_basis_status_code: "Complete"
-      }
-    }
-  end
-
-  let(:trafficking_victim_category_eligibility_basis) do
-    {
-      status_indicator: false
-    } 
   end
 
   let(:optional_params) do

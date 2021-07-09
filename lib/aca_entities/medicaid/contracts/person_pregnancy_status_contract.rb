@@ -7,7 +7,7 @@ module AcaEntities
       class PersonPregnancyStatusContract < Dry::Validation::Contract
 
         params do
-          
+
           optional(:status_indicator).maybe(:bool)
           optional(:status_valid_date_range).maybe(:hash)
           optional(:expected_baby_quantity).maybe(:integer)

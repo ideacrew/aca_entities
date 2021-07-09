@@ -24,8 +24,8 @@ module AcaEntities
 
             def to_hash
               {
-                creation_id: creation_id&.to_hash,
-                creation_date: creation_date&.to_hash
+                activity_id: activity_id&.to_hash,
+                activity_date: activity_date&.to_hash
               }
             end
           end

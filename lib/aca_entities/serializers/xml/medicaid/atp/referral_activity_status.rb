@@ -20,7 +20,7 @@ module AcaEntities
               mapper = self.new
               mapper.status_code = ras.status_code
               mapper.overall_verification_status_code = ras.overall_verification_status_code
-              mapper.valid_date_range = StatusValidDateRange.domain_to_mapper(ras.valid_date_range)
+              # mapper.valid_date_range = StatusValidDateRange.domain_to_mapper(ras.valid_date_range)
               mapper
             end
 

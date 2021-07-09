@@ -14,9 +14,9 @@ module AcaEntities
 
             element :frequency_code, String, tag: 'FrequencyCode', namespace: "hix-core"
 
-            def self.domain_to_mapper(f)
+            def self.domain_to_mapper(income_frequency)
               mapper = self.new
-              mapper.frequency_code = f.frequency_code
+              mapper.frequency_code = income_frequency.frequency_code
               mapper
             end
 

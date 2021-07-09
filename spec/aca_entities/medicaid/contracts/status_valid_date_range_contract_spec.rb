@@ -15,10 +15,9 @@ RSpec.describe ::AcaEntities::Medicaid::Contracts::StatusValidDateRangeContract,
     { date: Date.today,
       date_time: DateTime.now,
       year: "2021",
-      year_month: "12/2021"
-    }
+      year_month: "12/2021" }
   end
-  
+
   let(:all_params) { required_params.merge(optional_params)}
 
   context 'invalid parameters' do

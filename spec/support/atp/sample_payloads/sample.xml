@@ -17,7 +17,7 @@
             <ns2:ActivityDate>
                 <ns2:DateTime>2021-05-04T17:06:54.450-04:00</ns2:DateTime>
             </ns2:ActivityDate>
-            <ns3:TransferActivityReferralQuantity>3</ns3:TransferActivityReferralQuantity>
+            <ns3:TransferActivityReferralQuantity>2</ns3:TransferActivityReferralQuantity>
             <ns3:RecipientTransferActivityCode>MedicaidCHIP</ns3:RecipientTransferActivityCode>
             <ns3:RecipientTransferActivityStateCode>ME</ns3:RecipientTransferActivityStateCode>
         </ns3:TransferActivity>
@@ -155,12 +155,12 @@
     </ns5:InsuranceApplication>
     <ns5:AuthorizedRepresentative ns1:id="MEPO0000000200628971">
         <ns4:RolePlayedByPerson xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-            <ns2:PersonBirthDate xsi:nil="true"></ns2:PersonBirthDate>
+            <ns2:PersonBirthDate><ns2:Date>1987-12-18-05:00</ns2:Date></ns2:PersonBirthDate>
             <ns2:PersonName>
                 <ns2:PersonGivenName>Pat</ns2:PersonGivenName>
                 <ns2:PersonSurName>test</ns2:PersonSurName>
             </ns2:PersonName>
-            <ns2:PersonSexText xsi:nil="true"></ns2:PersonSexText>
+            <ns2:PersonSexText>Male</ns2:PersonSexText>
         </ns4:RolePlayedByPerson>
     </ns5:AuthorizedRepresentative>
     <ns5:MedicaidHousehold ns1:id="mh2009521689331128940">

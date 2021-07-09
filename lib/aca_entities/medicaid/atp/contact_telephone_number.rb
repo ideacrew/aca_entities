@@ -5,7 +5,7 @@ module AcaEntities
     module Atp
       # entity for atp ContactTelephoneNumber
       class ContactTelephoneNumber < Dry::Struct
-        
+
         attribute :telephone, FullTelephone.optional.meta(omittable: true)
       end
     end

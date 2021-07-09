@@ -6,7 +6,7 @@ module AcaEntities
       # Signature information contract
       class SignatureContract < Dry::Validation::Contract
         params do
-          required(:date_time).filled(:hash)
+          required(:signature_date).filled(:hash)
         end
       end
     end

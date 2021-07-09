@@ -8,12 +8,13 @@ module AcaEntities
 
         params do
           required(:id).filled(:string)
-          required(:person_name).filled(:hash)
-          required(:ssn).filled(:string)
-          required(:sex).filled(:string)
-          optional(:race).maybe(:string)
-          optional(:ethnicity).maybe(:array)
           optional(:birth_date).maybe(:hash)
+          optional(:ethnicities).maybe(:array)
+          required(:person_name).filled(:hash)
+          optional(:race).maybe(:string)
+          required(:sex).filled(:string)
+          required(:ssn_identification).filled(:hash)
+          optional(:us_citizen_indicator).maybe(:bool)
           optional(:person_augmentation).maybe(:hash)
           optional(:tribal_augmentation).maybe(:hash)
         end

@@ -11,6 +11,7 @@ RSpec.describe AcaEntities::Medicaid::Contracts::ReceiverContract, type: :model 
 
   let(:input_params) do
     {
+      id: 'an-id',
       category_code: "Exchange",
       recipient_medicaid_chip_state: nil,
       recipient_medicaid_chip_county: nil

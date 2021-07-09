@@ -7,6 +7,7 @@ module AcaEntities
       class ReceiverContract < Dry::Validation::Contract
 
         params do
+          required(:id).filled(:string)
           required(:category_code).filled(:string)
           optional(:recipient_medicaid_chip_state).maybe(:string)
           optional(:recipient_medicaid_chip_county).maybe(:string)

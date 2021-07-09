@@ -6,7 +6,7 @@ module AcaEntities
       # Contract for InsuranceApplicationContract
       class InsuranceApplicationContract < Dry::Validation::Contract
         params do
-          required(:insurance_applicants).array(:array)
+          required(:insurance_applicants).array(:hash)
           required(:requesting_financial_assistance).filled(:bool)
           required(:requesting_medicaid).filled(:bool)
           required(:ssf_primary_contact).filled(:hash)

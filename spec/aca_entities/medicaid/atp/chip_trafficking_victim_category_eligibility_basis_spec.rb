@@ -7,8 +7,8 @@ RSpec.describe ::AcaEntities::Medicaid::Atp::ChipTraffickingVictimCategoryEligib
   describe 'with valid arguments' do
     let(:required_params) { {} }
 
-    let(:optional_params) { {status_indicator: true} }
-    
+    let(:optional_params) { { status_indicator: true } }
+
     let(:all_params) { required_params.merge(optional_params)}
 
     it 'should initialize' do
@@ -18,5 +18,5 @@ RSpec.describe ::AcaEntities::Medicaid::Atp::ChipTraffickingVictimCategoryEligib
     it 'should not raise error' do
       expect { described_class.new(all_params) }.not_to raise_error
     end
-  end  
+  end
 end

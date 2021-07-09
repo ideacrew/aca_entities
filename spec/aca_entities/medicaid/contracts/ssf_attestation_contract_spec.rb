@@ -5,7 +5,7 @@ require 'aca_entities/medicaid/contracts/ssf_attestation_contract'
 
 RSpec.describe ::AcaEntities::Medicaid::Contracts::SsfAttestationContract, dbclean: :after_each do
 
-  let(:required_params) do 
+  let(:required_params) do
     { non_perjury_indicator: true,
       not_incarcerated_indicators: [{metadata: nil, value: true}],
       information_changes_indicator: false }

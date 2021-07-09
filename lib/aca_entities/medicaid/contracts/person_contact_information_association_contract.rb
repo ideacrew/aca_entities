@@ -9,6 +9,7 @@ module AcaEntities
         params do
           optional(:contact).maybe(:hash)
           optional(:category_code).maybe(:string)
+          optional(:is_primary_indicator).maybe(:bool)
         end
       end
     end

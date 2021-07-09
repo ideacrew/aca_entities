@@ -7,7 +7,7 @@ RSpec.describe ::AcaEntities::Medicaid::Contracts::ChipTraffickingVictimCategory
 
   let(:required_params) { {} }
 
-  let(:optional_params) { {status_indicator: true} }
+  let(:optional_params) { { status_indicator: true } }
 
   let(:all_params) { required_params.merge(optional_params)}
 

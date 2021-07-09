@@ -4,11 +4,11 @@ require 'spec_helper'
 require 'aca_entities/medicaid/atp/person_reference'
 
 RSpec.describe ::AcaEntities::Medicaid::Atp::PersonReference,  dbclean: :around_each do
-  
+
   describe 'with valid arguments' do
     let(:required_params) { {} }
 
-    let(:optional_params) { {ref: "pe123"} }
+    let(:optional_params) { { ref: "pe123" } }
 
     let(:all_params) { required_params.merge(optional_params)}
 

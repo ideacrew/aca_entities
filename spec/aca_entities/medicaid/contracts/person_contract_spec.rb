@@ -8,14 +8,14 @@ RSpec.describe ::AcaEntities::Medicaid::Contracts::PersonContract, dbclean: :aft
   let(:required_params) do
     { id: "a-person-id",
       person_name: person_name,
-      ssn: "012345678",
+      ssn_identification: { identification_id: "012345678" },
       sex: "SEX",
     }
   end
 
   let(:optional_params) do
     { race: "RACE",
-      ethnicity: ["eth1", "eth2"],
+      ethnicities: ["eth1", "eth2"],
       birth_date: person_birth_date,
       person_augmentation: person_augmentation,
       tribal_augmentation: tribal_augmentation

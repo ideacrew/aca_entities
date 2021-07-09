@@ -34,7 +34,7 @@ RSpec.describe AcaEntities::Medicaid::Contracts::ApplicantContract, type: :model
   end
 
   let(:required_params) do
-    { person_name: { first_name: 'ivl40', last_name: '41' },
+    { person_name: { given: 'ivl40', sur: '41' },
       demographic: { dob: '1940-09-17', gender: 'Male' },
       citizenship_immigration_status_information: { us_citizen: true },
       native_american_information: { is_native_american_or_alaska_native: false } }
