@@ -10,18 +10,15 @@ RSpec.describe ::AcaEntities::Medicaid::Contracts::PersonPregnancyStatusContract
   let(:optional_params) do
     { status_indicator: true,
       status_valid_date_range: date_range,
-      expected_baby_quantity: 1
-    }
+      expected_baby_quantity: 1 }
   end
 
   let(:date_range) do
-    { end_date:     
+    { end_date:
       { date: Date.today,
         date_time: DateTime.now,
         year: "2021",
-        year_month: "12/2021"
-      }
-    }
+        year_month: "12/2021" } }
   end
 
   let(:all_params) { required_params.merge(optional_params)}

@@ -18,7 +18,6 @@ module AcaEntities
             has_one :contact, ContactInformation
             element :category_code, String, tag: 'ContactInformationCategoryCode', namespace: 'hix-core'
 
-           
             def self.domain_to_mapper(contact_association)
               mapper = self.new
               mapper.contact = ContactInformation.domain_to_mapper(contact_association.contact)

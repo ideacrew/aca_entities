@@ -12,7 +12,7 @@ module AcaEntities
         attribute :foster_care_state, Types::String.optional.meta(omittable: true)
         attribute :had_medicaid_during_foster_care_indicator, Types::Bool.optional.meta(omittable: true)
         attribute :blindness_or_disability_indicator, Types::Bool.optional.meta(omittable: true)
-        attribute :lawful_presence_status, InsuranceApplicantLawfulPresenceStatus.optional.meta(omittable: true) 
+        attribute :lawful_presence_status, InsuranceApplicantLawfulPresenceStatus.optional.meta(omittable: true)
         attribute :long_term_care_indicator, Types::Bool.optional.meta(omittable: true)
         attribute :chip_eligibilities, Types::Array.of(ChipEligibility).optional.meta(omittable: true)
         attribute :temporarily_lives_outside_application_state_indicator, Types::Bool.optional.meta(omittable: true)

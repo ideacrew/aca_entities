@@ -12,11 +12,9 @@ module AcaEntities
             tag 'PersonPregnancyStatus'
             namespace 'hix-core'
 
-            
             has_one :status_valid_date_range, StatusValidDateRange
             element :status_indicator, Boolean, tag: 'StatusIndicator', namespace: "hix-core"
             element :expected_baby_quantity, Integer, tag: 'PregnancyStatusExpectedBabyQuantity', namespace: 'hix-core'
-            
 
             def self.domain_to_mapper(pregnancy_status)
               mapper = self.new

@@ -4,7 +4,7 @@ require 'spec_helper'
 require 'aca_entities/medicaid/atp/birth_date'
 
 RSpec.describe ::AcaEntities::Medicaid::Atp::BirthDate,  dbclean: :around_each do
-  
+
   describe 'with valid arguments' do
     let(:required_params) { {} }
 
@@ -12,8 +12,7 @@ RSpec.describe ::AcaEntities::Medicaid::Atp::BirthDate,  dbclean: :around_each d
       { date: Date.today,
         date_time: DateTime.now,
         year: "2021",
-        year_month: "2021/12"
-      }
+        year_month: "2021/12" }
     end
 
     let(:all_params) { required_params.merge(optional_params)}

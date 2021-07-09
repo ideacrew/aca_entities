@@ -26,7 +26,7 @@ module AcaEntities
         end
 
         rule(transfer_header.number_of_referrals) do
-          # 
+          #
           # key.failure(text: 'The value of number_of_referrals must equal the number of referal activities elements in the payload.') if key? && value
         end
       end

@@ -4,9 +4,9 @@ require 'spec_helper'
 require 'aca_entities/medicaid/atp/person_ssn_identification'
 
 RSpec.describe ::AcaEntities::Medicaid::Atp::PersonSsnIdentification,  dbclean: :around_each do
-  
+
   describe 'with valid arguments' do
-    let(:required_params) { { identification_id: "123121234"} }
+    let(:required_params) { { identification_id: "123121234" } }
 
     let(:optional_params) { {} }
 

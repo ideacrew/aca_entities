@@ -8,12 +8,10 @@ RSpec.describe ::AcaEntities::Medicaid::Contracts::SsfSignerContract, dbclean: :
   let(:required_params) { {} }
 
   let(:optional_params) do
-    { ssf_attestation: 
+    { ssf_attestation:
         { non_perjury_indicator: true,
           not_incarcerated_indicator: true,
-          information_changes_indicator: false
-        }
-    }
+          information_changes_indicator: false } }
   end
 
   let(:all_params) { required_params.merge(optional_params)}

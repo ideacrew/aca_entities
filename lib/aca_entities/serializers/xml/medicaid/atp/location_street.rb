@@ -17,7 +17,7 @@ module AcaEntities
 
             def self.domain_to_mapper(location_street)
               mapper = self.new
-              mapper. street_full_text = location_street.street_full_text
+              mapper.street_full_text = location_street.street_full_text
               mapper
             end
 

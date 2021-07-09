@@ -21,6 +21,7 @@ module AcaEntities
               mapper = self.new
               mapper.signature = Signature.domain_to_mapper(rep.signature)
               mapper.authorized_representative_reference = AuthorizedRepresentativeReference.domain_to_mapper(rep.authorized_representative_reference)
+              mapper
             end
 
             def to_hash

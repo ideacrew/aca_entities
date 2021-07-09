@@ -4,14 +4,13 @@ require 'spec_helper'
 require 'aca_entities/medicaid/atp/application_identification'
 
 RSpec.describe ::AcaEntities::Medicaid::Atp::ApplicationIdentification,  dbclean: :around_each do
-  
+
   describe 'with valid arguments' do
-    let(:required_params) { { identification_id: "Exchange"} }
+    let(:required_params) { { identification_id: "Exchange" } }
 
     let(:optional_params) do
       { identification_category_text: "",
-        identification_jurisdication: "ME"
-      }
+        identification_jurisdication: "ME" }
     end
 
     let(:all_params) { required_params.merge(optional_params)}

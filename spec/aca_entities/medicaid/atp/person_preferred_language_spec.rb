@@ -4,7 +4,7 @@ require 'spec_helper'
 require 'aca_entities/medicaid/atp/person_preferred_language'
 
 RSpec.describe ::AcaEntities::Medicaid::Atp::PersonPreferredLanguage,  dbclean: :around_each do
-  
+
   describe 'with valid arguments' do
     let(:required_params) { {} }
 

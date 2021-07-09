@@ -5,8 +5,8 @@ module AcaEntities
     module Atp
       # entity for atp StructuredAddress
       class StructuredAddress < Dry::Struct
-        
-        attribute :location_street, LocationStreet.optional.meta(omittable: true) 
+
+        attribute :location_street, LocationStreet.optional.meta(omittable: true)
         attribute :address_secondary_unit_text, Types::String.optional.meta(omittable: true)
         attribute :location_city_name, Types::String.optional.meta(omittable: true)
         attribute :location_county_name, Types::String.optional.meta(omittable: true)

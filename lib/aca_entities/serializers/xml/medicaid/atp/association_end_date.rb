@@ -17,10 +17,9 @@ module AcaEntities
             element :year, String, tag: "Year", namespace: "nc"
             element :year_month, String, tag: "YearMonth", namespace: "nc"
 
-            def self.domain_to_mapper(date_time)
-              mapper = self.new
+            def self.domain_to_mapper(_date_time)
+              self.new
               # mapper.date_time = date_time
-              mapper
             end
 
             def to_hash

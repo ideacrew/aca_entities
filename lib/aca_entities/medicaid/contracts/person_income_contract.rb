@@ -7,7 +7,7 @@ module AcaEntities
       class PersonIncomeContract < Dry::Validation::Contract
 
         params do
-          
+
           optional(:employment_source_text).maybe(:string)
           optional(:amount).maybe(:float)
           optional(:days_per_week).maybe(:float)

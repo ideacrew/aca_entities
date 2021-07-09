@@ -23,11 +23,10 @@ require 'aca_entities/medicaid/atp/application_submission'
 require 'aca_entities/medicaid/atp/insurance_applicant'
 require 'aca_entities/medicaid/atp/insurance_application'
 
-
 RSpec.describe ::AcaEntities::Medicaid::Atp::InsuranceApplication, dbclean: :after_each do
 
   describe 'with valid arguments' do
-    
+
     let(:input_params) do
       {
         insurance_applicants: [insurance_applicant],
@@ -35,7 +34,7 @@ RSpec.describe ::AcaEntities::Medicaid::Atp::InsuranceApplication, dbclean: :aft
         coverage_renewal_year_quantity: 2,
         requesting_medicaid: false,
         tax_return_access: true,
-        ssf_primary_contact: {contact_preference: 'Email', role_reference: role_reference},
+        ssf_primary_contact: { contact_preference: 'Email', role_reference: role_reference },
         ssf_signer: ssf_signer,
         application_creation: application_creation,
         application_submission: application_submission,
@@ -44,17 +43,17 @@ RSpec.describe ::AcaEntities::Medicaid::Atp::InsuranceApplication, dbclean: :aft
     end
 
     let(:insurance_applicant) do
-      { 
+      {
         role_reference: role_reference,
         esi_eligible_indicator: false,
         age_left_foster_care: 14,
         foster_care_state: "n/a",
         had_medicaid_during_foster_care_indicator: false,
         blindness_or_disability_indicator: false,
-        lawful_presence_status: lawful_presence_status, 
+        lawful_presence_status: lawful_presence_status,
         long_term_care_indicator: false,
         chip_eligibilities: [trafficking_victim_category_eligibility_basis],
-        temporarily_lives_outside_application_state_indicator: false, 
+        temporarily_lives_outside_application_state_indicator: false,
         foster_care_indicator: false,
         fixed_address_indicator: true
       }
@@ -68,17 +67,17 @@ RSpec.describe ::AcaEntities::Medicaid::Atp::InsuranceApplication, dbclean: :aft
       }
     end
 
-    let(:ssf_attestation) do 
+    let(:ssf_attestation) do
       {
         non_perjury_indicator: true,
-        not_incarcerated_indicators: [{metadata: nil, value: true}],
+        not_incarcerated_indicators: [{ metadata: nil, value: true }],
         information_changes_indicator: false
       }
     end
 
     let(:signature) do
       {
-        date_time: {date: DateTime.now.to_date}
+        date_time: { date: DateTime.now.to_date }
       }
     end
 
@@ -99,20 +98,20 @@ RSpec.describe ::AcaEntities::Medicaid::Atp::InsuranceApplication, dbclean: :aft
     let(:trafficking_victim_category_eligibility_basis) do
       {
         status_indicator: false
-      } 
+      }
     end
 
     let(:application_creation) do
       {
-        creation_id: {identification_id: '2163565'},
-        creation_date: {date_time: DateTime.now},
+        creation_id: { identification_id: '2163565' },
+        creation_date: { date_time: DateTime.now }
       }
     end
 
     let(:application_submission) do
       {
-        activity_id: {identification_id: '2163565'},
-        activity_date: {date_time: DateTime.now},
+        activity_id: { identification_id: '2163565' },
+        activity_date: { date_time: DateTime.now }
       }
     end
 

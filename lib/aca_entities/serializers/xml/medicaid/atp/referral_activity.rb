@@ -25,7 +25,7 @@ module AcaEntities
               mapper.sender_reference = ReferralActivitySenderReference.domain_to_mapper(referral_activity.sender_reference)
               mapper.receiver_reference = ReferralActivityReceiverReference.domain_to_mapper(referral_activity.receiver_reference)
               mapper.status = ReferralActivityStatus.domain_to_mapper(referral_activity.status)
-              mapper            
+              mapper
             end
 
             def to_hash
