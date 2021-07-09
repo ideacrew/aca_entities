@@ -4,7 +4,7 @@ require 'spec_helper'
 require 'aca_entities/medicaid/atp/referral_activity_sender_reference'
 
 RSpec.describe ::AcaEntities::Medicaid::Atp::ReferralActivitySenderReference,  dbclean: :around_each do
-  
+
   describe 'with valid arguments' do
     let(:required_params) { { ref: "Sender" } }
 

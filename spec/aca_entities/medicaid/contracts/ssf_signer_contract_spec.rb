@@ -10,25 +10,25 @@ RSpec.describe ::AcaEntities::Medicaid::Contracts::SsfSignerContract, dbclean: :
   let(:optional_params) do
     { signature: signature,
       ssf_attestation: ssf_attestation,
-      ssf_signer_authorized_representative_association: 
+      ssf_signer_authorized_representative_association:
       { signature: signature,
         authorized_representative_reference: { ref: "another-person-id" } } }
   end
 
-  let(:ssf_attestation) do 
+  let(:ssf_attestation) do
     {
       non_perjury_indicator: true,
-      not_incarcerated_indicators: [{metadata: nil, value: true}],
+      not_incarcerated_indicators: [{ metadata: nil, value: true }],
       information_changes_indicator: false
     }
   end
 
   let(:signature) do
     {
-      signature_date: {date: DateTime.now.to_date}
+      signature_date: { date: DateTime.now.to_date }
     }
   end
-  
+
   let(:all_params) { required_params.merge(optional_params)}
 
   context 'invalid parameters' do

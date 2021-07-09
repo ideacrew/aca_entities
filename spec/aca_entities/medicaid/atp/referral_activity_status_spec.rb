@@ -4,16 +4,16 @@ require 'spec_helper'
 require 'aca_entities/medicaid/atp/referral_activity_status'
 
 RSpec.describe ::AcaEntities::Medicaid::Atp::ReferralActivityStatus,  dbclean: :around_each do
-  
+
   describe 'with valid arguments' do
     let(:required_params) do
       { status_code: "Initiated" }
     end
 
     let(:optional_params) do
-      { 
-        overall_verification_status_code: "overall-code",
-      }    
+      {
+        overall_verification_status_code: "overall-code"
+      }
     end
 
     let(:all_params) { required_params.merge(optional_params)}

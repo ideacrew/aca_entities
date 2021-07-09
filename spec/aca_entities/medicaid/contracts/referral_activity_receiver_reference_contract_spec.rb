@@ -5,7 +5,7 @@ require 'aca_entities/medicaid/contracts/referral_activity_receiver_reference_co
 
 RSpec.describe ::AcaEntities::Medicaid::Contracts::ReferralActivityReceiverReferenceContract, dbclean: :after_each do
 
-  let(:required_params) { { ref: "Receiver"} }
+  let(:required_params) { { ref: "Receiver" } }
 
   let(:optional_params) { {} }
 

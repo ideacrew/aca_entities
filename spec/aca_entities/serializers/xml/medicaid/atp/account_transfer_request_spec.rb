@@ -220,7 +220,7 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
   let(:referral_activity) do
     { activity_id: { identification_id: "01234" },
       activity_date: { date_time: DateTime.now },
-      sender_reference: {ref: "Sender" },
+      sender_reference: { ref: "Sender" },
       receiver_reference: { ref: "Receiver" },
       status: { status_code: "Initiated" } }
   end
@@ -288,8 +288,7 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
   let(:contact) do
     { email_id: "fake@test.com",
       mailing_address: mailing_address,
-      telephone_number: contact_telephone
-    }
+      telephone_number: contact_telephone }
   end
 
   let(:employment_association) do
@@ -360,8 +359,7 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
 
   let(:receiver) do
     { id: "Receiver",
-      category_code: 'Exchange'
-    }
+      category_code: 'Exchange' }
   end
 
   let(:application_identity) do

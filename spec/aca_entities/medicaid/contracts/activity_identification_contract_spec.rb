@@ -5,12 +5,11 @@ require 'aca_entities/medicaid/contracts/activity_identification_contract'
 
 RSpec.describe ::AcaEntities::Medicaid::Contracts::ActivityIdentificationContract, dbclean: :after_each do
 
-  let(:required_params) { { identification_id: "MET00000000001887090"} }
+  let(:required_params) { { identification_id: "MET00000000001887090" } }
 
   let(:optional_params) do
     { identification_category_text: "Exchange",
-      identification_jurisdication: "ME"
-    }
+      identification_jurisdication: "ME" }
   end
 
   let(:all_params) { required_params.merge(optional_params)}
