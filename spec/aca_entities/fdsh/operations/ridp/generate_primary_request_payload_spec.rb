@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-
+require 'pry'
 RSpec.describe ::AcaEntities::Fdsh::Ridp::Operations::GeneratePrimaryRequestPayload, dbclean: :after_each do
 
   describe 'with valid arguments' do
@@ -276,20 +276,6 @@ RSpec.describe ::AcaEntities::Fdsh::Ridp::Operations::GeneratePrimaryRequestPayl
       ]
     end
 
-    let(:phones) do
-      [
-        {
-          kind: "home",
-          country_code: "",
-          area_code: "202",
-          number: "2991290",
-          extension: "",
-          primary: true,
-          full_phone_number: "2022991290"
-        }
-      ]
-    end
-
     let(:emails) do
       [
         {
@@ -360,6 +346,20 @@ RSpec.describe ::AcaEntities::Fdsh::Ridp::Operations::GeneratePrimaryRequestPayl
         }
       end
 
+      let(:phones) do
+        [
+          {
+            kind: "home",
+            country_code: "",
+            area_code: "202",
+            number: "2991290",
+            extension: "",
+            primary: true,
+            full_phone_number: "2022991290"
+          }
+        ]
+      end
+
       it 'should return success' do
         expect(@result).to be_success
         expect(@result.value!).to be_a(AcaEntities::Fdsh::Ridp::H139::PrimaryRequest)
@@ -381,8 +381,55 @@ RSpec.describe ::AcaEntities::Fdsh::Ridp::Operations::GeneratePrimaryRequestPayl
         }
       end
 
+      let(:phones) do
+        [
+          {
+            kind: "home",
+            country_code: "",
+            area_code: "202",
+            number: "2991290",
+            extension: "",
+            primary: true,
+            full_phone_number: "2022991290"
+          }
+        ]
+      end
+
       it 'should return eng as it is default' do
         expect(@result.success.to_h[:PersonLanguagePreference]).to eq('eng')
+      end
+
+      it 'should return :ContactInformation' do
+        expect(@result.success.to_h[:ContactInformation][:ContactTelephoneNumber][:FullTelephoneNumber]).to eq('2022991290')
+      end
+    end
+
+    context 'without full_phone_number' do
+      let!(:person_demographics) do
+        {
+          ssn: "123456789",
+          no_ssn: false,
+          gender: 'male',
+          dob: Date.today,
+          is_incarcerated: false
+        }
+      end
+
+      let(:phones) do
+        [
+          {
+            kind: "home",
+            country_code: "",
+            area_code: "202",
+            number: "2991290",
+            extension: "",
+            primary: true
+          }
+        ]
+      end
+
+      it 'should return success' do
+        expect(@result).to be_success
       end
     end
   end

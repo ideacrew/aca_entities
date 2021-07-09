@@ -42,8 +42,8 @@ module AcaEntities
             end
           end
 
-          attribute :ContactInformation do
-            attribute :ContactTelephoneNumber do
+          attribute :ContactInformation, Dry::Struct.optional.meta(omittable: true) do
+            attribute :ContactTelephoneNumber, Dry::Struct.optional.meta(omittable: true) do
               attribute :FullTelephoneNumber,
                         Types::String.optional.meta(omittable: true)
             end
