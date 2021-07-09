@@ -160,7 +160,7 @@
                 <ns2:PersonGivenName>Pat</ns2:PersonGivenName>
                 <ns2:PersonSurName>test</ns2:PersonSurName>
             </ns2:PersonName>
-            <ns2:PersonSexText>Male</ns2:PersonSexText>
+            <ns2:PersonSexText>Female</ns2:PersonSexText>
         </ns4:RolePlayedByPerson>
     </ns5:AuthorizedRepresentative>
     <ns5:MedicaidHousehold ns1:id="mh2009521689331128940">
