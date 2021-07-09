@@ -21,9 +21,9 @@ module AcaEntities
         # Required if Sender is not Exchange and Referral Header exists.
         # Also required if Transfer Header Recipient Code is "Exchange".
         # TODO: Fix these rules later
-        rule(:sender_medicaid_chip_state) do
-          # key.failure(text: 'Sender Medicaid CHIP State Code is invalid') if key? && value
-        end
+        # rule(:sender_medicaid_chip_state) do
+        #   # key.failure(text: 'Sender Medicaid CHIP State Code is invalid') if key? && value
+        # end
       end
     end
   end

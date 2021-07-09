@@ -5,6 +5,7 @@ module AcaEntities
     module Xml
       module Medicaid
         module Atp
+          # Employer details
           class Employer
             include HappyMapper
 
@@ -19,7 +20,8 @@ module AcaEntities
               mapper = self.new
               mapper.id = employer.id
               mapper.category_text = employer.category_text
-              mapper.organization_primary_contact_information = OrganizationPrimaryContactInformation.domain_to_mapper(employer.organization_primary_contact_information)
+              mapper.organization_primary_contact_information =
+                OrganizationPrimaryContactInformation.domain_to_mapper(employer.organization_primary_contact_information)
               mapper
             end
 

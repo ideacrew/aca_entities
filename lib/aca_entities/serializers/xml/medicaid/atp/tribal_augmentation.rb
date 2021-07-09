@@ -26,12 +26,12 @@ module AcaEntities
             # A state, commonwealth, province, or other such geopolitical subdivision of a country.
             element :location_state_us_postal_service_code, String, tag: 'LocationStateUSPostalServiceCode', namespace: 'nc'
 
-            def self.domain_to_mapper(ta)
+            def self.domain_to_mapper(augmentation)
               mapper = self.new
-              mapper.recognized_tribe_indicator = ta.recognized_tribe_indicator
-              mapper.american_indian_or_alaska_native_indicator = ta.american_indian_or_alaska_native_indicator
-              mapper.person_tribe_name = ta.person_tribe_name
-              mapper.location_state_us_postal_service_code = ta.location_state_us_postal_service_code
+              mapper.recognized_tribe_indicator = augmentation.recognized_tribe_indicator
+              mapper.american_indian_or_alaska_native_indicator = augmentation.american_indian_or_alaska_native_indicator
+              mapper.person_tribe_name = augmentation.person_tribe_name
+              mapper.location_state_us_postal_service_code = augmentation.location_state_us_postal_service_code
               mapper
             end
 

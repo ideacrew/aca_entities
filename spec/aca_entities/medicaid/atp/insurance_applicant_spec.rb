@@ -31,10 +31,6 @@ RSpec.describe ::AcaEntities::Medicaid::Atp::InsuranceApplicant, dbclean: :aroun
         chip_eligibilities: [{ status_indicator: false }] }
     end
 
-    let(:chip_eligibility) do
-
-    end
-
     let(:all_params) { required_params.merge(optional_params) }
 
     it 'should initialize' do
