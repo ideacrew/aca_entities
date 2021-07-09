@@ -6,6 +6,8 @@ module AcaEntities
       module Fdsh
         module Ridp
           module Operations
+            # Validates RIDP xml payloads.  Same validator is used for all
+            # RIDP payloads.
             class ValidateRidpPayloadXml
               send(:include, Dry::Monads[:result, :do, :try])
 

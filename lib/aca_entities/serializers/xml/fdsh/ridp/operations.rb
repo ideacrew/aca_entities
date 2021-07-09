@@ -8,6 +8,7 @@ module AcaEntities
     module Xml
       module Fdsh
         module Ridp
+          # Operations for the transformation and validation or RIDP XML payloads.
           module Operations
           end
         end

@@ -6,6 +6,7 @@ module AcaEntities
       module Fdsh
         module Ridp
           module Operations
+            # Turns a primary request to XML and schema validate it.
             class PrimaryRequestToXml
               send(:include, Dry::Monads[:result, :do, :try])
 

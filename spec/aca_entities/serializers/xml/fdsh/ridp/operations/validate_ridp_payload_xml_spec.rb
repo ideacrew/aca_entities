@@ -5,7 +5,7 @@ require 'aca_entities/serializers/xml/fdsh/ridp'
 require 'open3'
 
 RSpec.describe AcaEntities::Serializers::Xml::Fdsh::Ridp::Operations::ValidateRidpPayloadXml,
-  "given an unparsable xml" do
+               "given an unparsable xml" do
 
   let(:xml) do
     nil
@@ -22,7 +22,7 @@ RSpec.describe AcaEntities::Serializers::Xml::Fdsh::Ridp::Operations::ValidateRi
 end
 
 RSpec.describe AcaEntities::Serializers::Xml::Fdsh::Ridp::Operations::ValidateRidpPayloadXml,
-  "given a schema valid request" do
+               "given a schema valid request" do
 
   let(:file) do
     loc = File.join(File.dirname(__FILE__), "..", "..", "..", "..", "..", "..", "reference", "xml", "ridp", "RIDPPrimaryRequest.xml")
@@ -44,7 +44,7 @@ RSpec.describe AcaEntities::Serializers::Xml::Fdsh::Ridp::Operations::ValidateRi
 end
 
 RSpec.describe AcaEntities::Serializers::Xml::Fdsh::Ridp::Operations::ValidateRidpPayloadXml,
-  "given a schema valid response" do
+               "given a schema valid response" do
 
   let(:file) do
     loc = File.join(File.dirname(__FILE__), "..", "..", "..", "..", "..", "..", "reference", "xml", "ridp", "RIDPPrimaryResponse.xml")
@@ -65,7 +65,7 @@ RSpec.describe AcaEntities::Serializers::Xml::Fdsh::Ridp::Operations::ValidateRi
 end
 
 RSpec.describe AcaEntities::Serializers::Xml::Fdsh::Ridp::Operations::ValidateRidpPayloadXml,
-  "given a schema invalid request" do
+               "given a schema invalid request" do
 
   let(:file) do
     loc = File.join(File.dirname(__FILE__), "..", "..", "..", "..", "..", "..", "reference", "xml", "ridp", "RIDPBogusPrimaryRequest.xml")

@@ -4,7 +4,7 @@ require 'spec_helper'
 require 'aca_entities/serializers/xml/fdsh/ridp'
 
 RSpec.describe AcaEntities::Serializers::Xml::Fdsh::Ridp::Operations::PrimaryRequestToXml,
-  "given a primary request that results in a bogus xml" do
+               "given a primary request that results in a bogus xml" do
 
   let(:primary_request) do
     instance_double(
@@ -44,7 +44,7 @@ RSpec.describe AcaEntities::Serializers::Xml::Fdsh::Ridp::Operations::PrimaryReq
 end
 
 RSpec.describe AcaEntities::Serializers::Xml::Fdsh::Ridp::Operations::PrimaryRequestToXml,
-  "given a primary request that results in a valid xml" do
+               "given a primary request that results in a valid xml" do
 
   let(:primary_request) do
     instance_double(
