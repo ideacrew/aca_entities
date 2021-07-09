@@ -8,6 +8,7 @@ module AcaEntities
 
         params do
           required(:transfer_activity).filled(:hash)
+          optional(:recipient_state_code).maybe(:string)
         end
 
       end

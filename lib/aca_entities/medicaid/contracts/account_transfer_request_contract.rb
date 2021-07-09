@@ -10,24 +10,20 @@ module AcaEntities
           optional(:version).maybe(:string)
           required(:transfer_header).filled(:hash)
           required(:insurance_application).filled(:hash)
-          required(:medicaid_household).filled(:hash)
+          required(:medicaid_households).filled(:array)
           required(:people).filled(:hash)
           required(:senders).filled(:array)
           required(:receivers).filled(:array)
-          required(:insurance_application).filed(:hash)
+          required(:insurance_application).filled(:hash)
           optional(:medicaid_households).maybe(:array)
           # optional(:assister).maybe(:array)
           optional(:authorized_representative).maybe(:array)
-
-          required(:physical_households).value(:array, min_size?: 1).each do
-            required(:household_size_quantity).filled(:integer)
-            required(:household_member_reference).array(:hash)
-          end
+          required(:physical_households).value(:array, min_size?: 1)
         end
 
-        rule(transfer_header.number_of_referrals) do
-          # 
-          # key.failure(text: 'The value of number_of_referrals must equal the number of referal activities elements in the payload.') if key? && value
+        rule(:physical_households).each do
+          key.failure('household_size_quantity is required') unless value[:household_size_quantity]
+          key.failure('household_member_reference is required') unless value[:household_member_reference]
         end
       end
     end

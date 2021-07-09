@@ -11,30 +11,33 @@ RSpec.describe AcaEntities::Medicaid::Contracts::InsuranceApplicationContract, t
 
   let(:required_params) do
     {
-      application_metadata: application_metadata,
       insurance_applicants: [insurance_applicant],
-      requesting_financial_assistance: false, 
-      requesting_medicaid: false, 
-      ssf_primary_contact: ssf_primary_contact, 
-      tax_return_access_indicator: false
+      requesting_financial_assistance: true,
+      requesting_medicaid: false,
+      tax_return_access: true,
+      ssf_primary_contact: ssf_primary_contact,
+      ssf_signer: ssf_signer,
+      application_creation: application_creation,
+      application_submission: application_submission,
+      application_identifications: [{ identification_id: "Exchange" }]
     }
   end
   
-  let(:application_metadata) do
-    {
-      application_ids: [{ identification_id: "an application id" }],
-      application_signature_date: DateTime.now,
-      creation_date: DateTime.now,
-      submission_date: DateTime.now,
-      identification_category_text: "ID CATEGORY TEXT",
-      financial_assistance_indicator: false,
-      medicaid_determination_indicator: false
-    }
-  end
 
   let(:insurance_applicant) do
     { 
-      role_reference: { ref: "a-person-id" } 
+      role_reference: role_reference,
+      esi_eligible_indicator: false,
+      age_left_foster_care: 14,
+      foster_care_state: "n/a",
+      had_medicaid_during_foster_care_indicator: false,
+      blindness_or_disability_indicator: false,
+      lawful_presence_status: lawful_presence_status, 
+      long_term_care_indicator: false,
+      chip_eligibilities: [trafficking_victim_category_eligibility_basis],
+      temporarily_lives_outside_application_state_indicator: false, 
+      foster_care_indicator: false,
+      fixed_address_indicator: true 
     }
   end
 
@@ -45,34 +48,67 @@ RSpec.describe AcaEntities::Medicaid::Contracts::InsuranceApplicationContract, t
     }
   end
 
-  let(:optional_params) do
-    { ssf_signer:
-      { ssf_attestation:
-          { non_perjury_indicator: true,
-            not_incarcerated_indicator: true,
-            information_changes_indicator: false
-          }
-      }
+  let(:ssf_signer) do
+    {
+      role_reference: role_reference,
+      signature: signature,
+      ssf_attestation: ssf_attestation
     }
-    
   end
 
-  let(:all_params) { required_params.merge(optional_params)}
+  let(:ssf_attestation) do 
+    {
+      non_perjury_indicator: true,
+      not_incarcerated_indicators: [{metadata: nil, value: true}],
+      information_changes_indicator: false
+    }
+  end
 
+  let(:signature) do
+    {
+      date_time: {date: DateTime.now.to_date}
+    }
+  end
 
-  # context 'success case' do
-  #   before do
-  #     @result = subject.call(input_params)
-  #   end
+  let(:role_reference) do
+    { ref: "a-person-id" }
+  end
 
-  #   it 'should return success' do
-  #     expect(@result.success?).to be_truthy
-  #   end
+  let(:application_creation) do
+    {
+      creation_id: {identification_id: '2163565'},
+      creation_date: {date_time: DateTime.now}
+    }
+  end
 
-  #   it 'should not have any errors' do
-  #     expect(@result.errors.empty?).to be_truthy
-  #   end
-  # end
+  let(:application_submission) do
+    {
+      activity_id: {identification_id: '2163565'},
+      activity_date: {date_time: DateTime.now},
+    }
+  end
+
+  let(:lawful_presence_status) do
+    {
+      arrived_before_1996_indicator: false,
+      lawful_presence_status_eligibility: {
+        eligibility_indicator: true,
+        eligibility_basis_status_code: "Complete"
+      }
+    }
+  end
+
+  let(:trafficking_victim_category_eligibility_basis) do
+    {
+      status_indicator: false
+    } 
+  end
+
+  let(:optional_params) do
+    { coverage_renewal_year_quantity: 2 }
+  end
+
+let(:all_params) { required_params.merge(optional_params)}
 
   context 'invalid parameters' do
     context 'with empty parameters' do

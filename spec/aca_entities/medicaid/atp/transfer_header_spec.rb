@@ -9,6 +9,7 @@ RSpec.describe ::AcaEntities::Medicaid::Atp::TransferHeader do
     let(:input_params) do
       {
         transfer_activity: transfer_activity,
+        recipient_state_code: 'ME'
       }
     end
 

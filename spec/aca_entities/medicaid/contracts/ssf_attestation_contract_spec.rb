@@ -7,12 +7,17 @@ RSpec.describe ::AcaEntities::Medicaid::Contracts::SsfAttestationContract, dbcle
 
   let(:required_params) do 
     { non_perjury_indicator: true,
-      not_incarcerated_indicator: true,
-      information_changes_indicator: false
-    }
+      not_incarcerated_indicators: [{metadata: nil, value: true}],
+      information_changes_indicator: false }
   end
 
-  let(:optional_params) { {} }
+  let(:optional_params) do 
+    { collections_agreement_indicator: false,
+    medicaid_obligations_indicator: false,
+    privacy_agreement_indicator: false,
+    pending_charges_indicator: false,
+    application_terms_indicator: false }
+  end
 
   let(:all_params) { required_params.merge(optional_params)}
 

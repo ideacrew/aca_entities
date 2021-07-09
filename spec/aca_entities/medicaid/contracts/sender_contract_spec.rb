@@ -11,9 +11,9 @@ RSpec.describe AcaEntities::Medicaid::Contracts::SenderContract, type: :model do
 
   let(:input_params) do
     {
-      sender_code: nil,
-      sender_medicaid_chip_state: nil,
-      sender_medicaid_chip_county: nil
+      category_code: "Exchange",
+      state_code: nil,
+      county_name: nil
     }
   end
 

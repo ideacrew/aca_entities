@@ -7,7 +7,7 @@ module AcaEntities
       class SsfAttestationContract < Dry::Validation::Contract
         params do
           required(:non_perjury_indicator).filled(:bool)
-          required(:not_incarcerated_indicators).filled(:hash)
+          required(:not_incarcerated_indicators).filled(:array)
           required(:information_changes_indicator).filled(:bool)
           optional(:collections_agreement_indicator).maybe(:bool)
           optional(:medicaid_obligations_indicator).maybe(:bool)

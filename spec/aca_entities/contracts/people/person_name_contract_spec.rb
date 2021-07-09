@@ -5,15 +5,14 @@ require 'spec_helper'
 RSpec.describe ::AcaEntities::Contracts::People::PersonNameContract,  dbclean: :after_each do
 
   let(:required_params) do
-    { first_name: 'first', last_name: 'last' }
+    { given: 'first', last: 'last' }
   end
 
   let(:optional_params) do
-    { middle_name: 'middle',
-      name_sfx: 'suffix',
-      name_pfx: 'prefix',
-      start_on: Date.today.prev_year.to_s,
-      end_on: '' }
+    { middle: 'middle',
+      full: 'first last',
+      suffix: 'suffix'
+    }
   end
 
   let(:input_params) do
@@ -26,13 +25,13 @@ RSpec.describe ::AcaEntities::Contracts::People::PersonNameContract,  dbclean: :
     end
 
     it 'should return failure with error messages' do
-      expect(subject.call({}).errors.to_h).to eq({ first_name: ['is missing'], last_name: ['is missing'] })
+      expect(subject.call({}).errors.to_h).to eq({ given: ['is missing'], sur: ['is missing'] })
     end
   end
 
   context 'invalid params' do
     it 'should return failure with message' do
-      expect(subject.call(input_params.merge(first_name: 1000)).errors.to_h).to eq({ first_name: ['must be a string'] })
+      expect(subject.call(input_params.merge(given: 1000)).errors.to_h).to eq({ given: ['must be a string'] })
     end
   end
 

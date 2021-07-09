@@ -11,11 +11,14 @@ RSpec.describe AcaEntities::Medicaid::Contracts::TransferHeaderContract, type: :
 
   let(:input_params) do
     {
-      transfer_id: 'id',
-      transfer_date: Date.today.to_datetime,
-      number_of_referrals: 4,
-      recipient_code: 'code',
-      medicaid_chip_state: 'MA'
+      recipient_state_code: "ME",
+      transfer_activity: {
+        transfer_id: {identification_id: '2163565'},
+        transfer_date: {date_time: DateTime.now},
+        number_of_referrals: 1,
+        recipient_code: 'MedicaidCHIP',
+        state_code: 'ME'
+      }
     }
   end
 
@@ -30,32 +33,6 @@ RSpec.describe AcaEntities::Medicaid::Contracts::TransferHeaderContract, type: :
 
     it 'should not have any errors' do
       expect(@result.errors.empty?).to be_truthy
-    end
-  end
-
-  context 'failure case' do
-    context 'invalid input for transfer_date' do
-      let(:result) { subject.call(input_params.merge(transfer_date: Date.today.to_date)) }
-
-      it 'should return failure' do
-        expect(result.failure?).to be_truthy
-      end
-
-      it 'should have any errors' do
-        expect(result.errors.empty?).to be_falsy
-      end
-
-      it 'should return error message as start date' do
-        expect(result.errors.messages.first.text).to eq('must be a date time')
-      end
-    end
-
-    context 'invalid input for number_of_referrals' do
-      let(:result) { subject.call(input_params.merge(number_of_referrals: 'TEST')) }
-
-      it 'should return error message' do
-        expect(result.errors.messages.first.text).to eq('must be an integer')
-      end
     end
   end
 end

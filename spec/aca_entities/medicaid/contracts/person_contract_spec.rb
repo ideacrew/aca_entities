@@ -6,7 +6,8 @@ require 'aca_entities/medicaid/contracts/person_contract'
 RSpec.describe ::AcaEntities::Medicaid::Contracts::PersonContract, dbclean: :after_each do
 
   let(:required_params) do
-    { person_name: person_name,
+    { id: "a-person-id",
+      person_name: person_name,
       ssn: "012345678",
       sex: "SEX",
     }
@@ -21,13 +22,12 @@ RSpec.describe ::AcaEntities::Medicaid::Contracts::PersonContract, dbclean: :aft
     }
   end
 
-  let(:person_name) do 
-    { first_name: 'first',
-      middle_name: 'middle',
-      last_name: 'last',
-      name_sfx: 'suffix',
-      name_pfx: 'prefix',
-      full_name: 'prefix first middle last suffix'
+  let(:person_name) do
+    {
+      given: "First",
+      middle: "",
+      sur: "Last",
+      full: "First Last",
     }
   end
 
