@@ -8,7 +8,7 @@ RSpec.describe ::AcaEntities::Medicaid::Contracts::ContactInformationContract, d
   let(:required_params) { {} }
 
   let(:optional_params) do
-    { contact_email_id: "fake@test.com",
+    { email_id: "fake@test.com",
       mailing_address: contact_mailing_address,
       telephone_number: contact_telephone_number
     }

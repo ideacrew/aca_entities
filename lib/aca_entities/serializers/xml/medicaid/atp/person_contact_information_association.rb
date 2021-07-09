@@ -25,6 +25,8 @@ module AcaEntities
             def self.domain_to_mapper(contact_association)
               mapper = self.new
               mapper.contact = ContactInformation.domain_to_mapper(contact_association.contact)
+              mapper.category_code = contact_association.category_code
+              mapper.is_primary_indicator = contact_association.is_primary_indicator
               mapper
             end
 

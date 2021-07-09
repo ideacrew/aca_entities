@@ -283,13 +283,14 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
   end
 
   let(:contact_association) do
-    { contact: contact,
-      category_code: "Home"
+    { is_primary_indicator: true,
+      contact: contact,
+      category_code: "Home",
     }
   end
 
   let(:contact) do
-    { contact_email_id: "fake@test.com",
+    { #contact_email_id: "fake@test.com",
       mailing_address: mailing_address,
       telephone_number: contact_telephone
     }
@@ -310,7 +311,7 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
   end
 
   let(:employer_contact) do
-    { email: "fake@test.com",
+    { email_id: "fake@test.com",
       mailing_address: mailing_address,
       telephone_number: contact_telephone
     }
