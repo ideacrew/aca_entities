@@ -67,13 +67,13 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
     }
   end
 
-  let(:sender) do
-    { sender_code: "a unique id" }
-  end
+  # let(:sender) do
+  #   { sender_code: "Sender" }
+  # end
 
-  let(:receiver) do
-    { recipient_code: "a unique id" }
-  end
+  # let(:receiver) do
+  #   { recipient_code: "Receiver" }
+  # end
 
   let(:insurance_applicant) do
     { 
@@ -225,7 +225,9 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
   end
 
   let(:referral_activity) do
-    { sender_reference: {ref: "Sender" },
+    { activity_id: { identification_id: "01234" },
+      activity_date: { date_time: DateTime.now },
+      sender_reference: {ref: "Sender" },
       receiver_reference: { ref: "Receiver" },
       status: { status_code: "Initiated" }
     }
@@ -298,7 +300,7 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
   end
 
   let(:contact) do
-    { #contact_email_id: "fake@test.com",
+    { email_id: "fake@test.com",
       mailing_address: mailing_address,
       telephone_number: contact_telephone
     }
@@ -371,12 +373,14 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
   
   let(:senders) do
     [
-      {category_code: 'Exchange'}
+      { id: "Sender",
+        category_code: 'Exchange'
+      }
     ]
   end
 
   let(:receiver) do
-    {
+    { id: "Receiver",
       category_code: 'Exchange'
     }
   end

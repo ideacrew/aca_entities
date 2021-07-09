@@ -12,16 +12,18 @@ module AcaEntities
             tag 'ReferralActivity'
             namespace 'hix-ee'
 
-            has_one :activity_date, ActivityDate
             has_one :activity_id, ActivityIdentification
-            element :reason_code, String, tag: 'ReferralActivityReasonCode'
+            has_one :activity_date, ActivityDate
             has_one :sender_reference, ReferralActivitySenderReference
             has_one :receiver_reference, ReferralActivityReceiverReference
+            element :reason_code, String, tag: 'ReferralActivityReasonCode'
             has_one :status, ReferralActivityStatus
             has_many :eligibility_reason_reference, ReferralActivityEligibilityReasonReference
 
             def self.domain_to_mapper(referral_activity)
               mapper = self.new
+              mapper.activity_id = ActivityIdentification.domain_to_mapper(referral_activity.activity_id)
+              mapper.activity_date = ActivityDate.domain_to_mapper(referral_activity.activity_date)
               mapper.sender_reference = ReferralActivitySenderReference.domain_to_mapper(referral_activity.sender_reference)
               mapper.receiver_reference = ReferralActivityReceiverReference.domain_to_mapper(referral_activity.receiver_reference)
               mapper.status = ReferralActivityStatus.domain_to_mapper(referral_activity.status)

@@ -78,7 +78,7 @@ RSpec.describe ::AcaEntities::Medicaid::Atp::InsuranceApplication, dbclean: :aft
 
     let(:signature) do
       {
-        date_time: {date: DateTime.now.to_date}
+        signature_date: {date: DateTime.now.to_date}
       }
     end
 

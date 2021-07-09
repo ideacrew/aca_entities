@@ -16,7 +16,7 @@ RSpec.describe ::AcaEntities::Medicaid::Atp::PersonContactInformationAssociation
 
     let(:optional_params) do
       { contact: 
-        { contact_email_id: "fake@test.com",
+        { email_id: "fake@test.com",
           mailing_address: mailing_address,
           telephone_number: telephone_number
         },

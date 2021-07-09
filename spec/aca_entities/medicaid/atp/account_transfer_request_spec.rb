@@ -20,7 +20,7 @@ RSpec.describe ::AcaEntities::Medicaid::Atp::AccountTransferRequest, dbclean: :a
     [{ 
       id: 'a-person-id',
       person_name: { given: "first", sur: "last" },
-      ssn: '012345678',
+      ssn_identification: { identification_id: '012345678' },
       sex: 'Sex'
     }]
     # { person_name: { first_name: 'ivl40', last_name: '41' },
@@ -52,8 +52,8 @@ RSpec.describe ::AcaEntities::Medicaid::Atp::AccountTransferRequest, dbclean: :a
     }]
   end
 
-  let(:sender_params) {[{ category_code: 'Exchange' }]}
-  let(:receiver_params) {[{ category_code: 'Exchange' }]}
+  let(:sender_params) {[{ id: "Sender", category_code: 'Exchange' }]}
+  let(:receiver_params) {[{ id: "Receiver", category_code: 'Exchange' }]}
 
   let(:physical_household) do
     {
@@ -87,7 +87,7 @@ RSpec.describe ::AcaEntities::Medicaid::Atp::AccountTransferRequest, dbclean: :a
 
   let(:signature) do
     {
-      date_time: {date: DateTime.now.to_date}
+      signature_date: {date: DateTime.now.to_date}
     }
   end
 

@@ -36,7 +36,7 @@ RSpec.describe ::AcaEntities::Medicaid::Atp::SsfSigner, dbclean: :after_each do
 
     let(:signature) do
       {
-        date_time: {date: DateTime.now.to_date}
+        signature_date: {date: DateTime.now.to_date}
       }
     end
     

@@ -14,7 +14,7 @@ module AcaEntities
           required(:people).filled(:hash)
           required(:senders).filled(:array)
           required(:receivers).filled(:array)
-          required(:insurance_application).filed(:hash)
+          required(:insurance_application).filled(:hash)
           optional(:medicaid_households).maybe(:array)
           # optional(:assister).maybe(:array)
           optional(:authorized_representative).maybe(:array)

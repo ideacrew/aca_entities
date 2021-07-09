@@ -6,9 +6,10 @@ module AcaEntities
       # Referral activity contract
       class ReferralActivityContract < Dry::Validation::Contract
         params do
+          required(:activity_id).filled(:hash)
+          required(:activity_date).filled(:hash)
           required(:sender_reference).filled(:hash)
           required(:receiver_reference).filled(:hash)
-          optional(:activity_date).maybe(:hash)
           optional(:activity_identification).maybe(:hash)
           optional(:reason_code).maybe(:string)
           optional(:status).maybe(:hash)
