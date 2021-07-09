@@ -9,7 +9,7 @@ module AcaEntities
           attribute :Person do
             attribute :PersonName do
               attribute :PersonGivenName, Types::String.meta(omittable: false)
-              attribute :PersonSurName, Types::String.meta(omittable: false)
+              attribute :PersonSurName, Types::ALLOWED_SURNAMES.meta(omittable: false)
               attribute :PersonMiddleName,
                         Types::String.optional.meta(omittable: true)
               attribute :PersonNameSuffixText,
