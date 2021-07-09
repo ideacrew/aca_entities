@@ -55,7 +55,7 @@ module AcaEntities
                 collections_agreement_indicator: collections_agreement_indicator,
                 medicaid_obligations_indicator: medicaid_obligations_indicator,
                 non_perjury_indicator: non_perjury_indicator,
-                not_incarcerated_indicators: not_incarcerated_indicators&.to_hash,
+                not_incarcerated_indicators: not_incarcerated_indicators.map(&:to_hash).map { |x| x[:value] }.all?(true),
                 privacy_agreement_indicator: privacy_agreement_indicator,
                 pending_charges_indicator: pending_charges_indicator,
                 information_changes_indicator: information_changes_indicator,

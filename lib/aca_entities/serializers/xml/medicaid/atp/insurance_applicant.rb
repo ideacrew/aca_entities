@@ -121,6 +121,7 @@ module AcaEntities
                 role_reference: role_reference&.to_hash,
                 esi_eligible_indicator: esi_eligible_indicator,
                 fixed_address_indicator: fixed_address_indicator,
+                incarcerations: incarcerations.map(&:to_hash),
                 absent_parent_or_spouse_code: absent_parent_or_spouse_code,
                 blindness_or_disability_indicator: blindness_or_disability_indicator,
                 coverage_during_previous_six_months_indicator: coverage_during_previous_six_months_indicator,
