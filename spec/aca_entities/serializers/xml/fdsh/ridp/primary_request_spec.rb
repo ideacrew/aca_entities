@@ -2,6 +2,7 @@
 
 require 'spec_helper'
 require 'aca_entities/serializers/xml/fdsh/ridp'
+require 'pry'
 
 RSpec.describe AcaEntities::Serializers::Xml::Fdsh::Ridp::PrimaryRequest,
                "given a minimal Primary Response object" do

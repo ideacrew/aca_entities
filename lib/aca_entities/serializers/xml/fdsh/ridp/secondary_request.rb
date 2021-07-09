@@ -14,13 +14,13 @@ module AcaEntities
             tag 'SecondaryRequest'
             namespace 'ext'
 
-            element :SessionIdentification, String, tag: 'SessionIdentification'
             has_one :VerificationAnswerSet, VerificationAnswerSet
+            element :SessionIdentification, String, tag: 'SessionIdentification'
 
             def self.domain_to_mapper(secondary_request)
               mapper = self.new
-              mapper.SessionIdentification = secondary_request.SessionIdentification
               mapper.VerificationAnswerSet = VerificationAnswerSet.domain_to_mapper(secondary_request.VerificationAnswerSet)
+              mapper.SessionIdentification = secondary_request.SessionIdentification
               mapper
             end
           end

@@ -14,11 +14,13 @@ module AcaEntities
             tag 'VerificationAnswerSet'
             namespace 'ext'
 
-            has_many :verification_answers, VerificationAnswer
+            has_many :VerificationAnswers, VerificationAnswer
 
             def self.domain_to_mapper(verification_answer_set)
               mapper = self.new
-              mapper.verification_answers = [VerificationAnswer.domain_to_mapper(verification_answer_set.verification_answers)]
+              mapper.VerificationAnswers = verification_answer_set.VerificationAnswers.collect do |verification_answer|
+                VerificationAnswer.domain_to_mapper(verification_answer)
+              end
               mapper
             end
           end
