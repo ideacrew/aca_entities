@@ -13,7 +13,7 @@ RSpec.describe AcaEntities::Serializers::Xml::Fdsh::Ridp::PrimaryRequest,
                                                             PersonGivenName: "AGivenName",
                                                             PersonSurName: "A Sur Name"
                                                           },
-                                                          PersonBirthDate: Date.new(2017,1,1)
+                                                          PersonBirthDate: Date.new(2017, 1, 1)
                                                         },
                                                         CurrentAddress: {
                                                           LocationAddress: {
