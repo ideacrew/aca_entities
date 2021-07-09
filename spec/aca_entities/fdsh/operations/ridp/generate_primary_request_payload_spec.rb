@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require 'pry'
+
 RSpec.describe ::AcaEntities::Fdsh::Ridp::Operations::GeneratePrimaryRequestPayload, dbclean: :after_each do
 
   describe 'with valid arguments' do
