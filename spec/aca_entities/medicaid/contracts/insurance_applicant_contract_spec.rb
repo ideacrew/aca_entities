@@ -7,24 +7,21 @@ RSpec.describe ::AcaEntities::Medicaid::Contracts::InsuranceApplicantContract, d
 
   let(:required_params) do
     { role_reference: { ref: "a-person-id" },
-      fixed_address_indicator: true
-    }
+      fixed_address_indicator: true }
   end
 
-  let(:optional_params) do 
+  let(:optional_params) do
     { age_left_foster_care: 14,
       blindness_or_disability_indicator: false,
-      lawful_presence_status:   
+      lawful_presence_status:
         { arrived_before_1996_indicator: false,
-          lawful_presence_status_eligibility: { eligibility_indicator: false }
-        },
+          lawful_presence_status_eligibility: { eligibility_indicator: false } },
       long_term_care_indicator: false,
       chip_eligibility: trafficking_victim_category_eligibility_basis,
-      temporarily_lives_outside_application_state_indicator: false
-    } 
+      temporarily_lives_outside_application_state_indicator: false }
   end
-  
-  let(:trafficking_victim_category_eligibility_basis) { {status_indicator: true} }
+
+  let(:trafficking_victim_category_eligibility_basis) { { status_indicator: true } }
 
   let(:all_params) { required_params.merge(optional_params)}
 

@@ -5,7 +5,7 @@ module AcaEntities
     module Atp
       # entity for atp Street
       class Street < Dry::Struct
-        
+
         attribute :street_full_text, Types::String.optional.meta(omittable: true)
       end
     end

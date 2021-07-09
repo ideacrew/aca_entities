@@ -16,15 +16,15 @@ RSpec.describe AcaEntities::Medicaid::Contracts::AccountTransferRequestContract,
   end
 
   let(:person_params) do
-    [{ 
+    [{
       person_name: { first_name: "first", last_name: "last" },
       ssn: '012345678',
-      sex: 'Sex',
+      sex: 'Sex'
     }]
     # { person_name: { first_name: 'ivl40', last_name: '41' },
-      # demographic: { dob: Date.new(2000, 1, 1), gender: 'Male' },
-      # citizenship_immigration_status_information: { us_citizen: true },
-      # native_american_information: { is_native_american_or_alaska_native: false } }
+    # demographic: { dob: Date.new(2000, 1, 1), gender: 'Male' },
+    # citizenship_immigration_status_information: { us_citizen: true },
+    # native_american_information: { is_native_american_or_alaska_native: false } }
   end
 
   let(:insurance_application_params) do
@@ -38,9 +38,9 @@ RSpec.describe AcaEntities::Medicaid::Contracts::AccountTransferRequestContract,
     #                  tax_return_access_indicator: true, tax_return_access: true } }
     {
       insurance_applicants: [{ role_reference: { ref: "a-person-id" } }],
-      requesting_financial_assistance: false, 
-      requesting_medicaid: false, 
-      ssf_primary_contact: { role_reference: { ref: "a-person-id" }, contact_preference: "Email" }, 
+      requesting_financial_assistance: false,
+      requesting_medicaid: false,
+      ssf_primary_contact: { role_reference: { ref: "a-person-id" }, contact_preference: "Email" },
       tax_return_access_indicator: false
     }
   end

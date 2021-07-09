@@ -5,7 +5,7 @@ require 'aca_entities/medicaid/atp/signature_date'
 require 'aca_entities/medicaid/atp/signature'
 
 RSpec.describe ::AcaEntities::Medicaid::Atp::Signature,  dbclean: :around_each do
-  
+
   describe 'with valid arguments' do
     let(:all_params) { { signature_date: { date: Date.today } } }
 

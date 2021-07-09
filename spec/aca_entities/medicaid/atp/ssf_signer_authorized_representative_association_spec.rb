@@ -7,9 +7,8 @@ RSpec.describe ::AcaEntities::Medicaid::Atp::SsfSignerAuthorizedRepresentativeAs
 
   describe 'with valid arguments' do
     let(:input_params) do
-      { signature: { signature_date: {date: DateTime.now.to_date} },
-        authorized_representative_reference: { ref: "pe123" }
-      }
+      { signature: { signature_date: { date: DateTime.now.to_date } },
+        authorized_representative_reference: { ref: "pe123" } }
     end
 
     it 'should initialize' do

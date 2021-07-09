@@ -31,7 +31,7 @@ module AcaEntities
               mapper.recognized_tribe_indicator = ta.recognized_tribe_indicator
               mapper.american_indian_or_alaska_native_indicator = ta.american_indian_or_alaska_native_indicator
               mapper.person_tribe_name = ta.person_tribe_name
-              mapper. location_state_us_postal_service_code = ta.location_state_us_postal_service_code
+              mapper.location_state_us_postal_service_code = ta.location_state_us_postal_service_code
               mapper
             end
 

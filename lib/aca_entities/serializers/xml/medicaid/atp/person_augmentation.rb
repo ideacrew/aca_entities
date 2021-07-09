@@ -31,23 +31,23 @@ module AcaEntities
               mapper.married_indicator = person_augmentation.married_indicator
               mapper.us_veteran_indicator = person_augmentation.us_veteran_indicator
               mapper.pregnancy_status = PersonPregnancyStatus.domain_to_mapper(person_augmentation.pregnancy_status)
-              mapper.preferred_languages = person_augmentation.preferred_languages.map{ |preferred_language|
+              mapper.preferred_languages = person_augmentation.preferred_languages.map  do |preferred_language|
                 PersonPreferredLanguage.domain_to_mapper(preferred_language)
-              }
-              mapper.incomes = person_augmentation.incomes.map{ |income|
+              end
+              mapper.incomes = person_augmentation.incomes.map  do |income|
                 PersonIncome.domain_to_mapper(income)
-              }
-              mapper.employments = person_augmentation.employments.map{ |employment_association|
+              end
+              mapper.employments = person_augmentation.employments.map  do |employment_association|
                 PersonEmploymentAssociation.domain_to_mapper(employment_association)
-              }
+              end
               # [PersonPreferredLanguage.domain_to_mapper(augmentation.person_preferred_language)]
-              mapper.contacts = person_augmentation.contacts.map { |contact_association| 
-                PersonContactInformationAssociation.domain_to_mapper(contact_association) 
-              }
+              mapper.contacts = person_augmentation.contacts.map do |contact_association|
+                PersonContactInformationAssociation.domain_to_mapper(contact_association)
+              end
               # [PersonContactInformationAssociation.domain_to_mapper(augmentation.contact)]
-              mapper.persons = person_augmentation.persons.map { |person_association|
+              mapper.persons = person_augmentation.persons.map do |person_association|
                 PersonAssociation.domain_to_mapper(person_association)
-              }            
+              end
               # [PersonAssociation.domain_to_mapper(augmentation.person)]
               mapper
             end

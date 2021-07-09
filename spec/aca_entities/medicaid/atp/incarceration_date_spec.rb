@@ -4,11 +4,11 @@ require 'spec_helper'
 require 'aca_entities/medicaid/atp/incarceration_date'
 
 RSpec.describe ::AcaEntities::Medicaid::Atp::IncarcerationDate,  dbclean: :around_each do
-  
-  describe 'with valid arguments' do
-    let(:required_params) { {  } }
 
-    let(:optional_params) { {date_time: DateTime.now } }
+  describe 'with valid arguments' do
+    let(:required_params) { {} }
+
+    let(:optional_params) { { date_time: DateTime.now } }
 
     let(:all_params) { required_params.merge(optional_params)}
 

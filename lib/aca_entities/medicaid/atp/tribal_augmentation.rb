@@ -5,7 +5,7 @@ module AcaEntities
     module Atp
       # entity for atp TribalAugmentation
       class TribalAugmentation < Dry::Struct
-        
+
         attribute :recognized_tribe_indicator, Types::Bool.optional.meta(omittable: true)
         attribute :american_indian_or_alaska_native_indicator, Types::Bool.optional.meta(omittable: true)
         attribute :person_tribe_name, Types::String.optional.meta(omittable: true)

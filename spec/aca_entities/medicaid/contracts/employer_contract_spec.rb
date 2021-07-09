@@ -10,15 +10,13 @@ RSpec.describe ::AcaEntities::Medicaid::Contracts::EmployerContract, dbclean: :a
   let(:optional_params) do
     { id: "em123",
       category_text: "Acme",
-      organization_primary_contact_information: contact_information
-    }
+      organization_primary_contact_information: contact_information }
   end
 
   let(:contact_information) do
     { email: "fake@test.com",
       mailing_address: contact_mailing_address,
-      telephone_number: contact_telephone
-    }
+      telephone_number: contact_telephone }
   end
 
   let(:contact_mailing_address) do
@@ -27,23 +25,21 @@ RSpec.describe ::AcaEntities::Medicaid::Contracts::EmployerContract, dbclean: :a
 
   let(:structured_address) do
     { location_street: { street_full_text: "123 Easy Street" },
-    address_secondary_unit_text: "address",
-    location_city_name: "Wheaton",
-    location_county_name: "Montgomery", 
-    location_county_code: "code",
-    location_state_us_postal_service_code: "ME",
-    location_postal_code: "01234"
-  }
+      address_secondary_unit_text: "address",
+      location_city_name: "Wheaton",
+      location_county_name: "Montgomery",
+      location_county_code: "code",
+      location_state_us_postal_service_code: "ME",
+      location_postal_code: "01234" }
   end
-  
+
   let(:contact_telephone) do
     { telephone: full_telephone }
   end
 
   let(:full_telephone) do
     { telephone_number_full_id: "1231231234",
-      telephone_suffix_id: "0"
-    }
+      telephone_suffix_id: "0" }
   end
 
   let(:all_params) { required_params.merge(optional_params)}

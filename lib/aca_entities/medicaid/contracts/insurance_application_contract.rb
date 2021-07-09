@@ -16,11 +16,11 @@ module AcaEntities
           required(:application_submission).filled(:hash)
           required(:application_identifications).array(:hash)
           optional(:coverage_renewal_year_quantity).maybe(:integer)
-          
+
         end
 
         rule(:coverage_renewal_year_quantity) do
-          # 
+          #
           # key.failure(text: 'coverage_renewal_year_quantity is required if tax_return_access is true') if values[:tax_return_access] == true
         end
 

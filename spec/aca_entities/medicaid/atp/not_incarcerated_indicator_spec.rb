@@ -4,7 +4,7 @@ require 'spec_helper'
 require 'aca_entities/medicaid/atp/not_incarcerated_indicator'
 
 RSpec.describe ::AcaEntities::Medicaid::Atp::NotIncarceratedIndicator,  dbclean: :around_each do
-  
+
   describe 'with valid arguments' do
     let(:required_params) { { value: false } }
 

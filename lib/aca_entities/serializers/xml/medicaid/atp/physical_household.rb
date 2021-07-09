@@ -17,7 +17,7 @@ module AcaEntities
 
             def self.domain_to_mapper(household)
               mapper = self.new
-              mapper.household_member_references = household.household_member_references.map{|m| HouseholdMemberReference.domain_to_mapper(m)}
+              mapper.household_member_references = household.household_member_references.map {|m| HouseholdMemberReference.domain_to_mapper(m)}
               mapper.household_size_quantity = household.household_size_quantity
               mapper
             end

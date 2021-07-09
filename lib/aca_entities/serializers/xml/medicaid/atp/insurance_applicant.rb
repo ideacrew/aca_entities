@@ -105,12 +105,12 @@ module AcaEntities
               mapper.fixed_address_indicator = insurance_applicant.fixed_address_indicator
               mapper.role_reference = RoleOfPersonReference.domain_to_mapper(insurance_applicant.role_reference)
               if insurance_applicant.incarcerations
-                mapper.incarcerations = insurance_applicant.incarcerations.map{ |inc| Incarceration.domain_to_mapper(inc) }
+                mapper.incarcerations = insurance_applicant.incarcerations.map { |inc| Incarceration.domain_to_mapper(inc) }
               end
               mapper.lawful_presence_status = InsuranceApplicantLawfulPresenceStatus.domain_to_mapper(insurance_applicant.lawful_presence_status)
-              mapper.chip_eligibilities = insurance_applicant.chip_eligibilities.map { |chip_eligibility|
-                ChipEligibility.domain_to_mapper(chip_eligibility) 
-              }
+              mapper.chip_eligibilities = insurance_applicant.chip_eligibilities.map do |chip_eligibility|
+                ChipEligibility.domain_to_mapper(chip_eligibility)
+              end
               mapper.referral_activity = ReferralActivity.domain_to_mapper(insurance_applicant.referral_activity)
               mapper
             end

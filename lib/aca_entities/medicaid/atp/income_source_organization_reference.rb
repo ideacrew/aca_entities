@@ -5,7 +5,7 @@ module AcaEntities
     module Atp
       # entity for atp IncomeSourceOrganizationReference
       class IncomeSourceOrganizationReference < Dry::Struct
-        
+
         attribute :ref, Types::String.optional.meta(omittable: true)
       end
     end

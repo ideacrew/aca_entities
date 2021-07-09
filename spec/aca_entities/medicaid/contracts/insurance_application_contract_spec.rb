@@ -13,13 +13,13 @@ RSpec.describe AcaEntities::Medicaid::Contracts::InsuranceApplicationContract, t
     {
       application_metadata: application_metadata,
       insurance_applicants: [insurance_applicant],
-      requesting_financial_assistance: false, 
-      requesting_medicaid: false, 
-      ssf_primary_contact: ssf_primary_contact, 
+      requesting_financial_assistance: false,
+      requesting_medicaid: false,
+      ssf_primary_contact: ssf_primary_contact,
       tax_return_access_indicator: false
     }
   end
-  
+
   let(:application_metadata) do
     {
       application_ids: [{ identification_id: "an application id" }],
@@ -33,13 +33,13 @@ RSpec.describe AcaEntities::Medicaid::Contracts::InsuranceApplicationContract, t
   end
 
   let(:insurance_applicant) do
-    { 
-      role_reference: { ref: "a-person-id" } 
+    {
+      role_reference: { ref: "a-person-id" }
     }
   end
 
   let(:ssf_primary_contact) do
-    { 
+    {
       role_reference: { ref: "a-person-id" },
       contact_preference: "Email"
     }
@@ -50,15 +50,11 @@ RSpec.describe AcaEntities::Medicaid::Contracts::InsuranceApplicationContract, t
       { ssf_attestation:
           { non_perjury_indicator: true,
             not_incarcerated_indicator: true,
-            information_changes_indicator: false
-          }
-      }
-    }
-    
+            information_changes_indicator: false } } }
+
   end
 
   let(:all_params) { required_params.merge(optional_params)}
-
 
   # context 'success case' do
   #   before do

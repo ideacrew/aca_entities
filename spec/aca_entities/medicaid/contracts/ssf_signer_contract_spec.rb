@@ -10,11 +10,9 @@ RSpec.describe ::AcaEntities::Medicaid::Contracts::SsfSignerContract, dbclean: :
   let(:optional_params) do
     { signature: signature,
       ssf_attestation: ssf_attestation,
-      ssf_signer_authorized_representative_association: {
-        signature: signature,
-        authorized_representative_reference: { ref: "another-person-id" }
-      }
-    }
+      ssf_signer_authorized_representative_association: 
+      { signature: signature,
+        authorized_representative_reference: { ref: "another-person-id" } } }
   end
 
   let(:ssf_attestation) do 

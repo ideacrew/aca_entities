@@ -5,7 +5,7 @@ module AcaEntities
     module Atp
       # entity for AccountTransferRequest
       class AccountTransferRequest < Dry::Struct
-        attribute :version,            Types::String.optional.meta(omittable:true)
+        attribute :version,            Types::String.optional.meta(omittable: true)
         attribute :transfer_header,    TransferHeader.meta(omittable: false)
         attribute :senders,            Types::Array.of(Sender).meta(omittable: false)
         attribute :receivers,          Types::Array.of(Receiver).meta(omittable: false)

@@ -9,9 +9,8 @@ RSpec.describe ::AcaEntities::Medicaid::Atp::SsfAttestation, dbclean: :after_eac
   describe 'with valid arguments' do
     let(:input_params) do
       { non_perjury_indicator: true,
-        not_incarcerated_indicators: [{metadata: nil, value: true}],
-        information_changes_indicator: false
-      }
+        not_incarcerated_indicators: [{ metadata: nil, value: true }],
+        information_changes_indicator: false }
     end
 
     it 'should initialize' do

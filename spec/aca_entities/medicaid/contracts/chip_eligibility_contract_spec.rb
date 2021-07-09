@@ -9,7 +9,7 @@ RSpec.describe ::AcaEntities::Medicaid::Contracts::ChipEligibilityContract, dbcl
 
   let(:optional_params) do
     {
-      trafficking_victim_category_eligibility_basis: { status_indicator: true } 
+      trafficking_victim_category_eligibility_basis: { status_indicator: true }
     }
   end
 

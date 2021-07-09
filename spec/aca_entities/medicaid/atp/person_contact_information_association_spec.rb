@@ -10,39 +10,33 @@ require 'aca_entities/medicaid/atp/contact_information'
 require 'aca_entities/medicaid/atp/person_contact_information_association'
 
 RSpec.describe ::AcaEntities::Medicaid::Atp::PersonContactInformationAssociation,  dbclean: :around_each do
-  
+
   describe 'with valid arguments' do
     let(:required_params) { {} }
 
     let(:optional_params) do
-      { contact: 
+      { contact:
         { email_id: "fake@test.com",
           mailing_address: mailing_address,
-          telephone_number: telephone_number
-        },
-        category_code: "Home"
-      }
+          telephone_number: telephone_number },
+        category_code: "Home" }
     end
 
     let(:mailing_address) do
-      { address: 
+      { address:
           { location_street: { street_full_text: "123 Easy Street" },
             address_secondary_unit_text: "address",
             location_city_name: "Wheaton",
-            location_county_name: "Montgomery", 
+            location_county_name: "Montgomery",
             location_county_code: "code",
             location_state_us_postal_service_code: "ME",
-            location_postal_code: "01234"
-          }
-      }
+            location_postal_code: "01234" } }
     end
 
     let(:telephone_number) do
-      { telephone: 
+      { telephone:
         { telephone_number_full_id: "1231231234",
-          telephone_suffix_id: "0"
-        }
-      }
+          telephone_suffix_id: "0" } }
     end
 
     let(:all_params) { required_params.merge(optional_params)}
@@ -61,6 +55,6 @@ RSpec.describe ::AcaEntities::Medicaid::Atp::PersonContactInformationAssociation
         expect(result.to_h).to eq optional_params
       end
     end
-  end  
+  end
 end
 

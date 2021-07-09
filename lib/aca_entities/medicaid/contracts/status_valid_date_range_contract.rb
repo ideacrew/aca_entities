@@ -8,7 +8,7 @@ module AcaEntities
 
         params do
           # optional(:start_date).maybe(:date)
-          optional(:end_date).maybe(:hash)      
+          optional(:end_date).maybe(:hash)
         end
       end
     end
