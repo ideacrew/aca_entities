@@ -88,7 +88,8 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
       chip_eligibilities: [trafficking_victim_category_eligibility_basis],
       temporarily_lives_outside_application_state_indicator: false, 
       foster_care_indicator: false,
-      fixed_address_indicator: true
+      fixed_address_indicator: true,
+      referral_activity: referral_activity
     }
   end
 
@@ -221,6 +222,13 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
     {
       status_indicator: false
     } 
+  end
+
+  let(:referral_activity) do
+    { sender_reference: {ref: "Sender" },
+      receiver_reference: { ref: "Receiver" },
+      status: { status_code: "Initiated" }
+    }
   end
 
   let(:income) do

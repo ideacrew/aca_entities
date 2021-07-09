@@ -10,13 +10,13 @@ module AcaEntities
             include HappyMapper
 
             tag 'ReferralActivitySenderReference'
-            namespace 'hix-core'
+            namespace 'hix-ee'
 
             attribute :ref, String, namespace: "niem-s"
 
-            def self.domain_to_mapper(_reference)
+            def self.domain_to_mapper(sender_reference)
               mapper = self.new
-              mapper.ref = "Sender"
+              mapper.ref = sender_reference.ref
               mapper
             end
 

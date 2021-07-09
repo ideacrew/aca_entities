@@ -5,14 +5,13 @@ module AcaEntities
     module Xml
       module Medicaid
         module Atp
-          # An outgoing monetary payment.
           class Employer
             include HappyMapper
 
             tag 'Employer'
             namespace 'hix-core'
 
-            attribute :id, String, tag: 'id', namespace: 'nc'
+            attribute :id, String, tag: 'id', namespace: 'niem-s'
             element :category_text, String, tag: 'OrganizationName', namespace: "nc"
             has_one :organization_primary_contact_information, OrganizationPrimaryContactInformation
 

@@ -13,20 +13,14 @@ module AcaEntities
             namespace 'hix-core'
 
             attribute :id, String, namespace: "niem-s"
-
             has_one :birth_date, PersonBirthDate
-            has_one :person_name, PersonName
-            has_one :ssn_identification, PersonSsnIdentification
-
-            element :us_citizen_indicator, Boolean, tag: "PersonUSCitizenIndicator", namespace: "nc"
-            element :living_indicator, Boolean, tag: "PersonLivingIndicator", namespace: "nc"
-            
-            element :sex, String, tag: "PersonSexText", namespace: "nc"
-            element :race, String, tag: "PersonRaceText", namespace: "nc"
             has_many :ethnicities, String, tag: "PersonEthnicityText", namespace: "nc"
-
-            
-            
+            element :living_indicator, Boolean, tag: "PersonLivingIndicator", namespace: "nc"
+            has_one :person_name, PersonName
+            element :race, String, tag: "PersonRaceText", namespace: "nc"
+            element :sex, String, tag: "PersonSexText", namespace: "nc"
+            has_one :ssn_identification, PersonSsnIdentification
+            element :us_citizen_indicator, Boolean, tag: "PersonUSCitizenIndicator", namespace: "nc"
             has_one :tribal_augmentation, TribalAugmentation
             has_one :person_augmentation, PersonAugmentation
 

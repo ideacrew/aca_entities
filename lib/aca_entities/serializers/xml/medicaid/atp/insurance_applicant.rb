@@ -111,6 +111,7 @@ module AcaEntities
               mapper.chip_eligibilities = insurance_applicant.chip_eligibilities.map { |chip_eligibility|
                 ChipEligibility.domain_to_mapper(chip_eligibility) 
               }
+              mapper.referral_activity = ReferralActivity.domain_to_mapper(insurance_applicant.referral_activity)
               mapper
             end
 

@@ -16,6 +16,7 @@ module AcaEntities
           optional(:chip_eligibility).maybe(:hash)
           optional(:temporarily_lives_outside_application_state_indicator).maybe(:bool)
           optional(:incarcerations).maybe(:hash)
+          optional(:referral_activity).maybe(:hash)
         end
       end
     end
