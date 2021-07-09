@@ -11,9 +11,9 @@ module AcaEntities
       # @option opts [Date] :modified_at optional
       # @return [Dry::Monads::Result]
       params do
-        optional(:submitted_at).value(:date?)
-        optional(:created_at).value(:date?)
-        optional(:modified_at).value(:date?)
+        optional(:submitted_at).maybe(:date_time)
+        optional(:created_at).value(:date_time)
+        optional(:modified_at).maybe(:date_time)
       end
     end
   end

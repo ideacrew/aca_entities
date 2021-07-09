@@ -23,6 +23,13 @@ RSpec.describe ::AcaEntities::Contracts::People::PersonHealthContract, dbclean: 
     it 'should not have any errors' do
       expect(@result.errors.empty?).to be_truthy
     end
+
+    context 'for nil is_physically_disabled params' do
+      it 'should not have any errors' do
+        result = subject.call(required_params.merge(is_physically_disabled: nil))
+        expect(result.errors.empty?).to be_truthy
+      end
+    end
   end
 
   context 'failure case' do
@@ -59,11 +66,6 @@ RSpec.describe ::AcaEntities::Contracts::People::PersonHealthContract, dbclean: 
 
       it 'should return error message' do
         expect(@result.errors.messages.first.text).to eq('must be a string')
-      end
-
-      it 'should return error message' do
-        result = subject.call(required_params.merge(is_physically_disabled: nil))
-        expect(result.errors.messages.first.text).to eq('must be boolean')
       end
     end
   end

@@ -19,6 +19,7 @@ module AcaEntities
           optional(:last_name).value(:str?)
           optional(:person_hbx_id).value(:str?)
           optional(:is_primary_family_member).value(:bool?)
+          optional(:age).value(:integer)
         end
       end
     end

@@ -67,7 +67,7 @@ RSpec.describe AcaEntities::Contracts::Families::FamilyContract,  dbclean: :afte
     {
       hios_id: '92479DC0020002',
       name: 'Access PPO',
-      active_year: '2020',
+      active_year: 2020,
       is_dental_only: false,
       metal_level: 'gold',
       product_kind: 'health',
@@ -189,7 +189,7 @@ RSpec.describe AcaEntities::Contracts::Families::FamilyContract,  dbclean: :afte
 
   let!(:currency) do
     {
-      cents: 0.0,
+      cents: BigDecimal(0),
       currency_iso: "USD"
     }
   end
@@ -603,9 +603,9 @@ RSpec.describe AcaEntities::Contracts::Families::FamilyContract,  dbclean: :afte
 
   let(:timestamp) do
     {
-      submitted_at: Date.today,
-      created_at: Date.today,
-      modified_at: Date.today
+      submitted_at: DateTime.now,
+      created_at: DateTime.now,
+      modified_at: DateTime.now
     }
   end
 
@@ -788,7 +788,7 @@ RSpec.describe AcaEntities::Contracts::Families::FamilyContract,  dbclean: :afte
 
     context 'with bad input data type' do
       before do
-        @result = subject.call(required_params.merge(households: nil))
+        @result = subject.call(required_params.merge(households: {}))
       end
 
       it 'should return failure' do

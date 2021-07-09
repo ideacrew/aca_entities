@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<exch:Request xmlns:i="http://niem.gov/niem/appinfo/2.0"
+ xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0"
+ xmlns:s="http://niem.gov/niem/structures/2.0"
+ xmlns:usps="http://niem.gov/niem/usps_states/2.0"
+ xmlns:ext="http://ridp.dsh.cms.gov/extension/1.0"
+ xmlns:nc="http://niem.gov/niem/niem-core/2.0"
+ xmlns:exch="http://ridp.dsh.cms.gov/exchange/1.0"
+ xmlns:ns0="http://niem.gov/niem/appinfo/2.1"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:schemaLocation="http://ridp.dsh.cms.gov/exchange/1.0 ../XMLschemas/constraint/XMLschemas/exchange/ExchangeModel.xsd">
+    <ext:SecondaryRequest>
+        <ext:VerificationAnswerSet>
+            <ext:VerificationAnswers>
+                <ext:VerificatonAnswer>02</ext:VerificatonAnswer>
+                <ext:VerificationQuestionNumber>01</ext:VerificationQuestionNumber>
+            </ext:VerificationAnswers>
+            <ext:VerificationAnswers>
+                <ext:VerificatonAnswer>04</ext:VerificatonAnswer>
+                <ext:VerificationQuestionNumber>02</ext:VerificationQuestionNumber>
+            </ext:VerificationAnswers>
+            <ext:VerificationAnswers>
+                <ext:VerificatonAnswer>02</ext:VerificatonAnswer>
+                <ext:VerificationQuestionNumber>03</ext:VerificationQuestionNumber>
+            </ext:VerificationAnswers>
+        </ext:VerificationAnswerSet>
+        <ext:SessionIdentification>SessionIdentification0</ext:SessionIdentification>
+    </ext:SecondaryRequest>
+</exch:Request>

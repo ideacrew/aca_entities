@@ -9,7 +9,9 @@ module AcaEntities
           params do
             optional(:location_street).maybe(:string)
             optional(:location_city_name).maybe(:string)
-            optional(:location_state_uspostal_service_code).maybe(AcaEntities::Fdsh::Ridp::H139::Types::UsStateAbbreviationKind)
+            optional(:location_state_uspostal_service_code).maybe(
+              AcaEntities::Types::UsStateAbbreviationKind
+            )
             optional(:location_postal_code).maybe(:string)
           end
         end

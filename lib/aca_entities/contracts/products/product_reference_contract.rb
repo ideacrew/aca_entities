@@ -14,6 +14,10 @@ module AcaEntities
         # @option opts [String] :metal_level required
         # @option opts [String] :coverage_type required
         # @option opts [String] :ehb_percent required
+        # @option opts [String] :csr_variant_id optional
+        # @option opts [String] :is_csr optional
+        # @option opts [String] :family_deductible optional
+        # @option opts [String] :individual_deductible optional
         # @option opts [Hash] :issuer_profile required
         # @return [Dry::Monads::Result]
         params do
@@ -25,6 +29,10 @@ module AcaEntities
           required(:benefit_market_kind).filled(:string)  # TODO: types
           required(:product_kind).filled(:string) # TODO: types
           optional(:ehb_percent).maybe(:string)
+          optional(:csr_variant_id).maybe(:string)
+          optional(:is_csr).maybe(:bool)
+          optional(:family_deductible).maybe(:string)
+          optional(:individual_deductible).maybe(:string)
           required(:issuer_profile_reference).hash(AcaEntities::Contracts::Organizations::IssuerProfileReferenceContract.params)
         end
       end

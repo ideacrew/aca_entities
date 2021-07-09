@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<exch:Response xmlns:exch="http://ridp.dsh.cms.gov/exchange/1.0"
+ xmlns:ext="http://ridp.dsh.cms.gov/extension/1.0"
+ xmlns:i="http://niem.gov/niem/appinfo/2.0"
+ xmlns:i2="http://niem.gov/niem/appinfo/2.1"
+ xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0"
+ xmlns:s="http://niem.gov/niem/structures/2.0"
+ xmlns:iso_639-3="http://niem.gov/niem/iso_639-3/2.0"
+ xmlns:nc="http://niem.gov/niem/niem-core/2.0"
+ xmlns:usps="http://niem.gov/niem/usps_states/2.0"
+ xmlns:hix-core="http://hix.cms.gov/0.1/hix-core"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:schemaLocation="http://ridp.dsh.cms.gov/exchange/1.0 ../XMLschemas/constraint/XMLschemas/exchange/ExchangeModel.xsd">
+    <hix-core:ResponseMetadata>
+        <hix-core:ResponseCode>HS000000</hix-core:ResponseCode>
+        <hix-core:ResponseDescriptionText>Success</hix-core:ResponseDescriptionText>
+    </hix-core:ResponseMetadata>
+    <ext:VerificationResponse>
+        <ext:SessionIdentification>SessionIdentification0</ext:SessionIdentification>
+        <ext:FinalDecisionCode>ACC</ext:FinalDecisionCode>
+    </ext:VerificationResponse>
+</exch:Response>

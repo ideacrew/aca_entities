@@ -4,7 +4,7 @@ module AcaEntities
   module Enrollments
     class HbxEnrollment < Dry::Struct
 
-      attribute :hbx_id,                                          Types::String.optional.meta(omittable: false)
+      attribute :hbx_id,                                          Types::String.optional.meta(omittable: true)
       attribute :effective_on,                                    Types::Date.meta(omittable: false)
       attribute :aasm_state,                                      Types::String.meta(omittable: false)
       attribute :is_active,                                       Types::Bool.optional.meta(omittable: true)
@@ -35,7 +35,9 @@ module AcaEntities
       attribute :elected_premium_credit,                          AcaEntities::Curreny.meta(omittable: true)
       attribute :applied_premium_credit,                          AcaEntities::Curreny.meta(omittable: true)
       attribute :applied_aptc_amount,                             AcaEntities::Curreny.meta(omittable: true)
+      attribute :total_premium,                                   Types::Float.meta(omittable: true)
       attribute :elected_aptc_pct,                                Types::Float.meta(omittable: true)
+      attribute :is_receiving_assistance,                         Types::Bool.optional.meta(omittable: true)
       attribute :is_any_enrollment_member_outstanding,            Types::Bool.optional.meta(omittable: true)
       attribute :special_verification_period,                     Types::Date.optional.meta(omittable: true)
       attribute :enrollment_signature,                            Types::String.optional.meta(omittable: true)
@@ -52,7 +54,7 @@ module AcaEntities
       # attribute :benefit_sponsorship,                             AcaEntities::References::BenefitSponsorship.optional.meta(omittable: false)
       # attribute :sponsored_benefit_package,                       AcaEntities::References::SponsoredBenefitPackage.optional.meta(omittable: false)
       # attribute :sponsored_benefit,                               AcaEntities::References::SponsoredBenefit.optional.meta(omittable: false)
-      # attribute :rating_area,                                     AcaEntities::References::RatingArea.optional.meta(omittable: false)
+      attribute :rating_area,                                       Types::String.optional.meta(omittable: true)
 
       attribute :hbx_enrollment_members,
                 Types::Array.of(AcaEntities::Enrollments::HbxEnrollmentMember).meta(omittable: false)

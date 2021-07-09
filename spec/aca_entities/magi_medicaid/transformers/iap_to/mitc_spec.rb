@@ -62,6 +62,7 @@ RSpec.describe AcaEntities::MagiMedicaid::Transformers::IapTo::Mitc do
         expect(person[:age_left_foster_care]).to eq(foster_care[:age_left_foster_care])
         expect(person).to have_key(:foster_care_us_state)
         expect(person).to have_key(:is_required_to_file_taxes)
+        expect(person[:is_required_to_file_taxes]).to eq('N')
         expect(person).to have_key(:age_of_applicant)
         expect(person).to have_key(:hours_worked_per_week)
         expect(person).to have_key(:is_temporarily_out_of_state)

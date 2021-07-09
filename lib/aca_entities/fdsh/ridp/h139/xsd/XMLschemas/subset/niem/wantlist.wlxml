@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="ASCII"?>
+<_2:WantList xmlns:_2="http://niem.gov/niem/wantlist/2" xmlns:iso_639-3="http://niem.gov/niem/iso_639-3/2.0" xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:usps="http://niem.gov/niem/usps_states/2.0" _2:product="NIEM" _2:release="2.1">
+  <_2:Element _2:isReference="false" _2:name="nc:AddressDeliveryPoint"/>
+  <_2:Element _2:isReference="false" _2:name="nc:AddressRepresentation"/>
+  <_2:Element _2:isReference="false" _2:name="nc:ContactMeans"/>
+  <_2:Element _2:isReference="false" _2:name="nc:ContactTelephoneNumber"/>
+  <_2:Element _2:isReference="false" _2:name="nc:Date"/>
+  <_2:Element _2:isReference="false" _2:name="nc:DateRepresentation"/>
+  <_2:Element _2:isReference="false" _2:name="nc:FullTelephoneNumber"/>
+  <_2:Element _2:isReference="false" _2:name="nc:IdentificationID"/>
+  <_2:Element _2:isReference="false" _2:name="nc:Language"/>
+  <_2:Element _2:isReference="false" _2:name="nc:LanguageCode"/>
+  <_2:Element _2:isReference="false" _2:name="nc:LocationAddress"/>
+  <_2:Element _2:isReference="false" _2:name="nc:LocationCityName"/>
+  <_2:Element _2:isReference="false" _2:name="nc:LocationPostalCode"/>
+  <_2:Element _2:isReference="false" _2:name="nc:LocationPostalExtensionCode"/>
+  <_2:Element _2:isReference="false" _2:name="nc:LocationState"/>
+  <_2:Element _2:isReference="false" _2:name="nc:LocationStateUSPostalServiceCode"/>
+  <_2:Element _2:isReference="false" _2:name="nc:LocationStreet"/>
+  <_2:Element _2:isReference="false" _2:name="nc:PersonBirthDate"/>
+  <_2:Element _2:isReference="false" _2:name="nc:PersonGivenName"/>
+  <_2:Element _2:isReference="false" _2:name="nc:PersonMiddleName"/>
+  <_2:Element _2:isReference="false" _2:name="nc:PersonName"/>
+  <_2:Element _2:isReference="false" _2:name="nc:PersonNameSuffixText"/>
+  <_2:Element _2:isReference="false" _2:name="nc:PersonSSNIdentification"/>
+  <_2:Element _2:isReference="false" _2:name="nc:PersonSurName"/>
+  <_2:Element _2:isReference="false" _2:name="nc:StreetName"/>
+  <_2:Element _2:isReference="false" _2:name="nc:StructuredAddress"/>
+  <_2:Element _2:isReference="false" _2:name="nc:TelephoneNumberRepresentation"/>
+  <_2:Element _2:isReference="false" _2:name="nc:AddressDeliveryPoint"/>
+  <_2:Element _2:isReference="false" _2:name="nc:AddressRepresentation"/>
+  <_2:Element _2:isReference="false" _2:name="nc:ContactMeans"/>
+  <_2:Element _2:isReference="false" _2:name="nc:ContactTelephoneNumber"/>
+  <_2:Element _2:isReference="false" _2:name="nc:Date"/>
+  <_2:Element _2:isReference="false" _2:name="nc:DateRepresentation"/>
+  <_2:Element _2:isReference="false" _2:name="nc:FullTelephoneNumber"/>
+  <_2:Element _2:isReference="false" _2:name="nc:IdentificationID"/>
+  <_2:Element _2:isReference="false" _2:name="nc:Language"/>
+  <_2:Element _2:isReference="false" _2:name="nc:LanguageCode"/>
+  <_2:Element _2:isReference="false" _2:name="nc:LocationAddress"/>
+  <_2:Element _2:isReference="false" _2:name="nc:LocationCityName"/>
+  <_2:Element _2:isReference="false" _2:name="nc:LocationPostalCode"/>
+  <_2:Element _2:isReference="false" _2:name="nc:LocationPostalExtensionCode"/>
+  <_2:Element _2:isReference="false" _2:name="nc:LocationState"/>
+  <_2:Element _2:isReference="false" _2:name="nc:LocationStateUSPostalServiceCode"/>
+  <_2:Element _2:isReference="false" _2:name="nc:LocationStreet"/>
+  <_2:Element _2:isReference="false" _2:name="nc:PersonBirthDate"/>
+  <_2:Element _2:isReference="false" _2:name="nc:PersonGivenName"/>
+  <_2:Element _2:isReference="false" _2:name="nc:PersonMiddleName"/>
+  <_2:Element _2:isReference="false" _2:name="nc:PersonName"/>
+  <_2:Element _2:isReference="false" _2:name="nc:PersonNameSuffixText"/>
+  <_2:Element _2:isReference="false" _2:name="nc:PersonSSNIdentification"/>
+  <_2:Element _2:isReference="false" _2:name="nc:PersonSurName"/>
+  <_2:Element _2:isReference="false" _2:name="nc:StreetName"/>
+  <_2:Element _2:isReference="false" _2:name="nc:StructuredAddress"/>
+  <_2:Element _2:isReference="false" _2:name="nc:TelephoneNumberRepresentation"/>
+  <_2:Type _2:isRequested="false" _2:name="usps:USStateCodeSimpleType">
+    <_2:Facet _2:facet="enumeration" _2:value="AK"/>
+    <_2:Facet _2:facet="enumeration" _2:value="ME"/>
+    <_2:Facet _2:facet="enumeration" _2:value="NJ"/>
+    <_2:Facet _2:facet="enumeration" _2:value="WA"/>
+    <_2:Facet _2:facet="enumeration" _2:value="AP"/>
+    <_2:Facet _2:facet="enumeration" _2:value="NY"/>
+    <_2:Facet _2:facet="enumeration" _2:value="IA"/>
+    <_2:Facet _2:facet="enumeration" _2:value="MO"/>
+    <_2:Facet _2:facet="enumeration" _2:value="CT"/>
+    <_2:Facet _2:facet="enumeration" _2:value="AS"/>
+    <_2:Facet _2:facet="enumeration" _2:value="AA"/>
+    <_2:Facet _2:facet="enumeration" _2:value="WY"/>
+    <_2:Facet _2:facet="enumeration" _2:value="VI"/>
+    <_2:Facet _2:facet="enumeration" _2:value="GU"/>
+    <_2:Facet _2:facet="enumeration" _2:value="PR"/>
+    <_2:Facet _2:facet="enumeration" _2:value="FM"/>
+    <_2:Facet _2:facet="enumeration" _2:value="OK"/>
+    <_2:Facet _2:facet="enumeration" _2:value="OH"/>
+    <_2:Facet _2:facet="enumeration" _2:value="MN"/>
+    <_2:Facet _2:facet="enumeration" _2:value="FL"/>
+    <_2:Facet _2:facet="enumeration" _2:value="MD"/>
+    <_2:Facet _2:facet="enumeration" _2:value="VA"/>
+    <_2:Facet _2:facet="enumeration" _2:value="GA"/>
+    <_2:Facet _2:facet="enumeration" _2:value="CO"/>
+    <_2:Facet _2:facet="enumeration" _2:value="IN"/>
+    <_2:Facet _2:facet="enumeration" _2:value="SD"/>
+    <_2:Facet _2:facet="enumeration" _2:value="UT"/>
+    <_2:Facet _2:facet="enumeration" _2:value="MI"/>
+    <_2:Facet _2:facet="enumeration" _2:value="PW"/>
+    <_2:Facet _2:facet="enumeration" _2:value="KY"/>
+    <_2:Facet _2:facet="enumeration" _2:value="DE"/>
+    <_2:Facet _2:facet="enumeration" _2:value="CA"/>
+    <_2:Facet _2:facet="enumeration" _2:value="HI"/>
+    <_2:Facet _2:facet="enumeration" _2:value="MA"/>
+    <_2:Facet _2:facet="enumeration" _2:value="NM"/>
+    <_2:Facet _2:facet="enumeration" _2:value="RI"/>
+    <_2:Facet _2:facet="enumeration" _2:value="AL"/>
+    <_2:Facet _2:facet="enumeration" _2:value="DC"/>
+    <_2:Facet _2:facet="enumeration" _2:value="OR"/>
+    <_2:Facet _2:facet="enumeration" _2:value="TX"/>
+    <_2:Facet _2:facet="enumeration" _2:value="LA"/>
+    <_2:Facet _2:facet="enumeration" _2:value="TN"/>
+    <_2:Facet _2:facet="enumeration" _2:value="NE"/>
+    <_2:Facet _2:facet="enumeration" _2:value="NC"/>
+    <_2:Facet _2:facet="enumeration" _2:value="AZ"/>
+    <_2:Facet _2:facet="enumeration" _2:value="NH"/>
+    <_2:Facet _2:facet="enumeration" _2:value="WV"/>
+    <_2:Facet _2:facet="enumeration" _2:value="IL"/>
+    <_2:Facet _2:facet="enumeration" _2:value="AR"/>
+    <_2:Facet _2:facet="enumeration" _2:value="MT"/>
+    <_2:Facet _2:facet="enumeration" _2:value="VT"/>
+    <_2:Facet _2:facet="enumeration" _2:value="MS"/>
+    <_2:Facet _2:facet="enumeration" _2:value="SC"/>
+    <_2:Facet _2:facet="enumeration" _2:value="KS"/>
+    <_2:Facet _2:facet="enumeration" _2:value="NV"/>
+    <_2:Facet _2:facet="enumeration" _2:value="MP"/>
+    <_2:Facet _2:facet="enumeration" _2:value="MH"/>
+    <_2:Facet _2:facet="enumeration" _2:value="AE"/>
+    <_2:Facet _2:facet="enumeration" _2:value="ND"/>
+    <_2:Facet _2:facet="enumeration" _2:value="ID"/>
+    <_2:Facet _2:facet="enumeration" _2:value="PA"/>
+    <_2:Facet _2:facet="enumeration" _2:value="WI"/>
+  </_2:Type>
+  <_2:Type _2:isRequested="false" _2:name="usps:USStateCodeType"/>
+  <_2:Type _2:isRequested="false" _2:name="usps:USStateCodeSimpleType">
+    <_2:Facet _2:facet="enumeration" _2:value="AK"/>
+    <_2:Facet _2:facet="enumeration" _2:value="ME"/>
+    <_2:Facet _2:facet="enumeration" _2:value="NJ"/>
+    <_2:Facet _2:facet="enumeration" _2:value="WA"/>
+    <_2:Facet _2:facet="enumeration" _2:value="AP"/>
+    <_2:Facet _2:facet="enumeration" _2:value="NY"/>
+    <_2:Facet _2:facet="enumeration" _2:value="IA"/>
+    <_2:Facet _2:facet="enumeration" _2:value="MO"/>
+    <_2:Facet _2:facet="enumeration" _2:value="CT"/>
+    <_2:Facet _2:facet="enumeration" _2:value="AS"/>
+    <_2:Facet _2:facet="enumeration" _2:value="AA"/>
+    <_2:Facet _2:facet="enumeration" _2:value="WY"/>
+    <_2:Facet _2:facet="enumeration" _2:value="VI"/>
+    <_2:Facet _2:facet="enumeration" _2:value="GU"/>
+    <_2:Facet _2:facet="enumeration" _2:value="PR"/>
+    <_2:Facet _2:facet="enumeration" _2:value="FM"/>
+    <_2:Facet _2:facet="enumeration" _2:value="OK"/>
+    <_2:Facet _2:facet="enumeration" _2:value="OH"/>
+    <_2:Facet _2:facet="enumeration" _2:value="MN"/>
+    <_2:Facet _2:facet="enumeration" _2:value="FL"/>
+    <_2:Facet _2:facet="enumeration" _2:value="MD"/>
+    <_2:Facet _2:facet="enumeration" _2:value="VA"/>
+    <_2:Facet _2:facet="enumeration" _2:value="GA"/>
+    <_2:Facet _2:facet="enumeration" _2:value="CO"/>
+    <_2:Facet _2:facet="enumeration" _2:value="IN"/>
+    <_2:Facet _2:facet="enumeration" _2:value="SD"/>
+    <_2:Facet _2:facet="enumeration" _2:value="UT"/>
+    <_2:Facet _2:facet="enumeration" _2:value="MI"/>
+    <_2:Facet _2:facet="enumeration" _2:value="PW"/>
+    <_2:Facet _2:facet="enumeration" _2:value="KY"/>
+    <_2:Facet _2:facet="enumeration" _2:value="DE"/>
+    <_2:Facet _2:facet="enumeration" _2:value="CA"/>
+    <_2:Facet _2:facet="enumeration" _2:value="HI"/>
+    <_2:Facet _2:facet="enumeration" _2:value="MA"/>
+    <_2:Facet _2:facet="enumeration" _2:value="NM"/>
+    <_2:Facet _2:facet="enumeration" _2:value="RI"/>
+    <_2:Facet _2:facet="enumeration" _2:value="AL"/>
+    <_2:Facet _2:facet="enumeration" _2:value="DC"/>
+    <_2:Facet _2:facet="enumeration" _2:value="OR"/>
+    <_2:Facet _2:facet="enumeration" _2:value="TX"/>
+    <_2:Facet _2:facet="enumeration" _2:value="LA"/>
+    <_2:Facet _2:facet="enumeration" _2:value="TN"/>
+    <_2:Facet _2:facet="enumeration" _2:value="NE"/>
+    <_2:Facet _2:facet="enumeration" _2:value="NC"/>
+    <_2:Facet _2:facet="enumeration" _2:value="AZ"/>
+    <_2:Facet _2:facet="enumeration" _2:value="NH"/>
+    <_2:Facet _2:facet="enumeration" _2:value="WV"/>
+    <_2:Facet _2:facet="enumeration" _2:value="IL"/>
+    <_2:Facet _2:facet="enumeration" _2:value="AR"/>
+    <_2:Facet _2:facet="enumeration" _2:value="MT"/>
+    <_2:Facet _2:facet="enumeration" _2:value="VT"/>
+    <_2:Facet _2:facet="enumeration" _2:value="MS"/>
+    <_2:Facet _2:facet="enumeration" _2:value="SC"/>
+    <_2:Facet _2:facet="enumeration" _2:value="KS"/>
+    <_2:Facet _2:facet="enumeration" _2:value="NV"/>
+    <_2:Facet _2:facet="enumeration" _2:value="MP"/>
+    <_2:Facet _2:facet="enumeration" _2:value="MH"/>
+    <_2:Facet _2:facet="enumeration" _2:value="AE"/>
+    <_2:Facet _2:facet="enumeration" _2:value="ND"/>
+    <_2:Facet _2:facet="enumeration" _2:value="ID"/>
+    <_2:Facet _2:facet="enumeration" _2:value="PA"/>
+    <_2:Facet _2:facet="enumeration" _2:value="WI"/>
+  </_2:Type>
+  <_2:Type _2:isRequested="false" _2:name="usps:USStateCodeType"/>
+  <_2:Type _2:isRequested="false" _2:name="iso_639-3:LanguageCodeSimpleType">
+    <_2:Facet _2:facet="enumeration" _2:value="spa"/>
+    <_2:Facet _2:facet="enumeration" _2:value="eng"/>
+  </_2:Type>
+  <_2:Type _2:isRequested="false" _2:name="iso_639-3:LanguageCodeType"/>
+  <_2:Type _2:isRequested="false" _2:name="nc:AddressType">
+    <_2:ElementInType _2:isReference="false" _2:maxOccurs="1" _2:minOccurs="1" _2:name="nc:AddressRepresentation"/>
+  </_2:Type>
+  <_2:Type _2:isRequested="false" _2:name="nc:ContactInformationType">
+    <_2:ElementInType _2:isReference="false" _2:maxOccurs="1" _2:minOccurs="1" _2:name="nc:ContactTelephoneNumber"/>
+  </_2:Type>
+  <_2:Type _2:isRequested="false" _2:name="nc:DateType">
+    <_2:ElementInType _2:isReference="false" _2:maxOccurs="unbounded" _2:minOccurs="0" _2:name="nc:Date"/>
+  </_2:Type>
+  <_2:Type _2:isRequested="false" _2:name="nc:IdentificationType">
+    <_2:ElementInType _2:isReference="false" _2:maxOccurs="1" _2:minOccurs="1" _2:name="nc:IdentificationID"/>
+  </_2:Type>
+  <_2:Type _2:isRequested="false" _2:name="nc:LocationType">
+    <_2:ElementInType _2:isReference="false" _2:maxOccurs="1" _2:minOccurs="1" _2:name="nc:LocationAddress"/>
+  </_2:Type>
+  <_2:Type _2:isRequested="false" _2:name="nc:PersonLanguageType">
+    <_2:ElementInType _2:isReference="false" _2:maxOccurs="1" _2:minOccurs="1" _2:name="nc:LanguageCode"/>
+  </_2:Type>
+  <_2:Type _2:isRequested="false" _2:name="nc:PersonNameTextType"/>
+  <_2:Type _2:isRequested="false" _2:name="nc:PersonNameType">
+    <_2:ElementInType _2:isReference="false" _2:maxOccurs="1" _2:minOccurs="1" _2:name="nc:PersonGivenName"/>
+    <_2:ElementInType _2:isReference="false" _2:maxOccurs="1" _2:minOccurs="0" _2:name="nc:PersonMiddleName"/>
+    <_2:ElementInType _2:isReference="false" _2:maxOccurs="1" _2:minOccurs="1" _2:name="nc:PersonSurName"/>
+    <_2:ElementInType _2:isReference="false" _2:maxOccurs="1" _2:minOccurs="0" _2:name="nc:PersonNameSuffixText"/>
+  </_2:Type>
+  <_2:Type _2:isRequested="false" _2:name="nc:PersonType">
+    <_2:ElementInType _2:isReference="false" _2:maxOccurs="1" _2:minOccurs="0" _2:name="nc:PersonBirthDate"/>
+    <_2:ElementInType _2:isReference="false" _2:maxOccurs="1" _2:minOccurs="1" _2:name="nc:PersonName"/>
+    <_2:ElementInType _2:isReference="false" _2:maxOccurs="1" _2:minOccurs="0" _2:name="nc:PersonSSNIdentification"/>
+  </_2:Type>
+  <_2:Type _2:isRequested="false" _2:name="nc:ProperNameTextType"/>
+  <_2:Type _2:isRequested="false" _2:name="nc:StreetType">
+    <_2:ElementInType _2:isReference="false" _2:maxOccurs="1" _2:minOccurs="1" _2:name="nc:StreetName"/>
+  </_2:Type>
+  <_2:Type _2:isRequested="false" _2:name="nc:StructuredAddressType">
+    <_2:ElementInType _2:isReference="false" _2:maxOccurs="1" _2:minOccurs="1" _2:name="nc:AddressDeliveryPoint"/>
+    <_2:ElementInType _2:isReference="false" _2:maxOccurs="1" _2:minOccurs="1" _2:name="nc:LocationCityName"/>
+    <_2:ElementInType _2:isReference="false" _2:maxOccurs="1" _2:minOccurs="1" _2:name="nc:LocationState"/>
+    <_2:ElementInType _2:isReference="false" _2:maxOccurs="1" _2:minOccurs="1" _2:name="nc:LocationPostalCode"/>
+    <_2:ElementInType _2:isReference="false" _2:maxOccurs="1" _2:minOccurs="0" _2:name="nc:LocationPostalExtensionCode"/>
+  </_2:Type>
+  <_2:Type _2:isRequested="false" _2:name="nc:TelephoneNumberType">
+    <_2:ElementInType _2:isReference="false" _2:maxOccurs="1" _2:minOccurs="1" _2:name="nc:FullTelephoneNumber"/>
+  </_2:Type>
+  <_2:Type _2:isRequested="false" _2:name="nc:TextType"/>
+  <_2:Type _2:isRequested="false" _2:name="iso_639-3:LanguageCodeSimpleType">
+    <_2:Facet _2:facet="enumeration" _2:value="spa"/>
+    <_2:Facet _2:facet="enumeration" _2:value="eng"/>
+  </_2:Type>
+  <_2:Type _2:isRequested="false" _2:name="iso_639-3:LanguageCodeType"/>
+  <_2:Type _2:isRequested="false" _2:name="nc:AddressType">
+    <_2:ElementInType _2:isReference="false" _2:maxOccurs="1" _2:minOccurs="1" _2:name="nc:AddressRepresentation"/>
+  </_2:Type>
+  <_2:Type _2:isRequested="false" _2:name="nc:ContactInformationType">
+    <_2:ElementInType _2:isReference="false" _2:maxOccurs="1" _2:minOccurs="1" _2:name="nc:ContactTelephoneNumber"/>
+  </_2:Type>
+  <_2:Type _2:isRequested="false" _2:name="nc:DateType">
+    <_2:ElementInType _2:isReference="false" _2:maxOccurs="unbounded" _2:minOccurs="0" _2:name="nc:Date"/>
+  </_2:Type>
+  <_2:Type _2:isRequested="false" _2:name="nc:IdentificationType">
+    <_2:ElementInType _2:isReference="false" _2:maxOccurs="1" _2:minOccurs="1" _2:name="nc:IdentificationID"/>
+  </_2:Type>
+  <_2:Type _2:isRequested="false" _2:name="nc:LocationType">
+    <_2:ElementInType _2:isReference="false" _2:maxOccurs="1" _2:minOccurs="1" _2:name="nc:LocationAddress"/>
+  </_2:Type>
+  <_2:Type _2:isRequested="false" _2:name="nc:PersonLanguageType">
+    <_2:ElementInType _2:isReference="false" _2:maxOccurs="1" _2:minOccurs="1" _2:name="nc:LanguageCode"/>
+  </_2:Type>
+  <_2:Type _2:isRequested="false" _2:name="nc:PersonNameTextType"/>
+  <_2:Type _2:isRequested="false" _2:name="nc:PersonNameType">
+    <_2:ElementInType _2:isReference="false" _2:maxOccurs="1" _2:minOccurs="1" _2:name="nc:PersonGivenName"/>
+    <_2:ElementInType _2:isReference="false" _2:maxOccurs="1" _2:minOccurs="0" _2:name="nc:PersonMiddleName"/>
+    <_2:ElementInType _2:isReference="false" _2:maxOccurs="1" _2:minOccurs="1" _2:name="nc:PersonSurName"/>
+    <_2:ElementInType _2:isReference="false" _2:maxOccurs="1" _2:minOccurs="0" _2:name="nc:PersonNameSuffixText"/>
+  </_2:Type>
+  <_2:Type _2:isRequested="false" _2:name="nc:PersonType">
+    <_2:ElementInType _2:isReference="false" _2:maxOccurs="1" _2:minOccurs="0" _2:name="nc:PersonBirthDate"/>
+    <_2:ElementInType _2:isReference="false" _2:maxOccurs="1" _2:minOccurs="1" _2:name="nc:PersonName"/>
+    <_2:ElementInType _2:isReference="false" _2:maxOccurs="1" _2:minOccurs="0" _2:name="nc:PersonSSNIdentification"/>
+  </_2:Type>
+  <_2:Type _2:isRequested="false" _2:name="nc:ProperNameTextType"/>
+  <_2:Type _2:isRequested="false" _2:name="nc:StreetType">
+    <_2:ElementInType _2:isReference="false" _2:maxOccurs="1" _2:minOccurs="1" _2:name="nc:StreetName"/>
+  </_2:Type>
+  <_2:Type _2:isRequested="false" _2:name="nc:StructuredAddressType">
+    <_2:ElementInType _2:isReference="false" _2:maxOccurs="1" _2:minOccurs="1" _2:name="nc:AddressDeliveryPoint"/>
+    <_2:ElementInType _2:isReference="false" _2:maxOccurs="1" _2:minOccurs="1" _2:name="nc:LocationCityName"/>
+    <_2:ElementInType _2:isReference="false" _2:maxOccurs="1" _2:minOccurs="1" _2:name="nc:LocationState"/>
+    <_2:ElementInType _2:isReference="false" _2:maxOccurs="1" _2:minOccurs="1" _2:name="nc:LocationPostalCode"/>
+    <_2:ElementInType _2:isReference="false" _2:maxOccurs="1" _2:minOccurs="0" _2:name="nc:LocationPostalExtensionCode"/>
+  </_2:Type>
+  <_2:Type _2:isRequested="false" _2:name="nc:TelephoneNumberType">
+    <_2:ElementInType _2:isReference="false" _2:maxOccurs="1" _2:minOccurs="1" _2:name="nc:FullTelephoneNumber"/>
+  </_2:Type>
+  <_2:Type _2:isRequested="false" _2:name="nc:TextType"/>
+</_2:WantList>

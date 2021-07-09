@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:ext="http://ridp.dsh.cms.gov/extension/1.0" xmlns:hix-core="http://hix.cms.gov/0.1/hix-core" xmlns:i="http://niem.gov/niem/appinfo/2.0" xmlns:i2="http://niem.gov/niem/appinfo/2.1" xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema" attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://hix.cms.gov/0.1/hix-core" version="&quot;1&quot;">
+  <xsd:annotation>
+    <xsd:appinfo>
+      <i:ConformantIndicator>true</i:ConformantIndicator>
+    </xsd:appinfo>
+    <xsd:documentation source="">A reference model containing data components that either a) are good candidates for inclusion in NIEM-Core or b) are needed to support web services.</xsd:documentation>
+  </xsd:annotation>
+  <xsd:import namespace="http://niem.gov/niem/appinfo/2.0" schemaLocation="../../../../../../XMLschemas/subset/niem/appinfo/2.0/appinfo.xsd"/>
+  <xsd:import namespace="http://niem.gov/niem/appinfo/2.1" schemaLocation="../../../../../../XMLschemas/subset/niem/appinfo/2.1/appinfo.xsd"/>
+  <xsd:import namespace="http://niem.gov/niem/niem-core/2.0" schemaLocation="../../../../../.././XMLschemas/niem/niem-core.xsd"/>
+  <xsd:import namespace="http://niem.gov/niem/proxy/xsd/2.0" schemaLocation="../../../../../../XMLschemas/subset/niem/proxy/xsd/2.0/xsd.xsd"/>
+  <xsd:import namespace="http://niem.gov/niem/structures/2.0" schemaLocation="../../../../../../XMLschemas/subset/niem/structures/2.0/structures.xsd"/>
+  <xsd:import namespace="http://ridp.dsh.cms.gov/extension/1.0" schemaLocation="../../../../../.././XMLschemas/extension/ExtensionModel.xsd"/>
+  <xsd:element abstract="false" name="PersonAugmentation" nillable="false" substitutionGroup="s:Augmentation" type="hix-core:PersonAugmentationType">
+    <xsd:annotation>
+      <xsd:appinfo>
+        <i:AppliesTo i:name="PersonType" i:namespace="http://niem.gov/niem/niem-core/2.0"/>
+      </xsd:appinfo>
+      <xsd:documentation source="">Supplements an nc:Person with health insurance specific information.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element abstract="false" name="PersonPreferredLanguage" nillable="false" type="nc:PersonLanguageType">
+    <xsd:annotation>
+      <xsd:documentation source="">A capacity of a person for a language with which that person has the strongest preference.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element abstract="true" name="Response" nillable="false">
+    <xsd:annotation>
+      <xsd:documentation source="">A data concept for a response made to a request.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element abstract="false" name="ResponseCode" nillable="false" substitutionGroup="hix-core:Response" type="nc:TextType">
+    <xsd:annotation>
+      <xsd:appinfo>
+        <i:Base i:name="Response" i:namespace="http://hix.cms.gov/0.1/hix-core"/>
+      </xsd:appinfo>
+      <xsd:documentation source="">A coded response.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element abstract="false" name="ResponseDescriptionText" nillable="false" substitutionGroup="hix-core:Response" type="nc:TextType">
+    <xsd:annotation>
+      <xsd:appinfo>
+        <i:Base i:name="Response" i:namespace="http://hix.cms.gov/0.1/hix-core"/>
+      </xsd:appinfo>
+      <xsd:documentation source="">A description of a response.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element abstract="false" name="ResponseMetadata" nillable="false" type="hix-core:ResponseMetadataType">
+    <xsd:annotation>
+      <xsd:documentation source="">A Metadata about a response.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element abstract="false" name="TDSResponseDescriptionText" nillable="true" substitutionGroup="hix-core:Response" type="nc:TextType">
+    <xsd:annotation>
+      <xsd:appinfo>
+        <i:Base i:name="Response" i:namespace="http://hix.cms.gov/0.1/hix-core"/>
+      </xsd:appinfo>
+      <xsd:documentation source="">A description of a response from a data source designated as trusted (a trusted data source or TDS) by the Centers for Medicare &amp; Medicaid Services.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:complexType abstract="false" mixed="false" name="PersonAugmentationType">
+    <xsd:annotation>
+      <xsd:appinfo>
+        <i:Base i:name="AugmentationType" i:namespace="http://niem.gov/niem/structures/2.0"/>
+      </xsd:appinfo>
+      <xsd:documentation source="">A data type that supplements an nc:Person with health insurance specific information.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="s:AugmentationType">
+        <xsd:sequence>
+          <xsd:element maxOccurs="1" minOccurs="1" ref="hix-core:PersonPreferredLanguage"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType abstract="false" mixed="false" name="PersonType">
+    <xsd:annotation>
+      <xsd:appinfo>true<AugmentedTypeIndicator xmlns="http://niem.gov/niem/appinfo/2.1">true</AugmentedTypeIndicator>
+        <i:Base i:name="PersonType" i:namespace="http://niem.gov/niem/niem-core/2.0"/>
+      </xsd:appinfo>
+      <xsd:documentation source="">A data type for an applied augmentation for type nc:PersonType.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="nc:PersonType">
+        <xsd:sequence>
+          <xsd:element maxOccurs="1" minOccurs="0" ref="hix-core:PersonAugmentation"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType abstract="false" mixed="false" name="ResponseMetadataType">
+    <xsd:annotation>
+      <xsd:appinfo>
+        <i:Base i:name="MetadataType" i:namespace="http://niem.gov/niem/structures/2.0"/>
+        <i:AppliesTo i:name="Object" i:namespace="http://niem.gov/niem/structures/2.0"/>
+        <i:AppliesTo i:name="Association" i:namespace="http://niem.gov/niem/structures/2.0"/>
+      </xsd:appinfo>
+      <xsd:documentation source="">A data type for metadata about a response.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="s:MetadataType">
+        <xsd:sequence>
+          <xsd:element maxOccurs="1" minOccurs="1" ref="hix-core:ResponseCode"/>
+          <xsd:element maxOccurs="1" minOccurs="1" ref="hix-core:ResponseDescriptionText"/>
+          <xsd:element maxOccurs="1" minOccurs="0" ref="hix-core:TDSResponseDescriptionText"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+</xsd:schema>

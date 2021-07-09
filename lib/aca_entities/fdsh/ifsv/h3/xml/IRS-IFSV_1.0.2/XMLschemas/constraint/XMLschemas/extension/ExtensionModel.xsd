@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:ext="http://ifsv.dsh.cms.gov/extension/1.0"
+  xmlns:hcore="http://hix.cms.gov/0.1/hix-core" xmlns:hee="http://hix.cms.gov/0.1/hix-ee"
+  xmlns:hix-types="http://hix.cms.gov/0.1/hix-types" xmlns:i="http://niem.gov/niem/appinfo/2.0"
+  xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0"
+  xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+  attributeFormDefault="qualified" elementFormDefault="qualified"
+  targetNamespace="http://ifsv.dsh.cms.gov/extension/1.0" version="1">
+  <xsd:import namespace="http://hix.cms.gov/0.1/hix-types"
+    schemaLocation="../../../.././XMLschemas/constraint/XMLschemas/niem/domains/hix/0.1/hix-types.xsd"/>
+  <xsd:import namespace="http://hix.cms.gov/0.1/hix-ee"
+    schemaLocation="../../../.././XMLschemas/constraint/XMLschemas/niem/domains/hix/0.1/hix-ee.xsd"/>
+  <xsd:import namespace="http://niem.gov/niem/niem-core/2.0"
+    schemaLocation="../../../.././XMLschemas/constraint/XMLschemas/niem/niem-core.xsd"/>
+  <xsd:import namespace="http://hix.cms.gov/0.1/hix-core"
+    schemaLocation="../../../.././XMLschemas/constraint/XMLschemas/niem/domains/hix/0.1/hix-core.xsd"/>
+  <xsd:import namespace="http://niem.gov/niem/appinfo/2.0"
+    schemaLocation="../../../../XMLschemas/subset/niem/appinfo/2.0/appinfo.xsd"/>
+  <xsd:import namespace="http://niem.gov/niem/proxy/xsd/2.0"
+    schemaLocation="../../../../XMLschemas/subset/niem/proxy/xsd/2.0/xsd.xsd"/>
+  <xsd:import namespace="http://niem.gov/niem/appinfo/2.1"
+    schemaLocation="../../../../XMLschemas/subset/niem/appinfo/2.1/appinfo.xsd"/>
+  <xsd:import namespace="http://niem.gov/niem/structures/2.0"
+    schemaLocation="../../../../XMLschemas/subset/niem/structures/2.0/structures.xsd"/>
+  <xsd:simpleType name="AmountRestrictionSimpleType">
+    <xsd:annotation>
+      <xsd:appinfo>
+        <i:Base i:name="Object" i:namespace="http://niem.gov/niem/structures/2.0"/>
+      </xsd:appinfo>
+      <xsd:documentation source="">A data type for Amount Type Restriction</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:decimal">
+      <xsd:fractionDigits value="2"/>
+      <xsd:totalDigits value="19"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="TINIdentificationSimpleType">
+    <xsd:annotation>
+      <xsd:appinfo>
+        <i:Base i:name="Object" i:namespace="http://niem.gov/niem/structures/2.0"/>
+      </xsd:appinfo>
+      <xsd:documentation source="">A data type for TIN Identification restriction</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string">
+      <xsd:pattern value="\d{9}"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="RequestIDSimpleType">
+    <xsd:annotation>
+      <xsd:appinfo>
+        <i:Base i:name="Object" i:namespace="http://niem.gov/niem/structures/2.0"/>
+      </xsd:appinfo>
+      <xsd:documentation source="">A data type for request ID restriction</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:integer">
+      <xsd:maxInclusive value="999999999"/>
+      <xsd:minInclusive value="1"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="TaxYearSimpleType">
+    <xsd:annotation>
+      <xsd:appinfo>
+        <i:Base i:name="Object" i:namespace="http://niem.gov/niem/structures/2.0"/>
+      </xsd:appinfo>
+      <xsd:documentation source="">A data type for tax year restriction</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:gYear">
+      <xsd:maxInclusive value="9999"/>
+      <xsd:minInclusive value="1000"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:annotation>
+    <xsd:appinfo>
+      <i:ConformantIndicator>true</i:ConformantIndicator>
+    </xsd:appinfo>
+    <xsd:documentation source="">An extension schema with components needed for verifying family size and annual household income with IRS.</xsd:documentation>
+  </xsd:annotation>
+  <xsd:complexType abstract="false" mixed="false" name="IFSVApplicantType">
+    <xsd:annotation>
+      <xsd:appinfo>
+        <i:Base i:name="Object" i:namespace="http://niem.gov/niem/structures/2.0"/>
+      </xsd:appinfo>
+      <xsd:documentation source="">A data type for Applicant information</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="s:ComplexObjectType">
+        <xsd:sequence>
+          <xsd:element maxOccurs="1" minOccurs="1" ref="ext:Person"/>
+          <xsd:element maxOccurs="1" minOccurs="1" ref="ext:TaxFilerCategoryCode"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:element abstract="false" name="Person" type="nc:PersonType">
+    <xsd:annotation>
+      <xsd:documentation source="">Person information</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:simpleType name="ProperNameRestrictionSimpleType">
+    <xsd:annotation>
+      <xsd:appinfo>
+        <i:Base i:name="Object" i:namespace="http://niem.gov/niem/structures/2.0"/>
+      </xsd:appinfo>
+      <xsd:documentation source="">A data type for proper name restriction</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string">
+      <xsd:maxLength value="50"/>
+      <xsd:minLength value="1"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:element abstract="false" name="TaxFilerCategoryCode"
+    type="hix-types:TaxFilerCategoryCodeSimpleType">
+    <xsd:annotation>
+      <xsd:documentation source="">A kind of tax filer.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:complexType abstract="false" mixed="false" name="VerificationDetailType">
+    <xsd:annotation>
+      <xsd:appinfo>
+        <i:Base i:name="Object" i:namespace="http://niem.gov/niem/structures/2.0"/>
+      </xsd:appinfo>
+      <xsd:documentation source="">A data type for Applicant and dependent verification details</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="s:ComplexObjectType">
+        <xsd:sequence>
+          <xsd:element maxOccurs="1" minOccurs="1" ref="ext:TaxReturn"/>
+          <xsd:element maxOccurs="99" minOccurs="0" ref="hcore:ResponseMetadata"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:element abstract="false" name="TaxReturn" type="hee:TaxReturnType">
+    <xsd:annotation>
+      <xsd:documentation source="">Applicant tax return information</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:complexType abstract="false" mixed="false" name="ErrorMessageSetType">
+    <xsd:annotation>
+      <xsd:appinfo>
+        <i:Base i:name="Object" i:namespace="http://niem.gov/niem/structures/2.0"/>
+      </xsd:appinfo>
+      <xsd:documentation source="">A data type for Group of error messages</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="s:ComplexObjectType">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" minOccurs="1" ref="ext:ErrorMessageDetail"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:element abstract="false" name="ErrorMessageDetail" type="ext:ErrorMessageType">
+    <xsd:annotation>
+      <xsd:documentation source="">error message detail</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:complexType abstract="false" mixed="false" name="ErrorMessageType">
+    <xsd:annotation>
+      <xsd:appinfo>
+        <i:Base i:name="Object" i:namespace="http://niem.gov/niem/structures/2.0"/>
+      </xsd:appinfo>
+      <xsd:documentation source="">A data type for A error message description will be sent back to the originator if the request cannot be completed because of errors</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="s:ComplexObjectType">
+        <xsd:sequence>
+          <xsd:element maxOccurs="1" minOccurs="1" ref="hcore:ResponseMetadata"/>
+          <xsd:element maxOccurs="1" minOccurs="0" ref="ext:XPathContent"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:element abstract="false" name="XPathContent" type="nc:TextType">
+    <xsd:annotation>
+      <xsd:documentation source="">XPath of the specific element/attribute within the XML request/response data.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:complexType abstract="false" mixed="false" name="IRSResponseType">
+    <xsd:annotation>
+      <xsd:appinfo>
+        <i:Base i:name="Object" i:namespace="http://niem.gov/niem/structures/2.0"/>
+      </xsd:appinfo>
+      <xsd:documentation source="">A data type for Response information from IRS</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="s:ComplexObjectType">
+        <xsd:sequence>
+          <xsd:element maxOccurs="1" minOccurs="1" ref="hcore:RequestID"/>
+          <xsd:element maxOccurs="1" minOccurs="0" ref="ext:Household"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:element abstract="false" name="Household" type="ext:HouseholdType">
+    <xsd:annotation>
+      <xsd:documentation source="">The group of information related to a IFSV applicant</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:complexType abstract="false" mixed="false" name="HouseholdType">
+    <xsd:annotation>
+      <xsd:appinfo>
+        <Base xmlns="http://niem.gov/niem/appinfo/2.0" i:name="HouseholdType" i:namespace="http://hix.cms.gov/0.1/hix-ee"/>
+      </xsd:appinfo>
+      <xsd:documentation source="">A data type for A household that includes additional information about income and taxes.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="hee:HouseholdType">
+        <xsd:sequence>
+          <xsd:element maxOccurs="1" minOccurs="0" ref="ext:Income"/>
+          <xsd:element maxOccurs="99" minOccurs="0" ref="ext:ApplicantVerification"/>
+          <xsd:element maxOccurs="99" minOccurs="0" ref="ext:DependentVerification"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:element abstract="false" name="Income" type="hcore:IncomeType">
+    <xsd:annotation>
+      <xsd:documentation source="">An amount of money received by the household in a particular year.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element abstract="false" name="ApplicantVerification" type="ext:VerificationDetailType">
+    <xsd:annotation>
+      <xsd:documentation source="">A tax return filed by the household.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element abstract="false" name="DependentVerification" type="ext:VerificationDetailType">
+    <xsd:annotation>
+      <xsd:documentation source="">A tax return filed by the household.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:complexType abstract="false" mixed="false" name="IFSVResponsePayloadType">
+    <xsd:annotation>
+      <xsd:appinfo>
+        <i:Base i:name="Object" i:namespace="http://niem.gov/niem/structures/2.0"/>
+      </xsd:appinfo>
+      <xsd:documentation source="">A data type for response payload.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="s:ComplexObjectType">
+        <xsd:sequence>
+          <xsd:element maxOccurs="1" minOccurs="1" ref="ext:Response"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:element abstract="true" name="Response">
+    <xsd:annotation>
+      <xsd:documentation source="">A data concept for a Response information from IRS</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:complexType abstract="false" mixed="false" name="IFSVRequestPayloadType">
+    <xsd:annotation>
+      <xsd:appinfo>
+        <i:Base i:name="Object" i:namespace="http://niem.gov/niem/structures/2.0"/>
+      </xsd:appinfo>
+      <xsd:documentation source="">A data type for the payload.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="s:ComplexObjectType">
+        <xsd:sequence>
+          <xsd:element maxOccurs="1" minOccurs="1" ref="hcore:RequestID"/>
+          <xsd:element maxOccurs="unbounded" minOccurs="1" ref="ext:IFSVApplicant"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:element abstract="false" name="IFSVApplicant" type="ext:IFSVApplicantType">
+    <xsd:annotation>
+      <xsd:documentation source="">Applicant Information</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element abstract="false" name="IRSResponse" substitutionGroup="ext:Response"
+    type="ext:IRSResponseType">
+    <xsd:annotation>
+      <xsd:appinfo>
+        <i:Base i:name="Response" i:namespace="http://ifsv.dsh.cms.gov/extension/1.0"/>
+      </xsd:appinfo>
+      <xsd:documentation source="">A Response received from IRS</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element abstract="false" name="ErrorMessage" substitutionGroup="ext:Response"
+    type="ext:ErrorMessageSetType">
+    <xsd:annotation>
+      <xsd:appinfo>
+        <i:Base i:name="Response" i:namespace="http://ifsv.dsh.cms.gov/extension/1.0"/>
+      </xsd:appinfo>
+      <xsd:documentation source="">A Error Message</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+</xsd:schema>

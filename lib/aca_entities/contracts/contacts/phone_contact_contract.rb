@@ -19,7 +19,7 @@ module AcaEntities
           required(:kind).filled(
             AcaEntities::Types::PhoneKind
           )
-          required(:primary).filled(:bool)
+          required(:primary).maybe(:bool)
           required(:area_code).filled do
             str? & size?(3) & format?(Types::NumbersOnlyRegex)
           end

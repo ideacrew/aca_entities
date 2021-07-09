@@ -10,6 +10,7 @@ module AcaEntities
         # @option opts [Date] :hbx_id required
         # @option opts [Date] :fein optional
         # @option opts [Date] :hbx_carrier_id optional
+        # @option opts [String] :phone optional
         # @option opts [Boolean] :name required
         # @option opts [Hash] :abbrev required
         # @return [Dry::Monads::Result]
@@ -17,6 +18,7 @@ module AcaEntities
           required(:hbx_id).value(:str?)
           optional(:fein).filled(:string)
           optional(:hbx_carrier_id).filled(:string)
+          optional(:phone).filled(:string)
           required(:name).filled(:string)
           required(:abbrev).filled(:string)
         end

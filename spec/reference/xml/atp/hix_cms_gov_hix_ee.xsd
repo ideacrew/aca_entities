@@ -1,0 +1,2042 @@
+<!--AT-041916-MD/XMLschemas/constraint/XMLschemas/niem/domains/hix/0.1/hix-ee/hix-ee.xsd--><xsd:schema attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://hix.cms.gov/0.1/hix-ee" version="0.1" xmlns:hix-core="http://hix.cms.gov/0.1/hix-core" xmlns:hix-ee="http://hix.cms.gov/0.1/hix-ee" xmlns:hix-pm="http://hix.cms.gov/0.1/hix-pm" xmlns:hix-types="http://hix.cms.gov/0.1/hix-types" xmlns:i="http://niem.gov/niem/appinfo/2.0" xmlns:i2="http://niem.gov/niem/appinfo/2.1" xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:scr="http://niem.gov/niem/domains/screening/2.1" xmlns:usps="http://niem.gov/niem/usps_states/2.0" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <xsd:annotation>
+      <xsd:appinfo>
+         <i:ConformantIndicator>true</i:ConformantIndicator>
+      </xsd:appinfo>
+      <xsd:documentation source="">A package containing components needed for establishing eligibility and for enrolling in an insurance policy.</xsd:documentation>
+   </xsd:annotation>
+   <xsd:import namespace="http://hix.cms.gov/0.1/hix-core" schemaLocation="hix_cms_gov_hix_core.xsd"/>
+   <xsd:import namespace="http://hix.cms.gov/0.1/hix-pm" schemaLocation="hix_cms_gov_hix_pm.xsd"/>
+   <xsd:import namespace="http://hix.cms.gov/0.1/hix-types" schemaLocation="hix_cms_gov_hix_types.xsd"/>
+   <xsd:import namespace="http://niem.gov/niem/appinfo/2.0" schemaLocation="niem_gov_appinfo_2_0.xsd"/>
+   <xsd:import namespace="http://niem.gov/niem/appinfo/2.1" schemaLocation="niem_gov_appinfo_2_1.xsd"/>
+   <xsd:import namespace="http://niem.gov/niem/domains/screening/2.1" schemaLocation="niem_gov_domains_screening_2_0.xsd"/>
+   <xsd:import namespace="http://niem.gov/niem/niem-core/2.0" schemaLocation="niem_gov_niem_core_2_0.xsd"/>
+   <xsd:import namespace="http://niem.gov/niem/proxy/xsd/2.0" schemaLocation="niem_gov_niem_proxy_xsd_2_0.xsd"/>
+   <xsd:import namespace="http://niem.gov/niem/structures/2.0" schemaLocation="niem_gov_niem_structures_2_0.xsd"/>
+   <xsd:import namespace="http://niem.gov/niem/usps_states/2.0" schemaLocation="niem_gov_usps_states_2_0.xsd"/>
+   <xsd:element abstract="false" name="APTC" type="hix-ee:APTCCalculationType">
+      <xsd:annotation>
+         <xsd:documentation source="">An Advanced Payment of Premium Tax Credit (APTC) calculation.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element name="APTCEligibility" type="hix-ee:APTCEligibilityType">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:Base i:name="Eligibility" i:namespace="http://hix.cms.gov/0.1/hix-ee"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">An assessment of a person's suitability for an Advance Premium Tax Credit (APTC) calculation eligibility program.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="APTCMaximumAmount" type="nc:AmountType">
+      <xsd:annotation>
+         <xsd:documentation source="">A maximum amount of tax credits for which an individual might qualify.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="true" name="AbstractHouseholdMember">
+      <xsd:annotation>
+         <xsd:documentation source="">A data concept for a member of a household.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="true" name="AbstractHouseholdMemberReference">
+      <xsd:annotation>
+         <xsd:documentation source="">A data concept for a member of a household.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="Assister" type="hix-ee:AssisterType">
+      <xsd:annotation>
+         <xsd:documentation source="">A certified assister (such as a navigator) who helps individuals complete an insurance application.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="AuthorizedRepresentative" type="hix-ee:AuthorizedRepresentativeType">
+      <xsd:annotation>
+         <xsd:documentation source="">An authorized representative who is granted limited power of attorney for an insurance application.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="AuthorizedRepresentativeReference" type="s:ReferenceType">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:ReferenceTarget i:name="AuthorizedRepresentativeType" i:namespace="http://hix.cms.gov/0.1/hix-ee"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">A reference to a person designated as an authorized representative.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="CHIP-SSNVerificationEligibilityBasis" type="hix-ee:EligibilityBasisType">
+      <xsd:annotation>
+         <xsd:documentation source="">A basis for Children's Health Insurance Program (CHIP) eligibility based on social security number verification.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element name="CHIPEligibility" type="hix-ee:CHIPEligibilityType">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:Base i:name="Eligibility" i:namespace="http://hix.cms.gov/0.1/hix-ee"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">An assessment of a person's suitability to participate in a CHIP eligibility program.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element name="CHIPIdentification" nillable="false" type="nc:IdentificationType">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:Base i:name="InsuranceMemberIdentification" i:namespace="http://hix.cms.gov/0.1/hix-ee"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">An identification for a member of a CHIP program.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="CHIPIncarcerationEligibilityBasis" type="hix-ee:EligibilityBasisType">
+      <xsd:annotation>
+         <xsd:documentation source="">A basis for Children's Health Insurance Program (CHIP) eligibility based on incarceration rules.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="CHIPIncomeEligibilityBasis" type="hix-ee:IncomeEligibilityBasisType">
+      <xsd:annotation>
+         <xsd:documentation source="">A basis for Children's Health Insurance Program (CHIP) eligibility based on income rules.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="CHIPMedicaidCitizenOrImmigrantEligibilityBasis" type="hix-ee:EligibilityBasisType">
+      <xsd:annotation>
+         <xsd:documentation source="">A basis for Children's Health Insurance Program (CHIP) eligibility based on Medicaid citizen or immigrant rules.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="CHIPMedicaidResidencyEligibilityBasis" type="hix-ee:MedicaidResidencyEligibilityBasisType">
+      <xsd:annotation>
+         <xsd:documentation source="">A basis for Children's Health Insurance Program (CHIP) eligibility based on Medicaid residency rules.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="CHIPPregnancyCategoryEligibilityBasis" type="hix-ee:EligibilityBasisType">
+      <xsd:annotation>
+         <xsd:documentation source="">A basis for Children's Health Insurance Program (CHIP) eligibility based on pregnancy category rules.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="CHIPStateHealthBenefitsEligibilityBasis" type="hix-ee:EligibilityBasisType">
+      <xsd:annotation>
+         <xsd:documentation source="">A basis for Children's Health Insurance Program (CHIP) eligibility based on state health benefits rules.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="CHIPTargetedLowIncomeChildEligibilityBasis" type="hix-ee:EligibilityBasisType">
+      <xsd:annotation>
+         <xsd:documentation source="">A basis for Children's Health Insurance Program (CHIP) eligibility based on targeted low-income child rules.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="CHIPTitleIIWorkQuartersMetEligibilityBasis" type="hix-ee:EligibilityBasisType">
+      <xsd:annotation>
+         <xsd:documentation source="">A basis for Children's Health Insurance Program (CHIP) eligibility based on title-II work quarters met section rules.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="CHIPTraffickingVictimCategoryEligibilityBasis" type="hix-ee:EligibilityBasisType">
+      <xsd:annotation>
+         <xsd:documentation source="">A basis for Children's Health Insurance Program (CHIP) eligibility based on trafficking victim category rules.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="CHIPUnbornChildCategoryEligibilityBasis" type="hix-ee:EligibilityBasisType">
+      <xsd:annotation>
+         <xsd:documentation source="">A basis for Children's Health Insurance Program (CHIP) eligibility based on unborn child category rules.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="CHIPWaitingPeriodEligibilityBasis" type="hix-ee:EligibilityBasisType">
+      <xsd:annotation>
+         <xsd:documentation source="">A basis for Children's Health Insurance Program (CHIP) eligibility based on waiting period rules.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="CSRAdvancePayment" type="hix-ee:CSRAdvancePaymentType">
+      <xsd:annotation>
+         <xsd:documentation source="">A CMS approved cost sharing reduction (CSR) amount that will be paid to the issuers in advance each month for each insured member who will be enrolled in the insurance plan.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="CSRCategoryAlphaCode" type="hix-types:InsurancePlanVariantCategoryAlphaCodeType">
+      <xsd:annotation>
+         <xsd:documentation source="">A data type for an alpha code indicating the insurance plan variant.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element name="CSREligibility" type="hix-ee:CSREligibilityType">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:Base i:name="Eligibility" i:namespace="http://hix.cms.gov/0.1/hix-ee"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">An assessment of a person's suitability for cost sharing reduction (CSR) eligibility program.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="DisenrollmentActivity" type="hix-ee:DisenrollmentActivityType">
+      <xsd:annotation>
+         <xsd:documentation source="">An activity that disenrolls a person from an insurance policy (ending the member role).</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="true" name="DisenrollmentActivityReason">
+      <xsd:annotation>
+         <xsd:documentation source="">A data concept for a reason for a disenrollment activity.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element name="DisenrollmentActivityReasonCode" type="hix-types:DisenrollmentReasonCodeType">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:Base i:name="DisenrollmentActivityReason" i:namespace="http://hix.cms.gov/0.1/hix-ee"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">A reason for disenrollment.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element name="DisenrollmentActivityReasonText" type="nc:TextType">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:Base i:name="DisenrollmentActivityReason" i:namespace="http://hix.cms.gov/0.1/hix-ee"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">A description of a reason for disenrollment.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="ESI" type="hix-ee:EmployerSponsoredInsuranceType">
+      <xsd:annotation>
+         <xsd:documentation source="">An employer-sponsored insurance arrangement.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element name="ESIAugmentation" type="hix-ee:ESIAugmentationType">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:Base i:name="PersonEmploymentAugmentation" i:namespace="http://hix.cms.gov/0.1/hix-core"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">Supplements An arrangement for an employer sponsored insurance.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="ESIContactPersonReference" type="s:ReferenceType">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:ReferenceTarget i:name="PersonType" i:namespace="http://hix.cms.gov/0.1/hix-core"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">A person who is the contact for an employer sponsored insurance (ESI) plan (e.g., a human resources contact).</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="ESIExpectedChange" type="hix-types:EmployerInsuranceSponsorshipStatusCodeType">
+      <xsd:annotation>
+         <xsd:documentation source="">An expected status of employer sponsored insurance (ESI).</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="ESIExpectedChangeDate" type="nc:DateType">
+      <xsd:annotation>
+         <xsd:documentation source="">A date changes to employer sponsored insurance (ESI) take effect.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="ESIExpectedLowestCostPlan" type="hix-pm:InsurancePlanType">
+      <xsd:annotation>
+         <xsd:documentation source="">An employer sponsored insurance (ESI) plan that is the lowest-cost self-only plan expected to be offered that meets the minimum value standard.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="ESILowestCostPlan" type="hix-pm:InsurancePlanType">
+      <xsd:annotation>
+         <xsd:documentation source="">An employer sponsored insurance (ESI) plan that is the lowest-cost self-only plan that meets the minimum value standard.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="ESIMinimumAVStandardUnknownIndicator" type="niem-xsd:boolean">
+      <xsd:annotation>
+         <xsd:documentation source="">True if it is unknown whether or not an employer sponsored insurance (ESI) plan meets the minimum actuarial value (AV) standard; false otherwise.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="ESIPlanRateUnknownIndicator" type="niem-xsd:boolean">
+      <xsd:annotation>
+         <xsd:documentation source="">True if an applicant does not know the premium rate of the lowest-cost employer sponsored insurance (ESI) plan; false otherwise.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="ESIPlanYearCode" type="hix-types:PlanYearCategoryCodeType">
+      <xsd:annotation>
+         <xsd:documentation source="">A kind of plan year an employer sponsored insurance (ESI) arrangement applies to.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="ESIReference" type="s:ReferenceType">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:ReferenceTarget i:name="EmployerSponsoredInsuranceType" i:namespace="http://hix.cms.gov/0.1/hix-ee"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">A reference to an employer sponsored insurance (ESI) arrangement.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="ESIRetireePlanIndicator" type="niem-xsd:boolean">
+      <xsd:annotation>
+         <xsd:documentation source="">True if an employer sponsored insurance (ESI) plan is specifically for retirees; false otherwise.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="ESIViaCurrentEmployeeIndicator" type="niem-xsd:boolean">
+      <xsd:annotation>
+         <xsd:documentation source="">True if access to an employer sponsored insurance (ESI) arrangement is via a current employee relationship; false otherwise (e.g., via COBRA or retirement).</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="true" name="Eligibility" type="hix-ee:EligibilityType">
+      <xsd:annotation>
+         <xsd:documentation source="">An assessment of a person's suitability to participate in a program based on various criteria.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="EligibilityBasisDetermination" type="hix-core:ActivityType">
+      <xsd:annotation>
+         <xsd:documentation source="">An activity of establishing an eligibility basis.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="EligibilityBasisInconsistencyReasonText" type="nc:TextType">
+      <xsd:annotation>
+         <xsd:documentation source="">A description of the reason for an eligibility basis determination of inconsistent.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="EligibilityBasisIneligibilityReasonText" type="nc:TextType">
+      <xsd:annotation>
+         <xsd:documentation source="">A description of the reason for an eligibility basis determination of ineligibility.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="EligibilityBasisPendingReasonText" type="nc:TextType">
+      <xsd:annotation>
+         <xsd:documentation source="">A description of the reason for an eligibility basis determination of pending.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="EligibilityBasisStatusCode" type="hix-types:EligibilityBasisStatusCodeType">
+      <xsd:annotation>
+         <xsd:documentation source="">A status of an eligibility basis determination.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="EligibilityDateRange" type="nc:DateRangeType">
+      <xsd:annotation>
+         <xsd:documentation source="">A date range of the eligibility.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="EligibilityDetermination" type="hix-core:ActivityType">
+      <xsd:annotation>
+         <xsd:documentation source="">An activity of determining eligibility.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="EligibilityEstablishingSystem" type="hix-core:InformationExchangeSystemType">
+      <xsd:annotation>
+         <xsd:documentation source="">A system making an eligibility determination.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="EligibilityInconsistencyReasonText" type="nc:TextType">
+      <xsd:annotation>
+         <xsd:documentation source="">A description of the reason that an eligibility determination has been delayed due to inconsistency.
+</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="EligibilityIndicator" nillable="false" type="niem-xsd:boolean">
+      <xsd:annotation>
+         <xsd:documentation source="">True if a person's eligibility for a program has been established (based on program rules); false otherwise.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="EligibilityReasonText" type="nc:TextType">
+      <xsd:annotation>
+         <xsd:documentation source="">A description of the reason that eligibility was established (or not).</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="EmergencyMedicaidCitizenOrImmigrantEligibilityBasis" type="hix-ee:EligibilityBasisType">
+      <xsd:annotation>
+         <xsd:documentation source="">A basis for emergency Medicaid eligibility based on Medicaid citizen or immigrant rules.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element name="EmergencyMedicaidEligibility" type="hix-ee:EmergencyMedicaidEligibilityType">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:Base i:name="MedicaidEligibility" i:namespace="http://hix.cms.gov/0.1/hix-ee"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">An assessment of a person's suitability to participate in an emergency Medicaid eligibility program .</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="EmergencyMedicaidIncomeEligibilityBasis" type="hix-ee:IncomeEligibilityBasisType">
+      <xsd:annotation>
+         <xsd:documentation source="">A basis for emergency Medicaid eligibility based on income rules.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="EmergencyMedicaidResidencyEligibilityBasis" type="hix-ee:MedicaidResidencyEligibilityBasisType">
+      <xsd:annotation>
+         <xsd:documentation source="">A basis for emergency Medicaid eligibility based on residency rules.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="EnrollmentActivity" type="hix-ee:EnrollmentActivityType">
+      <xsd:annotation>
+         <xsd:documentation source="">An activity that enrolls a person with an insurance policy (starting that person in the member role).</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="EnrollmentActivityReasonText" type="nc:TextType">
+      <xsd:annotation>
+         <xsd:documentation source="">A description of a reason for enrollment.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element name="ExchangeEligibility" type="hix-ee:ExchangeEligibilityType">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:Base i:name="Eligibility" i:namespace="http://hix.cms.gov/0.1/hix-ee"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">An assessment of a person's suitability to participate in an exchange eligibility program.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="ExchangeIncarcerationEligibilityBasis" type="hix-ee:EligibilityBasisType">
+      <xsd:annotation>
+         <xsd:documentation source="">A basis for exchange eligibility based on incarceration rules.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="ExchangeQHPResidencyEligibilityBasis" type="hix-ee:MedicaidResidencyEligibilityBasisType">
+      <xsd:annotation>
+         <xsd:documentation source="">A basis for exchange eligibility based on Qualified Health Plan (QHP) residency rules.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="ExchangeVerifiedCitizenshipOrLawfulPresenceEligibilityBasis" type="hix-ee:EligibilityBasisType">
+      <xsd:annotation>
+         <xsd:documentation source="">A basis for exchange eligibility based on verified citizenship or lawful presence rules.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="Household" type="hix-ee:HouseholdType">
+      <xsd:annotation>
+         <xsd:documentation source="">A collection of persons to be treated as a household unit.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element name="HouseholdAGI" type="hix-core:IncomeType">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:Base i:name="HouseholdIncome" i:namespace="http://hix.cms.gov/0.1/hix-ee"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">An adjusted gross income (AGI) based on Internal Revenue Service (IRS) rules.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="HouseholdIncome" type="hix-core:IncomeType">
+      <xsd:annotation>
+         <xsd:documentation source="">A monetary payment received by a household, usually on a regular basis.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element name="HouseholdMAGI" nillable="false" type="hix-core:IncomeType">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:Base i:name="HouseholdIncome" i:namespace="http://hix.cms.gov/0.1/hix-ee"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">A modified adjusted gross income (MAGI) based on Internal Revenue Service (IRS) rules.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element name="HouseholdMemberReference" type="s:ReferenceType">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:Base i:name="AbstractHouseholdMemberReference" i:namespace="http://hix.cms.gov/0.1/hix-ee"/>
+            <i:ReferenceTarget i:name="PersonType" i:namespace="http://hix.cms.gov/0.1/hix-core"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">A person in a household.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="HouseholdSizeChangeExpectedIndicator" type="niem-xsd:boolean">
+      <xsd:annotation>
+         <xsd:documentation source="">True if the size of the household is expected to change; false otherwise.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="HouseholdSizeEligibilityBasis" type="hix-ee:EligibilityBasisType">
+      <xsd:annotation>
+         <xsd:documentation source="">A basis for Children's Health Insurance Program (CHIP) eligibility based on household size.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="HouseholdSizeQuantity" type="nc:QuantityType">
+      <xsd:annotation>
+         <xsd:documentation source="">A count of the number of persons in a household.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element name="HouseholdTaxableSocialSecurityBenefitsIncome" type="hix-core:IncomeType">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:Base i:name="HouseholdIncome" i:namespace="http://hix.cms.gov/0.1/hix-ee"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">An income derived from social security benefits considered taxable by the Internal Revenue Service.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="IncomeCompatibility" type="hix-ee:IncomeCompatibilityType">
+      <xsd:annotation>
+         <xsd:documentation source="">An assessment of income reasonable compatibility.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="IncomeCompatibilityDetermination" type="hix-core:ActivityType">
+      <xsd:annotation>
+         <xsd:documentation source="">An activity of establishing an income compatibility.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="IncomeCompatibilityInconsistencyReasonText" type="nc:TextType">
+      <xsd:annotation>
+         <xsd:documentation source="">A description of the reason for an income compatibility determination of inconsistent.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="IncomeCompatibilityVerificationIndicator" type="niem-xsd:boolean">
+      <xsd:annotation>
+         <xsd:documentation source="">True if an income compatibility passed verification; false otherwise.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="IncomeCompatibilityVerificationMethod" type="hix-types:IncomeCompatibilityVerificationMethodCodeType">
+      <xsd:annotation>
+         <xsd:documentation source="">A method of verifying income compatibility.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="IncomeEligibilityBasisRPCRulesAppliedIndicator" type="niem-xsd:boolean">
+      <xsd:annotation>
+         <xsd:documentation source="">True if income eligibility is based on the application of rules accounting for reasonably predictable changes (RPC) in income or family size (under 42 C.F.R. § 435.603(h)(3)); false otherwise. [CDM]</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="IncomeEligibilityBasisStateThresholdFPLPercent" type="hix-types:PercentageType">
+      <xsd:annotation>
+         <xsd:documentation source="">A percent of the Federal Poverty Level (FPL) that was applied as a threshold under state rules as a basis for determining income eligibility.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="InsuranceApplicant" type="hix-ee:InsuranceApplicantType">
+      <xsd:annotation>
+         <xsd:documentation source="">A person requesting insurance coverage (either to obtain a new policy or to maintain enrollment in an existing policy).</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="InsuranceApplicantAbsentParentOrSpouseCode" type="hix-types:AbsentParentOrSpouseCodeType">
+      <xsd:annotation>
+         <xsd:documentation source="">An indication of whether or not the applicant has an absent parent or spouse.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="InsuranceApplicantAgeLeftFosterCare" type="nc:NumericType">
+      <xsd:annotation>
+         <xsd:documentation source="">An age when an applicant left foster care.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="InsuranceApplicantBlindnessOrDisabilityIndicator" type="niem-xsd:boolean">
+      <xsd:annotation>
+         <xsd:documentation source="">True if the applicant is blind or disabled; false otherwise.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="InsuranceApplicantCoverageDuringPreviousSixMonthsIndicator" nillable="false" type="niem-xsd:boolean">
+      <xsd:annotation>
+         <xsd:documentation source="">True if an applicant has been enrolled in health insurance during the previous six months; false otherwise.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="InsuranceApplicantESIAssociation" type="hix-ee:InsuranceApplicantESIAssociationType">
+      <xsd:annotation>
+         <xsd:documentation source="">A relationship between an applicant and an employer sponsored insurance arrangement.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="InsuranceApplicantESIEligibilityUnknownIndicator" type="niem-xsd:boolean">
+      <xsd:annotation>
+         <xsd:documentation source="">True if it is unknown whether an applicant is eligible for an employer sponsored insurance (ESI) plan; false otherwise.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="InsuranceApplicantESIEligibleIndicator" type="niem-xsd:boolean">
+      <xsd:annotation>
+         <xsd:documentation source="">True if an applicant is eligible for an employer sponsored insurance (ESI) plan; false otherwise.
+</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="InsuranceApplicantESIEnrolledIndicator" type="niem-xsd:boolean">
+      <xsd:annotation>
+         <xsd:documentation source="">True if an applicant is enrolled in an employer sponsored insurance (ESI) plan; false otherwise.
+</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="InsuranceApplicantESIEnrollmentEligibilityDate" type="nc:DateType">
+      <xsd:annotation>
+         <xsd:documentation source="">A date an applicant is eligible to enroll in an employer sponsored insurance (ESI) plan.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="InsuranceApplicantESIPlannedCoverageDateRange" type="nc:DateRangeType">
+      <xsd:annotation>
+         <xsd:documentation source="">A date range an insurance applicant plans for coverage to be effective under an employer sponsored insurance (ESI) plan.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="InsuranceApplicantESIPlannedEnrollmentStatusCode" type="hix-types:EnrollmentCodeType">
+      <xsd:annotation>
+         <xsd:documentation source="">An insurance applicant's planned action with respect to enrollment in an employer sponsored insurance (ESI) plan.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="InsuranceApplicantEligibleITUServicesIndicator" type="niem-xsd:boolean">
+      <xsd:annotation>
+         <xsd:documentation source="">True if the applicant is eligible for Indian Health Service/Tribal/Urban Indian Health (I/T/U) services; false otherwise.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="InsuranceApplicantFixedAddressIndicator" nillable="true" type="niem-xsd:boolean">
+      <xsd:annotation>
+         <xsd:documentation source="">True if the applicant has a fixed address; false otherwise.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="InsuranceApplicantFosterCareIndicator" type="niem-xsd:boolean">
+      <xsd:annotation>
+         <xsd:documentation source="">True if the applicant has ever been in foster care; false otherwise.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="InsuranceApplicantFosterCareState" type="usps:USStateCodeType">
+      <xsd:annotation>
+         <xsd:documentation source="">A state in which an applicant was provided foster care.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="InsuranceApplicantHadMedicaidDuringFosterCareIndicator" type="niem-xsd:boolean">
+      <xsd:annotation>
+         <xsd:documentation source="">True if the applicant received Medicaid benefits while in foster care; false otherwise.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="InsuranceApplicantHouseholdExceptionIndicator" type="niem-xsd:boolean">
+      <xsd:annotation>
+         <xsd:documentation source="">True if an applicant's Medicaid household differs from her/his tax household based on Medicaid MAGI eligibility rules; false otherwise.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="InsuranceApplicantIncarceration" type="hix-core:IncarcerationType">
+      <xsd:annotation>
+         <xsd:documentation source="">A description of the applicant's incarceration history.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="InsuranceApplicantLawfulPresenceStatus" type="hix-ee:LawfulPresenceStatusType">
+      <xsd:annotation>
+         <xsd:documentation source="">A status of the applicant's lawful presence in the United States.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="InsuranceApplicantLivesWithMinorAgeDependentIndicator" type="niem-xsd:boolean">
+      <xsd:annotation>
+         <xsd:documentation source="">True if claiming tax filer is a non-custodial parent and if the claiming tax filer can be considered a caretaker relative; false otherwise.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="InsuranceApplicantLongTermCareIndicator" type="niem-xsd:boolean">
+      <xsd:annotation>
+         <xsd:documentation source="">True if an applicant requires long term care; false otherwise.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="InsuranceApplicantNonESICoverageIndicator" nillable="true" type="niem-xsd:boolean">
+      <xsd:annotation>
+         <xsd:documentation source="">True if an applicant is enrolled in a non-employer sponsored insurance (ESI) plan; false otherwise.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="InsuranceApplicantNonESIPolicy" type="hix-ee:InsurancePolicyType">
+      <xsd:annotation>
+         <xsd:documentation source="">An insurance policy associated with an applicant that is not an employer sponsored insurance (ESI) arrangement.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="InsuranceApplicantParentAverageHoursWorkedPerWeekValue" nillable="false" type="nc:NumericType">
+      <xsd:annotation>
+         <xsd:documentation source="">An average number of hours worked (in total) by a parent of an applicant.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="InsuranceApplicantParentCaretakerIndicator" type="niem-xsd:boolean">
+      <xsd:annotation>
+         <xsd:documentation source="">True if an applicant is a parent or caretaker of a child on the application; false otherwise.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="InsuranceApplicantReceivedITUServicesIndicator" type="niem-xsd:boolean">
+      <xsd:annotation>
+         <xsd:documentation source="">True if an applicant has ever received Indian Health Service/Tribal/Urban Indian Health (I/T/U) services; false otherwise.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="InsuranceApplicantRecentMedicalBillsIndicator" type="niem-xsd:boolean">
+      <xsd:annotation>
+         <xsd:documentation source="">True if an applicant has medical bills within the last ninety days; false otherwise.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="InsuranceApplicantStateBenefitsThroughPublicEmployeeIndicator" type="niem-xsd:boolean">
+      <xsd:annotation>
+         <xsd:documentation source="">True if an applicant has access to state benefits through a relationship to a public employee; false otherwise.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="InsuranceApplicantStudentIndicator" type="niem-xsd:boolean">
+      <xsd:annotation>
+         <xsd:documentation source="">True if an adult applicant older than 19 and less than 21 years old is a full-time student; false otherwise.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="InsuranceApplicantTemporarilyLivesOutsideApplicationStateIndicator" type="niem-xsd:boolean">
+      <xsd:annotation>
+         <xsd:documentation source="">True if an applicant temporarily lives outside the state under which an application is made; false otherwise.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="InsuranceApplication" type="hix-ee:InsuranceApplicationType">
+      <xsd:annotation>
+         <xsd:documentation source="">A formal request to establish insurance coverage for the applicants named in the application.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="InsuranceApplicationAssisterAssociation" type="hix-ee:InsuranceApplicationAssisterAssociationType">
+      <xsd:annotation>
+         <xsd:documentation source="">A relationship between an insurance application and a certified assister (e.g., counselor or navigator).
+</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="InsuranceApplicationAssisterReference" type="s:ReferenceType">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:ReferenceTarget i:name="AssisterType" i:namespace="http://hix.cms.gov/0.1/hix-ee"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">A certified assister (such as a navigator) who helps individuals complete an insurance application.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="InsuranceApplicationCoverageRenewalYearQuantity" nillable="true" type="nc:QuantityType">
+      <xsd:annotation>
+         <xsd:documentation source="">A number of years for which a signer allows an exchange to renew coverage and determine eligibility (including reuse of tax data).</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="InsuranceApplicationRequestingFinancialAssistanceIndicator" nillable="true" type="niem-xsd:boolean">
+      <xsd:annotation>
+         <xsd:documentation source="">True if an application includes a request for financial assistance; false otherwise.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="InsuranceApplicationRequestingMedicaidIndicator" type="niem-xsd:boolean">
+      <xsd:annotation>
+         <xsd:documentation source="">True if an insurance applicant is requesting Medicaid coverage; false otherwise.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="InsuranceApplicationTaxReturnAccessIndicator" nillable="true" type="niem-xsd:boolean">
+      <xsd:annotation>
+         <xsd:documentation source="">True if a signer has granted access to tax return data this year; false otherwise.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="InsuranceMember" type="hix-ee:InsuranceMemberType">
+      <xsd:annotation>
+         <xsd:documentation source="">A person who has health insurance coverage. (An insurance member is called a beneficiary when Centers for Medicare &amp; Medicaid Services provides the coverage).</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="InsuranceMemberIdentification" type="nc:IdentificationType">
+      <xsd:annotation>
+         <xsd:documentation source="">An identification of an insurance member.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="InsurancePlan" type="hix-pm:InsurancePlanType">
+      <xsd:annotation>
+         <xsd:documentation source="">An insurance plan that governs the terms of this insurance policy.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="InsurancePolicyAppliedEffectiveDateRange" type="nc:DateRangeType">
+      <xsd:annotation>
+         <xsd:documentation source="">A date range for which a policy is actually effective (i.e., taking into consideration when the policy actually took effect, was cancelled, etc.).</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="InsurancePolicyIdentification" type="nc:IdentificationType">
+      <xsd:annotation>
+         <xsd:documentation source="">An identification of the policy.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="InsurancePolicySourceCode" type="hix-types:InsuranceSourceCodeType">
+      <xsd:annotation>
+         <xsd:documentation source="">A source that offers insurance policies.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="InsurancePremium" type="hix-ee:InsurancePremiumType">
+      <xsd:annotation>
+         <xsd:documentation source="">A periodic payment made on an insurance policy.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="InsurancePremiumAPTCAmount" type="nc:AmountType">
+      <xsd:annotation>
+         <xsd:documentation source="">An amount paid as an Advance Premium Tax Credit (APTC) to an issuer.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="InsurancePremiumAmount" type="nc:AmountType">
+      <xsd:annotation>
+         <xsd:documentation source="">A total amount paid to establish an insurance policy.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="InsurancePremiumSubscriberAmount" type="nc:AmountType">
+      <xsd:annotation>
+         <xsd:documentation source="">An amount paid by a subscriber to an issuer.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="true" name="LawfulPresenceDocumentCategory">
+      <xsd:annotation>
+         <xsd:documentation source="">A data concept for a kind of lawful presence document.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element name="LawfulPresenceDocumentCategoryCode" type="hix-types:ImmigrationDocumentCategoryCodeType">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:Base i:name="LawfulPresenceDocumentCategory" i:namespace="http://hix.cms.gov/0.1/hix-ee"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">A code for a kind of immigration document.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element name="LawfulPresenceDocumentCategoryText" type="nc:TextType">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:Base i:name="LawfulPresenceDocumentCategory" i:namespace="http://hix.cms.gov/0.1/hix-ee"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">A description of a kind of immigration document.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="LawfulPresenceDocumentExpirationDate" type="nc:DateType">
+      <xsd:annotation>
+         <xsd:documentation source="">A date a lawfully present applicant document expires.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="LawfulPresenceDocumentNumber" type="nc:IdentificationType">
+      <xsd:annotation>
+         <xsd:documentation source="">A unique number assigned to a document of a lawfully present applicant.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="LawfulPresenceDocumentPersonIdentification" nillable="true" type="nc:IdentificationType">
+      <xsd:annotation>
+         <xsd:documentation source="">An identification assigned to a person by an immigration document.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="LawfulPresenceDocumentSameNameIndicator" type="niem-xsd:boolean">
+      <xsd:annotation>
+         <xsd:documentation source="">True if an immigration document is issued in the same name as the person presenting it as proof of lawful presence; false otherwise.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="LawfulPresenceStatusArrivedBefore1996Indicator" type="niem-xsd:boolean">
+      <xsd:annotation>
+         <xsd:documentation source="">True if a person arrived in the US before 1996; false otherwise.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="LawfulPresenceStatusEligibility" nillable="true" type="hix-ee:EligibilityType">
+      <xsd:annotation>
+         <xsd:documentation source="">An eligibility of a person to receive benefits under the Affordable Care Act.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="LawfulPresenceStatusImmigrationDocument" type="hix-ee:LawfulPresenceDocumentType">
+      <xsd:annotation>
+         <xsd:documentation source="">An immigration document used in determining lawful presence status.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="true" name="MedicaidEligibility" type="hix-ee:MedicaidEligibilityType">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:Base i:name="Eligibility" i:namespace="http://hix.cms.gov/0.1/hix-ee"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">An assessment of a person's suitability to participate in a Medicaid program based on various criteria.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="MedicaidHousehold" type="hix-ee:MedicaidHouseholdType">
+      <xsd:annotation>
+         <xsd:documentation source="">A collection of persons to be treated as a unit under Medicaid.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="MedicaidHouseholdEffectivePersonQuantity" nillable="true" type="nc:QuantityType">
+      <xsd:annotation>
+         <xsd:documentation source="">A  number of persons in a household based on a state's Medicaid rules.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="MedicaidHouseholdIncomeAboveHighestApplicableMAGIStandardIndicator" type="niem-xsd:boolean">
+      <xsd:annotation>
+         <xsd:documentation source="">True if a household's income is greater than the highest applicable Modified Adjusted Gross Income (MAGI) standard for the household size; false otherwise.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="MedicaidHouseholdReference" type="s:ReferenceType">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:ReferenceTarget i:name="MedicaidHouseholdType" i:namespace="http://hix.cms.gov/0.1/hix-ee"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">A collection of persons to be treated as a household unit under a state's Medicaid rules.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="MedicaidHouseholdSizeEligibilityBasis" nillable="false" type="hix-ee:MedicaidHouseholdSizeEligibilityBasisType">
+      <xsd:annotation>
+         <xsd:documentation source="">A basis for Medicaid MAGI (Modified Adjusted Gross Income) eligibility based on Medicaid Household rules.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="MedicaidHouseholdSizeEligibilityBasisVerificationMethod" type="hix-types:HouseholdSizeVerificationMethodCodeType">
+      <xsd:annotation>
+         <xsd:documentation source="">A method of verifying household size.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element name="MedicaidIdentification" nillable="false" type="nc:IdentificationType">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:Base i:name="InsuranceMemberIdentification" i:namespace="http://hix.cms.gov/0.1/hix-ee"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">An identification for a member of a Medicaid program.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="MedicaidMAGI-CHIPRA214EligibilityBasis" type="hix-ee:EligibilityBasisType">
+      <xsd:annotation>
+         <xsd:documentation source="">A basis for Medicaid MAGI (Modified Adjusted Gross Income) eligibility based on CHIPRA 214 category rules.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="MedicaidMAGIAdultGroupCategoryEligibilityBasis" type="hix-ee:EligibilityBasisType">
+      <xsd:annotation>
+         <xsd:documentation source="">A basis for Medicaid MAGI (Modified Adjusted Gross Income) eligibility based on adult group category rules.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="MedicaidMAGIAdultGroupXXCategoryEligibilityBasis" type="hix-ee:EligibilityBasisType">
+      <xsd:annotation>
+         <xsd:documentation source="">A basis for Medicaid MAGI (Modified Adjusted Gross Income) eligibility based on optional adult group category rules (subclause (XX) of 42 C.F.R. Section 1902(a)(10)(a)(ii)).</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="MedicaidMAGIChildCategoryEligibilityBasis" type="hix-ee:EligibilityBasisType">
+      <xsd:annotation>
+         <xsd:documentation source="">A basis for Medicaid MAGI (Modified Adjusted Gross Income) eligibility based on Child category rules.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="MedicaidMAGICitizenOrImmigrantEligibilityBasis" type="hix-ee:EligibilityBasisType">
+      <xsd:annotation>
+         <xsd:documentation source="">A basis for Medicaid MAGI (Modified Adjusted Gross Income) eligibility based on Medicaid citizenship or immigration rules.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="MedicaidMAGIDependentChildCoverageEligibilityBasis" type="hix-ee:EligibilityBasisType">
+      <xsd:annotation>
+         <xsd:documentation source="">A basis for Medicaid MAGI (Modified Adjusted Gross Income) eligibility based on Dependent child coverage category rules.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element name="MedicaidMAGIEligibility" type="hix-ee:MedicaidMAGIEligibilityType">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:Base i:name="MedicaidEligibility" i:namespace="http://hix.cms.gov/0.1/hix-ee"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">An assessment of a person's suitability to participate in a Medicaid program based on Modified Adjusted Gross Income (MAGI) criteria.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="MedicaidMAGIFiveYearBarEligibilityBasis" type="hix-ee:EligibilityBasisType">
+      <xsd:annotation>
+         <xsd:documentation source="">A basis for Medicaid MAGI (Modified Adjusted Gross Income) eligibility based on five year bar rules.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="MedicaidMAGIFormerFosterCareCategoryEligibilityBasis" type="hix-ee:EligibilityBasisType">
+      <xsd:annotation>
+         <xsd:documentation source="">A basis for Medicaid MAGI (Modified Adjusted Gross Income) eligibility based on former foster-care category rules.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="MedicaidMAGIIncomeEligibilityBasis" type="hix-ee:IncomeEligibilityBasisType">
+      <xsd:annotation>
+         <xsd:documentation source="">A basis for Medicaid MAGI (Modified Adjusted Gross Income) eligibility based on income rules.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="MedicaidMAGIOptionalTargetedLowIncomeChildEligibilityBasis" type="hix-ee:EligibilityBasisType">
+      <xsd:annotation>
+         <xsd:documentation source="">A basis for Medicaid MAGI (Modified Adjusted Gross Income) eligibility based on optional targeted low-income child rules.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="MedicaidMAGIParentCaretakerCategoryEligibilityBasis" type="hix-ee:EligibilityBasisType">
+      <xsd:annotation>
+         <xsd:documentation source="">A basis for Medicaid MAGI (Modified Adjusted Gross Income) eligibility based on parent caretaker category rules.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="MedicaidMAGIPregnancyCategoryEligibilityBasis" type="hix-ee:EligibilityBasisType">
+      <xsd:annotation>
+         <xsd:documentation source="">A basis for Medicaid MAGI (Modified Adjusted Gross Income) eligibility based on pregnancy category rules.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="MedicaidMAGIResidencyEligibilityBasis" type="hix-ee:MedicaidResidencyEligibilityBasisType">
+      <xsd:annotation>
+         <xsd:documentation source="">A basis for Medicaid MAGI (Modified Adjusted Gross Income) eligibility based on residency rules.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="MedicaidMAGISSNVerificationEligibilityBasis" type="hix-ee:EligibilityBasisType">
+      <xsd:annotation>
+         <xsd:documentation source="">A basis for Medicaid MAGI (Modified Adjusted Gross Income) eligibility based on social security number verification.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="MedicaidMAGISevenYearLimitEligibilityBasis" type="hix-ee:EligibilityBasisType">
+      <xsd:annotation>
+         <xsd:documentation source="">A basis for Medicaid MAGI (Modified Adjusted Gross Income) eligibility based on seven year limit rules.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="MedicaidNonMAGIBlindnessOrDisabilityEligibilityBasis" type="hix-ee:EligibilityBasisType">
+      <xsd:annotation>
+         <xsd:documentation source="">A basis for Medicaid non-MAGI Eligibility by reason of blindness or disability.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element name="MedicaidNonMAGIEligibility" type="hix-ee:MedicaidNonMAGIEligibilityType">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:Base i:name="MedicaidEligibility" i:namespace="http://hix.cms.gov/0.1/hix-ee"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">An assessment of a person's suitability to participate in Medicaid Non MAGI eligibility program.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="MedicaidNonMAGIMedicareEntitlementEligibilityBasis" type="hix-ee:EligibilityBasisType">
+      <xsd:annotation>
+         <xsd:documentation source="">A basis for Medicaid non-MAGI Eligibility by reason of eligibility for Medicare.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="MedicaidResidencyEligibilityBasisCorrectStateIndicator" type="niem-xsd:boolean">
+      <xsd:annotation>
+         <xsd:documentation source="">True if an applicant is applying to the correct U.S. state for Medicaid; false otherwise.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="MedicaidResidencyEligibilityBasisStudentRuleIndicator" type="niem-xsd:boolean">
+      <xsd:annotation>
+         <xsd:documentation source="">True if an applicant is subject to the Medicaid Student Residency rule; false otherwise.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element name="PrimaryTaxFiler" type="hix-ee:TaxFilerType">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:Base i:name="AbstractHouseholdMember" i:namespace="http://hix.cms.gov/0.1/hix-ee"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">A person that files a tax return as a primary filer.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="ReferralActivity" type="hix-ee:ReferralActivityType">
+      <xsd:annotation>
+         <xsd:documentation source="">A referral of an insurance applicant from one information exchange system to another.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="ReferralActivityAdditionalDocumentationIndicator" type="niem-xsd:boolean">
+      <xsd:annotation>
+         <xsd:documentation source="">True if additional documentation is available to support a referral; false otherwise.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element name="ReferralActivityEligibilityReasonReference" type="s:ReferenceType">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:Base i:name="ReferralActivityReason" i:namespace="http://hix.cms.gov/0.1/hix-ee"/>
+            <i:ReferenceTarget i:name="EligibilityType" i:namespace="http://hix.cms.gov/0.1/hix-ee"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">An assessment or determination of an eligibility that motivates a referral activity.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="ReferralActivityOverallVerificationStatusCode" type="hix-types:FFEVerificationCodeType">
+      <xsd:annotation>
+         <xsd:documentation source="">An overall status of the verifications needed to establish eligibility for the applicant being referred.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="true" name="ReferralActivityReason">
+      <xsd:annotation>
+         <xsd:documentation source="">A data concept for a reason for a referral activity.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element name="ReferralActivityReasonCode" type="hix-types:ReferralActivityReasonCodeType">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:Base i:name="ReferralActivityReason" i:namespace="http://hix.cms.gov/0.1/hix-ee"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">A reason for a referral activity.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element name="ReferralActivityReasonText" type="nc:TextType">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:Base i:name="ReferralActivityReason" i:namespace="http://hix.cms.gov/0.1/hix-ee"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">A description of a reason for a referral activity.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="ReferralActivityReceiverReference" type="s:ReferenceType">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:ReferenceTarget i:name="InformationExchangeSystemType" i:namespace="http://hix.cms.gov/0.1/hix-core"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">An information exchange system receiving an insurance applicant via referral.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="ReferralActivitySenderReference" type="s:ReferenceType">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:ReferenceTarget i:name="InformationExchangeSystemType" i:namespace="http://hix.cms.gov/0.1/hix-core"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">An information exchange system responsible for sending an insurance applicant for referral.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="ReferralActivityStatus" type="hix-ee:ReferralActivityStatusType">
+      <xsd:annotation>
+         <xsd:documentation source="">A status of a referral activity.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="ReferralActivityStatusCode" type="hix-types:ReferralActivityStatusCodeType">
+      <xsd:annotation>
+         <xsd:documentation source="">A kind of referral activity status.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element name="RefugeeMedicalAssistanceEligibility" type="hix-ee:RefugeeMedicalAssistanceEligibilityType">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:Base i:name="MedicaidEligibility" i:namespace="http://hix.cms.gov/0.1/hix-ee"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">An assessment of a person's suitability to participate in a refugee medical assistance eligibility program</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="RefugeeMedicalAssistanceEligibilityBasis" type="hix-ee:EligibilityBasisType">
+      <xsd:annotation>
+         <xsd:documentation source="">A basis for refugee eligibility based on medical assistance rules.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="SEPPriorLocation" type="nc:LocationType">
+      <xsd:annotation>
+         <xsd:documentation source="">A prior location for a special enrollment period (SEP) qualifying event (such as a relocation).</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="true" name="SEPQualifyingEventCategory">
+      <xsd:annotation>
+         <xsd:documentation source="">A data concept for a kind of special enrollment period (SEP) qualifying event.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element name="SEPQualifyingEventCategoryCode" type="hix-types:SEPQualifyingEventCategoryCodeType">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:Base i:name="SEPQualifyingEventCategory" i:namespace="http://hix.cms.gov/0.1/hix-ee"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">A kind of special enrollment period (SEP) qualifying event.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="SEPQualifyingEventDate" type="nc:DateType">
+      <xsd:annotation>
+         <xsd:documentation source="">A date a qualifying event for a special enrollment period (SEP) occurred.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="SSFAttestation" type="hix-ee:SSFAttestationType">
+      <xsd:annotation>
+         <xsd:documentation source="">An attestation a signer makes when submitting an application.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="SSFAttestationApplicationTermsIndicator" type="niem-xsd:boolean">
+      <xsd:annotation>
+         <xsd:documentation source="">True if a signer attests that they agree to the terms of the insurance application; false otherwise.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="SSFAttestationCollectionsAgreementIndicator" nillable="true" type="niem-xsd:boolean">
+      <xsd:annotation>
+         <xsd:documentation source="">True if a signer attests that they agree to cooperate with agencies that collect medical support information from absent parents; false otherwise.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="SSFAttestationInformationChangesIndicator" nillable="true" type="niem-xsd:boolean">
+      <xsd:annotation>
+         <xsd:documentation source="">True if a signer attests that they agree to inform the exchange if information on the application changes; false otherwise.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="SSFAttestationMedicaidObligationsIndicator" nillable="true" type="niem-xsd:boolean">
+      <xsd:annotation>
+         <xsd:documentation source="">True if a signer attests that they are aware of their obligations as a Medicaid applicant; false otherwise.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="SSFAttestationNonPerjuryIndicator" nillable="true" type="niem-xsd:boolean">
+      <xsd:annotation>
+         <xsd:documentation source="">True if a signer attests that the information provided is truthful; false otherwise.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="SSFAttestationNotIncarceratedIndicator" nillable="true" type="niem-xsd:boolean">
+      <xsd:annotation>
+         <xsd:documentation source="">True if a signer attests that they are not currently incarcerated; false otherwise.
+</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="SSFAttestationPendingChargesIndicator" type="niem-xsd:boolean">
+      <xsd:annotation>
+         <xsd:documentation source="">True if a signer attests that they are not currently incarcerated but pending disposition of a criminal charge; false otherwise.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="SSFAttestationPrivacyAgreementIndicator" type="niem-xsd:boolean">
+      <xsd:annotation>
+         <xsd:documentation source="">True if a signer attests that they understand how their information will be used; false otherwise.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="SSFPrimaryContact" type="hix-ee:SSFPrimaryContactType">
+      <xsd:annotation>
+         <xsd:documentation source="">A person responsible for answering questions about an insurance application.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="SSFPrimaryContactPreferenceCode" type="hix-types:ContactPreferenceCodeType">
+      <xsd:annotation>
+         <xsd:documentation source="">A primary contact's preferred mode of receiving notices about an application.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="SSFSigner" type="hix-ee:SSFSignerType">
+      <xsd:annotation>
+         <xsd:documentation source="">A person who signs a Single Streamlined Form (SSF) insurance application, including the attestations, and is therefore able to make decisions regarding the application (including assigning an authorized representative).</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="SSFSignerAuthorizedRepresentativeAssociation" type="hix-ee:SSFSignerAuthorizedRepresentativeAssociationType">
+      <xsd:annotation>
+         <xsd:documentation source="">A relationship between a Single Streamlined Form (SSF) signer and an authorized representative.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="Signature" type="hix-core:SignatureType">
+      <xsd:annotation>
+         <xsd:documentation source="">A signature on a physical or electronic document.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="SpecialEnrollmentPeriod" type="hix-ee:SpecialEnrollmentPeriodType">
+      <xsd:annotation>
+         <xsd:documentation source="">An enrollment period outside of open (annual or initial) enrollment.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element name="SpouseTaxFiler" type="hix-ee:TaxFilerType">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:Base i:name="AbstractHouseholdMember" i:namespace="http://hix.cms.gov/0.1/hix-ee"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">A person that files a tax return as a spouse.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element name="TaxDependent" type="hix-ee:TaxDependentType">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:Base i:name="AbstractHouseholdMember" i:namespace="http://hix.cms.gov/0.1/hix-ee"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">A person listed on a tax form as a dependent.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="TaxDependentClaimedByCustodialParentIndicator" nillable="false" type="niem-xsd:boolean">
+      <xsd:annotation>
+         <xsd:documentation source="">True if a tax dependent is under the state-defined age for full-time students and is being claimed by a custodial parent; false otherwise.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element name="TaxHousehold" type="hix-ee:TaxHouseholdType">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:Base i:name="TaxReturnFiler" i:namespace="http://hix.cms.gov/0.1/hix-ee"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">A collection of persons to be treated as a household unit for tax purposes.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="TaxReturn" type="hix-ee:TaxReturnType">
+      <xsd:annotation>
+         <xsd:documentation source="">A tax return as filed with the Internal Revenue Service.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="true" name="TaxReturnFiler">
+      <xsd:annotation>
+         <xsd:documentation source="">A data concept for an entity or set of entities that files taxes.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="TaxReturnFilingStatusCode" nillable="false" type="hix-types:TaxReturnFilingStatusCodeType">
+      <xsd:annotation>
+         <xsd:documentation source="">A kind of filing status.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="true" name="TaxReturnFiscalPeriod">
+      <xsd:annotation>
+         <xsd:documentation source="">A data concept for a tax period.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="TaxReturnIncludesDependentIndicator" type="niem-xsd:boolean">
+      <xsd:annotation>
+         <xsd:documentation source="">True if the tax return includes dependents; false otherwise.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="TaxReturnTotalExemptionsQuantity" nillable="false" type="nc:QuantityType">
+      <xsd:annotation>
+         <xsd:documentation source="">A number of exemptions claimed on a tax return.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element name="TaxReturnYear" nillable="false" type="niem-xsd:gYear">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:Base i:name="TaxReturnFiscalPeriod" i:namespace="http://hix.cms.gov/0.1/hix-ee"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">A year for which taxes are being filed.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:complexType abstract="false" mixed="false" name="APTCCalculationType">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:Base i:name="Object" i:namespace="http://niem.gov/niem/structures/2.0"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">A data type for a calculation of an Advance Premium Tax Credit (APTC).</xsd:documentation>
+      </xsd:annotation>
+      <xsd:complexContent>
+         <xsd:extension base="s:ComplexObjectType">
+            <xsd:sequence>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:APTCMaximumAmount"/>
+            </xsd:sequence>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:complexType abstract="false" mixed="false" name="APTCEligibilityType">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:Base i:name="EligibilityType" i:namespace="http://hix.cms.gov/0.1/hix-ee"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">A data type for an Advance Premium Tax Credit (APTC) eligibility determination outcome.</xsd:documentation>
+      </xsd:annotation>
+      <xsd:complexContent>
+         <xsd:extension base="hix-ee:EligibilityType">
+            <xsd:sequence>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:APTC"/>
+            </xsd:sequence>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:complexType abstract="false" mixed="false" name="AssisterType">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:Base i:name="Object" i:namespace="http://niem.gov/niem/structures/2.0"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">A data type for a certified assister (such as a navigator) who helps individuals complete an insurance application.</xsd:documentation>
+      </xsd:annotation>
+      <xsd:complexContent>
+         <xsd:extension base="s:ComplexObjectType">
+            <xsd:sequence>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-core:RolePlayedByPerson"/>
+            </xsd:sequence>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:complexType abstract="false" mixed="false" name="AuthorizedRepresentativeType">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:Base i:name="Object" i:namespace="http://niem.gov/niem/structures/2.0"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">A data type for an authorized representative who is granted limited power of attorney for an insurance application.</xsd:documentation>
+      </xsd:annotation>
+      <xsd:complexContent>
+         <xsd:extension base="s:ComplexObjectType">
+            <xsd:sequence>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-core:RolePlayedByPerson"/>
+            </xsd:sequence>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:complexType abstract="false" mixed="false" name="CHIPEligibilityType">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:Base i:name="EligibilityType" i:namespace="http://hix.cms.gov/0.1/hix-ee"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">A data type for an assessment of a person's suitability to participate in a Children's Health Insurance Program (CHIP) program based on various criteria.</xsd:documentation>
+      </xsd:annotation>
+      <xsd:complexContent>
+         <xsd:extension base="hix-ee:EligibilityType">
+            <xsd:sequence>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:CHIPIncomeEligibilityBasis"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:CHIPMedicaidResidencyEligibilityBasis"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:CHIPIncarcerationEligibilityBasis"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:CHIPPregnancyCategoryEligibilityBasis"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:CHIPTargetedLowIncomeChildEligibilityBasis"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:CHIPUnbornChildCategoryEligibilityBasis"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:CHIPStateHealthBenefitsEligibilityBasis"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:CHIPWaitingPeriodEligibilityBasis"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:CHIPMedicaidCitizenOrImmigrantEligibilityBasis"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:HouseholdSizeEligibilityBasis"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:CHIPTraffickingVictimCategoryEligibilityBasis"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:CHIPTitleIIWorkQuartersMetEligibilityBasis"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:CHIP-SSNVerificationEligibilityBasis"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:MedicaidHouseholdReference"/>
+            </xsd:sequence>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:complexType abstract="false" mixed="false" name="CSRAdvancePaymentType">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:Base i:name="Object" i:namespace="http://niem.gov/niem/structures/2.0"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">A data type for Cost Sharing Reduction (CSR) advance payment.</xsd:documentation>
+      </xsd:annotation>
+      <xsd:complexContent>
+         <xsd:extension base="s:ComplexObjectType">
+            <xsd:sequence>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:CSRCategoryAlphaCode"/>
+            </xsd:sequence>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:complexType abstract="false" mixed="false" name="CSREligibilityType">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:Base i:name="EligibilityType" i:namespace="http://hix.cms.gov/0.1/hix-ee"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">A data type for cost sharing reduction (CSR) eligibility determination outcome.</xsd:documentation>
+      </xsd:annotation>
+      <xsd:complexContent>
+         <xsd:extension base="hix-ee:EligibilityType">
+            <xsd:sequence>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:CSRAdvancePayment"/>
+            </xsd:sequence>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:complexType abstract="false" mixed="false" name="DisenrollmentActivityType">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:Base i:name="ActivityType" i:namespace="http://niem.gov/niem/niem-core/2.0"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">A data type for an activity that disenrolls a person from an insurance policy (ending the member role).</xsd:documentation>
+      </xsd:annotation>
+      <xsd:complexContent>
+         <xsd:extension base="nc:ActivityType">
+            <xsd:sequence>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:DisenrollmentActivityReasonCode"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:DisenrollmentActivityReasonText"/>
+            </xsd:sequence>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:complexType abstract="false" mixed="false" name="ESIAugmentationType">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:Base i:name="PersonEmploymentAugmentationType" i:namespace="http://hix.cms.gov/0.1/hix-core"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">A data type that supplements A data type for an employer-sponsored insurance arrangement.</xsd:documentation>
+      </xsd:annotation>
+      <xsd:complexContent>
+         <xsd:extension base="hix-core:PersonEmploymentAugmentationType">
+            <xsd:sequence>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:ESI"/>
+            </xsd:sequence>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:complexType abstract="false" mixed="false" name="EligibilityBasisType">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:Base i:name="StatusType" i:namespace="http://hix.cms.gov/0.1/hix-core"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">A data type for a status that serves as a factor in making an eligibility determination (e.g., residency status is a factor for making a Medicaid eligibility determination).</xsd:documentation>
+      </xsd:annotation>
+      <xsd:complexContent>
+         <xsd:extension base="hix-core:StatusType">
+            <xsd:sequence>
+               <xsd:element maxOccurs="1" minOccurs="1" ref="hix-ee:EligibilityBasisStatusCode"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:EligibilityBasisIneligibilityReasonText"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:EligibilityBasisInconsistencyReasonText"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:EligibilityBasisPendingReasonText"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:EligibilityBasisDetermination"/>
+            </xsd:sequence>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:complexType abstract="false" mixed="false" name="EligibilityType">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:Base i:name="Object" i:namespace="http://niem.gov/niem/structures/2.0"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">A data type for an assessment of a person's suitability to participate in a program based on various criteria.</xsd:documentation>
+      </xsd:annotation>
+      <xsd:complexContent>
+         <xsd:extension base="s:ComplexObjectType">
+            <xsd:sequence>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:EligibilityDateRange"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:EligibilityDetermination"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:EligibilityReasonText"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:EligibilityIndicator"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:EligibilityEstablishingSystem"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:EligibilityInconsistencyReasonText"/>
+            </xsd:sequence>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:complexType abstract="false" mixed="false" name="EmergencyMedicaidEligibilityType">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:Base i:name="MedicaidEligibilityType" i:namespace="http://hix.cms.gov/0.1/hix-ee"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">A data type for an assessment of a person's suitability to participate in an emergency Medicaid program based on various criteria.</xsd:documentation>
+      </xsd:annotation>
+      <xsd:complexContent>
+         <xsd:extension base="hix-ee:MedicaidEligibilityType">
+            <xsd:sequence>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:EmergencyMedicaidResidencyEligibilityBasis"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:EmergencyMedicaidIncomeEligibilityBasis"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:EmergencyMedicaidCitizenOrImmigrantEligibilityBasis"/>
+            </xsd:sequence>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:complexType abstract="false" mixed="false" name="EmployerSponsoredInsuranceType">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:Base i:name="Object" i:namespace="http://niem.gov/niem/structures/2.0"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">A data type for insurance coverage sponsored by an employer offered to current / former employees and their families.</xsd:documentation>
+      </xsd:annotation>
+      <xsd:complexContent>
+         <xsd:extension base="s:ComplexObjectType">
+            <xsd:sequence>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:ESILowestCostPlan"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:ESIPlanYearCode"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:ESIPlanRateUnknownIndicator"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:ESIExpectedChange"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:ESIExpectedChangeDate"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:ESIViaCurrentEmployeeIndicator"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:ESIRetireePlanIndicator"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:ESIMinimumAVStandardUnknownIndicator"/>
+               <xsd:element maxOccurs="unbounded" minOccurs="0" ref="hix-ee:ESIContactPersonReference"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:ESIExpectedLowestCostPlan"/>
+            </xsd:sequence>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:complexType abstract="false" mixed="false" name="EnrollmentActivityType">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:Base i:name="ActivityType" i:namespace="http://hix.cms.gov/0.1/hix-core"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">A data type for an activity that enrolls a person with an insurance policy (starting that person in the member role).</xsd:documentation>
+      </xsd:annotation>
+      <xsd:complexContent>
+         <xsd:extension base="hix-core:ActivityType">
+            <xsd:sequence>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:EnrollmentActivityReasonText"/>
+            </xsd:sequence>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:complexType abstract="false" mixed="false" name="ExchangeEligibilityType">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:Base i:name="EligibilityType" i:namespace="http://hix.cms.gov/0.1/hix-ee"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">A data type for an assessment of a person's suitability to participate in an exchange program based on various criteria.</xsd:documentation>
+      </xsd:annotation>
+      <xsd:complexContent>
+         <xsd:extension base="hix-ee:EligibilityType">
+            <xsd:sequence>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:ExchangeQHPResidencyEligibilityBasis"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:ExchangeVerifiedCitizenshipOrLawfulPresenceEligibilityBasis"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:ExchangeIncarcerationEligibilityBasis"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:SpecialEnrollmentPeriod"/>
+            </xsd:sequence>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:complexType abstract="false" mixed="false" name="HouseholdType">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:Base i:name="Object" i:namespace="http://niem.gov/niem/structures/2.0"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">A data type for a collection of persons to be treated as a unit based on defined rules.</xsd:documentation>
+      </xsd:annotation>
+      <xsd:complexContent>
+         <xsd:extension base="s:ComplexObjectType">
+            <xsd:sequence>
+               <xsd:choice maxOccurs="unbounded" minOccurs="0">
+                  <xsd:element ref="hix-ee:HouseholdIncome"/>
+                  <xsd:element ref="hix-ee:HouseholdAGI"/>
+                  <xsd:element ref="hix-ee:HouseholdMAGI"/>
+                  <xsd:element ref="hix-ee:HouseholdTaxableSocialSecurityBenefitsIncome"/>
+               </xsd:choice>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:HouseholdSizeQuantity"/>
+               <xsd:choice maxOccurs="unbounded" minOccurs="0">
+                  <xsd:element ref="hix-ee:PrimaryTaxFiler"/>
+                  <xsd:element ref="hix-ee:SpouseTaxFiler"/>
+                  <xsd:element ref="hix-ee:TaxDependent"/>
+               </xsd:choice>
+               <xsd:choice maxOccurs="unbounded" minOccurs="0">
+                  <xsd:element ref="hix-ee:HouseholdMemberReference"/>
+               </xsd:choice>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:HouseholdSizeChangeExpectedIndicator"/>
+            </xsd:sequence>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:complexType abstract="false" mixed="false" name="IncomeCompatibilityType">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:Base i:name="Object" i:namespace="http://niem.gov/niem/structures/2.0"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">A data type for an assessment of income reasonable compatibility (trusted data sources are reasonably compatible with self-attestations if any discrepancies will not affect eligibility—see 45 C.F.R. 155.300(d)).</xsd:documentation>
+      </xsd:annotation>
+      <xsd:complexContent>
+         <xsd:extension base="s:ComplexObjectType">
+            <xsd:sequence>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:IncomeCompatibilityVerificationIndicator"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:IncomeCompatibilityInconsistencyReasonText"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:IncomeCompatibilityDetermination"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:IncomeCompatibilityVerificationMethod"/>
+            </xsd:sequence>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:complexType abstract="false" mixed="false" name="IncomeEligibilityBasisType">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:Base i:name="EligibilityBasisType" i:namespace="http://hix.cms.gov/0.1/hix-ee"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">A data type for an assessment of a person's eligibility to participate in a program based on income criteria.</xsd:documentation>
+      </xsd:annotation>
+      <xsd:complexContent>
+         <xsd:extension base="hix-ee:EligibilityBasisType">
+            <xsd:sequence>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:IncomeCompatibility"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:IncomeEligibilityBasisStateThresholdFPLPercent"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:IncomeEligibilityBasisRPCRulesAppliedIndicator"/>
+            </xsd:sequence>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:complexType abstract="false" mixed="false" name="InsuranceApplicantESIAssociationType">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:Base i:name="Association" i:namespace="http://niem.gov/niem/structures/2.0"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">A relationship A data type for a relationship between an employer sponsored insurance (ESI) arrangement and an insurance applicant.</xsd:documentation>
+      </xsd:annotation>
+      <xsd:complexContent>
+         <xsd:extension base="s:ComplexObjectType">
+            <xsd:sequence>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:InsuranceApplicantESIEligibleIndicator"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:InsuranceApplicantESIEnrolledIndicator"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:InsuranceApplicantESIEnrollmentEligibilityDate"/>
+               <xsd:element maxOccurs="unbounded" minOccurs="0" ref="hix-ee:InsuranceApplicantESIPlannedCoverageDateRange"/>
+               <xsd:element maxOccurs="unbounded" minOccurs="0" ref="hix-ee:InsuranceApplicantESIPlannedEnrollmentStatusCode"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:ESIReference"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:InsuranceApplicantESIEligibilityUnknownIndicator"/>
+            </xsd:sequence>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:complexType abstract="false" mixed="false" name="InsuranceApplicantType">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:Base i:name="ApplicantType" i:namespace="http://hix.cms.gov/0.1/hix-core"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">A data type for a person requesting insurance coverage (either to obtain a new policy or to maintain enrollment in an existing policy).</xsd:documentation>
+      </xsd:annotation>
+      <xsd:complexContent>
+         <xsd:extension base="hix-core:ApplicantType">
+            <xsd:sequence>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:InsuranceApplicantAbsentParentOrSpouseCode"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:InsuranceApplicantBlindnessOrDisabilityIndicator"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:InsuranceApplicantCoverageDuringPreviousSixMonthsIndicator"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:InsuranceApplicantEligibleITUServicesIndicator"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:InsuranceApplicantFixedAddressIndicator"/>
+               <xsd:element maxOccurs="unbounded" minOccurs="0" ref="hix-ee:InsuranceApplicantIncarceration"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:InsuranceApplicantLawfulPresenceStatus"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:InsuranceApplicantLongTermCareIndicator"/>
+               <xsd:element maxOccurs="unbounded" minOccurs="0" ref="hix-ee:InsuranceApplicantNonESICoverageIndicator"/>
+               <xsd:element maxOccurs="unbounded" minOccurs="0" ref="hix-ee:InsuranceApplicantNonESIPolicy"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:InsuranceApplicantParentCaretakerIndicator"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:InsuranceApplicantReceivedITUServicesIndicator"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:InsuranceApplicantRecentMedicalBillsIndicator"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:InsuranceApplicantStateBenefitsThroughPublicEmployeeIndicator"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:InsuranceApplicantStudentIndicator"/>
+               <xsd:element maxOccurs="unbounded" minOccurs="0" ref="hix-ee:InsuranceApplicantESIAssociation"/>
+               <xsd:choice maxOccurs="unbounded" minOccurs="0">
+                  <xsd:element ref="hix-ee:EmergencyMedicaidEligibility"/>
+                  <xsd:element ref="hix-ee:MedicaidMAGIEligibility"/>
+                  <xsd:element ref="hix-ee:MedicaidNonMAGIEligibility"/>
+                  <xsd:element ref="hix-ee:RefugeeMedicalAssistanceEligibility"/>
+                  <xsd:element ref="hix-ee:APTCEligibility"/>
+                  <xsd:element ref="hix-ee:CHIPEligibility"/>
+                  <xsd:element ref="hix-ee:CSREligibility"/>
+                  <xsd:element ref="hix-ee:ExchangeEligibility"/>
+               </xsd:choice>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:InsuranceApplicantTemporarilyLivesOutsideApplicationStateIndicator"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:InsuranceApplicantAgeLeftFosterCare"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:InsuranceApplicantFosterCareState"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:InsuranceApplicantHadMedicaidDuringFosterCareIndicator"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:InsuranceApplicantLivesWithMinorAgeDependentIndicator"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:InsuranceApplicantHouseholdExceptionIndicator"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:ReferralActivity"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:InsuranceApplicantFosterCareIndicator"/>
+               <xsd:element maxOccurs="2" minOccurs="0" ref="hix-ee:InsuranceApplicantParentAverageHoursWorkedPerWeekValue"/>
+            </xsd:sequence>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:complexType abstract="false" mixed="false" name="InsuranceApplicationAssisterAssociationType">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:Base i:name="AssociationType" i:namespace="http://niem.gov/niem/niem-core/2.0"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">A relationship A data type for a relationship between an insurance application and a certified assister (e.g., counselor or navigator).</xsd:documentation>
+      </xsd:annotation>
+      <xsd:complexContent>
+         <xsd:extension base="nc:AssociationType">
+            <xsd:sequence>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:InsuranceApplicationAssisterReference"/>
+            </xsd:sequence>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:complexType abstract="false" mixed="false" name="InsuranceApplicationType">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:Base i:name="ApplicationType" i:namespace="http://hix.cms.gov/0.1/hix-core"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">A data type for a formal request to establish insurance coverage for the applicants named in the application.</xsd:documentation>
+      </xsd:annotation>
+      <xsd:complexContent>
+         <xsd:extension base="hix-core:ApplicationType">
+            <xsd:sequence>
+               <xsd:element maxOccurs="unbounded" minOccurs="1" ref="hix-ee:InsuranceApplicant"/>
+               <xsd:element maxOccurs="1" minOccurs="1" ref="hix-ee:InsuranceApplicationRequestingFinancialAssistanceIndicator"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:InsuranceApplicationCoverageRenewalYearQuantity"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:SSFSigner"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:InsuranceApplicationAssisterAssociation"/>
+               <xsd:element maxOccurs="1" minOccurs="1" ref="hix-ee:InsuranceApplicationRequestingMedicaidIndicator"/>
+               <xsd:element maxOccurs="1" minOccurs="1" ref="hix-ee:SSFPrimaryContact"/>
+               <xsd:element maxOccurs="1" minOccurs="1" ref="hix-ee:InsuranceApplicationTaxReturnAccessIndicator"/>
+            </xsd:sequence>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:complexType abstract="false" mixed="false" name="InsuranceMemberType">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:Base i:name="Object" i:namespace="http://niem.gov/niem/structures/2.0"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">A data type for a person who has health insurance coverage. (An insurance member is called a beneficiary when Centers for Medicare &amp; Medicaid Services provides the coverage).</xsd:documentation>
+      </xsd:annotation>
+      <xsd:complexContent>
+         <xsd:extension base="s:ComplexObjectType">
+            <xsd:sequence>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:MedicaidIdentification"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:CHIPIdentification"/>
+            </xsd:sequence>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:complexType abstract="false" mixed="false" name="InsurancePolicyType">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:Base i:name="Object" i:namespace="http://niem.gov/niem/structures/2.0"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">A data type for an agreement by an issuer to provide coverage under an insurance plan to a set of members who subscribe as a unit.</xsd:documentation>
+      </xsd:annotation>
+      <xsd:complexContent>
+         <xsd:extension base="s:ComplexObjectType">
+            <xsd:sequence>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:InsuranceMember"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:InsurancePolicyIdentification"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:InsurancePremium"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:InsurancePlan"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:EnrollmentActivity"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:DisenrollmentActivity"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:InsurancePolicySourceCode"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:InsurancePolicyAppliedEffectiveDateRange"/>
+            </xsd:sequence>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:complexType abstract="false" mixed="false" name="InsurancePremiumType">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:Base i:name="Object" i:namespace="http://niem.gov/niem/structures/2.0"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">A data type for a periodic payment made on an insurance policy.</xsd:documentation>
+      </xsd:annotation>
+      <xsd:complexContent>
+         <xsd:extension base="s:ComplexObjectType">
+            <xsd:sequence>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:InsurancePremiumAmount"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:InsurancePremiumAPTCAmount"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:InsurancePremiumSubscriberAmount"/>
+            </xsd:sequence>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:complexType abstract="false" mixed="false" name="LawfulPresenceDocumentType">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:Base i:name="Object" i:namespace="http://niem.gov/niem/structures/2.0"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">A data type for a document used in establishing lawful presence.</xsd:documentation>
+      </xsd:annotation>
+      <xsd:complexContent>
+         <xsd:extension base="s:ComplexObjectType">
+            <xsd:sequence>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:LawfulPresenceDocumentExpirationDate"/>
+               <xsd:element maxOccurs="unbounded" minOccurs="0" ref="hix-ee:LawfulPresenceDocumentNumber"/>
+               <xsd:element maxOccurs="unbounded" minOccurs="0" ref="hix-ee:LawfulPresenceDocumentPersonIdentification"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:LawfulPresenceDocumentSameNameIndicator"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:LawfulPresenceDocumentCategoryText"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:LawfulPresenceDocumentCategoryCode"/>
+            </xsd:sequence>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:complexType abstract="false" mixed="false" name="LawfulPresenceStatusType">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:Base i:name="StatusType" i:namespace="http://hix.cms.gov/0.1/hix-core"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">A data type for a status of person's lawful presence in the United States.</xsd:documentation>
+      </xsd:annotation>
+      <xsd:complexContent>
+         <xsd:extension base="hix-core:StatusType">
+            <xsd:sequence>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:LawfulPresenceStatusArrivedBefore1996Indicator"/>
+               <xsd:element maxOccurs="unbounded" minOccurs="0" ref="hix-ee:LawfulPresenceStatusImmigrationDocument"/>
+               <xsd:element maxOccurs="unbounded" minOccurs="0" ref="hix-ee:LawfulPresenceStatusEligibility"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="scr:ClassOfAdmissionClassificationCode"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="scr:AdmitToDate"/>
+            </xsd:sequence>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:complexType abstract="false" mixed="false" name="MedicaidEligibilityType">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:Base i:name="EligibilityType" i:namespace="http://hix.cms.gov/0.1/hix-ee"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">A data type for an assessment of a person's suitability to participate in a Medicaid program based on various criteria.</xsd:documentation>
+      </xsd:annotation>
+      <xsd:complexContent>
+         <xsd:extension base="hix-ee:EligibilityType">
+            <xsd:sequence>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:MedicaidHouseholdReference"/>
+            </xsd:sequence>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:complexType abstract="false" mixed="false" name="MedicaidHouseholdSizeEligibilityBasisType">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:Base i:name="EligibilityBasisType" i:namespace="http://hix.cms.gov/0.1/hix-ee"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">A data type for a basis for an assessment of a person's eligibility to participate in a program based on Medicaid household size criteria.</xsd:documentation>
+      </xsd:annotation>
+      <xsd:complexContent>
+         <xsd:extension base="hix-ee:EligibilityBasisType">
+            <xsd:sequence>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:MedicaidHouseholdSizeEligibilityBasisVerificationMethod"/>
+            </xsd:sequence>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:complexType abstract="false" mixed="false" name="MedicaidHouseholdType">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:Base i:name="HouseholdType" i:namespace="http://hix.cms.gov/0.1/hix-ee"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">A data type for a collection of persons to be treated as a household unit under a state's Medicaid rules.</xsd:documentation>
+      </xsd:annotation>
+      <xsd:complexContent>
+         <xsd:extension base="hix-ee:HouseholdType">
+            <xsd:sequence>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:MedicaidHouseholdEffectivePersonQuantity"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:MedicaidHouseholdIncomeAboveHighestApplicableMAGIStandardIndicator"/>
+            </xsd:sequence>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:complexType abstract="false" mixed="false" name="MedicaidMAGIEligibilityType">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:Base i:name="MedicaidEligibilityType" i:namespace="http://hix.cms.gov/0.1/hix-ee"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">A data type for an assessment of a person's suitability to participate in a Medicaid program based on Modified Adjusted Gross Income (MAGI) criteria.</xsd:documentation>
+      </xsd:annotation>
+      <xsd:complexContent>
+         <xsd:extension base="hix-ee:MedicaidEligibilityType">
+            <xsd:sequence>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:MedicaidMAGIIncomeEligibilityBasis"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:MedicaidMAGIResidencyEligibilityBasis"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:MedicaidHouseholdSizeEligibilityBasis"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:MedicaidMAGIParentCaretakerCategoryEligibilityBasis"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:MedicaidMAGIPregnancyCategoryEligibilityBasis"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:MedicaidMAGIChildCategoryEligibilityBasis"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:MedicaidMAGIAdultGroupCategoryEligibilityBasis"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:MedicaidMAGIAdultGroupXXCategoryEligibilityBasis"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:MedicaidMAGIOptionalTargetedLowIncomeChildEligibilityBasis"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:MedicaidMAGICitizenOrImmigrantEligibilityBasis"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:MedicaidMAGI-CHIPRA214EligibilityBasis"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:MedicaidMAGISevenYearLimitEligibilityBasis"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:MedicaidMAGIFormerFosterCareCategoryEligibilityBasis"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:MedicaidMAGIDependentChildCoverageEligibilityBasis"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:MedicaidMAGIFiveYearBarEligibilityBasis"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:MedicaidMAGISSNVerificationEligibilityBasis"/>
+            </xsd:sequence>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:complexType abstract="false" mixed="false" name="MedicaidNonMAGIEligibilityType">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:Base i:name="MedicaidEligibilityType" i:namespace="http://hix.cms.gov/0.1/hix-ee"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">A data type for an assessment of a person's suitability to participate in a Medicaid program based on criteria other than Modified Adjusted Gross Income (MAGI).</xsd:documentation>
+      </xsd:annotation>
+      <xsd:complexContent>
+         <xsd:extension base="hix-ee:MedicaidEligibilityType">
+            <xsd:sequence>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:MedicaidNonMAGIMedicareEntitlementEligibilityBasis"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:MedicaidNonMAGIBlindnessOrDisabilityEligibilityBasis"/>
+            </xsd:sequence>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:complexType abstract="false" mixed="false" name="MedicaidResidencyEligibilityBasisType">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:Base i:name="EligibilityBasisType" i:namespace="http://hix.cms.gov/0.1/hix-ee"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">A data type for an assessment of a person's eligibility to participate in a Medicaid program based on residency criteria.</xsd:documentation>
+      </xsd:annotation>
+      <xsd:complexContent>
+         <xsd:extension base="hix-ee:EligibilityBasisType">
+            <xsd:sequence>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:MedicaidResidencyEligibilityBasisStudentRuleIndicator"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:MedicaidResidencyEligibilityBasisCorrectStateIndicator"/>
+            </xsd:sequence>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:complexType abstract="false" mixed="false" name="PhysicalHouseholdType">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:Base i:name="HouseholdType" i:namespace="http://hix.cms.gov/0.1/hix-ee"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">A data type for a collection of persons residing together to be treated as a household unit.</xsd:documentation>
+      </xsd:annotation>
+      <xsd:complexContent>
+         <xsd:extension base="hix-ee:HouseholdType">
+            <xsd:sequence/>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:complexType abstract="false" mixed="false" name="ReferralActivityStatusType">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:Base i:name="StatusType" i:namespace="http://hix.cms.gov/0.1/hix-core"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">A data type for a status of a referral activity.</xsd:documentation>
+      </xsd:annotation>
+      <xsd:complexContent>
+         <xsd:extension base="hix-core:StatusType">
+            <xsd:sequence>
+               <xsd:element maxOccurs="1" minOccurs="1" ref="hix-ee:ReferralActivityStatusCode"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:ReferralActivityOverallVerificationStatusCode"/>
+            </xsd:sequence>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:complexType abstract="false" mixed="false" name="ReferralActivityType">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:Base i:name="ActivityType" i:namespace="http://hix.cms.gov/0.1/hix-core"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">A data type for a referral of an insurance applicant from one information exchange system to another.</xsd:documentation>
+      </xsd:annotation>
+      <xsd:complexContent>
+         <xsd:extension base="hix-core:ActivityType">
+            <xsd:sequence>
+               <xsd:element maxOccurs="1" minOccurs="1" ref="hix-ee:ReferralActivitySenderReference"/>
+               <xsd:element maxOccurs="1" minOccurs="1" ref="hix-ee:ReferralActivityReceiverReference"/>
+               <xsd:element maxOccurs="1" minOccurs="1" ref="hix-ee:ReferralActivityStatus"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:ReferralActivityReasonCode"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:ReferralActivityReasonText"/>
+               <xsd:element maxOccurs="unbounded" minOccurs="0" ref="hix-ee:ReferralActivityEligibilityReasonReference"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:ReferralActivityAdditionalDocumentationIndicator"/>
+            </xsd:sequence>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:complexType abstract="false" mixed="false" name="RefugeeMedicalAssistanceEligibilityType">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:Base i:name="MedicaidEligibilityType" i:namespace="http://hix.cms.gov/0.1/hix-ee"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">A data type for an assessment of a person's suitability to participate in an refugee medical assistance program based on various criteria.</xsd:documentation>
+      </xsd:annotation>
+      <xsd:complexContent>
+         <xsd:extension base="hix-ee:MedicaidEligibilityType">
+            <xsd:sequence>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:RefugeeMedicalAssistanceEligibilityBasis"/>
+            </xsd:sequence>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:complexType abstract="false" mixed="false" name="SSFAttestationType">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:Base i:name="Object" i:namespace="http://niem.gov/niem/structures/2.0"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">A data type for attestations made when submitting a Single Streamlined Form (SSF).</xsd:documentation>
+      </xsd:annotation>
+      <xsd:complexContent>
+         <xsd:extension base="s:ComplexObjectType">
+            <xsd:sequence>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:SSFAttestationCollectionsAgreementIndicator"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:SSFAttestationMedicaidObligationsIndicator"/>
+               <xsd:element maxOccurs="1" minOccurs="1" ref="hix-ee:SSFAttestationNonPerjuryIndicator"/>
+               <xsd:element maxOccurs="unbounded" minOccurs="1" ref="hix-ee:SSFAttestationNotIncarceratedIndicator"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:SSFAttestationPrivacyAgreementIndicator"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:SSFAttestationPendingChargesIndicator"/>
+               <xsd:element maxOccurs="1" minOccurs="1" ref="hix-ee:SSFAttestationInformationChangesIndicator"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:SSFAttestationApplicationTermsIndicator"/>
+            </xsd:sequence>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:complexType abstract="false" mixed="false" name="SSFPrimaryContactType">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:Base i:name="Object" i:namespace="http://niem.gov/niem/structures/2.0"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">A data type for a person responsible for answering questions about an insurance application (also known as a Single Streamlined Form or SSF).</xsd:documentation>
+      </xsd:annotation>
+      <xsd:complexContent>
+         <xsd:extension base="s:ComplexObjectType">
+            <xsd:sequence>
+               <xsd:element maxOccurs="1" minOccurs="1" ref="hix-core:RoleOfPersonReference"/>
+               <xsd:element maxOccurs="1" minOccurs="1" ref="hix-ee:SSFPrimaryContactPreferenceCode"/>
+            </xsd:sequence>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:complexType abstract="false" mixed="false" name="SSFSignerAuthorizedRepresentativeAssociationType">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:Base i:name="Association" i:namespace="http://niem.gov/niem/structures/2.0"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">A relationship A data type for a relationship between a Single Streamlined Form (SSF) signer and an authorized representative.</xsd:documentation>
+      </xsd:annotation>
+      <xsd:complexContent>
+         <xsd:extension base="s:ComplexObjectType">
+            <xsd:sequence>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:AuthorizedRepresentativeReference"/>
+               <xsd:element maxOccurs="1" minOccurs="1" ref="hix-ee:Signature"/>
+            </xsd:sequence>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:complexType abstract="false" mixed="false" name="SSFSignerType">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:Base i:name="ApplicantType" i:namespace="http://hix.cms.gov/0.1/hix-core"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">A data type for a person who signs a Single Streamlined Form (SSF) insurance application, including the attestations, and is therefore able to make decisions regarding the application (including assigning an authorized representative).</xsd:documentation>
+      </xsd:annotation>
+      <xsd:complexContent>
+         <xsd:extension base="hix-core:ApplicantType">
+            <xsd:sequence>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:Signature"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:SSFSignerAuthorizedRepresentativeAssociation"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:SSFAttestation"/>
+            </xsd:sequence>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:complexType abstract="false" mixed="false" name="SpecialEnrollmentPeriodType">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:Base i:name="Object" i:namespace="http://niem.gov/niem/structures/2.0"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">A data type for an enrollment period outside of open (annual or initial) enrollment.</xsd:documentation>
+      </xsd:annotation>
+      <xsd:complexContent>
+         <xsd:extension base="s:ComplexObjectType">
+            <xsd:sequence>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:SEPQualifyingEventDate"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:SEPPriorLocation"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:SEPQualifyingEventCategoryCode"/>
+            </xsd:sequence>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:complexType abstract="false" mixed="false" name="TaxDependentType">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:Base i:name="Object" i:namespace="http://niem.gov/niem/structures/2.0"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">A data type for a person claimed as a tax dependent.</xsd:documentation>
+      </xsd:annotation>
+      <xsd:complexContent>
+         <xsd:extension base="s:ComplexObjectType">
+            <xsd:sequence>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-core:RoleOfPersonReference"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-core:TINIdentification"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:TaxDependentClaimedByCustodialParentIndicator"/>
+            </xsd:sequence>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:complexType abstract="false" mixed="false" name="TaxFilerType">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:Base i:name="Object" i:namespace="http://niem.gov/niem/structures/2.0"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">A data type for a person that files a tax return.</xsd:documentation>
+      </xsd:annotation>
+      <xsd:complexContent>
+         <xsd:extension base="s:ComplexObjectType">
+            <xsd:sequence>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-core:TINIdentification"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-core:RoleOfPersonReference"/>
+            </xsd:sequence>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:complexType abstract="false" mixed="false" name="TaxHouseholdType">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:Base i:name="HouseholdType" i:namespace="http://hix.cms.gov/0.1/hix-ee"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">A data type for a collection of persons to be treated as a household unit for tax purposes.</xsd:documentation>
+      </xsd:annotation>
+      <xsd:complexContent>
+         <xsd:extension base="hix-ee:HouseholdType">
+            <xsd:sequence/>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:complexType abstract="false" mixed="false" name="TaxReturnType">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:Base i:name="Object" i:namespace="http://niem.gov/niem/structures/2.0"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">A data type for a tax return as filed with the Internal Revenue Service.</xsd:documentation>
+      </xsd:annotation>
+      <xsd:complexContent>
+         <xsd:extension base="s:ComplexObjectType">
+            <xsd:sequence>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:TaxReturnTotalExemptionsQuantity"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:TaxReturnFilingStatusCode"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:TaxReturnYear"/>
+               <xsd:element maxOccurs="1" minOccurs="1" ref="hix-ee:TaxHousehold"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:TaxReturnIncludesDependentIndicator"/>
+            </xsd:sequence>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+</xsd:schema>

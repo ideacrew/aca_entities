@@ -69,6 +69,7 @@ module AcaEntities
         # @option opts [Boolean] :is_claimed_as_dependent_by_non_applicant optional
         # @option opts [hash] :mitc_income optional
         # @option opts [Array] :mitc_relationships optional
+        # @option opts [Boolean] :mitc_is_required_to_file_taxes optional
         # @option opts [AcaEntities::MagiMedicaid::Contracts::BenchmarkPremiumContract] :benchmark_premium required
         # @option opts [Bool] :is_homeless required
         # @return [Dry::Monads::Result]
@@ -162,6 +163,7 @@ module AcaEntities
           # Set of attributes specific to MitC which helps to not have much logic in IapTo MitC Transform.
           optional(:mitc_income).hash(AcaEntities::MagiMedicaid::Mitc::Contracts::IncomeContract.params)
           optional(:mitc_relationships).array(AcaEntities::MagiMedicaid::Mitc::Contracts::RelationshipContract.params)
+          optional(:mitc_is_required_to_file_taxes).maybe(:bool)
 
         end
       end

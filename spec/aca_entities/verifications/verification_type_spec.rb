@@ -43,11 +43,11 @@ RSpec.describe ::AcaEntities::Verifications::VerificationType, dbclean: :after_e
     end
   end
 
-  describe 'with invalid arguments' do
-    it 'should raise error' do
-      expect { described_class.new(input_params.reject { |k, _v| k == :type_name }) }.to raise_error(Dry::Struct::Error, /:type_name is missing/)
-    end
-  end
+  # describe 'with invalid arguments' do
+  #   it 'should raise error' do
+  #     expect { described_class.new(input_params.reject { |k, _v| k == :type_name }) }.to raise_error(Dry::Struct::Error, /:type_name is missing/)
+  #   end
+  # end
 end
 
 
