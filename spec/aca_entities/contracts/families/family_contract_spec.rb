@@ -871,6 +871,108 @@ RSpec.describe AcaEntities::Contracts::Families::FamilyContract,  dbclean: :afte
                        hbx_id: ['is missing'] }
         expect(@errors[:magi_medicaid_applications][1]).to eq(error_hash)
       end
+
+      context 'validates ENR notice payload' do
+        let(:enr_params) do
+          { :hbx_id => "10365",
+            :family_members => [
+              { :is_primary_applicant => true,
+                :person => {
+                  :hbx_id => "1005166",
+                  :person_name => { :first_name => "aqhp10", :last_name => "last" },
+                  :person_demographics => { :ssn => "523542433", :gender => "male", :dob => "2003-07-01", :is_incarcerated => false },
+                  :person_health => { :is_tobacco_user => "unknown" },
+                  :is_active => true, :is_disabled => nil, :verification_types => []
+                } }
+            ],
+            :households => [
+              {
+                :start_date => "2021-07-10",
+                :is_active => true,
+                :coverage_households => [
+                  {
+                    :is_immediate_family => true,
+                    :coverage_household_members => [{ :is_subscriber => true }]
+                  },
+                  {
+                    :is_immediate_family => false,
+                    :coverage_household_members => []
+                  }
+                ],
+                :hbx_enrollments => [
+                  {
+                    :effective_on => "2021-07-01",
+                    :aasm_state => "coverage_selected",
+                    :market_place_kind => "individual",
+                    :enrollment_period_kind => "special_enrollment",
+                    :product_kind => "health",
+                    :product_reference => {
+                      :hios_id => "48396ME0710040-01",
+                      :name => "Anthem Catastrophic X HMO 8550",
+                      :active_year => 2021,
+                      :is_dental_only => false,
+                      :metal_level => "catastrophic",
+                      :benefit_market_kind => "aca_individual",
+                      :product_kind => "health",
+                      :csr_variant_id => "01",
+                      :is_csr => false,
+                      :family_deductible => "$8550 per person | $17100 per group",
+                      :individual_deductible => "$8,550",
+                      :issuer_profile_reference => { :hbx_id => "100241", :name => "Anthem Blue Cross and Blue Shield", :abbrev => "ANTHM" }
+                    },
+                    :issuer_profile_reference => {
+                      :hbx_id => "100241",
+                      :name => "Anthem Blue Cross and Blue Shield",
+                      :abbrev => "ANTHM",
+                      :phone => "1111111111"
+                    },
+                    :special_enrollment_period_reference => {
+                      :qualifying_life_event_kind_reference => {
+                        :start_on => "2021-05-20",
+                        :title => "Had a baby",
+                        :reason => "birth",
+                        :market_kind => "individual"
+                      },
+                      :qle_on => "2021-07-01",
+                      :start_on => "2021-07-01",
+                      :end_on => "2021-08-30",
+                      :effective_on => "2021-07-01",
+                      :submitted_at => "2021-07-10T12:12:53.000+00:00"
+                    },
+                    :total_premium => 162.56,
+                    :is_receiving_assistance => false,
+                    :consumer_role_reference => {
+                      :is_active => true,
+                      :is_applying_coverage => true,
+                      :is_applicant => true,
+                      :is_state_resident => false,
+                      :lawful_presence_determination => {},
+                      :citizen_status => "us_citizen"
+                    },
+                    :hbx_enrollment_members => [
+                      {
+                        :family_member_reference => {
+                          :family_member_hbx_id => "1005166",
+                          :first_name => "aqhp10",
+                          :last_name => "last",
+                          :person_hbx_id => "1005166",
+                          :is_primary_family_member => true,
+                          :age => 18
+                        },
+                        :is_subscriber => true, :eligibility_date => "2021-07-01", :coverage_start_on => "2021-07-01"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ], :documents_needed => false }
+        end
+
+        it 'should return success' do
+          result = subject.call(enr_params)
+          expect(result.success?).to be_truthy
+        end
+      end
     end
   end
 end
