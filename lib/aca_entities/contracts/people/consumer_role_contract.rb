@@ -37,7 +37,7 @@ module AcaEntities
         # @return [Dry::Monads::Result]
         params do
           optional(:five_year_bar).maybe(:bool)
-          optional(:requested_coverage_start_date).value(:date?)
+          optional(:requested_coverage_start_date).value(:date)
           optional(:aasm_state).maybe(:string)
           optional(:is_applicant).filled(:bool)
           optional(:birth_location).maybe(:string)

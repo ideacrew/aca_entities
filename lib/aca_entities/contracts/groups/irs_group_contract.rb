@@ -14,8 +14,8 @@ module AcaEntities
         # @return [Dry::Monads::Result]
         params do
           optional(:hbx_id).value(:str?)
-          optional(:start_on).value(:date?)
-          optional(:end_on).value(:date?)
+          optional(:start_on).value(:date)
+          optional(:end_on).value(:date)
           optional(:is_active).maybe(:bool)
         end
       end

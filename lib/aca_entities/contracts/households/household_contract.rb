@@ -17,8 +17,8 @@ module AcaEntities
         # @option opts [Hash] :hbx_enrollments optional
         # @return [Dry::Monads::Result]
         params do
-          required(:start_date).value(:date?)
-          optional(:end_date).value(:date?)
+          required(:start_date).value(:date)
+          optional(:end_date).value(:date)
           required(:is_active).filled(:bool)
           optional(:submitted_at).filled(:date)
           optional(:irs_group_reference).hash(AcaEntities::Contracts::Groups::IrsGroupReferenceContract.params)
