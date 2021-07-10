@@ -21,7 +21,7 @@ module AcaEntities
           optional(:end_date).value(:date?)
           required(:is_active).filled(:bool)
           optional(:submitted_at).filled(:date)
-          required(:irs_group_reference).hash(AcaEntities::Contracts::Groups::IrsGroupReferenceContract.params)
+          optional(:irs_group_reference).hash(AcaEntities::Contracts::Groups::IrsGroupReferenceContract.params)
           optional(:tax_households).array(AcaEntities::Contracts::Households::TaxHouseholdContract.params)
           required(:coverage_households).array(AcaEntities::Contracts::Households::CoverageHouseholdContract.params)
           required(:hbx_enrollments).array(AcaEntities::Contracts::Enrollments::HbxEnrollmentContract.params)
