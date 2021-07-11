@@ -87,6 +87,7 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Applicant, dbclean: :after_each do
         family_member_reference: family_member_reference,
         person_hbx_id: '95',
         is_required_to_file_taxes: false,
+        is_filing_as_head_of_household: false,
         pregnancy_information: pregnancy_information,
         has_job_income: true,
         has_self_employment_income: false,

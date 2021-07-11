@@ -22,6 +22,7 @@ module AcaEntities
         # @option opts [Hash] :family_member_reference required
         # @option opts [String] :person_hbx_id required
         # @option opts [Boolean] :is_required_to_file_taxes required
+        # @option opts [Boolean] :is_filing_as_head_of_household optional
         # @option opts [Boolean] :is_joint_tax_filing optional
         # @option opts [Boolean] :is_claimed_as_tax_dependent optional
         # @option opts [Hash] :claimed_as_tax_dependent_by optional
@@ -89,6 +90,7 @@ module AcaEntities
           required(:family_member_reference).hash(::AcaEntities::Contracts::Families::FamilyMemberReferenceContract.params)
           required(:person_hbx_id).filled(:string)
           required(:is_required_to_file_taxes).filled(:bool)
+          optional(:is_filing_as_head_of_household).maybe(:bool)
           optional(:is_joint_tax_filing).maybe(:bool)
           optional(:is_claimed_as_tax_dependent).maybe(:bool)
           optional(:claimed_as_tax_dependent_by).maybe(ApplicantReferenceContract.params)
