@@ -14,6 +14,7 @@ module AcaEntities
 
             attribute :id, String, namespace: "niem-s"
 
+            has_one :eligibility_determination, EligibilityDetermination
             has_one :income_eligibility_basis, MedicaidMagiIncomeEligibilityBasis
             has_one :residency_eligibility_basis, MedicaidMagiResidencyEligibilityBasis
             has_one :household_size_eligibility_basis, MedicaidHouseholdSizeEligibilityBasis
@@ -33,8 +34,10 @@ module AcaEntities
             has_one :eligibility_date_range, EligibilityDateRange
             has_one :eligibility_establishing_system, EligibilityEstablishingSystem
 
-            def self.domain_to_mapper(_medicaid_eligibility)
-              self.new
+            def self.domain_to_mapper(medicaid_magi_eligibility)
+              mapper = self.new
+              mapper.eligibility_determination = EligibilityDetermination.domain_to_mapper(medicaid_magi_eligibility.eligibility_determination)
+              mapper
             end
 
             def to_hash # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity

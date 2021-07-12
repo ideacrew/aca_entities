@@ -83,6 +83,7 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
       blindness_or_disability_indicator: false,
       lawful_presence_status: lawful_presence_status,
       long_term_care_indicator: false,
+      medicaid_magi_eligibilities: [medicaid_magi_eligibility],
       chip_eligibilities: [trafficking_victim_category_eligibility_basis],
       temporarily_lives_outside_application_state_indicator: false,
       foster_care_indicator: false,
@@ -208,6 +209,19 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
         eligibility_indicator: true,
         eligibility_basis_status_code: "Complete"
       }
+    }
+  end
+
+  let(:medicaid_magi_eligibility) do
+    {
+      eligibility_determination: eligibility_determination
+    }
+  end
+
+  let(:eligibility_determination) do
+    { 
+      activity_identification: { identification_id: "MET00000000001887090" },
+      activity_date: { date_time: DateTime.now }
     }
   end
 

@@ -111,6 +111,9 @@ module AcaEntities
               mapper.chip_eligibilities = insurance_applicant.chip_eligibilities.map do |chip_eligibility|
                 ChipEligibility.domain_to_mapper(chip_eligibility)
               end
+              mapper.medicaid_magi_eligibilities = insurance_applicant.medicaid_magi_eligibilities.map do |medicaid_magi_eligibility|
+                MedicaidMagiEligibility.domain_to_mapper(medicaid_magi_eligibility)
+              end
               mapper.referral_activity = ReferralActivity.domain_to_mapper(insurance_applicant.referral_activity)
               mapper
             end
