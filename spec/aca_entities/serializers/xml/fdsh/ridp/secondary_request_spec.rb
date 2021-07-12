@@ -14,16 +14,16 @@ RSpec.describe AcaEntities::Serializers::Xml::Fdsh::Ridp::SecondaryRequest,
         VerificationAnswerSet: {
           VerificationAnswers: [
             {
-              VerificatonAnswer: 0o1,
-              VerificationQuestionNumber: 0o1
+              VerificatonAnswer: 1,
+              VerificationQuestionNumber: 1
             },
             {
-              VerificatonAnswer: 0o4,
-              VerificationQuestionNumber: 0o2
+              VerificatonAnswer: 4,
+              VerificationQuestionNumber: 2
             },
             {
-              VerificatonAnswer: 0o2,
-              VerificationQuestionNumber: 0o3
+              VerificatonAnswer: 2,
+              VerificationQuestionNumber: 3
             }
           ]
         }
