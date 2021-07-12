@@ -30,7 +30,7 @@ require 'aca_entities/medicaid/atp/applicant'
 
 RSpec.describe ::AcaEntities::Medicaid::Atp::Applicant, dbclean: :after_each do
   let(:required_params) do
-    { person_name: { first_name: 'ivl40', last_name: '41' },
+    { person_name: { given: 'ivl40', sur: '41' },
       demographic: { dob: Date.new(2000, 1, 1), gender: 'Male' },
       citizenship_immigration_status_information: { us_citizen: true },
       native_american_information: { is_native_american_or_alaska_native: false } }
@@ -39,7 +39,7 @@ RSpec.describe ::AcaEntities::Medicaid::Atp::Applicant, dbclean: :after_each do
   context 'invalid params' do
     context 'with empty params' do
       it 'should raise error' do
-        expect {subject}.to raise_error(Dry::Struct::Error, /:first_name is missing in Hash input/)
+        expect {subject}.to raise_error(Dry::Struct::Error, /:given is missing in Hash input/)
       end
     end
   end

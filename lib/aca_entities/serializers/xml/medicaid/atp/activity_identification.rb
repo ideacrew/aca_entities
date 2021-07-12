@@ -8,7 +8,6 @@ module AcaEntities
           # Include XML element and type definitions.
           class ActivityIdentification
             include HappyMapper
-            register_namespace 'nc', 'http://niem.gov/niem/niem-core/2.0'
 
             tag 'ActivityIdentification'
             namespace 'nc'
@@ -17,10 +16,18 @@ module AcaEntities
             element :identification_category_text, String, tag: "IdentificationCategoryText", namespace: "nc"
             element :identification_jurisdication, String, tag: "IdentificationJurisdictionISO3166Alpha3Code", namespace: "nc"
 
-            def self.domain_to_mapper(id)
+            def self.domain_to_mapper(identification)
               mapper = self.new
-              mapper.identification_id = id
+              mapper.identification_id = identification.identification_id
               mapper
+            end
+
+            def to_hash
+              {
+                identification_id: identification_id,
+                identification_category_text: identification_category_text,
+                identification_jurisdication: identification_jurisdication
+              }
             end
           end
         end

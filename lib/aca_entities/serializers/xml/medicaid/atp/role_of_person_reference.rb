@@ -8,18 +8,22 @@ module AcaEntities
           # Include XML element and type definitions.
           class RoleOfPersonReference
             include HappyMapper
-            register_namespace 'hix-core', 'http://hix.cms.gov/0.1/hix-core'
-            register_namespace 'niem-s', 'http://niem.gov/niem/structures/2.0'
 
             tag 'RoleOfPersonReference'
             namespace 'hix-core'
 
             attribute :ref, String, namespace: "niem-s"
 
-            def self.domain_to_mapper(_insurance_application)
+            def self.domain_to_mapper(role)
               mapper = self.new
-              mapper.ref = "a-person-id"
+              mapper.ref = role.ref
               mapper
+            end
+
+            def to_hash
+              {
+                ref: ref
+              }
             end
           end
         end

@@ -8,8 +8,6 @@ module AcaEntities
           # Include XML element and type definitions.
           class ApplicationIdentification
             include HappyMapper
-            register_namespace 'hix-core', 'http://hix.cms.gov/0.1/hix-core'
-            register_namespace 'nc', 'http://niem.gov/niem/niem-core/2.0'
 
             tag 'ApplicationIdentification'
             namespace 'hix-core'
@@ -20,8 +18,16 @@ module AcaEntities
 
             def self.domain_to_mapper(id)
               mapper = self.new
-              mapper.identification_id = id
+              mapper.identification_id = id.identification_id
               mapper
+            end
+
+            def to_hash
+              {
+                identification_id: identification_id,
+                identification_category_text: identification_category_text,
+                identification_jurisdication: identification_jurisdication
+              }
             end
           end
         end

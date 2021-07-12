@@ -5,7 +5,6 @@ module AcaEntities
     module Atp
       # entity for atp address
       class Address < Dry::Struct
-
         attribute :fixed_address_indicator,          Types::Bool.meta(omittable: false)
         attribute :address_type_code,                Types::String.optional.meta(omittable: true)
         attribute :street_name_1,                    Types::String.optional.meta(omittable: true)

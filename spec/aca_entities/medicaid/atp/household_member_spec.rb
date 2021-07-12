@@ -15,7 +15,7 @@ require 'aca_entities/medicaid/atp/household_member'
 
 RSpec.describe ::AcaEntities::Medicaid::Atp::HouseholdMember, dbclean: :after_each do
   let(:required_params) do
-    { person_name: { first_name: 'ivl40', last_name: '41' },
+    { person_name: { given: 'ivl40', sur: '41' },
       demographic: { dob: Date.new(2000, 1, 1), gender: 'Male' },
       relationships: [{ is_member_of_applicants_medicaid_household: false }] }
   end
@@ -23,7 +23,7 @@ RSpec.describe ::AcaEntities::Medicaid::Atp::HouseholdMember, dbclean: :after_ea
   context 'invalid params' do
     context 'with empty params' do
       it 'should raise error' do
-        expect {subject}.to raise_error(Dry::Struct::Error, /:first_name is missing in Hash input/)
+        expect {subject}.to raise_error(Dry::Struct::Error, /:given is missing in Hash input/)
       end
     end
   end
