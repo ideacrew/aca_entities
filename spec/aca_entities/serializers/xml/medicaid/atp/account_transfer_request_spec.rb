@@ -395,7 +395,7 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
   it "is schema valid" do
     document = Nokogiri::XML(mapper.to_xml)
     # puts mapper.to_xml
-    File.open('spec.xml', 'w') { |file| file.write(mapper.to_xml.to_s) }
+    # File.open('spec.xml', 'w') { |file| file.write(mapper.to_xml.to_s) }
 
     schema.validate(document).each do |error|
       puts "\n\n======= Schema Error ======="
