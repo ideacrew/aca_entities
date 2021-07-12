@@ -14,11 +14,14 @@ module AcaEntities
             tag 'VerificationAnswers'
             namespace 'ext'
 
-            element :VerificationQuestionNumber, String, tag: 'VerificationQuestionNumber'
             element :VerificatonAnswer, String, tag: 'VerificatonAnswer'
+            element :VerificationQuestionNumber, String, tag: 'VerificationQuestionNumber'
 
-            def self.domain_to_mapper(_verification_questions)
-              self.new
+            def self.domain_to_mapper(verification_answer)
+              mapper = self.new
+              mapper.VerificatonAnswer = verification_answer.VerificatonAnswer
+              mapper.VerificationQuestionNumber = verification_answer.VerificationQuestionNumber
+              mapper
             end
           end
         end

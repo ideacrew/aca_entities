@@ -54,7 +54,7 @@ module AcaEntities
           optional(:individual_market_transitions).maybe(:array).each(
             AcaEntities::Contracts::Determinations::IndividualMarketTransitionContract.params
           )
-          optional(:verification_types).maybe(:array).each(AcaEntities::Contracts::Verifications::VerificationTypeContract.params)
+          optional(:verification_types).array(AcaEntities::Contracts::Verifications::VerificationTypeContract.params)
           optional(:broker_role).maybe(AcaEntities::Contracts::Brokers::BrokerRoleContract.params)
           optional(:addresses).maybe(:array).each(AcaEntities::Contracts::Locations::AddressContract.params)
           optional(:phones).maybe(:array).each(AcaEntities::Contracts::Contacts::PhoneContactContract.params)

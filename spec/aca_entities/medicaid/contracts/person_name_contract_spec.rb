@@ -5,13 +5,14 @@ require 'aca_entities/medicaid/contracts/person_name_contract'
 
 RSpec.describe ::AcaEntities::Medicaid::Contracts::PersonNameContract, dbclean: :after_each do
 
-  let(:required_params) { { first_name: 'first', last_name: 'last' } }
+  let(:required_params) { { given: 'first', sur: 'last' } }
 
   let(:optional_params) do
-    { middle_name: 'middle',
-      name_sfx: 'suffix',
-      name_pfx: 'prefix' }
+    { middle: 'middle',
+      suffix: 'suffix',
+      full: 'first middle last suffix' }
   end
+
   let(:all_params) { required_params.merge(optional_params)}
 
   context 'invalid parameters' do

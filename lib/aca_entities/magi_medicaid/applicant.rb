@@ -23,6 +23,8 @@ module AcaEntities
       attribute :person_hbx_id, Types::String.meta(omittable: false)
 
       attribute :is_required_to_file_taxes, Types::Bool.optional.meta(omittable: true)
+      # Will this person be filing as head of household?
+      attribute :is_filing_as_head_of_household, Types::Bool.optional.meta(omittable: true)
       attribute :tax_filer_kind, Types::TaxFilerKind.optional.meta(omittable: true)
       attribute :is_joint_tax_filing, Types::Bool.optional.meta(omittable: true)
       attribute :is_claimed_as_tax_dependent, Types::Bool.optional.meta(omittable: true)
@@ -147,9 +149,7 @@ module AcaEntities
       attribute :mitc_income, AcaEntities::MagiMedicaid::Mitc::Income.optional.meta(omittable: true)
       attribute :mitc_relationships, Types::Array.of(AcaEntities::MagiMedicaid::Mitc::Relationship).optional.meta(omittable: true)
       attribute :mitc_is_required_to_file_taxes, Types::Bool.optional.meta(omittable: true)
-
       # mitc_is_required_to_file_taxes is special attribute that is used to bypass some of the Income rules of Mitc.
-
       # Mitc has some rules to Include/Exclude Income which do not match with any policy per Sarah:
       # 1. Your income is counted if you are Required to File Taxes
       # 2. Your income is NOT counted if you are in the Medicaid household of a parent/stepparent (in any household)

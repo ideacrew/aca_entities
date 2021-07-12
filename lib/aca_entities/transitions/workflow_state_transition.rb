@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module AcaEntities
-  module Transistions
+  module Transitions
     # Entity for WorkflowStateTransition
     class WorkflowStateTransition < Dry::Struct
 

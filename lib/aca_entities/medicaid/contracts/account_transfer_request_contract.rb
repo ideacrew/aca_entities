@@ -4,20 +4,21 @@ module AcaEntities
   module Medicaid
     module Contracts
       # Contract for AccountTransferRequest.
-      class AddressAccountTransferRequest < Dry::Validation::Contract
+      class AccountTransferRequestContract < Dry::Validation::Contract
 
         params do
+          optional(:version).maybe(:string)
           required(:transfer_header).filled(:hash)
           required(:insurance_application).filled(:hash)
-          required(:medicaid_household).filled(:hash)
-          required(:person).filled(:hash)
-          required(:sender).filled(:hash)
-          required(:receiver).filed(:hash)
-
-          required(:physical_household).schema do
-            required(:household_size_quantity).filled(:integer)
-            required(:household_member_reference).array(:integer)
-          end
+          required(:medicaid_households).filled(:array)
+          required(:people).array(:hash)
+          required(:senders).filled(:array)
+          required(:receivers).filled(:array)
+          required(:insurance_application).filled(:hash)
+          optional(:medicaid_households).maybe(:array)
+          # optional(:assister).maybe(:array)
+          optional(:authorized_representative).maybe(:hash)
+          required(:physical_households).value(:array, min_size?: 1)
         end
       end
     end

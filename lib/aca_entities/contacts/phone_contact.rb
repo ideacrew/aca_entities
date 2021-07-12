@@ -9,7 +9,7 @@ module AcaEntities
       attribute :area_code, Types::String.optional.meta(omittable: false)
       attribute :number, Types::String.optional.meta(omittable: false)
       attribute :extension, Types::String.optional.meta(omittable: true)
-      attribute :primary, Types::Strict::Bool.meta(omittable: false)
+      attribute :primary, Types::Bool.optional.meta(omittable: false)
       attribute :full_phone_number, Types::String.optional.meta(omittable: true)
       attribute :start_on, Types::Date.optional.meta(omittable: true)
       attribute :end_on, Types::Date.optional.meta(omittable: true)

@@ -84,6 +84,7 @@ module AcaEntities
       require 'aca_entities/identifiers/id'
       require 'aca_entities/transitions/workflow_state_transition'
       require 'aca_entities/evidences/ridp_evidence'
+      require 'aca_entities/attestations/ridp_attestation'
       require 'aca_entities/attestations/attestation'
       require 'aca_entities/accounts/user'
       require 'aca_entities/organizations/issuer_profile_reference'

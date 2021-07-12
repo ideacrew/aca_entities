@@ -16,8 +16,8 @@ module AcaEntities
         # @option opts [Hash] :updated_by optional
         # @return [Dry::Monads::Result]
         params do
-          required(:start_on).value(:date?)
-          optional(:end_on).value(:date?)
+          required(:start_on).value(:date)
+          optional(:end_on).value(:date)
           optional(:is_active).maybe(:bool)
           optional(:aasm_state).maybe(AcaEntities::Types::GaState)
           required(:broker_role_reference).hash(AcaEntities::Contracts::Brokers::BrokerRoleReferenceContract.params)

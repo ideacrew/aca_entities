@@ -16,7 +16,7 @@ module AcaEntities
           required(:is_applicant).value(:bool?)
           optional(:is_active).maybe(:bool)
           required(:is_state_resident).value(:bool?)
-          optional(:residency_determined_at).value(:date?)
+          optional(:residency_determined_at).value(:date)
         end
       end
     end

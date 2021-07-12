@@ -40,7 +40,7 @@
                 <nc:FullTelephoneNumber>(410)888-8888</nc:FullTelephoneNumber>
             </nc:ContactTelephoneNumber>
         </ext:ContactInformation>
-        <ext:SubscriberNumber>1234567</ext:SubscriberNumber>
+        <ext:LevelOfProofingCode>LevelTwo</ext:LevelOfProofingCode>
         <ext:SubscriberNumber>1234567</ext:SubscriberNumber>
     </ext:PrimaryRequest>
 </exch:Request>

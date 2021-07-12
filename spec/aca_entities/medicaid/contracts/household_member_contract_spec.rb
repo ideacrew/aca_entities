@@ -19,7 +19,7 @@ RSpec.describe AcaEntities::Medicaid::Contracts::HouseholdMemberContract, type: 
   end
 
   let(:required_params) do
-    { person_name: { first_name: 'ivl40', last_name: '41' },
+    { person_name: { given: 'ivl40', sur: '41' },
       demographic: { dob: Date.new(2000, 1, 1), gender: 'Male' },
       relationships: [{ is_member_of_applicants_medicaid_household: false }] }
   end

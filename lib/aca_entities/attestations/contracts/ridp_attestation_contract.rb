@@ -6,8 +6,8 @@ module AcaEntities
     class RidpAttestationContract < Dry::Validation::Contract
 
       params do
-        required(:is_satisfied?).filled(:bool)
-        required(:is_self_attested?).filled(:bool)
+        required(:is_satisfied).filled(:bool)
+        required(:is_self_attested).filled(:bool)
         optional(:satisfied_at).maybe(:date_time)
         optional(:documents).array(AcaEntities::Contracts::Documents::RidpDocumentContract.params)
 
