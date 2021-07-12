@@ -37,7 +37,7 @@ module AcaEntities
 
           optional(:description).maybe(:string)
           optional(:contributor).maybe(:string)
-          optional(:date).value(:date?)
+          optional(:date).value(:date)
           optional(:identifier).maybe(:string)
           optional(:relation).maybe(:string)
           optional(:coverage).maybe(:string)

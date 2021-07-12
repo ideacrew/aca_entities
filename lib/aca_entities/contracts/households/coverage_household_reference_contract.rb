@@ -13,8 +13,8 @@ module AcaEntities
         # @option opts [Boolean] :is_determination_split_household optional
         # @return [Dry::Monads::Result]
         params do
-          optional(:start_date).value(:date?)
-          optional(:end_date).value(:date?)
+          optional(:start_date).value(:date)
+          optional(:end_date).value(:date)
           required(:is_immediate_family).value(:bool?)
           optional(:is_determination_split_household).maybe(:bool)
         end

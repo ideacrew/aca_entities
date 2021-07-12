@@ -16,7 +16,7 @@ module AcaEntities
 
             attribute :VerificationResponse do
               attribute :FinalDecisionCode,                Types::String.meta(omittable: false)
-              attribute :DSHReferenceNumber,               Types::String.meta(omittable: false)
+              attribute :DSHReferenceNumber,               Types::String.optional.meta(omittable: false)
               attribute :SessionIdentification,            Types::String.optional.meta(omittable: true)
             end
           end

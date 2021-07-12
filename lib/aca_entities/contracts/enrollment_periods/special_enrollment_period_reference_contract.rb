@@ -25,16 +25,16 @@ module AcaEntities
           required(:qualifying_life_event_kind_reference).hash(
             AcaEntities::Contracts::QualifyingLifeEvents::QualifyingLifeEventKindReferenceContract.params
           )
-          required(:qle_on).value(:date?)
-          required(:start_on).value(:date?)
-          required(:end_on).value(:date?)
-          required(:submitted_at).value(:date?)
-          required(:effective_on).value(:date?)
+          required(:qle_on).value(:date)
+          required(:start_on).value(:date)
+          required(:end_on).value(:date)
+          required(:submitted_at).value(:date)
+          required(:effective_on).value(:date)
 
-          optional(:next_poss_effective_date).value(:date?)
-          optional(:option1_date).value(:date?)
-          optional(:option2_date).value(:date?)
-          optional(:option3_date).value(:date?)
+          optional(:next_poss_effective_date).value(:date)
+          optional(:option1_date).value(:date)
+          optional(:option2_date).value(:date)
+          optional(:option3_date).value(:date)
           optional(:optional_effective_on).value(:array?)
           optional(:timestamp).hash(AcaEntities::Contracts::TimeStampContract.params)
         end

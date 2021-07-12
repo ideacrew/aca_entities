@@ -10,7 +10,7 @@ module AcaEntities
             required(:Person).schema do
               required(:PersonName).schema do
                 required(:PersonGivenName).filled(:string)
-                required(:PersonSurName).filled(:string)
+                required(:PersonSurName).filled(Types::ALLOWED_SURNAMES)
                 optional(:PersonMiddleName).maybe(:string)
                 optional(:PersonNameSuffixText).maybe(:string)
               end

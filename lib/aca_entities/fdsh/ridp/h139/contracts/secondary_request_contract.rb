@@ -10,7 +10,7 @@ module AcaEntities
             required(:SessionIdentification).filled(:string)
             required(:VerificationAnswerSet).schema do
               required(:VerificationAnswers).array(:hash) do
-                required(:VerificationAnswer).filled(:integer)
+                required(:VerificatonAnswer).filled(:integer)
                 required(:VerificationQuestionNumber).filled(:integer)
               end
             end

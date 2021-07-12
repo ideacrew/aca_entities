@@ -3,6 +3,7 @@
 require "happymapper"
 
 require_relative "ridp/person_name"
+require_relative "ridp/person_birth_date"
 require_relative "ridp/person"
 require_relative "ridp/response_metadata"
 require_relative "ridp/verification_question_set"
@@ -21,6 +22,7 @@ require_relative "ridp/primary_response"
 require_relative "ridp/secondary_request"
 require_relative "ridp/secondary_response"
 require_relative "ridp/request"
+require_relative "ridp/operations"
 
 module AcaEntities
   module Serializers

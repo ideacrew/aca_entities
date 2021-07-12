@@ -19,10 +19,10 @@ module AcaEntities
                 optional(:DSHReferenceNumber).maybe(:string)
                 optional(:FinalDecisionCode).maybe(:string)
 
-                required(:VerificationQuestions).schema do
-                  required(:VerificationQuestionSet).array(:hash) do
-                    required(:VerificationQuestionText).filled(:string)
-                    required(:VerificationAnswerChoiceText).filled(:string)
+                optional(:VerificationQuestions).schema do
+                  optional(:VerificationQuestionSet).array(:hash) do
+                    optional(:VerificationQuestionText).filled(:string)
+                    optional(:VerificationAnswerChoiceText).array(:string)
                   end
                 end
               end

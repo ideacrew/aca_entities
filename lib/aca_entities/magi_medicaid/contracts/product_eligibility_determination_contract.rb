@@ -40,7 +40,7 @@ module AcaEntities
           optional(:magi_as_percentage_of_fpl).maybe(Types::Money)
           optional(:magi_medicaid_category).maybe(Types::MagiMedicaidCategoryType)
 
-          optional(:medicaid_ineligibility_reasons).array(:string)
+          optional(:magi_medicaid_ineligibility_reasons).array(:string)
           optional(:is_eligible_for_non_magi_reasons).maybe(:bool)
           optional(:chip_ineligibility_reasons).array(:string)
           optional(:magi_medicaid_category_threshold).maybe(Types::Money)
