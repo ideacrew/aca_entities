@@ -11,7 +11,7 @@ module AcaEntities
             attribute :ResponseMetadata do
               attribute :ResponseCode,                      Types::String.meta(omittable: false)
               attribute :ResponseDescriptionText,           Types::String.meta(omittable: false)
-              attribute :TDSResponseDescriptionText,        Types::String.meta(omittable: true)
+              attribute :TDSResponseDescriptionText,        Types::String.optional.meta(omittable: true)
             end
 
             attribute :VerificationResponse do
@@ -19,10 +19,10 @@ module AcaEntities
               attribute :DSHReferenceNumber,                Types::String.optional.meta(omittable: true)
               attribute :FinalDecisionCode,                 Types::String.optional.meta(omittable: true) # TODO: enum
 
-              attribute :VerificationQuestions do
+              attribute? :VerificationQuestions do
                 attribute :VerificationQuestionSet, Types::Array do
-                  attribute :VerificationQuestionText,        Types::String.meta(omittable: false)
-                  attribute :VerificationAnswerChoiceText,    Types::String.meta(omittable: false)
+                  attribute :VerificationQuestionText,        Types::String.optional.meta(omittable: true)
+                  attribute :VerificationAnswerChoiceText,    Types::Array.optional.meta(omittable: true)
                 end
               end
             end

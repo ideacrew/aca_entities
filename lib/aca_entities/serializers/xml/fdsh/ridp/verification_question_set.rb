@@ -15,7 +15,7 @@ module AcaEntities
             namespace 'ext'
 
             element :VerificationQuestionText, String, tag: 'VerificationQuestionText'
-            element :VerificationAnswerChoiceText, String, tag: 'VerificationAnswerChoiceText'
+            has_many :VerificationAnswerChoiceTexts, String, tag: 'VerificationAnswerChoiceText'
 
             def self.domain_to_mapper(_verification_question_set)
               self.new
