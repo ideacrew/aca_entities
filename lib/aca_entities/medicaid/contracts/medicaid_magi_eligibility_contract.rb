@@ -8,6 +8,9 @@ module AcaEntities
 
         params do
           optional(:eligibility_determination).maybe(:hash)
+          optional(:eligibility_indicator).maybe(:bool)
+          optional(:eligibility_reason_text).maybe(:string)
+          optional(:income_eligibility_basis).maybe(:hash)
         end
       end
     end

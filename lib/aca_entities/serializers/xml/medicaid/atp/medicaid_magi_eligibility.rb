@@ -15,6 +15,8 @@ module AcaEntities
             attribute :id, String, namespace: "niem-s"
 
             has_one :eligibility_determination, EligibilityDetermination
+            element :eligibility_indicator, Boolean, tag: "EligibilityIndicator", namespace: "hix-ee"
+            element :eligibility_reason_text, String, tag: "EligibilityReasonText", namespace: "hix-ee"
             has_one :income_eligibility_basis, MedicaidMagiIncomeEligibilityBasis
             has_one :residency_eligibility_basis, MedicaidMagiResidencyEligibilityBasis
             has_one :household_size_eligibility_basis, MedicaidHouseholdSizeEligibilityBasis
@@ -37,6 +39,8 @@ module AcaEntities
             def self.domain_to_mapper(medicaid_magi_eligibility)
               mapper = self.new
               mapper.eligibility_determination = EligibilityDetermination.domain_to_mapper(medicaid_magi_eligibility.eligibility_determination)
+              mapper.eligibility_indicator = medicaid_magi_eligibility.eligibility_indicator
+              mapper.income_eligibility_basis = MedicaidMagiIncomeEligibilityBasis.domain_to_mapper(medicaid_magi_eligibility.income_eligibility_basis)
               mapper
             end
 

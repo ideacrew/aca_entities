@@ -214,7 +214,11 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
 
   let(:medicaid_magi_eligibility) do
     {
-      eligibility_determination: eligibility_determination
+      eligibility_determination: eligibility_determination,
+      eligibility_indicator: false,
+      eligibility_reason_text: "123",
+      income_eligibility_basis: medicaid_magi_income_eligibility_basis,
+      state_threshold_fpl_percent: "116"
     }
   end
 
@@ -222,6 +226,32 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
     { 
       activity_identification: { identification_id: "MET00000000001887090" },
       activity_date: { date_time: DateTime.now }
+    }
+  end
+
+  let(:medicaid_magi_income_eligibility_basis) do
+    {
+      eligibility_basis_status_code: "Complete",
+      status_indicator: true,
+      ineligibility_reason_text: "123",
+      eligibility_basis_determination:
+        {
+          activity_identification: { identification_id: "MET00000000001887090" },
+          activity_date: { date_time: DateTime.now }
+        },
+      income_compatibility: income_compatibility
+    }
+  end
+
+  let(:income_compatibility) do
+    { verification_indicator: true,
+      inconsistency_reason_text: "123",
+      compatibility_determination:
+        {
+          activity_identification: { identification_id: "MET00000000001887090" },
+          activity_date: { date_time: DateTime.now }
+        },
+      verification_method: "1"
     }
   end
 
