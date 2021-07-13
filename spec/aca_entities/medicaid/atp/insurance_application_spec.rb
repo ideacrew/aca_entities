@@ -38,7 +38,8 @@ RSpec.describe ::AcaEntities::Medicaid::Atp::InsuranceApplication, dbclean: :aft
         ssf_signer: ssf_signer,
         application_creation: application_creation,
         application_submission: application_submission,
-        application_identifications: [application_identification]
+        application_identifications: [application_identification],
+        assister_association: assister_association
       }
     end
 
@@ -118,6 +119,13 @@ RSpec.describe ::AcaEntities::Medicaid::Atp::InsuranceApplication, dbclean: :aft
     let(:application_identification) do
       {
         identification_id: "Exchange"
+      }
+    end
+
+    let(:assister_association) do
+      {
+        begin_date: { date_time: DateTime.now },
+        assister_reference: { ref: "a-assister-id" }
       }
     end
 

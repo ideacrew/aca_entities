@@ -30,6 +30,7 @@ module AcaEntities
             has_one :assister, Assister
             has_one :authorized_representative, AuthorizedRepresentative
             has_many :medicaid_households, MedicaidHousehold
+            has_many :verification_metadata, VerificationMetadata
 
             def self.domain_to_mapper(account_transfer_request)
               mapper = self.new
@@ -40,6 +41,10 @@ module AcaEntities
               mapper.insurance_application = InsuranceApplication.domain_to_mapper(account_transfer_request.insurance_application)
               mapper.people = account_transfer_request.people.map {|p| Person.domain_to_mapper(p)}
               mapper.physical_households = account_transfer_request.physical_households.map {|ph| PhysicalHousehold.domain_to_mapper(ph)}
+              mapper.medicaid_households = account_transfer_request.medicaid_households.map {|vm| MedicaidHousehold.domain_to_mapper(vm)}
+              if account_transfer_request.verification_metadata && !account_transfer_request.verification_metadata.nil
+                mapper.verification_metadata = account_transfer_request.verification_metadata.map {|vm| VerificationMetadata.domain_to_mapper(vm)}
+              end
               mapper
             end
 

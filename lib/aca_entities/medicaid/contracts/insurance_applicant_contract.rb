@@ -17,6 +17,8 @@ module AcaEntities
           optional(:temporarily_lives_outside_application_state_indicator).maybe(:bool)
           optional(:incarcerations).maybe(:hash)
           optional(:referral_activity).maybe(:hash)
+          optional(:foster_care_state).maybe(:string)
+          optional(:non_esi_coverage_indicators).maybe(:array)
         end
       end
     end

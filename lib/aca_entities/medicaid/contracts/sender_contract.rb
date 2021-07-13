@@ -7,7 +7,8 @@ module AcaEntities
       class SenderContract < Dry::Validation::Contract
 
         params do
-          required(:category_code).maybe(:string)
+          required(:id).filled(:string)
+          required(:category_code).filled(:string)
           optional(:state_code).maybe(:string)
           optional(:county_name).maybe(:string)
         end

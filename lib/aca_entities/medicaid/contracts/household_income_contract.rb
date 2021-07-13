@@ -14,7 +14,15 @@ module AcaEntities
           optional(:income_from_tribal_source).maybe(:float)
           optional(:monthly_attested_medicaid_household_current_income).maybe(:float)
           optional(:annual_total_project_medicaid_household_current_income).maybe(:float)
-
+          optional(:hours_per_week).maybe(:float)
+          optional(:hours_per_pay_period).maybe(:float)
+          optional(:days_per_week).maybe(:float)
+          optional(:date).maybe(:hash)
+          optional(:source_organization_reference).maybe(:hash)
+          optional(:payment_frequency).maybe(:hash)
+          optional(:earned_date_range).maybe(:hash)
+          optional(:description_text).maybe(:string)
+          optional(:employment_source_text).maybe(:string)
         end
       end
     end

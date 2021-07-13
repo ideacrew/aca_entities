@@ -8,7 +8,6 @@ module AcaEntities
           # Include XML element and type definitions. A data type for how to contact a person or an organization.
           class LocationStreet
             include HappyMapper
-            register_namespace 'nc', 'http://niem.gov/niem/niem-core/2.0'
 
             tag 'LocationStreet'
             namespace 'nc'
