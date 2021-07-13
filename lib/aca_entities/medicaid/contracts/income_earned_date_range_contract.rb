@@ -3,8 +3,8 @@
 module AcaEntities
   module Medicaid
     module Contracts
-      # Contract for StatusValidDateRange.
-      class StatusValidDateRangeContract < Dry::Validation::Contract
+      # Contract for IncomeEarnedDateRange.
+      class IncomeEarnedDateRangeContract < Dry::Validation::Contract
 
         params do
           optional(:start_date).maybe(:hash)
