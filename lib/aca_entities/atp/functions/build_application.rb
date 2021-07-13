@@ -439,8 +439,8 @@ module AcaEntities
             has_state_health_benefit: false, # default value
             had_prior_insurance: false, # default value
             # prior_insurance_end_date: Date.parse("2021-05-07"), # default value
-            age_of_applicant: AcaEntities::Functions::AgeOn.new(on_date: Date.today)
-                                                           .call(@memoized_data.find(Regexp.new("person_demographics.dob.#{@applicant_identifier}"))&.first&.item),
+            age_of_applicant: AcaEntities::Functions::AgeOn.new(on_date: Date.today.strftime('%Y/%m/%d'))
+                                                           .call(Date.strptime(@memoized_data.find(Regexp.new("person_demographics.dob.#{@applicant_identifier}"))&.first&.item, "%m/%d/%Y").strftime('%Y/%m/%d')),
             is_self_attested_long_term_care: non_magi.nil? ? false : non_magi[:longTermCareIndicator],
             hours_worked_per_week: '2'
           }
