@@ -20,7 +20,7 @@ module AcaEntities
               attribute :FinalDecisionCode,                 Types::String.optional.meta(omittable: true) # TODO: enum
 
               attribute? :VerificationQuestions do
-                attribute :VerificationQuestionSet, Types::Array do
+                attribute? :VerificationQuestionSet, Types::Array do
                   attribute :VerificationQuestionText,        Types::String.optional.meta(omittable: true)
                   attribute :VerificationAnswerChoiceText,    Types::Array.optional.meta(omittable: true)
                 end

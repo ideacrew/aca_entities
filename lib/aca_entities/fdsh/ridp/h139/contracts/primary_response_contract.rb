@@ -4,6 +4,16 @@ module AcaEntities
   module Fdsh
     module Ridp
       module H139
+        # contract for VerificationQuestionSet
+        class VerificationQuestionSetContract < Dry::Validation::Contract
+          params do
+            optional(:VerificationQuestionSet).array(:hash) do
+              optional(:VerificationQuestionText).filled(:string)
+              optional(:VerificationAnswerChoiceText).array(:string)
+            end
+          end
+        end
+
         # contract for PrimaryResponse
         class PrimaryResponseContract < Dry::Validation::Contract
           params do
@@ -19,12 +29,7 @@ module AcaEntities
                 optional(:DSHReferenceNumber).maybe(:string)
                 optional(:FinalDecisionCode).maybe(:string)
 
-                optional(:VerificationQuestions).schema do
-                  optional(:VerificationQuestionSet).array(:hash) do
-                    optional(:VerificationQuestionText).filled(:string)
-                    optional(:VerificationAnswerChoiceText).array(:string)
-                  end
-                end
+                optional(:VerificationQuestions).maybe(AcaEntities::Fdsh::Ridp::H139::VerificationQuestionSetContract.params)
               end
             end
           end
