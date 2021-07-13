@@ -45,8 +45,24 @@ module AcaEntities
             # A description of the source of an income received as unemployment compensation (e.g. the name of a state or employer).
             element :employment_source_text, String, tag: 'IncomeUnemploymentSourceText', namespace: "hix-core"
 
-            def self.domain_to_mapper(_person)
-              self.new
+            def self.domain_to_mapper(person_income)
+              mapper = self.new
+              mapper.employment_source_text = person_income.employment_source_text
+              mapper.amount = person_income.amount
+              mapper.days_per_week = person_income.days_per_week
+              mapper.hours_per_pay_period = person_income.hours_per_pay_period
+              mapper.hours_per_week = person_income.hours_per_week
+              mapper.category_code = person_income.category_code
+              mapper.description_text = person_income.description_text
+              mapper.subject_to_federal_restrictions_indicator = person_income.subject_to_federal_restrictions_indicator
+              mapper.date = IncomeDate.domain_to_mapper(person_income.date)
+              if person_income.earned_date_range
+                mapper.earned_date_range = IncomeEarnedDateRange.domain_to_mapper(person_income.earned_date_range)
+              end
+              mapper.frequency = IncomeFrequency.domain_to_mapper(person_income.frequency)
+              mapper.payment_frequency = IncomePaymentFrequency.domain_to_mapper(person_income.payment_frequency)
+              mapper.source_organization_reference = IncomeSourceOrganizationReference.domain_to_mapper(person_income.source_organization_reference)
+              mapper
             end
 
             def to_hash

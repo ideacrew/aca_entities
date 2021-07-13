@@ -7,6 +7,7 @@ module AcaEntities
       class MedicaidMagiEligibilityContract < Dry::Validation::Contract
 
         params do
+          optional(:date_range).maybe(:hash)
           optional(:eligibility_determination).maybe(:hash)
           optional(:eligibility_indicator).maybe(:bool)
           optional(:eligibility_reason_text).maybe(:string)

@@ -19,7 +19,10 @@ module AcaEntities
 
             def self.domain_to_mapper(income_date)
               mapper = self.new
+              mapper.date = income_date.date
               mapper.date_time = income_date.date_time
+              mapper.year = income_date.year
+              mapper.year_month = income_date.year_month
               mapper
             end
 

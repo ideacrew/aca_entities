@@ -193,13 +193,8 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
 
   let(:pregnancy_status) do
     { status_indicator: false,
-      # status_valid_date_range: status_valid_date_range,
+      status_valid_date_range: date_range,
       expected_baby_quantity: 0 }
-  end
-
-  let(:status_valid_date_range) do
-    { start_date: start_date,
-      end_date: end_date }
   end
 
   let(:lawful_presence_status) do
@@ -214,6 +209,7 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
 
   let(:medicaid_magi_eligibility) do
     {
+      date_range: date_range,
       eligibility_determination: eligibility_determination,
       eligibility_indicator: true,
       eligibility_reason_text: "123",
@@ -272,27 +268,24 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
   let(:income) do
     { employment_source_text: "Acme",
       amount: 50_000.00,
-      days_per_week: 5.0,
+      days_per_week: 5,
       hours_per_pay_period: 80.0,
       hours_per_week: 40.0,
-      category_code: "Salary",
+      category_code: "Wages",
       description_text: "Robot",
       subject_to_federal_restrictions_indicator: false,
       date: income_date,
-      earned_date_range: income_earned_date_range,
+      earned_date_range: date_range,
       frequency: income_frequency,
       payment_frequency: payment_frequency,
       source_organization_reference: source_organization_reference }
   end
 
   let(:income_date) do
-    { date: Date.today,
-      date_time: DateTime.now,
-      year: "2021",
-      year_month: "12/2021" }
+    { date: Date.today }
   end
 
-  let(:income_earned_date_range) do
+  let(:date_range) do
     { start_date: start_date,
       end_date: end_date }
   end
@@ -320,7 +313,7 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
   end
 
   let(:source_organization_reference) do
-    { ref: "ref123" }
+    { ref: "em123" }
   end
 
   let(:contact_association) do

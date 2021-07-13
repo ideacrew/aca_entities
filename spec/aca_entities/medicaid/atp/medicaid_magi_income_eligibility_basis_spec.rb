@@ -20,7 +20,8 @@ RSpec.describe ::AcaEntities::Medicaid::Atp::MedicaidMagiIncomeEligibilityBasis,
           {
             activity_identification: { identification_id: "MET00000000001887090" },
             activity_date: { date_time: DateTime.now }
-          }
+          },
+        state_threshold_fpl_percent: "116"
       }
     end
   

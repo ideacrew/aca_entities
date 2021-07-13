@@ -8,7 +8,7 @@ module AcaEntities
 
         attribute :employment_source_text, Types::String.optional.meta(omittable: true)
         attribute :amount, Types::Float.optional.meta(omittable: true)
-        attribute :days_per_week, Types::Float.optional.meta(omittable: true)
+        attribute :days_per_week, Types::Integer.optional.meta(omittable: true)
         attribute :hours_per_pay_period, Types::Float.optional.meta(omittable: true)
         attribute :hours_per_week, Types::Float.optional.meta(omittable: true)
         attribute :category_code, Types::String.optional.meta(omittable: true)
