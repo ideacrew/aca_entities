@@ -6,13 +6,14 @@ require 'aca_entities/medicaid/contracts/medicaid_magi_income_eligibility_basis_
 RSpec.describe ::AcaEntities::Medicaid::Contracts::MedicaidMagiIncomeEligibilityBasisContract, dbclean: :after_each do
 
   let(:required_params) do
-    { 
+    {
       eligibility_basis_status_code: "Complete"
     }
   end
 
   let(:optional_params) do
-    { status_indicator: true,
+    {
+      status_indicator: true,
       ineligibility_reason_text: "123",
       eligibility_basis_determination:
         {

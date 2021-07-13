@@ -22,10 +22,10 @@ module AcaEntities
               mapper
             end
 
-            def to_hash # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+            def to_hash
               {
                 activity_identification: activity_identification&.to_hash,
-                activity_date: activity_date&.to_hash,
+                activity_date: activity_date&.to_hash
               }
             end
           end

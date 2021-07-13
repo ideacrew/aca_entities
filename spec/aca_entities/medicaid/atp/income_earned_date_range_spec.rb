@@ -8,13 +8,13 @@ require 'aca_entities/medicaid/atp/income_earned_date_range'
 RSpec.describe ::AcaEntities::Medicaid::Atp::IncomeEarnedDateRange,  dbclean: :around_each do
 
   describe 'with valid arguments' do
-    
+
     let(:required_params) { {} }
 
     let(:optional_params) do
       { end_date: end_date }
     end
-  
+
     let(:end_date) do
       { date: Date.today,
         date_time: DateTime.now,

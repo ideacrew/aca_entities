@@ -8,13 +8,14 @@ RSpec.describe ::AcaEntities::Medicaid::Atp::MedicaidMagiIncomeEligibilityBasis,
 
   describe 'with valid arguments' do
     let(:required_params) do
-      { 
+      {
         eligibility_basis_status_code: "Complete"
       }
     end
-  
+
     let(:optional_params) do
-      { status_indicator: true,
+      {
+        status_indicator: true,
         ineligibility_reason_text: "123",
         eligibility_basis_determination:
           {
@@ -24,7 +25,6 @@ RSpec.describe ::AcaEntities::Medicaid::Atp::MedicaidMagiIncomeEligibilityBasis,
         state_threshold_fpl_percent: "116"
       }
     end
-  
 
     let(:all_params) { required_params.merge(optional_params)}
 

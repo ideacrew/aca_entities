@@ -59,7 +59,6 @@ RSpec.describe ::AcaEntities::AsyncApi::Operations::FindConfigsByServiceName do
       end
     end
 
-    # rubocop:disable Lint/Void
     context "with service name and protocol" do
       let(:params) { { service_name: 'medicaid_gateway', protocol: protocol } }
 
@@ -95,6 +94,5 @@ RSpec.describe ::AcaEntities::AsyncApi::Operations::FindConfigsByServiceName do
         end
       end
     end
-    # rubocop:enable Lint/Void
   end
 end

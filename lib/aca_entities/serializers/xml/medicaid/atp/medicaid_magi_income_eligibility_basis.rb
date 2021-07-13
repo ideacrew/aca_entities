@@ -19,14 +19,14 @@ module AcaEntities
             element :state_threshold_fpl_percent, String, tag: 'IncomeEligibilityBasisStateThresholdFPLPercent', namespace: "hix-ee"
             has_one :income_compatibility, IncomeCompatibility
 
-            def self.domain_to_mapper(income_eligibility_basis)
+            def self.domain_to_mapper(ieb)
               mapper = self.new
-              mapper.status_indicator = income_eligibility_basis.status_indicator
-              mapper.eligibility_basis_status_code = income_eligibility_basis.eligibility_basis_status_code
-              mapper.ineligibility_reason_text = income_eligibility_basis.ineligibility_reason_text
-              mapper.eligibility_basis_determination = EligibilityBasisDetermination.domain_to_mapper(income_eligibility_basis.eligibility_basis_determination)
-              mapper.state_threshold_fpl_percent = income_eligibility_basis.state_threshold_fpl_percent
-              mapper.income_compatibility = IncomeCompatibility.domain_to_mapper(income_eligibility_basis.income_compatibility)
+              mapper.status_indicator = ieb.status_indicator
+              mapper.eligibility_basis_status_code = ieb.eligibility_basis_status_code
+              mapper.ineligibility_reason_text = ieb.ineligibility_reason_text
+              mapper.eligibility_basis_determination = EligibilityBasisDetermination.domain_to_mapper(ieb.eligibility_basis_determination)
+              mapper.state_threshold_fpl_percent = ieb.state_threshold_fpl_percent
+              mapper.income_compatibility = IncomeCompatibility.domain_to_mapper(ieb.income_compatibility)
               mapper
             end
 

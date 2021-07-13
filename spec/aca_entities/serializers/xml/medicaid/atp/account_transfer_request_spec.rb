@@ -104,7 +104,8 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
     {
       non_perjury_indicator: true,
       not_incarcerated_indicators: [{ metadata: nil, value: true }],
-      information_changes_indicator: false
+      information_changes_indicator: false,
+      medicaid_obligations_indicator: true
     }
   end
 
@@ -219,7 +220,7 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
   end
 
   let(:eligibility_determination) do
-    { 
+    {
       activity_identification: { identification_id: "MET00000000001887090" },
       activity_date: { date_time: DateTime.now }
     }
@@ -240,7 +241,8 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
   end
 
   let(:income_compatibility) do
-    { verification_indicator: true,
+    {
+      verification_indicator: true,
       inconsistency_reason_text: "123",
       compatibility_determination:
         {

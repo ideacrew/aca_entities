@@ -5,7 +5,7 @@ module AcaEntities
     module Xml
       module Medicaid
         module Atp
-          # A data type for an assessment of income reasonable compatibility (trusted data sources are reasonably compatible with self-attestations if any discrepancies will not affect eligibility—see 45 C.F.R. 155.300(d)).
+          # A data type for an assessment of income reasonable compatibility
           class IncomeCompatibility
             include HappyMapper
 
@@ -26,7 +26,7 @@ module AcaEntities
               mapper
             end
 
-            def to_hash # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+            def to_hash
               {
                 verification_indicator: verification_indicator&.to_hash,
                 inconsistency_reason_text: inconsistency_reason_text&.to_hash,

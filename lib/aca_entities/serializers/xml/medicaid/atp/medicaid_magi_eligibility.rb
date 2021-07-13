@@ -37,14 +37,12 @@ module AcaEntities
             has_one :eligibility_date_range, EligibilityDateRange
             has_one :eligibility_establishing_system, EligibilityEstablishingSystem
 
-            def self.domain_to_mapper(medicaid_magi_eligibility)
+            def self.domain_to_mapper(mme)
               mapper = self.new
-              if medicaid_magi_eligibility.date_range
-                mapper.date_range = EligibilityDateRange.domain_to_mapper(medicaid_magi_eligibility.date_range)
-              end
-              mapper.eligibility_determination = EligibilityDetermination.domain_to_mapper(medicaid_magi_eligibility.eligibility_determination)
-              mapper.eligibility_indicator = medicaid_magi_eligibility.eligibility_indicator
-              mapper.income_eligibility_basis = MedicaidMagiIncomeEligibilityBasis.domain_to_mapper(medicaid_magi_eligibility.income_eligibility_basis)
+              mapper.date_range = EligibilityDateRange.domain_to_mapper(mme.date_range) if mme.date_range
+              mapper.eligibility_determination = EligibilityDetermination.domain_to_mapper(mme.eligibility_determination)
+              mapper.eligibility_indicator = mme.eligibility_indicator
+              mapper.income_eligibility_basis = MedicaidMagiIncomeEligibilityBasis.domain_to_mapper(mme.income_eligibility_basis)
               mapper
             end
 

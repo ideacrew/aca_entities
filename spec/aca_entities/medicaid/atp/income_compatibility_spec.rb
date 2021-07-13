@@ -12,7 +12,8 @@ RSpec.describe ::AcaEntities::Medicaid::Atp::IncomeCompatibility,  dbclean: :aro
     let(:required_params) { {} }
 
     let(:optional_params) do
-      { verification_indicator: true,
+      {
+        verification_indicator: true,
         inconsistency_reason_text: "123",
         compatibility_determination: compatibility_determination,
         verification_method: "1"
@@ -20,8 +21,9 @@ RSpec.describe ::AcaEntities::Medicaid::Atp::IncomeCompatibility,  dbclean: :aro
     end
 
     let(:compatibility_determination) do
-      { activity_identification: { identification_id: "MET00000000001887090" },
-        activity_date: { date_time: DateTime.now } 
+      {
+        activity_identification: { identification_id: "MET00000000001887090" },
+        activity_date: { date_time: DateTime.now }
       }
     end
 

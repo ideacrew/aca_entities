@@ -8,18 +8,20 @@ require 'aca_entities/medicaid/atp/status_valid_date_range'
 RSpec.describe ::AcaEntities::Medicaid::Atp::StatusValidDateRange,  dbclean: :around_each do
 
   describe 'with valid arguments' do
-    
+
     let(:required_params) { {} }
 
     let(:optional_params) do
       { end_date: end_date }
     end
-  
+
     let(:end_date) do
-      { date: Date.today,
+      {
+        date: Date.today,
         date_time: DateTime.now,
         year: "2021",
-        year_month: "12/2021" }
+        year_month: "12/2021"
+      }
     end
 
     let(:all_params) { required_params.merge(optional_params) }
