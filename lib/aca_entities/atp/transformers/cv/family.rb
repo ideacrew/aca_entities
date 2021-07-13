@@ -78,7 +78,12 @@ module AcaEntities
                   map 'birth_date.date', 'person.person_demographics.dob', memoize: true, append_identifier: true
                   add_key 'person.person_demographics.date_of_death'
                   add_key 'person.person_demographics.dob_check'
-                  add_key 'person.person_demographics.is_incarcerated'
+                  add_key 'person.person_demographics.is_incarcerated', function: ->(v) {
+                    member_id = v.find(/record.people.(\w+)$/).map(&:item).last
+                    applicants = v.resolve(:'insurance_application.insurance_applicants').item
+                    applicant = applicants[:"#{member_id}"]
+                    applicant[:incarcerations].first[:incarceration_indicator] || false # defaulted to false if no value provided
+                  }
                   add_key 'person.person_demographics.tribal_id'
                   add_key 'person.person_demographics.language_code'
 

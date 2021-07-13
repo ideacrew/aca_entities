@@ -122,7 +122,7 @@ module AcaEntities
               'kind' => 'net_self_employment',
               'amount' => income[:amount],
               'amount_tax_exempt' => 0,
-              'frequency_kind' => income[:frequency][:frequency_code].capitalize,
+              'frequency_kind' => INCOME_FREQUENCY_MAP[income[:frequency][:frequency_code].downcase],
               'start_on' => Date.parse('2021-05-07'), # default value
               'end_on' => nil,
               'is_projected' => false
@@ -156,7 +156,7 @@ module AcaEntities
               "kind" => "unemployment_income",
               "amount" => income[:amount],
               "amount_tax_exempt" => 0, # default value
-              'frequency_kind' => income[:frequency][:frequency_code].capitalize,
+              'frequency_kind' => INCOME_FREQUENCY_MAP[income[:frequency][:frequency_code].downcase],
               "start_on" => Date.parse('2021-05-07'), # default value
               "end_on" => nil,
               "is_projected" => false # default value
@@ -195,7 +195,7 @@ module AcaEntities
               'kind' => OTHER_INCOME_TYPE_KIND[:"#{income[:category_code]}"],
               'amount' => income[:amount],
               'amount_tax_exempt' => 0,
-              'frequency_kind' => income[:frequency][:frequency_code].capitalize,
+              'frequency_kind' => INCOME_FREQUENCY_MAP[income[:frequency][:frequency_code].downcase],
               'start_on' => Date.parse('2021-05-07'), # default value
               'end_on' => nil,
               'is_projected' => false
