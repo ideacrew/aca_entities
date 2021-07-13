@@ -215,7 +215,7 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
   let(:medicaid_magi_eligibility) do
     {
       eligibility_determination: eligibility_determination,
-      eligibility_indicator: false,
+      eligibility_indicator: true,
       eligibility_reason_text: "123",
       income_eligibility_basis: medicaid_magi_income_eligibility_basis,
       state_threshold_fpl_percent: "116"
