@@ -25,7 +25,10 @@ module AcaEntities
 
             def self.domain_to_mapper(household)
               mapper = self.new
-              mapper.effective_person_quantity = household.effective_person_quantity
+              mapper.income_above_highest_applicable_magi_standard_indicator = household.income_above_highest_applicable_magi_standard_indicator
+              if household.effective_person_quantity && !household.effective_person_quantity.blank?
+                mapper.effective_person_quantity = household.effective_person_quantity
+              end
               mapper.income_above_highest_applicable_magi_standard_indicator = household.income_above_highest_applicable_magi_standard_indicator
               mapper.household_member_references = household.household_member_references.map { |hmr| HouseholdMemberReference.domain_to_mapper(hmr) }
               mapper.household_size_quantity = household.household_size_quantity

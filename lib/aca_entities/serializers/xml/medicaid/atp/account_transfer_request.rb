@@ -41,8 +41,10 @@ module AcaEntities
               mapper.insurance_application = InsuranceApplication.domain_to_mapper(account_transfer_request.insurance_application)
               mapper.people = account_transfer_request.people.map {|p| Person.domain_to_mapper(p)}
               mapper.physical_households = account_transfer_request.physical_households.map {|ph| PhysicalHousehold.domain_to_mapper(ph)}
-              mapper.medicaid_households = account_transfer_request.medicaid_households.map {|vm| MedicaidHousehold.domain_to_mapper(vm)}
-              if account_transfer_request.verification_metadata && !account_transfer_request.verification_metadata.nil
+              unless account_transfer_request.medicaid_households.empty?
+                mapper.medicaid_households = account_transfer_request.medicaid_households.map {|vm| MedicaidHousehold.domain_to_mapper(vm)}
+              end
+              if account_transfer_request.respond_to?(:verification_metadata)
                 mapper.verification_metadata = account_transfer_request.verification_metadata.map {|vm| VerificationMetadata.domain_to_mapper(vm)}
               end
               mapper

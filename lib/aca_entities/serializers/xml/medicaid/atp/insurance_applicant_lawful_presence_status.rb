@@ -20,13 +20,13 @@ module AcaEntities
             # An eligibility of a person to receive benefits under the Affordable Care Act
             has_one :lawful_presence_status_eligibility, LawfulPresenceStatusEligibility
 
-            has_one :valid_date_range, StatusValidDateRange
+            # has_one :valid_date_range, StatusValidDateRange
 
             def self.domain_to_mapper(lawful_presence_status)
               mapper = self.new
-              mapper.valid_date_range = StatusValidDateRange.domain_to_mapper(lawful_presence_status.valid_date_range)
+              # mapper.valid_date_range = StatusValidDateRange.domain_to_mapper(lawful_presence_status.valid_date_range)
               if lawful_presence_status.immigration_documents && !lawful_presence_status.immigration_documents.nil
-                mapper.immigration_documents = lawful_presence_status.immigration_documents.map { |imd| ImmigrationDocument.domain_to_mapper(imd) } 
+                mapper.immigration_documents = lawful_presence_status.immigration_documents.map { |imd| ImmigrationDocument.domain_to_mapper(imd) }
               end
               mapper.lawful_presence_status_eligibility =
                 LawfulPresenceStatusEligibility.domain_to_mapper(lawful_presence_status.lawful_presence_status_eligibility)
@@ -37,8 +37,8 @@ module AcaEntities
               {
                 arrived_before_1996_indicator: arrived_before_1996_indicator,
                 immigration_documents: immigration_documents&.to_hash,
-                lawful_presence_status_eligibility: lawful_presence_status_eligibility.to_hash,
-                valid_date_range: valid_date_range.to_hash
+                lawful_presence_status_eligibility: lawful_presence_status_eligibility.to_hash
+                # valid_date_range: valid_date_range.to_hash
               }
             end
           end

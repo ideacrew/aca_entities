@@ -20,7 +20,7 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
         household_member_references: [{ ref: "pe123" }]
       }],
       insurance_application: insurance_application,
-      medicaid_households: [{}],
+      medicaid_households: [],
       people: [person]
     }
   end
