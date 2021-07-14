@@ -19,7 +19,7 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
   let(:sample_xml) {File.read(sample_location)}
 
   # Split sample file on comments (ignoring the first one) and store just the payloads
-  let(:payloads) {sample_xml.split(/<!-- payload (?:1[2-9]+|[2-9]+) -->/)}
+  let(:payloads) {sample_xml.split(/<!-- payload (?:1[0-9]+|[2-9]+) -->/)}
   
   let(:schema_location) do
     loc = File.join(

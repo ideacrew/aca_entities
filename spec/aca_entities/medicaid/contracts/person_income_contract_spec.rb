@@ -10,7 +10,7 @@ RSpec.describe ::AcaEntities::Medicaid::Contracts::PersonIncomeContract, dbclean
   let(:optional_params) do
     { employment_source_text: "Acme",
       amount: 50_000.00,
-      days_per_week: 5.0,
+      days_per_week: 5,
       hours_per_pay_period: 80.0,
       hours_per_week: 40.0,
       category_code: "Salary",

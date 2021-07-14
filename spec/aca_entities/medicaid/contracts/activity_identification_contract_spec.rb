@@ -9,7 +9,7 @@ RSpec.describe ::AcaEntities::Medicaid::Contracts::ActivityIdentificationContrac
 
   let(:optional_params) do
     { identification_category_text: "Exchange",
-      identification_jurisdication: "ME" }
+      identification_jurisdiction: "ME" }
   end
 
   let(:all_params) { required_params.merge(optional_params)}

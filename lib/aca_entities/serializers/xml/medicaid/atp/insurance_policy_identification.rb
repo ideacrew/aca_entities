@@ -14,8 +14,10 @@ module AcaEntities
 
             element :identification_id, String, tag: 'IdentificationID', namespace: 'nc'
 
-            def self.domain_to_mapper(_policy)
-              self.new
+            def self.domain_to_mapper(insurance_policy)
+              mapper = self.new
+              mapper.identification_id = insurance_policy.identification_id
+              mapper
             end
 
             def to_hash

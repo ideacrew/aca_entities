@@ -10,7 +10,7 @@ RSpec.describe ::AcaEntities::Medicaid::Atp::ActivityIdentification,  dbclean: :
 
     let(:optional_params) do
       { identification_category_text: "",
-        identification_jurisdication: "ME" }
+        identification_jurisdiction: "ME" }
     end
 
     let(:all_params) { required_params.merge(optional_params)}

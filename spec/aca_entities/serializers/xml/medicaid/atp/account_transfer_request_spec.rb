@@ -83,6 +83,7 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
       blindness_or_disability_indicator: false,
       lawful_presence_status: lawful_presence_status,
       long_term_care_indicator: false,
+      medicaid_magi_eligibilities: [medicaid_magi_eligibility],
       chip_eligibilities: [trafficking_victim_category_eligibility_basis],
       temporarily_lives_outside_application_state_indicator: false,
       foster_care_indicator: false,
@@ -103,7 +104,8 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
     {
       non_perjury_indicator: true,
       not_incarcerated_indicators: [{ metadata: nil, value: true }],
-      information_changes_indicator: false
+      information_changes_indicator: false,
+      medicaid_obligations_indicator: true
     }
   end
 
@@ -192,22 +194,61 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
 
   let(:pregnancy_status) do
     { status_indicator: false,
-      # status_valid_date_range: status_valid_date_range,
+      status_valid_date_range: date_range,
       expected_baby_quantity: 0 }
-  end
-
-  let(:status_valid_date_range) do
-    { start_date: start_date,
-      end_date: end_date }
   end
 
   let(:lawful_presence_status) do
     {
       arrived_before_1996_indicator: false,
       lawful_presence_status_eligibility: {
-        eligibility_indicator: true,
-        eligibility_basis_status_code: "Complete"
+        eligibility_indicator: true
       }
+    }
+  end
+
+  let(:medicaid_magi_eligibility) do
+    {
+      date_range: date_range,
+      eligibility_determination: eligibility_determination,
+      eligibility_indicator: true,
+      eligibility_reason_text: "123",
+      income_eligibility_basis: medicaid_magi_income_eligibility_basis,
+      state_threshold_fpl_percent: "116"
+    }
+  end
+
+  let(:eligibility_determination) do
+    {
+      activity_identification: { identification_id: "MET00000000001887090" },
+      activity_date: { date_time: DateTime.now }
+    }
+  end
+
+  let(:medicaid_magi_income_eligibility_basis) do
+    {
+      eligibility_basis_status_code: "Complete",
+      status_indicator: true,
+      ineligibility_reason_text: "123",
+      eligibility_basis_determination:
+        {
+          activity_identification: { identification_id: "MET00000000001887090" },
+          activity_date: { date_time: DateTime.now }
+        },
+      income_compatibility: income_compatibility
+    }
+  end
+
+  let(:income_compatibility) do
+    {
+      verification_indicator: true,
+      inconsistency_reason_text: "123",
+      compatibility_determination:
+        {
+          activity_identification: { identification_id: "MET00000000001887090" },
+          activity_date: { date_time: DateTime.now }
+        },
+      verification_method: "1"
     }
   end
 
@@ -228,27 +269,24 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
   let(:income) do
     { employment_source_text: "Acme",
       amount: 50_000.00,
-      days_per_week: 5.0,
+      days_per_week: 5,
       hours_per_pay_period: 80.0,
       hours_per_week: 40.0,
-      category_code: "Salary",
+      category_code: "Wages",
       description_text: "Robot",
       subject_to_federal_restrictions_indicator: false,
       date: income_date,
-      earned_date_range: income_earned_date_range,
+      earned_date_range: date_range,
       frequency: income_frequency,
       payment_frequency: payment_frequency,
       source_organization_reference: source_organization_reference }
   end
 
   let(:income_date) do
-    { date: Date.today,
-      date_time: DateTime.now,
-      year: "2021",
-      year_month: "12/2021" }
+    { date: Date.today }
   end
 
-  let(:income_earned_date_range) do
+  let(:date_range) do
     { start_date: start_date,
       end_date: end_date }
   end
@@ -276,7 +314,7 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
   end
 
   let(:source_organization_reference) do
-    { ref: "ref123" }
+    { ref: "em123" }
   end
 
   let(:contact_association) do
@@ -395,7 +433,7 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
   it "is schema valid" do
     document = Nokogiri::XML(mapper.to_xml)
     # puts mapper.to_xml
-    File.open('spec.xml', 'w') { |file| file.write(mapper.to_xml.to_s) }
+    # File.open('spec.xml', 'w') { |file| file.write(mapper.to_xml.to_s) }
 
     schema.validate(document).each do |error|
       puts "\n\n======= Schema Error ======="

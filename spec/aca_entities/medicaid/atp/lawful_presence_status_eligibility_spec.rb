@@ -8,7 +8,7 @@ RSpec.describe ::AcaEntities::Medicaid::Atp::LawfulPresenceStatusEligibility,  d
   describe 'with valid arguments' do
     let(:required_params) { { eligibility_indicator: true } }
 
-    let(:optional_params) { { eligibility_basis_status_code: "Complete" } }
+    let(:optional_params) { {} }
 
     let(:input_params) { required_params.merge(optional_params)}
 
