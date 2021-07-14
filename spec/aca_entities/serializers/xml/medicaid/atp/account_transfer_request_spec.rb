@@ -202,8 +202,7 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
     {
       arrived_before_1996_indicator: false,
       lawful_presence_status_eligibility: {
-        eligibility_indicator: true,
-        eligibility_basis_status_code: "Complete"
+        eligibility_indicator: true
       }
     }
   end

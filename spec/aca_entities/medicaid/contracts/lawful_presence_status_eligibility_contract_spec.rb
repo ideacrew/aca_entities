@@ -7,7 +7,7 @@ RSpec.describe ::AcaEntities::Medicaid::Contracts::LawfulPresenceStatusEligibili
 
   let(:required_params) { { eligibility_indicator: true } }
 
-  let(:optional_params) { { eligibility_basis_status_code: "Complete" } }
+  let(:optional_params) { {} }
 
   let(:all_params) { required_params.merge(optional_params)}
 
