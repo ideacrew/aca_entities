@@ -16,6 +16,8 @@ module AcaEntities
       require 'aca_entities/contracts/documents/ridp_document_contract'
       require 'aca_entities/evidences/contracts/ridp_evidence_contract'
       require 'aca_entities/attestations/contracts/ridp_attestation_contract'
+      require 'aca_entities/attestations/contracts/attestation_contract'
+      require 'aca_entities/accounts/contracts/user_contract'
       require 'aca_entities/contracts/people/person_reference_contract'
       require 'aca_entities/contracts/households/household_reference_contract'
       require 'aca_entities/contracts/households/coverage_household_reference_contract'
