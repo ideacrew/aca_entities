@@ -13,7 +13,8 @@ RSpec.describe AcaEntities::Serializers::Xml::Fdsh::Ridp::PrimaryRequest,
         Person: {
           PersonName: {
             PersonGivenName: "AGivenName",
-            PersonSurName: "A Sur Name"
+            PersonMiddleName: "middlename",
+            PersonSurName: "A Sur Name",
           },
           PersonBirthDate: Date.new(2017, 1, 1)
         },
