@@ -263,7 +263,7 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
       activity_date: { date_time: DateTime.now },
       sender_reference: { ref: "Sender" },
       receiver_reference: { ref: "Receiver" },
-      status: { status_code: "Initiated" } }
+      status: { status_code: "Initiated", overall_verification_status_code: "Y" } }
   end
 
   let(:income) do

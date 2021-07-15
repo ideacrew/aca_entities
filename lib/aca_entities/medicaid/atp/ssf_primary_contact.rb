@@ -7,7 +7,7 @@ module AcaEntities
       class SsfPrimaryContact < Dry::Struct
 
         attribute :role_reference, RoleOfPersonReference.meta(omittable: false)
-        attribute :contact_preference, Types::String.meta(omittable: false)
+        attribute :contact_preference, Types::ContactPreferenceCode.meta(omittable: false)
       end
     end
   end

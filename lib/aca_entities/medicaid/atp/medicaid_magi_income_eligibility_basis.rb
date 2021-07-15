@@ -7,7 +7,7 @@ module AcaEntities
       class MedicaidMagiIncomeEligibilityBasis < Dry::Struct
 
         attribute :status_indicator, Types::Bool.optional.meta(omittable: true)
-        attribute :eligibility_basis_status_code, Types::String.meta(omittable: false)
+        attribute :eligibility_basis_status_code, Types::EligibilityBasisStatusCode.meta(omittable: false)
         attribute :ineligibility_reason_text, Types::String.optional.meta(omittable: true)
         attribute :eligibility_basis_determination, EligibilityBasisDetermination.optional.meta(omittable: true)
         attribute :state_threshold_fpl_percent, Types::String.optional.meta(omittable: true)

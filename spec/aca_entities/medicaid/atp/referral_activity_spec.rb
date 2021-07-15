@@ -16,13 +16,13 @@ RSpec.describe ::AcaEntities::Medicaid::Atp::ReferralActivity,  dbclean: :around
         activity_date: { date_time: DateTime.now },
         sender_reference: { ref: "Sender" },
         receiver_reference: { ref: "Receiver" },
-        status: { status_code: "Initiated" } }
+        status: { status_code: "Initiated", overall_verification_status_code: "Y" } }
     end
 
     let(:optional_params) do
       {
         # activity_identification: {},
-        reason_code: "reason-code"
+        reason_code: "WaitingPeriodException"
       }
     end
 

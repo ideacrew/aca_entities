@@ -10,7 +10,7 @@ RSpec.describe ::AcaEntities::Medicaid::Contracts::ReferralActivityStatusContrac
   end
 
   let(:optional_params) do
-    { overall_verification_status_code: "overall-code" }
+    { overall_verification_status_code: "Y" }
   end
 
   let(:all_params) { required_params.merge(optional_params)}

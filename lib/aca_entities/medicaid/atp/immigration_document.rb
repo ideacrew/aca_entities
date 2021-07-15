@@ -10,7 +10,7 @@ module AcaEntities
         attribute :document_person_ids,      Types::Array.of(DocumentPersonIdentification).optional.meta(omittable: true)
         attribute :same_name_indicator,      Types::Bool.optional.meta(omittable: true)
         attribute :category_text,            Types::String.optional.meta(omittable: true)
-        attribute :category_code,            Types::String.optional.meta(omittable: true)
+        attribute :category_code,            Types::ImmigrationDocumentCategoryCode.optional.meta(omittable: true)
       end
     end
   end

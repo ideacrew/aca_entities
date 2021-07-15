@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
+require 'aca_entities/medicaid/atp/activity_identification'
 require 'aca_entities/medicaid/atp/eligibility_basis_determination'
 require 'aca_entities/medicaid/atp/medicaid_magi_income_eligibility_basis'
 
