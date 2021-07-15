@@ -41,9 +41,9 @@ module AcaEntities
                 same_name_indicator: same_name_indicator,
                 category_text: category_text,
                 category_code: category_code,
-                expiration_date: expiration_date.to_hash,
-                document_numbers: document_numbers&.to_hash,
-                document_person_ids: document_person_ids&.to_hash
+                expiration_date: expiration_date&.to_hash,
+                document_numbers: document_numbers.map(&:to_hash),
+                document_person_ids: document_person_ids.map(&:to_hash)
               }
             end
           end
