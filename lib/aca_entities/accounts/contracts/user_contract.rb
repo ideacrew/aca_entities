@@ -3,6 +3,7 @@
 module AcaEntities
   module Contracts
     module Accounts
+      # contract for Accounts user
       class UserContract < Dry::Validation::Contract
         params do
           optional(:attestations).array(AcaEntities::Attestations::AttestationContract.params)
