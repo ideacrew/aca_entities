@@ -2,7 +2,6 @@
 
 require 'spec_helper'
 require 'aca_entities/serializers/xml/fdsh/ridp'
-require 'pry'
 
 RSpec.describe AcaEntities::Serializers::Xml::Fdsh::Ridp::PrimaryRequest,
                "given a minimal Primary Response object" do
@@ -14,7 +13,7 @@ RSpec.describe AcaEntities::Serializers::Xml::Fdsh::Ridp::PrimaryRequest,
           PersonName: {
             PersonGivenName: "AGivenName",
             PersonMiddleName: "middlename",
-            PersonSurName: "A Sur Name",
+            PersonSurName: "A Sur Name"
           },
           PersonBirthDate: Date.new(2017, 1, 1)
         },
