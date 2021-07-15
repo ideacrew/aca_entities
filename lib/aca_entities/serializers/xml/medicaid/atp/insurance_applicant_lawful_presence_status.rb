@@ -36,7 +36,7 @@ module AcaEntities
             def to_hash
               {
                 arrived_before_1996_indicator: arrived_before_1996_indicator,
-                immigration_documents: immigration_documents&.to_hash,
+                immigration_documents: immigration_documents.map(&:to_hash),
                 lawful_presence_status_eligibility: lawful_presence_status_eligibility&.to_hash
                 # valid_date_range: valid_date_range.to_hash
               }
