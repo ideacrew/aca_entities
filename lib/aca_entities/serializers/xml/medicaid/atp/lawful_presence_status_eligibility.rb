@@ -23,7 +23,7 @@ module AcaEntities
             def to_hash
               {
                 eligibility_indicator: eligibility_indicator,
-                eligibility_basis_status_code: eligibility_basis_status_code
+                # eligibility_basis_status_code: eligibility_basis_status_code
               }
             end
           end
