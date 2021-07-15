@@ -4,7 +4,7 @@ module AcaEntities
   module Medicaid
     module Contracts
       # AssisterAssociation information contract
-      class AssisterAssociationnContract < Dry::Validation::Contract
+      class InsuranceApplicationAssisterAssociationnContract < Dry::Validation::Contract
         params do
           optional(:begin_date).filled(:hash)
           optional(:end_date).maybe(:hash)

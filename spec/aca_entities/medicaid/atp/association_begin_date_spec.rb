@@ -1,18 +1,18 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require 'aca_entities/medicaid/atp/activity_identification'
-require 'aca_entities/medicaid/atp/activity_date'
-require 'aca_entities/medicaid/atp/application_submission'
+require 'aca_entities/medicaid/atp/association_begin_date'
 
-RSpec.describe ::AcaEntities::Medicaid::Atp::ApplicationSubmission,  dbclean: :around_each do
+RSpec.describe ::AcaEntities::Medicaid::Atp::AssociationBeginDate,  dbclean: :around_each do
 
   describe 'with valid arguments' do
     let(:required_params) { {} }
 
     let(:optional_params) do
-      { creation_id: { identification_id: '2163565' },
-        creation_date: { date_time: DateTime.now } }
+      { date: Date.today,
+        date_time: DateTime.now,
+        year: "2021",
+        year_month: "12/2021" }
     end
 
     let(:all_params) { required_params.merge(optional_params)}
