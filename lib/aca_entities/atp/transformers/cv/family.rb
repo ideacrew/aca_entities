@@ -82,6 +82,7 @@ module AcaEntities
                     member_id = v.find(/record.people.(\w+)$/).map(&:item).last
                     applicants = v.resolve(:'insurance_application.insurance_applicants').item
                     applicant = applicants[:"#{member_id}"]
+                    return false if applicant.nil?
                     applicant[:incarcerations].first[:incarceration_indicator] || false # defaulted to false if no value provided
                   }
                   add_key 'person.person_demographics.tribal_id'
