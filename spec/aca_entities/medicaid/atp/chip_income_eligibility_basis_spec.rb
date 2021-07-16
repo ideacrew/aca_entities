@@ -1,21 +1,24 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require 'aca_entities/medicaid/atp/chip_income_basis'
+require 'aca_entities/medicaid/atp/types'
+require 'aca_entities/medicaid/atp/chip_income_eligibility_basis'
 
-RSpec.describe ::AcaEntities::Medicaid::Atp::ChipIncomeBasis, dbclean: :around_each do
+RSpec.describe ::AcaEntities::Medicaid::Atp::ChipIncomeEligibilityBasis,  dbclean: :around_each do
 
-  let(:required_params) {{ status_code: "200" }}
-
-  let(:all_params) do
-    required_params.merge(
-      status_indicator: true,
-      status_determination_date: DateTime.now,
-      inconsistency_reason: "reason for in consistency",
-      ineligibility_reason: "reason for in eligibility",
-      applicable_chip_standard: 200
-    )
+  let(:required_params) do
+    {
+      status_code: "Complete"
+    }
   end
+
+  let(:optional_params) do
+    {
+      status_indicator: true
+    }
+  end
+
+  let(:all_params) { required_params.merge(optional_params)}
 
   context 'success case' do
     context 'with required params' do
@@ -37,3 +40,4 @@ RSpec.describe ::AcaEntities::Medicaid::Atp::ChipIncomeBasis, dbclean: :around_e
     end
   end
 end
+
