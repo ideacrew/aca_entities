@@ -11,6 +11,7 @@ RSpec.describe AcaEntities::Medicaid::Contracts::SenderContract, type: :model do
 
   let(:input_params) do
     {
+      id: "a-sender-id",
       category_code: "Exchange",
       state_code: nil,
       county_name: nil

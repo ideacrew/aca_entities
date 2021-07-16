@@ -16,6 +16,7 @@ module AcaEntities
           required(:application_submission).filled(:hash)
           required(:application_identifications).array(:hash)
           optional(:coverage_renewal_year_quantity).maybe(:integer)
+          optional(:assister_association).maybe(:hash)
         end
 
         # rule(:coverage_renewal_year_quantity) do

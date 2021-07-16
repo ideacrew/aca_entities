@@ -14,6 +14,7 @@ module AcaEntities
 
             has_one :application_creation, ApplicationCreation
             has_one :application_submission, ApplicationSubmission
+            has_many :application_updates, ApplicationUpdate
             has_many :application_identifications, ApplicationIdentification
             has_many :insurance_applicants, InsuranceApplicant
             element :requesting_financial_assistance, Boolean, tag: 'InsuranceApplicationRequestingFinancialAssistanceIndicator', namespace: "hix-ee"
@@ -29,6 +30,9 @@ module AcaEntities
               mapper = self.new
               mapper.application_creation = ApplicationCreation.domain_to_mapper(insurance_application.application_creation)
               mapper.application_submission = ApplicationSubmission.domain_to_mapper(insurance_application.application_submission)
+              if insurance_application.respond_to?(:application_updates)
+                mapper.application_updates = insurance_application.application_updates.filter_map { |au| ApplicationUpdate.domain_to_mapper(au) }
+              end
               mapper.insurance_applicants = insurance_application.insurance_applicants.map do |insurance_applicant|
                 InsuranceApplicant.domain_to_mapper(insurance_applicant)
               end
@@ -48,6 +52,7 @@ module AcaEntities
               {
                 application_creation: application_creation&.to_hash,
                 application_submission: application_submission&.to_hash,
+                application_updates: application_updates.map(&:to_hash),
                 application_identifications: application_identifications.map(&:to_hash),
                 insurance_applicants: if identifier
                                         insurance_applicants.map(&:to_hash).group_by do |h|

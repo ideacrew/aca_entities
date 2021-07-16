@@ -122,7 +122,7 @@ module AcaEntities
               'kind' => 'net_self_employment',
               'amount' => income[:amount],
               'amount_tax_exempt' => 0,
-              'frequency_kind' => income[:frequency][:frequency_code].capitalize,
+              'frequency_kind' => INCOME_FREQUENCY_MAP[income[:frequency][:frequency_code].downcase],
               'start_on' => Date.parse('2021-05-07'), # default value
               'end_on' => nil,
               'is_projected' => false
@@ -156,7 +156,7 @@ module AcaEntities
               "kind" => "unemployment_income",
               "amount" => income[:amount],
               "amount_tax_exempt" => 0, # default value
-              'frequency_kind' => income[:frequency][:frequency_code].capitalize,
+              'frequency_kind' => INCOME_FREQUENCY_MAP[income[:frequency][:frequency_code].downcase],
               "start_on" => Date.parse('2021-05-07'), # default value
               "end_on" => nil,
               "is_projected" => false # default value
@@ -195,7 +195,7 @@ module AcaEntities
               'kind' => OTHER_INCOME_TYPE_KIND[:"#{income[:category_code]}"],
               'amount' => income[:amount],
               'amount_tax_exempt' => 0,
-              'frequency_kind' => income[:frequency][:frequency_code].capitalize,
+              'frequency_kind' => INCOME_FREQUENCY_MAP[income[:frequency][:frequency_code].downcase],
               'start_on' => Date.parse('2021-05-07'), # default value
               'end_on' => nil,
               'is_projected' => false
@@ -439,8 +439,8 @@ module AcaEntities
             has_state_health_benefit: false, # default value
             had_prior_insurance: false, # default value
             # prior_insurance_end_date: Date.parse("2021-05-07"), # default value
-            age_of_applicant: AcaEntities::Functions::AgeOn.new(on_date: Date.today)
-                                                           .call(@memoized_data.find(Regexp.new("person_demographics.dob.#{@applicant_identifier}"))&.first&.item),
+            age_of_applicant: AcaEntities::Functions::AgeOn.new(on_date: Date.today.strftime('%Y/%m/%d'))
+                                                           .call(Date.strptime(@memoized_data.find(Regexp.new("person_demographics.dob.#{@applicant_identifier}"))&.first&.item, "%m/%d/%Y").strftime('%Y/%m/%d')),
             is_self_attested_long_term_care: non_magi.nil? ? false : non_magi[:longTermCareIndicator],
             hours_worked_per_week: '2'
           }

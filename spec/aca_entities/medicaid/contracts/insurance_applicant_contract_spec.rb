@@ -18,7 +18,8 @@ RSpec.describe ::AcaEntities::Medicaid::Contracts::InsuranceApplicantContract, d
           lawful_presence_status_eligibility: { eligibility_indicator: false } },
       long_term_care_indicator: false,
       chip_eligibility: trafficking_victim_category_eligibility_basis,
-      temporarily_lives_outside_application_state_indicator: false }
+      temporarily_lives_outside_application_state_indicator: false,
+      non_esi_coverage_indicators: [false] }
   end
 
   let(:trafficking_victim_category_eligibility_basis) { { status_indicator: true } }

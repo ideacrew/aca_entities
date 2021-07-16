@@ -32,7 +32,7 @@ module AcaEntities
             'Guardian' => 'guardian',
             'Court-appointed guardian' => 'court_appointed_guardian',
             'Collateral dependent' => 'collateral_dependent',
-            'Domestic partner' => 'life_partner',
+            'Domestic partner' => 'domestic_partner',
             'Annuitant' => 'annuitant',
             'Trustee' => 'trustee',
             'Unspecified relationship' => 'other_relationship', # no related mapping in enroll

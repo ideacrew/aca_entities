@@ -9,6 +9,8 @@ module AcaEntities
         params do
           optional(:arrived_before_1996_indicator).maybe(:bool)
           optional(:lawful_presence_status_eligibility).maybe(:hash)
+          optional(:valid_date_range).maybe(:hash)
+          optional(:immigration_documents).maybe(:array)
         end
       end
     end

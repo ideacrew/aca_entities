@@ -18,6 +18,7 @@ RSpec.describe ::AcaEntities::Medicaid::Atp::InsuranceApplicant, dbclean: :aroun
 
     let(:optional_params) do
       { esi_eligible_indicator: false,
+        non_esi_coverage_indicators: [false],
         age_left_foster_care: 14,
         foster_care_state: "n/a",
         blindness_or_disability_indicator: false,

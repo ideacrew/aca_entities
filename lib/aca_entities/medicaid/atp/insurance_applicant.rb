@@ -20,6 +20,7 @@ module AcaEntities
         attribute :fixed_address_indicator, Types::Bool.meta(omittable: false)
         attribute :incarcerations, Types::Array.of(Incarceration).optional.meta(omittable: true)
         attribute :referral_activity, ReferralActivity.optional.meta(omittable: true)
+        attribute :non_esi_coverage_indicators, Types::Array.of(Types::Bool).optional.meta(omittable: true)
       end
     end
   end

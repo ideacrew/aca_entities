@@ -7,11 +7,12 @@ module AcaEntities
       class ImmigrationDocumentContract < Dry::Validation::Contract
 
         params do
-          optional(:expiration_date).maybe(:date)
-          optional(:document_number).maybe(:string)
-          optional(:document_type_code).maybe(Types::ImmigrationDocumentTypeCode)
-          optional(:document_type_other_code).maybe(:string)
-          optional(:name_of_other_document).maybe(:string)
+          optional(:expiration_date).maybe(:hash)
+          optional(:document_numbers).maybe(:array)
+          optional(:document_person_ids).maybe(:array)
+          optional(:same_name_indicator).maybe(:bool)
+          optional(:category_text).maybe(:string)
+          optional(:category_code).maybe(:string)
         end
       end
     end

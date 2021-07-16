@@ -8,6 +8,7 @@ module AcaEntities
 
         params do
           required(:id).filled(:string)
+          optional(:age_measure).maybe(:hash)
           optional(:birth_date).maybe(:hash)
           optional(:ethnicities).maybe(:array)
           required(:person_name).filled(:hash)

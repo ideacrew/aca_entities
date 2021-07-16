@@ -7,10 +7,12 @@ RSpec.describe ::AcaEntities::Medicaid::Atp::ImmigrationDocument do
 
   describe 'with valid arguments' do
     let(:input_params) do
-      { expiration_date: Date.today.next_year,
-        document_number: '123456789',
-        document_type_code: 'I327',
-        document_type_other_code: 'test' }
+      { expiration_date: { date: Date.today.next_year },
+        document_numbers: [{ identification_id: '123456789' }],
+        document_person_ids: [{ identification_id: 'a-person-id' }],
+        same_name_indicator: false,
+        category_code: 'I327',
+        category_text: 'test' }
     end
 
     it 'should initialize' do
