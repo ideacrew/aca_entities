@@ -250,8 +250,7 @@ module AcaEntities
             # next if ic[:insuranceMarketType] == 'NONE'
 
             result << {
-              'kind' => nil, # default value
-              'status' => status,
+              'kind' => status, # default value
               # 'insurance_kind' => ic['insuranceMarketType'],
               'start_on' => Date.parse('2021-05-07'), # default value
               'end_on' => nil
@@ -339,11 +338,11 @@ module AcaEntities
         def pregnancy_information_hash
           pregancy_info = @member_hash[:pregnancy_status]
           {
-            is_pregnant: pregancy_info[:status_indicator] || false,
+            is_pregnant: pregancy_info.nil? ? false : pregancy_info[:status_indicator],
             is_enrolled_on_medicaid: nil,
             is_post_partum_period: false, # default value
-            expected_children_count: pregancy_info[:expected_baby_quantity],
-            pregnancy_due_on: pregancy_info[:status_indicator] ? Date.today.prev_month : nil, # default value
+            expected_children_count: pregancy_info.nil? ? 0 : pregancy_info[:expected_baby_quantity],
+            pregnancy_due_on: (!pregancy_info.nil? && pregancy_info[:status_indicator]) ? Date.today.prev_month : nil, # default value
             pregnancy_end_on: nil
           }
         end
