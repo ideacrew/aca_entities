@@ -3,7 +3,7 @@
 require 'spec_helper'
 require 'aca_entities/medicaid/contracts/chip_ssn_verification_eligibility_basis_contract'
 
-RSpec.describe ::AcaEntities::Medicaid::Contracts::ChipSsnVerificationEligibilityBasis,  dbclean: :around_each do
+RSpec.describe ::AcaEntities::Medicaid::Contracts::ChipSsnVerificationEligibilityBasisContract,  dbclean: :around_each do
 
   # it 'should be a container-ready operation' do
   #   expect(subject.respond_to?(:call)).to be_truthy

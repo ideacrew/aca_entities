@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require_relative 'eligibility_basis_contract'
 
 module AcaEntities
@@ -6,7 +7,7 @@ module AcaEntities
     module Contracts
       # contract for ChipSsnVerificationEligibilityBasis
       class ChipSsnVerificationEligibilityBasisContract < EligibilityBasisContract
-        
+
         params do
           required(:status_code).filled(:string)
           optional(:status_indicator).maybe(:bool)
