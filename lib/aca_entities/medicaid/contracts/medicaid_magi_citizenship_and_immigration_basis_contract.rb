@@ -3,8 +3,8 @@
 module AcaEntities
   module Medicaid
     module Contracts
-      # contract for EmergencyMedicaidCitizenshipAndImmigrationBasis
-      class EmergencyMedicaidCitizenshipAndImmigrationBasisContract < Dry::Validation::Contract
+      # contract for MedicaidMagiCitizenshipAndImmigrationBasis
+      class MedicaidMagiCitizenshipAndImmigrationBasisContract < Dry::Validation::Contract
 
         params do
           required(:status_code).filled(:string)
