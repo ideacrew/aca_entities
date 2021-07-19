@@ -29,8 +29,14 @@ module AcaEntities
             # (i.e., taking into consideration when the policy actually took effect, was cancelled, etc.).
             element :applied_effective_date_range, String, tag: 'InsurancePolicyAppliedEffectiveDateRange'
 
-            def self.domain_to_mapper(_insurance_policy)
-              self.new
+            def self.domain_to_mapper(insurance_policy)
+              mapper = self.new
+              mapper.member = insurance_policy.member
+              mapper.policy_id = insurance_policy.policy_id
+              mapper.premium = insurance_policy.premium
+              mapper.source_code = insurance_policy.source_code
+              mapper.applied_effective_date_range = insurance_policy.applied_effective_date_range
+              mapper
             end
 
             def to_hash

@@ -40,15 +40,12 @@ module AcaEntities
               mapper.employments = person_augmentation.employments.map  do |employment_association|
                 PersonEmploymentAssociation.domain_to_mapper(employment_association)
               end
-              # [PersonPreferredLanguage.domain_to_mapper(augmentation.person_preferred_language)]
               mapper.contacts = person_augmentation.contacts.map do |contact_association|
                 PersonContactInformationAssociation.domain_to_mapper(contact_association)
               end
-              # [PersonContactInformationAssociation.domain_to_mapper(augmentation.contact)]
               mapper.persons = person_augmentation.persons.map do |person_association|
                 PersonAssociation.domain_to_mapper(person_association)
               end
-              # [PersonAssociation.domain_to_mapper(augmentation.person)]
               mapper
             end
 

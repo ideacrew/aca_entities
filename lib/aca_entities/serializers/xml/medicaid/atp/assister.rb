@@ -14,8 +14,10 @@ module AcaEntities
 
             has_one :role_played_by_person, RolePlayedByPerson
 
-            def self.domain_to_mapper(_assister)
-              self.new
+            def self.domain_to_mapper(assister)
+              mapper = self.new
+              mapper.role_played_by_person = assister.role_played_by_person
+              mapper
             end
 
             def to_hash

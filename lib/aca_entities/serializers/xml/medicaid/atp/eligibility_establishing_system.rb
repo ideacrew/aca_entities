@@ -16,8 +16,12 @@ module AcaEntities
             element :state_code, String, tag: "InformationExchangeSystemStateCode", namespace: "hix-core"
             element :county_name, String, tag: "InformationExchangeSystemCountyName", namespace: "hix-core"
 
-            def self.domain_to_mapper(_date_range)
-              self.new
+            def self.domain_to_mapper(ees)
+              mapper = self.new
+              mapper.category_code = ees.category_code
+              mapper.state_code = ees.state_code
+              mapper.county_name = ees.county_name
+              mapper
             end
 
             def to_hash

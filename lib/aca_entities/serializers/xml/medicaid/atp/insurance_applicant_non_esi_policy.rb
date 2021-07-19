@@ -23,8 +23,14 @@ module AcaEntities
 
             element :premium, String, tag: 'InsurancePremium'
 
-            def self.domain_to_mapper(_insurance_policy)
-              self.new
+            def self.domain_to_mapper(non_esi_policy)
+              mapper = self.new
+              mapper.member = non_esi_policy.member
+              mapper.applied_effective_date_range = non_esi_policy.applied_effective_date_range
+              mapper.identification = non_esi_policy.identification
+              mapper.source_code = non_esi_policy.source_code
+              mapper.premium = non_esi_policy.premium
+              mapper
             end
 
             def to_hash

@@ -25,8 +25,14 @@ module AcaEntities
 
             has_one :eligibility_establishing_system, EligibilityEstablishingSystem
 
-            def self.domain_to_mapper(_eligibility)
-              self.new
+            def self.domain_to_mapper(non_magi_eligibility)
+              mapper = self.new
+              mapper.id = non_magi_eligibility.id
+              mapper.medicare_entitlement_eligibility_basis = non_magi_eligibility.medicare_entitlement_eligibility_basis
+              mapper.blindness_or_disability_eligibility_basis = non_magi_eligibility.blindness_or_disability_eligibility_basis
+              mapper.eligibility_date_range = non_magi_eligibility.eligibility_date_range
+              mapper.eligibility_establishing_system = non_magi_eligibility.eligibility_establishing_system
+              mapper
             end
 
             def to_hash
