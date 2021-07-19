@@ -1,10 +1,12 @@
 # frozen_string_literal: true
+require_relative 'eligibility_basis_contract'
 
 module AcaEntities
   module Medicaid
     module Contracts
-      # contract for ChipSsnValidationBasis
-      class ChipSsnValidationBasisContract < Dry::Validation::Contract
+      # contract for ChipSsnVerificationEligibilityBasis
+      class ChipSsnVerificationEligibilityBasisContract < EligibilityBasisContract
+        
         params do
           required(:status_code).filled(:string)
           optional(:status_indicator).maybe(:bool)
