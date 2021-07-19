@@ -7,24 +7,42 @@ RSpec.describe ::AcaEntities::Medicaid::Contracts::MedicaidMagiIncomeEligibility
 
   let(:required_params) do
     {
-      eligibility_basis_status_code: "Complete"
+      status_code: "Complete"
     }
   end
 
   let(:optional_params) do
     {
       status_indicator: true,
-      ineligibility_reason_text: "123",
-      eligibility_basis_determination:
+      status_valid_date_range:
+        {
+          start_date: { date: Date.today },
+          end_date: { date: Date.today }
+        },
+      ineligibility_reason_text: "n/a",
+      inconsistency_reason_text: "n/a",
+      pending_reason_text: "n/a",
+      determination:
         {
           activity_identification: { identification_id: "MET00000000001887090" },
           activity_date: { date_time: DateTime.now }
         },
-      state_threshold_fpl_percent: "116"
+      income_compatibility:
+        {
+          verification_indicator: true,
+          inconsistency_reason_text: "123",
+          compatibility_determination:
+            {
+              activity_identification: { identification_id: "MET00000000001887090" },
+              activity_date: { date_time: DateTime.now }
+            },
+          verification_method: "1"
+        },
+      state_threshold_fpl_percent: "0"
     }
   end
 
-  let(:all_params) { required_params.merge(optional_params)}
+  let(:all_params) { required_params.merge(optional_params) }
 
   context 'invalid parameters' do
     context 'with empty parameters' do

@@ -14,7 +14,14 @@ RSpec.describe ::AcaEntities::Medicaid::Contracts::ChipIncarcerationEligibilityB
   let(:optional_params) do
     {
       status_indicator: true,
-      ineligibility_reason_text: "123",
+      status_valid_date_range:
+        {
+          start_date: { date: Date.today },
+          end_date: { date: Date.today }
+        },
+      ineligibility_reason_text: "n/a",
+      inconsistency_reason_text: "n/a",
+      pending_reason_text: "n/a",
       determination:
         {
           activity_identification: { identification_id: "MET00000000001887090" },

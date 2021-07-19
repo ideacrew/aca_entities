@@ -1,12 +1,16 @@
 # frozen_string_literal: true
 
+require_relative 'eligibility_basis_contract'
+
 module AcaEntities
   module Medicaid
     module Contracts
       # contract for ChipTraffickingVictimCategoryEligibilityBasis
-      class ChipTraffickingVictimCategoryEligibilityBasisContract < Dry::Validation::Contract
+      class ChipTraffickingVictimCategoryEligibilityBasisContract < EligibilityBasisContract
+
         params do
-          optional(:status_indicator).maybe(:bool)
+
+          # Additional params, if necessary
         end
       end
     end

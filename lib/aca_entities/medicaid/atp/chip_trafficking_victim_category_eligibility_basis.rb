@@ -4,9 +4,9 @@ module AcaEntities
   module Medicaid
     module Atp
       # entity for atp ChipTraffickingVictimCategoryEligibilityBasis
-      class ChipTraffickingVictimCategoryEligibilityBasis < Dry::Struct
+      class ChipTraffickingVictimCategoryEligibilityBasis < EligibilityBasis
 
-        attribute :status_indicator, Types::Bool.optional.meta(omittable: true)
+        # Additional attributes, if necessary
       end
     end
   end

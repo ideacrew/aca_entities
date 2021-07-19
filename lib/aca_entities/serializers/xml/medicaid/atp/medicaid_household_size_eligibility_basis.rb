@@ -16,20 +16,19 @@ module AcaEntities
             element :verification_method, Integer, tag: 'MedicaidHouseholdSizeEligibilityBasisVerificationMethod'
 
             element :status_indicator, Boolean, tag: 'StatusIndicator', namespace: "hix-core"
-            element :eligibility_basis_status_code, Boolean, tag: 'EligibilityBasisStatusCode', namespace: "hix-ee"
+            element :status_code, Boolean, tag: 'EligibilityBasisStatusCode', namespace: "hix-ee"
 
-            def self.domain_to_mapper(medicaid_eligibility)
+            def self.domain_to_mapper(eligibility_basis)
               mapper = self.new
-              mapper.status_indicator = medicaid_eligibility.status_indicator
-              mapper.eligibility_basis_status_code = medicaid_eligibility.eligibility_basis_status_code
+              mapper.status_indicator = eligibility_basis.status_indicator
+              mapper.status_code = eligibility_basis.status_code
               mapper
             end
 
             def to_hash
               {
-                verification_method: verification_method,
                 status_indicator: status_indicator,
-                eligibility_basis_status_code: eligibility_basis_status_code
+                status_code: status_code
               }
             end
           end

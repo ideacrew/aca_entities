@@ -1,19 +1,16 @@
 # frozen_string_literal: true
 
+require_relative 'eligibility_basis_contract'
+
 module AcaEntities
   module Medicaid
     module Contracts
       # contract for ChipIncarcerationEligibilityBasis
-      class ChipIncarcerationEligibilityBasisContract < Dry::Validation::Contract
+      class ChipIncarcerationEligibilityBasisContract < EligibilityBasisContract
 
         params do
-          optional(:status_indicator).maybe(:bool)
-          optional(:status_valid_date_range).maybe(:hash)
-          required(:status_code).filled(:string)
-          optional(:ineligibility_reason_text).maybe(:string)
-          optional(:inconsistency_reason_text).maybe(:string)
-          optional(:pending_reason_text).maybe(:string)
-          optional(:determination).maybe(:hash)
+
+          # Additional params, if necessary
         end
       end
     end
