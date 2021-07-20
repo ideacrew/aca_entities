@@ -85,21 +85,22 @@ module AcaEntities
               'end_on' => (date_range && date_range[:end_date]) ? income[:earned_date_range][:end_date][:date] : nil, # default value,
               'is_projected' => false, # default value
               'employer_address' =>
-              if contact_information
+              if contact_information && contact_information[:mailing_address]
+                mailing = contact_information[:mailing_address][:address]
                 {
-                  'address_1' => contact_information[:mailing_address] || '123test', # default value
+                  'address_1' => mailing[:location_street][:street_full_text] || '123test', # default value
                   'address_2' => '',
                   'address_3' => '',
-                  'county' => '',
+                  'county' => mailing[:location_county_name],
                   'country_name' => '',
                   'kind' => 'work', # default value
-                  'city' => contact_information[:mailing_address] || 'was', # default value
-                  'state' => contact_information[:mailing_address] || 'DC', # default value
-                  'zip' => contact_information[:mailing_address] || '23421' # default value
+                  'city' => mailing[:location_city_name] || 'was', # default value
+                  'state' => mailing[:location_state_us_postal_service_code] || 'DC', # default value
+                  'zip' => mailing[:location_postal_code] || '23421' # default value
                 }
               end,
               'employer_phone' =>
-              if contact_information
+              if contact_information && contact_information[:telephone_number]
                 {
                   'kind' => 'work', # default value
                   'country_code' => '',
