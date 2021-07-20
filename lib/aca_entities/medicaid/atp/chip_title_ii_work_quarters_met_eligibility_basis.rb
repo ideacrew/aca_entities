@@ -3,8 +3,8 @@
 module AcaEntities
   module Medicaid
     module Atp
-      # entity for atp ChipWorkQuartersMetEligibilityBasis
-      class ChipWorkQuartersMetEligibilityBasis < EligibilityBasis
+      # entity for atp ChipTitleIiWorkQuartersMetEligibilityBasis
+      class ChipTitleIiWorkQuartersMetEligibilityBasis < EligibilityBasis
 
         # Additional attributes, if necessary
       end
