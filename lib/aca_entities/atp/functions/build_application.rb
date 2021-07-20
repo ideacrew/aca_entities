@@ -195,7 +195,7 @@ module AcaEntities
 
             date_range = income[:earned_date_range]
             result << {
-              'kind' => OTHER_INCOME_TYPE_KIND[:"#{income[:category_code]}"],
+              'kind' => OTHER_INCOME_TYPE_KIND[:"#{income[:category_code]}"].downcase,
               'amount' => income[:amount],
               'amount_tax_exempt' => 0,
               'frequency_kind' => INCOME_FREQUENCY_MAP[income[:frequency][:frequency_code].downcase],
@@ -209,18 +209,18 @@ module AcaEntities
 
         DEDUCTION_TYPE = {
           Alimony: 'alimony_paid',
-          deductable_part_of_self_employment_taxes: 'Deductible part of self-employment taxes',
-          domestic_production_activities: 'Domestic production activities deduction',
-          penalty_on_early_withdrawal_of_savings: 'Penalty on early withdrawal of savings',
-          educator_expenses: 'Educator expenses',
-          self_employment_sep_simple_and_qualified_plans: 'Self-employmed SEP, SIMPLE, and qualified plans',
-          self_employed_health_insurance: 'Self-employed health insurance',
-          student_loan_interest: 'Student loan interest',
-          moving_expenses: 'Moving expenses',
-          health_savings_account: 'Health savings account',
-          ira_deduction: 'IRA deduction',
-          reservists_performing_artists_and_fee_basis_government_official_expenses: 'Certain business expenses of reservists, performing artists, and fee-basis government officials',
-          tuition_and_fees: 'Tuition and fees',
+          'Deductible part of self-employment taxes': 'deductable_part_of_self_employment_taxes',
+          'Domestic production activities deduction': 'domestic_production_activities',
+          'Penalty on early withdrawal of savings': 'penalty_on_early_withdrawal_of_savings',
+          'Educator expenses': 'educator_expenses',
+          'Self-employmed SEP, SIMPLE, and qualified plans': 'self_employment_sep_simple_and_qualified_plans',
+          'Self-employed health insurance': 'self_employed_health_insurance' ,
+          'StudentLoanInterest': 'student_loan_interest',
+          'Moving expenses': 'moving_expenses' ,
+          'Health savings account': 'health_savings_account',
+          'IRA deduction': 'ira_deduction',
+          'Certain business expenses of reservists, performing artists, and fee-basis government officials': 'reservists_performing_artists_and_fee_basis_government_official_expenses',
+          'Tuition and fees': 'tuition_and_fees',
           OTHER_DEDUCTION: 'OTHER_DEDUCTION'
         }.freeze
 
@@ -228,16 +228,14 @@ module AcaEntities
           return [] if @expenses_hash.nil?
 
           @expenses_hash.each_with_object([]) do |expense, result|
-            next if DEDUCTION_TYPE[:"#{expense[:incomeSourceType]}"].nil?
+            next if DEDUCTION_TYPE[:"#{expense[:category_code]}"].nil?
             date_range = expense[:earned_date_range]
             result << {
               'kind' => DEDUCTION_TYPE[:"#{expense[:category_code]}"],
               'amount' => expense[:amount],
-              'amount_tax_exempt' => 0,
-              'frequency_kind' => expense[:frequency][:frequency_code].capitalize,
+              'frequency_kind' => expense[:frequency][:frequency_code].downcase,
               'start_on' => (date_range && date_range[:start_date]) ? income[:earned_date_range][:start_date][:date] : Date.parse('2021-05-07').to_s, # default value
-              'end_on' => (date_range && date_range[:end_date]) ? income[:earned_date_range][:end_date][:date] : nil, # default value,
-              'is_projected' => false
+              'end_on' => (date_range && date_range[:end_date]) ? income[:earned_date_range][:end_date][:date] : nil # default value
             }
             result
           end
