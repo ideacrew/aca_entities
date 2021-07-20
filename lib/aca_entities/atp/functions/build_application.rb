@@ -22,6 +22,7 @@ module AcaEntities
             # m_identifier = "attestations.members.#{@applicant_identifier}"
             # @attestations_family_hash = @memoized_data.find(Regexp.new("#{m_identifier}.family"))&.first&.item
             @incomes_hash = @memoized_data.find(Regexp.new("record.people.#{@applicant_identifier}.augementation")).first.item[:incomes]
+            @expenses_hash = @memoized_data.find(Regexp.new("record.people.#{@applicant_identifier}.augementation")).first.item[:expenses]
             @employments_hash = @memoized_data.find(Regexp.new("record.people.#{@applicant_identifier}.augementation")).first.item[:employments]
             # @insurance_coverage_hash = @memoized_data.find(Regexp.new("#{m_identifier}.insuranceCoverage"))&.first&.item
 
@@ -73,14 +74,15 @@ module AcaEntities
             next unless income[:category_code] == 'Wages'
             employer_hash = @employments_hash.select {|hash| hash[:employer][:employer_id] == income[:source_organization_reference][:ref]}.first
             contact_information = employer_hash[:employer][:organization_primary_contact_information] if employer_hash
+            date_range = income[:earned_date_range]
             result << {
               'kind' => 'wages_and_salaries',
               'amount' => income[:amount],
               'amount_tax_exempt' => 0,
               'employer_name' => employer_hash ? employer_hash[:employer][:category_text] : nil,
               'frequency_kind' => INCOME_FREQUENCY_MAP[income[:frequency][:frequency_code].downcase],
-              'start_on' => Date.parse('2021-05-07').to_s, # default value
-              'end_on' => nil,
+              'start_on' => (date_range && date_range[:start_date]) ? income[:earned_date_range][:start_date][:date] : Date.parse('2021-05-07').to_s, # default value
+              'end_on' => (date_range && date_range[:end_date]) ? income[:earned_date_range][:end_date][:date] : nil, # default value,
               'is_projected' => false, # default value
               'employer_address' =>
               if contact_information
@@ -166,23 +168,23 @@ module AcaEntities
         end
 
         OTHER_INCOME_TYPE_KIND = {
-          Alimony: 'alimony_and_maintenance',
-          CapitalGains: 'Capital gains',
-          dividend: 'Dividends',
-          Interest: 'Interest',
-          Pension: 'Pension or retirement',
-          Retirement: 'Pension or retirement',
-          RENTAL_OR_ROYALTY_INCOME: 'rental_and_royalty',
-          SocialSecurity: 'Social Security',
-          american_indian_and_alaskan_native: 'American Indian/Alaska Native income',
-          employer_funded_disability: 'Employer-funded disability payments',
-          estate_trust: 'Estate and trust',
-          FarmingOrFishing: 'Farming or fishing',
-          foreign: 'Foreign income',
-          other: 'Other taxable income',
-          INVESTMENT_INCOME: 'INVESTMENT_INCOME',
-          prizes_and_awards: 'Prizes and awards',
-          Scholarship: 'Taxable scholarship payments'
+          'Alimony': 'alimony_and_maintenance',
+          'CapitalGains': 'capital_gains',
+          'dividend': 'Dividends',
+          'Interest': 'Interest',
+          'Pension': 'pension_retirement_benefits',
+          'Retirement': 'pension_retirement_benefits',
+          'RENTAL_OR_ROYALTY_INCOME': 'rental_and_royalty',
+          'SocialSecurity': 'social_security_benefit',
+          'American Indian/Alaska Native income': 'american_indian_and_alaskan_native',
+          'Employer-funded disability payments': 'employer_funded_disability',
+          'Estate and trust': 'estate_trust',
+          'FarmingOrFishing': 'farming_and_fishing',
+          'foreign': 'foreign',
+          'Other taxable income': 'other',
+          'INVESTMENT_INCOME': 'INVESTMENT_INCOME',
+          'Prizes and awards': 'prizes_and_awards',
+          'Taxable scholarship payments': 'scholorship_payments'
         }.freeze
 
         def other_income_hash
@@ -191,13 +193,14 @@ module AcaEntities
           @incomes_hash.each_with_object([]) do |income, result|
             next if OTHER_INCOME_TYPE_KIND[:"#{income[:category_code]}"].nil?
 
+            date_range = income[:earned_date_range]
             result << {
               'kind' => OTHER_INCOME_TYPE_KIND[:"#{income[:category_code]}"],
               'amount' => income[:amount],
               'amount_tax_exempt' => 0,
               'frequency_kind' => INCOME_FREQUENCY_MAP[income[:frequency][:frequency_code].downcase],
-              'start_on' => Date.parse('2021-05-07'), # default value
-              'end_on' => nil,
+              'start_on' => (date_range && date_range[:start_date]) ? income[:earned_date_range][:start_date][:date] : Date.parse('2021-05-07').to_s, # default value
+              'end_on' => (date_range && date_range[:end_date]) ? income[:earned_date_range][:end_date][:date] : nil, # default value,
               'is_projected' => false
             }
             result
@@ -205,7 +208,7 @@ module AcaEntities
         end
 
         DEDUCTION_TYPE = {
-          ALIMONY_PAYMENT: 'alimony_paid',
+          Alimony: 'alimony_paid',
           deductable_part_of_self_employment_taxes: 'Deductible part of self-employment taxes',
           domestic_production_activities: 'Domestic production activities deduction',
           penalty_on_early_withdrawal_of_savings: 'Penalty on early withdrawal of savings',
@@ -222,18 +225,18 @@ module AcaEntities
         }.freeze
 
         def deduction_hash
-          return [] if @incomes_hash.nil?
+          return [] if @expenses_hash.nil?
 
-          @incomes_hash.each_with_object([]) do |income, result|
-            next if DEDUCTION_TYPE[:"#{income[:incomeSourceType]}"].nil?
-
+          @expenses_hash.each_with_object([]) do |expense, result|
+            next if DEDUCTION_TYPE[:"#{expense[:incomeSourceType]}"].nil?
+            date_range = expense[:earned_date_range]
             result << {
-              'kind' => DEDUCTION_TYPE[:"#{income[:incomeSourceType]}"],
-              'amount' => income[:incomeAmount],
+              'kind' => DEDUCTION_TYPE[:"#{expense[:category_code]}"],
+              'amount' => expense[:amount],
               'amount_tax_exempt' => 0,
-              'frequency_kind' => income[:incomeFrequencyType].capitalize,
-              'start_on' => Date.parse('2021-05-07'), # default value
-              'end_on' => nil,
+              'frequency_kind' => expense[:frequency][:frequency_code].capitalize,
+              'start_on' => (date_range && date_range[:start_date]) ? income[:earned_date_range][:start_date][:date] : Date.parse('2021-05-07').to_s, # default value
+              'end_on' => (date_range && date_range[:end_date]) ? income[:earned_date_range][:end_date][:date] : nil, # default value,
               'is_projected' => false
             }
             result
