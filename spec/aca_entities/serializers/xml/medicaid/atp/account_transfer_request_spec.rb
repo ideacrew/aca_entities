@@ -21,8 +21,8 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
       }],
       insurance_application: insurance_application,
       medicaid_households: [],
-      people: [person]
-      # tax_returns: [tax_return]
+      people: [person],
+      tax_returns: [tax_return]
     }
   end
 
@@ -431,17 +431,6 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
         monthly_attested_medicaid_household_current_income: 0.00,
         annual_total_project_medicaid_household_current_income: 0.00
       }]
-      # household_size_change_expected_indicator: false,
-      # primary_tax_filer: { role_reference: { ref: 'pe123' } },
-      # spouse_tax_filer: { role_reference: { ref: 'pe123' } },
-      # tax_dependents:
-      # [{
-      #   role_reference: { ref: 'pe123' },
-      #   claimed_by_custodial_parent_indicator: true,
-      #   tin_identification: { identification_id: '123' }
-      # }],
-      # household_member_references: [{ ref: 'pe123' }],
-      # household_size_quantity: 2,
     }
   end
 
