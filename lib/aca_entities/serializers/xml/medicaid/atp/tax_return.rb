@@ -15,6 +15,9 @@ module AcaEntities
             # A number of exemptions claimed on a tax return
             element :total_exemptions_quantity, Integer, tag: 'TaxReturnTotalExemptionsQuantity', namespace: "hix-ee"
 
+            # A kind of filing status
+            element :status_code, String, tag: "TaxReturnFilingStatusCode", namespace: "hix-ee"
+
             # A year for which taxes are being filed.
             element :tax_return_year, Integer, tag: 'TaxReturnYear', namespace: "hix-ee"
 
@@ -26,6 +29,7 @@ module AcaEntities
             def self.domain_to_mapper(tax_r)
               mapper = self.new
               mapper.total_exemptions_quantity = tax_r.total_exemptions_quantity
+              mapper.status_code = tax_r.status_code
               mapper.tax_return_year = tax_r.tax_return_year
               mapper.tax_return_includes_dependent_indicator = tax_r.tax_return_includes_dependent_indicator
               mapper.tax_houshold = TaxHousehold.domain_to_mapper(tax_r.tax_houshold)
@@ -35,6 +39,7 @@ module AcaEntities
             def to_hash
               {
                 total_exemptions_quantity: total_exemptions_quantity,
+                status_code: status_code,
                 tax_return_year: tax_return_year,
                 tax_return_includes_dependent_indicator: tax_return_includes_dependent_indicator,
                 tax_houshold: tax_houshold&.to_hash

@@ -12,6 +12,7 @@ module AcaEntities
         ContactPreferenceCode = String.enum("TextMessage", "Email", "Mail")
         FfeVerificationCode = String.enum("Y", "N", "I", "P")
         InformationExchangeSystemCategoryCode = String.enum("Exchange", "MedicaidAgency", "CHIPAgency")
+        TaxReturnFilingStatusCode = String.enum("0", "1", "2", "3", "4", "5", "6", "7")
         ReferralActivityReasonCode = String.enum("FullDetermination", "WaitingPeriodException", "GapFilling")
         IncomeCategoryCode = String.enum(
           "CapitalGains",

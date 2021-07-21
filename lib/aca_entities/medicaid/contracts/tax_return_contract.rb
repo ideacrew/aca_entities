@@ -8,6 +8,7 @@ module AcaEntities
 
         params do
           optional(:tax_household_composition).maybe(:hash)
+          optional(:status_code).maybe(:string)
           optional(:annual_income_information).maybe(:hash)
           optional(:irs_information).maybe(:hash)
           optional(:tax_household_annual_income).maybe(:hash)
