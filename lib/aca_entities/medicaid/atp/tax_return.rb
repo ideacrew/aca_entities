@@ -5,11 +5,11 @@ module AcaEntities
     module Atp
       # Entity for TaxReturn
       class TaxReturn < Dry::Struct
-        attribute :tax_household_composition,   TaxHouseholdComposition.optional.meta(omittable: true)
-        attribute :status_code,                 Types::TaxReturnFilingStatusCode.optional.meta(omittable: true)
-        attribute :annual_income_information,   AnnualIncomeInformation.optional.meta(omittable: true)
-        attribute :irs_information,             IrsInformation.optional.meta(omittable: true)
-        attribute :tax_household_annual_income, TaxHouseholdAnnualIncome.optional.meta(omittable: true)
+        attribute :total_exemptions_quantity,               Types::Integer.optional.meta(omittable: true)
+        attribute :status_code,                             Types::TaxReturnFilingStatusCode.optional.meta(omittable: true)
+        attribute :tax_return_year,                         Types::Integer.optional.meta(omittable: true)
+        attribute :tax_household,                           TaxHousehold.meta(omittable: false)
+        attribute :tax_return_includes_dependent_indicator, Types::Bool.optional.meta(omittable: true)
       end
     end
   end

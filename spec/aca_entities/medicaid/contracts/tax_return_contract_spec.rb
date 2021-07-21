@@ -1,25 +1,34 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require 'aca_entities/medicaid/contracts/household_income_contract'
+require 'aca_entities/medicaid/contracts/tax_return_contract'
 
-RSpec.describe AcaEntities::Medicaid::Contracts::HouseholdIncomeContract, type: :model do
-
-  # it 'should be a container-ready operation' do
-  #   expect(subject.respond_to?(:call)).to be_truthy
-  # end
+RSpec.describe ::AcaEntities::Medicaid::Contracts::TaxReturnContract, dbclean: :after_each do
 
   let(:required_params) { {} }
 
   let(:optional_params) do
     {
-      monthly_income_greater_than_fpl: true,
-      income_type_code: 'CapitalGains',
-      income_amount: 500.00,
-      income_frequency: { frequency_code: 'Weekly' },
-      income_from_tribal_source: 120.00,
-      monthly_attested_medicaid_household_current_income: nil,
-      annual_total_project_medicaid_household_current_income: nil
+      total_exemptions_quantity: 1,
+      status_code: "0",
+      tax_return_year: 2020,
+      tax_household: tax_household,
+      tax_return_includes_dependent_indicator: true
+    }
+  end
+
+  let(:tax_household) do
+    {
+      household_incomes:
+      [{
+        monthly_income_greater_than_fpl: true,
+        income_type_code: 'CapitalGains',
+        income_amount: 500.00,
+        income_frequency: 'Weekly',
+        income_from_tribal_source: 120.00,
+        monthly_attested_medicaid_household_current_income: 0.00,
+        annual_total_project_medicaid_household_current_income: 0.00
+      }]
     }
   end
 

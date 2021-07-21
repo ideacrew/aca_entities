@@ -22,6 +22,7 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
       insurance_application: insurance_application,
       medicaid_households: [],
       people: [person]
+      # tax_returns: [tax_return]
     }
   end
 
@@ -403,6 +404,44 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
   let(:application_identity) do
     {
       identification_id: "A UUID"
+    }
+  end
+
+  let(:tax_return) do
+    {
+      total_exemptions_quantity: 1,
+      status_code: "0",
+      tax_return_year: 2020,
+      tax_household: tax_household,
+      tax_return_includes_dependent_indicator: true
+    }
+  end
+
+  let(:tax_household) do
+    {
+      household_incomes:
+      [{
+        monthly_income_greater_than_fpl: true,
+        income_type_code: 'CapitalGains',
+        income_amount: 500.00,
+        income_frequency: { frequency_code: 'Weekly' },
+        date: { date: Date.today },
+        income_from_tribal_source: 120.00,
+        source_organization_reference: { ref: 'em123' },
+        monthly_attested_medicaid_household_current_income: 0.00,
+        annual_total_project_medicaid_household_current_income: 0.00
+      }]
+      # household_size_change_expected_indicator: false,
+      # primary_tax_filer: { role_reference: { ref: 'pe123' } },
+      # spouse_tax_filer: { role_reference: { ref: 'pe123' } },
+      # tax_dependents:
+      # [{
+      #   role_reference: { ref: 'pe123' },
+      #   claimed_by_custodial_parent_indicator: true,
+      #   tin_identification: { identification_id: '123' }
+      # }],
+      # household_member_references: [{ ref: 'pe123' }],
+      # household_size_quantity: 2,
     }
   end
 

@@ -19,6 +19,7 @@ module AcaEntities
           # optional(:assister).maybe(:array)
           optional(:authorized_representative).maybe(:hash)
           required(:physical_households).value(:array, min_size?: 1)
+          optional(:tax_returns).array(:hash)
         end
       end
     end

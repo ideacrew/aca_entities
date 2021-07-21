@@ -31,7 +31,7 @@ module AcaEntities
             has_one :authorized_representative, AuthorizedRepresentative
             has_many :medicaid_households, MedicaidHousehold
             has_many :verification_metadata, VerificationMetadata
-            has_one :tax_return, TaxReturn
+            has_one :tax_returns, TaxReturn
 
             def self.domain_to_mapper(account_transfer_request)
               mapper = self.new
@@ -48,6 +48,7 @@ module AcaEntities
               if account_transfer_request.respond_to?(:verification_metadata)
                 mapper.verification_metadata = account_transfer_request.verification_metadata.map {|vm| VerificationMetadata.domain_to_mapper(vm)}
               end
+              # mapper.tax_returns = account_transfer_request.tax_returns.map{ |tr| TaxReturn.domain_to_mapper(tr) }
               mapper
             end
 
@@ -61,7 +62,7 @@ module AcaEntities
                 record: identifier ? { people: people.map(&:to_hash).group_by {|h| h[:id]}.transform_keys(&:to_s).transform_values(&:first) } : nil,
                 people: identifier ? nil : people.map(&:to_hash),
                 physical_households: physical_households.map(&:to_hash),
-                tax_return: tax_return&.to_hash
+                tax_returns: tax_return&.to_hash
               }
             end
           end

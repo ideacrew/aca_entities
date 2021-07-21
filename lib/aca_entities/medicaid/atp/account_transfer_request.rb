@@ -20,6 +20,7 @@ module AcaEntities
         attribute :people,                    Types::Array.of(Person).meta(omittable: false)
         # attribute :assister,                Assister.optional.meta(omittable:true)
         attribute :authorized_representative, AuthorizedRepresentative.optional.meta(omittable: true)
+        attribute :tax_returns,               Types::Array.of(TaxReturn).optional.meta(omittable: true)
       end
     end
   end
