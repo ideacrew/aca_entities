@@ -10,6 +10,7 @@ module AcaEntities
           @memoized_data = cache
           insurance_applicants = @memoized_data.resolve(:'insurance_application.insurance_applicants').item
           @primary_applicant_identifier = @memoized_data.resolve(:primary_applicant_identifier).item
+          @tax_return = @memoized_data.resolve(:'insurance_application.tax_return').item
 
           result = insurance_applicants.each_with_object([]) do |applicant, collector|
 
@@ -169,23 +170,23 @@ module AcaEntities
         end
 
         OTHER_INCOME_TYPE_KIND = {
-          'Alimony': 'alimony_and_maintenance',
-          'CapitalGains': 'capital_gains',
-          'dividend': 'Dividends',
-          'Interest': 'Interest',
-          'Pension': 'pension_retirement_benefits',
-          'Retirement': 'pension_retirement_benefits',
-          'RENTAL_OR_ROYALTY_INCOME': 'rental_and_royalty',
-          'SocialSecurity': 'social_security_benefit',
-          'American Indian/Alaska Native income': 'american_indian_and_alaskan_native',
-          'Employer-funded disability payments': 'employer_funded_disability',
-          'Estate and trust': 'estate_trust',
-          'FarmingOrFishing': 'farming_and_fishing',
-          'foreign': 'foreign',
-          'Other taxable income': 'other',
-          'INVESTMENT_INCOME': 'INVESTMENT_INCOME',
-          'Prizes and awards': 'prizes_and_awards',
-          'Taxable scholarship payments': 'scholorship_payments'
+          'Alimony' => 'alimony_and_maintenance',
+          'CapitalGains' => 'capital_gains',
+          'dividend' => 'Dividends',
+          'Interest' => 'Interest',
+          'Pension' => 'pension_retirement_benefits',
+          'Retirement' => 'pension_retirement_benefits',
+          'RENTAL_OR_ROYALTY_INCOME' => 'rental_and_royalty',
+          'SocialSecurity' => 'social_security_benefit',
+          'American Indian/Alaska Native income' => 'american_indian_and_alaskan_native',
+          'Employer-funded disability payments' => 'employer_funded_disability',
+          'Estate and trust' => 'estate_trust',
+          'FarmingOrFishing' => 'farming_and_fishing',
+          'foreign' => 'foreign',
+          'Other taxable income' => 'other',
+          'INVESTMENT_INCOME' => 'INVESTMENT_INCOME',
+          'Prizes and awards' => 'prizes_and_awards',
+          'Taxable scholarship payments' => 'scholorship_payments'
         }.freeze
 
         def other_income_hash
@@ -209,20 +210,20 @@ module AcaEntities
         end
 
         DEDUCTION_TYPE = {
-          Alimony: 'alimony_paid',
-          'Deductible part of self-employment taxes': 'deductable_part_of_self_employment_taxes',
-          'Domestic production activities deduction': 'domestic_production_activities',
-          'Penalty on early withdrawal of savings': 'penalty_on_early_withdrawal_of_savings',
-          'Educator expenses': 'educator_expenses',
-          'Self-employmed SEP, SIMPLE, and qualified plans': 'self_employment_sep_simple_and_qualified_plans',
-          'Self-employed health insurance': 'self_employed_health_insurance' ,
-          'StudentLoanInterest': 'student_loan_interest',
-          'Moving expenses': 'moving_expenses' ,
-          'Health savings account': 'health_savings_account',
-          'IRA deduction': 'ira_deduction',
-          'Certain business expenses of reservists, performing artists, and fee-basis government officials': 'reservists_performing_artists_and_fee_basis_government_official_expenses',
-          'Tuition and fees': 'tuition_and_fees',
-          OTHER_DEDUCTION: 'OTHER_DEDUCTION'
+          'Alimony' => 'alimony_paid',
+          'Deductible part of self-employment taxes' => 'deductable_part_of_self_employment_taxes',
+          'Domestic production activities deduction' => 'domestic_production_activities',
+          'Penalty on early withdrawal of savings' => 'penalty_on_early_withdrawal_of_savings',
+          'Educator expenses' => 'educator_expenses',
+          'Self-employmed SEP, SIMPLE, and qualified plans' => 'self_employment_sep_simple_and_qualified_plans',
+          'Self-employed health insurance' => 'self_employed_health_insurance',
+          'StudentLoanInterest' => 'student_loan_interest',
+          'Moving expenses' => 'moving_expenses',
+          'Health savings account' => 'health_savings_account',
+          'IRA deduction' => 'ira_deduction',
+          'Certain business expenses of reservists, performing artists, and fee-basis government officials' => 'reservists_performing_artists_and_fee_basis_government_official_expenses',
+          'Tuition and fees' => 'tuition_and_fees',
+          'OTHER_DEDUCTION' => 'OTHER_DEDUCTION'
         }.freeze
 
         def deduction_hash
@@ -385,7 +386,16 @@ module AcaEntities
 
         def applicant_hash
           non_magi = @memoized_data.find(Regexp.new('attestations.members.*.nonMagi')).map(&:item).last
-
+          tax_dependents = @tax_return[:tax_houshold][:tax_dependents].collect {|a| a[:role_reference][:ref]}
+          is_tax_filer = if @tax_return[:tax_houshold]
+                           if @tax_return[:tax_houshold][:primary_tax_filer][:role_reference][:ref] == @applicant_identifier
+                             true
+                           else
+                             @tax_return[:tax_houshold][:spouse_tax_filer] == @applicant_identifier
+                           end
+                         else
+                           false
+                         end
           {
             is_primary_applicant: @applicant_identifier == @primary_applicant_identifier,
             name: name_hash,
@@ -401,13 +411,13 @@ module AcaEntities
             is_consent_applicant: nil,
             vlp_document: nil,
             family_member_reference: family_member_reference_hash,
-            person_hbx_id: '1234', # default value
-            is_required_to_file_taxes: false, # default value
+            person_hbx_id: @applicant_identifier, # default value
+            is_required_to_file_taxes: is_tax_filer, # default value
             tax_filer_kind: 'tax_filer', # default value . #To memoise and extract data from taxRelationships
             is_joint_tax_filing: false, # default value
             # # add method to check for joint filing using this value
-            is_claimed_as_tax_dependent: false, # default value
-            claimed_as_tax_dependent_by: nil, # default value
+            is_claimed_as_tax_dependent: tax_dependents.include?(@applicant_identifier), # default value
+            claimed_as_tax_dependent_by: @primary_applicant_identifier, # default value to primary
             student: student_hash,
             is_refugee: nil, # default value
             is_trafficking_victim: nil, # default value
