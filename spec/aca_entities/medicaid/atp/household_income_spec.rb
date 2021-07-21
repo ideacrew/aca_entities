@@ -6,7 +6,9 @@ require 'aca_entities/medicaid/atp/household_income'
 RSpec.describe ::AcaEntities::Medicaid::Atp::HouseholdIncome do
 
   describe 'with valid arguments' do
-    let(:input_params) do
+    let(:required_params) { {} }
+
+    let(:optional_params) do
       {
         monthly_income_greater_than_fpl: true,
         income_type_code: 'CapitalGains',
@@ -18,12 +20,21 @@ RSpec.describe ::AcaEntities::Medicaid::Atp::HouseholdIncome do
       }
     end
 
+    let(:all_params) { required_params.merge(optional_params)}
+
     it 'should initialize' do
-      expect(described_class.new(input_params)).to be_a described_class
+      expect(described_class.new(all_params)).to be_a described_class
     end
 
     it 'should not raise error' do
-      expect { described_class.new(input_params) }.not_to raise_error
+      expect { described_class.new(all_params) }.not_to raise_error
+    end
+
+    context 'with only optional parameters' do
+      it 'should contain all optional keys and values' do
+        result = described_class.new(optional_params)
+        expect(result.to_h).to eq optional_params
+      end
     end
   end
 end

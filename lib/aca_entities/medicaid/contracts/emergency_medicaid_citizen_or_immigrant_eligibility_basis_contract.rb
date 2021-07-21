@@ -9,11 +9,8 @@ module AcaEntities
       class EmergencyMedicaidCitizenOrImmigrantEligibilityBasisContract < EligibilityBasisContract
 
         params do
-          # required(:status_code).filled(:string)
-          # optional(:status_indicator).maybe(:bool)
-          # optional(:determination_date).maybe(:date_time)
-          # optional(:inconsistency_reason).maybe(:string)
-          # optional(:ineligibility_reason).maybe(:string)
+
+          # Additional params, if necessary
         end
       end
     end

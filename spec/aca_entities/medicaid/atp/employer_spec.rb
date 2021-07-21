@@ -15,13 +15,15 @@ RSpec.describe ::AcaEntities::Medicaid::Atp::Employer,  dbclean: :around_each do
     let(:required_params) { {} }
 
     let(:optional_params) do
-      { id: "em123",
+      {
+        id: "em123",
         category_text: "Acme",
-        organization_primary_contact_information: contact_information }
+        organization_primary_contact_information: contact_information
+      }
     end
 
     let(:contact_information) do
-      { email: "fake@test.com",
+      { email_id: "fake@test.com",
         mailing_address: contact_mailing_address,
         telephone_number: contact_telephone }
     end
@@ -49,7 +51,7 @@ RSpec.describe ::AcaEntities::Medicaid::Atp::Employer,  dbclean: :around_each do
         telephone_suffix_id: "0" }
     end
 
-    let(:all_params) { required_params.merge(optional_params)}
+    let(:all_params) { required_params.merge(optional_params) }
 
     it 'should initialize' do
       expect(described_class.new(all_params)).to be_a described_class
@@ -57,6 +59,13 @@ RSpec.describe ::AcaEntities::Medicaid::Atp::Employer,  dbclean: :around_each do
 
     it 'should not raise error' do
       expect { described_class.new(all_params) }.not_to raise_error
+    end
+
+    context 'with only optional parameters' do
+      it 'should contain all optional keys and values' do
+        result = described_class.new(optional_params)
+        expect(result.to_h).to eq optional_params
+      end
     end
   end
 end

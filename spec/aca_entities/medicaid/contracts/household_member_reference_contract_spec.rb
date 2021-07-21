@@ -17,18 +17,18 @@ RSpec.describe ::AcaEntities::Medicaid::Contracts::HouseholdMemberReferenceContr
         expect(subject.call({}).errors.to_h.keys).to match_array required_params.keys
       end
     end
+
+    context 'with optional parameters only' do
+      it 'should list error for every required parameter' do
+        expect(subject.call(optional_params).errors.to_h.keys).to match_array required_params.keys
+      end
+    end
   end
 
   context 'valid parameters' do
     context 'with required parameters only' do
-      let(:input_params) { required_params }
-
-      before do
-        @result = subject.call(input_params)
-      end
-
-      it { expect(@result.success?).to be_truthy }
-      it { expect(@result.to_h).to eq input_params }
+      it { expect(subject.call(required_params).success?).to be_truthy }
+      it { expect(subject.call(required_params).to_h).to eq required_params }
     end
 
     context 'with all required and optional parameters' do

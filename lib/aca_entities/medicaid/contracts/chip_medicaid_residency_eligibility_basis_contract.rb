@@ -9,10 +9,7 @@ module AcaEntities
       class ChipMedicaidResidencyEligibilityBasisContract < EligibilityBasisContract
 
         params do
-          # required(:status_code).filled(:string)
-          # optional(:status_indicator).maybe(:bool)
-          # optional(:status_determination_date).maybe(:date_time)
-          # optional(:ineligibility_reason).maybe(:string)
+          # Additional params, if necessary
         end
       end
     end
