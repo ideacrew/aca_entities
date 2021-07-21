@@ -409,8 +409,8 @@ module AcaEntities
 
         def applicant_hash
           non_magi = @memoized_data.find(Regexp.new('attestations.members.*.nonMagi')).map(&:item).last
-          tax_dependents = @tax_return[:tax_houshold][:tax_dependents].collect {|a| a[:role_reference][:ref]}
-          is_tax_filer = if @tax_return[:tax_houshold]
+          tax_dependents = @tax_return.nil? ? nil : @tax_return[:tax_houshold][:tax_dependents].collect {|a| a[:role_reference][:ref]}
+          is_tax_filer = if !@tax_return.nil? && @tax_return[:tax_houshold]
                            if @tax_return[:tax_houshold][:primary_tax_filer][:role_reference][:ref] == @applicant_identifier
                              true
                            else
@@ -439,7 +439,7 @@ module AcaEntities
             tax_filer_kind: 'tax_filer', # default value . #To memoise and extract data from taxRelationships
             is_joint_tax_filing: false, # default value
             # # add method to check for joint filing using this value
-            is_claimed_as_tax_dependent: tax_dependents.include?(@applicant_identifier), # default value
+            is_claimed_as_tax_dependent: tax_dependents.nil? ? nil : tax_dependents.include?(@applicant_identifier), # default value
             claimed_as_tax_dependent_by: @primary_applicant_identifier, # default value to primary
             student: student_hash,
             is_refugee: nil, # default value
