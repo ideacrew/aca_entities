@@ -15,14 +15,15 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
       transfer_header: transfer_header,
       senders: senders,
       receivers: [receiver],
-      physical_households: [{
-        household_size_quantity: 1,
-        household_member_references: [{ ref: "pe123" }]
-      }],
+
       insurance_application: insurance_application,
       medicaid_households: [],
       people: [person],
-      tax_returns: [tax_return]
+      tax_returns: [tax_return],
+      physical_households: [{
+        household_size_quantity: 1,
+        household_member_references: [{ ref: "pe123" }]
+      }]
     }
   end
 
@@ -419,18 +420,32 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
 
   let(:tax_household) do
     {
-      household_incomes:
-      [{
-        monthly_income_greater_than_fpl: true,
-        income_type_code: 'CapitalGains',
-        income_amount: 500.00,
-        income_frequency: { frequency_code: 'Weekly' },
-        date: { date: Date.today },
-        income_from_tribal_source: 120.00,
-        source_organization_reference: { ref: 'em123' },
-        monthly_attested_medicaid_household_current_income: 0.00,
-        annual_total_project_medicaid_household_current_income: 0.00
-      }]
+      tax_dependents: [tax_dependent],
+      household_incomes: [household_income]
+    }
+  end
+
+  let(:tax_dependent) do
+    {
+      role_reference: { ref: 'pe123' },
+      claimed_by_custodial_parent_indicator: false,
+      tin_identification: { identification_id: '012345678' }
+    }
+  end
+
+  let(:household_income) do
+    {
+      monthly_income_greater_than_fpl: 0.00,
+      income_type_code: 'CapitalGains',
+      income_amount: 500.00,
+      income_frequency: income_frequency,
+      payment_frequency: payment_frequency,
+      date: { date: Date.today },
+      income_from_tribal_source: 120.00,
+      source_organization_reference: { ref: 'em123' },
+      monthly_attested_medicaid_household_current_income: 0.00,
+      annual_total_project_medicaid_household_current_income: 0.00,
+      earned_date_range: date_range
     }
   end
 
@@ -461,7 +476,7 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
   it "is schema valid" do
     document = Nokogiri::XML(mapper.to_xml)
     # puts mapper.to_xml
-    # File.open('spec.xml', 'w') { |file| file.write(mapper.to_xml.to_s) }
+    File.open('spec.xml', 'w') { |file| file.write(mapper.to_xml.to_s) }
 
     schema.validate(document).each do |error|
       puts "\n\n======= Schema Error ======="

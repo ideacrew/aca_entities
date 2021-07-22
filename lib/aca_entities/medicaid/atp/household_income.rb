@@ -5,7 +5,7 @@ module AcaEntities
     module Atp
       # Entity for HouseholdIncome
       class HouseholdIncome < Dry::Struct
-        attribute :monthly_income_greater_than_fpl,                         Types::Bool.optional.meta(omittable: true)
+        attribute :monthly_income_greater_than_fpl,                         Types::Float.optional.meta(omittable: true)
         attribute :income_type_code,                                        Types::IncomeCategoryCode.optional.meta(omittable: true)
         attribute :income_amount,                                           Types::Float.optional.meta(omittable: true)
         attribute :income_frequency,                                        IncomeFrequency.optional.meta(omittable: true)

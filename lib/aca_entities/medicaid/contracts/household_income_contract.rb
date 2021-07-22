@@ -7,7 +7,7 @@ module AcaEntities
       class HouseholdIncomeContract < Dry::Validation::Contract
 
         params do
-          optional(:monthly_income_greater_than_fpl).maybe(:bool)
+          optional(:monthly_income_greater_than_fpl).maybe(:float)
           optional(:income_type_code).maybe(:string)
           optional(:income_amount).maybe(:float)
           optional(:income_frequency).maybe(:hash)

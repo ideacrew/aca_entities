@@ -27,7 +27,7 @@ RSpec.describe ::AcaEntities::Medicaid::Contracts::TaxHouseholdContract, dbclean
 
   let(:household_income) do
     {
-      monthly_income_greater_than_fpl: true,
+      monthly_income_greater_than_fpl: 0.00,
       income_type_code: 'CapitalGains',
       income_amount: 500.00,
       income_frequency: { frequency_code: 'Weekly' },

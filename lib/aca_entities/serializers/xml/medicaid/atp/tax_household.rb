@@ -35,9 +35,9 @@ module AcaEntities
               mapper.household_size_change_expected_indicator = household.household_size_change_expected_indicator
               mapper.household_incomes = household.household_incomes.map { |income| HouseholdIncome.domain_to_mapper(income) }
               mapper.tax_dependents = household.tax_dependents.map { |td| TaxDependent.domain_to_mapper(td) }
-              mapper.household_member_references = household.household_member_references.map { |hmr| HouseholdMemberReference.domain_to_mapper(hmr) }
-              mapper.primary_tax_filer = PrimaryTaxFiler.domain_to_mapper(household.primary_tax_filer)
-              mapper.spouse_tax_filer = SpouseTaxFiler.domain_to_mapper(household.spouse_tax_filer)
+              mapper.household_member_references = household.household_member_references&.map { |hmr| HouseholdMemberReference.domain_to_mapper(hmr) }
+              mapper.primary_tax_filer = PrimaryTaxFiler.domain_to_mapper(household.primary_tax_filer) if household.primary_tax_filer
+              mapper.spouse_tax_filer = SpouseTaxFiler.domain_to_mapper(household.spouse_tax_filer) if household.spouse_tax_filer
               mapper
             end
 

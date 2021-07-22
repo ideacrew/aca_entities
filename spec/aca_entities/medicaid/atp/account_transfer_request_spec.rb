@@ -5,6 +5,24 @@ require 'aca_entities/medicaid/atp'
 
 RSpec.describe ::AcaEntities::Medicaid::Atp::AccountTransferRequest, dbclean: :after_each do
 
+  let(:required_params) do
+    {
+      transfer_header: transfer_header_params, people: person_params, insurance_application: insurance_application_params,
+      senders: sender_params, receivers: receiver_params, physical_households: physical_household_params
+    }
+  end
+
+  let(:optional_params) do
+    {
+      medicaid_households: medicaid_household_params,
+      authorized_representative: {},
+      tax_returns: tax_return_params
+    }
+
+  end
+
+  let(:all_params) { required_params.merge(optional_params) }
+
   let(:transfer_header_params) do
     {
       transfer_activity: { transfer_id: { identification_id: '2163565' },
@@ -22,10 +40,6 @@ RSpec.describe ::AcaEntities::Medicaid::Atp::AccountTransferRequest, dbclean: :a
       ssn_identification: { identification_id: '012345678' },
       sex: 'Sex'
     }]
-    # { person_name: { first_name: 'ivl40', last_name: '41' },
-    # demographic: { dob: Date.new(2000, 1, 1), gender: 'Male' },
-    # citizenship_immigration_status_information: { us_citizen: true },
-    # native_american_information: { is_native_american_or_alaska_native: false } }
   end
 
   let(:insurance_application_params) do
@@ -43,29 +57,22 @@ RSpec.describe ::AcaEntities::Medicaid::Atp::AccountTransferRequest, dbclean: :a
   end
 
   let(:medicaid_household_params) do
-    # [{
-    #   household_income: { monthly_income_greater_than_fpl: true, income_type_code: 'CapitalGains',  income_amount: 500.00,
-    #                       income_frequency: 'Weekly', income_from_tribal_source: 120.00, monthly_attested_medicaid_household_current_income: nil,
-    #                       annual_total_project_medicaid_household_current_income: nil },
-    #   household_composition: { medicaid_household_size: 3, qualified_children_list: 'Sansa, Stark' }
-    # }]
+    [{
+      household_income: { monthly_income_greater_than_fpl: true, income_type_code: 'CapitalGains',  income_amount: 500.00,
+                          income_frequency: 'Weekly', income_from_tribal_source: 120.00, monthly_attested_medicaid_household_current_income: nil,
+                          annual_total_project_medicaid_household_current_income: nil },
+      household_composition: { medicaid_household_size: 3, qualified_children_list: 'Sansa, Stark' }
+    }]
   end
 
   let(:sender_params) {[{ id: "Sender", category_code: 'Exchange' }]}
   let(:receiver_params) {[{ id: "Receiver", category_code: 'Exchange' }]}
 
-  let(:physical_household) do
-    {
+  let(:physical_household_params) do
+    [{
       household_size_quantity: 1,
       household_member_references: [{ ref: "a-person-id" }]
-    }
-  end
-
-  let(:required_params) do
-    {
-      transfer_header: transfer_header_params, people: person_params, insurance_application: insurance_application_params,
-      medicaid_households: medicaid_household_params, senders: sender_params, receivers: receiver_params, physical_households: []
-    }
+    }]
   end
 
   let(:ssf_signer) do
@@ -104,9 +111,64 @@ RSpec.describe ::AcaEntities::Medicaid::Atp::AccountTransferRequest, dbclean: :a
     }
   end
 
-  context 'valid params' do
-    context 'required params only' do
-      it { expect(described_class.new(required_params).to_h).to eq required_params }
+  let(:tax_return_params) do
+    [{
+      total_exemptions_quantity: 1,
+      status_code: "0",
+      tax_return_year: 2020,
+      tax_household: tax_household,
+      tax_return_includes_dependent_indicator: true
+    }]
+  end
+
+  let(:tax_household) do
+    {
+      household_incomes:
+        [{
+          monthly_income_greater_than_fpl: true,
+          income_type_code: 'CapitalGains',
+          income_amount: 500.00,
+          income_frequency: { frequency_code: 'Weekly' },
+          income_from_tribal_source: 120.00,
+          monthly_attested_medicaid_household_current_income: 0.00,
+          annual_total_project_medicaid_household_current_income: 0.00
+        }]
+    }
+  end
+
+  context 'invalid parameters' do
+    context 'with empty parameters' do
+      it 'should list error for every required parameter' do
+        expect { described_class.new }.to raise_error(Dry::Struct::Error, /:identification_id is missing in Hash input/)
+      end
+    end
+
+    context 'with optional parameters only' do
+      it 'should list error for every required parameter' do
+        expect { described_class.new(optional_params) }.to raise_error(Dry::Struct::Error, /:last_name is missing in Hash input/)
+      end
+    end
+  end
+
+  context 'valid parameters' do
+    context 'with required parameters only' do
+      it 'should initialize' do
+        expect(described_class.new(required_params)).to be_a described_class
+      end
+
+      it 'should not raise error' do
+        expect { described_class.new(required_params) }.not_to raise_error
+      end
+    end
+
+    context 'with all required and optional parameters' do
+      it 'should initialize' do
+        expect(described_class.new(required_params)).to be_a described_class
+      end
+
+      it 'should not raise error' do
+        expect { described_class.new(required_params) }.not_to raise_error
+      end
     end
   end
 end
