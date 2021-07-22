@@ -124,7 +124,7 @@ module AcaEntities
           "G8",
           "G9",
           "03-53",
-          "53-19",
+          "53-19"
         )
       end
     end
