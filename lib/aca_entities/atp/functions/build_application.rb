@@ -13,7 +13,7 @@ module AcaEntities
           @tax_return = @memoized_data.resolve(:'insurance_application.tax_return').item
           people_augementation = @memoized_data.find(Regexp.new("record.people.*.augementation"))
 
-          result = people_augementation.each_with_object([]) do |person_augementation, collector| 
+          result = people_augementation.each_with_object([]) do |person_augementation, collector|
             id = person_augementation.name.split(".")[2]
             @applicant_hash = insurance_applicants[id.to_sym]
             @applicant_identifier = id
