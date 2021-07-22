@@ -82,7 +82,7 @@ module AcaEntities
                   add_key 'person.person_demographics.is_incarcerated', function: lambda { |v|
                     member_id = v.find(/record.people.(\w+)$/).map(&:item).last
                     applicants = v.resolve(:'insurance_application.insurance_applicants').item
-                    applicant = applicants[:"#{member_id}"]
+                    applicant = applicants[member_id.to_sym]
                     return false if applicant.nil?
                     applicant[:incarcerations].first[:incarceration_indicator] || false # defaulted to false if no value provided
                   }
@@ -143,7 +143,12 @@ module AcaEntities
                     v.find(Regexp.new('record.people.*.augementation')).map(&:item).last[:married_indicator]
                   }
                   add_key 'person.consumer_role.is_active', value: true # default value
-                  add_key 'person.consumer_role.is_applying_coverage', value: true # default value
+                  add_key 'person.consumer_role.is_applying_coverage', function: lambda { |v| 
+                    insurance_applicants = v.resolve(:'insurance_application.insurance_applicants').item
+                    member_id = v.find(/record.people.(\w+)$/).map(&:item).last
+                    insurance_applicant = insurance_applicants[member_id.to_sym]
+                    insurance_applicant.nil? ? false : true
+                  }
                   add_key 'person.consumer_role.bookmark_url'
                   add_key 'person.consumer_role.admin_bookmark_url'
                   add_key 'person.consumer_role.contact_method', function: lambda { |v|

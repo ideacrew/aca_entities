@@ -11,26 +11,47 @@ module AcaEntities
           insurance_applicants = @memoized_data.resolve(:'insurance_application.insurance_applicants').item
           @primary_applicant_identifier = @memoized_data.resolve(:primary_applicant_identifier).item
           @tax_return = @memoized_data.resolve(:'insurance_application.tax_return').item
+          people_augementation = @memoized_data.find(Regexp.new("record.people.*.augementation"))
 
-          result = insurance_applicants.each_with_object([]) do |applicant, collector|
-
-            @applicant_hash = applicant[1]
-            @applicant_identifier = @applicant_hash[:id]
-            @member_hash = @memoized_data.find(Regexp.new("record.people.#{@applicant_identifier}.augementation")).first.item
+          result = people_augementation.each_with_object([]) do |person_augementation, collector| 
+            id = person_augementation.name.split(".")[2]
+            @applicant_hash = insurance_applicants[id.to_sym]
+            @applicant_identifier = id
+            @member_hash = person_augementation.item
 
             # @applicant_identifier = member.name.split('.').last
 
             # m_identifier = "attestations.members.#{@applicant_identifier}"
-            # @attestations_family_hash = @memoized_data.find(Regexp.new("#{m_identifier}.family"))&.first&.item
-            @incomes_hash = @memoized_data.find(Regexp.new("record.people.#{@applicant_identifier}.augementation")).first.item[:incomes]
-            @expenses_hash = @memoized_data.find(Regexp.new("record.people.#{@applicant_identifier}.augementation")).first.item[:expenses]
-            @employments_hash = @memoized_data.find(Regexp.new("record.people.#{@applicant_identifier}.augementation")).first.item[:employments]
+            # @attestations_family_hash = @=.find(Regexp.new("#{m_identifier}.family"))&.first&.item
+            @incomes_hash = @member_hash[:incomes]
+            @expenses_hash = @member_hash[:expenses]
+            @employments_hash = @member_hash[:employments]
             # @insurance_coverage_hash = @memoized_data.find(Regexp.new("#{m_identifier}.insuranceCoverage"))&.first&.item
 
             # collector << member.item.merge!(applicant_hash)
             collector << applicant_hash
             collector
           end
+
+          # result = insurance_applicants.each_with_object([]) do |applicant, collector|
+
+          #   @applicant_hash = applicant[1]
+          #   @applicant_identifier = @applicant_hash[:id]
+          #   @member_hash = @memoized_data.find(Regexp.new("record.people.#{@applicant_identifier}.augementation")).first.item
+
+          #   # @applicant_identifier = member.name.split('.').last
+
+          #   # m_identifier = "attestations.members.#{@applicant_identifier}"
+          #   # @attestations_family_hash = @memoized_data.find(Regexp.new("#{m_identifier}.family"))&.first&.item
+          #   @incomes_hash = @memoized_data.find(Regexp.new("record.people.#{@applicant_identifier}.augementation")).first.item[:incomes]
+          #   @expenses_hash = @memoized_data.find(Regexp.new("record.people.#{@applicant_identifier}.augementation")).first.item[:expenses]
+          #   @employments_hash = @memoized_data.find(Regexp.new("record.people.#{@applicant_identifier}.augementation")).first.item[:employments]
+          #   # @insurance_coverage_hash = @memoized_data.find(Regexp.new("#{m_identifier}.insuranceCoverage"))&.first&.item
+
+          #   # collector << member.item.merge!(applicant_hash)
+          #   collector << applicant_hash
+          #   collector
+          # end
 
           [application_hash.merge!(applicants: result)]
         end
@@ -244,6 +265,7 @@ module AcaEntities
         end
 
         def benefits_hash
+          return [] if @applicant_hash.nil?
           return [] if @applicant_hash[:esi_associations].empty?
 
           result = []
@@ -264,6 +286,7 @@ module AcaEntities
         end
 
         def benefits_esc_hash
+          return [] if @applicant_hash.nil?
           return [] if @applicant_hash[:esi_associations].empty?
 
           []
@@ -331,7 +354,7 @@ module AcaEntities
         def attestation_hash
           # TODO: refactor for multiple entries of incarcerations
           {
-            is_incarcerated: @applicant_hash[:incarcerations].first[:incarceration_indicator],
+            is_incarcerated: @applicant_hash.nil? ? false : @applicant_hash[:incarcerations].first[:incarceration_indicator],
             is_self_attested_disabled: false, # default value
             is_self_attested_blind: false, # default value
             is_self_attested_long_term_care: false # default value
@@ -352,16 +375,16 @@ module AcaEntities
 
         def foster_care_hash
           {
-            is_former_foster_care: @applicant_hash[:foster_care_indicator],
-            age_left_foster_care: @applicant_hash[:age_left_foster_care],
-            foster_care_us_state: @applicant_hash[:foster_care_state],
-            had_medicaid_during_foster_care: @applicant_hash[:had_medicaid_during_foster_care_indicator]
+            is_former_foster_care: @applicant_hash.nil? ? false : @applicant_hash[:foster_care_indicator],
+            age_left_foster_care: @applicant_hash.nil? ? nil : @applicant_hash[:age_left_foster_care],
+            foster_care_us_state: @applicant_hash.nil? ? nil : @applicant_hash[:foster_care_state],
+            had_medicaid_during_foster_care: @applicant_hash.nil? ? nil : @applicant_hash[:had_medicaid_during_foster_care_indicator]
           }
         end
 
         def student_hash
           {
-            is_student: @applicant_hash[:student_indicator] || false, # default value
+            is_student: @applicant_hash.nil? ? false : (@applicant_hash[:student_indicator] || false), # default value
             student_kind: nil, # needs refactor for other student kinds
             student_school_kind: nil,
             student_status_end_on: nil
@@ -386,8 +409,8 @@ module AcaEntities
 
         def applicant_hash
           non_magi = @memoized_data.find(Regexp.new('attestations.members.*.nonMagi')).map(&:item).last
-          tax_dependents = @tax_return[:tax_houshold][:tax_dependents].collect {|a| a[:role_reference][:ref]}
-          is_tax_filer = if @tax_return[:tax_houshold]
+          tax_dependents = @tax_return.nil? ? nil : @tax_return[:tax_houshold][:tax_dependents].collect {|a| a[:role_reference][:ref]}
+          is_tax_filer = if !@tax_return.nil? && @tax_return[:tax_houshold]
                            if @tax_return[:tax_houshold][:primary_tax_filer][:role_reference][:ref] == @applicant_identifier
                              true
                            else
@@ -407,7 +430,7 @@ module AcaEntities
             citizenship_immigration_status_information: citizenship_immigration_hash,
             is_consumer_role: true, # default value
             is_resident_role: nil,
-            is_applying_coverage: true, # default value
+            is_applying_coverage: @applicant_hash.nil? ? false : true, # default value
             is_consent_applicant: nil,
             vlp_document: nil,
             family_member_reference: family_member_reference_hash,
@@ -416,7 +439,7 @@ module AcaEntities
             tax_filer_kind: 'tax_filer', # default value . #To memoise and extract data from taxRelationships
             is_joint_tax_filing: false, # default value
             # # add method to check for joint filing using this value
-            is_claimed_as_tax_dependent: tax_dependents.include?(@applicant_identifier), # default value
+            is_claimed_as_tax_dependent: tax_dependents.nil? ? nil : tax_dependents.include?(@applicant_identifier), # default value
             claimed_as_tax_dependent_by: @primary_applicant_identifier, # default value to primary
             student: student_hash,
             is_refugee: nil, # default value
@@ -430,7 +453,7 @@ module AcaEntities
             non_ssn_apply_reason: nil, # default value
             moved_on_or_after_welfare_reformed_law: nil, # default value
             is_currently_enrolled_in_health_plan: nil, # default value
-            has_daily_living_help: @applicant_hash[:long_term_care_indicator],
+            has_daily_living_help: @applicant_hash.nil? ? false : @applicant_hash[:long_term_care_indicator],
             need_help_paying_bills: false, # default value
             has_job_income: !job_income_hash.empty?,
             has_self_employment_income: !self_emp_income_hash.empty?,
