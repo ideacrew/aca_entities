@@ -31,8 +31,8 @@ module AcaEntities
               mapper.total_exemptions_quantity = tax_r.total_exemptions_quantity
               mapper.status_code = tax_r.status_code
               mapper.tax_return_year = tax_r.tax_return_year
-              mapper.tax_return_includes_dependent_indicator = tax_r.tax_return_includes_dependent_indicator
               mapper.tax_household = TaxHousehold.domain_to_mapper(tax_r.tax_household)
+              mapper.tax_return_includes_dependent_indicator = tax_r.tax_return_includes_dependent_indicator
               mapper
             end
 

@@ -18,7 +18,7 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
 
       insurance_application: insurance_application,
       medicaid_households: [],
-      people: [person],
+      people: [person, dependent_person],
       tax_returns: [tax_return],
       physical_households: [{
         household_size_quantity: 1,
@@ -316,7 +316,7 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
   end
 
   let(:source_organization_reference) do
-    { ref: "em123" }
+    { ref: "MEORG000000209355581" }
   end
 
   let(:contact_association) do
@@ -338,9 +338,11 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
   end
 
   let(:employer) do
-    { id: "em123",
+    {
+      id: "MEORG000000209355581",
       category_text: "Acme",
-      organization_primary_contact_information: employer_contact }
+      organization_primary_contact_information: employer_contact
+    }
   end
 
   let(:employer_contact) do
@@ -419,17 +421,41 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
   end
 
   let(:tax_household) do
+    # {
+    #   tax_dependents: [tax_dependent],
+    #   household_incomes: [household_income]
+    # }
     {
+      household_incomes: [household_income],
+      household_size_quantity: 2,
+      # primary_tax_filer: { role_reference: role_reference },
+      # spouse_tax_filer: { role_reference: role_reference },
       tax_dependents: [tax_dependent],
-      household_incomes: [household_income]
+      household_member_references: [role_reference],
+      household_size_change_expected_indicator: false
     }
   end
 
   let(:tax_dependent) do
     {
-      role_reference: { ref: 'pe123' },
+      role_reference: { ref: 'pe456' },
       claimed_by_custodial_parent_indicator: false,
       tin_identification: { identification_id: '012345678' }
+    }
+  end
+
+  let(:dependent_person) do
+    {
+      id: "pe456",
+      birth_date: person_birth_date,
+      ethnicities: ["ethnicity1", "ethnicity2"],
+      person_name: person_name,
+      sex: "Female",
+      race: "RACE",
+      ssn_identification: { identification_id: "012345678" },
+      us_citizen_indicator: true,
+      person_augmentation: person_augmentation,
+      tribal_augmentation: tribal_augmentation
     }
   end
 
@@ -442,7 +468,7 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
       payment_frequency: payment_frequency,
       date: { date: Date.today },
       income_from_tribal_source: 120.00,
-      source_organization_reference: { ref: 'em123' },
+      source_organization_reference: { ref: 'MEORG000000209355581' },
       monthly_attested_medicaid_household_current_income: 0.00,
       annual_total_project_medicaid_household_current_income: 0.00,
       earned_date_range: date_range
