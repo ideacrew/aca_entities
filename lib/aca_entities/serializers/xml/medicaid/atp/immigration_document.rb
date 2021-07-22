@@ -32,7 +32,7 @@ module AcaEntities
               mapper.category_code = document.category_code
               mapper.expiration_date = DocumentExpirationDate.domain_to_mapper(document.expiration_date)
               mapper.document_numbers = document.document_numbers.map { |num| DocumentNumber.domain_to_mapper(num) }
-              mapper.document_person_ids = document.document_person_ids.map { |dpi| DocumentNumber.domain_to_mapper(dpi) }
+              mapper.document_person_ids = document.document_person_ids.map { |dpi| DocumentPersonIdentification.domain_to_mapper(dpi) }
               mapper
             end
 
@@ -42,8 +42,10 @@ module AcaEntities
                 category_text: category_text,
                 category_code: category_code,
                 expiration_date: expiration_date&.to_hash,
-                document_numbers: document_numbers.map(&:to_hash),
-                document_person_ids: document_person_ids.map(&:to_hash)
+                # document_numbers: document_numbers.map(&:to_hash),
+                # document_person_ids: document_person_ids.map(&:to_hash)
+                document_numbers: document_numbers&.to_hash,
+                document_person_ids: document_person_ids&.to_hash
               }
             end
           end

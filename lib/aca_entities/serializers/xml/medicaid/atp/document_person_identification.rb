@@ -26,7 +26,7 @@ module AcaEntities
               {
                 identification_id: identification_id,
                 identification_category_text: identification_category_text,
-                identification_jurisdication: identification_jurisdication
+                identification_jurisdiction: identification_jurisdiction
               }
             end
           end
