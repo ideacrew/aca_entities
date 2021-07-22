@@ -7,6 +7,10 @@ module AcaEntities
       class MedicaidHousehold < Dry::Struct
         # attribute :household_income,       HouseholdIncome.optional.meta(omittable: true)
         # attribute :household_composition,  HouseholdComposition.optional.meta(omittable: true)
+        attribute :effective_person_quantity, Types::Integer.optional.meta(omittable: true)
+        attribute :income_above_highest_applicable_magi_standard_indicator, Types::Bool.optional.meta(omittable: true)
+        attribute :household_member_references, Types::Array.of(HouseholdMemberReference).optional.meta(omittable: true)
+        attribute :household_size_quantity, Types::Integer.optional.meta(omittable: true)
       end
     end
   end

@@ -9,7 +9,7 @@ require 'aca_entities/medicaid/atp/end_date'
 require 'aca_entities/medicaid/atp/status_valid_date_range'
 require 'aca_entities/medicaid/atp/eligibility_basis_determination'
 require 'aca_entities/medicaid/atp/eligibility_basis'
-require 'aca_entities/medicaid/atp/medicaid_non_magi_eligibility_basis'
+require 'aca_entities/medicaid/atp/medicaid_non_magi_blindness_or_disability_eligibility_basis'
 
 RSpec.describe ::AcaEntities::Medicaid::Atp::MedicaidNonMagiBlindnessOrDisabilityEligibilityBasis, dbclean: :around_each do
 

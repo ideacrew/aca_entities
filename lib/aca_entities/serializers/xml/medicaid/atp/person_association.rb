@@ -17,7 +17,7 @@ module AcaEntities
             has_one :person, PersonReference, :tag => 'PersonReference', namespace: "nc"
 
             # A kind of family relationship between two people.
-            element :family_relationship_code, Integer, tag: 'FamilyRelationshipCode', namespace: "hix-core"
+            element :family_relationship_code, String, tag: 'FamilyRelationshipCode', namespace: "hix-core"
 
             # An indication of whether a person is a dependent deprived of parental support
             # whose care is provided by a caretaker under Medicaid rules, including the dependent's health coverage status.

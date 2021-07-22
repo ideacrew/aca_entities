@@ -11,7 +11,7 @@ module AcaEntities
         attribute :days_per_week, Types::Integer.optional.meta(omittable: true)
         attribute :hours_per_pay_period, Types::Float.optional.meta(omittable: true)
         attribute :hours_per_week, Types::Float.optional.meta(omittable: true)
-        attribute :category_code, Types::String.optional.meta(omittable: true)
+        attribute :category_code, Types::IncomeCategoryCode.optional.meta(omittable: true)
         attribute :description_text, Types::String.optional.meta(omittable: true)
         attribute :subject_to_federal_restrictions_indicator, Types::Bool.optional.meta(omittable: true)
         attribute :date, IncomeDate.optional.meta(omittable: true)

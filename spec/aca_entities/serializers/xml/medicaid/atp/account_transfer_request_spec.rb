@@ -379,7 +379,7 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
 
   let(:person_association) do
     { person: { ref: "pe123" },
-      family_relationship_code: 0o1 }
+      family_relationship_code: "01" }
   end
 
   let(:tribal_augmentation) do

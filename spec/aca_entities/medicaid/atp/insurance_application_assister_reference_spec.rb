@@ -1,34 +1,26 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require 'aca_entities/medicaid/atp/lawful_presence_status_eligibility'
+require 'aca_entities/medicaid/atp/insurance_application_assister_reference'
 
-RSpec.describe ::AcaEntities::Medicaid::Atp::LawfulPresenceStatusEligibility,  dbclean: :around_each do
+RSpec.describe ::AcaEntities::Medicaid::Atp::InsuranceApplicationAssisterReference,  dbclean: :around_each do
 
-  let(:required_params) { { eligibility_indicator: true } }
+  let(:required_params) { { ref: "pe123" } }
 
   let(:optional_params) { {} }
 
-  let(:input_params) { required_params.merge(optional_params)}
-
-  it 'should initialize' do
-    expect(described_class.new(input_params)).to be_a described_class
-  end
-
-  it 'should not raise error' do
-    expect { described_class.new(input_params) }.not_to raise_error
-  end
+  let(:all_params) { required_params.merge(optional_params)}
 
   context 'invalid parameters' do
     context 'with empty parameters' do
       it 'should list error for every required parameter' do
-        expect { described_class.new }.to raise_error(Dry::Struct::Error, /:eligibility_indicator is missing in Hash input/)
+        expect { described_class.new }.to raise_error(Dry::Struct::Error, /:ref is missing in Hash input/)
       end
     end
 
     context 'with optional parameters only' do
       it 'should list error for every required parameter' do
-        expect { described_class.new(optional_params) }.to raise_error(Dry::Struct::Error, /:eligibility_indicator is missing in Hash input/)
+        expect { described_class.new(optional_params) }.to raise_error(Dry::Struct::Error, /:ref is missing in Hash input/)
       end
     end
   end
@@ -55,4 +47,3 @@ RSpec.describe ::AcaEntities::Medicaid::Atp::LawfulPresenceStatusEligibility,  d
     end
   end
 end
-

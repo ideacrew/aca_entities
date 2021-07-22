@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require 'aca_entities/medicaid/contracts/lawful_presence_status_eligibility_contract'
+require 'aca_entities/medicaid/contracts/insurance_application_assister_reference_contract'
 
-RSpec.describe ::AcaEntities::Medicaid::Contracts::LawfulPresenceStatusEligibilityContract, dbclean: :after_each do
+RSpec.describe ::AcaEntities::Medicaid::Contracts::InsuranceApplicationAssisterReferenceContract, dbclean: :after_each do
 
-  let(:required_params) { { eligibility_indicator: true } }
+  let(:required_params) { { ref: "pe123" } }
 
   let(:optional_params) { {} }
 

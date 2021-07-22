@@ -68,7 +68,7 @@ RSpec.describe ::AcaEntities::Medicaid::Atp::PersonAugmentation,  dbclean: :arou
         days_per_week: 5,
         hours_per_pay_period: 80.0,
         hours_per_week: 40.0,
-        category_code: "Salary",
+        category_code: "Wages",
         description_text: "Robot",
         subject_to_federal_restrictions_indicator: false,
         date: income_date,
@@ -170,7 +170,7 @@ RSpec.describe ::AcaEntities::Medicaid::Atp::PersonAugmentation,  dbclean: :arou
 
     let(:person) do
       { person: { ref: "pe123" },
-        family_relationship_code: 0o1 }
+        family_relationship_code: "01" }
     end
 
     let(:all_params) { required_params.merge(optional_params)}

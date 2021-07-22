@@ -1,13 +1,28 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require 'aca_entities/medicaid/contracts/location_street_contract'
+require 'aca_entities/medicaid/contracts/medicaid_magi_eligibility_contract'
 
-RSpec.describe ::AcaEntities::Medicaid::Contracts::LocationStreetContract, dbclean: :after_each do
+RSpec.describe ::AcaEntities::Medicaid::Contracts::MedicaidMagiEligibilityContract, dbclean: :after_each do
 
   let(:required_params) { {} }
 
-  let(:optional_params) { { street_full_text: "123 Easy Street" } }
+  let(:optional_params) do
+    {
+      date_range:
+        {
+          start_date: { date: Date.today },
+          end_date: { date: Date.today }
+        },
+      eligibility_determination:
+        {
+          activity_identification: { identification_id: "MET00000000001887090" }
+        },
+      eligibility_indicator: false,
+      eligibility_reason_text: "a-reason",
+      income_eligibility_basis: { status_code: "Pending" }
+    }
+  end
 
   let(:all_params) { required_params.merge(optional_params)}
 

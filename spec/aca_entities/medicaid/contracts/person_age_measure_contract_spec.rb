@@ -1,15 +1,24 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require 'aca_entities/medicaid/contracts/location_street_contract'
+require 'aca_entities/medicaid/contracts/person_age_measure_contract'
 
-RSpec.describe ::AcaEntities::Medicaid::Contracts::LocationStreetContract, dbclean: :after_each do
+RSpec.describe ::AcaEntities::Medicaid::Contracts::PersonAgeMeasureContract, dbclean: :after_each do
 
   let(:required_params) { {} }
 
-  let(:optional_params) { { street_full_text: "123 Easy Street" } }
+  let(:optional_params) { { measure_point_value: 1 } }
 
   let(:all_params) { required_params.merge(optional_params)}
+
+  context 'invalid parameters' do
+    context 'with unexpected parameters' do
+
+      let(:input_params) { { cat: "meow" } }
+
+      it { expect(subject.call(input_params)[:result]).to eq(nil) }
+    end
+  end
 
   context 'valid parameters' do
     context 'with optional parameters only' do

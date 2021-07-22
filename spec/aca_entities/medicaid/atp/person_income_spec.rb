@@ -21,7 +21,7 @@ RSpec.describe ::AcaEntities::Medicaid::Atp::PersonIncome,  dbclean: :around_eac
         days_per_week: 5,
         hours_per_pay_period: 80.0,
         hours_per_week: 40.0,
-        category_code: "Salary",
+        category_code: "Wages",
         description_text: "Robot",
         subject_to_federal_restrictions_indicator: false,
         date: income_date,
