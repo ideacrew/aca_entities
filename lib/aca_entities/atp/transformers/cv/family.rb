@@ -89,6 +89,19 @@ module AcaEntities
                   add_key 'person.person_demographics.tribal_id'
                   add_key 'person.person_demographics.language_code'
 
+                  map 'tribal_augmentation', 'tribal_augmentation', memoize_record: true, visible: false
+                  add_key 'person.person_demographics.tribal_state', function: lambda { |v|
+                    tribal_augmentation = v.find(Regexp.new('record.people.*.tribal_augmentation')).map(&:item).last
+                    tribe_indicator = tribal_augmentation[:american_indian_or_alaska_native_indicator]
+                    return nil unless tribe_indicator
+                    tribal_augmentation[:location_state_us_postal_service_code]
+                  }
+                  add_key 'person.person_demographics.tribal_name', function: lambda { |v|
+                    tribal_augmentation = v.find(Regexp.new('record.people.*.tribal_augmentation')).map(&:item).last
+                    tribe_indicator = tribal_augmentation[:american_indian_or_alaska_native_indicator]
+                    return nil unless tribe_indicator
+                    tribal_augmentation[:person_tribe_name]
+                  }
                   map 'augementation', 'augementation', memoize_record: true, visible: false
                   add_key 'person.addresses', function: AcaEntities::Atp::Functions::AddressBuilder.new
                   add_key 'person.emails', function: lambda {|v|
