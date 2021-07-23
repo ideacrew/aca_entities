@@ -19,6 +19,8 @@ module AcaEntities
             @applicant_identifier = id
             @member_hash = person_augementation.item
 
+            @tribal_augmentation = @memoized_data.find(Regexp.new("record.people.#{id}.tribal_augmentation")).map(&:item).last
+
             # @applicant_identifier = member.name.split('.').last
 
             # m_identifier = "attestations.members.#{@applicant_identifier}"
@@ -214,11 +216,11 @@ module AcaEntities
           return [] if @incomes_hash.nil?
 
           @incomes_hash.each_with_object([]) do |income, result|
-            next if OTHER_INCOME_TYPE_KIND[:"#{income[:category_code]}"].nil?
+            next if OTHER_INCOME_TYPE_KIND[income[:category_code]].nil?
 
             date_range = income[:earned_date_range]
             result << {
-              'kind' => OTHER_INCOME_TYPE_KIND[:"#{income[:category_code]}"].downcase,
+              'kind' => OTHER_INCOME_TYPE_KIND[income[:category_code]].downcase,
               'amount' => income[:amount],
               'amount_tax_exempt' => 0,
               'frequency_kind' => INCOME_FREQUENCY_MAP[income[:frequency][:frequency_code].downcase],
@@ -251,10 +253,10 @@ module AcaEntities
           return [] if @expenses_hash.nil?
 
           @expenses_hash.each_with_object([]) do |expense, result|
-            next if DEDUCTION_TYPE[:"#{expense[:category_code]}"].nil?
+            next if DEDUCTION_TYPE[expense[:category_code]].nil?
             date_range = expense[:earned_date_range]
             result << {
-              'kind' => DEDUCTION_TYPE[:"#{expense[:category_code]}"],
+              'kind' => DEDUCTION_TYPE[expense[:category_code]],
               'amount' => expense[:amount],
               'frequency_kind' => expense[:frequency][:frequency_code].downcase,
               'start_on' => (date_range && date_range[:start_date]) ? income[:earned_date_range][:start_date][:date] : Date.parse('2021-05-07').to_s, # default value
@@ -368,7 +370,7 @@ module AcaEntities
             is_enrolled_on_medicaid: nil,
             is_post_partum_period: false, # default value
             expected_children_count: pregancy_info.nil? ? 0 : pregancy_info[:expected_baby_quantity],
-            pregnancy_due_on: (!pregancy_info.nil? && pregancy_info[:status_indicator]) ? Date.today.prev_month : nil, # default value
+            pregnancy_due_on: nil, # default value
             pregnancy_end_on: nil
           }
         end
@@ -419,6 +421,9 @@ module AcaEntities
                          else
                            false
                          end
+
+          tribe_indicator = @tribal_augmentation[:american_indian_or_alaska_native_indicator]
+
           {
             is_primary_applicant: @applicant_identifier == @primary_applicant_identifier,
             name: name_hash,
@@ -427,6 +432,9 @@ module AcaEntities
             demographic: demographic_hash,
             attestation: attestation_hash,
             native_american_information: nil,
+            indian_tribe_member: tribe_indicator,
+            tribal_state: tribe_indicator ? @tribal_augmentation[:location_state_us_postal_service_code] : nil,
+            tribal_name: tribe_indicator ? @tribal_augmentation[:person_tribe_name] : nil,
             citizenship_immigration_status_information: citizenship_immigration_hash,
             is_consumer_role: true, # default value
             is_resident_role: nil,
