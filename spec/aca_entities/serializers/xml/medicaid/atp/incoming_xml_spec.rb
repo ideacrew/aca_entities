@@ -5,15 +5,14 @@ require 'aca_entities/serializers/xml/medicaid/atp'
 require 'open3'
 
 RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequest do
-  
+
   let(:sample_xml) {File.read('spec/support/atp/sample_payloads/sample_inbound_payloads.xml')}
-  
+
   # Split sample file on comments (ignoring the first one) and store just the payloads
   let(:payloads) {sample_xml.split(/<!-- payload (?:1[0-9]+|[2-9]+) -->/)}
 
   # let(:sample_xml) {File.read('spec/support/atp/sample_payloads/sample 3.xml')}
   # let(:payloads) {[sample_xml]}
-
 
   # let(:mapper) { described_class.parse(sample_xml) }
 
