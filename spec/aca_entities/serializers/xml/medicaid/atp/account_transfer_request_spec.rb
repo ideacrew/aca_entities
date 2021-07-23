@@ -67,14 +67,6 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
     }
   end
 
-  # let(:sender) do
-  #   { sender_code: "Sender" }
-  # end
-
-  # let(:receiver) do
-  #   { recipient_code: "Receiver" }
-  # end
-
   let(:insurance_applicant) do
     {
       role_reference: role_reference,
@@ -421,15 +413,11 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
   end
 
   let(:tax_household) do
-    # {
-    #   tax_dependents: [tax_dependent],
-    #   household_incomes: [household_income]
-    # }
     {
       household_incomes: [household_income],
       household_size_quantity: 2,
-      # primary_tax_filer: { role_reference: role_reference },
-      # spouse_tax_filer: { role_reference: role_reference },
+      primary_tax_filer: { role_reference: role_reference },
+      spouse_tax_filer: { role_reference: role_reference },
       tax_dependents: [tax_dependent],
       household_member_references: [role_reference],
       household_size_change_expected_indicator: false
@@ -502,7 +490,7 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
   it "is schema valid" do
     document = Nokogiri::XML(mapper.to_xml)
     # puts mapper.to_xml
-    File.open('spec.xml', 'w') { |file| file.write(mapper.to_xml.to_s) }
+    # File.open('spec.xml', 'w') { |file| file.write(mapper.to_xml.to_s) }
 
     schema.validate(document).each do |error|
       puts "\n\n======= Schema Error ======="
