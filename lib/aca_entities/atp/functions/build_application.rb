@@ -423,6 +423,11 @@ module AcaEntities
                          end
 
           tribe_indicator = @tribal_augmentation[:american_indian_or_alaska_native_indicator]
+          joint_tax_filing_status = if !@tax_return.nil?
+                                      @tax_return[:status_code] == '2' ? true : false  
+                                    else
+                                      nil
+                                    end
 
           {
             is_primary_applicant: @applicant_identifier == @primary_applicant_identifier,
@@ -445,7 +450,8 @@ module AcaEntities
             person_hbx_id: @applicant_identifier, # default value
             is_required_to_file_taxes: is_tax_filer, # default value
             tax_filer_kind: 'tax_filer', # default value . #To memoise and extract data from taxRelationships
-            is_joint_tax_filing: false, # default value
+            # is_joint_tax_filing: false, # default value
+            is_joint_tax_filing: joint_tax_filing_status,
             # # add method to check for joint filing using this value
             is_claimed_as_tax_dependent: tax_dependents.nil? ? nil : tax_dependents.include?(@applicant_identifier), # default value
             claimed_as_tax_dependent_by: @primary_applicant_identifier, # default value to primary
