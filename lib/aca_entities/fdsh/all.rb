@@ -9,6 +9,7 @@ module AcaEntities
       # services
       require_relative 'ifsv'
       require_relative 'ridp'
+      require_relative 'vlp'
     end
   end
 end
