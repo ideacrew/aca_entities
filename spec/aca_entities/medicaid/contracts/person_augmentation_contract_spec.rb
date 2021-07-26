@@ -96,27 +96,35 @@ RSpec.describe ::AcaEntities::Medicaid::Contracts::PersonAugmentationContract, d
   end
 
   let(:contact) do
-    { contact_email_id: "fake@test.com",
-      mailing_address: structured_address,
-      telephone_number: full_telephone }
+    {
+      email_id: "fake@test.com",
+      mailing_address: { address: structured_address },
+      telephone_number: { telephone: full_telephone }
+    }
   end
 
   let(:employment_association) do
-    { begin_date: start_date,
+    {
+      start_date: start_date,
       end_date: end_date,
-      employer: employer }
+      employer: employer
+    }
   end
 
   let(:employer) do
-    { id: "em123",
+    {
+      id: "em123",
       category_text: "Acme",
-      organization_primary_contact_information: employer_contact }
+      organization_primary_contact_information: employer_contact
+    }
   end
 
   let(:employer_contact) do
-    { email: "fake@test.com",
+    {
+      email_id: "fake@test.com",
       mailing_address: mailing_address,
-      telephone_number: contact_telephone }
+      telephone_number: contact_telephone
+    }
   end
 
   let(:mailing_address) do
@@ -150,28 +158,30 @@ RSpec.describe ::AcaEntities::Medicaid::Contracts::PersonAugmentationContract, d
   let(:all_params) { required_params.merge(optional_params)}
 
   context 'invalid parameters' do
-    context 'with empty parameters' do
-      it 'should list error for every required parameter' do
-        expect(subject.call({}).errors.to_h.keys).to match_array required_params.keys
-      end
+    context 'with unexpected parameters' do
+
+      let(:input_params) { { cat: "meow" } }
+
+      it { expect(subject.call(input_params)[:result]).to eq(nil) }
     end
   end
 
   context 'valid parameters' do
-    context 'with required parameters only' do
-      let(:input_params) { {} }
+    context 'with optional parameters only' do
 
       before do
-        @result = subject.call(input_params)
+        @result = subject.call(optional_params)
       end
 
       it { expect(@result.success?).to be_truthy }
-      it { expect(@result.to_h).to eq input_params }
+      it { expect(@result.to_h).to eq optional_params }
     end
 
     context 'with all required and optional parameters' do
       it 'should pass validation' do
+
         result = subject.call(all_params)
+
         expect(result.success?).to be_truthy
         expect(result.to_h).to eq all_params
       end
