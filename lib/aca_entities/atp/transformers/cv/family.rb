@@ -17,7 +17,7 @@ module AcaEntities
           map 'insurance_application.insurance_applicants', 'applicants', memoize_record: true, visible: false
           map 'insurance_application.ssf_primary_contact.role_reference.ref', 'primary_applicant_identifier', memoize_record: true, visible: false
           map 'insurance_application.ssf_signer.ssf_attestation', 'ssf_attestation', memoize_record: true, visible: false
-          map 'insurance_application.tax_return', 'tax_return', memoize_record: true, visible: false
+          map 'insurance_application.tax_returns', 'tax_returns', memoize_record: true, visible: false
 
           namespace 'record' do
             rewrap 'family', type: :hash do

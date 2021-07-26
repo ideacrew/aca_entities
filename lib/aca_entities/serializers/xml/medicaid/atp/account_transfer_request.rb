@@ -59,7 +59,7 @@ module AcaEntities
                 receivers: [],
                 transfer_header: transfer_header.to_hash,
                 # insurance_application: insurance_application.to_hash(identifier: true).merge(tax_return: tax_return&.to_hash),
-                insurance_application: insurance_application.to_hash(identifier: true).merge(tax_returns: tax_returns.map(&:to_hash)),
+                insurance_application: insurance_application.to_hash(identifier: true).merge(tax_returns: tax_returns.map(&:to_hash).first),
                 record: identifier ? { people: people.map(&:to_hash).group_by {|h| h[:id]}.transform_keys(&:to_s).transform_values(&:first) } : nil,
                 people: identifier ? nil : people.map(&:to_hash),
                 physical_households: physical_households.map(&:to_hash)

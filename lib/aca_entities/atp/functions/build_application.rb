@@ -10,7 +10,7 @@ module AcaEntities
           @memoized_data = cache
           insurance_applicants = @memoized_data.resolve(:'insurance_application.insurance_applicants').item
           @primary_applicant_identifier = @memoized_data.resolve(:primary_applicant_identifier).item
-          @tax_return = @memoized_data.resolve(:'insurance_application.tax_return').item
+          @tax_return = @memoized_data.resolve(:'insurance_application.tax_returns').item
           people_augementation = @memoized_data.find(Regexp.new("record.people.*.augementation"))
 
           result = people_augementation.each_with_object([]) do |person_augementation, collector|
@@ -411,20 +411,20 @@ module AcaEntities
 
         def applicant_hash
           non_magi = @memoized_data.find(Regexp.new('attestations.members.*.nonMagi')).map(&:item).last
-          tax_dependents = @tax_return.nil? ? nil : @tax_return[:tax_houshold][:tax_dependents].collect {|a| a[:role_reference][:ref]}
-          is_tax_filer = if !@tax_return.nil? && @tax_return[:tax_houshold]
-                           if @tax_return[:tax_houshold][:primary_tax_filer][:role_reference][:ref] == @applicant_identifier
+          tax_dependents = @tax_return.nil? ? nil : @tax_return[:tax_household][:tax_dependents].collect {|a| a[:role_reference][:ref]}          
+          is_tax_filer = if !@tax_return.nil? && @tax_return[:tax_household]
+                           if @tax_return[:tax_household][:primary_tax_filer][:role_reference][:ref] == @applicant_identifier
                              true
                            else
-                             @tax_return[:tax_houshold][:spouse_tax_filer] == @applicant_identifier
+                             @tax_return[:tax_household][:spouse_tax_filer] == @applicant_identifier
                            end
                          else
                            false
                          end
 
           tribe_indicator = @tribal_augmentation[:american_indian_or_alaska_native_indicator]
-          joint_tax_filing_status = if !@tax_return.nil?
-                                      @tax_return[:status_code] == '2' ? true : false  
+          joint_tax_filing_status = if !@tax_return.nil? && is_tax_filer              
+                                      @tax_return[:status_code] == '2' ? true : false                  
                                     else
                                       nil
                                     end
