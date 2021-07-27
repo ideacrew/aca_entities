@@ -126,6 +126,21 @@ module AcaEntities
           "03-53",
           "53-19"
         )
+        InsuranceSourceCode = String.enum(
+          "Employer",
+          "Private",
+          "Medicaid",
+          "Medicare",
+          "CHIP",
+          "TRICARE",
+          "VeteranHealthProgram",
+          "PeaceCorps",
+          "OPM",
+          "Federal",
+          "State",
+          "UnspecifiedLimitedCoverage",
+          "UnspecifiedFullCoverage"
+        )
       end
     end
   end

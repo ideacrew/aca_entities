@@ -5,8 +5,8 @@ module AcaEntities
     module Xml
       module Medicaid
         module Atp
-          # An identification assigned by a Childrens Health Insurance Program (CHIP) program to an individual.
-          class PersonChipIdentification
+          # An identification for a member of a CHIP program.
+          class ChipIdentification
             include HappyMapper
 
             tag 'CHIPIdentification'
