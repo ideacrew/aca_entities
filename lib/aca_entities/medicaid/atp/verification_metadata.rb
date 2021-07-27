@@ -19,9 +19,9 @@ module AcaEntities
         attribute :verification_description_text, Types::String.optional.meta(omittable: true)
         attribute :verification_inconsistency_text, Types::String.optional.meta(omittable: true)
         attribute :verification_inconsistency_indicator, Types::Bool.optional.meta(omittable: true)
-        attribute :verification_category_codes, Types::String.optional.meta(omittable: true)
+        attribute :verification_category_codes, Types::Array.of(Types::String).optional.meta(omittable: true)
         attribute :response_code, Types::String.optional.meta(omittable: true)
-        attribute :verification_status, Types::Array.of(VerificationStatus).optional.meta(omittable: true)
+        attribute :verification_status, VerificationStatus.optional.meta(omittable: true)
       end
     end
   end

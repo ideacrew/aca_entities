@@ -411,7 +411,7 @@ module AcaEntities
 
         def applicant_hash
           non_magi = @memoized_data.find(Regexp.new('attestations.members.*.nonMagi')).map(&:item).last
-          tax_dependents = @tax_return.nil? ? nil : @tax_return[:tax_household][:tax_dependents].collect {|a| a[:role_reference][:ref]}          
+          tax_dependents = @tax_return.nil? ? nil : @tax_return[:tax_household][:tax_dependents].collect {|a| a[:role_reference][:ref]}
           is_tax_filer = if !@tax_return.nil? && @tax_return[:tax_household]
                            if @tax_return[:tax_household][:primary_tax_filer][:role_reference][:ref] == @applicant_identifier
                              true
@@ -423,9 +423,9 @@ module AcaEntities
                          end
 
           tribe_indicator = @tribal_augmentation[:american_indian_or_alaska_native_indicator]
-          
-          # joint_tax_filing_status = if !@tax_return.nil? && is_tax_filer              
-          #                             @tax_return[:status_code] == '2' ? true : false                  
+
+          # joint_tax_filing_status = if !@tax_return.nil? && is_tax_filer
+          #                             @tax_return[:status_code] == '2' ? true : false
           #                           else
           #                             nil
           #                           end

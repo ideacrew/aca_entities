@@ -8,9 +8,9 @@ module AcaEntities
         params do
           required(:transfer_id).filled(:hash)
           optional(:transfer_date).maybe(:hash)
-          optional(:number_of_referrals).maybe(:integer)
+          required(:number_of_referrals).filled(:integer)
           required(:recipient_code).filled(:string)
-          optional(:state_code).maybe(:integer)
+          optional(:state_code).maybe(:string)
         end
       end
     end

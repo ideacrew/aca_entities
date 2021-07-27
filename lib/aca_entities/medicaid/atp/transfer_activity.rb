@@ -7,7 +7,7 @@ module AcaEntities
       class TransferActivity < Dry::Struct
         attribute :transfer_id,            ActivityIdentification.meta(omittable: false)
         attribute :transfer_date,          ActivityDate.optional.meta(omittable: true)
-        attribute :number_of_referrals,    Types::Integer
+        attribute :number_of_referrals,    Types::Integer.meta(omittable: false)
         attribute :recipient_code,         ::AcaEntities::Medicaid::Atp::Types::TransferHeaderRecipientCode.meta(omittable: false)
         attribute :state_code,             Types::String.optional.meta(omittable: true)
       end

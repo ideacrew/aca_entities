@@ -6,23 +6,46 @@ require 'aca_entities/medicaid/atp/signature_date'
 RSpec.describe ::AcaEntities::Medicaid::Atp::SignatureDate,  dbclean: :around_each do
 
   describe 'with valid arguments' do
-    let(:required_params) { {} }
+    let(:required_params) { { date: Date.today } }
 
-    let(:optional_params) do
-      { date: Date.today,
-        date_time: DateTime.now,
-        year: "2021",
-        year_month: "2021/12" }
+    let(:optional_params) { {} }
+
+    let(:all_params) { required_params.merge(optional_params) }
+
+    context 'invalid parameters' do
+      context 'with empty parameters' do
+        it 'should list error for every required parameter' do
+          expect { described_class.new }.to raise_error(Dry::Struct::Error, /:date is missing in Hash input/)
+        end
+      end
+
+      context 'with optional parameters only' do
+        it 'should list error for every required parameter' do
+          expect { described_class.new(optional_params) }.to raise_error(Dry::Struct::Error, /:date is missing in Hash input/)
+        end
+      end
     end
 
-    let(:all_params) { required_params.merge(optional_params)}
+    context 'valid parameters' do
+      context 'with required parameters only' do
+        it 'should initialize' do
+          expect(described_class.new(required_params)).to be_a described_class
+        end
 
-    it 'should initialize' do
-      expect(described_class.new(all_params)).to be_a described_class
-    end
+        it 'should not raise error' do
+          expect { described_class.new(required_params) }.not_to raise_error
+        end
+      end
 
-    it 'should not raise error' do
-      expect { described_class.new(all_params) }.not_to raise_error
+      context 'with all required and optional parameters' do
+        it 'should initialize' do
+          expect(described_class.new(required_params)).to be_a described_class
+        end
+
+        it 'should not raise error' do
+          expect { described_class.new(required_params) }.not_to raise_error
+        end
+      end
     end
   end
 end

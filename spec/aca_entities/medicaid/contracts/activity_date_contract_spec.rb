@@ -14,7 +14,7 @@ RSpec.describe ::AcaEntities::Medicaid::Contracts::ActivityDateContract, dbclean
       year_month: "2021/12" }
   end
 
-  let(:all_params) { required_params.merge(optional_params)}
+  let(:all_params) { required_params.merge(optional_params) }
 
   context 'invalid parameters' do
     context 'with unexpected parameters' do

@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
+require 'aca_entities/medicaid/atp/types'
 require 'aca_entities/medicaid/atp/start_date'
 require 'aca_entities/medicaid/atp/end_date'
 require 'aca_entities/medicaid/atp/income_date'
@@ -74,6 +75,13 @@ RSpec.describe ::AcaEntities::Medicaid::Atp::PersonIncome,  dbclean: :around_eac
 
     it 'should not raise error' do
       expect { described_class.new(all_params) }.not_to raise_error
+    end
+
+    context 'with only optional parameters' do
+      it 'should contain all optional keys and values' do
+        result = described_class.new(optional_params)
+        expect(result.to_h).to eq optional_params
+      end
     end
   end
 end
