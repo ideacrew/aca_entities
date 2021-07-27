@@ -9,7 +9,7 @@ module AcaEntities
       attribute :aasm_state,                               Types::String.optional.meta(omittable: false)
       attribute :is_applicant,                             Types::Bool.optional.meta(omittable: false)
       attribute :birth_location,                           Types::String.optional.meta(omittable: true)
-      attribute :marital_status,                           Types::String.optional.meta(omittable: false)
+      attribute :marital_status,                           Types::String.optional.meta(omittable: true)
       attribute :is_active,                                Types::Bool.optional.meta(omittable: true)
       attribute :is_applying_coverage,                     Types::Bool.optional.meta(omittable: true)
       # TODO: Check this
@@ -29,9 +29,9 @@ module AcaEntities
       attribute :documents,                                Types::Array.of(AcaEntities::Documents::Document).optional.meta(omittable: true)
       attribute :vlp_documents,                            Types::Array.of(AcaEntities::Documents::VlpDocument).optional.meta(omittable: false)
       attribute :ridp_documents,
-                Types::Array.of(AcaEntities::Documents::RidpDocument).optional.meta(omittable: false)
+                Types::Array.of(AcaEntities::Documents::RidpDocument).optional.meta(omittable: true)
       attribute :verification_type_history_elements,
-                Types::Array.of(AcaEntities::Verifications::VerificationTypeHistoryElement).optional.meta(omittable: false)
+                Types::Array.of(AcaEntities::Verifications::VerificationTypeHistoryElement).optional.meta(omittable: true)
       attribute :lawful_presence_determination,            AcaEntities::Determinations::LawfulPresenceDetermination.optional.meta(omittable: false)
       attribute :local_residency_responses,                Types::Array.of(AcaEntities::Events::EventResponse).optional.meta(omittable: true)
       attribute :local_residency_requests,                 Types::Array.of(AcaEntities::Events::EventRequest).optional.meta(omittable: true)

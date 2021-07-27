@@ -6,7 +6,7 @@ RSpec.describe ::AcaEntities::Events::EventRequest, dbclean: :after_each do
 
   let(:input_params) do
     {
-      requested_at: Date.today,
+      requested_at: DateTime.now,
       body: "request"
     }
   end
