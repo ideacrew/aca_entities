@@ -21,7 +21,7 @@ module AcaEntities
               def self.domain_to_mapper(document)
                 mapper = self.new
                 mapper.AlienNumber = document.AlienNumber
-                mapper.DocExpirationDate = document.DocExpirationDate
+                mapper.DocExpirationDate = document.DocExpirationDate.strftime
 
                 mapper
               end

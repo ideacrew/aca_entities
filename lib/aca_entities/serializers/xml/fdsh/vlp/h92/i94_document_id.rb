@@ -23,7 +23,7 @@ module AcaEntities
                 mapper = self.new
                 mapper.I94Number = document.I94Number
                 mapper.SEVISID = document.SEVISID
-                mapper.DocExpirationDate = document.DocExpirationDate
+                mapper.DocExpirationDate = document.DocExpirationDate.strftime
 
                 mapper
               end

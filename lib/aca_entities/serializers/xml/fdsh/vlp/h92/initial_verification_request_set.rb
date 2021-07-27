@@ -12,7 +12,7 @@ module AcaEntities
               include HappyMapper
               register_namespace 'vlp', 'http://vlp.ee.sim.dsh.cms.hhs.gov'
 
-              tag 'InitialVerificationRequest'
+              tag 'InitialVerificationRequestSet'
               namespace 'vlp'
 
               has_one :DHSID, DhsId
@@ -35,11 +35,11 @@ module AcaEntities
               def self.domain_to_mapper(initial_request_set)
                 mapper = self.new
 
-                mapper.DHSID = DhsId.domain.to_mapper(initial_request_set.DHSID)
+                mapper.DHSID = DhsId.domain_to_mapper(initial_request_set.DHSID)
                 mapper.FirstName = initial_request_set.FirstName
                 mapper.MiddleName = initial_request_set.MiddleName
                 mapper.LastName = initial_request_set.LastName
-                mapper.DateOfBirth = initial_request_set.DateOfBirth
+                mapper.DateOfBirth = initial_request_set.DateOfBirth.strftime
                 mapper.AKA = initial_request_set.AKA
                 mapper.FiveYearBarApplicabilityIndicator = initial_request_set.FiveYearBarApplicabilityIndicator
                 mapper.RequestSponsorDataIndicator = initial_request_set.RequestSponsorDataIndicator

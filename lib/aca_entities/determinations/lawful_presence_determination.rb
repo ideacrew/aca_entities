@@ -4,7 +4,7 @@ module AcaEntities
   module Determinations
     class LawfulPresenceDetermination < Dry::Struct
 
-      attribute :vlp_verified_at,                     Types::Date.optional.meta(omittable: true)
+      attribute :vlp_verified_at,                     Types::DateTime.optional.meta(omittable: true)
       attribute :vlp_authority,                       Types::String.optional.meta(omittable: true)
       attribute :vlp_document_id,                     Types::String.optional.meta(omittable: true) # TODO: check this
       attribute :citizen_status,                      Types::String.optional.meta(omittable: true)

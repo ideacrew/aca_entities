@@ -6,7 +6,7 @@ RSpec.describe ::AcaEntities::Events::EventResponse, dbclean: :after_each do
 
   let(:input_params) do
     {
-      received_at: Date.today,
+      received_at: DateTime.now,
       body: "response"
     }
   end

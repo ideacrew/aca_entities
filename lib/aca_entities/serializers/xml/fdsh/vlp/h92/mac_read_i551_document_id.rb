@@ -26,7 +26,7 @@ module AcaEntities
                 mapper.VisaNumber = document.VisaNumber
                 mapper.PassportNumber = document.PassportNumber
                 mapper.CountryOfIssuance = document.CountryOfIssuance
-                mapper.DocExpirationDate = document.DocExpirationDate
+                mapper.DocExpirationDate = document.DocExpirationDate.strftime
 
                 mapper
               end

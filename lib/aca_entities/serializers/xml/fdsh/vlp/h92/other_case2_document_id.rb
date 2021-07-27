@@ -26,7 +26,7 @@ module AcaEntities
                 mapper.I94Number = document.I94Number
                 mapper.PassportCountry = PassportCountry.domain_to_mapper(document.PassportCountry)
                 mapper.SEVISID = document.SEVISID
-                mapper.DocExpirationDate = document.DocExpirationDate
+                mapper.DocExpirationDate = document.DocExpirationDate.strftime
                 mapper.DocDescReq = document.DocDescReq
 
                 mapper

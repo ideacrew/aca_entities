@@ -7,7 +7,7 @@ module AcaEntities
         # Entity for Fdsh Vlp SponsorshipData
         class ArrayOfSponsorshipDataContract < Dry::Validation::Contract
           params do
-            required(:SponsorshipData).array(Fdsh::Vlp::H92::SponsorshipDataContract.params)
+            required(:SponsorshipDatas).array(Fdsh::Vlp::H92::SponsorshipDataContract.params)
           end
         end
       end

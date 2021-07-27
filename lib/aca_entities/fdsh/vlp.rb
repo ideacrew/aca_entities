@@ -63,5 +63,8 @@ require_relative 'vlp/h92/initial_verification_individual_response'
 require_relative 'vlp/h92/initial_verification_response_set'
 require_relative 'vlp/h92/initial_verification_response'
 
+# operations
+require_relative 'vlp/h92/operations/person_to_initial_request'
+
 # happymapper
 require 'aca_entities/serializers/xml/fdsh/vlp'

@@ -7,7 +7,7 @@ module AcaEntities
         # Entity for Fdsh Vlp ArrayOfSponsorshipData
         class ArrayOfSponsorshipData < Dry::Struct
 
-          attribute :SponsorshipData,    Types::Array.of(Fdsh::Vlp::H92::SponsorshipData).meta(omittable: false)
+          attribute :SponsorshipDatas,    Types::Array.of(Fdsh::Vlp::H92::SponsorshipData).meta(omittable: false)
         end
       end
     end

@@ -7,7 +7,7 @@ module AcaEntities
         # Entity for Fdsh Vlp ArrayOfErrorResponseMetadata
         class ArrayOfErrorResponseMetadata < Dry::Struct
 
-          attribute :ErrorResponseMetadata,    Types::Array.of(Fdsh::Vlp::H92::ErrorResponseMetadata).meta(omittable: false)
+          attribute :ErrorResponseMetadatas,    Types::Array.of(Fdsh::Vlp::H92::ErrorResponseMetadata).meta(omittable: false)
         end
       end
     end

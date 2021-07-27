@@ -7,7 +7,7 @@ module AcaEntities
         # Contract for Fdsh Vlp ResponseMetadata
         class ArrayOfErrorResponseMetadataContract < Dry::Validation::Contract
           params do
-            required(:ErrorResponseMetadata).array(Fdsh::Vlp::H92::ErrorResponseMetadataContract.params)
+            required(:ErrorResponseMetadatas).array(Fdsh::Vlp::H92::ErrorResponseMetadataContract.params)
           end
         end
       end

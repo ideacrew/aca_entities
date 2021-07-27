@@ -7,7 +7,7 @@ module AcaEntities
         # Entity for Fdsh Vlp InitialVerificationResponseSet
         class InitialVerificationResponseSet < Dry::Struct
 
-          attribute :InitialVerificationIndividualResponse,
+          attribute :InitialVerificationIndividualResponses,
                     Types::Array.of(Fdsh::Vlp::H92::InitialVerificationIndividualResponse).meta(omittable: false)
         end
       end

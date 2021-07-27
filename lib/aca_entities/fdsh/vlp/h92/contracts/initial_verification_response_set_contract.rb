@@ -8,7 +8,7 @@ module AcaEntities
         class InitialVerificationResponseSetContract < Dry::Validation::Contract
 
           params do
-            required(:InitialVerificationIndividualResponse).array(Fdsh::Vlp::H92::InitialVerificationIndividualResponseContract.params)
+            required(:InitialVerificationIndividualResponses).array(Fdsh::Vlp::H92::InitialVerificationIndividualResponseContract.params)
           end
         end
       end

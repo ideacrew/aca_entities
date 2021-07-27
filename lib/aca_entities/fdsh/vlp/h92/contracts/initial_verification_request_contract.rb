@@ -8,7 +8,7 @@ module AcaEntities
         class InitialVerificationRequestContract < Dry::Validation::Contract
 
           params do
-            required(:InitialVerificationRequestSet).array(Fdsh::Vlp::H92::InitialVerificationRequestSetContract.params)
+            required(:InitialVerificationRequestSets).array(Fdsh::Vlp::H92::InitialVerificationRequestSetContract.params)
           end
         end
       end

@@ -27,7 +27,7 @@ module AcaEntities
                 mapper.PassportNumber = document.PassportNumber
                 mapper.CountryOfIssuance = document.CountryOfIssuance
                 mapper.SEVISID = document.SEVISID
-                mapper.DocExpirationDate = document.DocExpirationDate
+                mapper.DocExpirationDate = document.DocExpirationDate.strftime
 
                 mapper
               end

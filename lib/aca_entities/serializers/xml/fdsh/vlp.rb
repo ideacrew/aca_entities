@@ -33,6 +33,7 @@ require_relative 'vlp/h92/initial_verification_response'
 
 # operations
 require_relative "vlp/h92/operations/validate_vlp_h92_payload_xml"
+require_relative "vlp/h92/operations/initial_request_to_xml"
 
 module AcaEntities
   module Serializers

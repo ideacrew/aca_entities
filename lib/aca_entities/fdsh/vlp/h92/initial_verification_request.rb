@@ -7,7 +7,7 @@ module AcaEntities
         # Entity for Fdsh Vlp InitialVerificationRequest
         class InitialVerificationRequest < Dry::Struct
 
-          attribute :InitialVerificationRequestSet,  Types::Array.of(Fdsh::Vlp::H92::InitialVerificationRequestSet).meta(omittable: false)
+          attribute :InitialVerificationRequestSets,  Types::Array.of(Fdsh::Vlp::H92::InitialVerificationRequestSet).meta(omittable: false)
         end
       end
     end
