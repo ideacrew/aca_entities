@@ -56,6 +56,33 @@ channels:
           headers:
             Content-Type: application/soap+xml
             Accept: application/soap+xml
+  /VerifyLawfulPresenceServiceV37:
+    publish:
+      operationId: /VerifyLawfulPresenceServiceV37
+      description: Send request to VLP endpoint
+      message:
+        contentType: application/soap+xml
+      bindings:
+        http:
+          type: request
+          method: POST
+          contentType: application/soap+xml
+          headers:
+            Content-Type: application/soap+xml
+            Accept: application/soap+xml
+    subscribe:
+      operationId: /on/VerifyLawfulPresenceServiceV37
+      description: Receive response from VLP request
+      message:
+        contentType: application/soap+xml
+      bindings:
+        http:
+          type: response
+          method: GET
+          contentType: application/soap+xml
+          headers:
+            Content-Type: application/soap+xml
+            Accept: application/soap+xml
   /HubConnectivityService:
     publish:
       operationId: /HubConnectivityService
