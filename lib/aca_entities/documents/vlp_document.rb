@@ -23,7 +23,7 @@ module AcaEntities
       attribute :issuing_country, Types::String.optional.meta(omittable: true)
 
       def three_letter_country_of_citizenship
-        return nil if country_of_citizenship.empty?
+        return nil unless country_of_citizenship.present?
         modified_countries = ["Vatican City", "Laos", "East Timor (Timor Timur)", "Czech Republic", "Cote d'Ivoire", "Korea, North", "Korea, South"]
         country = if modified_countries.include?(country_of_citizenship)
           map_countries_to_iso[country_of_citizenship]
