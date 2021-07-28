@@ -33,16 +33,6 @@ module AcaEntities
         IsoCountryCodes.search_by_name(country).first.alpha3
       end
 
-      a.each do |country_of_citizenship|
-        modified_countries = ["Vatican City", "Laos", "East Timor (Timor Timur)", "Czech Republic", "Cote d'Ivoire", "Korea, North", "Korea, South"]
-        country = if modified_countries.include?(country_of_citizenship)
-          map_countries_to_iso[country_of_citizenship]
-        else
-          country_of_citizenship
-        end
-        puts IsoCountryCodes.search_by_name(country).first.alpha3
-      end
-
       def map_countries_to_iso
         {
           "Vatican City" => "Holy See",
