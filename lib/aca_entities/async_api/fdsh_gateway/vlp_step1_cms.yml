@@ -1,7 +1,7 @@
 ---
 asyncapi: 2.0.0
 info:
-  title: CMS FDSH Hub Services
+  title: CMS FDSH Hub Vlp Services
   version: 0.1.0
   description: Access CMS Services that support State-based Exchange Activities
   contact:
@@ -13,26 +13,26 @@ info:
     url: https://opensource.org/licenses/MIT
 servers:
   development:
-    url: https://impl.hub.cms.gov/Imp1
+    url: https://impl.hub.cms.gov/Imp1/VerifyLawfulPresenceServiceV37
     protocol: http
     protocolVersion: 0.1.0
-    description: RIDP Initial Service
+    description: VLP Initial Service
   test:
-    url: https://impl.hub.cms.gov/Imp1
+    url: https://impl.hub.cms.gov/Imp1/VerifyLawfulPresenceServiceV37
     protocol: http
     protocolVersion: 0.1.0
-    description: RIDP Initial Service
+    description: VLP Initial Service
   production:
-    url: https://impl.hub.cms.gov/Imp1
+    url: https://impl.hub.cms.gov/Imp1/VerifyLawfulPresenceServiceV37
     protocol: http
     protocolVersion: 0.1.0
-    description: RIDP Initial Service
+    description: VLP Initial Service
 defaultContentType: application/soap+xml
 channels:
-  /RIDPService:
+  /VLPService:
     publish:
-      operationId: /RIDPService
-      description: Send request to RIDP endpoint
+      operationId: /VLPService
+      description: Send request to VLP endpoint
       message:
         contentType: application/soap+xml
       bindings:
@@ -44,8 +44,8 @@ channels:
             Content-Type: application/soap+xml
             Accept: application/soap+xml
     subscribe:
-      operationId: /on/RIDPService
-      description: Receive response from RIDP request
+      operationId: /on/VLPService
+      description: Receive response from VLP request
       message:
         contentType: application/soap+xml
       bindings:
@@ -56,9 +56,9 @@ channels:
           headers:
             Content-Type: application/soap+xml
             Accept: application/soap+xml
-  /HubConnectivityService:
+  /VlpHubConnectivityService:
     publish:
-      operationId: /HubConnectivityService
+      operationId: /VlpHubConnectivityService
       description: Send request to Hub Connectivity endpoint
       message:
         contentType: application/soap+xml
@@ -71,7 +71,7 @@ channels:
             Content-Type: application/soap+xml
             Accept: application/soap+xml
     subscribe:
-      operationId: /on/HubConnectivityService
+      operationId: /on/VlpHubConnectivityService
       description: Receive response from Hub Connectivity request
       message:
         contentType: application/soap+xml
