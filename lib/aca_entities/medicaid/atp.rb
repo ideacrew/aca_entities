@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative "atp/types"
+require_relative "atp/date"
 require_relative "atp/sender"
 require_relative "atp/receiver"
 require_relative "atp/start_date"

@@ -1,15 +1,14 @@
 # frozen_string_literal: true
 
+require_relative 'date_contract'
+
 module AcaEntities
   module Medicaid
     module Contracts
       # End date information contract
-      class EndDateContract < Dry::Validation::Contract
+      class EndDateContract < DateContract
         params do
-          optional(:date).maybe(:date)
-          optional(:date_time).maybe(:date_time)
-          optional(:year).maybe(:string)
-          optional(:year_month).maybe(:string)
+          # Inherited params
         end
       end
     end
