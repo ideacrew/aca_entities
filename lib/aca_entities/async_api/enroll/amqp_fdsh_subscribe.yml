@@ -51,6 +51,25 @@ channels:
           bindingVersion: '0.2.0'
       operationId: on_enroll.fdsh.eligibilities.ridp
       description: Events - CMS FDSH RIDP Service requests
+  on_enroll.fdsh.eligibilities.vlp:
+    bindings:
+      amqp:
+        is: queue
+        queue:
+          name: on_enroll.fdsh.eligibilities.vlp
+          durable: true
+          exclusive: false
+          auto_delete: false
+          vhost: event_source
+    subscribe:
+      bindings:
+        amqp:
+          ack: true
+          exclusive: false
+          routing_key: fdsh.eligibilities.vlp.#
+          bindingVersion: '0.2.0'
+      operationId: on_enroll.fdsh.eligibilities.vlp
+      description: Events - CMS FDSH VLP Service requests
 
 tags:
   - name: linter_tag

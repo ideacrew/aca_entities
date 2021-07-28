@@ -7,7 +7,7 @@ RSpec.describe ::AcaEntities::Contracts::Determinations::LawfulPresenceDetermina
   let(:event_response) do
     [
       {
-        received_at: Date.today,
+        received_at: DateTime.now,
         body: "response"
       }
     ]
@@ -16,7 +16,7 @@ RSpec.describe ::AcaEntities::Contracts::Determinations::LawfulPresenceDetermina
   let(:event_request) do
     [
       {
-        requested_at: Date.today,
+        requested_at: DateTime.now,
         body: "request"
       }
     ]
@@ -24,7 +24,7 @@ RSpec.describe ::AcaEntities::Contracts::Determinations::LawfulPresenceDetermina
 
   let!(:required_params) do
     {
-      vlp_verified_at: Date.today,
+      vlp_verified_at: DateTime.now,
       vlp_authority: "curam",
       vlp_document_id: nil,
       citizen_status: "some status",
@@ -68,29 +68,6 @@ RSpec.describe ::AcaEntities::Contracts::Determinations::LawfulPresenceDetermina
 
       it 'should return error message' do
         # expect(@result.errors.messages.first.text).to eq('is missing')
-      end
-    end
-
-    context 'with bad input data type' do
-      before do
-        @result = subject.call(required_params.merge(vlp_verified_at: nil))
-      end
-
-      it 'should return failure' do
-        expect(@result.failure?).to be_truthy
-      end
-
-      it 'should have any errors' do
-        expect(@result.errors.empty?).to be_falsy
-      end
-
-      it 'should return error message' do
-        expect(@result.errors.messages.first.text).to eq('must be a date')
-      end
-
-      it 'should return error message' do
-        result = subject.call(required_params.merge(ssa_responses: nil))
-        expect(result.errors.messages.first.text).to eq('must be an array')
       end
     end
   end

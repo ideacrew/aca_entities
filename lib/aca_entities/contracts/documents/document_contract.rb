@@ -37,11 +37,11 @@ module AcaEntities
 
           optional(:description).maybe(:string)
           optional(:contributor).maybe(:string)
-          optional(:date).value(:date)
+          optional(:date).maybe(:date)
           optional(:identifier).maybe(:string)
           optional(:relation).maybe(:string)
           optional(:coverage).maybe(:string)
-          optional(:rights).filled(
+          optional(:rights).maybe(
             AcaEntities::Types::DocumentRights
           )
           optional(:tags).maybe(:array)

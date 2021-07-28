@@ -14,15 +14,15 @@ module AcaEntities
             namespace 'nc'
 
             element :PersonGivenName, String, tag: 'PersonGivenName'
-            element :PersonSurName, String, tag: 'PersonSurName'
             element :PersonMiddleName, String, tag: 'PersonMiddleName'
+            element :PersonSurName, String, tag: 'PersonSurName'
             element :PersonNameSuffixText, String, tag: 'PersonNameSuffixText'
 
             def self.domain_to_mapper(person)
               mapper = self.new
               mapper.PersonGivenName = person.PersonGivenName
-              mapper.PersonSurName = person.PersonSurName
               mapper.PersonMiddleName = person.PersonMiddleName
+              mapper.PersonSurName = person.PersonSurName
               mapper.PersonNameSuffixText = person.PersonNameSuffixText
               mapper
             end

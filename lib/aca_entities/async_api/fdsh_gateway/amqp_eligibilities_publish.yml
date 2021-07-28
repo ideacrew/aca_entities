@@ -85,6 +85,33 @@ channels:
       operationId: fdsh.eligibilities.ridp.secondary_determination_complete
       description: RIDP has completed a secondary determination.
 
+  fdsh.eligibilities.vlp.initial_verification_complete:
+    bindings:
+      amqp:
+        is: :routing_key
+        exchange:
+          name: fdsh.eligibilities.vlp
+          type: topic
+          content_type: application/json
+          durable: true
+          auto_delete: false
+          vhost: event_source
+        bindingVersion: 0.1.0
+    publish:
+      bindings:
+        amqp:
+          app_id: fdsh_gateway
+          type: fdsh.eligibilities.vlp
+          routing_key: fdsh.eligibilities.vlp.initial_verification_complete
+          expiration: 100_000
+          deliveryMode: 2
+          mandatory: true
+          timestamp: true
+          content_type: application/json
+          bindingVersion: 0.2.0
+      operationId: fdsh.eligibilities.vlp.initial_verification_complete
+      description: VLP has completed a primary verification.
+
 tags:
   - name: linter_tag
     description: placeholder that satisfies the linter

@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'iso_country_codes'
+
 module AcaEntities
   module Documents
     # Entity for VLPDocument
@@ -17,14 +19,13 @@ module AcaEntities
       attribute :citizenship_number, Types::String.optional.meta(omittable: true)
       attribute :card_number, Types::String.optional.meta(omittable: true)
       attribute :country_of_citizenship, Types::String.optional.meta(omittable: true)
-      attribute :expiration_date, Types::Date.optional.meta(omittable: true)
+      attribute :expiration_date, Types::DateTime.optional.meta(omittable: true)
       attribute :issuing_country, Types::String.optional.meta(omittable: true)
 
-      # The name of country issuing the foreign passport.
-      # Three uppercase letter country code (ISO 3166-1).
       def three_letter_country_of_citizenship
-        # TODO: method should return 3 letter country code.
-        # Gem Ref: https://github.com/alexrabarts/iso_country_codes
+        return nil if country_of_citizenship.empty?
+
+        IsoCountryCodes.search_by_name(country_of_citizenship).first.alpha3
       end
     end
   end

@@ -32,7 +32,7 @@ RSpec.describe AcaEntities::Contracts::Documents::VlpDocumentContract, dbclean: 
       citizenship_number: nil,
       card_number: nil,
       country_of_citizenship: nil,
-      expiration_date: Date.new(2022, 3, 8),
+      expiration_date: DateTime.now,
       issuing_country: "USA",
       description: 'it is a test description'
     }
@@ -47,7 +47,7 @@ RSpec.describe AcaEntities::Contracts::Documents::VlpDocumentContract, dbclean: 
 
     it 'should return success with coercing expiration_date' do
       expect(@result).to be_success
-      expect(@result.to_h[:expiration_date]).to be_a(Date)
+      expect(@result.to_h[:expiration_date]).to be_a(DateTime)
     end
   end
 
@@ -119,7 +119,7 @@ RSpec.describe AcaEntities::Contracts::Documents::VlpDocumentContract, dbclean: 
 
       it 'should return error message' do
         result = subject.call(input_params.merge(expiration_date: 'date string'))
-        expect(result.errors.messages.first.text).to eq('must be a date')
+        expect(result.errors.messages.first.text).to eq('must be a date time')
       end
     end
   end
