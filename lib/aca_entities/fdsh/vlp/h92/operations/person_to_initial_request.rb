@@ -62,6 +62,7 @@ module AcaEntities
             end
 
             def passport_country_doc(vlp_doc)
+              return nil unless vlp_doc.passport_number
               {
                 PassportNumber: vlp_doc.passport_number,
                 CountryOfIssuance: vlp_doc.three_letter_country_of_citizenship
