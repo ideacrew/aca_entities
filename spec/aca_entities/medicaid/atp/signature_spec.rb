@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
+require 'aca_entities/medicaid/atp/date'
 require 'aca_entities/medicaid/atp/signature_date'
 require 'aca_entities/medicaid/atp/signature_name'
 require 'aca_entities/medicaid/atp/signature'

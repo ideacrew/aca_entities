@@ -3,6 +3,7 @@
 module AcaEntities
   module Medicaid
     module Contracts
+      # Contract for Date base class
       class DateContract < Dry::Validation::Contract
         params do
           optional(:date).maybe(:date)

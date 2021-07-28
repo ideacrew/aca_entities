@@ -5,6 +5,10 @@ require 'aca_entities/medicaid/contracts/signature_date_contract'
 
 RSpec.describe ::AcaEntities::Medicaid::Contracts::SignatureDateContract, dbclean: :after_each do
 
+  it 'should inherit from DateContract class' do
+    expect(described_class).to be < ::AcaEntities::Medicaid::Contracts::DateContract
+  end
+
   let(:required_params) { { date: Date.today } }
 
   let(:optional_params) { {} }

@@ -1,9 +1,14 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
+require 'aca_entities/medicaid/atp/date'
 require 'aca_entities/medicaid/atp/signature_date'
 
 RSpec.describe ::AcaEntities::Medicaid::Atp::SignatureDate,  dbclean: :around_each do
+
+  it 'should inherit from Date class' do
+    expect(described_class).to be < ::AcaEntities::Medicaid::Atp::Date
+  end
 
   describe 'with valid arguments' do
     let(:required_params) { { date: Date.today } }
