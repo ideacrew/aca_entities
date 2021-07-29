@@ -498,7 +498,7 @@ module AcaEntities
             citizenship_immigration_status_information: citizenship_immigration_hash,
             is_consumer_role: true, # default value
             is_resident_role: nil,
-            is_applying_coverage: @applicant_hash.nil? ? false : true, # default value
+            is_applying_coverage: !@applicant_hash.nil?, # default value
             is_consent_applicant: nil,
             vlp_document: nil,
             family_member_reference: family_member_reference_hash,

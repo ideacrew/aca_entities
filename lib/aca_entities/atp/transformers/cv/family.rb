@@ -160,7 +160,7 @@ module AcaEntities
                     insurance_applicants = v.resolve(:'insurance_application.insurance_applicants').item
                     member_id = v.find(/record.people.(\w+)$/).map(&:item).last
                     insurance_applicant = insurance_applicants[member_id.to_sym]
-                    insurance_applicant.nil? ? false : true
+                    !insurance_applicant.nil?
                   }
                   add_key 'person.consumer_role.bookmark_url'
                   add_key 'person.consumer_role.admin_bookmark_url'
