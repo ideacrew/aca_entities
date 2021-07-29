@@ -26,10 +26,10 @@ module AcaEntities
         return nil unless country_of_citizenship.present?
         modified_countries = ["Vatican City", "Laos", "East Timor (Timor Timur)", "Czech Republic", "Cote d'Ivoire", "Korea, North", "Korea, South"]
         country = if modified_countries.include?(country_of_citizenship)
-          map_countries_to_iso[country_of_citizenship]
-        else
-          country_of_citizenship
-        end
+                    map_countries_to_iso[country_of_citizenship]
+                  else
+                    country_of_citizenship
+                  end
         IsoCountryCodes.search_by_name(country).first.alpha3
       end
 

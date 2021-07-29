@@ -29,7 +29,8 @@ module AcaEntities
       attribute :documents,                          Types::Array.of(AcaEntities::Documents::Document).optional.meta(omittable: true)
       attribute :vlp_documents,                      Types::Array.of(AcaEntities::Documents::VlpDocument).optional.meta(omittable: true)
       attribute :ridp_documents,                     Types::Array.of(AcaEntities::Documents::RidpDocument).optional.meta(omittable: true)
-      attribute :verification_type_history_elements, Types::Array.of(AcaEntities::Verifications::VerificationTypeHistoryElement).optional.meta(omittable: true)
+      attribute :verification_type_history_elements,
+                Types::Array.of(AcaEntities::Verifications::VerificationTypeHistoryElement).optional.meta(omittable: true)
       attribute :lawful_presence_determination,      AcaEntities::Determinations::LawfulPresenceDetermination.optional.meta(omittable: false)
       attribute :local_residency_responses,          Types::Array.of(AcaEntities::Events::EventResponse).optional.meta(omittable: true)
       attribute :local_residency_requests,           Types::Array.of(AcaEntities::Events::EventRequest).optional.meta(omittable: true)
