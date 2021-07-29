@@ -13,7 +13,7 @@ module AcaEntities
           @tax_return = @memoized_data.resolve(:'insurance_application.tax_return').item
           people_augementation = @memoized_data.find(Regexp.new("record.people.*.augementation"))
 
-          result = people_augementation.each_with_object([]) do |person_augementation, collector| 
+          result = people_augementation.each_with_object([]) do |person_augementation, collector|
             id = person_augementation.name.split(".")[2]
             @applicant_hash = insurance_applicants[id.to_sym]
             @applicant_identifier = id
@@ -438,7 +438,7 @@ module AcaEntities
             citizenship_immigration_status_information: citizenship_immigration_hash,
             is_consumer_role: true, # default value
             is_resident_role: nil,
-            is_applying_coverage: @applicant_hash.nil? ? false : true, # default value
+            is_applying_coverage: !@applicant_hash.nil?, # default value
             is_consent_applicant: nil,
             vlp_document: nil,
             family_member_reference: family_member_reference_hash,

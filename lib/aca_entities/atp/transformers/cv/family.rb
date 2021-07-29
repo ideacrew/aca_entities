@@ -156,11 +156,11 @@ module AcaEntities
                     v.find(Regexp.new('record.people.*.augementation')).map(&:item).last[:married_indicator]
                   }
                   add_key 'person.consumer_role.is_active', value: true # default value
-                  add_key 'person.consumer_role.is_applying_coverage', function: lambda { |v| 
+                  add_key 'person.consumer_role.is_applying_coverage', function: lambda { |v|
                     insurance_applicants = v.resolve(:'insurance_application.insurance_applicants').item
                     member_id = v.find(/record.people.(\w+)$/).map(&:item).last
                     insurance_applicant = insurance_applicants[member_id.to_sym]
-                    insurance_applicant.nil? ? false : true
+                    !insurance_applicant.nil?
                   }
                   add_key 'person.consumer_role.bookmark_url'
                   add_key 'person.consumer_role.admin_bookmark_url'
