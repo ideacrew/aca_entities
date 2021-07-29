@@ -266,24 +266,62 @@ module AcaEntities
           end
         end
 
+        INSURANCE_KINDS = {
+          # 'Private' => 'private_individual_and_family_coverage',
+          # acf_refugee_medical_assistance
+          # americorps_health_benefits
+          'CHIP' => 'child_health_insurance_plan',
+          'Medicaid' => 'medicaid',
+          'Medicare' => 'medicare',
+          # medicare_advantage
+          # medicare_part_b
+          # state_supplementary_payment
+          'TRICARE' => 'tricare',
+          'VeteranHealthProgram' => 'veterans_benefits',
+          # naf_health_benefit_program
+          # 'PeaceCorps' => 'health_care_for_peace_corp_volunteers',
+          # department_of_defense_non_appropriated_health_benefits
+          # cobra
+          'Employer' => "employer_sponsored_insurance",
+          # self_funded_student_health_coverage
+          # foreign_government_health_coverage
+          'Private' => 'private_health_insurance_plan',
+          # coverage_obtained_through_another_exchange
+          # coverage_under_the_state_health_benefits_risk_pool
+          # 'VeteranHealthProgram' => 'veterans_administration_health_benefits',
+          'PeaceCorps' => 'peace_corps_health_benefits'
+        }.freeze
+
         def benefits_hash
           return [] if @applicant_hash.nil?
-          return [] if @applicant_hash[:esi_associations].empty?
+          # return [] if @applicant_hash[:esi_associations].empty?
+          # return [] if @applicant_hash[:non_esi_coverage_indicators].empty?
+          return [] if @applicant_hash[:non_esi_policies].empty?
 
           result = []
-          # esi_associations = @applicant_hash[:esi_associations].first
-          %w[is_enrolled is_eligible].each do |status| # default loop , should get value from payload
-            # @insurance_coverage_hash[:enrolledCoverages].each do |ic|
-            # next if ic[:insuranceMarketType] == 'NONE'
 
+          @applicant_hash[:non_esi_policies].each do |policy|
             result << {
-              'kind' => status, # default value
-              # 'insurance_kind' => ic['insuranceMarketType'],
-              'start_on' => Date.parse('2021-05-07'), # default value
+              'kind' => 'is_enrolled', # default value
+              'insurance_kind' => INSURANCE_KINDS[policy[:source_code]],
+              'start_on' => Date.new(Date.today.year, 1, 1), # default value
               'end_on' => nil
             }
-            # end
           end
+          # esi_associations = @applicant_hash[:esi_associations].first
+          # %w[is_enrolled is_eligible].each do |status| # default loop , should get value from payload
+          # @insurance_coverage_hash[:enrolledCoverages].each do |ic|
+          # next if ic[:insuranceMarketType] == 'NONE'
+
+          #   result << {
+          #     'kind' => status, # default value
+          #     # 'insurance_kind' => ic['insuranceMarketType'],
+          #     'start_on' => Date.parse('2021-05-07'), # default value
+          #     'end_on' => nil
+          #   }
+          #   # end
+          # end
+
           result
         end
 
@@ -291,7 +329,24 @@ module AcaEntities
           return [] if @applicant_hash.nil?
           return [] if @applicant_hash[:esi_associations].empty?
 
-          []
+          result = []
+          @applicant_hash[:esi_associations].each do |esi|
+            kind = nil
+            if esi[:enrolled_indicator]
+              kind = 'is_enrolled'
+            elsif esi[:eligible_indicator]
+              kind = 'is_eligible'
+            end
+            result << {
+              'esi_covered' => 'self', # default value
+              'kind' => kind,
+              'insurance_kind' => INSURANCE_KINDS['Employer'],
+              'start_on' => Date.new(Date.today.year, 1, 1), # default value
+              'end_on' => nil
+            }
+          end
+
+          result
           # @insurance_coverage_hash[:employerSponsoredCoverageOffers].each_with_object([]) do |(_k, esc), result|
           #   result << {
           #     'employee_cost' => esc[:lcsopPremium],
