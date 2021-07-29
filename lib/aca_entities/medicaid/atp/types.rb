@@ -14,6 +14,7 @@ module AcaEntities
         InformationExchangeSystemCategoryCode = String.enum("Exchange", "MedicaidAgency", "CHIPAgency")
         TaxReturnFilingStatusCode = String.enum("0", "1", "2", "3", "4", "5", "6", "7")
         ReferralActivityReasonCode = String.enum("FullDetermination", "WaitingPeriodException", "GapFilling")
+        ExpenseCategoryCode = String.enum("Alimony", "StudentLoanInterest")
         IncomeCategoryCode = String.enum(
           "CapitalGains",
           "Interest",

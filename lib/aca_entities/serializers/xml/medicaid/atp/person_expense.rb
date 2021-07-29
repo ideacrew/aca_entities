@@ -27,7 +27,7 @@ module AcaEntities
               mapper = self.new
               mapper.category_text = person_expense.category_text
               mapper.amount = person_expense.amount
-              mapper.frequency = person_expense.frequency
+              mapper.frequency = ExpenseFrequency.domain_to_mapper(person_expense.frequency)
               mapper.category_code = person_expense.category_code
               mapper
             end

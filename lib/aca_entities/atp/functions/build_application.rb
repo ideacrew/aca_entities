@@ -195,21 +195,23 @@ module AcaEntities
         OTHER_INCOME_TYPE_KIND = {
           'Alimony' => 'alimony_and_maintenance',
           'CapitalGains' => 'capital_gains',
-          'dividend' => 'Dividends',
+          # 'dividend' => 'Dividends',
           'Interest' => 'Interest',
           'Pension' => 'pension_retirement_benefits',
           'Retirement' => 'pension_retirement_benefits',
-          'RENTAL_OR_ROYALTY_INCOME' => 'rental_and_royalty',
+          'RentalOrRoyalty' => 'rental_and_royalty',
           'SocialSecurity' => 'social_security_benefit',
-          'American Indian/Alaska Native income' => 'american_indian_and_alaskan_native',
-          'Employer-funded disability payments' => 'employer_funded_disability',
-          'Estate and trust' => 'estate_trust',
+          # 'American Indian/Alaska Native income' => 'american_indian_and_alaskan_native',
+          # 'Employer-funded disability payments' => 'employer_funded_disability',
+          # 'Estate and trust' => 'estate_trust',
           'FarmingOrFishing' => 'farming_and_fishing',
-          'foreign' => 'foreign',
-          'Other taxable income' => 'other',
-          'INVESTMENT_INCOME' => 'INVESTMENT_INCOME',
-          'Prizes and awards' => 'prizes_and_awards',
-          'Taxable scholarship payments' => 'scholorship_payments'
+          # 'foreign' => 'foreign',
+          # 'Other taxable income' => 'other',
+          'Unspecified' => 'other',
+          # 'INVESTMENT_INCOME' => 'INVESTMENT_INCOME',
+          'Winnings' => 'prizes_and_awards',
+          # 'Taxable scholarship payments' => 'scholorship_payments'
+          'Scholarship' => 'scholorship_payments'
         }.freeze
 
         def other_income_hash
@@ -234,19 +236,19 @@ module AcaEntities
 
         DEDUCTION_TYPE = {
           'Alimony' => 'alimony_paid',
-          'Deductible part of self-employment taxes' => 'deductable_part_of_self_employment_taxes',
-          'Domestic production activities deduction' => 'domestic_production_activities',
-          'Penalty on early withdrawal of savings' => 'penalty_on_early_withdrawal_of_savings',
-          'Educator expenses' => 'educator_expenses',
-          'Self-employmed SEP, SIMPLE, and qualified plans' => 'self_employment_sep_simple_and_qualified_plans',
-          'Self-employed health insurance' => 'self_employed_health_insurance',
-          'StudentLoanInterest' => 'student_loan_interest',
-          'Moving expenses' => 'moving_expenses',
-          'Health savings account' => 'health_savings_account',
-          'IRA deduction' => 'ira_deduction',
-          'Certain business expenses of reservists, performing artists, and fee-basis government officials' => 'reservists_performing_artists_and_fee_basis_government_official_expenses',
-          'Tuition and fees' => 'tuition_and_fees',
-          'OTHER_DEDUCTION' => 'OTHER_DEDUCTION'
+          # 'Deductible part of self-employment taxes' => 'deductable_part_of_self_employment_taxes',
+          # 'Domestic production activities deduction' => 'domestic_production_activities',
+          # 'Penalty on early withdrawal of savings' => 'penalty_on_early_withdrawal_of_savings',
+          # 'Educator expenses' => 'educator_expenses',
+          # 'Self-employmed SEP, SIMPLE, and qualified plans' => 'self_employment_sep_simple_and_qualified_plans',
+          # 'Self-employed health insurance' => 'self_employed_health_insurance',
+          # 'Moving expenses' => 'moving_expenses',
+          # 'Health savings account' => 'health_savings_account',
+          # 'IRA deduction' => 'ira_deduction',
+          # 'Certain business expenses of reservists, performing artists, and fee-basis government officials' => 'reservists_performing_artists_and_fee_basis_government_official_expenses',
+          # 'Tuition and fees' => 'tuition_and_fees',
+          # 'OTHER_DEDUCTION' => 'OTHER_DEDUCTION',
+          'StudentLoanInterest' => 'student_loan_interest'
         }.freeze
 
         def deduction_hash
@@ -295,7 +297,7 @@ module AcaEntities
         def benefits_hash
           return [] if @applicant_hash.nil?
           # return [] if @applicant_hash[:esi_associations].empty?
-          # return [] if @applicant_hash[:non_esi_coverage_indicators].empty?
+          return [] if @applicant_hash[:non_esi_coverage_indicators].empty? || !@applicant_hash[:non_esi_coverage_indicators].first
           return [] if @applicant_hash[:non_esi_policies].empty?
 
           result = []
@@ -477,7 +479,6 @@ module AcaEntities
 
           tribe_indicator = @tribal_augmentation[:american_indian_or_alaska_native_indicator]
 
-          binding.pry
           # joint_tax_filing_status = if !@tax_return.nil? && is_tax_filer
           #                             @tax_return[:status_code] == '2' ? true : false
           #                           else
@@ -528,8 +529,10 @@ module AcaEntities
             has_unemployment_income: !unemp_income_hash.empty?,
             has_other_income: !other_income_hash.empty?,
             has_deductions: !deduction_hash.empty?,
-            has_enrolled_health_coverage: !benefits_hash.empty?, # default value
-            has_eligible_health_coverage: !benefits_hash.empty?, # default value
+            # has_enrolled_health_coverage: !benefits_hash.empty?, # default value
+            has_enrolled_health_coverage: !benefits_hash.concat(benefits_esc_hash).select {|h| h['kind'] == 'is_enrolled' }.empty?,
+            # has_eligible_health_coverage: !benefits_hash.empty?, # default value
+            has_eligible_health_coverage: !benefits_hash.concat(benefits_esc_hash).select {|h| h['kind'] == 'is_eligible' }.empty?,
             addresses: AcaEntities::Atp::Functions::AddressBuilder.new.call(@memoized_data, @applicant_identifier), # default value
             emails: email_hash, # default value
             phones: phone_hash, # default value
