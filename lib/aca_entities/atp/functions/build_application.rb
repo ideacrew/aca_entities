@@ -321,7 +321,6 @@ module AcaEntities
           #   }
           #   # end
           # end
-
           result
         end
 
@@ -345,7 +344,6 @@ module AcaEntities
               'end_on' => nil
             }
           end
-
           result
           # @insurance_coverage_hash[:employerSponsoredCoverageOffers].each_with_object([]) do |(_k, esc), result|
           #   result << {
@@ -479,6 +477,7 @@ module AcaEntities
 
           tribe_indicator = @tribal_augmentation[:american_indian_or_alaska_native_indicator]
 
+          binding.pry
           # joint_tax_filing_status = if !@tax_return.nil? && is_tax_filer
           #                             @tax_return[:status_code] == '2' ? true : false
           #                           else
