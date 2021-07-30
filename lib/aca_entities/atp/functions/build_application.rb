@@ -580,6 +580,13 @@ module AcaEntities
           }
         end
 
+        def get_age(age)
+          age.respond_to?(:strftime) ? 
+            AcaEntities::Functions::AgeOn.new(on_date: Date.today.strftime('%Y/%m/%d'))
+                                                           .call(Date.strptime(age, "%m/%d/%Y").strftime('%Y/%m/%d'))
+            : nil
+        end
+
         def email_hash
           contacts_information = @member_hash[:contacts]
           contacts_information.each_with_object([]) do |contact_info, collector|
