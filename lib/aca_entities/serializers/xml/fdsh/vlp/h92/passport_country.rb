@@ -20,8 +20,8 @@ module AcaEntities
 
               def self.domain_to_mapper(passport)
                 mapper = self.new
-                mapper.PassportNumber = passport.PassportNumber
-                mapper.CountryOfIssuance = passport.CountryOfIssuance
+                mapper.PassportNumber = passport&.PassportNumber
+                mapper.CountryOfIssuance = passport&.CountryOfIssuance
 
                 mapper
               end

@@ -29,33 +29,6 @@ servers:
     description: RIDP Initial Service
 defaultContentType: application/soap+xml
 channels:
-  /VLPService:
-    publish:
-      operationId: /VLPService
-      description: Send request to VLP endpoint
-      message:
-        contentType: application/soap+xml
-      bindings:
-        http:
-          type: request
-          method: POST
-          contentType: application/soap+xml
-          headers:
-            Content-Type: application/soap+xml
-            Accept: application/soap+xml
-    subscribe:
-      operationId: /on/VLPService
-      description: Receive response from VLP request
-      message:
-        contentType: application/soap+xml
-      bindings:
-        http:
-          type: response
-          method: GET
-          contentType: application/soap+xml
-          headers:
-            Content-Type: application/soap+xml
-            Accept: application/soap+xml
   /RIDPService:
     publish:
       operationId: /RIDPService
@@ -73,6 +46,33 @@ channels:
     subscribe:
       operationId: /on/RIDPService
       description: Receive response from RIDP request
+      message:
+        contentType: application/soap+xml
+      bindings:
+        http:
+          type: response
+          method: GET
+          contentType: application/soap+xml
+          headers:
+            Content-Type: application/soap+xml
+            Accept: application/soap+xml
+  /VerifyLawfulPresenceServiceV37:
+    publish:
+      operationId: /VerifyLawfulPresenceServiceV37
+      description: Send request to VLP endpoint
+      message:
+        contentType: application/soap+xml
+      bindings:
+        http:
+          type: request
+          method: POST
+          contentType: application/soap+xml
+          headers:
+            Content-Type: application/soap+xml
+            Accept: application/soap+xml
+    subscribe:
+      operationId: /on/VerifyLawfulPresenceServiceV37
+      description: Receive response from VLP request
       message:
         contentType: application/soap+xml
       bindings:

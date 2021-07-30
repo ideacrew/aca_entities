@@ -7,8 +7,8 @@ module AcaEntities
         # Entity for Fdsh Vlp PassportCountry
         class PassportCountry < Dry::Struct
 
-          attribute :PassportNumber,         Types::Strict::String.meta(omittable: false)
-          attribute :CountryOfIssuance,      Types::Strict::String.meta(omittable: false)
+          attribute :PassportNumber,         Types::String.optional.meta(omittable: false)
+          attribute :CountryOfIssuance,      Types::String.optional.meta(omittable: false)
         end
       end
     end
