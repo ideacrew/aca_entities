@@ -10,7 +10,7 @@ module AcaEntities
           @memoized_data = cache
           insurance_applicants = @memoized_data.resolve(:'insurance_application.insurance_applicants').item
           @primary_applicant_identifier = @memoized_data.resolve(:primary_applicant_identifier).item
-          @tax_return = @memoized_data.resolve(:'insurance_application.tax_return').item
+          @tax_return = @memoized_data.resolve(:'insurance_application.tax_returns').item
           people_augementation = @memoized_data.find(Regexp.new("record.people.*.augementation"))
 
           result = people_augementation.each_with_object([]) do |person_augementation, collector|
@@ -195,21 +195,23 @@ module AcaEntities
         OTHER_INCOME_TYPE_KIND = {
           'Alimony' => 'alimony_and_maintenance',
           'CapitalGains' => 'capital_gains',
-          'dividend' => 'Dividends',
+          # 'dividend' => 'Dividends',
           'Interest' => 'Interest',
           'Pension' => 'pension_retirement_benefits',
           'Retirement' => 'pension_retirement_benefits',
-          'RENTAL_OR_ROYALTY_INCOME' => 'rental_and_royalty',
+          'RentalOrRoyalty' => 'rental_and_royalty',
           'SocialSecurity' => 'social_security_benefit',
-          'American Indian/Alaska Native income' => 'american_indian_and_alaskan_native',
-          'Employer-funded disability payments' => 'employer_funded_disability',
-          'Estate and trust' => 'estate_trust',
+          # 'American Indian/Alaska Native income' => 'american_indian_and_alaskan_native',
+          # 'Employer-funded disability payments' => 'employer_funded_disability',
+          # 'Estate and trust' => 'estate_trust',
           'FarmingOrFishing' => 'farming_and_fishing',
-          'foreign' => 'foreign',
-          'Other taxable income' => 'other',
-          'INVESTMENT_INCOME' => 'INVESTMENT_INCOME',
-          'Prizes and awards' => 'prizes_and_awards',
-          'Taxable scholarship payments' => 'scholorship_payments'
+          # 'foreign' => 'foreign',
+          # 'Other taxable income' => 'other',
+          'Unspecified' => 'other',
+          # 'INVESTMENT_INCOME' => 'INVESTMENT_INCOME',
+          'Winnings' => 'prizes_and_awards',
+          # 'Taxable scholarship payments' => 'scholorship_payments'
+          'Scholarship' => 'scholorship_payments'
         }.freeze
 
         def other_income_hash
@@ -234,19 +236,19 @@ module AcaEntities
 
         DEDUCTION_TYPE = {
           'Alimony' => 'alimony_paid',
-          'Deductible part of self-employment taxes' => 'deductable_part_of_self_employment_taxes',
-          'Domestic production activities deduction' => 'domestic_production_activities',
-          'Penalty on early withdrawal of savings' => 'penalty_on_early_withdrawal_of_savings',
-          'Educator expenses' => 'educator_expenses',
-          'Self-employmed SEP, SIMPLE, and qualified plans' => 'self_employment_sep_simple_and_qualified_plans',
-          'Self-employed health insurance' => 'self_employed_health_insurance',
-          'StudentLoanInterest' => 'student_loan_interest',
-          'Moving expenses' => 'moving_expenses',
-          'Health savings account' => 'health_savings_account',
-          'IRA deduction' => 'ira_deduction',
-          'Certain business expenses of reservists, performing artists, and fee-basis government officials' => 'reservists_performing_artists_and_fee_basis_government_official_expenses',
-          'Tuition and fees' => 'tuition_and_fees',
-          'OTHER_DEDUCTION' => 'OTHER_DEDUCTION'
+          # 'Deductible part of self-employment taxes' => 'deductable_part_of_self_employment_taxes',
+          # 'Domestic production activities deduction' => 'domestic_production_activities',
+          # 'Penalty on early withdrawal of savings' => 'penalty_on_early_withdrawal_of_savings',
+          # 'Educator expenses' => 'educator_expenses',
+          # 'Self-employmed SEP, SIMPLE, and qualified plans' => 'self_employment_sep_simple_and_qualified_plans',
+          # 'Self-employed health insurance' => 'self_employed_health_insurance',
+          # 'Moving expenses' => 'moving_expenses',
+          # 'Health savings account' => 'health_savings_account',
+          # 'IRA deduction' => 'ira_deduction',
+          # 'Certain business expenses of reservists, performing artists, and fee-basis government officials' => 'reservists_performing_artists_and_fee_basis_government_official_expenses',
+          # 'Tuition and fees' => 'tuition_and_fees',
+          # 'OTHER_DEDUCTION' => 'OTHER_DEDUCTION',
+          'StudentLoanInterest' => 'student_loan_interest'
         }.freeze
 
         def deduction_hash
@@ -266,24 +268,61 @@ module AcaEntities
           end
         end
 
+        INSURANCE_KINDS = {
+          # 'Private' => 'private_individual_and_family_coverage',
+          # acf_refugee_medical_assistance
+          # americorps_health_benefits
+          'CHIP' => 'child_health_insurance_plan',
+          'Medicaid' => 'medicaid',
+          'Medicare' => 'medicare',
+          # medicare_advantage
+          # medicare_part_b
+          # state_supplementary_payment
+          'TRICARE' => 'tricare',
+          'VeteranHealthProgram' => 'veterans_benefits',
+          # naf_health_benefit_program
+          # 'PeaceCorps' => 'health_care_for_peace_corp_volunteers',
+          # department_of_defense_non_appropriated_health_benefits
+          # cobra
+          'Employer' => "employer_sponsored_insurance",
+          # self_funded_student_health_coverage
+          # foreign_government_health_coverage
+          'Private' => 'private_health_insurance_plan',
+          # coverage_obtained_through_another_exchange
+          # coverage_under_the_state_health_benefits_risk_pool
+          # 'VeteranHealthProgram' => 'veterans_administration_health_benefits',
+          'PeaceCorps' => 'peace_corps_health_benefits'
+        }.freeze
+
         def benefits_hash
           return [] if @applicant_hash.nil?
-          return [] if @applicant_hash[:esi_associations].empty?
+          # return [] if @applicant_hash[:esi_associations].empty?
+          return [] if @applicant_hash[:non_esi_coverage_indicators].empty? || !@applicant_hash[:non_esi_coverage_indicators].first
+          return [] if @applicant_hash[:non_esi_policies].empty?
 
           result = []
-          # esi_associations = @applicant_hash[:esi_associations].first
-          %w[is_enrolled is_eligible].each do |status| # default loop , should get value from payload
-            # @insurance_coverage_hash[:enrolledCoverages].each do |ic|
-            # next if ic[:insuranceMarketType] == 'NONE'
 
+          @applicant_hash[:non_esi_policies].each do |policy|
             result << {
-              'kind' => status, # default value
-              # 'insurance_kind' => ic['insuranceMarketType'],
-              'start_on' => Date.parse('2021-05-07'), # default value
+              'kind' => 'is_enrolled', # default value
+              'insurance_kind' => INSURANCE_KINDS[policy[:source_code]],
+              'start_on' => Date.new(Date.today.year, 1, 1), # default value
               'end_on' => nil
             }
-            # end
           end
+          # esi_associations = @applicant_hash[:esi_associations].first
+          # %w[is_enrolled is_eligible].each do |status| # default loop , should get value from payload
+          # @insurance_coverage_hash[:enrolledCoverages].each do |ic|
+          # next if ic[:insuranceMarketType] == 'NONE'
+
+          #   result << {
+          #     'kind' => status, # default value
+          #     # 'insurance_kind' => ic['insuranceMarketType'],
+          #     'start_on' => Date.parse('2021-05-07'), # default value
+          #     'end_on' => nil
+          #   }
+          #   # end
+          # end
           result
         end
 
@@ -291,7 +330,23 @@ module AcaEntities
           return [] if @applicant_hash.nil?
           return [] if @applicant_hash[:esi_associations].empty?
 
-          []
+          result = []
+          @applicant_hash[:esi_associations].each do |esi|
+            kind = nil
+            if esi[:enrolled_indicator]
+              kind = 'is_enrolled'
+            elsif esi[:eligible_indicator]
+              kind = 'is_eligible'
+            end
+            result << {
+              'esi_covered' => 'self', # default value
+              'kind' => kind,
+              'insurance_kind' => INSURANCE_KINDS['Employer'],
+              'start_on' => Date.new(Date.today.year, 1, 1), # default value
+              'end_on' => nil
+            }
+          end
+          result
           # @insurance_coverage_hash[:employerSponsoredCoverageOffers].each_with_object([]) do |(_k, esc), result|
           #   result << {
           #     'employee_cost' => esc[:lcsopPremium],
@@ -411,18 +466,24 @@ module AcaEntities
 
         def applicant_hash
           non_magi = @memoized_data.find(Regexp.new('attestations.members.*.nonMagi')).map(&:item).last
-          tax_dependents = @tax_return.nil? ? nil : @tax_return[:tax_houshold][:tax_dependents].collect {|a| a[:role_reference][:ref]}
-          is_tax_filer = if !@tax_return.nil? && @tax_return[:tax_houshold]
-                           if @tax_return[:tax_houshold][:primary_tax_filer][:role_reference][:ref] == @applicant_identifier
+          tax_dependents = @tax_return.nil? ? nil : @tax_return[:tax_household][:tax_dependents].collect {|a| a[:role_reference][:ref]}
+          is_tax_filer = if !@tax_return.nil? && @tax_return[:tax_household]
+                           if @tax_return[:tax_household][:primary_tax_filer][:role_reference][:ref] == @applicant_identifier
                              true
                            else
-                             @tax_return[:tax_houshold][:spouse_tax_filer] == @applicant_identifier
+                             @tax_return[:tax_household][:spouse_tax_filer] == @applicant_identifier
                            end
                          else
                            false
                          end
 
           tribe_indicator = @tribal_augmentation[:american_indian_or_alaska_native_indicator]
+
+          # joint_tax_filing_status = if !@tax_return.nil? && is_tax_filer
+          #                             @tax_return[:status_code] == '2' ? true : false
+          #                           else
+          #                             nil
+          #                           end
 
           {
             is_primary_applicant: @applicant_identifier == @primary_applicant_identifier,
@@ -446,7 +507,7 @@ module AcaEntities
             is_required_to_file_taxes: is_tax_filer, # default value
             tax_filer_kind: 'tax_filer', # default value . #To memoise and extract data from taxRelationships
             is_joint_tax_filing: false, # default value
-            # # add method to check for joint filing using this value
+            # is_joint_tax_filing: joint_tax_filing_status, # Status code field is not included in payloads currently
             is_claimed_as_tax_dependent: tax_dependents.nil? ? nil : tax_dependents.include?(@applicant_identifier), # default value
             claimed_as_tax_dependent_by: @primary_applicant_identifier, # default value to primary
             student: student_hash,
@@ -468,8 +529,10 @@ module AcaEntities
             has_unemployment_income: !unemp_income_hash.empty?,
             has_other_income: !other_income_hash.empty?,
             has_deductions: !deduction_hash.empty?,
-            has_enrolled_health_coverage: !benefits_hash.empty?, # default value
-            has_eligible_health_coverage: !benefits_hash.empty?, # default value
+            # has_enrolled_health_coverage: !benefits_hash.empty?, # default value
+            has_enrolled_health_coverage: !benefits_hash.concat(benefits_esc_hash).select {|h| h['kind'] == 'is_enrolled' }.empty?,
+            # has_eligible_health_coverage: !benefits_hash.empty?, # default value
+            has_eligible_health_coverage: !benefits_hash.concat(benefits_esc_hash).select {|h| h['kind'] == 'is_eligible' }.empty?,
             addresses: AcaEntities::Atp::Functions::AddressBuilder.new.call(@memoized_data, @applicant_identifier), # default value
             emails: email_hash, # default value
             phones: phone_hash, # default value

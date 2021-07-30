@@ -19,9 +19,9 @@ module AcaEntities
           optional(:verification_inconsistency_indicator).maybe(:bool)
           optional(:verification_description_text).maybe(:string)
           optional(:verification_inconsistency_text).maybe(:string)
-          optional(:verification_category_codes).maybe(:string)
+          optional(:verification_category_codes).maybe(:array)
           optional(:response_code).maybe(:string)
-          optional(:verification_status).maybe(:array)
+          optional(:verification_status).maybe(:hash)
         end
       end
     end

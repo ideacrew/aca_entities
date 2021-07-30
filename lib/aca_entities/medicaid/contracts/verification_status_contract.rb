@@ -6,7 +6,7 @@ module AcaEntities
       # Verification status information contract
       class VerificationStatusContract < Dry::Validation::Contract
         params do
-          required(:status).filled(:string)
+          required(:status_code).filled(:string)
         end
       end
     end

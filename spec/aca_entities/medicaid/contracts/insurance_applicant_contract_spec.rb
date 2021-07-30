@@ -32,6 +32,12 @@ RSpec.describe ::AcaEntities::Medicaid::Contracts::InsuranceApplicantContract, d
         expect(subject.call({}).errors.to_h.keys).to match_array required_params.keys
       end
     end
+
+    context 'with optional parameters only' do
+      it 'should list error for every required parameter' do
+        expect(subject.call(optional_params).errors.to_h.keys).to match_array required_params.keys
+      end
+    end
   end
 
   context 'valid parameters' do

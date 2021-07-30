@@ -7,7 +7,7 @@ module AcaEntities
       class StatusValidDateRangeContract < Dry::Validation::Contract
 
         params do
-          # optional(:start_date).maybe(:date)
+          optional(:start_date).maybe(:hash)
           optional(:end_date).maybe(:hash)
         end
       end

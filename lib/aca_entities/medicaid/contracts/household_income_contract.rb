@@ -7,10 +7,10 @@ module AcaEntities
       class HouseholdIncomeContract < Dry::Validation::Contract
 
         params do
-          optional(:monthly_income_greater_than_fpl).maybe(:bool)
-          optional(:income_type).maybe(MagiMedicaid::Types::IncomeType)
+          optional(:monthly_income_greater_than_fpl).maybe(:float)
+          optional(:income_type_code).maybe(:string)
           optional(:income_amount).maybe(:float)
-          optional(:income_frequency).maybe(MagiMedicaid::Types::IncomeFrequency)
+          optional(:income_frequency).maybe(:hash)
           optional(:income_from_tribal_source).maybe(:float)
           optional(:monthly_attested_medicaid_household_current_income).maybe(:float)
           optional(:annual_total_project_medicaid_household_current_income).maybe(:float)
@@ -19,6 +19,7 @@ module AcaEntities
           optional(:days_per_week).maybe(:float)
           optional(:date).maybe(:hash)
           optional(:source_organization_reference).maybe(:hash)
+          optional(:subject_to_federal_restrictions_indicator).maybe(:bool)
           optional(:payment_frequency).maybe(:hash)
           optional(:earned_date_range).maybe(:hash)
           optional(:description_text).maybe(:string)

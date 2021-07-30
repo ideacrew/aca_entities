@@ -24,7 +24,7 @@ module AcaEntities
             element :person_tribe_name, String, tag: 'PersonTribeName'
 
             # A state, commonwealth, province, or other such geopolitical subdivision of a country.
-            element :location_state_us_postal_service_code, String, tag: 'LocationStateUSPostalServiceCode'
+            element :location_state_us_postal_service_code, String, tag: 'LocationStateUSPostalServiceCode', namespace: 'nc'
 
             def self.domain_to_mapper(augmentation)
               mapper = self.new

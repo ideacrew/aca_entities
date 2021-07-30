@@ -5,10 +5,10 @@ module AcaEntities
     module Atp
       # Entity for HouseholdIncome
       class HouseholdIncome < Dry::Struct
-        attribute :monthly_income_greater_than_fpl,                         Types::Bool.optional.meta(omittable: true)
-        attribute :income_type_code,                                        Types::String.optional.meta(omittable: true)
+        attribute :monthly_income_greater_than_fpl,                         Types::Float.optional.meta(omittable: true)
+        attribute :income_type_code,                                        Types::IncomeCategoryCode.optional.meta(omittable: true)
         attribute :income_amount,                                           Types::Float.optional.meta(omittable: true)
-        attribute :income_frequency,                                        Types::String.optional.meta(omittable: true)
+        attribute :income_frequency,                                        IncomeFrequency.optional.meta(omittable: true)
         attribute :income_from_tribal_source,                               Types::Float.optional.meta(omittable: true)
         attribute :monthly_attested_medicaid_household_current_income,      Types::Float.optional.meta(omittable: true)
         attribute :annual_total_project_medicaid_household_current_income,  Types::Float.optional.meta(omittable: true)
@@ -17,6 +17,7 @@ module AcaEntities
         attribute :days_per_week,                                           Types::Float.optional.meta(omittable: true)
         attribute :date,                                                    IncomeDate.optional.meta(omittable: true)
         attribute :source_organization_reference,                           IncomeSourceOrganizationReference.optional.meta(omittable: true)
+        attribute :subject_to_federal_restrictions_indicator,               Types::Bool.optional.meta(omittable: true)
         attribute :payment_frequency,                                       IncomePaymentFrequency.optional.meta(omittable: true)
         attribute :earned_date_range,                                       IncomeEarnedDateRange.optional.meta(omittable: true)
         attribute :description_text,                                        Types::String.optional.meta(omittable: true)

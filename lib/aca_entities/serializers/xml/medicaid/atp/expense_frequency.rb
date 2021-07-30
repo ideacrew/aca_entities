@@ -14,8 +14,10 @@ module AcaEntities
 
             element :frequency_code, String, tag: 'FrequencyCode', namespace: "hix-core"
 
-            def self.domain_to_mapper(_date_range)
-              self.new
+            def self.domain_to_mapper(expense_frequency)
+              mapper = self.new
+              mapper.frequency_code = expense_frequency.frequency_code
+              mapper
             end
 
             def to_hash

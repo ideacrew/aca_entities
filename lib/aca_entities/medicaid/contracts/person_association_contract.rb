@@ -8,7 +8,7 @@ module AcaEntities
 
         params do
           optional(:person).maybe(:hash)
-          optional(:family_relationship_code).maybe(:integer)
+          optional(:family_relationship_code).maybe(:string)
         end
       end
     end

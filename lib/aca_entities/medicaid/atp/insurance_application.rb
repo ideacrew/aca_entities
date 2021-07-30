@@ -16,7 +16,7 @@ module AcaEntities
         attribute :application_submission, ApplicationSubmission.meta(omittable: false)
         attribute :application_identifications, Types::Array.of(ApplicationIdentification).meta(omittable: false)
         attribute :coverage_renewal_year_quantity, Types::Integer.optional.meta(omittable: true)
-        attribute :assister_association, AssisterAssociation.optional.meta(omittable: true)
+        attribute :assister_association, InsuranceApplicationAssisterAssociation.optional.meta(omittable: true)
       end
     end
   end

@@ -15,8 +15,11 @@ module AcaEntities
             has_one :eligibility_date_range, EligibilityDateRange
             has_one :eligibility_establishing_system, EligibilityEstablishingSystem
 
-            def self.domain_to_mapper(_eligibility)
-              self.new
+            def self.domain_to_mapper(exchange_eligibility)
+              mapper = self.new
+              mapper.eligibility_date_range = exchange_eligibility.eligibility_date_range
+              mapper.eligibility_establishing_system = exchange_eligibility.eligibility_establishing_system
+              mapper
             end
 
             def to_hash

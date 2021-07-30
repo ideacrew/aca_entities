@@ -9,7 +9,7 @@ RSpec.describe ::AcaEntities::Medicaid::Contracts::ActivityIdentificationContrac
 
   let(:optional_params) do
     { identification_category_text: "Exchange",
-      identification_jurisdication: "ME" }
+      identification_jurisdiction: "ME" }
   end
 
   let(:all_params) { required_params.merge(optional_params)}
@@ -22,7 +22,9 @@ RSpec.describe ::AcaEntities::Medicaid::Contracts::ActivityIdentificationContrac
     end
 
     context 'with optional parameters only' do
-      it { expect(subject.call(optional_params).error?(required_params.first[0])).to be_truthy }
+      it 'should list error for every required parameter' do
+        expect(subject.call(optional_params).errors.to_h.keys).to match_array required_params.keys
+      end
     end
   end
 

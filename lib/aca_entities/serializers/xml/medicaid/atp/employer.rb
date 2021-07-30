@@ -12,7 +12,7 @@ module AcaEntities
             tag 'Employer'
             namespace 'hix-core'
 
-            attribute :id, String, tag: 'id', namespace: 'niem-s'
+            attribute :id, String, namespace: "niem-s"
             element :category_text, String, tag: 'OrganizationName', namespace: "nc"
             has_one :organization_primary_contact_information, OrganizationPrimaryContactInformation
 
@@ -27,7 +27,7 @@ module AcaEntities
 
             def to_hash
               {
-                employer_id: id,
+                id: id,
                 category_text: category_text,
                 organization_primary_contact_information: organization_primary_contact_information&.to_hash
               }

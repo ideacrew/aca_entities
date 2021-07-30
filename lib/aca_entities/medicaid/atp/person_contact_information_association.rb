@@ -8,7 +8,7 @@ module AcaEntities
         # attribute :begin_date, AssociationBeginDate
         # attribute :end_date, AssociationEndDate
         attribute :contact, ContactInformation.optional.meta(omittable: true)
-        attribute :category_code, Types::String.optional.meta(omittable: true)
+        attribute :category_code, Types::ContactInformationCategoryCode.optional.meta(omittable: true)
         attribute :is_primary_indicator, Types::Bool.optional.meta(omittable: true)
       end
     end

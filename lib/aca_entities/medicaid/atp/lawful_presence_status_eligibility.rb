@@ -7,7 +7,6 @@ module AcaEntities
       class LawfulPresenceStatusEligibility < Dry::Struct
 
         attribute :eligibility_indicator, Types::Bool.meta(omittable: false)
-        attribute :eligibility_basis_status_code, Types::String.optional.meta(omittable: true)
       end
     end
   end

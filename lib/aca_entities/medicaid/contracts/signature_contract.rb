@@ -7,6 +7,7 @@ module AcaEntities
       class SignatureContract < Dry::Validation::Contract
         params do
           required(:signature_date).filled(:hash)
+          optional(:signature_name).maybe(:hash)
         end
       end
     end

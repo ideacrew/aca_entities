@@ -8,7 +8,7 @@ module AcaEntities
         params do
           required(:identification_id).filled(:string)
           optional(:identification_category_text).maybe(:string)
-          optional(:identification_jurisdication).maybe(:string)
+          optional(:identification_jurisdiction).maybe(:string)
         end
       end
     end
