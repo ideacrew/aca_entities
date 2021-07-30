@@ -581,10 +581,12 @@ module AcaEntities
         end
 
         def get_age(age)
-          age.respond_to?(:strftime) ?
+          if age.respond_to?(:strftime)
             AcaEntities::Functions::AgeOn.new(on_date: Date.today.strftime('%Y/%m/%d'))
                                                            .call(Date.strptime(age, "%m/%d/%Y").strftime('%Y/%m/%d'))
-            : nil
+          else
+            nil
+          end
         end
 
         def email_hash
