@@ -460,7 +460,7 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
       earned_date_range: date_range
     }
   end
- 
+
   let(:mapper) { described_class.domain_to_mapper(account_transfer_request) }
   let(:schema) { Nokogiri::XML::Schema(File.open(schema_location)) }
   let(:schema_location) do
