@@ -27,24 +27,26 @@ module AcaEntities
 
             def self.domain_to_mapper(person_augmentation)
               mapper = self.new
-              mapper.us_veteran_indicator = person_augmentation.us_veteran_indicator
-              mapper.married_indicator = person_augmentation.married_indicator
-              mapper.us_veteran_indicator = person_augmentation.us_veteran_indicator
-              mapper.pregnancy_status = PersonPregnancyStatus.domain_to_mapper(person_augmentation.pregnancy_status)
-              mapper.preferred_languages = person_augmentation.preferred_languages.map  do |preferred_language|
-                PersonPreferredLanguage.domain_to_mapper(preferred_language)
-              end
-              mapper.incomes = person_augmentation.incomes&.map  do |income|
-                PersonIncome.domain_to_mapper(income)
-              end
-              mapper.employments = person_augmentation.employments&.map  do |employment_association|
-                PersonEmploymentAssociation.domain_to_mapper(employment_association)
-              end
-              mapper.contacts = person_augmentation.contacts&.map do |contact_association|
-                PersonContactInformationAssociation.domain_to_mapper(contact_association)
-              end
-              mapper.persons = person_augmentation.persons&.map do |person_association|
-                PersonAssociation.domain_to_mapper(person_association)
+              if person_augmentation
+                mapper.us_veteran_indicator = person_augmentation.us_veteran_indicator
+                mapper.married_indicator = person_augmentation.married_indicator
+                mapper.us_veteran_indicator = person_augmentation.us_veteran_indicator
+                mapper.pregnancy_status = PersonPregnancyStatus.domain_to_mapper(person_augmentation.pregnancy_status)
+                mapper.preferred_languages = person_augmentation.preferred_languages.map  do |preferred_language|
+                  PersonPreferredLanguage.domain_to_mapper(preferred_language)
+                end
+                mapper.incomes = person_augmentation.incomes&.map  do |income|
+                  PersonIncome.domain_to_mapper(income)
+                end
+                mapper.employments = person_augmentation.employments&.map  do |employment_association|
+                  PersonEmploymentAssociation.domain_to_mapper(employment_association)
+                end
+                mapper.contacts = person_augmentation.contacts&.map do |contact_association|
+                  PersonContactInformationAssociation.domain_to_mapper(contact_association)
+                end
+                mapper.persons = person_augmentation.persons&.map do |person_association|
+                  PersonAssociation.domain_to_mapper(person_association)
+                end
               end
               mapper
             end

@@ -48,7 +48,7 @@ module AcaEntities
               if account_transfer_request.respond_to?(:verification_metadata)
                 mapper.verification_metadata = account_transfer_request.verification_metadata.map {|vm| VerificationMetadata.domain_to_mapper(vm)}
               end
-              mapper.tax_returns = account_transfer_request.tax_returns.map { |tr| TaxReturn.domain_to_mapper(tr) }
+              mapper.tax_returns = account_transfer_request.tax_returns&.map { |tr| TaxReturn.domain_to_mapper(tr) }
               mapper
             end
 
