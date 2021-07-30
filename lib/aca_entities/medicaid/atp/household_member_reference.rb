@@ -5,7 +5,7 @@ module AcaEntities
     module Atp
       # Entity for HouseholdMemberReference
       class HouseholdMemberReference < Dry::Struct
-        attribute :ref,       Types::String.optional.meta(omittable: false)
+        attribute :ref,       Types::String.meta(omittable: false)
       end
     end
   end

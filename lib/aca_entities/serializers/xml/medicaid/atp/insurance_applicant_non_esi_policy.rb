@@ -12,28 +12,34 @@ module AcaEntities
             tag 'InsuranceApplicantNonESIPolicy'
             namespace 'hix-ee'
 
-            element :member, String, tag: 'InsuranceMember'
+            has_one :member, InsuranceMember
 
-            element :applied_effective_date_range, String, tag: 'InsurancePolicyAppliedEffectiveDateRange'
+            has_one :applied_effective_date_range, InsurancePolicyAppliedEffectiveDateRange
 
             has_one :identification, InsurancePolicyIdentification
 
             # A source that offers insurance policies
             element :source_code, String, tag: 'InsurancePolicySourceCode'
 
-            element :premium, String, tag: 'InsurancePremium'
+            has_one :premium, InsurancePremium
 
-            def self.domain_to_mapper(_insurance_policy)
-              self.new
+            def self.domain_to_mapper(nep)
+              mapper = self.new
+              mapper.member = InsuranceMember.domain_to_mapper(nep.member)
+              mapper.applied_effective_date_range = InsurancePolicyAppliedEffectiveDateRange.domain_to_mapper(nep.applied_effective_date_range)
+              mapper.identification = InsurancePolicyIdentification.domain_to_mapper(nep.identification)
+              mapper.source_code = nep.source_code
+              mapper.premium = InsurancePremium.domain_to_mapper(nep.premium)
+              mapper
             end
 
             def to_hash
               {
-                member: member,
-                applied_effective_date_range: applied_effective_date_range,
-                identification: identification&.to_hash,
+                member: member&.to_h,
+                identification: identification&.to_h,
+                premium: premium&.to_h,
                 source_code: source_code,
-                premium: premium
+                applied_effective_date_range: applied_effective_date_range&.to_h
               }
             end
           end

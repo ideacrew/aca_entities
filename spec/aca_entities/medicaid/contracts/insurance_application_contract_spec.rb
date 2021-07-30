@@ -5,10 +5,6 @@ require 'aca_entities/medicaid/contracts/insurance_application_contract'
 
 RSpec.describe AcaEntities::Medicaid::Contracts::InsuranceApplicationContract, type: :model do
 
-  # it 'should be a container-ready operation' do
-  #   expect(subject.respond_to?(:call)).to be_truthy
-  # end
-
   let(:required_params) do
     {
       insurance_applicants: [insurance_applicant],
@@ -91,7 +87,9 @@ RSpec.describe AcaEntities::Medicaid::Contracts::InsuranceApplicationContract, t
     end
 
     context 'with optional parameters only' do
-      it { expect(subject.call(optional_params).error?(required_params.first[0])).to be_truthy }
+      it 'should list error for every required parameter' do
+        expect(subject.call(optional_params).errors.to_h.keys).to match_array required_params.keys
+      end
     end
   end
 

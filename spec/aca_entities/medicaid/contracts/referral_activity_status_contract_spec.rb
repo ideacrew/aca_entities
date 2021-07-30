@@ -10,7 +10,7 @@ RSpec.describe ::AcaEntities::Medicaid::Contracts::ReferralActivityStatusContrac
   end
 
   let(:optional_params) do
-    { overall_verification_status_code: "overall-code" }
+    { overall_verification_status_code: "Y" }
   end
 
   let(:all_params) { required_params.merge(optional_params)}
@@ -23,7 +23,9 @@ RSpec.describe ::AcaEntities::Medicaid::Contracts::ReferralActivityStatusContrac
     end
 
     context 'with optional parameters only' do
-      it { expect(subject.call(optional_params).error?(required_params.first[0])).to be_truthy }
+      it 'should list error for every required parameter' do
+        expect(subject.call(optional_params).errors.to_h.keys).to match_array required_params.keys
+      end
     end
   end
 

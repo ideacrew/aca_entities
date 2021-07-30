@@ -6,9 +6,9 @@ module AcaEntities
       # Application creation information contract
       class ApplicationIdentificationContract < Dry::Validation::Contract
         params do
-          optional(:identification_id).maybe(:string)
+          required(:identification_id).filled(:string)
           optional(:identification_category_text).maybe(:string)
-          optional(:identification_jurisdication).maybe(:string)
+          optional(:identification_jurisdiction).maybe(:string)
         end
       end
     end

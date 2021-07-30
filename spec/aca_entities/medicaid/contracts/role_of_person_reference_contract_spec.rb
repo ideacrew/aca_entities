@@ -19,7 +19,9 @@ RSpec.describe ::AcaEntities::Medicaid::Contracts::RoleOfPersonReferenceContract
     end
 
     context 'with optional parameters only' do
-      it { expect(subject.call(optional_params).error?(required_params.first[0])).to be_truthy }
+      it 'should list error for every required parameter' do
+        expect(subject.call(optional_params).errors.to_h.keys).to match_array required_params.keys
+      end
     end
   end
 

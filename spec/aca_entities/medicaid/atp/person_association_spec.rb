@@ -11,7 +11,7 @@ RSpec.describe ::AcaEntities::Medicaid::Atp::PersonAssociation,  dbclean: :aroun
 
     let(:optional_params) do
       { person: { ref: "pe123" },
-        family_relationship_code: 0o1 }
+        family_relationship_code: "01" }
     end
 
     let(:all_params) { required_params.merge(optional_params)}
@@ -22,6 +22,13 @@ RSpec.describe ::AcaEntities::Medicaid::Atp::PersonAssociation,  dbclean: :aroun
 
     it 'should not raise error' do
       expect { described_class.new(all_params) }.not_to raise_error
+    end
+
+    context 'with only optional parameters' do
+      it 'should contain all optional keys and values' do
+        result = described_class.new(optional_params)
+        expect(result.to_h).to eq optional_params
+      end
     end
   end
 end

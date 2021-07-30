@@ -18,7 +18,8 @@ RSpec.describe ::AcaEntities::Medicaid::Contracts::InsuranceApplicantContract, d
           lawful_presence_status_eligibility: { eligibility_indicator: false } },
       long_term_care_indicator: false,
       chip_eligibility: trafficking_victim_category_eligibility_basis,
-      temporarily_lives_outside_application_state_indicator: false }
+      temporarily_lives_outside_application_state_indicator: false,
+      non_esi_coverage_indicators: [false] }
   end
 
   let(:trafficking_victim_category_eligibility_basis) { { status_indicator: true } }
@@ -29,6 +30,12 @@ RSpec.describe ::AcaEntities::Medicaid::Contracts::InsuranceApplicantContract, d
     context 'with empty parameters' do
       it 'should list error for every required parameter' do
         expect(subject.call({}).errors.to_h.keys).to match_array required_params.keys
+      end
+    end
+
+    context 'with optional parameters only' do
+      it 'should list error for every required parameter' do
+        expect(subject.call(optional_params).errors.to_h.keys).to match_array required_params.keys
       end
     end
   end

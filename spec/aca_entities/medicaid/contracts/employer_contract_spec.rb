@@ -5,16 +5,15 @@ require 'aca_entities/medicaid/contracts/employer_contract'
 
 RSpec.describe ::AcaEntities::Medicaid::Contracts::EmployerContract, dbclean: :after_each do
 
-  let(:required_params) { {} }
+  let(:required_params) { { id: "em123" } }
 
   let(:optional_params) do
-    { id: "em123",
-      category_text: "Acme",
+    { category_text: "Acme",
       organization_primary_contact_information: contact_information }
   end
 
   let(:contact_information) do
-    { email: "fake@test.com",
+    { email_id: "fake@test.com",
       mailing_address: contact_mailing_address,
       telephone_number: contact_telephone }
   end
@@ -50,18 +49,18 @@ RSpec.describe ::AcaEntities::Medicaid::Contracts::EmployerContract, dbclean: :a
         expect(subject.call({}).errors.to_h.keys).to match_array required_params.keys
       end
     end
+
+    context 'with optional parameters only' do
+      it 'should list error for every required parameter' do
+        expect(subject.call(optional_params).errors.to_h.keys).to match_array required_params.keys
+      end
+    end
   end
 
   context 'valid parameters' do
     context 'with required parameters only' do
-      let(:input_params) { {} }
-
-      before do
-        @result = subject.call(input_params)
-      end
-
-      it { expect(@result.success?).to be_truthy }
-      it { expect(@result.to_h).to eq input_params }
+      it { expect(subject.call(required_params).success?).to be_truthy }
+      it { expect(subject.call(required_params).to_h).to eq required_params }
     end
 
     context 'with all required and optional parameters' do

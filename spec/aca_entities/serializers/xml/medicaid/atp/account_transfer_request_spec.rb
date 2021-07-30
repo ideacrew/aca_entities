@@ -15,13 +15,15 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
       transfer_header: transfer_header,
       senders: senders,
       receivers: [receiver],
+
+      insurance_application: insurance_application,
+      medicaid_households: [],
+      people: [person, dependent_person],
+      tax_returns: [tax_return],
       physical_households: [{
         household_size_quantity: 1,
         household_member_references: [{ ref: "pe123" }]
-      }],
-      insurance_application: insurance_application,
-      medicaid_households: [{}],
-      people: [person]
+      }]
     }
   end
 
@@ -65,14 +67,6 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
     }
   end
 
-  # let(:sender) do
-  #   { sender_code: "Sender" }
-  # end
-
-  # let(:receiver) do
-  #   { recipient_code: "Receiver" }
-  # end
-
   let(:insurance_applicant) do
     {
       role_reference: role_reference,
@@ -83,6 +77,7 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
       blindness_or_disability_indicator: false,
       lawful_presence_status: lawful_presence_status,
       long_term_care_indicator: false,
+      medicaid_magi_eligibilities: [medicaid_magi_eligibility],
       chip_eligibilities: [trafficking_victim_category_eligibility_basis],
       temporarily_lives_outside_application_state_indicator: false,
       foster_care_indicator: false,
@@ -103,7 +98,8 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
     {
       non_perjury_indicator: true,
       not_incarcerated_indicators: [{ metadata: nil, value: true }],
-      information_changes_indicator: false
+      information_changes_indicator: false,
+      medicaid_obligations_indicator: true
     }
   end
 
@@ -167,10 +163,12 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
   end
 
   let(:tribal_augmentation) do
-    { recognized_tribe_indicator: true,
+    {
+      recognized_tribe_indicator: true,
       american_indian_or_alaska_native_indicator: true,
       person_tribe_name: "Tribe Name",
-      location_state_us_postal_service_code: "ME" }
+      location_state_us_postal_service_code: "ME"
+    }
   end
 
   let(:person_augmentation) do
@@ -192,22 +190,61 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
 
   let(:pregnancy_status) do
     { status_indicator: false,
-      # status_valid_date_range: status_valid_date_range,
+      status_valid_date_range: date_range,
       expected_baby_quantity: 0 }
-  end
-
-  let(:status_valid_date_range) do
-    { start_date: start_date,
-      end_date: end_date }
   end
 
   let(:lawful_presence_status) do
     {
       arrived_before_1996_indicator: false,
       lawful_presence_status_eligibility: {
-        eligibility_indicator: true,
-        eligibility_basis_status_code: "Complete"
+        eligibility_indicator: true
       }
+    }
+  end
+
+  let(:medicaid_magi_eligibility) do
+    {
+      date_range: date_range,
+      eligibility_determination: eligibility_determination,
+      eligibility_indicator: true,
+      eligibility_reason_text: "123",
+      income_eligibility_basis: medicaid_magi_income_eligibility_basis
+    }
+  end
+
+  let(:eligibility_determination) do
+    {
+      activity_identification: { identification_id: "MET00000000001887090" },
+      activity_date: { date_time: DateTime.now }
+    }
+  end
+
+  let(:medicaid_magi_income_eligibility_basis) do
+    {
+      status_code: "Complete",
+      status_indicator: true,
+      ineligibility_reason_text: "123",
+      determination:
+        {
+          activity_identification: { identification_id: "MET00000000001887090" },
+          activity_date: { date_time: DateTime.now }
+        },
+      income_compatibility: income_compatibility,
+      state_threshold_fpl_percent: "116"
+    }
+  end
+
+  let(:income_compatibility) do
+    {
+      verification_indicator: true,
+      inconsistency_reason_text: "123",
+      compatibility_determination:
+        {
+          activity_identification: { identification_id: "MET00000000001887090" },
+          activity_date: { date_time: DateTime.now }
+        },
+      verification_method: "1"
     }
   end
 
@@ -222,33 +259,32 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
       activity_date: { date_time: DateTime.now },
       sender_reference: { ref: "Sender" },
       receiver_reference: { ref: "Receiver" },
-      status: { status_code: "Initiated" } }
+      status: { status_code: "Initiated", overall_verification_status_code: "Y" } }
   end
 
   let(:income) do
-    { employment_source_text: "Acme",
+    {
+      employment_source_text: "Acme",
       amount: 50_000.00,
-      days_per_week: 5.0,
+      days_per_week: 5,
       hours_per_pay_period: 80.0,
       hours_per_week: 40.0,
-      category_code: "Salary",
+      category_code: "Wages",
       description_text: "Robot",
       subject_to_federal_restrictions_indicator: false,
       date: income_date,
-      earned_date_range: income_earned_date_range,
+      earned_date_range: date_range,
       frequency: income_frequency,
       payment_frequency: payment_frequency,
-      source_organization_reference: source_organization_reference }
+      source_organization_reference: source_organization_reference
+    }
   end
 
   let(:income_date) do
-    { date: Date.today,
-      date_time: DateTime.now,
-      year: "2021",
-      year_month: "12/2021" }
+    { date: Date.today }
   end
 
-  let(:income_earned_date_range) do
+  let(:date_range) do
     { start_date: start_date,
       end_date: end_date }
   end
@@ -276,7 +312,7 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
   end
 
   let(:source_organization_reference) do
-    { ref: "ref123" }
+    { ref: 'MEORG000000209355581' }
   end
 
   let(:contact_association) do
@@ -292,15 +328,19 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
   end
 
   let(:employment_association) do
-    { begin_date: start_date,
+    {
+      begin_date: start_date,
       end_date: end_date,
-      employer: employer }
+      employer: employer
+    }
   end
 
   let(:employer) do
-    { id: "em123",
+    {
+      id: 'MEORG000000209355581',
       category_text: "Acme",
-      organization_primary_contact_information: employer_contact }
+      organization_primary_contact_information: employer_contact
+    }
   end
 
   let(:employer_contact) do
@@ -340,14 +380,7 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
 
   let(:person_association) do
     { person: { ref: "pe123" },
-      family_relationship_code: 0o1 }
-  end
-
-  let(:tribal_augmentation) do
-    { recognized_tribe_indicator: true,
-      american_indian_or_alaska_native_indicator: true,
-      person_tribe_name: "Tribe Name",
-      location_state_us_postal_service_code: "ME" }
+      family_relationship_code: "01" }
   end
 
   let(:senders) do
@@ -365,6 +398,66 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
   let(:application_identity) do
     {
       identification_id: "A UUID"
+    }
+  end
+
+  let(:tax_return) do
+    {
+      total_exemptions_quantity: 1,
+      status_code: "0",
+      tax_return_year: 2020,
+      tax_household: tax_household,
+      tax_return_includes_dependent_indicator: true
+    }
+  end
+
+  let(:tax_household) do
+    {
+      household_incomes: [household_income],
+      household_size_quantity: 2,
+      primary_tax_filer: { role_reference: role_reference },
+      spouse_tax_filer: { role_reference: role_reference },
+      tax_dependents: [tax_dependent],
+      household_member_references: [role_reference],
+      household_size_change_expected_indicator: false
+    }
+  end
+
+  let(:tax_dependent) do
+    {
+      role_reference: { ref: 'pe456' },
+      claimed_by_custodial_parent_indicator: false,
+      tin_identification: { identification_id: '012345678' }
+    }
+  end
+
+  let(:dependent_person) do
+    {
+      id: "pe456",
+      birth_date: person_birth_date,
+      ethnicities: ["ethnicity1", "ethnicity2"],
+      person_name: person_name,
+      sex: "Female",
+      race: "RACE",
+      ssn_identification: { identification_id: "012345678" },
+      us_citizen_indicator: true,
+      tribal_augmentation: tribal_augmentation
+    }
+  end
+
+  let(:household_income) do
+    {
+      monthly_income_greater_than_fpl: 0.00,
+      income_type_code: 'CapitalGains',
+      income_amount: 500.00,
+      income_frequency: income_frequency,
+      payment_frequency: payment_frequency,
+      date: { date: Date.today },
+      income_from_tribal_source: 120.00,
+      source_organization_reference: { ref: 'MEORG000000209355581' },
+      monthly_attested_medicaid_household_current_income: 0.00,
+      annual_total_project_medicaid_household_current_income: 0.00,
+      earned_date_range: date_range
     }
   end
 
@@ -395,7 +488,7 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
   it "is schema valid" do
     document = Nokogiri::XML(mapper.to_xml)
     # puts mapper.to_xml
-    File.open('spec.xml', 'w') { |file| file.write(mapper.to_xml.to_s) }
+    # File.open('spec_results.xml', 'w') { |file| file.write(mapper.to_xml.to_s) }
 
     schema.validate(document).each do |error|
       puts "\n\n======= Schema Error ======="

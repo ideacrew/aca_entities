@@ -14,12 +14,14 @@ module AcaEntities
         attribute :blindness_or_disability_indicator, Types::Bool.optional.meta(omittable: true)
         attribute :lawful_presence_status, InsuranceApplicantLawfulPresenceStatus.optional.meta(omittable: true)
         attribute :long_term_care_indicator, Types::Bool.optional.meta(omittable: true)
+        attribute :medicaid_magi_eligibilities, Types::Array.of(MedicaidMagiEligibility).optional.meta(omittable: true)
         attribute :chip_eligibilities, Types::Array.of(ChipEligibility).optional.meta(omittable: true)
         attribute :temporarily_lives_outside_application_state_indicator, Types::Bool.optional.meta(omittable: true)
         attribute :foster_care_indicator, Types::Bool.optional.meta(omittable: true)
         attribute :fixed_address_indicator, Types::Bool.meta(omittable: false)
         attribute :incarcerations, Types::Array.of(Incarceration).optional.meta(omittable: true)
         attribute :referral_activity, ReferralActivity.optional.meta(omittable: true)
+        attribute :non_esi_coverage_indicators, Types::Array.of(Types::Bool).optional.meta(omittable: true)
       end
     end
   end

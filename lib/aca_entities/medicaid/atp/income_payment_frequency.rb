@@ -6,7 +6,7 @@ module AcaEntities
       # entity for atp IncomePaymentFrequency
       class IncomePaymentFrequency < Dry::Struct
 
-        attribute :frequency_code, Types::String.optional.meta(omittable: true)
+        attribute :frequency_code, Types::FrequencyCode.meta(omittable: false)
       end
     end
   end

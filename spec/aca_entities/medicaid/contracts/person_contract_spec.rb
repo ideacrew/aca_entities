@@ -65,10 +65,10 @@ RSpec.describe ::AcaEntities::Medicaid::Contracts::PersonContract, dbclean: :aft
   let(:income) do
     { employment_source_text: "Acme",
       amount: 50_000.00,
-      days_per_week: 5.0,
+      days_per_week: 5,
       hours_per_pay_period: 80.0,
       hours_per_week: 40.0,
-      category_code: "Salary",
+      category_code: "Wages",
       description_text: "Robot",
       subject_to_federal_restrictions_indicator: false,
       date: income_date,
@@ -174,7 +174,7 @@ RSpec.describe ::AcaEntities::Medicaid::Contracts::PersonContract, dbclean: :aft
 
   let(:person) do
     { person: { ref: "pe123" },
-      family_relationship_code: 1 }
+      family_relationship_code: "01" }
   end
 
   let(:tribal_augmentation) do
@@ -194,7 +194,9 @@ RSpec.describe ::AcaEntities::Medicaid::Contracts::PersonContract, dbclean: :aft
     end
 
     context 'with optional parameters only' do
-      it { expect(subject.call(optional_params).error?(required_params.first[0])).to be_truthy }
+      it 'should list error for every required parameter' do
+        expect(subject.call(optional_params).errors.to_h.keys).to match_array required_params.keys
+      end
     end
   end
 

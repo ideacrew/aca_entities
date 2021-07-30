@@ -12,6 +12,15 @@ RSpec.describe ::AcaEntities::Medicaid::Contracts::ReferralActivityReceiverRefer
   let(:all_params) { required_params.merge(optional_params)}
 
   context 'invalid parameters' do
+    context 'with unexpected parameters' do
+
+      let(:input_params) { { cat: "meow" } }
+
+      it { expect(subject.call(input_params)[:result]).to eq(nil) }
+    end
+  end
+
+  context 'invalid parameters' do
     context 'with empty parameters' do
       it 'should list error for every required parameter' do
         expect(subject.call({}).errors.to_h.keys).to match_array required_params.keys
@@ -19,7 +28,9 @@ RSpec.describe ::AcaEntities::Medicaid::Contracts::ReferralActivityReceiverRefer
     end
 
     context 'with optional parameters only' do
-      it { expect(subject.call(optional_params).error?(required_params.first[0])).to be_truthy }
+      it 'should list error for every required parameter' do
+        expect(subject.call(optional_params).errors.to_h.keys).to match_array required_params.keys
+      end
     end
   end
 
