@@ -83,7 +83,7 @@ module AcaEntities
           result
         end
 
-        INCOME_FREQUENCY_MAP = { "annually" => "yearly",
+        FREQUENCY_CODE_MAP = { "annually" => "yearly",
                                  'biweekly' => 'biweekly',
                                  'daily' => 'daily',
                                  'half_yearly' => 'half_yearly',
@@ -104,7 +104,7 @@ module AcaEntities
               'amount' => income[:amount],
               'amount_tax_exempt' => 0,
               'employer_name' => employer_hash ? employer_hash[:employer][:category_text] : nil,
-              'frequency_kind' => INCOME_FREQUENCY_MAP[income[:frequency][:frequency_code].downcase],
+              'frequency_kind' => FREQUENCY_CODE_MAP[income[:frequency][:frequency_code].downcase],
               'start_on' => (date_range && date_range[:start_date]) ? income[:earned_date_range][:start_date][:date] : Date.parse('2021-05-07').to_s, # default value
               'end_on' => (date_range && date_range[:end_date]) ? income[:earned_date_range][:end_date][:date] : nil, # default value,
               'is_projected' => false, # default value
@@ -149,7 +149,7 @@ module AcaEntities
               'kind' => 'net_self_employment',
               'amount' => income[:amount],
               'amount_tax_exempt' => 0,
-              'frequency_kind' => INCOME_FREQUENCY_MAP[income[:frequency][:frequency_code].downcase],
+              'frequency_kind' => FREQUENCY_CODE_MAP[income[:frequency][:frequency_code].downcase],
               'start_on' => Date.parse('2021-05-07'), # default value
               'end_on' => nil,
               'is_projected' => false
@@ -183,7 +183,7 @@ module AcaEntities
               "kind" => "unemployment_income",
               "amount" => income[:amount],
               "amount_tax_exempt" => 0, # default value
-              'frequency_kind' => INCOME_FREQUENCY_MAP[income[:frequency][:frequency_code].downcase],
+              'frequency_kind' => FREQUENCY_CODE_MAP[income[:frequency][:frequency_code].downcase],
               "start_on" => Date.parse('2021-05-07'), # default value
               "end_on" => nil,
               "is_projected" => false # default value
@@ -223,7 +223,7 @@ module AcaEntities
               'kind' => OTHER_INCOME_TYPE_KIND[income[:category_code]].downcase,
               'amount' => income[:amount],
               'amount_tax_exempt' => 0,
-              'frequency_kind' => INCOME_FREQUENCY_MAP[income[:frequency][:frequency_code].downcase],
+              'frequency_kind' => FREQUENCY_CODE_MAP[income[:frequency][:frequency_code].downcase],
               'start_on' => (date_range && date_range[:start_date]) ? income[:earned_date_range][:start_date][:date] : Date.parse('2021-05-07').to_s, # default value
               'end_on' => (date_range && date_range[:end_date]) ? income[:earned_date_range][:end_date][:date] : nil, # default value,
               'is_projected' => false
@@ -258,7 +258,7 @@ module AcaEntities
             result << {
               'kind' => DEDUCTION_TYPE[expense[:category_code]],
               'amount' => expense[:amount],
-              'frequency_kind' => expense[:frequency][:frequency_code].downcase,
+              'frequency_kind' => FREQUENCY_CODE_MAP[expense[:frequency][:frequency_code].downcase],
               'start_on' => (date_range && date_range[:start_date]) ? income[:earned_date_range][:start_date][:date] : Date.parse('2021-05-07').to_s, # default value
               'end_on' => (date_range && date_range[:end_date]) ? income[:earned_date_range][:end_date][:date] : nil # default value
             }
