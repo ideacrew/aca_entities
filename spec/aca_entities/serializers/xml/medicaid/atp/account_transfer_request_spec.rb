@@ -163,10 +163,12 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
   end
 
   let(:tribal_augmentation) do
-    { recognized_tribe_indicator: true,
+    {
+      recognized_tribe_indicator: true,
       american_indian_or_alaska_native_indicator: true,
       person_tribe_name: "Tribe Name",
-      location_state_us_postal_service_code: "ME" }
+      location_state_us_postal_service_code: "ME"
+    }
   end
 
   let(:person_augmentation) do
@@ -261,7 +263,8 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
   end
 
   let(:income) do
-    { employment_source_text: "Acme",
+    {
+      employment_source_text: "Acme",
       amount: 50_000.00,
       days_per_week: 5,
       hours_per_pay_period: 80.0,
@@ -273,7 +276,8 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
       earned_date_range: date_range,
       frequency: income_frequency,
       payment_frequency: payment_frequency,
-      source_organization_reference: source_organization_reference }
+      source_organization_reference: source_organization_reference
+    }
   end
 
   let(:income_date) do
@@ -308,7 +312,7 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
   end
 
   let(:source_organization_reference) do
-    { ref: "MEORG000000209355581" }
+    { ref: 'MEORG000000209355581' }
   end
 
   let(:contact_association) do
@@ -324,14 +328,16 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
   end
 
   let(:employment_association) do
-    { begin_date: start_date,
+    {
+      begin_date: start_date,
       end_date: end_date,
-      employer: employer }
+      employer: employer
+    }
   end
 
   let(:employer) do
     {
-      id: "MEORG000000209355581",
+      id: 'MEORG000000209355581',
       category_text: "Acme",
       organization_primary_contact_information: employer_contact
     }
@@ -375,13 +381,6 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
   let(:person_association) do
     { person: { ref: "pe123" },
       family_relationship_code: "01" }
-  end
-
-  let(:tribal_augmentation) do
-    { recognized_tribe_indicator: true,
-      american_indian_or_alaska_native_indicator: true,
-      person_tribe_name: "Tribe Name",
-      location_state_us_postal_service_code: "ME" }
   end
 
   let(:senders) do
@@ -490,7 +489,7 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
   it "is schema valid" do
     document = Nokogiri::XML(mapper.to_xml)
     # puts mapper.to_xml
-    # File.open('spec.xml', 'w') { |file| file.write(mapper.to_xml.to_s) }
+    # File.open('spec_results.xml', 'w') { |file| file.write(mapper.to_xml.to_s) }
 
     schema.validate(document).each do |error|
       puts "\n\n======= Schema Error ======="
