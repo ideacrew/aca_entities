@@ -84,12 +84,12 @@ module AcaEntities
         end
 
         FREQUENCY_CODE_MAP = { "annually" => "yearly",
-                                 'biweekly' => 'biweekly',
-                                 'daily' => 'daily',
-                                 'half_yearly' => 'half_yearly',
-                                 'monthly' => 'monthly',
-                                 'quarterly' => 'quarterly',
-                                 'weekly' => 'weekly' }.freeze
+                               'biweekly' => 'biweekly',
+                               'daily' => 'daily',
+                               'half_yearly' => 'half_yearly',
+                               'monthly' => 'monthly',
+                               'quarterly' => 'quarterly',
+                               'weekly' => 'weekly' }.freeze
 
         def job_income_hash
           return [] if @incomes_hash.nil?
