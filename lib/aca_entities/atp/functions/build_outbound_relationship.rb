@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# rubocop:disable Metrics/CyclomaticComplexity
 module AcaEntities
   module Atp
     module Functions
@@ -70,7 +69,8 @@ module AcaEntities
           @primary_applicant_id = @memoized_data.find(Regexp.new('is_primary_applicant.*')).select {|a|  a.item == true}.first.name.split('.').last
 
           person_relationships.each_with_object([]) do |person_relationship, collect|
-            mitc_relationship_code = ::AcaEntities::MagiMedicaid::Mitc::Types::RelationshipCodeMap.invert[person_relationship[:relationship_code]] || '88'
+            mitc_relationship_code =
+              ::AcaEntities::MagiMedicaid::Mitc::Types::RelationshipCodeMap.invert[person_relationship[:relationship_code]] || '88'
             relation = RelationshipCodeMap[mitc_relationship_code]
             atp_relationship_code = Types::RelationshipToTaxFilerCodeMap.invert[relation.to_s].to_s
 
@@ -82,6 +82,3 @@ module AcaEntities
     end
   end
 end
-# rubocop:enable Metrics/CyclomaticComplexity
-
-

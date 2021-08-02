@@ -6,9 +6,8 @@ require "aca_entities/atp/functions/applicant_builder"
 require "aca_entities/atp/functions/employment_builder"
 require "aca_entities/atp/functions/build_outbound_relationship"
 require "aca_entities/atp/functions/contact_builder"
-# require "aca_entities/atp/functions/lawful_presence_determination_builder"
-# require "aca_entities/atp/functions/build_application"
-# require "aca_entities/functions/age_on"
+require 'aca_entities/atp/transformers/aces/applicant'
+require 'aca_entities/atp/transformers/aces/ssf_signer'
 
 module AcaEntities
   module Atp
@@ -40,47 +39,15 @@ module AcaEntities
                 map "is_renewal_authorized", 'is_renewal_authorized'
                 map 'applicants', 'applicants', memoize_record: true, visible: false
 
-                add_key 'insurance_applicants', value: lambda { |v|
-                                                         applicants_hash = v.resolve('family.magi_medicaid_applications.applicants').item
-                                                         result = applicants_hash.each_with_object([]) do |applicant_hash, collector|
-                                                           applicant = applicant_hash[1]
-                                                           collector << { :role_reference => { :ref => applicant[:person_hbx_id] },
-                                                                          :esi_eligible_indicator => nil,
-                                                                          :fixed_address_indicator => true,
-                                                                          :incarcerations => [{
-                                                                            :incarceration_indicator => applicant[:attestation][:is_incarcerated], :incarceration_date => nil
-                                                                          }],
-                                                                          :absent_parent_or_spouse_code => nil,
-                                                                          :blindness_or_disability_indicator => applicant[:is_self_attested_disabled] && applicant[:is_self_attested_blind],
-                                                                          :coverage_during_previous_six_months_indicator => nil,
-                                                                          :eligible_itu_services_indicator => nil,
-                                                                          :lawful_presence_status => nil,
-                                                                          :long_term_care_indicator => applicant[:is_self_attested_long_term_care],
-                                                                          :non_esi_coverage_indicators => [],
-                                                                          :parent_caretaker_indicator => true,
-                                                                          :received_itu_services_indicator => nil,
-                                                                          :recent_medical_bills_indicator => nil,
-                                                                          :state_benefits_through_public_employee_indicator => nil,
-                                                                          :student_indicator => applicant[:student][:is_student],
-                                                                          :esi_associations => [],
-                                                                          :non_esi_policies => [],
-                                                                          :emergency_medicaid_eligibilities => [],
-                                                                          :medicaid_magi_eligibilities => [],
-                                                                          :medicaid_non_magi_eligibilities => [],
-                                                                          :aptc_eligibilities => [],
-                                                                          :exchange_eligibilities => [],
-                                                                          :csr_eligibilities => [],
-                                                                          :chip_eligibilities => [],
-                                                                          :temporarily_lives_outside_application_state_indicator => nil,
-                                                                          :age_left_foster_care => applicant[:age_left_foster_care],
-                                                                          :foster_care_state => applicant[:foster_care_state],
-                                                                          :had_medicaid_during_foster_care_indicator => applicant[:had_medicaid_during_foster_care],
-                                                                          :lives_with_minor_age_dependent_indicator => nil,
-                                                                          :household_exception_indicator => nil,
-                                                                          :foster_care_indicator => applicant[:foster_care_indicator],
-                                                                          :parent_average_hours_worked_per_week_values => nil }
-                                                         end
-                                                       }
+                # add_key 'insurance_applicants', function: AcaEntities::Atp::Functions::ApplicantBuilder.new
+                add_key 'insurance_applicants', function: lambda { |v|
+                                                            applicants_hash = v.resolve('family.magi_medicaid_applications.applicants').item
+                                                            applicants_hash.each_with_object([]) do |applicant_hash, collector|
+                                                              applicant = applicant_hash[1]
+
+                                                              collector << AcaEntities::Atp::Transformers::Aces::Applicant.transform(applicant)
+                                                            end
+                                                          }
 
                 add_key 'assister_association'
                 add_key 'tax_return_access'
@@ -123,9 +90,11 @@ module AcaEntities
                   add_key 'birth_date.year_month'
                   map 'person_demographics.tribal_state', 'tribal_augmentation.location_state_us_postal_service_code', memoize: true, visible: true
                   map 'person_demographics.tribal_name', 'tribal_augmentation.person_tribe_name', memoize: true, visible: true
-                  add_key 'tribal_augmentation.american_indian_or_alaska_native_indicator', function: lambda { |v|
-                                                                                                        !v.resolve(:'tribal_augmentation.location_state_us_postal_service_code').item.nil? && !v.resolve(:'tribal_augmentation.person_tribe_name').item.nil?
-                                                                                                      }
+                  add_key 'tribal_augmentation.american_indian_or_alaska_native_indicator',
+                          function: lambda { |v|
+                                      !v.resolve(:'tribal_augmentation.location_state_us_postal_service_code').item.nil? &&
+                                        !v.resolve(:'tribal_augmentation.person_tribe_name').item.nil?
+                                    }
 
                   map 'consumer_role.marital_status', 'augementation.married_indicator'
                   map 'consumer_role.language_preference', 'language_preference', memoize_record: true, visible: false
@@ -140,7 +109,7 @@ module AcaEntities
                   }
 
                   add_key 'augementation.preferred_languages', function: lambda { |v|
-                    [language_name: v.resolve(:language_preference).item, :speaks_language_indicator=> nil, :writes_language_indicator=> nil]
+                    [language_name: v.resolve(:language_preference).item, :speaks_language_indicator => nil, :writes_language_indicator => nil]
                   }
                   add_key 'augementation.pregnancy_status', function: lambda { |v|
                     member_id = v.find(/family.family_members.(\w+)$/).map(&:item).last
@@ -148,7 +117,9 @@ module AcaEntities
                     applicant_hash = applicants_hash[member_id.to_sym]
                     pregnancy_information = applicant_hash[:pregnancy_information]
 
-                    { :status_indicator => pregnancy_information[:is_pregnant], :status_valid_date_range => nil, :expected_baby_quantity => pregnancy_information[:expected_children_count] }
+                    { :status_indicator => pregnancy_information[:is_pregnant],
+                      :status_valid_date_range => nil,
+                      :expected_baby_quantity => pregnancy_information[:expected_children_count] }
                   }
 
                   add_key 'augementation.incomes', function: AcaEntities::Atp::Functions::IncomeBuilder.new
@@ -161,14 +132,14 @@ module AcaEntities
               end
             end
 
-            add_key 'physical_households', function: -> v {
+            add_key 'physical_households', function: lambda { |v|
               applicants_hash = v.resolve('family.magi_medicaid_applications.applicants').item
-              result = applicants_hash.keys.map(&:to_s).each_with_object([]) do |id,collect|
-                collect << {:ref=> id}
+              result = applicants_hash.keys.map(&:to_s).each_with_object([]) do |id, collect|
+                collect << { :ref => id }
               end
-            [{:household_member_references=> result, :household_size_quantity=>nil}]
+              [{ :household_member_references => result, :household_size_quantity => nil }]
             }
-            
+
             add_key 'insurance_application.ssf_primary_contact', function: lambda { |v|
               ref = v.find(Regexp.new('is_primary_applicant.*')).select {|a|  a.item == true}.first.name.split('.').last
               contact_preference = v.find(Regexp.new('consumer_role.contact_method.*')).select {|a|  a.name.split('.').last == ref}.first.item
@@ -179,9 +150,7 @@ module AcaEntities
               ref = v.find(Regexp.new('is_primary_applicant.*')).select {|a|  a.item == true}.first.name.split('.').last
               applicant_hash = v.resolve("family.magi_medicaid_applications.applicants").item
               person_name_hash = applicant_hash[ref.to_sym][:name]
-              { role_reference: { ref: ref },
-                signature: { signature_name: { :given => person_name_hash[:first_name], :middle => person_name_hash[:middle_name], :sur => person_name_hash[:last_name], :suffix => person_name_hash[:name_sfx], :full => person_name_hash[:full_name] },
-                             signature_date: nil } }
+              ::AcaEntities::Atp::Transformers::Aces::SsfSigner.transform(person_name_hash.merge!(ref: ref))
             }
             add_key 'insurance_application.ssf_signer.ssf_signer_authorized_representative_association'
             add_key 'insurance_application.ssf_signer.ssf_attestation', value: lambda { |v|
