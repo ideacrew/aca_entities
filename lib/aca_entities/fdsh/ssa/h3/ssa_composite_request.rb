@@ -5,9 +5,9 @@ module AcaEntities
     module Ssa
       module H3
         # Entity for Fdsh SSAVerification Request
-        class SsaCompositeRequest < Dry::Struct
+        class SSACompositeRequest < Dry::Struct
 
-          attribute :SSACompositeIndividualRequests,  Types::Array.of(Fdsh::Ssa::H3::SsaCompositeIndividualRequest).meta(omittable: false)
+          attribute :SSACompositeIndividualRequests,  Types::Array.of(Fdsh::Ssa::H3::SSACompositeIndividualRequest).meta(omittable: false)
         end
       end
     end

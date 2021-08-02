@@ -5,10 +5,10 @@ module AcaEntities
     module Ssa
       module H3
         # Contract for Ssa Verification contract
-        class SSACompositeRequestContract < Dry::Validation::Contract
+        class SSATitleIIYearlyIncomeContract < Dry::Validation::Contract
 
           params do
-            required(:SSACompositeIndividualRequests).array(AcaEntities::Fdsh::Ssa::H3::SSACompositeIndividualRequestContract.params)
+            optional(:TitleIIRequestedYearInformation).maybe(AcaEntities::Fdsh::Ssa::H3::TitleIIRequestedYearInformationContract.params)
           end
         end
       end

@@ -5,7 +5,7 @@ module AcaEntities
     module Ssa
       module H3
         # Contract for Ssa Verification contract
-        class SsaCompositeIndividualRequestContract < Dry::Validation::Contract
+        class SSACompositeIndividualRequestContract < Dry::Validation::Contract
 
           params do
             required(:Person).filled(AcaEntities::Fdsh::Ssa::H3::PersonContract.params)
