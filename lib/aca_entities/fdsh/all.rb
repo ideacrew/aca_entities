@@ -10,6 +10,7 @@ module AcaEntities
       require_relative 'ifsv'
       require_relative 'ridp'
       require_relative 'vlp'
+      require_relative 'ssa'
     end
   end
 end
