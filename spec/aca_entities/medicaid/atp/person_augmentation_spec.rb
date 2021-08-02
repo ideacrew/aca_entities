@@ -1,13 +1,14 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
+require 'aca_entities/medicaid/atp/types'
 require 'aca_entities/medicaid/atp/location_street'
 require 'aca_entities/medicaid/atp/structured_address'
 require 'aca_entities/medicaid/atp/full_telephone'
-require 'aca_entities/medicaid/atp/contact_information'
-require 'aca_entities/medicaid/atp/person_contact_information_association'
 require 'aca_entities/medicaid/atp/contact_telephone_number'
 require 'aca_entities/medicaid/atp/contact_mailing_address'
+require 'aca_entities/medicaid/atp/contact_information'
+require 'aca_entities/medicaid/atp/person_contact_information_association'
 require 'aca_entities/medicaid/atp/organization_primary_contact_information'
 require 'aca_entities/medicaid/atp/employer'
 require 'aca_entities/medicaid/atp/association_begin_date'
@@ -31,6 +32,7 @@ require 'aca_entities/medicaid/atp/person_augmentation'
 RSpec.describe ::AcaEntities::Medicaid::Atp::PersonAugmentation,  dbclean: :around_each do
 
   describe 'with valid arguments' do
+
     let(:required_params) { {} }
 
     let(:optional_params) do
@@ -65,10 +67,10 @@ RSpec.describe ::AcaEntities::Medicaid::Atp::PersonAugmentation,  dbclean: :arou
     let(:income) do
       { employment_source_text: "Acme",
         amount: 50_000.00,
-        days_per_week: 5.0,
+        days_per_week: 5,
         hours_per_pay_period: 80.0,
         hours_per_week: 40.0,
-        category_code: "Salary",
+        category_code: "Wages",
         description_text: "Robot",
         subject_to_federal_restrictions_indicator: false,
         date: income_date,
@@ -122,27 +124,35 @@ RSpec.describe ::AcaEntities::Medicaid::Atp::PersonAugmentation,  dbclean: :arou
     end
 
     let(:contact) do
-      { contact_email_id: "fake@test.com",
-        mailing_address: structured_address,
-        telephone_number: full_telephone }
+      {
+        email_id: "fake@test.com",
+        mailing_address: { address: structured_address },
+        telephone_number: { telephone: full_telephone }
+      }
     end
 
     let(:employment_association) do
-      { begin_date: start_date,
+      {
+        start_date: start_date,
         end_date: end_date,
-        employer: employer }
+        employer: employer
+      }
     end
 
     let(:employer) do
-      { id: "em123",
+      {
+        id: "em123",
         category_text: "Acme",
-        organization_primary_contact_information: employer_contact }
+        organization_primary_contact_information: employer_contact
+      }
     end
 
     let(:employer_contact) do
-      { email: "fake@test.com",
+      {
+        email_id: "fake@test.com",
         mailing_address: mailing_address,
-        telephone_number: contact_telephone }
+        telephone_number: contact_telephone
+      }
     end
 
     let(:mailing_address) do
@@ -170,7 +180,7 @@ RSpec.describe ::AcaEntities::Medicaid::Atp::PersonAugmentation,  dbclean: :arou
 
     let(:person) do
       { person: { ref: "pe123" },
-        family_relationship_code: 0o1 }
+        family_relationship_code: "01" }
     end
 
     let(:all_params) { required_params.merge(optional_params)}
@@ -181,6 +191,13 @@ RSpec.describe ::AcaEntities::Medicaid::Atp::PersonAugmentation,  dbclean: :arou
 
     it 'should not raise error' do
       expect { described_class.new(all_params) }.not_to raise_error
+    end
+
+    context 'with only optional parameters' do
+      it 'should contain all optional keys and values' do
+        result = described_class.new(optional_params)
+        expect(result.to_h).to eq optional_params
+      end
     end
   end
 end

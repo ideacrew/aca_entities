@@ -15,8 +15,8 @@ module AcaEntities
                 optional(:TDSResponseDescriptionText).maybe(:string)
               end
               required(:VerificationResponse).schema do
-                required(:FinalDecisionCode).filled(:string)
-                required(:DSHReferenceNumber).maybe(:string)
+                optional(:FinalDecisionCode).maybe(:string)
+                optional(:DSHReferenceNumber).maybe(:string)
                 optional(:SessionIdentification).maybe(:string)
               end
             end

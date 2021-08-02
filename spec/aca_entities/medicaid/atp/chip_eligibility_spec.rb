@@ -11,7 +11,11 @@ RSpec.describe ::AcaEntities::Medicaid::Atp::ChipEligibility,  dbclean: :around_
 
     let(:optional_params) do
       {
-        trafficking_victim_category_eligibility_basis: { status_indicator: true }
+        trafficking_victim_category_eligibility_basis:
+        {
+          status_indicator: true,
+          status_code: "Pending"
+        }
       }
     end
 

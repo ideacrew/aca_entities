@@ -6,7 +6,7 @@ RSpec.describe ::AcaEntities::Contracts::Events::EventRequestContract, dbclean: 
 
   let(:required_params) do
     {
-      requested_at: Date.today,
+      requested_at: DateTime.now,
       body: "request"
     }
   end
@@ -41,7 +41,7 @@ RSpec.describe ::AcaEntities::Contracts::Events::EventRequestContract, dbclean: 
       end
 
       it 'should return error message' do
-        expect(@result.errors.messages.first.text).to eq('must be a date')
+        expect(@result.errors.messages.first.text).to eq('must be a date time')
       end
     end
   end

@@ -24,8 +24,13 @@ module AcaEntities
             # True if it is unknown whether an applicant is eligible for an employer sponsored insurance (ESI) plan; false otherwise.
             element :eligibility_unknown_indicator, Boolean, tag: "InsuranceApplicantESIEligibilityUnknownIndicator", namespace: "hix-ee"
 
-            def self.domain_to_mapper(_insurance_policy)
-              self.new
+            def self.domain_to_mapper(esi_association)
+              mapper = self.new
+              mapper.eligible_indicator = esi_association.eligible_indicator
+              mapper.enrolled_indicator = esi_association.enrolled_indicator
+              mapper.planned_coverage_date_ranges = esi_association.planned_coverage_date_ranges
+              mapper.eligibility_unknown_indicator = esi_association.eligibility_unknown_indicator
+              mapper
             end
 
             def to_hash

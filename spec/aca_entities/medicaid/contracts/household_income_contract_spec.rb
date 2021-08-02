@@ -5,62 +5,53 @@ require 'aca_entities/medicaid/contracts/household_income_contract'
 
 RSpec.describe AcaEntities::Medicaid::Contracts::HouseholdIncomeContract, type: :model do
 
-  it 'should be a container-ready operation' do
-    expect(subject.respond_to?(:call)).to be_truthy
-  end
+  # it 'should be a container-ready operation' do
+  #   expect(subject.respond_to?(:call)).to be_truthy
+  # end
 
-  let(:input_params) do
+  let(:required_params) { {} }
+
+  let(:optional_params) do
     {
-      monthly_income_greater_than_fpl: true,
-      income_type: 'CapitalGains',
+      monthly_income_greater_than_fpl: 0.00,
+      income_type_code: 'CapitalGains',
       income_amount: 500.00,
-      income_frequency: 'Weekly',
+      income_frequency: { frequency_code: 'Weekly' },
       income_from_tribal_source: 120.00,
       monthly_attested_medicaid_household_current_income: nil,
       annual_total_project_medicaid_household_current_income: nil
     }
   end
 
-  context 'success case' do
-    before do
-      @result = subject.call(input_params)
-    end
+  let(:all_params) { required_params.merge(optional_params)}
 
-    it 'should return success' do
-      expect(@result.success?).to be_truthy
-    end
+  context 'invalid parameters' do
+    context 'with unexpected parameters' do
 
-    it 'should not have any errors' do
-      expect(@result.errors.empty?).to be_truthy
+      let(:input_params) { { cat: "meow" } }
+
+      it { expect(subject.call(input_params)[:result]).to eq(nil) }
     end
   end
 
-  context 'failure case' do
-    context 'invalid input for income_type_code' do
+  context 'valid parameters' do
+    context 'with optional parameters only' do
+
       before do
-        @result = subject.call(input_params.merge(income_type: 'Test'))
+        @result = subject.call(optional_params)
       end
 
-      it 'should return failure' do
-        expect(@result.failure?).to be_truthy
-      end
-
-      it 'should have any errors' do
-        expect(@result.errors.empty?).to be_falsy
-      end
-
-      it 'should return error message as start date' do
-        expect(@result.errors.messages.first.text).to match(/must be one of: CapitalGains, Interest/)
-      end
+      it { expect(@result.success?).to be_truthy }
+      it { expect(@result.to_h).to eq optional_params }
     end
 
-    context 'failure case' do
-      before do
-        @result = subject.call(input_params.merge(income_frequency: 'DailyMonthly'))
-      end
+    context 'with all required and optional parameters' do
+      it 'should pass validation' do
 
-      it 'should return error message as start date' do
-        expect(@result.errors.messages.first.text).to match(/must be one of: Weekly, Monthly/)
+        result = subject.call(all_params)
+
+        expect(result.success?).to be_truthy
+        expect(result.to_h).to eq all_params
       end
     end
   end

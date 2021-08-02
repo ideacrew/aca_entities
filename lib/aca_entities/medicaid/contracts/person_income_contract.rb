@@ -10,7 +10,7 @@ module AcaEntities
 
           optional(:employment_source_text).maybe(:string)
           optional(:amount).maybe(:float)
-          optional(:days_per_week).maybe(:float)
+          optional(:days_per_week).maybe(:integer)
           optional(:hours_per_pay_period).maybe(:float)
           optional(:hours_per_week).maybe(:float)
           optional(:category_code).maybe(:string)

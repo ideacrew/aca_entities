@@ -41,6 +41,9 @@ module AcaEntities
             # True if an applicant requires long term care; false otherwise.
             element :long_term_care_indicator, Boolean, tag: 'InsuranceApplicantLongTermCareIndicator'
 
+            # True if an applicant is enrolled in a non-employer sponsored insurance (ESI) plan; false otherwise.
+            has_many :non_esi_coverage_indicators, Boolean, tag: 'InsuranceApplicantNonESICoverageIndicator'
+
             # True if an applicant is a parent or caretaker of a child on the application; false otherwise.
             element :parent_caretaker_indicator, Boolean, tag: 'InsuranceApplicantParentCaretakerIndicator'
 
@@ -111,11 +114,14 @@ module AcaEntities
               mapper.chip_eligibilities = insurance_applicant.chip_eligibilities.map do |chip_eligibility|
                 ChipEligibility.domain_to_mapper(chip_eligibility)
               end
+              mapper.medicaid_magi_eligibilities = insurance_applicant.medicaid_magi_eligibilities&.map do |medicaid_magi_eligibility|
+                MedicaidMagiEligibility.domain_to_mapper(medicaid_magi_eligibility)
+              end
               mapper.referral_activity = ReferralActivity.domain_to_mapper(insurance_applicant.referral_activity)
               mapper
             end
 
-            def to_hash # rubocop:disable Metrics/CyclomaticComplexity, Metrics/MethodLength
+            def to_hash # rubocop:disable Metrics/CyclomaticComplexity, Metrics/MethodLength, Metrics/AbcSize
               {
                 id: role_reference ? role_reference.to_hash[:ref] : nil,
                 role_reference: role_reference&.to_hash,
@@ -128,6 +134,7 @@ module AcaEntities
                 eligible_itu_services_indicator: eligible_itu_services_indicator,
                 lawful_presence_status: lawful_presence_status&.to_hash,
                 long_term_care_indicator: long_term_care_indicator,
+                non_esi_coverage_indicators: non_esi_coverage_indicators, # not sent by ACES
                 parent_caretaker_indicator: parent_caretaker_indicator,
                 received_itu_services_indicator: received_itu_services_indicator,
                 recent_medical_bills_indicator: recent_medical_bills_indicator,

@@ -7,7 +7,6 @@ module AcaEntities
       class LawfulPresenceStatusEligibilityContract < Dry::Validation::Contract
         params do
           required(:eligibility_indicator).filled(:bool)
-          optional(:eligibility_basis_status_code).maybe(:string)
         end
       end
     end

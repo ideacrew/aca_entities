@@ -27,8 +27,15 @@ module AcaEntities
 
             has_one :eligibility_establishing_system, EligibilityEstablishingSystem
 
-            def self.domain_to_mapper(_medicaid_eligibility)
-              self.new
+            def self.domain_to_mapper(emergency_medicaid_eligibility)
+              mapper = self.new
+              mapper.id = emergency_medicaid_eligibility.id
+              mapper.residency_eligibility_basis = emergency_medicaid_eligibility.residency_eligibility_basis
+              mapper.income_eligibility_basis = emergency_medicaid_eligibility.income_eligibility_basis
+              mapper.citizen_or_immigrant_eligibility_basis = emergency_medicaid_eligibility.citizen_or_immigrant_eligibility_basis
+              mapper.eligibility_date_range = emergency_medicaid_eligibility.eligibility_date_range
+              mapper.eligibility_establishing_system = emergency_medicaid_eligibility.eligibility_establishing_system
+              mapper
             end
 
             def to_hash

@@ -18,11 +18,11 @@ module AcaEntities
             element :ResponseDescriptionText, String, tag: "ResponseDescriptionText"
             element :TDSResponseDescriptionText, String, tag: "TDSResponseDescriptionText"
 
-            def self.domain_to_mapper(response_metadate)
+            def self.domain_to_mapper(response_metadata)
               mapper = self.new
-              mapper.ResponseCode = response_metadate.ResponseCode
-              mapper.ResponseDescriptionText = response_metadate.response_description_text
-              mapper.TDSResponseDescriptionText = response_metadate.TDSResponseDescriptionText
+              mapper.ResponseCode = response_metadata.ResponseCode
+              mapper.ResponseDescriptionText = response_metadata.ResponseDescriptionText
+              mapper.TDSResponseDescriptionText = response_metadata.TDSResponseDescriptionText
               mapper
             end
           end

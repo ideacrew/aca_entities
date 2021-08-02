@@ -339,7 +339,7 @@ RSpec.describe AcaEntities::Families::Family, dbclean: :after_each do
   let(:event_response) do
     [
       {
-        received_at: Date.today,
+        received_at: DateTime.now,
         body: "response"
       }
     ]
@@ -348,7 +348,7 @@ RSpec.describe AcaEntities::Families::Family, dbclean: :after_each do
   let(:event_request) do
     [
       {
-        requested_at: Date.today,
+        requested_at: DateTime.now,
         body: "request"
       }
     ]
@@ -356,7 +356,7 @@ RSpec.describe AcaEntities::Families::Family, dbclean: :after_each do
 
   let!(:lawful_presence_determination) do
     {
-      vlp_verified_at: Date.today,
+      vlp_verified_at: DateTime.now,
       vlp_authority: "curam",
       vlp_document_id: nil,
       citizen_status: "some status",
@@ -400,7 +400,7 @@ RSpec.describe AcaEntities::Families::Family, dbclean: :after_each do
         citizenship_number: nil,
         card_number: nil,
         country_of_citizenship: nil,
-        expiration_date: Date.today,
+        expiration_date: DateTime.now,
         issuing_country: nil,
         status: "not submitted",
         verification_type: "Citizenship",

@@ -6,6 +6,7 @@ module AcaEntities
       # entity for atp Person
       class Person < Dry::Struct
         attribute :id, Types::String.meta(omittable: false)
+        attribute :age_measure, PersonAgeMeasure.optional.meta(omittable: true)
         attribute :birth_date, PersonBirthDate.optional.meta(omittable: true)
         attribute :ethnicities, Types::Array.of(Types::String).optional.meta(omittable: true)
         attribute :person_name, PersonName.meta(omittable: false)

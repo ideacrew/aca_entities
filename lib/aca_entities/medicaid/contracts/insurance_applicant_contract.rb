@@ -13,10 +13,13 @@ module AcaEntities
           optional(:blindness_or_disability_indicator).maybe(:bool)
           optional(:lawful_presence_status).maybe(:hash)
           optional(:long_term_care_indicator).maybe(:bool)
+          optional(:medicaid_magi_eligibilities).maybe(:hash)
           optional(:chip_eligibility).maybe(:hash)
           optional(:temporarily_lives_outside_application_state_indicator).maybe(:bool)
           optional(:incarcerations).maybe(:hash)
           optional(:referral_activity).maybe(:hash)
+          optional(:foster_care_state).maybe(:string)
+          optional(:non_esi_coverage_indicators).maybe(:array)
         end
       end
     end

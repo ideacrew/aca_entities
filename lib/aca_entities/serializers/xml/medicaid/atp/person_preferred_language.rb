@@ -16,8 +16,12 @@ module AcaEntities
             element :writes_language_indicator, Boolean, tag: 'PersonWritesLanguageIndicator', namespace: "nc"
             element :language_name, String, tag: "LanguageName", namespace: "nc"
 
-            def self.domain_to_mapper(_preferred_language)
-              self.new
+            def self.domain_to_mapper(preferred_language)
+              mapper = self.new
+              # mapper.speaks_language_indicator = preferred_language.speaks_language_indicator
+              # mapper.writes_language_indicator = preferred_language.writes_language_indicator
+              mapper.language_name = preferred_language.language_name
+              mapper
             end
 
             def to_hash
