@@ -7,8 +7,6 @@
             xmlns:s="http://niem.gov/niem/structures/2.0"
             xmlns:ssac-codes="http://codes.ssac.ee.sim.dsh.cms.hhs.gov" version="2.0">
 
-  <xsd:include schemaLocation="codes-schema.xsd"/>
-
   <xsd:annotation>
     <xsd:documentation>An extension schema with components needed for SSA Composite Service which retrieves the Social Security Number (SSN), Death Information, Citizenship Status, Incarceration Data, Title II income Benefits Data and Quarters Of Coverage information from SSA for use in evaluating individual eligibility and enrollee continued eligibility for insurance affordability programs.
     </xsd:documentation>

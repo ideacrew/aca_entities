@@ -32,7 +32,7 @@
     </xsd:appinfo>
   </xsd:annotation>
 
-  <xsd:import namespace="http://extn.ssac.ee.sim.dsh.cms.hhs.gov" schemaLocation="extensions.xsd"/>
+  <xsd:import namespace="http://extn.ssac.ee.sim.dsh.cms.hhs.gov" schemaLocation="extension.xsd"/>
   <xsd:import namespace="http://niem.gov/niem/appinfo/2.0"
               schemaLocation="niem/appinfo/2.0/appinfo.xsd"/>
 

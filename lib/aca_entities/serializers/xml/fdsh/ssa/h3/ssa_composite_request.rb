@@ -8,19 +8,19 @@ module AcaEntities
           module H3
             # Happymapper implementation for the root object of an
             # Request.
-            class SsaCompositeRequest
+            class SSACompositeRequest
               include HappyMapper
-              register_namespace 'ssac', 'http://ssac.ee.sim.dsh.cms.hhs.gov'
+              register_namespace 'exch', 'http://ssac.ee.sim.dsh.cms.hhs.gov'
 
               tag 'SSACompositeRequest'
-              namespace 'ssac'
+              namespace 'exch'
 
-              has_many :SsaCompositeIndividualRequests, SsaCompositeIndividualRequest
+              has_many :SSACompositeIndividualRequests, SSACompositeIndividualRequest
 
               def self.domain_to_mapper(initial_request)
                 mapper = self.new
-                mapper.SsaCompositeIndividualRequests = initial_request.SsaCompositeIndividualRequests.collect do |request_set|
-                  SsaCompositeIndividualRequest.domain_to_mapper(request_set)
+                mapper.SSACompositeIndividualRequests = initial_request.SSACompositeIndividualRequests.collect do |request_set|
+                  SSACompositeIndividualRequest.domain_to_mapper(request_set)
                 end
                 mapper
               end
