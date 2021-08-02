@@ -5,7 +5,7 @@ module AcaEntities
     module Transformers
       module Aces
         # Transformers implementation for atp payloads
-        class IncomeTransform < ::AcaEntities::Operations::Transforms::Transform
+        class Income < ::AcaEntities::Operations::Transforms::Transform
           include ::AcaEntities::Operations::Transforms::Transformer
 
           add_key 'employment_source_text'
