@@ -37,13 +37,13 @@ channels:
           durable: true
           exclusive: false
           auto_delete: false
-          vhost: /
+          vhost: event_source
     subscribe:
       bindings:
         amqp:
           ack: true
           exclusive: false
-          routing_key: enroll.individual.enrollments
+          routing_key: enroll.individual.enrollments.#
           bindingVersion: "0.2.0"
       operationId: on_polypress.enroll.individual.enrollments
       description: Events - Individual Market Enrollment related events

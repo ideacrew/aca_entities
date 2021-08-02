@@ -7,11 +7,11 @@ module AcaEntities
       class PersonNameContract < Dry::Validation::Contract
 
         params do
-          required(:first_name).filled(:string)
-          optional(:middle_name).maybe(:string)
-          required(:last_name).filled(:string)
-          optional(:name_sfx).maybe(:string)
-          optional(:name_pfx).maybe(:string)
+          required(:given).filled(:string)
+          optional(:middle).maybe(:string)
+          required(:sur).filled(:string)
+          optional(:suffix).maybe(:string)
+          optional(:full).maybe(:string)
         end
       end
     end

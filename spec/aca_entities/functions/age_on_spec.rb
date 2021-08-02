@@ -9,7 +9,7 @@ RSpec.describe ::AcaEntities::Functions::AgeOn do
       hash = { dob: on_date.prev_year(50) }
       map_value = described_class.new(on_date: on_date)
 
-      expect(hash.transform_values!(&map_value)).to eq(:dob => 50)
+      expect(map_value.call(hash[:dob])).to eq(50)
     end
   end
 
@@ -19,7 +19,7 @@ RSpec.describe ::AcaEntities::Functions::AgeOn do
       hash = { dob: '1980,1,1' }
       map_value = described_class.new(on_date: on_date)
 
-      expect { hash.transform_values!(&map_value) }.to raise_error
+      expect { map_value.call(hash[:dob]) }.to raise_error
     end
   end
 end

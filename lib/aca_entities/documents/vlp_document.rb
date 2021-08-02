@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'iso_country_codes'
+
 module AcaEntities
   module Documents
     # Entity for VLPDocument
@@ -17,14 +19,30 @@ module AcaEntities
       attribute :citizenship_number, Types::String.optional.meta(omittable: true)
       attribute :card_number, Types::String.optional.meta(omittable: true)
       attribute :country_of_citizenship, Types::String.optional.meta(omittable: true)
-      attribute :expiration_date, Types::Date.optional.meta(omittable: true)
+      attribute :expiration_date, Types::DateTime.optional.meta(omittable: true)
       attribute :issuing_country, Types::String.optional.meta(omittable: true)
 
-      # The name of country issuing the foreign passport.
-      # Three uppercase letter country code (ISO 3166-1).
       def three_letter_country_of_citizenship
-        # TODO: method should return 3 letter country code.
-        # Gem Ref: https://github.com/alexrabarts/iso_country_codes
+        return nil unless country_of_citizenship.present?
+        modified_countries = ["Vatican City", "Laos", "East Timor (Timor Timur)", "Czech Republic", "Cote d'Ivoire", "Korea, North", "Korea, South"]
+        country = if modified_countries.include?(country_of_citizenship)
+                    map_countries_to_iso[country_of_citizenship]
+                  else
+                    country_of_citizenship
+                  end
+        IsoCountryCodes.search_by_name(country).first.alpha3
+      end
+
+      def map_countries_to_iso
+        {
+          "Vatican City" => "Holy See",
+          "Laos" => "Lao People's Democratic Republic",
+          "East Timor (Timor Timur)" => "Timor-Leste",
+          "Czech Republic" => "Czechia",
+          "Cote d'Ivoire" => "Côte d'Ivoire",
+          "Korea, North" => "Korea (Democratic People's Republic of)",
+          "Korea, South" => "Korea (Republic of)"
+        }
       end
     end
   end

@@ -39,3 +39,6 @@
 *.xlsx
 *.doc
 *.docx
+
+# Commit sample payloads file (no PII is included)
+!sample_payloads.xml

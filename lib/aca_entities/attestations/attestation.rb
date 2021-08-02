@@ -2,7 +2,7 @@
 
 module AcaEntities
   module Attestations
-    class Attestations < Dry::Stuct
+    class Attestation < Dry::Struct
       attribute :attestations, Types::Hash.meta(omittable: false)
     end
   end

@@ -7,7 +7,7 @@ RSpec.describe ::AcaEntities::Determinations::LawfulPresenceDetermination, dbcle
   let(:event_response) do
     [
       {
-        received_at: Date.today,
+        received_at: DateTime.now,
         body: "response"
       }
     ]
@@ -16,7 +16,7 @@ RSpec.describe ::AcaEntities::Determinations::LawfulPresenceDetermination, dbcle
   let(:event_request) do
     [
       {
-        requested_at: Date.today,
+        requested_at: DateTime.now,
         body: "request"
       }
     ]
@@ -24,7 +24,7 @@ RSpec.describe ::AcaEntities::Determinations::LawfulPresenceDetermination, dbcle
 
   let!(:input_params) do
     {
-      vlp_verified_at: Date.today,
+      vlp_verified_at: DateTime.now,
       vlp_authority: "curam",
       vlp_document_id: nil,
       citizen_status: nil,
@@ -46,16 +46,6 @@ RSpec.describe ::AcaEntities::Determinations::LawfulPresenceDetermination, dbcle
 
     it 'should not raise error' do
       expect { described_class.new(input_params) }.not_to raise_error
-    end
-  end
-
-  describe 'with invalid arguments' do
-    it 'should raise error' do
-      expect do
-        described_class.new(input_params.reject do |k, _v|
-                              k == :citizen_status
-                            end)
-      end.to raise_error(Dry::Struct::Error, /:citizen_status is missing/)
     end
   end
 end

@@ -11,8 +11,8 @@ require 'aca_entities/version'
 require 'aca_entities/error'
 
 require 'aca_entities/libraries/aca_individual_market_library'
-require 'aca_entities/libraries/core_library'
 require 'aca_entities/libraries/fdsh_library'
+require 'aca_entities/libraries/core_library'
 
 # require 'aca_entities/operations/operation'
 
@@ -20,8 +20,6 @@ require 'aca_entities/libraries/fdsh_library'
 require 'aca_entities/individual_market'
 require 'aca_entities/shop_market'
 require 'aca_entities/transform'
-require 'aca_entities/functions/age_on'
-require 'aca_entities/functions/primary_applicant_builder'
 
 # TODO: Decide how to incorporate versioning? e.g. Iap::V3_0::Application
 # TODO: Should we insure unique namespacing with prefix? e.g. AcaIap::Application
@@ -30,7 +28,7 @@ require 'aca_entities/functions/primary_applicant_builder'
 # of shared ACA entities across applications.
 module AcaEntities
 
-  def self.async_api_config_find_by_service_name(service_name = nil)
-    ::AcaEntities::AsyncApi::Operations::FindConfigsByServiceName.new.call(service_name: service_name)
+  def self.async_api_config_find_by_service_name(args)
+    ::AcaEntities::AsyncApi::Operations::FindConfigsByServiceName.new.call(args)
   end
 end

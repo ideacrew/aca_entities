@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+    targetNamespace="http://vlpsda.ee.sim.dsh.cms.hhs.gov" xmlns:vlpsda="http://vlpsda.ee.sim.dsh.cms.hhs.gov"
+    version="1.0">
+    
+    <xsd:annotation>
+        <xsd:documentation>
+            <SchemaComponent>
+                <EffectiveDt>2018-01-01</EffectiveDt>
+                <VersionDt>2017-09-29</VersionDt>
+                <VersionDescriptionTxt> This is the first version of the SponsorshipData schema.</VersionDescriptionTxt>
+                <DescriptionTxt>This schema holds array information for a non citizen's Sponsor to 
+                    support various other schemas in the Hub Verify Lawful Presence service</DescriptionTxt>
+            </SchemaComponent>
+        </xsd:documentation>
+    </xsd:annotation>
+    
+    <!--##########################################################-->
+    <!--#                                                        #-->
+    <!--#                        Root Node                       #-->
+    <!--#                                                        #-->
+    <!--##########################################################-->
+    
+    <xsd:element name="ArrayOfSponsorshipData" type="vlpsda:ArrayOfSponsorshipDataType">
+        <xsd:annotation>
+            <xsd:documentation>Each instance of Sponsorship Data identifies the information for an individual 
+                that has sponsored the applicant.</xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    
+    <!--##########################################################-->
+    <!--#                                                        #-->
+    <!--#                      Complex Types                     #-->
+    <!--#                                                        #-->
+    <!--##########################################################-->
+    
+    <xsd:complexType name="ArrayOfSponsorshipDataType">
+        <xsd:sequence>
+            <xsd:element ref="vlpsda:SponsorshipData" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>  
+    
+    <xsd:complexType name="SponsorshipDataType">
+        <xsd:sequence>
+            <xsd:element ref="vlpsda:LastName"/>
+            <xsd:element ref="vlpsda:FirstName"/>
+            <xsd:element ref="vlpsda:MiddleName" minOccurs="0"/>
+            <xsd:element ref="vlpsda:Addr1" minOccurs="0"/>
+            <xsd:element ref="vlpsda:Addr2" minOccurs="0"/>
+            <xsd:element ref="vlpsda:City" minOccurs="0"/>
+            <xsd:element ref="vlpsda:StateProvince" minOccurs="0"/>
+            <xsd:element ref="vlpsda:ZipPostalCode" minOccurs="0"/>
+            <xsd:element ref="vlpsda:SSN" minOccurs="0"/>
+            <xsd:element ref="vlpsda:CountryCode" minOccurs="0"/>
+            <xsd:element ref="vlpsda:CountryName" minOccurs="0"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    
+    <!--##########################################################-->
+    <!--#                                                        #-->
+    <!--#                      Simple Types                      #-->
+    <!--#                                                        #-->
+    <!--##########################################################-->
+       
+    <xsd:simpleType name="LastNameType">
+        <xsd:restriction base="xsd:string">
+            <xsd:minLength value="1" />
+            <xsd:maxLength value="40" />
+        </xsd:restriction>
+    </xsd:simpleType>
+    
+    <xsd:simpleType name="FirstNameType">
+        <xsd:restriction base="xsd:string">
+            <xsd:minLength value="1" />
+            <xsd:maxLength value="25" />
+        </xsd:restriction>
+    </xsd:simpleType>
+    
+    <xsd:simpleType name="MiddleNameType">
+        <xsd:restriction base="xsd:string">
+            <xsd:minLength value="1" />
+            <xsd:maxLength value="25" />
+        </xsd:restriction>
+    </xsd:simpleType>
+    
+    <xsd:simpleType name="StreetAddressType">
+        <xsd:restriction base="xsd:string">
+            <xsd:minLength value="1" />
+            <xsd:maxLength value="60" />
+        </xsd:restriction>
+    </xsd:simpleType>
+    
+    <xsd:simpleType name="CityType">
+        <xsd:restriction base="xsd:string">
+            <xsd:minLength value="1" />
+            <xsd:maxLength value="30" />
+        </xsd:restriction>
+    </xsd:simpleType>
+    
+    <xsd:simpleType name="StateProvinceType">
+        <xsd:restriction base="xsd:string">
+            <xsd:minLength value="1" />
+            <xsd:maxLength value="2" />
+        </xsd:restriction>
+    </xsd:simpleType>
+    
+    <xsd:simpleType name="ZipPostalCodeType">
+        <xsd:restriction base="xsd:string">
+            <xsd:minLength value="1" />
+            <xsd:maxLength value="9" />
+        </xsd:restriction>
+    </xsd:simpleType>
+    
+    <xsd:simpleType name="SSNType">
+        <xsd:restriction base="xsd:string">
+            <xsd:length value="9"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    
+    <xsd:simpleType name="CountryCodeType">
+        <xsd:restriction base="xsd:string">
+            <xsd:minLength value="3" />
+            <xsd:maxLength value="5" />
+        </xsd:restriction>
+    </xsd:simpleType>
+    
+    <xsd:simpleType name="CountryNameType">
+        <xsd:restriction base="xsd:string">
+            <xsd:minLength value="1" />
+            <xsd:maxLength value="100" />
+        </xsd:restriction>
+    </xsd:simpleType>
+    
+    <!--##########################################################-->
+    <!--#                                                        #-->
+    <!--#                       Elements                         #-->
+    <!--#                                                        #-->
+    <!--##########################################################-->
+    
+    <xsd:element name="SponsorshipData" type="vlpsda:SponsorshipDataType">
+        <xsd:annotation>
+            <xsd:documentation>An object that identifies one individual who sponsored the
+                applicant. Consists of person name and address
+                information.</xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    
+    <xsd:element name="LastName" type="vlpsda:LastNameType">
+        <xsd:annotation>
+            <xsd:documentation>The last name of the individual sponsoring the non-citizen.</xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    
+    <xsd:element name="FirstName" type="vlpsda:FirstNameType">
+        <xsd:annotation>
+            <xsd:documentation>The first name of the individual sponsoring the non-citizen.</xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    
+    <xsd:element name="MiddleName" type="vlpsda:MiddleNameType">
+        <xsd:annotation>
+            <xsd:documentation>The middle name of the individual sponsoring the non-citizen.</xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    
+    <xsd:element name="Addr1" type="vlpsda:StreetAddressType">
+        <xsd:annotation>
+            <xsd:documentation>The address line 1 of the individual sponsoring the non-citizen.</xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    
+    <xsd:element name="Addr2" type="vlpsda:StreetAddressType">
+        <xsd:annotation>
+            <xsd:documentation>The address line 2 of the individual sponsoring the non-citizen.</xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    
+    <xsd:element name="City" type="vlpsda:CityType">
+        <xsd:annotation>
+            <xsd:documentation>The city of the individual sponsoring the non-citizen.</xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    
+    <xsd:element name="StateProvince" type="vlpsda:StateProvinceType">
+        <xsd:annotation>
+            <xsd:documentation>The state code or province (in the case of an international address) of the individual 
+                sponsoring the non-citizen.</xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    
+    <xsd:element name="ZipPostalCode" type="vlpsda:ZipPostalCodeType">
+        <xsd:annotation>
+            <xsd:documentation>The zip code or postal code (in the case of an international address) of the individual 
+                sponsoring the non-citizen.</xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    
+    <xsd:element name="SSN" type="vlpsda:SSNType">
+        <xsd:annotation>
+            <xsd:documentation>The SSN of the individual sponsoring the non-citizen.</xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    
+    <xsd:element name="CountryCode" type="vlpsda:CountryCodeType">
+        <xsd:annotation>
+            <xsd:documentation>The country code (in the case of an international address) of the individual sponsoring 
+                the non-citizen.</xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    
+    <xsd:element name="CountryName" type="vlpsda:CountryNameType">
+        <xsd:annotation>
+            <xsd:documentation>The country name (in the case of an international address) of the individual sponsoring 
+                the non-citizen.</xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+</xsd:schema>

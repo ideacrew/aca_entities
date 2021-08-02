@@ -1,25 +1,63 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
+require 'aca_entities/medicaid/atp/types'
 require 'aca_entities/medicaid/atp/sender'
 
 RSpec.describe ::AcaEntities::Medicaid::Atp::Sender do
 
   describe 'with valid arguments' do
-    let(:input_params) do
+
+    let(:required_params) do
       {
-        sender_code: nil,
-        sender_medicaid_chip_state: nil,
-        sender_medicaid_chip_county: nil
+        id: "Sender",
+        category_code: 'Exchange'
       }
     end
 
-    it 'should initialize' do
-      expect(described_class.new(input_params)).to be_a described_class
+    let(:optional_params) do
+      {
+        state_code: "ST",
+        county_name: "CountyName"
+      }
     end
 
-    it 'should not raise error' do
-      expect { described_class.new(input_params) }.not_to raise_error
+    let(:all_params) { required_params.merge(optional_params) }
+
+    context 'invalid parameters' do
+      context 'with empty parameters' do
+        it 'should list error for every required parameter' do
+          expect { described_class.new }.to raise_error(Dry::Struct::Error, /:id is missing in Hash input/)
+        end
+      end
+
+      context 'with optional parameters only' do
+        it 'should list error for every required parameter' do
+          expect { described_class.new(optional_params) }.to raise_error(Dry::Struct::Error, /:id is missing in Hash input/)
+        end
+      end
+    end
+
+    context 'valid parameters' do
+      context 'with required parameters only' do
+        it 'should initialize' do
+          expect(described_class.new(required_params)).to be_a described_class
+        end
+
+        it 'should not raise error' do
+          expect { described_class.new(required_params) }.not_to raise_error
+        end
+      end
+
+      context 'with all required and optional parameters' do
+        it 'should initialize' do
+          expect(described_class.new(required_params)).to be_a described_class
+        end
+
+        it 'should not raise error' do
+          expect { described_class.new(required_params) }.not_to raise_error
+        end
+      end
     end
   end
 end

@@ -22,6 +22,7 @@ module AcaEntities
         # @option opts [Hash] :family_member_reference required
         # @option opts [String] :person_hbx_id required
         # @option opts [Boolean] :is_required_to_file_taxes required
+        # @option opts [Boolean] :is_filing_as_head_of_household optional
         # @option opts [Boolean] :is_joint_tax_filing optional
         # @option opts [Boolean] :is_claimed_as_tax_dependent optional
         # @option opts [Hash] :claimed_as_tax_dependent_by optional
@@ -69,6 +70,7 @@ module AcaEntities
         # @option opts [Boolean] :is_claimed_as_dependent_by_non_applicant optional
         # @option opts [hash] :mitc_income optional
         # @option opts [Array] :mitc_relationships optional
+        # @option opts [Boolean] :mitc_is_required_to_file_taxes optional
         # @option opts [AcaEntities::MagiMedicaid::Contracts::BenchmarkPremiumContract] :benchmark_premium required
         # @option opts [Bool] :is_homeless required
         # @return [Dry::Monads::Result]
@@ -88,6 +90,7 @@ module AcaEntities
           required(:family_member_reference).hash(::AcaEntities::Contracts::Families::FamilyMemberReferenceContract.params)
           required(:person_hbx_id).filled(:string)
           required(:is_required_to_file_taxes).filled(:bool)
+          optional(:is_filing_as_head_of_household).maybe(:bool)
           optional(:is_joint_tax_filing).maybe(:bool)
           optional(:is_claimed_as_tax_dependent).maybe(:bool)
           optional(:claimed_as_tax_dependent_by).maybe(ApplicantReferenceContract.params)
@@ -162,6 +165,7 @@ module AcaEntities
           # Set of attributes specific to MitC which helps to not have much logic in IapTo MitC Transform.
           optional(:mitc_income).hash(AcaEntities::MagiMedicaid::Mitc::Contracts::IncomeContract.params)
           optional(:mitc_relationships).array(AcaEntities::MagiMedicaid::Mitc::Contracts::RelationshipContract.params)
+          optional(:mitc_is_required_to_file_taxes).maybe(:bool)
 
         end
       end

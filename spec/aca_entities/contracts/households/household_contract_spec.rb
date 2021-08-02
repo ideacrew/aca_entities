@@ -44,7 +44,7 @@ RSpec.describe ::AcaEntities::Contracts::Households::HouseholdContract, dbclean:
   let(:coverage_households) do
     [
       {
-        start_date: Date.today,
+        start_date: Date.today.to_s,
         is_immediate_family: true,
         is_determination_split_household: false,
         aasm_state: "applicant",
@@ -93,7 +93,7 @@ RSpec.describe ::AcaEntities::Contracts::Households::HouseholdContract, dbclean:
         aptc_csr_annual_household_income: currency,
         aptc_annual_income_limit: currency,
         csr_annual_income_limit: currency,
-        determined_at: Date.today,
+        determined_at: Date.today.to_s,
         source: "Curam"
       }
     ]
@@ -105,8 +105,8 @@ RSpec.describe ::AcaEntities::Contracts::Households::HouseholdContract, dbclean:
         hbx_id: "828762",
         allocated_aptc: currency,
         is_eligibility_determined: true,
-        start_date: Date.today,
-        end_date: Date.today,
+        start_date: Date.today.to_s,
+        end_date: Date.today.to_s,
         tax_household_members: tax_household_members,
         eligibility_determinations: eligibility_determinations
       }
@@ -125,7 +125,7 @@ RSpec.describe ::AcaEntities::Contracts::Households::HouseholdContract, dbclean:
 
   let(:qualifying_life_event_kind_reference) do
     {
-      start_on: Date.today,
+      start_on: Date.today.to_s,
       title: 'test title',
       reason: 'test reason',
       market_kind: 'individual'
@@ -135,9 +135,9 @@ RSpec.describe ::AcaEntities::Contracts::Households::HouseholdContract, dbclean:
   let(:special_enrollment_period_reference) do
     {
       qualifying_life_event_kind_reference: qualifying_life_event_kind_reference,
-      qle_on: Date.today,
-      start_on: Date.today,
-      end_on: Date.today, submitted_at: Date.today, effective_on: Date.today
+      qle_on: Date.today.to_s,
+      start_on: Date.today.to_s,
+      end_on: Date.today.to_s, submitted_at: Date.today.to_s, effective_on: Date.today.to_s
     }
   end
 
@@ -147,7 +147,7 @@ RSpec.describe ::AcaEntities::Contracts::Households::HouseholdContract, dbclean:
       first_name: 'first name',
       middle_name: 'middle name',
       last_name: 'last name',
-      dob: Date.today,
+      dob: Date.today.to_s,
       gender: 'male',
       ssn: nil
     }
@@ -156,7 +156,7 @@ RSpec.describe ::AcaEntities::Contracts::Households::HouseholdContract, dbclean:
   let(:event_response) do
     [
       {
-        received_at: Date.today,
+        received_at: Date.today.to_s,
         body: "response"
       }
     ]
@@ -165,7 +165,7 @@ RSpec.describe ::AcaEntities::Contracts::Households::HouseholdContract, dbclean:
   let(:event_request) do
     [
       {
-        requested_at: Date.today,
+        requested_at: Date.today.to_s,
         body: "request"
       }
     ]
@@ -173,7 +173,7 @@ RSpec.describe ::AcaEntities::Contracts::Households::HouseholdContract, dbclean:
 
   let!(:lawful_presence_determination) do
     {
-      vlp_verified_at: Date.today,
+      vlp_verified_at: Date.today.to_s,
       vlp_authority: "curam",
       vlp_document_id: nil,
       citizen_status: nil,
@@ -202,7 +202,7 @@ RSpec.describe ::AcaEntities::Contracts::Households::HouseholdContract, dbclean:
       is_applicant: true,
       is_active: true,
       is_state_resident: true,
-      residency_determined_at: Date.today
+      residency_determined_at: Date.today.to_s
     }
   end
 
@@ -222,7 +222,7 @@ RSpec.describe ::AcaEntities::Contracts::Households::HouseholdContract, dbclean:
 
   let(:coverage_household_reference) do
     {
-      start_date: Date.today,
+      start_date: Date.today.to_s,
       is_immediate_family: false,
       is_determination_split_household: false
     }
@@ -250,17 +250,17 @@ RSpec.describe ::AcaEntities::Contracts::Households::HouseholdContract, dbclean:
     {
       title: 'test title',
       market_place: 'individual',
-      start_on: Date.today,
-      end_on: Date.today,
-      open_enrollment_start_on: Date.today,
-      open_enrollment_end_on: Date.today
+      start_on: Date.today.to_s,
+      end_on: Date.today.to_s,
+      open_enrollment_start_on: Date.today.to_s,
+      open_enrollment_end_on: Date.today.to_s
     }
   end
 
   let(:hbx_enrollment_reference) do
     {
       hbx_id: "122333",
-      effective_on: Date.today,
+      effective_on: Date.today.to_s,
       aasm_state: 'coverage_selected',
       market_place_kind: 'individual',
       enrollment_period_kind: 'open_enrollment',
@@ -278,7 +278,7 @@ RSpec.describe ::AcaEntities::Contracts::Households::HouseholdContract, dbclean:
         aasm_state: 'coverage_selected',
         enrollment_kind: 'open_enrollment',
         coverage_kind: 'health',
-        effective_on: Date.today,
+        effective_on: Date.today.to_s,
         is_any_enrollment_member_outstanding: false,
         elected_amount: currency,
         elected_premium_credit: currency,
@@ -291,7 +291,7 @@ RSpec.describe ::AcaEntities::Contracts::Households::HouseholdContract, dbclean:
         is_active: false,
         waiver_reason: nil,
         review_status: "incomplete",
-        special_verification_period: Date.today,
+        special_verification_period: Date.today.to_s,
         termination_submitted_on: nil,
         external_enrollment: false,
         coverage_household_reference: coverage_household_reference,
@@ -317,7 +317,7 @@ RSpec.describe ::AcaEntities::Contracts::Households::HouseholdContract, dbclean:
                 applied_aptc_amount: currency,
                 coverage_end_on: nil,
                 is_subscriber: true,
-                eligibility_date: Date.today,
+                eligibility_date: Date.today.to_s,
                 coverage_start_on: Date.today
               }
             ]
@@ -327,10 +327,10 @@ RSpec.describe ::AcaEntities::Contracts::Households::HouseholdContract, dbclean:
 
   let!(:required_params) do
     {
-      start_date: Date.today,
-      end_date: Date.today,
+      start_date: Date.today.to_s,
+      end_date: Date.today.to_s,
       is_active: true,
-      submitted_at: Date.today,
+      submitted_at: Date.today.to_s,
       irs_group_reference: irs_group_reference,
       coverage_households: coverage_households,
       tax_households: tax_households,

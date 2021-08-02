@@ -11,8 +11,24 @@ module AcaEntities
           @contexts = contexts
         end
 
-        def resolve(key)
-          OpenStruct.new @contexts.values.detect{|hash| hash[:name].to_s == key.to_s}
+        # notify this method if there is a identifier to the key to resolve context, default is false
+        def resolve(key, identifier: false)
+          if identifier
+            key_identifier = find(Regexp.new(key.to_s)).map(&:name).last
+            OpenStruct.new @contexts.values.detect{|hash| hash[:name].to_s == key_identifier.to_s}
+          else
+            OpenStruct.new @contexts.values.detect{|hash| hash[:name].to_s == key.to_s}
+          end
+          
+        end
+
+        # get all the matching memoize values 
+        def find(regex_key)
+          open_struct = []
+          @contexts.values.select{|hash| hash[:name].to_s.match(regex_key)}.each do |hash|
+            open_struct << OpenStruct.new(hash)
+          end
+          open_struct
         end
       end
 
@@ -273,10 +289,16 @@ module AcaEntities
             end
 
             if container[key_under_ns].transproc_name.to_s == 'add_key'
+              # when add key dsl is used at the top level / outside namespaces, new key should know the exact output namesapce to build element 
+              output_namespace = container[key_under_ns].output_key
               input = {source_hash: Hash[key_under_ns.split('.').last.to_sym, nil]}
               input.merge!(context: Context.new(@contexts)) unless @contexts.empty?
               data = container[key_under_ns].call(input)[:source_hash]
-              current_document.append(data)
+              if current_document == nil 
+                # when add key dsl is used at the top level/ outside namespaces, there is no current document. Build new document at this point.              
+                add_document(key: :no_key, type: :hash, output_namespace: output_namespace&.split('.'))
+              end
+                current_document.append(data)
             end
           end
         end
@@ -296,7 +318,13 @@ module AcaEntities
 
           if container.key?(namespaced_key)
             container_value = container[namespaced_key]
-            @contexts[key] = container_value.context.merge(item: key) if container_value.context
+            if container_value.context
+              @contexts[key] = container_value.context.merge(item: key)
+            elsif container.key?(namespaced_key + '_context') && !element_namespaces.compact.empty?
+              # enable namespace dsl to accept memoize along with passing context
+              context_key = container[namespaced_key + '_context'].output_key
+              @contexts[context_key+'.'+key] = {name: context_key+'.'+key, item: key}
+            end
 
             if container_value.type == :array
               @wild_char_matchers.push(key) if namespaced_key.split('.').last == '*'
@@ -347,10 +375,18 @@ module AcaEntities
 
             if container.key?(transformed_key + '_context')
               context_key = container[transformed_key + '_context'].output_key
-              @contexts[context_key] = {name: context_key, item: value}
+
+              if container[transformed_key + '_context'].append_identifier
+                # if append_identifier is passed to notify that there is a wild card, then use below syntax to build context with record_unique_identifier
+                @contexts[[context_key, record_unique_identifier].join('.')] = {name: [context_key, record_unique_identifier].join('.'), item: value}
+              else
+                @contexts[context_key] = {name: context_key, item: value}
+              end
             end
 
             return unless container.key?(transformed_key) || record_context_matched? || @memoize_record_context
+            return if key == nil
+
             input = if record_unique_identifier
                       t(:build_nested_hash)[{}, [], Hash[key.to_sym, value]]
                     else

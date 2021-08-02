@@ -17,7 +17,8 @@ RSpec.describe ::AcaEntities::MagiMedicaid::ProductEligibilityDetermination, dbc
         medicaid_household_size: 1,
         magi_medicaid_monthly_income_limit: 3760.67,
         magi_as_percentage_of_fpl: 10.0,
-        magi_medicaid_category: 'parent_caretaker' }
+        magi_medicaid_category: 'parent_caretaker',
+        magi_medicaid_ineligibility_reasons: ['dummy reason'] }
     end
 
     before do

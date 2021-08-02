@@ -105,7 +105,7 @@ module AcaEntities
                   end
                 end
 
-                map 'is_required_to_file_taxes', 'is_required_to_file_taxes', function: ->(value) { boolean_string(value) }
+                map 'mitc_is_required_to_file_taxes', 'is_required_to_file_taxes', function: ->(value) { boolean_string(value) }
                 map 'age_of_applicant', 'age_of_applicant'
                 map 'hours_worked_per_week', 'hours_worked_per_week'
 
