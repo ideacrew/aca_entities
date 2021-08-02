@@ -18,12 +18,14 @@ module AcaEntities
               has_one :Person, Person
               element :RequestCitizenshipVerificationIndicator, Boolean, tag: 'RequestCitizenshipVerificationIndicator', namespace: "extn"
               element :RequestIncarcerationVerificationIndicator, Boolean, tag: 'RequestIncarcerationVerificationIndicator', namespace: "extn"
-              element :RequestTitleIIMonthlyIncomeVerificationIndicator, Boolean, tag: 'RequestTitleIIMonthlyIncomeVerificationIndicator', namespace: "extn"
-              element :RequestTitleIIAnnualIncomeVerificationIndicator, Boolean, tag: 'RequestTitleIIAnnualIncomeVerificationIndicator', namespace: "extn"
-              element :RequestQuartersOfCoverageVerificationIndicator, Boolean, tag: 'RequestQuartersOfCoverageVerificationIndicator', namespace: "extn"
+              element :RequestTitleIIMonthlyIncomeVerificationIndicator, Boolean, tag: 'RequestTitleIIMonthlyIncomeVerificationIndicator',
+                                                                                  namespace: "extn"
+              element :RequestTitleIIAnnualIncomeVerificationIndicator, Boolean, tag: 'RequestTitleIIAnnualIncomeVerificationIndicator',
+                                                                                 namespace: "extn"
+              element :RequestQuartersOfCoverageVerificationIndicator, Boolean, tag: 'RequestQuartersOfCoverageVerificationIndicator',
+                                                                                namespace: "extn"
               element :RequestTitleIIMonthlyIncomeDate, Date, tag: 'RequestTitleIIMonthlyIncomeDate', namespace: "extn"
               element :RequestTitleIIAnnualIncomeDate, Date, tag: 'RequestTitleIIAnnualIncomeDate', namespace: "extn"
-
 
               def self.domain_to_mapper(initial_request_set)
                 mapper = self.new
@@ -36,7 +38,6 @@ module AcaEntities
                 mapper.RequestQuartersOfCoverageVerificationIndicator = initial_request_set.RequestQuartersOfCoverageVerificationIndicator
                 mapper.RequestTitleIIMonthlyIncomeDate = initial_request_set.RequestTitleIIMonthlyIncomeDate.strftime
                 mapper.RequestTitleIIAnnualIncomeDate = initial_request_set.RequestTitleIIAnnualIncomeDate.strftime
-
 
                 mapper
               end

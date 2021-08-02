@@ -17,7 +17,6 @@ module AcaEntities
 
               element :Date, Date, tag: "Date", namespace: "ns1"
 
-
               def self.domain_to_mapper(person_birth_date)
                 mapper = self.new
                 mapper.Date = person_birth_date.Date

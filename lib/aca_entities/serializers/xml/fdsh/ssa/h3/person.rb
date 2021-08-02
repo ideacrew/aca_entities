@@ -19,7 +19,6 @@ module AcaEntities
               has_one :PersonBirthDate, PersonBirthDate
               element :PersonSSNIdentification, String, tag: 'PersonSSNIdentification', namespace: "extn"
 
-
               def self.domain_to_mapper(person)
                 mapper = self.new
                 mapper.PersonSSNIdentification = person.PersonSSNIdentification
