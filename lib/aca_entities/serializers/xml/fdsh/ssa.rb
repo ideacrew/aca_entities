@@ -2,9 +2,9 @@
 
 require "happymapper"
 
-require_relative 'ssa/h3/person'
-require_relative 'ssa/h3/person_birth_date'
 require_relative 'ssa/h3/person_name'
+require_relative 'ssa/h3/person_birth_date'
+require_relative 'ssa/h3/person'
 require_relative 'ssa/h3/ssa_composite_individual_request'
 require_relative 'ssa/h3/ssa_composite_request'
 

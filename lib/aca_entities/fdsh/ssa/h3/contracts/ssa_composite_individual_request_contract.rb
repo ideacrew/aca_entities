@@ -8,7 +8,7 @@ module AcaEntities
         class SsaCompositeIndividualRequestContract < Dry::Validation::Contract
 
           params do
-            required(:Person).filled(Fdsh::Ssa::H3::Person.params)
+            required(:Person).filled(AcaEntities::Fdsh::Ssa::H3::PersonContract.params)
             required(:RequestCitizenshipVerificationIndicator).filled(:bool)
             required(:RequestIncarcerationVerificationIndicator).filled(:bool)
             required(:RequestTitleIIMonthlyIncomeVerificationIndicator).filled(:bool)

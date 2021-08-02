@@ -9,8 +9,8 @@ module AcaEntities
 
           params do
             required(:PersonSSNIdentification).filled(:string)
-            required(:PersonName).filled(AcaEntities::Fdsh::Person::PersonName.params)
-            required(:PersonBirthDate).filled(AcaEntities::Fdsh::Person::PersonBirthDate.params)
+            required(:PersonName).filled(AcaEntities::Fdsh::Contracts::Person::PersonNameContract.params)
+            required(:PersonBirthDate).filled(AcaEntities::Fdsh::Contracts::Person::PersonBirthDateContract.params)
           end
         end
       end

@@ -8,7 +8,7 @@ module AcaEntities
         class SsaCompositeRequestContract < Dry::Validation::Contract
 
           params do
-            required(:SSACompositeIndividualRequests).array(Fdsh::Vlp::H92::SsaCompositeIndividualRequest.params)
+            required(:SSACompositeIndividualRequests).array(AcaEntities::Fdsh::Ssa::H3::SsaCompositeIndividualRequestContract.params)
           end
         end
       end
