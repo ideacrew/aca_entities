@@ -47,10 +47,10 @@ channels:
         amqp:
           ack: true
           exclusive: false
-          routing_key: enroll.iap.applications.generate_renewal_draft
+          routing_key: enroll.iap.applications.submit_renewal_draft
           bindingVersion: '0.2.0'
       operationId: on_enroll.enroll.iap.applications
-      description: Events - Generate Renewal Draft Application
+      description: Events - Submit Renewal Draft Application
 
 tags:
   - name: linter_tag
