@@ -8,7 +8,8 @@ module AcaEntities
         class SSACompositeResponseContract < Dry::Validation::Contract
 
           params do
-            required(:SSACompositeIndividualResponses).array(AcaEntities::Fdsh::Ssa::H3::SSACompositeIndividualResponseContract.params)
+            optional(:ResponseMetadata).maybe(AcaEntities::Fdsh::Ssa::H3::ResponseMetadataContract.params)
+            optional(:SSACompositeIndividualResponses).array(AcaEntities::Fdsh::Ssa::H3::SSACompositeIndividualResponseContract.params)
           end
         end
       end

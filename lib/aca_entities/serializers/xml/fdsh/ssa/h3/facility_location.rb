@@ -16,11 +16,11 @@ module AcaEntities
               tag 'FacilityLocation'
               namespace 'extn'
 
-              attribute :LocationStreet, String, tag: 'LocationStreet', namespace: "extn"
-              attribute :LocationCityName, String, tag: 'LocationCityName', namespace: "extn"
-              attribute :LocationStateUSPostalServiceCode, String, tag: 'LocationStateUSPostalServiceCode', namespace: "nc"
-              attribute :LocationPostalCode, String, tag: 'LocationPostalCode', namespace: "extn"
-              attribute :LocationPostalExtensionCode, String, tag: 'LocationPostalExtensionCode', namespace: "extn"
+              element :LocationStreet, String, tag: 'LocationStreet', namespace: "extn"
+              element :LocationCityName, String, tag: 'LocationCityName', namespace: "extn"
+              element :LocationStateUSPostalServiceCode, String, tag: 'LocationStateUSPostalServiceCode', namespace: "nc"
+              element :LocationPostalCode, String, tag: 'LocationPostalCode', namespace: "extn"
+              element :LocationPostalExtensionCode, String, tag: 'LocationPostalExtensionCode', namespace: "extn"
 
               def self.domain_to_mapper(initial_response)
                 mapper = self.new

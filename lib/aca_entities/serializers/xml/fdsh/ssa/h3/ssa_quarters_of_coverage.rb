@@ -15,7 +15,7 @@ module AcaEntities
               tag 'SSAQuartersOfCoverage'
               namespace 'extn'
 
-              attribute :LifeTimeQuarterQuantity, Integer, tag: 'LifeTimeQuarterQuantity', namespace: "extn"
+              element :LifeTimeQuarterQuantity, Integer, tag: 'LifeTimeQuarterQuantity', namespace: "extn"
               has_one :QualifyingYearAndQuarter, QualifyingYearAndQuarter
 
               def self.domain_to_mapper(initial_response)

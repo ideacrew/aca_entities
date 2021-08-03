@@ -15,11 +15,11 @@ module AcaEntities
               tag 'SSAIncarcerationInformation'
               namespace 'extn'
 
-              attribute :PrisonerIdentification, String, tag: 'PrisonerIdentification', namespace: "extn"
-              attribute :PrisonerConfinementDate, String, tag: 'PrisonerConfinementDate', namespace: "extn"
-              attribute :ReportingPersonText, String, tag: 'ReportingPersonText', namespace: "extn"
+              element :PrisonerIdentification, String, tag: 'PrisonerIdentification', namespace: "extn"
+              element :PrisonerConfinementDate, String, tag: 'PrisonerConfinementDate', namespace: "extn"
+              element :ReportingPersonText, String, tag: 'ReportingPersonText', namespace: "extn"
               has_one :SupervisionFacility, SupervisionFacility
-              attribute :InmateStatusIndicator, Boolean, tag: 'InmateStatusIndicator', namespace: "extn"
+              element :InmateStatusIndicator, Boolean, tag: 'InmateStatusIndicator', namespace: "extn"
 
               def self.domain_to_mapper(initial_request)
                 mapper = self.new

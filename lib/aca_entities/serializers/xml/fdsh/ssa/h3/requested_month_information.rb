@@ -15,12 +15,12 @@ module AcaEntities
               tag 'RequestedMonthInformation'
               namespace 'extn'
 
-              attribute :IncomeMonthYear, String, tag: 'IncomeMonthYear', namespace: "extn"
-              attribute :BenefitCreditedAmount, BigDecimal, tag: 'BenefitCreditedAmount', namespace: "extn"
-              attribute :OverpaymentDeductionAmount, BigDecimal, tag: 'OverpaymentDeductionAmount', namespace: "extn"
-              attribute :PriorMonthAccrualAmount, BigDecimal, tag: 'PriorMonthAccrualAmount', namespace: "extn"
-              attribute :ReturnedCheckAmount, BigDecimal, tag: 'ReturnedCheckAmount', namespace: "extn"
-              attribute :PaymentInSuspenseIndicator, Boolean, tag: 'PaymentInSuspenseIndicator', namespace: "extn"
+              element :IncomeMonthYear, String, tag: 'IncomeMonthYear', namespace: "extn"
+              element :BenefitCreditedAmount, Float, tag: 'BenefitCreditedAmount', namespace: "extn"
+              element :OverpaymentDeductionAmount, Float, tag: 'OverpaymentDeductionAmount', namespace: "extn"
+              element :PriorMonthAccrualAmount, Float, tag: 'PriorMonthAccrualAmount', namespace: "extn"
+              element :ReturnedCheckAmount, Float, tag: 'ReturnedCheckAmount', namespace: "extn"
+              element :PaymentInSuspenseIndicator, Boolean, tag: 'PaymentInSuspenseIndicator', namespace: "extn"
 
               def self.domain_to_mapper(initial_response)
                 mapper = self.new

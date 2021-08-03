@@ -15,10 +15,10 @@ module AcaEntities
               tag 'SupervisionFacility'
               namespace 'extn'
 
-              attribute :FacilityName, String, tag: 'FacilityName', namespace: "extn"
+              element :FacilityName, String, tag: 'FacilityName', namespace: "extn"
               has_one :FacilityLocation, FacilityLocation
               has_one :FacilityContactInformation, FacilityContactInformation
-              attribute :FacilityCategoryCode, String, tag: 'FacilityCategoryCode', namespace: "extn"
+              element :FacilityCategoryCode, String, tag: 'FacilityCategoryCode', namespace: "extn"
 
               def self.domain_to_mapper(initial_response)
                 mapper = self.new
