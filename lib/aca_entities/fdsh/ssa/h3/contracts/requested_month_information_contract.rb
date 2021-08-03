@@ -9,10 +9,10 @@ module AcaEntities
 
           params do
             required(:IncomeMonthYear).filled(:string)
-            required(:BenefitCreditedAmount).filled(:decimal)
-            optional(:OverpaymentDeductionAmount).maybe(:decimal)
-            optional(:PriorMonthAccrualAmount).maybe(:decimal)
-            optional(:ReturnedCheckAmount).maybe(:decimal)
+            required(:BenefitCreditedAmount).filled(:float)
+            optional(:OverpaymentDeductionAmount).maybe(:float)
+            optional(:PriorMonthAccrualAmount).maybe(:float)
+            optional(:ReturnedCheckAmount).maybe(:float)
             required(:PaymentInSuspenseIndicator).filled(:bool)
           end
         end
