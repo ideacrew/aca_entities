@@ -37,7 +37,7 @@ module AcaEntities
               {
                 Person: construct_person(person),
                 RequestCitizenshipVerificationIndicator: true,
-                RequestIncarcerationVerificationIndicator: person.person_demographics.is_incarcerated,
+                RequestIncarcerationVerificationIndicator: true,
                 RequestTitleIIMonthlyIncomeVerificationIndicator: false,
                 RequestTitleIIAnnualIncomeVerificationIndicator: false,
                 RequestQuartersOfCoverageVerificationIndicator: false
