@@ -21,7 +21,7 @@ module AcaEntities
 
                 def convert_to_xml(initial_request)
                   encode_result = Try do
-                    ::AcaEntities::Serializers::Xml::Fdsh::Ssa::H3::SsaCompositeRequest.domain_to_mapper(initial_request).to_xml
+                    ::AcaEntities::Serializers::Xml::Fdsh::Ssa::H3::SSACompositeRequest.domain_to_mapper(initial_request).to_xml
                   end
 
                   encode_result.or do |e|
