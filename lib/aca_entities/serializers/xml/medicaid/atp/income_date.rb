@@ -5,7 +5,7 @@ module AcaEntities
     module Xml
       module Medicaid
         module Atp
-          # Include XML element and type definitions.
+          # A date that an income was received.
           class IncomeDate
             include HappyMapper
 

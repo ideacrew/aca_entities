@@ -173,7 +173,6 @@ module AcaEntities
               'amount' => income[:amount],
               'amount_tax_exempt' => 0,
               'frequency_kind' => FREQUENCY_CODE_MAP[income[:frequency][:frequency_code].downcase],
-              # 'start_on' => Date.parse('2021-05-07'), # default value
               'start_on' => start_date ? start_date[:date] : nil,
               'end_on' => end_date ? end_date[:date] : nil,
               'is_projected' => false
@@ -181,21 +180,6 @@ module AcaEntities
             result
           end
         end
-
-        # Wages
-        # Unemployment
-        # Unspecified
-        # SelfEmployment
-        # SocialSecurity
-        # Pension
-        # RentalOrRoyalty
-        # Retirement
-        # Interest
-        # Alimony
-        # CapitalGains
-        # CashSupport
-        # Scholarship
-        # FarmingOrFishing
 
         def unemp_income_hash
           return if @incomes_hash.nil?
@@ -211,9 +195,7 @@ module AcaEntities
               "kind" => "unemployment_income",
               "amount" => income[:amount],
               "amount_tax_exempt" => 0, # default value
-              'frequency_kind' => FREQUENCY_CODE_MAP[income[:frequency][:frequency_code].downcase],
-              # "start_on" => Date.parse('2021-05-07'), # default value
-              # "end_on" => nil,
+              'frequency_kind' => FREQUENCY_CODE_MAP[income[:frequency][:frequency_code].downcase],      
               'start_on' => start_date ? start_date[:date] : nil,
               'end_on' => end_date ? end_date[:date] : nil,
               "is_projected" => false # default value
@@ -225,22 +207,14 @@ module AcaEntities
         OTHER_INCOME_TYPE_KIND = {
           'Alimony' => 'alimony_and_maintenance',
           'CapitalGains' => 'capital_gains',
-          # 'dividend' => 'Dividends',
           'Interest' => 'interest',
           'Pension' => 'pension_retirement_benefits',
           'Retirement' => 'pension_retirement_benefits',
           'RentalOrRoyalty' => 'rental_and_royalty',
           'SocialSecurity' => 'social_security_benefit',
-          # 'American Indian/Alaska Native income' => 'american_indian_and_alaskan_native',
-          # 'Employer-funded disability payments' => 'employer_funded_disability',
-          # 'Estate and trust' => 'estate_trust',
           'FarmingOrFishing' => 'farming_and_fishing',
-          # 'foreign' => 'foreign',
-          # 'Other taxable income' => 'other',
           'Unspecified' => 'other',
-          # 'INVESTMENT_INCOME' => 'INVESTMENT_INCOME',
           'Winnings' => 'prizes_and_awards',
-          # 'Taxable scholarship payments' => 'scholorship_payments'
           'Scholarship' => 'scholorship_payments',
           'CanceledDebt' => 'other',
           'CourtAward' => 'other',
@@ -308,29 +282,14 @@ module AcaEntities
 
         INSURANCE_KINDS = {
           'Private' => 'private_individual_and_family_coverage',
-          # acf_refugee_medical_assistance
-          # americorps_health_benefits
           'CHIP' => 'child_health_insurance_plan',
           'Medicaid' => 'medicaid',
           'Medicare' => 'medicare',
-          # medicare_advantage
-          # medicare_part_b
-          # state_supplementary_payment
           'TRICARE' => 'tricare',
           'COBRA' => 'cobra',
           'VeteranHealthProgram' => 'veterans_benefits',
-          # naf_health_benefit_program
           'PeaceCorps' => 'health_care_for_peace_corp_volunteers',
-          # department_of_defense_non_appropriated_health_benefits
-          # cobra
-          'Employer' => "employer_sponsored_insurance",
-          # self_funded_student_health_coverage
-          # foreign_government_health_coverage
-          # 'Private' => 'private_health_insurance_plan',
-          # coverage_obtained_through_another_exchange
-          # coverage_under_the_state_health_benefits_risk_pool
-          # 'VeteranHealthProgram' => 'veterans_administration_health_benefits',
-          # 'PeaceCorps' => 'peace_corps_health_benefits',
+          'Employer' => "employer_sponsored_insurance",    
           'UnspecifiedFullCoverage' => 'other_full_benefit_coverage',
           'UnspecifiedLimitedCoverage' => 'other_limited_benefit_coverage'
         }.freeze
@@ -372,16 +331,10 @@ module AcaEntities
           return [] if @applicant_hash[:esi_associations].empty?
 
           result = []
-          @applicant_hash[:esi_associations].each do |esi|
-            kind = nil
-            if esi[:enrolled_indicator]
-              kind = 'is_enrolled'
-              # elsif esi[:eligible_indicator]
-              #   kind = 'is_eligible'
-            end
+          @applicant_hash[:esi_associations].each do |esi|              
             result << {
               'esi_covered' => 'self', # default value
-              'kind' => kind,
+              'kind' => 'is_enrolled' if esi[:enrolled_indicator],
               'insurance_kind' => INSURANCE_KINDS['Employer'],
               'is_esi_waiting_period' => nil, # default value
               'is_esi_mec_met' => nil, # default value
@@ -617,7 +570,7 @@ module AcaEntities
             age_of_applicant: AcaEntities::Functions::AgeOn.new(on_date: Date.today.strftime('%Y/%m/%d'))
                                                            .call(Date.strptime(@memoized_data.find(Regexp.new("person_demographics.dob.#{@applicant_identifier}"))&.first&.item, "%m/%d/%Y").strftime('%Y/%m/%d')),
             # is_self_attested_long_term_care: non_magi.nil? ? false : non_magi[:longTermCareIndicator],
-            # enroll_fied??: !@applicant_hash.nil? && !@applicant_hash[:parent_caretaker_indicator].nil? ? @applicant_hash[:parent_caretaker_indicator] : false,
+            is_primary_caregiver: !@applicant_hash.nil? && !@applicant_hash[:parent_caretaker_indicator].nil? ? @applicant_hash[:parent_caretaker_indicator] : false,
             hours_worked_per_week: '2' # default value??
           }
         end

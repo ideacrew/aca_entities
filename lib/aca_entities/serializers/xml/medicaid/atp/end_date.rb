@@ -5,7 +5,7 @@ module AcaEntities
     module Xml
       module Medicaid
         module Atp
-          # Include XML element and type definitions.
+          # An end date.
           class EndDate
             include HappyMapper
 
