@@ -17,7 +17,7 @@ module AcaEntities
           def call(payload)
             valid_payload = yield validate(payload)
             aces_payload = yield aces_transform(valid_payload)
-            xml_payload = yield xml_transform(aces_payload)
+            _xml_payload = yield xml_transform(aces_payload)
 
             Success(true)
           end
