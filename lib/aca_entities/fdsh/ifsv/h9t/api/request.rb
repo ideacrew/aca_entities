@@ -21,9 +21,9 @@ module AcaEntities
             # @!attribute [r] IFSVApplicant
             # Applicant Information
             # @return [Hash]
-            attribute :Applicant,
+            attribute :IFSVApplicants,
                       Types::Array
-                        .of(AcaEntities::Fdsh::Ifsv::H9t::Api::Applicant)
+                        .of(AcaEntities::Fdsh::Ifsv::H9t::Api::IFSVApplicant)
                         .meta(omittable: false)
           end
         end

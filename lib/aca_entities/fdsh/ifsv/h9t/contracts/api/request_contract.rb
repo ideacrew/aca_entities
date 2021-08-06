@@ -15,22 +15,10 @@ module AcaEntities
               # @return [Dry::Monads::Result]
               params do
                 required(:RequestID).filled(format?: /^[0-9]{1,9}$/)
-                required(:IFSVApplicants)
-                  .array(:hash) do
-                    required(:Person).hash do
-                      required(:PersonName).value(
-                        AcaEntities::Fdsh::Contracts::Person::PersonNameContract
-                          .params
-                      )
-                      required(:PersonSSNIdentification).value(
-                        AcaEntities::Fdsh::Contracts::Person::PersonSSNIdentificationContract
-                          .params
-                      )
-                    end
-                    required(:TaxFilerCategoryCode).value(
-                      AcaEntities::Fdsh::Ifsv::H9t::Types::TaxFilerCategoryCodeKind
-                    )
-                  end
+                required(:IFSVApplicants).array(
+                  AcaEntities::Fdsh::Ifsv::H9t::Contracts::Api::IFSVApplicantContract
+                    .params
+                )
               end
             end
           end

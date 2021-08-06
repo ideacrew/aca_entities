@@ -4,20 +4,13 @@ require 'spec_helper'
 
 RSpec.describe ::AcaEntities::Fdsh::Ifsv::H9t::Contracts::Api::RequestContract do
   let(:request_id) { '154987' }
-
-  let(:person_given_name_0) { 'Michael' }
-  let(:person_middle_name_0) { 'J' }
-  let(:person_sur_name_0) { 'Brady' }
+  let(:person_name_0) { attributes_for(:fdsh_person_name) }
   let(:identification_id_0) { '100101000' }
   let(:tax_filer_category_code_0) { 'PRIMARY' }
 
   let(:person_0) do
     {
-      PersonName: {
-        PersonGivenName: person_given_name_0,
-        PersonMiddleName: person_middle_name_0,
-        PersonSurName: person_sur_name_0
-      },
+      PersonName: person_name_0,
       PersonSSNIdentification: {
         IdentificationID: identification_id_0
       }
@@ -25,11 +18,13 @@ RSpec.describe ::AcaEntities::Fdsh::Ifsv::H9t::Contracts::Api::RequestContract d
   end
 
   let(:ifsv_applicant_0) do
-    { Person: person_0, TaxFilerCategoryCode: tax_filer_category_code_0 }
+    AcaEntities::Fdsh::Ifsv::H9t::Api::IFSVApplicant.new(
+      { Person: person_0, TaxFilerCategoryCode: tax_filer_category_code_0 }
+    )
   end
 
   let(:required_params) do
-    { RequestID: request_id, IFSVApplicants: [ifsv_applicant_0] }
+    { RequestID: request_id, IFSVApplicants: [ifsv_applicant_0.to_h] }
   end
 
   let(:all_params) { required_params }
@@ -62,17 +57,15 @@ RSpec.describe ::AcaEntities::Fdsh::Ifsv::H9t::Contracts::Api::RequestContract d
   end
 
   context 'Calling the contract with multiple IFSVApplicatnts' do
-    let(:person_given_name_1) { 'Carol' }
-    let(:person_sur_name_1) { 'Brady' }
-    let(:identification_id_1) { '100101000' }
+    let(:person_name_1) do
+      attributes_for(:fdsh_person_name, PersonGivenName: 'Carol')
+    end
+    let(:identification_id_1) { '100101001' }
     let(:tax_filer_category_code_1) { 'SPOUSE' }
 
     let(:person_1) do
       {
-        PersonName: {
-          PersonGivenName: person_given_name_1,
-          PersonSurName: person_sur_name_1
-        },
+        PersonName: person_name_1,
         PersonSSNIdentification: {
           IdentificationID: identification_id_1
         }
@@ -80,13 +73,16 @@ RSpec.describe ::AcaEntities::Fdsh::Ifsv::H9t::Contracts::Api::RequestContract d
     end
 
     let(:ifsv_applicant_1) do
-      { Person: person_1, TaxFilerCategoryCode: tax_filer_category_code_1 }
+      AcaEntities::Fdsh::Ifsv::H9t::Api::IFSVApplicant.new(
+        Person: person_1,
+        TaxFilerCategoryCode: tax_filer_category_code_1
+      )
     end
 
     let(:multiple_applicants) do
       {
         RequestID: request_id,
-        IFSVApplicants: [ifsv_applicant_0, ifsv_applicant_1]
+        IFSVApplicants: [ifsv_applicant_0.to_h, ifsv_applicant_1.to_h]
       }
     end
 
@@ -137,50 +133,6 @@ RSpec.describe ::AcaEntities::Fdsh::Ifsv::H9t::Contracts::Api::RequestContract d
             :RequestID
           ]
         ).to eq request_id_error
-      end
-    end
-  end
-
-  context 'TaxFilerCategoyCode' do
-    let(:valid_tax_filer_category_code) { 'SPOUSE' }
-
-    context 'TaxFilerCategoryCode is an enumerated value' do
-      let(:valid_ifsv_applicant) do
-        {
-          Person: person_0,
-          TaxFilerCategoryCode: valid_tax_filer_category_code
-        }
-      end
-
-      let(:valid_params) do
-        { RequestID: request_id, IFSVApplicants: [valid_ifsv_applicant] }
-      end
-
-      it 'should pass validation' do
-        expect(described_class.new.call(valid_params).success?).to be_truthy
-      end
-    end
-
-    context 'TaxFilerCategoryCode is not an enumerated value' do
-      let(:invalid_tax_filer_category_code) { 'COUSIN' }
-      let(:tax_filer_category_code_error) do
-        { TaxFilerCategoryCode: ['must be one of: PRIMARY, SPOUSE, DEPENDENT'] }
-      end
-      let(:invalid_ifsv_applicant) do
-        {
-          Person: person_0,
-          TaxFilerCategoryCode: invalid_tax_filer_category_code
-        }
-      end
-
-      let(:invalid_params) do
-        { RequestID: request_id, IFSVApplicants: [invalid_ifsv_applicant] }
-      end
-      it 'should fail validation' do
-        expect(
-          described_class.new.call(invalid_params).errors[:IFSVApplicants].first
-            .last
-        ).to eq tax_filer_category_code_error
       end
     end
   end

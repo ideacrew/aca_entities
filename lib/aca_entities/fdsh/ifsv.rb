@@ -8,13 +8,16 @@ require 'aca_entities/accounts/accounts'
 
 # contracts
 require_relative 'ifsv/h9t/contracts/contract'
+require_relative 'ifsv/h9t/contracts/api/person_contract'
+require_relative 'ifsv/h9t/contracts/api/ifsv_applicant_contract'
 require_relative 'ifsv/h9t/contracts/api/request_contract'
 require_relative 'ifsv/h9t/contracts/fti_applicant_contract'
 
 # entitites
 require_relative 'ifsv/h9t/api/response_metadata'
 require_relative 'ifsv/h9t/api/error_message'
-require_relative 'ifsv/h9t/api/applicant'
+require_relative 'ifsv/h9t/api/person'
+require_relative 'ifsv/h9t/api/ifsv_applicant'
 require_relative 'ifsv/h9t/api/tax_return'
 require_relative 'ifsv/h9t/api/household'
 require_relative 'ifsv/h9t/api/response'
