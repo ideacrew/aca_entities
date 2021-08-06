@@ -4,6 +4,11 @@ require 'bundler/setup'
 require 'aca_entities'
 # require 'pry'
 
+# Load spec dependencies and configs
+Dir[File.join('.', 'spec', 'support', 'config', '**', '*.rb')].sort.each do |f|
+  require f
+end
+
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
   config.example_status_persistence_file_path = '.rspec_status'

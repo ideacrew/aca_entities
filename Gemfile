@@ -12,4 +12,5 @@ group :development, :test do
   gem "rspec-core"
   gem "rubocop"
   gem "yard"
+  gem 'factory_bot'
 end
