@@ -32,6 +32,7 @@ module AcaEntities
 
             def to_hash
               {
+                id: id,
                 category_code: category_code,
                 state_code: state_code,
                 county_name: county_name

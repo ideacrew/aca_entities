@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require 'pry'
 module AcaEntities
   module Medicaid
     module Atp
@@ -12,7 +13,7 @@ module AcaEntities
         attribute :ssf_primary_contact, SsfPrimaryContact.meta(omittable: false)
         attribute :ssf_signer, SsfSigner.meta(omittable: false)
         attribute :tax_return_access, Types::Bool.meta(omittable: false)
-        attribute :application_creation, ApplicationCreation.meta(omittable: false)
+        attribute :application_creation, ApplicationCreation.meta(omittable: true)
         attribute :application_submission, ApplicationSubmission.meta(omittable: false)
         attribute :application_identifications, Types::Array.of(ApplicationIdentification).meta(omittable: false)
         attribute :coverage_renewal_year_quantity, Types::Integer.optional.meta(omittable: true)

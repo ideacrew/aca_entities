@@ -39,10 +39,12 @@ module AcaEntities
 
             def self.domain_to_mapper(attestation)
               mapper = self.new
-              mapper.not_incarcerated_indicators = attestation.not_incarcerated_indicators.map {|i| NotIncarceratedIndicator.domain_to_mapper(i)}
               mapper.collections_agreement_indicator = attestation.collections_agreement_indicator
               mapper.medicaid_obligations_indicator = attestation.medicaid_obligations_indicator
               mapper.non_perjury_indicator = attestation.non_perjury_indicator
+              mapper.not_incarcerated_indicators = attestation.not_incarcerated_indicators.map do |i|
+                NotIncarceratedIndicator.domain_to_mapper(i)
+              end
               mapper.privacy_agreement_indicator = attestation.privacy_agreement_indicator
               mapper.pending_charges_indicator = attestation.pending_charges_indicator
               mapper.information_changes_indicator = attestation.information_changes_indicator

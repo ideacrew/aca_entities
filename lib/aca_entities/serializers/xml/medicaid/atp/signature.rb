@@ -17,7 +17,7 @@ module AcaEntities
 
             def self.domain_to_mapper(signature)
               mapper = self.new
-              if signature.signature_name && !signature.signature_name.nil
+              if signature.signature_name && !signature.signature_name.nil?
                 mapper.signature_name = SignatureName.domain_to_mapper(signature.signature_name)
               end
               mapper.signature_date = SignatureDate.domain_to_mapper(signature.signature_date)
