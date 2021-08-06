@@ -3,7 +3,7 @@
 module AcaEntities
   module Fdsh
     module Ifsv
-      module H3
+      module H9t
         # FTI Response Top Level Namespace
         class FtiResponseMetadata < Dry::Struct
           attribute :response_code, Types::String

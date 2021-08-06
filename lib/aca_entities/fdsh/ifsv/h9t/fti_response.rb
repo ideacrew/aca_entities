@@ -3,7 +3,7 @@
 module AcaEntities
   module Fdsh
     module Ifsv
-      module H3
+      module H9t
         # FTI Response Top Level Namespace
         class FtiResponse < Dry::Struct
           # An HBX-assigned numeric ID that uniquely identifies the request
@@ -11,7 +11,7 @@ module AcaEntities
           #   1-9 characters - numeric only
           # @return [Types::Fdsh::Irs::RequestIDType]
           attribute :request_id,
-                    AcaEntities::Fdsh::Ifsv::H3::Types::RequestIDType.meta(
+                    AcaEntities::Fdsh::Ifsv::H9t::Types::RequestIDType.meta(
                       omittable: false
                     )
 

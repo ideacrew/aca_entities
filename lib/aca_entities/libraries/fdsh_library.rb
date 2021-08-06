@@ -4,7 +4,7 @@
 module AcaEntities
   module Libraries
     module FdshLibrary
-      require 'aca_entities/fdsh/all'
+      require 'aca_entities/fdsh/fdsh'
     end
   end
 end

@@ -3,7 +3,7 @@
 module AcaEntities
   module Fdsh
     module Ifsv
-      module H3
+      module H9t
         # A data concept for a Response information from IRS
         class IfsvResponse < Dry::Struct
           # @!attribute [r] RequestID

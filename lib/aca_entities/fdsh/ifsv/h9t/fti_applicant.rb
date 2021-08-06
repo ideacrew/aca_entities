@@ -3,33 +3,38 @@
 module AcaEntities
   module Fdsh
     module Ifsv
-      module H3
-        #  A data type for the payload
-        class IfsvRequestPayload < Dry::Struct
-          attribute :Person do
-            # @!attribute [r] PersonName
+      module H9t
+        # Applicant Information
+        class FtiApplicant < Dry::Struct
+          attribute :person do
+            # @!attribute [r] person_name
             # A combination of names and/or titles by which a person is known
             # @return [String]
-            attribute :PersonName,
+            attribute :person_name,
                       AcaEntities::Fdsh::Person::PersonName.meta(
                         omittable: false
                       )
 
-            # @!attribute [r] PersonSSNIdentification
+            # @!attribute [r] person_ssn_identification
             # A unique reference to a living person; assigned by the United States Social Security Administration
             # @return [String]
-            attribute :PersonSSNIdentification,
+            attribute :person_ssn_identification,
                       AcaEntities::Fdsh::Person::PersonSSNIdentification.meta(
                         omittable: false
                       )
           end
 
-          # @!attribute [r] TaxFilerCategoryCode
+          # @!attribute [r] tax_filer_category_code
           # A kind of tax filer
           # @return [String]
-          attribute :TaxFilerCategoryCode,
-                    AcaEntities::Fdsh::Ifsv::H3::Types::TaxFilerCategoryCodeKind
-                      .meta(omittable: false)
+          attribute :tax_filer_category_code,
+                    AcaEntities::Fdsh::Ifsv::H9t::Types::TaxFilerCategoryCodeKind
+                      .meta(omittable: true)
+
+          attribute :fti_verifications,
+                    Types::Array
+                      .of(AcaEntities::Fdsh::Ifsv::H9t::FtiVerification)
+                      .meta(omittable: true)
         end
       end
     end

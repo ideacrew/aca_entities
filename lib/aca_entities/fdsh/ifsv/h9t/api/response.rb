@@ -3,16 +3,16 @@
 module AcaEntities
   module Fdsh
     module Ifsv
-      module H3
-        module FtiResponses
+      module H9t
+        module Api
           # Response data elements the IRS submits to the Requester via the Hub
-          class MaximumResponse < Dry::Struct
+          class Response < Dry::Struct
             # An HBX-assigned  numeric ID that uniquely identifies the request
             #   within a given message (both requests and responses)
             #   1-9 characters - numeric only
             # @return [AcaEntities::Fdsh::Irs::RequeTypes::stIDType]
             attribute :RequestID,
-                      AcaEntities::Fdsh::Ifsv::H3::Types::RequestIDType.meta(
+                      AcaEntities::Fdsh::Ifsv::H9t::Types::RequestIDType.meta(
                         omittable: false
                       )
 
@@ -52,12 +52,12 @@ module AcaEntities
             #   (e.g., 2011) may be returned, if available. (In other words,
             #   most recent year or second most recent year filed.)
             attribute :TaxReturnYear,
-                      AcaEntities::Fdsh::Ifsv::H3::Types::TaxReturnYearType
+                      AcaEntities::Fdsh::Ifsv::H9t::Types::TaxReturnYearType
                         .meta(omittable: true)
 
             # Identifies the filing status of the individual(s) who filed the return
             attribute :TaxReturnFilingStatusCode,
-                      AcaEntities::Fdsh::Ifsv::H3::Types::TaxReturnFilingStatusCode
+                      AcaEntities::Fdsh::Ifsv::H9t::Types::TaxReturnFilingStatusCode
                         .meta(omittable: true)
 
             # Identifies the spouse's SSN on a married filing joint tax return

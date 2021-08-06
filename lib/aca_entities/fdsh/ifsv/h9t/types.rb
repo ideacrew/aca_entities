@@ -5,7 +5,7 @@ require 'dry-types'
 module AcaEntities
   module Fdsh
     module Ifsv
-      module H3
+      module H9t
         # Extend DryTypes to include FDSI IFSV
         module Types
           send(:include, Dry.Types)

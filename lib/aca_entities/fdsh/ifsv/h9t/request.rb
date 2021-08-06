@@ -3,15 +3,15 @@
 module AcaEntities
   module Fdsh
     module Ifsv
-      module H3
-        class MaximumRequest < Dry::Struct
+      module H9t
+        class Request < Dry::Struct
           # @!attribute [r] request_id
           # A requester-assigned numeric ID that uniquely identifies the request
           # within a given message (both requests and responses)
           # 1-9 characters - numeric only
           # @return [String]
           attribute :request_id,
-                    AcaEntities::Fdsh::Ifsv::H3::Types::RequestIDType.meta(
+                    AcaEntities::Fdsh::Ifsv::H9t::Types::RequestIDType.meta(
                       omittable: false
                     )
 
@@ -33,7 +33,7 @@ module AcaEntities
           # TaxFilerCategoryCode
           # @return [String]
           attribute :tax_filer_category_code,
-                    AcaEntities::Fdsh::Ifsv::H3::Types::TaxFilerCategoryCodeKind
+                    AcaEntities::Fdsh::Ifsv::H9t::Types::TaxFilerCategoryCodeKind
                       .meta(omittable: false)
         end
       end

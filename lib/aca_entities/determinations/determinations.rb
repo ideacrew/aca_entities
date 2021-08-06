@@ -1,0 +1,6 @@
+# frozen_string_literal: true
+
+require_relative 'eligibility_determination'
+require_relative 'individual_market_transition'
+require_relative 'lawful_presence_determination'
+require_relative 'product_eligibility_determination'
