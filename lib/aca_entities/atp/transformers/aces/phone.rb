@@ -8,13 +8,13 @@ module AcaEntities
         class Phone < ::AcaEntities::Operations::Transforms::Transform
           include ::AcaEntities::Operations::Transforms::Transformer
 
-          add_key 'begin_date', value: -> v { Date.today } #default
-          add_key 'end_date', value: -> v { Date.today } #default
+          add_key 'begin_date', value: ->(_v) { Date.today } # default
+          add_key 'end_date', value: ->(_v) { Date.today } # default
           add_key 'contact.email_id'
           add_key 'contact.mailing_address'
           map 'full_phone_number', 'contact.telephone_number.telephone.telephone_number_full_id'
           add_key 'contact.telephone_number.telephone.telephone_suffix_id'
-          map 'kind', 'category_code', memoize: true, visible: true, function: -> v {
+          map 'kind', 'category_code', memoize: true, visible: true, function: lambda { |v|
             v.capitalize
           }
           add_key 'is_primary_indicator', value: lambda { |v|

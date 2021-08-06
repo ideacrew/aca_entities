@@ -8,13 +8,13 @@ module AcaEntities
         class SsfSigner < ::AcaEntities::Operations::Transforms::Transform
           include ::AcaEntities::Operations::Transforms::Transformer
 
-          map 'ref', 'role_reference.ref', function: -> v{"en"+v}
+          map 'ref', 'role_reference.ref', function: ->(v) {"en#{v}"}
           map 'first_name', 'signature.signature_name.given'
           map 'middle_name', 'signature.signature_name.middle'
           map 'last_name', 'signature.signature_name.sur'
           map 'name_sfx', 'signature.signature_name.suffix'
           map 'full', 'signature.signature_name.full_name'
-          add_key 'signature.signature_date.date', value: -> v { Date.today } #default
+          add_key 'signature.signature_date.date', value: ->(_v) { Date.today } # default
         end
       end
     end

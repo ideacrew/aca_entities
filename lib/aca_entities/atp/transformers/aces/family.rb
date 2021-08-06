@@ -17,6 +17,10 @@ module AcaEntities
         class Family < ::AcaEntities::Operations::Transforms::Transform
           include ::AcaEntities::Operations::Transforms::Transformer
 
+          ContactPreferenceCode = { "mobile" => "TextMessage",
+                                    "email" => "Email",
+                                    "mail" => "Mail" }.freeze
+
           namespace 'family' do
             rewrap 'aces', type: :hash do
               map 'ext_app_id', 'ext_app_id'
@@ -54,12 +58,12 @@ module AcaEntities
               namespace 'magi_medicaid_applications' do
                 rewrap 'aces.insurance_application', type: :hash  do
                   # map 'us_state', 'us_state'
-                  add_key 'requesting_financial_assistance', value: -> v {true}
+                  add_key 'requesting_financial_assistance', value: ->(_v) {true}
 
-                  add_key 'requesting_medicaid' , value: -> v {true}
-                  add_key 'tax_return_access', value: -> v {true}
+                  add_key 'requesting_medicaid', value: ->(_v) {true}
+                  add_key 'tax_return_access', value: ->(_v) {true}
                   map "hbx_id", "application_identifications", function: lambda { |v|
-                    [{ :identification_id => "en"+v, :identification_category_text => "Exchange", :identification_jurisdiction => nil }]
+                    [{ :identification_id => "en#{v}", :identification_category_text => "Exchange", :identification_jurisdiction => nil }]
                   }
 
                   # add_key 'application_creation.creation_id'
@@ -93,13 +97,13 @@ module AcaEntities
 
                   add_key 'assister_association'
                   # add_key 'tax_return_access', value: ->v {}
-                  add_key 'coverage_renewal_year_quantity', value: -> v{5}
+                  add_key 'coverage_renewal_year_quantity', value: ->(_v) {5}
                 end
               end
 
               namespace 'family_members.*', nil, context: { name: 'members' } do
                 rewrap 'aces.people', type: :array do
-                  map 'hbx_id', 'id', function: -> v{"en"+v}
+                  map 'hbx_id', 'id', function: ->(v) {"en#{v}"}
                   map 'is_primary_applicant', 'is_primary_applicant', memoize: true, visible: false, append_identifier: true
                   namespace 'person' do
 
@@ -121,8 +125,10 @@ module AcaEntities
                     map 'person_demographics.gender', 'sex'
                     map 'race', 'race'
                     add_key 'ethnicities'
-                    map 'person_demographics.dob', 'birth_date.date',  memoize: true, visible: true, append_identifier: true, function: ->v {
-                      Date.strptime(v,"%m/%d/%Y")}                                                                                                                               # default
+                    map 'person_demographics.dob', 'birth_date.date',  memoize: true, visible: true, append_identifier: true,
+                                                                       function: lambda { |v|
+                                                                                   Date.strptime(v, "%m/%d/%Y")
+                                                                                 }
                     add_key 'age_measure.measure_point_value', value: lambda { |v|
                       member_id = v.find(/family.family_members.(\w+)$/).map(&:item).last
                       applicants_hash = v.resolve('family.magi_medicaid_applications.applicants').item
@@ -176,7 +182,7 @@ module AcaEntities
               add_key 'physical_households', function: lambda { |v|
                 applicants_hash = v.resolve('family.magi_medicaid_applications.applicants').item
                 result = applicants_hash.keys.map(&:to_s).each_with_object([]) do |id, collect|
-                  collect << { :ref => "en"+id }
+                  collect << { :ref => "en#{id}" }
                 end
                 [{ :household_member_references => result, :household_size_quantity => result.size }]
               }
@@ -184,10 +190,7 @@ module AcaEntities
               add_key 'insurance_application.ssf_primary_contact', function: lambda { |v|
                 ref = v.find(Regexp.new('is_primary_applicant.*')).select {|a|  a.item == true}.first.name.split('.').last
                 contact_preference = v.find(Regexp.new('consumer_role.contact_method.*')).select {|a|  a.name.split('.').last == ref}.first.item
-                ContactPreferenceCode = { "mobile" => "TextMessage",
-                                          "email" => "Email",
-                                          "mail" => "Mail" }
-                { role_reference: { ref: "en"+ref }, contact_preference: ContactPreferenceCode[contact_preference] }
+                { role_reference: { ref: "en#{ref}" }, contact_preference: ContactPreferenceCode[contact_preference] }
               }
 
               add_key 'insurance_application.ssf_signer', value: lambda { |v|
@@ -199,10 +202,10 @@ module AcaEntities
               add_key 'insurance_application.ssf_signer.ssf_signer_authorized_representative_association'
               add_key 'insurance_application.ssf_signer.ssf_attestation', value: lambda { |v|
                 incarceration_indicators = v.find(Regexp.new("incarcerations.incarceration_indicator.*"))
-                result = incarceration_indicators.each_with_object([]) do |input, collect|
+                incarceration_indicators.each_with_object([]) do |input, collect|
                   collect << { value: !input.item, metadata: input.name.split('.').last }
                 end
-                { not_incarcerated_indicators: [{value: true, metadata: "en11234"}],
+                { not_incarcerated_indicators: [{ value: true, metadata: "en11234" }],
                   :collections_agreement_indicator => true,
                   :medicaid_obligations_indicator => true,
                   :non_perjury_indicator => true,
