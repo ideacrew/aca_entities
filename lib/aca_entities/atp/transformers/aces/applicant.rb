@@ -8,11 +8,14 @@ module AcaEntities
         class Applicant < ::AcaEntities::Operations::Transforms::Transform
           include ::AcaEntities::Operations::Transforms::Transformer
 
-          map 'person_hbx_id', 'role_reference.ref'
+          map 'person_hbx_id', 'role_reference.ref', function: ->(v) {"en" + v}
           add_key 'esi_eligible_indicator'
-          add_key 'fixed_address_indicator'
-          map 'attestation.is_incarcerated', 'incarcerations.incarceration_indicator'
-          add_key 'incarcerations.incarceration_date'
+          map 'is_homeless', 'fixed_address_indicator'
+          map 'attestation', 'attestation', memoize_record: true, visible: false
+          add_key 'incarcerations', function: lambda { |v|
+            attestation = v.resolve('attestation').item
+            [{ incarceration_indicator: attestation[:is_incarcerated], incarceration_date:  { date: Date.today } }]
+          }
           add_key 'absent_parent_or_spouse_code'
           map 'attestation.is_self_attested_disabled', 'is_self_attested_disabled', memoize: true, visible: false
           map 'attestation.is_self_attested_blind', 'is_self_attested_blind', memoize: true, visible: false

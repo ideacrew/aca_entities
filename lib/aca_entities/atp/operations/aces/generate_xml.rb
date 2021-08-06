@@ -2,7 +2,10 @@
 
 require 'dry/monads'
 require 'dry/monads/do'
+
+# lib/aca_entities/medicaid/contracts
 require 'aca_entities/medicaid/atp'
+require 'aca_entities/medicaid/contracts/account_transfer_request_contract'
 require 'aca_entities/serializers/xml/medicaid/atp'
 require 'aca_entities/serializers/xml/medicaid/atp/account_transfer_request'
 
@@ -16,10 +19,14 @@ module AcaEntities
 
           def call(payload)
             valid_payload = yield validate(payload)
-            aces_payload = yield aces_transform(valid_payload)
-            _xml_payload = yield xml_transform(aces_payload)
+            aces_payload = yield to_aces(valid_payload)
+            valid_aces_payload = yield validate_aces(aces_payload)
+            entity = yield initialize_entity(valid_aces_payload)
+            serialized_payload = yield to_serialized_obj(entity)
+            _result = yield validate_xml(serialized_payload)
 
-            Success(true)
+            xml_payload = serialized_payload.to_xml
+            Success(xml_payload)
           end
 
           private
@@ -28,12 +35,59 @@ module AcaEntities
             Success(params)
           end
 
-          def xml_transform(aces_payload)
-            AcaEntities::Medicaid::Atp::AccountTransferRequest.new(aces_payload)
-            AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequest.new(aces_payload)
+          def validate_aces(params)
+            result = Try do
+              AcaEntities::Medicaid::Contracts::AccountTransferRequestContract.new.call(params[:aces])
+            end.to_result
+
+            if result.success?
+              result
+            else
+              Failure(result.failure.errors.to_h)
+            end
           end
 
-          def aces_transform(payload)
+          def initialize_entity(payload)
+            result = Try do
+              AcaEntities::Medicaid::Atp::AccountTransferRequest.new(payload.to_h)
+            end.to_result
+
+            if result.success?
+              result
+            else
+              Failure(result.failure)
+            end
+          end
+
+          def to_serialized_obj(entity)
+            seralized_xml = Try do
+              AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequest.domain_to_mapper(entity)
+            end.to_result
+
+            if seralized_xml.success?
+              seralized_xml
+            else
+              Failure(seralized_xml.failure)
+            end
+          end
+
+          def validate_xml(seralized_xml)
+            document = Nokogiri::XML(seralized_xml.to_xml)
+            xsd_path = File.open('/Users/vishu/new_repo/gem/aca_entities/spec/reference/xml/atp/atp_service.xsd')
+            schema_location = File.expand_path(xsd_path)
+            schema = Nokogiri::XML::Schema(File.open(schema_location))
+            result = schema.validate(document).each_with_object([]) do |error, collect|
+              collect << error.message
+            end
+
+            if result.empty?
+              Success(true)
+            else
+              Failure(result)
+            end
+          end
+
+          def to_aces(payload)
             record = JSON.parse(payload)
             family_members = record["family"]["family_members"]
             record["family"].merge!("family_members" => family_members.group_by do |h|
