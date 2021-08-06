@@ -7,7 +7,7 @@ module AcaEntities
         # Entity for Fdsh SSAVerification Response
         class TitleIIRequestedYearInformation < Dry::Struct
           attribute :IncomeDate, Types::String.meta(omittable: true)
-          attribute :YearlyIncomeAmount, Types::Decimal.meta(omittable: true)
+          attribute :YearlyIncomeAmount, Types::Float.meta(omittable: true)
         end
       end
     end

@@ -83,6 +83,35 @@ channels:
           headers:
             Content-Type: application/soap+xml
             Accept: application/soap+xml
+
+  /VerifySSACompositeService:
+    publish:
+      operationId: /VerifySSACompositeService
+      description: Send request to VLP endpoint
+      message:
+        contentType: application/soap+xml
+      bindings:
+        http:
+          type: request
+          method: POST
+          contentType: application/soap+xml
+          headers:
+            Content-Type: application/soap+xml
+            Accept: application/soap+xml
+    subscribe:
+      operationId: /on/VerifySSACompositeService
+      description: Receive response from VLP request
+      message:
+        contentType: application/soap+xml
+      bindings:
+        http:
+          type: response
+          method: GET
+          contentType: application/soap+xml
+          headers:
+            Content-Type: application/soap+xml
+            Accept: application/soap+xml
+
   /HubConnectivityService:
     publish:
       operationId: /HubConnectivityService

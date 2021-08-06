@@ -9,7 +9,7 @@ module AcaEntities
 
           params do
             required(:IncomeDate).filled(:string)
-            required(:YearlyIncomeAmount).filled(:decimal)
+            required(:YearlyIncomeAmount).filled(:float)
           end
         end
       end

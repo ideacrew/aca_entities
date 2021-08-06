@@ -16,13 +16,13 @@ module AcaEntities
               tag 'SSAResponse'
               namespace 'extn'
 
-              attribute :SSNVerificationIndicator, Boolean, tag: 'SSNVerificationIndicator', namespace: "extn"
-              attribute :DeathConfirmationCode, Boolean, tag: 'DeathConfirmationCode', namespace: "extn"
-              attribute :PersonUSCitizenIndicator, Boolean, tag: 'PersonUSCitizenIndicator', namespace: "nc"
-              attribute :PersonIncarcerationInformationIndicator, Boolean, tag: 'PersonIncarcerationInformationIndicator', namespace: "extn"
-              attribute :SSATitleIIMonthlyIncomeInformationIndicator, Boolean, tag: 'SSATitleIIMonthlyIncomeInformationIndicator', namespace: "extn"
-              attribute :SSATitleIIAnnualIncomeInformationIndicator, Boolean, tag: 'SSATitleIIAnnualIncomeInformationIndicator', namespace: "extn"
-              attribute :SSAQuartersOfCoverageInformationIndicator, Boolean, tag: 'SSAQuartersOfCoverageInformationIndicator', namespace: "extn"
+              element :SSNVerificationIndicator, Boolean, tag: 'SSNVerificationIndicator', namespace: "extn"
+              element :DeathConfirmationCode, String, tag: 'DeathConfirmationCode', namespace: "extn"
+              element :PersonUSCitizenIndicator, Boolean, tag: 'PersonUSCitizenIndicator', namespace: "nc"
+              element :PersonIncarcerationInformationIndicator, Boolean, tag: 'PersonIncarcerationInformationIndicator', namespace: "extn"
+              element :SSATitleIIMonthlyIncomeInformationIndicator, Boolean, tag: 'SSATitleIIMonthlyIncomeInformationIndicator', namespace: "extn"
+              element :SSATitleIIAnnualIncomeInformationIndicator, Boolean, tag: 'SSATitleIIAnnualIncomeInformationIndicator', namespace: "extn"
+              element :SSAQuartersOfCoverageInformationIndicator, Boolean, tag: 'SSAQuartersOfCoverageInformationIndicator', namespace: "extn"
               has_one :SSAIncarcerationInformation, SSAIncarcerationInformation
               has_one :SSATitleIIMonthlyIncome, SSATitleIIMonthlyIncome
               has_one :SSATitleIIYearlyIncome, SSATitleIIYearlyIncome

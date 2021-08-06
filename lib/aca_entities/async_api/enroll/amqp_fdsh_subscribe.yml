@@ -71,6 +71,26 @@ channels:
       operationId: on_enroll.fdsh.eligibilities.vlp
       description: Events - CMS FDSH VLP Service requests
 
+  on_enroll.fdsh.eligibilities.ssa:
+    bindings:
+      amqp:
+        is: queue
+        queue:
+          name: on_enroll.fdsh.eligibilities.ssa
+          durable: true
+          exclusive: false
+          auto_delete: false
+          vhost: event_source
+    subscribe:
+      bindings:
+        amqp:
+          ack: true
+          exclusive: false
+          routing_key: fdsh.eligibilities.ssa.#
+          bindingVersion: '0.2.0'
+      operationId: on_enroll.fdsh.eligibilities.ssa
+      description: Events - CMS FDSH SSA Service requests
+
 tags:
   - name: linter_tag
     description: placeholder that satisfies the linter

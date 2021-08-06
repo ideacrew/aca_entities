@@ -13,7 +13,7 @@ module AcaEntities
         # @!attribute [r] PersonMiddleName
         # Applicant middle name or initial
         # @return [String]
-        attribute :PersonMiddleName, Types::String.meta(omittable: true)
+        attribute :PersonMiddleName, Types::String.optional.meta(omittable: true)
 
         # @!attribute [r] PersonSurName
         # Applicant last name or family name

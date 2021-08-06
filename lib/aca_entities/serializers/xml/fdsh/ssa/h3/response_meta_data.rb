@@ -15,9 +15,9 @@ module AcaEntities
               tag 'ResponseMetadata'
               namespace 'extn'
 
-              attribute :ResponseCode, String, tag: 'ResponseCode', namespace: "extn"
-              attribute :ResponseDescriptionText, String, tag: 'ResponseDescriptionText', namespace: "extn"
-              attribute :TDSResponseDescriptionText, String, tag: 'TDSResponseDescriptionText', namespace: "extn"
+              element :ResponseCode, String, tag: 'ResponseCode', namespace: "extn"
+              element :ResponseDescriptionText, String, tag: 'ResponseDescriptionText', namespace: "extn"
+              element :TDSResponseDescriptionText, String, tag: 'TDSResponseDescriptionText', namespace: "extn"
 
               def self.domain_to_mapper(initial_request)
                 mapper = self.new

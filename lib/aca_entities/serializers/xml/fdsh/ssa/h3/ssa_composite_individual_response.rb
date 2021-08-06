@@ -16,7 +16,7 @@ module AcaEntities
               namespace 'extn'
 
               has_one :ResponseMetadata, ResponseMetadata
-              attribute :PersonSSNIdentification, String, tag: 'PersonSSNIdentification', namespace: "extn"
+              element :PersonSSNIdentification, String, tag: 'PersonSSNIdentification', namespace: "extn"
               has_one :SSAResponse, SSAResponse
 
               def self.domain_to_mapper(initial_request)

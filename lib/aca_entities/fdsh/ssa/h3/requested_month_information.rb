@@ -8,10 +8,10 @@ module AcaEntities
         class RequestedMonthInformation < Dry::Struct
 
           attribute :IncomeMonthYear,  Types::String.meta(omittable: false)
-          attribute :BenefitCreditedAmount,  Types::Decimal.meta(omittable: false)
-          attribute :OverpaymentDeductionAmount,  Types::Decimal.optional.meta(omittable: true)
-          attribute :PriorMonthAccrualAmount,  Types::Decimal.optional.meta(omittable: true)
-          attribute :ReturnedCheckAmount,  Types::Decimal.optional.meta(omittable: true)
+          attribute :BenefitCreditedAmount,  Types::Float.meta(omittable: false)
+          attribute :OverpaymentDeductionAmount,  Types::Float.optional.meta(omittable: true)
+          attribute :PriorMonthAccrualAmount,  Types::Float.optional.meta(omittable: true)
+          attribute :ReturnedCheckAmount,  Types::Float.optional.meta(omittable: true)
           attribute :PaymentInSuspenseIndicator, Types::Bool.meta(omittable: false)
 
         end
