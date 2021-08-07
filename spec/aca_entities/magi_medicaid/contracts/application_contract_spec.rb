@@ -884,5 +884,51 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicationContract,  dbcle
                                                                oe_start_on: ['is missing'] })
       end
     end
+
+    context 'invalid notice_options' do
+      context 'both send_eligibility_notices & send_open_enrollment_notices are true' do
+        let(:invalid_notice_options) { { send_eligibility_notices: true, send_open_enrollment_notices: true } }
+        let(:invalid_input_params) do
+          { family_reference: family_reference,
+            assistance_year: Date.today.year,
+            aptc_effective_date: Date.today,
+            applicants: [applicant],
+            us_state: 'DC',
+            notice_options: invalid_notice_options,
+            oe_start_on: Date.new(Date.today.year, 11, 1),
+            hbx_id: '200000123' }
+        end
+
+        before do
+          @result = subject.call(invalid_input_params)
+        end
+
+        it 'should return failure with error message' do
+          expect(@result.errors.to_h).to eq({ notice_options: ['cannot send both eligibility_notices & open_enrollment_notices.'] })
+        end
+      end
+
+      context 'both send_eligibility_notices & send_open_enrollment_notices are false' do
+        let(:invalid_notice_options) { { send_eligibility_notices: false, send_open_enrollment_notices: false } }
+        let(:invalid_input_params) do
+          { family_reference: family_reference,
+            assistance_year: Date.today.year,
+            aptc_effective_date: Date.today,
+            applicants: [applicant],
+            us_state: 'DC',
+            notice_options: invalid_notice_options,
+            oe_start_on: Date.new(Date.today.year, 11, 1),
+            hbx_id: '200000123' }
+        end
+
+        before do
+          @result = subject.call(invalid_input_params)
+        end
+
+        it 'should return failure with error message' do
+          expect(@result.errors.to_h).to eq({ notice_options: ['must send eligibility_notices or open_enrollment_notices.'] })
+        end
+      end
+    end
   end
 end
