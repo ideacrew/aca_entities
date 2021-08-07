@@ -19,6 +19,11 @@ module AcaEntities
         # Applicant last name or family name
         # @return [String]
         attribute :PersonSurName, Types::String.meta(omittable: false)
+
+        # @!attribute [r] PersonNameSuffixText
+        # Applicant suffix text
+        # @return [String]
+        attribute :PersonNameSuffixText, Types::String.optional.meta(omittable: true)
       end
     end
   end
