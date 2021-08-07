@@ -14,12 +14,16 @@ module AcaEntities
               # @option opts [AcaEntities::Fdsh::Ifsv::H3::Types::TaxFilerCategoryTypeCode] :tax_filer_category_code
               # @return [Dry::Monads::Result]
               params do
-                required(:RequestID).filled(format?: /^[0-9]{1,9}$/)
+                required(:RequestID).filled(:string)
+
+                # required(:RequestID).filled(format?: /^[0-9]{1,9}$/)
                 required(:IFSVApplicants).array(
                   AcaEntities::Fdsh::Ifsv::H9t::Contracts::Api::IFSVApplicantContract
                     .params
                 )
               end
+
+              rule(:RequestID).validate(:fdsh_request_id_format)
             end
           end
         end

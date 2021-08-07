@@ -116,23 +116,23 @@ RSpec.describe ::AcaEntities::Fdsh::Ifsv::H9t::Contracts::Api::RequestContract d
     end
 
     context "value isn't compliant with 1-9 numeric chars only " do
-      let(:request_id_error) { ['is in invalid format'] }
+      let(:request_id_error) { 'Invalid RequestID format' }
       it 'should fail validation' do
         expect(
           described_class.new.call({ RequestID: '0000000001' }).errors[
             :RequestID
-          ]
-        ).to eq request_id_error
+          ].first
+        ).to start_with request_id_error
         expect(
           described_class.new.call({ RequestID: '000000000123' }).errors[
             :RequestID
-          ]
-        ).to eq request_id_error
+          ].first
+        ).to start_with request_id_error
         expect(
           described_class.new.call({ RequestID: '1000000000' }).errors[
             :RequestID
-          ]
-        ).to eq request_id_error
+          ].first
+        ).to start_with request_id_error
       end
     end
   end
