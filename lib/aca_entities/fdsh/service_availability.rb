@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# rubocop:disable Style/ClassAndModuleChildren
 module AcaEntities::Fdsh
   class ServiceAvailability
 
@@ -9,10 +10,11 @@ module AcaEntities::Fdsh
 
   end
 end
-
+# rubocop:enable Style/ClassAndModuleChildren
 
 # frozen_string_literal: true
 
+# rubocop:disable Style/ClassAndModuleChildren
 module AcaEntities::Fdsh
   class AvailabilityPeriod
 
@@ -27,3 +29,4 @@ module AcaEntities::Fdsh
 
   end
 end
+# rubocop:enable Style/ClassAndModuleChildren

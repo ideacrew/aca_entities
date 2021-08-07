@@ -43,6 +43,7 @@ module AcaEntities
         require 'aca_entities/magi_medicaid/product_eligibility_determination'
         require 'aca_entities/magi_medicaid/tax_household_member'
         require 'aca_entities/magi_medicaid/tax_household'
+        require 'aca_entities/magi_medicaid/notice_options'
         require 'aca_entities/magi_medicaid/application'
 
         require 'aca_entities/contracts/people/person_name_contract'
@@ -78,6 +79,7 @@ module AcaEntities
         require 'aca_entities/magi_medicaid/contracts/product_eligibility_determination_contract'
         require 'aca_entities/magi_medicaid/contracts/tax_household_member_contract'
         require 'aca_entities/magi_medicaid/contracts/tax_household_contract'
+        require 'aca_entities/magi_medicaid/contracts/notice_options_contract'
         require 'aca_entities/magi_medicaid/contracts/application_contract'
 
         # Transformers

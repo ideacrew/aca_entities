@@ -836,6 +836,7 @@ RSpec.describe AcaEntities::Contracts::Families::FamilyContract,  dbclean: :afte
            aptc_effective_date: Date.today,
            applicants: [],
            us_state: 'DC',
+           notice_options: { send_eligibility_notices: true, send_open_enrollment_notices: false },
            oe_start_on: Date.new(Date.today.year, 11, 1),
            hbx_id: '200000123' },
          { applicants: [applicant] }]
@@ -868,6 +869,7 @@ RSpec.describe AcaEntities::Contracts::Families::FamilyContract,  dbclean: :afte
                                             is_homeless: ['is missing'] } },
                        us_state: ['is missing'],
                        oe_start_on: ['is missing'],
+                       notice_options: ['is missing'],
                        hbx_id: ['is missing'] }
         expect(@errors[:magi_medicaid_applications][1]).to eq(error_hash)
       end
