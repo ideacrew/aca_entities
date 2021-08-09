@@ -16,9 +16,17 @@ module AcaEntities
           end
 
           namespace 'person_demographics' do
-            map 'dob', 'Person.PersonBirthDate'
-            map 'ssn', 'Person.PersonSSNIdentification'
-            map 'language_code', 'PersonLanguagePreference'
+            rewrap '' do
+              map 'dob', 'Person.PersonBirthDate'
+              map 'ssn', 'Person.PersonSSNIdentification'
+
+              map 'language_code', 'language_code', memoize: true, visible: false
+
+              add_key 'PersonLanguagePreference', function: lambda { |v|
+                lan_mapper = { 'en' => 'eng', 'es' => 'spa' }
+                v.nil? ? 'eng' : lan_mapper[v.resolve('language_code').item]
+              }
+            end
           end
 
           namespace 'home_address' do

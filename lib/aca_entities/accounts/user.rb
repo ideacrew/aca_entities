@@ -5,11 +5,9 @@ module AcaEntities
     class User < Dry::Struct
 
       attribute :attestations,                            Types::Array.of(AcaEntities::Attestations::Attestation).optional.meta(omittable: true)
-
       attribute :approved,                                Types::Bool.optional.meta(omittable: true)
-      attribute :email,                                   Types::String.meta(omittable: false)
-      attribute :oim_id,                                  Types::String.meta(omittable: false)
-
+      attribute :email,                                   Types::String.optional.meta(omittable: true)
+      attribute :oim_id,                                  Types::String.optional.meta(omittable: true)
       attribute :hint,                                    Types::Bool.optional.meta(omittable: true)
       attribute :identity_confirmed_token,                Types::String.optional.meta(omittable: true)
       attribute :identity_final_decision_code,            Types::String.optional.meta(omittable: true)

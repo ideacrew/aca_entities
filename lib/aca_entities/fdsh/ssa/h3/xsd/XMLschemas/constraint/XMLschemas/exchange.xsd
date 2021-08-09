@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://ssac.ee.sim.dsh.cms.hhs.gov" elementFormDefault="qualified"
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:exch="http://ssac.ee.sim.dsh.cms.hhs.gov"
+            xmlns:i="http://niem.gov/niem/appinfo/2.0" xmlns:extn="http://extn.ssac.ee.sim.dsh.cms.hhs.gov"
+            version="1.5">
+
+  <xsd:annotation>
+    <xsd:documentation>An Exchange schema for SSA Composite Service which retrieves the Social Security Number(SSN),
+      Death Information, Citizenship Status, Incarceration Data, Title II income Benefits Data and Quarters Of Coverage
+      information from SSA for use in evaluating individual eligibility and enrollee continued eligibility for
+      insurance affordability programs.
+    </xsd:documentation>
+    <xsd:appinfo>
+      <exch:SchemaComponent>
+        <exch:EffectiveDt>2013-01-31</exch:EffectiveDt>
+        <exch:VersionDt>2013-01-15</exch:VersionDt>
+        <exch:VersionDescriptionTxt>The following services were included with this version of SSA Composite sercvie
+          3. Incarceration Verification.
+          4. Title II Monthly Income Verification.
+          5. Title II Annual Income Verification - translation for the Annual Title II Income benefits received from SSA.
+          6. Quarters of Coverage Verification - translation of the Quarters of Coverage data received from SSA.
+          7. The “PersonLivingInd” used to indicate if an applicant was deceased; not deceased and/or not releasable found in the response elements from SSA and the Hub will be updated to the “DeathConfirmationCode”.
+          The following services were included in the intial implementation of the SSA Composite sercie
+          1. SSN Verification.
+          2. Citizenship Verification.
+        </exch:VersionDescriptionTxt>
+        <exch:DescriptionTxt>SSA Composite Service Request and Response
+          payload for the SOA SSA Composite Service.
+        </exch:DescriptionTxt>
+      </exch:SchemaComponent>
+      <i:ConformantIndicator>true</i:ConformantIndicator>
+    </xsd:appinfo>
+  </xsd:annotation>
+
+  <xsd:import namespace="http://extn.ssac.ee.sim.dsh.cms.hhs.gov" schemaLocation="extension.xsd"/>
+  <xsd:import namespace="http://niem.gov/niem/appinfo/2.0"
+              schemaLocation="niem/appinfo/2.0/appinfo.xsd"/>
+
+
+  <!--##########################################################-->
+  <!--#                                                        #-->
+  <!--#                        Root Nodes                      #-->
+  <!--#                                                        #-->
+  <!--##########################################################-->
+
+  <xsd:element name="SSACompositeRequest" type="extn:SSACompositeRequestType">
+    <xsd:annotation>
+      <xsd:documentation>Request from HUB to SSA for SSA composite service to Verify the following
+        1. SSN Verification.
+        2. Citizenship Verification.
+        3. Incarceration Verification.
+        4. Title II Monthly Income Verification.
+        5. Title II Annual Income Verification - translation for the Annual Title II Income benefits received from SSA.
+        6. Quarters of Coverage Verification - translation of the Quarters of Coverage data received from SSA.
+        7. The “PersonLivingInd” used to indicate if an applicant was deceased; not deceased and/or not
+        releasable found in the response elements from SSA and the Hub will be updated to the
+        “DeathConfirmationCode”.
+      </xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+
+  <xsd:element name="SSACompositeResponse" type="extn:SSACompositeResponseType">
+    <xsd:annotation>
+      <xsd:documentation>Responses received from Social Security Administration to Federal Data Services HUB.
+      </xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+</xsd:schema>

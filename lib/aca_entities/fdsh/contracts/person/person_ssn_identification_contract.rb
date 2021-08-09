@@ -12,7 +12,7 @@ module AcaEntities
           params do
             # configure { predicates(AcaEntities::Fdsh::Predicates) }
             required(:IdentificationID).filled(
-              AcaEntities::Fdsh::Types::FullyRestrictedSSNSimpleType
+              AcaEntities::Fdsh::Types::FullyRestrictedSSNType
             )
           end
         end

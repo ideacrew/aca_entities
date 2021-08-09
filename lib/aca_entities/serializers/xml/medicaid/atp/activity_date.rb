@@ -8,7 +8,6 @@ module AcaEntities
           # Include XML element and type definitions.
           class ActivityDate
             include HappyMapper
-            register_namespace 'nc', 'http://niem.gov/niem/niem-core/2.0'
 
             tag 'ActivityDate'
             namespace 'nc'
@@ -18,10 +17,22 @@ module AcaEntities
             element :year, String, tag: "Year", namespace: "nc"
             element :year_month, String, tag: "YearMonth", namespace: "nc"
 
-            def self.domain_to_mapper(date_time)
+            def self.domain_to_mapper(activity_date)
               mapper = self.new
-              mapper.date_time = date_time
+              mapper.date = activity_date.date
+              mapper.date_time = activity_date.date_time
+              mapper.year = activity_date.year
+              mapper.year_month = activity_date.year_month
               mapper
+            end
+
+            def to_hash
+              {
+                date: date.to_s,
+                date_time: date_time.to_s,
+                year: year,
+                year_month: year_month
+              }
             end
           end
         end

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:exch="http://ridp.dsh.cms.gov/exchange/1.0" xmlns:ext="http://ridp.dsh.cms.gov/extension/1.0" xmlns:i="http://niem.gov/niem/appinfo/2.0" xmlns:i2="http://niem.gov/niem/appinfo/2.1" xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema" attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://ridp.dsh.cms.gov/exchange/1.0" version="1">
+  <xsd:annotation>
+    <xsd:appinfo>
+      <i:ConformantIndicator>true</i:ConformantIndicator>
+    </xsd:appinfo>
+    <xsd:documentation source="">An Exchange Schema for use of both Remote Identify Proofing Service (RIDP) and Direct Enrollment (DE) Remote Identify Proofing Proofing Service (RIDP) services.</xsd:documentation>
+  </xsd:annotation>
+  <xsd:import namespace="http://niem.gov/niem/appinfo/2.0" schemaLocation="../../XMLschemas/subset/niem/appinfo/2.0/appinfo.xsd"/>
+  <xsd:import namespace="http://niem.gov/niem/appinfo/2.1" schemaLocation="../../XMLschemas/subset/niem/appinfo/2.1/appinfo.xsd"/>
+  <xsd:import namespace="http://niem.gov/niem/proxy/xsd/2.0" schemaLocation="../../XMLschemas/subset/niem/proxy/xsd/2.0/xsd.xsd"/>
+  <xsd:import namespace="http://niem.gov/niem/structures/2.0" schemaLocation="../../XMLschemas/subset/niem/structures/2.0/structures.xsd"/>
+  <xsd:import namespace="http://ridp.dsh.cms.gov/extension/1.0" schemaLocation="../.././XMLschemas/extension/ExtensionModel.xsd"/>
+  <xsd:element abstract="false" name="Request" nillable="false" type="ext:RequestPayloadType">
+    <xsd:annotation>
+      <xsd:documentation source="">An element that represents the request payload.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element abstract="false" name="Response" nillable="false" type="ext:ResponsePayloadType">
+    <xsd:annotation>
+      <xsd:documentation source="">An element that represents the response payload.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+</xsd:schema>

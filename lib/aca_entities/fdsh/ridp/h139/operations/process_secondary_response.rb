@@ -5,8 +5,8 @@ require 'dry/monads/do'
 
 module AcaEntities
   module Fdsh
-    module Operations
-      module Ridp
+    module Ridp
+      module Operations
         # This class takes happy mapper hash as input and returns
         class ProcessSecondaryResponse
           include Dry::Monads[:result, :do, :try]
@@ -72,7 +72,7 @@ module AcaEntities
           end
 
           def create_attestation(_ridp_attestation)
-            Success(::AcaEntities::Attestations::Attestation.new({ ridp_attestation: 'ridp_attestation' }))
+            Success(::AcaEntities::Attestations::Attestation.new({ ridp_attestation: ridp_attestatio }))
           end
         end
       end

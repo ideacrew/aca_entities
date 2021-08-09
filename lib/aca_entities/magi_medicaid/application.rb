@@ -29,6 +29,8 @@ module AcaEntities
 
       attribute :oe_start_on, Types::Date.meta(omittable: false)
 
+      attribute :notice_options, NoticeOptions.meta(omittable: false)
+
       # Set of attributes specific to MitC which helps to not have much logic in IapTo MitC Transform.
       attribute :mitc_households, Types::Array.of(AcaEntities::MagiMedicaid::Mitc::Household).optional.meta(omittable: true)
       attribute :mitc_tax_returns, Types::Array.of(AcaEntities::MagiMedicaid::Mitc::TaxReturn).optional.meta(omittable: true)

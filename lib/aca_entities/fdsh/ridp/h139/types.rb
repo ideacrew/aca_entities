@@ -120,6 +120,12 @@ module AcaEntities
             PA: 'PENNSYLVANIA',
             WI: 'WISCONSIN'
           }.freeze
+
+          ALLOWED_SURNAMES = Types::String.constrained(
+            format: /\A([a-zA-Z \-'\s]*\S[a-zA-Z \-'\s]*)\z/,
+            min_size: 1,
+            max_size: 50
+          )
         end
       end
     end

@@ -14,8 +14,8 @@ module AcaEntities
             tag 'Response'
             namespace 'exch'
 
-            has_one :response_metadata, ResponseMetadata, namespace: 'hix-core:ResponseMetadata'
-            has_one :verification_response, VerificationResponse, namespace: 'VerificationResponse'
+            has_one :response_metadata, ResponseMetadata
+            has_one :verification_response, VerificationResponse
 
             def self.domain_to_mapper(secondary_response)
               mapper = self.new

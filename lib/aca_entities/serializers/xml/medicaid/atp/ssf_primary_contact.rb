@@ -8,7 +8,6 @@ module AcaEntities
           # Include XML element and type definitions.
           class SsfPrimaryContact
             include HappyMapper
-            register_namespace 'hix-ee', 'http://hix.cms.gov/0.1/hix-ee'
 
             tag 'SSFPrimaryContact'
             namespace 'hix-ee'
@@ -18,9 +17,16 @@ module AcaEntities
 
             def self.domain_to_mapper(insurance_application)
               mapper = self.new
-              mapper.role_reference = RoleOfPersonReference.domain_to_mapper(insurance_application)
-              mapper.contact_preference = "Email"
+              mapper.role_reference = RoleOfPersonReference.domain_to_mapper(insurance_application.role_reference)
+              mapper.contact_preference = insurance_application.contact_preference
               mapper
+            end
+
+            def to_hash
+              {
+                role_reference: role_reference.to_hash,
+                contact_preference: contact_preference
+              }
             end
           end
         end

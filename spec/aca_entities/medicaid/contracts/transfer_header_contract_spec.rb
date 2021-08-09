@@ -9,52 +9,47 @@ RSpec.describe AcaEntities::Medicaid::Contracts::TransferHeaderContract, type: :
     expect(subject.respond_to?(:call)).to be_truthy
   end
 
-  let(:input_params) do
+  let(:required_params) { { transfer_activity: transfer_activity } }
+
+  let(:optional_params) { { recipient_state_code: 'ME' } }
+
+  let(:all_params) { required_params.merge(optional_params) }
+
+  let(:transfer_activity) do
     {
-      transfer_id: 'id',
-      transfer_date: Date.today.to_datetime,
-      number_of_referrals: 4,
-      recipient_code: 'code',
-      medicaid_chip_state: 'MA'
+      transfer_id: { identification_id: '2163565' },
+      transfer_date: { date_time: DateTime.now },
+      number_of_referrals: 1,
+      recipient_code: 'MedicaidCHIP',
+      state_code: 'ME'
     }
   end
 
-  context 'success case' do
-    before do
-      @result = subject.call(input_params)
+  context 'invalid parameters' do
+    context 'with empty parameters' do
+      it 'should list error for every required parameter' do
+        expect(subject.call({}).errors.to_h.keys).to match_array required_params.keys
+      end
     end
 
-    it 'should return success' do
-      expect(@result.success?).to be_truthy
-    end
-
-    it 'should not have any errors' do
-      expect(@result.errors.empty?).to be_truthy
+    context 'with optional parameters only' do
+      it 'should list error for every required parameter' do
+        expect(subject.call(optional_params).errors.to_h.keys).to match_array required_params.keys
+      end
     end
   end
 
-  context 'failure case' do
-    context 'invalid input for transfer_date' do
-      let(:result) { subject.call(input_params.merge(transfer_date: Date.today.to_date)) }
-
-      it 'should return failure' do
-        expect(result.failure?).to be_truthy
-      end
-
-      it 'should have any errors' do
-        expect(result.errors.empty?).to be_falsy
-      end
-
-      it 'should return error message as start date' do
-        expect(result.errors.messages.first.text).to eq('must be a date time')
-      end
+  context 'valid parameters' do
+    context 'with required parameters only' do
+      it { expect(subject.call(required_params).success?).to be_truthy }
+      it { expect(subject.call(required_params).to_h).to eq required_params }
     end
 
-    context 'invalid input for number_of_referrals' do
-      let(:result) { subject.call(input_params.merge(number_of_referrals: 'TEST')) }
-
-      it 'should return error message' do
-        expect(result.errors.messages.first.text).to eq('must be an integer')
+    context 'with all required and optional parameters' do
+      it 'should pass validation' do
+        result = subject.call(all_params)
+        expect(result.success?).to be_truthy
+        expect(result.to_h).to eq all_params
       end
     end
   end

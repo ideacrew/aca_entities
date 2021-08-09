@@ -8,13 +8,25 @@ module AcaEntities
           # Include XML element and type definitions.
           class Receiver
             include HappyMapper
-            register_namespace 'hix-core', 'http://hix.cms.gov/0.1/hix-core'
 
             tag 'Receiver'
             namespace 'hix-core'
 
-            def self.domain_to_mapper(_account_transfer_request)
-              self.new
+            attribute :id, String, namespace: "niem-s"
+            # A kind of system that participates in the exchange of electronic information.
+            element :category_code, String, tag: "InformationExchangeSystemCategoryCode", namespace: "hix-core"
+
+            def self.domain_to_mapper(receiver)
+              mapper = self.new
+              mapper.id = receiver.id
+              mapper.category_code = receiver.category_code
+              mapper
+            end
+
+            def to_hash
+              {
+                category_code: category_code
+              }
             end
           end
         end

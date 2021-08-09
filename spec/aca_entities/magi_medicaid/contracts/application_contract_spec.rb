@@ -73,6 +73,8 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicationContract,  dbcle
       mitc_relationships: mitc_relationships,
       mitc_income: mitc_income }
   end
+  let(:notice_options) { { send_eligibility_notices: true, send_open_enrollment_notices: false } }
+
   let(:family_reference) { { hbx_id: '10011' } }
 
   context 'with valid & invalid input params' do
@@ -82,6 +84,7 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicationContract,  dbcle
         aptc_effective_date: Date.today,
         applicants: [applicant],
         us_state: 'DC',
+        notice_options: notice_options,
         oe_start_on: Date.new(Date.today.year, 11, 1),
         hbx_id: '200000123' }
     end
@@ -300,6 +303,7 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicationContract,  dbcle
           aptc_effective_date: Date.today,
           applicants: [],
           us_state: 'DC',
+          notice_options: notice_options,
           oe_start_on: Date.new(Date.today.year, 11, 1),
           hbx_id: '200000123' }
       end
@@ -417,6 +421,7 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicationContract,  dbcle
             aptc_effective_date: Date.today,
             applicants: [local_applicant],
             us_state: 'DC',
+            notice_options: notice_options,
             oe_start_on: Date.new(Date.today.year, 11, 1),
             hbx_id: '200000123' }
         end
@@ -511,6 +516,7 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicationContract,  dbcle
             aptc_effective_date: Date.today,
             applicants: [local_applicant],
             us_state: 'DC',
+            notice_options: notice_options,
             oe_start_on: Date.new(Date.today.year, 11, 1),
             hbx_id: '200000123' }
         end
@@ -552,6 +558,7 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicationContract,  dbcle
           { is_former_foster_care: true,
             age_left_foster_care: 19,
             foster_care_us_state: 'DC',
+            notice_options: notice_options,
             had_medicaid_during_foster_care: false }
         end
 
@@ -840,6 +847,7 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicationContract,  dbcle
     context 'missing assistance_year' do
       let(:input_params) do
         { family_reference: family_reference,
+          notice_options: notice_options,
           applicants: [applicant] }
       end
 
@@ -860,6 +868,7 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicationContract,  dbcle
       let(:input_params) do
         { family_reference: family_reference,
           assistance_year: 'assistance_year',
+          notice_options: notice_options,
           applicants: [applicant] }
       end
 
@@ -873,6 +882,52 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicationContract,  dbcle
                                                                hbx_id: ['is missing'],
                                                                us_state: ['is missing'],
                                                                oe_start_on: ['is missing'] })
+      end
+    end
+
+    context 'invalid notice_options' do
+      context 'both send_eligibility_notices & send_open_enrollment_notices are true' do
+        let(:invalid_notice_options) { { send_eligibility_notices: true, send_open_enrollment_notices: true } }
+        let(:invalid_input_params) do
+          { family_reference: family_reference,
+            assistance_year: Date.today.year,
+            aptc_effective_date: Date.today,
+            applicants: [applicant],
+            us_state: 'DC',
+            notice_options: invalid_notice_options,
+            oe_start_on: Date.new(Date.today.year, 11, 1),
+            hbx_id: '200000123' }
+        end
+
+        before do
+          @result = subject.call(invalid_input_params)
+        end
+
+        it 'should return failure with error message' do
+          expect(@result.errors.to_h).to eq({ notice_options: ['cannot send both eligibility_notices & open_enrollment_notices.'] })
+        end
+      end
+
+      context 'both send_eligibility_notices & send_open_enrollment_notices are false' do
+        let(:invalid_notice_options) { { send_eligibility_notices: false, send_open_enrollment_notices: false } }
+        let(:invalid_input_params) do
+          { family_reference: family_reference,
+            assistance_year: Date.today.year,
+            aptc_effective_date: Date.today,
+            applicants: [applicant],
+            us_state: 'DC',
+            notice_options: invalid_notice_options,
+            oe_start_on: Date.new(Date.today.year, 11, 1),
+            hbx_id: '200000123' }
+        end
+
+        before do
+          @result = subject.call(invalid_input_params)
+        end
+
+        it 'should return failure with error message' do
+          expect(@result.errors.to_h).to eq({ notice_options: ['must send eligibility_notices or open_enrollment_notices.'] })
+        end
       end
     end
   end

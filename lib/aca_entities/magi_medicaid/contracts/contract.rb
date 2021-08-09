@@ -265,8 +265,19 @@ module AcaEntities
                     ' [:is_ia_eligible, :is_medicaid_chip_eligible, :is_magi_medicaid,'\
                     ' :is_totally_ineligible, :is_without_assistance]'
               key(key_name).failure(text: msg)
+              # rubocop:enable Style/Next
             end
-            # rubocop:enable Style/Next
+          end
+        end
+
+        # Notice Options
+        rule(:notice_options) do
+          if key? && value[:send_eligibility_notices] && value[:send_open_enrollment_notices]
+            key(:notice_options).failure(text: 'cannot send both eligibility_notices & open_enrollment_notices.')
+          end
+
+          if key? && !value[:send_eligibility_notices] && !value[:send_open_enrollment_notices]
+            key(:notice_options).failure(text: 'must send eligibility_notices or open_enrollment_notices.')
           end
         end
       end

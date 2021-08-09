@@ -19,8 +19,8 @@ module AcaEntities
           )
           required(:item).filled(:string)
           optional(:kind).hash(AcaEntities::Contracts::Identifiers::IdentifierKindContract.params)
-          optional(:start_on).value(:date?)
-          optional(:end_on).value(:date?)
+          optional(:start_on).value(:date)
+          optional(:end_on).value(:date)
         end
       end
     end

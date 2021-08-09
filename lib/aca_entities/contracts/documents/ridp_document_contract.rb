@@ -16,7 +16,7 @@ module AcaEntities
           required(:status).filled(:string)
           optional(:ridp_verification_type).maybe(:string)
           optional(:comment).maybe(:string)
-          optional(:uploaded_at).value(:date?)
+          optional(:uploaded_at).value(:date)
         end
       end
     end

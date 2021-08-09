@@ -8,10 +8,10 @@ module AcaEntities
     module Types
       send(:include, Dry.Types)
 
-      # @!attribute [r] FullyRestrictedSSNSimpleType
+      # @!attribute [r] FullyRestrictedSSNType
       # Validates a string is a valid Social Security Number
       # @return [Boolean]
-      FullyRestrictedSSNSimpleType =
+      FullyRestrictedSSNType =
         Types::String.constrained(
           format: /^(?!000|666)[0-8][0-9]{2}(?!00)[0-9]{2}(?!0000)[0-9]{4}$/
         )

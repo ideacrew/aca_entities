@@ -9,7 +9,7 @@ module AcaEntities
           attribute :Person do
             attribute :PersonName do
               attribute :PersonGivenName, Types::String.meta(omittable: false)
-              attribute :PersonSurName, Types::String.meta(omittable: false)
+              attribute :PersonSurName, Types::ALLOWED_SURNAMES.meta(omittable: false)
               attribute :PersonMiddleName,
                         Types::String.optional.meta(omittable: true)
               attribute :PersonNameSuffixText,
@@ -42,8 +42,8 @@ module AcaEntities
             end
           end
 
-          attribute :ContactInformation do
-            attribute :ContactTelephoneNumber do
+          attribute :ContactInformation, Dry::Struct.optional.meta(omittable: true) do
+            attribute :ContactTelephoneNumber, Dry::Struct.optional.meta(omittable: true) do
               attribute :FullTelephoneNumber,
                         Types::String.optional.meta(omittable: true)
             end

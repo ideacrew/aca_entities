@@ -15,6 +15,7 @@ module AcaEntities
             required(:PersonGivenName).filled(:string)
             optional(:PersonMiddleName).maybe(:string)
             required(:PersonSurName).filled(:string)
+            optional(:PersonNameSuffixText).maybe(:string)
           end
         end
       end

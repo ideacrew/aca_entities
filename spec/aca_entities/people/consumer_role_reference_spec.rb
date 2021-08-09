@@ -7,7 +7,7 @@ RSpec.describe ::AcaEntities::People::ConsumerRoleReference, dbclean: :after_eac
   let(:event_response) do
     [
       {
-        received_at: Date.today,
+        received_at: DateTime.now,
         body: "response"
       }
     ]
@@ -16,14 +16,14 @@ RSpec.describe ::AcaEntities::People::ConsumerRoleReference, dbclean: :after_eac
   let(:event_request) do
     [
       {
-        requested_at: Date.today,
+        requested_at: DateTime.now,
         body: "request"
       }
     ]
   end
   let!(:lawful_presence_determination) do
     {
-      vlp_verified_at: Date.today,
+      vlp_verified_at: DateTime.now,
       vlp_authority: "curam",
       vlp_document_id: nil,
       citizen_status: nil,
