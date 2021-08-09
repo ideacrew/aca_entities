@@ -138,7 +138,7 @@ module AcaEntities
       # @return [Bool]
       attribute :is_claimed_as_dependent_by_non_applicant, Types::Bool.optional.meta(omittable: true)
 
-      attribute :benchmark_premium, BenchmarkPremium.optional.meta(omittable: false)
+      attribute :benchmark_premium, BenchmarkPremium.optional.meta(omittable: true)
 
       # @!attribute [r] is_homeless
       # This person is a state resident who is experiencing homeless(insured.dependent_dc_homeless)
