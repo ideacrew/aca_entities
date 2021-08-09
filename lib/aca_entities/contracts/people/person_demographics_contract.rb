@@ -30,6 +30,8 @@ module AcaEntities
           optional(:ethnicity).maybe(:array)
           optional(:race).maybe(:string)
           optional(:tribal_id).maybe(:string)
+          optional(:tribal_state).maybe(:string)
+          optional(:tribal_name).maybe(:string)
           optional(:language_code).maybe(:string)
         end
       end

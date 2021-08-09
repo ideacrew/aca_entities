@@ -1,8 +1,15 @@
 # frozen_string_literal: true
 
+require 'aca_entities/functions/email'
+require 'aca_entities/functions/phone'
+require 'aca_entities/functions/address'
 require 'aca_entities/functions/relationship_builder'
 require 'aca_entities/functions/age_on'
 require 'aca_entities/functions/primary_applicant_builder'
+require 'aca_entities/functions/build_vlp_document'
+
+require 'aca_entities/functions/build_tax_household'
+
 require 'aca_entities/functions/build_lawful_presence_determination'
 require 'aca_entities/functions/build_application'
 require 'aca_entities/functions/build_household'
@@ -42,6 +49,7 @@ module AcaEntities
               ### value: ->(_v) {}
               ### function:  as a proc or a custom build function
               add_key 'foreign_keys', value: ->(_v) {[]}
+
               namespace 'application' do
                 map 'spokenLanguageType', 'family_members.person.consumer_role.language_preference', memoize: true, visible: false
 
@@ -51,21 +59,56 @@ module AcaEntities
                   map 'changeInformationAgreementIndicator', 'report_change_terms', memoize: true, visible: false
                   map 'medicaidRequirementAgreementIndicator', 'medicaid_terms', memoize: true, visible: false
                   map 'renewalAgreementIndicator', 'is_renewal_authorized', memoize: true, visible: false
+                  # map 'nonIncarcerationAgreementIndicator', 'is_renewal_authorized', memoize: true, visible: false
+                  # map 'penaltyOfPerjuryAgreementIndicator', 'is_renewal_authorized', memoize: true, visible: false
+                  # map 'terminateCoverageOtherMecFoundAgreementIndicator', 'is_renewal_authorized', memoize: true, visible: false
                 end
+
+                # TODO: insuranceApplicationSecurityQuestionType
+                # TODO: insuranceApplicationSecurityQuestionAnswer
+
+                # TODO: applicationSignatures
+                #   applicationSignatureText
+                #   applicationSignatureType
+                #   applicationSignatureDate
+
+                # TODO: applicationAssistors  # broker information
+                # compare broker in application
+                 # "applicationAssistorType",
+                 # "creationDateTime",
+                 # "assistorFirstName",
+                 # "assistorLastName",
+                 # "assistorNationalProducerNumber",
+                 # "assistorMiddleName",
+                 # "assistorOrganizationId",
+                 # "assistorOrganizationName",
+                 # "assistorSystemUserName",
+                 # "assistorSuffix"
+
+                map 'requestingFinancialAssistanceIndicator', 'is_applying_for_assistance', memoize: true, visible: false
               end
 
               add_key 'general_agency_accounts', value: ->(_v) {[]}
+              # this need to set
               add_key 'special_enrollment_periods', value: ->(_v) {[]}
               add_key 'irs_groups', value: ->(_v) {[]}
               add_key 'broker_accounts', value: ->(_v) {[]}
               add_key 'documents', value: ->(_v) {[]}
               add_key 'payment_transactions', value: ->(_v) {[]}
+
+
+
               map 'application.contactMemberIdentifier', 'family.family_members.is_primary_applicant', memoize: true, visible: false
+
               map 'application.contactInformation.email', 'family.family_members.person.email.address', memoize: true, visible: false
-              map 'application.contactInformation.primaryPhoneNumber.number', 'family.family_members.person.phone.number', memoize: true,
-                                                                                                                           visible: false
+
+              map 'application.contactInformation.primaryPhoneNumber.number', 'family.family_members.person.phone.number', memoize: true, visible: false
               map 'application.contactInformation.primaryPhoneNumber.ext', 'family.family_members.person.phone.ext', memoize: true, visible: false
               map 'application.contactInformation.primaryPhoneNumber.type', 'family.family_members.person.phone.type', memoize: true, visible: false
+
+              map 'application.contactInformation.secondaryPhoneNumber.number', 'family.family_members.person.second.phone.number', memoize: true, visible: false
+              map 'application.contactInformation.secondaryPhoneNumber.ext', 'family.family_members.person.second.phone.ext', memoize: true, visible: false
+              map 'application.contactInformation.secondaryPhoneNumber.type', 'family.family_members.person.second.phone.type', memoize: true, visible: false
 
               # original key is also passed to the output hash, revist code for this scenario
               map 'application.contactMethod', 'family.family_members.person.consumer_role.contact_method', memoize: true, visible: false
@@ -84,6 +127,7 @@ module AcaEntities
               # map 'household.familyRelationships', 'household.family_Relationships'
 
               map 'household', 'family.family_members.person.family_Relationships', memoize_record: true, visible: false
+
               # namespace 'household.familyRelationships' do
               #   rewrap  'family.family_members.person.family_Relationships', type: :array do
               #     rewrap '', type: :array do
@@ -108,6 +152,7 @@ module AcaEntities
 
               ### context: (to store this particular wild card key in memory for later use),
               namespace 'members.*', nil, context: { name: 'members' } do
+
                 rewrap 'family.family_members', type: :array do
                   add_key 'is_primary_applicant', function: lambda { |v|
                     v.resolve('family.family_members.is_primary_applicant').item == v.find(/attestations.members.(\w+)$/).map(&:item).last
@@ -116,14 +161,25 @@ module AcaEntities
                   add_key 'is_active'
                   add_key 'is_consent_applicant'
                   add_key 'foreign_keys', value: ->(_v) {[]}
-                  add_key 'hbx_id', value: '1234'
+                  add_key 'hbx_id', value: '1234'  # family default hbx_id
 
                   namespace 'demographic' do
+
+                    # keys ["ssn", "birthDate", "name", "sex", "maritalStatus",
+                    # "noHomeAddressIndicator", "liveOutsideStateTemporarilyIndicator"
+                    # "hispanicOriginIndicator", "americanIndianAlaskanNativeIndicator",  # not storing
+                    # "race", "ethnicity","otherRaceText", "otherEthnicityText"
+                    # "mailingAddress", "homeAddress", "transientAddress"
+                    # "ssnAlternateName"]
+
                     rewrap 'family.family_members.person', type: :hash do
                       # add_key 'family_Relationships', function: AcaEntities::Functions::BuildRelationships.new
                       add_key 'hbx_id', function: lambda {|v|
+                                # binding.pry
                         v.resolve('attestations.members', identifier: true).item
                       }
+
+                      #TODO: check on identifiers
 
                       # add_namespace 'new namespace key', 'namespace path for new namespace key', type: :hash
                       # add new namespace of type hash as provided in output namespaced key
@@ -146,19 +202,44 @@ module AcaEntities
                         rewrap 'family.family_members.person.person_name', type: :hash do
                           map 'firstName', 'first_name', memoize: true, append_identifier: true
                           map 'lastName', 'last_name', memoize: true, append_identifier: true
+                          map 'middleName', 'middle_name', memoize: true, append_identifier: true
                           add_key 'full_name',
                                   function: lambda {|v|
-                                    [v.resolve(:first_name, identifier: true).item, v.resolve(:last_name, identifier: true).item].join(' ')
-                                  }
+                                    [ v.resolve(:first_name, identifier: true).item,
+                                                          v.resolve(:middle_name, identifier: true).item,
+                                                          v.resolve(:last_name, identifier: true).item].join(' ') }
                         end
                       end
 
+                      namespace 'ssnAlternateName' do
+                        map 'firstName', 'alt_first_name', memoize: true, append_identifier: true, visible: false
+                        map 'lastName', 'alt_last_name', memoize: true, append_identifier: true, visible: false
+                        map 'middleName', 'alt_middle_name', memoize: true, append_identifier: true, visible: false
+                      end
+
+                      add_key 'person_name.alternate_name',
+                              value: lambda {|v|
+                                [ v.resolve("alt_first_name.#{v.find(/attestations.members.(\w+)$/).map(&:item).last}", identifier: true).item,
+                                  v.resolve("alt_middle_name.#{v.find(/attestations.members.(\w+)$/).map(&:item).last}", identifier: true).item,
+                                  v.resolve("alt_last_name.#{v.find(/attestations.members.(\w+)$/).map(&:item).last}", identifier: true).item
+                                ].join(' ') }
+
                       map 'noHomeAddressIndicator', 'is_homeless'
                       map 'liveOutsideStateTemporarilyIndicator', 'is_temporarily_out_of_state'
-                      map 'requestingFinancialAssistanceIndicator', 'is_applying_for_assistance'
+                      # map 'requestingFinancialAssistanceIndicator', 'is_applying_for_assistance'
+
+                      # this need to set only for primary member
+                      add_key 'is_applying_for_assistance', function: ->(v) {
+                                                            v.resolve('is_applying_for_assistance').item}
+
                       add_key 'is_active', value: true # default value
+
+
                       add_key 'person_relationships', function: AcaEntities::Functions::RelationshipBuilder.new
+
+
                       map 'maritalStatus', 'consumer_role.marital_status'
+
                       add_namespace 'consumer_role', 'family.family_members.person.consumer_role', type: :hash do
                         add_key 'five_year_bar'
                         add_key 'requested_coverage_start_date', value: ->(_v) {Date.parse("2021-05-07")} # default value
@@ -172,7 +253,17 @@ module AcaEntities
                         add_key 'bookmark_url'
                         add_key 'admin_bookmark_url'
                         add_key 'contact_method',
-                                function: ->(v) {v.resolve('family.family_members.person.consumer_role.contact_method').item&.first}
+                                function: ->(v) {
+                                  value = v.resolve('family.family_members.person.consumer_role.contact_method').item
+                                  if value == ["EMAIL", "E_TEXT"] || value == ["E_TEXT", "EMAIL"] || value == ["EMAIL"] || value ==  ["E_TEXT"]
+                                    "Only Electronic communications"
+                                  elsif value == ["EMAIL"]
+                                    "Only Electronic communications"
+                                  else
+                                    "Paper and Electronic communications"
+                                  end
+                                }
+
                         add_key 'language_preference',
                                 function: ->(v) {v.resolve('family_members.person.consumer_role.language_preference').item}
                         add_key 'is_state_resident'
@@ -194,27 +285,12 @@ module AcaEntities
                       add_key 'individual_market_transitions', value: ->(_v) {[]}
                       add_key 'verification_types', value: ->(_v) {[]}
                       # add_key 'broker_role'
-                      add_key 'emails', function: lambda {|v|
-                        # revisit if condition for emails and phone for dependents
-                        # if v.resolve('family.family_members.is_primary_applicant').item ==
-                        #     v.find(Regexp.new("attestations.members")).map(&:item).last
-                        [{ address: v.resolve('family.family_members.person.email.address').item, kind: 'home' }]
-                        # end
-                      }
-                      add_key 'phones', function: lambda {|v|
-                        # revisit if condition for emails and phone for dependents
-                        # if v.resolve('family.family_members.is_primary_applicant').item ==
-                        #     v.find(Regexp.new("attestations.members")).map(&:item).last
-                        [{ extension: v.resolve('family.family_members.person.phone.ext').item,
-                           kind: v.resolve('family.family_members.person.phone.type').item.to_s.downcase,
-                           area_code: v.resolve('family.family_members.person.phone.number').item[0..2],
-                           number: v.resolve('family.family_members.person.phone.number').item[3..9],
-                           primary: true,
-                           full_phone_number: v.resolve('family.family_members.person.phone.number').item,
-                           start_on: nil,
-                           end_on: nil }]
-                        # end
-                      }
+
+
+                      add_key 'emails', function: AcaEntities::Functions::Email.new
+                      add_key 'phones', function: AcaEntities::Functions::Phone.new
+
+
                       add_key 'documents', value: ->(_v) {[]}
                       add_key 'age_off_excluded'
                       map 'sex', 'person_demographics.gender', function: lambda {|value|
@@ -228,12 +304,23 @@ module AcaEntities
                       # map transform not working for values with arrays
                       # revist the code for values as array
                       # work around is to memoize_record
-                      # map 'ethnicity', 'person_demographics.ethnicity', memoize_record: true, visible: false
-                      # map 'race', 'person_demographics.race', memoize_record: true, visible: false
 
-                      # add_key 'person_demographics.ethnicity', value: ->(v) {v.resolve('ethnicity').item}
+                      map 'race', 'race', memoize: true, visible: false,  append_identifier: true
+                      map 'ethnicity', 'ethnicity', memoize: true, visible: false,  append_identifier: true
+                      map 'otherRaceText', 'otherRaceText', memoize: true, visible: false,  append_identifier: true
+                      map 'otherEthnicityText', 'otherEthnicityText', memoize: true, visible: false,  append_identifier: true
+
+                      add_key 'person_demographics.ethnicity', value: ->(v) {
+                                                               [ v.resolve("race.#{v.find(/attestations.members.(\w+)$/).map(&:item).last}").item,
+                                                                 v.resolve("ethnicity.#{v.find(/attestations.members.(\w+)$/).map(&:item).last}").item,
+                                                                 v.resolve("otherRaceText.#{v.find(/attestations.members.(\w+)$/).map(&:item).last}").item,
+                                                                 v.resolve("otherEthnicityText.#{v.find(/attestations.members.(\w+)$/).map(&:item).last}").item
+                                                               ].flatten.compact }
+
+                      # race value storing in ethnicity, enroll doesn't have race record.
                       # add_key 'person_demographics.race', value: ->(v) {v.resolve('race').item}
 
+                      # Tribal id value missing
                       add_key 'person_demographics.tribal_id'
                       add_key 'person_demographics.no_ssn', value: lambda { |v|
                                                                      v.resolve('person_demographics.ssn', identifier: true).item.nil? ? "1" : "0"
@@ -252,11 +339,13 @@ module AcaEntities
                       #   end
                       # end
 
+                       # keys ["streetName1", "streetName2", "cityName", "stateCode", "zipCode","countyName","countryCode"
+                      # "plus4Code", , "countyFipsCode"]
                       namespace 'mailingAddress' do
                         rewrap 'family.family_members.person.addresses', type: :array do
                           add_key 'kind', value: 'mailing'
                           map 'streetName1', 'address_1'
-                          add_key 'address_2'
+                          map 'streetName2', 'address_2'
                           add_key 'address_3'
                           map 'cityName', 'city'
                           map 'countyName', 'county'
@@ -271,7 +360,7 @@ module AcaEntities
                         rewrap 'family.family_members.person.addresses', type: :array do
                           add_key 'kind', value: 'home'
                           map 'streetName1', 'address_1'
-                          add_key 'address_2'
+                          map 'streetName2', 'address_2'
                           add_key 'address_3'
                           map 'cityName', 'city'
                           map 'countyName', 'county'
@@ -281,6 +370,23 @@ module AcaEntities
                           map 'countryCode', 'country_name'
                         end
                       end
+
+                      # found 106 records with transientAddress, some transientAddress same as home address.
+                      namespace 'transientAddress' do
+                        rewrap 'family.family_members.person.addresses', type: :array do
+                          add_key 'kind', value: 'home'
+                          map 'streetName1', 'address_1'
+                          map 'streetName2', 'address_2'
+                          add_key 'address_3'
+                          map 'cityName', 'city'
+                          map 'countyName', 'county'
+                          map 'countyFipsCode', 'county_code'
+                          map 'stateCode', 'state'
+                          map 'zipCode', 'zip'
+                          map 'countryCode', 'country_name'
+                        end
+                      end
+
                     end
                   end
 
@@ -296,16 +402,23 @@ module AcaEntities
                   map 'family', 'family', memoize_record: true, visible: false # , append_identifier: true
                   map 'nonMagi', 'nonMagi', memoize_record: true, visible: false
                   map 'other.veteranIndicator', 'veteranIndicator', memoize: true, visible: false, append_identifier: true
-                  # map 'lawfulPresence.naturalizedCitizenIndicator', 'naturalizedCitizenIndicator', memoize: true, visible: false
+
+                  # map 'lawfulPresence', 'lawfulPresence', memoize_record: true, visible: false,  append_identifier: true
 
                   map 'lawfulPresence.noAlienNumberIndicator', 'noAlienNumberIndicator', memoize: true, visible: false, append_identifier: true
                   map 'lawfulPresence.citizenshipIndicator', 'citizenshipIndicator', memoize: true, visible: false, append_identifier: true
-                  map 'lawfulPresence.naturalizedCitizenIndicator', 'naturalizedCitizenIndicator', memoize: true, visible: false,
-                                                                                                   append_identifier: true
+                  map 'lawfulPresence.naturalizedCitizenIndicator', 'naturalizedCitizenIndicator', memoize: true, visible: false, append_identifier: true
+
+                  map 'lawfulPresence.lawfulPresenceStatusIndicator', 'lawfulPresenceStatusIndicator', memoize: true, visible: false, append_identifier: true
+                  map 'lawfulPresence.lawfulPresenceDocumentation', 'lawfulPresenceDocumentation', memoize_record: true, visible: false, append_identifier: true
+
                   map 'insuranceCoverage', 'insuranceCoverage',
                       memoize_record: true, visible: false
                   add_key 'person.consumer_role.lawful_presence_determination.citizen_status',
                           function: AcaEntities::Functions::BuildLawfulPresenceDetermination.new
+
+                  add_key 'person.consumer_role.vlp_documents',
+                          function: AcaEntities::Functions::BuildVlpDocument.new
 
                   add_key 'person.person_health.is_tobacco_user', value: 'unknown'
                   add_key 'person.person_health.is_physically_disabled',
@@ -400,6 +513,28 @@ module AcaEntities
                 map '*', 'member', memoize_record: true
               end
               add_key 'magi_medicaid_applications', function: AcaEntities::Functions::BuildApplication.new
+
+              # map 'lawfulPresence.lawfulPresenceDocumentation', 'lawfulPresenceDocumentation', memoize_record: true, visible: false, append_identifier: true
+
+              namespace 'taxHouseholds' do
+                map '*', 'taxHousehold', memoize_record: true
+              end
+
+              add_key 'households.tax_households',
+                      function: AcaEntities::Functions::BuildTaxHouseHold.new
+
+              # namespace 'taxHouseholds.*', nil, context: {name: 'taxHouseholdsmembers'} do
+              #   rewrap 'household.tax_households' , type: :array do
+              #
+              #
+              #
+              #     map 'maxAPTC', "maxAPTC.'->(v){v.resolve(:taxHouseholdsmembers).item}'", memoize: true, visible: false
+              #     map 'taxHouseHoldComposition', "taxHouseHoldComposition.'->(v){v.resolve(:taxHouseholdsmembers).item}'", memoize: true, visible: false
+              #
+              #   end
+              # end
+
+
             end
           end
 

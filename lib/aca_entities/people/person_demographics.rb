@@ -14,6 +14,8 @@ module AcaEntities
       attribute :ethnicity,               Types::Array.optional.meta(omittable: true)
       attribute :race,                    Types::String.optional.meta(omittable: true)
       attribute :tribal_id,               Types::String.optional.meta(omittable: true)
+      attribute :tribal_name,             Types::String.optional.meta(omittable: true)
+      attribute :tribal_state,            Types::String.optional.meta(omittable: true)
       attribute :language_code,           Types::String.optional.meta(omittable: true)
     end
   end

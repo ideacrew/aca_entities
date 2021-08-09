@@ -8,7 +8,7 @@ module AcaEntities
       def call(context)
         @memoized_data = context
         @primary_applicant_identifier = @memoized_data.resolve('family.family_members.is_primary_applicant').item
-
+          # require 'pry';binding.pry
         result = @memoized_data.find('computed.members').each_with_object([]) do |member, collector|
           @member_identifier = member.name.split('.').last
 
@@ -55,12 +55,12 @@ module AcaEntities
 
         @attestations_income_hash.each_with_object([]) do |(_k, income), result|
           next unless income[:incomeSourceType] == 'JOB'
-
+      begin
           result << {
             'kind' => 'wages_and_salaries',
             'amount' => income[:incomeAmount],
             'amount_tax_exempt' => 0,
-            'employer_name' => income[:jobIncome][:employerName],
+            'employer_name' => !income[:jobIncome].nil? ? income[:jobIncome][:employerName] : "test emp",
             'frequency_kind' => income[:incomeFrequencyType].capitalize,
             'start_on' => Date.parse('2021-05-07'), # default value
             'end_on' => nil,
@@ -87,6 +87,9 @@ module AcaEntities
                'full_phone_number' => '9876547890' # default value
              }
           }
+      rescue => e
+        # binding.pry
+        end
           result
         end
       end
@@ -225,8 +228,9 @@ module AcaEntities
 
       def benefits_esc_hash
         return [] if @insurance_coverage_hash.nil?
-
+        return [] unless @insurance_coverage_hash[:employerSponsoredCoverageOffers]
         @insurance_coverage_hash[:employerSponsoredCoverageOffers].each_with_object([]) do |(_k, esc), result|
+          begin
           result << {
             'employee_cost' => esc[:lcsopPremium],
             'kind' => 'employer_sponsored_insurance', # default value
@@ -256,13 +260,24 @@ module AcaEntities
             {
               'kind' => 'work', # default value
               'country_code' => '',
-              'area_code' => esc[:employer][:employerPhoneNumber][0..2],
-              'number' => esc[:employer][:employerPhoneNumber][3..9],
+              'area_code' => emp_phone(esc) != nil ? emp_phone(esc)[0..2] : nil,
+              'number' => emp_phone(esc) != nil ? emp_phone(esc)[3..9] : nil,
               'extension' => '',
-              'full_phone_number' => esc[:employer][:employerPhoneNumber]
+              'full_phone_number' => emp_phone(esc) != nil ?  emp_phone(esc) : nil
             }
           }
+          rescue => e
+          # binding.pry
+          end
           result
+        end
+      end
+
+      def emp_phone(esc)  #TODO refactor
+        if esc[:employer][:employerPhoneNumber] != nil
+          esc[:employer][:employerPhoneNumber]
+        elsif esc[:employer][:contact] != nil
+          esc[:employer][:contact][:phoneNumber]
         end
       end
 
@@ -396,7 +411,7 @@ module AcaEntities
           emails: [], # default value
           phones: [], # default value
           incomes: income_hash || [],
-          benefits: benefits_hash << benefits_esc_hash[0] || [],
+          benefits: benefits_hash << (benefits_esc_hash ? benefits_esc_hash[0] : []),
           deductions: deduction_hash || [],
           is_medicare_eligible: false, # default value
           has_insurance: false, # default value
