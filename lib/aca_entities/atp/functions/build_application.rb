@@ -334,7 +334,7 @@ module AcaEntities
           @applicant_hash[:esi_associations].each do |esi|              
             result << {
               'esi_covered' => 'self', # default value
-              'kind' => 'is_enrolled' if esi[:enrolled_indicator],
+              'kind' => esi[:enrolled_indicator] ? 'is_enrolled' : nil,
               'insurance_kind' => INSURANCE_KINDS['Employer'],
               'is_esi_waiting_period' => nil, # default value
               'is_esi_mec_met' => nil, # default value
@@ -505,7 +505,13 @@ module AcaEntities
           is_head_of_household =  if !@tax_return.nil? && @tax_return[:tax_household] && applicant_is_primary_tax_filer
                                     @tax_return[:status_code] == '4' || @tax_return[:status_code] == '7'
                                   end
-
+          lawful_presence_status = @applicant_hash[:lawful_presence_status] if @applicant_hash
+          lawful_presence_status_eligibility =  if lawful_presence_status && lawful_presence_status[:lawful_presence_status_eligibility]
+                                                  lawful_presence_status[:lawful_presence_status_eligibility][:eligibility_indicator] ? true : nil
+                                                else
+                                                  nil
+                                                end
+binding.pry
           {
             is_primary_applicant: @applicant_identifier == @primary_applicant_identifier,
             name: name_hash,
@@ -518,6 +524,7 @@ module AcaEntities
             tribal_state: tribe_indicator ? @tribal_augmentation[:location_state_us_postal_service_code] : nil,
             tribal_name: tribe_indicator ? @tribal_augmentation[:person_tribe_name] : nil,
             citizenship_immigration_status_information: citizenship_immigration_hash,
+            eligible_immigration_status: lawful_presence_status_eligibility,
             is_consumer_role: true, # default value
             is_resident_role: nil,
             is_applying_coverage: !@applicant_hash.nil?, # default value
