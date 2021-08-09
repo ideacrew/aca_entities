@@ -215,7 +215,7 @@ module AcaEntities
             next if ic[:insuranceMarketType] == 'NONE'
 
             result << {
-              'kind' => ic[:insuranceMarketType]&.downcase, # default value
+              'kind' => "private_individual_and_family_coverage", #TODO: check this value #[:insuranceMarketType]&.downcase, # default value
               'status' => status,
               # 'insurance_kind' => ic['insuranceMarketType'],
               'start_on' => Date.parse('2021-05-07'), # default value
@@ -411,7 +411,7 @@ module AcaEntities
           emails: [], # default value
           phones: [], # default value
           incomes: income_hash || [],
-          benefits: benefits_hash << (benefits_esc_hash ? benefits_esc_hash[0] : []),
+          benefits: (benefits_hash << (benefits_esc_hash ? benefits_esc_hash[0] : [])).compact,
           deductions: deduction_hash || [],
           is_medicare_eligible: false, # default value
           has_insurance: false, # default value
