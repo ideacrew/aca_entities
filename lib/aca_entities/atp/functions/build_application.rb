@@ -195,7 +195,7 @@ module AcaEntities
               "kind" => "unemployment_income",
               "amount" => income[:amount],
               "amount_tax_exempt" => 0, # default value
-              'frequency_kind' => FREQUENCY_CODE_MAP[income[:frequency][:frequency_code].downcase],      
+              'frequency_kind' => FREQUENCY_CODE_MAP[income[:frequency][:frequency_code].downcase],
               'start_on' => start_date ? start_date[:date] : nil,
               'end_on' => end_date ? end_date[:date] : nil,
               "is_projected" => false # default value
@@ -289,7 +289,7 @@ module AcaEntities
           'COBRA' => 'cobra',
           'VeteranHealthProgram' => 'veterans_benefits',
           'PeaceCorps' => 'health_care_for_peace_corp_volunteers',
-          'Employer' => "employer_sponsored_insurance",    
+          'Employer' => "employer_sponsored_insurance",
           'UnspecifiedFullCoverage' => 'other_full_benefit_coverage',
           'UnspecifiedLimitedCoverage' => 'other_limited_benefit_coverage'
         }.freeze
@@ -331,7 +331,7 @@ module AcaEntities
           return [] if @applicant_hash[:esi_associations].empty?
 
           result = []
-          @applicant_hash[:esi_associations].each do |esi|              
+          @applicant_hash[:esi_associations].each do |esi|
             result << {
               'esi_covered' => 'self', # default value
               'kind' => esi[:enrolled_indicator] ? 'is_enrolled' : nil,
@@ -506,12 +506,10 @@ module AcaEntities
                                     @tax_return[:status_code] == '4' || @tax_return[:status_code] == '7'
                                   end
           lawful_presence_status = @applicant_hash[:lawful_presence_status] if @applicant_hash
-          lawful_presence_status_eligibility =  if lawful_presence_status && lawful_presence_status[:lawful_presence_status_eligibility]
-                                                  lawful_presence_status[:lawful_presence_status_eligibility][:eligibility_indicator] ? true : nil
-                                                else
-                                                  nil
-                                                end
-binding.pry
+          lawful_presence_status_eligibility = if lawful_presence_status && lawful_presence_status[:lawful_presence_status_eligibility]
+                                                 lawful_presence_status[:lawful_presence_status_eligibility][:eligibility_indicator] ? true : nil
+                                               end
+
           {
             is_primary_applicant: @applicant_identifier == @primary_applicant_identifier,
             name: name_hash,
