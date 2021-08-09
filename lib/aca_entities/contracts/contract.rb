@@ -11,7 +11,7 @@ module AcaEntities
       # config.messages.load_paths - an array of files paths that are used to load messages
       # config.messages.top_namespace - the key in the locale files under which messages are defined, by default it's dry_validation
       # config.messages.namespace - custom messages namespace for a contract class. Use this to differentiate common messages
-
+      # binding.pry
       rule(:broker_accounts).each do |index:|
         next unless key? && value.is_a?(Hash)
         if value[:end_on] && value[:start_on] && (value[:end_on] < value[:start_on])
@@ -47,7 +47,7 @@ module AcaEntities
 
         next unless value.dig(:person, :consumer_role).is_a?(Hash)
         value.dig(:person, :consumer_role).tap do |cr|
-          if cr[:is_applying_coverage] && value.dig(:person, :person_demographics, :is_incarcerated).to_s.empty?
+          if cr[:is_applying_coverage] && value.dig(:person, :person_demographics).key?(:is_incarcerated) && value.dig(:person, :person_demographics, :is_incarcerated).to_s.empty?
             key([:family_members, index, :person, :person_demographics, :is_incarcerated]).failure(text: 'Incarceration question must be answered')
           end
         end

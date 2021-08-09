@@ -14,6 +14,8 @@ require 'aca_entities/functions/build_lawful_presence_determination'
 require 'aca_entities/functions/build_application'
 require 'aca_entities/functions/build_household'
 
+
+
 # rubocop:disable Metrics/ClassLength
 # This file defines the maps
 module AcaEntities
@@ -436,7 +438,8 @@ module AcaEntities
                       'person.person_demographics.personRecognizedTribeIndicator'
                   map 'other.incarcerationType', 'person.person_demographics.is_incarcerated',
                       function: lambda {|value|
-                        AcaEntities::Types::McrToCvIncarcerationKind[value]
+                        val = AcaEntities::Types::McrToCvIncarcerationKind[value]
+                        val.nil? ? false : val
                       }
                 end
               end
@@ -444,11 +447,11 @@ module AcaEntities
               # add_key 'household.start_date'
               # add_key 'household.end_date'
               # add_key 'household.is_active'
-              add_key 'household.irs_group_reference', value: ->(_v) {{}}
+              add_key 'households.irs_group_reference', value: ->(_v) {{}}
               # add_key 'household.tax_households', function: AcaEntities::Functions::Build.new
               # add_key 'household.tax_households.tax_household_members' {}
               # add_key 'household.tax_households.eligibility_determinations', value: ->(_v) {Array.new}
-              add_key 'households', function: AcaEntities::Functions::BuildHousehold.new
+              # add_key 'households', function: AcaEntities::Functions::BuildHousehold.new
               # add_key 'household.hbx_enrollments', value: ->(_v) {[]}
 
               # transform not working to build array (type: array for add namespace)
@@ -520,8 +523,10 @@ module AcaEntities
                 map '*', 'taxHousehold', memoize_record: true
               end
 
-              add_key 'households.tax_households',
-                      function: AcaEntities::Functions::BuildTaxHouseHold.new
+              # add_key 'households', function: AcaEntities::Functions::BuildHousehold.new
+
+              add_key 'households',
+                      function: AcaEntities::Functions::BuildHousehold.new
 
               # namespace 'taxHouseholds.*', nil, context: {name: 'taxHouseholdsmembers'} do
               #   rewrap 'household.tax_households' , type: :array do

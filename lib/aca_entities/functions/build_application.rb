@@ -232,7 +232,7 @@ module AcaEntities
         @insurance_coverage_hash[:employerSponsoredCoverageOffers].each_with_object([]) do |(_k, esc), result|
           begin
           result << {
-            'employee_cost' => esc[:lcsopPremium],
+            'employee_cost' => (esc[:lcsopPremium] || "0.0"),
             'kind' => 'employer_sponsored_insurance', # default value
             'status' => 'is_enrolled', # default value
             # 'insurance_kind' => 'employer_sponsored_insurance', # default value
@@ -243,7 +243,7 @@ module AcaEntities
             'esi_covered' => 'self', # default value
             'start_on' => Date.parse('2021-05-07'), # default value
             'end_on' => nil,
-            'employee_cost_frequency' => esc[:lcsopPremiumFrequencyType]&.capitalize,
+            'employee_cost_frequency' => (esc[:lcsopPremiumFrequencyType]&.capitalize || "Monthly"),
             'employer_address' =>
             {
               'address_1' => '21313312', # default value

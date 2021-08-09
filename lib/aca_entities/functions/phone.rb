@@ -6,8 +6,8 @@ module AcaEntities
     class Phone
       def call(value)
         # require 'pry';binding.pry
+        phones = []
         if value.resolve('family.family_members.is_primary_applicant').item == value.find(/attestations.members.(\w+)$/).map(&:item).last
-          phones = []
           phones << { extension: value.resolve('family.family_members.person.phone.ext').item,
                       kind: value.resolve('family.family_members.person.phone.type').item.to_s.downcase,
                       area_code: value.resolve('family.family_members.person.phone.number').item[0..2],
@@ -27,8 +27,8 @@ module AcaEntities
                           end_on: nil }
             phones << secondary
           end
-          phones
         end
+        phones
       end
     end
   end

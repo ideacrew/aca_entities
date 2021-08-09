@@ -8,6 +8,8 @@ module AcaEntities
         # require 'pry';binding.pry
       if value.resolve('family.family_members.is_primary_applicant').item == value.find(Regexp.new("attestations.members")).map(&:item).last
         [{ address: value.resolve('family.family_members.person.email.address').item, kind: 'home' }]
+      else
+        []
       end
       end
     end

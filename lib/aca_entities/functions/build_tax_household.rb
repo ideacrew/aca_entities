@@ -27,7 +27,7 @@ module AcaEntities
               reason: ""
           }
         end
-        [ hbx_id: 1234,
+        [ hbx_id: "1234",
           allocated_aptc: {"cents"=> max_aptc, "currency_iso"=>"USD"},
           is_eligibility_determined: true,
           start_date: Date.new(2021,1,1),

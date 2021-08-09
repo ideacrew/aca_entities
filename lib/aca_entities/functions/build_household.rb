@@ -19,6 +19,7 @@ module AcaEntities
          hbx_enrollments: [],
          hbx_id: '1234',
          foreign_keys: [],
+         tax_households: AcaEntities::Functions::BuildTaxHouseHold.new.call(input),
          coverage_households: [
            { is_immediate_family: true,
              coverage_household_members: members.each_with_object([]) do |member_id, result|

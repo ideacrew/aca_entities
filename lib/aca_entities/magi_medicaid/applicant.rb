@@ -138,12 +138,12 @@ module AcaEntities
       # @return [Bool]
       attribute :is_claimed_as_dependent_by_non_applicant, Types::Bool.optional.meta(omittable: true)
 
-      attribute :benchmark_premium, BenchmarkPremium.meta(omittable: false)
+      attribute :benchmark_premium, BenchmarkPremium.optional.meta(omittable: false)
 
       # @!attribute [r] is_homeless
       # This person is a state resident who is experiencing homeless(insured.dependent_dc_homeless)
       # @return [Bool]
-      attribute :is_homeless, Types::Bool
+      attribute :is_homeless, Types::Bool.optional.meta(omittable: true)
 
       # Set of attributes specific to MitC which helps to not have much logic in IapTo MitC Transform.
       attribute :mitc_income, AcaEntities::MagiMedicaid::Mitc::Income.optional.meta(omittable: true)

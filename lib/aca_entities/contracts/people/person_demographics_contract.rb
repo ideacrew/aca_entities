@@ -21,12 +21,12 @@ module AcaEntities
         # @return [Dry::Monads::Result]
         params do
           optional(:ssn).maybe(:string)
-          optional(:no_ssn).maybe(:bool)
+          optional(:no_ssn).maybe(:string)
           required(:gender).value(:str?)
           required(:dob).filled(:date)
           optional(:date_of_death).maybe(:date)
           optional(:dob_check).maybe(:bool)
-          required(:is_incarcerated).filled(:bool)
+          optional(:is_incarcerated).maybe(:bool)
           optional(:ethnicity).maybe(:array)
           optional(:race).maybe(:string)
           optional(:tribal_id).maybe(:string)
