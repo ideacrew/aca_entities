@@ -58,7 +58,7 @@ module AcaEntities
               mapper.date = IncomeDate.domain_to_mapper(income.date)
               mapper.earned_date_range = IncomeEarnedDateRange.domain_to_mapper(income.earned_date_range) if income.earned_date_range
               mapper.frequency = IncomeFrequency.domain_to_mapper(income.frequency)
-              mapper.payment_frequency = IncomePaymentFrequency.domain_to_mapper(income.payment_frequency)
+              mapper.payment_frequency = IncomePaymentFrequency.domain_to_mapper(income&.payment_frequency) if income.payment_frequency
               mapper.source_organization_reference = IncomeSourceOrganizationReference.domain_to_mapper(income.source_organization_reference)
               mapper
             end

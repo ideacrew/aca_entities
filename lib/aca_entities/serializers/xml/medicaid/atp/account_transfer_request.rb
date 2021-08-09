@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require 'pry'
 module AcaEntities
   module Serializers
     module Xml
@@ -42,7 +43,7 @@ module AcaEntities
               mapper.insurance_application = InsuranceApplication.domain_to_mapper(account_transfer_request.insurance_application)
               mapper.people = account_transfer_request.people.map {|p| Person.domain_to_mapper(p)}
               mapper.physical_households = account_transfer_request.physical_households.map {|ph| PhysicalHousehold.domain_to_mapper(ph)}
-              unless account_transfer_request.medicaid_households.empty?
+              unless account_transfer_request.medicaid_households.nil?
                 mapper.medicaid_households = account_transfer_request.medicaid_households.map {|vm| MedicaidHousehold.domain_to_mapper(vm)}
               end
               if account_transfer_request.respond_to?(:verification_metadata)
@@ -55,8 +56,8 @@ module AcaEntities
             def to_hash(identifier: false)
               {
                 version: "2.4",
-                senders: [],
-                receivers: [],
+                senders: senders,
+                receivers: receivers,
                 transfer_header: transfer_header.to_hash,
                 # insurance_application: insurance_application.to_hash(identifier: true).merge(tax_return: tax_return&.to_hash),
                 insurance_application: insurance_application.to_hash(identifier: true).merge(tax_returns: tax_returns.map(&:to_hash).first),

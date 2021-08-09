@@ -25,6 +25,7 @@ module AcaEntities
 
             def to_hash
               {
+                id: id,
                 category_code: category_code
               }
             end
