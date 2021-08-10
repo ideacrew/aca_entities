@@ -26,14 +26,24 @@ module AcaEntities
               # @!attribute [r] PrimaryTaxFiler
               # SSN for each individual provided in the request for whom tax
               #   data is requested
-              # @return [String]
-              attribute :PrimaryTaxFiler, Types::String.meta(omittable: false)
+              # @return [AcaEntities::Fdsh::Types::FullyRestrictedSSNType]
+              attribute :PrimaryTaxFiler do
+                attribute :TINIdentification,
+                          AcaEntities::Fdsh::Types::FullyRestrictedSSNType.meta(
+                            omittable: false
+                          )
+              end
 
               # @!attribute [r] SpouseTaxFiler
               # Identifies the spouse's SSN on a married filing joint tax return
               #   when both individuals are applicants
-              # @return [String]
-              attribute :SpouseTaxFiler, Types::String.meta(omittable: true)
+              # @return [AcaEntities::Fdsh::Types::FullyRestrictedSSNType]
+              attribute :SpouseTaxFiler do
+                attribute :TINIdentification,
+                          AcaEntities::Fdsh::Types::FullyRestrictedSSNType.meta(
+                            omittable: true
+                          )
+              end
 
               # @!attribute [r] TaxReturnYear
               # Identifies the tax year for which IRS is providing data. Typically,
@@ -42,19 +52,17 @@ module AcaEntities
               #   (e.g., 2012), then the "second preceding tax year minus one"
               #   (e.g., 2011) may be returned, if available. (In other words,
               #   most recent year or second most recent year filed.)
-              # @return [Integer]
+              # @return [AcaEntities::Fdsh::Ifsv::H9t::Types::TaxReturnYearType]
               attribute :TaxReturnYear,
-                        Fdsh::Ifsv::H9t::Types::TaxReturnYearType.meta(
-                          omittable: false
-                        )
+                        AcaEntities::Fdsh::Ifsv::H9t::Types::TaxReturnYearType
+                          .meta(omittable: false)
 
               # @!attribute [r] TaxReturnFilingStatusCode
               # Identifies the filing status of the individual(s) who filed the return
-              # @return [Fdsh::Ifsv::H9t::Types::TaxReturnFilingStatusCode]
+              # @return [AcaEntities::Fdsh::Ifsv::H9t::Types::TaxReturnFilingStatusCodeKind]
               attribute :TaxReturnFilingStatusCode,
-                        Fdsh::Ifsv::H9t::Types::TaxReturnFilingStatusCode.meta(
-                          omittable: true
-                        )
+                        AcaEntities::Fdsh::Ifsv::H9t::Types::TaxReturnFilingStatusCodeKind
+                          .meta(omittable: true)
 
               # @!attribute [r] TaxReturnAGIAmount
               # Identifies AGI for each adjusted return.
@@ -90,7 +98,7 @@ module AcaEntities
               #   on his/her return
               # @return [Integer]
               attribute :TaxReturnTotalExemptionsQuantity,
-                        Types::Integer.meta(omittable: false)
+                        AcaEntities::Types::Integer.meta(omittable: false)
             end
           end
         end

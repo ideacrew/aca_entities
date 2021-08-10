@@ -8,7 +8,7 @@ module AcaEntities
           module Fti
             # Response returned when an error occurs processing a request
             class ErrorMessage < Dry::Struct
-              attribute :ResponseMetadata do
+              attribute :ErrorMessageDetail do
                 # @!attribute [r] ResponseMetadata
                 # A datatype for metadata about an error
                 # @return [String]

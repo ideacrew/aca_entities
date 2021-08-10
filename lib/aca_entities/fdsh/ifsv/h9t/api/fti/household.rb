@@ -28,7 +28,7 @@ module AcaEntities
               # @return [String]
               attribute :DependentVerification,
                         AcaEntities::Fdsh::Ifsv::H9t::Api::Fti::Verification
-                          .meta(omittable: false)
+                          .meta(omittable: true)
             end
           end
         end
