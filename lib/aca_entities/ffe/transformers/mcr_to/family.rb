@@ -113,7 +113,7 @@ module AcaEntities
               map 'application.contactInformation.secondaryPhoneNumber.type', 'family.family_members.person.second.phone.type', memoize: true, visible: false
 
               # original key is also passed to the output hash, revist code for this scenario
-              map 'application.contactMethod', 'family.family_members.person.consumer_role.contact_method', memoize: true, visible: false
+              # map 'application.contactMethod', 'family.family_members.person.consumer_role.contact_method', memoize: true, visible: false
 
               # transform not working
               # revist the code for values as array
@@ -254,17 +254,17 @@ module AcaEntities
                         add_key 'is_applying_coverage', value: true # default value
                         add_key 'bookmark_url'
                         add_key 'admin_bookmark_url'
-                        add_key 'contact_method',
-                                function: ->(v) {
-                                  value = v.resolve('family.family_members.person.consumer_role.contact_method').item
-                                  if value == ["EMAIL", "E_TEXT"] || value == ["E_TEXT", "EMAIL"] || value == ["EMAIL"] || value ==  ["E_TEXT"]
-                                    "Only Electronic communications"
-                                  elsif value == ["EMAIL"]
-                                    "Only Electronic communications"
-                                  else
-                                    "Paper and Electronic communications"
-                                  end
-                                }
+                        add_key 'contact_method', function: ->(v) { "Paper and Electronic communications" }
+                                # function: ->(v) {
+                                #   value = v.resolve('family.family_members.person.consumer_role.contact_method')&.item
+                                #   if value == ["EMAIL", "E_TEXT"] || value == ["E_TEXT", "EMAIL"] || value == ["EMAIL"] || value ==  ["E_TEXT"]
+                                #     "Only Electronic communications"
+                                #   elsif value == ["EMAIL"]
+                                #     "Only Electronic communications"
+                                #   else
+                                #     "Paper and Electronic communications"
+                                #   end
+                                # }
 
                         add_key 'language_preference',
                                 function: ->(v) {v.resolve('family_members.person.consumer_role.language_preference').item}
@@ -419,8 +419,8 @@ module AcaEntities
                   add_key 'person.consumer_role.lawful_presence_determination.citizen_status',
                           function: AcaEntities::Functions::BuildLawfulPresenceDetermination.new
 
-                  add_key 'person.consumer_role.vlp_documents',
-                          function: AcaEntities::Functions::BuildVlpDocument.new
+                  # add_key 'person.consumer_role.vlp_documents',
+                  #         function: AcaEntities::Functions::BuildVlpDocument.new
 
                   add_key 'person.person_health.is_tobacco_user', value: 'unknown'
                   add_key 'person.person_health.is_physically_disabled',

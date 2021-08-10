@@ -61,7 +61,7 @@ module AcaEntities
             'amount' => income[:incomeAmount],
             'amount_tax_exempt' => 0,
             'employer_name' => !income[:jobIncome].nil? ? income[:jobIncome][:employerName] : "test emp",
-            'frequency_kind' => income[:incomeFrequencyType].capitalize,
+            'frequency_kind' => income[:incomeFrequencyType].split.map(&:titleize).join('').gsub(' ', ''),
             'start_on' => Date.parse('2021-05-07'), # default value
             'end_on' => nil,
             'is_projected' => false, # default value
@@ -104,7 +104,7 @@ module AcaEntities
             'kind' => 'net_self_employment',
             'amount' => income[:incomeAmount],
             'amount_tax_exempt' => 0,
-            'frequency_kind' => income[:incomeFrequencyType].capitalize,
+            'frequency_kind' => income[:incomeFrequencyType].split.map(&:titleize).join('').gsub(' ', ''),
             'start_on' => Date.parse('2021-05-07'), # default value
             'end_on' => nil,
             'is_projected' => false
@@ -161,7 +161,7 @@ module AcaEntities
             'kind' => 'dividend', #OTHER_INCOME_TYPE_KIND[:"#{income[:incomeSourceType]}"],
             'amount' => income[:incomeAmount],
             'amount_tax_exempt' => 0,
-            'frequency_kind' => income[:incomeFrequencyType].capitalize,
+            'frequency_kind' => income[:incomeFrequencyType] ? income[:incomeFrequencyType].split.map(&:titleize).join('').gsub(' ', '') : nil,
             'start_on' => Date.parse('2021-05-07'), # default value
             'end_on' => nil,
             'is_projected' => false
@@ -184,7 +184,7 @@ module AcaEntities
         ira_deduction: 'IRA deduction',
         reservists_performing_artists_and_fee_basis_government_official_expenses: 'Certain business expenses of reservists, performing artists, and fee-basis government officials',
         tuition_and_fees: 'Tuition and fees',
-        OTHER_DEDUCTION: 'OTHER_DEDUCTION'
+        # OTHER_DEDUCTION: 'OTHER_DEDUCTION'
       }.freeze
 
       def deduction_hash
@@ -194,7 +194,7 @@ module AcaEntities
           next if DEDUCTION_TYPE[:"#{income[:incomeSourceType]}"].nil?
 
           result << {
-            'kind' => DEDUCTION_TYPE[:"#{income[:incomeSourceType]}"],
+            'kind' => DEDUCTION_TYPE[:"#{income[:incomeSourceType]}"] ,
             'amount' => income[:incomeAmount],
             'amount_tax_exempt' => 0,
             'frequency_kind' => income[:incomeFrequencyType].capitalize,
@@ -310,9 +310,9 @@ module AcaEntities
 
         {
           is_incarcerated: false, # default value
-          is_self_attested_disabled: non_magi.nil? ? false : non_magi[:blindOrDisabledIndicator],
-          is_self_attested_blind: non_magi.nil? ? false : non_magi[:blindOrDisabledIndicator],
-          is_self_attested_long_term_care: non_magi.nil? ? false : non_magi[:longTermCareIndicator]
+          is_self_attested_disabled: non_magi.nil? ? false : non_magi[:blindOrDisabledIndicator] || false,
+          is_self_attested_blind: non_magi.nil? ? false : non_magi[:blindOrDisabledIndicator] || false,
+          is_self_attested_long_term_care: non_magi.nil? ? false : (non_magi[:longTermCareIndicator] || false)
         }
       end
 
@@ -380,11 +380,11 @@ module AcaEntities
           vlp_document: nil,
           family_member_reference: family_member_reference_hash,
           person_hbx_id: '1234', # default value
-          is_required_to_file_taxes: @attestations_family_hash[:taxFilerIndicator], # default value
+          is_required_to_file_taxes: @attestations_family_hash[:taxFilerIndicator] || true, # default value  #TODO
           tax_filer_kind: 'tax_filer', # default value . #To memoise and extract data from taxRelationships
           is_joint_tax_filing: @attestations_family_hash[:taxReturnFilingStatusType] == 'MARRIED_FILING_JOINTLY',
           # # add method to check for joint filing using this value
-          is_claimed_as_tax_dependent: @attestations_family_hash[:taxDependentIndicator],
+          is_claimed_as_tax_dependent: @attestations_family_hash[:taxDependentIndicator] || false,  #TODO
           claimed_as_tax_dependent_by: nil, # default value
           student: student_hash,
           is_refugee: nil, # default value
@@ -420,7 +420,7 @@ module AcaEntities
           # prior_insurance_end_date: Date.parse("2021-05-07"), # default value
           age_of_applicant: AcaEntities::Functions::AgeOn.new(on_date: Date.parse('2021-05-07'))
                                                          .call(@memoized_data.find(Regexp.new("person_demographics.dob.#{@member_identifier}"))&.first&.item),
-          is_self_attested_long_term_care: non_magi.nil? ? false : non_magi[:longTermCareIndicator],
+          is_self_attested_long_term_care: non_magi.nil? ? false : non_magi[:longTermCareIndicator] || false,
           hours_worked_per_week: '2'
         }
       end
