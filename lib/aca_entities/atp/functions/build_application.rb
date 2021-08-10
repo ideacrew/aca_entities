@@ -396,7 +396,7 @@ module AcaEntities
         end
 
         def demographic_hash
-          { gender: @memoized_data.find(Regexp.new("person_demographics.gender.#{@applicant_identifier}"))&.first&.item&.capitalize,
+          { gender: @memoized_data.find(Regexp.new("person_demographics.gender.#{@applicant_identifier}"))&.first&.item&.downcase,
             dob: @memoized_data.find(Regexp.new("person_demographics.dob.#{@applicant_identifier}"))&.first&.item,
             ethnicity: [],
             race: nil,
@@ -408,13 +408,13 @@ module AcaEntities
           # TODO: refactor for multiple entries of incarcerations
           if @applicant_hash.nil?
             {
-              is_incarcerated: false,
+              is_incarcerated: nil,
               is_self_attested_disabled: false,
               is_self_attested_blind: false,
               is_self_attested_long_term_care: false
             }
           else
-            incarceration = @applicant_hash[:incarcerations].first[:incarceration_indicator]
+            incarceration = @applicant_hash[:incarcerations].empty? ? nil : @applicant_hash[:incarcerations].first[:incarceration_indicator]
             disability = @applicant_hash[:blindness_or_disability_indicator]
             long_term_care = @applicant_hash[:long_term_care_indicator]
             {
@@ -485,7 +485,7 @@ module AcaEntities
 
         def applicant_hash
           # non_magi = @memoized_data.find(Regexp.new('attestations.members.*.nonMagi')).map(&:item).last
-          applicant_is_primary_tax_filer = @tax_return[:tax_household][:primary_tax_filer][:role_reference][:ref] == @applicant_identifier
+          applicant_is_primary_tax_filer = @tax_return.nil? ? nil : @tax_return[:tax_household][:primary_tax_filer][:role_reference][:ref] == @applicant_identifier
           tax_dependents = @tax_return.nil? ? nil : @tax_return[:tax_household][:tax_dependents].collect {|a| a[:role_reference][:ref]}
 
           is_tax_filer = if !@tax_return.nil? && @tax_return[:tax_household]
@@ -498,7 +498,7 @@ module AcaEntities
                            false
                          end
 
-          tribe_indicator = @tribal_augmentation[:american_indian_or_alaska_native_indicator]
+          tribe_indicator = @applicant_hash.nil? ? nil : @tribal_augmentation[:american_indian_or_alaska_native_indicator]
 
           joint_tax_filing_status = @tax_return[:status_code] == '2' if is_tax_filer
 
@@ -521,7 +521,7 @@ module AcaEntities
             indian_tribe_member: tribe_indicator,
             tribal_state: tribe_indicator ? @tribal_augmentation[:location_state_us_postal_service_code] : nil,
             tribal_name: tribe_indicator ? @tribal_augmentation[:person_tribe_name] : nil,
-            citizenship_immigration_status_information: citizenship_immigration_hash,
+            citizenship_immigration_status_information: @applicant_hash.nil? ? nil : citizenship_immigration_hash,
             eligible_immigration_status: lawful_presence_status_eligibility,
             is_consumer_role: true, # default value
             is_resident_role: nil,
