@@ -158,7 +158,7 @@ module AcaEntities
           next if OTHER_INCOME_TYPE_KIND[:"#{income[:incomeSourceType]}"].nil?
 
           result << {
-            'kind' => OTHER_INCOME_TYPE_KIND[:"#{income[:incomeSourceType]}"],
+            'kind' => 'dividend', #OTHER_INCOME_TYPE_KIND[:"#{income[:incomeSourceType]}"],
             'amount' => income[:incomeAmount],
             'amount_tax_exempt' => 0,
             'frequency_kind' => income[:incomeFrequencyType].capitalize,
