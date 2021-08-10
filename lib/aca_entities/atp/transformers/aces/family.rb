@@ -28,12 +28,12 @@ module AcaEntities
                 [{ category_code: 'Exchange',
                    county_name: nil,
                    state_code: 'ME',
-                   id: "en1234" }] # default
+                   id: "IDC1234" }] # default
               }
 
               add_key "receivers", function: lambda { |_v|
                 [{ category_code: 'Exchange',
-                   id: "en5678" }] # default
+                   id: "IDC5678" }] # default
               }
 
               add_namespace 'transfer_header', 'aces.transfer_header', type: :hash do
@@ -63,7 +63,7 @@ module AcaEntities
                   add_key 'requesting_medicaid', value: ->(_v) {true}
                   add_key 'tax_return_access', value: ->(_v) {true}
                   map "hbx_id", "application_identifications", function: lambda { |v|
-                    [{ :identification_id => "en#{v}", :identification_category_text => "Exchange", :identification_jurisdiction => nil }]
+                    [{ :identification_id => "IDC#{v}", :identification_category_text => "Exchange", :identification_jurisdiction => nil }]
                   }
 
                   # add_key 'application_creation.creation_id'
@@ -103,7 +103,7 @@ module AcaEntities
 
               namespace 'family_members.*', nil, context: { name: 'members' } do
                 rewrap 'aces.people', type: :array do
-                  map 'hbx_id', 'id', function: ->(v) {"en#{v}"}
+                  map 'hbx_id', 'id', function: ->(v) {"IDC#{v}"}
                   map 'is_primary_applicant', 'is_primary_applicant', memoize: true, visible: false, append_identifier: true
                   namespace 'person' do
 
@@ -182,7 +182,7 @@ module AcaEntities
               add_key 'physical_households', function: lambda { |v|
                 applicants_hash = v.resolve('family.magi_medicaid_applications.applicants').item
                 result = applicants_hash.keys.map(&:to_s).each_with_object([]) do |id, collect|
-                  collect << { :ref => "en#{id}" }
+                  collect << { :ref => "IDC#{id}" }
                 end
                 [{ :household_member_references => result, :household_size_quantity => result.size }]
               }
@@ -190,7 +190,7 @@ module AcaEntities
               add_key 'insurance_application.ssf_primary_contact', function: lambda { |v|
                 ref = v.find(Regexp.new('is_primary_applicant.*')).select {|a|  a.item == true}.first.name.split('.').last
                 contact_preference = v.find(Regexp.new('consumer_role.contact_method.*')).select {|a|  a.name.split('.').last == ref}.first.item
-                { role_reference: { ref: "en#{ref}" }, contact_preference: ContactPreferenceCode[contact_preference] }
+                { role_reference: { ref: "IDC#{ref}" }, contact_preference: ContactPreferenceCode[contact_preference] }
               }
 
               add_key 'insurance_application.ssf_signer', value: lambda { |v|
@@ -205,7 +205,7 @@ module AcaEntities
                 incarceration_indicators.each_with_object([]) do |input, collect|
                   collect << { value: !input.item, metadata: input.name.split('.').last }
                 end
-                { not_incarcerated_indicators: [{ value: true, metadata: "en11234" }],
+                { not_incarcerated_indicators: [{ value: true, metadata: "IDC11234" }],
                   :collections_agreement_indicator => true,
                   :medicaid_obligations_indicator => true,
                   :non_perjury_indicator => true,

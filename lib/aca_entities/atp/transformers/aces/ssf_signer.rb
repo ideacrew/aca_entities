@@ -8,7 +8,7 @@ module AcaEntities
         class SsfSigner < ::AcaEntities::Operations::Transforms::Transform
           include ::AcaEntities::Operations::Transforms::Transformer
 
-          map 'ref', 'role_reference.ref', function: ->(v) {"en#{v}"}
+          map 'ref', 'role_reference.ref', function: ->(v) {"IDC#{v}"}
           map 'first_name', 'signature.signature_name.given'
           map 'middle_name', 'signature.signature_name.middle'
           map 'last_name', 'signature.signature_name.sur'
