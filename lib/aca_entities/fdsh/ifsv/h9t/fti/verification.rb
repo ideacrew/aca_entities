@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module AcaEntities
   module Fdsh
     module Ifsv
