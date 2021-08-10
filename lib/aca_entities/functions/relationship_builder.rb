@@ -12,7 +12,7 @@ module AcaEntities
         @current_member = cache.find(/attestations.members.(\w+)$/).map(&:item).last
         household = cache.resolve('attestations.household').item
 
-        return [] unless @primary_applicant_id == @current_member
+        # return [] unless @primary_applicant_id == @current_member
         # TODO: 1. build relationship for only primary member
            #    2. Inverse relationship
 
