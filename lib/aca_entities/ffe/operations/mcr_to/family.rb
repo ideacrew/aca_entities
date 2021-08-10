@@ -14,10 +14,10 @@ module AcaEntities
           #   { state_code: 'ME', medicaid_year: 2021, household_size: 1, annual_poverty_guideline: 12_880, annual_per_person_amount: 4_540 }
           # @return [Dry::Monads::Result]
           def call(*args)
-            valid_params = yield validate(args.first[:record])
-            family_hash = yield build_family_hash(valid_params)
-
-            Success(family_hash)
+            # TODO:
+            # valid_params = yield validate(args.first[:record])
+            # family_hash = yield build_family_hash(valid_params)
+            Success(args.first[:record])
           end
 
           private
