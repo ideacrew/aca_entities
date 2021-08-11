@@ -10,8 +10,8 @@ module AcaEntities
             params do
               required(:InsuranceApplicantRequestedCoverage)
                 .filled(AcaEntities::Fdsh::Esi::H14::Contracts::InsuranceApplicantRequestedCoverageContract.params)
-              optional(:InsuranceApplicantEligibleEmployerSponsoredInsuranceIndicator).maybe(:bool)
-              optional(:InsuranceApplicantInsuredIndicator).maybe(:bool)
+              # optional(:InsuranceApplicantEligibleEmployerSponsoredInsuranceIndicator).maybe(:bool)
+              # optional(:InsuranceApplicantInsuredIndicator).maybe(:bool)
             end
           end
         end

@@ -37,3 +37,6 @@ require_relative 'esi/h14/applicant_response'
 require_relative 'esi/h14/applicant_response_set'
 require_relative 'esi/h14/esi_mec_response'
 
+# happymapper
+require 'aca_entities/serializers/xml/fdsh/esi'
+
