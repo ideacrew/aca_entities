@@ -15,8 +15,8 @@ module AcaEntities
               tag 'QualifyingYearAndQuarter'
               namespace 'extn'
 
-              attribute :QualifyingYear, String, tag: 'QualifyingYear', namespace: "extn"
-              attribute :QualifyingQuarter, Integer, tag: 'QualifyingQuarter', namespace: "extn"
+              element :QualifyingYear, String, tag: 'QualifyingYear', namespace: "extn"
+              element :QualifyingQuarter, Integer, tag: 'QualifyingQuarter', namespace: "extn"
 
               def self.domain_to_mapper(initial_response)
                 mapper = self.new

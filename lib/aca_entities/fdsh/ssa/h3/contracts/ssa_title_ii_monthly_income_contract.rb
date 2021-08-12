@@ -9,8 +9,8 @@ module AcaEntities
 
           params do
             required(:PersonDisabledIndicator).filled(:bool)
-            required(:OngoingMonthlyBenefitCreditedAmount).filled(:decimal)
-            required(:OngoingMonthlyOverpaymentDeductionAmount).filled(:decimal)
+            required(:OngoingMonthlyBenefitCreditedAmount).filled(:float)
+            required(:OngoingMonthlyOverpaymentDeductionAmount).filled(:float)
             required(:OngoingPaymentInSuspenseIndicator).filled(:bool)
             required(:RequestedMonthInformation).filled(AcaEntities::Fdsh::Ssa::H3::RequestedMonthInformationContract.params)
             required(:RequestedMonthMinusOneInformation).filled(AcaEntities::Fdsh::Ssa::H3::RequestedMonthInformationContract.params)

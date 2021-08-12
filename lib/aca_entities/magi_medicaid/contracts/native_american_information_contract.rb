@@ -9,10 +9,14 @@ module AcaEntities
         # @param [Hash] opts the parameters to validate using this contract
         # @option opts [Boolean] :indian_tribe_member optional
         # @option opts [String] :tribal_id optional
+        # @option opts [String] :tribal_name optional
+        # @option opts [String] :tribal_state optional
         # @return [Dry::Monads::Result]
         params do
           optional(:indian_tribe_member).maybe(:bool)
           optional(:tribal_id).maybe(:string)
+          optional(:tribal_name).maybe(:string)
+          optional(:tribal_state).maybe(Types::UsStateAbbreviationKind)
         end
       end
     end

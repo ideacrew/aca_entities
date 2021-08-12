@@ -22,13 +22,13 @@ module AcaEntities
                     "..",
                     "..",
                     "fdsh",
-                    "vlp",
-                    "h92",
+                    "ssa",
+                    "h3",
                     "xsd",
                     "XMLschemas",
                     "constraint",
                     "XMLschemas",
-                    "SsaVerification.xsd"
+                    "exchange.xsd"
                   )
                 ).freeze
 

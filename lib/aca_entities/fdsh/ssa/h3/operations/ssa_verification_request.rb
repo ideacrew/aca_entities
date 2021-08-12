@@ -10,7 +10,7 @@ module AcaEntities
             include Dry::Monads[:result, :do, :try]
 
             def call(params)
-              payload = yield construct_ssa_verification_request(params)
+              payload = yield construct_initial_request(params)
               validated_payload = yield validate_payload(payload)
               request_entity = yield initial_verification_request_entity(validated_payload)
 
@@ -29,8 +29,7 @@ module AcaEntities
             end
 
             def construct_initial_request(payload)
-              request = { SsaCompositeIndividualRequests: [construct_ssa_verification_request(payload)] }
-
+              request = { SSACompositeIndividualRequests: [construct_ssa_verification_request(payload)] }
               Success(request)
             end
 
@@ -38,7 +37,7 @@ module AcaEntities
               {
                 Person: construct_person(person),
                 RequestCitizenshipVerificationIndicator: true,
-                RequestIncarcerationVerificationIndicator: person.person_demographics.is_incarcerated,
+                RequestIncarcerationVerificationIndicator: true,
                 RequestTitleIIMonthlyIncomeVerificationIndicator: false,
                 RequestTitleIIAnnualIncomeVerificationIndicator: false,
                 RequestQuartersOfCoverageVerificationIndicator: false

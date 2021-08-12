@@ -122,9 +122,9 @@ module AcaEntities
 
       HotPink: { rgb: [255, 105, 180], hex: 0xFF69B4 },
 
-      "IndianRed ": { rgb: [205, 92, 92], hex: 0xCD5C5C },
+      'IndianRed ': { rgb: [205, 92, 92], hex: 0xCD5C5C },
 
-      "Indigo  ": { rgb: [75, 0, 130], hex: 0x4B0082 },
+      'Indigo  ': { rgb: [75, 0, 130], hex: 0x4B0082 },
 
       Ivory: { rgb: [255, 255, 240], hex: 0xFFFFF0 },
 

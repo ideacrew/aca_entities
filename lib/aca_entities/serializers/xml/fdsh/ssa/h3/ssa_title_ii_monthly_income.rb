@@ -15,10 +15,10 @@ module AcaEntities
               tag 'SSATitleIIMonthlyIncome'
               namespace 'extn'
 
-              attribute :PersonDisabledIndicator, Boolean, tag: 'PersonDisabledIndicator', namespace: "extn"
-              attribute :OngoingMonthlyBenefitCreditedAmount, BigDecimal, tag: 'OngoingMonthlyBenefitCreditedAmount', namespace: "extn"
-              attribute :OngoingMonthlyOverpaymentDeductionAmount, BigDecimal, tag: 'OngoingMonthlyOverpaymentDeductionAmount', namespace: "extn"
-              attribute :OngoingPaymentInSuspenseIndicator, Boolean, tag: 'OngoingPaymentInSuspenseIndicator', namespace: "extn"
+              element :PersonDisabledIndicator, Boolean, tag: 'PersonDisabledIndicator', namespace: "extn"
+              element :OngoingMonthlyBenefitCreditedAmount, Float, tag: 'OngoingMonthlyBenefitCreditedAmount', namespace: "extn"
+              element :OngoingMonthlyOverpaymentDeductionAmount, Float, tag: 'OngoingMonthlyOverpaymentDeductionAmount', namespace: "extn"
+              element :OngoingPaymentInSuspenseIndicator, Boolean, tag: 'OngoingPaymentInSuspenseIndicator', namespace: "extn"
               has_one :RequestedMonthInformation, RequestedMonthInformation
               has_one :RequestedMonthMinusOneInformation, RequestedMonthInformation
               has_one :RequestedMonthMinusTwoInformation, RequestedMonthInformation

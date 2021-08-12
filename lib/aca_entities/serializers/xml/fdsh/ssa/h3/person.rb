@@ -10,14 +10,14 @@ module AcaEntities
             # Request.
             class Person
               include HappyMapper
-              register_namespace 'extn', 'http://extn.ssac.ee.sim.dsh.cms.hhs.gov'
+              register_namespace 'ssac', 'http://extn.ssac.ee.sim.dsh.cms.hhs.gov'
 
-              tag 'PersonSSNIdentification'
-              namespace 'extn'
+              tag 'Person'
+              namespace 'ssac'
 
+              element :PersonSSNIdentification, String, tag: 'PersonSSNIdentification', namespace: "ssac"
               has_one :PersonName, PersonName
               has_one :PersonBirthDate, PersonBirthDate
-              element :PersonSSNIdentification, String, tag: 'PersonSSNIdentification', namespace: "extn"
 
               def self.domain_to_mapper(person)
                 mapper = self.new

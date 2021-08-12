@@ -15,8 +15,8 @@ module AcaEntities
               tag 'TitleIIRequestedYearInformation'
               namespace 'extn'
 
-              attribute :IncomeDate, String, tag: 'IncomeDate', namespace: "extn"
-              attribute :YearlyIncomeAmount, BigDecimal, tag: 'YearlyIncomeAmount', namespace: "extn"
+              element :IncomeDate, String, tag: 'IncomeDate', namespace: "extn"
+              element :YearlyIncomeAmount, Float, tag: 'YearlyIncomeAmount', namespace: "extn"
 
               def self.domain_to_mapper(initial_response)
                 mapper = self.new

@@ -112,6 +112,33 @@ channels:
       operationId: fdsh.eligibilities.vlp.initial_verification_complete
       description: VLP has completed a primary verification.
 
+  fdsh.eligibilities.ssa.ssa_verification_complete:
+    bindings:
+      amqp:
+        is: :routing_key
+        exchange:
+          name: fdsh.eligibilities.ssa
+          type: topic
+          content_type: application/json
+          durable: true
+          auto_delete: false
+          vhost: event_source
+        bindingVersion: 0.1.0
+    publish:
+      bindings:
+        amqp:
+          app_id: fdsh_gateway
+          type: fdsh.eligibilities.ssa
+          routing_key: fdsh.eligibilities.ssa.ssa_verification_complete
+          expiration: 100_000
+          deliveryMode: 2
+          mandatory: true
+          timestamp: true
+          content_type: application/json
+          bindingVersion: 0.2.0
+      operationId: fdsh.eligibilities.ssa.ssa_verification_complete
+      description: SSA has completed a primary verification.
+
 tags:
   - name: linter_tag
     description: placeholder that satisfies the linter

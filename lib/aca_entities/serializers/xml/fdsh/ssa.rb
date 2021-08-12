@@ -23,8 +23,8 @@ require_relative 'ssa/h3/ssa_composite_individual_response'
 require_relative 'ssa/h3/ssa_composite_response'
 
 # operations
-require_relative "vlp/h92/operations/validate_vlp_h92_payload_xml"
-require_relative "vlp/h92/operations/initial_request_to_xml"
+require_relative "ssa/h3/operations/validate_ssa_h3_payload_xml"
+require_relative "ssa/h3/operations/ssa_request_to_xml"
 
 module AcaEntities
   module Serializers

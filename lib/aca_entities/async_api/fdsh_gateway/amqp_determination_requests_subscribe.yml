@@ -72,6 +72,27 @@ channels:
       operationId: on_fdsh_gateway.fdsh.verification_requests.vlp
       description: Events - CMS FDSH VLP Service requests
 
+  on_fdsh_gateway.fdsh.verification_requests.ssa:
+    bindings:
+      amqp:
+        is: queue
+        queue:
+          name: on_fdsh_gateway.fdsh.verification_requests.ssa
+          durable: true
+          exclusive: false
+          auto_delete: false
+          vhost: event_source
+    subscribe:
+      bindings:
+        amqp:
+          ack: true
+          exclusive: false
+          routing_key: fdsh.verification_requests.ssa.#
+          bindingVersion: "0.2.0"
+      operationId: on_fdsh_gateway.fdsh.verification_requests.ssa
+      description: Events - CMS FDSH SSA Service requests
+
+
 tags:
   - name: linter_tag
     description: placeholder that satisfies the linter

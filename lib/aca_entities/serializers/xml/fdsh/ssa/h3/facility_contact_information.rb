@@ -15,9 +15,9 @@ module AcaEntities
               tag 'FacilityContactInformation'
               namespace 'extn'
 
-              attribute :PersonFullName, String, tag: 'PersonFullName', namespace: "extn"
-              attribute :ContactTelephoneNumber, String, tag: 'ContactTelephoneNumber', namespace: "extn"
-              attribute :ContactFaxNumber, String, tag: 'ContactFaxNumber', namespace: "extn"
+              element :PersonFullName, String, tag: 'PersonFullName', namespace: "extn"
+              element :ContactTelephoneNumber, String, tag: 'ContactTelephoneNumber', namespace: "extn"
+              element :ContactFaxNumber, String, tag: 'ContactFaxNumber', namespace: "extn"
 
               def self.domain_to_mapper(initial_response)
                 mapper = self.new
