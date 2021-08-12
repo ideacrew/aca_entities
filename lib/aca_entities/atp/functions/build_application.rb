@@ -431,7 +431,7 @@ module AcaEntities
           {
             is_pregnant: pregancy_info.nil? ? false : pregancy_info[:status_indicator],
             is_enrolled_on_medicaid: nil,
-            is_post_partum_period: false, # default value
+            is_post_partum_period: nil, # default value
             expected_children_count: pregancy_info.nil? ? 0 : pregancy_info[:expected_baby_quantity],
             pregnancy_due_on: nil, # default value
             pregnancy_end_on: nil
@@ -500,7 +500,7 @@ module AcaEntities
 
           tribe_indicator = @applicant_hash.nil? ? nil : @tribal_augmentation[:american_indian_or_alaska_native_indicator]
 
-          joint_tax_filing_status = @tax_return[:status_code] == '2' if is_tax_filer
+          joint_tax_filing_status = @tax_return[:status_code] == '2' if is_tax_filer && @tax_return[:status_code].present?
 
           is_head_of_household =  if !@tax_return.nil? && @tax_return[:tax_household] && applicant_is_primary_tax_filer
                                     @tax_return[:status_code] == '4' || @tax_return[:status_code] == '7'

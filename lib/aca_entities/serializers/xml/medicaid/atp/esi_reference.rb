@@ -6,7 +6,7 @@ module AcaEntities
       module Medicaid
         module Atp
           # Include XML element and type definitions.
-          class ESIReference
+          class EsiReference
             include HappyMapper
 
             tag 'ESIReference'

@@ -25,7 +25,7 @@ module AcaEntities
             element :eligibility_unknown_indicator, Boolean, tag: "InsuranceApplicantESIEligibilityUnknownIndicator", namespace: "hix-ee"
 
             # A reference to an employer sponsored insurance (ESI) arrangement.
-            element :ref, ESIReference
+            element :ref, EsiReference
 
             def self.domain_to_mapper(esi_association)
               mapper = self.new
