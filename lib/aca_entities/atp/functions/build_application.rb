@@ -498,7 +498,7 @@ module AcaEntities
                            false
                          end
 
-          tribe_indicator = @applicant_hash.nil? ? nil : @tribal_augmentation[:american_indian_or_alaska_native_indicator]
+          tribe_indicator = @tribal_augmentation[:american_indian_or_alaska_native_indicator]
 
           joint_tax_filing_status = @tax_return[:status_code] == '2' if is_tax_filer && @tax_return[:status_code].present?
 
