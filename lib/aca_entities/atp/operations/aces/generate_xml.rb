@@ -24,7 +24,6 @@ module AcaEntities
             entity = yield initialize_entity(valid_aces_payload)
             serialized_payload = yield to_serialized_obj(entity)
             # _result = yield validate_xml(serialized_payload)
-
             xml_payload = serialized_payload.to_xml
             Success(xml_payload)
           end
