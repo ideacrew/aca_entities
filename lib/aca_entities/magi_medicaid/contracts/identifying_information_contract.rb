@@ -13,6 +13,7 @@ module AcaEntities
         params do
           required(:has_ssn).filled(:bool)
           optional(:encrypted_ssn).maybe(:string)
+          optional(:ssn).maybe(:string)
         end
       end
     end

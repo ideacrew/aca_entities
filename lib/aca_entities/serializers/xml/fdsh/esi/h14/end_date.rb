@@ -14,11 +14,11 @@ module AcaEntities
               tag 'EndDate'
               namespace 'nc'
 
-              element :Date, Date, tag: "Date", namespace: "nc"
+              element :date, Date, tag: "Date", namespace: "nc"
 
               def self.domain_to_mapper(end_date)
                 mapper = self.new
-                mapper.Date = end_date
+                mapper.date = end_date.strftime
 
                 mapper
               end
