@@ -127,7 +127,7 @@ module AcaEntities
                     add_key 'ethnicities'
                     map 'person_demographics.dob', 'birth_date.date',  memoize: true, visible: true, append_identifier: true,
                                                                        function: lambda { |v|
-                                                                                   Date.strptime(v, "%m/%d/%Y")
+                                                                                   Date.strptime(v, "%Y-%m-%d")
                                                                                  }
                     add_key 'age_measure.measure_point_value', value: lambda { |v|
                       member_id = v.find(/family.family_members.(\w+)$/).map(&:item).last
