@@ -167,6 +167,9 @@ module AcaEntities
           optional(:mitc_relationships).array(AcaEntities::MagiMedicaid::Mitc::Contracts::RelationshipContract.params)
           optional(:mitc_is_required_to_file_taxes).maybe(:bool)
 
+          #fdsh evidences
+          optional(:evidences).array(AcaEntities::Evidences::EvidenceContract.params)
+
           # fdsh esi response
           optional(:esi_eligibility_indicator).maybe(:bool)
           optional(:esi_insured_indicator).maybe(:bool)
