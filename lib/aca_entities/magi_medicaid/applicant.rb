@@ -156,7 +156,7 @@ module AcaEntities
       # 3. Your income is NOT counted in the household of a non-parent/stepparent who claims you as a dependent
       #    (only in the household of the tax filer)
 
-      #fdsh evidences
+      # fdsh evidences
       attribute :evidences, Types::Array.of(AcaEntities::Evidences::Evidence).optional.meta(omittable: true)
 
       # fdsh esi response
