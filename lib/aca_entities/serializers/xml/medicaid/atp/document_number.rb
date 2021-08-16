@@ -5,7 +5,7 @@ module AcaEntities
     module Xml
       module Medicaid
         module Atp
-          # Include XML element and type definitions.
+          # A unique number assigned to a document of a lawfully present applicant.
           class DocumentNumber
             include HappyMapper
 
@@ -25,8 +25,8 @@ module AcaEntities
             def to_hash
               {
                 identification_id: identification_id,
-                identification_category_text: identification_category_text,
-                identification_jurisdication: identification_jurisdication
+                identification_category_text: identification_category_text
+                # identification_jurisdiction: identification_jurisdiction
               }
             end
           end

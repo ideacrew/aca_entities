@@ -129,6 +129,7 @@ GEM
 
 PLATFORMS
   x86_64-darwin-19
+  x86_64-darwin-20
 
 DEPENDENCIES
   aca_entities!
@@ -141,4 +142,4 @@ DEPENDENCIES
   yard
 
 BUNDLED WITH
-   2.2.14
+   2.2.20

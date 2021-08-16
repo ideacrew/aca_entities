@@ -91,6 +91,7 @@ module AcaEntities
                                                               applicants_hash = v.resolve('family.magi_medicaid_applications.applicants').item
                                                               applicants_hash.each_with_object([]) do |applicant_hash, collector|
                                                                 applicant = applicant_hash[1]
+                                                                binding.pry
                                                                 collector << AcaEntities::Atp::Transformers::Aces::Applicant.transform(applicant)
                                                               end
                                                             }
