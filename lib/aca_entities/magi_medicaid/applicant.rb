@@ -231,6 +231,26 @@ module AcaEntities
           address.kind == 'home'
         end
       end
+
+      def is_esi_eligible?
+        esi_benefits = benefits.select do |benefit|
+          benefit.status == 'is_eligible' && benefit.kind == 'employer_sponsored_insurance'
+        end
+
+        esi_benefits.present?
+      end
+
+      def is_esi_enrolled?
+        esi_benefits = benefits.select do |benefit|
+          benefit.status == 'is_enrolled' && benefit.kind == 'employer_sponsored_insurance'
+        end
+
+        esi_benefits.present?
+      end
+
+      def esi_evidence
+        evidences.detect {|evidence| evidence.key.to_sym == :esi_mec}
+      end
     end
   end
 end
