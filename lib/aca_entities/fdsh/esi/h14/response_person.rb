@@ -6,7 +6,7 @@ module AcaEntities
       module H14
         # Entity for Fdsh ESI(employer sponsored insurance) VerificationResponse
         class ResponsePerson < Dry::Struct
-          attribute :PersonSSNIdentification,  AcaEntities::Fdsh::Person::PersonSSNIdentification.meta(omittable: false)
+          attribute :PersonSSNIdentification,  AcaEntities::Fdsh::Person::PersonSsnIdentification.meta(omittable: false)
         end
       end
     end

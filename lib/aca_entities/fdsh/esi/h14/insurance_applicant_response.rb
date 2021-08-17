@@ -7,8 +7,8 @@ module AcaEntities
         # Entity for Fdsh ESI(employer sponsored insurance) VerificationResponse
         class InsuranceApplicantResponse < Dry::Struct
           attribute :InsuranceApplicantRequestedCoverage, Fdsh::Esi::H14::InsuranceApplicantRequestedCoverage.meta(omittable: false)
-          attribute :InsuranceApplicantEligibleEmployerSponsoredInsuranceIndicator, Types::Boolean.optional.meta(omittable: true)
-          attribute :InsuranceApplicantInsuredIndicator, Types::Boolean.optional.meta(omittable: true)
+          attribute :InsuranceApplicantEligibleEmployerSponsoredInsuranceIndicator, Types::Bool.optional.meta(omittable: true)
+          attribute :InsuranceApplicantInsuredIndicator, Types::Bool.optional.meta(omittable: true)
         end
       end
     end

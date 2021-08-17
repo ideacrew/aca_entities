@@ -14,11 +14,11 @@ module AcaEntities
               tag 'PersonBirthDate'
               namespace 'nc'
 
-              element :Date, Date, tag: "Date", namespace: "nc"
+              element :date, Date, tag: "Date", namespace: "nc"
 
               def self.domain_to_mapper(person_birth_date)
                 mapper = self.new
-                mapper.Date = person_birth_date
+                mapper.date = person_birth_date.strftime
                 mapper
               end
             end

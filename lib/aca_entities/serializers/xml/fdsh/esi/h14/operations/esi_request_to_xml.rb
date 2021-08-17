@@ -30,7 +30,7 @@ module AcaEntities
                 end
 
                 def validate_xml(xml)
-                  ValidateesiPayloadXml.new.call(xml)
+                  ValidateEsiPayloadXml.new.call(xml)
                 end
               end
             end
