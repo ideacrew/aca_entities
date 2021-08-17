@@ -67,13 +67,12 @@ module AcaEntities
           member_id = @memoized_data.find(/family.family_members.(\w+)$/).map(&:item).last
           person_relationships = applicants_hash[member_id.to_sym][:mitc_relationships]
           @primary_applicant_id = @memoized_data.find(Regexp.new('is_primary_applicant.*')).select {|a|  a.item == true}.first.name.split('.').last
-
+          return unless person_relationships
           person_relationships.each_with_object([]) do |person_relationship, collect|
             mitc_relationship_code =
               ::AcaEntities::MagiMedicaid::Mitc::Types::RelationshipCodeMap.invert[person_relationship[:relationship_code]] || '88'
             relation = RelationshipCodeMap[mitc_relationship_code]
             atp_relationship_code = Types::RelationshipToTaxFilerCodeMap.invert[relation.to_s].to_s
-
             collect << { :relative_id => person_relationship[:other_id], :family_relationship_code => atp_relationship_code,
                          :caretaker_dependent_code => nil }
           end

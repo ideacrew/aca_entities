@@ -7,6 +7,7 @@ require 'dry/monads/do'
 require 'aca_entities/medicaid/atp'
 require 'aca_entities/medicaid/contracts/account_transfer_request_contract'
 require 'aca_entities/serializers/xml/medicaid/atp'
+require 'aca_entities/atp/transformers/aces/family'
 require 'aca_entities/serializers/xml/medicaid/atp/account_transfer_request'
 
 module AcaEntities
