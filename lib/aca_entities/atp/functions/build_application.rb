@@ -1,5 +1,11 @@
 # frozen_string_literal: true
 
+require 'aca_entities/atp/transformers/cv/phone'
+require 'aca_entities/atp/transformers/cv/other_questions'
+require 'aca_entities/atp/transformers/cv/deduction'
+require 'aca_entities/atp/transformers/cv/income'
+require 'aca_entities/atp/transformers/cv/contact_info'
+
 # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity, Metrics/MethodLength, Layout/LineLength, Metrics/AbcSize, Metrics/ClassLength
 module AcaEntities
   module Atp
@@ -69,7 +75,8 @@ module AcaEntities
             report_change_terms: @memoized_data.resolve('report_change_terms').item,
             medicaid_terms: @memoized_data.resolve('medicaid_terms').item,
             is_renewal_authorized: @memoized_data.resolve('is_renewal_authorized').item,
-            family_reference: { hbx_id: @memoized_data.resolve('family.hbx_id').item.to_s }
+            family_reference: { hbx_id: @memoized_data.resolve('family.hbx_id').item.to_s },
+            aptc_effective_date: Date.today # default value
           }
         end
 
@@ -77,22 +84,11 @@ module AcaEntities
           return [] if @incomes_hash.nil?
 
           result = job_income_hash
-          # result << self_emp_income_hash[0] unless self_emp_income_hash.empty?
           result.concat(self_emp_income_hash)
-          # result << unemp_income_hash[0] unless unemp_income_hash.empty?
           result.concat(unemp_income_hash)
-          # result << other_income_hash[0] unless other_income_hash.empty?
           result.concat(other_income_hash)
           result
         end
-
-        FREQUENCY_CODE_MAP = { "annually" => "yearly",
-                               'biweekly' => 'biweekly',
-                               'daily' => 'daily',
-                               'half_yearly' => 'half_yearly',
-                               'monthly' => 'monthly',
-                               'quarterly' => 'quarterly',
-                               'weekly' => 'weekly' }.freeze
 
         def job_income_hash
           return [] if @incomes_hash.nil?
@@ -101,59 +97,19 @@ module AcaEntities
             next unless income[:category_code] == 'Wages'
             employer_hash = @employments_hash.select {|hash| hash[:employer][:id] == income[:source_organization_reference][:ref]}.first
             contact_information = employer_hash[:employer][:organization_primary_contact_information] if employer_hash
-            date_range = income[:earned_date_range]
+            transformed_income = AcaEntities::Atp::Transformers::Cv::Income.transform(income)
             result << {
-              'kind' => 'wages_and_salaries',
-              'amount' => income[:amount],
-              'amount_tax_exempt' => 0,
               'employer_name' => employer_hash ? employer_hash[:employer][:category_text] : nil,
-              'frequency_kind' => FREQUENCY_CODE_MAP[income[:frequency][:frequency_code].downcase],
-              'start_on' => (date_range && date_range[:start_date]) ? income[:earned_date_range][:start_date][:date] : nil,
-              'end_on' => (date_range && date_range[:end_date]) ? income[:earned_date_range][:end_date][:date] : nil,
-              'is_projected' => false, # default value
               'employer_address' =>
               if contact_information && contact_information[:mailing_address] && contact_information[:mailing_address][:address]
                 mailing = contact_information[:mailing_address][:address]
-                # Check presence of required fields
-                if !mailing[:location_street].nil? && !mailing[:location_city_name].nil? && !mailing[:location_state_us_postal_service_code].nil? && !mailing[:location_postal_code].nil?
-                  {
-                    'address_1' => mailing[:location_street][:street_full_text],
-                    'address_2' => mailing[:address_secondary_unit_text],
-                    'address_3' => '',
-                    'county' => mailing[:location_county_name],
-                    'country_name' => '',
-                    'kind' => 'work',
-                    'city' => mailing[:location_city_name],
-                    'state' => mailing[:location_state_us_postal_service_code],
-                    'zip' => mailing[:location_postal_code]
-                    # 'address_1' => mailing[:location_street][:street_full_text] || '123test', # default value
-                    # 'address_2' => mailing[:address_secondary_unit_text],
-                    # 'address_3' => '',
-                    # 'county' => mailing[:location_county_name],
-                    # 'country_name' => '',
-                    # 'kind' => 'work', # default value
-                    # 'city' => mailing[:location_city_name] || 'was', # default value
-                    # 'state' => mailing[:location_state_us_postal_service_code] || 'DC', # default value
-                    # 'zip' => mailing[:location_postal_code] || '23421' # default value
-                  }
-                end
+                AcaEntities::Atp::Transformers::Cv::ContactInfo.transform(mailing)
               end,
               'employer_phone' =>
               if contact_information && contact_information[:telephone_number]
-                {
-                  'kind' => 'work', # default value
-                  'country_code' => '',
-                  # 'area_code' => contact_information[:telephone_number][0..2] || '987', # default value
-                  # 'number' => contact_information[:telephone_number][3..9] || '6547890', # default value
-                  # 'extension' => '',
-                  # 'full_phone_number' => contact_information[:telephone_number] || '9876547890' # default value
-                  'area_code' => contact_information[:telephone_number][0..2],
-                  'number' => contact_information[:telephone_number][3..9],
-                  'extension' => '',
-                  'full_phone_number' => contact_information[:telephone_number]
-                }
+                AcaEntities::Atp::Transformers::Cv::ContactInfo.transform(contact_information[:telephone_number])
               end
-            }
+            }.merge(transformed_income)
             result
           end
         end
@@ -164,19 +120,7 @@ module AcaEntities
           @incomes_hash.each_with_object([]) do |income, result|
             next unless income[:category_code] == 'SelfEmployment'
 
-            date_range = income[:earned_date_range]
-            start_date = date_range ? date_range[:start_date] : nil
-            end_date = date_range ? date_range[:end_date] : nil
-
-            result << {
-              'kind' => 'net_self_employment',
-              'amount' => income[:amount],
-              'amount_tax_exempt' => 0,
-              'frequency_kind' => FREQUENCY_CODE_MAP[income[:frequency][:frequency_code].downcase],
-              'start_on' => start_date ? start_date[:date] : nil,
-              'end_on' => end_date ? end_date[:date] : nil,
-              'is_projected' => false
-            }
+            result << AcaEntities::Atp::Transformers::Cv::Income.transform(income)
             result
           end
         end
@@ -187,112 +131,32 @@ module AcaEntities
           @incomes_hash.each_with_object([]) do |income, result|
             next unless income[:category_code] == 'Unemployment'
 
-            date_range = income[:earned_date_range]
-            start_date = date_range ? date_range[:start_date] : nil
-            end_date = date_range ? date_range[:end_date] : nil
-
-            result << {
-              "kind" => "unemployment_income",
-              "amount" => income[:amount],
-              "amount_tax_exempt" => 0, # default value
-              'frequency_kind' => FREQUENCY_CODE_MAP[income[:frequency][:frequency_code].downcase],
-              'start_on' => start_date ? start_date[:date] : nil,
-              'end_on' => end_date ? end_date[:date] : nil,
-              "is_projected" => false # default value
-            }
+            result << AcaEntities::Atp::Transformers::Cv::Income.transform(income)
             result
           end
         end
-
-        OTHER_INCOME_TYPE_KIND = {
-          'Alimony' => 'alimony_and_maintenance',
-          'CapitalGains' => 'capital_gains',
-          'Interest' => 'interest',
-          'Pension' => 'pension_retirement_benefits',
-          'Retirement' => 'pension_retirement_benefits',
-          'RentalOrRoyalty' => 'rental_and_royalty',
-          'SocialSecurity' => 'social_security_benefit',
-          'FarmingOrFishing' => 'farming_and_fishing',
-          'Unspecified' => 'other',
-          'Winnings' => 'prizes_and_awards',
-          'Scholarship' => 'scholorship_payments',
-          'CanceledDebt' => 'other',
-          'CourtAward' => 'other',
-          'JuryDuty' => 'other',
-          'CashSupport' => 'other'
-        }.freeze
 
         def other_income_hash
           return [] if @incomes_hash.nil?
 
           @incomes_hash.each_with_object([]) do |income, result|
-            next if OTHER_INCOME_TYPE_KIND[income[:category_code]].nil?
+            next if AcaEntities::Atp::Types::OtherIncomeKinds[income[:category_code]].nil?
 
-            date_range = income[:earned_date_range]
-            start_date = date_range ? date_range[:start_date] : nil
-            end_date = date_range ? date_range[:end_date] : nil
-
-            result << {
-              'kind' => OTHER_INCOME_TYPE_KIND[income[:category_code]].downcase,
-              'amount' => income[:amount],
-              'amount_tax_exempt' => 0,
-              'frequency_kind' => FREQUENCY_CODE_MAP[income[:frequency][:frequency_code].downcase],
-              # 'start_on' => (date_range && date_range[:start_date]) ? income[:earned_date_range][:start_date][:date] :Date.parse('2021-05-07').to_s, # default value
-              # 'end_on' => (date_range && date_range[:end_date]) ? income[:earned_date_range][:end_date][:date] : nil, # default value,
-              'start_on' => start_date ? start_date[:date] : nil,
-              'end_on' => end_date ? end_date[:date] : nil,
-              'is_projected' => false
-            }
+            result << AcaEntities::Atp::Transformers::Cv::Income.transform(income)
             result
           end
         end
-
-        DEDUCTION_TYPE = {
-          'Alimony' => 'alimony_paid',
-          # 'Deductible part of self-employment taxes' => 'deductable_part_of_self_employment_taxes',
-          # 'Domestic production activities deduction' => 'domestic_production_activities',
-          # 'Penalty on early withdrawal of savings' => 'penalty_on_early_withdrawal_of_savings',
-          # 'Educator expenses' => 'educator_expenses',
-          # 'Self-employmed SEP, SIMPLE, and qualified plans' => 'self_employment_sep_simple_and_qualified_plans',
-          # 'Self-employed health insurance' => 'self_employed_health_insurance',
-          # 'Moving expenses' => 'moving_expenses',
-          # 'Health savings account' => 'health_savings_account',
-          # 'IRA deduction' => 'ira_deduction',
-          # 'Certain business expenses of reservists, performing artists, and fee-basis government officials' => 'reservists_performing_artists_and_fee_basis_government_official_expenses',
-          # 'Tuition and fees' => 'tuition_and_fees',
-          # 'OTHER_DEDUCTION' => 'OTHER_DEDUCTION',
-          'StudentLoanInterest' => 'student_loan_interest'
-        }.freeze
 
         def deduction_hash
           return [] if @expenses_hash.nil?
 
           @expenses_hash.each_with_object([]) do |expense, result|
-            next if DEDUCTION_TYPE[expense[:category_code]].nil?
-            result << {
-              'kind' => DEDUCTION_TYPE[expense[:category_code]],
-              'amount' => expense[:amount],
-              'frequency_kind' => FREQUENCY_CODE_MAP[expense[:frequency][:frequency_code].downcase]
-              # 'start_on' => (date_range && date_range[:start_date]) ? income[:earned_date_range][:start_date][:date] : Date.parse('2021-05-07').to_s, # default value
-              # 'end_on' => (date_range && date_range[:end_date]) ? income[:earned_date_range][:end_date][:date] : nil # default value
-            }
+            next if AcaEntities::Atp::Types::DeductionKinds[expense[:category_code]].nil?
+
+            result << AcaEntities::Atp::Transformers::Cv::Income.transform(expense)
             result
           end
         end
-
-        INSURANCE_KINDS = {
-          'Private' => 'private_individual_and_family_coverage',
-          'CHIP' => 'child_health_insurance_plan',
-          'Medicaid' => 'medicaid',
-          'Medicare' => 'medicare',
-          'TRICARE' => 'tricare',
-          'COBRA' => 'cobra',
-          'VeteranHealthProgram' => 'veterans_benefits',
-          'PeaceCorps' => 'health_care_for_peace_corp_volunteers',
-          'Employer' => "employer_sponsored_insurance",
-          'UnspecifiedFullCoverage' => 'other_full_benefit_coverage',
-          'UnspecifiedLimitedCoverage' => 'other_limited_benefit_coverage'
-        }.freeze
 
         def benefits_hash
           return [] if @applicant_hash.nil?
@@ -305,7 +169,7 @@ module AcaEntities
           @applicant_hash[:non_esi_policies].each do |policy|
             result << {
               'kind' => 'is_enrolled', # default value
-              'insurance_kind' => INSURANCE_KINDS[policy[:source_code]],
+              'insurance_kind' => AcaEntities::Atp::Types::InsuranceKinds[policy[:source_code]],
               'start_on' => Date.new(Date.today.year, 1, 1), # default value
               'end_on' => nil
             }
@@ -335,7 +199,7 @@ module AcaEntities
             result << {
               'esi_covered' => 'self', # default value
               'kind' => esi[:enrolled_indicator] ? 'is_enrolled' : nil,
-              'insurance_kind' => INSURANCE_KINDS['Employer'],
+              'insurance_kind' => AcaEntities::Atp::Types::InsuranceKinds['Employer'],
               'is_esi_waiting_period' => nil, # default value
               'is_esi_mec_met' => nil, # default value
               'start_on' => Date.new(Date.today.year, 1, 1), # default value
@@ -343,44 +207,6 @@ module AcaEntities
             }
           end
           result
-          # @insurance_coverage_hash[:employerSponsoredCoverageOffers].each_with_object([]) do |(_k, esc), result|
-          #   result << {
-          #     'employee_cost' => esc[:lcsopPremium],
-          #     'kind' => 'employer_sponsored_insurance', # default value
-          #     'status' => 'is_enrolled', # default value
-          #     # 'insurance_kind' => 'employer_sponsored_insurance', # default value
-          #     :employer => { employer_name: esc[:employer][:name],
-          #                    employer_id: '123456789' }, # default value
-          #     'is_esi_waiting_period' => esc[:waitingPeriodIndicator],
-          #     'is_esi_mec_met' => esc[:employerOffersMinValuePlan],
-          #     'esi_covered' => 'self', # default value
-          #     'start_on' => Date.parse('2021-05-07'), # default value
-          #     'end_on' => nil,
-          #     'employee_cost_frequency' => esc[:lcsopPremiumFrequencyType]&.capitalize,
-          #     'employer_address' =>
-          #     {
-          #       'address_1' => '21313312', # default value
-          #       'address_2' => '',
-          #       'address_3' => '',
-          #       'county' => '',
-          #       'country_name' => '',
-          #       'kind' => 'work', # default value
-          #       'city' => 'was',  # default value
-          #       'state' => 'DC',  # default value
-          #       'zip' => '31232'
-          #     }, # default value
-          #     'employer_phone' =>
-          #     {
-          #       'kind' => 'work', # default value
-          #       'country_code' => '',
-          #       'area_code' => esc[:employer][:employerPhoneNumber][0..2],
-          #       'number' => esc[:employer][:employerPhoneNumber][3..9],
-          #       'extension' => '',
-          #       'full_phone_number' => esc[:employer][:employerPhoneNumber]
-          #     }
-          #   }
-
-          # end
         end
 
         def name_hash
@@ -404,56 +230,8 @@ module AcaEntities
             is_vets_spouse_or_child: nil }
         end
 
-        def attestation_hash
-          # TODO: refactor for multiple entries of incarcerations
-          if @applicant_hash.nil?
-            {
-              is_incarcerated: nil,
-              is_self_attested_disabled: false,
-              is_self_attested_blind: false,
-              is_self_attested_long_term_care: false
-            }
-          else
-            incarceration = @applicant_hash[:incarcerations].empty? ? nil : @applicant_hash[:incarcerations].first[:incarceration_indicator]
-            disability = @applicant_hash[:blindness_or_disability_indicator]
-            long_term_care = @applicant_hash[:long_term_care_indicator]
-            {
-              is_incarcerated: incarceration.nil? ? false : incarceration,
-              is_self_attested_disabled: disability.nil? ? false : disability,
-              is_self_attested_blind: disability ? nil : false,
-              is_self_attested_long_term_care: long_term_care.nil? ? false : long_term_care
-            }
-          end
-        end
-
-        def pregnancy_information_hash
-          pregancy_info = @member_hash[:pregnancy_status]
-          {
-            is_pregnant: pregancy_info.nil? ? false : pregancy_info[:status_indicator],
-            is_enrolled_on_medicaid: nil,
-            is_post_partum_period: nil, # default value
-            expected_children_count: pregancy_info.nil? ? 0 : pregancy_info[:expected_baby_quantity],
-            pregnancy_due_on: nil, # default value
-            pregnancy_end_on: nil
-          }
-        end
-
-        def foster_care_hash
-          {
-            is_former_foster_care: @applicant_hash.nil? ? false : @applicant_hash[:foster_care_indicator],
-            age_left_foster_care: @applicant_hash.nil? ? nil : @applicant_hash[:age_left_foster_care],
-            foster_care_us_state: @applicant_hash.nil? ? nil : @applicant_hash[:foster_care_state],
-            had_medicaid_during_foster_care: @applicant_hash.nil? ? nil : @applicant_hash[:had_medicaid_during_foster_care_indicator]
-          }
-        end
-
-        def student_hash
-          {
-            is_student: @applicant_hash.nil? ? false : (@applicant_hash[:student_indicator] || false), # default value
-            student_kind: nil, # needs refactor for other student kinds
-            student_school_kind: nil,
-            student_status_end_on: nil
-          }
+        def other_questions
+          AcaEntities::Atp::Transformers::Cv::OtherQuestions.transform(@applicant_hash.nil? ? {}.merge(pergnancy: @member_hash[:pregnancy_status]) : @applicant_hash.merge(pergnancy: @member_hash[:pregnancy_status]))
         end
 
         def family_member_reference_hash
@@ -483,8 +261,7 @@ module AcaEntities
           "7" => "tax_filer"
         }.freeze
 
-        def applicant_hash
-          # non_magi = @memoized_data.find(Regexp.new('attestations.members.*.nonMagi')).map(&:item).last
+        def tax_returns_hash
           applicant_is_primary_tax_filer = @tax_return.nil? ? nil : @tax_return[:tax_household][:primary_tax_filer][:role_reference][:ref] == @applicant_identifier
           tax_dependents = @tax_return.nil? ? nil : @tax_return[:tax_household][:tax_dependents].collect {|a| a[:role_reference][:ref]}
 
@@ -498,13 +275,20 @@ module AcaEntities
                            false
                          end
 
-          tribe_indicator = @tribal_augmentation[:american_indian_or_alaska_native_indicator]
-
           joint_tax_filing_status = @tax_return[:status_code] == '2' if is_tax_filer && @tax_return[:status_code].present?
 
           is_head_of_household =  if !@tax_return.nil? && @tax_return[:tax_household] && applicant_is_primary_tax_filer
                                     @tax_return[:status_code] == '4' || @tax_return[:status_code] == '7'
                                   end
+          { tax_dependents: tax_dependents,
+            is_tax_filer: is_tax_filer,
+            joint_tax_filing_status: joint_tax_filing_status,
+            is_head_of_household: is_head_of_household }
+        end
+
+        def applicant_hash
+          # non_magi = @memoized_data.find(Regexp.new('attestations.members.*.nonMagi')).map(&:item).last
+          tribe_indicator = @tribal_augmentation[:american_indian_or_alaska_native_indicator]
           lawful_presence_status = @applicant_hash[:lawful_presence_status] if @applicant_hash
           lawful_presence_status_eligibility = if lawful_presence_status && lawful_presence_status[:lawful_presence_status_eligibility]
                                                  lawful_presence_status[:lawful_presence_status_eligibility][:eligibility_indicator] ? true : nil
@@ -516,7 +300,7 @@ module AcaEntities
             identifying_information: { encrypted_ssn: nil,
                                        has_ssn: !@memoized_data.find(Regexp.new("person_demographics.ssn.#{@applicant_identifier}"))&.first&.item.nil? },
             demographic: demographic_hash,
-            attestation: attestation_hash,
+            attestation: other_questions[:attestation],
             native_american_information: nil,
             indian_tribe_member: tribe_indicator,
             tribal_state: tribe_indicator ? @tribal_augmentation[:location_state_us_postal_service_code] : nil,
@@ -530,18 +314,18 @@ module AcaEntities
             vlp_document: nil,
             family_member_reference: family_member_reference_hash,
             person_hbx_id: @applicant_identifier, # default value
-            is_required_to_file_taxes: is_tax_filer, # default value
+            is_required_to_file_taxes: tax_returns_hash[:is_tax_filer], # default value
             # tax_filer_kind: 'tax_filer', # default value . #To memoise and extract data from taxRelationships
             tax_filer_kind: @tax_return.nil? ? nil : TAX_FILER_KIND[@tax_return[:status_code]],
-            is_filing_as_head_of_household: is_head_of_household ? true : false,
-            is_joint_tax_filing: joint_tax_filing_status,
-            is_claimed_as_tax_dependent: tax_dependents.nil? ? nil : tax_dependents.include?(@applicant_identifier), # default value
+            is_filing_as_head_of_household: tax_returns_hash[:is_head_of_household] ? true : false,
+            is_joint_tax_filing: tax_returns_hash[:joint_tax_filing_status],
+            is_claimed_as_tax_dependent: tax_returns_hash[:tax_dependents].nil? ? nil : tax_returns_hash[:tax_dependents].include?(@applicant_identifier), # default value
             claimed_as_tax_dependent_by: @primary_applicant_identifier, # default value to primary
-            student: student_hash,
+            student: other_questions[:student],
             is_refugee: nil, # default value
             is_trafficking_victim: nil, # default value
-            foster_care: foster_care_hash,
-            pregnancy_information: pregnancy_information_hash,
+            foster_care: other_questions[:foster_care],
+            pregnancy_information: other_questions[:pregnancy_information],
             is_subject_to_five_year_bar: nil, # default value
             is_five_year_bar_met: nil, # default value
             is_forty_quarters: nil, # default value
@@ -595,14 +379,7 @@ module AcaEntities
             phone = contact_info.dig(:contact, :telephone_number, :telephone, :telephone_number_full_id)
             next unless phone
 
-            collector << { extension: nil,
-                           kind: contact_info[:category_code].to_s.downcase,
-                           area_code: phone.to_s[0..2],
-                           number: phone.to_s[3..9],
-                           primary: true, # default value
-                           full_phone_number: phone,
-                           start_on: nil,
-                           end_on: nil }
+            collector << AcaEntities::Atp::Transformers::Cv::Phone.transform(contact_info)
           end
         end
       end
