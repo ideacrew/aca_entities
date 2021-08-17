@@ -2,8 +2,8 @@
 
 module AcaEntities
   module Evidences
-    # contract for EligibilityDeterminationContract
-    class EligibilityDeterminationContract < Dry::Validation::Contract
+    # contract for EligibilityResultContract
+    class EligibilityResultContract < Dry::Validation::Contract
       params do
         optional(:result).maybe(:symbol)
         optional(:source).maybe(:string)

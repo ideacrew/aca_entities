@@ -13,7 +13,7 @@ module AcaEntities
       attribute :updated_by, Types::String.optional.meta(omittable: true)
       attribute :verification_status, AcaEntities::Evidences::VerificationStatus.optional.meta(omittable: true)
       attribute :verification_history, AcaEntities::Evidences::VerificationHistory.optional.meta(omittable: true)
-      attribute :eligibility_determinations, Types::Array.of(AcaEntities::Evidences::EligibilityDetermination.optional.meta(omittable: true))
+      attribute :eligibility_results, Types::Array.of(AcaEntities::Evidences::EligibilityResult).optional.meta(omittable: true)
     end
   end
 end

@@ -2,8 +2,8 @@
 
 module AcaEntities
   module Evidences
-    # Entity for VerificationHistory
-    class EligibilityDetermination < Dry::Struct
+    # Entity for EligibilityResult
+    class EligibilityResult < Dry::Struct
       attribute :result, Types::Symbol.meta(omittable: false)
       attribute :source, Types::String.meta(omittable: false)
       attribute :source_transaction_id, Types::String.meta(omittable: false)
