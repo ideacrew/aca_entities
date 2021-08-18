@@ -68,7 +68,7 @@ module AcaEntities
                         member_id = v.find(/record.people.(\w+)$/).map(&:item).last
                         applicants = v.resolve(:'insurance_application.insurance_applicants').item
                         return false unless applicants[member_id.to_sym]
-                        applicants[member_id.to_sym][:blindness_or_disability_indicator]
+                        applicants[member_id.to_sym][:blindness_or_disability_indicator] || false # default value
                       }
                     end
                   end

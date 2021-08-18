@@ -89,6 +89,11 @@ module AcaEntities
           result.concat(other_income_hash)
           result
         end
+                              
+        def check_employer_address(contact_info)
+          !contact_info.dig(:location_street, :street_full_text).nil? && !mailing[:location_city_name].nil? && !mailing[:location_state_us_postal_service_code].nil? && !mailing[:location_postal_code].nil? &&
+          !contact_info.dig(:location_street, :street_full_text).empty? && !mailing[:location_city_name].empty? && !mailing[:location_state_us_postal_service_code].empty? && !mailing[:location_postal_code].empty?
+        end
 
         def job_income_hash
           return [] if @incomes_hash.nil?
@@ -103,7 +108,8 @@ module AcaEntities
               'employer_address' =>
               if contact_information && contact_information[:mailing_address] && contact_information[:mailing_address][:address]
                 mailing = contact_information[:mailing_address][:address]
-                AcaEntities::Atp::Transformers::Cv::ContactInfo.transform(mailing)
+
+                AcaEntities::Atp::Transformers::Cv::ContactInfo.transform(mailing) if check_employer_address(mailing)
               end,
               'employer_phone' =>
               if contact_information && contact_information[:telephone_number]
