@@ -232,7 +232,7 @@ module AcaEntities
         end
       end
 
-      def is_esi_eligible?
+      def esi_eligible?
         esi_benefits = benefits.select do |benefit|
           benefit.status == 'is_eligible' && benefit.kind == 'employer_sponsored_insurance'
         end
@@ -240,7 +240,7 @@ module AcaEntities
         esi_benefits.present?
       end
 
-      def is_esi_enrolled?
+      def esi_enrolled?
         esi_benefits = benefits.select do |benefit|
           benefit.status == 'is_enrolled' && benefit.kind == 'employer_sponsored_insurance'
         end
