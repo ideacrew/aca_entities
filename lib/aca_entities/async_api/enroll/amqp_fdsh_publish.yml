@@ -1,0 +1,170 @@
+---
+asyncapi: 2.0.0
+info:
+  title: Enroll App
+  version: 0.1.0
+  description: AMQP Publish configuration for the Fdsh services
+  contact:
+    name: IdeaCrew
+    url: https://ideacrew.com
+    email: info@ideacrew.com
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+
+servers:
+  production:
+    url: "amqp://rabbitmq:5672/event_source"
+    protocol: :amqp
+    protocolVersion: "0.9.2"
+    description: RabbitMQ Production Server
+  development:
+    url: "amqp://rabbitmq:5672/event_source"
+    protocol: :amqp
+    protocolVersion: "0.9.2"
+    description: RabbitMQ Test Server
+  test:
+    url: "amqp://rabbitmq:5672/event_source"
+    protocol: :amqp
+    protocolVersion: "0.9.2"
+    description: RabbitMQ Test Server
+
+channels:
+  fdsh.determination_requests.ridp.primary_determination_requested:
+    bindings:
+      amqp:
+        is: :routing_key
+        exchange:
+          name: fdsh.determination_requests.ridp
+          type: topic
+          content_type: application/json
+          durable: true
+          auto_delete: false
+          vhost: event_source
+        binding_version: "0.2.0"
+    publish:
+      operationId: fdsh.determination_requests.ridp.primary_determination_requested
+      description: Events - eligibility determination Request
+      bindings:
+        amqp:
+          app_id: enroll
+          type: fdsh.determination_requests.ridp
+          routing_key: fdsh.determination_requests.ridp.primary_determination_requested
+          expiration: 100_000
+          deliveryMode: 2
+          mandatory: true
+          timestamp: true
+          content_type: application/json
+          bindingVersion: 0.2.0
+
+  fdsh.determination_requests.ridp.secondary_determination_requested:
+    bindings:
+      amqp:
+        is: :routing_key
+        exchange:
+          name: fdsh.determination_requests.ridp
+          type: topic
+          content_type: application/json
+          durable: true
+          auto_delete: false
+          vhost: event_source
+        binding_version: "0.2.0"
+    publish:
+      operationId: fdsh.determination_requests.ridp.secondary_determination_requested
+      description: Events - eligibility determination Request
+      bindings:
+        amqp:
+          app_id: enroll
+          type: fdsh.determination_requests.ridp
+          routing_key: fdsh.determination_requests.ridp.secondary_determination_requested
+          expiration: 100_000
+          deliveryMode: 2
+          mandatory: true
+          timestamp: true
+          content_type: application/json
+          bindingVersion: 0.2.0
+
+  fdsh.verification_requests.vlp.initial_verification_requested:
+    bindings:
+      amqp:
+        is: :routing_key
+        exchange:
+          name: fdsh.verification_requests.vlp
+          type: topic
+          content_type: application/json
+          durable: true
+          auto_delete: false
+          vhost: event_source
+        binding_version: "0.2.0"
+    publish:
+      operationId: fdsh.verification_requests.vlp.initial_verification_requested
+      description: Events - eligibility determination Request
+      bindings:
+        amqp:
+          app_id: enroll
+          type: fdsh.verification_requests.vlp
+          routing_key: fdsh.verification_requests.vlp.initial_verification_requested
+          expiration: 100_000
+          deliveryMode: 2
+          mandatory: true
+          timestamp: true
+          content_type: application/json
+          bindingVersion: 0.2.0
+
+  fdsh.verification_requests.ssa.ssa_verification_requested:
+    bindings:
+      amqp:
+        is: :routing_key
+        exchange:
+          name: fdsh.verification_requests.ssa
+          type: topic
+          content_type: application/json
+          durable: true
+          auto_delete: false
+          vhost: event_source
+        binding_version: "0.2.0"
+    publish:
+      operationId: fdsh.verification_requests.ssa.ssa_verification_requested
+      description: Events - eligibility determination Request
+      bindings:
+        amqp:
+          app_id: enroll
+          type: fdsh.verification_requests.ssa
+          routing_key: fdsh.verification_requests.ssa.ssa_verification_requested
+          expiration: 100_000
+          deliveryMode: 2
+          mandatory: true
+          timestamp: true
+          content_type: application/json
+          bindingVersion: 0.2.0
+
+  fdsh.determination_requests.esi.determine_esi_mec_eligibility:
+    bindings:
+      amqp:
+        is: :routing_key
+        exchange:
+          name: fdsh.determination_requests.esi
+          type: topic
+          content_type: application/json
+          durable: true
+          auto_delete: false
+          vhost: event_source
+        binding_version: "0.2.0"
+    publish:
+      operationId: fdsh.determination_requests.esi.determine_esi_mec_eligibility
+      description: Events - eligibility determination Request
+      bindings:
+        amqp:
+          app_id: enroll
+          type: fdsh.determination_requests.esi
+          routing_key: fdsh.determination_requests.esi.determine_esi_mec_eligibility
+          expiration: 100_000
+          deliveryMode: 2
+          mandatory: true
+          timestamp: true
+          content_type: application/json
+          bindingVersion: 0.2.0
+
+tags:
+  - name: linter_tag
+    description: placeholder that satisfies the linter

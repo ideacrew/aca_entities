@@ -4,12 +4,11 @@ module AcaEntities
   module Fdsh
     module Esi
       module H14
-        module Contracts
-          # Contract for FDSH ESI Verification contract
-          class ESIMECResponseContract < Dry::Validation::Contract
-            params do
-              required(:ApplicantResponseSet).filled(AcaEntities::Fdsh::Esi::H14::Contracts::ApplicantResponseSetContract.params)
-            end
+        # Contract for FDSH ESI Verification contract
+        class ESIMECResponseContract < Dry::Validation::Contract
+          params do
+            optional(:ApplicantResponseSet).maybe(AcaEntities::Fdsh::Esi::H14::ApplicantResponseSetContract.params)
+            optional(:ResponseMetadata).maybe(AcaEntities::Fdsh::Esi::H14::ResponseMetadataContract.params)
           end
         end
       end

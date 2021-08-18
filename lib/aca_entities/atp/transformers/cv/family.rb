@@ -5,6 +5,7 @@ require "aca_entities/atp/functions/relationship_builder"
 require "aca_entities/atp/functions/lawful_presence_determination_builder"
 require "aca_entities/atp/functions/build_application"
 require "aca_entities/functions/age_on"
+require 'aca_entities/atp/transformers/cv/phone'
 module AcaEntities
   module Atp
     module Transformers
@@ -47,7 +48,7 @@ module AcaEntities
                       map 'sur', 'person_name.last_name', memoize: true, append_identifier: true
                       map 'full', 'person_name.full_name', memoize: true, append_identifier: true
                       add_key 'hbx_id', value: 1234
-                      add_key 'person_health.is_tobacco_user', value: nil
+                      add_key 'person_health.is_tobacco_user', value: "unknown"
                       add_key 'person_health.is_physically_disabled', value: nil
                       add_key 'is_homeless', function: lambda { |v|
                         member_id = v.find(/record.people.(\w+)$/).map(&:item).last
@@ -76,7 +77,7 @@ module AcaEntities
                   map 'sex', 'person.person_demographics.gender', memoize: true, append_identifier: true, function: ->(value) {value.downcase}
                   add_key 'person.person_demographics.no_ssn',
                           function: ->(v) { v.resolve(:'person_demographics.ssn', identifier: true).item.nil? ? "1" : "0"}
-                  map 'birth_date.date', 'person.person_demographics.dob', memoize: true, append_identifier: true
+                  map 'birth_date.date', 'person.person_demographics.dob', memoize: true, append_identifier: true, function: ->(v) {v.to_date}
                   add_key 'person.person_demographics.date_of_death'
                   add_key 'person.person_demographics.dob_check'
                   add_key 'person.person_demographics.is_incarcerated', function: lambda { |v|
@@ -127,14 +128,7 @@ module AcaEntities
                       phone = contact_info.dig(:contact, :telephone_number, :telephone, :telephone_number_full_id)
                       next unless phone
 
-                      collector << { extension: nil,
-                                     kind: contact_info[:category_code].to_s.downcase,
-                                     area_code: phone.to_s[0..2],
-                                     number: phone.to_s[3..9],
-                                     primary: true, # default value
-                                     full_phone_number: phone,
-                                     start_on: nil,
-                                     end_on: nil }
+                      collector << AcaEntities::Atp::Transformers::Cv::Phone.transform(contact_info)
                     end
                     result
                   }
@@ -154,7 +148,8 @@ module AcaEntities
                   }
                   add_key 'person.consumer_role.birth_location'
                   add_key 'person.consumer_role.marital_status', function: lambda { |v|
-                    v.find(Regexp.new('record.people.*.augementation')).map(&:item).last[:married_indicator]
+                    married_indicator = v.find(Regexp.new('record.people.*.augementation')).map(&:item).last[:married_indicator]
+                    married_indicator ? "married" : ""
                   }
                   add_key 'person.consumer_role.is_active', value: true # default value
                   add_key 'person.consumer_role.is_applying_coverage', function: lambda { |v|

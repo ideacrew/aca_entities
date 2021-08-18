@@ -156,6 +156,14 @@ module AcaEntities
       # 3. Your income is NOT counted in the household of a non-parent/stepparent who claims you as a dependent
       #    (only in the household of the tax filer)
 
+      # fdsh evidences
+      attribute :evidences, Types::Array.of(AcaEntities::Evidences::Evidence).optional.meta(omittable: true)
+
+      # fdsh esi response
+      attribute :esi_eligibility_indicator,   Types::Bool.optional.meta(omittable: true)
+      attribute :esi_insured_indicator,       Types::Bool.optional.meta(omittable: true)
+      attribute :esi_inconsistency_indicator, Types::Bool.optional.meta(omittable: true)
+
       def monthly_qsehra_amount
         BigDecimal('0')
         # qsehra_benefits = benefits.select { |benefit| benefit.kind == 'qsehra' }

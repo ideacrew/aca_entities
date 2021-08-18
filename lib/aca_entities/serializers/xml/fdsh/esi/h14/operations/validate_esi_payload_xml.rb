@@ -4,12 +4,12 @@ module AcaEntities
   module Serializers
     module Xml
       module Fdsh
-        module Ssa
-          module H3
+        module Esi
+          module H14
             module Operations
               # Validates Vlp H92 xml payloads.  Same validator is used for all
               # Vlps payloads.
-              class ValidateSsaH3PayloadXml
+              class ValidateEsiPayloadXml
                 send(:include, Dry::Monads[:result, :do, :try])
 
                 SCHEMA_LOCATION = File.expand_path(
