@@ -17,7 +17,7 @@ RSpec.describe ::AcaEntities::Fdsh::Ifsv::H9t::Contracts::Api::PersonContract do
   end
 
   let(:person_ssn_identification) do
-    AcaEntities::Fdsh::Person::PersonSSNIdentification.new(
+    AcaEntities::Fdsh::Person::PersonSsnIdentification.new(
       IdentificationID: identification_id_0
     )
   end

@@ -6,7 +6,7 @@ module AcaEntities
       module H14
         # Entity for Fdsh ESI(employer sponsored insurance) VerificationResponse
         class InsurancePremium < Dry::Struct
-          attribute :InsurancePremiumAmount, Types::Decimal.meta(omittable: false)
+          attribute :InsurancePremiumAmount, Types::Float.meta(omittable: false)
         end
       end
     end

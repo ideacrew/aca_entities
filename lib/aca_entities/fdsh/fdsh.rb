@@ -34,5 +34,6 @@ module AcaEntities
     require_relative 'ifsv'
     require_relative 'vlp'
     require_relative 'ssa'
+    require_relative 'esi'
   end
 end

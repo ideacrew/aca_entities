@@ -57,8 +57,8 @@ module AcaEntities
                       category_determinations << {
                         category: key,
                         indicator_code: value[:Indicator],
-                        ineligibility_code: value[:"Ineligibility Code"],
-                        ineligibility_reason: value[:"Ineligibility Reason"]
+                        ineligibility_code: value[:'Ineligibility Code'],
+                        ineligibility_reason: value[:'Ineligibility Reason']
                       }
                     end
                     category_determinations

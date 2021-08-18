@@ -19,7 +19,7 @@ module AcaEntities
             # A unique reference to a living person; assigned by the United States Social Security Administration
             # @return [String]
             attribute :PersonSSNIdentification,
-                      AcaEntities::Fdsh::Person::PersonSSNIdentification.meta(
+                      AcaEntities::Fdsh::Person::PersonSsnIdentification.meta(
                         omittable: false
                       )
           end

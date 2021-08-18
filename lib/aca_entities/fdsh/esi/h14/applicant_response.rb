@@ -6,9 +6,9 @@ module AcaEntities
       module H14
         # Entity for Fdsh ESI(employer sponsored insurance) VerificationRequest
         class ApplicantResponse < Dry::Struct
-          attribute :ResponsePerson,  Fdsh::Esi::H14::ResponsePerson.meta(omittable: false)
-          attribute :ResponseMetadata,  Fdsh::Esi::H14::ResponseMetadata.meta(omittable: false)
-          attribute :ApplicantMECInformation,  Fdsh::Esi::H14::ApplicantMECInformation.optional.meta(omittable: true)
+          attribute :ResponsePerson,  AcaEntities::Fdsh::Esi::H14::ResponsePerson.meta(omittable: false)
+          attribute :ResponseMetadata,  AcaEntities::Fdsh::Esi::H14::ResponseMetaData.meta(omittable: false)
+          attribute :ApplicantMECInformation,  AcaEntities::Fdsh::Esi::H14::ApplicantMECInformation.optional.meta(omittable: true)
         end
       end
     end
