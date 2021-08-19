@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 
+require 'aca_entities/atp/transformers/aces/vlp_document'
+require 'aca_entities/atp/functions/immigrant_document_builder'
+
 module AcaEntities
   module Atp
     module Transformers
@@ -24,7 +27,28 @@ module AcaEntities
           }
           add_key 'coverage_during_previous_six_months_indicator'
           add_key 'eligible_itu_services_indicator'
-          add_key 'lawful_presence_status'
+          map 'vlp_document', 'vlp_document', memoize_record: true, visible: false
+          add_key 'lawful_presence_status.immigrant_documents',
+                  function: AcaEntities::Atp::Functions::ImmigrantDocumentBuilder.new
+          # namespace 'vlp_document' do
+          #   rewrap 'lawful_presence_status.immigrant_documents', type: :array do
+          #     add_key 'category_text'
+          #     add_key 'document_person_ids'
+          #     # map 'vlp_subject', 'category_code'
+          #     map 'alien_number', 'document_numbers.identification_id'
+          #     map 'i94_number', 'document_numbers.identification_id'
+          #     # map 'visa_number', 'document_numbers.identification_id'
+          #     # map 'passport_number', 'document_numbers.identification_id'
+          #     # map 'sevis_number', 'document_numbers.identification_id'
+          #     # map 'naturalization_number', 'document_numbers.identification_id'
+          #     # map 'receipt_number', 'document_numbers.identification_id'
+          #     # map 'citizenship_number', 'document_numbers.identification_id'
+          #     # map 'card_number', 'document_numbers.identification_id'
+          #     # map 'country_of_citizenship', 'document_numbers.identification_jurisdiction'
+          #     # map 'issuing_country', 'document_numbers.identification_jurisdiction'
+          #     # map 'expiration_date', 'expiration_date.date'
+          #   end
+          # end
           map 'is_self_attested_long_term_care', 'long_term_care_indicator'
           add_key 'non_esi_coverage_indicators', value: ->(_v) {[]}
           add_key 'parent_caretaker_indicator'

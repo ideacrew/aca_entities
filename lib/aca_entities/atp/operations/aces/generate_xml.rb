@@ -9,7 +9,6 @@ require 'aca_entities/medicaid/contracts/account_transfer_request_contract'
 require 'aca_entities/serializers/xml/medicaid/atp'
 require 'aca_entities/atp/transformers/aces/family'
 require 'aca_entities/serializers/xml/medicaid/atp/account_transfer_request'
-require 'aca_entities/atp/transformers/aces/family'
 
 module AcaEntities
   module Atp
@@ -56,7 +55,7 @@ module AcaEntities
             if result.success?
               result
             else
-              Failure("AccountTransferRequest -> #{result.failure}")
+              Failure("entity-AccountTransferRequest -> #{result.failure}")
             end
           end
 
@@ -68,13 +67,13 @@ module AcaEntities
             if seralized_xml.success?
               seralized_xml
             else
-              Failure("AccountTransferRequest -> #{seralized_xml.failure}")
+              Failure("Serializers-AccountTransferRequest -> #{seralized_xml.failure}")
             end
           end
 
           def validate_xml(seralized_xml)
             document = Nokogiri::XML(seralized_xml.to_xml)
-            xsd_path = File.open(Rails.root.join("artifacts", "aces", "atp_service.xsd"))
+            xsd_path = File.open(Pathname.pwd.join("lib/aca_entities/atp/schema/aces/atp_service.xsd"))
             schema_location = File.expand_path(xsd_path)
             schema = Nokogiri::XML::Schema(File.open(schema_location))
             result = schema.validate(document).each_with_object([]) do |error, collect|
@@ -113,7 +112,7 @@ module AcaEntities
             result = ::AcaEntities::Atp::Transformers::Aces::Family.transform(record)
             Success(result)
           rescue StandardError => e
-            Failure("to_aces traansformr #{e}")
+            Failure("to_aces transformer #{e}")
           end
         end
       end

@@ -45,7 +45,7 @@ module AcaEntities
               unless account_transfer_request.medicaid_households.nil?
                 mapper.medicaid_households = account_transfer_request.medicaid_households.map {|vm| MedicaidHousehold.domain_to_mapper(vm)}
               end
-              if account_transfer_request.respond_to?(:verification_metadata)
+              if account_transfer_request.verification_metadata
                 mapper.verification_metadata = account_transfer_request.verification_metadata.map {|vm| VerificationMetadata.domain_to_mapper(vm)}
               end
               mapper.tax_returns = account_transfer_request.tax_returns&.map { |tr| TaxReturn.domain_to_mapper(tr) }
