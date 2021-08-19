@@ -7,8 +7,8 @@ require 'dry/monads/do'
 require 'aca_entities/medicaid/atp'
 require 'aca_entities/medicaid/contracts/account_transfer_request_contract'
 require 'aca_entities/serializers/xml/medicaid/atp'
-require 'aca_entities/serializers/xml/medicaid/atp/account_transfer_request'
 require 'aca_entities/atp/transformers/aces/family'
+require 'aca_entities/serializers/xml/medicaid/atp/account_transfer_request'
 
 module AcaEntities
   module Atp
@@ -24,8 +24,7 @@ module AcaEntities
             valid_aces_payload = yield validate_aces(aces_payload)
             entity = yield initialize_entity(valid_aces_payload)
             serialized_payload = yield to_serialized_obj(entity)
-            _result = yield validate_xml(serialized_payload)
-
+            # _result = yield validate_xml(serialized_payload)
             xml_payload = serialized_payload.to_xml
             Success(xml_payload)
           end
