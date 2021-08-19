@@ -14,6 +14,7 @@ module AcaEntities
           incomes = applicants_hash[member_id.to_sym][:incomes]
 
           incomes.each_with_object([]) do |income, collect|
+            next if income[:kind] == "american_indian_and_alaskan_native"
             atp_income = ::AcaEntities::Atp::Transformers::Aces::Income.transform(income)
             collect << atp_income
           end
