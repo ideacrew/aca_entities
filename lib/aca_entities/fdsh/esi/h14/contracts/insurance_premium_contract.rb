@@ -7,7 +7,7 @@ module AcaEntities
         # Contract for FDSH ESI Verification contract
         class InsurancePremiumContract < Dry::Validation::Contract
           params do
-            required(:InsurancePremiumAmount).filled(:decimal)
+            required(:InsurancePremiumAmount).filled(:float)
           end
         end
       end

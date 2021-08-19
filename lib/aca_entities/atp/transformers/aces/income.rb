@@ -36,7 +36,7 @@ module AcaEntities
           add_key 'employment_source_text'
           map 'amount', 'amount'
           add_key 'days_per_week'
-          add_key 'hours_per_pay_period'
+          add_key 'hours_per_pay_period', value: ->(_v) {0.0} # default value
           map 'hours_per_week', 'hours_per_week'
           map 'kind', 'category_code', function: lambda { |v|
             IncomeTypes[v]
