@@ -151,7 +151,7 @@ module AcaEntities
                                           !v.resolve(:'tribal_augmentation.person_tribe_name').item.nil?
                                       }
 
-                    map 'consumer_role.marital_status', 'person_augmentation.married_indicator', function: ->v { v.nil? ? nil : (v == "MARRIED")}
+                    map 'consumer_role.marital_status', 'person_augmentation.married_indicator', function: ->(v) { v.nil? ? nil : (v == "MARRIED")}
 
                     map 'consumer_role.language_preference', 'language_preference', memoize_record: true, visible: false
                     map 'consumer_role.contact_method', 'consumer_role.contact_method', memoize_record: true, visible: false, append_identifier: true
