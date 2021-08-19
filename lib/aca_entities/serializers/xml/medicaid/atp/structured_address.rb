@@ -25,7 +25,7 @@ module AcaEntities
               mapper.location_street = LocationStreet.domain_to_mapper(structured_address&.location_street)
               mapper.address_secondary_unit_text = structured_address&.address_secondary_unit_text
               mapper.location_city_name = structured_address&.location_city_name
-              mapper.location_county_name = structured_address&.location_county_name
+              mapper.location_county_name = structured_address&.location_county_name if structured_address&.location_county_name
               mapper.location_county_code = structured_address&.location_county_code
               mapper.location_state_us_postal_service_code = structured_address&.location_state_us_postal_service_code
               mapper.location_postal_code = structured_address&.location_postal_code
