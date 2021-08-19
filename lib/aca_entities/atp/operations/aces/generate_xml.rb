@@ -8,6 +8,7 @@ require 'aca_entities/medicaid/atp'
 require 'aca_entities/medicaid/contracts/account_transfer_request_contract'
 require 'aca_entities/serializers/xml/medicaid/atp'
 require 'aca_entities/serializers/xml/medicaid/atp/account_transfer_request'
+require 'aca_entities/atp/transformers/aces/family'
 
 module AcaEntities
   module Atp
@@ -43,7 +44,7 @@ module AcaEntities
             if result.success?
               result
             else
-              Failure(result.failure.errors.to_h)
+              Failure("AccountTransferRequestContract -> #{result.failure.errors.to_h}")
             end
           end
 
@@ -55,7 +56,7 @@ module AcaEntities
             if result.success?
               result
             else
-              Failure(result.failure)
+              Failure("AccountTransferRequest -> #{result.failure}")
             end
           end
 
@@ -67,7 +68,7 @@ module AcaEntities
             if seralized_xml.success?
               seralized_xml
             else
-              Failure(seralized_xml.failure)
+              Failure("AccountTransferRequest -> #{seralized_xml.failure}")
             end
           end
 
@@ -83,7 +84,7 @@ module AcaEntities
             if result.empty?
               Success(true)
             else
-              Failure(result)
+              Failure("validate_xml -> #{result}")
             end
           end
 
@@ -111,6 +112,8 @@ module AcaEntities
             record["family"].merge!("family_members" => family_members)
             result = ::AcaEntities::Atp::Transformers::Aces::Family.transform(record)
             Success(result)
+          rescue StandardError => e
+            Failure("to_aces traansformr #{e}")
           end
         end
       end
