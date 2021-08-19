@@ -162,8 +162,8 @@ module AcaEntities
                   map 'requestingCoverageIndicator', 'is_coverage_applicant', memoize: true, append_identifier: true
                   add_key 'is_active'
                   add_key 'is_consent_applicant'
-                  add_key 'foreign_keys', value: ->(_v) {[]}
-                  add_key 'hbx_id', value: '1234'  # family default hbx_id
+                  add_key 'foreign_keys', value: ->(v) {[]}
+                  add_key 'hbx_id',value: ->(v) { v.find(/attestations.members.(\w+)$/).map(&:item).last }
 
                   namespace 'demographic' do
 

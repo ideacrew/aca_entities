@@ -29,7 +29,6 @@ module AcaEntities
         @current_member = cache.find(/attestations.members.(\w+)$/).map(&:item).last
         household = cache.resolve('attestations.household').item
         relationship = ''
-
         household[:familyRelationships].each do |family_relationship|
           primary_match = family_relationship[:no_key][1][:no_key].include?(@primary_applicant_id)
           current_member_match = family_relationship[:no_key][1][:no_key].include?(@current_member)
@@ -40,14 +39,16 @@ module AcaEntities
           elsif primary_match && current_member_match
             relationship = RelationshipMap[family_relationship[:no_key][1][:no_key][1].downcase]
             break
-          elsif current_member_match
-            relationship = RelationshipMap[family_relationship[:no_key][1][:no_key][1].downcase]
-          else
-            relationship = "unrelated"   # Case for relationship not provided
           end
         end
 
-        [{ relative: person_hash, kind: relationship }]
+        unless relationship.present? # Case for relationship not provided
+          relationship = "unrelated"
+        end
+
+       primary_relation =  [{ relative: person_hash, kind: relationship }]
+       other_relation = find_other_relationships(household[:familyRelationships])
+        primary_relation + other_relation
       end
 
       private
@@ -62,6 +63,31 @@ module AcaEntities
           gender: @memoized_data.find(Regexp.new("person_demographics.gender.#{@current_member}"))&.first&.item&.capitalize,
           dob: dob,
           ssn: @memoized_data.find(Regexp.new("person_demographics.ssn.#{@current_member}"))&.first&.item }
+      end
+
+      def find_other_relationships(relationship)
+        relationships = []
+        other_relationship = relationship.collect do |family_relationship|
+          if family_relationship[:no_key][1][:no_key].include?(@current_member)
+            family_relationship[:no_key][1][:no_key]
+          end
+        end.compact
+
+        other_relationship.each do |rel|
+          relationships << {
+          relative: {
+            hbx_id: rel[0] != @current_member ? rel[0] : rel[2],
+            first_name: "dummy first",
+            last_name: "dummy last",
+            gender: "male",
+            dob:  Date.parse("2021-05-07"),
+            ssn: "1234567890"
+          },
+          kind: RelationshipMap[rel[1].downcase]
+          }
+        end
+
+        relationships
       end
     end
   end

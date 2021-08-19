@@ -18,7 +18,8 @@ module AcaEntities
           @insurance_coverage_hash = @memoized_data.find(Regexp.new("#{m_identifier}.insuranceCoverage"))&.first&.item
 
           # collector << member.item.merge!(applicant_hash)
-          collector << applicant_hash.merge(person_hbx_id: "#{@member_identifier}:#{member.item[:personTrackingNumber]}")
+          # collector << applicant_hash.merge(person_hbx_id: "#{@member_identifier}:#{member.item[:personTrackingNumber]}")
+          collector << applicant_hash.merge(person_hbx_id: @member_identifier)
           collector
         end
 
@@ -283,14 +284,14 @@ module AcaEntities
 
       def name_hash
         { first_name: @memoized_data.find(Regexp.new("first_name.#{@member_identifier}"))&.first&.item,
-          middle_name: @memoized_data.find(Regexp.new("middle_name.#{@member_identifier}"))&.first&.item || 'nil',
+          middle_name: @memoized_data.find(Regexp.new("middle_name.#{@member_identifier}"))&.first&.item || '',
           # default value, create new contract and entities for create family and IAP
           last_name: @memoized_data.find(Regexp.new("last_name.#{@member_identifier}"))&.first&.item,
-          name_sfx: @memoized_data.find(Regexp.new("name_sfx.#{@member_identifier}"))&.first&.item || 'nil',
-          name_pfx: @memoized_data.find(Regexp.new("name_pfx.#{@member_identifier}"))&.first&.item || 'nil',
+          name_sfx: @memoized_data.find(Regexp.new("name_sfx.#{@member_identifier}"))&.first&.item || '',
+          name_pfx: @memoized_data.find(Regexp.new("name_pfx.#{@member_identifier}"))&.first&.item || '',
           full_name: [@memoized_data.find(Regexp.new("first_name.#{@member_identifier}"))&.first&.item,
                       @memoized_data.find(Regexp.new("last_name.#{@member_identifier}"))&.first&.item].join('.'),
-          alternate_name: @memoized_data.find(Regexp.new("alternate_name.#{@member_identifier}"))&.first&.item || 'nil' }
+          alternate_name: @memoized_data.find(Regexp.new("alternate_name.#{@member_identifier}"))&.first&.item || '' }
       end
 
       def demographic_hash
@@ -380,12 +381,14 @@ module AcaEntities
           vlp_document: nil,
           family_member_reference: family_member_reference_hash,
           person_hbx_id: '1234', # default value
-          is_required_to_file_taxes: @attestations_family_hash[:taxFilerIndicator] || true, # default value  #TODO
-          tax_filer_kind: 'tax_filer', # default value . #To memoise and extract data from taxRelationships
+
+          is_required_to_file_taxes: @attestations_family_hash[:taxFilerIndicator] || false,
+          tax_filer_kind: tax_filer_kind, # default value . #To memoise and extract data from taxRelationships
           is_joint_tax_filing: @attestations_family_hash[:taxReturnFilingStatusType] == 'MARRIED_FILING_JOINTLY',
           # # add method to check for joint filing using this value
-          is_claimed_as_tax_dependent: @attestations_family_hash[:taxDependentIndicator] || false,  #TODO
-          claimed_as_tax_dependent_by: nil, # default value
+          is_claimed_as_tax_dependent: @attestations_family_hash[:taxDependentIndicator] || false,
+          claimed_as_tax_dependent_by: claimed_as_tax_dependent_hash, # default value
+
           student: student_hash,
           is_refugee: nil, # default value
           is_trafficking_victim: nil, # default value
@@ -423,6 +426,50 @@ module AcaEntities
           is_self_attested_long_term_care: non_magi.nil? ? false : non_magi[:longTermCareIndicator] || false,
           hours_worked_per_week: '2'
         }
+      end
+
+      def tax_filer_kind
+        if @attestations_family_hash[:taxFilerIndicator]
+          "tax_filer"
+        elsif @attestations_family_hash[:taxDependentIndicator]
+          "dependent"
+        else
+          "non_filer"
+        end
+      end
+
+      def claimed_as_tax_dependent_hash
+        person_hbx_id = claimed_as_tax_dependent_by.present? ? claimed_as_tax_dependent_by : "1234"
+        {first_name: "dummy",last_name: 'dummy', dob: Date.parse("2021-05-07"), person_hbx_id: person_hbx_id}
+      end
+
+      def claimed_as_tax_dependent_by
+        if @attestations_family_hash[:taxDependentIndicator]
+          household = @memoized_data.resolve('attestations.household').item
+          found_relationship = household[:taxRelationships].collect do |tax_relationship|
+            primary_match = tax_relationship[:no_key][0][:no_key].include?(@primary_applicant_identifier)
+            current_member_match = tax_relationship[:no_key][0][:no_key].include?(@member_identifier)
+            if primary_match && current_member_match
+              tax_relationship[:no_key][0][:no_key]
+            elsif current_member_match
+              tax_relationship[:no_key][0][:no_key]
+            end
+          end.compact
+
+          return nil if found_relationship.blank?
+          return found_relationship[0][0] if found_relationship.count == 1
+
+          found_relationship_with_primary = found_relationship.detect do |relationship|
+            relationship.include?(@primary_applicant_identifier)
+          end
+
+          return found_relationship_with_primary[0] if found_relationship_with_primary.present?
+
+          found_relationship_by_member = found_relationship.detect do |relationship|
+            relationship.include?(@member_identifier)
+          end
+          found_relationship_by_member[0]
+        end
       end
     end
   end
