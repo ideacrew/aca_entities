@@ -3,48 +3,27 @@
 module AcaEntities
   module Atp
     module Functions
-      # build application and applicants
+      # build immigration documents
       class ImmigrantDocumentBuilder
-        
-        # VLP_CATEGORY_CODES = {
-        #   'Certificate of Citizenship' => 'CertificateOfCitizenship',
-        #   'DS2019 (Certificate of Eligibility for Exchange Visitor (J-1) Status)' => 'DS2019',
-        #   'I-20 (Certificate of Eligibility for Nonimmigrant (F-1) Student Status)' => 'I20',
-        #   'I-327 (Reentry Permit)' => 'I327',
-        #   'I-551 (Permanent Resident Card)' => 'I551',
-        #   'I-571 (Refugee Travel Document)' => 'I571',
-        #   'I-766 (Employment Authorization Card)' => 'I766',
-        #   'I-94 (Arrival/Departure Record)' => 'I94',
-        #   'I-94 (Arrival/Departure Record) in Unexpired Foreign Passport' => 'I94InPassport',
-        #   'Machine Readable Immigrant Visa (with Temporary I-551 Language)' => 'MachineReadableVisa',
-        #   'Naturalization Certificate' => 'NaturalizationCertificate',
-        #   'Temporary I-551 Stamp (on passport or I-94)' => 'TemporaryI551Stamp',
-        #   'Unexpired Foreign Passport' => 'UnexpiredForeignPassport'
-        # }.freeze
 
-        def call(cache)
+        def call(cache) # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/MethodLength
           @memoized_data = cache
-          vlp_document = @memoized_data.resolve('vlp_document').item
-          # TODO: generate list of hashes representing the outbound vlp documents
-          # First set :category_code (from :subject), :expiration_date -- DONE
-          # then documents by number like this: 
-          # :document_numbers=>[{:identification_id=>"1234567891", :identification_category_text=>"SEVIS ID"}
-          # Note: must hardcode :identification_category_text based on number type, e.g., i94_number should get "I-94 ID" -- DONE
-          # Then add :document_person_ids based on applicant's identity???
+          @vlp_document = @memoized_data.resolve('vlp_document').item
+          @doc = {}
 
-          immigrant_docs = []
+          # TODO: add document_person_ids based on applicant's identity???
 
           if vlp_document[:alien_number]
             @alien_number = {
               :identification_id => vlp_document[:alien_number],
               :identification_category_text => "Alien Number"
-            }         
+            }
           end
 
           if vlp_document[:i94_number]
             @i94_number = {
               :identification_id => vlp_document[:i94_number],
-              :identification_category_text => "I-94 Number" 
+              :identification_category_text => "I-94 Number"
             }
           end
 
@@ -54,19 +33,19 @@ module AcaEntities
               :identification_category_text => "Visa Number"
             }
           end
-        
+
           if vlp_document[:passport_number]
             @passport_number = {
               :identification_id => vlp_document[:passport_number],
               :identification_category_text => "Passport Number",
-              :identification_jurisdiction => vlp_document[:country_of_citizenship] # Check if this is acceptable business logic
+              :identification_jurisdiction => vlp_document[:country_of_citizenship]
             }
           end
 
           if vlp_document[:sevis_id]
             @sevis_id = {
               :identification_id => vlp_document[:sevis_id],
-              :identification_category_text => "SEVIS ID" 
+              :identification_category_text => "SEVIS ID"
             }
           end
 
@@ -87,127 +66,98 @@ module AcaEntities
           if vlp_document[:citizenship_number]
             @citizenship_number = {
               :identification_id => vlp_document[:citizenship_number],
-              :identification_category_text => "Citizenship Number" 
-            }           
+              :identification_category_text => "Citizenship Number"
+            }
           end
 
           if vlp_document[:card_number]
             @card_number = {
               :identification_id => vlp_document[:card_number],
               :identification_category_text => "Card Number"
-            }        
+            }
           end
 
           case vlp_document[:subject]
           when 'I-327 (Reentry Permit)'
-            doc = {
+            @doc = {
               category_code: 'I327',
               expiration_date: vlp_document[:expiration_date],
               document_numbers: [@alien_number]
-            }                
+            }
           when 'I-551 (Permanent Resident Card)'
-            doc = {
+            @doc = {
               category_code: 'I551',
               expiration_date: vlp_document[:expiration_date],
               document_numbers: [@alien_number, @card_number]
             }
           when 'I-571 (Refugee Travel Document)'
-            doc = {
+            @doc = {
               category_code: 'I571',
               expiration_date: vlp_document[:expiration_date],
               document_numbers: [@alien_number]
             }
           when 'I-766 (Employment Authorization Card)'
-            doc = {
+            @doc = {
               category_code: 'I766',
               expiration_date: vlp_document[:expiration_date],
               document_numbers: [@alien_number, @card_number]
             }
           when 'Certificate of Citizenship'
-            doc = {
+            @doc = {
               category_code: 'CertificateOfCitizenship',
               expiration_date: vlp_document[:expiration_date],
               document_numbers: [@citizenship_number, @alien_number]
             }
           when 'Naturalization Certificate'
-            doc = {
+            @doc = {
               category_code: 'NaturalizationCertificate',
               expiration_date: vlp_document[:expiration_date],
               document_numbers: [@naturalization_number]
             }
           when 'Machine Readable Immigrant Visa (with Temporary I-551 Language)'
-            doc = {
+            @doc = {
               category_code: 'MachineReadableVisa',
               expiration_date: vlp_document[:expiration_date],
               document_numbers: [@alien_number, @passport_number, @visa_number]
             }
           when 'Temporary I-551 Stamp (on passport or I-94)'
-            doc = {
+            @doc = {
               category_code: 'TemporaryI551Stamp',
               expiration_date: vlp_document[:expiration_date],
               document_numbers: [@alien_number, @passport_number]
             }
           when 'I-94 (Arrival/Departure Record)'
-            doc = {
+            @doc = {
               category_code: 'I94',
-              # expiration_date: vlp_document[:expiration_date],
+              expiration_date: vlp_document[:expiration_date],
               document_numbers: [@i94_number, @sevis_id]
             }
-            passport = {
-              category_code: 'UnexpiredForeignPassport',
-              expiration_date: vlp_document[:expiration_date]
-            }
-            immigrant_docs << passport
           when 'I-94 (Arrival/Departure Record) in Unexpired Foreign Passport'
-            doc = {
-              category_code: 'I94InPassport',              
-              document_numbers: [@i94_number, @visa_number, @sevis_id]
+            @doc = {
+              category_code: 'I94InPassport',
+              document_numbers: [@i94_number, @visa_number, @sevis_id, @passport_number]
             }
-            passport = {
-              category_code: 'UnexpiredForeignPassport',
-              expiration_date: vlp_document[:expiration_date],
-              document_numbers: [@passport_number]
-            }
-            immigrant_docs << passport
-          when 'Unexpired Foreign Passport'            
-            doc = {
+          when 'Unexpired Foreign Passport'
+            @doc = {
               category_code: 'UnexpiredForeignPassport',
               expiration_date: vlp_document[:expiration_date],
               document_numbers: [@passport_number, @i94_number, @sevis_id]
             }
-            # passport = {
-            #   category_code: 'UnexpiredForeignPassport',
-            #   expiration_date: vlp_document[:expiration_date],
-            #   document_numbers: [@passport_number]
-            # }
-            # immigrant_docs << passport
           when 'I-20 (Certificate of Eligibility for Nonimmigrant (F-1) Student Status)'
-            doc = {
+            @doc = {
               category_code: 'I20',
               expiration_date: vlp_document[:expiration_date],
-              document_numbers: [@i94_number, @sevis_id]
+              document_numbers: [@i94_number, @sevis_id, @passport_number]
             }
-            passport = {
-              category_code: 'UnexpiredForeignPassport',
-              expiration_date: vlp_document[:expiration_date],
-              document_numbers: [@passport_number]
-            }
-            immigrant_docs << passport
           when 'DS2019 (Certificate of Eligibility for Exchange Visitor (J-1) Status)'
-            doc = {
+            @doc = {
               category_code: 'DS2019',
               expiration_date: vlp_document[:expiration_date],
-              document_numbers: [@i94_number, @sevis_id]
+              document_numbers: [@i94_number, @sevis_id, @passport_number]
             }
-            passport = {
-              category_code: 'UnexpiredForeignPassport',
-              expiration_date: vlp_document[:expiration_date],
-              document_numbers: [@passport_number]
-            }
-            immigrant_docs << passport
           end
-          binding.pry
-          immigrant_docs << doc
+
+          [@doc]
         end
       end
     end

@@ -24,7 +24,6 @@ module AcaEntities
           params = yield xml_transform
           #   params = yield batch_json_transform if @worker_mode == :batch # (app_params)
           yield single_json_transform(params) if worker_mode == :single
-binding.pry
           Success(true)
         end
 

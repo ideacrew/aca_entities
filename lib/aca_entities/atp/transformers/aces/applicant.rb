@@ -28,7 +28,8 @@ module AcaEntities
           add_key 'coverage_during_previous_six_months_indicator'
           add_key 'eligible_itu_services_indicator'
           map 'vlp_document', 'vlp_document', memoize_record: true, visible: false
-          add_key 'lawful_presence_status.immigrant_documents', function: AcaEntities::Atp::Functions::ImmigrantDocumentBuilder.new                             
+          add_key 'lawful_presence_status.immigrant_documents',
+                  function: AcaEntities::Atp::Functions::ImmigrantDocumentBuilder.new
           # namespace 'vlp_document' do
           #   rewrap 'lawful_presence_status.immigrant_documents', type: :array do
           #     add_key 'category_text'

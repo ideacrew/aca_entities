@@ -92,7 +92,6 @@ module AcaEntities
                                                               applicants_hash = v.resolve('family.magi_medicaid_applications.applicants').item
                                                               applicants_hash.each_with_object([]) do |applicant_hash, collector|
                                                                 applicant = applicant_hash[1]
-                                                                binding.pry
                                                                 collector << AcaEntities::Atp::Transformers::Aces::Applicant.transform(applicant)
                                                               end
                                                             }
@@ -152,7 +151,7 @@ module AcaEntities
                                           !v.resolve(:'tribal_augmentation.person_tribe_name').item.nil?
                                       }
 
-                    map 'consumer_role.marital_status', 'person_augmentation.married_indicator', function: -> v { v.nil? ? nil : (v == "MARRIED")}
+                    map 'consumer_role.marital_status', 'person_augmentation.married_indicator', function: ->v { v.nil? ? nil : (v == "MARRIED")}
 
                     map 'consumer_role.language_preference', 'language_preference', memoize_record: true, visible: false
                     map 'consumer_role.contact_method', 'consumer_role.contact_method', memoize_record: true, visible: false, append_identifier: true
