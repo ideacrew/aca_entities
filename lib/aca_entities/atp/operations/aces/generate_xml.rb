@@ -74,7 +74,7 @@ module AcaEntities
 
           def validate_xml(seralized_xml)
             document = Nokogiri::XML(seralized_xml.to_xml)
-            xsd_path = File.open('/Users/vishu/new_repo/gem/aca_entities/lib/aca_entities/atp/schema/aces/atp_service.xsd')
+            xsd_path = File.open(Pathname.pwd.join("lib/aca_entities/atp/schema/aces/atp_service.xsd"))
             schema_location = File.expand_path(xsd_path)
             schema = Nokogiri::XML::Schema(File.open(schema_location))
             result = schema.validate(document).each_with_object([]) do |error, collect|
