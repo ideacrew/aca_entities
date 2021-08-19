@@ -9,12 +9,16 @@ module AcaEntities
           include ::AcaEntities::Operations::Transforms::Transformer
 
           map 'ref', 'role_reference.ref', function: ->(v) {"IDC#{v}"}
-          map 'first_name', 'signature.signature_name.given'
-          map 'middle_name', 'signature.signature_name.middle'
-          map 'last_name', 'signature.signature_name.sur'
-          map 'name_sfx', 'signature.signature_name.suffix'
-          map 'full', 'signature.signature_name.full_name'
-          add_key 'signature.signature_date.date', value: ->(_v) { Date.today } # default
+          map 'first_name', 'signature.signature_name.given', memoize: true, visible: false
+          map 'middle_name', 'signature.signature_name.middle', memoize: true, visible: false
+          map 'last_name', 'signature.signature_name.sur', memoize: true, visible: false
+          # map 'name_sfx', 'signature.signature_name.suffix'
+          add_key 'signature.signature_name.full', value: lambda { |v|
+            [v.resolve('signature.signature_name.given').item.to_s,
+             v.resolve('signature.signature_name.middle').item.to_s,
+             v.resolve('signature.signature_name.sur').item.to_s].join(' ')
+          }
+          add_key 'signature.signature_date.date', value: ->(_v) { Date.today } # default value
         end
       end
     end

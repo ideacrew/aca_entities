@@ -13,6 +13,7 @@ module AcaEntities
             # @option opts [AcaEntities::Fdsh::Person::PersonName] :person_name Applicant's full name
             # @option opts [FullyRestrictedSSNType] :identification_id Applicant last name
             # @option opts [TaxFilerCategoryCodeType] :tax_filer_category_code Applicant's income tax filing role
+            # @return [Dry::Monads::Result]
             params do
               required(:request_id).filled(
                 AcaEntities::Fdsh::Ifsv::H9t::Types::RequestIDType

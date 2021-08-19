@@ -49,6 +49,13 @@ module AcaEntities
           add_key 'household_exception_indicator'
           map 'foster_care_indicator', 'foster_care_indicator'
           add_key 'parent_average_hours_worked_per_week_values'
+
+          add_key 'referral_activity.activity_id.identification_id', value: "FFM45358121961474116" # default value
+          add_key 'referral_activity.activity_date.date_time', value: ->(_v) {DateTime.now} # default value
+          add_key 'referral_activity.sender_reference.ref', value: "Sender"
+          add_key 'referral_activity.receiver_reference.ref', value: "medicaidReceiver"
+          add_key 'referral_activity.status.status_code', value: "Initiated" # default value
+          add_key 'referral_activity.reason_code', value: "FullDetermination" # default value
         end
       end
     end
