@@ -6,7 +6,7 @@ module AcaEntities
       # build immigration documents
       class ImmigrantDocumentBuilder
 
-        def call(cache) # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/MethodLength
+        def call(cache) # rubocop:disable Metrics/CyclomaticComplexity, Metrics/MethodLength
           @memoized_data = cache
           vlp_document = @memoized_data.resolve('vlp_document').item
           return [] unless vlp_document
