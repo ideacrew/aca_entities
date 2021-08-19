@@ -8,11 +8,12 @@ module AcaEntities
 
         def call(cache) # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/MethodLength
           @memoized_data = cache
-          @vlp_document = @memoized_data.resolve('vlp_document').item
+          vlp_document = @memoized_data.resolve('vlp_document').item
+          return [] unless vlp_document
+
           @doc = {}
 
           # TODO: add document_person_ids based on applicant's identity???
-
           if vlp_document[:alien_number]
             @alien_number = {
               :identification_id => vlp_document[:alien_number],
