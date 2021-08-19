@@ -1,0 +1,64 @@
+---
+asyncapi: 2.0.0
+info:
+  title: Medicaid Gateway ATP
+  version: 0.1.0
+  description: Publish configuration for the ATP portion Medicaid Gateway service
+  contact:
+    name: IdeaCrew
+    url: https://ideacrew.com
+    email: info@ideacrew.com
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+
+servers:
+  development:
+    url: amqp://rabbitmq:5672/event_source
+    protocol: amqp
+    protocolVersion: 0.9.2
+    description: Medicaid Gateway Development Server
+  test:
+    url: amqp://rabbitmq:5672/event_source
+    protocol: amqp
+    protocolVersion: 0.9.2
+    description: Medicaid Gateway Test Server
+  production:
+    url: amqp://rabbitmq:5672/event_source
+    protocol: amqp
+    protocolVersion: 0.9.2
+    description: Medicaid Gateway Production Server
+
+defaultContentType: application/json
+
+channels:
+  magi_medicaid.atp.enroll.transfer_in:
+    bindings:
+      amqp:
+        is: :routing_key
+        exchange:
+          name: magi_medicaid.atp.enroll
+          type: topic
+          durable: true
+          auto_delete: false
+          vhost: event_source
+        bindingVersion: 0.1.0
+    publish:
+      bindings:
+        amqp:
+          app_id: medicaid_gateway
+          type: magi_medicaid.atp.enroll
+          routing_key: magi_medicaid.atp.enroll.transfer_in
+          expiration: 100_000
+          deliveryMode: 2 
+          mandatory: true
+          timestamp: true
+          content_type: application/json
+          bindingVersion: 0.2.0
+      operationId: magi_medicaid.atp.enroll.transfer_in
+      description: ACES account has been transfered in.
+  
+
+tags:
+  - name: linter_tag
+    description: placeholder that satisfies the linter
