@@ -16,11 +16,11 @@ module AcaEntities
             element :aptc_amount, Float, tag: 'InsurancePremiumAPTCAmount'
             element :subscriber_amount, Float, tag: 'InsurancePremiumSubscriberAmount'
 
-            def self.domain_to_mapper(chip_id)
+            def self.domain_to_mapper(premium)
               mapper = self.new
-              mapper.amount = chip_id.amount
-              mapper.aptc_amount = chip_id.aptc_amount
-              mapper.subscriber_amount = chip_id.subscriber_amount
+              mapper.amount = premium.amount
+              mapper.aptc_amount = premium.aptc_amount
+              mapper.subscriber_amount = premium.subscriber_amount
               mapper
             end
 
