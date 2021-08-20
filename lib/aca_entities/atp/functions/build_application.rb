@@ -91,8 +91,8 @@ module AcaEntities
         end
 
         def check_employer_address(contact_info)
-          !contact_info.dig(:location_street, :street_full_text).nil? && !mailing[:location_city_name].nil? && !mailing[:location_state_us_postal_service_code].nil? && !mailing[:location_postal_code].nil? &&
-            !contact_info.dig(:location_street, :street_full_text).empty? && !mailing[:location_city_name].empty? && !mailing[:location_state_us_postal_service_code].empty? && !mailing[:location_postal_code].empty?
+          !contact_info.dig(:location_street, :street_full_text).nil? && !contact_info[:location_city_name].nil? && !contact_info[:location_state_us_postal_service_code].nil? && !contact_info[:location_postal_code].nil? &&
+            !contact_info.dig(:location_street, :street_full_text).empty? && !contact_info[:location_city_name].empty? && !contact_info[:location_state_us_postal_service_code].empty? && !contact_info[:location_postal_code].empty?
         end
 
         def job_income_hash
