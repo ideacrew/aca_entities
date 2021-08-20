@@ -20,6 +20,17 @@ module AcaEntities
       # Validates a string format is a valid FDSH RequestID
       # @return [Boolean]
       RequestIDType = Types::String.constrained(format: /^[0-9]{1,9}$/)
+
+      TDSOrganizationCode =
+        Types::Coercible::String.enum(
+          'MEDC',
+          'CHIP',
+          'BHPC',
+          'MEDI',
+          'VHPC',
+          'TRIC',
+          'PECO'
+        )
     end
   end
 end
