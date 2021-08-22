@@ -24,7 +24,7 @@ module AcaEntities
                     "non_esi",
                     "h31",
                     "xsd",
-                    "XMLschemas",
+                    "XMLSchemas",
                     "niem_schemas",
                     "verifyNonEsiMec",
                     "VerifyNonESIMEC.xsd"
