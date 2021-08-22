@@ -248,8 +248,20 @@ module AcaEntities
         esi_benefits.present?
       end
 
+      def health_benefits_for(benefit_kind)
+        health_benefits = benefits.select do |benefit|
+          benefit.kind == benefit_kind
+        end
+
+        health_benefits.present?
+      end
+
       def esi_evidence
         evidences.detect {|evidence| evidence.key.to_sym == :esi_mec}
+      end
+
+      def non_esi_evidence
+        evidences.detect {|evidence| evidence.key.to_sym == :non_esi_mec}
       end
     end
   end

@@ -35,5 +35,7 @@ module AcaEntities
     require_relative 'vlp'
     require_relative 'ssa'
     require_relative 'esi'
+    require_relative 'non_esi'
+
   end
 end

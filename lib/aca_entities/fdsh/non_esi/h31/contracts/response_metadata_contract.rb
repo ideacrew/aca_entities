@@ -4,8 +4,8 @@ module AcaEntities
   module Fdsh
     module NonEsi
       module H31
-        # Contract for FDSH VerifyNonEsiMECResponseContract
-        class VerifyNonEsiMECResponseContract < Dry::Validation::Contract
+        # Contract for FDSH ResponseMetaDataContract
+        class ResponseMetadataContract < Dry::Validation::Contract
           params do
             required(:ResponseCode).filled(:string)
             required(:ResponseDescriptionText).filled(:string)

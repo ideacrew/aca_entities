@@ -6,8 +6,8 @@ module AcaEntities
       module H31
         # Entity for Fdsh NON ESI(employer sponsored insurance) MECCoverage
         class Insurance < Dry::Struct
-          attribute :InsuranceEffectiveDate, AcaEntities::Fdsh::NonEsi::H31::InsuranceDate.meta(omittable: true)
-          attribute :InsuranceEndDate, AcaEntities::Fdsh::NonEsi::H31::InsuranceDate.meta(omittable: true)
+          attribute :InsuranceEffectiveDate, Types::Date.optional.meta(omittable: true)
+          attribute :InsuranceEndDate, Types::Date.optional.meta(omittable: true)
         end
       end
     end

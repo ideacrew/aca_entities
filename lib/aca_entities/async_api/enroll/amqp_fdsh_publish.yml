@@ -152,12 +152,39 @@ channels:
         binding_version: "0.2.0"
     publish:
       operationId: fdsh.determination_requests.esi.determine_esi_mec_eligibility
-      description: Events - eligibility determination Request
+      description: Events - ESI eligibility determination Request
       bindings:
         amqp:
           app_id: enroll
           type: fdsh.determination_requests.esi
           routing_key: fdsh.determination_requests.esi.determine_esi_mec_eligibility
+          expiration: 100_000
+          deliveryMode: 2
+          mandatory: true
+          timestamp: true
+          content_type: application/json
+          bindingVersion: 0.2.0
+
+  fdsh.determination_requests.non_esi.determine_non_esi_mec_eligibility:
+    bindings:
+      amqp:
+        is: :routing_key
+        exchange:
+          name: fdsh.determination_requests.non_esi
+          type: topic
+          content_type: application/json
+          durable: true
+          auto_delete: false
+          vhost: event_source
+        binding_version: "0.2.0"
+    publish:
+      operationId: fdsh.determination_requests.non_esi.determine_non_esi_mec_eligibility
+      description: Events - NON ESI eligibility determination Request
+      bindings:
+        amqp:
+          app_id: enroll
+          type: fdsh.determination_requests.non_esi
+          routing_key: fdsh.determination_requests.non_esi.determine_non_esi_mec_eligibility
           expiration: 100_000
           deliveryMode: 2
           mandatory: true

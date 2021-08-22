@@ -4,7 +4,7 @@ module AcaEntities
   module Fdsh
     module NonEsi
       module H31
-        # Contract for FDSH VerifyNonEsiMECRequestContract
+        # Contract for FDSH NOn Esi Applicant
         class ApplicantContract < Dry::Validation::Contract
           params do
             required(:PersonSSNIdentification).filled(:string)

@@ -5,7 +5,7 @@ module AcaEntities
     module NonEsi
       module H31
         # Contract for FDSH VerifyNonEsiMECRequestContract
-        class VerifyNonEsiMECRequestContract < Dry::Validation::Contract
+        class VerifyNonESIMECRequestContract < Dry::Validation::Contract
           params do
             required(:IndividualRequests).array(AcaEntities::Fdsh::NonEsi::H31::IndividualRequestContract.params)
           end

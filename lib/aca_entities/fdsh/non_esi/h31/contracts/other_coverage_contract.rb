@@ -8,7 +8,7 @@ module AcaEntities
         class OtherCoverageContract < Dry::Validation::Contract
           params do
             required(:OrganizationCode).filled(AcaEntities::Fdsh::Types::TDSOrganizationCode)
-            required(:ResponseMetadata).filled(AcaEntities::Fdsh::NonEsi::H31::ResponseMetaDataContract.params)
+            required(:ResponseMetadata).filled(AcaEntities::Fdsh::NonEsi::H31::ResponseMetadataContract.params)
             optional(:MECCoverage).maybe(AcaEntities::Fdsh::NonEsi::H31::MECCoverageContract.params)
           end
         end

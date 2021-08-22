@@ -5,9 +5,9 @@ module AcaEntities
     module NonEsi
       module H31
         # Contract for FDSH VerifyNonEsiMECResponseContract
-        class VerifyNonEsiMECResponseContract < Dry::Validation::Contract
+        class VerifyNonESIMECResponseContract < Dry::Validation::Contract
           params do
-            optional(:ResponseMetadata).maybe(AcaEntities::Fdsh::NonEsi::H31::ResponseMetaDataContract.params)
+            optional(:ResponseMetadata).maybe(AcaEntities::Fdsh::NonEsi::H31::ResponseMetadataContract.params)
             optional(:IndividualResponseSet).maybe(AcaEntities::Fdsh::NonEsi::H31::IndividualResponseSetContract.params)
           end
         end
