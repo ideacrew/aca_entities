@@ -10,12 +10,12 @@ module AcaEntities
             # Include XML element and type definitions.
             class PersonBirthDate
               include HappyMapper
-              register_namespace 'ns1', 'http://niem.gov/niem/niem-core/2.0'
+              register_namespace 'nc', 'http://niem.gov/niem/niem-core/2.0'
 
               tag 'PersonBirthDate'
-              namespace 'ns1'
+              namespace 'nc'
 
-              element :Date, Date, tag: "Date", namespace: "ns1"
+              element :Date, Date, tag: "Date", namespace: "nc"
 
               def self.domain_to_mapper(person_birth_date)
                 mapper = self.new

@@ -10,14 +10,14 @@ module AcaEntities
             # Include XML element and type definitions.
             class PersonName
               include HappyMapper
-              register_namespace 'extn', 'http://extn.ssac.ee.sim.dsh.cms.hhs.gov'
+              register_namespace 'ssac', 'http://extn.ssac.ee.sim.dsh.cms.hhs.gov'
 
               tag 'PersonName'
-              namespace 'extn'
+              namespace 'ssac'
 
-              element :PersonGivenName, String, tag: "PersonGivenName", namespace: "extn"
-              element :PersonMiddleName, String, tag: "PersonMiddleName", namespace: "extn"
-              element :PersonSurName, String, tag: "PersonSurName", namespace: "extn"
+              element :PersonGivenName, String, tag: "PersonGivenName", namespace: "ssac"
+              element :PersonMiddleName, String, tag: "PersonMiddleName", namespace: "ssac"
+              element :PersonSurName, String, tag: "PersonSurName", namespace: "ssac"
 
               def self.domain_to_mapper(person_name)
                 mapper = self.new

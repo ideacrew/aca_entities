@@ -19,6 +19,10 @@ module AcaEntities
         require 'aca_entities/families/family_member_reference'
         require 'aca_entities/families/family_reference'
         require 'aca_entities/magi_medicaid/types'
+        require 'aca_entities/evidences/eligibility_result'
+        require 'aca_entities/evidences/verification_history'
+        require 'aca_entities/evidences/verification_status'
+        require 'aca_entities/evidences/evidence'
         require 'aca_entities/magi_medicaid/applicant_reference'
         require 'aca_entities/magi_medicaid/relationship'
         require 'aca_entities/magi_medicaid/application_reference'
@@ -43,6 +47,7 @@ module AcaEntities
         require 'aca_entities/magi_medicaid/product_eligibility_determination'
         require 'aca_entities/magi_medicaid/tax_household_member'
         require 'aca_entities/magi_medicaid/tax_household'
+        require 'aca_entities/magi_medicaid/notice_options'
         require 'aca_entities/magi_medicaid/application'
 
         require 'aca_entities/contracts/people/person_name_contract'
@@ -52,6 +57,10 @@ module AcaEntities
         require 'aca_entities/contracts/documents/vlp_document_contract'
         require 'aca_entities/contracts/families/family_member_reference_contract'
         require 'aca_entities/contracts/families/family_reference_contract'
+        require 'aca_entities/evidences/contracts/eligibility_result_contract'
+        require 'aca_entities/evidences/contracts/verification_history_contract'
+        require 'aca_entities/evidences/contracts/verification_status_contract'
+        require 'aca_entities/evidences/contracts/evidence_contract'
         require 'aca_entities/magi_medicaid/contracts/contract'
         require 'aca_entities/magi_medicaid/contracts/applicant_reference_contract'
         require 'aca_entities/magi_medicaid/contracts/relationship_contract'
@@ -78,6 +87,7 @@ module AcaEntities
         require 'aca_entities/magi_medicaid/contracts/product_eligibility_determination_contract'
         require 'aca_entities/magi_medicaid/contracts/tax_household_member_contract'
         require 'aca_entities/magi_medicaid/contracts/tax_household_contract'
+        require 'aca_entities/magi_medicaid/contracts/notice_options_contract'
         require 'aca_entities/magi_medicaid/contracts/application_contract'
 
         # Transformers

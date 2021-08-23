@@ -10359,7 +10359,7 @@ to split the payloads on such comments. -->
             <ns2:ActivityDate>
                 <ns2:DateTime>2021-05-04T17:06:54.450-04:00</ns2:DateTime>
             </ns2:ActivityDate>
-            <ns3:TransferActivityReferralQuantity>3</ns3:TransferActivityReferralQuantity>
+            <ns3:TransferActivityReferralQuantity>1</ns3:TransferActivityReferralQuantity>
             <ns3:RecipientTransferActivityCode>MedicaidCHIP</ns3:RecipientTransferActivityCode>
             <ns3:RecipientTransferActivityStateCode>ME</ns3:RecipientTransferActivityStateCode>
         </ns3:TransferActivity>
@@ -10458,22 +10458,26 @@ to split the payloads on such comments. -->
     </ns5:InsuranceApplication>
     <ns5:Assister ns1:id="as1619747911766742039">
         <ns4:RolePlayedByPerson xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-            <ns2:PersonBirthDate xsi:nil="true"></ns2:PersonBirthDate>
+            <ns2:PersonBirthDate >
+                <ns2:Date>1984-01-01</ns2:Date>
+            </ns2:PersonBirthDate>
             <ns2:PersonName>
                 <ns2:PersonGivenName>Jamie</ns2:PersonGivenName>
                 <ns2:PersonSurName>test</ns2:PersonSurName>
             </ns2:PersonName>
-            <ns2:PersonSexText xsi:nil="true"></ns2:PersonSexText>
+            <ns2:PersonSexText>Female</ns2:PersonSexText>
         </ns4:RolePlayedByPerson>
     </ns5:Assister>
     <ns5:AuthorizedRepresentative ns1:id="MEPO0000000200628971">
         <ns4:RolePlayedByPerson xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-            <ns2:PersonBirthDate xsi:nil="true"></ns2:PersonBirthDate>
+            <ns2:PersonBirthDate>
+                <ns2:Date>1984-01-01</ns2:Date>
+            </ns2:PersonBirthDate>
             <ns2:PersonName>
                 <ns2:PersonGivenName>Pat</ns2:PersonGivenName>
                 <ns2:PersonSurName>test</ns2:PersonSurName>
             </ns2:PersonName>
-            <ns2:PersonSexText xsi:nil="true"></ns2:PersonSexText>
+            <ns2:PersonSexText>Female</ns2:PersonSexText>
         </ns4:RolePlayedByPerson>
     </ns5:AuthorizedRepresentative>
     <ns5:MedicaidHousehold ns1:id="mh2009521689331128940">
@@ -10610,6 +10614,11 @@ to split the payloads on such comments. -->
                                 <ns2:LocationPostalCode>04350</ns2:LocationPostalCode>
                             </ns2:StructuredAddress>
                         </ns2:ContactMailingAddress>
+                        <ns2:ContactTelephoneNumber>
+                            <ns2:FullTelephoneNumber>
+                                <ns2:TelephoneNumberFullID>9995668341</ns2:TelephoneNumberFullID>
+                            </ns2:FullTelephoneNumber>
+                        </ns2:ContactTelephoneNumber>
                     </ns2:OrganizationPrimaryContactInformation>
                 </ns4:Employer>
             </ns4:PersonEmploymentAssociation>
@@ -11109,17 +11118,6 @@ to split the payloads on such comments. -->
                     <ns2:Date>2021-04-11</ns2:Date>
                 </ns4:SignatureDate>
             </ns5:Signature>
-            <ns5:SSFSignerAuthorizedRepresentativeAssociation>
-                <ns5:AuthorizedRepresentativeReference ns1:ref="MEPO0000000200628971"></ns5:AuthorizedRepresentativeReference>
-                <ns5:Signature>
-                    <ns4:SignatureName>
-                        <ns2:PersonFullName>Pat Test</ns2:PersonFullName>
-                    </ns4:SignatureName>
-                    <ns4:SignatureDate>
-                        <ns2:Date>2020-05-18-04:00</ns2:Date>
-                    </ns4:SignatureDate>
-                </ns5:Signature>
-            </ns5:SSFSignerAuthorizedRepresentativeAssociation>
             <ns5:SSFAttestation>
                 <ns5:SSFAttestationCollectionsAgreementIndicator>false</ns5:SSFAttestationCollectionsAgreementIndicator>
                 <ns5:SSFAttestationNonPerjuryIndicator>true</ns5:SSFAttestationNonPerjuryIndicator>
@@ -11135,16 +11133,6 @@ to split the payloads on such comments. -->
         </ns5:SSFPrimaryContact>
         <ns5:InsuranceApplicationTaxReturnAccessIndicator>true</ns5:InsuranceApplicationTaxReturnAccessIndicator>
     </ns5:InsuranceApplication>
-    <ns5:AuthorizedRepresentative ns1:id="MEPO0000000200628971">
-        <ns4:RolePlayedByPerson xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-            <ns2:PersonBirthDate xsi:nil="true"></ns2:PersonBirthDate>
-            <ns2:PersonName>
-                <ns2:PersonGivenName>Pat</ns2:PersonGivenName>
-                <ns2:PersonSurName>test</ns2:PersonSurName>
-            </ns2:PersonName>
-            <ns2:PersonSexText xsi:nil="true"></ns2:PersonSexText>
-        </ns4:RolePlayedByPerson>
-    </ns5:AuthorizedRepresentative>
     <ns5:MedicaidHousehold ns1:id="mh2009521689331128940">
         <ns5:HouseholdIncome>
             <ns4:IncomeFrequency>
@@ -11185,28 +11173,28 @@ to split the payloads on such comments. -->
                     <ns2:Date>1999-01-01</ns2:Date>
                 </ns2:AssociationBeginDate>
                 <ns2:PersonReference ns1:ref="pe1992374604681766995"/>
-                <ns4:FamilyRelationshipCode>19</ns4:FamilyRelationshipCode>
+                <ns4:FamilyRelationshipCode>03</ns4:FamilyRelationshipCode>
             </ns4:PersonAssociation>
             <ns4:PersonAssociation>
                 <ns2:AssociationBeginDate>
                     <ns2:Date>2001-01-01</ns2:Date>
                 </ns2:AssociationBeginDate>
                 <ns2:PersonReference ns1:ref="pe1992374604681766996"/>
-                <ns4:FamilyRelationshipCode>07</ns4:FamilyRelationshipCode>
+                <ns4:FamilyRelationshipCode>06</ns4:FamilyRelationshipCode>
             </ns4:PersonAssociation>
             <ns4:PersonAssociation>
                 <ns2:AssociationBeginDate>
                     <ns2:Date>2001-01-01</ns2:Date>
                 </ns2:AssociationBeginDate>
                 <ns2:PersonReference ns1:ref="pe1992374604681766997"/>
-                <ns4:FamilyRelationshipCode>19</ns4:FamilyRelationshipCode>
+                <ns4:FamilyRelationshipCode>03</ns4:FamilyRelationshipCode>
             </ns4:PersonAssociation>
             <ns4:PersonAssociation>
                 <ns2:AssociationBeginDate>
                     <ns2:Date>2005-01-01</ns2:Date>
                 </ns2:AssociationBeginDate>
                 <ns2:PersonReference ns1:ref="pe1992374604681766998"/>
-                <ns4:FamilyRelationshipCode>19</ns4:FamilyRelationshipCode>
+                <ns4:FamilyRelationshipCode>03</ns4:FamilyRelationshipCode>
             </ns4:PersonAssociation>
             <ns4:PersonContactInformationAssociation>
                 <ns2:ContactInformationIsPrimaryIndicator>true</ns2:ContactInformationIsPrimaryIndicator>
@@ -11280,6 +11268,28 @@ to split the payloads on such comments. -->
                 </ns4:ContactInformation>
                 <ns4:ContactInformationCategoryCode>Home</ns4:ContactInformationCategoryCode>
             </ns4:PersonContactInformationAssociation>
+            <ns4:PersonEmploymentAssociation>
+                <ns4:Employer ns1:id="em2009481180751485381">
+                    <ns2:OrganizationName> ABC Corp</ns2:OrganizationName>
+                    <ns2:OrganizationPrimaryContactInformation>
+                        <ns2:ContactMailingAddress>
+                            <ns2:StructuredAddress>
+                                <ns2:LocationStreet>
+                                    <ns2:StreetFullText>511 Test Rd</ns2:StreetFullText>
+                                </ns2:LocationStreet>
+                                <ns2:LocationCityName>Litchfield</ns2:LocationCityName>
+                                <ns2:LocationStateUSPostalServiceCode>ME</ns2:LocationStateUSPostalServiceCode>
+                                <ns2:LocationPostalCode>04350</ns2:LocationPostalCode>
+                            </ns2:StructuredAddress>
+                        </ns2:ContactMailingAddress>
+                        <ns2:ContactTelephoneNumber>
+                            <ns2:FullTelephoneNumber>
+                                <ns2:TelephoneNumberFullID>1235668341</ns2:TelephoneNumberFullID>
+                            </ns2:FullTelephoneNumber>
+                        </ns2:ContactTelephoneNumber>
+                    </ns2:OrganizationPrimaryContactInformation>
+                </ns4:Employer>
+            </ns4:PersonEmploymentAssociation>
             <ns4:PersonPregnancyStatus>
                 <ns4:StatusIndicator>false</ns4:StatusIndicator>
             </ns4:PersonPregnancyStatus>
@@ -11288,7 +11298,13 @@ to split the payloads on such comments. -->
                     <ns4:FrequencyCode>Annually</ns4:FrequencyCode>
                 </ns4:IncomeFrequency>
                 <ns4:IncomeAmount>98200.00</ns4:IncomeAmount>
-                <ns4:IncomeCategoryCode>Unspecified</ns4:IncomeCategoryCode>
+                <ns4:IncomeCategoryCode>Wages</ns4:IncomeCategoryCode>
+                <ns4:IncomeSourceOrganizationReference ns1:ref="em2009481180751485381"/>
+                <ns4:IncomeEarnedDateRange>
+                    <ns2:StartDate>
+                        <ns2:Date>2021-01-01-05:00</ns2:Date>
+                    </ns2:StartDate>
+                </ns4:IncomeEarnedDateRange>
             </ns4:PersonIncome>
             <ns4:PersonPreferredLanguage>
                 <ns2:LanguageName>English</ns2:LanguageName>
@@ -11323,7 +11339,7 @@ to split the payloads on such comments. -->
                     <ns2:Date>1999-01-01</ns2:Date>
                 </ns2:AssociationBeginDate>
                 <ns2:PersonReference ns1:ref="pe1992374604681766994"/>
-                <ns4:FamilyRelationshipCode>03</ns4:FamilyRelationshipCode>
+                <ns4:FamilyRelationshipCode>19</ns4:FamilyRelationshipCode>
             </ns4:PersonAssociation>
             <ns4:PersonAssociation>
                 <ns2:AssociationBeginDate>
@@ -11418,6 +11434,28 @@ to split the payloads on such comments. -->
                 </ns4:ContactInformation>
                 <ns4:ContactInformationCategoryCode>Home</ns4:ContactInformationCategoryCode>
             </ns4:PersonContactInformationAssociation>
+            <ns4:PersonEmploymentAssociation>
+                <ns4:Employer ns1:id="em2009481180751485382">
+                    <ns2:OrganizationName>Test LLC</ns2:OrganizationName>
+                    <ns2:OrganizationPrimaryContactInformation>
+                        <ns2:ContactMailingAddress>
+                            <ns2:StructuredAddress>
+                                <ns2:LocationStreet>
+                                    <ns2:StreetFullText>511 Test Rd</ns2:StreetFullText>
+                                </ns2:LocationStreet>
+                                <ns2:LocationCityName>Litchfield</ns2:LocationCityName>
+                                <ns2:LocationStateUSPostalServiceCode>ME</ns2:LocationStateUSPostalServiceCode>
+                                <ns2:LocationPostalCode>04350</ns2:LocationPostalCode>
+                            </ns2:StructuredAddress>
+                        </ns2:ContactMailingAddress>
+                        <ns2:ContactTelephoneNumber>
+                            <ns2:FullTelephoneNumber>
+                                <ns2:TelephoneNumberFullID>9995668341</ns2:TelephoneNumberFullID>
+                            </ns2:FullTelephoneNumber>
+                        </ns2:ContactTelephoneNumber>
+                    </ns2:OrganizationPrimaryContactInformation>
+                </ns4:Employer>
+            </ns4:PersonEmploymentAssociation>
             <ns4:PersonPregnancyStatus>
                 <ns4:StatusIndicator>false</ns4:StatusIndicator>
             </ns4:PersonPregnancyStatus>
@@ -11427,6 +11465,12 @@ to split the payloads on such comments. -->
                 </ns4:IncomeFrequency>
                 <ns4:IncomeAmount>1094.00</ns4:IncomeAmount>
                 <ns4:IncomeCategoryCode>Wages</ns4:IncomeCategoryCode>
+                <ns4:IncomeSourceOrganizationReference ns1:ref="em2009481180751485382"/>
+                <ns4:IncomeEarnedDateRange>
+                    <ns2:StartDate>
+                        <ns2:Date>2021-01-01-05:00</ns2:Date>
+                    </ns2:StartDate>
+                </ns4:IncomeEarnedDateRange>
             </ns4:PersonIncome>
             <ns4:PersonPreferredLanguage>
                 <ns2:LanguageName>English</ns2:LanguageName>
@@ -11464,7 +11508,7 @@ to split the payloads on such comments. -->
                     <ns2:Date>2001-01-01</ns2:Date>
                 </ns2:AssociationBeginDate>
                 <ns2:PersonReference ns1:ref="pe1992374604681766994"/>
-                <ns4:FamilyRelationshipCode>06</ns4:FamilyRelationshipCode>
+                <ns4:FamilyRelationshipCode>07</ns4:FamilyRelationshipCode>
             </ns4:PersonAssociation>
             <ns4:PersonAssociation>
                 <ns2:AssociationBeginDate>
@@ -11559,6 +11603,28 @@ to split the payloads on such comments. -->
                 </ns4:ContactInformation>
                 <ns4:ContactInformationCategoryCode>Home</ns4:ContactInformationCategoryCode>
             </ns4:PersonContactInformationAssociation>
+            <ns4:PersonEmploymentAssociation>
+                <ns4:Employer ns1:id="em2009481180751485383">
+                    <ns2:OrganizationName>Federal Credit Union</ns2:OrganizationName>
+                    <ns2:OrganizationPrimaryContactInformation>
+                        <ns2:ContactMailingAddress>
+                            <ns2:StructuredAddress>
+                                <ns2:LocationStreet>
+                                    <ns2:StreetFullText>111 Test Rd</ns2:StreetFullText>
+                                </ns2:LocationStreet>
+                                <ns2:LocationCityName>Litchfield</ns2:LocationCityName>
+                                <ns2:LocationStateUSPostalServiceCode>ME</ns2:LocationStateUSPostalServiceCode>
+                                <ns2:LocationPostalCode>04350</ns2:LocationPostalCode>
+                            </ns2:StructuredAddress>
+                        </ns2:ContactMailingAddress>
+                        <ns2:ContactTelephoneNumber>
+                            <ns2:FullTelephoneNumber>
+                                <ns2:TelephoneNumberFullID>9295668341</ns2:TelephoneNumberFullID>
+                            </ns2:FullTelephoneNumber>
+                        </ns2:ContactTelephoneNumber>
+                    </ns2:OrganizationPrimaryContactInformation>
+                </ns4:Employer>
+            </ns4:PersonEmploymentAssociation>
             <ns4:PersonPregnancyStatus>
                 <ns4:StatusIndicator>false</ns4:StatusIndicator>
             </ns4:PersonPregnancyStatus>
@@ -11568,6 +11634,12 @@ to split the payloads on such comments. -->
                 </ns4:IncomeFrequency>
                 <ns4:IncomeAmount>1671.00</ns4:IncomeAmount>
                 <ns4:IncomeCategoryCode>Wages</ns4:IncomeCategoryCode>
+                <ns4:IncomeSourceOrganizationReference ns1:ref="em2009481180751485383"/>
+                <ns4:IncomeEarnedDateRange>
+                    <ns2:StartDate>
+                        <ns2:Date>2021-01-01-05:00</ns2:Date>
+                    </ns2:StartDate>
+                </ns4:IncomeEarnedDateRange>
             </ns4:PersonIncome>
             <ns4:PersonPreferredLanguage>
                 <ns2:LanguageName>English</ns2:LanguageName>
@@ -11605,7 +11677,7 @@ to split the payloads on such comments. -->
                     <ns2:Date>2001-01-01</ns2:Date>
                 </ns2:AssociationBeginDate>
                 <ns2:PersonReference ns1:ref="pe1992374604681766994"/>
-                <ns4:FamilyRelationshipCode>03</ns4:FamilyRelationshipCode>
+                <ns4:FamilyRelationshipCode>19</ns4:FamilyRelationshipCode>
             </ns4:PersonAssociation>
             <ns4:PersonAssociation>
                 <ns2:AssociationBeginDate>
@@ -11700,6 +11772,28 @@ to split the payloads on such comments. -->
                 </ns4:ContactInformation>
                 <ns4:ContactInformationCategoryCode>Home</ns4:ContactInformationCategoryCode>
             </ns4:PersonContactInformationAssociation>
+            <ns4:PersonEmploymentAssociation>
+                <ns4:Employer ns1:id="em2009481180751485384">
+                    <ns2:OrganizationName>Acura</ns2:OrganizationName>
+                    <ns2:OrganizationPrimaryContactInformation>
+                        <ns2:ContactMailingAddress>
+                            <ns2:StructuredAddress>
+                                <ns2:LocationStreet>
+                                    <ns2:StreetFullText>111 Columbia Rd</ns2:StreetFullText>
+                                </ns2:LocationStreet>
+                                <ns2:LocationCityName>Litchfield</ns2:LocationCityName>
+                                <ns2:LocationStateUSPostalServiceCode>ME</ns2:LocationStateUSPostalServiceCode>
+                                <ns2:LocationPostalCode>04350</ns2:LocationPostalCode>
+                            </ns2:StructuredAddress>
+                        </ns2:ContactMailingAddress>
+                        <ns2:ContactTelephoneNumber>
+                            <ns2:FullTelephoneNumber>
+                                <ns2:TelephoneNumberFullID>9295668341</ns2:TelephoneNumberFullID>
+                            </ns2:FullTelephoneNumber>
+                        </ns2:ContactTelephoneNumber>
+                    </ns2:OrganizationPrimaryContactInformation>
+                </ns4:Employer>
+            </ns4:PersonEmploymentAssociation>
             <ns4:PersonPregnancyStatus>
                 <ns4:StatusIndicator>false</ns4:StatusIndicator>
             </ns4:PersonPregnancyStatus>
@@ -11709,6 +11803,12 @@ to split the payloads on such comments. -->
                 </ns4:IncomeFrequency>
                 <ns4:IncomeAmount>10000.00</ns4:IncomeAmount>
                 <ns4:IncomeCategoryCode>Wages</ns4:IncomeCategoryCode>
+                <ns4:IncomeSourceOrganizationReference ns1:ref="em2009481180751485384"/>
+                <ns4:IncomeEarnedDateRange>
+                    <ns2:StartDate>
+                        <ns2:Date>2021-01-01-05:00</ns2:Date>
+                    </ns2:StartDate>
+                </ns4:IncomeEarnedDateRange>
             </ns4:PersonIncome>
             <ns4:PersonPreferredLanguage>
                 <ns2:LanguageName>English</ns2:LanguageName>
@@ -11753,7 +11853,7 @@ to split the payloads on such comments. -->
                     <ns2:Date>2005-01-01</ns2:Date>
                 </ns2:AssociationBeginDate>
                 <ns2:PersonReference ns1:ref="pe1992374604681766994"/>
-                <ns4:FamilyRelationshipCode>03</ns4:FamilyRelationshipCode>
+                <ns4:FamilyRelationshipCode>19</ns4:FamilyRelationshipCode>
             </ns4:PersonAssociation>
             <ns4:PersonAssociation>
                 <ns2:AssociationBeginDate>
@@ -11848,6 +11948,28 @@ to split the payloads on such comments. -->
                 </ns4:ContactInformation>
                 <ns4:ContactInformationCategoryCode>Home</ns4:ContactInformationCategoryCode>
             </ns4:PersonContactInformationAssociation>
+            <ns4:PersonEmploymentAssociation>
+                <ns4:Employer ns1:id="em2009481180751485385">
+                    <ns2:OrganizationName>Micro Center</ns2:OrganizationName>
+                    <ns2:OrganizationPrimaryContactInformation>
+                        <ns2:ContactMailingAddress>
+                            <ns2:StructuredAddress>
+                                <ns2:LocationStreet>
+                                    <ns2:StreetFullText>111 Vision Rd</ns2:StreetFullText>
+                                </ns2:LocationStreet>
+                                <ns2:LocationCityName>Litchfield</ns2:LocationCityName>
+                                <ns2:LocationStateUSPostalServiceCode>ME</ns2:LocationStateUSPostalServiceCode>
+                                <ns2:LocationPostalCode>04350</ns2:LocationPostalCode>
+                            </ns2:StructuredAddress>
+                        </ns2:ContactMailingAddress>
+                        <ns2:ContactTelephoneNumber>
+                            <ns2:FullTelephoneNumber>
+                                <ns2:TelephoneNumberFullID>9295668341</ns2:TelephoneNumberFullID>
+                            </ns2:FullTelephoneNumber>
+                        </ns2:ContactTelephoneNumber>
+                    </ns2:OrganizationPrimaryContactInformation>
+                </ns4:Employer>
+            </ns4:PersonEmploymentAssociation>
             <ns4:PersonPregnancyStatus>
                 <ns4:StatusIndicator>false</ns4:StatusIndicator>
             </ns4:PersonPregnancyStatus>
@@ -11857,6 +11979,12 @@ to split the payloads on such comments. -->
                 </ns4:IncomeFrequency>
                 <ns4:IncomeAmount>1061.00</ns4:IncomeAmount>
                 <ns4:IncomeCategoryCode>Wages</ns4:IncomeCategoryCode>
+                <ns4:IncomeSourceOrganizationReference ns1:ref="em2009481180751485384"/>
+                <ns4:IncomeEarnedDateRange>
+                    <ns2:StartDate>
+                        <ns2:Date>2021-01-01-05:00</ns2:Date>
+                    </ns2:StartDate>
+                </ns4:IncomeEarnedDateRange>
             </ns4:PersonIncome>
             <ns4:PersonPreferredLanguage>
                 <ns2:LanguageName>English</ns2:LanguageName>

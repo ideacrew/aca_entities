@@ -83,6 +83,91 @@ channels:
           headers:
             Content-Type: application/soap+xml
             Accept: application/soap+xml
+
+  /VerifySSACompositeService:
+    publish:
+      operationId: /VerifySSACompositeService
+      description: Send request to SSA endpoint
+      message:
+        contentType: application/soap+xml
+      bindings:
+        http:
+          type: request
+          method: POST
+          contentType: application/soap+xml
+          headers:
+            Content-Type: application/soap+xml
+            Accept: application/soap+xml
+    subscribe:
+      operationId: /on/VerifySSACompositeService
+      description: Receive response from SSA request
+      message:
+        contentType: application/soap+xml
+      bindings:
+        http:
+          type: response
+          method: GET
+          contentType: application/soap+xml
+          headers:
+            Content-Type: application/soap+xml
+            Accept: application/soap+xml
+
+  /CalculateOPMPremiumServiceV2:
+    publish:
+      operationId: /CalculateOPMPremiumServiceV2
+      description: Send request to ESI endpoint
+      message:
+        contentType: application/soap+xml
+      bindings:
+        http:
+          type: request
+          method: POST
+          contentType: application/soap+xml
+          headers:
+            Content-Type: application/soap+xml
+            Accept: application/soap+xml
+    subscribe:
+      operationId: /on/CalculateOPMPremiumServiceV2
+      description: Receive response from ESI request
+      message:
+        contentType: application/soap+xml
+      bindings:
+        http:
+          type: response
+          method: GET
+          contentType: application/soap+xml
+          headers:
+            Content-Type: application/soap+xml
+            Accept: application/soap+xml
+
+  /VerifyNonEsiMecService:
+    publish:
+      operationId: /VerifyNonEsiMecService
+      description: Send request to Non ESI endpoint
+      message:
+        contentType: application/soap+xml
+      bindings:
+        http:
+          type: request
+          method: POST
+          contentType: application/soap+xml
+          headers:
+            Content-Type: application/soap+xml
+            Accept: application/soap+xml
+    subscribe:
+      operationId: /on/VerifyNonEsiMecService
+      description: Receive response from Non ESI request
+      message:
+        contentType: application/soap+xml
+      bindings:
+        http:
+          type: response
+          method: GET
+          contentType: application/soap+xml
+          headers:
+            Content-Type: application/soap+xml
+            Accept: application/soap+xml
+
   /HubConnectivityService:
     publish:
       operationId: /HubConnectivityService

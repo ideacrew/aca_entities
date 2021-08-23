@@ -17,7 +17,7 @@ module AcaEntities
 
             def self.domain_to_mapper(mailing_address)
               mapper = self.new
-              mapper.address = StructuredAddress.domain_to_mapper(mailing_address.address)
+              mapper.address = StructuredAddress.domain_to_mapper(mailing_address.address) if mailing_address
               mapper
             end
 

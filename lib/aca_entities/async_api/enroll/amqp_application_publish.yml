@@ -44,12 +44,39 @@ channels:
         binding_version: "0.2.0"
     publish:
       operationId: enroll.iap.applications.generate_renewal_draft
-      description: Events - Generate Renewal Draft Applications
+      description: Events - Generate Renewal Draft Application
       bindings:
         amqp:
           app_id: enroll
           type: enroll.iap.applications
           routing_key: enroll.iap.applications.generate_renewal_draft
+          expiration: 100_000
+          deliveryMode: 2
+          mandatory: true
+          timestamp: true
+          content_type: application/json
+          bindingVersion: 0.2.0
+
+  enroll.iap.applications.submit_renewal_draft:
+    bindings:
+      amqp:
+        is: :routing_key
+        exchange:
+          name: enroll.iap.applications
+          type: topic
+          content_type: application/json
+          durable: true
+          auto_delete: false
+          vhost: event_source
+        binding_version: "0.2.0"
+    publish:
+      operationId: enroll.iap.applications.submit_renewal_draft
+      description: Events - Submit Renewal Draft Application
+      bindings:
+        amqp:
+          app_id: enroll
+          type: enroll.iap.applications
+          routing_key: enroll.iap.applications.submit_renewal_draft
           expiration: 100_000
           deliveryMode: 2
           mandatory: true
@@ -84,12 +111,12 @@ channels:
           content_type: application/json
           bindingVersion: 0.2.0
 
-  fdsh.determination_requests.ridp.primary_determination_requested:
+  enroll.iap.transfers.transfer_account:
     bindings:
       amqp:
         is: :routing_key
         exchange:
-          name: fdsh.determination_requests.ridp
+          name: enroll.iap.transfers
           type: topic
           content_type: application/json
           durable: true
@@ -97,67 +124,13 @@ channels:
           vhost: event_source
         binding_version: "0.2.0"
     publish:
-      operationId: fdsh.determination_requests.ridp.primary_determination_requested
-      description: Events - eligibility determination Request
+      operationId: enroll.iap.transfers.transfer_account
+      description: Events - Account Transfer from enroll
       bindings:
         amqp:
           app_id: enroll
-          type: fdsh.determination_requests.ridp
-          routing_key: fdsh.determination_requests.ridp.primary_determination_requested
-          expiration: 100_000
-          deliveryMode: 2
-          mandatory: true
-          timestamp: true
-          content_type: application/json
-          bindingVersion: 0.2.0
-
-  fdsh.determination_requests.ridp.secondary_determination_requested:
-    bindings:
-      amqp:
-        is: :routing_key
-        exchange:
-          name: fdsh.determination_requests.ridp
-          type: topic
-          content_type: application/json
-          durable: true
-          auto_delete: false
-          vhost: event_source
-        binding_version: "0.2.0"
-    publish:
-      operationId: fdsh.determination_requests.ridp.secondary_determination_requested
-      description: Events - eligibility determination Request
-      bindings:
-        amqp:
-          app_id: enroll
-          type: fdsh.determination_requests.ridp
-          routing_key: fdsh.determination_requests.ridp.secondary_determination_requested
-          expiration: 100_000
-          deliveryMode: 2
-          mandatory: true
-          timestamp: true
-          content_type: application/json
-          bindingVersion: 0.2.0
-
-  fdsh.verification_requests.vlp.initial_verification_requested:
-    bindings:
-      amqp:
-        is: :routing_key
-        exchange:
-          name: fdsh.verification_requests.vlp
-          type: topic
-          content_type: application/json
-          durable: true
-          auto_delete: false
-          vhost: event_source
-        binding_version: "0.2.0"
-    publish:
-      operationId: fdsh.verification_requests.vlp.initial_verification_requested
-      description: Events - eligibility determination Request
-      bindings:
-        amqp:
-          app_id: enroll
-          type: fdsh.verification_requests.vlp
-          routing_key: fdsh.verification_requests.vlp.initial_verification_requested
+          type: enroll.iap.transfers
+          routing_key: enroll.iap.transfers.transfer_account
           expiration: 100_000
           deliveryMode: 2
           mandatory: true

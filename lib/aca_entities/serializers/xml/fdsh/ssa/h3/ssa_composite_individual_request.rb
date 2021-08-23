@@ -8,24 +8,24 @@ module AcaEntities
           module H3
             # Happymapper implementation for the root object of an
             # Request.
-            class SsaCompositeIndividualRequest
+            class SSACompositeIndividualRequest
               include HappyMapper
-              register_namespace 'extn', 'http://extn.ssac.ee.sim.dsh.cms.hhs.gov'
+              register_namespace 'ssac', 'http://extn.ssac.ee.sim.dsh.cms.hhs.gov'
 
               tag 'SSACompositeIndividualRequest'
-              namespace 'extn'
+              namespace 'ssac'
 
               has_one :Person, Person
-              element :RequestCitizenshipVerificationIndicator, Boolean, tag: 'RequestCitizenshipVerificationIndicator', namespace: "extn"
-              element :RequestIncarcerationVerificationIndicator, Boolean, tag: 'RequestIncarcerationVerificationIndicator', namespace: "extn"
+              element :RequestCitizenshipVerificationIndicator, Boolean, tag: 'RequestCitizenshipVerificationIndicator', namespace: "ssac"
+              element :RequestIncarcerationVerificationIndicator, Boolean, tag: 'RequestIncarcerationVerificationIndicator', namespace: "ssac"
               element :RequestTitleIIMonthlyIncomeVerificationIndicator, Boolean, tag: 'RequestTitleIIMonthlyIncomeVerificationIndicator',
-                                                                                  namespace: "extn"
+                                                                                  namespace: "ssac"
               element :RequestTitleIIAnnualIncomeVerificationIndicator, Boolean, tag: 'RequestTitleIIAnnualIncomeVerificationIndicator',
-                                                                                 namespace: "extn"
+                                                                                 namespace: "ssac"
               element :RequestQuartersOfCoverageVerificationIndicator, Boolean, tag: 'RequestQuartersOfCoverageVerificationIndicator',
-                                                                                namespace: "extn"
-              element :RequestTitleIIMonthlyIncomeDate, Date, tag: 'RequestTitleIIMonthlyIncomeDate', namespace: "extn"
-              element :RequestTitleIIAnnualIncomeDate, Date, tag: 'RequestTitleIIAnnualIncomeDate', namespace: "extn"
+                                                                                namespace: "ssac"
+              element :RequestTitleIIMonthlyIncomeDate, Date, tag: 'RequestTitleIIMonthlyIncomeDate', namespace: "ssac"
+              element :RequestTitleIIAnnualIncomeDate, Date, tag: 'RequestTitleIIAnnualIncomeDate', namespace: "ssac"
 
               def self.domain_to_mapper(initial_request_set)
                 mapper = self.new
@@ -36,8 +36,8 @@ module AcaEntities
                 mapper.RequestTitleIIMonthlyIncomeVerificationIndicator = initial_request_set.RequestTitleIIMonthlyIncomeVerificationIndicator
                 mapper.RequestTitleIIAnnualIncomeVerificationIndicator = initial_request_set.RequestTitleIIAnnualIncomeVerificationIndicator
                 mapper.RequestQuartersOfCoverageVerificationIndicator = initial_request_set.RequestQuartersOfCoverageVerificationIndicator
-                mapper.RequestTitleIIMonthlyIncomeDate = initial_request_set.RequestTitleIIMonthlyIncomeDate.strftime
-                mapper.RequestTitleIIAnnualIncomeDate = initial_request_set.RequestTitleIIAnnualIncomeDate.strftime
+                mapper.RequestTitleIIMonthlyIncomeDate = initial_request_set.RequestTitleIIMonthlyIncomeDate&.strftime
+                mapper.RequestTitleIIAnnualIncomeDate = initial_request_set.RequestTitleIIAnnualIncomeDate&.strftime
 
                 mapper
               end

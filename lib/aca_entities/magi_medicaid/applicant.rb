@@ -156,6 +156,14 @@ module AcaEntities
       # 3. Your income is NOT counted in the household of a non-parent/stepparent who claims you as a dependent
       #    (only in the household of the tax filer)
 
+      # fdsh evidences
+      attribute :evidences, Types::Array.of(AcaEntities::Evidences::Evidence).optional.meta(omittable: true)
+
+      # fdsh esi response
+      attribute :esi_eligibility_indicator,   Types::Bool.optional.meta(omittable: true)
+      attribute :esi_insured_indicator,       Types::Bool.optional.meta(omittable: true)
+      attribute :esi_inconsistency_indicator, Types::Bool.optional.meta(omittable: true)
+
       def monthly_qsehra_amount
         BigDecimal('0')
         # qsehra_benefits = benefits.select { |benefit| benefit.kind == 'qsehra' }
@@ -222,6 +230,38 @@ module AcaEntities
         addresses.detect do |address|
           address.kind == 'home'
         end
+      end
+
+      def esi_eligible?
+        esi_benefits = benefits.select do |benefit|
+          benefit.status == 'is_eligible' && benefit.kind == 'employer_sponsored_insurance'
+        end
+
+        esi_benefits.present?
+      end
+
+      def esi_enrolled?
+        esi_benefits = benefits.select do |benefit|
+          benefit.status == 'is_enrolled' && benefit.kind == 'employer_sponsored_insurance'
+        end
+
+        esi_benefits.present?
+      end
+
+      def health_benefits_for(benefit_kind)
+        health_benefits = benefits.select do |benefit|
+          benefit.kind == benefit_kind
+        end
+
+        health_benefits.present?
+      end
+
+      def esi_evidence
+        evidences.detect {|evidence| evidence.key.to_sym == :esi_mec}
+      end
+
+      def non_esi_evidence
+        evidences.detect {|evidence| evidence.key.to_sym == :non_esi_mec}
       end
     end
   end

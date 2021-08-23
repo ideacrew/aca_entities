@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 require 'aca_entities/magi_medicaid/libraries/iap_library'
-
+require 'pry'
 RSpec.describe ::AcaEntities::MagiMedicaid::Application, dbclean: :after_each do
 
   context 'with valid params' do
@@ -75,6 +75,7 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Application, dbclean: :after_each do
         mitc_income: mitc_income }
     end
     let(:family_reference) { { hbx_id: '10011' } }
+    let(:notice_options) { { send_eligibility_notices: true, send_open_enrollment_notices: false } }
     let(:application_params) do
       { family_reference: family_reference,
         assistance_year: Date.today.year,
@@ -82,7 +83,8 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Application, dbclean: :after_each do
         applicants: [applicant],
         us_state: 'DC',
         hbx_id: '200000123',
-        oe_start_on: Date.new(Date.today.year, 11, 1) }
+        oe_start_on: Date.new(Date.today.year, 11, 1),
+        notice_options: notice_options }
     end
 
     context 'with one applicant' do

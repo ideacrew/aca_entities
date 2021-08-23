@@ -15,16 +15,16 @@ module AcaEntities
             attribute :metadata, String, namespace: "niem-s"
 
             # True if the person is incarcerated; false otherwise.
-            element :incarceration_indicator, Boolean, tag: 'IncarcerationIndicator', namespace: 'hix-core'
+            has_one :incarceration_date, IncarcerationDate
 
             # True if the person is incarcerated; false otherwise.
-            has_one :incarceration_date, IncarcerationDate
+            element :incarceration_indicator, Boolean, tag: 'IncarcerationIndicator', namespace: 'hix-core'
 
             def self.domain_to_mapper(inc)
               mapper = self.new
               mapper.metadata = inc.metadata
+              mapper.incarceration_date = IncarcerationDate.domain_to_mapper(inc.incarceration_date)
               mapper.incarceration_indicator = inc.incarceration_indicator
-              mapper.incarceration_date = IncarcerationDate.domain_to_mapper(incarceration_date)
               mapper
             end
 

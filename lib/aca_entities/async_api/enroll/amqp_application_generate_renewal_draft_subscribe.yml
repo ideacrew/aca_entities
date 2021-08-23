@@ -50,7 +50,7 @@ channels:
           routing_key: enroll.iap.applications.generate_renewal_draft
           bindingVersion: '0.2.0'
       operationId: on_enroll.enroll.iap.applications
-      description: Events - Generate Renewal Draft Applications
+      description: Events - Generate Renewal Draft Application
 
 tags:
   - name: linter_tag

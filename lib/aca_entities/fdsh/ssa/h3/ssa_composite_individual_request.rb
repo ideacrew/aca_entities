@@ -5,7 +5,7 @@ module AcaEntities
     module Ssa
       module H3
         # Entity for Fdsh SSA VerificationRequest
-        class SsaCompositeIndividualRequest < Dry::Struct
+        class SSACompositeIndividualRequest < Dry::Struct
 
           attribute :Person,                                         Fdsh::Ssa::H3::Person.meta(omittable: false)
           attribute :RequestCitizenshipVerificationIndicator,        Types::Bool.meta(omittable: false)

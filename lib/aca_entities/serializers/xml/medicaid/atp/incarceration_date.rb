@@ -19,7 +19,7 @@ module AcaEntities
 
             def self.domain_to_mapper(incarceration)
               mapper = self.new
-              mapper.date_time = incarceration.date_time
+              mapper.date = incarceration.date
               mapper
             end
 

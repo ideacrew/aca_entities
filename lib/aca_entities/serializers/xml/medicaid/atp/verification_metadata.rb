@@ -44,7 +44,7 @@ module AcaEntities
             element :verification_indicator, Boolean, tag: 'VerificationIndicator'
 
             # An identification for a verification.
-            element :verification_id, String, tag: 'VerificationID'
+            attribute :id, String, namespace: "niem-s"
 
             # A comment from a verifier.
             element :verification_description_text, String, tag: 'VerificationDescriptionText'
@@ -70,7 +70,7 @@ module AcaEntities
               mapper.verification_authority_name = metadata.verification_authority_name
               mapper.verification_authority_alpha_code = metadata.verification_authority_alpha_code
               mapper.verification_indicator = metadata.verification_indicator
-              mapper.verification_id = metadata.verification_id
+              mapper.id = metadata.id
               mapper.verification_description_text = metadata.verification_description_text
               mapper.verification_inconsistency_text = metadata.verification_inconsistency_text
               mapper.verification_inconsistency_indicator = metadata.verification_inconsistency_indicator

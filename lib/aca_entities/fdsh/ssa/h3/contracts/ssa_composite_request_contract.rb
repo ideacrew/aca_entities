@@ -5,10 +5,10 @@ module AcaEntities
     module Ssa
       module H3
         # Contract for Ssa Verification contract
-        class SsaCompositeRequestContract < Dry::Validation::Contract
+        class SSACompositeRequestContract < Dry::Validation::Contract
 
           params do
-            required(:SSACompositeIndividualRequests).array(AcaEntities::Fdsh::Ssa::H3::SsaCompositeIndividualRequestContract.params)
+            required(:SSACompositeIndividualRequests).array(AcaEntities::Fdsh::Ssa::H3::SSACompositeIndividualRequestContract.params)
           end
         end
       end

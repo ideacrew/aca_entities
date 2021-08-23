@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:hix-core="http://hix.cms.gov/0.1/hix-core" xmlns:hix-ee="http://hix.cms.gov/0.1/hix-ee" xmlns:i="http://niem.gov/niem/appinfo/2.0" xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema" attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://hix.cms.gov/0.1/hix-ee" version="&quot;0.1&quot;">
+  <xsd:import namespace="http://hix.cms.gov/0.1/hix-core" schemaLocation="../../../../../.././XMLschemas/niem/domains/hix/0.1/hix-core/hix-core.xsd"/>
+  <xsd:import namespace="http://niem.gov/niem/niem-core/2.0" schemaLocation="../../../../../.././XMLschemas/niem/niem-core.xsd"/>
+  <xsd:import namespace="http://niem.gov/niem/proxy/xsd/2.0" schemaLocation="../../../../../../XMLschemas/subset/niem/proxy/xsd/2.0/xsd.xsd"/>
+  <xsd:import namespace="http://niem.gov/niem/appinfo/2.1" schemaLocation="../../../../../../XMLschemas/subset/niem/appinfo/2.1/appinfo.xsd"/>
+  <xsd:import namespace="http://niem.gov/niem/appinfo/2.0" schemaLocation="../../../../../../XMLschemas/subset/niem/appinfo/2.0/appinfo.xsd"/>
+  <xsd:import namespace="http://niem.gov/niem/structures/2.0" schemaLocation="../../../../../../XMLschemas/subset/niem/structures/2.0/structures.xsd"/>
+  <xsd:annotation>
+    <xsd:appinfo>
+      <i:ConformantIndicator>true</i:ConformantIndicator>
+    </xsd:appinfo>
+    <xsd:documentation source="">A package containing components needed for establishing eligibility and for enrolling in an insurance policy.</xsd:documentation>
+  </xsd:annotation>
+  <xsd:complexType abstract="false" mixed="false" name="InsurancePremiumType">
+    <xsd:annotation>
+      <xsd:appinfo>
+        <i:Base i:name="Object" i:namespace="http://niem.gov/niem/structures/2.0"/>
+      </xsd:appinfo>
+      <xsd:documentation source="">A data type for a periodic payment made on an insurance policy.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="s:ComplexObjectType">
+        <xsd:sequence>
+          <xsd:element maxOccurs="1" minOccurs="1" ref="hix-ee:InsurancePremiumAmount"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:element abstract="false" name="InsurancePremiumAmount" type="nc:AmountType">
+    <xsd:annotation>
+      <xsd:documentation source="">A total amount paid to establish an insurance policy.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:complexType abstract="false" mixed="false" name="InsuranceApplicantType">
+    <xsd:annotation>
+      <xsd:appinfo>
+        <Base xmlns="http://niem.gov/niem/appinfo/2.0" i:name="ApplicantType" i:namespace="http://hix.cms.gov/0.1/hix-core"/>
+      </xsd:appinfo>
+      <xsd:documentation source="">A data type for a person requesting insurance coverage (either to obtain a new policy or to maintain enrollment in an existing policy).</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="hix-core:ApplicantType">
+        <xsd:sequence>
+          <xsd:element maxOccurs="1" minOccurs="1" ref="hix-ee:InsuranceApplicantRequestedCoverage"/>
+          <xsd:element maxOccurs="unbounded" minOccurs="0" ref="hix-ee:InsuranceApplicantEligibleEmployerSponsoredInsuranceIndicator"/>
+          <xsd:element maxOccurs="unbounded" minOccurs="0" ref="hix-ee:InsuranceApplicantInsuredIndicator"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:element abstract="false" name="InsuranceApplicantRequestedCoverage" type="nc:DateRangeType">
+    <xsd:annotation>
+      <xsd:documentation source="">A date range that represents the start and end dates of coverage requested by the applicant.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element abstract="false" name="InsuranceApplicantEligibleEmployerSponsoredInsuranceIndicator" type="niem-xsd:boolean">
+    <xsd:annotation>
+      <xsd:documentation source="">True if an applicant is eligible for employer sponsored insurance; false otherwise.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element abstract="false" name="InsuranceApplicantInsuredIndicator" type="niem-xsd:boolean">
+    <xsd:annotation>
+      <xsd:documentation source="">True if the applicant is currently insured; false otherwise.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+</xsd:schema>
