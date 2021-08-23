@@ -7,8 +7,8 @@ module AcaEntities
         # Contract for FDSH InsuranceContract
         class InsuranceContract < Dry::Validation::Contract
           params do
-            optional(:InsuranceEffectiveDate).filled(:date)
-            optional(:InsuranceEndDate).filled(:date)
+            optional(:InsuranceEffectiveDate).maybe(:date)
+            optional(:InsuranceEndDate).maybe(:date)
           end
         end
       end
