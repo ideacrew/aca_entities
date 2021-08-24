@@ -5,7 +5,7 @@ module AcaEntities
     module Xml
       module Medicaid
         module Atp
-          # Include XML element and type definitions.
+          # An activity indicating that an object has been submitted to some authority for further action.
           class ApplicationSubmission
             include HappyMapper
 

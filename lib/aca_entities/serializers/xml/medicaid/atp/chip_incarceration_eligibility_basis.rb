@@ -12,12 +12,25 @@ module AcaEntities
             tag 'CHIPIncarcerationEligibilityBasis'
             namespace 'hix-ee'
 
+            # True if the status holds; false otherwise.
             element :status_indicator, Boolean, tag: 'StatusIndicator', namespace: "hix-core"
+
+            # A date range for which the status is valid.
             element :status_valid_date_range, StatusValidDateRange, tag: 'StatusValidDateRange', namespace: "hix-core"
+
+            # A status of an eligibility basis determination.
             element :status_code, String, tag: 'EligibilityBasisStatusCode', namespace: "hix-ee"
+
+            # A description of the reason for an eligibility basis determination of ineligibility.
             element :ineligibility_reason_text, String, tag: 'EligibilityBasisIneligibilityReasonText', namespace: "hix-ee"
+
+            # A description of the reason for an eligibility basis determination of inconsistent.
             element :inconsistency_reason_text, String, tag: 'EligibilityBasisInconsistencyReasonText', namespace: "hix-ee"
+
+            # A description of the reason for an eligibility basis determination of pending.
             element :pending_reason_text, String, tag: 'EligibilityBasisPendingReasonText', namespace: "hix-ee"
+
+            # An activity of establishing an eligibility basis.
             element :determination, EligibilityBasisDetermination, tag: 'EligibilityBasisDetermination', namespace: "hix-ee"
 
             def self.domain_to_mapper(eligibility_basis)

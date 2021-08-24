@@ -15,22 +15,45 @@ module AcaEntities
             register_namespace 'hix-core', 'http://hix.cms.gov/0.1/hix-core'
             register_namespace 'hix-ee', 'http://hix.cms.gov/0.1/hix-ee'
             register_namespace 'niem-s', 'http://niem.gov/niem/structures/2.0'
+            register_namespace 'xsi', 'http://www.w3.org/2001/XMLSchema-instance'            
 
             tag 'AccountTransferRequest'
             namespace 'ex'
 
+            # Account Transfer Version Number
             attribute :version, String, tag: "atVersionText", namespace: "ext"
 
+            # A entity that starts the referral process.
             has_one :transfer_header, TransferHeader
+
+            # An information exchange system sending information.
             has_many :senders, Sender
+
+            # An information exchange system receiving information.
             has_many :receivers, Receiver
+
+            # A data type for a formal request to establish insurance coverage for the applicants named in the application.
             has_one :insurance_application, InsuranceApplication
+
+            # A data type for a certified assister (such as a navigator) who helps individuals complete an insurance application.
             has_one :assister, Assister
+
+            # A reference to a person designated as an authorized representative.
             has_one :authorized_representative, AuthorizedRepresentative
+
+            # A collection of persons to be treated as a unit under Medicaid.
             has_many :medicaid_households, MedicaidHousehold
+
+            # Acts as A human being.
             has_many :people, Person
+
+            # A tax return as filed with the Internal Revenue Service.
             has_many :tax_returns, TaxReturn
+
+            # A Metadata about any object, provided by a verifying authority.
             has_many :verification_metadata, VerificationMetadata
+
+            # A set of persons that reside together.
             has_many :physical_households, PhysicalHousehold
 
             def self.domain_to_mapper(account_transfer_request)

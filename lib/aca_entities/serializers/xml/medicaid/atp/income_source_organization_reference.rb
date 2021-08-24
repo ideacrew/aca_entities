@@ -16,7 +16,7 @@ module AcaEntities
 
             def self.domain_to_mapper(org)
               mapper = self.new
-              mapper.ref = org.ref if org
+              mapper.ref = org.ref if org.ref && !org.ref.empty?
               mapper
             end
 

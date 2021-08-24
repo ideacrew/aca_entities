@@ -5,7 +5,7 @@ module AcaEntities
     module Xml
       module Medicaid
         module Atp
-          # Include XML element and type definitions. A data type for how to contact an organization.
+          # A telephone number for a telecommunication device by which a person or organization may be contacted.
           class ContactTelephoneNumber
             include HappyMapper
 

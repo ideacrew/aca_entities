@@ -12,8 +12,13 @@ module AcaEntities
             tag 'ActivityIdentification'
             namespace 'nc'
 
+            # A value that identifies something.
             element :identification_id, String, tag: "IdentificationID", namespace: "nc"
+
+            # A kind of identification.
             element :identification_category_text, String, tag: "IdentificationCategoryText", namespace: "nc"
+
+            # An area, region, or unit in which a unique identification is issued.
             element :identification_jurisdiction, String, tag: "IdentificationJurisdictionISO3166Alpha3Code", namespace: "nc"
 
             def self.domain_to_mapper(identification)
