@@ -113,9 +113,9 @@ module AcaEntities
                   map 'is_primary_applicant', 'is_primary_applicant', memoize: true, visible: false, append_identifier: true
                   namespace 'person' do
 
-                    map 'person_name.first_name', 'person_name.given'
-                    map 'person_name.middle_name', 'person_name.middle'
-                    map 'person_name.last_name', 'person_name.sur'
+                    map 'person_name.first_name', 'person_name.given', function: ->(v) {v&.gsub(/[^A-Za-z-' ]/, ' ')}
+                    map 'person_name.middle_name', 'person_name.middle', function: ->(v) {v&.gsub(/[^A-Za-z-' ]/, ' ')}
+                    map 'person_name.last_name', 'person_name.sur', function: ->(v) {v&.gsub(/[^A-Za-z-' ]/, ' ')}
                     add_key 'person_name.suffix'
                     # map 'person_name.full_name', 'person_name.full' # removed as per business validation
                     add_key 'us_citizen_indicator', function: lambda { |v|
