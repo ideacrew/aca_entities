@@ -29,8 +29,7 @@ module AcaEntities
               mapper = self.new
               if person_augmentation
                 mapper.us_veteran_indicator = person_augmentation.us_veteran_indicator
-                mapper.married_indicator = person_augmentation.married_indicator              
-                mapper.married_indicator = PersonMarriedIndicator.domain_to_mapper(person_augmentation.married_indicator)
+                mapper.married_indicator = person_augmentation.married_indicator
                 mapper.us_veteran_indicator = person_augmentation.us_veteran_indicator
                 mapper.pregnancy_status = PersonPregnancyStatus.domain_to_mapper(person_augmentation.pregnancy_status)
                 mapper.preferred_languages = person_augmentation.preferred_languages.map  do |preferred_language|

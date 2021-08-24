@@ -22,13 +22,13 @@ module AcaEntities
             # A basis for Children's Health Insurance Program (CHIP) eligibility based on incarceration rules.
             has_one :incarceration_eligibility_basis, ChipIncarcerationEligibilityBasis
 
-            # A basis for Children's Health Insurance Program (CHIP) eligibility based on income rules.           
+            # A basis for Children's Health Insurance Program (CHIP) eligibility based on income rules.
             has_one :income_eligibility_basis, ChipIncomeEligibilityBasis
 
             # A basis for Children's Health Insurance Program (CHIP) eligibility based on Medicaid residency rules.
             has_one :medicaid_residency_eligibility_basis, ChipMedicaidResidencyEligibilityBasis
 
-            # A basis for Children's Health Insurance Program (CHIP) eligibility based on Medicaid citizen or immigrant rules.            
+            # A basis for Children's Health Insurance Program (CHIP) eligibility based on Medicaid citizen or immigrant rules.
             has_one :medicaid_citizen_or_immigrant_eligibility_basis, ChipMedicaidCitizenOrImmigrantEligibilityBasis
 
             # A basis for Children's Health Insurance Program (CHIP) eligibility based on pregnancy category rules.

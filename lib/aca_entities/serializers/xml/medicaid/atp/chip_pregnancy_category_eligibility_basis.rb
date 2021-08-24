@@ -11,7 +11,7 @@ module AcaEntities
 
             tag 'CHIPPregnancyCategoryEligibilityBasis'
             namespace 'hix-ee'
-            
+
             # True if the status holds; false otherwise.
             element :status_indicator, Boolean, tag: 'StatusIndicator', namespace: "hix-core"
 

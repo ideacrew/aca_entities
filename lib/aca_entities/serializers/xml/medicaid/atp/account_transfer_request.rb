@@ -15,7 +15,7 @@ module AcaEntities
             register_namespace 'hix-core', 'http://hix.cms.gov/0.1/hix-core'
             register_namespace 'hix-ee', 'http://hix.cms.gov/0.1/hix-ee'
             register_namespace 'niem-s', 'http://niem.gov/niem/structures/2.0'
-            register_namespace 'xsi', 'http://www.w3.org/2001/XMLSchema-instance'            
+            register_namespace 'xsi', 'http://www.w3.org/2001/XMLSchema-instance'
 
             tag 'AccountTransferRequest'
             namespace 'ex'
