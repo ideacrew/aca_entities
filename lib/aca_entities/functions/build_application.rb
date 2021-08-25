@@ -499,7 +499,7 @@ module AcaEntities
 
       def applicant_hash
         non_magi = @memoized_data.find(Regexp.new('attestations.members.*.nonMagi')).map(&:item).last
-binding.pry
+
         {
           is_primary_applicant: @member_identifier == @primary_applicant_identifier,
           name: name_hash,
