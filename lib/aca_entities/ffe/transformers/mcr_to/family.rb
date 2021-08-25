@@ -400,7 +400,7 @@ module AcaEntities
                   #         "family.magi_medicaid_applications.'->(v){v.resolve(:members).item}'.income.currentIncome.currentIncome#{i}" ,
                   #           memoize_record: true, visible: false
                   # # end
-                  map 'income.currentIncome', 'income.currentIncome', memoize_record: true, visible: false
+                  map 'income', 'income', memoize_record: true, visible: false
                   map 'family', 'family', memoize_record: true, visible: false # , append_identifier: true
                   map 'nonMagi', 'nonMagi', memoize_record: true, visible: false
                   map 'other.veteranIndicator', 'veteranIndicator', memoize: true, visible: false, append_identifier: true

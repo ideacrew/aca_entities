@@ -265,8 +265,16 @@ module AcaEntities
         '13xPerYear',
         '11xPerYear',
         '10xPerYear',
-        'Once'
+        'Once',
+        'biweekly',
+        'daily',
+        'half_yearly',
+        'monthly',
+        'quarterly',
+        'weekly',
+        'yearly'
       )
+      # TODO added enroll income frequency temp, remove after migration
 
       DeductionFrequency = IncomeFrequency
       EmployeeCostFrequency = IncomeFrequency
