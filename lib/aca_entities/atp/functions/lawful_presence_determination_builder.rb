@@ -21,7 +21,8 @@ module AcaEntities
 
         MAPPING = { 'naturalizedCitizenIndicator' => 'naturalized_citizen',
                     'citizenshipIndicator' => 'us_citizen',
-                    'noAlienNumberIndicator' => 'alien_lawfully_present' }.freeze
+                    'noAlienNumberIndicator' => 'alien_lawfully_present',
+                    'notLawfullyPresentInUs' => 'not_lawfully_present_in_us' }.freeze
 
         # NATURALIZED_CITIZEN_STATUS = 'naturalized_citizen'
         # INDIAN_TRIBE_MEMBER_STATUS = 'indian_tribe_member'
@@ -48,7 +49,7 @@ module AcaEntities
           }
 
           val = hash.keys.find { |_k| hash.key(true) }
-          assign_citizen_status(val)
+          assign_citizen_status(val || "notLawfullyPresentInUs")
         end
 
         def assign_citizen_status(status)

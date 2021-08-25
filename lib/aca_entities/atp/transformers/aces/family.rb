@@ -113,9 +113,18 @@ module AcaEntities
                   map 'is_primary_applicant', 'is_primary_applicant', memoize: true, visible: false, append_identifier: true
                   namespace 'person' do
 
-                    map 'person_name.first_name', 'person_name.given'
-                    map 'person_name.middle_name', 'person_name.middle'
-                    map 'person_name.last_name', 'person_name.sur'
+                    map 'person_name.first_name', 'person_name.given', function: lambda { |v|
+                      first_name = v&.gsub(/[^A-Za-z-' ]/, ' ')
+                      first_name&.strip&.empty? ? "BLANK FIRST" : first_name
+                    }
+                    map 'person_name.middle_name', 'person_name.middle', function: lambda { |v|
+                      middle_name = v&.gsub(/[^A-Za-z-' ]/, ' ')
+                      middle_name&.strip&.empty? ? "BLANK MIDDLE" : middle_name
+                    }
+                    map 'person_name.last_name', 'person_name.sur', function: lambda { |v|
+                      last_name = v&.gsub(/[^A-Za-z-' ]/, ' ')
+                      last_name&.strip&.empty? ? "BLANK LAST" : last_name
+                    }
                     add_key 'person_name.suffix'
                     # map 'person_name.full_name', 'person_name.full' # removed as per business validation
                     add_key 'us_citizen_indicator', function: lambda { |v|
@@ -155,8 +164,7 @@ module AcaEntities
                                           !v.resolve(:'tribal_augmentation.person_tribe_name').item.nil?
                                       }
 
-                    map 'consumer_role.marital_status', 'person_augmentation.married_indicator', function: ->(v) { v.nil? ? nil : (v == "MARRIED")}
-
+                    map 'consumer_role.marital_status', 'person_augmentation.married_indicator', function: ->(v) { v.nil? ? false : (v == "MARRIED")}
                     map 'consumer_role.language_preference', 'language_preference', memoize_record: true, visible: false
                     map 'consumer_role.contact_method', 'consumer_role.contact_method', memoize_record: true, visible: false, append_identifier: true
                     add_key 'person_augmentation.us_naturalized_citizen_indicator', function: lambda { |v|

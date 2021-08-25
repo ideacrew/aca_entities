@@ -28,6 +28,9 @@ module AcaEntities
           add_key 'coverage_during_previous_six_months_indicator'
           add_key 'eligible_itu_services_indicator'
           map 'vlp_document', 'vlp_document', memoize_record: true, visible: false
+          add_key 'lawful_presence_status.lawful_presence_status_eligibility.eligibility_indicator', function: lambda { |v|
+            v.resolve('citizen_status').item == 'alien_lawfully_present'
+          }
           add_key 'lawful_presence_status.immigrant_documents',
                   function: AcaEntities::Atp::Functions::ImmigrantDocumentBuilder.new
           # namespace 'vlp_document' do

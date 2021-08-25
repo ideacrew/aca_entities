@@ -20,7 +20,6 @@ module AcaEntities
           @i94_number = i94_number(vlp_document)
           @sevis_id = sevis_id(vlp_document)
 
-          # TODO: add document_person_ids based on applicant's identity???
           case vlp_document[:subject]
           when 'I-327 (Reentry Permit)'
             doc = i327_doc(vlp_document)

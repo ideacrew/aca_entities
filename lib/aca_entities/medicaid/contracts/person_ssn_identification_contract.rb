@@ -6,7 +6,7 @@ module AcaEntities
       # PersonSsnIdentification contract
       class PersonSsnIdentificationContract < Dry::Validation::Contract
         params do
-          required(:identification_id).filled(:string)
+          optional(:identification_id).maybe(:string)
         end
       end
     end

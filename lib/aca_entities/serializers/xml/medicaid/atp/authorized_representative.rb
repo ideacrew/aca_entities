@@ -14,6 +14,7 @@ module AcaEntities
 
             attribute :id, String, namespace: "niem-s"
 
+            # A human being.
             has_one :role_played_by_person, RolePlayedByPerson
 
             def self.domain_to_mapper(authorized_representative)

@@ -5,7 +5,7 @@ module AcaEntities
     module Atp
       # entity for #atp PersonSsnIdentification
       class PersonSsnIdentification < Dry::Struct
-        attribute :identification_id, Types::String.meta(omittable: false)
+        attribute :identification_id, Types::String.optional.meta(omittable: true)
       end
     end
   end
