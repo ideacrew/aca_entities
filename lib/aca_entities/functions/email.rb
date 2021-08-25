@@ -4,22 +4,16 @@ module AcaEntities
   module Functions
     # build person email
     class Email
-      def call(value)
-        # require 'pry';binding.pry
-      if value.resolve('family.family_members.is_primary_applicant').item == value.find(Regexp.new("attestations.members")).map(&:item).last
-        [{ address: value.resolve('family.family_members.person.email.address').item, kind: 'home' }]
-      else
-        []
-      end
+      def call(cache, m_identifier = nil)
+
+        member_identifier = m_identifier ? m_identifier : cache.find(/attestations.members.(\w+)$/).map(&:item).last
+        return [] unless cache.resolve('family.family_members.is_primary_applicant').item == member_identifier
+        contact_information = cache.resolve('attestations.application.contactInformation').item
+
+        [{ address: contact_information[:email], kind: 'home' }]
+
       end
     end
   end
 end
 
-# add_key 'emails', function: lambda {|v|
-#   # revisit if condition for emails and phone for dependents
-#   if v.resolve('family.family_members.is_primary_applicant').item ==
-#       v.find(Regexp.new("attestations.members")).map(&:item).last
-#     [{ address: v.resolve('family.family_members.person.email.address').item, kind: 'home' }]
-#   end
-# }

@@ -432,7 +432,7 @@ module AcaEntities
       def demographic_hash
         veteran_indicator = @memoized_data.find(Regexp.new("#{@member_identifier}.other.veteranIndicator"))&.first&.item
 
-        { gender: @memoized_data.find(Regexp.new("person_demographics.gender.#{@member_identifier}"))&.first&.item&.capitalize,
+        { gender: @memoized_data.find(Regexp.new("person_demographics.gender.#{@member_identifier}"))&.first&.item&.downcase,
           dob: @memoized_data.find(Regexp.new("person_demographics.dob.#{@member_identifier}"))&.first&.item,
           ethnicity: [],
           race: nil,
@@ -499,7 +499,7 @@ module AcaEntities
 
       def applicant_hash
         non_magi = @memoized_data.find(Regexp.new('attestations.members.*.nonMagi')).map(&:item).last
-
+binding.pry
         {
           is_primary_applicant: @member_identifier == @primary_applicant_identifier,
           name: name_hash,
@@ -546,9 +546,9 @@ module AcaEntities
           has_deductions: !deduction_hash.empty?,
           has_enrolled_health_coverage: !benefits_hash.empty?, # default value
           has_eligible_health_coverage: !benefits_hash.empty?, # default value
-          addresses: [], # default value
-          emails: [], # default value
-          phones: [], # default value
+          addresses: address_hash,
+          emails: AcaEntities::Functions::Email.new.call(@memoized_data, @member_identifier), # default value
+          phones: AcaEntities::Functions::Phone.new.call(@memoized_data, @member_identifier),
           incomes: income_hash || [],
           benefits: (benefits_hash << (benefits_esc_hash ? benefits_esc_hash[0] : [])).compact,
           deductions: deduction_hash || [],
@@ -562,6 +562,15 @@ module AcaEntities
           is_self_attested_long_term_care: non_magi.nil? ? false : non_magi[:longTermCareIndicator] || false,
           hours_worked_per_week: '2'
         }
+      end
+
+      def address_hash
+        mailing_address = @memoized_data.resolve("attestations.members.#{@member_identifier}.demographic.mailingAddress").item&.merge!(kind: "mailing")
+        home_address = @memoized_data.resolve("attestations.members.#{@member_identifier}.demographic.homeAddress").item&.merge!(kind: "home")
+        transient_address = @memoized_data.resolve("attestations.members.#{@member_identifier}.demographic.transientAddress").item&.merge!(kind: "transient")
+        [mailing_address,home_address, transient_address].compact.each_with_object([]) do |address, collect|
+          collect << AcaEntities::Ffe::Transformers::Cv::Address.transform(address)
+        end
       end
 
       def tax_filer_kind
