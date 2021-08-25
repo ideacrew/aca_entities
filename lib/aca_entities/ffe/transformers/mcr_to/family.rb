@@ -13,6 +13,8 @@ require 'aca_entities/functions/build_tax_household'
 require 'aca_entities/functions/build_lawful_presence_determination'
 require 'aca_entities/functions/build_application'
 require 'aca_entities/functions/build_household'
+require 'aca_entities/ffe/transformers/cv/address'
+require 'aca_entities/ffe/transformers/cv/phone'
 
 
 
@@ -102,15 +104,7 @@ module AcaEntities
 
               map 'application.contactMemberIdentifier', 'family.family_members.is_primary_applicant', memoize: true, visible: false
 
-              map 'application.contactInformation.email', 'family.family_members.person.email.address', memoize: true, visible: false
-
-              map 'application.contactInformation.primaryPhoneNumber.number', 'family.family_members.person.phone.number', memoize: true, visible: false
-              map 'application.contactInformation.primaryPhoneNumber.ext', 'family.family_members.person.phone.ext', memoize: true, visible: false
-              map 'application.contactInformation.primaryPhoneNumber.type', 'family.family_members.person.phone.type', memoize: true, visible: false
-
-              map 'application.contactInformation.secondaryPhoneNumber.number', 'family.family_members.person.second.phone.number', memoize: true, visible: false
-              map 'application.contactInformation.secondaryPhoneNumber.ext', 'family.family_members.person.second.phone.ext', memoize: true, visible: false
-              map 'application.contactInformation.secondaryPhoneNumber.type', 'family.family_members.person.second.phone.type', memoize: true, visible: false
+              map 'application.contactInformation', 'contactInformation', memoize_record: true, visible: false
 
               # original key is also passed to the output hash, revist code for this scenario
               # map 'application.contactMethod', 'family.family_members.person.consumer_role.contact_method', memoize: true, visible: false
@@ -177,8 +171,7 @@ module AcaEntities
                     rewrap 'family.family_members.person', type: :hash do
                       # add_key 'family_Relationships', function: AcaEntities::Functions::BuildRelationships.new
                       add_key 'hbx_id', function: lambda {|v|
-                                # binding.pry
-                        v.resolve('attestations.members', identifier: true).item
+                        v.find(/attestations.members.(\w+)$/).map(&:item).last
                       }
 
                       #TODO: check on identifiers
@@ -194,7 +187,7 @@ module AcaEntities
                           }
                           #->(v) {v.find(Regexp.new("attestations.members")).map(&:name).last} # should be derived based on context
                           add_key 'item', function: lambda {|v|
-                            v.resolve('attestations.members', identifier: true).item
+                            v.find(/attestations.members.(\w+)$/).map(&:item).last
                           }
                           # should pick id from the source payload
                         end
@@ -288,10 +281,8 @@ module AcaEntities
                       add_key 'verification_types', value: ->(_v) {[]}
                       # add_key 'broker_role'
 
-
                       add_key 'emails', function: AcaEntities::Functions::Email.new
                       add_key 'phones', function: AcaEntities::Functions::Phone.new
-
 
                       add_key 'documents', value: ->(_v) {[]}
                       add_key 'age_off_excluded'
@@ -343,52 +334,19 @@ module AcaEntities
 
                        # keys ["streetName1", "streetName2", "cityName", "stateCode", "zipCode","countyName","countryCode"
                       # "plus4Code", , "countyFipsCode"]
-                      namespace 'mailingAddress' do
-                        rewrap 'family.family_members.person.addresses', type: :array do
-                          add_key 'kind', value: 'mailing'
-                          map 'streetName1', 'address_1'
-                          map 'streetName2', 'address_2'
-                          add_key 'address_3'
-                          map 'cityName', 'city'
-                          map 'countyName', 'county'
-                          map 'countyFipsCode', 'county_code'
-                          map 'stateCode', 'state'
-                          map 'zipCode', 'zip'
-                          map 'countryCode', 'country_name'
-                        end
-                      end
 
-                      namespace 'homeAddress' do
-                        rewrap 'family.family_members.person.addresses', type: :array do
-                          add_key 'kind', value: 'home'
-                          map 'streetName1', 'address_1'
-                          map 'streetName2', 'address_2'
-                          add_key 'address_3'
-                          map 'cityName', 'city'
-                          map 'countyName', 'county'
-                          map 'countyFipsCode', 'county_code'
-                          map 'stateCode', 'state'
-                          map 'zipCode', 'zip'
-                          map 'countryCode', 'country_name'
-                        end
-                      end
+                      map 'mailingAddress', 'mailingAddress', memoize_record: true, visible: false
+                      map 'homeAddress', 'homeAddress', memoize_record: true, visible: false
+                      map 'transientAddress', 'transientAddress', memoize_record: true, visible: false
 
-                      # found 106 records with transientAddress, some transientAddress same as home address.
-                      namespace 'transientAddress' do
-                        rewrap 'family.family_members.person.addresses', type: :array do
-                          add_key 'kind', value: 'home'
-                          map 'streetName1', 'address_1'
-                          map 'streetName2', 'address_2'
-                          add_key 'address_3'
-                          map 'cityName', 'city'
-                          map 'countyName', 'county'
-                          map 'countyFipsCode', 'county_code'
-                          map 'stateCode', 'state'
-                          map 'zipCode', 'zip'
-                          map 'countryCode', 'country_name'
+                      add_key 'addresses', function: -> v {
+                        mailing_address = v.resolve("attestations.members.*.demographic.mailingAddress", identifier: true).item&.merge!(kind: "mailing")
+                        home_address = v.resolve("attestations.members.*.demographic.homeAddress", identifier: true).item&.merge!(kind: "home")
+                        transient_address = v.resolve("attestations.members.*.demographic.transientAddress", identifier: true).item&.merge!(kind: "transient")
+                        [mailing_address,home_address, transient_address].compact.each_with_object([]) do |address, collect|
+                          collect << AcaEntities::Ffe::Transformers::Cv::Address.transform(address)
                         end
-                      end
-
+                      }
                     end
                   end
 
