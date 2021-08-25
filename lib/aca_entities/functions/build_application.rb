@@ -432,7 +432,7 @@ module AcaEntities
       def demographic_hash
         veteran_indicator = @memoized_data.find(Regexp.new("#{@member_identifier}.other.veteranIndicator"))&.first&.item
 
-        { gender: @memoized_data.find(Regexp.new("person_demographics.gender.#{@member_identifier}"))&.first&.item&.downcase,
+        { gender: @memoized_data.find(Regexp.new("person_demographics.gender.#{@member_identifier}"))&.first&.item&.capitalize,
           dob: @memoized_data.find(Regexp.new("person_demographics.dob.#{@member_identifier}"))&.first&.item,
           ethnicity: [],
           race: nil,
