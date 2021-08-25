@@ -84,6 +84,8 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Applicant, dbclean: :after_each do
         is_primary_applicant: true,
         citizenship_immigration_status_information: citizenship_immigration_status_information,
         is_applying_coverage: false,
+        job_coverage_end_date: Date.today,
+        prior_insurance_end_date: Date.today,
         family_member_reference: family_member_reference,
         person_hbx_id: '95',
         is_required_to_file_taxes: false,
