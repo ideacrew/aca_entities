@@ -137,7 +137,7 @@ module AcaEntities
 
       def taxable_income_with_negative_value
         @attestations_income_hash.any? do |key, income_hash|
-          income_hash[:incomeAmount] < 0 && TaxIncomeKIND[income_hash[:incomeSourceType]].present?
+          income_hash[:incomeAmount] < 0 && TaxIncomeKIND[income_hash[:incomeSourceType].to_sym].present?
         end
       end
 
@@ -204,7 +204,7 @@ module AcaEntities
       def income_amount(income)
         frequency = income[:incomeFrequencyType]
         amount = income[:incomeAmount]
-        hours = income[:job][:averageWeeklyWorkHours]
+        hours = income[:job][:averageWeeklyWorkHours] if income[:job]
         if frequency == "HOURLY" && hours
           hours.to_i * amount
         elsif frequency == "SEMI_MONTHLY"
@@ -218,13 +218,13 @@ module AcaEntities
         return [] if @attestations_income_hash.blank? || create_other_tax_income
 
         @attestations_income_hash.each_with_object([]) do |(_k, income), result|
-          next unless EMPLOYEMENT[income[:incomeSourceType]].present?
+          next unless EMPLOYEMENT[income[:incomeSourceType].to_sym].present?
           result << {
-            'kind' => EMPLOYEMENT[income[:incomeSourceType]],
+            'kind' => EMPLOYEMENT[income[:incomeSourceType].to_sym],
             'amount' => income_amount(income),
             'amount_tax_exempt' => 0,
             'employer_name' => !income[:jobIncome].nil? ? income[:jobIncome][:employerName] : "employer name not provided",
-            'frequency_kind' => FREQUENCY_KINDS[income[:incomeFrequencyType]],
+            'frequency_kind' => FREQUENCY_KINDS[income[:incomeFrequencyType].to_sym],
             'start_on' => Date.parse('2021-01-01'), # default value
             'end_on' => nil,
             'is_projected' => false, # default value
@@ -257,12 +257,12 @@ module AcaEntities
       def self_emp_income_hash
         return [] if @attestations_income_hash.blank? || create_other_tax_income
         @attestations_income_hash.each_with_object([]) do |(_k, income), result|
-          next unless SELF_EMPLOYMENT[income[:incomeSourceType]].present?
+          next unless SELF_EMPLOYMENT[income[:incomeSourceType].to_sym].present?
           result << {
-            'kind' => SELF_EMPLOYMENT[income[:incomeSourceType]],
+            'kind' => SELF_EMPLOYMENT[income[:incomeSourceType].to_sym],
             'amount' => income_amount(income),
             'amount_tax_exempt' => 0,
-            'frequency_kind' => FREQUENCY_KINDS[income[:incomeFrequencyType]],
+            'frequency_kind' => FREQUENCY_KINDS[income[:incomeFrequencyType].to_sym],
             'start_on' => Date.parse('2021-01-01'), # default value
             'end_on' => nil,
             'is_projected' => false
@@ -274,12 +274,12 @@ module AcaEntities
       def unemp_income_hash
         return [] if @attestations_income_hash.blank? || create_other_tax_income
         @attestations_income_hash.each_with_object([]) do |(_k, income), result|
-          next unless UNEMPLOYMENT_INCOME_KIND[income[:incomeSourceType]].present?
+          next unless UNEMPLOYMENT_INCOME_KIND[income[:incomeSourceType].to_sym].present?
           result << {
-            "kind"=> UNEMPLOYMENT_INCOME_KIND[income[:incomeSourceType]],
+            "kind"=> UNEMPLOYMENT_INCOME_KIND[income[:incomeSourceType].to_sym],
             "amount"=> income_amount(income),
             "amount_tax_exempt"=>0,
-            "frequency_kind"=> FREQUENCY_KINDS[income[:incomeFrequencyType]],
+            "frequency_kind"=> FREQUENCY_KINDS[income[:incomeFrequencyType].to_sym],
             "start_on"=> Date.parse('2021-01-01'), # default value
             "end_on"=> nil,
             "is_projected"=> false}
@@ -307,13 +307,13 @@ module AcaEntities
           }]
         else
           @attestations_income_hash.each_with_object([]) do |(_k, income), result|
-            next unless OTHER_INCOME_TYPE_KIND[income[:incomeSourceType]].present?
+            next unless OTHER_INCOME_TYPE_KIND[income[:incomeSourceType].to_sym].present?
 
             result << {
-                'kind' => OTHER_INCOME_TYPE_KIND[income[:incomeSourceType]],
+                'kind' => OTHER_INCOME_TYPE_KIND[income[:incomeSourceType].to_sym],
                 'amount' => income_amount(income),
                 'amount_tax_exempt' => 0,
-                'frequency_kind' => FREQUENCY_KINDS[income[:incomeFrequencyType]],
+                'frequency_kind' => FREQUENCY_KINDS[income[:incomeFrequencyType].to_sym],
                 'start_on' => Date.parse('2021-01-01'), # default value
                 'end_on' => nil,
                 'is_projected' => false
@@ -327,13 +327,13 @@ module AcaEntities
         return [] if @attestations_income_hash.blank? || create_other_tax_income
 
         @attestations_income_hash.each_with_object([]) do |(_k, income), result|
-          next unless DEDUCTION_TYPE[income[:incomeSourceType]].present?
+          next unless DEDUCTION_TYPE[income[:incomeSourceType].to_sym].present?
 
           result << {
-            'kind' => DEDUCTION_TYPE[:"#{income[:incomeSourceType]}"] ,
+            'kind' => DEDUCTION_TYPE[income[:incomeSourceType].to_sym] ,
             'amount' => income_amount(income).to_i.abs,
             'amount_tax_exempt' => 0,
-            'frequency_kind' => FREQUENCY_KINDS[income[:incomeFrequencyType]],
+            'frequency_kind' => FREQUENCY_KINDS[income[:incomeFrequencyType].to_sym],
             'start_on' => Date.parse('2021-01-01'), # default value
             'end_on' => nil,
             'is_projected' => false
