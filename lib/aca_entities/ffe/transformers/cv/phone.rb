@@ -4,7 +4,7 @@ module AcaEntities
   module Ffe
     module Transformers
       module Cv
-        # build person Phone
+        # Transform person Phone
         class Phone < ::AcaEntities::Operations::Transforms::Transform
           include ::AcaEntities::Operations::Transforms::Transformer
 

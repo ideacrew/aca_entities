@@ -4,7 +4,7 @@ module AcaEntities
   module Ffe
     module Transformers
       module Cv
-        # build person address
+        # Transform person address
         class Address < ::AcaEntities::Operations::Transforms::Transform
           include ::AcaEntities::Operations::Transforms::Transformer
 

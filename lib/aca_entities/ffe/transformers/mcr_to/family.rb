@@ -15,6 +15,7 @@ require 'aca_entities/functions/build_application'
 require 'aca_entities/functions/build_household'
 require 'aca_entities/ffe/transformers/cv/address'
 require 'aca_entities/ffe/transformers/cv/phone'
+require 'aca_entities/ffe/transformers/cv/vlp_document'
 
 
 
@@ -377,8 +378,8 @@ module AcaEntities
                   add_key 'person.consumer_role.lawful_presence_determination.citizen_status',
                           function: AcaEntities::Functions::BuildLawfulPresenceDetermination.new
 
-                  # add_key 'person.consumer_role.vlp_documents',
-                  #         function: AcaEntities::Functions::BuildVlpDocument.new
+                  add_key 'person.consumer_role.vlp_documents',
+                          function: AcaEntities::Functions::BuildVlpDocument.new
 
                   add_key 'person.person_health.is_tobacco_user', value: 'unknown'
                   add_key 'person.person_health.is_physically_disabled',
