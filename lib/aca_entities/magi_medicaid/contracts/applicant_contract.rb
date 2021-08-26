@@ -22,6 +22,7 @@ module AcaEntities
         # @option opts [Hash] :family_member_reference required
         # @option opts [String] :person_hbx_id required
         # @option opts [Boolean] :is_required_to_file_taxes required
+        # @option opts [Boolean] :is_filing_as_head_of_household optional
         # @option opts [Boolean] :is_joint_tax_filing optional
         # @option opts [Boolean] :is_claimed_as_tax_dependent optional
         # @option opts [Hash] :claimed_as_tax_dependent_by optional
@@ -47,6 +48,10 @@ module AcaEntities
         # @option opts [Boolean] :has_deductions required
         # @option opts [Boolean] :has_enrolled_health_coverage required
         # @option opts [Boolean] :has_eligible_health_coverage required
+        # @option opts [Boolean] :job_coverage_ended_in_past_3_months optional
+        # @option opts [Date] :job_coverage_end_date optional
+        # @option opts [AcaEntities::MagiMedicaid::Contracts::MedicaidAndChipContract] :medicaid_and_chip optional
+        # @option opts [AcaEntities::MagiMedicaid::Contracts::OtherHealthServiceContract] :other_health_service optional
         # @option opts [Array] :addresses optional
         # @option opts [Array] :emails optional
         # @option opts [Array] :phones optional
@@ -60,11 +65,14 @@ module AcaEntities
         # @option opts [Boolean] :had_prior_insurance optional
         # @option opts [Date] :prior_insurance_end_date optional
         # @option opts [Integer] :age_of_applicant optional
-        # @option opts [Integer] :hours_worked_per_week optional
         # @option opts [Boolean] :is_temporarily_out_of_state optional
+        # @option opts [Integer] :hours_worked_per_week optional
         # @option opts [Boolean] :is_claimed_as_dependent_by_non_applicant optional
         # @option opts [hash] :mitc_income optional
         # @option opts [Array] :mitc_relationships optional
+        # @option opts [Boolean] :mitc_is_required_to_file_taxes optional
+        # @option opts [AcaEntities::MagiMedicaid::Contracts::BenchmarkPremiumContract] :benchmark_premium required
+        # @option opts [Bool] :is_homeless required
         # @return [Dry::Monads::Result]
         params do
           required(:name).hash(AcaEntities::Contracts::People::PersonNameContract.params)
@@ -82,6 +90,7 @@ module AcaEntities
           required(:family_member_reference).hash(::AcaEntities::Contracts::Families::FamilyMemberReferenceContract.params)
           required(:person_hbx_id).filled(:string)
           required(:is_required_to_file_taxes).filled(:bool)
+          optional(:is_filing_as_head_of_household).maybe(:bool)
           optional(:is_joint_tax_filing).maybe(:bool)
           optional(:is_claimed_as_tax_dependent).maybe(:bool)
           optional(:claimed_as_tax_dependent_by).maybe(ApplicantReferenceContract.params)
@@ -122,6 +131,15 @@ module AcaEntities
           # including coverage they could get through another person?
           required(:has_eligible_health_coverage).filled(:bool)
 
+          # Did this person have coverage through a job (for example, a parent's job)
+          # that ended in the last 3 months?
+          optional(:job_coverage_ended_in_past_3_months).maybe(:bool)
+          # What was the last day this person had coverage through the job?
+          optional(:job_coverage_end_date).maybe(:date)
+
+          optional(:medicaid_and_chip).maybe(MedicaidAndChipContract.params)
+          optional(:other_health_service).maybe(OtherHealthServiceContract.params)
+
           optional(:addresses).array(AcaEntities::Contracts::Locations::AddressContract.params)
           optional(:emails).array(AcaEntities::Contracts::Contacts::EmailContactContract.params)
           optional(:phones).array(AcaEntities::Contracts::Contacts::PhoneContactContract.params)
@@ -134,16 +152,28 @@ module AcaEntities
           optional(:has_insurance).filled(:bool)
           optional(:has_state_health_benefit).filled(:bool)
           optional(:had_prior_insurance).filled(:bool)
-          optional(:prior_insurance_end_date).filled(:date)
-          optional(:age_of_applicant).filled(:integer)
+          optional(:prior_insurance_end_date).maybe(:date)
+          required(:age_of_applicant).filled(:integer)
 
           optional(:hours_worked_per_week).filled(:integer)
           optional(:is_temporarily_out_of_state).filled(:bool)
           optional(:is_claimed_as_dependent_by_non_applicant).filled(:bool)
+          required(:benchmark_premium).hash(BenchmarkPremiumContract.params)
+
+          required(:is_homeless).filled(:bool)
 
           # Set of attributes specific to MitC which helps to not have much logic in IapTo MitC Transform.
           optional(:mitc_income).hash(AcaEntities::MagiMedicaid::Mitc::Contracts::IncomeContract.params)
           optional(:mitc_relationships).array(AcaEntities::MagiMedicaid::Mitc::Contracts::RelationshipContract.params)
+          optional(:mitc_is_required_to_file_taxes).maybe(:bool)
+
+          # fdsh evidences
+          optional(:evidences).array(AcaEntities::Evidences::EvidenceContract.params)
+
+          # fdsh esi response
+          optional(:esi_eligibility_indicator).maybe(:bool)
+          optional(:esi_insured_indicator).maybe(:bool)
+          optional(:esi_inconsistency_indicator).maybe(:bool)
 
         end
       end

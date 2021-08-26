@@ -8,7 +8,8 @@ module AcaEntities
         # @!method call(opts)
         # @param [Hash] opts the parameters to validate using this contract
         # @option opts [Boolean] :is_incarcerated optional
-        # @option opts [Boolean] :is_disabled required
+        # @option opts [Boolean] :is_self_attested_disabled required
+        # @option opts [Boolean] :is_self_attested_blind required
         # @option opts [Boolean] :is_self_attested_long_term_care optional
         # @return [Dry::Monads::Result]
         params do

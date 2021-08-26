@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# require 'dig-deep'
 # rubocop:disable Style/HashConversion, Style/OptionalBooleanParameter
 
 module AcaEntities
@@ -19,13 +20,18 @@ module AcaEntities
 
         def append(data, _dig = true)
           if root == :no_key
+            # TODO: revist below commented codee for dig_deep
+            # value = if  parent_namespaces.last == :no_key
+            #   data.dig_deep(parent_namespaces[0..-2].last) unless parent_namespaces.empty?
+            # else
             value = data.dig(*parent_namespaces) unless parent_namespaces.empty?
+            # end
             @data_set.deep_merge!(value || data)
           elsif output_namespaces.empty?
             @data_set.deep_merge!(data)
           else
             @data_set[output_namespaces.last] ||= {}
-            if data.keys.size == 1 && @data_set[output_namespaces.last].key?(data.keys.first)
+            if data.size == 1 && @data_set[output_namespaces.last].key?(data.keys.first)
               @data_set[output_namespaces.last].tap do |data_hash|
                 value = data_hash[data.keys.first]
                 if value.is_a?(Array)

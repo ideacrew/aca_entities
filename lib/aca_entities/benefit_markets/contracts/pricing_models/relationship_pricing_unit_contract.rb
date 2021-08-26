@@ -12,7 +12,7 @@ module AcaEntities
         end
 
         rule(:discounted_above_threshold) do
-          key.failure(text: "invalid discount threshold for relationship pricing unit", error: result.errors.to_h) if key? && value && value < 0
+          key.failure(text: "invalid discount threshold for relationship pricing unit", error: result.errors.to_h) if key && value && value < 0
         end
       end
     end

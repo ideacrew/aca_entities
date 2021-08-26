@@ -23,12 +23,14 @@ module AcaEntities
                                                                   'Unborn Child',
                                                                   'Income Medicaid Eligible',
                                                                   'Income CHIP Eligible',
-                                                                  'CHIPRA 214',
+                                                                  'Medicaid CHIPRA 214',
+                                                                  'CHIP CHIPRA 214',
                                                                   'Trafficking Victim',
                                                                   'Seven Year Limit',
                                                                   'Five Year Bar',
                                                                   'Title II Work Quarters Met',
                                                                   'Medicaid Citizen Or Immigrant',
+                                                                  'CHIP Citizen Or Immigrant',
                                                                   'Former Foster Care Category',
                                                                   'Work Quarters Override Income',
                                                                   'State Health Benefits CHIP',
@@ -168,9 +170,6 @@ module AcaEntities
           'WI',
           'WY'
         )
-
-        # An integer representing the applicant. Must be between 1 and 100.
-        PersonIdRange = (1..100).freeze
       end
     end
   end

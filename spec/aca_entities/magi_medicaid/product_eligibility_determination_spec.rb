@@ -17,7 +17,8 @@ RSpec.describe ::AcaEntities::MagiMedicaid::ProductEligibilityDetermination, dbc
         medicaid_household_size: 1,
         magi_medicaid_monthly_income_limit: 3760.67,
         magi_as_percentage_of_fpl: 10.0,
-        magi_medicaid_category: 'parent_caretaker' }
+        magi_medicaid_category: 'parent_caretaker',
+        magi_medicaid_ineligibility_reasons: ['dummy reason'] }
     end
 
     before do
@@ -30,7 +31,10 @@ RSpec.describe ::AcaEntities::MagiMedicaid::ProductEligibilityDetermination, dbc
     end
 
     it 'should return all keys of ProductEligibilityDetermination' do
-      expect(@result.to_h.keys).to eq(input_params.keys)
+      result_app_keys = @result.to_h.keys
+      input_app_keys = input_params.keys
+      expect(result_app_keys - input_app_keys).to be_empty
+      expect(input_app_keys - result_app_keys).to be_empty
     end
   end
 

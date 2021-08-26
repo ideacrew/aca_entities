@@ -61,14 +61,15 @@ RSpec.describe ::AcaEntities::Operations::Transforms::HashFunctions do
       end
     end
 
-    # describe '.rename_nested_keys' do
-    #   it 'returns a new hash with renamed key' do
-    #     input = { 'a' => { 'b' => { 'c' => { 'd' => '123' } }, 'f' => { 'd' => '456' } } }
-    #     output = { 'a' => { 'b' => { 'c' => { 'e' => '123' } }, 'f' => { 'd' => '456' } } }
-    #     map_value = described_class.rename_nested_keys(input, [{ 'd' => 'e' }], ['a', 'b', 'c'])
-    #     expect(map_value).to eql(output)
-    #   end
-    # end
+    describe '.rename_nested_keys' do
+      it 'returns a new hash with renamed key' do
+        input =  { :d => '123' }
+        output = { :a => { :b => { :c => { :e => '123' } } } }
+
+        map_value = described_class.rename_nested_keys(input, [{ :d => :e }], [:a, :b, :c, :e])
+        expect(map_value).to eql(output)
+      end
+    end
 
     describe '.rewrap_keys' do
       it 'returns a new hash with new namespaces' do

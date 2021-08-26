@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema     xmlns:s="http://niem.gov/niem/structures/2.0"
+                xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                xmlns:ssac="http://codes.ssac.ee.sim.dsh.cms.hhs.gov"
+                xmlns:i="http://niem.gov/niem/appinfo/2.0"
+                targetNamespace="http://codes.ssac.ee.sim.dsh.cms.hhs.gov"
+                version="1.0">
+
+  <xsd:annotation>
+    <xsd:documentation>SSA Composite Codes schema</xsd:documentation>
+    <xsd:appinfo>
+      <ssac:SchemaComponent>
+        <ssac:EffectiveDt>2012-11-01</ssac:EffectiveDt>
+        <ssac:VersionDt>2012-10-12</ssac:VersionDt>
+        <ssac:VersionDescriptionTxt>Initial venrsion of the SSA Composite Codes schema</ssac:VersionDescriptionTxt>
+      </ssac:SchemaComponent>
+      <i:ConformantIndicator>true</i:ConformantIndicator>
+    </xsd:appinfo>
+  </xsd:annotation>
+
+  <xsd:import namespace="http://niem.gov/niem/niem-core/2.0"
+              schemaLocation="niem/niem-core/2.0/niem-core.xsd"/>
+  <xsd:import namespace="http://niem.gov/niem/structures/2.0"
+              schemaLocation="niem/structures/2.0/structures.xsd"/>
+  <xsd:import namespace="http://niem.gov/niem/appinfo/2.0"
+              schemaLocation="niem/appinfo/2.0/appinfo.xsd"/>
+  <xsd:import namespace="http://niem.gov/niem/proxy/xsd/2.0"
+              schemaLocation="niem/proxy/xsd/2.0/xsd.xsd"/>
+
+  <!-- CODE LISTS -->
+
+  <xsd:simpleType name="SSAResponseCodeSimpleType"> <!-- TBD Add other response codes in the ennumeration list -->
+    <xsd:annotation>
+      <xsd:appinfo>
+        <i:Base i:name="Object" i:namespace="http://niem.gov/niem/structures/2.0"/>
+      </xsd:appinfo>
+      <xsd:documentation> A data type indicating error or success</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:token">
+      <xsd:enumeration value="0000">
+        <xsd:annotation>
+          <xsd:documentation>Success.  Transaction completed.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="9999">
+        <xsd:annotation>
+          <xsd:documentation>Failure.  Transaction could not be completed.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+    </xsd:restriction>
+  </xsd:simpleType>
+
+  <xsd:simpleType name="SSNVerificationCodeSimpleType">
+    <xsd:annotation>
+      <xsd:appinfo>
+        <i:Base i:name="Object" i:namespace="http://niem.gov/niem/structures/2.0"/>
+      </xsd:appinfo>
+      <xsd:documentation>An enumeration of ACA verification codes assigned by
+        the Social Security Administration.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:token">
+      <xsd:enumeration value="A">
+        <xsd:annotation>
+          <xsd:documentation>Verified; The SSN, Name and DOB are Verified</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="B">
+        <xsd:annotation>
+          <xsd:documentation>Not Verified; The input SSN does not exist on the numident or is marked for deletion or is inaccessible </xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="C">
+        <xsd:annotation>
+          <xsd:documentation>Not verified;  SSN exists; There is no match on either name or DOB</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="D">
+        <xsd:annotation>
+          <xsd:documentation>Not verified; SSN exists; There is a match on name but not on DOB </xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="E">
+        <xsd:annotation>
+          <xsd:documentation>Not verified; SSN exists:  There is a match on DOB but not on DOB</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+    </xsd:restriction>
+  </xsd:simpleType>
+
+  <xsd:simpleType name="FacilityCategoryCodeSimpleType">
+    <xsd:annotation>
+      <xsd:appinfo>
+        <i:Base i:name="Object" i:namespace="http://niem.gov/niem/structures/2.0"/>
+      </xsd:appinfo>
+      <xsd:documentation>
+        Indicates Facility types <!-- TBD  Waiting for SSA to provide HUB the Facility Category enumeration codes. -->
+        State Prison
+        County Prison
+        Federal Correctional Institute
+        Mental Correctional Institute
+        Boot Camp
+        Medical Correctional Institute
+        Work Camp
+        Detention Center
+        Juvenile Detention Center
+        Half-way House
+        City Prison
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:token">
+      <xsd:enumeration value="01">
+        <xsd:annotation>
+          <xsd:documentation>State Prison.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="02">
+        <xsd:annotation>
+          <xsd:documentation>County Prison.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="03">
+        <xsd:annotation>
+          <xsd:documentation>Federal Correctional Institute.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="04">
+        <xsd:annotation>
+          <xsd:documentation>Mental Correctional Institute.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="05">
+        <xsd:annotation>
+          <xsd:documentation>Boot Camp.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="06">
+        <xsd:annotation>
+          <xsd:documentation>Medical Correctional Institute.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="07">
+        <xsd:annotation>
+          <xsd:documentation>Work Camp.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="08">
+        <xsd:annotation>
+          <xsd:documentation>Detention Center.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="09">
+        <xsd:annotation>
+          <xsd:documentation>Juvenile Detention Center.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="10">
+        <xsd:annotation>
+          <xsd:documentation>Half-way House.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+
+    </xsd:restriction>
+  </xsd:simpleType>
+
+  <xsd:simpleType name="DeathConfirmationCodeSimpleType">
+    <xsd:annotation>
+      <xsd:appinfo>
+        <i:Base i:name="Object" i:namespace="http://niem.gov/niem/structures/2.0"/>
+      </xsd:appinfo>
+      <xsd:documentation> A data type indicating confirmed or unconfirmed</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:token">
+      <xsd:enumeration value="Confirmed">
+        <xsd:annotation>
+          <xsd:documentation>Confirmed if the death can be confirmed by SSA </xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="Unconfirmed">
+        <xsd:annotation>
+          <xsd:documentation>Unconfirmed if the Death cannot be confirmed
+            (due to unavailable data or if it cannot be disclosed). </xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+    </xsd:restriction>
+  </xsd:simpleType>
+
+</xsd:schema>

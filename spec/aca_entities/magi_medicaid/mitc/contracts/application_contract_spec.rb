@@ -5,7 +5,7 @@ require 'aca_entities/magi_medicaid/libraries/mitc_library'
 
 RSpec.describe ::AcaEntities::MagiMedicaid::Mitc::Contracts::ApplicationContract do
   let(:person_params) do
-    { person_id: 100,
+    { person_id: 1000,
       is_applicant: 'Y',
       is_blind_or_disabled: 'N',
       is_full_time_student: 'Y',
@@ -67,8 +67,8 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Mitc::Contracts::ApplicationContract
     { name: 'Application 100',
       state: 'DC',
       people: [person_params],
-      physical_households: [{ household_id: '1000', people: [{ person_id: 100 }] }],
-      tax_returns: [{ filers: [{ person_id: 100 }], dependents: [{ person_id: 101 }] }] }
+      physical_households: [{ household_id: '1000', people: [{ person_id: 1000 }] }],
+      tax_returns: [{ filers: [{ person_id: 1000 }], dependents: [{ person_id: 1001 }] }] }
   end
 
   context 'valid params' do
@@ -94,14 +94,6 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Mitc::Contracts::ApplicationContract
     context 'person' do
       let(:contract_call) do
         subject.call(required_params.merge({ people: [local_person] }))
-      end
-
-      context 'person_id' do
-        let(:local_person) { person_params.merge({ person_id: 1000 }) }
-
-        it 'should return failure with error message' do
-          expect(contract_call.errors.to_h).to eq({ people: { 0 => { person_id: ['must be between 1 and 100'] } } })
-        end
       end
 
       context 'prior_insurance_end_date' do

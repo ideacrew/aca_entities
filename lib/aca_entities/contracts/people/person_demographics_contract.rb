@@ -7,7 +7,7 @@ module AcaEntities
       class PersonDemographicsContract < Dry::Validation::Contract
         # @!method call(opts)
         # @param [Hash] opts the parameters to validate using this contract
-        # @option opts [String] :ssn required
+        # @option opts [String] :ssn optional
         # @option opts [Boolean] :no_ssn required
         # @option opts [String] :gender required
         # @option opts [Date] :dob required
@@ -20,12 +20,12 @@ module AcaEntities
         # @option opts [String] :language_code required
         # @return [Dry::Monads::Result]
         params do
-          required(:ssn).value(:str?)
+          optional(:ssn).maybe(:string)
           optional(:no_ssn).maybe(:bool)
           required(:gender).value(:str?)
-          required(:dob).value(:date?)
-          optional(:date_of_death).value(:date?)
-          optional(:dob_check).maybe(:date)
+          required(:dob).filled(:date)
+          optional(:date_of_death).maybe(:date)
+          optional(:dob_check).maybe(:bool)
           required(:is_incarcerated).filled(:bool)
           optional(:ethnicity).maybe(:array)
           optional(:race).maybe(:string)

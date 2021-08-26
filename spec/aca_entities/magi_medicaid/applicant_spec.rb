@@ -11,6 +11,12 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Applicant, dbclean: :after_each do
     end
     let(:identifying_information) { { has_ssn: false } }
     let(:demographic) { { gender: 'Male', dob: Date.today.prev_year.to_s } }
+    let(:benchmark_premium) do
+      { health_only_lcsp_premiums: [{ member_identifier: '95', monthly_premium: 310.50 },
+                                    { member_identifier: '96', monthly_premium: 310.60 }],
+        health_only_slcsp_premiums: [{ member_identifier: '95', monthly_premium: 320.50 },
+                                     { member_identifier: '96', monthly_premium: 320.60 }] }
+    end
     let(:attestation) { { is_self_attested_disabled: false, is_self_attested_blind: false } }
     let(:family_member_reference) do
       { family_member_hbx_id: '1000',
@@ -81,6 +87,7 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Applicant, dbclean: :after_each do
         family_member_reference: family_member_reference,
         person_hbx_id: '95',
         is_required_to_file_taxes: false,
+        is_filing_as_head_of_household: false,
         pregnancy_information: pregnancy_information,
         has_job_income: true,
         has_self_employment_income: false,
@@ -95,7 +102,11 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Applicant, dbclean: :after_each do
         incomes: [income],
         benefits: [benefit],
         deductions: [deduction],
+        is_temporarily_out_of_state: false,
+        age_of_applicant: 45,
         is_claimed_as_dependent_by_non_applicant: false,
+        benchmark_premium: benchmark_premium,
+        is_homeless: false,
         mitc_relationships: mitc_relationships,
         mitc_income: mitc_income }
     end

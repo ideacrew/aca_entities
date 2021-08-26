@@ -40,5 +40,11 @@ RSpec.describe ::AcaEntities::Contracts::People::PersonNameContract,  dbclean: :
     it 'should return success' do
       expect(subject.call(input_params)).to be_success
     end
+
+    context 'with required params only' do
+      it 'should return success' do
+        expect(subject.call(required_params)).to be_success
+      end
+    end
   end
 end

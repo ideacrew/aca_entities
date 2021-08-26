@@ -34,7 +34,7 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Contracts::DeductionContract,  dbcle
 
   context 'invalid params' do
     it 'should return failure with message' do
-      err_msg = /must be one of: alimony_paid, deductable_part_of_self_employment_taxes/
+      err_msg = /must be one of: alimony_paid, deductible_part_of_self_employment_taxes/
       expect(subject.call(input_params.merge(kind: 'kind')).errors.to_h[:kind].first).to match(err_msg)
     end
   end

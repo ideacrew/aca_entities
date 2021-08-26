@@ -39,6 +39,9 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'dry-validation', '~> 1.2'
   spec.add_dependency 'oj', '~> 3.11'
   spec.add_dependency 'dry-transformer', '~> 0.1.1'
+  spec.add_dependency 'deep_merge'
+  spec.add_dependency 'nokogiri-happymapper'
+  spec.add_dependency 'iso_country_codes'
 
   spec.add_development_dependency 'pry-byebug'
 end

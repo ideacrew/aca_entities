@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:ext="http://vesim.dsh.cms.gov/extension/1.0" xmlns:fbi="http://niem.gov/niem/fbi/2.0" xmlns:hix-core="http://hix.cms.gov/0.1/hix-core" xmlns:hix-ee="http://hix.cms.gov/0.1/hix-ee" xmlns:i="http://niem.gov/niem/appinfo/2.0" xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:usps="http://niem.gov/niem/usps_states/2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema" attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://vesim.dsh.cms.gov/extension/1.0" version="1">
+  <xsd:import namespace="http://niem.gov/niem/niem-core/2.0" schemaLocation="../../../.././XMLschemas/constraint/XMLschemas/niem/niem-core.xsd"/>
+  <xsd:import namespace="http://hix.cms.gov/0.1/hix-core" schemaLocation="../../../.././XMLschemas/constraint/XMLschemas/niem/domains/hix/0.1/hix-core/hix-core.xsd"/>
+  <xsd:import namespace="http://niem.gov/niem/fbi/2.0" schemaLocation="../../../.././XMLschemas/constraint/XMLschemas/niem/fbi/2.0/fbi.xsd"/>
+  <xsd:import namespace="http://hix.cms.gov/0.1/hix-ee" schemaLocation="../../../.././XMLschemas/constraint/XMLschemas/niem/domains/hix/0.1/hix-ee/hix-ee.xsd"/>
+  <xsd:import namespace="http://niem.gov/niem/usps_states/2.0" schemaLocation="../../../.././XMLschemas/constraint/XMLschemas/niem/usps_states/2.0/usps_states.xsd"/>
+  <xsd:import namespace="http://niem.gov/niem/proxy/xsd/2.0" schemaLocation="../../../../XMLschemas/subset/niem/proxy/xsd/2.0/xsd.xsd"/>
+  <xsd:import namespace="http://niem.gov/niem/appinfo/2.1" schemaLocation="../../../../XMLschemas/subset/niem/appinfo/2.1/appinfo.xsd"/>
+  <xsd:import namespace="http://niem.gov/niem/appinfo/2.0" schemaLocation="../../../../XMLschemas/subset/niem/appinfo/2.0/appinfo.xsd"/>
+  <xsd:import namespace="http://niem.gov/niem/structures/2.0" schemaLocation="../../../../XMLschemas/subset/niem/structures/2.0/structures.xsd"/>
+  <xsd:annotation>
+    <xsd:appinfo>
+      <i:ConformantIndicator>true</i:ConformantIndicator>
+    </xsd:appinfo>
+    <xsd:documentation source="">An extension schema to verify Employer Sponsored Insurance Minimum Eligibility Coverage information. It consists of the Request and response elements which will be exchanged between various exchanges and the data service hub.</xsd:documentation>
+  </xsd:annotation>
+  <xsd:complexType abstract="false" mixed="false" name="ApplicantResponseType">
+    <xsd:annotation>
+      <xsd:appinfo>
+        <i:Base i:name="Object" i:namespace="http://niem.gov/niem/structures/2.0"/>
+      </xsd:appinfo>
+      <xsd:documentation source="">A data type for responses for an individual applicant.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="s:ComplexObjectType">
+        <xsd:sequence>
+          <xsd:element maxOccurs="1" minOccurs="1" ref="ext:ResponsePerson"/>
+          <xsd:element maxOccurs="1" minOccurs="1" ref="hix-core:ResponseMetadata"/>
+          <xsd:element maxOccurs="1" minOccurs="0" ref="ext:ApplicantMECInformation"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:element abstract="false" name="ResponsePerson" nillable="false" type="ext:ResponsePersonType">
+    <xsd:annotation>
+      <xsd:documentation source="">A human being</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:simpleType name="RestrictedPersonNameSimpleType">
+    <xsd:annotation>
+      <xsd:appinfo>
+        <i:Base i:name="Object" i:namespace="http://niem.gov/niem/structures/2.0"/>
+      </xsd:appinfo>
+      <xsd:documentation source="">A data type for A restriction for the person name to be a minimum of 1 and a maximum of 50 characters</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string">
+      <xsd:maxLength value="50"/>
+      <xsd:minLength value="1"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="RestrictedPersonSSNIdentificationSimpleType">
+    <xsd:annotation>
+      <xsd:appinfo>
+        <i:Base i:name="Object" i:namespace="http://niem.gov/niem/structures/2.0"/>
+      </xsd:appinfo>
+      <xsd:documentation source="">A data type for A restriction for the Person Social Security Number to be of length 9 characters.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string">
+      <xsd:length value="9"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:complexType abstract="false" mixed="false" name="ResponsePersonType">
+    <xsd:annotation>
+      <xsd:appinfo>
+        <Base xmlns="http://niem.gov/niem/appinfo/2.0" i:name="PersonType" i:namespace="http://niem.gov/niem/niem-core/2.0"/>
+      </xsd:appinfo>
+      <xsd:documentation source="">A data type for a human being.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:restriction base="nc:PersonType">
+        <xsd:sequence>
+          <xsd:element maxOccurs="1" minOccurs="1" ref="nc:PersonSSNIdentification"/>
+        </xsd:sequence>
+      </xsd:restriction>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:element abstract="false" name="ApplicantMECInformation" nillable="false" type="ext:ApplicantMECInformationType">
+    <xsd:annotation>
+      <xsd:documentation source="">A Documented Component</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:complexType abstract="false" mixed="false" name="ApplicantMECInformationType">
+    <xsd:annotation>
+      <xsd:appinfo>
+        <i:Base i:name="Object" i:namespace="http://niem.gov/niem/structures/2.0"/>
+      </xsd:appinfo>
+      <xsd:documentation source="">A data type for Response elements for an applicant</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="s:ComplexObjectType">
+        <xsd:sequence>
+          <xsd:element maxOccurs="1" minOccurs="1" ref="ext:InsuranceApplicantResponse"/>
+          <xsd:element maxOccurs="1" minOccurs="1" ref="hix-core:InconsistencyIndicator"/>
+          <xsd:element maxOccurs="1" minOccurs="0" ref="ext:MonthlyPremiumAmount"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:element abstract="false" name="InsuranceApplicantResponse" nillable="false" type="ext:InsuranceApplicantResponseType">
+    <xsd:annotation>
+      <xsd:documentation source="">Information related to the applicants insurance</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:complexType abstract="false" mixed="false" name="InsuranceApplicantResponseType">
+    <xsd:annotation>
+      <xsd:appinfo>
+        <Base xmlns="http://niem.gov/niem/appinfo/2.0" i:name="InsuranceApplicantType" i:namespace="http://hix.cms.gov/0.1/hix-ee"/>
+      </xsd:appinfo>
+      <xsd:documentation source="">A data type for a person requesting insurance coverage (either to obtain a new policy or to maintain enrollment in an existing policy).</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:restriction base="hix-ee:InsuranceApplicantType">
+        <xsd:sequence>
+          <xsd:element maxOccurs="1" minOccurs="1" ref="hix-ee:InsuranceApplicantRequestedCoverage"/>
+          <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:InsuranceApplicantEligibleEmployerSponsoredInsuranceIndicator"/>
+          <xsd:element maxOccurs="1" minOccurs="0" ref="hix-ee:InsuranceApplicantInsuredIndicator"/>
+        </xsd:sequence>
+      </xsd:restriction>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:element abstract="false" name="MonthlyPremiumAmount" type="ext:MonthlyPremiumAmountType">
+    <xsd:annotation>
+      <xsd:documentation source="">Premium amount for the Applicant</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:complexType abstract="false" mixed="false" name="MonthlyPremiumAmountType">
+    <xsd:annotation>
+      <xsd:appinfo>
+        <i:Base i:name="Object" i:namespace="http://niem.gov/niem/structures/2.0"/>
+      </xsd:appinfo>
+      <xsd:documentation source="">A data type for Premium Amount for the applicant</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="s:ComplexObjectType">
+        <xsd:sequence>
+          <xsd:element maxOccurs="1" minOccurs="1" ref="ext:EmployeePremiumAmount"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:element abstract="false" name="EmployeePremiumAmount" type="hix-ee:InsurancePremiumType">
+    <xsd:annotation>
+      <xsd:documentation source="">The employee paid portion amount toward the self-insurance premium amount.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:complexType abstract="false" mixed="false" name="RequestPersonType">
+    <xsd:annotation>
+      <xsd:appinfo>
+        <Base xmlns="http://niem.gov/niem/appinfo/2.0" i:name="PersonType" i:namespace="http://niem.gov/niem/niem-core/2.0"/>
+      </xsd:appinfo>
+      <xsd:documentation source="">A data type for a human being.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:restriction base="nc:PersonType">
+        <xsd:sequence>
+          <xsd:element maxOccurs="1" minOccurs="1" ref="nc:PersonBirthDate"/>
+          <xsd:element maxOccurs="1" minOccurs="1" ref="nc:PersonName"/>
+          <xsd:element maxOccurs="1" minOccurs="0" ref="nc:PersonSexCode"/>
+          <xsd:element maxOccurs="1" minOccurs="1" ref="nc:PersonSSNIdentification"/>
+        </xsd:sequence>
+      </xsd:restriction>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType abstract="false" mixed="false" name="ESIMECResponsePayloadType">
+    <xsd:annotation>
+      <xsd:appinfo>
+        <i:Base i:name="Object" i:namespace="http://niem.gov/niem/structures/2.0"/>
+      </xsd:appinfo>
+      <xsd:documentation source="">A data type for the response payload.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="s:ComplexObjectType">
+        <xsd:sequence>
+          <xsd:element maxOccurs="1" minOccurs="1" ref="ext:Response"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:element abstract="true" name="Response"/>
+  <xsd:complexType abstract="false" mixed="false" name="ApplicantRequestType">
+    <xsd:annotation>
+      <xsd:appinfo>
+        <i:Base i:name="Object" i:namespace="http://niem.gov/niem/structures/2.0"/>
+      </xsd:appinfo>
+      <xsd:documentation source="">A data type for An element for the ESIMEC Request message</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="s:ComplexObjectType">
+        <xsd:sequence>
+          <xsd:element maxOccurs="1" minOccurs="1" ref="ext:RequestPerson"/>
+          <xsd:element maxOccurs="1" minOccurs="1" ref="ext:InsuranceApplicantRequest"/>
+          <xsd:element maxOccurs="1" minOccurs="1" ref="ext:PersonLocationState"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:element abstract="false" name="RequestPerson" nillable="false" type="ext:RequestPersonType">
+    <xsd:annotation>
+      <xsd:documentation source="">A human being</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element abstract="false" name="InsuranceApplicantRequest" nillable="false" type="ext:InsuranceApplicantRequestType">
+    <xsd:annotation>
+      <xsd:documentation source="">Insurance information related to an Applicant</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:complexType abstract="false" mixed="false" name="InsuranceApplicantRequestType">
+    <xsd:annotation>
+      <xsd:appinfo>
+        <Base xmlns="http://niem.gov/niem/appinfo/2.0" i:name="InsuranceApplicantType" i:namespace="http://hix.cms.gov/0.1/hix-ee"/>
+      </xsd:appinfo>
+      <xsd:documentation source="">A data type for a person requesting insurance coverage (either to obtain a new policy or to maintain enrollment in an existing policy).</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:restriction base="hix-ee:InsuranceApplicantType">
+        <xsd:sequence>
+          <xsd:element maxOccurs="1" minOccurs="1" ref="hix-ee:InsuranceApplicantRequestedCoverage"/>
+        </xsd:sequence>
+      </xsd:restriction>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:element abstract="false" name="PersonLocationState" type="usps:USStateCodeType">
+    <xsd:annotation>
+      <xsd:documentation source="">State code of the Applicant</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:complexType abstract="false" mixed="false" name="ApplicantResponseSetType">
+    <xsd:annotation>
+      <xsd:appinfo>
+        <i:Base i:name="Object" i:namespace="http://niem.gov/niem/structures/2.0"/>
+      </xsd:appinfo>
+      <xsd:documentation source="">A data type for A type for the responses for all multiple Applicants.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="s:ComplexObjectType">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" minOccurs="1" ref="ext:ApplicantResponse"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:element abstract="false" name="ApplicantResponse" nillable="false" type="ext:ApplicantResponseType">
+    <xsd:annotation>
+      <xsd:documentation source="">A response for an individual applicant</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:complexType abstract="false" mixed="false" name="ESIMECRequestPayloadType">
+    <xsd:annotation>
+      <xsd:appinfo>
+        <i:Base i:name="Object" i:namespace="http://niem.gov/niem/structures/2.0"/>
+      </xsd:appinfo>
+      <xsd:documentation source="">A data type for the request payload.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="s:ComplexObjectType">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" minOccurs="1" ref="ext:ApplicantRequest"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:element abstract="false" name="ApplicantRequest" nillable="false" type="ext:ApplicantRequestType">
+    <xsd:annotation>
+      <xsd:documentation source="">An element for the Applicant information</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element abstract="false" name="ResponseMetadata" substitutionGroup="ext:Response" type="hix-core:ResponseMetadataType">
+    <xsd:annotation>
+      <xsd:appinfo>
+        <i:Base i:name="Response" i:namespace="http://vesim.dsh.cms.gov/extension/1.0"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element abstract="false" name="ApplicantResponseSet" nillable="false" substitutionGroup="ext:Response" type="ext:ApplicantResponseSetType">
+    <xsd:annotation>
+      <xsd:appinfo>
+        <i:Base i:name="Response" i:namespace="http://vesim.dsh.cms.gov/extension/1.0"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+  </xsd:element>
+</xsd:schema>

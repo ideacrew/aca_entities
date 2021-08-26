@@ -14,15 +14,17 @@ module AcaEntities
         # @option opts [String] :name_pfx optional
         # @option opts [String] :full_name optional
         # @option opts [String] :alternate_name optional
+        # @option opts [Date] :start_on optional
+        # @option opts [Date] :end_on optional
         # @return [Dry::Monads::Result]
         params do
           required(:first_name).filled(:string)
-          optional(:middle_name).filled(:string)
+          optional(:middle_name).maybe(:string)
           required(:last_name).filled(:string)
-          optional(:name_sfx).filled(:string)
-          optional(:name_pfx).filled(:string)
-          optional(:full_name).filled(:string)
-          optional(:alternate_name).filled(:string)
+          optional(:name_sfx).maybe(:string)
+          optional(:name_pfx).maybe(:string)
+          optional(:full_name).maybe(:string)
+          optional(:alternate_name).maybe(:string)
           optional(:start_on).maybe(:date)
           optional(:end_on).maybe(:date)
         end
@@ -30,4 +32,3 @@ module AcaEntities
     end
   end
 end
-

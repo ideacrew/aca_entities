@@ -8,11 +8,11 @@ module AcaEntities
         # @!method call(opts)
         # @param [Hash] opts the parameters to validate using this contract
         # @option opts [String] :employer_name required
-        # @option opts [String] :employer_id required
+        # @option opts [String] :employer_id optional
         # @return [Dry::Monads::Result]
         params do
           required(:employer_name).filled(:string)
-          required(:employer_id).filled(:string, size?: 9)
+          optional(:employer_id).maybe(:string)
         end
       end
     end

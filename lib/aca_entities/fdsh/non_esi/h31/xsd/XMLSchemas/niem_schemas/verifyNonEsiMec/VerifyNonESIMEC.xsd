@@ -1,0 +1,649 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema 
+    targetNamespace="http://vnem.ee.sim.dsh.cms.hhs.gov" 
+    elementFormDefault="qualified"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:vnem="http://vnem.ee.sim.dsh.cms.hhs.gov"
+    xmlns:nc="http://niem.gov/niem/niem-core/2.0"
+    xmlns:i="http://niem.gov/niem/appinfo/2.0" 
+    xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0"
+    xmlns:s="http://niem.gov/niem/structures/2.0"
+    version="4.1">
+
+    <xsd:annotation>
+        <xsd:documentation>Payload of the Non Employer Sponsered Insurance, 
+            Minimum Essential Coverage (Non ESI MEC) Service Request from Requestor 
+            to HUB and corresponding Hub to Requestor Response
+        </xsd:documentation>
+        <xsd:appinfo>
+            <vnem:SchemaComponent>
+                <vnem:EffectiveDt>2013-03-01</vnem:EffectiveDt>
+                <vnem:VersionDt>2013-01-30</vnem:VersionDt>
+                <vnem:VersionDescriptionTxt>
+                    Udpates to this version are to align with the Error Handling Framework
+                    and include:
+                    - xsd:choice in the top level response - return either Hub response code and 
+                      description or TDS information
+                    - HubResponseStatus renamed to ResponseMetadata
+                    - ResponseCodeText renamed to ResponseDescriptionText
+                    - Updated ResponseCode from xsd:pattern value="0|(E\d\d\d\d)|([0-9])+"
+                      to xsd:length value="8"
+                    - ResponseMetadata added to the 'OtherCoverage' portion of TDS information
+                      to replace OrganizationResponseCode and OrganizationResponseCodeText
+                    - MECVerificationCode updated to required from minOccurs="0"
+                </vnem:VersionDescriptionTxt>
+                <vnem:VersionDescriptionTxt>Fourth (minor update) Version of HUB Verify Non 
+                    ESI MEC (VNEM) service request and response.
+                </vnem:VersionDescriptionTxt>
+                <vnem:DescriptionTxt>Request and Response payloads for the SOA service 
+                    Verify Non ESI MEC.
+                </vnem:DescriptionTxt>
+            </vnem:SchemaComponent>
+            <i:ConformantIndicator>true</i:ConformantIndicator>
+        </xsd:appinfo>
+    </xsd:annotation>
+    
+    <xsd:import namespace="http://niem.gov/niem/niem-core/2.0" schemaLocation="niem/niem-core/2.0/niem-core.xsd"/>
+    <xsd:import namespace="http://niem.gov/niem/structures/2.0" schemaLocation="niem/structures/2.0/structures.xsd"/>
+    <xsd:import namespace="http://niem.gov/niem/appinfo/2.0" schemaLocation="niem/appinfo/2.0/appinfo.xsd"/>
+    <xsd:import namespace="http://niem.gov/niem/proxy/xsd/2.0" schemaLocation="niem/proxy/xsd/2.0/xsd.xsd"/> 
+    
+    <!--##########################################################-->
+    <!--#                                                        #-->
+    <!--#                        Root Nodes                      #-->
+    <!--#                                                        #-->
+    <!--##########################################################-->
+
+    <xsd:element name="VerifyNonESIMECRequest" type="vnem:VerifyNonESIMECRequestType">
+        <xsd:annotation>
+            <xsd:documentation>
+                Root Element: Request Message - Verify Non ESI MEC (VNEM).
+            </xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+
+    <xsd:element name="VerifyNonESIMECResponse" type="vnem:VerifyNonESIMECResponseType">
+        <xsd:annotation>
+            <xsd:documentation>
+                Root Element: Response Message - Verify Non ESI MEC (VNEM).
+            </xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    
+    
+    <!--##########################################################-->
+    <!--#                                                        #-->
+    <!--#                      Complex Types                     #-->
+    <!--#                                                        #-->
+    <!--##########################################################-->
+    
+    <xsd:complexType name="VerifyNonESIMECRequestType">
+        <xsd:annotation>
+            <xsd:documentation>Request from Requestor to Hub for verify Non ESI MEC service
+            </xsd:documentation>
+            <xsd:appinfo>
+                <i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="s:ComplexObjectType">
+                <xsd:sequence>
+                    <xsd:element ref="vnem:IndividualRequest" maxOccurs="unbounded"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="IndividualRequestType">
+        <xsd:annotation>
+            <xsd:documentation>Information of each applicant in a request </xsd:documentation>
+            <xsd:appinfo>
+                <i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="s:ComplexObjectType">
+                <xsd:sequence>
+                    <xsd:element ref="vnem:Applicant"/>
+                    <xsd:element ref="nc:LocationStateUSPostalServiceCode"/>
+                    <xsd:element ref="vnem:InsurancePolicy"/>
+                    <xsd:element ref="vnem:Organization" minOccurs="0"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>    
+
+    <xsd:complexType name="ApplicantType">
+        <xsd:annotation>
+            <xsd:documentation>A data type for a human being.</xsd:documentation>
+            <xsd:appinfo>
+                <i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="s:ComplexObjectType">
+                <xsd:sequence>
+                    <xsd:element ref="vnem:PersonSSNIdentification"/>
+                    <xsd:element ref="vnem:PersonName"/>
+                    <xsd:element ref="nc:PersonBirthDate"/>
+                    <xsd:element ref="nc:PersonSex" minOccurs="0"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    
+    <xsd:complexType name="PersonNameType">
+        <xsd:annotation>
+            <xsd:documentation>A data type for a combination of names and/or titles by which a person is known.</xsd:documentation>
+            <xsd:appinfo>
+                <i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="s:ComplexObjectType">
+                <xsd:sequence>
+                    <xsd:element ref="vnem:PersonGivenName"/>
+                    <xsd:element ref="vnem:PersonMiddleName" minOccurs="0"/>
+                    <xsd:element ref="vnem:PersonSurName"/>
+                    <xsd:element ref="vnem:PersonNameSuffixText" minOccurs="0"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    
+    <xsd:complexType name="PersonSSNIdentificationType">
+        <xsd:annotation>
+            <xsd:documentation>A unique reference to a living person assigned by the United States Social Security Administration.
+            </xsd:documentation>
+            <xsd:appinfo>
+                <i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:simpleContent>
+            <xsd:extension base="vnem:PersonSSNIdentificationSimpleType">
+                <xsd:attributeGroup ref="s:SimpleObjectAttributeGroup"/>
+            </xsd:extension>
+        </xsd:simpleContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="RestrictedProperNameType">
+        <xsd:annotation>
+            <xsd:documentation>
+                A data type created to restrict the length of proper names, such as the parts of a PersonName.
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:simpleContent>
+            <xsd:restriction base="nc:ProperNameTextType">
+                <xsd:minLength value="1"/>
+                <xsd:maxLength value="50"/>              
+            </xsd:restriction>     
+        </xsd:simpleContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="InsurancePolicyType">
+        <xsd:annotation>
+            <xsd:documentation>A data type for a human being.</xsd:documentation>
+            <xsd:appinfo>
+                <i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="s:ComplexObjectType">
+                <xsd:sequence>
+                    <xsd:element ref="vnem:InsurancePolicyEffectiveDate"/>
+                    <xsd:element ref="vnem:InsurancePolicyExpirationDate"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="OrganizationType">
+        <xsd:annotation>
+            <xsd:documentation>A data type for a human being.</xsd:documentation>
+            <xsd:appinfo>
+                <i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="s:ComplexObjectType">
+                <xsd:sequence>
+                    <xsd:element ref="vnem:OrganizationCode"  maxOccurs="unbounded"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    
+    <xsd:complexType name="VerifyNonESIMECResponseType">
+        <xsd:annotation>
+            <xsd:documentation>Response from Hub to the Requestor for verify Non ESI MEC service
+            </xsd:documentation>
+            <xsd:appinfo>
+                <i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="s:ComplexObjectType">
+                <xsd:choice>
+                    <xsd:element ref="vnem:ResponseMetadata"/>
+                    <xsd:element ref="vnem:IndividualResponseSet"/>
+                </xsd:choice>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="IndividualResponseSetType">
+        <xsd:annotation>
+            <xsd:documentation>Response from Hub to the Requestor for verify Non ESI MEC service
+            </xsd:documentation>
+            <xsd:appinfo>
+                <i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="s:ComplexObjectType">
+                <xsd:sequence>
+                    <xsd:element ref="vnem:IndividualResponse" minOccurs="1" maxOccurs="unbounded"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="IndividualResponseType">
+        <xsd:annotation>
+            <xsd:documentation>Response from Hub to the Requestor for verify Non ESI MEC service
+            </xsd:documentation>
+            <xsd:appinfo>
+                <i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="s:ComplexObjectType">
+                <xsd:sequence>
+                    <xsd:element ref="vnem:Applicant"/>
+                    <xsd:element ref="vnem:PartialResponseIndicator"/>
+                    <xsd:element ref="vnem:OtherCoverage" maxOccurs="unbounded"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="OtherCoverageType">
+        <xsd:annotation>
+            <xsd:documentation>Response from Hub to the Requestor for verify Non ESI MEC service
+            </xsd:documentation>
+            <xsd:appinfo>
+                <i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="s:ComplexObjectType">
+                <xsd:sequence>
+                    <xsd:element ref="vnem:OrganizationCode" />
+                    <xsd:element ref="vnem:ResponseMetadata"/>
+                    <xsd:element ref="vnem:MECCoverage" minOccurs="0"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    
+    <xsd:complexType name="ResponseMetadataType">
+        <xsd:annotation>
+            <xsd:documentation>The Hub Related Response code and corresponding Description.
+            </xsd:documentation>
+            <xsd:appinfo>
+                <i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="s:ComplexObjectType">
+                <xsd:sequence>
+                    <xsd:element ref="vnem:ResponseCode" />
+                    <xsd:element ref="vnem:ResponseDescriptionText" />
+                    <xsd:element ref="vnem:TDSResponseDescriptionText" minOccurs="0"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>    
+    
+    <xsd:complexType name="MECCoverageType">
+        <xsd:annotation>
+            <xsd:documentation>Enrollment Information of each applicant in a request
+            </xsd:documentation>
+            <xsd:appinfo>
+                <i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="s:ComplexObjectType">
+                <xsd:sequence>
+                    <xsd:element ref="nc:LocationStateUSPostalServiceCode" minOccurs="0"/>
+                    <xsd:element ref="vnem:MECVerificationCode"/>
+                    <xsd:element ref="nc:Insurance" minOccurs="0" maxOccurs="12"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>    
+
+    <xsd:complexType name="OrganizationCodeType">
+        <xsd:annotation>
+            <xsd:documentation>The organization abbreviations for each trusted data source. 
+            </xsd:documentation>
+            <xsd:appinfo>
+                <i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:simpleContent>
+            <xsd:extension base="vnem:OrganizationCodeSimpleType">
+                <xsd:attributeGroup ref="s:SimpleObjectAttributeGroup"/>
+            </xsd:extension>
+        </xsd:simpleContent>
+    </xsd:complexType>
+    
+    <xsd:complexType name="MECVerificationCodeType">
+        <xsd:annotation>
+            <xsd:documentation>Verification Code which is decided by the HUB based on the coverage period received from each TDS.
+                "Y" - The Applicant has Minimum Essential Coverage for the whole period of enrollment.
+                "N" - The Applicant does not have Minimum Essential Coverage for the period of enrollment.
+                "P" - The Applicant has Partial coverage for the period of enrollment.
+                      Partial means that either multiple rows of coverage periods were returned by the TDS or 
+                                    that there is a gap in Minimum Essential coverage for the enrollment period.
+            </xsd:documentation>
+            <xsd:appinfo>
+                <i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:simpleContent>
+            <xsd:extension base="vnem:MECVerificationCodeSimpleType">
+                <xsd:attributeGroup ref="s:SimpleObjectAttributeGroup"/>
+            </xsd:extension>
+        </xsd:simpleContent>
+    </xsd:complexType>
+    <!--##########################################################-->
+    <!--#                                                        #-->
+    <!--#                      Simple Types                      #-->
+    <!--#                                                        #-->
+    <!--##########################################################-->
+
+    <xsd:simpleType name="ResponseCodeSimpleType">
+        <xsd:annotation>
+            <xsd:documentation>
+                Response code in initiated by the HUB indicating failure or success of the request.
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:string">
+            <xsd:length value="8"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    
+    <xsd:simpleType name="ResponseDescriptionTextSimpleType">
+        <xsd:annotation>
+            <xsd:documentation>
+                Description of the Response Code Received
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:string">
+            <xsd:minLength value="1"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="TDSResponseDescriptionTextSimpleType">
+        <xsd:annotation>
+            <xsd:documentation>
+                Description of the Response Code Received
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:string">
+            <xsd:minLength value="1"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="OrganizationCodeSimpleType">
+        <xsd:annotation>
+            <xsd:documentation>A simple type for the enumartion list of Trusted Data Sourse (TDS).
+            </xsd:documentation>
+            <xsd:appinfo>
+                <i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:token">
+            <xsd:enumeration value="MEDC">
+                <xsd:annotation><xsd:documentation>Medicaid</xsd:documentation></xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="CHIP">
+                <xsd:annotation><xsd:documentation>Childrens Health Insurance Program</xsd:documentation></xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="BHPC">
+                <xsd:annotation><xsd:documentation>Basic Health Program</xsd:documentation></xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="MEDI">
+                <xsd:annotation><xsd:documentation>Medicare</xsd:documentation></xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="VHPC">
+                <xsd:annotation><xsd:documentation>Veterand Health Affairs</xsd:documentation></xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="TRIC">
+                <xsd:annotation><xsd:documentation>Tricare</xsd:documentation></xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="PECO">
+                <xsd:annotation><xsd:documentation>Peace Corps</xsd:documentation></xsd:annotation>
+            </xsd:enumeration>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="MECVerificationCodeSimpleType">
+        <xsd:annotation>
+            <xsd:documentation>A simple type for the enumartion list of MEC Verification codes.
+            </xsd:documentation>
+            <xsd:appinfo>
+                <i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:token">
+            <xsd:enumeration value="Y">
+                <xsd:annotation>
+                    <xsd:documentation>The Applicant has Minimum Essential Coverage for the whole period of enrollment.</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="N">
+                <xsd:annotation>
+                    <xsd:documentation>The Applicant does not have Minimum Essential Coverage for the period of enrollment.</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="P">
+                <xsd:annotation>
+                    <xsd:documentation>The Applicant has Partial coverage for the period of enrollment.
+                        Partial means that either multiple rows of coverage periods were returned by the TDS or 
+                        that there is a gap in Minimum Essential coverage for the enrollment period.</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+        </xsd:restriction>
+    </xsd:simpleType>
+    
+    <xsd:simpleType name="PersonSSNIdentificationSimpleType">
+        <xsd:annotation>
+            <xsd:documentation>A simple type for the pattern of a persons social security number.
+            </xsd:documentation>
+            <xsd:appinfo>
+                <i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:string">
+            <xsd:pattern value="\d{9}" />
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="PersonNameSuffixTextSimpleType">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="3" />
+        </xsd:restriction>
+    </xsd:simpleType>
+    <!--##########################################################-->
+    <!--#                                                        #-->
+    <!--#                       Elements                         #-->
+    <!--#                                                        #-->
+    <!--##########################################################-->
+    
+    <xsd:element name="IndividualRequest" type="vnem:IndividualRequestType">
+        <xsd:annotation>
+            <xsd:documentation>A Application request.</xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    
+    <xsd:element name="OrganizationCode" type="vnem:OrganizationCodeType">
+        <xsd:annotation>
+            <xsd:documentation>The organization abbreviations for each trusted data source. </xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    
+    <xsd:element name="Applicant" type="vnem:ApplicantType">
+        <xsd:annotation>
+            <xsd:documentation>An Applicant.</xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    
+    <xsd:element name="PersonSSNIdentification" type="vnem:PersonSSNIdentificationType"> 
+        <xsd:annotation>
+            <xsd:documentation>A unique reference to a living person assigned by the United States Social Security Administration.
+            </xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    
+    <xsd:element name="ResponseMetadata" type="vnem:ResponseMetadataType"> 
+        <xsd:annotation>
+            <xsd:documentation>The Hub standard Response code and corresponding Description.
+            </xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+
+    <xsd:element name="PersonName" type="vnem:PersonNameType">
+        <xsd:annotation>
+            <xsd:documentation>	A combination of names and/or titles by which a person is known.
+            </xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+
+    <xsd:element name="PersonGivenName" type="vnem:RestrictedProperNameType">
+        <xsd:annotation>
+            <xsd:documentation>	Constraining the first name to a minimum of 2 and maximum of 50.
+            </xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    
+    <xsd:element name="PersonMiddleName" type="vnem:RestrictedProperNameType">
+        <xsd:annotation>
+            <xsd:documentation>	Constraining the middle name to a minimum of 1 and maximum of 50.
+            </xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    
+    <xsd:element name="PersonSurName" type="vnem:RestrictedProperNameType">
+        <xsd:annotation>
+            <xsd:documentation>	Constraining the Sur name to a minimum of 2 and maximum of 50.
+            </xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    
+    <xsd:element name="ResponseCode" type="vnem:ResponseCodeSimpleType"> 
+        <xsd:annotation>
+            <xsd:documentation>Response code initiated by the HUB indicating failure or success of the request.
+            </xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    
+    <xsd:element name="ResponseDescriptionText" type="vnem:ResponseDescriptionTextSimpleType"> 
+        <xsd:annotation>
+            <xsd:documentation>Response code Description initiated by the HUB indicating failure or success of the request.
+            </xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    
+    <xsd:element name="TDSResponseDescriptionText" type="vnem:TDSResponseDescriptionTextSimpleType"> 
+        <xsd:annotation>
+            <xsd:documentation>Response code Description initiated by the HUB indicating failure or success of the request.
+            </xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    
+    <xsd:element name="IndividualResponseSet" type="vnem:IndividualResponseSetType"> 
+        <xsd:annotation>
+            <xsd:documentation>Response for each individual request of the household.
+            </xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>    
+
+    <xsd:element name="IndividualResponse" type="vnem:IndividualResponseType"> 
+        <xsd:annotation>
+            <xsd:documentation>Response for each individual request of the household.
+            </xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>    
+
+    <xsd:element name="PartialResponseIndicator" type="xsd:boolean"> 
+        <xsd:annotation>
+            <xsd:documentation>Indicates Partial response for that request. This occurs when all the Trusted Data Sources have not responded in time.
+            </xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>    
+
+    <xsd:element name="OtherCoverage" type="vnem:OtherCoverageType"> 
+        <xsd:annotation>
+            <xsd:documentation>Other coverage information resturned from each Trusted data source for a individual request.
+            </xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>    
+
+    <xsd:element name="MECVerificationCode" type="vnem:MECVerificationCodeType"> 
+        <xsd:annotation>
+            <xsd:documentation>Indicates whether Minimum Eligible Coverage exists for an individual in a Trusted Data Source.
+            </xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>   
+
+    <xsd:element name="CoverageEffectiveDate" type="nc:DateType"> 
+        <xsd:annotation>
+            <xsd:documentation>Contains the coverage effective date of other coverage.</xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>   
+    
+    <xsd:element name="CoverageEndDate" type="nc:DateType"> 
+        <xsd:annotation>
+            <xsd:documentation>Contains the coverage end date of other coverage.</xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>   
+    
+    <xsd:element name="MECCoverage" type="vnem:MECCoverageType"> 
+        <xsd:annotation>
+            <xsd:documentation>Contains the coverage information of other sources.</xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>   
+    
+    <xsd:element name="Organization" type="vnem:OrganizationType"> 
+        <xsd:annotation>
+            <xsd:documentation>Contains the coverage information of other sources.</xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>     
+
+    <xsd:element name="PersonNameSuffixText" type="vnem:PersonNameSuffixTextSimpleType"> 
+        <xsd:annotation>
+            <xsd:documentation>Contains the coverage information of other sources.</xsd:documentation>
+        </xsd:annotation>
+    </xsd:element> 
+        
+    <xsd:element name="InsurancePolicy" type="vnem:InsurancePolicyType"> 
+        <xsd:annotation>
+            <xsd:documentation>Contains the coverage information of other sources.</xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>     
+
+    <xsd:element name="InsurancePolicyEffectiveDate" type="xsd:date"> 
+        <xsd:annotation>
+            <xsd:documentation>Contains the coverage information of other sources.</xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>     
+
+    <xsd:element name="InsurancePolicyExpirationDate" type="xsd:date"> 
+        <xsd:annotation>
+            <xsd:documentation>Contains the coverage information of other sources.</xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>     
+</xsd:schema>

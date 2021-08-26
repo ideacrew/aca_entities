@@ -10,9 +10,6 @@ module AcaEntities
 
           rule(:people).each do |index:|
             next unless key? && value
-            if check_if_present?(value[:person_id]) && !Types::PersonIdRange.include?(value[:person_id])
-              key([:people, index, :person_id]).failure('must be between 1 and 100')
-            end
 
             if value[:had_prior_insurance] == 'Y' && check_if_blank?(value[:prior_insurance_end_date])
               key([:people, index, :prior_insurance_end_date]).failure('cannot be blank when had_prior_insurance is Y')

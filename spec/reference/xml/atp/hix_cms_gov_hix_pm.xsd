@@ -1,0 +1,138 @@
+<!--AT-041916-MD/XMLschemas/constraint/XMLschemas/niem/domains/hix/0.1/hix-pm/hix-pm.xsd--><xsd:schema attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://hix.cms.gov/0.1/hix-pm" version="1" xmlns:hix-core="http://hix.cms.gov/0.1/hix-core" xmlns:hix-pm="http://hix.cms.gov/0.1/hix-pm" xmlns:hix-types="http://hix.cms.gov/0.1/hix-types" xmlns:i="http://niem.gov/niem/appinfo/2.0" xmlns:i2="http://niem.gov/niem/appinfo/2.1" xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <xsd:annotation>
+      <xsd:appinfo>
+         <i:ConformantIndicator>true</i:ConformantIndicator>
+      </xsd:appinfo>
+      <xsd:documentation source="">Reference Model for Health Information Exchange (HIX) Plan Management (PM)</xsd:documentation>
+   </xsd:annotation>
+   <xsd:import namespace="http://hix.cms.gov/0.1/hix-core" schemaLocation="hix_cms_gov_hix_core.xsd"/>
+   <xsd:import namespace="http://hix.cms.gov/0.1/hix-types" schemaLocation="hix_cms_gov_hix_types.xsd"/>
+   <xsd:import namespace="http://niem.gov/niem/appinfo/2.0" schemaLocation="niem_gov_appinfo_2_0.xsd"/>
+   <xsd:import namespace="http://niem.gov/niem/appinfo/2.1" schemaLocation="niem_gov_appinfo_2_1.xsd"/>
+   <xsd:import namespace="http://niem.gov/niem/niem-core/2.0" schemaLocation="niem_gov_niem_core_2_0.xsd"/>
+   <xsd:import namespace="http://niem.gov/niem/proxy/xsd/2.0" schemaLocation="niem_gov_proxy_xsd_2_0.xsd"/>
+   <xsd:import namespace="http://niem.gov/niem/structures/2.0" schemaLocation="niem_gov_structures_2_0.xsd"/>
+   <xsd:element abstract="true" name="ActuarialValue">
+      <xsd:annotation>
+         <xsd:documentation source="">A data concept for an assessment of actuarial value, i.e., the extent to which health care costs are shouldered by an issuer (either directly or indirectly via a cost-sharing reduction).</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element name="ActuarialValueMetallicTierCode" nillable="true" type="hix-types:ActuarialValueMetallicTierCodeType">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:Base i:name="ActuarialValue" i:namespace="http://hix.cms.gov/0.1/hix-pm"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">An assessment of actuarial value usually represented as a metallic tier.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="InsurancePlanIdentification" nillable="true" type="nc:IdentificationType">
+      <xsd:annotation>
+         <xsd:documentation source="">An identification for an insurance plan.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="InsurancePlanName" type="nc:ProperNameTextType">
+      <xsd:annotation>
+         <xsd:documentation source="">A name of an insurance plan.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="InsurancePlanProgramCode" type="hix-types:EligibilityProgramCodeType">
+      <xsd:annotation>
+         <xsd:documentation source="">A kind of subsidy available for policies based on this plan (e.g., Advance Premium Tax Credits and Cost Sharing Reductions).</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="InsurancePlanRate" type="hix-pm:InsurancePlanRateType">
+      <xsd:annotation>
+         <xsd:documentation source="">A rate that determines a premium for an insurance policy based on a member's attributes, such as geographic location, age, and tobacco use status.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="InsurancePlanRateAmount" type="nc:AmountType">
+      <xsd:annotation>
+         <xsd:documentation source="">An amount collected from a subscriber as a premium.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="InsurancePlanRateFutureIndicator" type="niem-xsd:boolean">
+      <xsd:annotation>
+         <xsd:documentation source="">True if a rate applies at some point in the future; false if it currently applies.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="InsuranceRateFrequency" type="hix-core:FrequencyType">
+      <xsd:annotation>
+         <xsd:documentation source="">A frequency of an insurance rate.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="Issuer" type="hix-pm:IssuerType">
+      <xsd:annotation>
+         <xsd:documentation source="">A set of healthcare services provided by a health care organization</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="IssuerIdentification" nillable="true" type="nc:IdentificationType">
+      <xsd:annotation>
+         <xsd:documentation source="">An identifier for the issuer.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element name="MinimumActuarialValueStandardIndicator" type="niem-xsd:boolean">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:Base i:name="ActuarialValue" i:namespace="http://hix.cms.gov/0.1/hix-pm"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">True if a plan meets the minimum value standard (60%); false otherwise.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="RolePlayedByOrganization" nillable="false" type="hix-core:OrganizationType"/>
+   <xsd:complexType abstract="false" mixed="false" name="InsurancePlanRateType">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:Base i:name="Object" i:namespace="http://niem.gov/niem/structures/2.0"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">A data type for a rate that determines a premium for an insurance policy based on a member's attributes, such as geographic location, age, and tobacco use status.</xsd:documentation>
+      </xsd:annotation>
+      <xsd:complexContent>
+         <xsd:extension base="s:ComplexObjectType">
+            <xsd:sequence>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-pm:InsurancePlanRateAmount"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-pm:InsuranceRateFrequency"/>
+               <xsd:element maxOccurs="unbounded" minOccurs="0" ref="hix-pm:InsurancePlanRateFutureIndicator"/>
+            </xsd:sequence>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:complexType abstract="false" mixed="false" name="InsurancePlanType">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:Base i:name="Object" i:namespace="http://niem.gov/niem/structures/2.0"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">A data type for a package of benefits paired with consumer costs, including premium rates and a default set of cost sharings. (An insurance plan variant may override the default set of cost sharings).</xsd:documentation>
+      </xsd:annotation>
+      <xsd:complexContent>
+         <xsd:extension base="s:ComplexObjectType">
+            <xsd:sequence>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-pm:InsurancePlanIdentification"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-pm:InsurancePlanName"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-pm:InsurancePlanRate"/>
+               <xsd:choice maxOccurs="1" minOccurs="0">
+                  <xsd:element ref="hix-pm:ActuarialValueMetallicTierCode"/>
+                  <xsd:element ref="hix-pm:MinimumActuarialValueStandardIndicator"/>
+               </xsd:choice>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-pm:InsurancePlanProgramCode"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-pm:Issuer"/>
+            </xsd:sequence>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:complexType abstract="false" mixed="false" name="IssuerType">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:Base i:name="Object" i:namespace="http://niem.gov/niem/structures/2.0"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">A data type for a licensed health insurance issuing organization registered in a specific state.</xsd:documentation>
+      </xsd:annotation>
+      <xsd:complexContent>
+         <xsd:extension base="s:ComplexObjectType">
+            <xsd:sequence>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-pm:IssuerIdentification"/>
+               <xsd:element maxOccurs="1" minOccurs="0" ref="hix-pm:RolePlayedByOrganization"/>
+            </xsd:sequence>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+</xsd:schema>

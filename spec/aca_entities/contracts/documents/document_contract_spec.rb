@@ -4,7 +4,7 @@ require 'spec_helper'
 
 RSpec.describe ::AcaEntities::Contracts::Documents::DocumentContract, dbclean: :after_each do
 
-  let(:required_params) do
+  let(:input_params) do
     {
       title: "untitled",
       creator: "dchl",
@@ -44,7 +44,7 @@ RSpec.describe ::AcaEntities::Contracts::Documents::DocumentContract, dbclean: :
 
   context 'success case' do
     before do
-      @result = subject.call(required_params)
+      @result = subject.call(input_params)
     end
 
     it 'should return success' do
@@ -57,27 +57,9 @@ RSpec.describe ::AcaEntities::Contracts::Documents::DocumentContract, dbclean: :
   end
 
   context 'failure case' do
-    context 'missing required param' do
-      before do
-        @result = subject.call(required_params.reject { |k, _v| k == :title })
-      end
-
-      it 'should return failure' do
-        expect(@result.failure?).to be_truthy
-      end
-
-      it 'should have any errors' do
-        expect(@result.errors.empty?).to be_falsy
-      end
-
-      it 'should return error message' do
-        expect(@result.errors.messages.first.text).to eq('is missing')
-      end
-    end
-
     context 'with bad input data type' do
       before do
-        @result = subject.call(required_params.merge(rights: 'test'))
+        @result = subject.call(input_params.merge(rights: 'test'))
       end
 
       it 'should return failure' do
@@ -90,11 +72,6 @@ RSpec.describe ::AcaEntities::Contracts::Documents::DocumentContract, dbclean: :
 
       it 'should return error message' do
         expect(@result.errors.messages.first.text).to eq('must be one of: public, pii_restricted')
-      end
-
-      it 'should return error message' do
-        result = subject.call(required_params.merge(date: nil))
-        expect(result.errors.messages.first.text).to eq('must be a date')
       end
     end
   end
