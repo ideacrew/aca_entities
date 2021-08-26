@@ -8,7 +8,7 @@ module AcaEntities
         class SsfSigner < ::AcaEntities::Operations::Transforms::Transform
           include ::AcaEntities::Operations::Transforms::Transformer
 
-          map 'ref', 'role_reference.ref', function: ->(v) {"IDC#{v}"}
+          map 'ref', 'role_reference.ref', function: ->(v) {"SBM#{v}"}
           map 'first_name', 'signature.signature_name.given', memoize: true, visible: false
           map 'middle_name', 'signature.signature_name.middle', memoize: true, visible: false
           map 'last_name', 'signature.signature_name.sur', memoize: true, visible: false

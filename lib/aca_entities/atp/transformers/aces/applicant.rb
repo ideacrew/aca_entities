@@ -11,7 +11,7 @@ module AcaEntities
         class Applicant < ::AcaEntities::Operations::Transforms::Transform
           include ::AcaEntities::Operations::Transforms::Transformer
 
-          map 'person_hbx_id', 'role_reference.ref', function: ->(v) {"IDC#{v}"}
+          map 'person_hbx_id', 'role_reference.ref', function: ->(v) {"SBM#{v}"}
           add_key 'esi_eligible_indicator'
           map 'is_homeless', 'fixed_address_indicator'
           map 'attestation', 'attestation', memoize_record: true, visible: false
