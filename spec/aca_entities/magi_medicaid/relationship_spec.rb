@@ -52,6 +52,40 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Relationship, dbclean: :after_each d
       expect(result_app_ref_keys - input_app_ref_keys).to be_empty
       expect(input_app_ref_keys - result_app_ref_keys).to be_empty
     end
+
+    context 'daughter_or_son_in_law' do
+      let(:test1_params) do
+        { kind: 'daughter_or_son_in_law',
+          applicant_reference: applicant,
+          relative_reference: relative }
+      end
+
+      before do
+        relationship_params = AcaEntities::MagiMedicaid::Contracts::RelationshipContract.new.call(test1_params).to_h
+        @result = described_class.new(relationship_params)
+      end
+
+      it 'should return Relationship entity object' do
+        expect(@result).to be_a(described_class)
+      end
+    end
+
+    context 'father_or_mother_in_law' do
+      let(:test1_params) do
+        { kind: 'father_or_mother_in_law',
+          applicant_reference: applicant,
+          relative_reference: relative }
+      end
+
+      before do
+        relationship_params = AcaEntities::MagiMedicaid::Contracts::RelationshipContract.new.call(test1_params).to_h
+        @result = described_class.new(relationship_params)
+      end
+
+      it 'should return Relationship entity object' do
+        expect(@result).to be_a(described_class)
+      end
+    end
   end
 
   describe 'with invalid arguments' do

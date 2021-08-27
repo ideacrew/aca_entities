@@ -48,6 +48,7 @@ module AcaEntities
                                                              '05',
                                                              '06',
                                                              '07',
+                                                             '08',
                                                              '12',
                                                              '13',
                                                              '14',
@@ -55,7 +56,9 @@ module AcaEntities
                                                              '16',
                                                              '23',
                                                              '26',
+                                                             '27',
                                                              '30',
+                                                             '70',
                                                              '87',
                                                              '88')
 
@@ -68,6 +71,7 @@ module AcaEntities
           grandchild: '06',
           great_grandchild: '06',
           brother_or_sister: '07',
+          domestic_partner: '08',
           stepparent: '12',
           aunt_or_uncle: '13',
           nephew_or_niece: '14',
@@ -76,7 +80,9 @@ module AcaEntities
           first_cousin: '16',
           brother_in_law_or_sister_in_law: '23',
           son_in_law_or_daughter_in_law: '26',
+          former_spouse: '27',
           mother_in_law_or_father_in_law: '30',
+          domestic_partners_child: '70',
           other_relative: '87',
           other: '88'
         }.freeze
