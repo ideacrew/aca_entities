@@ -513,7 +513,7 @@ module AcaEntities
           is_resident_role: nil,
           is_applying_coverage: @memoized_data.find(Regexp.new("is_coverage_applicant.#{@member_identifier}"))&.first&.item, # default value
           is_consent_applicant: nil,
-          vlp_document: nil,
+          vlp_document: vlp_hash,
           family_member_reference: family_member_reference_hash,
           person_hbx_id: '1234', # default value
 
@@ -562,6 +562,12 @@ module AcaEntities
           is_self_attested_long_term_care: non_magi.nil? ? false : non_magi[:longTermCareIndicator] || false,
           hours_worked_per_week: '2'
         }
+      end
+      
+      def vlp_hash
+        result = AcaEntities::Functions::BuildVlpDocument.new.call(@memoized_data , @member_identifier)
+         # iap accepts only one vlp document
+        result.first
       end
 
       def address_hash

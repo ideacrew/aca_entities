@@ -16,6 +16,7 @@ require 'aca_entities/functions/build_household'
 require 'aca_entities/ffe/transformers/cv/address'
 require 'aca_entities/ffe/transformers/cv/phone'
 require 'aca_entities/ffe/transformers/cv/vlp_document'
+require 'aca_entities/ffe/types'
 
 
 

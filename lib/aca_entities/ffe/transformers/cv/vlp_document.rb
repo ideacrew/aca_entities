@@ -57,7 +57,6 @@ module AcaEntities
           map 'sevisId', 'sevis_id'
           map 'naturalizationCertificateNumber', 'naturalization_number'
           #  map '', 'receipt_number'
-          map 'citizenshipNumber', 'citizenship_number'
           map 'cardNumber', 'card_number'
           #  map '', 'country_of_citizenship'
           map 'documentExpirationDate', 'expiration_date'
