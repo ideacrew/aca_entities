@@ -52,6 +52,10 @@ module AcaEntities
             key([:applicants, index, :is_claimed_as_tax_dependent]).failure(text: 'must be answered when is_required_to_file_taxes is true')
           end
 
+          if value[:had_prior_insurance] && check_if_blank?(value[:prior_insurance_end_date])
+            key([:applicants, index, :prior_insurance_end_date]).failure(text: 'cannot be blank when had_prior_insurance is true')
+          end
+
           # Attestation
           if value[:is_applying_coverage] && check_if_blank?(value[:attestation][:is_incarcerated])
             key([:applicants, index, :attestation, :is_incarcerated]).failure(text: 'cannot be blank when is_applying_coverage is true')

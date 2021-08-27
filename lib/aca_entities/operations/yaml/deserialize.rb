@@ -26,7 +26,7 @@ module AcaEntities
           Success(result || {})
         rescue Psych::SyntaxError => e
           raise "YAML syntax error occurred while parsing #{params}. " \
-                  "Error: #{e.message}"
+                "Error: #{e.message}"
         end
       end
     end

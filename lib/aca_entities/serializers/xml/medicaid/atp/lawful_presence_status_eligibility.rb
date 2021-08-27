@@ -16,7 +16,7 @@ module AcaEntities
 
             def self.domain_to_mapper(lawful_presence_status)
               mapper = self.new
-              mapper.eligibility_indicator = lawful_presence_status.eligibility_indicator
+              mapper.eligibility_indicator = lawful_presence_status&.eligibility_indicator
               mapper
             end
 

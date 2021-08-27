@@ -19,6 +19,7 @@ module AcaEntities
           attribute :household_size_quantity,    Types::Integer.meta(omittable: false)
           attribute :household_member_references, Types::Array.of(HouseholdMemberReference).meta(omittable: false)
         end
+        attribute :verification_metadata,     Types::Array.of(VerificationMetadata).meta(omittable: true)
       end
     end
   end

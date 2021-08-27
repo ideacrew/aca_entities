@@ -12,6 +12,7 @@ module AcaEntities
             tag 'Assister'
             namespace 'hix-ee'
 
+            # A human being.
             has_one :role_played_by_person, RolePlayedByPerson
 
             def self.domain_to_mapper(assister)

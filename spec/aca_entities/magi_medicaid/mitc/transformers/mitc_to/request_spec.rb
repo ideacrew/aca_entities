@@ -220,7 +220,7 @@ RSpec.describe AcaEntities::MagiMedicaid::Mitc::Transformers::MitcTo::Request do
 
         income = person[:Income]
         expect(income).to be_a(Hash)
-        expect(income).to have_key(:"Wages, Salaries, Tips")
+        expect(income).to have_key(:'Wages, Salaries, Tips')
         expect(income[:'Wages, Salaries, Tips']).to eq(mitc_income[:amount])
         expect(income).to have_key(:'Taxable Interest')
         expect(income[:'Taxable Interest']).to eq(mitc_income[:taxable_interest])
@@ -230,7 +230,7 @@ RSpec.describe AcaEntities::MagiMedicaid::Mitc::Transformers::MitcTo::Request do
         expect(income[:'Taxable Refunds, Credits, or Offsets of State and Local Income Taxes']).to eq(mitc_income[:taxable_refunds])
         expect(income).to have_key(:Alimony)
         expect(income[:Alimony]).to eq(mitc_income[:alimony])
-        expect(income).to have_key(:"Capital Gain or Loss")
+        expect(income).to have_key(:'Capital Gain or Loss')
         expect(income[:'Capital Gain or Loss']).to eq(mitc_income[:capital_gain_or_loss])
         expect(income).to have_key(:'Pensions and Annuities Taxable Amount')
         expect(income[:'Pensions and Annuities Taxable Amount']).to eq(mitc_income[:pensions_and_annuities_taxable_amount])

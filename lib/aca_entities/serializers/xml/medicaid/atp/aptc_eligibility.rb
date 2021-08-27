@@ -12,7 +12,10 @@ module AcaEntities
             tag 'APTCEligibility'
             namespace 'hix-ee'
 
+            # A date range of the eligibility.
             has_one :eligibility_date_range, EligibilityDateRange
+
+            # A system making an eligibility determination.
             has_one :eligibility_establishing_system, EligibilityEstablishingSystem
 
             def self.domain_to_mapper(eligibility)

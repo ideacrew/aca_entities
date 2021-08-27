@@ -1,6 +1,12 @@
 # frozen_string_literal: true
 
 module AcaEntities
+  # Domain model entities, contracts and associated
+  # resources for integrating with CMS Federal Data Sharing Hub (FDSH).
+  #
+  # The FDSH top level namespace includes elements shared across the
+  # various services.  The namespace for each service is organized first
+  # by the service abbreviation and then CMS-asssigned version.
   module Fdsh
     # shared dependencies
     # types
@@ -28,5 +34,8 @@ module AcaEntities
     require_relative 'ifsv'
     require_relative 'vlp'
     require_relative 'ssa'
+    require_relative 'esi'
+    require_relative 'non_esi'
+
   end
 end

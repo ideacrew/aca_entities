@@ -11,7 +11,7 @@ module AcaEntities
           attribute :LocationCityName,  Types::String.meta(omittable: false)
           attribute :LocationStateUSPostalServiceCode,  Types::String.meta(omittable: false)
           attribute :LocationPostalCode,  Types::String.meta(omittable: false)
-          attribute :LocationPostalExtensionCode,  Types::String.meta(omittable: false)
+          attribute :LocationPostalExtensionCode,  Types::String.optional.meta(omittable: true)
 
         end
       end

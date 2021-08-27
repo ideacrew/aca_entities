@@ -12,7 +12,10 @@ module AcaEntities
             tag 'CHIPMedicaidCitizenOrImmigrantEligibilityBasis'
             namespace 'hix-ee'
 
+            # True if the status holds; false otherwise.
             element :status_indicator, Boolean, tag: 'StatusIndicator', namespace: "hix-core"
+
+            # A status of an eligibility basis determination.
             element :status_code, Boolean, tag: 'EligibilityBasisStatusCode', namespace: "hix-ee"
 
             def self.domain_to_mapper(eligibility_basis)

@@ -14,7 +14,7 @@ module AcaEntities
             # 1-9 characters - numeric only
             # @return [String]
             attribute :RequestID,
-                      AcaEntities::Fdsh::Ifsv::H9t::Types::RequestIDType.meta(
+                      AcaEntities::Fdsh::Types::RequestIDType.meta(
                         omittable: false
                       )
 

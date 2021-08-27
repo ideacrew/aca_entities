@@ -23,7 +23,7 @@ module AcaEntities
           {
             kind: contact_info[:category_code].downcase,
             address_1: address[:location_street][:street_full_text],
-            address_2: nil,
+            address_2: address[:address_secondary_unit_text],
             address_3: nil,
             city: address[:location_city_name],
             county: address[:location_county_name],

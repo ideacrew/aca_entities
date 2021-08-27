@@ -16,7 +16,7 @@ module AcaEntities
 
             def self.domain_to_mapper(income_payment_frequency)
               mapper = self.new
-              mapper.frequency_code = income_payment_frequency.frequency_code
+              mapper.frequency_code = income_payment_frequency&.frequency_code
               mapper
             end
 

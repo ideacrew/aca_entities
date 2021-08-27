@@ -92,7 +92,45 @@ channels:
       operationId: on_fdsh_gateway.fdsh.verification_requests.ssa
       description: Events - CMS FDSH SSA Service requests
 
+  on_fdsh_gateway.fdsh.determination_requests.esi:
+    bindings:
+      amqp:
+        is: queue
+        queue:
+          name: on_fdsh_gateway.fdsh.determination_requests.esi
+          durable: true
+          exclusive: false
+          auto_delete: false
+          vhost: event_source
+    subscribe:
+      bindings:
+        amqp:
+          ack: true
+          exclusive: false
+          routing_key: fdsh.determination_requests.esi.#
+          bindingVersion: "0.2.0"
+      operationId: on_fdsh_gateway.fdsh.determination_requests.esi
+      description: Events - CMS FDSH ESI Service requests
 
+  on_fdsh_gateway.fdsh.determination_requests.non_esi:
+    bindings:
+      amqp:
+        is: queue
+        queue:
+          name: on_fdsh_gateway.fdsh.determination_requests.non_esi
+          durable: true
+          exclusive: false
+          auto_delete: false
+          vhost: event_source
+    subscribe:
+      bindings:
+        amqp:
+          ack: true
+          exclusive: false
+          routing_key: fdsh.determination_requests.non_esi.#
+          bindingVersion: "0.2.0"
+      operationId: on_fdsh_gateway.fdsh.determination_requests.non_esi
+      description: Events - CMS FDSH NON ESI Service requests
 tags:
   - name: linter_tag
     description: placeholder that satisfies the linter

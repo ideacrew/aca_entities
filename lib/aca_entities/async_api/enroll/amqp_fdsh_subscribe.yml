@@ -91,6 +91,45 @@ channels:
       operationId: on_enroll.fdsh.eligibilities.ssa
       description: Events - CMS FDSH SSA Service requests
 
+  on_enroll.fdsh.eligibilities.esi:
+    bindings:
+      amqp:
+        is: queue
+        queue:
+          name: on_enroll.fdsh.eligibilities.esi
+          durable: true
+          exclusive: false
+          auto_delete: false
+          vhost: event_source
+    subscribe:
+      bindings:
+        amqp:
+          ack: true
+          exclusive: false
+          routing_key: fdsh.eligibilities.esi.#
+          bindingVersion: '0.2.0'
+      operationId: on_enroll.fdsh.eligibilities.esi
+      description: Events - CMS FDSH ESI Service requests
+
+  on_enroll.fdsh.eligibilities.non_esi:
+    bindings:
+      amqp:
+        is: queue
+        queue:
+          name: on_enroll.fdsh.eligibilities.non_esi
+          durable: true
+          exclusive: false
+          auto_delete: false
+          vhost: event_source
+    subscribe:
+      bindings:
+        amqp:
+          ack: true
+          exclusive: false
+          routing_key: fdsh.eligibilities.non_esi.#
+          bindingVersion: '0.2.0'
+      operationId: on_enroll.fdsh.eligibilities.non_esi
+      description: Events - CMS FDSH NON ESI Service requests
 tags:
   - name: linter_tag
     description: placeholder that satisfies the linter

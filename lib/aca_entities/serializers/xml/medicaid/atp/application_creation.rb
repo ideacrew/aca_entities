@@ -5,20 +5,20 @@ module AcaEntities
     module Xml
       module Medicaid
         module Atp
-          # Include XML element and type definitions.
+          # An activity indicating that an object has been created.
           class ApplicationCreation
             include HappyMapper
 
             tag 'ApplicationCreation'
             namespace 'hix-core'
 
-            has_one :creation_id, ActivityIdentification
+            has_one :creation_id, String, tag: "CreationID", namespace: "nc"
             has_one :creation_date, ActivityDate
 
             def self.domain_to_mapper(application)
               transfer_activity = self.new
-              transfer_activity.creation_id = ActivityIdentification.domain_to_mapper(application.creation_id)
-              transfer_activity.creation_date = ActivityDate.domain_to_mapper(application.creation_date)
+              transfer_activity.creation_id = application&.creation_id
+              transfer_activity.creation_date = ActivityDate.domain_to_mapper(application&.creation_date)
               transfer_activity
             end
 

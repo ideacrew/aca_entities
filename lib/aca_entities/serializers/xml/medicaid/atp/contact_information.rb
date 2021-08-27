@@ -5,7 +5,7 @@ module AcaEntities
     module Xml
       module Medicaid
         module Atp
-          # Include XML element and type definitions. A data type for how to contact a person or an organization.
+          # Details about how to contact a person or an organization.
           class ContactInformation
             include HappyMapper
 
@@ -25,7 +25,7 @@ module AcaEntities
               mapper = self.new
               mapper.email_id = contact.email_id
               mapper.mailing_address = ContactMailingAddress.domain_to_mapper(contact.mailing_address)
-              mapper.telephone_number = ContactTelephoneNumber.domain_to_mapper(contact.telephone_number)
+              mapper.telephone_number = ContactTelephoneNumber.domain_to_mapper(contact.telephone_number) if contact.telephone_number
               mapper
             end
 

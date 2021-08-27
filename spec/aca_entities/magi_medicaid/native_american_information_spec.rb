@@ -7,7 +7,10 @@ RSpec.describe ::AcaEntities::MagiMedicaid::NativeAmericanInformation, dbclean: 
 
   describe 'with valid arguments' do
     let(:input_params) do
-      { indian_tribe_member: false }
+      { indian_tribe_member: true,
+        tribal_id: '123456789',
+        tribal_name: 'Tribal Name',
+        tribal_state: 'VA' }
     end
 
     before do

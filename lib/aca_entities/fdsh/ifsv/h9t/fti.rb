@@ -4,27 +4,7 @@ module AcaEntities
   module Fdsh
     module Ifsv
       # WIP module
-      module H3
-        # General Response structure
-        # IRSResponse
-        #   RequestID
-        #   Household
-        #     IncomeAmount
-        #     ApplicantVerification
-        #       TaxReturn
-        #         PrimaryTaxFiler
-        #           TINIdentification
-        #       ResponseMetadata
-        #         ResponseCode
-        #         ResponseDesctriptionText
-        #     DependentVerification
-        #       TaxReturn
-        #         PrimaryTaxFiler
-        #           TINIdentification
-        #       ResponseMetadata
-        #         ResponseCode
-        #         ResponseDesctriptionText
-        #
+      module H9t
         ## FDSH IRS Transaction Tables.  Data attribute names and values are stored
         ## in native form as described in Verify Annual Household Income and Family
         ## Size (IFSV) Business Service Definition (BSD), Version 10.1 dated July 2016

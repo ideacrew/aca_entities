@@ -5,7 +5,7 @@ module AcaEntities
     module Xml
       module Medicaid
         module Atp
-          # Include XML element and type definitions. A data type for how to contact an organization.
+          # A postal address by which a person or organization may be contacted.
           class ContactMailingAddress
             include HappyMapper
 
@@ -17,7 +17,7 @@ module AcaEntities
 
             def self.domain_to_mapper(mailing_address)
               mapper = self.new
-              mapper.address = StructuredAddress.domain_to_mapper(mailing_address.address)
+              mapper.address = StructuredAddress.domain_to_mapper(mailing_address.address) if mailing_address
               mapper
             end
 

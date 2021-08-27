@@ -18,7 +18,10 @@ module AcaEntities
               # Metadata about a response
               # @return [String]
               attribute :ResponseMetadata,
-                        AcaEntities::Fdsh::Ifsv::H9t::Api::Fti::ResponseMetadata
+                        AcaEntities::Types::Array
+                          .of(
+                            AcaEntities::Fdsh::Ifsv::H9t::Api::Fti::ResponseMetadata
+                          )
                           .meta(omittable: false)
             end
           end

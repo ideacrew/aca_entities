@@ -74,8 +74,8 @@ module AcaEntities
       # @!attribute [r] job_coverage_end_date
       # This relates to job_coverage_ended_in_past_3_months
       # What was the last day this person had coverage through the job?
-      # @return [Bool]
-      attribute :job_coverage_end_date, Types::Bool.optional.meta(omittable: true)
+      # @return [Date]
+      attribute :job_coverage_end_date, Types::Date.optional.meta(omittable: true)
 
       attribute :medicaid_and_chip, MedicaidAndChip.optional.meta(omittable: true)
       attribute :other_health_service, OtherHealthService.optional.meta(omittable: true)
@@ -112,8 +112,8 @@ module AcaEntities
 
       # @!attribute [r] prior_insurance_end_date
       # The date the prior coverage ended.A date in YYYY-MM-DD format
-      # @return [Bool]
-      attribute :prior_insurance_end_date, Types::Bool.optional.meta(omittable: true)
+      # @return [Date]
+      attribute :prior_insurance_end_date, Types::Date.optional.meta(omittable: true)
 
       # @!attribute [r] age_of_applicant
       # The age of the applicant
@@ -155,6 +155,14 @@ module AcaEntities
       # 2. Your income is NOT counted if you are in the Medicaid household of a parent/stepparent (in any household)
       # 3. Your income is NOT counted in the household of a non-parent/stepparent who claims you as a dependent
       #    (only in the household of the tax filer)
+
+      # fdsh evidences
+      attribute :evidences, Types::Array.of(AcaEntities::Evidences::Evidence).optional.meta(omittable: true)
+
+      # fdsh esi response
+      attribute :esi_eligibility_indicator,   Types::Bool.optional.meta(omittable: true)
+      attribute :esi_insured_indicator,       Types::Bool.optional.meta(omittable: true)
+      attribute :esi_inconsistency_indicator, Types::Bool.optional.meta(omittable: true)
 
       def monthly_qsehra_amount
         BigDecimal('0')
@@ -222,6 +230,38 @@ module AcaEntities
         addresses.detect do |address|
           address.kind == 'home'
         end
+      end
+
+      def esi_eligible?
+        esi_benefits = benefits.select do |benefit|
+          benefit.status == 'is_eligible' && benefit.kind == 'employer_sponsored_insurance'
+        end
+
+        esi_benefits.present?
+      end
+
+      def esi_enrolled?
+        esi_benefits = benefits.select do |benefit|
+          benefit.status == 'is_enrolled' && benefit.kind == 'employer_sponsored_insurance'
+        end
+
+        esi_benefits.present?
+      end
+
+      def health_benefits_for(benefit_kind)
+        health_benefits = benefits.select do |benefit|
+          benefit.kind == benefit_kind
+        end
+
+        health_benefits.present?
+      end
+
+      def esi_evidence
+        evidences.detect {|evidence| evidence.key.to_sym == :esi_mec}
+      end
+
+      def non_esi_evidence
+        evidences.detect {|evidence| evidence.key.to_sym == :non_esi_mec}
       end
     end
   end

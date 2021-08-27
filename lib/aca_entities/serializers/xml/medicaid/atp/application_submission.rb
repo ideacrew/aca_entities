@@ -5,19 +5,19 @@ module AcaEntities
     module Xml
       module Medicaid
         module Atp
-          # Include XML element and type definitions.
+          # An activity indicating that an object has been submitted to some authority for further action.
           class ApplicationSubmission
             include HappyMapper
 
             tag 'ApplicationSubmission'
             namespace 'hix-core'
 
-            has_one :activity_id, ActivityIdentification
+            has_one :activity_id, String, tag: "ActivityID", namespace: "nc"
             has_one :activity_date, ActivityDate
 
             def self.domain_to_mapper(application)
               mapper = self.new
-              mapper.activity_id = ActivityIdentification.domain_to_mapper(application.activity_id)
+              mapper.activity_id = application&.activity_id
               mapper.activity_date = ActivityDate.domain_to_mapper(application.activity_date)
               mapper
             end

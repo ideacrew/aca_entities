@@ -7,7 +7,6 @@ require 'aca_entities/types'
 require_relative 'ssa/h3/contracts/person_contract'
 require_relative 'ssa/h3/contracts/ssa_composite_individual_request_contract'
 require_relative 'ssa/h3/contracts/ssa_composite_request_contract'
-
 require_relative 'ssa/h3/contracts/qualifying_year_and_quarter_contract'
 require_relative 'ssa/h3/contracts/ssa_quarters_of_coverage_contract'
 require_relative 'ssa/h3/contracts/title_ii_requested_year_information_contract'

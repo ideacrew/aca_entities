@@ -139,6 +139,58 @@ channels:
       operationId: fdsh.eligibilities.ssa.ssa_verification_complete
       description: SSA has completed a primary verification.
 
+  fdsh.eligibilities.esi.esi_determination_complete:
+    bindings:
+      amqp:
+        is: :routing_key
+        exchange:
+          name: fdsh.eligibilities.esi
+          type: topic
+          durable: true
+          auto_delete: false
+          vhost: event_source
+        bindingVersion: 0.1.0
+    publish:
+      bindings:
+        amqp:
+          app_id: fdsh_gateway
+          type: fdsh.eligibilities.esi
+          routing_key: fdsh.eligibilities.esi.esi_determination_complete
+          expiration: 100_000
+          deliveryMode: 2
+          mandatory: true
+          timestamp: true
+          content_type: application/json
+          bindingVersion: 0.2.0
+      operationId: fdsh.eligibilities.esi.esi_determination_complete
+      description: ESI Determination has completed.
+
+  fdsh.eligibilities.non_esi.non_esi_determination_complete:
+    bindings:
+      amqp:
+        is: :routing_key
+        exchange:
+          name: fdsh.eligibilities.non_esi
+          type: topic
+          durable: true
+          auto_delete: false
+          vhost: event_source
+        bindingVersion: 0.1.0
+    publish:
+      bindings:
+        amqp:
+          app_id: fdsh_gateway
+          type: fdsh.eligibilities.non_esi
+          routing_key: fdsh.eligibilities.non_esi.non_esi_determination_complete
+          expiration: 100_000
+          deliveryMode: 2
+          mandatory: true
+          timestamp: true
+          content_type: application/json
+          bindingVersion: 0.2.0
+      operationId: fdsh.eligibilities.non_esi.non_esi_determination_complete
+      description: NON ESI Determination has completed.
+
 tags:
   - name: linter_tag
     description: placeholder that satisfies the linter

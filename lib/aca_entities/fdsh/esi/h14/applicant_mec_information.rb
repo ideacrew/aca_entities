@@ -7,7 +7,7 @@ module AcaEntities
         # Entity for Fdsh ESI(employer sponsored insurance) VerificationResponse
         class ApplicantMECInformation < Dry::Struct
           attribute :InsuranceApplicantResponse, Fdsh::Esi::H14::InsuranceApplicantResponse.meta(omittable: false)
-          attribute :InconsistencyIndicator, Types::Boolean.meta(omittable: false)
+          attribute :InconsistencyIndicator, Types::Bool.meta(omittable: false)
 
           attribute :MonthlyPremiumAmount, Fdsh::Esi::H14::MonthlyPremiumAmount.optional.meta(omittable: true)
 

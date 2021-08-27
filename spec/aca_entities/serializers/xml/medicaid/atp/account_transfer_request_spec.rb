@@ -4,6 +4,7 @@ require 'spec_helper'
 require 'aca_entities/medicaid/atp'
 require 'aca_entities/serializers/xml/medicaid/atp'
 require 'open3'
+require 'pry'
 
 RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequest do
   let(:account_transfer_request) do
@@ -38,11 +39,11 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
       insurance_applicants: [insurance_applicant],
       requesting_financial_assistance: true,
       coverage_renewal_year_quantity: 2,
-      requesting_medicaid: false,
+      requesting_medicaid: true,
       tax_return_access: true,
       ssf_primary_contact: { contact_preference: 'Email', role_reference: role_reference },
       ssf_signer: ssf_signer,
-      application_creation: application_creation,
+      # application_creation: application_creation,
       application_submission: application_submission,
       application_identifications: [application_identification]
 
@@ -122,8 +123,8 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
 
   let(:application_submission) do
     {
-      activity_id: { identification_id: '2163565' },
-      activity_date: { date_time: DateTime.now }
+      activity_id: nil,
+      activity_date: { date: Date.today }
     }
   end
 

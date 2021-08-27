@@ -20,7 +20,7 @@ module AcaEntities
           attribute :fti_tax_return_taxable_social_security_benefits_amount,
                     AcaEntities::Types::Money.meta(ommitable: false)
           attribute :fti_tax_return_filing_status_code,
-                    AcaEntities::Fdsh::Ifsv::H9t::Types::TaxReturnFilingStatusCode
+                    AcaEntities::Fdsh::Ifsv::H9t::Types::TaxReturnFilingStatusCodeKind
                       .meta(ommittable: false)
           attribute :fti_tax_return_total_exemptions_quantity,
                     AcaEntities::Types::Integer.meta(ommitable: false)

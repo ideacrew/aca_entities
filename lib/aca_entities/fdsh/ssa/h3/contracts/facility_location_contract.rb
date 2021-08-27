@@ -12,7 +12,7 @@ module AcaEntities
             required(:LocationCityName).filled(:string)
             required(:LocationStateUSPostalServiceCode).filled(:string)
             required(:LocationPostalCode).filled(:string)
-            required(:LocationPostalExtensionCode).filled(:string)
+            optional(:LocationPostalExtensionCode).maybe(:string)
           end
         end
       end

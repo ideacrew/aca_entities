@@ -931,4 +931,37 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicationContract,  dbcle
       end
     end
   end
+
+  describe 'validation for prior_insurance_end_date' do
+    let(:input_params) do
+      { family_reference: family_reference,
+        assistance_year: Date.today.year,
+        aptc_effective_date: Date.today,
+        applicants: [local_applicant],
+        us_state: 'DC',
+        notice_options: notice_options,
+        oe_start_on: Date.new(Date.today.year, 11, 1),
+        hbx_id: '200000123' }
+    end
+
+    before do
+      @result = subject.call(input_params)
+    end
+
+    context 'for failure' do
+      let(:local_applicant) { applicant.merge({ had_prior_insurance: true, prior_insurance_end_date: nil }) }
+
+      it 'should return failure with error messages' do
+        expect(@result.errors.to_h).to eq({ applicants: { 0 => { prior_insurance_end_date: ['cannot be blank when had_prior_insurance is true'] } } })
+      end
+    end
+
+    context 'for success' do
+      let(:local_applicant) { applicant }
+
+      it 'should not return any errors' do
+        expect(@result.errors.to_h).to be_empty
+      end
+    end
+  end
 end
