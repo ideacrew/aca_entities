@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
-# rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+require 'pry'
+
+# rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity, Metrics/AbcSize
 module AcaEntities
   module Functions
     # hash methods
@@ -52,11 +54,9 @@ module AcaEntities
         citizenship_indicator = input.find(Regexp.new("citizenshipIndicator.#{member_identifier}"))&.first
         naturalized_citizen_indicator = input.find(Regexp.new("naturalizedCitizenIndicator.#{member_identifier}"))&.first
         lawful_presence_indicator = input.find(Regexp.new("lawfulPresenceStatusIndicator.#{member_identifier}"))&.first
-        lawful_presence_documentation = input.find(Regexp.new("lawfulPresenceDocumentation.#{member_identifier}"))&.first
-
-        lawful_presence_documentation = input.find(Regexp.new("attestations.members.#{member_identifier}.lawfulPresence.lawfulPresenceDocumentation"))&.first
-
-
+        lawful_presence_documentation = input.find(
+          Regexp.new("attestations.members.#{member_identifier}.lawfulPresence.lawfulPresenceDocumentation")
+        )&.first
 
         # TODO: noAlienNumberIndicator && livedInUs5yearIndicator not used
         # lived_in_us_5_year_indicator = input.find(Regexp.new("livedInUs5yearIndicator.#{member_identifier}"))&.first
@@ -89,7 +89,8 @@ module AcaEntities
         # {"citizenshipIndicator"=>true, "lawfulPresenceDocumentation"=>true, "naturalizedCitizenIndicator"=>false}
         # {"citizenshipIndicator"=>false, "lawfulPresenceStatusIndicator"=>true}
         # {"citizenshipIndicator"=>true, "naturalizedCitizenIndicator"=>true}
-        # {"citizenshipIndicator"=>false, "lawfulPresenceDocumentation"=>true, "lawfulPresenceStatusIndicator"=>true, "naturalizedCitizenIndicator"=>false}
+        # {"citizenshipIndicator"=>false, "lawfulPresenceDocumentation"=>true,
+        # "lawfulPresenceStatusIndicator"=>true, "naturalizedCitizenIndicator"=>false}
         # {"lawfulPresenceDocumentation"=>true}
         # {"citizenshipIndicator"=>false, "lawfulPresenceStatusIndicator"=>true, "naturalizedCitizenIndicator"=>false}
         # {"citizenshipIndicator"=>false}
@@ -106,4 +107,4 @@ module AcaEntities
     end
   end
 end
-# rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+# rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity, Metrics/AbcSize

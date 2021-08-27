@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity, Metrics/MethodLength, Layout/LineLength, Metrics/AbcSize, Metrics/ClassLength
+# rubocop:disable  Lint/DuplicateBranch, Naming/PredicateName, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity, Metrics/MethodLength, Layout/LineLength, Metrics/AbcSize, Metrics/ClassLength
 module AcaEntities
   module Functions
     # build application and applicants
@@ -8,7 +8,7 @@ module AcaEntities
       def call(context)
         @memoized_data = context
         @primary_applicant_identifier = @memoized_data.resolve('family.family_members.is_primary_applicant').item
-          # require 'pry';binding.pry
+        # require 'pry';binding.pry
         result = @memoized_data.find('computed.members').each_with_object([]) do |member, collector|
           @member_identifier = member.name.split('.').last
 
@@ -69,23 +69,23 @@ module AcaEntities
       #  "SEMI_MONTHLY", "ONE_TIME", "QUARTERLY", "DAILY"]
 
       FREQUENCY_KINDS = {
-          "BI_WEEKLY": "biweekly",
-          "DAILY": "daily",
-          "MONTHLY": "monthly",
-          "QUARTERLY": "quarterly",
-          "WEEKLY": "weekly",
-          "ANNUALLY": "yearly",
-          "ONE_TIME": "",
-          "HOURLY": "weekly",
-          "SEMI_MONTHLY": "monthly",
+        "BI_WEEKLY" => "biweekly",
+        "DAILY" => "daily",
+        "MONTHLY" => "monthly",
+        "QUARTERLY" => "quarterly",
+        "WEEKLY" => "weekly",
+        "ANNUALLY" => "yearly",
+        "ONE_TIME" => "",
+        "HOURLY" => "weekly",
+        "SEMI_MONTHLY" => "monthly"
       }.freeze
 
       EMPLOYEMENT = {
-        "JOB": "wages_and_salaries",
+        "JOB" => "wages_and_salaries"
       }.freeze
 
       SELF_EMPLOYMENT = {
-        "SELF_EMPLOYMENT": "net_self_employment",
+        "SELF_EMPLOYMENT" => "net_self_employment"
       }.freeze
 
       UNEMPLOYMENT_INCOME_KIND = {
@@ -93,28 +93,28 @@ module AcaEntities
       }.freeze
 
       OTHER_INCOME_TYPE_KIND = {
-        "ALIMONY_RECEIVED": 'alimony_and_maintenance',
-        "CAPITAL_GAINS": 'capital_gains',
-        "PENSION": 'pension_retirement_benefits',
-        "RETIREMENT": 'pension_retirement_benefits',
-        "RENTAL_OR_ROYALTY_INCOME": 'rental_and_royalty',
-        "SOCIAL_SECURITY_BENEFIT": 'social_security_benefit',
-        "FARMING_OR_FISHING_INCOME": 'farming_and_fishing',
-        "OTHER_INCOME": 'other',
-        "INVESTMENT_INCOME": 'dividend',
-        "PRIZES_AWARDS_GAMBLING_WINNINGS": 'prizes_and_awards',
-        "COURT_AWARDS": "other",  # Need to change
-        "CASH_SUPPORT":"other", # Need to change
-        "SCHOLARSHIP": "scholarship_payments", # Need to change
-        "JURY_DUTY_PAY": "other",     # Need to change
-        "OTHER_DEDUCTION": 'other',
+        "ALIMONY_RECEIVED" => 'alimony_and_maintenance',
+        "CAPITAL_GAINS" => 'capital_gains',
+        "PENSION" => 'pension_retirement_benefits',
+        "RETIREMENT" => 'pension_retirement_benefits',
+        "RENTAL_OR_ROYALTY_INCOME" => 'rental_and_royalty',
+        "SOCIAL_SECURITY_BENEFIT" => 'social_security_benefit',
+        "FARMING_OR_FISHING_INCOME" => 'farming_and_fishing',
+        "OTHER_INCOME" => 'other',
+        "INVESTMENT_INCOME" => 'dividend',
+        "PRIZES_AWARDS_GAMBLING_WINNINGS" => 'prizes_and_awards',
+        "COURT_AWARDS" => "other",  # Need to change
+        "CASH_SUPPORT" => "other", # Need to change
+        "SCHOLARSHIP" => "scholarship_payments", # Need to change
+        "JURY_DUTY_PAY" => "other",     # Need to change
+        "OTHER_DEDUCTION" => 'other'
       }.freeze
 
       TaxIncomeKIND = SELF_EMPLOYMENT.merge(OTHER_INCOME_TYPE_KIND)
 
       DEDUCTION_TYPE = {
-        "ALIMONY_PAYMENT": 'alimony_paid',
-        "STUDENT_LOAN_INTEREST": 'student_loan_interest',
+        "ALIMONY_PAYMENT" => 'alimony_paid',
+        "STUDENT_LOAN_INTEREST" => 'student_loan_interest'
       }.freeze
 
       def income_hash
@@ -124,25 +124,25 @@ module AcaEntities
         result << self_emp_income_hash[0] unless self_emp_income_hash.empty?
         result << unemp_income_hash[0] unless unemp_income_hash.empty?
         unless other_income_hash.empty?
-         other_income_hash.each do |income|
-           result << income
-         end
+          other_income_hash.each do |income|
+            result << income
+          end
         end
         result
       end
 
       def has_one_time_income
-        @attestations_income_hash.any? {|key, income_hash| income_hash[:incomeFrequencyType] == "ONE_TIME"}
+        @attestations_income_hash.any? {|_key, income_hash| income_hash[:incomeFrequencyType] == "ONE_TIME"}
       end
 
       def taxable_income_with_negative_value
-        @attestations_income_hash.any? do |key, income_hash|
+        @attestations_income_hash.any? do |_key, income_hash|
           income_hash[:incomeAmount] < 0 && TaxIncomeKIND[income_hash[:incomeSourceType].to_sym].present?
         end
       end
 
       def has_other_deduction_income
-        @attestations_income_hash.any? {|key, income_hash| income_hash[:incomeSourceType] == "OTHER_DEDUCTION"}
+        @attestations_income_hash.any? {|_key, income_hash| income_hash[:incomeSourceType] == "OTHER_DEDUCTION"}
       end
 
       def create_other_tax_income
@@ -151,7 +151,7 @@ module AcaEntities
 
       def income_diff_with_annual_income
         amount = 0.0
-        @attestations_income_hash.each_with_object([]) do |(_k, income), result|
+        @attestations_income_hash.each_with_object([]) do |(_k, income), _result|
           frequency = income[:incomeFrequencyType]
 
           if income[:jobIncome]
@@ -161,33 +161,33 @@ module AcaEntities
 
           case frequency
           when "ANNUALLY"
-            amount = amount + income[:incomeAmount]
+            amount += income[:incomeAmount]
           when "HOURLY"
             week_income = avg_hours.to_i * income[:incomeAmount]
             h_anual_income = week_income * 52
-            amount = amount + h_anual_income
+            amount += h_anual_income
           when "MONTHLY"
             m_anual_income = income[:incomeAmount] * 12
-            amount = amount + m_anual_income
+            amount += m_anual_income
           when "WEEKLY"
             w_anual_income = income[:incomeAmount] * 52
-            amount = amount + w_anual_income
+            amount += w_anual_income
           when "BI_WEEKLY"
             bi_anual_income = income[:incomeAmount] * 26
-            amount = amount + bi_anual_income
+            amount += bi_anual_income
           when "SEMI_MONTHLY"
             s_monthly = income[:incomeAmount] * 2
-            semi_anual_income= s_monthly * 12
-            amount = amount + semi_anual_income
+            semi_anual_income = s_monthly * 12
+            amount += semi_anual_income
           when "ONE_TIME"
-            amount = amount + income[:incomeAmount]
+            amount += income[:incomeAmount]
           when "QUARTERLY"
             q_anual_income = income[:incomeAmount] * 4
-            amount = amount + q_anual_income
+            amount += q_anual_income
           when "DAILY"
             week_income = avg_days.to_i * income[:incomeAmount]
             h_anual_income = week_income * 52
-            amount = amount + h_anual_income
+            amount += h_anual_income
           end
         end
         (annual_amount - amount) > 200
@@ -223,7 +223,7 @@ module AcaEntities
             'kind' => EMPLOYEMENT[income[:incomeSourceType].to_sym],
             'amount' => income_amount(income),
             'amount_tax_exempt' => 0,
-            'employer_name' => !income[:jobIncome].nil? ? income[:jobIncome][:employerName] : "employer name not provided",
+            'employer_name' => income[:jobIncome].nil? ? "employer name not provided" : income[:jobIncome][:employerName],
             'frequency_kind' => FREQUENCY_KINDS[income[:incomeFrequencyType].to_sym],
             'start_on' => Date.parse('2021-01-01'), # default value
             'end_on' => nil,
@@ -276,13 +276,14 @@ module AcaEntities
         @attestations_income_hash.each_with_object([]) do |(_k, income), result|
           next unless UNEMPLOYMENT_INCOME_KIND[income[:incomeSourceType].to_sym].present?
           result << {
-            "kind"=> UNEMPLOYMENT_INCOME_KIND[income[:incomeSourceType].to_sym],
-            "amount"=> income_amount(income),
-            "amount_tax_exempt"=>0,
-            "frequency_kind"=> FREQUENCY_KINDS[income[:incomeFrequencyType].to_sym],
-            "start_on"=> Date.parse('2021-01-01'), # default value
-            "end_on"=> nil,
-            "is_projected"=> false}
+            "kind" => UNEMPLOYMENT_INCOME_KIND[income[:incomeSourceType].to_sym],
+            "amount" => income_amount(income),
+            "amount_tax_exempt" => 0,
+            "frequency_kind" => FREQUENCY_KINDS[income[:incomeFrequencyType].to_sym],
+            "start_on" => Date.parse('2021-01-01'), # default value
+            "end_on" => nil,
+            "is_projected" => false
+          }
           result
         end
       end
@@ -297,26 +298,26 @@ module AcaEntities
                           end
 
           [{
-              'kind' => "other",
-              'amount' => annual_amount,
-              'amount_tax_exempt' => 0,
-              'frequency_kind' => "yearly",
-              'start_on' => Date.parse('2021-01-01'), # default value
-              'end_on' => nil,
-              'is_projected' => false
+            'kind' => "other",
+            'amount' => annual_amount,
+            'amount_tax_exempt' => 0,
+            'frequency_kind' => "yearly",
+            'start_on' => Date.parse('2021-01-01'), # default value
+            'end_on' => nil,
+            'is_projected' => false
           }]
         else
           @attestations_income_hash.each_with_object([]) do |(_k, income), result|
             next unless OTHER_INCOME_TYPE_KIND[income[:incomeSourceType].to_sym].present?
 
             result << {
-                'kind' => OTHER_INCOME_TYPE_KIND[income[:incomeSourceType].to_sym],
-                'amount' => income_amount(income),
-                'amount_tax_exempt' => 0,
-                'frequency_kind' => FREQUENCY_KINDS[income[:incomeFrequencyType].to_sym],
-                'start_on' => Date.parse('2021-01-01'), # default value
-                'end_on' => nil,
-                'is_projected' => false
+              'kind' => OTHER_INCOME_TYPE_KIND[income[:incomeSourceType].to_sym],
+              'amount' => income_amount(income),
+              'amount_tax_exempt' => 0,
+              'frequency_kind' => FREQUENCY_KINDS[income[:incomeFrequencyType].to_sym],
+              'start_on' => Date.parse('2021-01-01'), # default value
+              'end_on' => nil,
+              'is_projected' => false
             }
             result
           end
@@ -330,7 +331,7 @@ module AcaEntities
           next unless DEDUCTION_TYPE[income[:incomeSourceType].to_sym].present?
 
           result << {
-            'kind' => DEDUCTION_TYPE[income[:incomeSourceType].to_sym] ,
+            'kind' => DEDUCTION_TYPE[income[:incomeSourceType].to_sym],
             'amount' => income_amount(income).to_i.abs,
             'amount_tax_exempt' => 0,
             'frequency_kind' => FREQUENCY_KINDS[income[:incomeFrequencyType].to_sym],
@@ -351,7 +352,7 @@ module AcaEntities
             next if ic[:insuranceMarketType] == 'NONE'
 
             result << {
-              'kind' => "private_individual_and_family_coverage", #TODO: check this value #[:insuranceMarketType]&.downcase, # default value
+              'kind' => "private_individual_and_family_coverage", # TODO: check this value #[:insuranceMarketType]&.downcase, # default value
               'status' => status,
               # 'insurance_kind' => ic['insuranceMarketType'],
               'start_on' => Date.parse('2021-01-01'), # default value
@@ -367,52 +368,53 @@ module AcaEntities
         return [] unless @insurance_coverage_hash[:employerSponsoredCoverageOffers]
         @insurance_coverage_hash[:employerSponsoredCoverageOffers].each_with_object([]) do |(_k, esc), result|
           begin
-          result << {
-            'employee_cost' => (esc[:lcsopPremium] || "0.0"),
-            'kind' => 'employer_sponsored_insurance', # default value
-            'status' => 'is_enrolled', # default value
-            # 'insurance_kind' => 'employer_sponsored_insurance', # default value
-            :employer => { employer_name: esc[:employer][:name],
-                           employer_id: '123456789' }, # default value
-            'is_esi_waiting_period' => esc[:waitingPeriodIndicator],
-            'is_esi_mec_met' => esc[:employerOffersMinValuePlan],
-            'esi_covered' => 'self', # default value
-            'start_on' => Date.parse('2021-01-01'), # default value
-            'end_on' => nil,
-            'employee_cost_frequency' => (esc[:lcsopPremiumFrequencyType]&.capitalize || "Monthly"),
-            'employer_address' =>
-            {
-              'address_1' => '21313312', # default value
-              'address_2' => '',
-              'address_3' => '',
-              'county' => '',
-              'country_name' => '',
-              'kind' => 'work', # default value
-              'city' => 'was',  # default value
-              'state' => 'DC',  # default value
-              'zip' => '31232'
-            }, # default value
-            'employer_phone' =>
-            {
-              'kind' => 'work', # default value
-              'country_code' => '',
-              'area_code' => emp_phone(esc) != nil ? emp_phone(esc)[0..2] : nil,
-              'number' => emp_phone(esc) != nil ? emp_phone(esc)[3..9] : nil,
-              'extension' => '',
-              'full_phone_number' => emp_phone(esc) != nil ?  emp_phone(esc) : nil
+            result << {
+              'employee_cost' => (esc[:lcsopPremium] || "0.0"),
+              'kind' => 'employer_sponsored_insurance', # default value
+              'status' => 'is_enrolled', # default value
+              # 'insurance_kind' => 'employer_sponsored_insurance', # default value
+              :employer => { employer_name: esc[:employer][:name],
+                             employer_id: '123456789' }, # default value
+              'is_esi_waiting_period' => esc[:waitingPeriodIndicator],
+              'is_esi_mec_met' => esc[:employerOffersMinValuePlan],
+              'esi_covered' => 'self', # default value
+              'start_on' => Date.parse('2021-01-01'), # default value
+              'end_on' => nil,
+              'employee_cost_frequency' => (esc[:lcsopPremiumFrequencyType]&.capitalize || "Monthly"),
+              'employer_address' =>
+              {
+                'address_1' => '21313312', # default value
+                'address_2' => '',
+                'address_3' => '',
+                'county' => '',
+                'country_name' => '',
+                'kind' => 'work', # default value
+                'city' => 'was',  # default value
+                'state' => 'DC',  # default value
+                'zip' => '31232'
+              }, # default value
+              'employer_phone' =>
+              {
+                'kind' => 'work', # default value
+                'country_code' => '',
+                'area_code' => emp_phone(esc).nil? ? nil : emp_phone(esc)[0..2],
+                'number' => emp_phone(esc).nil? ? nil : emp_phone(esc)[3..9],
+                'extension' => '',
+                'full_phone_number' => emp_phone(esc).nil? ? nil : emp_phone(esc)
+              }
             }
-          }
-          rescue => e
-          # binding.pry
+          rescue StandardError => e
+            puts "error in benefits_esc_hash #{e}"
           end
           result
         end
       end
 
-      def emp_phone(esc)  #TODO refactor
-        if esc[:employer][:employerPhoneNumber] != nil
+      # TODO: refactor
+      def emp_phone(esc)
+        if !esc[:employer][:employerPhoneNumber].nil?
           esc[:employer][:employerPhoneNumber]
-        elsif esc[:employer][:contact] != nil
+        elsif !esc[:employer][:contact].nil?
           esc[:employer][:contact][:phoneNumber]
         end
       end
@@ -563,10 +565,10 @@ module AcaEntities
           hours_worked_per_week: '2'
         }
       end
-      
+
       def vlp_hash
-        result = AcaEntities::Functions::BuildVlpDocument.new.call(@memoized_data , @member_identifier)
-         # iap accepts only one vlp document
+        result = AcaEntities::Functions::BuildVlpDocument.new.call(@memoized_data, @member_identifier)
+        # iap accepts only one vlp document
         result.first
       end
 
@@ -574,7 +576,7 @@ module AcaEntities
         mailing_address = @memoized_data.resolve("attestations.members.#{@member_identifier}.demographic.mailingAddress").item&.merge!(kind: "mailing")
         home_address = @memoized_data.resolve("attestations.members.#{@member_identifier}.demographic.homeAddress").item&.merge!(kind: "home")
         transient_address = @memoized_data.resolve("attestations.members.#{@member_identifier}.demographic.transientAddress").item&.merge!(kind: "transient")
-        [mailing_address,home_address, transient_address].compact.each_with_object([]) do |address, collect|
+        [mailing_address, home_address, transient_address].compact.each_with_object([]) do |address, collect|
           collect << AcaEntities::Ffe::Transformers::Cv::Address.transform(address)
         end
       end
@@ -591,38 +593,38 @@ module AcaEntities
 
       def claimed_as_tax_dependent_hash
         person_hbx_id = claimed_as_tax_dependent_by.present? ? claimed_as_tax_dependent_by : "1234"
-        {first_name: "dummy",last_name: 'dummy', dob: Date.parse("2021-01-01"), person_hbx_id: person_hbx_id}
+        { first_name: "dummy", last_name: 'dummy', dob: Date.parse("2021-01-01"), person_hbx_id: person_hbx_id }
       end
 
       def claimed_as_tax_dependent_by
-        if @attestations_family_hash[:taxDependentIndicator]
-          household = @memoized_data.resolve('attestations.household').item
-          found_relationship = household[:taxRelationships].collect do |tax_relationship|
-            primary_match = tax_relationship[:no_key][0][:no_key].include?(@primary_applicant_identifier)
-            current_member_match = tax_relationship[:no_key][0][:no_key].include?(@member_identifier)
-            if primary_match && current_member_match
-              tax_relationship[:no_key][0][:no_key]
-            elsif current_member_match
-              tax_relationship[:no_key][0][:no_key]
-            end
-          end.compact
+        return unless @attestations_family_hash[:taxDependentIndicator]
 
-          return nil if found_relationship.blank?
-          return found_relationship[0][0] if found_relationship.count == 1
-
-          found_relationship_with_primary = found_relationship.detect do |relationship|
-            relationship.include?(@primary_applicant_identifier)
+        household = @memoized_data.resolve('attestations.household').item
+        found_relationship = household[:taxRelationships].collect do |tax_relationship|
+          primary_match = tax_relationship[:no_key][0][:no_key].include?(@primary_applicant_identifier)
+          current_member_match = tax_relationship[:no_key][0][:no_key].include?(@member_identifier)
+          if primary_match && current_member_match
+            tax_relationship[:no_key][0][:no_key]
+          elsif current_member_match
+            tax_relationship[:no_key][0][:no_key]
           end
+        end.compact
 
-          return found_relationship_with_primary[0] if found_relationship_with_primary.present?
+        return nil if found_relationship.blank?
+        return found_relationship[0][0] if found_relationship.count == 1
 
-          found_relationship_by_member = found_relationship.detect do |relationship|
-            relationship.include?(@member_identifier)
-          end
-          found_relationship_by_member[0]
+        found_relationship_with_primary = found_relationship.detect do |relationship|
+          relationship.include?(@primary_applicant_identifier)
         end
+
+        return found_relationship_with_primary[0] if found_relationship_with_primary.present?
+
+        found_relationship_by_member = found_relationship.detect do |relationship|
+          relationship.include?(@member_identifier)
+        end
+        found_relationship_by_member[0]
       end
     end
   end
 end
-# rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity, Metrics/MethodLength, Layout/LineLength, Metrics/AbcSize, Metrics/ClassLength
+# rubocop:enable  Lint/DuplicateBranch, Naming/PredicateName, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity, Metrics/MethodLength, Layout/LineLength, Metrics/AbcSize, Metrics/ClassLength

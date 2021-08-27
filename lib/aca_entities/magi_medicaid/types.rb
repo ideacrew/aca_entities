@@ -274,7 +274,7 @@ module AcaEntities
         'weekly',
         'yearly'
       )
-      # TODO added enroll income frequency temp, remove after migration
+      # TODO: added enroll income frequency temp, remove after migration
 
       DeductionFrequency = IncomeFrequency
       EmployeeCostFrequency = IncomeFrequency

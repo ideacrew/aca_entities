@@ -46,7 +46,7 @@ module AcaEntities
         def transform_single
           # binding.pry
           record = klass.transform(@source_hash)
-          result = AcaEntities::Ffe::Operations::McrTo::Family.new.call(record: record[:family])
+          _result = AcaEntities::Ffe::Operations::McrTo::Family.new.call(record: record[:family])
           # binding.pry
         end
 

@@ -16,12 +16,12 @@ module AcaEntities
         "aunt_uncle" => "nephew_or_niece",
         "step_parent" => "child",
         "unrelated" => "unrelated",
-        "parents_domestic_partner" =>"unrelated",
+        "parents_domestic_partner" => "unrelated",
         "other_relative" => "unrelated",
-        "first_cousin" =>"unrelated",
+        "first_cousin" => "unrelated",
         "mother_in_law_father_in_law" => "child",
         "brother_in_law_sister_in_law" => "sibling"
-      }
+      }.freeze
 
       def call(cache)
         @memoized_data = cache
@@ -42,21 +42,19 @@ module AcaEntities
           end
         end
 
-        unless relationship.present? # Case for relationship not provided
-          relationship = "unrelated"
-        end
+        relationship = "unrelated" unless relationship.present? # Case for relationship not provided
 
-       primary_relation =  [{ relative: person_hash, kind: relationship }]
-       other_relation = find_other_relationships(household[:familyRelationships])
+        primary_relation = [{ relative: person_hash, kind: relationship }]
+        other_relation = find_other_relationships(household[:familyRelationships])
         primary_relation + other_relation
       end
 
       private
 
       def person_hash
-        # TODO check here Date
+        # TODO: check here Date
         dob_value = @memoized_data.find(Regexp.new("person_demographics.dob.#{@current_member}"))&.first&.item
-        dob = dob_value ?  Date.parse(dob_value) : Date.parse("2021-05-07")
+        dob = dob_value ? Date.parse(dob_value) : Date.parse("2021-05-07")
         { hbx_id: @current_member, # default value
           first_name: @memoized_data.find(Regexp.new("first_name.#{@current_member}"))&.first&.item,
           last_name: @memoized_data.find(Regexp.new("last_name.#{@current_member}"))&.first&.item,
@@ -68,22 +66,20 @@ module AcaEntities
       def find_other_relationships(relationship)
         relationships = []
         other_relationship = relationship.collect do |family_relationship|
-          if family_relationship[:no_key][1][:no_key].include?(@current_member)
-            family_relationship[:no_key][1][:no_key]
-          end
+          family_relationship[:no_key][1][:no_key] if family_relationship[:no_key][1][:no_key].include?(@current_member)
         end.compact
 
         other_relationship.each do |rel|
           relationships << {
-          relative: {
-            hbx_id: rel[0] != @current_member ? rel[0] : rel[2],
-            first_name: "dummy first",
-            last_name: "dummy last",
-            gender: "male",
-            dob:  Date.parse("2021-05-07"),
-            ssn: "1234567890"
-          },
-          kind: RelationshipMap[rel[1].downcase]
+            relative: {
+              hbx_id: rel[0] == @current_member ? rel[2] : rel[0],
+              first_name: "dummy first",
+              last_name: "dummy last",
+              gender: "male",
+              dob: Date.parse("2021-05-07"),
+              ssn: "1234567890"
+            },
+            kind: RelationshipMap[rel[1].downcase]
           }
         end
 
@@ -106,6 +102,6 @@ end
 #     "caretakerRelativeIndicator": false
 # }
 #     }
-#TODO: 1. relationship that has no subcriber, 2. hash with other information
+# TODO: 1. relationship that has no subcriber, 2. hash with other information
 
 # rubocop:enable Metrics/CyclomaticComplexity

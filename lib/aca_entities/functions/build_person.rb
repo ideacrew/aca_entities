@@ -5,7 +5,6 @@ module AcaEntities
     # build person
     class BuildPerson
       def call(context)
-
       end
     end
   end
