@@ -20,7 +20,7 @@ module AcaEntities
           elsif !incarceration_indicator.empty?
             [{ id: "vm2009583325215611507", # default value
                verification_date: { date_time: DateTime.now }, # default value
-               verification_requesting_system: { id: "IDC2009583325215611507", category_code: "Exchange" }, # default value
+               verification_requesting_system: { id: "SBM2009583325215611507", category_code: "Exchange" }, # default value
                verification_indicator: true, # default value
                verification_description_text: Mapper[verification_description_text],
                verification_status: { status_code: "5" }, # default value

@@ -25,6 +25,7 @@ module AcaEntities
           namespace 'family' do
             rewrap 'aces', type: :hash do
               map 'ext_app_id', 'ext_app_id'
+              map 'hbx_id', 'hbx_id', memoize: true, visible: false
               add_key "senders", function: lambda { |_v|
                 [{ category_code: 'Exchange',
                    county_name: nil,
@@ -40,7 +41,7 @@ module AcaEntities
               add_namespace 'transfer_header', 'aces.transfer_header', type: :hash do
                 add_namespace 'transfer_activity', 'aces.transfer_header.transfer_activity', type: :hash do
                   add_namespace 'transfer_id', 'aces.transfer_header.transfer_activity.transfer_id', type: :hash do
-                    add_key 'identification_id', value: "234" # default
+                    add_key 'identification_id', function: ->(v) { "#{v.resolve('hbx_id').item}@#{DateTime.now.strftime('%FT%T.%L%Z')}" }
                     add_key 'identification_category_text'
                     add_key 'identification_jurisdiction'
                   end
