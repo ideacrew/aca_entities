@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-
+require 'pry'
 # rubocop:disable  Lint/DuplicateBranch, Naming/PredicateName, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity, Metrics/MethodLength, Layout/LineLength, Metrics/AbcSize, Metrics/ClassLength
 module AcaEntities
   module Functions
@@ -15,14 +15,15 @@ module AcaEntities
           m_identifier = "attestations.members.#{@member_identifier}"
           @attestations_family_hash = @memoized_data.find(Regexp.new("#{m_identifier}.family"))&.first&.item
 
-          @attestations_annual_income_hash = @memoized_data.find(Regexp.new("#{m_identifier}.income"))&.first&.item
-          @attestations_income_hash = @attestations_annual_income_hash.present? ? @attestations_annual_income_hash[:currentIncome] : nil
+          # @attestations_annual_income_hash = @memoized_data.find(Regexp.new("#{m_identifier}.income"))&.first&.item
+          # @attestations_income_hash = @attestations_annual_income_hash.present? ? @attestations_annual_income_hash[:currentIncome] : nil
 
           @insurance_coverage_hash = @memoized_data.find(Regexp.new("#{m_identifier}.insuranceCoverage"))&.first&.item
 
           # collector << member.item.merge!(applicant_hash)
           # collector << applicant_hash.merge(person_hbx_id: "#{@member_identifier}:#{member.item[:personTrackingNumber]}")
-          collector << applicant_hash.merge(person_hbx_id: @member_identifier)
+        # binding.pry
+          collector << applicant_hash.merge(person_hbx_id: @member_identifier).merge(income_hash)
           collector
         end
 
@@ -42,6 +43,11 @@ module AcaEntities
           is_renewal_authorized: @memoized_data.resolve('is_renewal_authorized').item,
           family_reference: { hbx_id: @memoized_data.resolve('family.hbx_id').item.to_s }
         }
+      end
+
+      def income_hash
+        m_identifier = "attestations.members.#{@member_identifier}"
+        AcaEntities::Functions::Income.new.call(@memoized_data, m_identifier)
       end
 
       # {"INVESTMENT_INCOME",
@@ -68,280 +74,280 @@ module AcaEntities
       # ["ANNUALLY", "HOURLY", "MONTHLY", "WEEKLY", "BI_WEEKLY",
       #  "SEMI_MONTHLY", "ONE_TIME", "QUARTERLY", "DAILY"]
 
-      FREQUENCY_KINDS = {
-        "BI_WEEKLY" => "biweekly",
-        "DAILY" => "daily",
-        "MONTHLY" => "monthly",
-        "QUARTERLY" => "quarterly",
-        "WEEKLY" => "weekly",
-        "ANNUALLY" => "yearly",
-        "ONE_TIME" => "",
-        "HOURLY" => "weekly",
-        "SEMI_MONTHLY" => "monthly"
-      }.freeze
+      # FREQUENCY_KINDS = {
+      #   "BI_WEEKLY" => "biweekly",
+      #   "DAILY" => "daily",
+      #   "MONTHLY" => "monthly",
+      #   "QUARTERLY" => "quarterly",
+      #   "WEEKLY" => "weekly",
+      #   "ANNUALLY" => "yearly",
+      #   "ONE_TIME" => "",
+      #   "HOURLY" => "weekly",
+      #   "SEMI_MONTHLY" => "monthly"
+      # }.freeze
+      #
+      # EMPLOYEMENT = {
+      #   "JOB" => "wages_and_salaries"
+      # }.freeze
+      #
+      # SELF_EMPLOYMENT = {
+      #   "SELF_EMPLOYMENT" => "net_self_employment"
+      # }.freeze
+      #
+      # UNEMPLOYMENT_INCOME_KIND = {
+      #   UNEMPLOYMENT: 'unemployment_income'
+      # }.freeze
+      #
+      # OTHER_INCOME_TYPE_KIND = {
+      #   "ALIMONY_RECEIVED" => 'alimony_and_maintenance',
+      #   "CAPITAL_GAINS" => 'capital_gains',
+      #   "PENSION" => 'pension_retirement_benefits',
+      #   "RETIREMENT" => 'pension_retirement_benefits',
+      #   "RENTAL_OR_ROYALTY_INCOME" => 'rental_and_royalty',
+      #   "SOCIAL_SECURITY_BENEFIT" => 'social_security_benefit',
+      #   "FARMING_OR_FISHING_INCOME" => 'farming_and_fishing',
+      #   "OTHER_INCOME" => 'other',
+      #   "INVESTMENT_INCOME" => 'dividend',
+      #   "PRIZES_AWARDS_GAMBLING_WINNINGS" => 'prizes_and_awards',
+      #   "COURT_AWARDS" => "other",  # Need to change
+      #   "CASH_SUPPORT" => "other", # Need to change
+      #   "SCHOLARSHIP" => "scholarship_payments", # Need to change
+      #   "OTHER_DEDUCTION" => 'other'
+      # }.freeze
+      #
+      # TaxIncomeKIND = SELF_EMPLOYMENT.merge(OTHER_INCOME_TYPE_KIND)
+      #
+      # DEDUCTION_TYPE = {
+      #   "ALIMONY_PAYMENT" => 'alimony_paid',
+      #   "STUDENT_LOAN_INTEREST" => 'student_loan_interest',
+      #   "JURY_DUTY_PAY" => "other",
+      # }.freeze
 
-      EMPLOYEMENT = {
-        "JOB" => "wages_and_salaries"
-      }.freeze
+      # def income_hash
+      #   return [] if @attestations_income_hash.blank?
+      #
+      #   result = job_income_hash
+      #   result << self_emp_income_hash[0] unless self_emp_income_hash.empty?
+      #   result << unemp_income_hash[0] unless unemp_income_hash.empty?
+      #   unless other_income_hash.empty?
+      #     other_income_hash.each do |income|
+      #       result << income
+      #     end
+      #   end
+      #   result
+      # end
 
-      SELF_EMPLOYMENT = {
-        "SELF_EMPLOYMENT" => "net_self_employment"
-      }.freeze
-
-      UNEMPLOYMENT_INCOME_KIND = {
-        UNEMPLOYMENT: 'unemployment_income'
-      }.freeze
-
-      OTHER_INCOME_TYPE_KIND = {
-        "ALIMONY_RECEIVED" => 'alimony_and_maintenance',
-        "CAPITAL_GAINS" => 'capital_gains',
-        "PENSION" => 'pension_retirement_benefits',
-        "RETIREMENT" => 'pension_retirement_benefits',
-        "RENTAL_OR_ROYALTY_INCOME" => 'rental_and_royalty',
-        "SOCIAL_SECURITY_BENEFIT" => 'social_security_benefit',
-        "FARMING_OR_FISHING_INCOME" => 'farming_and_fishing',
-        "OTHER_INCOME" => 'other',
-        "INVESTMENT_INCOME" => 'dividend',
-        "PRIZES_AWARDS_GAMBLING_WINNINGS" => 'prizes_and_awards',
-        "COURT_AWARDS" => "other",  # Need to change
-        "CASH_SUPPORT" => "other", # Need to change
-        "SCHOLARSHIP" => "scholarship_payments", # Need to change
-        "JURY_DUTY_PAY" => "other",     # Need to change
-        "OTHER_DEDUCTION" => 'other'
-      }.freeze
-
-      TaxIncomeKIND = SELF_EMPLOYMENT.merge(OTHER_INCOME_TYPE_KIND)
-
-      DEDUCTION_TYPE = {
-        "ALIMONY_PAYMENT" => 'alimony_paid',
-        "STUDENT_LOAN_INTEREST" => 'student_loan_interest'
-      }.freeze
-
-      def income_hash
-        return [] if @attestations_income_hash.blank?
-
-        result = job_income_hash
-        result << self_emp_income_hash[0] unless self_emp_income_hash.empty?
-        result << unemp_income_hash[0] unless unemp_income_hash.empty?
-        unless other_income_hash.empty?
-          other_income_hash.each do |income|
-            result << income
-          end
-        end
-        result
-      end
-
-      def has_one_time_income
-        @attestations_income_hash.any? {|_key, income_hash| income_hash[:incomeFrequencyType] == "ONE_TIME"}
-      end
-
-      def taxable_income_with_negative_value
-        @attestations_income_hash.any? do |_key, income_hash|
-          income_hash[:incomeAmount] < 0 && TaxIncomeKIND[income_hash[:incomeSourceType].to_sym].present?
-        end
-      end
-
-      def has_other_deduction_income
-        @attestations_income_hash.any? {|_key, income_hash| income_hash[:incomeSourceType] == "OTHER_DEDUCTION"}
-      end
-
-      def create_other_tax_income
-        has_one_time_income || taxable_income_with_negative_value || has_other_deduction_income || income_diff_with_annual_income
-      end
-
-      def income_diff_with_annual_income
-        amount = 0.0
-        @attestations_income_hash.each_with_object([]) do |(_k, income), _result|
-          frequency = income[:incomeFrequencyType]
-
-          if income[:jobIncome]
-            avg_hours = income[:averageWeeklyWorkHours]
-            avg_days = income[:averageWeeklyWorkDays]
-          end
-
-          case frequency
-          when "ANNUALLY"
-            amount += income[:incomeAmount]
-          when "HOURLY"
-            week_income = avg_hours.to_i * income[:incomeAmount]
-            h_anual_income = week_income * 52
-            amount += h_anual_income
-          when "MONTHLY"
-            m_anual_income = income[:incomeAmount] * 12
-            amount += m_anual_income
-          when "WEEKLY"
-            w_anual_income = income[:incomeAmount] * 52
-            amount += w_anual_income
-          when "BI_WEEKLY"
-            bi_anual_income = income[:incomeAmount] * 26
-            amount += bi_anual_income
-          when "SEMI_MONTHLY"
-            s_monthly = income[:incomeAmount] * 2
-            semi_anual_income = s_monthly * 12
-            amount += semi_anual_income
-          when "ONE_TIME"
-            amount += income[:incomeAmount]
-          when "QUARTERLY"
-            q_anual_income = income[:incomeAmount] * 4
-            amount += q_anual_income
-          when "DAILY"
-            week_income = avg_days.to_i * income[:incomeAmount]
-            h_anual_income = week_income * 52
-            amount += h_anual_income
-          end
-        end
-        (annual_amount - amount) > 200
-      end
-
-      def annual_amount
-        if @attestations_annual_income_hash
-          @attestations_annual_income_hash[:annualTaxIncome][:incomeAmount]
-        else
-          0.0
-        end
-      end
-
-      def income_amount(income)
-        frequency = income[:incomeFrequencyType]
-        amount = income[:incomeAmount]
-        hours = income[:job][:averageWeeklyWorkHours] if income[:job]
-        if frequency == "HOURLY" && hours
-          hours.to_i * amount
-        elsif frequency == "SEMI_MONTHLY"
-          amount * 2
-        else
-          amount
-        end
-      end
-
-      def job_income_hash
-        return [] if @attestations_income_hash.blank? || create_other_tax_income
-
-        @attestations_income_hash.each_with_object([]) do |(_k, income), result|
-          next unless EMPLOYEMENT[income[:incomeSourceType].to_sym].present?
-          result << {
-            'kind' => EMPLOYEMENT[income[:incomeSourceType].to_sym],
-            'amount' => income_amount(income),
-            'amount_tax_exempt' => 0,
-            'employer_name' => income[:jobIncome].nil? ? "employer name not provided" : income[:jobIncome][:employerName],
-            'frequency_kind' => FREQUENCY_KINDS[income[:incomeFrequencyType].to_sym],
-            'start_on' => Date.parse('2021-01-01'), # default value
-            'end_on' => nil,
-            'is_projected' => false, # default value
-            'employer_address' =>
-             {
-               'address_1' => '123test', # default value
-               'address_2' => '',
-               'address_3' => '',
-               'county' => '',
-               'country_name' => '',
-               'kind' => 'work', # default value
-               'city' => 'was', # default value
-               'state' => 'DC', # default value
-               'zip' => '23421' # default value
-             },
-            'employer_phone' =>
-             {
-               'kind' => 'work', # default value
-               'country_code' => '',
-               'area_code' => '987', # default value
-               'number' => '6547890', # default value
-               'extension' => '',
-               'full_phone_number' => '9876547890' # default value
-             }
-          }
-          result
-        end
-      end
-
-      def self_emp_income_hash
-        return [] if @attestations_income_hash.blank? || create_other_tax_income
-        @attestations_income_hash.each_with_object([]) do |(_k, income), result|
-          next unless SELF_EMPLOYMENT[income[:incomeSourceType].to_sym].present?
-          result << {
-            'kind' => SELF_EMPLOYMENT[income[:incomeSourceType].to_sym],
-            'amount' => income_amount(income),
-            'amount_tax_exempt' => 0,
-            'frequency_kind' => FREQUENCY_KINDS[income[:incomeFrequencyType].to_sym],
-            'start_on' => Date.parse('2021-01-01'), # default value
-            'end_on' => nil,
-            'is_projected' => false
-          }
-          result
-        end
-      end
-
-      def unemp_income_hash
-        return [] if @attestations_income_hash.blank? || create_other_tax_income
-        @attestations_income_hash.each_with_object([]) do |(_k, income), result|
-          next unless UNEMPLOYMENT_INCOME_KIND[income[:incomeSourceType].to_sym].present?
-          result << {
-            "kind" => UNEMPLOYMENT_INCOME_KIND[income[:incomeSourceType].to_sym],
-            "amount" => income_amount(income),
-            "amount_tax_exempt" => 0,
-            "frequency_kind" => FREQUENCY_KINDS[income[:incomeFrequencyType].to_sym],
-            "start_on" => Date.parse('2021-01-01'), # default value
-            "end_on" => nil,
-            "is_projected" => false
-          }
-          result
-        end
-      end
-
-      def other_income_hash
-        return [] if @attestations_income_hash.blank?
-        if create_other_tax_income
-          annual_amount = if @attestations_annual_income_hash
-                            @attestations_annual_income_hash[:annualTaxIncome][:incomeAmount]
-                          else
-                            0.0
-                          end
-
-          [{
-            'kind' => "other",
-            'amount' => annual_amount,
-            'amount_tax_exempt' => 0,
-            'frequency_kind' => "yearly",
-            'start_on' => Date.parse('2021-01-01'), # default value
-            'end_on' => nil,
-            'is_projected' => false
-          }]
-        else
-          @attestations_income_hash.each_with_object([]) do |(_k, income), result|
-            next unless OTHER_INCOME_TYPE_KIND[income[:incomeSourceType].to_sym].present?
-
-            result << {
-              'kind' => OTHER_INCOME_TYPE_KIND[income[:incomeSourceType].to_sym],
-              'amount' => income_amount(income),
-              'amount_tax_exempt' => 0,
-              'frequency_kind' => FREQUENCY_KINDS[income[:incomeFrequencyType].to_sym],
-              'start_on' => Date.parse('2021-01-01'), # default value
-              'end_on' => nil,
-              'is_projected' => false
-            }
-            result
-          end
-        end
-      end
-
-      def deduction_hash
-        return [] if @attestations_income_hash.blank? || create_other_tax_income
-
-        @attestations_income_hash.each_with_object([]) do |(_k, income), result|
-          next unless DEDUCTION_TYPE[income[:incomeSourceType].to_sym].present?
-
-          result << {
-            'kind' => DEDUCTION_TYPE[income[:incomeSourceType].to_sym],
-            'amount' => income_amount(income).to_i.abs,
-            'amount_tax_exempt' => 0,
-            'frequency_kind' => FREQUENCY_KINDS[income[:incomeFrequencyType].to_sym],
-            'start_on' => Date.parse('2021-01-01'), # default value
-            'end_on' => nil,
-            'is_projected' => false
-          }
-          result
-        end
-      end
+      # def has_one_time_income
+      #   @attestations_income_hash.any? {|_key, income_hash| income_hash[:incomeFrequencyType] == "ONE_TIME"}
+      # end
+      #
+      # def taxable_income_with_negative_value
+      #   @attestations_income_hash.any? do |_key, income_hash|
+      #     income_hash[:incomeAmount] < 0 && TaxIncomeKIND[income_hash[:incomeSourceType].to_sym].present?
+      #   end
+      # end
+      #
+      # def has_other_deduction_income
+      #   @attestations_income_hash.any? {|_key, income_hash| income_hash[:incomeSourceType] == "OTHER_DEDUCTION"}
+      # end
+      #
+      # def create_other_tax_income
+      #   has_one_time_income || taxable_income_with_negative_value || has_other_deduction_income || income_diff_with_annual_income
+      # end
+      #
+      # def income_diff_with_annual_income
+      #   amount = 0.0
+      #   @attestations_income_hash.each_with_object([]) do |(_k, income), _result|
+      #     frequency = income[:incomeFrequencyType]
+      #
+      #     if income[:jobIncome]
+      #       avg_hours = income[:averageWeeklyWorkHours]
+      #       avg_days = income[:averageWeeklyWorkDays]
+      #     end
+      #
+      #     case frequency
+      #     when "ANNUALLY"
+      #       amount += income[:incomeAmount]
+      #     when "HOURLY"
+      #       week_income = avg_hours.to_i * income[:incomeAmount]
+      #       h_anual_income = week_income * 52
+      #       amount += h_anual_income
+      #     when "MONTHLY"
+      #       m_anual_income = income[:incomeAmount] * 12
+      #       amount += m_anual_income
+      #     when "WEEKLY"
+      #       w_anual_income = income[:incomeAmount] * 52
+      #       amount += w_anual_income
+      #     when "BI_WEEKLY"
+      #       bi_anual_income = income[:incomeAmount] * 26
+      #       amount += bi_anual_income
+      #     when "SEMI_MONTHLY"
+      #       s_monthly = income[:incomeAmount] * 2
+      #       semi_anual_income = s_monthly * 12
+      #       amount += semi_anual_income
+      #     when "ONE_TIME"
+      #       amount += income[:incomeAmount]
+      #     when "QUARTERLY"
+      #       q_anual_income = income[:incomeAmount] * 4
+      #       amount += q_anual_income
+      #     when "DAILY"
+      #       week_income = avg_days.to_i * income[:incomeAmount]
+      #       h_anual_income = week_income * 52
+      #       amount += h_anual_income
+      #     end
+      #   end
+      #   (annual_amount - amount) > 200
+      # end
+      #
+      # def annual_amount
+      #   if @attestations_annual_income_hash
+      #     @attestations_annual_income_hash[:annualTaxIncome][:incomeAmount]
+      #   else
+      #     0.0
+      #   end
+      # end
+      #
+      # def income_amount(income)
+      #   frequency = income[:incomeFrequencyType]
+      #   amount = income[:incomeAmount]
+      #   hours = income[:job][:averageWeeklyWorkHours] if income[:job]
+      #   if frequency == "HOURLY" && hours
+      #     hours.to_i * amount
+      #   elsif frequency == "SEMI_MONTHLY"
+      #     amount * 2
+      #   else
+      #     amount
+      #   end
+      # end
+      #
+      # def job_income_hash
+      #   return [] if @attestations_income_hash.blank? || create_other_tax_income
+      #
+      #   @attestations_income_hash.each_with_object([]) do |(_k, income), result|
+      #     next unless EMPLOYEMENT[income[:incomeSourceType].to_sym].present?
+      #     result << {
+      #       'kind' => EMPLOYEMENT[income[:incomeSourceType].to_sym],
+      #       'amount' => income_amount(income),
+      #       'amount_tax_exempt' => 0,
+      #       'employer_name' => income[:jobIncome].nil? ? "employer name not provided" : income[:jobIncome][:employerName],
+      #       'frequency_kind' => FREQUENCY_KINDS[income[:incomeFrequencyType].to_sym],
+      #       'start_on' => Date.parse('2021-01-01'), # default value
+      #       'end_on' => nil,
+      #       'is_projected' => false, # default value
+      #       'employer_address' =>
+      #        {
+      #          'address_1' => '123test', # default value
+      #          'address_2' => '',
+      #          'address_3' => '',
+      #          'county' => '',
+      #          'country_name' => '',
+      #          'kind' => 'work', # default value
+      #          'city' => 'was', # default value
+      #          'state' => 'DC', # default value
+      #          'zip' => '23421' # default value
+      #        },
+      #       'employer_phone' =>
+      #        {
+      #          'kind' => 'work', # default value
+      #          'country_code' => '',
+      #          'area_code' => '987', # default value
+      #          'number' => '6547890', # default value
+      #          'extension' => '',
+      #          'full_phone_number' => '9876547890' # default value
+      #        }
+      #     }
+      #     result
+      #   end
+      # end
+      #
+      # def self_emp_income_hash
+      #   return [] if @attestations_income_hash.blank? || create_other_tax_income
+      #   @attestations_income_hash.each_with_object([]) do |(_k, income), result|
+      #     next unless SELF_EMPLOYMENT[income[:incomeSourceType].to_sym].present?
+      #     result << {
+      #       'kind' => SELF_EMPLOYMENT[income[:incomeSourceType].to_sym],
+      #       'amount' => income_amount(income),
+      #       'amount_tax_exempt' => 0,
+      #       'frequency_kind' => FREQUENCY_KINDS[income[:incomeFrequencyType].to_sym],
+      #       'start_on' => Date.parse('2021-01-01'), # default value
+      #       'end_on' => nil,
+      #       'is_projected' => false
+      #     }
+      #     result
+      #   end
+      # end
+      #
+      # def unemp_income_hash
+      #   return [] if @attestations_income_hash.blank? || create_other_tax_income
+      #   @attestations_income_hash.each_with_object([]) do |(_k, income), result|
+      #     next unless UNEMPLOYMENT_INCOME_KIND[income[:incomeSourceType].to_sym].present?
+      #     result << {
+      #       "kind" => UNEMPLOYMENT_INCOME_KIND[income[:incomeSourceType].to_sym],
+      #       "amount" => income_amount(income),
+      #       "amount_tax_exempt" => 0,
+      #       "frequency_kind" => FREQUENCY_KINDS[income[:incomeFrequencyType].to_sym],
+      #       "start_on" => Date.parse('2021-01-01'), # default value
+      #       "end_on" => nil,
+      #       "is_projected" => false
+      #     }
+      #     result
+      #   end
+      # end
+      #
+      # def other_income_hash
+      #   return [] if @attestations_income_hash.blank?
+      #   if create_other_tax_income
+      #     annual_amount = if @attestations_annual_income_hash
+      #                       @attestations_annual_income_hash[:annualTaxIncome][:incomeAmount]
+      #                     else
+      #                       0.0
+      #                     end
+      #
+      #     [{
+      #       'kind' => "other",
+      #       'amount' => annual_amount,
+      #       'amount_tax_exempt' => 0,
+      #       'frequency_kind' => "yearly",
+      #       'start_on' => Date.parse('2021-01-01'), # default value
+      #       'end_on' => nil,
+      #       'is_projected' => false
+      #     }]
+      #   else
+      #     @attestations_income_hash.each_with_object([]) do |(_k, income), result|
+      #       next unless OTHER_INCOME_TYPE_KIND[income[:incomeSourceType].to_sym].present?
+      #
+      #       result << {
+      #         'kind' => OTHER_INCOME_TYPE_KIND[income[:incomeSourceType].to_sym],
+      #         'amount' => income_amount(income),
+      #         'amount_tax_exempt' => 0,
+      #         'frequency_kind' => FREQUENCY_KINDS[income[:incomeFrequencyType].to_sym],
+      #         'start_on' => Date.parse('2021-01-01'), # default value
+      #         'end_on' => nil,
+      #         'is_projected' => false
+      #       }
+      #       result
+      #     end
+      #   end
+      # end
+      #
+      # def deduction_hash
+      #   return [] if @attestations_income_hash.blank? || create_other_tax_income
+      #
+      #   @attestations_income_hash.each_with_object([]) do |(_k, income), result|
+      #     next unless DEDUCTION_TYPE[income[:incomeSourceType].to_sym].present?
+      #
+      #     result << {
+      #       'kind' => DEDUCTION_TYPE[income[:incomeSourceType].to_sym],
+      #       'amount' => income_amount(income).to_i.abs,
+      #       'amount_tax_exempt' => 0,
+      #       'frequency_kind' => FREQUENCY_KINDS[income[:incomeFrequencyType].to_sym],
+      #       'start_on' => Date.parse('2021-01-01'), # default value
+      #       'end_on' => nil,
+      #       'is_projected' => false
+      #     }
+      #     result
+      #   end
+      # end
 
       def benefits_hash
         return [] if @insurance_coverage_hash.nil?
@@ -541,19 +547,24 @@ module AcaEntities
           is_currently_enrolled_in_health_plan: nil, # default value
           has_daily_living_help: nil, # default value
           need_help_paying_bills: nil, # default value
-          has_job_income: !job_income_hash.empty?,
-          has_self_employment_income: !self_emp_income_hash.empty?,
-          has_unemployment_income: !unemp_income_hash.empty?,
-          has_other_income: !other_income_hash.empty?,
-          has_deductions: !deduction_hash.empty?,
+
+          # has_job_income: !job_income_hash.empty?,
+          # has_self_employment_income: !self_emp_income_hash.empty?,
+          # has_unemployment_income: !unemp_income_hash.empty?,
+          # has_other_income: !other_income_hash.empty?,
+          # has_deductions: !deduction_hash.empty?,
+
           has_enrolled_health_coverage: !benefits_hash.empty?, # default value
           has_eligible_health_coverage: !benefits_hash.empty?, # default value
           addresses: address_hash,
           emails: AcaEntities::Functions::Email.new.call(@memoized_data, @member_identifier), # default value
           phones: AcaEntities::Functions::Phone.new.call(@memoized_data, @member_identifier),
-          incomes: income_hash || [],
+
           benefits: (benefits_hash << (benefits_esc_hash ? benefits_esc_hash[0] : [])).compact,
-          deductions: deduction_hash || [],
+
+          # incomes: income_hash || [],
+          # deductions: deduction_hash || [],
+
           is_medicare_eligible: false, # default value
           has_insurance: false, # default value
           has_state_health_benefit: false, # default value
