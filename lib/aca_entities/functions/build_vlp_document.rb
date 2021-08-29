@@ -1,7 +1,10 @@
 # frozen_string_literal: true
 
-module AcaEntities
+# TODO: Pending
+#  documentAlternateName - no mapping found
+#  employmentAuthorizationCategoryIdentifier - no mapping found
 
+module AcaEntities
   module Functions
     # Builder for VLP documents
     class BuildVlpDocument
@@ -15,10 +18,32 @@ module AcaEntities
         return [] if lawful_presence_documentation.nil?
 
         result = lawful_presence_documentation.each_with_object([]) do |(key, value), collect|
-          lawful_presence_document = value.merge(subject: key.to_s)
+          lawful_presence_document = value.merge(subject: remap_subject(key, value).to_s)
           collect << AcaEntities::Ffe::Transformers::Cv::VlpDocument.transform(lawful_presence_document)
         end
         result.reject {|hash| hash[:subject].nil?}
+      end
+
+      private
+
+      def remap_subject(subject, document)
+        if subject.to_s == "NOTICE_OF_ACTION_I_797"
+          if  document[:alienNumber].present?
+            "NOTICE_OF_ACTION_I_797_WITH_ALIEN"
+          else document[:i94Number].present?
+            "NOTICE_OF_ACTION_I_797_I_94"
+          end
+        elsif subject.to_s == "OTHER"
+          if document[:alienNumber].present?
+            "OTHER_WITH_ALIEN"
+          elsif document[:i94Number].present?
+            "OTHER_WITH_I_94"
+          else
+            "OTHER_WITH_ALIEN"
+          end
+        else
+          subject
+        end
       end
     end
   end

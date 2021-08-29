@@ -1,8 +1,12 @@
 # frozen_string_literal: true
-
-require 'pry'
-
 # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity, Metrics/AbcSize
+
+#TODO: Pending
+# livedInUs5yearIndicator - mapping not found
+# noAlienNumberIndicator - mapping not found
+# lawfulPresenceGrantDate - mapping not found
+# How to handle members without citizenship data
+# Check for other citizenship mapping, lawful_permanent_resident, non_native_not_lawfully_present_in_us etc.
 module AcaEntities
   module Functions
     # hash methods
@@ -68,8 +72,7 @@ module AcaEntities
           lawful_presence_indicator&.name&.split('.')&.first => lawful_presence_indicator&.item,
           lawful_presence_documentation&.name&.split('.')&.first => lawful_presence_documentation&.item
         }
-
-        # binding.pry
+        
         # val = hash.keys.find { |_k| hash.key(true) }
         # assign_citizen_status(val)
 
@@ -82,23 +85,6 @@ module AcaEntities
         elsif hash["lawfulPresenceStatusIndicator"] == true
           "alien_lawfully_present"
         end
-
-        # {"citizenshipIndicator"=>true, "naturalizedCitizenIndicator"=>false}
-        # {"citizenshipIndicator"=>false, "lawfulPresenceDocumentation"=>true, "lawfulPresenceStatusIndicator"=>true}
-        # {"citizenshipIndicator"=>true, "lawfulPresenceDocumentation"=>true, "naturalizedCitizenIndicator"=>true}
-        # {"citizenshipIndicator"=>true, "lawfulPresenceDocumentation"=>true, "naturalizedCitizenIndicator"=>false}
-        # {"citizenshipIndicator"=>false, "lawfulPresenceStatusIndicator"=>true}
-        # {"citizenshipIndicator"=>true, "naturalizedCitizenIndicator"=>true}
-        # {"citizenshipIndicator"=>false, "lawfulPresenceDocumentation"=>true,
-        # "lawfulPresenceStatusIndicator"=>true, "naturalizedCitizenIndicator"=>false}
-        # {"lawfulPresenceDocumentation"=>true}
-        # {"citizenshipIndicator"=>false, "lawfulPresenceStatusIndicator"=>true, "naturalizedCitizenIndicator"=>false}
-        # {"citizenshipIndicator"=>false}
-        # {"citizenshipIndicator"=>false, "lawfulPresenceStatusIndicator"=>false}
-        # {"citizenshipIndicator"=>false, "lawfulPresenceDocumentation"=>true}
-        # {"citizenshipIndicator"=>true, "lawfulPresenceStatusIndicator"=>false, "naturalizedCitizenIndicator"=>false}
-        # {"citizenshipIndicator"=>false, "naturalizedCitizenIndicator"=>false}
-        # {"citizenshipIndicator"=>false, "lawfulPresenceStatusIndicator"=>false, "naturalizedCitizenIndicator"=>false}
       end
 
       def assign_citizen_status(status)
@@ -107,4 +93,146 @@ module AcaEntities
     end
   end
 end
+
+# lawfule presence uniq keys
+
+# "noAlienNumberIndicator",
+# "citizenshipIndicator",
+# "naturalizedCitizenIndicator",
+# "lawfulPresenceStatusIndicator",
+# "livedInUs5yearIndicator",
+# "lawfulPresenceDocumentation",  # hash
+# "lawfulPresenceGrantDate"
+
+
+# "noAlienNumberIndicator"
+# "citizenshipIndicator"
+# "naturalizedCitizenIndicator"
+# "lawfulPresenceStatusIndicator"
+# "livedInUs5yearIndicator"
+# "lawfulPresenceDocumentation"
+# "PERMANENT_RESIDENT_CARD_I_551"
+# "alienNumber"
+# "cardNumber"
+# "noIdentifiersProvidedIndicator"
+# "CERTIFICATE_OF_NATURALIZATION"
+# "CERTIFICATE_OF_CITIZENSHIP"
+# "citizenshipNumber"
+# "naturalizationCertificateNumber"
+# "documentExpirationDate"
+# "documentAlternateName"
+# "firstName"
+# "middleName"
+# "lastName"
+# "EMPLOYMENT_AUTHORIZATION_CARD_I_766"
+# "employmentAuthorizationCategoryIdentifier"
+# "NOTICE_OF_ACTION_I_797"
+# "ARRIVAL_DEPARTURE_RECORD_IN_FOREIGN_PASSPORT_I_94"
+# "i94Number"
+# "REFUGEE_TRAVEL_DOCUMENT"
+# "OTHER"
+# "otherTypeText"
+# "otherDocumentTypeText"
+# "DOCUMENT_INDICATING_WITHHOLDING_OF_REMOVAL"
+# "lawfulPresenceGrantDate"
+# "MACHINE_READABLE_IMMIGRANT_VISA_WITH_TEMPORARY_I_551_LANGUAGE"
+# "TEMPORARY_I_551_STAMP_ON_PASSPORT_OR_I_94_I_94A"
+# "passportNumber"
+# "passportIssuingCountry"
+# "ARRIVAL_DEPARTURE_RECORD_IN_UNEXPIRED_FOREIGN_PASSPORT_I_94"
+# "FOREIGN_PASSPORT"
+# "REENTRY_PERMIT"
+# "CERTIFICATE_OF_ELIGIBILITY_FOR_NONIMMIGRANT_STUDENT_STATUS_I_20"
+# "sevisId"
+# "CERTIFICATE_OF_ELIGIBILITY_FOR_EXCHANGE_VISITOR_STATUS_DS_2019"
+# "VAWA_SELF_PETITIONER"
+# "NS1_MEMBERS_OF_A_FEDERALLY_RECOGNIZED_INDIAN_TRIBE"
+
+
+# citizen criteria with out "livedInUs5yearIndicator","noAlienNumberIndicator","lawfulPresenceGrantDate"
+
+# {"citizenshipIndicator"=>true, "naturalizedCitizenIndicator"=>false}
+# {"citizenshipIndicator"=>false, "lawfulPresenceDocumentation"=>true, "lawfulPresenceStatusIndicator"=>true}
+# {"citizenshipIndicator"=>true, "lawfulPresenceDocumentation"=>true, "naturalizedCitizenIndicator"=>true}
+# {"citizenshipIndicator"=>true, "lawfulPresenceDocumentation"=>true, "naturalizedCitizenIndicator"=>false}
+# {"citizenshipIndicator"=>false, "lawfulPresenceStatusIndicator"=>true}
+# {"citizenshipIndicator"=>true, "naturalizedCitizenIndicator"=>true}
+# {"citizenshipIndicator"=>false, "lawfulPresenceDocumentation"=>true,
+# "lawfulPresenceStatusIndicator"=>true, "naturalizedCitizenIndicator"=>false}
+# {"lawfulPresenceDocumentation"=>true}
+# {"citizenshipIndicator"=>false, "lawfulPresenceStatusIndicator"=>true, "naturalizedCitizenIndicator"=>false}
+# {"citizenshipIndicator"=>false}
+# {"citizenshipIndicator"=>false, "lawfulPresenceStatusIndicator"=>false}
+# {"citizenshipIndicator"=>false, "lawfulPresenceDocumentation"=>true}
+# {"citizenshipIndicator"=>true, "lawfulPresenceStatusIndicator"=>false, "naturalizedCitizenIndicator"=>false}
+# {"citizenshipIndicator"=>false, "naturalizedCitizenIndicator"=>false}
+# {"citizenshipIndicator"=>false, "lawfulPresenceStatusIndicator"=>false, "naturalizedCitizenIndicator"=>false}
+
+# citizen cases
+
+# {"noAlienNumberIndicator"=>false, "citizenshipIndicator"=>true, "naturalizedCitizenIndicator"=>false}
+# {"citizenshipIndicator"=>true, "naturalizedCitizenIndicator"=>false}
+# {"noAlienNumberIndicator"=>false}
+# {"lawfulPresenceStatusIndicator"=>true, "livedInUs5yearIndicator"=>false, "citizenshipIndicator"=>false, "lawfulPresenceDocumentation"=>true}
+# {"citizenshipIndicator"=>true, "naturalizedCitizenIndicator"=>true, "lawfulPresenceDocumentation"=>true}
+# {"noAlienNumberIndicator"=>true, "citizenshipIndicator"=>true, "naturalizedCitizenIndicator"=>false}
+# {"noAlienNumberIndicator"=>true}
+# {"citizenshipIndicator"=>true, "naturalizedCitizenIndicator"=>false, "lawfulPresenceDocumentation"=>true}
+# {"lawfulPresenceStatusIndicator"=>true, "citizenshipIndicator"=>false, "lawfulPresenceDocumentation"=>true}
+# {"noAlienNumberIndicator"=>true, "citizenshipIndicator"=>true, "naturalizedCitizenIndicator"=>true, "lawfulPresenceDocumentation"=>true}
+# {"lawfulPresenceStatusIndicator"=>true, "livedInUs5yearIndicator"=>true, "citizenshipIndicator"=>false, "lawfulPresenceDocumentation"=>true}
+# {"lawfulPresenceStatusIndicator"=>true, "livedInUs5yearIndicator"=>false, "citizenshipIndicator"=>false}
+# {"citizenshipIndicator"=>true, "naturalizedCitizenIndicator"=>true}
+# {"lawfulPresenceStatusIndicator"=>true, "noAlienNumberIndicator"=>false, "citizenshipIndicator"=>false, "naturalizedCitizenIndicator"=>false, "lawfulPresenceDocumentation"=>true}
+# {"noAlienNumberIndicator"=>false, "citizenshipIndicator"=>true, "naturalizedCitizenIndicator"=>true, "lawfulPresenceDocumentation"=>true}
+# {"lawfulPresenceStatusIndicator"=>true, "livedInUs5yearIndicator"=>false, "noAlienNumberIndicator"=>true, "citizenshipIndicator"=>false, "lawfulPresenceDocumentation"=>true}
+# {"noAlienNumberIndicator"=>true, "citizenshipIndicator"=>true, "naturalizedCitizenIndicator"=>true}
+# {"livedInUs5yearIndicator"=>false, "citizenshipIndicator"=>true, "naturalizedCitizenIndicator"=>false}
+# {"lawfulPresenceStatusIndicator"=>true, "livedInUs5yearIndicator"=>false, "noAlienNumberIndicator"=>false, "citizenshipIndicator"=>false, "lawfulPresenceDocumentation"=>true}
+# {"lawfulPresenceStatusIndicator"=>true, "livedInUs5yearIndicator"=>true, "noAlienNumberIndicator"=>false, "citizenshipIndicator"=>false, "lawfulPresenceDocumentation"=>true}
+# {"lawfulPresenceDocumentation"=>true}
+# {"livedInUs5yearIndicator"=>false, "citizenshipIndicator"=>true, "naturalizedCitizenIndicator"=>false, "lawfulPresenceDocumentation"=>true}
+# {"lawfulPresenceStatusIndicator"=>true, "livedInUs5yearIndicator"=>false, "noAlienNumberIndicator"=>false, "citizenshipIndicator"=>false}
+# {"lawfulPresenceStatusIndicator"=>true, "noAlienNumberIndicator"=>true, "citizenshipIndicator"=>false, "naturalizedCitizenIndicator"=>false, "lawfulPresenceDocumentation"=>true}
+# {"lawfulPresenceStatusIndicator"=>true, "livedInUs5yearIndicator"=>false, "noAlienNumberIndicator"=>true, "citizenshipIndicator"=>false, "naturalizedCitizenIndicator"=>false}
+# {"livedInUs5yearIndicator"=>false, "noAlienNumberIndicator"=>false, "citizenshipIndicator"=>true, "naturalizedCitizenIndicator"=>false}
+# {"noAlienNumberIndicator"=>false, "citizenshipIndicator"=>true, "naturalizedCitizenIndicator"=>false, "lawfulPresenceDocumentation"=>true}
+# {"lawfulPresenceStatusIndicator"=>true, "livedInUs5yearIndicator"=>false, "noAlienNumberIndicator"=>true, "citizenshipIndicator"=>false, "naturalizedCitizenIndicator"=>false, "lawfulPresenceDocumentation"=>true}
+# {"lawfulPresenceStatusIndicator"=>true, "livedInUs5yearIndicator"=>true, "citizenshipIndicator"=>false}
+# {"lawfulPresenceGrantDate"=>"2015-11-04", "lawfulPresenceStatusIndicator"=>true, "livedInUs5yearIndicator"=>false, "citizenshipIndicator"=>false, "lawfulPresenceDocumentation"=>true}
+# {"lawfulPresenceGrantDate"=>"2015-11-08", "lawfulPresenceStatusIndicator"=>true, "livedInUs5yearIndicator"=>false, "citizenshipIndicator"=>false, "lawfulPresenceDocumentation"=>true}
+# {"lawfulPresenceStatusIndicator"=>true, "noAlienNumberIndicator"=>true, "citizenshipIndicator"=>false, "lawfulPresenceDocumentation"=>true}
+# {"lawfulPresenceStatusIndicator"=>true, "livedInUs5yearIndicator"=>true, "noAlienNumberIndicator"=>false, "citizenshipIndicator"=>false, "naturalizedCitizenIndicator"=>false, "lawfulPresenceDocumentation"=>true}
+# {"lawfulPresenceStatusIndicator"=>true, "livedInUs5yearIndicator"=>false, "noAlienNumberIndicator"=>false, "citizenshipIndicator"=>false, "naturalizedCitizenIndicator"=>false, "lawfulPresenceDocumentation"=>true}
+# {"lawfulPresenceStatusIndicator"=>true, "noAlienNumberIndicator"=>true, "citizenshipIndicator"=>false, "naturalizedCitizenIndicator"=>false}
+# {"lawfulPresenceGrantDate"=>"2019-05-07", "lawfulPresenceStatusIndicator"=>true, "citizenshipIndicator"=>false, "lawfulPresenceDocumentation"=>true}
+# {"citizenshipIndicator"=>false}
+# {"lawfulPresenceGrantDate"=>"2003-01-12", "lawfulPresenceStatusIndicator"=>true, "livedInUs5yearIndicator"=>false, "citizenshipIndicator"=>false, "lawfulPresenceDocumentation"=>true}
+# {"lawfulPresenceStatusIndicator"=>true, "livedInUs5yearIndicator"=>true, "noAlienNumberIndicator"=>true, "citizenshipIndicator"=>false, "lawfulPresenceDocumentation"=>true}
+# {"lawfulPresenceGrantDate"=>"2010-05-23", "lawfulPresenceStatusIndicator"=>true, "citizenshipIndicator"=>false, "lawfulPresenceDocumentation"=>true}
+# {"lawfulPresenceStatusIndicator"=>false, "noAlienNumberIndicator"=>true, "citizenshipIndicator"=>false}
+# {"lawfulPresenceStatusIndicator"=>true, "citizenshipIndicator"=>false}
+# {"citizenshipIndicator"=>false, "lawfulPresenceDocumentation"=>true}
+# {"lawfulPresenceStatusIndicator"=>false, "citizenshipIndicator"=>true, "naturalizedCitizenIndicator"=>false}
+# {"livedInUs5yearIndicator"=>true, "noAlienNumberIndicator"=>false, "citizenshipIndicator"=>true, "naturalizedCitizenIndicator"=>false}
+# {"lawfulPresenceStatusIndicator"=>true, "livedInUs5yearIndicator"=>true, "noAlienNumberIndicator"=>true, "citizenshipIndicator"=>false, "naturalizedCitizenIndicator"=>false}
+# {"lawfulPresenceStatusIndicator"=>true, "livedInUs5yearIndicator"=>true, "noAlienNumberIndicator"=>true, "citizenshipIndicator"=>false, "naturalizedCitizenIndicator"=>false, "lawfulPresenceDocumentation"=>true}
+# {"lawfulPresenceGrantDate"=>"2005-06-26", "lawfulPresenceStatusIndicator"=>true, "livedInUs5yearIndicator"=>false, "citizenshipIndicator"=>false, "lawfulPresenceDocumentation"=>true}
+# {"lawfulPresenceGrantDate"=>"2002-02-06", "lawfulPresenceStatusIndicator"=>true, "livedInUs5yearIndicator"=>false, "citizenshipIndicator"=>false, "lawfulPresenceDocumentation"=>true}
+# {"lawfulPresenceStatusIndicator"=>true, "noAlienNumberIndicator"=>false, "citizenshipIndicator"=>false, "lawfulPresenceDocumentation"=>true}
+# {"lawfulPresenceStatusIndicator"=>false, "citizenshipIndicator"=>false}
+# {"livedInUs5yearIndicator"=>false, "noAlienNumberIndicator"=>false, "citizenshipIndicator"=>false, "naturalizedCitizenIndicator"=>false}
+# {"lawfulPresenceGrantDate"=>"2016-03-31", "lawfulPresenceStatusIndicator"=>true, "livedInUs5yearIndicator"=>false, "citizenshipIndicator"=>false, "lawfulPresenceDocumentation"=>true}
+# {"lawfulPresenceGrantDate"=>"2009-09-12", "lawfulPresenceStatusIndicator"=>true, "livedInUs5yearIndicator"=>false, "citizenshipIndicator"=>false, "lawfulPresenceDocumentation"=>true}
+# {"livedInUs5yearIndicator"=>true, "citizenshipIndicator"=>true, "naturalizedCitizenIndicator"=>false}
+# {"noAlienNumberIndicator"=>false, "citizenshipIndicator"=>false, "naturalizedCitizenIndicator"=>false}
+# {"livedInUs5yearIndicator"=>false, "citizenshipIndicator"=>true, "naturalizedCitizenIndicator"=>true, "lawfulPresenceDocumentation"=>true}
+# {"lawfulPresenceGrantDate"=>"2017-12-12", "lawfulPresenceStatusIndicator"=>true, "citizenshipIndicator"=>false, "lawfulPresenceDocumentation"=>true}
+# {"lawfulPresenceStatusIndicator"=>false, "livedInUs5yearIndicator"=>false, "citizenshipIndicator"=>true, "naturalizedCitizenIndicator"=>false}
+# {"lawfulPresenceStatusIndicator"=>false, "livedInUs5yearIndicator"=>false, "citizenshipIndicator"=>false, "naturalizedCitizenIndicator"=>false}
+# {"lawfulPresenceGrantDate"=>"2019-05-15", "lawfulPresenceStatusIndicator"=>true, "livedInUs5yearIndicator"=>false, "citizenshipIndicator"=>false, "lawfulPresenceDocumentation"=>true}
+# {"citizenshipIndicator"=>false, "naturalizedCitizenIndicator"=>false}
+# {"lawfulPresenceGrantDate"=>"2017-11-24", "lawfulPresenceStatusIndicator"=>true, "livedInUs5yearIndicator"=>false, "citizenshipIndicator"=>false, "lawfulPresenceDocumentation"=>true}
+# {"lawfulPresenceGrantDate"=>"2018-06-13", "lawfulPresenceStatusIndicator"=>true, "livedInUs5yearIndicator"=>false, "citizenshipIndicator"=>false, "lawfulPresenceDocumentation"=>true}
+
 # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity, Metrics/AbcSize
