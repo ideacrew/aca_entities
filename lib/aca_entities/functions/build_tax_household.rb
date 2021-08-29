@@ -11,8 +11,7 @@ module AcaEntities
           @memoized_data = context
           @primary_applicant_id = @memoized_data.resolve('family.family_members.is_primary_applicant').item
           tax_info = @memoized_data.find(Regexp.new("computed.taxHouseholds"))&.first&.item
-          # binding.pry
-          max_aptc = tax_info[:maxAPTC][:maxAPTCAmount] if tax_info[:maxAPTC]  # TODO: APTC not available for all
+          max_aptc =  tax_info[:maxAPTC].present? ? tax_info[:maxAPTC][:maxAPTCAmount] : 0.0
           return [] if tax_info[:taxHouseHoldComposition][:taxHouseholdMemberIdentifiers]&.first.nil?  # TODO
           tax_household_members = tax_info[:taxHouseHoldComposition][:taxHouseholdMemberIdentifiers]&.first[:taxHouseholdMemberIdentifiers]
           @members = []
@@ -37,7 +36,6 @@ module AcaEntities
            tax_household_members: @members,
            eligibility_determinations: []]
         rescue StandardError => e
-          # binding.pry
           puts "errors BuildTaxHouseHold  #{e}"
         end
       end

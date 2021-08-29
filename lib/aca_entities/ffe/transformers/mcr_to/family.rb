@@ -13,6 +13,9 @@ require 'aca_entities/functions/build_tax_household'
 require 'aca_entities/functions/build_lawful_presence_determination'
 require 'aca_entities/functions/build_application'
 require 'aca_entities/functions/build_household'
+require 'aca_entities/functions/applicant_builder'
+require 'aca_entities/functions/tax_filer_builder'
+require 'aca_entities/functions/benefit_builder'
 require 'aca_entities/functions/income'
 require 'aca_entities/ffe/transformers/cv/address'
 require 'aca_entities/ffe/transformers/cv/phone'
@@ -59,7 +62,7 @@ module AcaEntities
                 map 'spokenLanguageType', 'family_members.person.consumer_role.language_preference', memoize: true, visible: false
 
                 namespace 'legalAttestations' do
-                  map 'renewEligibilityYearQuantity', 'renewal_consent_through_year', function: ->(_value) {Date.parse("2021-05-07").year}
+                  map 'renewEligibilityYearQuantity', 'renewal_consent_through_year', function: ->(_value) {Date.parse("2021-01-01").year}
                   map 'absentParentAgreementIndicator', 'parent_living_out_of_home_terms', memoize: true, visible: false
                   map 'changeInformationAgreementIndicator', 'report_change_terms', memoize: true, visible: false
                   map 'medicaidRequirementAgreementIndicator', 'medicaid_terms', memoize: true, visible: false

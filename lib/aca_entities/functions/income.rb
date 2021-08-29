@@ -5,15 +5,18 @@ module AcaEntities
     # build IAP income
     class Income
 
-      def call(memoized_data, m_identifier)
-        @attestations_annual_income_hash = memoized_data.find(Regexp.new("#{m_identifier}.income"))&.first&.item
-        @attestations_income_hash = @attestations_annual_income_hash.present? ? @attestations_annual_income_hash[:currentIncome] : nil
-        income_result
+      attr_reader :attestations_annual_income_hash, :attestations_income_hash
+
+      def call(memoized_data, member)
+        @attestations_annual_income_hash = memoized_data.find(Regexp.new("attestations.members.#{member.name.split('.').last}.income"))&.first&.item
+        @attestations_income_hash = attestations_annual_income_hash.present? ? attestations_annual_income_hash[:currentIncome] : nil
+
+        member_incomes
       end
 
       private
 
-      def income_result
+      def member_incomes
         {
           has_job_income: !job_income_hash.empty?,
           has_self_employment_income: !self_emp_income_hash.empty?,
@@ -136,7 +139,7 @@ module AcaEntities
       NEGATIVE_AMOUNT_INCOME_TYPE_KINDS = %w[SELF_EMPLOYMENT CAPITAL_GAINS FARMING_OR_FISHING_INCOME].freeze
 
       def income_hash
-        return [] if @attestations_income_hash.blank?
+        return [] if attestations_income_hash.blank?
 
         result = job_income_hash
         result << self_emp_income_hash[0] unless self_emp_income_hash.empty?
@@ -150,17 +153,17 @@ module AcaEntities
       end
 
       def has_one_time_income
-        @attestations_income_hash.any? {|_key, income_hash| income_hash[:incomeFrequencyType] == "ONE_TIME"}
+        attestations_income_hash.any? {|_key, income_hash| income_hash[:incomeFrequencyType] == "ONE_TIME"}
       end
 
       def taxable_income_with_negative_value
-        @attestations_income_hash.any? do |_key, income_hash|
+        attestations_income_hash.any? do |_key, income_hash|
           income_hash[:incomeAmount] < 0 && NEGATIVE_AMOUNT_INCOME_TYPE_KINDS.exclude?(income_hash[:incomeSourceType])
         end
       end
 
       def has_other_deduction_income
-        @attestations_income_hash.any? {|_key, income_hash| income_hash[:incomeSourceType] == "OTHER_DEDUCTION"}
+        attestations_income_hash.any? {|_key, income_hash| income_hash[:incomeSourceType] == "OTHER_DEDUCTION"}
       end
 
       def create_other_tax_income
@@ -169,7 +172,7 @@ module AcaEntities
 
       def income_diff_with_annual_income
         amount = 0.0
-        @attestations_income_hash.each_with_object([]) do |(_k, income), _result|
+        attestations_income_hash.each_with_object([]) do |(_k, income), _result|
           frequency = income[:incomeFrequencyType]
 
           if income[:jobIncome]
@@ -213,10 +216,10 @@ module AcaEntities
       end
 
       def annual_amount
-        return 0.0 unless @attestations_annual_income_hash || @attestations_annual_income_hash[:annualTaxIncome]
+        return 0.0 unless attestations_annual_income_hash || attestations_annual_income_hash[:annualTaxIncome]
 
-        if @attestations_annual_income_hash[:annualTaxIncome][:incomeAmount]
-          @attestations_annual_income_hash[:annualTaxIncome][:incomeAmount]
+        if attestations_annual_income_hash[:annualTaxIncome][:incomeAmount]
+          attestations_annual_income_hash[:annualTaxIncome][:incomeAmount]
         else
           0.0
         end
@@ -247,9 +250,9 @@ module AcaEntities
       end
 
       def job_income_hash
-        return [] if @attestations_income_hash.blank? || create_other_tax_income
+        return [] if attestations_income_hash.blank? || create_other_tax_income
 
-        @attestations_income_hash.each_with_object([]) do |(_k, income), result|
+        attestations_income_hash.each_with_object([]) do |(_k, income), result|
           next unless EMPLOYEMENT[income[:incomeSourceType]].present?
           next if negative_income(income)
           result << {
@@ -288,8 +291,8 @@ module AcaEntities
       end
 
       def self_emp_income_hash
-        return [] if @attestations_income_hash.blank? || create_other_tax_income
-        @attestations_income_hash.each_with_object([]) do |(_k, income), result|
+        return [] if attestations_income_hash.blank? || create_other_tax_income
+        attestations_income_hash.each_with_object([]) do |(_k, income), result|
           next unless SELF_EMPLOYMENT[income[:incomeSourceType]].present?
           next if negative_income(income)
           result << {
@@ -306,8 +309,8 @@ module AcaEntities
       end
 
       def unemp_income_hash
-        return [] if @attestations_income_hash.blank? || create_other_tax_income
-        @attestations_income_hash.each_with_object([]) do |(_k, income), result|
+        return [] if attestations_income_hash.blank? || create_other_tax_income
+        attestations_income_hash.each_with_object([]) do |(_k, income), result|
           next unless UNEMPLOYMENT_INCOME_KIND[income[:incomeSourceType]].present?
           next if negative_income(income)
           result << {
@@ -324,7 +327,7 @@ module AcaEntities
       end
 
       def other_income_hash
-        return [] if @attestations_income_hash.blank?
+        return [] if attestations_income_hash.blank?
         if create_other_tax_income
           [{
                'kind' => "other",
@@ -336,7 +339,7 @@ module AcaEntities
                'is_projected' => false
            }]
         else
-          @attestations_income_hash.each_with_object([]) do |(_k, income), result|
+          attestations_income_hash.each_with_object([]) do |(_k, income), result|
             if negative_income(income) && TAX_INCOME_KIND[income[:incomeSourceType]].blank?
               result << {
                 'kind' => "other",
@@ -365,9 +368,9 @@ module AcaEntities
       end
 
       def deduction_hash
-        return [] if @attestations_income_hash.blank? || create_other_tax_income
+        return [] if attestations_income_hash.blank? || create_other_tax_income
 
-        @attestations_income_hash.each_with_object([]) do |(_k, income), result|
+        attestations_income_hash.each_with_object([]) do |(_k, income), result|
           next unless DEDUCTION_TYPE[income[:incomeSourceType]].present?
 
           result << {
