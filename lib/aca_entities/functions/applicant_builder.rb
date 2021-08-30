@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# rubocop:disable  Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity, Metrics/MethodLength, Layout/LineLength, Metrics/AbcSize
 module AcaEntities
   module Functions
     # build iap applicant
@@ -20,24 +21,23 @@ module AcaEntities
       private
 
       def build_applicant_hash
-        [ name_hash,
-          demographic_hash,
-          identifying_info_hash,
-          attestation_hash,
-          citizenship_hash,
-          member_reference_hash,
-          student_hash,
-          pregnancy_info_hash,
-          foster_care_hash,
-          income_hash,
-          benefits_hash,
-          tax_info_hash,
-          vlp_document_hash,
-          address_hash,
-          email_hash,
-          phone_hash,
-          additonal_info_hash
-        ].reduce(:merge)
+        [name_hash,
+         demographic_hash,
+         identifying_info_hash,
+         attestation_hash,
+         citizenship_hash,
+         member_reference_hash,
+         student_hash,
+         pregnancy_info_hash,
+         foster_care_hash,
+         income_hash,
+         benefits_hash,
+         tax_info_hash,
+         vlp_document_hash,
+         address_hash,
+         email_hash,
+         phone_hash,
+         additonal_info_hash].reduce(:merge)
       end
 
       def income_hash
@@ -45,7 +45,7 @@ module AcaEntities
       end
 
       def benefits_hash
-        AcaEntities::Functions::BenefitBuilder.new.call(memoized_data, member)
+        AcaEntities::Functions::Benefit.new.call(memoized_data, member_identifier)
       end
 
       def tax_info_hash
@@ -83,9 +83,9 @@ module AcaEntities
                         last_name: memoized_data.find(Regexp.new("last_name.#{member_identifier}"))&.first&.item,
                         name_sfx: memoized_data.find(Regexp.new("name_sfx.#{member_identifier}"))&.first&.item || '',
                         name_pfx: memoized_data.find(Regexp.new("name_pfx.#{member_identifier}"))&.first&.item || '',
-                        full_name: [memoized_data.find(Regexp.new("first_name.#{member_identifier}"))&.first&.item, memoized_data.find(Regexp.new("last_name.#{member_identifier}"))&.first&.item].join('.'),
-                        alternate_name: memoized_data.find(Regexp.new("alternate_name.#{member_identifier}"))&.first&.item || ''
-                      }
+                        full_name: [memoized_data.find(Regexp.new("first_name.#{member_identifier}"))&.first&.item,
+                                    memoized_data.find(Regexp.new("last_name.#{member_identifier}"))&.first&.item].join('.'),
+                        alternate_name: memoized_data.find(Regexp.new("alternate_name.#{member_identifier}"))&.first&.item || '' }
 
         { name: member_name }
       end
@@ -182,7 +182,7 @@ module AcaEntities
           has_ssn: !memoized_data.find(Regexp.new("person_demographics.ssn.#{member_identifier}"))&.first&.item.nil?
         }
 
-        { identifying_information: identifying_info}
+        { identifying_information: identifying_info }
       end
 
       def additonal_info_hash
@@ -219,10 +219,10 @@ module AcaEntities
           had_prior_insurance: false, # default value
           # prior_insurance_end_date: Date.parse("2021-05-07"), # default value
 
-          is_self_attested_long_term_care: non_magi.nil? ? false : non_magi[:longTermCareIndicator] || false,
+          is_self_attested_long_term_care: non_magi.nil? ? false : non_magi[:longTermCareIndicator] || false
         }
       end
     end
   end
 end
-
+# rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity, Metrics/MethodLength, Layout/LineLength, Metrics/AbcSize

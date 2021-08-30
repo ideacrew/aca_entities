@@ -50,7 +50,7 @@ channels:
           routing_key: enroll.json.stream
           bindingVersion: '0.2.0'
       operationId: on_enroll.enroll.json
-      description: Events - Generate Renewal Draft Application
+      description: Events - Stream JSON payloads
 
 tags:
   - name: linter_tag

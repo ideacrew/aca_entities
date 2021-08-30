@@ -1,6 +1,7 @@
 # frozen_string_literal: true
+
 require 'pry'
-# rubocop:disable  Lint/DuplicateBranch, Naming/PredicateName, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity, Metrics/MethodLength, Layout/LineLength, Metrics/AbcSize, Metrics/ClassLength
+
 module AcaEntities
   module Functions
     # build application and applicants
@@ -33,4 +34,3 @@ module AcaEntities
     end
   end
 end
-# rubocop:enable  Lint/DuplicateBranch, Naming/PredicateName, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity, Metrics/MethodLength, Layout/LineLength, Metrics/AbcSize, Metrics/ClassLength

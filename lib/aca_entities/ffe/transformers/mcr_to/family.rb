@@ -17,6 +17,7 @@ require 'aca_entities/functions/applicant_builder'
 require 'aca_entities/functions/tax_filer_builder'
 require 'aca_entities/functions/benefit_builder'
 require 'aca_entities/functions/income'
+require 'aca_entities/functions/benefit'
 require 'aca_entities/ffe/transformers/cv/address'
 require 'aca_entities/ffe/transformers/cv/phone'
 require 'aca_entities/ffe/transformers/cv/vlp_document'
@@ -382,6 +383,8 @@ module AcaEntities
                                                                                                    append_identifier: true
 
                   map 'insuranceCoverage', 'insuranceCoverage',
+                      memoize_record: true, visible: false
+                  map 'medicaid', 'medicaid',
                       memoize_record: true, visible: false
                   add_key 'person.consumer_role.lawful_presence_determination.citizen_status',
                           function: AcaEntities::Functions::BuildLawfulPresenceDetermination.new

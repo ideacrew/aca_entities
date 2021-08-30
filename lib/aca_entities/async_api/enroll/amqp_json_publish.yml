@@ -44,7 +44,7 @@ channels:
         binding_version: "0.2.0"
     publish:
       operationId: enroll.json.stream
-      description: Events - migration
+      description: Events - Stream JSON payloads
       bindings:
         amqp:
           app_id: enroll
