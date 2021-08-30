@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# rubocop:disable  Lint/UnreachableCode, Metrics/MethodLength
 module AcaEntities
   module Functions
     # build IAP income
@@ -60,29 +61,6 @@ module AcaEntities
       #   other_limited_benefit_coverage
       #   ].freeze
 
-      #   "medicaid_cubcare_due_on"=>" ", "has_eligible_medicaid_cubcare"=>"false"
-
-      #     "insuranceCoverage": {
-      #       "enrolledCoverages": [
-      #           {
-      #               "insuranceMarketType": "INDIVIDUAL_INSURANCE"
-      #           }
-      #       ],
-      #       "offeredEmployeeCoverage": "NO",
-      #       "enrolledInIchraIndicator": false,
-      #       "offeredIchraIndicator": false
-      #   },
-      #   "medicaid": {
-      #       "medicaidDeniedDate": "2021-01-15",
-      #       "medicaidDeniedIndicator": true,
-      #       "enrolledInHealthCoverageIndicator": false,
-      #       "informationChangeSinceMedicaidEndedIndicator": false
-      #   },
-
-      #   "informationChangeSinceMedicaidEndedIndicator": true,
-      #                               "medicaidEndIndicator": true,
-      #                               "medicaidEndDate": "2021-03-31"
-
       def call(cache, m_identifier = nil)
         @insurance_coverage_hash = cache.find(Regexp.new("attestations.members.#{m_identifier}.insuranceCoverage"))&.first&.item
 
@@ -94,23 +72,8 @@ module AcaEntities
           benefits: enrolled_health_coverage + eligible_health_coverage }
       end
 
-      # Was this person found not eligible for MaineCare (Medicaid) or CubCare (Children's Health Insurance Program) within the last 90 days? *
-      #   def eligible_medicaid_cubcare_hash
-      #     if @medicaid_hash[:medicaidDeniedIndicator]
-      #       { has_eligible_medicaid_cubcare: @medicaid_hash[:medicaidDeniedIndicator], medicaid_cubcare_due_on: @medicaid_hash[:medicaidDeniedDate] }
-      #     else
-      #       { has_eligible_medicaid_cubcare: @medicaid_hash[:medicaidDeniedIndicator] }
-      #     end
-      #   end
-
-      # Did this person have MaineCare (Medicaid) or CubCare (Children's Health Insurance Program) that will end soon or that recently ended because of a change in eligibility? *
-      # # # What is the last day of this person’s MaineCare (Medicaid) or CubCare (CHIP) coverage? *
-      #   def eligibility_changed_hash
-      #     { has_eligibility_changed: @medicaid_hash[:informationChangeSinceMedicaidEndedIndicator] && @medicaid_hash[:medicaidEndIndicator],
-      #       person_coverage_end_on: @medicaid_hash[:medicaidEndDate] }
-      #   end
-
-      # Does this person currently have access to health coverage or a Health Reimbursement Arrangement that they are not enrolled in (including through another person, like a spouse or parent)? *
+      # Does this person currently have access to health coverage or a Health Reimbursement Arrangement
+      ## that they are not enrolled in (including through another person, like a spouse or parent)? *
       def eligible_hash
         result = []
 
@@ -138,42 +101,8 @@ module AcaEntities
           # if offered for employee sponsored coverage(esc) is set to true then proceed to next step
           next unless @insurance_coverage_hash[:offeredEmployeeCoverage] && !esc[:escEnrolledIndicator]
           begin
-            phone = emp_phone(esc)
-            result << {
-              employee_cost: (esc[:lcsopPremium] || "0.0"),
-              kind: 'employer_sponsored_insurance', # default value
-              status: 'is_eligible', # default value
-              # insurance_kind:  'employer_sponsored_insurance', # default value
-              :employer => { employer_name: esc[:employer][:name],
-                             employer_id: '123456789' }, # default value
-              is_esi_waiting_period: esc[:waitingPeriodIndicator],
-              is_esi_mec_met: esc[:employerOffersMinValuePlan],
-              esi_covered: 'self', # default value
-              start_on: Date.parse('2021-01-01'), # default value
-              end_on: nil,
-              employee_cost_frequency: esc[:lcsopPremiumFrequencyType]&.capitalize,
-              employer_address:
-              {
-                address_1: '21313312', # default value
-                address_2: '',
-                address_3: '',
-                county: '',
-                country_name: '',
-                kind: 'work', # default value
-                city: 'was',  # default value
-                state: 'DC',  # default value
-                zip: '31232'
-              }, # default value
-              employer_phone:
-              {
-                kind: 'work', # default value
-                country_code: '',
-                area_code: phone[0..2],
-                number: phone[3..9],
-                extension: '',
-                full_phone_number: phone
-              }
-            }
+            result << AcaEntities::Ffe::Transformers::Cv::Esc.transform(esc.merge(kind: 'employer_sponsored_insurance', :status => "is_eligible",
+                                                                                  phone: emp_phone(esc)))
           rescue StandardError => e
             puts "error in benefits_esc_hash #{e}"
           end
@@ -232,20 +161,18 @@ module AcaEntities
         return [] if @insurance_coverage_hash.nil?
 
         result = []
-        # %w[is_enrolled is_eligible].each do |status| # default loop , should get value from payload
         @insurance_coverage_hash[:enrolledCoverages].each do |enrolled_coverage|
           next if enrolled_coverage[:insuranceMarketType] == 'NONE'
           next unless BenefitsMapping[enrolled_coverage[:insuranceMarketType]]
 
           result << {
-            kind: BenefitsMapping[enrolled_coverage[:insuranceMarketType]], # TODO: check this value #[:insuranceMarketType]&.downcase, # default value
+            kind: BenefitsMapping[enrolled_coverage[:insuranceMarketType]],
             status: 'is_enrolled',
             # insurance_kind:  BenefitsMapping[enrolled_coverage[:insuranceMarketType]],
             start_on: Date.parse('2021-01-01'), # default value
             end_on: nil
           }
         end
-        # end
         result
       end
 
@@ -304,42 +231,8 @@ module AcaEntities
           # if enrolled in employee sponsored coverage(esc) is set to true then proceed to next step
           next unless esc[:escEnrolledIndicator] && !@insurance_coverage_hash[:offeredEmployeeCoverage]
           begin
-            phone = emp_phone(esc)
-            result << {
-              employee_cost: (esc[:lcsopPremium] || "0.0"),
-              kind: 'employer_sponsored_insurance', # default value
-              status: 'is_enrolled', # default value
-              # insurance_kind:  'employer_sponsored_insurance', # default value
-              :employer => { employer_name: esc[:employer][:name],
-                             employer_id: '123456789' }, # default value
-              is_esi_waiting_period: esc[:waitingPeriodIndicator],
-              is_esi_mec_met: esc[:employerOffersMinValuePlan],
-              esi_covered: 'self', # default value
-              start_on: Date.parse('2021-01-01'), # default value
-              end_on: nil,
-              employee_cost_frequency: esc[:lcsopPremiumFrequencyType]&.capitalize,
-              employer_address:
-              {
-                address_1: '21313312', # default value
-                address_2: '',
-                address_3: '',
-                county: '',
-                country_name: '',
-                kind: 'work', # default value
-                city: 'was',  # default value
-                state: 'DC',  # default value
-                zip: '31232'
-              }, # default value
-              employer_phone:
-              {
-                kind: 'work', # default value
-                country_code: '',
-                area_code: phone[0..2],
-                number: phone[3..9],
-                extension: '',
-                full_phone_number: phone
-              }
-            }
+            result << AcaEntities::Ffe::Transformers::Cv::Esc.transform(esc.merge(kind: 'employer_sponsored_insurance', :status => "is_enrolled",
+                                                                                  phone: emp_phone(esc)))
           rescue StandardError => e
             puts "error in benefits_esc_hash #{e}"
           end
@@ -359,4 +252,4 @@ module AcaEntities
     end
   end
 end
-
+# rubocop:enable  Lint/UnreachableCode, Metrics/MethodLength

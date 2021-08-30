@@ -21,6 +21,7 @@ require 'aca_entities/functions/medicaid'
 require 'aca_entities/ffe/transformers/cv/address'
 require 'aca_entities/ffe/transformers/cv/phone'
 require 'aca_entities/ffe/transformers/cv/vlp_document'
+require 'aca_entities/ffe/transformers/cv/esc'
 require 'aca_entities/ffe/types'
 
 # rubocop:disable Metrics/ClassLength
