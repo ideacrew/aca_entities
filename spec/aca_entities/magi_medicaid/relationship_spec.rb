@@ -86,6 +86,23 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Relationship, dbclean: :after_each d
         expect(@result).to be_a(described_class)
       end
     end
+
+    context 'brother_or_sister_in_law' do
+      let(:test1_params) do
+        { kind: 'brother_or_sister_in_law',
+          applicant_reference: applicant,
+          relative_reference: relative }
+      end
+
+      before do
+        relationship_params = AcaEntities::MagiMedicaid::Contracts::RelationshipContract.new.call(test1_params).to_h
+        @result = described_class.new(relationship_params)
+      end
+
+      it 'should return Relationship entity object' do
+        expect(@result).to be_a(described_class)
+      end
+    end
   end
 
   describe 'with invalid arguments' do
