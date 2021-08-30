@@ -9,13 +9,23 @@ module AcaEntities
           include ::AcaEntities::Operations::Transforms::Transformer
 
           map 'lcsopPremium', 'employee_cost', function: ->(v) { v || "0.0"} # default value
-          map 'kind', 'kind'
+          map 'kind', 'kind', memoize: true, visible: true
           map 'status', 'status'
           map 'waitingPeriodIndicator', 'is_esi_waiting_period'
           map 'employerOffersMinValuePlan', 'is_esi_mec_met'
-          add_key 'esi_covered', value: 'self' # default value
-          add_key 'start_on', value: ->(_v) {Date.parse('2021-01-01')} # default value
-          add_key 'end_on', value: ->(_v) {} # default value
+          map 'hraType', 'hra_type', function: ->(v) {Ffe::Types::HraTypeMapping[v.to_sym]}
+          add_key 'esi_covered', function: lambda { |v|
+                                             kind = v.resolve("kind").item
+                                             kind == 'employer_sponsored_insurance' ? 'self' : nil
+                                           }                                         # default value
+          map 'startDate', 'startDate', memoize: true, visible: false
+          map 'endDate', 'endDate', memoize: true, visible: false
+          add_key 'start_on', function: lambda { |v|
+                                          v.resolve('startDate').item || Date.parse('2021-01-01')
+                                        }                                      # default value
+          add_key 'end_on', function: lambda { |v|
+                                        v.resolve('endDate').item ? v.resolve('v').item : nil
+                                      }                                    # default value
           map 'lcsopPremiumFrequencyType', 'employee_cost_frequency', function: ->(v) {v.capitalize}
 
           map 'employer.name', 'employer.employer_name'

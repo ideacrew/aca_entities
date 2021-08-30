@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# rubocop:disable  Lint/UnreachableCode, Metrics/MethodLength
+# rubocop:disable  Lint/UnreachableCode
 module AcaEntities
   module Functions
     # build IAP income
@@ -16,19 +16,6 @@ module AcaEntities
       # MEDICARE
       # TRICARE
       # VETERAN_HEALTH_PROGRAM
-
-      BenefitsMapping = {
-        "INDIVIDUAL_INSURANCE" => 'private_individual_and_family_coverage',
-        "MEDICAID" => 'medicaid',
-        "MEDICARE" => 'medicare',
-        "TRICARE" => 'tricare',
-        "VETERAN_HEALTH_PROGRAM" => 'veterans_administration_health_benefits',
-        "EMPLOYER_SPONSORED" => 'employer_sponsored_insurance',
-        "CHIP" => 'child_health_insurance_plan'
-        # "PEACE_CORPS" => 'peace_corps_health_benefits',
-        # "OTHER_FULL_BENEFIT_COVERAGE" => 'other_full_benefit_coverage',
-        # "OTHER_LIMITED_BENEFIT_COVERAGE" => 'OTHER_LIMITED_BENEFIT_COVERAGE'
-      }.freeze
 
       # enroll
       # INSURANCE_KINDS = %w[
@@ -63,6 +50,7 @@ module AcaEntities
 
       def call(cache, m_identifier = nil)
         @insurance_coverage_hash = cache.find(Regexp.new("attestations.members.#{m_identifier}.insuranceCoverage"))&.first&.item
+        return { benefits: [], has_enrolled_health_coverage: nil, has_eligible_health_coverage: nil } if @insurance_coverage_hash.nil?
 
         enrolled_health_coverage = [enrolled_hash, enrolled_hra_hash, enrolled_esc_hash].flatten.compact
         eligible_health_coverage = [eligible_hash, offered_hra_hash, offered_esc_hash].flatten.compact
@@ -83,9 +71,8 @@ module AcaEntities
           next if enrolled_coverage[:insuranceMarketType] == 'NONE'
 
           result << {
-            kind: BenefitsMapping[enrolled_coverage[:insuranceMarketType]],
+            kind: Ffe::Types::BenefitsKindMapping[enrolled_coverage[:insuranceMarketType].to_sym],
             status: 'is_eligible',
-            # insurance_kind:  BenefitsMapping[enrolled_coverage[:insuranceMarketType]],
             start_on: Date.parse('2021-01-01'), # default value
             end_on: nil
           }
@@ -94,7 +81,6 @@ module AcaEntities
       end
 
       def offered_esc_hash
-        return [] if @insurance_coverage_hash.nil?
         return [] unless @insurance_coverage_hash[:employerSponsoredCoverageOffers]
 
         @insurance_coverage_hash[:employerSponsoredCoverageOffers].each_with_object([]) do |(_k, esc), result|
@@ -111,64 +97,26 @@ module AcaEntities
       end
 
       def offered_hra_hash
-        if @insurance_coverage_hash.nil? || (!@insurance_coverage_hash[:offeredIchraIndicator] && @insurance_coverage_hash[:enrolledInIchraIndicator])
-          return []
-        end
-
+        return [] if !@insurance_coverage_hash[:offeredIchraIndicator] && @insurance_coverage_hash[:enrolledInIchraIndicator]
         return [] unless @insurance_coverage_hash[:hraOffers]
         @insurance_coverage_hash[:hraOffers].each_with_object([]) do |hra, collect|
           next unless hra[:employer]
-          phone = emp_phone(hra)
-          collect << {
-            employee_cost: "0.0", # default value
-            kind: "health_reimbursement_arrangement",
-            status: "is_eligible",
-            employer: {
-              employer_name: hra[:employer][:name], # default value
-              employer_id: "123456789" # default value
-            },
-            is_esi_waiting_period: false, # default value
-            is_esi_mec_met: "no", # default value
-            esi_covered: "self", # default value
-            start_on: Date.parse("2021-01-01"), # default value
-            end_on: nil, # default value
-            employee_cost_frequency: "Monthly", # default value
-            employer_address: {
-              address_1: "21313312", # default value
-              address_2: "", # default value
-              address_3: "", # default value
-              county: "", # default value
-              country_name: "", # default value
-              kind: "work", # default value
-              city: "was", # default value
-              state: "DC", # default value
-              zip: "31232" # default value
-            },
-            employer_phone: {
-              kind: 'work', # default value
-              country_code: '',
-              area_code: phone[0..2],
-              number: phone[3..9],
-              extension: '',
-              full_phone_number: phone
-            }
-          }
+
+          collect << AcaEntities::Ffe::Transformers::Cv::Esc.transform(hra.merge(kind: 'health_reimbursement_arrangement', :status => "is_eligible",
+                                                                                 phone: emp_phone(hra)))
         end
       end
 
       # Is this person currently enrolled in health coverage or getting help paying for health coverage through a Health Reimbursement Arrangement? *
       def enrolled_hash
-        return [] if @insurance_coverage_hash.nil?
-
         result = []
         @insurance_coverage_hash[:enrolledCoverages].each do |enrolled_coverage|
           next if enrolled_coverage[:insuranceMarketType] == 'NONE'
-          next unless BenefitsMapping[enrolled_coverage[:insuranceMarketType]]
+          next unless Ffe::Types::BenefitsKindMapping[enrolled_coverage[:insuranceMarketType].to_sym]
 
           result << {
-            kind: BenefitsMapping[enrolled_coverage[:insuranceMarketType]],
+            kind: Ffe::Types::BenefitsKindMapping[enrolled_coverage[:insuranceMarketType].to_sym],
             status: 'is_enrolled',
-            # insurance_kind:  BenefitsMapping[enrolled_coverage[:insuranceMarketType]],
             start_on: Date.parse('2021-01-01'), # default value
             end_on: nil
           }
@@ -177,55 +125,18 @@ module AcaEntities
       end
 
       def enrolled_hra_hash
-        if @insurance_coverage_hash.nil? || (!@insurance_coverage_hash[:enrolledInIchraIndicator] && @insurance_coverage_hash[:offeredIchraIndicator])
-          return []
-        end
-
+        return [] if !@insurance_coverage_hash[:enrolledInIchraIndicator] && @insurance_coverage_hash[:offeredIchraIndicator]
         return [] unless @insurance_coverage_hash[:hraOffers]
         @insurance_coverage_hash[:hraOffers].each_with_object([]) do |(_k, hra), collect|
-
           next unless hra[:employer]
-          phone = emp_phone(hra)
-          collect << {
-            employee_cost: "0.0", # default value
-            kind: "health_reimbursement_arrangement",
-            status: "is_enrolled",
-            employer: {
-              employer_name: hra[:employer][:name], # default value
-              employer_id: "123456789" # default value
-            },
-            is_esi_waiting_period: false, # default value
-            is_esi_mec_met: "no", # default value
-            esi_covered: "self", # default value
-            start_on: Date.parse("2021-01-01"), # default value
-            end_on: nil, # default value
-            employee_cost_frequency: "Monthly", # default value
-            employer_address: {
-              address_1: "21313312", # default value
-              address_2: "", # default value
-              address_3: "", # default value
-              county: "", # default value
-              country_name: "", # default value
-              kind: "work", # default value
-              city: "was", # default value
-              state: "DC", # default value
-              zip: "31232" # default value
-            },
-            employer_phone: {
-              kind: 'work', # default value
-              country_code: '',
-              area_code: phone[0..2],
-              number: phone[3..9],
-              extension: '',
-              full_phone_number: phone
-            }
-          }
+
+          collect << AcaEntities::Ffe::Transformers::Cv::Esc.transform(hra.merge(kind: 'health_reimbursement_arrangement', :status => "is_enrolled",
+                                                                                 phone: emp_phone(hra)))
         end
       end
 
       # Is this person currently enrolled in health coverage or getting help paying for health coverage through a Health Reimbursement Arrangement? *
       def enrolled_esc_hash
-        return [] if @insurance_coverage_hash.nil?
         return [] unless @insurance_coverage_hash[:employerSponsoredCoverageOffers]
         @insurance_coverage_hash[:employerSponsoredCoverageOffers].each_with_object([]) do |(_k, esc), result|
           # if enrolled in employee sponsored coverage(esc) is set to true then proceed to next step
@@ -252,4 +163,4 @@ module AcaEntities
     end
   end
 end
-# rubocop:enable  Lint/UnreachableCode, Metrics/MethodLength
+# rubocop:enable  Lint/UnreachableCode
