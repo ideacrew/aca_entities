@@ -32,6 +32,7 @@ module AcaEntities
          foster_care_hash,
          income_hash,
          benefits_hash,
+         medicaid_hash,
          tax_info_hash,
          vlp_document_hash,
          address_hash,
@@ -46,6 +47,10 @@ module AcaEntities
 
       def benefits_hash
         AcaEntities::Functions::Benefit.new.call(memoized_data, member_identifier)
+      end
+
+      def medicaid_hash
+        AcaEntities::Functions::Medicaid.new.call(memoized_data, member_identifier)
       end
 
       def tax_info_hash
