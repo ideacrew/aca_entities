@@ -21,8 +21,6 @@ require_relative 'ifsv/h9t/ifsv_applicant'
 require_relative 'ifsv/h9t/request'
 
 # operations
-
-
 module AcaEntities
   module Serializers
     module Xml
