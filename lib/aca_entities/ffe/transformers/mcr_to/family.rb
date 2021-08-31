@@ -4,6 +4,7 @@ require 'aca_entities/functions/email'
 require 'aca_entities/functions/phone'
 require 'aca_entities/functions/address'
 require 'aca_entities/functions/relationship_builder'
+require 'aca_entities/functions/broker_account_builder'
 require 'aca_entities/functions/age_on'
 require 'aca_entities/functions/primary_applicant_builder'
 require 'aca_entities/functions/build_vlp_document'
@@ -50,6 +51,7 @@ module AcaEntities
 
           # namespace 'source key from hash' and block
           namespace 'attestations' do
+            map 'application', 'application', memoize_record: true, visible: false
             # rewrap elements under attestations to family
             ### type: (build family as :hash or :array)
             rewrap 'family', type: :hash do
@@ -82,19 +84,6 @@ module AcaEntities
                 #   applicationSignatureType
                 #   applicationSignatureDate
 
-                # TODO: applicationAssistors  # broker information
-                # compare broker in application
-                # "applicationAssistorType",
-                # "creationDateTime",
-                # "assistorFirstName",
-                # "assistorLastName",
-                # "assistorNationalProducerNumber",
-                # "assistorMiddleName",
-                # "assistorOrganizationId",
-                # "assistorOrganizationName",
-                # "assistorSystemUserName",
-                # "assistorSuffix"
-
                 map 'requestingFinancialAssistanceIndicator', 'is_applying_for_assistance', memoize: true, visible: false
               end
 
@@ -102,7 +91,7 @@ module AcaEntities
               # this need to set
               add_key 'special_enrollment_periods', value: ->(_v) {[]}
               add_key 'irs_groups', value: ->(_v) {[]}
-              add_key 'broker_accounts', value: ->(_v) {[]}
+              add_key 'broker_accounts', function: AcaEntities::Functions::BrokerAccountBuilder.new
               add_key 'documents', value: ->(_v) {[]}
               add_key 'payment_transactions', value: ->(_v) {[]}
 

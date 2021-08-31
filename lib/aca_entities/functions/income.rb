@@ -158,7 +158,7 @@ module AcaEntities
 
       def taxable_income_with_negative_value
         attestations_income_hash.any? do |_key, income_hash|
-          income_hash[:incomeAmount] < 0 && NEGATIVE_AMOUNT_INCOME_TYPE_KINDS.exclude?(income_hash[:incomeSourceType])
+          income_hash[:incomeAmount] < 0 && !NEGATIVE_AMOUNT_INCOME_TYPE_KINDS.include?(income_hash[:incomeSourceType])
         end
       end
 
