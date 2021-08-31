@@ -112,7 +112,8 @@ module AcaEntities
         'health_savings_account',
         'ira_deduction',
         'reservists_performing_artists_and_fee_basis_government_official_expenses',
-        'tuition_and_fees'
+        'tuition_and_fees',
+        'other'
       )
 
       IncomeValidationStateKind   = Types::Coercible::String.enum('na', 'valid', 'outstanding', 'pending')
