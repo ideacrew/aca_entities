@@ -50,7 +50,17 @@ module AcaEntities
       end
 
       def medicaid_hash
-        AcaEntities::Functions::Medicaid.new.call(memoized_data, member_identifier)
+        # 1. Did this person have MaineCare (Medicaid) or CubCare (Children's Health Insurance Program)
+        # ##that will end soon or that recently ended because of a change in eligibility? *
+        # 2. What is the last day of this person's MaineCare (Medicaid) or CubCare (CHIP) coverage? *
+        # 3. Was this person found not eligible for MaineCare (Medicaid) or
+        # ##CubCare (Children's Health Insurance Program) within the last 90 days? *
+        # 4. Was this person found not eligible for MaineCare (Medicaid) or
+        # ##CubCare (Children's Health Insurance Program) based on their immigration status since [current year minus 5 years]?
+        # 5. Has this person's immigration status changed since they were not found eligible
+        ### for MaineCare (Medicaid) or CubCare (Children's Health Insurance Program)?
+        @medicaid_hash = memoized_data.find(Regexp.new("attestations.members.#{member_identifier}.medicaid"))&.first&.item
+        AcaEntities::Ffe::Transformers::Cv::Medicaid.transform(@medicaid_hash)
       end
 
       def tax_info_hash
