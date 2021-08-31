@@ -8,7 +8,8 @@ module AcaEntities
         class Esc < ::AcaEntities::Operations::Transforms::Transform
           include ::AcaEntities::Operations::Transforms::Transformer
 
-          map 'lcsopPremium', 'employee_cost', function: ->(v) { v || "0.0"} # default value
+          map 'lcsopPremium', 'employee_cost', memoize: true, visible: false
+          map 'employeeSelfOnlyOfferAmount', 'employee_cost', memoize: true, visible: false
           map 'kind', 'kind', memoize: true, visible: true
           map 'status', 'status'
           map 'waitingPeriodIndicator', 'is_esi_waiting_period'
@@ -26,7 +27,8 @@ module AcaEntities
           add_key 'end_on', function: lambda { |v|
                                         v.resolve('endDate').item ? v.resolve('v').item : nil
                                       }                                    # default value
-          map 'lcsopPremiumFrequencyType', 'employee_cost_frequency', function: ->(v) {v.capitalize}
+          map 'lcsopPremiumFrequencyType', 'employee_cost_frequency', memoize: true, visible: false
+          map 'employeeSelfOnlyOfferFrequencyType', 'employee_cost_frequency', memoize: true, visible: false
 
           map 'employer.name', 'employer.employer_name'
           add_key 'employer.employer_id', value: '123456789' # default value
@@ -49,6 +51,10 @@ module AcaEntities
           add_key 'employer_phone.extension'
           add_key 'employer_phone.full_phone_number', function: ->(v) {v.resolve("phone").item.to_s}
 
+          add_key 'employee_cost', function: ->(v) { v.resolve('employee_cost')&.item || "0.0"}
+          add_key 'employee_cost_frequency', function: lambda { |v|
+                                                         v.resolve('employee_cost_frequency')&.item&.capitalize || "Monthly"
+                                                       }
         end
       end
     end
