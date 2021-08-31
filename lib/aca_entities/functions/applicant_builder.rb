@@ -60,6 +60,7 @@ module AcaEntities
         # 5. Has this person's immigration status changed since they were not found eligible
         ### for MaineCare (Medicaid) or CubCare (Children's Health Insurance Program)?
         @medicaid_hash = memoized_data.find(Regexp.new("attestations.members.#{member_identifier}.medicaid"))&.first&.item
+        return {} if @medicaid_hash.nil?   #TODO check
         AcaEntities::Ffe::Transformers::Cv::Medicaid.transform(@medicaid_hash)
       end
 
