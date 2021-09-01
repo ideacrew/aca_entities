@@ -191,7 +191,7 @@ channels:
       operationId: fdsh.eligibilities.non_esi.non_esi_determination_complete
       description: NON ESI Determination has completed.
 
-fdsh.eligibilities.ifsv.ifsv_eligibility_determined:
+  fdsh.eligibilities.ifsv.ifsv_eligibility_determined:
     bindings:
       amqp:
         is: :routing_key
