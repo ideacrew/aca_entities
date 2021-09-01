@@ -214,8 +214,8 @@ module AcaEntities
           is_applying_coverage: memoized_data.find(Regexp.new("is_coverage_applicant.#{member_identifier}"))&.first&.item,
           age_of_applicant: AcaEntities::Functions::AgeOn.new(on_date: Date.parse('2021-01-01')).call(memoized_data.find(Regexp.new("person_demographics.dob.#{member_identifier}"))&.first&.item),
 
-          is_homeless: memoized_data.find(Regexp.new("is_homeless.#{member_identifier}"))&.first&.item,
-          is_temporarily_out_of_state: memoized_data.find(Regexp.new("is_temporarily_out_of_state.#{member_identifier}"))&.first&.item,
+          is_homeless: memoized_data.find(Regexp.new("is_homeless.#{member_identifier}"))&.first&.item || false, # default value
+          is_temporarily_out_of_state: memoized_data.find(Regexp.new("is_temporarily_out_of_state.#{member_identifier}"))&.first&.item || false, # default value
 
           native_american_information: nil,
           is_consumer_role: nil,
