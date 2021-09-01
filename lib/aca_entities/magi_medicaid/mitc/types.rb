@@ -64,27 +64,28 @@ module AcaEntities
 
         RelationshipCodeMap = {
           self: '01',
-          husband_or_wife: '02',
+          husband_or_wife: '02', # spouse
           parent: '03',
-          son_or_daughter: '04',
-          stepson_or_stepdaughter: '05',
+          son_or_daughter: '04', # child
+          stepson_or_stepdaughter: '05', # stepchild
           grandchild: '06',
           great_grandchild: '06',
-          brother_or_sister: '07',
+          brother_or_sister: '07', # sibling
           domestic_partner: '08',
           stepparent: '12',
-          aunt_or_uncle: '13',
-          nephew_or_niece: '14',
+          aunt_or_uncle: '13', # uncle_aunt
+          nephew_or_niece: '14', # nephew_niece
           grandparent: '15',
           great_grandparent: '15',
-          first_cousin: '16',
-          brother_in_law_or_sister_in_law: '23',
-          son_in_law_or_daughter_in_law: '26',
+          first_cousin: '16', # cousin
+          parents_domestic_partner: '17',
+          brother_in_law_or_sister_in_law: '23', # sibling_in_law
+          son_in_law_or_daughter_in_law: '26', # child_in_law
           former_spouse: '27',
-          mother_in_law_or_father_in_law: '30',
+          mother_in_law_or_father_in_law: '30', # parent_in_law
           domestic_partners_child: '70',
-          other_relative: '87',
-          other: '88'
+          other_relative: '87', # other_relative
+          other: '88' # other
         }.freeze
 
         YesNoKind = Types::Coercible::String.enum('Y', 'N')
