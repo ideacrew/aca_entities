@@ -1,0 +1,58 @@
+---
+asyncapi: 2.0.0
+info:
+  title: Enroll App
+  version: 0.1.0
+  description: AMQP Publish configuration for the FTI services
+  contact:
+    name: IdeaCrew
+    url: https://ideacrew.com
+    email: info@ideacrew.com
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+
+servers:
+  production:
+    url: "amqp://rabbitmq:5672/event_source"
+    protocol: :amqp
+    protocolVersion: "0.9.2"
+    description: RabbitMQ Production Server
+  development:
+    url: "amqp://rabbitmq:5672/event_source"
+    protocol: :amqp
+    protocolVersion: "0.9.2"
+    description: RabbitMQ Test Server
+  test:
+    url: "amqp://rabbitmq:5672/event_source"
+    protocol: :amqp
+    protocolVersion: "0.9.2"
+    description: RabbitMQ Test Server
+
+channels:
+  fti.determination_requests.ifsv.ifsv_determination_requested:
+    bindings:
+      amqp:
+        is: :routing_key
+        exchange:
+          name: fti.determination_requests.ifsv
+          type: topic
+          content_type: application/json
+          durable: true
+          auto_delete: false
+          vhost: event_source
+        binding_version: "0.2.0"
+    publish:
+      operationId: fti.determination_requests.ifsv.ifsv_determination_requested
+      description: Events - eligibility determination Request
+      bindings:
+        amqp:
+          app_id: enroll
+          type: fti.determination_requests.ifsv
+          routing_key: fti.determination_requests.ifsv.ifsv_determination_requested
+          expiration: 100_000
+          deliveryMode: 2
+          mandatory: true
+          timestamp: true
+          content_type: application/json
+          bindingVersion: 0.2.0

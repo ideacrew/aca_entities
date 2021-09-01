@@ -191,6 +191,84 @@ channels:
       operationId: fdsh.eligibilities.non_esi.non_esi_determination_complete
       description: NON ESI Determination has completed.
 
+fdsh.eligibilities.ifsv.ifsv_eligibility_determined:
+    bindings:
+      amqp:
+        is: :routing_key
+        exchange:
+          name: fdsh.eligibilities.ifsv
+          type: topic
+          durable: true
+          auto_delete: false
+          vhost: event_source
+        bindingVersion: 0.1.0
+    publish:
+      bindings:
+        amqp:
+          app_id: fdsh_gateway
+          type: fdsh.eligibilities.ifsv
+          routing_key: fdsh.eligibilities.ifsv.ifsv_eligibility_determined
+          expiration: 100_000
+          deliveryMode: 2
+          mandatory: true
+          timestamp: true
+          content_type: application/json
+          bindingVersion: 0.2.0
+      operationId: fdsh.eligibilities.ifsv.ifsv_eligibility_determined
+      description: IFSV Determination has completed.
+
+  fdsh.eligibilities.ifsv.ifsv_eligibility_errored:
+    bindings:
+      amqp:
+        is: :routing_key
+        exchange:
+          name: fdsh.eligibilities.ifsv
+          type: topic
+          durable: true
+          auto_delete: false
+          vhost: event_source
+        bindingVersion: 0.1.0
+    publish:
+      bindings:
+        amqp:
+          app_id: fdsh_gateway
+          type: fdsh.eligibilities.ifsv
+          routing_key: fdsh.eligibilities.ifsv.ifsv_eligibility_errored
+          expiration: 100_000
+          deliveryMode: 2
+          mandatory: true
+          timestamp: true
+          content_type: application/json
+          bindingVersion: 0.2.0
+      operationId: fdsh.eligibilities.ifsv.ifsv_eligibility_errored
+      description: IFSV Determination has errored.
+
+  fdsh.eligibilities.ifsv.ifsv_eligibility_delayed:
+    bindings:
+      amqp:
+        is: :routing_key
+        exchange:
+          name: fdsh.eligibilities.ifsv
+          type: topic
+          durable: true
+          auto_delete: false
+          vhost: event_source
+        bindingVersion: 0.1.0
+    publish:
+      bindings:
+        amqp:
+          app_id: fdsh_gateway
+          type: fdsh.eligibilities.ifsv
+          routing_key: fdsh.eligibilities.ifsv.ifsv_eligibility_delayed
+          expiration: 100_000
+          deliveryMode: 2
+          mandatory: true
+          timestamp: true
+          content_type: application/json
+          bindingVersion: 0.2.0
+      operationId: fdsh.eligibilities.ifsv.ifsv_eligibility_delayed
+      description: IFSV Determination has delayed.
+
 tags:
   - name: linter_tag
     description: placeholder that satisfies the linter
