@@ -1,9 +1,9 @@
 ---
 asyncapi: 2.0.0
 info:
-  title: Crm gateway
+  title: CRM Gateway Subscriber
   version: 0.1.0
-  description: AMQP Producer configuration for the CRM Gateway service
+  description: AMQP Configuration for CRM Gateway services
   contact:
     name: IdeaCrew
     url: https://ideacrew.com
@@ -32,31 +32,22 @@ servers:
 defaultContentType: application/json
 
 channels:
-  crm_gateway.families:
+  on_crm_gateway.crm_gateway.families:
     bindings:
       amqp:
-        is: :routing_key
-        exchange:
-          name:  crm_gateway.families
-          type: topic
+        is: queue
+        queue:
+          name: on_crm_gateway.crm_gateway.families
           durable: true
+          exclusive: false
           auto_delete: false
           vhost: event_source
-        bindingVersion: 0.1.0
-    publish:
+    subscribe:
       bindings:
         amqp:
-          app_id: fdsh_gateway
-          type:  crm_gateway.families
-          routing_key:  crm_gateway.families.family_update
-          expiration: 100_000
-          deliveryMode: 2
-          mandatory: true
-          timestamp: true
-          content_type: application/json
-          bindingVersion: 0.2.0
-      operationId: crm_gateway.families.family_update
-      description: Saving of family record in Enroll
-tags:
-  - name: linter_tag
-    description: placeholder that satisfies the linter
+          ack: true
+          exclusive: false
+          routing_key: crm_gateway.families.#
+          bindingVersion: "0.2.0"
+      operationId: on_crm_gateway.crm_gateway.families
+      description: Events - CMS FDSH RIDP Service requests
