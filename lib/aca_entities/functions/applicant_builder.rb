@@ -161,8 +161,12 @@ module AcaEntities
 
       def student_hash
         student = {
-          is_student: !attestations_family_hash[:fullTimeStatusIndicator].nil?,
-          student_kind: attestations_family_hash[:fullTimeStatusIndicator] ? 'full_time' : nil, # needs refactor for other student kinds
+          is_student: attestations_family_hash[:fullTimeStatusIndicator].nil? ? false : attestations_family_hash[:fullTimeStatusIndicator],
+          student_kind: if attestations_family_hash[:fullTimeStatusIndicator].nil?
+                          nil
+                        else
+                          (attestations_family_hash[:fullTimeStatusIndicator] ? 'full_time' : nil)
+                        end, # needs refactor for other student kinds
           student_school_kind: nil,
           student_status_end_on: nil
         }
@@ -210,6 +214,9 @@ module AcaEntities
           is_applying_coverage: memoized_data.find(Regexp.new("is_coverage_applicant.#{member_identifier}"))&.first&.item,
           age_of_applicant: AcaEntities::Functions::AgeOn.new(on_date: Date.parse('2021-01-01')).call(memoized_data.find(Regexp.new("person_demographics.dob.#{member_identifier}"))&.first&.item),
 
+          is_homeless: memoized_data.find(Regexp.new("is_homeless.#{member_identifier}"))&.first&.item,
+          is_temporarily_out_of_state: memoized_data.find(Regexp.new("is_temporarily_out_of_state.#{member_identifier}"))&.first&.item,
+
           native_american_information: nil,
           is_consumer_role: nil,
           is_resident_role: nil,
@@ -226,8 +233,8 @@ module AcaEntities
           non_ssn_apply_reason: nil, # default value
           moved_on_or_after_welfare_reformed_law: nil, # default value
           is_currently_enrolled_in_health_plan: nil, # default value
-          has_daily_living_help: nil, # default value
-          need_help_paying_bills: nil, # default value
+          has_daily_living_help: non_magi.nil? ? false : non_magi[:longTermCareIndicator] || false, # default value
+          need_help_paying_bills: non_magi.nil? ? false : non_magi[:longTermCareIndicator] || false, # default value
 
           is_medicare_eligible: false, # default value
           has_insurance: false, # default value
@@ -235,7 +242,8 @@ module AcaEntities
           had_prior_insurance: false, # default value
           # prior_insurance_end_date: Date.parse("2021-05-07"), # default value
 
-          is_self_attested_long_term_care: non_magi.nil? ? false : non_magi[:longTermCareIndicator] || false
+          is_physically_disabled: non_magi.nil? ? false : non_magi[:blindOrDisabledIndicator] || false, # default value
+          is_self_attested_long_term_care: non_magi.nil? ? false : non_magi[:longTermCareIndicator] || false # default value
         }
       end
     end

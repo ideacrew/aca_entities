@@ -214,8 +214,8 @@ module AcaEntities
                                                   identifier: true).item].join(' ')
                                      }
 
-                      map 'noHomeAddressIndicator', 'is_homeless'
-                      map 'liveOutsideStateTemporarilyIndicator', 'is_temporarily_out_of_state'
+                      map 'noHomeAddressIndicator', 'is_homeless', memoize: true, visible: true, append_identifier: true
+                      map 'liveOutsideStateTemporarilyIndicator', 'is_temporarily_out_of_state', memoize: true, visible: true, append_identifier: true
                       # map 'requestingFinancialAssistanceIndicator', 'is_applying_for_assistance'
 
                       # this need to set only for primary member
@@ -318,9 +318,6 @@ module AcaEntities
                       add_key 'person_demographics.language_code'
                       add_key 'person_demographics.date_of_death', value: ->(_v) {Date.parse("2021-05-07")} # default value
                       add_key 'person_demographics.dob_check'
-
-                      map 'noHomeAddressIndicator', 'is_homeless'
-                      map 'liveOutsideStateTemporarilyIndicator', 'is_temporarily_out_of_state'
 
                       # add_namespace 'tax_household_members', type: :array do
                       #   rewrap 'family.household.tax_households.tax_household_members', type: :array do
