@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 RSpec.describe AcaEntities::Fdsh::Ifsv::H9t::Operations::IfsvVerificationRequest, dbclean: :after_each do
