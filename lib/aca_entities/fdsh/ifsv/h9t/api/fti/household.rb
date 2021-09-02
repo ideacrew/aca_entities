@@ -20,15 +20,19 @@ module AcaEntities
               # A tax return filed by the household
               # @return [String]
               attribute :ApplicantVerification,
-                        AcaEntities::Fdsh::Ifsv::H9t::Api::Fti::Verification
-                          .meta(omittable: false)
+                        AcaEntities::Types::Array
+                          .of(
+                            AcaEntities::Fdsh::Ifsv::H9t::Api::Fti::Verification
+                          ).meta(omittable: false)
 
               # @!attribute [r] DependentVerification
               # A tax return filed by the household
               # @return [String]
               attribute :DependentVerification,
-                        AcaEntities::Fdsh::Ifsv::H9t::Api::Fti::Verification
-                          .meta(omittable: true)
+                        AcaEntities::Types::Array
+                          .of(
+                            AcaEntities::Fdsh::Ifsv::H9t::Api::Fti::Verification
+                          ).meta(omittable: false)
             end
           end
         end

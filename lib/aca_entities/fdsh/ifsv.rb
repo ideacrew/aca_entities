@@ -38,4 +38,7 @@ require_relative 'ifsv/h9t/fti/verification'
 require_relative 'ifsv/h9t/fti/response_metadata'
 require_relative 'ifsv/h9t/fti/response'
 
+# operations
+require_relative 'ifsv/h9t/operations/ifsv_verification_request'
+
 # require_relative 'ifsv/h9t/fti_applicant'
