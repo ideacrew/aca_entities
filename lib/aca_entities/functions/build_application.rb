@@ -28,6 +28,7 @@ module AcaEntities
           report_change_terms: @memoized_data.resolve('report_change_terms').item,
           medicaid_terms: @memoized_data.resolve('medicaid_terms').item,
           is_renewal_authorized: @memoized_data.resolve('is_renewal_authorized').item,
+          years_to_renew: @memoized_data.resolve('years_to_renew').item,
           family_reference: { hbx_id: @memoized_data.resolve('family.hbx_id').item.to_s }
         }
       end

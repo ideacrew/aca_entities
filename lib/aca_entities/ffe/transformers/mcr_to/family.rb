@@ -66,7 +66,7 @@ module AcaEntities
                 map 'spokenLanguageType', 'family_members.person.consumer_role.language_preference', memoize: true, visible: false
 
                 namespace 'legalAttestations' do
-                  map 'renewEligibilityYearQuantity', 'renewal_consent_through_year', function: ->(_value) {Date.parse("2021-01-01").year}
+                  map 'renewEligibilityYearQuantity', 'years_to_renew', memoize: true, visible: false
                   map 'absentParentAgreementIndicator', 'parent_living_out_of_home_terms', memoize: true, visible: false
                   map 'changeInformationAgreementIndicator', 'report_change_terms', memoize: true, visible: false
                   map 'medicaidRequirementAgreementIndicator', 'medicaid_terms', memoize: true, visible: false
