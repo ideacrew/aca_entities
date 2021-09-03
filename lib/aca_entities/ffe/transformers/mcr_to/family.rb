@@ -238,7 +238,7 @@ module AcaEntities
                         }
                         add_key 'birth_location'
                         add_key 'is_active'
-                        add_key 'is_applying_coverage', value: true # default value
+                        add_key 'is_applying_coverage', function: ->v {v.resolve('is_coverage_applicant', identifier: true).item}
                         add_key 'bookmark_url'
                         add_key 'admin_bookmark_url'
                         add_key 'contact_method', function: ->(_v) { "Paper and Electronic communications" }
