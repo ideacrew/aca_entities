@@ -41,5 +41,8 @@ require_relative 'ifsv/h9t/fti/response'
 # operations
 require_relative 'ifsv/h9t/operations/ifsv_verification_request'
 
+# transformers
+require_relative 'ifsv/h9t/transformers/ifsv_verification_request_to/persistence_request'
+
 # happymapper
 require 'aca_entities/serializers/xml/fdsh/ifsv'

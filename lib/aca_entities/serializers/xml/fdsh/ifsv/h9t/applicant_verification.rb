@@ -20,7 +20,7 @@ module AcaEntities
               def self.domain_to_mapper(response)
                 mapper = self.new
                 mapper.TaxReturn = TaxReturn.domain_to_mapper(response.TaxReturn)
-                mapper.ResponseMetadata = request.ResponseMetadata.collect do |response_metadata|
+                mapper.ResponseMetadata = response.ResponseMetadata.collect do |response_metadata|
                   ResponseMetadata.domain_to_mapper(response_metadata)
                 end
                 mapper
