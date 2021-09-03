@@ -7,7 +7,7 @@ module AcaEntities
         module Ifsv
           module H9t
             # Happymapper implementation for the root object of an Request.
-            class ResponseMetaData
+            class ResponseMetadata
               include HappyMapper
               register_namespace 'hcore', 'http://hix.cms.gov/0.1/hix-core'
 

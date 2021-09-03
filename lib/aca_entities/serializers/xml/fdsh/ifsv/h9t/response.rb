@@ -15,12 +15,12 @@ module AcaEntities
               tag 'IFSVResponse'
               namespace 'exch'
 
-              has_one :IRSResponse, IRSResponse
+              has_one :IRSResponse, IrsResponse
               has_one :ErrorMessage, ErrorMessage
 
               def self.domain_to_mapper(response)
                 mapper = self.new
-                mapper.IRSResponse = IRSResponse.domain_to_mapper(response.IRSResponse)
+                mapper.IRSResponse = IrsResponse.domain_to_mapper(response.IRSResponse)
                 mapper.ErrorMessage = ErrorMessage.domain_to_mapper(response.ErrorMessage)
                 mapper
               end
