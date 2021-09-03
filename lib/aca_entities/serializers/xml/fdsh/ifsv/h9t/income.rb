@@ -9,10 +9,11 @@ module AcaEntities
             # Happymapper implementation for the root object of an Request.
             class Income
               include HappyMapper
+              register_namespace 'ext', 'http://ifsv.dsh.cms.gov/extension/1.0'
               register_namespace 'hcore', 'http://hix.cms.gov/0.1/hix-core'
 
-              tag 'Household'
-              namespace 'hcore'
+              tag 'Income'
+              namespace 'ext'
 
               element :IncomeAmount, Float, tag: 'IncomeAmount', namespace: "hcore"
 

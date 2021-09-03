@@ -21,10 +21,10 @@ module AcaEntities
               def self.domain_to_mapper(response)
                 mapper = self.new
                 mapper.Income = Income.domain_to_mapper(response.Income)
-                mapper.ApplicantVerifications = request.ApplicantVerifications.collect do |applicant_verification|
+                mapper.ApplicantVerifications = response.ApplicantVerifications.collect do |applicant_verification|
                   ApplicantVerification.domain_to_mapper(applicant_verification)
                 end
-                mapper.DependentVerifications = request.DependentVerifications.collect do |dependent_verification|
+                mapper.DependentVerifications = response.DependentVerifications.collect do |dependent_verification|
                   Verification.domain_to_mapper(dependent_verification)
                 end
                 mapper
