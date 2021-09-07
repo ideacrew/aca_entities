@@ -40,7 +40,7 @@ module AcaEntities
               # @return [AcaEntities::Fdsh::Types::FullyRestrictedSSNType]
               attribute :SpouseTaxFiler do
                 attribute :TINIdentification,
-                          AcaEntities::Fdsh::Types::FullyRestrictedSSNType.meta(
+                          AcaEntities::Fdsh::Types::FullyRestrictedSSNType.optional.meta(
                             omittable: true
                           )
               end
@@ -55,28 +55,28 @@ module AcaEntities
               # @return [AcaEntities::Fdsh::Ifsv::H9t::Types::TaxReturnYearType]
               attribute :TaxReturnYear,
                         AcaEntities::Fdsh::Ifsv::H9t::Types::TaxReturnYearType
-                          .meta(omittable: true)
+                          .optional.meta(omittable: true)
 
               # @!attribute [r] TaxReturnFilingStatusCode
               # Identifies the filing status of the individual(s) who filed the return
               # @return [AcaEntities::Fdsh::Ifsv::H9t::Types::TaxReturnFilingStatusCodeKind]
               attribute :TaxReturnFilingStatusCode,
                         AcaEntities::Fdsh::Ifsv::H9t::Types::TaxReturnFilingStatusCodeKind
-                          .meta(omittable: true)
+                          .optional.meta(omittable: true)
 
               # @!attribute [r] TaxReturnAGIAmount
               # Identifies AGI for each adjusted return.
               # Note: AGI will not be included in the (Household) Income Amount
               # @return [AcaEntities::Types::Money]
               attribute :TaxReturnAGIAmount,
-                        AcaEntities::Types::Money.meta(omittable: true)
+                        AcaEntities::Types::Money.optional.meta(omittable: true)
 
               # @!attribute [r] TaxReturnMAGIAmount
               # Return-level Income is provided for returns found by IRS for tax
               #   filers included in the request
               # @return [AcaEntities::Types::Money]
               attribute :TaxReturnMAGIAmount,
-                        AcaEntities::Types::Money.meta(omittable: true)
+                        AcaEntities::Types::Money.optional.meta(omittable: true)
 
               # @!attribute [r] TaxReturnTaxableSocialSecurityBenefitsAmount
               # Identifies the amount of taxable Social Security benefits included
@@ -85,7 +85,7 @@ module AcaEntities
               #   provided for adjusted returns.
               # @return [AcaEntities::Types::Money]
               attribute :TaxReturnTaxableSocialSecurityBenefitsAmount,
-                        AcaEntities::Types::Money.meta(omittable: true)
+                        AcaEntities::Types::Money.optional.meta(omittable: true)
 
               # @!attribute [r] TaxReturnTotalExemptionsQuantity
               # The number of exemptions is used to define the family size. If IRS
@@ -98,7 +98,7 @@ module AcaEntities
               #   on his/her return
               # @return [Integer]
               attribute :TaxReturnTotalExemptionsQuantity,
-                        AcaEntities::Types::Integer.meta(omittable: true)
+                        AcaEntities::Types::Integer.optional.meta(omittable: true)
             end
           end
         end
