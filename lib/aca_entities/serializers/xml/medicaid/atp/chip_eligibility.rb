@@ -13,20 +13,49 @@ module AcaEntities
             tag 'CHIPEligibility'
             namespace 'hix-ee'
 
+            # A basis for Medicaid MAGI (Modified Adjusted Gross Income) eligibility based on social security number verification.
             has_one :ssn_verification_eligibility_basis, ChipSsnVerificationEligibilityBasis
+
+            # A basis for Children's Health Insurance Program (CHIP) eligibility based on household size.
             has_one :household_size_eligibility_basis, HouseholdSizeEligibilityBasis
+
+            # A basis for Children's Health Insurance Program (CHIP) eligibility based on incarceration rules.
             has_one :incarceration_eligibility_basis, ChipIncarcerationEligibilityBasis
+
+            # A basis for Children's Health Insurance Program (CHIP) eligibility based on income rules.
             has_one :income_eligibility_basis, ChipIncomeEligibilityBasis
+
+            # A basis for Children's Health Insurance Program (CHIP) eligibility based on Medicaid residency rules.
             has_one :medicaid_residency_eligibility_basis, ChipMedicaidResidencyEligibilityBasis
+
+            # A basis for Children's Health Insurance Program (CHIP) eligibility based on Medicaid citizen or immigrant rules.
             has_one :medicaid_citizen_or_immigrant_eligibility_basis, ChipMedicaidCitizenOrImmigrantEligibilityBasis
+
+            # A basis for Children's Health Insurance Program (CHIP) eligibility based on pregnancy category rules.
             has_one :pregnancy_category_eligibility_basis, ChipPregnancyCategoryEligibilityBasis
+
+            # A basis for Children's Health Insurance Program (CHIP) eligibility based on state health benefits rules.
             has_one :state_health_benefits_eligibility_basis, ChipStateHealthBenefitsEligibilityBasis
+
+            # A basis for Children's Health Insurance Program (CHIP) eligibility based on targeted low-income child rules.
             has_one :targeted_low_income_child_eligibility_basis, ChipTargetedLowIncomeChildEligibilityBasis
+
+            # A basis for Children's Health Insurance Program (CHIP) eligibility based on title-II work quarters met section rules.
             has_one :title_ii_workquarters_met_eligibility_basis, ChipTitleIiWorkQuartersMetEligibilityBasis
+
+            # A basis for Children's Health Insurance Program (CHIP) eligibility based on trafficking victim category rules.
             has_one :trafficking_victim_category_eligibility_basis, ChipTraffickingVictimCategoryEligibilityBasis
+
+            # A basis for Children's Health Insurance Program (CHIP) eligibility based on unborn child category rules.
             has_one :unborn_child_category_eligibility_basis, ChipUnbornChildCategoryEligibilityBasis
+
+            # A basis for Children's Health Insurance Program (CHIP) eligibility based on waiting period rules.
             has_one :waiting_period_eligibility_basis, ChipWaitingPeriodEligibilityBasis
+
+            # A date range of the eligibility.
             has_one :eligibility_date_range, EligibilityDateRange
+
+            # A system making an eligibility determination.
             has_one :eligibility_establishing_system, EligibilityEstablishingSystem
 
             def self.domain_to_mapper(chip_eligibility)

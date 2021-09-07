@@ -5,7 +5,7 @@ module AcaEntities
     module Xml
       module Medicaid
         module Atp
-          # Include XML element and type definitions. A data type for how to contact a person or an organization.
+          # Details about how to contact a person or an organization.
           class ContactInformation
             include HappyMapper
 

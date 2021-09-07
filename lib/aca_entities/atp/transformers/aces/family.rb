@@ -64,7 +64,7 @@ module AcaEntities
                   add_key 'requesting_medicaid', value: ->(_v) {true}
                   add_key 'tax_return_access', value: ->(_v) {true}
                   map "hbx_id", "application_identifications", function: lambda { |v|
-                    [{ :identification_id => "IDC#{v}", :identification_category_text => "Exchange", :identification_jurisdiction => nil }]
+                    [{ :identification_id => "SBM#{v}", :identification_category_text => "Exchange", :identification_jurisdiction => nil }]
                   }
 
                   # add_key 'application_creation.creation_id'
@@ -109,13 +109,22 @@ module AcaEntities
 
               namespace 'family_members.*', nil, context: { name: 'members' } do
                 rewrap 'aces.people', type: :array do
-                  map 'hbx_id', 'id', function: ->(v) {"IDC#{v}"}
+                  map 'hbx_id', 'id', function: ->(v) {"SBM#{v}"}
                   map 'is_primary_applicant', 'is_primary_applicant', memoize: true, visible: false, append_identifier: true
                   namespace 'person' do
 
-                    map 'person_name.first_name', 'person_name.given'
-                    map 'person_name.middle_name', 'person_name.middle'
-                    map 'person_name.last_name', 'person_name.sur'
+                    map 'person_name.first_name', 'person_name.given', function: lambda { |v|
+                      first_name = v&.gsub(/[^A-Za-z\-' ]/, ' ')
+                      first_name&.strip&.empty? ? "BLANK FIRST" : first_name
+                    }
+                    map 'person_name.middle_name', 'person_name.middle', function: lambda { |v|
+                      middle_name = v&.gsub(/[^A-Za-z\-' ]/, ' ')
+                      middle_name&.strip&.empty? ? "BLANK MIDDLE" : middle_name
+                    }
+                    map 'person_name.last_name', 'person_name.sur', function: lambda { |v|
+                      last_name = v&.gsub(/[^A-Za-z\-' ]/, ' ')
+                      last_name&.strip&.empty? ? "BLANK LAST" : last_name
+                    }
                     add_key 'person_name.suffix'
                     # map 'person_name.full_name', 'person_name.full' # removed as per business validation
                     add_key 'us_citizen_indicator', function: lambda { |v|
@@ -155,8 +164,7 @@ module AcaEntities
                                           !v.resolve(:'tribal_augmentation.person_tribe_name').item.nil?
                                       }
 
-                    map 'consumer_role.marital_status', 'person_augmentation.married_indicator', function: ->(v) { v.nil? ? nil : (v == "MARRIED")}
-
+                    map 'consumer_role.marital_status', 'person_augmentation.married_indicator', function: ->(v) { v.nil? ? false : (v == "MARRIED")}
                     map 'consumer_role.language_preference', 'language_preference', memoize_record: true, visible: false
                     map 'consumer_role.contact_method', 'consumer_role.contact_method', memoize_record: true, visible: false, append_identifier: true
                     add_key 'person_augmentation.us_naturalized_citizen_indicator', function: lambda { |v|
@@ -195,7 +203,7 @@ module AcaEntities
               add_key 'physical_households', function: lambda { |v|
                 applicants_hash = v.resolve('family.magi_medicaid_applications.applicants').item
                 result = applicants_hash.keys.map(&:to_s).each_with_object([]) do |id, collect|
-                  collect << { :ref => "IDC#{id}" }
+                  collect << { :ref => "SBM#{id}" }
                 end
                 [{ :household_member_references => result, :household_size_quantity => result.size }]
               }
@@ -203,7 +211,7 @@ module AcaEntities
               add_key 'insurance_application.ssf_primary_contact', function: lambda { |v|
                 ref = v.find(Regexp.new('is_primary_applicant.*')).select {|a|  a.item == true}.first.name.split('.').last
                 contact_preference = v.find(Regexp.new('consumer_role.contact_method.*')).select {|a|  a.name.split('.').last == ref}.first.item
-                { role_reference: { ref: "IDC#{ref}" }, contact_preference: ContactPreferenceCode[contact_preference] }
+                { role_reference: { ref: "SBM#{ref}" }, contact_preference: ContactPreferenceCode[contact_preference] }
               }
 
               add_key 'insurance_application.ssf_signer', value: lambda { |v|

@@ -74,8 +74,8 @@ module AcaEntities
       # @!attribute [r] job_coverage_end_date
       # This relates to job_coverage_ended_in_past_3_months
       # What was the last day this person had coverage through the job?
-      # @return [Bool]
-      attribute :job_coverage_end_date, Types::Bool.optional.meta(omittable: true)
+      # @return [Date]
+      attribute :job_coverage_end_date, Types::Date.optional.meta(omittable: true)
 
       attribute :medicaid_and_chip, MedicaidAndChip.optional.meta(omittable: true)
       attribute :other_health_service, OtherHealthService.optional.meta(omittable: true)
@@ -112,8 +112,8 @@ module AcaEntities
 
       # @!attribute [r] prior_insurance_end_date
       # The date the prior coverage ended.A date in YYYY-MM-DD format
-      # @return [Bool]
-      attribute :prior_insurance_end_date, Types::Bool.optional.meta(omittable: true)
+      # @return [Date]
+      attribute :prior_insurance_end_date, Types::Date.optional.meta(omittable: true)
 
       # @!attribute [r] age_of_applicant
       # The age of the applicant

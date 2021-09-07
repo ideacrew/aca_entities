@@ -29,7 +29,7 @@ module AcaEntities
           optional(:country_code).maybe(:string)
           optional(:extension).maybe(:string)
           optional(:full_phone_number).maybe do
-            str? & size?(10) & format?(Types::NumbersOnlyRegex)
+            str? & size?(10..15) & format?(Types::NumbersOnlyRegex)
           end
           optional(:start_on).maybe(:date)
           optional(:end_on).maybe(:date)
