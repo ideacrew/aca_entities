@@ -15,7 +15,7 @@ module AcaEntities
                 # @option opts [AcaEntities::Fdsh::Ifsv::H9t::Fti::ErrorMessage] :ErrorMessage optional
                 # @return [Dry::Monads::Result]
                 params do
-                  required(:IRSResponse).value(
+                  optional(:IRSResponse).value(
                     AcaEntities::Fdsh::Ifsv::H9t::Contracts::Api::Fti::IRSResponseContract
                       .params
                   )

@@ -13,14 +13,14 @@ module AcaEntities
               # @return [String]
               attribute :IRSResponse,
                         AcaEntities::Fdsh::Ifsv::H9t::Api::Fti::IRSResponse
-                          .meta(omittable: false)
+                          .meta(omittable: true)
 
               # @!attribute [r] ErrorMessage
               # A data type for Group of error messages
               # @return [String]
               attribute :ErrorMessage,
                         AcaEntities::Fdsh::Ifsv::H9t::Api::Fti::ErrorMessage
-                          .meta(omittable: false)
+                          .meta(omittable: true)
             end
           end
         end

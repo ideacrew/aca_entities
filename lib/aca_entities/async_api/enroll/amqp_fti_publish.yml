@@ -30,12 +30,12 @@ servers:
     description: RabbitMQ Test Server
 
 channels:
-  fti.determination_requests.ifsv.ifsv_determination_requested:
+  enroll.fdsh.verifications.magi_medicaid_application_determined:
     bindings:
       amqp:
         is: :routing_key
         exchange:
-          name: fti.determination_requests.ifsv
+          name: enroll.fdsh.verifications
           type: topic
           content_type: application/json
           durable: true
@@ -43,13 +43,13 @@ channels:
           vhost: event_source
         binding_version: "0.2.0"
     publish:
-      operationId: fti.determination_requests.ifsv.ifsv_determination_requested
+      operationId: enroll.fdsh.verifications.magi_medicaid_application_determined
       description: Events - eligibility determination Request
       bindings:
         amqp:
           app_id: enroll
-          type: fti.determination_requests.ifsv
-          routing_key: fti.determination_requests.ifsv.ifsv_determination_requested
+          type: enroll.fdsh.verifications
+          routing_key: enroll.fdsh.verifications.magi_medicaid_application_determined
           expiration: 100_000
           deliveryMode: 2
           mandatory: true

@@ -57,13 +57,13 @@ module AcaEntities
                                 map 'TaxReturnTaxableSocialSecurityBenefitsAmount', 'tax_return_taxable_social_security_benefits_amount'
                                 map 'TaxReturnTotalExemptionsQuantity', 'tax_return_total_exemptions_quantity'
                               end
-                              namespace 'ResponseMetadata' do
-                                rewrap 'response_metadata', type: :array do
-                                  rewrap '' do
-                                    map 'ResponseCode', 'response_code'
-                                    map 'ResponseDescriptionText', 'response_description_text'
-                                    map 'TDSResponseDescriptionText', 'tds_response_description_text'
-                                  end
+                            end
+                            namespace 'ResponseMetadata' do
+                              rewrap 'response_metadata', type: :array do
+                                rewrap '' do
+                                  map 'ResponseCode', 'response_code'
+                                  map 'ResponseDescriptionText', 'response_description_text'
+                                  map 'TDSResponseDescriptionText', 'tds_response_description_text'
                                 end
                               end
                             end
@@ -92,13 +92,13 @@ module AcaEntities
                                 map 'TaxReturnTaxableSocialSecurityBenefitsAmount', 'tax_return_taxable_social_security_benefits_amount'
                                 map 'TaxReturnTotalExemptionsQuantity', 'tax_return_total_exemptions_quantity'
                               end
-                              namespace 'ResponseMetadata' do
-                                rewrap 'response_metadata', type: :array do
-                                  rewrap '' do
-                                    map 'ResponseCode', 'response_code'
-                                    map 'ResponseDescriptionText', 'response_description_text'
-                                    map 'TDSResponseDescriptionText', 'tds_response_description_text'
-                                  end
+                            end
+                            namespace 'ResponseMetadata' do
+                              rewrap 'response_metadata', type: :array do
+                                rewrap '' do
+                                  map 'ResponseCode', 'response_code'
+                                  map 'ResponseDescriptionText', 'response_description_text'
+                                  map 'TDSResponseDescriptionText', 'tds_response_description_text'
                                 end
                               end
                             end
