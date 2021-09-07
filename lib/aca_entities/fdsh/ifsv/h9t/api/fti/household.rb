@@ -13,8 +13,8 @@ module AcaEntities
               #   listed on the application and provided in the request to IRS.
               #   The household aggregate income includes a combined (joint) tax
               #   filer/spouse income if the tax filer/spouse filed a joint tax return              # @return [AcaEntities::Types::Money]
-              attribute :Income do
-                attribute :IncomeAmount,  AcaEntities::Types::Money.meta(omittable: false)
+              attribute :Income, Dry::Struct.optional.meta(omittable: true) do
+                attribute :IncomeAmount,  AcaEntities::Types::Money.optional.meta(omittable: true)
               end
 
               # @!attribute [r] ApplicantVerification
@@ -24,7 +24,7 @@ module AcaEntities
                         AcaEntities::Types::Array
                           .of(
                             AcaEntities::Fdsh::Ifsv::H9t::Api::Fti::Verification
-                          ).meta(omittable: false)
+                          ).optional.meta(omittable: true)
 
               # @!attribute [r] DependentVerification
               # A tax return filed by the household
@@ -33,7 +33,7 @@ module AcaEntities
                         AcaEntities::Types::Array
                           .of(
                             AcaEntities::Fdsh::Ifsv::H9t::Api::Fti::Verification
-                          ).meta(omittable: false)
+                          ).optional.meta(omittable: true)
             end
           end
         end

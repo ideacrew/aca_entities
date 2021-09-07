@@ -22,7 +22,7 @@ module AcaEntities
                           .of(
                             AcaEntities::Fdsh::Ifsv::H9t::Api::Fti::ResponseMetadata
                           )
-                          .meta(omittable: false)
+                          .meta(omittable: true)
             end
           end
         end

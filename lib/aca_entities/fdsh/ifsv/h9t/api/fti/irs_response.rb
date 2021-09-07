@@ -13,15 +13,14 @@ module AcaEntities
               #   within a given message (both requests and responses)
               #   1-9 characters - numeric only
               # @return [AcaEntities::Fdsh::Ifsv::H9t::Types::RequestIDType]
-              attribute :RequestID,
-                        AcaEntities::Types::String.meta(omittable: false)
+              attribute :RequestID, AcaEntities::Types::String.meta(omittable: false)
 
               # @!attribute [r] Household
               # The group of information related to a IFSV applicant
               # @return [String]
               attribute :Household,
-                        AcaEntities::Fdsh::Ifsv::H9t::Api::Fti::Household.meta(
-                          omittable: false
+                        AcaEntities::Fdsh::Ifsv::H9t::Api::Fti::Household.optional.meta(
+                          omittable: true
                         )
             end
           end

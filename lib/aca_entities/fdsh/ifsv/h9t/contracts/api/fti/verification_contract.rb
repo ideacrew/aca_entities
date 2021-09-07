@@ -20,7 +20,7 @@ module AcaEntities
                       .params
                   )
 
-                  required(:ResponseMetadata).array(
+                  optional(:ResponseMetadata).array(
                     AcaEntities::Fdsh::Ifsv::H9t::Contracts::Api::Fti::ResponseMetadataContract
                       .params
                   )

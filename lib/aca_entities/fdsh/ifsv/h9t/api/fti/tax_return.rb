@@ -55,7 +55,7 @@ module AcaEntities
               # @return [AcaEntities::Fdsh::Ifsv::H9t::Types::TaxReturnYearType]
               attribute :TaxReturnYear,
                         AcaEntities::Fdsh::Ifsv::H9t::Types::TaxReturnYearType
-                          .meta(omittable: false)
+                          .meta(omittable: true)
 
               # @!attribute [r] TaxReturnFilingStatusCode
               # Identifies the filing status of the individual(s) who filed the return
@@ -98,7 +98,7 @@ module AcaEntities
               #   on his/her return
               # @return [Integer]
               attribute :TaxReturnTotalExemptionsQuantity,
-                        AcaEntities::Types::Integer.meta(omittable: false)
+                        AcaEntities::Types::Integer.meta(omittable: true)
             end
           end
         end

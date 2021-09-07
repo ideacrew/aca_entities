@@ -27,29 +27,29 @@ module AcaEntities
                     )
                   end
 
-                  required(:SpouseTaxFiler).hash do
-                    required(:TINIdentification).value(
+                  optional(:SpouseTaxFiler).hash do
+                    optional(:TINIdentification).value(
                       AcaEntities::Fdsh::Types::FullyRestrictedSSNType
                     )
                   end
 
-                  required(:TaxReturnYear).value(
+                  optional(:TaxReturnYear).value(
                     AcaEntities::Fdsh::Ifsv::H9t::Types::TaxReturnYearType
                   )
 
-                  required(:TaxReturnFilingStatusCode).value(
+                  optional(:TaxReturnFilingStatusCode).value(
                     AcaEntities::Fdsh::Ifsv::H9t::Types::TaxReturnFilingStatusCodeKind
                   )
 
-                  required(:TaxReturnAGIAmount).value(AcaEntities::Types::Money)
-                  required(:TaxReturnMAGIAmount).value(
+                  optional(:TaxReturnAGIAmount).value(AcaEntities::Types::Money)
+                  optional(:TaxReturnMAGIAmount).value(
                     AcaEntities::Types::Money
                   )
-                  required(:TaxReturnTaxableSocialSecurityBenefitsAmount).value(
+                  optional(:TaxReturnTaxableSocialSecurityBenefitsAmount).value(
                     AcaEntities::Types::Money
                   )
 
-                  required(:TaxReturnTotalExemptionsQuantity).value(
+                  optional(:TaxReturnTotalExemptionsQuantity).value(
                     AcaEntities::Types::Integer
                   )
                 end
