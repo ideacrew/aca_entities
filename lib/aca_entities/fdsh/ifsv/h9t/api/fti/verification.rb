@@ -19,9 +19,7 @@ module AcaEntities
               # @return [String]
               attribute :ResponseMetadata,
                         AcaEntities::Types::Array
-                          .of(
-                            AcaEntities::Fdsh::Ifsv::H9t::Api::Fti::ResponseMetadata
-                          ).optional.meta(omittable: true)
+                          .of(AcaEntities::Fdsh::Ifsv::H9t::Api::Fti::ResponseMetadata).optional.meta(omittable: true)
             end
           end
         end
