@@ -54,7 +54,8 @@ module AcaEntities
               #   most recent year or second most recent year filed.)
               # @return [AcaEntities::Fdsh::Ifsv::H9t::Types::TaxReturnYearType]
               attribute :TaxReturnYear,
-                        AcaEntities::Fdsh::Ifsv::H9t::Types::TaxReturnYearType.optional.meta(omittable: true)
+                        AcaEntities::Fdsh::Ifsv::H9t::Types::TaxReturnYearType
+                          .optional.meta(omittable: true)
 
               # @!attribute [r] TaxReturnFilingStatusCode
               # Identifies the filing status of the individual(s) who filed the return
@@ -96,7 +97,9 @@ module AcaEntities
               #   else's return, but IRS cannot determine who claimed the dependent
               #   on his/her return
               # @return [Integer]
-              attribute :TaxReturnTotalExemptionsQuantity, AcaEntities::Types::Integer.optional.meta(omittable: true)
+
+              attribute :TaxReturnTotalExemptionsQuantity,
+                        AcaEntities::Types::Integer.optional.meta(omittable: true)
             end
           end
         end
