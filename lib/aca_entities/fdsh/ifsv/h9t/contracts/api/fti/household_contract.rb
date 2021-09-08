@@ -17,7 +17,7 @@ module AcaEntities
                 # @return [Dry::Monads::Result]
                 params do
                   optional(:Income).hash do
-                    optional(:IncomeAmount).value(
+                    optional(:IncomeAmount).maybe(
                       AcaEntities::Types::Money
                     )
                   end
