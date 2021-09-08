@@ -56,3 +56,29 @@ channels:
           timestamp: true
           content_type: application/json
           bindingVersion: 0.2.0
+  crm_gateway.people.primary_subscriber_update:
+    bindings:
+      amqp:
+        is: :routing_key
+        exchange:
+          name: crm_gateway.people
+          type: topic
+          content_type: application/json
+          durable: true
+          auto_delete: false
+          vhost: event_source
+        binding_version: "0.2.0"
+    publish:
+      operationId: crm_gateway.people.primary_subscriber_update
+      description: Events - Primary Subscriber Update
+      bindings:
+        amqp:
+          app_id: enroll
+          type: crm_gateway.people
+          routing_key: crm_gateway.people.primary_subscriber_update
+          expiration: 100_000
+          deliveryMode: 2
+          mandatory: true
+          timestamp: true
+          content_type: application/json
+          bindingVersion: 0.2.0
