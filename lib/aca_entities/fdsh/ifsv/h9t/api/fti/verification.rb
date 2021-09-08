@@ -21,8 +21,7 @@ module AcaEntities
                         AcaEntities::Types::Array
                           .of(
                             AcaEntities::Fdsh::Ifsv::H9t::Api::Fti::ResponseMetadata
-                          )
-                          .meta(omittable: true)
+                          ).optional.meta(omittable: true)
             end
           end
         end

@@ -16,13 +16,9 @@ module AcaEntities
                 # @option opts [AcaEntities::Types::String] :TDSResponseDescriptionText required
                 # @return [Dry::Monads::Result]
                 params do
-                  optional(:ResponseCode).filled(AcaEntities::Types::String)
-                  optional(:ResponseDescriptionText).filled(
-                    AcaEntities::Types::String
-                  )
-                  optional(:TDSResponseDescriptionText).filled(
-                    AcaEntities::Types::String
-                  )
+                  optional(:ResponseCode).maybe(:string)
+                  optional(:ResponseDescriptionText).maybe(:string)
+                  optional(:TDSResponseDescriptionText).maybe(:string)
                 end
               end
             end
