@@ -4,6 +4,7 @@
 #  documentAlternateName - no mapping found
 #  employmentAuthorizationCategoryIdentifier - no mapping found
 
+# rubocop:disable Lint/DuplicateBranch
 module AcaEntities
   module Functions
     # Builder for VLP documents
@@ -27,13 +28,15 @@ module AcaEntities
       private
 
       def remap_subject(subject, document)
-        if subject.to_s == "NOTICE_OF_ACTION_I_797"
+        case subject.to_s
+        when "NOTICE_OF_ACTION_I_797"
           if  document[:alienNumber].present?
             "NOTICE_OF_ACTION_I_797_WITH_ALIEN"
-          else document[:i94Number].present?
+          else
+            document[:i94Number].present?
             "NOTICE_OF_ACTION_I_797_I_94"
           end
-        elsif subject.to_s == "OTHER"
+        when "OTHER"
           if document[:alienNumber].present?
             "OTHER_WITH_ALIEN"
           elsif document[:i94Number].present?
@@ -48,4 +51,4 @@ module AcaEntities
     end
   end
 end
-
+# rubocop:enable Lint/DuplicateBranch

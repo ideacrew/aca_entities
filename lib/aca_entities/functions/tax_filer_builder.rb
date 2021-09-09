@@ -6,7 +6,7 @@ module AcaEntities
     class TaxFilerBuilder
 
       attr_reader :memoized_data, :member_identifier, :primary_applicant_identifier, :attestations_family_hash
-      
+
       def call(memoized_data, member)
         @memoized_data = memoized_data
         @member_identifier = member.name.split('.').last
@@ -51,11 +51,7 @@ module AcaEntities
         found_relationship = household[:taxRelationships].collect do |tax_relationship|
           primary_match = tax_relationship[:no_key][0][:no_key].include?(primary_applicant_identifier)
           current_member_match = tax_relationship[:no_key][0][:no_key].include?(member_identifier)
-          if primary_match && current_member_match
-            tax_relationship[:no_key][0][:no_key]
-          elsif current_member_match
-            tax_relationship[:no_key][0][:no_key]
-          end
+          tax_relationship[:no_key][0][:no_key] if (primary_match && current_member_match) || current_member_match
         end.compact
 
         return nil if found_relationship.blank?

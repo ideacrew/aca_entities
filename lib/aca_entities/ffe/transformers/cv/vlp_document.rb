@@ -19,7 +19,7 @@ module AcaEntities
           #                  'otherTypeText' => '',
           #                  'otherDocumentTypeText' => '' }.freeze
 
-         # uniq MCR vlp subjects:
+          # uniq MCR vlp subjects:
           # PERMANENT_RESIDENT_CARD_I_551
           # CERTIFICATE_OF_NATURALIZATION
           # CERTIFICATE_OF_CITIZENSHIP
@@ -73,7 +73,6 @@ module AcaEntities
             "OTHER_WITH_ALIEN" => "Other (With Alien Number)",
             "OTHER_WITH_I_94" => "Other (With I-94 Number)"
           }.freeze
-
 
           #---missed subject mappig vlp_document_kind_options---
           # DOCUMENT_INDICATING_WITHHOLDING_OF_REMOVAL  -- only 2 instance with no data can be ignored
@@ -147,7 +146,6 @@ end
 # CERTIFICATE_OF_ELIGIBILITY_FOR_EXCHANGE_VISITOR_STATUS_DS_2019
 # VAWA_SELF_PETITIONER
 # NS1_MEMBERS_OF_A_FEDERALLY_RECOGNIZED_INDIAN_TRIBE
-
 
 # ["alienNumber", "cardNumber", "noIdentifiersProvidedIndicator"]
 # ["noIdentifiersProvidedIndicator"]

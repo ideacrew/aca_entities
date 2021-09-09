@@ -29,19 +29,16 @@ module AcaEntities
         broker_accounts = cache.resolve('attestations.application').item[:applicationAssistors]
         return [] unless broker_accounts
         broker_accounts.each_with_object([]) do |account, collector|
-          if  account[:applicationAssistorType] == "AGENT_BROKER"
-            collector << broker_account_hash(account)
-          end
+          collector << broker_account_hash(account) if account[:applicationAssistorType] == "AGENT_BROKER"
           collector
         end
       end
 
       def broker_account_hash(account)
-        { start_on: Date.new(2021,11,1),
+        { start_on: Date.new(2021, 11, 1),
           is_active: true,
           broker_role_reference: broker_role_reference_hash(account),
-         broker_agency_reference: default_agency_hash
-        }
+          broker_agency_reference: default_agency_hash }
       end
 
       def broker_role_reference_hash(account)

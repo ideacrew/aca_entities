@@ -52,7 +52,9 @@ module AcaEntities
           add_key 'employer_phone.full_phone_number', function: ->(v) {v.resolve("phone").item.to_s}
 
           add_key 'employee_cost', function: ->(v) { v.resolve('employee_cost')&.item || "0.0"}
-          add_key 'employee_cost_frequency', function: lambda { |v| Ffe::Types::FREQUENCY_KINDS[v.resolve('employee_cost_frequency')&.item&.upcase || "MONTHLY"] }
+          add_key 'employee_cost_frequency', function: lambda { |v|
+                                                         Ffe::Types::FREQUENCY_KINDS[v.resolve('employee_cost_frequency')&.item&.upcase || "MONTHLY"]
+                                                       }
         end
       end
     end

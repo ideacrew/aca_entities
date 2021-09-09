@@ -60,7 +60,7 @@ module AcaEntities
         # 5. Has this person's immigration status changed since they were not found eligible
         ### for MaineCare (Medicaid) or CubCare (Children's Health Insurance Program)?
         @medicaid_hash = memoized_data.find(Regexp.new("attestations.members.#{member_identifier}.medicaid"))&.first&.item
-        return {} if @medicaid_hash.nil?   #TODO check
+        return {} if @medicaid_hash.nil?   # TODO: check
         AcaEntities::Ffe::Transformers::Cv::Medicaid.transform(@medicaid_hash)
       end
 
@@ -160,7 +160,7 @@ module AcaEntities
       end
 
       def student_hash
-        # TODO check on Student
+        # TODO: check on Student
         student = {
           is_student: attestations_family_hash[:fullTimeStatusIndicator].nil? ? false : attestations_family_hash[:fullTimeStatusIndicator],
           student_kind: if attestations_family_hash[:fullTimeStatusIndicator].nil?
@@ -168,15 +168,15 @@ module AcaEntities
                         else
                           (attestations_family_hash[:fullTimeStatusIndicator] ? 'full_time' : nil)
                         end, # needs refactor for other student kinds
-          student_school_kind: attestations_family_hash[:fullTimeStatusIndicator] ? "english_language_institute" : nil , # default value
-          student_status_end_on: attestations_family_hash[:fullTimeStatusIndicator] ? Date.new(2021,12,31) : nil
+          student_school_kind: attestations_family_hash[:fullTimeStatusIndicator] ? "english_language_institute" : nil, # default value
+          student_status_end_on: attestations_family_hash[:fullTimeStatusIndicator] ? Date.new(2021, 12, 31) : nil
         }
 
         { student: student }
       end
 
       def member_reference_hash
-        # TODO set person tracking number for hbx_id
+        # TODO: set person tracking number for hbx_id
         member_reference = {
           family_member_hbx_id: member_identifier, # default value
           first_name: memoized_data.find(Regexp.new("first_name.#{member_identifier}"))&.first&.item,

@@ -1,7 +1,8 @@
 # frozen_string_literal: true
-# rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity, Metrics/AbcSize
 
-#TODO: Pending
+# rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity, Metrics/AbcSize, Layout/LineLength
+
+# TODO: Pending
 # livedInUs5yearIndicator - mapping not found
 # noAlienNumberIndicator - mapping not found
 # lawfulPresenceGrantDate - mapping not found
@@ -72,7 +73,7 @@ module AcaEntities
           lawful_presence_indicator&.name&.split('.')&.first => lawful_presence_indicator&.item,
           lawful_presence_documentation&.name&.split('.')&.first => lawful_presence_documentation&.item
         }
-        
+
         # val = hash.keys.find { |_k| hash.key(true) }
         # assign_citizen_status(val)
 
@@ -103,7 +104,6 @@ end
 # "livedInUs5yearIndicator",
 # "lawfulPresenceDocumentation",  # hash
 # "lawfulPresenceGrantDate"
-
 
 # "noAlienNumberIndicator"
 # "citizenshipIndicator"
@@ -147,7 +147,6 @@ end
 # "CERTIFICATE_OF_ELIGIBILITY_FOR_EXCHANGE_VISITOR_STATUS_DS_2019"
 # "VAWA_SELF_PETITIONER"
 # "NS1_MEMBERS_OF_A_FEDERALLY_RECOGNIZED_INDIAN_TRIBE"
-
 
 # citizen criteria with out "livedInUs5yearIndicator","noAlienNumberIndicator","lawfulPresenceGrantDate"
 
@@ -235,4 +234,4 @@ end
 # {"lawfulPresenceGrantDate"=>"2017-11-24", "lawfulPresenceStatusIndicator"=>true, "livedInUs5yearIndicator"=>false, "citizenshipIndicator"=>false, "lawfulPresenceDocumentation"=>true}
 # {"lawfulPresenceGrantDate"=>"2018-06-13", "lawfulPresenceStatusIndicator"=>true, "livedInUs5yearIndicator"=>false, "citizenshipIndicator"=>false, "lawfulPresenceDocumentation"=>true}
 
-# rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity, Metrics/AbcSize
+# rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity, Metrics/AbcSize, Layout/LineLength

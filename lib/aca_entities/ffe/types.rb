@@ -40,7 +40,7 @@ module AcaEntities
         VETERAN_HEALTH_PROGRAM: 'veterans_administration_health_benefits',
         EMPLOYER_SPONSORED: 'employer_sponsored_insurance',
         CHIP: 'child_health_insurance_plan',
-        PEACE_CORPS: 'peace_corps_health_benefits',
+        PEACE_CORPS: 'peace_corps_health_benefits'
         # OTHER_FULL_BENEFIT_COVERAGE: 'other_full_benefit_coverage',
         # OTHER_LIMITED_BENEFIT_COVERAGE: 'OTHER_LIMITED_BENEFIT_COVERAGE'
       }.freeze
@@ -49,15 +49,15 @@ module AcaEntities
         { ICHRA: "Individual coverage HRA", QSEHRA: "Qualified Small Employer HRA" }.freeze
 
       FREQUENCY_KINDS = {
-          "BI_WEEKLY" => "biweekly",
-          "DAILY" => "daily",
-          "MONTHLY" => "monthly",
-          "QUARTERLY" => "quarterly",
-          "WEEKLY" => "weekly",
-          "ANNUALLY" => "yearly",
-          "ONE_TIME" => "yearly",
-          "HOURLY" => "weekly",
-          "SEMI_MONTHLY" => "monthly"
+        "BI_WEEKLY" => "biweekly",
+        "DAILY" => "daily",
+        "MONTHLY" => "monthly",
+        "QUARTERLY" => "quarterly",
+        "WEEKLY" => "weekly",
+        "ANNUALLY" => "yearly",
+        "ONE_TIME" => "yearly",
+        "HOURLY" => "weekly",
+        "SEMI_MONTHLY" => "monthly"
       }.freeze
 
     end
