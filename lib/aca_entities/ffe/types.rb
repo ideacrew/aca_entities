@@ -48,6 +48,18 @@ module AcaEntities
       HraTypeMapping =
         { ICHRA: "Individual coverage HRA", QSEHRA: "Qualified Small Employer HRA" }.freeze
 
+      FREQUENCY_KINDS = {
+          "BI_WEEKLY" => "biweekly",
+          "DAILY" => "daily",
+          "MONTHLY" => "monthly",
+          "QUARTERLY" => "quarterly",
+          "WEEKLY" => "weekly",
+          "ANNUALLY" => "yearly",
+          "ONE_TIME" => "yearly",
+          "HOURLY" => "weekly",
+          "SEMI_MONTHLY" => "monthly"
+      }.freeze
+
     end
   end
 end

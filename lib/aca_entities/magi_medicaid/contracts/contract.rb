@@ -193,9 +193,9 @@ module AcaEntities
               key(pregnancy_failure_key + [:expected_children_count]).failure(text: 'must be filled if the applicant is pregnant')
             end
 
-            if check_if_blank?(pregnancy[:pregnancy_due_on])
-              key(pregnancy_failure_key + [:pregnancy_due_on]).failure(text: 'must be filled if the applicant is pregnant')
-            end
+            # if check_if_blank?(pregnancy[:pregnancy_due_on])
+            #   key(pregnancy_failure_key + [:pregnancy_due_on]).failure(text: 'must be filled if the applicant is pregnant')
+            # end
           end
 
           # Student

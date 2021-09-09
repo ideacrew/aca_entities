@@ -112,6 +112,7 @@ module AcaEntities
         result = []
         @insurance_coverage_hash[:enrolledCoverages].each do |enrolled_coverage|
           next if enrolled_coverage[:insuranceMarketType] == 'NONE'
+          next if enrolled_coverage[:insuranceMarketType] == 'EMPLOYER_SPONSORED'
           next unless Ffe::Types::BenefitsKindMapping[enrolled_coverage[:insuranceMarketType].to_sym]
 
           result << {
@@ -127,7 +128,7 @@ module AcaEntities
       def enrolled_hra_hash
         return [] if !@insurance_coverage_hash[:enrolledInIchraIndicator] && @insurance_coverage_hash[:offeredIchraIndicator]
         return [] unless @insurance_coverage_hash[:hraOffers]
-        @insurance_coverage_hash[:hraOffers].each_with_object([]) do |(_k, hra), collect|
+        @insurance_coverage_hash[:hraOffers].each_with_object([]) do |(hra, _k), collect|
           next unless hra[:employer]
 
           collect << AcaEntities::Ffe::Transformers::Cv::Esc.transform(hra.merge(kind: 'health_reimbursement_arrangement', :status => "is_enrolled",
@@ -152,6 +153,7 @@ module AcaEntities
       end
 
       def emp_phone(esc)
+        return "" if esc[:employer].nil?
         if !esc[:employer][:employerPhoneNumber].nil?
           esc[:employer][:employerPhoneNumber]
         elsif !esc[:employer][:contact].nil?

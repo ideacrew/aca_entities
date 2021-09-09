@@ -76,7 +76,7 @@ module AcaEntities
       def address_hash
         mailing_address = memoized_data.resolve("attestations.members.#{member_identifier}.demographic.mailingAddress").item&.merge!(kind: "mailing")
         home_address = memoized_data.resolve("attestations.members.#{member_identifier}.demographic.homeAddress").item&.merge!(kind: "home")
-        transient_address = memoized_data.resolve("attestations.members.#{member_identifier}.demographic.transientAddress").item&.merge!(kind: "transient")
+        transient_address = memoized_data.resolve("attestations.members.#{member_identifier}.demographic.transientAddress").item&.merge!(kind: "mailing")
         addresses =  [mailing_address, home_address, transient_address].compact.each_with_object([]) do |address, collect|
           collect << AcaEntities::Ffe::Transformers::Cv::Address.transform(address)
         end
@@ -160,6 +160,7 @@ module AcaEntities
       end
 
       def student_hash
+        # TODO check on Student
         student = {
           is_student: attestations_family_hash[:fullTimeStatusIndicator].nil? ? false : attestations_family_hash[:fullTimeStatusIndicator],
           student_kind: if attestations_family_hash[:fullTimeStatusIndicator].nil?
@@ -168,13 +169,14 @@ module AcaEntities
                           (attestations_family_hash[:fullTimeStatusIndicator] ? 'full_time' : nil)
                         end, # needs refactor for other student kinds
           student_school_kind: attestations_family_hash[:fullTimeStatusIndicator] ? "english_language_institute" : nil , # default value
-          student_status_end_on: nil
+          student_status_end_on: attestations_family_hash[:fullTimeStatusIndicator] ? Date.new(2021,12,31) : nil
         }
 
         { student: student }
       end
 
       def member_reference_hash
+        # TODO set person tracking number for hbx_id
         member_reference = {
           family_member_hbx_id: member_identifier, # default value
           first_name: memoized_data.find(Regexp.new("first_name.#{member_identifier}"))&.first&.item,

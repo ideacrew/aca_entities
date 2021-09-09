@@ -335,7 +335,7 @@ module AcaEntities
                       add_key 'addresses', function: lambda { |v|
                         m_address = v.resolve("attestations.members.*.demographic.mailingAddress", identifier: true).item&.merge!(kind: "mailing")
                         h_address = v.resolve("attestations.members.*.demographic.homeAddress", identifier: true).item&.merge!(kind: "home")
-                        t_address = v.resolve("attestations.members.*.demographic.transientAddress", identifier: true).item&.merge!(kind: "transient")
+                        t_address = v.resolve("attestations.members.*.demographic.transientAddress", identifier: true).item&.merge!(kind: "mailing")
                         [m_address, h_address, t_address].compact.each_with_object([]) do |address, collect|
                           collect << AcaEntities::Ffe::Transformers::Cv::Address.transform(address)
                         end

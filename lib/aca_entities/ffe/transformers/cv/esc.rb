@@ -33,18 +33,18 @@ module AcaEntities
           map 'employer.name', 'employer.employer_name'
           add_key 'employer.employer_id', value: '123456789' # default value
 
-          add_key 'employer_address.address_1', value: '21313312' # default value
-          add_key 'employer_address.address_2', value: '' # default value
-          add_key 'employer_address.address_3', value: '' # default value
-          add_key 'employer_address.county', value: '' # default value
-          add_key 'employer_address.country_name', value: '' # default value
-          add_key 'employer_address.kind', value: 'work' # default value
-          add_key 'employer_address.city', value: 'test' # default value
-          add_key 'employer_address.state', value: 'ME' # default value
-          add_key 'employer_address.zip', value: '04001' # default value
+          # add_key 'employer_address.address_1', value: '' # default value
+          # add_key 'employer_address.address_2', value: '' # default value
+          # add_key 'employer_address.address_3', value: '' # default value
+          # add_key 'employer_address.county', value: '' # default value
+          # add_key 'employer_address.country_name', value: '' # default value
+          # add_key 'employer_address.kind', value: '' # default value
+          # add_key 'employer_address.city', value: '' # default value
+          # add_key 'employer_address.state', value: '' # default value
+          # add_key 'employer_address.zip', value: '' # default value
 
           map 'phone', 'phone', memoize: true, visible: false
-          add_key 'employer_phone.kind'
+          add_key 'employer_phone.kind', value: 'work'
           add_key 'employer_phone.country_code'
           add_key 'employer_phone.area_code', function: ->(v) {v.resolve("phone").item.to_s[0..2]}
           add_key 'employer_phone.number', function: ->(v) {v.resolve("phone").item.to_s[3..9]}
@@ -52,9 +52,7 @@ module AcaEntities
           add_key 'employer_phone.full_phone_number', function: ->(v) {v.resolve("phone").item.to_s}
 
           add_key 'employee_cost', function: ->(v) { v.resolve('employee_cost')&.item || "0.0"}
-          add_key 'employee_cost_frequency', function: lambda { |v|
-                                                         v.resolve('employee_cost_frequency')&.item&.capitalize || "Monthly"
-                                                       }
+          add_key 'employee_cost_frequency', function: lambda { |v| Ffe::Types::FREQUENCY_KINDS[v.resolve('employee_cost_frequency')&.item&.upcase || "MONTHLY"] }
         end
       end
     end
