@@ -167,7 +167,7 @@ module AcaEntities
                         else
                           (attestations_family_hash[:fullTimeStatusIndicator] ? 'full_time' : nil)
                         end, # needs refactor for other student kinds
-          student_school_kind: nil,
+          student_school_kind: attestations_family_hash[:fullTimeStatusIndicator] ? "english_language_institute" : nil , # default value
           student_status_end_on: nil
         }
 

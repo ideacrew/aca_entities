@@ -2,7 +2,6 @@
 
 require 'aca_entities/functions/email'
 require 'aca_entities/functions/phone'
-require 'aca_entities/functions/address'
 require 'aca_entities/functions/relationship_builder'
 require 'aca_entities/functions/broker_account_builder'
 require 'aca_entities/functions/age_on'
@@ -316,7 +315,7 @@ module AcaEntities
                                                                      v.resolve('person_demographics.ssn', identifier: true).item.nil? ? "1" : "0"
                                                                    }
                       add_key 'person_demographics.language_code'
-                      add_key 'person_demographics.date_of_death', value: ->(_v) {Date.parse("2021-05-07")} # default value
+                      # add_key 'person_demographics.date_of_death', value: ->(_v) {Date.parse("2021-05-07")} # default value
                       add_key 'person_demographics.dob_check'
 
                       # add_namespace 'tax_household_members', type: :array do
