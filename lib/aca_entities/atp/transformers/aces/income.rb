@@ -22,7 +22,7 @@ module AcaEntities
             'social_security_benefit' => 'SocialSecurity',
             'american_indian_and_alaskan_native' => 'American Indian/Alaska Native income',
             'employer_funded_disability' => 'Employer-funded disability payments',
-            'estate_trust' => 'Estate and trust',
+            'estate_trust' => 'Unspecified',
             'farming_and_fishing' => 'FarmingOrFishing',
             'foreign' => 'foreign',
             # 'other' => 'Other taxable income',
