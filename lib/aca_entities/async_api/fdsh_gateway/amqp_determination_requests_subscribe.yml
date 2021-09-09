@@ -131,6 +131,7 @@ channels:
           bindingVersion: "0.2.0"
       operationId: on_fdsh_gateway.fdsh.determination_requests.non_esi
       description: Events - CMS FDSH NON ESI Service requests
+
 tags:
   - name: linter_tag
     description: placeholder that satisfies the linter

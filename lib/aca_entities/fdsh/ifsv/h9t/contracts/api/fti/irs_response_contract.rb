@@ -19,7 +19,7 @@ module AcaEntities
                     AcaEntities::Fdsh::Types::RequestIDType
                   )
 
-                  required(:Household).value(
+                  optional(:Household).value(
                     AcaEntities::Fdsh::Ifsv::H9t::Contracts::Api::Fti::HouseholdContract
                       .params
                   )

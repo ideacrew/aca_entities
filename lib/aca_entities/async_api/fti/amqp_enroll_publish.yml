@@ -1,0 +1,111 @@
+---
+asyncapi: 2.0.0
+info:
+  title: FTI
+  version: 0.1.0
+  description: AMQP Producer configuration for the FTI service
+  contact:
+    name: IdeaCrew
+    url: https://ideacrew.com
+    email: info@ideacrew.com
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+
+servers:
+  development:
+    url: amqp://rabbitmq:5672/event_source
+    protocol: amqp
+    protocolVersion: 0.9.2
+    description: RabbitMQ Development Server
+  test:
+    url: amqp://rabbitmq:5672/event_source
+    protocol: amqp
+    protocolVersion: 0.9.2
+    description: RabbitMQ Test Server
+  production:
+    url: amqp://rabbitmq:5672/event_source
+    protocol: amqp
+    protocolVersion: 0.9.2
+    description: RabbitMQ Production Server
+
+defaultContentType: application/json
+
+channels:
+  fti.eligibilities.fdsh_eligibilities_ifsv_determined:
+    bindings:
+      amqp:
+        is: :routing_key
+        exchange:
+          name: fti.eligibilities
+          type: topic
+          durable: true
+          auto_delete: false
+          vhost: event_source
+        bindingVersion: 0.1.0
+    publish:
+      bindings:
+        amqp:
+          app_id: fti_gateway
+          type: fti.eligibilities
+          routing_key: fti.eligibilities.fdsh_eligibilities_ifsv_determined
+          expiration: 100_000
+          deliveryMode: 2
+          mandatory: true
+          timestamp: true
+          content_type: application/json
+          bindingVersion: 0.2.0
+      operationId: fti.eligibilities.fdsh_eligibilities_ifsv_determined
+      description: IFSV Determination has completed.
+
+  fti.eligibilities.fdsh_eligibilities_ifsv_errored:
+    bindings:
+      amqp:
+        is: :routing_key
+        exchange:
+          name: fti.eligibilities
+          type: topic
+          durable: true
+          auto_delete: false
+          vhost: event_source
+        bindingVersion: 0.1.0
+    publish:
+      bindings:
+        amqp:
+          app_id: fti_gateway
+          type: fti.eligibilities
+          routing_key: fti.eligibilities.fdsh_eligibilities_ifsv_errored
+          expiration: 100_000
+          deliveryMode: 2
+          mandatory: true
+          timestamp: true
+          content_type: application/json
+          bindingVersion: 0.2.0
+      operationId: fti.eligibilities.fdsh_eligibilities_ifsv_errored
+      description: IFSV Determination has errored.
+  
+  fti.eligibilities.fdsh_eligibilities_ifsv_delayed:
+    bindings:
+      amqp:
+        is: :routing_key
+        exchange:
+          name: fti.eligibilities
+          type: topic
+          durable: true
+          auto_delete: false
+          vhost: event_source
+        bindingVersion: 0.1.0
+    publish:
+      bindings:
+        amqp:
+          app_id: fti_gateway
+          type: fti.eligibilities
+          routing_key: fti.eligibilities.fdsh_eligibilities_ifsv_delayed
+          expiration: 100_000
+          deliveryMode: 2
+          mandatory: true
+          timestamp: true
+          content_type: application/json
+          bindingVersion: 0.2.0
+      operationId: fti.eligibilities.fdsh_eligibilities_ifsv_delayed
+      description: IFSV Determination has delay.

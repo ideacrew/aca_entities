@@ -16,14 +16,18 @@ module AcaEntities
                 # @option opts [Array<AcaEntities::Fdsh::Ifsv::H9t::Api::Fti::Verification>] :DependentVerification optional
                 # @return [Dry::Monads::Result]
                 params do
-                  required(:Income).filled(AcaEntities::Types::Money)
+                  optional(:Income).hash do
+                    optional(:IncomeAmount).maybe(
+                      AcaEntities::Types::Money
+                    )
+                  end
 
-                  required(:ApplicantVerification).array(
+                  optional(:ApplicantVerifications).array(
                     AcaEntities::Fdsh::Ifsv::H9t::Contracts::Api::Fti::VerificationContract
                       .params
                   )
 
-                  optional(:DependentVerification).array(
+                  optional(:DependentVerifications).array(
                     AcaEntities::Fdsh::Ifsv::H9t::Contracts::Api::Fti::VerificationContract
                       .params
                   )

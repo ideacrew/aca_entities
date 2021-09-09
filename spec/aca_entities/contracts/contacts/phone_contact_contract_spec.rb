@@ -13,18 +13,40 @@ RSpec.describe AcaEntities::Contracts::Contacts::PhoneContactContract,  dbclean:
   end
 
   context 'valid params' do
-    let(:input_params) { required_params.merge(optional_params) }
+    context 'full_phone_number of 10 chars' do
+      let(:input_params) do
+        required_params.merge(optional_params).merge({ full_phone_number: '1234567890' })
+      end
 
-    before do
-      @result = subject.call(input_params)
+      before do
+        @result = subject.call(input_params)
+      end
+
+      it 'should return success' do
+        expect(@result).to be_success
+      end
+
+      it 'should return all params' do
+        expect(@result.to_h).to eq(input_params)
+      end
     end
 
-    it 'should return success' do
-      expect(@result).to be_success
-    end
+    context 'full_phone_number of 10 chars' do
+      let(:input_params) do
+        required_params.merge(optional_params).merge({ full_phone_number: '123456789012345' })
+      end
 
-    it 'should return all params' do
-      expect(@result.to_h).to eq(input_params)
+      before do
+        @result = subject.call(input_params)
+      end
+
+      it 'should return success' do
+        expect(@result).to be_success
+      end
+
+      it 'should return all params' do
+        expect(@result.to_h).to eq(input_params)
+      end
     end
   end
 
@@ -73,7 +95,7 @@ RSpec.describe AcaEntities::Contracts::Contacts::PhoneContactContract,  dbclean:
       end
     end
 
-    context 'invalid value for full_phone_number' do
+    context 'shorter value for full_phone_number' do
       let(:input_params) { required_params.merge(optional_params).merge({ full_phone_number: '1000' }) }
 
       before do
@@ -81,7 +103,19 @@ RSpec.describe AcaEntities::Contracts::Contacts::PhoneContactContract,  dbclean:
       end
 
       it 'should return failure with error message' do
-        expect(@result.errors.to_h).to eq({ full_phone_number: ["length must be 10"] })
+        expect(@result.errors.to_h).to eq({ full_phone_number: ['length must be within 10 - 15'] })
+      end
+    end
+
+    context 'longer value for full_phone_number' do
+      let(:input_params) { required_params.merge(optional_params).merge({ full_phone_number: '123456789123456789' }) }
+
+      before do
+        @result = subject.call(input_params)
+      end
+
+      it 'should return failure with error message' do
+        expect(@result.errors.to_h).to eq({ full_phone_number: ['length must be within 10 - 15'] })
       end
     end
 

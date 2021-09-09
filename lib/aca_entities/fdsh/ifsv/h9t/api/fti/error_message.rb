@@ -14,14 +14,14 @@ module AcaEntities
                 # @return [String]
                 attribute :ResponseMetadata,
                           AcaEntities::Fdsh::Ifsv::H9t::Api::Fti::ResponseMetadata
-                            .meta(omittable: false)
+                            .optional.meta(omittable: true)
 
                 # @!attribute [r] XPathContent
                 # XPath of the specific element/attribute within the
                 #   XML request/response data
                 # @return [String]
                 attribute :XPathContent,
-                          AcaEntities::Types::String.meta(omittable: false)
+                          AcaEntities::Types::String.optional.meta(omittable: true)
               end
             end
           end
