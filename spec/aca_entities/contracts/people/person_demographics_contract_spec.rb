@@ -7,7 +7,7 @@ RSpec.describe ::AcaEntities::Contracts::People::PersonDemographicsContract, dbc
   let!(:required_params) do
     {
       ssn: "123456789",
-      no_ssn: false,
+      no_ssn: "0",
       gender: 'male',
       dob: Date.today,
       is_incarcerated: false

@@ -316,7 +316,7 @@ RSpec.describe AcaEntities::Contracts::Families::FamilyContract,  dbclean: :afte
   let!(:person_demographics) do
     {
       ssn: "123456789",
-      no_ssn: false,
+      no_ssn: "0",
       gender: 'male',
       dob: Date.today,
       is_incarcerated: false
@@ -854,22 +854,23 @@ RSpec.describe AcaEntities::Contracts::Families::FamilyContract,  dbclean: :afte
         expect(@errors[:magi_medicaid_applications][0]).to eq({ family_reference: { hbx_id: ['is missing'] } })
       end
 
+      ## Strict validation is removed for mcr migration, this will not raise error. Enable this spec when validation is in place.
       it 'should return errors for second magi_medicaid_application' do
         error_hash = { family_reference: ['is missing'],
                        assistance_year: ['is missing'],
-                       aptc_effective_date: ['is missing'],
+                       #  aptc_effective_date: ['is missing'],
                        applicants: { 0 => { name: { first_name: ['is missing'], last_name: ['is missing'] },
                                             identifying_information: ["must be filled"],
                                             demographic: ["must be filled"],
                                             attestation: ["must be filled"],
                                             family_member_reference: { family_member_hbx_id: ['is missing'] },
                                             pregnancy_information: { is_pregnant: ['is missing'] },
-                                            age_of_applicant: ['is missing'],
-                                            benchmark_premium: ['is missing'],
-                                            is_homeless: ['is missing'] } },
+                                            age_of_applicant: ['is missing'] } }, # ,
+                       # benchmark_premium: ['is missing'],
+                       # is_homeless: ['is missing']
                        us_state: ['is missing'],
-                       oe_start_on: ['is missing'],
-                       notice_options: ['is missing'],
+                       #  oe_start_on: ['is missing'],
+                       #  notice_options: ['is missing'],
                        hbx_id: ['is missing'] }
         expect(@errors[:magi_medicaid_applications][1]).to eq(error_hash)
       end

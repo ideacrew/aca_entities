@@ -40,12 +40,13 @@ RSpec.describe ::AcaEntities::Determinations::ProductEligibilityDetermination, d
   end
 
   describe 'with invalid arguments' do
-    it 'should raise error' do
-      expect do
-        described_class.new(input_params.reject do |k, _v|
-                              k == :magi_medicaid_monthly_income_limit
-                            end)
-      end.to raise_error(Dry::Struct::Error, /:magi_medicaid_monthly_income_limit is missing/)
-    end
+    # #Strict validation is removed for mcr migration, this will not raise error. Enable this spec when validation is in place.
+    # it 'should raise error' do
+    #   expect do
+    #     described_class.new(input_params.reject do |k, _v|
+    #                           k == :magi_medicaid_monthly_income_limit
+    #                         end)
+    #   end.to raise_error(Dry::Struct::Error, /:magi_medicaid_monthly_income_limit is missing/)
+    # end
   end
 end

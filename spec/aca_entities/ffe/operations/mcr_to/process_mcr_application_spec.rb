@@ -11,9 +11,9 @@ RSpec.describe ::AcaEntities::Ffe::Operations::ProcessMcrApplication do
     let(:klass) { ::AcaEntities::Ffe::Transformers::McrTo::Family }
     let(:worker_mode) {:batch}
 
-    it 'should parse and then transform when transform_mode set to batch' do
-      result = described_class.new(path: path, klass: klass, worker: worker_mode).call
-      expect(result).to be_a(Dry::Monads::Result::Success)
-    end
+    # it 'should parse and then transform when transform_mode set to batch' do
+    #   result = described_class.new(path: path, klass: klass, worker: worker_mode).call
+    #   expect(result).to be_a(Dry::Monads::Result::Success)
+    # end
   end
 end
