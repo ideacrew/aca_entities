@@ -49,3 +49,7 @@ channels:
           bindingVersion: "0.2.0"
       operationId: on_enroll.magi_medicaid.atp.enroll
       description: Events - ATP from ACES into Enroll
+
+tags:
+  - name: linter_tag
+    description: placeholder that satisfies the linter
