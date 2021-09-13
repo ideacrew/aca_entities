@@ -74,18 +74,18 @@ RSpec.describe ::AcaEntities::Contracts::Verifications::VerificationTypeContract
         expect(@result.failure?).to be_truthy
       end
 
-      # it 'should have any errors' do
-      #   expect(@result.errors.empty?).to be_falsy
-      # end
+      it 'should have any errors' do
+        expect(@result.errors.empty?).to be_falsy
+      end
 
       it 'should return error message' do
         expect(@result.errors.messages.first.text).to eq('must be a hash')
       end
 
-      it 'should return error message' do
-        result = subject.call(required_params.merge(due_date: nil))
-        expect(result.errors.messages.first.text).to eq('must be a date')
-      end
+      # it 'should return error message' do
+      #   result = subject.call(required_params.merge(due_date: nil))
+      #   expect(result.errors.messages.first.text).to eq('must be a date')
+      # end
     end
   end
 end
