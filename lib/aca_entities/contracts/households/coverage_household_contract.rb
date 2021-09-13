@@ -33,7 +33,10 @@ module AcaEntities
           if key? && value
             if value.is_a?(Hash)
               result = AcaEntities::Contracts::Households::CoverageHouseholdMemberContract.new.call(value)
-              key([:coverage_household_members, index]).failure(text: 'invalid coverage_household_members', error: result.errors.to_h) if result&.failure?
+              if result&.failure?
+                key([:coverage_household_members, index]).failure(text: 'invalid coverage_household_members',
+                                                                  error: result.errors.to_h)
+              end
             else
               key([:coverage_household_members, index]).failure(text: 'invalid coverage_household_memberss. Expected a hash.')
             end
