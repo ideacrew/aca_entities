@@ -185,9 +185,11 @@ module AcaEntities
                       applicants_hash = v.resolve('family.magi_medicaid_applications.applicants').item
                       applicant_hash = applicants_hash[member_id.to_sym]
                       pregnancy_information = applicant_hash[:pregnancy_information]
+                      due_date = pregnancy_information[:pregnancy_due_on]
+                      date_range = { :end_date => { :date => Date.parse(due_date) } } if due_date
 
                       { :status_indicator => pregnancy_information[:is_pregnant],
-                        :status_valid_date_range => nil,
+                        :status_valid_date_range => date_range,
                         :expected_baby_quantity => pregnancy_information[:expected_children_count] }
                     }
 
