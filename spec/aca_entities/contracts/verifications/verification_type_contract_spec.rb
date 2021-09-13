@@ -82,10 +82,10 @@ RSpec.describe ::AcaEntities::Contracts::Verifications::VerificationTypeContract
         expect(@result.errors.messages.first.text).to eq('must be a hash')
       end
 
-      it 'should return error message' do
-        result = subject.call(required_params.merge(due_date: nil))
-        expect(result.errors.messages.first.text).to eq('must be a date')
-      end
+      # it 'should return error message' do
+      #   result = subject.call(required_params.merge(due_date: nil))
+      #   expect(result.errors.messages.first.text).to eq('must be a date')
+      # end
     end
   end
 end
