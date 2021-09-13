@@ -136,6 +136,8 @@ module AcaEntities
       end
 
       def pregnancy_info_hash
+        return { pregnancy_information: { is_pregnant: false, is_post_partum_period: false } } if attestations_family_hash.nil?
+
         pregnancy_info = {
           is_pregnant: attestations_family_hash[:pregnancyIndicator] || false,
           is_enrolled_on_medicaid: nil,
@@ -149,6 +151,8 @@ module AcaEntities
       end
 
       def foster_care_hash
+        return { foster_care: nil } if attestations_family_hash.nil?
+
         foster_care = {
           is_former_foster_care: attestations_family_hash[:fosterCareIndicator] || false,
           age_left_foster_care: attestations_family_hash[:fosterCareEndAge],
@@ -160,7 +164,8 @@ module AcaEntities
       end
 
       def student_hash
-        # TODO: check on Student
+        return { student: nil } if attestations_family_hash.nil?
+
         student = {
           is_student: attestations_family_hash[:fullTimeStatusIndicator].nil? ? false : attestations_family_hash[:fullTimeStatusIndicator],
           student_kind: if attestations_family_hash[:fullTimeStatusIndicator].nil?

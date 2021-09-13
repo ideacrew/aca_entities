@@ -19,6 +19,8 @@ module AcaEntities
       private
 
       def member_tax_filing
+        return { is_required_to_file_taxes: false } if attestations_family_hash.nil?
+
         {
           is_required_to_file_taxes: attestations_family_hash[:taxFilerIndicator] || false,
           tax_filer_kind: tax_filer_kind,
