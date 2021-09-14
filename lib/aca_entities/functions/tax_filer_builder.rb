@@ -11,6 +11,7 @@ module AcaEntities
         @memoized_data = memoized_data
         @member_identifier = member.name.split('.').last
         @primary_applicant_identifier = memoized_data.resolve('family.family_members.is_primary_applicant').item
+        @household_size = memoized_data.find(/attestations.members.(\w+)$/).map(&:item).count
         @attestations_family_hash = memoized_data.find(Regexp.new("attestations.members.#{member.name.split('.').last}.family"))&.first&.item
 
         member_tax_filing
@@ -24,8 +25,8 @@ module AcaEntities
         {
           is_required_to_file_taxes: attestations_family_hash[:taxFilerIndicator] || false,
           tax_filer_kind: tax_filer_kind,
-          is_joint_tax_filing: attestations_family_hash[:taxReturnFilingStatusType] == 'MARRIED_FILING_JOINTLY',
-          is_filing_as_head_of_household: attestations_family_hash[:taxReturnFilingStatusType] == 'HEAD_OF_HOUSEHOLD',
+          is_joint_tax_filing: (@household_size > 1) ? attestations_family_hash[:taxReturnFilingStatusType] == 'MARRIED_FILING_JOINTLY' : nil,
+          is_filing_as_head_of_household: (@household_size > 1) ? attestations_family_hash[:taxReturnFilingStatusType] == 'HEAD_OF_HOUSEHOLD' : nil,
           is_claimed_as_tax_dependent: attestations_family_hash[:taxDependentIndicator] || false,
           claimed_as_tax_dependent_by: claimed_as_tax_dependent_hash
         }
