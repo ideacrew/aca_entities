@@ -6,7 +6,7 @@ module AcaEntities
       module Ifsv
         # Entity for RRV IFSV VerifyHouseholdIncomeBulkRequest
         class VerifyHouseholdIncomeBulkRequest < Dry::Struct
-          attribute :ifsv_applicant_request_groups,  Types::Array.of(Fdsh::Rrv::Ifsv::IfsvApplicantRequestGroup).meta(omittable: false)
+          attribute :IFSVApplicantRequestGrps,  Types::Array.of(Fdsh::Rrv::Ifsv::IfsvApplicantRequestGroup).meta(omittable: false)
         end
       end
     end

@@ -7,7 +7,7 @@ module AcaEntities
         # Contract for RRV Medicare
         class VerifyHouseholdIncomeBulkResponseContract < Dry::Validation::Contract
           params do
-            optional(:IfsvApplicantResponseGroups).array(AcaEntities::Fdsh::Rrv::Ifsv::IfsvApplicantResponseGroupContract.params)
+            optional(:IFSVApplicantResponseGrps).array(AcaEntities::Fdsh::Rrv::Ifsv::IfsvApplicantResponseGroupContract.params)
             optional(:ErrorMessageDetail).filled(AcaEntities::Fdsh::Rrv::Ifsv::ErrorMessageDetailContract.params)
           end
         end

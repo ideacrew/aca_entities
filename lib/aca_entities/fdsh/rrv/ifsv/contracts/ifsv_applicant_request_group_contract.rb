@@ -8,7 +8,7 @@ module AcaEntities
         class IfsvApplicantRequestGroupContract < Dry::Validation::Contract
           params do
             required(:RequestId).filled(AcaEntities::Fdsh::Types::RequestIDType)
-            required(:ifsv_applicants).array(AcaEntities::Fdsh::Rrv::Ifsv::IfsvApplicantContract.params)
+            required(:IFSVApplicants).array(AcaEntities::Fdsh::Rrv::Ifsv::IfsvApplicantContract.params)
           end
         end
       end

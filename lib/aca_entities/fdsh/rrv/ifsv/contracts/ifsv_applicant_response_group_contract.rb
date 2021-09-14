@@ -10,7 +10,7 @@ module AcaEntities
             required(:RequestId).filled(AcaEntities::Fdsh::Types::RequestIDType)
             optional(:AggregateHouseholdIncomeAmt).value(AcaEntities::Types::Money)
             optional(:IFSVApplicantVerifications).array(AcaEntities::Fdsh::Rrv::Ifsv::VerificationContract.params)
-            optional(:IFSVDependentVerifications).array(AcaEntities::Fdsh::Rrv::Ifsv::VerificationContract.params)
+            optional(:IFSVDependentVerifications).array(AcaEntities::Fdsh::Rrv::Ifsv::DependentVerificationContract.params)
             optional(:ErrorMessageDetails).array(AcaEntities::Fdsh::Rrv::Ifsv::ErrorMessageDetailContract.params)
           end
         end

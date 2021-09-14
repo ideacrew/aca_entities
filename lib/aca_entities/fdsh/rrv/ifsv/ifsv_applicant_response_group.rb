@@ -9,7 +9,7 @@ module AcaEntities
           attribute :RequestId, AcaEntities::Fdsh::Types::RequestIDType.meta(omittable: false)
           attribute :AggregateHouseholdIncomeAmt, AcaEntities::Types::Money.optional.meta(omittable: true)
           attribute :IFSVApplicantVerifications, Types::Array.of(AcaEntities::Fdsh::Rrv::Ifsv::Verification).optional.meta(omittable: true)
-          attribute :IFSVDependentVerifications, Types::Array.of(AcaEntities::Fdsh::Rrv::Ifsv::Verification).optional.meta(omittable: true)
+          attribute :IFSVDependentVerifications, Types::Array.of(AcaEntities::Fdsh::Rrv::Ifsv::DependentVerification).optional.meta(omittable: true)
           attribute :ErrorMessageDetails,        Types::Array.of(AcaEntities::Fdsh::Rrv::Ifsv::ErrorMessageDetail).optional.meta(omittable: true)
         end
       end

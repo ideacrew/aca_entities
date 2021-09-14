@@ -9,7 +9,7 @@ module AcaEntities
           params do
             required(:TaxpayerIdentificationNumber).filled(:string)
             required(:CompletePersonName).filled(AcaEntities::Fdsh::Rrv::Ifsv::CompletePersonNameContract.params)
-            required(:FilerTypeCd).array(::AcaEntities::Fdsh::Ifsv::H9t::Types::TaxFilerCategoryCodeKind)
+            required(:FilerTypeCd).filled(::AcaEntities::Fdsh::Ifsv::H9t::Types::TaxFilerCategoryCodeKind)
           end
         end
       end
