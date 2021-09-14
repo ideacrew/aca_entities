@@ -7,6 +7,7 @@ module AcaEntities
     # build application and applicants
     class BuildApplication
       def call(context)
+        return [] unless context.resolve('is_applying_for_assistance').item
         @memoized_data = context
         @primary_applicant_identifier = @memoized_data.resolve('family.family_members.is_primary_applicant').item
         applicants = @memoized_data.find('computed.members').each_with_object([]) do |member, collector|

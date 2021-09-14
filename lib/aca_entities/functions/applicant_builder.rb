@@ -155,9 +155,9 @@ module AcaEntities
 
         foster_care = {
           is_former_foster_care: attestations_family_hash[:fosterCareIndicator] || false,
-          age_left_foster_care: attestations_family_hash[:fosterCareEndAge],
+          age_left_foster_care: attestations_family_hash[:fosterCareEndAge] || 0,
           foster_care_us_state: attestations_family_hash[:fosterCareState],
-          had_medicaid_during_foster_care: attestations_family_hash[:medicaidDuringFosterCareIndicator]
+          had_medicaid_during_foster_care: attestations_family_hash[:medicaidDuringFosterCareIndicator] || false
         }
 
         { foster_care: foster_care }

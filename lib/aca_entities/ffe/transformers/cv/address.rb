@@ -9,7 +9,11 @@ module AcaEntities
           include ::AcaEntities::Operations::Transforms::Transformer
 
           map 'kind', 'kind'
-          map 'streetName1', 'address_1'
+          map 'streetName1', 'streetName1', memoize: true, visible: false
+          add_key 'address_1', function: lambda { |v|
+                               return "no address" if v.nil? || v.resolve('streetName1').item.nil?
+                               v.resolve('streetName1').item
+                             }
           add_key 'address_2'
           add_key 'address_3'
           map 'cityName', 'city'

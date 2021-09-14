@@ -215,7 +215,8 @@ module AcaEntities
       end
 
       def annual_amount
-        return 0.0 unless attestations_annual_income_hash || attestations_annual_income_hash[:annualTaxIncome]
+        return 0.0 unless attestations_annual_income_hash
+        return 0.0 unless attestations_annual_income_hash[:annualTaxIncome]
 
         attestations_annual_income_hash[:annualTaxIncome][:incomeAmount] || 0.0
       end

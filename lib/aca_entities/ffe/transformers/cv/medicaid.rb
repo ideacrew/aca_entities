@@ -4,11 +4,28 @@ module AcaEntities
   module Ffe
     module Transformers
       module Cv
-        # Transform person Phone
+        # Transform person Medicaid
         class Medicaid < ::AcaEntities::Operations::Transforms::Transform
           include ::AcaEntities::Operations::Transforms::Transformer
 
-          map 'medicaidDeniedIndicator', 'medicaid_and_chip.not_eligible_in_last_90_days'
+          # ["medicaidDeniedDate",
+          #  "medicaidDeniedIndicator",
+          #  "enrolledInHealthCoverageIndicator",
+          #  "insuranceCoverage",
+          #  "informationChangeSinceMedicaidEndedIndicator",
+          #  "medicaidEndIndicator",
+          #  "coveredDependentChildIndicator",
+          #  "medicaidDeniedDueToImmigrationIndicator",
+          #  "unpaidBillIndicator",
+          #  "medicaidEndDate",
+          #  "immigrationStatusFiveYearIndicator",
+          #  "immigrationStatusChangeSinceDeniedIndicator"]
+
+          map 'medicaidDeniedIndicator', 'medicaidDeniedIndicator', memoize: true, visible: false
+          add_key 'medicaid_and_chip.not_eligible_in_last_90_days', function: lambda { |v|
+                                                                    return false if v.nil? || v.resolve('medicaidDeniedIndicator').item.nil?
+                                                                    v.resolve('medicaidDeniedIndicator').item
+                                                                  }
           map 'medicaidDeniedDate', 'medicaid_and_chip.denied_on'
           map 'informationChangeSinceMedicaidEndedIndicator', 'informationChangeSinceMedicaidEndedIndicator', memoize: true, visible: false
           map 'medicaidEndIndicator', 'medicaidEndIndicator', memoize: true, visible: false
