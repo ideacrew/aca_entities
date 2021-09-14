@@ -8,9 +8,9 @@ module AcaEntities
         class BatchMetadata < Dry::Struct
           attribute :BatchID,  AcaEntities::Types::String.optional.meta(omittable: false)
           attribute :BatchPartnerID,  AcaEntities::Types::String.optional.meta(omittable: false)
-          attribute :BatchAttachmentTotalQuantity,  AcaEntities::Types::Decimal.optional.meta(omittable: false)
+          attribute :BatchAttachmentTotalQuantity,  Types::Float.optional.meta(omittable: false)
           attribute :BatchCategoryCode,  AcaEntities::Types::String.optional.meta(omittable: false)
-          attribute :BatchTransmissionQuantity,  AcaEntities::Types::Decimal.optional.meta(omittable: false)
+          attribute :BatchTransmissionQuantity,  Types::Float.optional.meta(omittable: false)
         end
       end
     end

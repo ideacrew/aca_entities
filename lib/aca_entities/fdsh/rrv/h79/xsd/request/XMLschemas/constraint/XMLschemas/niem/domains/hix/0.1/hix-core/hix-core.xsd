@@ -11,7 +11,7 @@
   <xsd:import namespace="http://niem.gov/niem/niem-core/2.0" schemaLocation="../../../../niem-core.xsd"/>
   <xsd:import namespace="http://niem.gov/niem/proxy/xsd/2.0" schemaLocation="../../../../../../../subset/niem/proxy/xsd/2.0/xsd.xsd"/>
   <xsd:import namespace="http://niem.gov/niem/structures/2.0" schemaLocation="../../../../../../../subset/niem/structures/2.0/structures.xsd"/>
-  <xsd:import namespace="http://rrvreq.dsh.cms.gov/extension/1.0" schemaLocation="../../../../../../..del.xsd"/>
+  <xsd:import namespace="http://rrvreq.dsh.cms.gov/extension/1.0" schemaLocation="../../../../../../../extension/ExtensionModel.xsd"/>
   <xsd:attribute name="BinaryAugmentation" type="xsd:anySimpleType"/>
   <xsd:element abstract="false" name="BatchAttachmentTotalQuantity" type="ext:RestrictedMinimumQuantityType">
     <xsd:annotation>

@@ -7,7 +7,7 @@ module AcaEntities
         # Contract for RRV SSAFileMetadataContract
         class SSAFileMetadataContract < Dry::Validation::Contract
           params do
-            required(:SSADocumentAttachmentQuantity).filled(:decimal)
+            required(:SSADocumentAttachmentQuantity).filled(:integer)
             required(:Attachment).filled(AcaEntities::Fdsh::Rrv::H79::AttachmentContract.params)
           end
         end

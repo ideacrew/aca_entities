@@ -8,8 +8,8 @@ module AcaEntities
         class BatchHandlingServiceRequest < Dry::Struct
           attribute :BatchMetadata,  Fdsh::Rrv::H79::BatchMetadata.meta(omittable: false)
           attribute :TransmissionMetadata,  Fdsh::Rrv::H79::TransmissionMetadata.meta(omittable: false)
-          attribute :ServiceSpecificData,  Fdsh::Rrv::H79::ServiceSpecificData.optional.meta(omittable: false)
-          attribute :Attachment,  Types::Array.of(Fdsh::Rrv::H79::Attachment).optional.meta(omittable: true)
+          attribute :ServiceSpecificData,  Fdsh::Rrv::H79::ServiceSpecificData.optional.meta(omittable: true)
+          attribute :Attachments,  Types::Array.of(Fdsh::Rrv::H79::Attachment).optional.meta(omittable: true)
         end
       end
     end

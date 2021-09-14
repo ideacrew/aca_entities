@@ -7,7 +7,7 @@ module AcaEntities
         # Contract for RRV TransmissionMetadataContract
         class TransmissionMetadataContract < Dry::Validation::Contract
           params do
-            required(:TransmissionAttachmentQuantity).filled(:decimal)
+            required(:TransmissionAttachmentQuantity).filled(:integer)
             required(:TransmissionSequenceID).filled(:integer)
           end
         end

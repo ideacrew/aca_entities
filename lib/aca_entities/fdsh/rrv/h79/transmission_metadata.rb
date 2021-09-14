@@ -6,7 +6,7 @@ module AcaEntities
       module H79
         # Entity for RRV TransmissionMetadata
         class TransmissionMetadata < Dry::Struct
-          attribute :TransmissionAttachmentQuantity,   AcaEntities::Types::Decimal.meta(omittable: false)
+          attribute :TransmissionAttachmentQuantity,   Types::Integer.meta(omittable: false)
           attribute :TransmissionSequenceID,  AcaEntities::Types::Integer.meta(omittable: false)
         end
       end

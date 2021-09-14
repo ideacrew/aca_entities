@@ -7,7 +7,7 @@ module AcaEntities
         # Contract for RRV MedicareFileMetadataContract
         class MedicareFileMetadataContract < Dry::Validation::Contract
           params do
-            required(:MedicareDocumentAttachmentQuantity).filled(:decimal)
+            required(:MedicareDocumentAttachmentQuantity).filled(:integer)
             required(:Attachment).filled(AcaEntities::Fdsh::Rrv::H79::AttachmentContract.params)
           end
         end

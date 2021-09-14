@@ -7,8 +7,8 @@ module AcaEntities
         # Contract for RRV IRSFileMetadataContract
         class IRSFileMetadataContract < Dry::Validation::Contract
           params do
-            required(:IRSDocumentAttachmentQuantity).filled(:decimal)
-            required(:Attachment).array(AcaEntities::Fdsh::Rrv::H79::AttachmentContract.params)
+            required(:IRSDocumentAttachmentQuantity).filled(:integer)
+            required(:Attachments).array(AcaEntities::Fdsh::Rrv::H79::AttachmentContract.params)
           end
         end
       end

@@ -6,7 +6,7 @@ module AcaEntities
       module H79
         # Entity for RRV CurrentIncomeFileMetadata
         class CurrentIncomeFileMetadata < Dry::Struct
-          attribute :CurrentIncomeDocumentAttachmentQuantity,   AcaEntities::Types::Decimal.meta(omittable: false)
+          attribute :CurrentIncomeDocumentAttachmentQuantity,   Types::Integer.meta(omittable: false)
           attribute :Attachment,        Fdsh::Rrv::H79::Attachment.meta(omittable: false)
         end
       end
