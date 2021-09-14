@@ -5,7 +5,7 @@ module AcaEntities
     module Xml
       module Fdsh
         module Rrv
-          module Ifsv
+          module Medicare
             module Operations
               # RRV Request to payload xml
               class IfsvRequestToXml
