@@ -7,8 +7,8 @@ module AcaEntities
         # Entity for RRV CurrentIncomeFileMetadataContract
         class CurrentIncomeFileMetadataContract < Dry::Validation::Contract
           params do
-            required(:CurrentIncomeDocumentAttachmentQuantity).filled(:decimal)
-            required(:Attachment).array(AcaEntities::Fdsh::Rrv::H79::AttachmentContract.params)
+            required(:CurrentIncomeDocumentAttachmentQuantity).filled(:integer)
+            required(:Attachment).filled(AcaEntities::Fdsh::Rrv::H79::AttachmentContract.params)
           end
         end
       end

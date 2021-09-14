@@ -29,3 +29,6 @@ require_relative 'service_specific_data'
 require_relative 'transmission_metadata'
 require_relative 'batch_metadata'
 require_relative 'batch_handling_service_request'
+
+# happymapper
+require 'aca_entities/serializers/xml/fdsh/rrv'

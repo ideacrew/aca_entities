@@ -6,7 +6,7 @@ module AcaEntities
       module H79
         # Entity for RRV MedicareFileMetadata
         class MedicareFileMetadata < Dry::Struct
-          attribute :MedicareDocumentAttachmentQuantity,   AcaEntities::Types::Decimal.meta(omittable: false)
+          attribute :MedicareDocumentAttachmentQuantity,   Types::Integer.meta(omittable: false)
           attribute :Attachment,        Fdsh::Rrv::H79::Attachment.meta(omittable: false)
         end
       end
