@@ -28,13 +28,21 @@ module AcaEntities
             }
           end
 
+          # TODO: received max_aptc is not in cents
           [hbx_id: "1234",
-           allocated_aptc: { "cents" => max_aptc, "currency_iso" => "USD" },
+           allocated_aptc: { cents: 0, currency_iso: "USD" },
            is_eligibility_determined: true,
-           start_date: Date.new(2021, 1, 1),
-           end_date: Date.new(2021, 12, 31),
+           start_date: Date.new(2021, 1, 1), # default value
+           end_date: Date.new(2021, 12, 31), # default value
            tax_household_members: @members,
-           eligibility_determinations: []]
+           eligibility_determinations: [{
+             max_aptc: { cents: max_aptc, currency_iso: "USD" },
+             csr_percent_as_integer: 0, # default value
+             determined_at: Date.new(2021, 1, 1), # default value
+             aptc_csr_annual_household_income: { cents:  tax_info[:maxAPTC][:taxHouseholdAnnualIncomeAmount] || 0.0, currency_iso: "USD" },
+             aptc_annual_income_limit: { cents: 0, currency_iso: "USD" },
+             csr_annual_income_limit: { cents: 0, currency_iso: "USD" }
+           }]]
         rescue StandardError => e
           puts "errors BuildTaxHouseHold  #{e}"
         end
