@@ -12,6 +12,7 @@ module AcaEntities
           @primary_applicant_id = @memoized_data.resolve('family.family_members.is_primary_applicant').item
           tax_info = @memoized_data.find(Regexp.new("computed.taxHouseholds"))&.first&.item
           max_aptc = tax_info[:maxAPTC].present? ? tax_info[:maxAPTC][:maxAPTCAmount] : 0.0
+          tax_household_annual_income = tax_info[:maxAPTC].present? ? tax_info[:maxAPTC][:taxHouseholdAnnualIncomeAmount] : 0.0
           return [] if tax_info[:taxHouseHoldComposition][:taxHouseholdMemberIdentifiers]&.first.nil?  # TODO
           tax_household_members = tax_info[:taxHouseHoldComposition][:taxHouseholdMemberIdentifiers]&.first[:taxHouseholdMemberIdentifiers]
           @members = []
@@ -39,7 +40,7 @@ module AcaEntities
              max_aptc: { cents: max_aptc, currency_iso: "USD" },
              csr_percent_as_integer: 0, # default value
              determined_at: Date.new(2021, 1, 1), # default value
-             aptc_csr_annual_household_income: { cents:  tax_info[:maxAPTC][:taxHouseholdAnnualIncomeAmount] || 0.0, currency_iso: "USD" },
+             aptc_csr_annual_household_income: { cents: tax_household_annual_income, currency_iso: "USD" },
              aptc_annual_income_limit: { cents: 0, currency_iso: "USD" },
              csr_annual_income_limit: { cents: 0, currency_iso: "USD" }
            }]]
