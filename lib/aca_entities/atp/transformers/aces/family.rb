@@ -26,10 +26,12 @@ module AcaEntities
             rewrap 'aces', type: :hash do
               map 'ext_app_id', 'ext_app_id'
               map 'hbx_id', 'hbx_id', memoize: true, visible: false
-              add_key "senders", function: lambda { |_v|
+              map 'magi_medicaid_applications.us_state', 'us_state', memoize: true, visible: false
+              add_key "senders", function: lambda { |v|
+                state_code = v.resolve('us_state').item
                 [{ category_code: 'Exchange',
                    county_name: nil,
-                   state_code: 'ME',
+                   state_code: state_code,
                    id: "Sender" }] # default
               }
 
@@ -52,7 +54,8 @@ module AcaEntities
 
                   # add_key 'number_of_referrals', value: ->(_v) {} # this field is populated below
                   add_key 'recipient_code', value: 'MedicaidCHIP'
-                  add_key 'state_code', value: 'ME'
+                  # add_key 'state_code', value: 'ME'
+                  add_key 'state_code', function: ->(v) { v.resolve('us_state').item }
                 end
                 add_key 'recipient_state_code'
               end
