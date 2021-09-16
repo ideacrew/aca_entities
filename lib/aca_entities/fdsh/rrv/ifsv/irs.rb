@@ -29,3 +29,7 @@ require_relative 'complete_person_name'
 require_relative 'ifsv_applicant'
 require_relative 'ifsv_applicant_request_group'
 require_relative 'verify_household_income_bulk_request'
+
+# operations
+
+require_relative 'operations/create_rrv_ifsv_request'

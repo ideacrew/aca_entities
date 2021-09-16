@@ -12,6 +12,7 @@ module AcaEntities
               register_namespace 'irs', 'urn:us:gov:treasury:irs:common'
 
               tag 'IFSVApplicant'
+              namespace 'irs'
 
               element :TaxpayerIdentificationNumber, String, tag: 'TaxpayerIdentificationNumber', namespace: 'irs'
               has_one :CompletePersonName, CompletePersonName

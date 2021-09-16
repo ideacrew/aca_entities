@@ -12,6 +12,7 @@ module AcaEntities
               register_namespace 'irs', 'urn:us:gov:treasury:irs:common'
 
               tag 'IFSVApplicantRequestGrp'
+              namespace 'irs'
 
               element :RequestId, String, tag: 'RequestId', namespace: "irs"
               has_many :IFSVApplicants, IfsvApplicant

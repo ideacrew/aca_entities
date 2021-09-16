@@ -5,7 +5,7 @@ module AcaEntities
     module Xml
       module Fdsh
         module Rrv
-          module Medicare
+          module Ifsv
             module Operations
               # Validate rrv medicare request with xsd
               class ValidateIfsvRequestPayloadXml
@@ -25,7 +25,7 @@ module AcaEntities
                     "ifsv",
                     "xsd",
                     "MSG",
-                    "HHS-IRS-VerifyHouseholdIncomeAndFamilySizeMessage-1.0.xsd"
+                    "VerifyHouseholdIncomeAndFamilySizeMessage.xsd"
                   )
                 ).freeze
 

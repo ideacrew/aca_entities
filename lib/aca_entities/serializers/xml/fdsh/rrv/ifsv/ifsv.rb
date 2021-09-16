@@ -21,8 +21,12 @@ module AcaEntities
   module Serializers
     module Xml
       module Fdsh
-        # XML serialization for Rrv objects.
-        module Ifsv
+        module Rrv
+          module Ifsv
+            # XML serialization for Rrv Ifsv objects.
+            module Ifsv
+            end
+          end
         end
       end
     end
