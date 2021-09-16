@@ -30,7 +30,7 @@ module AcaEntities
                 end
 
                 def validate_xml(xml)
-                  ValidateMedicarePayloadXml.new.call(xml)
+                  ValidateMedicareRequestPayloadXml.new.call(xml)
                 end
               end
             end

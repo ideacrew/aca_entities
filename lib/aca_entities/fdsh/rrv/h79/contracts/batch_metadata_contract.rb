@@ -9,9 +9,9 @@ module AcaEntities
           params do
             required(:BatchID).maybe(:string)
             required(:BatchPartnerID).maybe(:string)
-            required(:BatchAttachmentTotalQuantity).maybe(:float)
+            required(:BatchAttachmentTotalQuantity).maybe(:integer)
             required(:BatchCategoryCode).maybe(:string)
-            required(:BatchTransmissionQuantity).maybe(:float)
+            required(:BatchTransmissionQuantity).maybe(:integer)
           end
         end
       end
