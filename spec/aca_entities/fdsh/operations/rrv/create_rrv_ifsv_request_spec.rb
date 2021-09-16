@@ -623,7 +623,7 @@ RSpec.describe AcaEntities::Fdsh::Rrv::H79::Ifsv::Operations::CreateRrvIfsvReque
   end
 
   subject do
-    described_class.new.call(application)
+    described_class.new.call([application])
   end
 
   it "is successful" do

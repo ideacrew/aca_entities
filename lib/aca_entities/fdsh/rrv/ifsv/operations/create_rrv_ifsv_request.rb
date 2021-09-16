@@ -10,8 +10,8 @@ module AcaEntities
             class CreateRrvIfsvRequest
               include Dry::Monads[:result, :do, :try]
 
-              def call(application)
-                payload = yield construct_ifsv_request(application)
+              def call(applications)
+                payload = yield construct_ifsv_request(applications)
                 validated_payload = yield validate_payload(payload)
                 request_entity = yield ifsv_request_entity(validated_payload)
 
@@ -29,9 +29,13 @@ module AcaEntities
                 Success(AcaEntities::Fdsh::Rrv::Ifsv::VerifyHouseholdIncomeBulkRequest.new(payload.to_h))
               end
 
-              def construct_ifsv_request(application)
+              def construct_ifsv_request(applications)
+                request_groups = applications.collect do |application|
+                  construct_applicant_request_group(application)
+                end
+
                 request = {
-                  IFSVApplicantRequestGrps: [construct_applicant_request_group(application)]
+                  IFSVApplicantRequestGrps: request_groups
                 }
 
                 Success(request)
