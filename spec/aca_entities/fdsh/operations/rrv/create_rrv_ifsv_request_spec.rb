@@ -626,7 +626,7 @@ RSpec.describe AcaEntities::Fdsh::Rrv::H79::Ifsv::Operations::CreateRrvIfsvReque
     described_class.new.call(application)
   end
 
-  xit "is successful" do
+  it "is successful" do
     expect(subject.success?).to be_truthy
   end
 end

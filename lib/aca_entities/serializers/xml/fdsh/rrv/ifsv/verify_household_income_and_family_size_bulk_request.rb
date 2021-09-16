@@ -9,7 +9,7 @@ module AcaEntities
             # Happymapper implementation for the root object of an Request.
             class VerifyHouseholdIncomeAndFamilySizeBulkRequest
               include HappyMapper
-              register_namespace 'irs', 'urn:us:gov:treasury:irs:common'
+              register_namespace 'xmlns', 'urn:us:gov:treasury:irs:msg:hhsirsverifyhouseholdincomeandfamilysize'
 
               tag 'VerifyHsldIncmAndFamSizeBulkReq'
 
