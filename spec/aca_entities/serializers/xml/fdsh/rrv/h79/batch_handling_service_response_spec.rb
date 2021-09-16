@@ -53,7 +53,7 @@ RSpec.describe AcaEntities::Serializers::Xml::Fdsh::Rrv::H79::BatchHandlingServi
         ChecksumAugmentation: {
           SHA256HashValueText: "0000000000000000000000000000000000000000000000000000000000000000"
         },
-        BinarySizeValue: 20.00
+        BinarySizeValue: 20
       },
       DocumentFileName: "IFSV_Request_00001_10000101T000000000Z.xml",
       DocumentSequenceID: "00001",

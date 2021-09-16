@@ -9,7 +9,7 @@ module AcaEntities
           attribute :ChecksumAugmentation do
             attribute :SHA256HashValueText, AcaEntities::Types::String.meta(omittable: false)
           end
-          attribute :BinarySizeValue, Types::Float.meta(omittable: false)
+          attribute :BinarySizeValue, Types::Integer.meta(omittable: false)
         end
       end
     end

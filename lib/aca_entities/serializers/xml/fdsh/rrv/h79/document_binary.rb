@@ -15,7 +15,7 @@ module AcaEntities
               namespace 'hix-core'
 
               has_one :ChecksumAugmentation, ChecksumAugmentation
-              element :BinarySizeValue, Float, tag: 'BinarySizeValue', namespace: 'hix-core'
+              element :BinarySizeValue, Integer, tag: 'BinarySizeValue', namespace: 'hix-core'
 
               def self.domain_to_mapper(request)
                 mapper = self.new

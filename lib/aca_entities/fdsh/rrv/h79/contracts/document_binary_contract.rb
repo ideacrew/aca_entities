@@ -10,7 +10,7 @@ module AcaEntities
             required(:ChecksumAugmentation).schema do
               required(:SHA256HashValueText).filled(:string)
             end
-            required(:BinarySizeValue).filled(:float)
+            required(:BinarySizeValue).filled(:integer)
           end
         end
       end

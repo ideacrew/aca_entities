@@ -9,8 +9,8 @@ module AcaEntities
           class BuildMedicareRequest
             include Dry::Monads[:result, :do, :try]
 
-            def call(application)
-              payload = yield construct_medicare_request(application)
+            def call(applications)
+              payload = yield construct_medicare_request(applications)
               validated_payload = yield validate_payload(payload)
               request_entity = yield esi_mec_request_entity(validated_payload)
 
@@ -28,9 +28,11 @@ module AcaEntities
               Success(AcaEntities::Fdsh::Rrv::Medicare::EesDshBatchRequestData.new(payload.to_h))
             end
 
-            def construct_medicare_request(application)
-              request = { IndividualRequests: construct_individual_request(application) }
-
+            def construct_medicare_request(applications)
+              request_groups = applications.collect do |application|
+                construct_individual_request(application)
+              end
+              request = { IndividualRequests: request_groups.flatten }
               Success(request)
             end
 
