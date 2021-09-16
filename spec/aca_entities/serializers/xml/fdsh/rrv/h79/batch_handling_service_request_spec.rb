@@ -20,9 +20,9 @@ RSpec.describe AcaEntities::Serializers::Xml::Fdsh::Rrv::H79::BatchHandlingServi
     {
       BatchID: "1000-01-01T00:00:00Z",
       BatchPartnerID: "00.AA*.000.000.000",
-      BatchAttachmentTotalQuantity: 20.123,
+      BatchAttachmentTotalQuantity: 20,
       BatchCategoryCode: "RRV_REQ",
-      BatchTransmissionQuantity: 20.123
+      BatchTransmissionQuantity: 20
     }
   end
 
