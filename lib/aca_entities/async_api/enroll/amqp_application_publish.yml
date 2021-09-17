@@ -192,6 +192,33 @@ channels:
           content_type: application/json
           bindingVersion: 0.2.0
 
+  enroll.iap.mec_check.mec_check_requested:
+    bindings:
+      amqp:
+        is: :routing_key
+        exchange:
+          name: enroll.iap.mec_check
+          type: topic
+          content_type: application/json
+          durable: true
+          auto_delete: false
+          vhost: event_source
+        binding_version: "0.2.0"
+    publish:
+      operationId: enroll.iap.mec_check.mec_check_requested
+      description: Events - MEC Check requested from enroll
+      bindings:
+        amqp:
+          app_id: enroll
+          type: enroll.iap.mec_check
+          routing_key: enroll.iap.mec_check.mec_check_requested
+          expiration: 100_000
+          deliveryMode: 2
+          mandatory: true
+          timestamp: true
+          content_type: application/json
+          bindingVersion: 0.2.0
+
 tags:
   - name: linter_tag
     description: placeholder that satisfies the linter
