@@ -22,7 +22,7 @@ module AcaEntities
               mapper
             end
 
-            def to_hash()
+            def to_hash
               {
                 end_date: end_date,
                 start_date: start_date

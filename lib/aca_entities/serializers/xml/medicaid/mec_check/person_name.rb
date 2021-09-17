@@ -13,10 +13,8 @@ module AcaEntities
             namespace 'gov'
 
             element :first_name, String, tag: "FirstName", namespace: "gov"
-            #optional
             element :middle_name, String, tag: "MiddleName", namespace: "gov"
             element :last_name, String, tag: "LastName", namespace: "gov"
-            #optional
             element :name_suffix, String, tag: "NameSuffix", namespace: "gov"
 
             def self.domain_to_mapper(person_name)
@@ -28,7 +26,7 @@ module AcaEntities
               mapper
             end
 
-            def to_hash()
+            def to_hash
               {
                 first_name: first_name,
                 middle_name: middle_name,

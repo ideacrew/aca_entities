@@ -12,7 +12,6 @@ module AcaEntities
             tag 'NonESIMECRequest'
             namespace 'gov'
 
-            # 
             has_one :non_esi_mec_individual_information, NonEsiMecIndividualInformation
 
             def self.domain_to_mapper(request)
@@ -21,9 +20,9 @@ module AcaEntities
               mapper
             end
 
-            def to_hash()
+            def to_hash
               {
-                non_esi_mec_individual_information: transfer_header.to_hash,
+                non_esi_mec_individual_information: transfer_header.to_hash
               }
             end
           end

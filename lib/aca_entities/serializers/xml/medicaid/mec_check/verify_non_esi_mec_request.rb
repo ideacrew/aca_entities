@@ -22,9 +22,9 @@ module AcaEntities
               mapper
             end
 
-            def to_hash()
+            def to_hash
               {
-                non_esi_mec_request: non_esi_mec_request.to_hash,
+                non_esi_mec_request: non_esi_mec_request.to_hash
               }
             end
           end

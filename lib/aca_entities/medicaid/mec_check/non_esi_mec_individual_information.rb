@@ -8,7 +8,7 @@ module AcaEntities
         attribute :person_ssn, Types::String.meta(omittable: false)
         attribute :person_name, PersonName.meta(omittable: false)
         attribute :person_date_of_birth, Types::Date.meta(omittable: false)
-        #switch to type once built
+        # switch to type once built
         attribute :person_sex_code, Types::String.optional.meta(omittable: true)
         attribute :requested_insurance_period, RequestedInsurancePeriod.meta(omittable: false)
         # switch to type once built
