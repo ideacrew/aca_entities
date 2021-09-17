@@ -186,7 +186,7 @@ module AcaEntities
           family_member_hbx_id: member_identifier, # default value
           first_name: memoized_data.find(Regexp.new("first_name.#{member_identifier}"))&.first&.item,
           last_name: memoized_data.find(Regexp.new("last_name.#{member_identifier}"))&.first&.item,
-          person_hbx_id: '1234', # default value
+          person_hbx_id: memoized_data.find(Regexp.new("computed.members.#{member_identifier}")).first.item[:personTrackingNumber], # default value
           is_primary_family_member: primary_applicant_identifier == member_identifier
         }
 

@@ -15,8 +15,8 @@ module AcaEntities
           # @return [Dry::Monads::Result]
           def call(*args)
             valid_params = yield validate(args.first[:record])
-            _family_hash = yield build_family_hash(valid_params)
-            Success(args.first[:record])
+            family_hash = yield build_family_hash(valid_params)
+            Success(family_hash)
           end
 
           private
@@ -32,7 +32,6 @@ module AcaEntities
           end
 
           def build_family_hash(valid_params)
-            # binding.pry
             result = Try do
               AcaEntities::Families::Family.new(valid_params.to_h)
             end.to_result

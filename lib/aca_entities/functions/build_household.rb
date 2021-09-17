@@ -11,8 +11,7 @@ module AcaEntities
         members = input.find(/attestations.members.(\w+)$/).map(&:item)
         primary_applicant_id = input.resolve('family.family_members.is_primary_applicant').item
 
-        [start_date: Date.parse("2021-05-07"),
-         end_date: Date.parse("2021-05-07"),
+        [start_date: Date.parse("2021-01-01"),
          irs_group_reference: {},
          is_active: true,
          irs_group: nil,
@@ -27,7 +26,7 @@ module AcaEntities
                                                        family_member_reference: { family_member_hbx_id: member_id,
                                                                                   first_name: '',
                                                                                   last_name: '',
-                                                                                  person_hbx_id: '',
+                                                                                  person_hbx_id: input.find(Regexp.new("computed.members.#{member_id}")).first.item[:personTrackingNumber],
                                                                                   is_primary_family_member: (primary_applicant_id == member_id) } }
                                            result
                                          end }

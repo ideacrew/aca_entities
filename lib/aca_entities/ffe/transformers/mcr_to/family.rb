@@ -99,7 +99,7 @@ module AcaEntities
               map 'application.contactInformation', 'contactInformation', memoize_record: true, visible: false
 
               # original key is also passed to the output hash, revist code for this scenario
-              # map 'application.contactMethod', 'family.family_members.person.consumer_role.contact_method', memoize: true, visible: false
+              map 'application.contactMethod', 'family.family_members.person.consumer_role.contact_method', memoize: true, visible: false
 
               # transform not working
               # revist the code for values as array
@@ -166,24 +166,23 @@ module AcaEntities
                         v.find(/attestations.members.(\w+)$/).map(&:item).last
                       }
 
-                      # TODO: check on identifiers
-
+                      # TODO: identifiers not needed now
                       # add_namespace 'new namespace key', 'namespace path for new namespace key', type: :hash
                       # add new namespace of type hash as provided in output namespaced key
-                      add_namespace 'identifiers', 'family.family_members.person.identifiers', type: :hash do
-                        add_key 'source_system_key', value: 'ccr' # source_vocabulary
-
-                        add_namespace 'ids', 'family.family_members.person.identifiers.ids', type: :hash do
-                          add_key 'key', function: lambda {|v|
-                            v.resolve('attestations.members', identifier: true).name
-                          }
-                          #->(v) {v.find(Regexp.new("attestations.members")).map(&:name).last} # should be derived based on context
-                          add_key 'item', function: lambda {|v|
-                            v.find(/attestations.members.(\w+)$/).map(&:item).last
-                          }
-                          # should pick id from the source payload
-                        end
-                      end
+                      # add_namespace 'identifiers', 'family.family_members.person.identifiers', type: :hash do
+                      #   add_key 'source_system_key', value: 'ccr' # source_vocabulary
+                      #
+                      #   add_namespace 'ids', 'family.family_members.person.identifiers.ids', type: :hash do
+                      #     add_key 'key', function: lambda {|v|
+                      #       v.resolve('attestations.members', identifier: true).name
+                      #     }
+                      #     #->(v) {v.find(Regexp.new("attestations.members")).map(&:name).last} # should be derived based on context
+                      #     add_key 'item', function: lambda {|v|
+                      #       v.find(/attestations.members.(\w+)$/).map(&:item).last
+                      #     }
+                      #     # should pick id from the source payload
+                      #   end
+                      # end
 
                       namespace 'name' do
                         rewrap 'family.family_members.person.person_name', type: :hash do
@@ -230,7 +229,7 @@ module AcaEntities
 
                       add_namespace 'consumer_role', 'family.family_members.person.consumer_role', type: :hash do
                         add_key 'five_year_bar'
-                        add_key 'requested_coverage_start_date', value: ->(_v) {Date.parse("2021-05-07")} # default value
+                        add_key 'requested_coverage_start_date', value: ->(_v) {Date.parse("2021-01-01")} # default value
                         add_key 'aasm_state'
                         add_key 'is_applicant', function: lambda {|v|
                           v.resolve('family.family_members.is_primary_applicant').item == v.find(/attestations.members.(\w+)$/).map(&:item).last
@@ -240,17 +239,16 @@ module AcaEntities
                         add_key 'is_applying_coverage', function: ->(v) {v.resolve('is_coverage_applicant', identifier: true).item}
                         add_key 'bookmark_url'
                         add_key 'admin_bookmark_url'
-                        add_key 'contact_method', function: ->(_v) { "Paper and Electronic communications" }
-                        # function: ->(v) {
-                        #   value = v.resolve('family.family_members.person.consumer_role.contact_method')&.item
-                        #   if value == ["EMAIL", "E_TEXT"] || value == ["E_TEXT", "EMAIL"] || value == ["EMAIL"] || value ==  ["E_TEXT"]
-                        #     "Only Electronic communications"
-                        #   elsif value == ["EMAIL"]
-                        #     "Only Electronic communications"
-                        #   else
-                        #     "Paper and Electronic communications"
-                        #   end
-                        # }
+                        add_key 'contact_method', function: ->(v) {
+                                                  value = v.resolve('family.family_members.person.consumer_role.contact_method')&.item
+                                                  if value == ["EMAIL", "E_TEXT"] || value == ["E_TEXT", "EMAIL"] || value == ["EMAIL"] || value ==  ["E_TEXT"]
+                                                    "Only Electronic communications"
+                                                  elsif value == ["MAIL"]
+                                                    "Only Paper communication"
+                                                  else
+                                                    "Paper and Electronic communications"
+                                                  end
+                                                }
 
                         add_key 'language_preference',
                                 function: ->(v) {v.resolve('family_members.person.consumer_role.language_preference').item}
