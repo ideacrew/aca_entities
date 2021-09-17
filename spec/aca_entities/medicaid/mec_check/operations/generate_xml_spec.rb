@@ -11,7 +11,6 @@ RSpec.describe AcaEntities::Medicaid::MecCheck::Operations::GenerateXml  do
 
     it 'should parse and then transform' do
       result = described_class.new.call(payload)
-      puts result
       # _example_output_xml = File.read(Pathname.pwd.join('spec/support/atp/sample_payloads/simple_L_transformed_payload.xml'))
 
       expect(result.success?).to be_truthy
