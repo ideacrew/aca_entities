@@ -12,7 +12,7 @@ module AcaEntities
 
               tag 'EESDSHBatchResponseData'
 
-              has_many :IndividualResponses, IndividualResponses
+              has_one :IndividualResponses, IndividualResponses
 
               def self.domain_to_mapper(request)
                 mapper = self.new
