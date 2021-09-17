@@ -9,9 +9,10 @@ module AcaEntities
             # Happymapper implementation for the root object of an Response.
             class VerifyHouseholdIncomeAndFamilySizeBulkResponse
               include HappyMapper
-              register_namespace 'irs', 'urn:us:gov:treasury:irs:common'
+              register_namespace 'xmlns', 'urn:us:gov:treasury:irs:msg:hhsirsverifyhouseholdincomeandfamilysize'
 
               tag 'VerifyHsldIncmAndFamSzBulkRspns'
+              namespace 'xmlns'
 
               has_many :IFSVApplicantResponseGrps, IfsvApplicantResponseGroup
               has_one :ErrorMessageDetail, ErrorMessageDetail
