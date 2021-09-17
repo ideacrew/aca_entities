@@ -8,7 +8,7 @@ module AcaEntities
         class NonEsiMecIndividualInformationContract < Dry::Validation::Contract
 
           params do
-            required(:person_ssn).filled(:string)
+            optional(:person_ssn).maybe(:string)
             required(:person_name).filled(:hash)
             required(:person_date_of_birth).filled(:date)
             optional(:person_sex_code).maybe(:string)
