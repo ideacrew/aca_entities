@@ -12,6 +12,7 @@ module AcaEntities
               register_namespace 'irs', 'urn:us:gov:treasury:irs:common'
 
               tag 'IFSVDependentVerification'
+              namespace 'irs'
 
               has_one :IFSVApplicantVerification, IfsvApplicantVerification
 

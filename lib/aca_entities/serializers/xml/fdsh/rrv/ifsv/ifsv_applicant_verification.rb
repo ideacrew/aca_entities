@@ -12,6 +12,7 @@ module AcaEntities
               register_namespace 'irs', 'urn:us:gov:treasury:irs:common'
 
               tag 'IFSVApplicantVerification'
+              namespace 'irs'
 
               element :TaxpayerIdentificationNumber, String, tag: 'TaxpayerIdentificationNumber', namespace: "irs"
               element :SpouseTIN, String, tag: 'SpouseTIN', namespace: "irs"

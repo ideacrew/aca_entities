@@ -12,10 +12,12 @@ module AcaEntities
               register_namespace 'irs', 'urn:us:gov:treasury:irs:common'
 
               tag 'ErrorMessageDetail'
+              namespace 'irs'
 
               element :ErrorMessageCd, String, tag: 'ErrorMessageCd', namespace: 'irs'
               element :ErrorMessageTxt, String, tag: 'ErrorMessageTxt', namespace: 'irs'
               element :XpathContent, String, tag: 'XpathContent', namespace: 'irs'
+
 
               def self.domain_to_mapper(error_message)
                 mapper = self.new
