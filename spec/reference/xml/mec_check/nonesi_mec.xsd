@@ -1,0 +1,153 @@
+<xsd:schema targetNamespace="http://gov.hhs.cms.hix.dsh.ee.nonesi_mec.ext" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://gov.hhs.cms.hix.dsh.ee.nonesi_mec.ext">
+  <xsd:annotation>
+    <xsd:documentation>
+      <SchemaComponent>
+        <EffectiveDt>2012-10-01</EffectiveDt>
+        <VersionDt>2012-09-11</VersionDt>
+        <VersionDescriptionTxt>Updated to include the OrganizationCode in the schema.</VersionDescriptionTxt>
+        <DescriptionTxt>Request and Response payloads for the SOA service Verify Non ESI MEC.</DescriptionTxt>
+      </SchemaComponent>
+    </xsd:documentation>
+  </xsd:annotation>
+  <xsd:element name="VerifyNonESIMECRequest">
+    <xsd:annotation>
+      <xsd:documentation>Root Element: Request Message - Verify Non ESI MEC (VNEM).</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="NonESIMECRequest" type="NonESIMECRequestType"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="VerifyNonESIMECResponse">
+    <xsd:annotation>
+      <xsd:documentation>Root Element: Response Message - Verify Non ESI MEC (VNEM).</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="NonESIMECResponse" type="NonESIMECResponseType"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:complexType name="NonESIMECRequestType">
+    <xsd:sequence>
+      <xsd:element name="NonESIMECindividualInformation" type="NonESIMECIndividualType"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="NonESIMECIndividualType">
+    <xsd:sequence>
+      <xsd:element name="PersonSSN" type="PersonSSNType"/>
+      <xsd:element name="PersonName" type="PersonNameType"/>
+      <xsd:element name="PersonDateOfBirth" type="DateType"/>
+      <xsd:element name="PersonSexCode" type="GenderCodeType" minOccurs="0"/>
+      <xsd:element name="RequestedInsurancePeriod" type="DatePeriodType"/>
+      <xsd:element name="OrganizationCode" type="OrganizationCodeSimpleType"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="PersonNameType">
+    <xsd:sequence>
+      <xsd:element name="FirstName" type="ProperNameType"/>
+      <xsd:element name="MiddleName" type="ProperNameType" minOccurs="0"/>
+      <xsd:element name="LastName" type="ProperNameType"/>
+      <xsd:element name="NameSuffix" type="NameSuffixType" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="DatePeriodType">
+    <xsd:sequence>
+      <xsd:element name="StartDate" type="DateType"/>
+      <xsd:element name="EndDate" type="DateType"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="NonESIMECResponseType">
+    <xsd:sequence>
+      <xsd:element name="ResponseCode" type="ErrorCodeType"/>
+      <xsd:element name="ResponseDescription" type="xsd:string"/>
+      <xsd:element name="NonESIMECIndividualResponse" type="NonESIMECIndividualResponseType"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="NonESIMECIndividualResponseType">
+    <xsd:sequence>
+      <xsd:element name="PersonSSN" type="PersonSSNType"/>
+      <xsd:element name="SourceInformation" type="SourceInformationType" minOccurs="0"/>
+      <xsd:element name="OrganizationCode" type="OrganizationCodeSimpleType"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="SourceInformationType">
+    <xsd:sequence>
+      <xsd:element name="MECVerificationCode" type="MECVerificationCodeType"/>
+      <xsd:element name="MECEligibilityPeriod" type="DatePeriodType" minOccurs="0" maxOccurs="12"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:simpleType name="MECVerificationCodeType">
+    <xsd:annotation>
+      <xsd:documentation>Whether the person is eligible or not for MEC. Y - The Applicant has
+                MEC coverage for the whole period requested N - The Applicant does not have any
+                coverage for the period requested P - The Applicant has Partial MEC coverage for the
+                period requested. Partial means that the applicant has coverage for a part of the
+                requested period but not the whole period.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="Y"/>
+      <xsd:enumeration value="N"/>
+      <xsd:enumeration value="P"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="SourceResponseCodeType">
+    <xsd:annotation>
+      <xsd:documentation>Response code for a given Trusted Data Sourse (TDS).</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string"></xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="GenderCodeType">
+    <xsd:restriction base="xsd:string">
+      <xsd:pattern value="[umfUMF]"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="DateType">
+    <xsd:restriction base="xsd:date"></xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="PersonSSNType">
+    <xsd:annotation>
+      <xsd:documentation>TBD: We will consider a pattern that optionally permits hyphens:
+                value="[0-9]{3}(-)?[0-9]{2}(-)?[0-9]{4}"</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string">
+      <xsd:pattern value="[0-9]{9}"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="OrganizationCodeSimpleType">
+    <xsd:restriction base="xsd:token">
+      <xsd:enumeration value="MEDC">
+        <xsd:annotation>
+          <xsd:documentation>Medicaid</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="CHIP">
+        <xsd:annotation>
+          <xsd:documentation>Childrens Health Insurance Program</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="ProperNameType">
+    <xsd:restriction base="xsd:string">
+      <xsd:maxLength value="50"/>
+      <xsd:minLength value="1"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="NameSuffixType">
+    <xsd:restriction base="xsd:string">
+      <xsd:maxLength value="3"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="ErrorCodeType">
+    <xsd:annotation>
+      <xsd:documentation>Generic error code format which accommodates several patterns: either
+                just a zero (indicating success), or "E" followed by exactly 4 digits, or any number
+                of digits (without a leading "E").</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string">
+      <xsd:pattern value="0|(E\d\d\d\d)|([0-9])+"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+</xsd:schema>
