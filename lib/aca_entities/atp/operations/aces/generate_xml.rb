@@ -36,6 +36,7 @@ module AcaEntities
           end
 
           def validate_aces(params)
+            puts params
             result = Try do
               AcaEntities::Medicaid::Contracts::AccountTransferRequestContract.new.call(params[:aces])
             end.to_result
