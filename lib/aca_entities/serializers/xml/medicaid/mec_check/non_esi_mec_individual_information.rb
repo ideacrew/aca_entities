@@ -37,7 +37,7 @@ module AcaEntities
               mapper
             end
 
-            def to_hash()
+            def to_hash
               {
                 person_ssn: person_ssn,
                 person_name: person_name.to_hash,
