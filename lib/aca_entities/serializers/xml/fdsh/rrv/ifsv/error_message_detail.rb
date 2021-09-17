@@ -18,7 +18,6 @@ module AcaEntities
               element :ErrorMessageTxt, String, tag: 'ErrorMessageTxt', namespace: 'irs'
               element :XpathContent, String, tag: 'XpathContent', namespace: 'irs'
 
-
               def self.domain_to_mapper(error_message)
                 mapper = self.new
                 mapper.ErrorMessageCd = error_message.ErrorMessageCd
