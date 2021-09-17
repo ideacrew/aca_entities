@@ -14,7 +14,7 @@ module AcaEntities
             optional(:ComputerTaxableSocSecAmt).filled(AcaEntities::Types::Money)
             optional(:AdjustedGrossIncomeAmt).filled(AcaEntities::Types::Money)
             optional(:IncomeAmt).filled(AcaEntities::Types::Money)
-            optional(:IFSVResponseCodeDetails).filled(AcaEntities::Fdsh::Rrv::Ifsv::IfsvResponseCodeDetailContract.params)
+            optional(:IFSVResponseCodeDetails).array(AcaEntities::Fdsh::Rrv::Ifsv::IfsvResponseCodeDetailContract.params)
           end
         end
       end

@@ -60,10 +60,9 @@ module AcaEntities
               end
 
               def fetch_tax_filing_code(application, applicant)
+                return "PRIMARY" if applicant.is_primary_applicant
                 relationship_kind = fetch_relationship_kind(application, applicant)
-                if applicant.is_primary_applicant
-                  "PRIMARY"
-                elsif relationship_kind == "spouse"
+                if relationship_kind == "spouse"
                   "SPOUSE"
                 else
                   "DEPENDENT"
