@@ -26,14 +26,15 @@ module AcaEntities
           private
 
           def validate_mec_check(params)
+            puts params
             result = Try do
-              AcaEntities::Medicaid::MecCheck::Contracts::VerifyNonESIMECRequestContract.new.call(params)
+              AcaEntities::Medicaid::MecCheck::Contracts::VerifyNonEsiMecRequestContract.new.call(params["verify_non_esi_mec_request"])
             end.to_result
-
+            puts result
             if result.success?
               result
             else
-              Failure("VerifyNonESIMECRequestContract -> #{result.failure.errors.to_h}")
+              Failure("VerifyNonEsiMecRequestContract -> #{result.failure.errors.to_h}")
             end
           end
 
@@ -45,7 +46,7 @@ module AcaEntities
             if result.success?
               result
             else
-              Failure("entity-AccountTransferRequest -> #{result.failure}")
+              Failure("entity-VerifyNonEsiMecRequest -> #{result.failure}")
             end
           end
 
@@ -77,10 +78,12 @@ module AcaEntities
             end
           end
 
-          def to_mec_check(record)
-            # to do
-            result = ::AcaEntities::Medicaid::MecCheck::Transformers::Person.transform(record)
-            Success(result)
+          def to_mec_check(payload)
+            record = JSON.parse(payload)
+            result = ::AcaEntities::Medicaid::MecCheck::Transformers::PersonToRequest.transform(record)
+            top_hash = {}
+            top_hash["verify_non_esi_mec_request"] = result
+            Success(top_hash)
           rescue StandardError => e
             Failure("to_mec_check transformer #{e}")
           end

@@ -13,33 +13,40 @@ module AcaEntities
                          nil => "U" }.freeze
 
           namespace 'person' do
-            rewrap 'verify_non_esi_mec_request', type: :hash do
-              add_namespace 'non_esi_mec_request', 'verify_non_esi_mec_request.non_esi_mec_request', type: :hash do
-                add_namespace 'non_esi_mec_individual_information', 'verify_non_esi_mec_request.verify_non_esi_mec_request.non_esi_mec_individual_information', type: :hash do
-                  map 'ssn', 'person_ssn'
-                  map 'dob', 'person_date_of_birth', memoize: true, function: lambda { |v|
-                                                                       if v.respond_to?(:strftime)
-                                                                         Date.strptime(v, "%Y-%m-%d")
-                                                                       else
-                                                                         Date.parse(v)
-                                                                       end
-                                                                     }
-                  map 'gender', 'person_sex_code', function: ->(v) { GenderCode[v] }
-                  # add_key 'organization_code', function: lambda { |v|
-                                                                  # v.resolve("person_date_of_birth").to_date + 18.years < Date.today ? "MEDC" : "CHIP"
-                                                                 # }
-                  #add_key 'requested_insurance_period', value: lambda { |v|
-                  #    rip = Hash.new()
-                  #    rip['start_date'] = 1.week
-                  #    rip['end_date'] = Date.today
-                  #    rip
-                  #  }
-                  add_namespace 'person_name', 'verify_non_esi_mec_request.verify_non_esi_mec_request.non_esi_mec_individual_information.person_name', type: :hash do
-                    map 'first_name', 'first_name'
-                    map 'middle_name', 'middle_name'
-                    map 'last_name', 'last_name'
-                    map 'name_sfx', 'name_suffix'
+            rewrap 'non_esi_mec_request', type: :hash do
+              namespace 'person' do
+                rewrap 'non_esi_mec_individual_information', type: :hash do
+                  namespace 'person_name' do
+                    rewrap 'person_name', type: :hash do
+                      map 'first_name', 'first_name'
+                      map 'middle_name', 'middle_name'
+                      map 'last_name', 'last_name'
+                      map 'name_sfx', 'name_suffix'
+                    end
                   end
+                  map "person_demographics.ssn", "person_ssn", function: lambda { |v|
+                    v.to_s
+                  }
+                  map 'person_demographics.dob', 'person_date_of_birth', memoize: true, function: lambda { |v|
+                                                                         if v.respond_to?(:strftime)
+                                                                           Date.strptime(v, "%Y-%m-%d")
+                                                                         else
+                                                                           Date.parse(v)
+                                                                         end
+                                                                       }
+                  add_key 'organization_code', function: lambda { |v|
+                                                                  dob = Date.parse(v.resolve("person_date_of_birth").to_s)
+                                                                  now = Time.now.utc.to_date
+                                                                  age = now.year - dob.year - ((now.month > dob.month || (now.month == dob && now.day >= dob.day)) ? 0 : 1)
+                                                                  age > 18 ? "MEDC" : "CHIP"
+                                                                }
+                  map 'person_demographics.gender', 'person_sex_code', function: ->(v) { GenderCode[v] }
+                  add_key 'requested_insurance_period', value: lambda { |v|
+                        rip = Hash.new()
+                        rip[:start_date] = (Time.now - 604800).to_date
+                        rip[:end_date] = Date.today
+                        rip
+                      }
                 end
               end
             end
