@@ -12,7 +12,7 @@ module AcaEntities
 
               tag 'IndividualResponse'
 
-              element :PersonSSNIdentification, Integer, tag: 'PersonSSNIdentification'
+              element :PersonSSNIdentification, String, tag: 'PersonSSNIdentification'
               has_many :Insurances, Insurance
               element :OrganizationResponseCode, String, tag: 'OrganizationResponseCode'
               element :OrganizationResponseCodeText, String, tag: 'OrganizationResponseCodeText'
