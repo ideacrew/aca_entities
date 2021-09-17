@@ -47,7 +47,7 @@ channels:
         amqp:
           ack: true
           exclusive: false
-          routing_key: enroll.iap.applications.generate_renewal_draft
+          routing_key: enroll.iap.applications.application_renewal_request_created
           bindingVersion: '0.2.0'
       operationId: on_enroll.enroll.iap.applications
       description: Events - Generate Renewal Draft Application
