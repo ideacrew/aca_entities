@@ -50,7 +50,6 @@ channels:
           app_id: enroll
           type: enroll.iap.applications.renewals
           routing_key: enroll.iap.applications.renewals.application_renewal_request_created
-          expiration: 100_000
           deliveryMode: 2
           mandatory: true
           timestamp: true
@@ -77,7 +76,6 @@ channels:
           app_id: enroll
           type: enroll.iap.applications.determinations
           routing_key: enroll.iap.applications.determinations.application_renewal_created
-          expiration: 100_000
           deliveryMode: 2
           mandatory: true
           timestamp: true
