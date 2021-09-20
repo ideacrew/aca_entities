@@ -25,11 +25,10 @@ module AcaEntities
           private
 
           def validate_mec_check(params)
-            puts params
             result = Try do
               AcaEntities::Medicaid::MecCheck::Contracts::VerifyNonEsiMecRequestContract.new.call(params["verify_non_esi_mec_request"])
             end.to_result
-            puts result
+
             if result.success?
               result
             else
