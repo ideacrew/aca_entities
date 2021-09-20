@@ -14,48 +14,47 @@ info:
 
 servers:
   production:
-    url: "amqp://rabbitmq:5672/event_source"
+    url: 'amqp://rabbitmq:5672/event_source'
     protocol: :amqp
-    protocolVersion: "0.9.2"
+    protocolVersion: '0.9.2'
     description: Enroll Production Server
   development:
-    url: "amqp://rabbitmq:5672/event_source"
+    url: 'amqp://rabbitmq:5672/event_source'
     protocol: :amqp
-    protocolVersion: "0.9.2"
+    protocolVersion: '0.9.2'
     description: Enroll Test Server
   test:
-    url: "amqp://rabbitmq:5672/event_source"
+    url: 'amqp://rabbitmq:5672/event_source'
     protocol: :amqp
-    protocolVersion: "0.9.2"
+    protocolVersion: '0.9.2'
     description: Enroll Test Server
 channels:
-  enroll.individual.enrollments.submitted:
+  enroll.individual.accounts.created:
     bindings:
       amqp:
         is: :routing_key
         exchange:
-          name: enroll.individual.enrollments
+          name: enroll.individual.accounts
           type: topic
           content_type: application/json
           durable: true
           auto_delete: false
           vhost: event_source
-        binding_version: "0.2.0"
+        binding_version: '0.2.0'
     publish:
-      operationId: enroll.individual.enrollments.submitted
-      description: Events - Individual Enrollment Submitted
-      summary: Events - Document created
+      operationId: enroll.individual.accounts.created
+      description: Events - Individual Account Created
       bindings:
         amqp:
           app_id: enroll
-          type: enroll.individual.enrollments
-          routing_key: enroll.individual.enrollments.submitted
-          expiration: 100_000
+          type: enroll.individual.accounts
+          routing_key: enroll.individual.accounts.created
           deliveryMode: 2
           mandatory: true
           timestamp: true
           content_type: application/json
           bindingVersion: 0.2.0
+
 tags:
   - name: linter_tag
     description: placeholder that satisfies the linter
