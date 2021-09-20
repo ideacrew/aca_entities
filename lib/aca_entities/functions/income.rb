@@ -241,7 +241,7 @@ module AcaEntities
       end
 
       def negative_income(income)
-        income[:incomeAmount] < 0 && NEGATIVE_AMOUNT_INCOME_TYPE_KINDS.exclude?(income[:incomeSourceType])
+        income[:incomeAmount] < 0 && !NEGATIVE_AMOUNT_INCOME_TYPE_KINDS.include?(income[:incomeSourceType])
       end
 
       def job_income_hash
