@@ -5,7 +5,6 @@ module AcaEntities
   module Functions
     # build IAP income
     class Benefit
-
       # MCR payload kinds
       # INDIVIDUAL_INSURANCE
       # NONE
@@ -83,26 +82,26 @@ module AcaEntities
       def offered_esc_hash
         return [] unless @insurance_coverage_hash[:employerSponsoredCoverageOffers]
 
-        @insurance_coverage_hash[:employerSponsoredCoverageOffers].each_with_object([]) do |(_k, esc), result|
-          # if offered for employee sponsored coverage(esc) is set to true then proceed to next step
-          next unless @insurance_coverage_hash[:offeredEmployeeCoverage] && !esc[:escEnrolledIndicator]
+        @insurance_coverage_hash[:employerSponsoredCoverageOffers].collect do |_k, esc|
+          # if offeredEmployeeCoverage & employerOffersMinValuePlan is 'YES' then proceed to next step
+          next unless @insurance_coverage_hash[:offeredEmployeeCoverage] && esc[:employerOffersMinValuePlan]
           esc_hash = AcaEntities::Ffe::Transformers::Cv::Esc.transform(esc.merge(kind: 'employer_sponsored_insurance', :status => "is_eligible",
                                                                                  phone: emp_phone(esc)))
           esc_hash[:employer].delete(:employer_phone) if esc_hash[:employer] && emp_phone(esc).blank?
-          result << esc_hash
-          result
+          esc_hash
         end
       end
 
       def offered_hra_hash
         return [] if !@insurance_coverage_hash[:offeredIchraIndicator] && @insurance_coverage_hash[:enrolledInIchraIndicator]
         return [] unless @insurance_coverage_hash[:hraOffers]
-        @insurance_coverage_hash[:hraOffers].each_with_object([]) do |hra, collect|
+
+        @insurance_coverage_hash[:hraOffers].collect do |hra|
           next unless hra[:employer]
           hra_hash = AcaEntities::Ffe::Transformers::Cv::Esc.transform(hra.merge(kind: 'health_reimbursement_arrangement', :status => "is_eligible",
                                                                                  phone: emp_phone(hra)))
           hra_hash[:employer].delete(:employer_phone) if hra_hash[:employer] && emp_phone(hra).blank?
-          collect << hra_hash
+          hra_hash
         end
       end
 
@@ -110,8 +109,8 @@ module AcaEntities
       def enrolled_hash
         result = []
         @insurance_coverage_hash[:enrolledCoverages].each do |enrolled_coverage|
-          next if enrolled_coverage[:insuranceMarketType] == 'NONE'
-          next if enrolled_coverage[:insuranceMarketType] == 'EMPLOYER_SPONSORED'
+          next if ['NONE', 'EMPLOYER_SPONSORED'].include?(enrolled_coverage[:insuranceMarketType])
+
           next unless Ffe::Types::BenefitsKindMapping[enrolled_coverage[:insuranceMarketType].to_sym]
 
           result << {
@@ -127,37 +126,42 @@ module AcaEntities
       def enrolled_hra_hash
         return [] if !@insurance_coverage_hash[:enrolledInIchraIndicator] && @insurance_coverage_hash[:offeredIchraIndicator]
         return [] unless @insurance_coverage_hash[:hraOffers]
-        @insurance_coverage_hash[:hraOffers].each_with_object([]) do |(hra, _k), collect|
+
+        @insurance_coverage_hash[:hraOffers].collect do |hra, _k|
           next unless hra[:employer]
           hra_hash = AcaEntities::Ffe::Transformers::Cv::Esc.transform(hra.merge(kind: 'health_reimbursement_arrangement', :status => "is_enrolled",
-                                                                      phone: emp_phone(hra)))
+                                                                                 phone: emp_phone(hra)))
           hra_hash[:employer].delete(:employer_phone) if hra_hash[:employer] && emp_phone(hra).blank?
-          collect << hra_hash
+          hra_hash
         end
       end
 
       # Is this person currently enrolled in health coverage or getting help paying for health coverage through a Health Reimbursement Arrangement? *
       def enrolled_esc_hash
         return [] unless @insurance_coverage_hash[:employerSponsoredCoverageOffers]
-        @insurance_coverage_hash[:employerSponsoredCoverageOffers].each_with_object([]) do |(_k, esc), result|
-          # if enrolled in employee sponsored coverage(esc) is set to true then proceed to next step
-          next unless esc[:escEnrolledIndicator] && !@insurance_coverage_hash[:offeredEmployeeCoverage]
+
+        # if insuranceMarketType is 'EMPLOYER_SPONSORED' then proceed to next step
+        enrolled_coverages = @insurance_coverage_hash[:enrolledCoverages].collect {|ec| ec[:insuranceMarketType] == 'EMPLOYER_SPONSORED'}
+        return [] if enrolled_coverages.empty?
+
+        @insurance_coverage_hash[:employerSponsoredCoverageOffers].collect do |_k, esc|
+          # next unless esc[:escEnrolledIndicator] && !@insurance_coverage_hash[:offeredEmployeeCoverage]
           esc_hash = AcaEntities::Ffe::Transformers::Cv::Esc.transform(esc.merge(kind: 'employer_sponsored_insurance', :status => "is_enrolled",
-                                                                      phone: emp_phone(esc)))
+                                                                                 phone: emp_phone(esc)))
           esc_hash[:employer].delete(:employer_phone) if esc_hash[:employer] && emp_phone(esc).blank?
-          result << esc_hash
-          result
+          esc_hash
         end
       end
 
       def emp_phone(esc)
-        return "" if esc[:employer].nil?
+        return '' if esc[:employer].nil?
+
         if !esc[:employer][:employerPhoneNumber].nil?
           esc[:employer][:employerPhoneNumber]
         elsif !esc[:employer][:contact].nil?
           esc[:employer][:contact][:phoneNumber]
         else
-          ""
+          ''
         end
       end
     end
