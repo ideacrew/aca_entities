@@ -32,7 +32,7 @@ servers:
 defaultContentType: application/json
 
 channels:
-  on_polypress.enroll.individual.notices.account_created:
+  on_polypress.enroll.individual.notices:
     bindings:
       amqp:
         is: queue
@@ -47,86 +47,11 @@ channels:
         amqp:
           ack: true
           exclusive: false
-          routing_key: enroll.individual.notices.account_created
+          routing_key: enroll.individual.notices.*
           bindingVersion: '0.2.0'
-      operationId: on_polypress.enroll.individual.notices.account_created
-      description: Notices - Indvidual Outstanding Verifications First Reminder Subscriber
-  on_polypress.enroll.individual.notices.first_verifications_reminder:
-    bindings:
-      amqp:
-        is: queue
-        queue:
-          name: on_polypress.enroll.individual.notices
-          durable: true
-          exclusive: false
-          auto_delete: false
-          vhost: event_source
-    subscribe:
-      bindings:
-        amqp:
-          ack: true
-          exclusive: false
-          routing_key: enroll.individual.notices.first_verifications_reminder
-          bindingVersion: '0.2.0'
-      operationId: on_polypress.enroll.individual.notices.first_verifications_reminder
-      description: Notices - Indvidual Outstanding Verifications First Reminder Subscriber
-  on_polypress.enroll.individual.notices.second_verifications_reminder:
-    bindings:
-      amqp:
-        is: queue
-        queue:
-          name: on_polypress.enroll.individual.notices
-          durable: true
-          exclusive: false
-          auto_delete: false
-          vhost: event_source
-    subscribe:
-      bindings:
-        amqp:
-          ack: true
-          exclusive: false
-          routing_key: enroll.individual.notices.second_verifications_reminder
-          bindingVersion: '0.2.0'
-      operationId: on_polypress.enroll.individual.notices.second_verifications_reminder
-      description: Notices - Indvidual Outstanding Verifications Second Reminder Subscriber
-  on_polypress.enroll.individual.notices.third_verifications_reminder:
-    bindings:
-      amqp:
-        is: queue
-        queue:
-          name: on_polypress.enroll.individual.notices
-          durable: true
-          exclusive: false
-          auto_delete: false
-          vhost: event_source
-    subscribe:
-      bindings:
-        amqp:
-          ack: true
-          exclusive: false
-          routing_key: enroll.individual.notices.third_verifications_reminder
-          bindingVersion: '0.2.0'
-      operationId: on_polypress.enroll.individual.notices.third_verifications_reminder
-      description: Notices - Indvidual Outstanding Verifications Third Reminder Subscriber
-  on_polypress.enroll.individual.notices.fourth_verifications_reminder:
-    bindings:
-      amqp:
-        is: queue
-        queue:
-          name: on_polypress.enroll.individual.notices
-          durable: true
-          exclusive: false
-          auto_delete: false
-          vhost: event_source
-    subscribe:
-      bindings:
-        amqp:
-          ack: true
-          exclusive: false
-          routing_key: enroll.individual.notices.fourth_verifications_reminder
-          bindingVersion: '0.2.0'
-      operationId: on_polypress.enroll.individual.notices.fourth_verifications_reminder
-      description: Notices - Indvidual Outstanding Verifications Fourth Reminder Subscriber
+      operationId: on_polypress.enroll.individual.notices
+      description: Notices - Indvidual
+
 tags:
   - name: linter_tag
     description: placeholder that satisfies the linter
