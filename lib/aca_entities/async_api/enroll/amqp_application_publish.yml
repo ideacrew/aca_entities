@@ -14,23 +14,75 @@ info:
 
 servers:
   production:
-    url: "amqp://rabbitmq:5672/event_source"
+    url: 'amqp://rabbitmq:5672/event_source'
     protocol: :amqp
-    protocolVersion: "0.9.2"
+    protocolVersion: '0.9.2'
     description: RabbitMQ Production Server
   development:
-    url: "amqp://rabbitmq:5672/event_source"
+    url: 'amqp://rabbitmq:5672/event_source'
     protocol: :amqp
-    protocolVersion: "0.9.2"
+    protocolVersion: '0.9.2'
     description: RabbitMQ Test Server
   test:
-    url: "amqp://rabbitmq:5672/event_source"
+    url: 'amqp://rabbitmq:5672/event_source'
     protocol: :amqp
-    protocolVersion: "0.9.2"
+    protocolVersion: '0.9.2'
     description: RabbitMQ Test Server
 
 channels:
-  enroll.iap.applications.generate_renewal_draft:
+  enroll.iap.applications.renewals.application_renewal_request_created:
+    bindings:
+      amqp:
+        is: :routing_key
+        exchange:
+          name: enroll.iap.applications.renewals
+          type: topic
+          content_type: application/json
+          durable: true
+          auto_delete: false
+          vhost: event_source
+        binding_version: '0.2.0'
+    publish:
+      operationId: enroll.iap.applications.renewals.application_renewal_request_created
+      description: Events - Application Renewal Request Created
+      bindings:
+        amqp:
+          app_id: enroll
+          type: enroll.iap.applications.renewals
+          routing_key: enroll.iap.applications.renewals.application_renewal_request_created
+          deliveryMode: 2
+          mandatory: true
+          timestamp: true
+          content_type: application/json
+          bindingVersion: 0.2.0
+
+  enroll.iap.applications.determinations.application_renewal_created:
+    bindings:
+      amqp:
+        is: :routing_key
+        exchange:
+          name: enroll.iap.applications.determinations
+          type: topic
+          content_type: application/json
+          durable: true
+          auto_delete: false
+          vhost: event_source
+        binding_version: '0.2.0'
+    publish:
+      operationId: enroll.iap.applications.determinations.application_renewal_created
+      description: Events - Application Renewal Created
+      bindings:
+        amqp:
+          app_id: enroll
+          type: enroll.iap.applications.determinations
+          routing_key: enroll.iap.applications.determinations.application_renewal_created
+          deliveryMode: 2
+          mandatory: true
+          timestamp: true
+          content_type: application/json
+          bindingVersion: 0.2.0
+
+  enroll.iap.applications.haven_magi_medicaid_eligibility_determination_requested:
     bindings:
       amqp:
         is: :routing_key
@@ -41,15 +93,15 @@ channels:
           durable: true
           auto_delete: false
           vhost: event_source
-        binding_version: "0.2.0"
+        binding_version: '0.2.0'
     publish:
-      operationId: enroll.iap.applications.generate_renewal_draft
-      description: Events - Generate Renewal Draft Application
+      operationId: enroll.iap.applications.haven_magi_medicaid_eligibility_determination_requested
+      description: Events - Haven Magi Medicaid Eligibility Determination Requested
       bindings:
         amqp:
           app_id: enroll
           type: enroll.iap.applications
-          routing_key: enroll.iap.applications.generate_renewal_draft
+          routing_key: enroll.iap.applications.haven_magi_medicaid_eligibility_determination_requested
           expiration: 100_000
           deliveryMode: 2
           mandatory: true
@@ -68,7 +120,7 @@ channels:
           durable: true
           auto_delete: false
           vhost: event_source
-        binding_version: "0.2.0"
+        binding_version: '0.2.0'
     publish:
       operationId: enroll.iap.applications.submit_renewal_draft
       description: Events - Submit Renewal Draft Application
@@ -95,7 +147,7 @@ channels:
           durable: true
           auto_delete: false
           vhost: event_source
-        binding_version: "0.2.0"
+        binding_version: '0.2.0'
     publish:
       operationId: enroll.iap.applications.determine_eligibility
       description: Events - eligibility determination Request
@@ -122,7 +174,7 @@ channels:
           durable: true
           auto_delete: false
           vhost: event_source
-        binding_version: "0.2.0"
+        binding_version: '0.2.0'
     publish:
       operationId: enroll.iap.transfers.transfer_account
       description: Events - Account Transfer from enroll

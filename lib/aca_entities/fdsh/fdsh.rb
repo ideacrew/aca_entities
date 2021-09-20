@@ -36,6 +36,6 @@ module AcaEntities
     require_relative 'ssa'
     require_relative 'esi'
     require_relative 'non_esi'
-
+    require_relative 'rrv'
   end
 end

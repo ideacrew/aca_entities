@@ -18,13 +18,13 @@ module AcaEntities
         # @return [Dry::Monads::Result]
         params do
           required(:start_date).value(:date)
-          optional(:end_date).value(:date)
+          optional(:end_date).maybe(:date)
           required(:is_active).filled(:bool)
-          optional(:submitted_at).filled(:date)
+          optional(:submitted_at).maybe(:date)
           optional(:irs_group_reference).hash(AcaEntities::Contracts::Groups::IrsGroupReferenceContract.params)
           optional(:tax_households).array(AcaEntities::Contracts::Households::TaxHouseholdContract.params)
           required(:coverage_households).array(AcaEntities::Contracts::Households::CoverageHouseholdContract.params)
-          required(:hbx_enrollments).array(AcaEntities::Contracts::Enrollments::HbxEnrollmentContract.params)
+          optional(:hbx_enrollments).array(AcaEntities::Contracts::Enrollments::HbxEnrollmentContract.params)
         end
       end
     end

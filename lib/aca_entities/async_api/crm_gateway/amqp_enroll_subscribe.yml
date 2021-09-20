@@ -50,4 +50,23 @@ channels:
           routing_key: crm_gateway.families.#
           bindingVersion: "0.2.0"
       operationId: on_crm_gateway.crm_gateway.families
-      description: Events - CMS FDSH RIDP Service requests
+      description: Events - CRM Gateway Family Update requests
+  on_crm_gateway.crm_gateway.people:
+    bindings:
+      amqp:
+        is: queue
+        queue:
+          name: on_crm_gateway.crm_gateway.people
+          durable: true
+          exclusive: false
+          auto_delete: false
+          vhost: event_source
+    subscribe:
+      bindings:
+        amqp:
+          ack: true
+          exclusive: false
+          routing_key: crm_gateway.people.#
+          bindingVersion: "0.2.0"
+      operationId: on_crm_gateway.crm_gateway.people
+      description: Events - CRM Gateway Person Update requests
