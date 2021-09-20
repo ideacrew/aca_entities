@@ -281,6 +281,7 @@ module AcaEntities
       end
 
       def employer_details(employer_name)
+        return [] unless insurance_coverage[:employerSponsoredCoverageOffers]
         insurance_coverage[:employerSponsoredCoverageOffers].each_with_object([]) do |(_k, esc), result|
           if esc[:employer] && esc[:employer][:name] == employer_name
             result << esc[:employer][:employerIdentificationNumber]
