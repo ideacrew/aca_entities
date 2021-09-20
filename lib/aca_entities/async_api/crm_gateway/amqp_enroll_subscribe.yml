@@ -1,0 +1,72 @@
+---
+asyncapi: 2.0.0
+info:
+  title: CRM Gateway Subscriber
+  version: 0.1.0
+  description: AMQP Configuration for CRM Gateway services
+  contact:
+    name: IdeaCrew
+    url: https://ideacrew.com
+    email: info@ideacrew.com
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+
+servers:
+  development:
+    url: amqp://rabbitmq:5672/event_source
+    protocol: amqp
+    protocolVersion: 0.9.2
+    description: RabbitMQ Development Server
+  test:
+    url: amqp://rabbitmq:5672/event_source
+    protocol: amqp
+    protocolVersion: 0.9.2
+    description: RabbitMQ Test Server
+  production:
+    url: amqp://rabbitmq:5672/event_source
+    protocol: amqp
+    protocolVersion: 0.9.2
+    description: RabbitMQ Production Server
+
+defaultContentType: application/json
+
+channels:
+  on_crm_gateway.crm_gateway.families:
+    bindings:
+      amqp:
+        is: queue
+        queue:
+          name: on_crm_gateway.crm_gateway.families
+          durable: true
+          exclusive: false
+          auto_delete: false
+          vhost: event_source
+    subscribe:
+      bindings:
+        amqp:
+          ack: true
+          exclusive: false
+          routing_key: crm_gateway.families.#
+          bindingVersion: "0.2.0"
+      operationId: on_crm_gateway.crm_gateway.families
+      description: Events - CRM Gateway Family Update requests
+  on_crm_gateway.crm_gateway.people:
+    bindings:
+      amqp:
+        is: queue
+        queue:
+          name: on_crm_gateway.crm_gateway.people
+          durable: true
+          exclusive: false
+          auto_delete: false
+          vhost: event_source
+    subscribe:
+      bindings:
+        amqp:
+          ack: true
+          exclusive: false
+          routing_key: crm_gateway.people.#
+          bindingVersion: "0.2.0"
+      operationId: on_crm_gateway.crm_gateway.people
+      description: Events - CRM Gateway Person Update requests

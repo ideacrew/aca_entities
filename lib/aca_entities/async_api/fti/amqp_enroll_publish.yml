@@ -32,12 +32,12 @@ servers:
 defaultContentType: application/json
 
 channels:
-  fti.eligibilities.ifsv.ifsv_eligibility_determined:
+  fti.eligibilities.fdsh_eligibilities_ifsv_determined:
     bindings:
       amqp:
         is: :routing_key
         exchange:
-          name: fti.eligibilities.ifsv
+          name: fti.eligibilities
           type: topic
           durable: true
           auto_delete: false
@@ -47,23 +47,23 @@ channels:
       bindings:
         amqp:
           app_id: fti_gateway
-          type: fti.eligibilities.ifsv
-          routing_key: fti.eligibilities.ifsv.ifsv_eligibility_determined
+          type: fti.eligibilities
+          routing_key: fti.eligibilities.fdsh_eligibilities_ifsv_determined
           expiration: 100_000
           deliveryMode: 2
           mandatory: true
           timestamp: true
           content_type: application/json
           bindingVersion: 0.2.0
-      operationId: fti.eligibilities.ifsv.ifsv_eligibility_determined
-      description: RIDP Determination has completed the primary phase.
+      operationId: fti.eligibilities.fdsh_eligibilities_ifsv_determined
+      description: IFSV Determination has completed.
 
-  fti.eligibilities.ifsv.ifsv_eligibility_errored:
+  fti.eligibilities.fdsh_eligibilities_ifsv_errored:
     bindings:
       amqp:
         is: :routing_key
         exchange:
-          name: fti.eligibilities.ifsv
+          name: fti.eligibilities
           type: topic
           durable: true
           auto_delete: false
@@ -73,23 +73,23 @@ channels:
       bindings:
         amqp:
           app_id: fti_gateway
-          type: fti.eligibilities.ifsv
-          routing_key: fti.eligibilities.ifsv.ifsv_eligibility_errored
+          type: fti.eligibilities
+          routing_key: fti.eligibilities.fdsh_eligibilities_ifsv_errored
           expiration: 100_000
           deliveryMode: 2
           mandatory: true
           timestamp: true
           content_type: application/json
           bindingVersion: 0.2.0
-      operationId: fti.eligibilities.ifsv.ifsv_eligibility_errored
-      description: RIDP Determination has completed the primary phase.
-
-  fti.eligibilities.ifsv.ifsv_eligibility_delayed:
+      operationId: fti.eligibilities.fdsh_eligibilities_ifsv_errored
+      description: IFSV Determination has errored.
+  
+  fti.eligibilities.fdsh_eligibilities_ifsv_delayed:
     bindings:
       amqp:
         is: :routing_key
         exchange:
-          name: fti.eligibilities.ifsv
+          name: fti.eligibilities
           type: topic
           durable: true
           auto_delete: false
@@ -99,13 +99,13 @@ channels:
       bindings:
         amqp:
           app_id: fti_gateway
-          type: fti.eligibilities.ifsv
-          routing_key: fti.eligibilities.ifsv.ifsv_eligibility_delayed
+          type: fti.eligibilities
+          routing_key: fti.eligibilities.fdsh_eligibilities_ifsv_delayed
           expiration: 100_000
           deliveryMode: 2
           mandatory: true
           timestamp: true
           content_type: application/json
           bindingVersion: 0.2.0
-      operationId: fti.eligibilities.ifsv.ifsv_eligibility_delayed
-      description: RIDP Determination has completed the primary phase.
+      operationId: fti.eligibilities.fdsh_eligibilities_ifsv_delayed
+      description: IFSV Determination has delay.

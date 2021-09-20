@@ -20,6 +20,7 @@ module AcaEntities
           required(:hbx_id).filled(:string)
           optional(:is_insurance_assistance_eligible).maybe(Types::IaEligibilityKind)
           required(:tax_household_members).array(TaxHouseholdMemberContract.params)
+          optional(:is_ifsv_eligible).maybe(:bool)
 
           optional(:annual_tax_household_income).maybe(Types::Money)
           optional(:csr_annual_income_limit).maybe(Types::Money)

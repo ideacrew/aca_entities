@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:Q1="http://hix.cms.gov/0.1/hix-core" xmlns:ext="http://rrvhtorresp.dsh.cms.gov/extension/1.0" xmlns:hix-core="http://hix.cms.gov/0.1/hix-core" xmlns:i="http://niem.gov/niem/appinfo/2.0" xmlns:i2="http://niem.gov/niem/appinfo/2.1" xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema" attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://rrvhtorresp.dsh.cms.gov/extension/1.0" version="1">
+  <xsd:annotation>
+    <xsd:appinfo>
+      <i:ConformantIndicator>true</i:ConformantIndicator>
+    </xsd:appinfo>
+    <xsd:documentation source="">An extension model with additional components for submitting one transmission from a batch, with multiple attachments.</xsd:documentation>
+  </xsd:annotation>
+  <xsd:import namespace="http://hix.cms.gov/0.1/hix-core" schemaLocation="../niem/domains/hix/0.1/hix-core/hix-core.xsd"/>
+  <xsd:import namespace="http://niem.gov/niem/appinfo/2.0" schemaLocation="../subset/niem/appinfo/2.0/appinfo.xsd"/>
+  <xsd:import namespace="http://niem.gov/niem/appinfo/2.1" schemaLocation="../subset/niem/appinfo/2.1/appinfo.xsd"/>
+  <xsd:import namespace="http://niem.gov/niem/niem-core/2.0" schemaLocation="../niem/niem-core.xsd"/>
+  <xsd:import namespace="http://niem.gov/niem/proxy/xsd/2.0" schemaLocation="../subset/niem/proxy/xsd/2.0/xsd.xsd"/>
+  <xsd:import namespace="http://niem.gov/niem/structures/2.0" schemaLocation="../subset/niem/structures/2.0/structures.xsd"/>
+  <xsd:element abstract="false" name="Attachment" type="ext:RequestDocumentType">
+    <xsd:annotation>
+      <xsd:documentation source="">An attachment (electronic document).</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element abstract="false" name="BatchCategoryCode" substitutionGroup="hix-core:BatchCategory" type="ext:BatchCategoryCodeType">
+    <xsd:annotation>
+      <xsd:appinfo>
+        <i:Base i:name="BatchCategory" i:namespace="http://hix.cms.gov/0.1/hix-core"/>
+      </xsd:appinfo>
+      <xsd:documentation source="">A kind of QHP batch submission.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element abstract="false" name="EFTFileName" type="niem-xsd:string">
+    <xsd:annotation>
+      <xsd:documentation source="">The name of the EFT (Enterprise File transfer) file.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element abstract="false" name="ServiceSpecificData" nillable="false" type="ext:ServiceSpecificDataType">
+    <xsd:annotation>
+      <xsd:documentation source="">A Documented Component</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:simpleType name="BatchCategoryCodeSimpleType">
+    <xsd:annotation>
+      <xsd:appinfo>
+        <i:Base i:name="Object" i:namespace="http://niem.gov/niem/structures/2.0"/>
+      </xsd:appinfo>
+      <xsd:documentation source="">A data type for Cummulative list of predetermined values identifying each possible kind of batch processing. (List will be updated as new bulk services are implemented)</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:token">
+      <xsd:enumeration value="SSA_RRV_RESP">
+        <xsd:annotation>
+          <xsd:documentation source="">Successful SSA Response for the RRV Request</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="IRS_RRV_RESP">
+        <xsd:annotation>
+          <xsd:documentation source="">Successful IRS Response for the RRV Request</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="CINC_RRV_RESP">
+        <xsd:annotation>
+          <xsd:documentation source="">Successful response from Current Income Verification Agency</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="MEDICARE_RRV_RESP">
+        <xsd:annotation>
+          <xsd:documentation source="">Successful Medicare response for the RRV request</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="SSA_RRV_FILE_REJECTED_RESP">
+        <xsd:annotation>
+          <xsd:documentation source="">Rejected response from SSA for RRV request</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="IRS_RRV_FILE_REJECTED_RESP">
+        <xsd:annotation>
+          <xsd:documentation source="">Rejected response from IRS for RRV request</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="CINC_RRV_FILE_REJECTED_RESP">
+        <xsd:annotation>
+          <xsd:documentation source="">Rejected response from Current Income Agency for RRV request</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="MEDICARE_RRV_FILE_REJECTED_RESP">
+        <xsd:annotation>
+          <xsd:documentation source="">Rejected response from Medicare for RRV request</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="RRV_NACK_RESP">
+        <xsd:annotation>
+          <xsd:documentation source="">Redetermination and Renewal Verification Composite Negative acknowledgment response.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="SSA_RRV_NACK_RESP">
+        <xsd:annotation>
+          <xsd:documentation source="">Negative Acknowledgment from SSA</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="IRS_RRV_NACK_RESP">
+        <xsd:annotation>
+          <xsd:documentation source="">Negative Acknowledgment from </xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="CINC_RRV_NACK_RESP">
+        <xsd:annotation>
+          <xsd:documentation source="">Negative Acknowledgment from Current Income Agency</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="MEDICARE_RRV_NACK_RESP">
+        <xsd:annotation>
+          <xsd:documentation source="">Negative Acknowledgment from Medicare</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="IRS_RRV_ACK_RESP">
+        <xsd:annotation>
+          <xsd:documentation source="">Acknowledgment from IRS</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:complexType abstract="false" mixed="false" name="BatchCategoryCodeType">
+    <xsd:annotation>
+      <xsd:appinfo>
+        <i:Base i:name="Object" i:namespace="http://niem.gov/niem/structures/2.0"/>
+      </xsd:appinfo>
+      <xsd:documentation source="">A data type for a kind of batch submission.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:simpleContent>
+      <xsd:extension base="ext:BatchCategoryCodeSimpleType">
+        <xsd:attributeGroup ref="s:SimpleObjectAttributeGroup"/>
+      </xsd:extension>
+    </xsd:simpleContent>
+  </xsd:complexType>
+  <xsd:complexType abstract="false" mixed="false" name="BatchRequestType">
+    <xsd:annotation>
+      <xsd:appinfo>
+        <i:Base i:name="Object" i:namespace="http://niem.gov/niem/structures/2.0"/>
+      </xsd:appinfo>
+      <xsd:documentation source="">A data type for a single transmission within a larger batch.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="s:ComplexObjectType">
+        <xsd:sequence>
+          <xsd:element maxOccurs="1" minOccurs="1" ref="hix-core:BatchMetadata"/>
+          <xsd:element maxOccurs="1" minOccurs="1" ref="hix-core:TransmissionMetadata"/>
+          <xsd:element maxOccurs="1" minOccurs="0" ref="ext:ServiceSpecificData"/>
+          <xsd:element maxOccurs="unbounded" minOccurs="0" ref="ext:Attachment"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType abstract="false" mixed="false" name="RequestDocumentType">
+    <xsd:annotation>
+      <xsd:appinfo>
+        <i:Base i:name="DocumentType" i:namespace="http://niem.gov/niem/niem-core/2.0"/>
+      </xsd:appinfo>
+      <xsd:documentation source="">A data type for a subset of an attachment needed for a request.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="nc:DocumentType">
+        <xsd:sequence>
+          <xsd:element maxOccurs="1" minOccurs="0" ref="hix-core:ResponseMetadata"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:simpleType name="RestrictedBatchIDSimpleType">
+    <xsd:annotation>
+      <xsd:appinfo>
+        <i:Base i:name="Object" i:namespace="http://niem.gov/niem/structures/2.0"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string">
+      <xsd:pattern value="[1-9][0-9]{3}\-(0[1-9]|1[0-2])\-(0[1-9]|[1-2][0-9]|3[0-1])T([0-1][0-9]|2[0-3]):([0-5][0-9]):([0-5][0-9])Z"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="RestrictedBatchPartnerIDSimpleType">
+    <xsd:annotation>
+      <xsd:appinfo>
+        <i:Base i:name="Object" i:namespace="http://niem.gov/niem/structures/2.0"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string">
+      <xsd:pattern value="[0-9]{2}\.[a-zA-Z]{2}[a-zA-Z*]{1}\.[a-zA-Z0-9]{3}\.[0-9]{3}\.[0-9]{3}"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="RestrictedDocumentSequenceIDSimpleType">
+    <xsd:annotation>
+      <xsd:appinfo>
+        <i:Base i:name="Object" i:namespace="http://niem.gov/niem/structures/2.0"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string">
+      <xsd:length value="5"/>
+      <xsd:pattern value="00001"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:complexType abstract="false" mixed="false" name="RestrictedFileNameType">
+    <xsd:annotation>
+      <xsd:appinfo>
+        <i:Base i:name="Object" i:namespace="http://niem.gov/niem/structures/2.0"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+    <xsd:simpleContent>
+      <xsd:restriction base="nc:TextType">
+        <xsd:length value="42"/>
+        <xsd:pattern value="CINC_Request_00001_[1-9][0-9]{3}(0[1-9]|1[0-2])(0[1-9]|[1-2][0-9]|3[0-1])T([0-1][1-9]|2[0-3])([0-5][0-9])([0-5][0-9])[0-9]{3}Z\.xml"/>
+        <xsd:attributeGroup ref="s:SimpleObjectAttributeGroup"/>
+      </xsd:restriction>
+    </xsd:simpleContent>
+  </xsd:complexType>
+  <xsd:simpleType name="RestrictedSHA256HashValueSimpleType">
+    <xsd:annotation>
+      <xsd:appinfo>
+        <i:Base i:name="Object" i:namespace="http://niem.gov/niem/structures/2.0"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string">
+      <xsd:pattern value="[0-9A-Fa-f]{64}"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:complexType abstract="false" mixed="false" name="RestrictedMinimumMaximumOneQuantityType">
+    <xsd:annotation>
+      <xsd:appinfo>
+        <i:Base i:name="Object" i:namespace="http://niem.gov/niem/structures/2.0"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+    <xsd:simpleContent>
+      <xsd:restriction base="nc:QuantityType">
+        <xsd:fractionDigits value="0"/>
+        <xsd:maxInclusive value="1"/>
+        <xsd:minInclusive value="1"/>
+        <xsd:attributeGroup ref="s:SimpleObjectAttributeGroup"/>
+      </xsd:restriction>
+    </xsd:simpleContent>
+  </xsd:complexType>
+  <xsd:complexType abstract="false" mixed="false" name="RestrictedMinimumNonNegativeDecimalType">
+    <xsd:annotation>
+      <xsd:appinfo>
+        <i:Base i:name="Object" i:namespace="http://niem.gov/niem/structures/2.0"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+    <xsd:simpleContent>
+      <xsd:restriction base="nc:NonNegativeDecimalType">
+        <xsd:fractionDigits value="0"/>
+        <xsd:minInclusive value="1"/>
+        <xsd:pattern value="[0-9]*"/>
+        <xsd:attributeGroup ref="s:SimpleObjectAttributeGroup"/>
+      </xsd:restriction>
+    </xsd:simpleContent>
+  </xsd:complexType>
+  <xsd:complexType abstract="false" mixed="false" name="RestrictedMinimumOneQuantityType">
+    <xsd:annotation>
+      <xsd:appinfo>
+        <i:Base i:name="Object" i:namespace="http://niem.gov/niem/structures/2.0"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+    <xsd:simpleContent>
+      <xsd:restriction base="nc:QuantityType">
+        <xsd:fractionDigits value="0"/>
+        <xsd:minInclusive value="1"/>
+        <xsd:attributeGroup ref="s:SimpleObjectAttributeGroup"/>
+      </xsd:restriction>
+    </xsd:simpleContent>
+  </xsd:complexType>
+  <xsd:simpleType name="RestrictedMinimumQuantitySimpleType">
+    <xsd:annotation>
+      <xsd:appinfo>
+        <i:Base i:name="Object" i:namespace="http://niem.gov/niem/structures/2.0"/>
+      </xsd:appinfo>
+      <xsd:documentation source="">A data type for A restriction to allow a minimum of 1 quantity</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:integer">
+      <xsd:minInclusive value="1"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:complexType abstract="false" mixed="false" name="RestrictedMinimumZeroMaximumOneQuantityType">
+    <xsd:annotation>
+      <xsd:appinfo>
+        <i:Base i:name="Object" i:namespace="http://niem.gov/niem/structures/2.0"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+    <xsd:simpleContent>
+      <xsd:restriction base="nc:QuantityType">
+        <xsd:fractionDigits value="0"/>
+        <xsd:maxInclusive value="1"/>
+        <xsd:minInclusive value="0"/>
+        <xsd:attributeGroup ref="s:SimpleObjectAttributeGroup"/>
+      </xsd:restriction>
+    </xsd:simpleContent>
+  </xsd:complexType>
+  <xsd:complexType abstract="false" mixed="false" name="RestrictedMinimumZeroQuantityType">
+    <xsd:annotation>
+      <xsd:appinfo>
+        <i:Base i:name="Object" i:namespace="http://niem.gov/niem/structures/2.0"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+    <xsd:simpleContent>
+      <xsd:restriction base="nc:QuantityType">
+        <xsd:fractionDigits value="0"/>
+        <xsd:maxInclusive value="99999"/>
+        <xsd:minInclusive value="0"/>
+        <xsd:attributeGroup ref="s:SimpleObjectAttributeGroup"/>
+      </xsd:restriction>
+    </xsd:simpleContent>
+  </xsd:complexType>
+  <xsd:simpleType name="RestrictedQuantitySimpleType">
+    <xsd:annotation>
+      <xsd:appinfo>
+        <i:Base i:name="Object" i:namespace="http://niem.gov/niem/structures/2.0"/>
+      </xsd:appinfo>
+      <xsd:documentation source="">A data type for A restriction to allow only a quantity with a value of 1</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:integer">
+      <xsd:maxInclusive value="1"/>
+      <xsd:minInclusive value="1"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:complexType abstract="false" mixed="false" name="ServiceSpecificDataType">
+    <xsd:annotation>
+      <xsd:appinfo>
+        <i:Base i:name="Object" i:namespace="http://niem.gov/niem/structures/2.0"/>
+      </xsd:appinfo>
+      <xsd:documentation source="">A data type for A datatyoe for holding service specific data</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="s:ComplexObjectType">
+        <xsd:sequence>
+          <xsd:element maxOccurs="1" minOccurs="1" ref="hix-core:ResponseMetadata"/>
+          <xsd:element maxOccurs="1" minOccurs="0" ref="ext:EFTFileName"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:element abstract="false" name="SHA256HashValueText" substitutionGroup="hix-core:ChecksumText" type="ext:RestrictedSHA256HashValueSimpleType">
+    <xsd:annotation>
+      <xsd:appinfo>
+        <i:Base i:name="ChecksumText" i:namespace="http://hix.cms.gov/0.1/hix-core"/>
+      </xsd:appinfo>
+      <xsd:documentation source="">A SHA (Secure Hash Algorithm) value computed using the SHA-256 algorithm.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+</xsd:schema>

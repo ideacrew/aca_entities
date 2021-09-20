@@ -3,7 +3,7 @@ asyncapi: 2.0.0
 info:
   title: Enroll App
   version: 0.1.0
-  description: AMQP Publish configuration for the FTI services
+  description: AMQP Publish configuration for the CRM Gateway services
   contact:
     name: IdeaCrew
     url: https://ideacrew.com
@@ -30,12 +30,12 @@ servers:
     description: RabbitMQ Test Server
 
 channels:
-  fdsh.determination_requests.ifsv.ifsv_determination_requested:
+  crm_gateway.families.family_update:
     bindings:
       amqp:
         is: :routing_key
         exchange:
-          name: fdsh.determination_requests.ifsv
+          name: crm_gateway.families
           type: topic
           content_type: application/json
           durable: true
@@ -43,13 +43,39 @@ channels:
           vhost: event_source
         binding_version: "0.2.0"
     publish:
-      operationId: fdsh.determination_requests.ifsv.ifsv_determination_requested
-      description: Events - eligibility determination Request
+      operationId: crm_gateway.families.family_update
+      description: Events - Family Update
       bindings:
         amqp:
           app_id: enroll
-          type: fdsh.determination_requests.ifsv
-          routing_key: fdsh.determination_requests.ifsv.ifsv_determination_requested
+          type: crm_gateway.families
+          routing_key: crm_gateway.families.family_update
+          expiration: 100_000
+          deliveryMode: 2
+          mandatory: true
+          timestamp: true
+          content_type: application/json
+          bindingVersion: 0.2.0
+  crm_gateway.people.primary_subscriber_update:
+    bindings:
+      amqp:
+        is: :routing_key
+        exchange:
+          name: crm_gateway.people
+          type: topic
+          content_type: application/json
+          durable: true
+          auto_delete: false
+          vhost: event_source
+        binding_version: "0.2.0"
+    publish:
+      operationId: crm_gateway.people.primary_subscriber_update
+      description: Events - Primary Subscriber Update
+      bindings:
+        amqp:
+          app_id: enroll
+          type: crm_gateway.people
+          routing_key: crm_gateway.people.primary_subscriber_update
           expiration: 100_000
           deliveryMode: 2
           mandatory: true

@@ -1,6 +1,7 @@
 {
     "family": {
-        "ext_app_id": "IDC61261111114166619",
+        "ext_app_id": "SBM61261111114166619",
+        "hbx_id": "testID12345",
         "family_members": [
             {
                 "person": {
@@ -736,11 +737,11 @@
                             "had_medicaid_during_foster_care": true
                         },
                         "pregnancy_information": {
-                            "is_pregnant": false,
+                            "is_pregnant": true,
                             "is_enrolled_on_medicaid": false,
                             "is_post_partum_period": false,
-                            "expected_children_count": null,
-                            "pregnancy_due_on": null,
+                            "expected_children_count": 1,
+                            "pregnancy_due_on": "2022-01-01",
                             "pregnancy_end_on": null
                         },
                         "is_subject_to_five_year_bar": false,

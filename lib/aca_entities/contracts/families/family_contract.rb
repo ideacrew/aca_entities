@@ -32,7 +32,7 @@ module AcaEntities
 
           optional(:hbx_id).filled(:string)
           optional(:foreign_keys).array(AcaEntities::Contracts::Identifiers::IdContract.params)
-          optional(:renewal_consent_through_year).filled(:integer, included_in?: 2014..2025)
+          optional(:renewal_consent_through_year).maybe(:integer, included_in?: 2014..2025)
           # TODO: Fix this, Move to right namespace as per DAN
           # optional(:application_type).maybe(:string)
           # TODO: Move to appropriate model

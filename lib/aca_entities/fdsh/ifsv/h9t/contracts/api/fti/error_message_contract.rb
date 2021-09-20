@@ -16,11 +16,11 @@ module AcaEntities
                 # @return [Dry::Monads::Result]
                 params do
                   required(:ErrorMessageDetail).hash do
-                    required(:ResponseMetadata).filled(
+                    optional(:ResponseMetadata).maybe(
                       AcaEntities::Fdsh::Ifsv::H9t::Contracts::Api::Fti::ResponseMetadataContract
                         .params
                     )
-                    required(:XPathContent).filled(AcaEntities::Types::String)
+                    optional(:XPathContent).maybe(:string)
                   end
                 end
               end

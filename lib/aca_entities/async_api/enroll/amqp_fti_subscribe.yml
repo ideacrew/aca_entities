@@ -32,12 +32,12 @@ servers:
 defaultContentType: application/json
 
 channels:
-  on_enroll.fti.eligibilities.ifsv:
+  on_enroll.fti.eligibilities:
     bindings:
       amqp:
         is: queue
         queue:
-          name: on_enroll.fti.eligibilities.ifsv
+          name: on_enroll.fti.eligibilities
           durable: true
           exclusive: false
           auto_delete: false
@@ -47,7 +47,7 @@ channels:
         amqp:
           ack: true
           exclusive: false
-          routing_key: fti.eligibilities.ifsv.#
+          routing_key: fti.eligibilities.#
           bindingVersion: '0.2.0'
-      operationId: on_enroll.fti.eligibilities.ifsv
-      description: Events - CMS FTI RIDP Service requests
+      operationId: on_enroll.fti.eligibilities
+      description: Events - CMS FTI IFSV Service requests

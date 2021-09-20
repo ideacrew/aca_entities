@@ -19,9 +19,9 @@ module AcaEntities
                   Success(request_xml)
                 end
 
-                def convert_to_xml(esi_request)
+                def convert_to_xml(request)
                   encode_result = Try do
-                    ::AcaEntities::Serializers::Xml::Fdsh::Ifsv::H9t::Request.domain_to_mapper(esi_request).to_xml
+                    AcaEntities::Serializers::Xml::Fdsh::Ifsv::H9t::Request.domain_to_mapper(request).to_xml
                   end
 
                   encode_result.or do |e|

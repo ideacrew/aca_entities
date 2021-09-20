@@ -32,12 +32,12 @@ servers:
 defaultContentType: application/json
 
 channels:
-  on_fti.fti.determination_requests.ifsv:
+  on_fti.enroll.fdsh.verifications:
     bindings:
       amqp:
         is: queue
         queue:
-          name: on_fti.fti.determination_requests.ifsv
+          name: on_fti.enroll.fdsh.verifications
           durable: true
           exclusive: false
           auto_delete: false
@@ -47,7 +47,7 @@ channels:
         amqp:
           ack: true
           exclusive: false
-          routing_key: fti.determination_requests.ifsv.#
+          routing_key: enroll.fdsh.verifications.#
           bindingVersion: '0.2.0'
-      operationId: on_fti.fti.determination_requests.ifsv
+      operationId: on_fti.enroll.fdsh.verifications
       description: Events - CMS FTI RIDP Service requests

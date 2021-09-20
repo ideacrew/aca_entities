@@ -25,10 +25,13 @@ module AcaEntities
           namespace 'family' do
             rewrap 'aces', type: :hash do
               map 'ext_app_id', 'ext_app_id'
-              add_key "senders", function: lambda { |_v|
+              map 'hbx_id', 'hbx_id', memoize: true, visible: false
+              map 'magi_medicaid_applications.us_state', 'us_state', memoize: true, visible: false
+              add_key "senders", function: lambda { |v|
+                state_code = v.resolve('us_state').item
                 [{ category_code: 'Exchange',
                    county_name: nil,
-                   state_code: 'ME',
+                   state_code: state_code,
                    id: "Sender" }] # default
               }
 
@@ -40,7 +43,7 @@ module AcaEntities
               add_namespace 'transfer_header', 'aces.transfer_header', type: :hash do
                 add_namespace 'transfer_activity', 'aces.transfer_header.transfer_activity', type: :hash do
                   add_namespace 'transfer_id', 'aces.transfer_header.transfer_activity.transfer_id', type: :hash do
-                    add_key 'identification_id', value: "234" # default
+                    add_key 'identification_id', function: ->(v) { "#{v.resolve('hbx_id').item}_#{DateTime.now.strftime('%Y%m%dT%H%M')}" }
                     add_key 'identification_category_text'
                     add_key 'identification_jurisdiction'
                   end
@@ -51,7 +54,8 @@ module AcaEntities
 
                   # add_key 'number_of_referrals', value: ->(_v) {} # this field is populated below
                   add_key 'recipient_code', value: 'MedicaidCHIP'
-                  add_key 'state_code', value: 'ME'
+                  # add_key 'state_code', value: 'ME'
+                  add_key 'state_code', function: ->(v) { v.resolve('us_state').item }
                 end
                 add_key 'recipient_state_code'
               end
@@ -184,9 +188,11 @@ module AcaEntities
                       applicants_hash = v.resolve('family.magi_medicaid_applications.applicants').item
                       applicant_hash = applicants_hash[member_id.to_sym]
                       pregnancy_information = applicant_hash[:pregnancy_information]
+                      due_date = pregnancy_information[:pregnancy_due_on]
+                      date_range = { :end_date => { :date => Date.parse(due_date) } } if due_date
 
                       { :status_indicator => pregnancy_information[:is_pregnant],
-                        :status_valid_date_range => nil,
+                        :status_valid_date_range => date_range,
                         :expected_baby_quantity => pregnancy_information[:expected_children_count] }
                     }
 

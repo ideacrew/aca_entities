@@ -1,9 +1,9 @@
 ---
 asyncapi: 2.0.0
 info:
-  title: FTI Gateway Subscriber
+  title: Enroll Subscriber
   version: 0.1.0
-  description: AMQP Consumer configuration for the FTI Gateway Consumer services
+  description: AMQP Consumer configuration for the Enroll Consumer services
   contact:
     name: IdeaCrew
     url: https://ideacrew.com
@@ -32,12 +32,12 @@ servers:
 defaultContentType: application/json
 
 channels:
-  on_fti.fdsh.eligibilities.ifsv:
+  on_polypress.enroll.individual.notices:
     bindings:
       amqp:
         is: queue
         queue:
-          name: on_fti.fdsh.eligibilities.ifsv
+          name: on_polypress.enroll.individual.notices
           durable: true
           exclusive: false
           auto_delete: false
@@ -47,7 +47,11 @@ channels:
         amqp:
           ack: true
           exclusive: false
-          routing_key: fti.eligibilities.ifsv.#
+          routing_key: enroll.individual.notices.*
           bindingVersion: '0.2.0'
-      operationId: on_fti.fdsh.eligibilities.ifsv
-      description: Events - CMS FTI RIDP Service requests
+      operationId: on_polypress.enroll.individual.notices
+      description: Notices - Indvidual
+
+tags:
+  - name: linter_tag
+    description: placeholder that satisfies the linter

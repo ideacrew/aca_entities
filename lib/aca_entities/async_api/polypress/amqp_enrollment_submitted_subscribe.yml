@@ -47,3 +47,7 @@ channels:
           bindingVersion: "0.2.0"
       operationId: on_polypress.enroll.individual.enrollments
       description: Events - Individual Market Enrollment related events
+
+tags:
+  - name: linter_tag
+    description: placeholder that satisfies the linter

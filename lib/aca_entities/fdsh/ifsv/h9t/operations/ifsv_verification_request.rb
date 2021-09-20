@@ -29,9 +29,10 @@ module AcaEntities
             end
 
             def construct_ifsv_request(application)
-              request =
-                { RequestID: application.hbx_id,
-                  IFSVApplicants: construct_ifsv_applicant_request(application) }
+              request = {
+                RequestID: application.hbx_id,
+                IFSVApplicants: construct_ifsv_applicant_request(application)
+              }
 
               Success(request)
             end

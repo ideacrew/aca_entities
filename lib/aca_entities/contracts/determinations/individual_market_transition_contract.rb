@@ -14,14 +14,10 @@ module AcaEntities
         # @option opts [Date] :submitted_at optional
         # @return [Dry::Monads::Result]
         params do
-          required(:role_type).filled(
-            AcaEntities::Types::MarketTransitionRoleTypes
-          )
-          optional(:start_on).value(:date)
-          optional(:end_on).value(:date)
-          required(:reason_code).filled(
-            AcaEntities::Types::MarketTransitionReasonCodes
-          )
+          required(:role_type).filled(AcaEntities::Types::MarketTransitionRoleTypes)
+          optional(:start_on).maybe(:date)
+          optional(:end_on).maybe(:date)
+          required(:reason_code).filled(AcaEntities::Types::MarketTransitionReasonCodes)
           required(:submitted_at).value(:date)
         end
       end
