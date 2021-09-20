@@ -252,7 +252,10 @@ module AcaEntities
           next if negative_income(income)
           employer_name = (income[:jobIncome].nil? ? "employer name not provided" : income[:jobIncome][:employerName])
           emp_additional_details = employer_details(employer_name)
-          employer_phone = {
+          employer_hash = {'employer_name' => employer_name, 'employer_id' => emp_additional_details[0]}
+
+          if emp_additional_details[1].present?
+            employer_phone = {
               'kind' => 'work',
               'country_code' => '',
               'primary' => true,
@@ -260,12 +263,14 @@ module AcaEntities
               'number' => emp_additional_details[1][3..9],
               'extension' => '',
               'full_phone_number' => emp_additional_details[1]
-          }
+            }
+            employer_hash['employer_phone'] = employer_phone
+          end
           result << {
             'kind' => EMPLOYEMENT[income[:incomeSourceType]],
             'amount' => income_amount(income),
             'amount_tax_exempt' => 0,
-            'employer' => {'employer_name' => employer_name, 'employer_id' => emp_additional_details[0], 'employer_phone' => emp_additional_details[1].present? ? employer_phone : []},
+            'employer' => employer_hash,
             'frequency_kind' => FREQUENCY_KINDS[income[:incomeFrequencyType]],
             'start_on' => Date.parse('2021-01-01'), # default value
             'end_on' => end_on(income),

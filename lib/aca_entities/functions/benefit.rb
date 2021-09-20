@@ -86,12 +86,10 @@ module AcaEntities
         @insurance_coverage_hash[:employerSponsoredCoverageOffers].each_with_object([]) do |(_k, esc), result|
           # if offered for employee sponsored coverage(esc) is set to true then proceed to next step
           next unless @insurance_coverage_hash[:offeredEmployeeCoverage] && !esc[:escEnrolledIndicator]
-          begin
-            result << AcaEntities::Ffe::Transformers::Cv::Esc.transform(esc.merge(kind: 'employer_sponsored_insurance', :status => "is_eligible",
-                                                                                  phone: emp_phone(esc)))
-          rescue StandardError => e
-            puts "error in benefits_esc_hash #{e}"
-          end
+          esc_hash = AcaEntities::Ffe::Transformers::Cv::Esc.transform(esc.merge(kind: 'employer_sponsored_insurance', :status => "is_eligible",
+                                                                                 phone: emp_phone(esc)))
+          esc_hash[:employer].delete(:employer_phone) if esc_hash[:employer] && emp_phone(esc).blank?
+          result << esc_hash
           result
         end
       end
@@ -101,9 +99,10 @@ module AcaEntities
         return [] unless @insurance_coverage_hash[:hraOffers]
         @insurance_coverage_hash[:hraOffers].each_with_object([]) do |hra, collect|
           next unless hra[:employer]
-
-          collect << AcaEntities::Ffe::Transformers::Cv::Esc.transform(hra.merge(kind: 'health_reimbursement_arrangement', :status => "is_eligible",
+          hra_hash = AcaEntities::Ffe::Transformers::Cv::Esc.transform(hra.merge(kind: 'health_reimbursement_arrangement', :status => "is_eligible",
                                                                                  phone: emp_phone(hra)))
+          hra_hash[:employer].delete(:employer_phone) if hra_hash[:employer] && emp_phone(hra).blank?
+          collect << hra_hash
         end
       end
 
@@ -130,9 +129,10 @@ module AcaEntities
         return [] unless @insurance_coverage_hash[:hraOffers]
         @insurance_coverage_hash[:hraOffers].each_with_object([]) do |(hra, _k), collect|
           next unless hra[:employer]
-
-          collect << AcaEntities::Ffe::Transformers::Cv::Esc.transform(hra.merge(kind: 'health_reimbursement_arrangement', :status => "is_enrolled",
-                                                                                 phone: emp_phone(hra)))
+          hra_hash = AcaEntities::Ffe::Transformers::Cv::Esc.transform(hra.merge(kind: 'health_reimbursement_arrangement', :status => "is_enrolled",
+                                                                      phone: emp_phone(hra)))
+          hra_hash[:employer].delete(:employer_phone) if hra_hash[:employer] && emp_phone(hra).blank?
+          collect << hra_hash
         end
       end
 
@@ -142,12 +142,10 @@ module AcaEntities
         @insurance_coverage_hash[:employerSponsoredCoverageOffers].each_with_object([]) do |(_k, esc), result|
           # if enrolled in employee sponsored coverage(esc) is set to true then proceed to next step
           next unless esc[:escEnrolledIndicator] && !@insurance_coverage_hash[:offeredEmployeeCoverage]
-          begin
-            result << AcaEntities::Ffe::Transformers::Cv::Esc.transform(esc.merge(kind: 'employer_sponsored_insurance', :status => "is_enrolled",
-                                                                                  phone: emp_phone(esc)))
-          rescue StandardError => e
-            puts "error in benefits_esc_hash #{e}"
-          end
+          esc_hash = AcaEntities::Ffe::Transformers::Cv::Esc.transform(esc.merge(kind: 'employer_sponsored_insurance', :status => "is_enrolled",
+                                                                      phone: emp_phone(esc)))
+          esc_hash[:employer].delete(:employer_phone) if esc_hash[:employer] && emp_phone(esc).blank?
+          result << esc_hash
           result
         end
       end

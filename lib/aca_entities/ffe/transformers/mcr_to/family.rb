@@ -326,15 +326,38 @@ module AcaEntities
                       # keys ["streetName1", "streetName2", "cityName", "stateCode", "zipCode","countyName","countryCode"
                       # "plus4Code", , "countyFipsCode"]
 
-                      map 'mailingAddress', 'mailingAddress', memoize_record: true, visible: false
-                      map 'homeAddress', 'homeAddress', memoize_record: true, visible: false
-                      map 'transientAddress', 'transientAddress', memoize_record: true, visible: false
+                      map 'mailingAddress', 'mailingAddress', memoize_record: true, visible: false, append_identifier: true
+                      map 'homeAddress', 'homeAddress', memoize_record: true, visible: false, append_identifier: true
+                      map 'transientAddress', 'transientAddress', memoize_record: true, visible: false, append_identifier: true
 
                       add_key 'addresses', function: lambda { |v|
-                        m_address = v.resolve("attestations.members.*.demographic.mailingAddress", identifier: true).item&.merge!(kind: "mailing")
-                        h_address = v.resolve("attestations.members.*.demographic.homeAddress", identifier: true).item&.merge!(kind: "home")
-                        t_address = v.resolve("attestations.members.*.demographic.transientAddress", identifier: true).item&.merge!(kind: "mailing")
-                        [m_address, h_address, t_address].compact.each_with_object([]) do |address, collect|
+                        transient_address = v.resolve("attestations.members.#{v.find(/attestations.members.(\w+)$/).map(&:item).last}.demographic.transientAddress", identifier: true).item
+                        home_address = v.resolve("attestations.members.#{v.find(/attestations.members.(\w+)$/).map(&:item).last}.demographic.homeAddress", identifier: true).item
+                        mailing_address = v.resolve("attestations.members.#{v.find(/attestations.members.(\w+)$/).map(&:item).last}.demographic.mailingAddress", identifier: true).item
+                        temporary_out_of_state = v.resolve("is_temporarily_out_of_state", identifier: true)&.item
+                        if temporary_out_of_state == true && transient_address.present?
+                          h_address = transient_address&.merge!(kind: "home")
+                          m_address = if mailing_address.present?
+                                        mailing_address&.merge!(kind: "mailing")
+                                      elsif home_address.present?
+                                        home_address&.merge!(kind: "mailing")
+                                      end
+                        else
+                          if home_address.present? && mailing_address.present?
+                            if home_address == mailing_address
+                              h_address = home_address&.merge!(kind: "home")
+                              m_address = nil
+                            else
+                              h_address = home_address&.merge!(kind: "home")
+                              m_address = mailing_address&.merge!(kind: "mailing")
+                            end
+                          elsif home_address.present?
+                            h_address = home_address&.merge!(kind: "home")
+                          elsif mailing_address.present?
+                            m_address = mailing_address&.merge!(kind: "mailing")
+                          end
+                        end
+                        [m_address, h_address].compact.each_with_object([]) do |address, collect|
                           collect << AcaEntities::Ffe::Transformers::Cv::Address.transform(address)
                         end
                       }
@@ -385,7 +408,7 @@ module AcaEntities
                   add_key 'person.is_disabled',
                           function: lambda {|v|
                             attr = v.find(Regexp.new('attestations.members.*.nonMagi')).map(&:item).last
-                            attr.nil? ? false : attr[:blindOrDisabledIndicator]
+                            attr.nil? ? false : (attr[:blindOrDisabledIndicator] || false)
                           }
 
                   map 'other.americanIndianAlaskanNative.personRecognizedTribeIndicator',
