@@ -34,8 +34,9 @@ module AcaEntities
 
           add_key 'medicaid_and_chip.ended_as_change_in_eligibility', function: lambda { |v|
                                                                                   return false if v.nil?
-                                                                                  v.resolve('informationChangeSinceMedicaidEndedIndicator').item &&
-                                                                                    v.resolve('medicaidEndIndicator').item
+                                                                                  ((v.resolve('informationChangeSinceMedicaidEndedIndicator').item &&
+                                                                                    v.resolve('medicaidEndIndicator').item) || false)
+
                                                                                 }
 
           map 'medicaidDeniedDueToImmigrationIndicator', 'medicaidDeniedDueToImmigrationIndicator', memoize: true, visible: false

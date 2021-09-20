@@ -6,11 +6,12 @@ module AcaEntities
     # build IAP income
     class Income
 
-      attr_reader :attestations_annual_income_hash, :attestations_income_hash
+      attr_reader :attestations_annual_income_hash, :attestations_income_hash, :insurance_coverage
 
       def call(memoized_data, member)
         @attestations_annual_income_hash = memoized_data.find(Regexp.new("attestations.members.#{member.name.split('.').last}.income"))&.first&.item
         @attestations_income_hash = attestations_annual_income_hash.present? ? attestations_annual_income_hash[:currentIncome] : nil
+        @insurance_coverage = memoized_data.find(Regexp.new("attestations.members.#{member.name.split('.').last}.insuranceCoverage"))&.first&.item
 
         member_incomes
       end
@@ -211,7 +212,7 @@ module AcaEntities
           end
         end
 
-        (annual_amount - amount) > 200
+        (annual_amount - amount).abs > 200
       end
 
       def annual_amount
@@ -249,38 +250,37 @@ module AcaEntities
         attestations_income_hash.each_with_object([]) do |(_k, income), result|
           next unless EMPLOYEMENT[income[:incomeSourceType]].present?
           next if negative_income(income)
+          employer_name = (income[:jobIncome].nil? ? "employer name not provided" : income[:jobIncome][:employerName])
+          emp_additional_details = employer_details(employer_name)
+          employer_phone = {
+              'kind' => 'work',
+              'country_code' => '',
+              'primary' => true,
+              'area_code' => emp_additional_details[1][0..2],
+              'number' => emp_additional_details[1][3..9],
+              'extension' => '',
+              'full_phone_number' => emp_additional_details[1]
+          }
           result << {
             'kind' => EMPLOYEMENT[income[:incomeSourceType]],
             'amount' => income_amount(income),
             'amount_tax_exempt' => 0,
-            'employer_name' => income[:jobIncome].nil? ? "employer name not provided" : income[:jobIncome][:employerName],
+            'employer' => {'employer_name' => employer_name, 'employer_id' => emp_additional_details[0], 'employer_phone' => emp_additional_details[1].present? ? employer_phone : []},
             'frequency_kind' => FREQUENCY_KINDS[income[:incomeFrequencyType]],
             'start_on' => Date.parse('2021-01-01'), # default value
             'end_on' => end_on(income),
-            'is_projected' => false, # default value
-            'employer_address' =>
-                  {
-                    'address_1' => 'no address', # default value
-                    'address_2' => '',
-                    'address_3' => '',
-                    'county' => '',
-                    'country_name' => '',
-                    'kind' => 'work', # default value
-                    'city' => 'was', # default value
-                    'state' => 'DC', # default value
-                    'zip' => '00000' # default value
-                  },
-            'employer_phone' =>
-                  {
-                    'kind' => 'work', # default value
-                    'country_code' => '',
-                    'area_code' => '123', # default value
-                    'number' => '4567890', # default value
-                    'extension' => '',
-                    'full_phone_number' => '1234567890' # default value
-                  }
+            'is_projected' => false
           }
           result
+        end
+      end
+
+      def employer_details(employer_name)
+        insurance_coverage[:employerSponsoredCoverageOffers].each_with_object([]) do |(_k, esc), result|
+          if esc[:employer] && esc[:employer][:name] == employer_name
+            result << esc[:employer][:employerIdentificationNumber]
+            result << esc[:employer][:employerPhoneNumber]
+          end
         end
       end
 
@@ -334,7 +334,7 @@ module AcaEntities
           }]
         else
           attestations_income_hash.each_with_object([]) do |(_k, income), result|
-            if negative_income(income) && TAX_INCOME_KIND[income[:incomeSourceType]].blank?
+            if negative_income(income) && TAX_INCOME_KIND[income[:incomeSourceType]].present?
               result << {
                 'kind' => "other",
                 'amount' => income_amount(income),

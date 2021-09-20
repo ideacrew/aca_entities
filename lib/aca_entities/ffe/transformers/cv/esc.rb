@@ -12,7 +12,12 @@ module AcaEntities
           map 'employeeSelfOnlyOfferAmount', 'employee_cost', memoize: true, visible: false
           map 'kind', 'kind', memoize: true, visible: true
           map 'status', 'status'
-          map 'waitingPeriodIndicator', 'is_esi_waiting_period'
+          map 'waitingPeriodIndicator', 'is_esi_waiting_period', memoize: true, visible: false
+          add_key 'is_esi_waiting_period', function: lambda { |v|
+                                            if v.present?
+                                              v.resolve("is_esi_waiting_period")&.item || false
+                                            end
+                                          }
           map 'employerOffersMinValuePlan', 'is_esi_mec_met', memoize: true, visible: false
           add_key 'is_esi_mec_met', function: lambda { |v|
                                     if v.present?
@@ -36,25 +41,16 @@ module AcaEntities
           map 'employeeSelfOnlyOfferFrequencyType', 'employee_cost_frequency', memoize: true, visible: false
 
           map 'employer.name', 'employer.employer_name'
-          add_key 'employer.employer_id', value: '123456789' # default value
-
-          # add_key 'employer_address.address_1', value: '' # default value
-          # add_key 'employer_address.address_2', value: '' # default value
-          # add_key 'employer_address.address_3', value: '' # default value
-          # add_key 'employer_address.county', value: '' # default value
-          # add_key 'employer_address.country_name', value: '' # default value
-          # add_key 'employer_address.kind', value: '' # default value
-          # add_key 'employer_address.city', value: '' # default value
-          # add_key 'employer_address.state', value: '' # default value
-          # add_key 'employer_address.zip', value: '' # default value
+          map 'employer.employerIdentificationNumber', 'employer.employer_id'
 
           map 'phone', 'phone', memoize: true, visible: false
-          add_key 'employer_phone.kind', value: 'work'
-          add_key 'employer_phone.country_code'
-          add_key 'employer_phone.area_code', function: ->(v) {v.resolve("phone").item.to_s[0..2]}
-          add_key 'employer_phone.number', function: ->(v) {v.resolve("phone").item.to_s[3..9]}
-          add_key 'employer_phone.extension'
-          add_key 'employer_phone.full_phone_number', function: ->(v) {v.resolve("phone").item.to_s}
+          add_key 'employer.employer_phone.kind', value: 'work'
+          add_key 'employer.employer_phone.country_code'
+          add_key 'employer.employer_phone.area_code', function: ->(v) {v.resolve("phone").item.to_s[0..2]}
+          add_key 'employer.employer_phone.number', function: ->(v) {v.resolve("phone").item.to_s[3..9]}
+          add_key 'employer.employer_phone.extension'
+          add_key 'employer.employer_phone.primary', value: true
+          add_key 'employer.employer_phone.full_phone_number', function: ->(v) {v.resolve("phone").item.to_s}
 
           add_key 'employee_cost', function: ->(v) { v.resolve('employee_cost')&.item || "0.0"}
           add_key 'employee_cost_frequency', function: lambda { |v|

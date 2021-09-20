@@ -14,7 +14,7 @@ module AcaEntities
                                return "no address" if v.nil? || v.resolve('streetName1').item.nil?
                                v.resolve('streetName1').item
                              }
-          add_key 'address_2'
+          map 'streetName2', 'address_2'
           add_key 'address_3'
           map 'cityName', 'city'
           map 'countyName', 'county'

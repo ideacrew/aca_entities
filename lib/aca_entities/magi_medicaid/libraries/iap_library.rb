@@ -51,6 +51,7 @@ module AcaEntities
         require 'aca_entities/magi_medicaid/application'
 
         require 'aca_entities/contracts/people/person_name_contract'
+        require 'aca_entities/contracts/locations/address_contract'
         require 'aca_entities/contracts/contacts/phone_contact_contract'
         require 'aca_entities/contracts/contacts/email_contact_contract'
         require 'aca_entities/contracts/documents/document_contract'
@@ -77,7 +78,6 @@ module AcaEntities
         require 'aca_entities/magi_medicaid/contracts/income_contract'
         require 'aca_entities/magi_medicaid/contracts/deduction_contract'
         require 'aca_entities/magi_medicaid/contracts/benefit_contract'
-        require 'aca_entities/contracts/locations/address_contract'
         require 'aca_entities/magi_medicaid/contracts/other_health_service_contract'
         require 'aca_entities/magi_medicaid/contracts/medicaid_and_chip_contract'
         require 'aca_entities/magi_medicaid/contracts/member_premium_contract'
