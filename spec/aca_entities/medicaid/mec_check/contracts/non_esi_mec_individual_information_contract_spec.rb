@@ -17,7 +17,7 @@ RSpec.describe AcaEntities::Medicaid::MecCheck::Contracts::NonEsiMecIndividualIn
   let(:optional_params) do
     {
       person_sex_code: 'M',
-      person_ssn: '666666677',
+      person_ssn: '666666677'
     }
   end
 
