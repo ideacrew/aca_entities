@@ -386,7 +386,7 @@
         "broker_accounts": [],
         "documents": [],
         "payment_transactions": [],
-        "magi_medicaid_applications": [
+        "magi_medicaid_applications": 
             {
                 "family_reference": {
                     "hbx_id": "10419"
@@ -1384,6 +1384,5 @@
                     }
                 ]
             }
-        ]
     }
 }
