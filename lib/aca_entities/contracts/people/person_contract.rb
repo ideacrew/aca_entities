@@ -36,6 +36,8 @@ module AcaEntities
         # @option opts [Hash] :timestamp optional
         # @return [Dry::Monads::Result]
         params do
+          optional(:external_person_link).maybe(:string)
+          optional(:person_id).maybe(:string)
           required(:hbx_id).maybe(:string)
           required(:person_name).hash(AcaEntities::Contracts::People::PersonNameContract.params)
           required(:person_demographics).hash(AcaEntities::Contracts::People::PersonDemographicsContract.params)
