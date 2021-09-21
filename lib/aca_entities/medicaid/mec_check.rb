@@ -2,7 +2,7 @@
 
 # types
 require 'aca_entities/types'
-# require_relative 'mec_check/types'
+require_relative 'mec_check/types'
 
 # contracts
 require_relative "mec_check/contracts/verify_non_esi_mec_request_contract"
