@@ -23,9 +23,11 @@ module AcaEntities
 
           map 'medicaidDeniedIndicator', 'medicaidDeniedIndicator', memoize: true, visible: false
           add_key 'medicaid_and_chip.not_eligible_in_last_90_days', function: lambda { |v|
-                                                                    return false if v.nil? || v.resolve('medicaidDeniedIndicator').item.nil?
-                                                                    v.resolve('medicaidDeniedIndicator').item
-                                                                  }
+                                                                                if v.nil? || v.resolve('medicaidDeniedIndicator').item.nil?
+                                                                                  return false
+                                                                                end
+                                                                                v.resolve('medicaidDeniedIndicator').item
+                                                                              }
           map 'medicaidDeniedDate', 'medicaid_and_chip.denied_on'
           map 'informationChangeSinceMedicaidEndedIndicator', 'informationChangeSinceMedicaidEndedIndicator', memoize: true, visible: false
           map 'medicaidEndIndicator', 'medicaidEndIndicator', memoize: true, visible: false

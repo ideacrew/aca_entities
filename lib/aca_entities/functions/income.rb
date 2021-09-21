@@ -252,7 +252,7 @@ module AcaEntities
           next if negative_income(income)
           employer_name = (income[:jobIncome].nil? ? "employer name not provided" : income[:jobIncome][:employerName])
           emp_additional_details = employer_details(employer_name)
-          employer_hash = {'employer_name' => employer_name, 'employer_id' => emp_additional_details[0]}
+          employer_hash = { 'employer_name' => employer_name, 'employer_id' => emp_additional_details[0] }
 
           if emp_additional_details[1].present?
             employer_phone = {

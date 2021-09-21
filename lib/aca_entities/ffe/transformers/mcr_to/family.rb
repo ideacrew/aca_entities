@@ -239,16 +239,17 @@ module AcaEntities
                         add_key 'is_applying_coverage', function: ->(v) {v.resolve('is_coverage_applicant', identifier: true).item}
                         add_key 'bookmark_url'
                         add_key 'admin_bookmark_url'
-                        add_key 'contact_method', function: ->(v) {
-                                                  value = v.resolve('family.family_members.person.consumer_role.contact_method')&.item
-                                                  if value == ["EMAIL", "E_TEXT"] || value == ["E_TEXT", "EMAIL"] || value == ["EMAIL"] || value ==  ["E_TEXT"]
-                                                    "Only Electronic communications"
-                                                  elsif value == ["MAIL"]
-                                                    "Only Paper communication"
-                                                  else
-                                                    "Paper and Electronic communications"
-                                                  end
-                                                }
+                        add_key 'contact_method', function: lambda { |v|
+                                                              value = v.resolve('family.family_members.person.consumer_role.contact_method')&.item
+                                                              case value
+                                                              when ["EMAIL", "E_TEXT"], ["E_TEXT", "EMAIL"], ["EMAIL"], ["E_TEXT"]
+                                                                "Only Electronic communications"
+                                                              when ["MAIL"]
+                                                                "Only Paper communication"
+                                                              else
+                                                                "Paper and Electronic communications"
+                                                              end
+                                                            }
 
                         add_key 'language_preference',
                                 function: ->(v) {v.resolve('family_members.person.consumer_role.language_preference').item}
@@ -331,9 +332,10 @@ module AcaEntities
                       map 'transientAddress', 'transientAddress', memoize_record: true, visible: false, append_identifier: true
 
                       add_key 'addresses', function: lambda { |v|
-                        transient_address = v.resolve("attestations.members.#{v.find(/attestations.members.(\w+)$/).map(&:item).last}.demographic.transientAddress", identifier: true).item
-                        home_address = v.resolve("attestations.members.#{v.find(/attestations.members.(\w+)$/).map(&:item).last}.demographic.homeAddress", identifier: true).item
-                        mailing_address = v.resolve("attestations.members.#{v.find(/attestations.members.(\w+)$/).map(&:item).last}.demographic.mailingAddress", identifier: true).item
+                        demographic = "attestations.members.#{v.find(/attestations.members.(\w+)$/).map(&:item).last}.demographic"
+                        transient_address = v.resolve("#{demographic}.transientAddress", identifier: true).item
+                        home_address = v.resolve("#{demographic}.homeAddress", identifier: true).item
+                        mailing_address = v.resolve("#{demographic}.mailingAddress", identifier: true).item
                         temporary_out_of_state = v.resolve("is_temporarily_out_of_state", identifier: true)&.item
                         if temporary_out_of_state == true && transient_address.present?
                           h_address = transient_address&.merge!(kind: "home")
@@ -342,20 +344,17 @@ module AcaEntities
                                       elsif home_address.present?
                                         home_address&.merge!(kind: "mailing")
                                       end
-                        else
-                          if home_address.present? && mailing_address.present?
-                            if home_address == mailing_address
-                              h_address = home_address&.merge!(kind: "home")
-                              m_address = nil
-                            else
-                              h_address = home_address&.merge!(kind: "home")
-                              m_address = mailing_address&.merge!(kind: "mailing")
-                            end
-                          elsif home_address.present?
-                            h_address = home_address&.merge!(kind: "home")
-                          elsif mailing_address.present?
-                            m_address = mailing_address&.merge!(kind: "mailing")
-                          end
+                        elsif home_address.present? && mailing_address.present?
+                          h_address = home_address&.merge!(kind: "home")
+                          m_address = if home_address == mailing_address
+                                        nil
+                                      else
+                                        mailing_address&.merge!(kind: "mailing")
+                                      end
+                        elsif home_address.present?
+                          h_address = home_address&.merge!(kind: "home")
+                        elsif mailing_address.present?
+                          m_address = mailing_address&.merge!(kind: "mailing")
                         end
                         [m_address, h_address].compact.each_with_object([]) do |address, collect|
                           collect << AcaEntities::Ffe::Transformers::Cv::Address.transform(address)

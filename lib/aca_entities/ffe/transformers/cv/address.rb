@@ -11,9 +11,9 @@ module AcaEntities
           map 'kind', 'kind'
           map 'streetName1', 'streetName1', memoize: true, visible: false
           add_key 'address_1', function: lambda { |v|
-                               return "no address" if v.nil? || v.resolve('streetName1').item.nil?
-                               v.resolve('streetName1').item
-                             }
+                                           return "no address" if v.nil? || v.resolve('streetName1').item.nil?
+                                           v.resolve('streetName1').item
+                                         }
           map 'streetName2', 'address_2'
           add_key 'address_3'
           map 'cityName', 'city'

@@ -22,13 +22,17 @@ module AcaEntities
       def member_tax_filing
         return { is_required_to_file_taxes: false } if attestations_family_hash.nil?
         household = memoized_data.resolve('attestations.household').item
-        has_spouse_rel = household.present? && household[:familyRelationships].map {|rel| rel[:no_key][1][:no_key]}.flatten.include?('SPOUSE') ? true : false
+        has_spouse_rel = household.present? && household[:familyRelationships].map do |rel|
+          rel[:no_key][1][:no_key]
+        end.flatten.include?('SPOUSE')
+
+        has_multi_household = (attestations_family_hash[:taxFilerIndicator] && @household_size > 1 && has_spouse_rel)
 
         {
           is_required_to_file_taxes: attestations_family_hash[:taxFilerIndicator] || false,
           tax_filer_kind: tax_filer_kind,
-          is_joint_tax_filing: (attestations_family_hash[:taxFilerIndicator] && @household_size > 1 && has_spouse_rel) ? attestations_family_hash[:taxReturnFilingStatusType] == 'MARRIED_FILING_JOINTLY' : nil,
-          is_filing_as_head_of_household: (attestations_family_hash[:taxFilerIndicator] && @household_size > 1 && has_spouse_rel) ? attestations_family_hash[:taxReturnFilingStatusType] == 'HEAD_OF_HOUSEHOLD' : nil,
+          is_joint_tax_filing: has_multi_household ? attestations_family_hash[:taxReturnFilingStatusType] == 'MARRIED_FILING_JOINTLY' : nil,
+          is_filing_as_head_of_household: has_multi_household ? attestations_family_hash[:taxReturnFilingStatusType] == 'HEAD_OF_HOUSEHOLD' : nil,
           is_claimed_as_tax_dependent: attestations_family_hash[:taxDependentIndicator] || false,
           claimed_as_tax_dependent_by: claimed_as_tax_dependent_hash
         }

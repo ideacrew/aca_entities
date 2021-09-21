@@ -14,16 +14,12 @@ module AcaEntities
           map 'status', 'status'
           map 'waitingPeriodIndicator', 'is_esi_waiting_period', memoize: true, visible: false
           add_key 'is_esi_waiting_period', function: lambda { |v|
-                                            if v.present?
-                                              v.resolve("is_esi_waiting_period")&.item || false
-                                            end
-                                          }
+                                                       v.resolve("is_esi_waiting_period")&.item || false if v.present?
+                                                     }
           map 'employerOffersMinValuePlan', 'is_esi_mec_met', memoize: true, visible: false
           add_key 'is_esi_mec_met', function: lambda { |v|
-                                    if v.present?
-                                      v.resolve("is_esi_mec_met").item ==  "YES" ? true : false
-                                    end
-                                  }
+                                                v.resolve("is_esi_mec_met").item == "YES" if v.present?
+                                              }
           map 'hraType', 'hra_type', function: ->(v) {Ffe::Types::HraTypeMapping[v.to_sym]}
           add_key 'esi_covered', function: lambda { |v|
                                              kind = v.resolve("kind").item
