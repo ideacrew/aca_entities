@@ -12,6 +12,7 @@ module AcaEntities
               register_namespace 'irs', 'urn:us:gov:treasury:irs:common'
 
               tag 'CompletePersonName'
+              namespace 'irs'
 
               element :PersonFirstName, String, tag: 'PersonFirstName', namespace: 'irs'
               element :PersonMiddleName, String, tag: 'PersonMiddleName', namespace: 'irs'

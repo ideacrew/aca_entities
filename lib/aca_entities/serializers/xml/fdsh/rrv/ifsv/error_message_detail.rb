@@ -12,6 +12,7 @@ module AcaEntities
               register_namespace 'irs', 'urn:us:gov:treasury:irs:common'
 
               tag 'ErrorMessageDetail'
+              namespace 'irs'
 
               element :ErrorMessageCd, String, tag: 'ErrorMessageCd', namespace: 'irs'
               element :ErrorMessageTxt, String, tag: 'ErrorMessageTxt', namespace: 'irs'

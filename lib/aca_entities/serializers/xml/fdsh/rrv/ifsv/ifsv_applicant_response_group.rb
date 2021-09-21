@@ -12,6 +12,7 @@ module AcaEntities
               register_namespace 'irs', 'urn:us:gov:treasury:irs:common'
 
               tag 'IFSVApplicantResponseGrp'
+              namespace 'irs'
 
               element :RequestId, String, tag: 'RequestId', namespace: 'irs'
               element :AggregateHouseholdIncomeAmt, Float, tag: 'AggregateHouseholdIncomeAmt', namespace: 'irs'

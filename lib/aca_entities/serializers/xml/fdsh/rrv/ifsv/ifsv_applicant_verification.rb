@@ -12,15 +12,17 @@ module AcaEntities
               register_namespace 'irs', 'urn:us:gov:treasury:irs:common'
 
               tag 'IFSVApplicantVerification'
+              namespace 'irs'
 
               element :TaxpayerIdentificationNumber, String, tag: 'TaxpayerIdentificationNumber', namespace: "irs"
               element :SpouseTIN, String, tag: 'SpouseTIN', namespace: "irs"
               element :TaxYear, String, tag: 'TaxYear', namespace: "irs"
               element :IndividualReturnFilingStatusCd, String, tag: 'IndividualReturnFilingStatusCd', namespace: "irs"
               element :ComputerTaxableSocSecAmt, String, tag: 'ComputerTaxableSocSecAmt', namespace: "irs"
+              element :IncomeAmt, Float, tag: 'IncomeAmt', namespace: "irs"
               element :AdjustedGrossIncomeAmt, Float, tag: 'AdjustedGrossIncomeAmt', namespace: "irs"
               element :TotalExemptionsCnt, Integer, tag: 'TotalExemptionsCnt', namespace: "irs"
-              has_many :IFSVResponseCodeDetail, IfsvResponseCodeDetail
+              has_many :IFSVResponseCodeDetails, IfsvResponseCodeDetail
 
               def self.domain_to_mapper(verification)
                 mapper = self.new
@@ -32,7 +34,7 @@ module AcaEntities
                 mapper.ComputerTaxableSocSecAmt = verification.ComputerTaxableSocSecAmt
                 mapper.AdjustedGrossIncomeAmt = verification.AdjustedGrossIncomeAmt
                 mapper.TotalExemptionsCnt = verification.TotalExemptionsCnt
-                mapper.IFSVResponseCodeDetail = IfsvResponseCodeDetail.domain_to_mapper(applicant.IFSVResponseCodeDetail)
+                mapper.IFSVResponseCodeDetails = IfsvResponseCodeDetail.domain_to_mapper(applicant.IFSVResponseCodeDetail)
 
                 mapper
               end
