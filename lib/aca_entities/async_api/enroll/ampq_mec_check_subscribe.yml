@@ -30,12 +30,12 @@ servers:
     description: RabbitMQ Production Server
 
 channels:
-  on_enroll.magi_medicaid.mec_check.enroll:
+  on_enroll.magi_medicaid.mec_check:
     bindings:
       amqp:
         is: queue
         queue:
-          name: on_enroll.magi_medicaid.mec_check.enroll
+          name: on_enroll.magi_medicaid.mec_check
           durable: true
           exclusive: false
           auto_delete: false
@@ -45,9 +45,9 @@ channels:
         amqp:
           ack: true
           exclusive: false
-          routing_key: magi_medicaid.mec_check.enroll.#
+          routing_key: magi_medicaid.mec_check.#
           bindingVersion: "0.2.0"
-      operationId: on_enroll.magi_medicaid.mec_check.enroll
+      operationId: on_enroll.magi_medicaid.mec_check
       description: Events - MEC Check from ACES into Enroll
 
 tags:
