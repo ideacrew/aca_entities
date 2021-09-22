@@ -32,12 +32,12 @@ servers:
 defaultContentType: application/json
 
 channels:
-  on_enroll.enroll.iap.applications:
+  on_polypress.enroll.individual.notices:
     bindings:
       amqp:
         is: queue
         queue:
-          name: on_enroll.enroll.iap.applications
+          name: on_polypress.enroll.individual.notices
           durable: true
           exclusive: false
           auto_delete: false
@@ -47,10 +47,10 @@ channels:
         amqp:
           ack: true
           exclusive: false
-          routing_key: enroll.iap.applications.application_renewal_created
+          routing_key: enroll.individual.notices.*
           bindingVersion: '0.2.0'
-      operationId: on_enroll.enroll.iap.applications
-      description: Events - Application Renewal Created
+      operationId: on_polypress.enroll.individual.notices
+      description: Notices - Indvidual
 
 tags:
   - name: linter_tag

@@ -97,6 +97,7 @@ module AcaEntities
               #   else's return, but IRS cannot determine who claimed the dependent
               #   on his/her return
               # @return [Integer]
+
               attribute :TaxReturnTotalExemptionsQuantity,
                         AcaEntities::Types::Integer.optional.meta(omittable: true)
             end
