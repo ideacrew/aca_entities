@@ -32,12 +32,12 @@ servers:
 defaultContentType: application/json
 
 channels:
-  magi_medicaid.mec_check.enroll.mec_checked:
+  magi_medicaid.mec_check.mec_checked:
     bindings:
       amqp:
         is: :routing_key
         exchange:
-          name: magi_medicaid.mec_check.enroll
+          name: magi_medicaid.mec_check
           type: topic
           durable: true
           auto_delete: false
@@ -47,15 +47,15 @@ channels:
       bindings:
         amqp:
           app_id: medicaid_gateway
-          type: magi_medicaid.mec_check.enroll
-          routing_key: magi_medicaid.mec_check.enroll.mec_checked
+          type: magi_medicaid.mec_check
+          routing_key: magi_medicaid.mec_check.mec_checked
           expiration: 100_000
           deliveryMode: 2 
           mandatory: true
           timestamp: true
           content_type: application/json
           bindingVersion: 0.2.0
-      operationId: magi_medicaid.mec_check.enroll.mec_checked
+      operationId: magi_medicaid.mec_check.mec_checked
       description: MEC Check results
   
 
