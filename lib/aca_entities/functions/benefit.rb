@@ -141,7 +141,7 @@ module AcaEntities
         return [] unless @insurance_coverage_hash[:employerSponsoredCoverageOffers]
 
         # if insuranceMarketType is 'EMPLOYER_SPONSORED' then proceed to next step
-        enrolled_coverages = @insurance_coverage_hash[:enrolledCoverages].collect {|ec| ec[:insuranceMarketType] == 'EMPLOYER_SPONSORED'}
+        enrolled_coverages = @insurance_coverage_hash[:enrolledCoverages].select {|ec| ec[:insuranceMarketType] == 'EMPLOYER_SPONSORED'}
         return [] if enrolled_coverages.empty?
 
         @insurance_coverage_hash[:employerSponsoredCoverageOffers].collect do |_k, esc|
