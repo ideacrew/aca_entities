@@ -19,7 +19,7 @@ module AcaEntities
                     rewrap '' do
                       rewrap 'tax_return', type: :hash do
                         map 'TaxpayerIdentificationNumber', 'tax_identification_number'
-                        map 'SpouseTIN', 'spouse_tin' 
+                        map 'SpouseTIN', 'spouse_tin'
                         map 'TaxYear', 'tax_year'
                         map 'IndividualReturnFilingStatusCd', 'IndividualReturnFilingStatusCd'
                         map 'ComputerTaxableSocSecAmt', 'ComputerTaxableSocSecAmt'
@@ -46,7 +46,7 @@ module AcaEntities
                       namespace 'IFSVApplicantVerification' do
                         rewrap 'tax_return', type: :hash do
                           map 'TaxpayerIdentificationNumber',  'tax_identification_number'
-                          map 'SpouseTIN', 'spouse_TIN' 
+                          map 'SpouseTIN', 'spouse_TIN'
                           map 'TaxYear', 'tax_year'
                           map 'IndividualReturnFilingStatusCd', 'IndividualReturnFilingStatusCd'
                           map 'ComputerTaxableSocSecAmt', 'ComputerTaxableSocSecAmt'
