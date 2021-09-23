@@ -4,6 +4,8 @@ module AcaEntities
   module People
     # entity for person
     class Person < Dry::Struct
+      attribute :external_person_link, Types::String.optional.meta(omittable: true)
+      attribute :person_id, Types::String.optional.meta(omittable: true)
       attribute :hbx_id, Types::String.optional.meta(omittable: false)
       attribute :person_name,
                 AcaEntities::People::PersonName.meta(omittable: false)
