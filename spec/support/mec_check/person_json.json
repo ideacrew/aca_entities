@@ -1,0 +1,116 @@
+{
+  "person": {
+    "person": {
+      "ext_app_id": "pe1992374604681766996",
+      "person_name": {
+        "first_name": "Robert",
+        "middle_name": null,
+        "last_name": "test",
+        "full_name": "Robert test"
+      },
+      "hbx_id": "1003159",
+      "person_health": {
+        "is_tobacco_user": null,
+        "is_physically_disabled": null
+      },
+      "is_homeless": false,
+      "is_temporarily_out_of_state": false,
+      "age_off_excluded": null,
+      "is_active": null,
+      "is_disabled": false,
+      "person_demographics": {
+        "ssn": "212828539",
+        "gender": "male",
+        "dob": "01/01/2010",
+        "no_ssn": "0",
+        "date_of_death": null,
+        "dob_check": null,
+        "is_incarcerated": false,
+        "tribal_id": null,
+        "language_code": null,
+        "tribal_state": null,
+        "tribal_name": null
+      },
+      "race": "White",
+      "consumer_role": {
+        "is_active": "true",
+        "lawful_presence_determination": { "citizen_status": "us_citizen" },
+        "language_preference": "english",
+        "five_year_bar": null,
+        "requested_coverage_start_date": "2021-05-07",
+        "is_applicant": false,
+        "birth_location": null,
+        "marital_status": false,
+        "is_applying_coverage": true,
+        "bookmark_url": null,
+        "admin_bookmark_url": null,
+        "contact_method": null,
+        "is_state_resident": null,
+        "identity_validation": null,
+        "identity_update_reason": null,
+        "application_validation": null,
+        "application_update_reason": null,
+        "identity_rejected": null,
+        "application_rejected": null,
+        "documents": [],
+        "vlp_documents": [],
+        "ridp_documents": [],
+        "verification_type_history_elements": [],
+        "local_residency_responses": [],
+        "local_residency_requests": []
+      },
+      "addresses": [
+        {
+          "kind": "home",
+          "address_1": "510 Test Street",
+          "address_2": null,
+          "address_3": null,
+          "city": "Augusta",
+          "county": "KENNEBEC",
+          "county_code": "011",
+          "state": "ME",
+          "zip": "04330",
+          "country_name": null
+        },
+        {
+          "kind": "mailing",
+          "address_1": "37 ML",
+          "address_2": null,
+          "address_3": null,
+          "city": "Augusta",
+          "county": "KENNEBEC",
+          "county_code": "011",
+          "state": "ME",
+          "zip": "04330",
+          "country_name": null
+        }
+      ],
+      "emails": [{ "address": "RH10@gmail.com", "kind": "home" }],
+      "phones": [
+        {
+          "extension": null,
+          "kind": "mobile",
+          "area_code": "202",
+          "number": "1768341",
+          "primary": true,
+          "full_phone_number": "2021768341",
+          "start_on": null,
+          "end_on": null
+        }
+      ],
+      "person_relationships": [
+        {
+          "relative": {
+            "hbx_id": "1234",
+            "first_name": "Simple",
+            "last_name": "L",
+            "gender": "Male",
+            "dob": "01/01/1941",
+            "ssn": null
+          },
+          "kind": "child"
+        }
+      ]
+    }
+  }
+}
