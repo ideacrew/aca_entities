@@ -38,6 +38,7 @@ module AcaEntities
          address_hash,
          email_hash,
          phone_hash,
+         native_american_information,
          additonal_info_hash].reduce(:merge)
       end
 
@@ -212,6 +213,19 @@ module AcaEntities
         { identifying_information: identifying_info }
       end
 
+      def native_american_information
+        tribe_indicator = memoized_data.find(Regexp.new("americanIndianAlaskanNativeIndicator.#{member_identifier}"))&.first&.item
+        tribe = memoized_data.find(Regexp.new("attestations.members.#{member_identifier}.other.americanIndianAlaskanNative"))&.first&.item
+        native_american = tribe_indicator == true && tribe.present? && tribe[:personRecognizedTribeIndicator] == true
+        tribe_info = {
+            indian_tribe_member:  native_american,
+            tribal_id: nil,
+            tribal_name: native_american ? tribe[:federallyRecognizedTribeName] : nil,
+            tribal_state: native_american ? "MA" : nil,
+        }
+        {native_american_information: tribe_info}
+      end
+
       def additonal_info_hash
         non_magi = memoized_data.find(Regexp.new('attestations.members.*.nonMagi')).map(&:item).last
 
@@ -224,7 +238,6 @@ module AcaEntities
           is_homeless: memoized_data.find(Regexp.new("is_homeless.#{member_identifier}"))&.first&.item || false, # default value
           is_temporarily_out_of_state: memoized_data.find(Regexp.new("is_temporarily_out_of_state.#{member_identifier}"))&.first&.item || false, # default value
 
-          native_american_information: nil,
           is_consumer_role: nil,
           is_resident_role: nil,
 

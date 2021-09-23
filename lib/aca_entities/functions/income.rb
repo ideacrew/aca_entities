@@ -178,8 +178,8 @@ module AcaEntities
           frequency = income[:incomeFrequencyType]
 
           if income[:jobIncome]
-            avg_hours = income[:averageWeeklyWorkHours]
-            avg_days = income[:averageWeeklyWorkDays]
+            avg_hours = income[:jobIncome][:averageWeeklyWorkHours]
+            avg_days = income[:jobIncome][:averageWeeklyWorkDays]
           end
 
           case frequency
@@ -225,7 +225,7 @@ module AcaEntities
       def income_amount(income)
         frequency = income[:incomeFrequencyType]
         amount = income[:incomeAmount]
-        hours = income[:job][:averageWeeklyWorkHours] if income[:job]
+        hours = income[:jobIncome][:averageWeeklyWorkHours] if income[:jobIncome]
         if frequency == "HOURLY" && hours
           hours.to_i * amount
         elsif frequency == "SEMI_MONTHLY"
