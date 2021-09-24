@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-
 module AcaEntities
   module Functions
     # build application and applicants
