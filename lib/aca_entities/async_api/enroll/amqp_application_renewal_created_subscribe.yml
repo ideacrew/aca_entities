@@ -41,7 +41,9 @@ channels:
           durable: true
           exclusive: false
           auto_delete: false
-	@@ -47,9 +47,9 @@ channels:
+          vhost: event_source
+    subscribe:
+      bindings:
         amqp:
           ack: true
           exclusive: false
