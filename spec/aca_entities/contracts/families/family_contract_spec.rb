@@ -316,7 +316,7 @@ RSpec.describe AcaEntities::Contracts::Families::FamilyContract,  dbclean: :afte
   let!(:person_demographics) do
     {
       ssn: "123456789",
-      no_ssn: "0",
+      no_ssn: false,
       gender: 'male',
       dob: Date.today,
       is_incarcerated: false

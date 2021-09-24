@@ -5,7 +5,7 @@ module AcaEntities
     class PersonDemographics < Dry::Struct
 
       attribute :ssn,                     Types::String.optional.meta(omittable: true)
-      attribute :no_ssn,                  Types::String.optional.meta(omittable: true)
+      attribute :no_ssn,                  Types::Strict::Bool.optional.meta(omittable: true)
       attribute :gender,                  Types::String.meta(omittable: false)
       attribute :dob,                     Types::Date.meta(omittable: false)
       attribute :date_of_death,           Types::Date.optional.meta(omittable: true)

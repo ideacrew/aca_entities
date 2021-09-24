@@ -21,7 +21,7 @@ module AcaEntities
         # @return [Dry::Monads::Result]
         params do
           optional(:ssn).maybe(:string)
-          optional(:no_ssn).maybe(:string)
+          optional(:no_ssn).maybe(:bool)
           required(:gender).value(:str?)
           required(:dob).filled(:date)
           optional(:date_of_death).maybe(:date)

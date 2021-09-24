@@ -7,7 +7,7 @@ RSpec.describe ::AcaEntities::People::PersonDemographics, dbclean: :after_each d
   let!(:input_params) do
     {
       ssn: "123456789",
-      no_ssn: '0',
+      no_ssn: false,
       gender: 'male',
       dob: Date.today,
       is_incarcerated: false
