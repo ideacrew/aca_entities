@@ -158,7 +158,7 @@ module AcaEntities
           optional(:hours_worked_per_week).filled(:integer)
           optional(:is_temporarily_out_of_state).filled(:bool)
           optional(:is_claimed_as_dependent_by_non_applicant).filled(:bool)
-          optional(:benchmark_premium).hash(BenchmarkPremiumContract.params)
+          required(:benchmark_premium).hash(BenchmarkPremiumContract.params)
 
           required(:is_homeless).filled(:bool)
 

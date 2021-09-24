@@ -241,6 +241,8 @@ module AcaEntities
           is_consumer_role: nil,
           is_resident_role: nil,
 
+          benchmark_premium: { health_only_lcsp_premiums: [], health_only_slcsp_premiums: [], health_and_dental_slcsp_premiums: [], health_and_ped_dental_slcsp_premiums: [] },
+
           is_consent_applicant: nil,
 
           is_refugee: nil, # default value

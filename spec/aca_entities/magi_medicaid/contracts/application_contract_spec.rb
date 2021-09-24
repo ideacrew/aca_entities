@@ -340,8 +340,7 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicationContract,  dbcle
            :person_hbx_id, :is_required_to_file_taxes, :pregnancy_information, :has_job_income,
            :has_self_employment_income, :has_unemployment_income, :has_other_income, :has_deductions,
            :has_enrolled_health_coverage, :has_eligible_health_coverage,
-           :age_of_applicant] # ,
-          #  :benchmark_premium, :is_homeless
+           :age_of_applicant, :benchmark_premium, :is_homeless]
         end
 
         it 'should return a failure with error message' do
@@ -699,18 +698,17 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicationContract,  dbcle
           end
         end
 
-        ## Strict validation is removed for mcr migration, this will not raise error. Enable this spec when validation is in place.
-        # context 'pregnancy_due_on' do
-        #   let(:local_pregnancy) do
-        #     pregnancy_information.delete(:pregnancy_due_on)
-        #     pregnancy_information.merge({ is_pregnant: true })
-        #   end
+        context 'pregnancy_due_on' do
+          let(:local_pregnancy) do
+            pregnancy_information.delete(:pregnancy_due_on)
+            pregnancy_information.merge({ is_pregnant: true })
+          end
 
-        #   it 'should return failure with error message' do
-        #     err = obj_call.errors.to_h[:applicants][0][:pregnancy_information][:pregnancy_due_on].first
-        #     expect(err).to eq('must be filled if the applicant is pregnant')
-        #   end
-        # end
+          it 'should return failure with error message' do
+            err = obj_call.errors.to_h[:applicants][0][:pregnancy_information][:pregnancy_due_on].first
+            expect(err).to eq('must be filled if the applicant is pregnant')
+          end
+        end
       end
 
       context 'student' do
@@ -857,12 +855,12 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicationContract,  dbcle
         @result = subject.call(input_params)
       end
 
-      # #Strict validation is removed for mcr migration, this will not raise error. Enable this spec when validation is in place.
       it 'should return failure with error message' do
-        expect(subject.call(input_params).errors.to_h).to eq({ assistance_year: ['is missing'], hbx_id: ['is missing'],
-                                                               us_state: ['is missing'] })
-        #  aptc_effective_date: ['is missing'],
-        #  oe_start_on: ['is missing']
+        expect(subject.call(input_params).errors.to_h).to eq({ assistance_year: ['is missing'],
+                                                               aptc_effective_date: ['is missing'],
+                                                               hbx_id: ['is missing'],
+                                                               us_state: ['is missing'],
+                                                               oe_start_on: ['is missing'] })
       end
     end
 
@@ -878,13 +876,12 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicationContract,  dbcle
         @result = subject.call(input_params)
       end
 
-      # #Strict validation is removed for mcr migration, this will not raise error. Enable this spec when validation is in place.
       it 'should return failure with error message' do
-        expect(subject.call(input_params).errors.to_h).to eq({ assistance_year: ['must be an integer'], hbx_id: ['is missing'],
-                                                               us_state: ['is missing'] })
-        #  aptc_effective_date: ['is missing'],
-        #  oe_start_on: ['is missing']
-
+        expect(subject.call(input_params).errors.to_h).to eq({ assistance_year: ['must be an integer'],
+                                                               aptc_effective_date: ['is missing'],
+                                                               hbx_id: ['is missing'],
+                                                               us_state: ['is missing'],
+                                                               oe_start_on: ['is missing'] })
       end
     end
 
