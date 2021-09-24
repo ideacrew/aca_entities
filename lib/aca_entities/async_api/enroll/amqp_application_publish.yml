@@ -30,12 +30,12 @@ servers:
     description: RabbitMQ Test Server
 
 channels:
-  enroll.iap.applications.application_renewal_request_created:
+  enroll.iap.applications.renewals.application_renewal_request_created:
     bindings:
       amqp:
         is: :routing_key
         exchange:
-          name: enroll.iap.applications
+          name: enroll.iap.applications.renewals
           type: topic
           content_type: application/json
           durable: true
@@ -43,13 +43,13 @@ channels:
           vhost: event_source
         binding_version: '0.2.0'
     publish:
-      operationId: enroll.iap.applications.application_renewal_request_created
+      operationId: enroll.iap.applications.renewals.application_renewal_request_created
       description: Events - Application Renewal Request Created
       bindings:
         amqp:
           app_id: enroll
-          type: enroll.iap.applications
-          routing_key: enroll.iap.applications.application_renewal_request_created
+          type: enroll.iap.applications.renewals
+          routing_key: enroll.iap.applications.renewals.application_renewal_request_created
           expiration: 100_000
           deliveryMode: 2
           mandatory: true
@@ -57,12 +57,12 @@ channels:
           content_type: application/json
           bindingVersion: 0.2.0
 
-  enroll.iap.applications.application_renewal_created:
+  enroll.iap.applications.determinations.application_renewal_created:
     bindings:
       amqp:
         is: :routing_key
         exchange:
-          name: enroll.iap.applications
+          name: enroll.iap.applications.determinations
           type: topic
           content_type: application/json
           durable: true
@@ -70,13 +70,13 @@ channels:
           vhost: event_source
         binding_version: '0.2.0'
     publish:
-      operationId: enroll.iap.applications.application_renewal_created
+      operationId: enroll.iap.applications.determinations.application_renewal_created
       description: Events - Application Renewal Created
       bindings:
         amqp:
           app_id: enroll
-          type: enroll.iap.applications
-          routing_key: enroll.iap.applications.application_renewal_created
+          type: enroll.iap.applications.determinations
+          routing_key: enroll.iap.applications.determinations.application_renewal_created
           expiration: 100_000
           deliveryMode: 2
           mandatory: true
@@ -104,60 +104,6 @@ channels:
           app_id: enroll
           type: enroll.iap.applications
           routing_key: enroll.iap.applications.haven_magi_medicaid_eligibility_determination_requested
-          expiration: 100_000
-          deliveryMode: 2
-          mandatory: true
-          timestamp: true
-          content_type: application/json
-          bindingVersion: 0.2.0
-
-  enroll.iap.applications.submit_renewal_draft:
-    bindings:
-      amqp:
-        is: :routing_key
-        exchange:
-          name: enroll.iap.applications
-          type: topic
-          content_type: application/json
-          durable: true
-          auto_delete: false
-          vhost: event_source
-        binding_version: '0.2.0'
-    publish:
-      operationId: enroll.iap.applications.submit_renewal_draft
-      description: Events - Submit Renewal Draft Application
-      bindings:
-        amqp:
-          app_id: enroll
-          type: enroll.iap.applications
-          routing_key: enroll.iap.applications.submit_renewal_draft
-          expiration: 100_000
-          deliveryMode: 2
-          mandatory: true
-          timestamp: true
-          content_type: application/json
-          bindingVersion: 0.2.0
-
-  enroll.iap.applications.generate_renewal_draft:
-    bindings:
-      amqp:
-        is: :routing_key
-        exchange:
-          name: enroll.iap.applications
-          type: topic
-          content_type: application/json
-          durable: true
-          auto_delete: false
-          vhost: event_source
-        binding_version: '0.2.0'
-    publish:
-      operationId: enroll.iap.applications.generate_renewal_draft
-      description: Events - Generate Renewal Draft Application
-      bindings:
-        amqp:
-          app_id: enroll
-          type: enroll.iap.applications
-          routing_key: enroll.iap.applications.generate_renewal_draft
           expiration: 100_000
           deliveryMode: 2
           mandatory: true
