@@ -32,23 +32,25 @@ servers:
 defaultContentType: application/json
 
 channels:
-  on_enroll.enroll.iap.applications.determinations:
+  on_enroll.enroll.json:
     bindings:
       amqp:
         is: queue
         queue:
-          name: on_enroll.enroll.iap.applications.determinations
+          name: on_enroll.enroll.json
           durable: true
           exclusive: false
           auto_delete: false
-	@@ -47,9 +47,9 @@ channels:
+          vhost: event_source
+    subscribe:
+      bindings:
         amqp:
           ack: true
           exclusive: false
-          routing_key: enroll.iap.applications.determinations.application_renewal_created
+          routing_key: enroll.json.stream
           bindingVersion: '0.2.0'
-      operationId: on_enroll.enroll.iap.applications.determinations
-      description: Events - Application Renewal Created
+      operationId: on_enroll.enroll.json
+      description: Events - Stream JSON payloads
 
 tags:
   - name: linter_tag

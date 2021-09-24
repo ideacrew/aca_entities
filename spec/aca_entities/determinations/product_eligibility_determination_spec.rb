@@ -40,12 +40,16 @@ RSpec.describe ::AcaEntities::Determinations::ProductEligibilityDetermination, d
   end
 
   describe 'with invalid arguments' do
+    let!(:currency) do
+      {
+        cents: nil,
+        currency_iso: "USD"
+      }
+    end
     it 'should raise error' do
       expect do
-        described_class.new(input_params.reject do |k, _v|
-                              k == :magi_medicaid_monthly_income_limit
-                            end)
-      end.to raise_error(Dry::Struct::Error, /:magi_medicaid_monthly_income_limit is missing/)
+        described_class.new(input_params)
+      end.to raise_error(Dry::Struct::Error, /has invalid type for :cents violates constraints/)
     end
   end
 end
