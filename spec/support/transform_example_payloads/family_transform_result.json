@@ -593,7 +593,7 @@
         "oe_start_on": "2020-11-01",
         "notice_options": {
           "send_eligibility_notices": false,
-          "send_open_enrollment_notices": false
+          "send_open_enrollment_notices": true
         },
         "applicants": [
           {
