@@ -14,7 +14,6 @@ RSpec.describe ::AcaEntities::Ffe::Transformers::McrTo::Family  do
         record_with_string_keys = JSON.parse(record.to_json)
         example_output_hash = JSON.parse(File.read(Pathname.pwd.join("spec/support/transform_example_payloads/family_transform_result.json")))
         expect(record_with_string_keys).to match(example_output_hash)
-
         record[:family].tap do |family|
           expect(family).to have_key(:hbx_id)
           expect(family).to have_key(:broker_accounts)

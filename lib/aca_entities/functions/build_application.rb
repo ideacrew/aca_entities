@@ -34,7 +34,7 @@ module AcaEntities
           # default values
           aptc_effective_date: Date.new(2021,1,1),
           oe_start_on: Date.new(2020,11,1),
-          notice_options: { send_eligibility_notices: false, send_open_enrollment_notices: false}
+          notice_options: { send_eligibility_notices: false, send_open_enrollment_notices: true}
         }
       end
     end
