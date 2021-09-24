@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 # rubocop:disable  Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity, Metrics/MethodLength, Layout/LineLength, Metrics/AbcSize
+# rubocop:disable Metrics/ClassLength
 module AcaEntities
   module Functions
     # build iap applicant
@@ -144,7 +145,7 @@ module AcaEntities
           is_enrolled_on_medicaid: nil,
           is_post_partum_period: false, # default value
           expected_children_count: attestations_family_hash[:babyDueQuantity],
-          pregnancy_due_on: attestations_family_hash[:pregnancyIndicator] ? Date.new(2021,12,31) : nil,
+          pregnancy_due_on: attestations_family_hash[:pregnancyIndicator] ? Date.new(2021, 12, 31) : nil,
           pregnancy_end_on: nil
         }
 
@@ -218,12 +219,12 @@ module AcaEntities
         tribe = memoized_data.find(Regexp.new("attestations.members.#{member_identifier}.other.americanIndianAlaskanNative"))&.first&.item
         native_american = tribe_indicator == true && tribe.present? && tribe[:personRecognizedTribeIndicator] == true
         tribe_info = {
-            indian_tribe_member:  native_american,
-            tribal_id: nil,
-            tribal_name: native_american ? tribe[:federallyRecognizedTribeName] : nil,
-            tribal_state: native_american ? "MA" : nil,
+          indian_tribe_member: native_american,
+          tribal_id: nil,
+          tribal_name: native_american ? tribe[:federallyRecognizedTribeName] : nil,
+          tribal_state: native_american ? "MA" : nil
         }
-        {native_american_information: tribe_info}
+        { native_american_information: tribe_info }
       end
 
       def additonal_info_hash
@@ -272,3 +273,4 @@ module AcaEntities
   end
 end
 # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity, Metrics/MethodLength, Layout/LineLength, Metrics/AbcSize
+# rubocop:enable Metrics/ClassLength

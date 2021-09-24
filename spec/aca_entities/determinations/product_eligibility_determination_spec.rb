@@ -42,8 +42,8 @@ RSpec.describe ::AcaEntities::Determinations::ProductEligibilityDetermination, d
   describe 'with invalid arguments' do
     let!(:currency) do
       {
-          cents: nil,
-          currency_iso: "USD"
+        cents: nil,
+        currency_iso: "USD"
       }
     end
     it 'should raise error' do

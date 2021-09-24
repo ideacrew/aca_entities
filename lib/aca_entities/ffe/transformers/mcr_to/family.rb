@@ -25,6 +25,7 @@ require 'aca_entities/ffe/transformers/cv/medicaid'
 require 'aca_entities/ffe/types'
 
 # rubocop:disable Metrics/ClassLength
+# rubocop:disable Layout/LineLength
 # This file defines the maps
 module AcaEntities
   module Ffe
@@ -214,7 +215,8 @@ module AcaEntities
 
                       map 'noHomeAddressIndicator', 'is_homeless', memoize: true, visible: true, append_identifier: true
                       map 'liveOutsideStateTemporarilyIndicator', 'is_temporarily_out_of_state', memoize: true, visible: true, append_identifier: true
-                      map 'americanIndianAlaskanNativeIndicator', 'americanIndianAlaskanNativeIndicator', memoize: true, visible: true, append_identifier: true
+                      map 'americanIndianAlaskanNativeIndicator', 'americanIndianAlaskanNativeIndicator', memoize: true, visible: true,
+                                                                                                          append_identifier: true
                       # map 'requestingFinancialAssistanceIndicator', 'is_applying_for_assistance'
 
                       # this need to set only for primary member
@@ -375,7 +377,7 @@ module AcaEntities
                   map 'income', 'income', memoize_record: true, visible: false
                   map 'family', 'family', memoize_record: true, visible: false # , append_identifier: true
                   map 'nonMagi', 'nonMagi', memoize_record: true, visible: false
-                  #TODO check on this
+                  # TODO: check on this
                   map 'other.veteranIndicator', 'veteranIndicator', memoize: true, visible: false, append_identifier: true
 
                   # map 'lawfulPresence', 'lawfulPresence', memoize_record: true, visible: false,  append_identifier: true
@@ -413,29 +415,35 @@ module AcaEntities
                           }
                   map 'other.americanIndianAlaskanNative', 'americanIndianAlaskanNative', memoize_record: true, visible: false
                   add_key 'person.person_demographics.indian_tribe_member', function: lambda { |v|
-                                                                     tribe_indicator = v.resolve("americanIndianAlaskanNativeIndicator.#{v.find(/attestations.members.(\w+)$/).map(&:item).last}")&.item
-                                                                     return false unless tribe_indicator
-                                                                     tribe_details = "attestations.members.#{v.find(/attestations.members.(\w+)$/).map(&:item).last}.other.americanIndianAlaskanNative"
-                                                                     tribe = v.resolve("#{tribe_details}", identifier: true)&.item
-                                                                     return false if tribe.nil? || tribe[:personRecognizedTribeIndicator] == false
-                                                                     true
-                                                                   }
+                                                                                        member = v.find(/attestations.members.(\w+)$/).map(&:item).last
+                                                                                        is_tribe = v.resolve("americanIndianAlaskanNativeIndicator.#{member}")&.item
+                                                                                        return false unless is_tribe
+                                                                                        t_mem = "attestations.members.#{member}"
+                                                                                        tribe = v.resolve("#{t_mem}.other.americanIndianAlaskanNative",
+                                                                                                          identifier: true)&.item
+                                                                                        return false if tribe.nil?
+                                                                                        tribe[:personRecognizedTribeIndicator] || false
+                                                                                      }
                   add_key 'person.person_demographics.tribal_name', function: lambda { |v|
-                                                             tribe_indicator = v.resolve("americanIndianAlaskanNativeIndicator.#{v.find(/attestations.members.(\w+)$/).map(&:item).last}")&.item
-                                                             return nil unless tribe_indicator
-                                                             tribe_details = "attestations.members.#{v.find(/attestations.members.(\w+)$/).map(&:item).last}.other.americanIndianAlaskanNative"
-                                                             tribe = v.resolve("#{tribe_details}", identifier: true)&.item
-                                                             return nil if tribe.nil? || tribe[:personRecognizedTribeIndicator] == false
-                                                             tribe[:federallyRecognizedTribeName]
-                                                           }
+                                                                                member = v.find(/attestations.members.(\w+)$/).map(&:item).last
+                                                                                is_tribe = v.resolve("americanIndianAlaskanNativeIndicator.#{member}")&.item
+                                                                                return nil unless is_tribe
+                                                                                t_mem = "attestations.members.#{member}"
+                                                                                tribe = v.resolve("#{t_mem}.other.americanIndianAlaskanNative",
+                                                                                                  identifier: true)&.item
+                                                                                if !tribe.nil? && tribe[:personRecognizedTribeIndicator]
+                                                                                  tribe[:federallyRecognizedTribeName]
+                                                                                end
+                                                                              }
                   add_key 'person.person_demographics.tribal_state', function: lambda { |v|
-                                                              tribe_indicator = v.resolve("americanIndianAlaskanNativeIndicator.#{v.find(/attestations.members.(\w+)$/).map(&:item).last}")&.item
-                                                              return nil unless tribe_indicator
-                                                              tribe_details = "attestations.members.#{v.find(/attestations.members.(\w+)$/).map(&:item).last}.other.americanIndianAlaskanNative"
-                                                              tribe = v.resolve("#{tribe_details}", identifier: true)&.item
-                                                              return nil if tribe.nil? || tribe[:personRecognizedTribeIndicator] == false
-                                                              "ME"
-                                                            }
+                                                                                 member = v.find(/attestations.members.(\w+)$/).map(&:item).last
+                                                                                 is_tribe = v.resolve("americanIndianAlaskanNativeIndicator.#{member}")&.item
+                                                                                 return nil unless is_tribe
+                                                                                 t_mem = "attestations.members.#{member}"
+                                                                                 tribe = v.resolve("#{t_mem}.other.americanIndianAlaskanNative",
+                                                                                                   identifier: true)&.item
+                                                                                 "ME" if !tribe.nil? && tribe[:personRecognizedTribeIndicator]
+                                                                               }
                   map 'other.incarcerationType', 'person.person_demographics.is_incarcerated',
                       function: lambda {|value|
                         val = AcaEntities::Types::McrToCvIncarcerationKind[value]
@@ -567,3 +575,4 @@ module AcaEntities
   end
 end
 # rubocop:enable Metrics/ClassLength
+# rubocop:enable Layout/LineLength

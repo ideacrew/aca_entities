@@ -32,9 +32,9 @@ module AcaEntities
           years_to_renew: @memoized_data.resolve('years_to_renew').item,
           family_reference: { hbx_id: @memoized_data.resolve('family.hbx_id').item.to_s },
           # default values
-          aptc_effective_date: Date.new(2021,1,1),
-          oe_start_on: Date.new(2020,11,1),
-          notice_options: { send_eligibility_notices: false, send_open_enrollment_notices: true}
+          aptc_effective_date: Date.new(2021, 1, 1),
+          oe_start_on: Date.new(2020, 11, 1),
+          notice_options: { send_eligibility_notices: false, send_open_enrollment_notices: true }
         }
       end
     end
