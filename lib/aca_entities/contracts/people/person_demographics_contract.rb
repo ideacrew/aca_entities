@@ -26,10 +26,13 @@ module AcaEntities
           required(:dob).filled(:date)
           optional(:date_of_death).maybe(:date)
           optional(:dob_check).maybe(:bool)
-          required(:is_incarcerated).filled(:bool)
+          optional(:is_incarcerated).maybe(:bool)
           optional(:ethnicity).maybe(:array)
           optional(:race).maybe(:string)
+          optional(:indian_tribe_member).maybe(:bool)
           optional(:tribal_id).maybe(:string)
+          optional(:tribal_state).maybe(:string)
+          optional(:tribal_name).maybe(:string)
           optional(:language_code).maybe(:string)
         end
       end

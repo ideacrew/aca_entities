@@ -8,7 +8,7 @@ module AcaEntities
       attribute :name,                              Types::String.meta(omittable: false)
       attribute :dba,                               Types::String.optional.meta(omittable: true)
       attribute :display_name,                      Types::String.optional.meta(omittable: true)
-      attribute :fein,                              Types::String.meta(omittable: false)
+      attribute :fein,                              Types::String.meta(omittable: true)
       attribute :corporate_npn,                     Types::String.optional.meta(omittable: true)
     end
   end

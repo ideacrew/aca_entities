@@ -13,6 +13,8 @@ module AcaEntities
         params do
           required(:employer_name).filled(:string)
           optional(:employer_id).maybe(:string)
+          optional(:employer_address).maybe(AcaEntities::Contracts::Locations::AddressContract.params)
+          optional(:employer_phone).maybe(AcaEntities::Contracts::Contacts::PhoneContactContract.params)
         end
       end
     end

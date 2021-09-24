@@ -91,6 +91,9 @@ GEM
     pry-byebug (3.9.0)
       byebug (~> 11.0)
       pry (~> 0.13.0)
+    pry-remote (0.1.8)
+      pry (~> 0.9)
+      slop (~> 3.0)
     racc (1.5.2)
     rainbow (3.0.0)
     rake (12.3.3)
@@ -121,6 +124,7 @@ GEM
     rubocop-ast (1.9.1)
       parser (>= 3.0.1.1)
     ruby-progressbar (1.11.0)
+    slop (3.6.0)
     tzinfo (2.0.4)
       concurrent-ruby (~> 1.0)
     unicode-display_width (2.0.0)
@@ -128,6 +132,7 @@ GEM
     zeitwerk (2.4.2)
 
 PLATFORMS
+  x86_64-darwin-16
   x86_64-darwin-17
   x86_64-darwin-19
   x86_64-darwin-20
@@ -136,6 +141,7 @@ DEPENDENCIES
   aca_entities!
   factory_bot
   pry-byebug
+  pry-remote
   rake (~> 12.0)
   rspec
   rspec-core

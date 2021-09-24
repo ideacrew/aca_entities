@@ -70,6 +70,13 @@ module AcaEntities
           if check_if_present?(value[:benefits]) && value[:benefits].is_a?(Array)
             value[:benefits].each_with_index do |benefit, b_index|
               failure_key = [:applicants, index, :benefits, b_index]
+
+              if check_if_present?(benefit[:employer]) &&
+                 check_if_present?(benefit[:employer][:employer_id]) &&
+                 !benefit[:employer][:employer_id].match?(/\A[0-9]+\Z/)
+                key(failure_key + [:employer, :employer_id]).failure(text: 'must be numbers only')
+              end
+
               if benefit_kind_esi?(benefit[:kind])
                 # employer
                 if check_if_blank?(benefit[:employer])
@@ -186,6 +193,7 @@ module AcaEntities
               key(pregnancy_failure_key + [:expected_children_count]).failure(text: 'must be filled if the applicant is pregnant')
             end
 
+            # TODO: pregnancy_due_on is Mandatory in DC, not in ME
             if check_if_blank?(pregnancy[:pregnancy_due_on])
               key(pregnancy_failure_key + [:pregnancy_due_on]).failure(text: 'must be filled if the applicant is pregnant')
             end
