@@ -27,10 +27,9 @@ module AcaEntities
           end
 
           def build_family_hash(valid_params)
-            result = Try do
+            Try do
               AcaEntities::Families::Family.new(valid_params.to_h)
             end.to_result
-            result
           end
         end
       end
