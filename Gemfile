@@ -6,8 +6,6 @@ source "https://rubygems.org"
 gemspec
 
 gem "rake", "~> 12.0"
-gem 'pry-byebug'
-gem 'pry-remote'
 
 group :development, :test do
   gem "rspec"

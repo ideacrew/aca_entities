@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-require 'pry'
 
 module AcaEntities
   module Functions
