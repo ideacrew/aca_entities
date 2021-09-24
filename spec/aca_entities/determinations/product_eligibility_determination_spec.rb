@@ -38,4 +38,14 @@ RSpec.describe ::AcaEntities::Determinations::ProductEligibilityDetermination, d
       expect { described_class.new(input_params) }.not_to raise_error
     end
   end
+
+  describe 'with invalid arguments' do
+    it 'should raise error' do
+      expect do
+        described_class.new(input_params.reject do |k, _v|
+                              k == :magi_medicaid_monthly_income_limit
+                            end)
+      end.to raise_error(Dry::Struct::Error, /:magi_medicaid_monthly_income_limit is missing/)
+    end
+  end
 end

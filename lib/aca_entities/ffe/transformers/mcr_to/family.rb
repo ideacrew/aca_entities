@@ -193,7 +193,7 @@ module AcaEntities
                                   function: lambda {|v|
                                               [v.resolve(:first_name, identifier: true).item,
                                                v.resolve(:middle_name, identifier: true).item,
-                                               v.resolve(:last_name, identifier: true).item].join(' ')
+                                               v.resolve(:last_name, identifier: true).item].compact.join(' ')
                                             }
                         end
                       end
