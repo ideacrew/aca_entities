@@ -10,7 +10,7 @@ module AcaEntities
       # Year that is used on which to determine APTC Eligibility
       attribute :assistance_year, Types::Integer.meta(omittable: false)
       # Date that is used on which to determine APTC Eligibility
-      attribute :aptc_effective_date, Types::Date.optional.meta(omittable: true)
+      attribute :aptc_effective_date, Types::Date.meta(omittable: false)
 
       # Add validation,
       # i) the assistance_year should be same as of effective_date.year(or)
@@ -27,9 +27,9 @@ module AcaEntities
       attribute :us_state, Types::UsStateAbbreviationKind.meta(omittable: false)
       attribute :hbx_id, Types::String.meta(omittable: false)
 
-      attribute :oe_start_on, Types::Date.optional.meta(omittable: true)
+      attribute :oe_start_on, Types::Date.meta(omittable: false)
 
-      attribute :notice_options, NoticeOptions.optional.meta(omittable: true)
+      attribute :notice_options, NoticeOptions.meta(omittable: false)
 
       # Set of attributes specific to MitC which helps to not have much logic in IapTo MitC Transform.
       attribute :mitc_households, Types::Array.of(AcaEntities::MagiMedicaid::Mitc::Household).optional.meta(omittable: true)

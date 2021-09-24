@@ -144,7 +144,7 @@ module AcaEntities
           is_enrolled_on_medicaid: nil,
           is_post_partum_period: false, # default value
           expected_children_count: attestations_family_hash[:babyDueQuantity],
-          pregnancy_due_on: nil,
+          pregnancy_due_on: attestations_family_hash[:pregnancyIndicator] ? Date.new(2021,12,31) : nil,
           pregnancy_end_on: nil
         }
 

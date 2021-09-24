@@ -30,7 +30,6 @@ module AcaEntities
         #
         # @return [Hash]
         def map_value(input, namespaces, func)
-          # puts "#{input}==#{namespaces}--#{func}"
           source_hash = input[:source_hash] || input
 
           source_hash.to_h.tap do |hash|

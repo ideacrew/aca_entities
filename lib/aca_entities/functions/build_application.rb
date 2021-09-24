@@ -30,7 +30,11 @@ module AcaEntities
           medicaid_terms: @memoized_data.resolve('medicaid_terms').item,
           is_renewal_authorized: @memoized_data.resolve('is_renewal_authorized').item,
           years_to_renew: @memoized_data.resolve('years_to_renew').item,
-          family_reference: { hbx_id: @memoized_data.resolve('family.hbx_id').item.to_s }
+          family_reference: { hbx_id: @memoized_data.resolve('family.hbx_id').item.to_s },
+          # default values
+          aptc_effective_date: Date.new(2021,1,1),
+          oe_start_on: Date.new(2020,11,1),
+          notice_options: { send_eligibility_notices: false, send_open_enrollment_notices: false}
         }
       end
     end

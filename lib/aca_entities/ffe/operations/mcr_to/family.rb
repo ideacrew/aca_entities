@@ -23,11 +23,6 @@ module AcaEntities
 
           def validate(record)
             result = AcaEntities::Contracts::Families::FamilyContract.new.call(record)
-            unless result.success?
-              puts result.errors.messages
-              # binding.pry
-
-            end
             result.success? ? Success(result) : Failure(result)
           end
 
@@ -35,9 +30,6 @@ module AcaEntities
             result = Try do
               AcaEntities::Families::Family.new(valid_params.to_h)
             end.to_result
-            unless result.success?
-              # binding.pry
-            end
             result
           end
         end

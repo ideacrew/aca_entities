@@ -160,7 +160,7 @@ module AcaEntities
           optional(:is_claimed_as_dependent_by_non_applicant).filled(:bool)
           optional(:benchmark_premium).hash(BenchmarkPremiumContract.params)
 
-          optional(:is_homeless).maybe(:bool)
+          required(:is_homeless).filled(:bool)
 
           # Set of attributes specific to MitC which helps to not have much logic in IapTo MitC Transform.
           optional(:mitc_income).hash(AcaEntities::MagiMedicaid::Mitc::Contracts::IncomeContract.params)

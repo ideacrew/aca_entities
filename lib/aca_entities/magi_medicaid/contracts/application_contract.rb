@@ -28,7 +28,7 @@ module AcaEntities
         params do
           required(:family_reference).hash(::AcaEntities::Contracts::Families::FamilyReferenceContract.params)
           required(:assistance_year).filled(:integer)
-          optional(:aptc_effective_date).maybe(:date)
+          required(:aptc_effective_date).filled(:date)
           optional(:years_to_renew).maybe(:integer)
           optional(:renewal_consent_through_year).maybe(:integer)
           optional(:is_ridp_verified).maybe(:bool)
@@ -40,9 +40,9 @@ module AcaEntities
           required(:us_state).filled(Types::UsStateAbbreviationKind)
           required(:hbx_id).filled(:string)
 
-          optional(:oe_start_on).maybe(:date)
+          required(:oe_start_on).filled(:date)
 
-          optional(:notice_options).maybe(NoticeOptionsContract.params)
+          required(:notice_options).filled(NoticeOptionsContract.params)
 
           # Set of attributes specific to MitC which helps to not have much logic in IapTo MitC Transform.
           optional(:mitc_households).array(AcaEntities::MagiMedicaid::Mitc::Contracts::HouseholdContract.params)

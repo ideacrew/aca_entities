@@ -20,7 +20,6 @@ module AcaEntities
 
         def call
           # app_params = yield validate_mcr(source_hash)
-
           params = yield transform_batch if @worker_mode == :batch # (app_params)
           params = yield transform_single if @worker_mode == :single
           # family_params2 = yield validate(family_params.first)
@@ -44,15 +43,12 @@ module AcaEntities
         end
 
         def transform_single
-          # binding.pry
           record = klass.transform(@source_hash)
           _result = AcaEntities::Ffe::Operations::McrTo::Family.new.call(record: record[:family])
-          # binding.pry
         end
 
         # (app_params)
         def transform_batch
-          # binding.pry
           result = []
           input = file_path || source_hash # (app_params)
 
@@ -70,7 +66,7 @@ module AcaEntities
         end
 
         def default_path
-          # 'spec/support/transform_example_payloads/application.json'
+          'spec/support/transform_example_payloads/application.json'
         end
       end
     end

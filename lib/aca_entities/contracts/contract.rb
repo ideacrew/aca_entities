@@ -11,7 +11,6 @@ module AcaEntities
       # config.messages.load_paths - an array of files paths that are used to load messages
       # config.messages.top_namespace - the key in the locale files under which messages are defined, by default it's dry_validation
       # config.messages.namespace - custom messages namespace for a contract class. Use this to differentiate common messages
-      # binding.pry
       rule(:broker_accounts).each do |index:|
         next unless key? && value.is_a?(Hash)
         if value[:end_on] && value[:start_on] && (value[:end_on] < value[:start_on])

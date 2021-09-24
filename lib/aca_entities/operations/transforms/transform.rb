@@ -1,7 +1,6 @@
 # rubocop:disable all
 require 'oj'
 require 'deep_merge'
-# require 'pry'
 
 module AcaEntities
   module Operations
@@ -14,9 +13,6 @@ module AcaEntities
 
         # notify this method if there is a identifier to the key to resolve context, default is false
         def resolve(key, identifier: false)
-          # if key == :alt_first_name
-          #   require 'pry';binding.pry
-          # end
           if identifier
             key_identifier = find(Regexp.new(key.to_s)).map(&:name).last
             OpenStruct.new @contexts.values.detect{|hash| hash[:name].to_s == key_identifier.to_s}
@@ -52,7 +48,6 @@ module AcaEntities
           def transform(payload)
             service = new
             service.namespace_record_delimiter = [:no_key]
-            # require 'pry'; binding.pry
             Oj.saj_parse(service, payload.to_json)
             service.record
           end
@@ -161,11 +156,6 @@ module AcaEntities
         end
 
         def add_value(value, key)
-          # require 'pry';binding.pry
-          # puts key
-          # if key == "contactMethod"
-          #   require 'pry';binding.pry
-          # end
           @array_record << value unless key
           transform_data_for(key, value)
         end
