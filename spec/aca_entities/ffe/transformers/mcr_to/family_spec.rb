@@ -13,9 +13,7 @@ RSpec.describe ::AcaEntities::Ffe::Transformers::McrTo::Family  do
         record = ::AcaEntities::Ffe::Transformers::McrTo::Family.transform(payload)
         record_with_string_keys = JSON.parse(record.to_json)
         example_output_hash = JSON.parse(File.read(Pathname.pwd.join("spec/support/transform_example_payloads/family_transform_result.json")))
-
         expect(record_with_string_keys).to match(example_output_hash)
-
         record[:family].tap do |family|
           expect(family).to have_key(:hbx_id)
           expect(family).to have_key(:broker_accounts)
@@ -24,13 +22,10 @@ RSpec.describe ::AcaEntities::Ffe::Transformers::McrTo::Family  do
           family[:family_members].each do |family_member|
             expect(family_member).to have_key(:is_primary_applicant)
             family_member[:person].tap do |person|
-              expect(person).to have_key(:identifiers)
-              expect(person[:identifiers]).to have_key(:source_system_key)
               person[:person_name].tap do |person_name|
                 expect(person_name).to have_key(:full_name)
                 expect(person_name[:full_name]).to eq("#{person_name[:first_name]} #{person_name[:last_name]}")
               end
-
               person[:addresses].each do |address|
                 expect(address).to have_key(:kind)
                 expect(address).to have_key(:address_1)
@@ -44,6 +39,7 @@ RSpec.describe ::AcaEntities::Ffe::Transformers::McrTo::Family  do
     end
 
     # TODO: below spec is failing for relationships fix and additional code added in transform and hash document,
+    # Single transform not working
     # fix while refactoring transform
     # it 'should transform the payload according to instructions' do
     #   ::AcaEntities::Ffe::Transformers::McrTo::Family.call(source_file) do |record|

@@ -16,7 +16,6 @@ module AcaEntities
           def call(*args)
             valid_params = yield validate(args.first[:record])
             family_hash = yield build_family_hash(valid_params)
-
             Success(family_hash)
           end
 
@@ -24,7 +23,6 @@ module AcaEntities
 
           def validate(record)
             result = AcaEntities::Contracts::Families::FamilyContract.new.call(record)
-
             result.success? ? Success(result) : Failure(result)
           end
 

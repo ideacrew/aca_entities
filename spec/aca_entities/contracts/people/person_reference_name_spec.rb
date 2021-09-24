@@ -33,7 +33,7 @@ RSpec.describe ::AcaEntities::Contracts::People::PersonReferenceContract, dbclea
   context 'failure case' do
     context 'missing required param' do
       before do
-        @result = subject.call(required_params.reject { |k, _v| k == :hbx_id })
+        @result = subject.call(required_params.reject { |k, _v| k == :gender })
       end
 
       it 'should return failure' do
@@ -67,7 +67,7 @@ RSpec.describe ::AcaEntities::Contracts::People::PersonReferenceContract, dbclea
       end
 
       it 'should return error message' do
-        result = subject.call(required_params.merge(dob: nil))
+        result = subject.call(required_params.merge(gender: nil))
         expect(result.errors.messages.first.text).to eq('must be filled')
       end
     end

@@ -12,6 +12,7 @@ module AcaEntities
               register_namespace 'xmlns', 'urn:us:gov:treasury:irs:msg:hhsirsverifyhouseholdincomeandfamilysize'
 
               tag 'VerifyHsldIncmAndFamSizeBulkReq'
+              namespace 'xmlns'
 
               has_many :IFSVApplicantRequestGrps, IfsvApplicantRequestGroup
 

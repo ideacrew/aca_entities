@@ -7,7 +7,7 @@ module AcaEntities
         # Contract for RRV Medicare
         class DependentVerificationContract < Dry::Validation::Contract
           params do
-            optional(:IFSVApplicantVerification).array(::AcaEntities::Fdsh::Rrv::Ifsv::VerificationContract.params)
+            optional(:IFSVApplicantVerification).filled(::AcaEntities::Fdsh::Rrv::Ifsv::VerificationContract.params)
           end
         end
       end

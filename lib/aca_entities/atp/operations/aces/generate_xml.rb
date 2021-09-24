@@ -93,11 +93,11 @@ module AcaEntities
             record["family"].merge!("family_members" => family_members.group_by do |h|
                                                           h["person"]["hbx_id"]
                                                         end.transform_keys(&:to_s).transform_values(&:first))
-            applicants = record["family"]["magi_medicaid_applications"].first["applicants"]
-            record["family"]["magi_medicaid_applications"].first.merge!("applicants" => applicants.group_by do |h|
-                                                                                          h["person_hbx_id"]
-                                                                                        end.transform_keys(&:to_s).transform_values(&:first))
-            magi_medicaid_application = record["family"]["magi_medicaid_applications"].first
+            applicants = record["family"]["magi_medicaid_applications"]["applicants"]
+            record["family"]["magi_medicaid_applications"].merge!("applicants" => applicants.group_by do |h|
+              h["person_hbx_id"]
+            end.transform_keys(&:to_s).transform_values(&:first))
+            magi_medicaid_application = record["family"]["magi_medicaid_applications"]
             record["family"].merge!("magi_medicaid_applications" => magi_medicaid_application)
             family_members = record["family"].delete("family_members")
 
