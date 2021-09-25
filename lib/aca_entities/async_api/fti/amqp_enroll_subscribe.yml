@@ -50,4 +50,24 @@ channels:
           routing_key: enroll.fdsh.verifications.#
           bindingVersion: '0.2.0'
       operationId: on_fti.enroll.fdsh.verifications
-      description: Events - CMS FTI RIDP Service requests
+      description: Events - CMS FTI IFSV requests
+
+  on_fti.enroll.fdsh_verifications.rrv:
+    bindings:
+      amqp:
+        is: queue
+        queue:
+          name: on_fti.enroll.fdsh_verifications.rrv
+          durable: true
+          exclusive: false
+          auto_delete: false
+          vhost: event_source
+    subscribe:
+      bindings:
+        amqp:
+          ack: true
+          exclusive: false
+          routing_key: enroll.fdsh_verifications.rrv.#
+          bindingVersion: '0.2.0'
+      operationId: on_fti.enroll.fdsh_verifications.rrv
+      description: Events - CMS FTI RRV Requests

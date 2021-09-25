@@ -138,6 +138,33 @@ channels:
           content_type: application/json
           bindingVersion: 0.2.0
 
+  enroll.iap.applications.generate_renewal_draft:
+    bindings:
+      amqp:
+        is: :routing_key
+        exchange:
+          name: enroll.iap.applications
+          type: topic
+          content_type: application/json
+          durable: true
+          auto_delete: false
+          vhost: event_source
+        binding_version: '0.2.0'
+    publish:
+      operationId: enroll.iap.applications.generate_renewal_draft
+      description: Events - Generate Renewal Draft Application
+      bindings:
+        amqp:
+          app_id: enroll
+          type: enroll.iap.applications
+          routing_key: enroll.iap.applications.generate_renewal_draft
+          expiration: 100_000
+          deliveryMode: 2
+          mandatory: true
+          timestamp: true
+          content_type: application/json
+          bindingVersion: 0.2.0
+
   enroll.iap.applications.determine_eligibility:
     bindings:
       amqp:
