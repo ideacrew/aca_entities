@@ -3,7 +3,7 @@
 module AcaEntities
   module Accounts
     module Contracts
-      # contract for Accounts user
+      # Contract for validating Keycloak {AcaEntities::Accounts::Account}
       class AccountContract < Dry::Validation::Contract
         params do
           optional(:username).maybe(:string)

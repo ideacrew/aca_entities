@@ -2,6 +2,7 @@
 
 module AcaEntities
   module Accounts
+    # A Keycloak Account
     class Account < Dry::Struct
       attribute :username, Types::String.optional.meta(omittable: true)
       attribute :email, Types::String.optional.meta(omittable: true)
