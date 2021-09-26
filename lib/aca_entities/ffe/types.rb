@@ -33,16 +33,16 @@ module AcaEntities
       }.freeze
 
       BenefitsKindMapping = {
-        INDIVIDUAL_INSURANCE: 'private_individual_and_family_coverage',
+        MARKETPLACE_COVERAGE: 'private_individual_and_family_coverage',
         MEDICAID: 'medicaid',
         MEDICARE: 'medicare',
         TRICARE: 'tricare',
         VETERAN_HEALTH_PROGRAM: 'veterans_administration_health_benefits',
         EMPLOYER_SPONSORED: 'employer_sponsored_insurance',
         CHIP: 'child_health_insurance_plan',
-        PEACE_CORPS: 'peace_corps_health_benefits'
-        # OTHER_FULL_BENEFIT_COVERAGE: 'other_full_benefit_coverage',
-        # OTHER_LIMITED_BENEFIT_COVERAGE: 'OTHER_LIMITED_BENEFIT_COVERAGE'
+        PEACE_CORPS: 'peace_corps_health_benefits',
+        OTHER_FULL_BENEFIT_COVERAGE: 'other_full_benefit_coverage',
+        OTHER_LIMITED_BENEFIT_COVERAGE: 'other_limited_benefit_coverage'
       }.freeze
 
       HraTypeMapping =

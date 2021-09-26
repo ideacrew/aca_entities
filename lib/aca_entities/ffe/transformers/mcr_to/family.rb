@@ -349,7 +349,7 @@ module AcaEntities
                                       end
                         elsif home_address.present? && mailing_address.present?
                           h_address = home_address&.merge!(kind: "home")
-                          m_address = if home_address == mailing_address
+                          m_address = if h_address.except(:kind) == mailing_address
                                         nil
                                       else
                                         mailing_address&.merge!(kind: "mailing")
