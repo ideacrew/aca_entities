@@ -141,8 +141,6 @@ module AcaEntities
       NEGATIVE_AMOUNT_INCOME_TYPE_KINDS = %w[SELF_EMPLOYMENT CAPITAL_GAINS FARMING_OR_FISHING_INCOME].freeze
 
       def income_hash
-        return [] if attestations_income_hash.blank?
-
         result = job_income_hash
         result << self_emp_income_hash[0] unless self_emp_income_hash.empty?
         result << unemp_income_hash[0] unless unemp_income_hash.empty?
@@ -173,6 +171,8 @@ module AcaEntities
       end
 
       def income_diff_with_annual_income
+        return true if attestations_income_hash.blank? && annual_amount != 0
+
         amount = 0.0
         attestations_income_hash.each_with_object([]) do |(_k, income), _result|
           frequency = income[:incomeFrequencyType]
@@ -327,7 +327,7 @@ module AcaEntities
       end
 
       def other_income_hash
-        return [] if attestations_income_hash.blank?
+        return [] unless attestations_income_hash.present? || create_other_tax_income
         if create_other_tax_income
           [{
             'kind' => "other",
