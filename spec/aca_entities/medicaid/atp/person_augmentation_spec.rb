@@ -43,7 +43,7 @@ RSpec.describe ::AcaEntities::Medicaid::Atp::PersonAugmentation,  dbclean: :arou
         incomes: [income],
         contacts: [contact_association],
         employments: [employment_association],
-        persons: [person] }
+        family_relationships: [person] }
     end
 
     let(:pregnancy_status) do

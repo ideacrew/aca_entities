@@ -12,7 +12,7 @@ module AcaEntities
             tag 'PersonAugmentation'
             namespace 'hix-core'
 
-            has_many :persons, PersonAssociation
+            has_many :family_relationships, PersonAssociation
             has_many :contacts, PersonContactInformationAssociation
             has_many :employments, PersonEmploymentAssociation
             has_one :pregnancy_status, PersonPregnancyStatus
@@ -44,7 +44,7 @@ module AcaEntities
                 mapper.contacts = person_augmentation.contacts&.map do |contact_association|
                   PersonContactInformationAssociation.domain_to_mapper(contact_association)
                 end
-                mapper.persons = person_augmentation.persons&.map do |person_association|
+                mapper.family_relationships = person_augmentation.family_relationships&.map do |person_association|
                   PersonAssociation.domain_to_mapper(person_association)
                 end
               end
@@ -64,7 +64,7 @@ module AcaEntities
                 expenses: expenses.map(&:to_hash),
                 employments: employments.map(&:to_hash),
                 contacts: contacts.map(&:to_hash),
-                family_relationships: persons.map(&:to_hash)
+                family_relationships: family_relationships.map(&:to_hash)
               }
             end
           end
