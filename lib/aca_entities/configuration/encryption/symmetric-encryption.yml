@@ -15,7 +15,7 @@ test:
 
 production:
   private_rsa_key: |
-    <%= AcaEntities::Configuration::Encryption.config.private_rsa_key %>
+    <%= printf AcaEntities::Configuration::Encryption.config.private_rsa_key %>
   ciphers:
     - encrypted_key: <%= AcaEntities::Configuration::Encryption.config.encrypted_key %>
       encrypted_iv: <%= AcaEntities::Configuration::Encryption.config.encrypted_iv %>
