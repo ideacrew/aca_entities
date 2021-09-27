@@ -32,12 +32,12 @@ servers:
 defaultContentType: application/json
 
 channels:
-  on_enroll.enroll.iap.applications:
+  on_enroll.enroll.iap.applications.renewals:
     bindings:
       amqp:
         is: queue
         queue:
-          name: on_enroll.enroll.iap.applications
+          name: on_enroll.enroll.iap.applications.renewals
           durable: true
           exclusive: false
           auto_delete: false
@@ -47,9 +47,9 @@ channels:
         amqp:
           ack: true
           exclusive: false
-          routing_key: enroll.iap.applications.application_renewal_request_created
+          routing_key: enroll.iap.applications.renewals.application_renewal_request_created
           bindingVersion: '0.2.0'
-      operationId: on_enroll.enroll.iap.applications
+      operationId: on_enroll.enroll.iap.applications.renewals
       description: Events - Application Renewal Request Created
 
 tags:
