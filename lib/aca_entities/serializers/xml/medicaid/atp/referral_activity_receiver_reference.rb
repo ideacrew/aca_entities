@@ -16,7 +16,7 @@ module AcaEntities
 
             def self.domain_to_mapper(receiver_reference)
               mapper = self.new
-              mapper.ref = receiver_reference.ref
+              mapper.ref = receiver_reference&.ref
               mapper
             end
 

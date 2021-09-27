@@ -12,7 +12,7 @@ module AcaEntities
         attribute :incomes, Types::Array.of(PersonIncome).optional.meta(omittable: true)
         attribute :employments, Types::Array.of(PersonEmploymentAssociation).optional.meta(omittable: true)
         attribute :contacts, Types::Array.of(PersonContactInformationAssociation).optional.meta(omittable: true)
-        attribute :persons, Types::Array.of(PersonAssociation).optional.meta(omittable: true)
+        attribute :family_relationships, Types::Array.of(PersonAssociation).optional.meta(omittable: true)
       end
     end
   end

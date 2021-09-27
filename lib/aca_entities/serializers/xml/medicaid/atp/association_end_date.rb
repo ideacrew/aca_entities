@@ -19,10 +19,10 @@ module AcaEntities
 
             def self.domain_to_mapper(end_date)
               mapper = self.new
-              mapper.date = end_date.date
-              mapper.date_time = end_date.date_time
-              mapper.year = end_date.year
-              mapper.year_month = end_date.year_month
+              mapper.date = end_date&.date
+              mapper.date_time = end_date&.date_time
+              mapper.year = end_date&.year
+              mapper.year_month = end_date&.year_month
               mapper
             end
 

@@ -29,7 +29,7 @@ module AcaEntities
           optional(:is_incarcerated).maybe(:bool)
           optional(:ethnicity).maybe(:array)
           optional(:race).maybe(:string)
-          optional(:indian_tribe_member).maybe(:bool)
+          # optional(:indian_tribe_member).maybe(:bool)
           optional(:tribal_id).maybe(:string)
           optional(:tribal_state).maybe(:string)
           optional(:tribal_name).maybe(:string)
