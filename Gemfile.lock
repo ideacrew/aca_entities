@@ -11,6 +11,7 @@ PATH
       iso_country_codes
       nokogiri-happymapper
       oj (~> 3.11)
+      symmetric-encryption (~> 4.3)
 
 GEM
   remote: https://rubygems.org/
@@ -148,7 +149,6 @@ DEPENDENCIES
   rspec
   rspec-core
   rubocop
-  symmetric-encryption (~> 4.3)
   yard
 
 BUNDLED WITH

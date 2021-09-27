@@ -21,7 +21,7 @@ module AcaEntities
 
         private
 
-        def encrypt(value)
+        def decrypt(value)
           Success(::SymmetricEncryption.decrypt(value))
         end
       end
