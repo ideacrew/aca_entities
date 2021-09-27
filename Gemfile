@@ -14,5 +14,3 @@ group :development, :test do
   gem "yard"
   gem 'factory_bot'
 end
-
-gem "symmetric-encryption", "~> 4.3"
