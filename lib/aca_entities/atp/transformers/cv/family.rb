@@ -77,7 +77,7 @@ module AcaEntities
                   map 'sex', 'person.person_demographics.gender', memoize: true, append_identifier: true, function: ->(value) {value.downcase}
                   add_key 'person.person_demographics.no_ssn',
                           function: ->(v) { v.resolve(:'person_demographics.ssn', identifier: true).item.nil?}
-                  map 'birth_date.date', 'person.person_demographics.dob', memoize: true, append_identifier: true, function: ->(v) {v.to_date}
+                  map 'birth_date.date', 'person.person_demographics.dob', memoize: true, append_identifier: true, function: ->(v) {Date.parse(v)}
                   add_key 'person.person_demographics.date_of_death'
                   add_key 'person.person_demographics.dob_check'
                   add_key 'person.person_demographics.is_incarcerated', function: lambda { |v|
