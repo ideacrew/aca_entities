@@ -55,7 +55,6 @@ module AcaEntities
               break
             elsif primary_match
               rel_code = family_relationship[:family_relationship_code].to_s.rjust(2, "0")
-
               relationship = AcaEntities::Types::RelationshipToTaxFilerCodeMap[:"#{rel_code}"]
               break
             end
@@ -71,7 +70,7 @@ module AcaEntities
             first_name: @memoized_data.find(Regexp.new("person_name.first_name.#{@primary_applicant_id}"))&.first&.item,
             last_name: @memoized_data.find(Regexp.new("person_name.last_name.#{@primary_applicant_id}"))&.first&.item,
             gender: @memoized_data.find(Regexp.new("person.person_demographics.gender.#{@primary_applicant_id}"))&.first&.item&.capitalize,
-            dob: Date.parse(@memoized_data.find(Regexp.new("person.person_demographics.dob.#{@primary_applicant_id}"))&.first&.item),
+            dob: @memoized_data.find(Regexp.new("person.person_demographics.dob.#{@primary_applicant_id}"))&.first&.item&.to_date,
             ssn: @memoized_data.find(Regexp.new("person.person_demographics.ssn.#{@primary_applicant_id}"))&.first&.item }
         end
       end
