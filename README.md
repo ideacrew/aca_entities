@@ -35,6 +35,16 @@ FDSH namespace.
 
 AcaEntities includes the following libraries:
 
+### {AcaEntities::Configuration::Encryption Encryption}
+
+Configuration setup to Encrypt and Decrypt sensitive information.
+
+Operations to Encrypt and Decrypt
+
+Encrypt - `AcaEntities::Operations::SymmetricEncryption::Encrypt`
+
+Decrypt - `AcaEntities::Operations::SymmetricEncryption::Decrypt`
+
 ### {AcaEntities::Atp ATP}
 
 Vocabularies and transforms that enable account and eligibility information exchange
