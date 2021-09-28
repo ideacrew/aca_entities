@@ -22,8 +22,8 @@ RSpec.configure do |config|
 end
 
 AcaEntities::Configuration::Encryption.configure do |config|
-  config.encrypted_key = ENV['SYMMETRIC_ENCRYPTION_ENCRYPTED_KEY'] || "1234567890ABCDEF"
-  config.encrypted_iv = ENV['SYMMETRIC_ENCRYPTION_ENCRYPTED_IV'] || "1234567890ABCDEF"
-  config.private_rsa_key = ENV['SYMMETRIC_ENCRYPTION_PRIVATE_KEY'] || "1234567890ABCDEF"
+  config.encrypted_key = "1234567890ABCDEF"
+  config.encrypted_iv = "1234567890ABCDEF"
+  config.private_rsa_key = "1234567890ABCDEF"
   config.app_env = "test"
 end
