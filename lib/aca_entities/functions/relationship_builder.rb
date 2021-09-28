@@ -36,7 +36,7 @@ module AcaEntities
 
           "mother_in_law_father_in_law" => "parent",
           "step_parent" => "parent",
-          "aunt_uncle" => "aunt_uncle",
+          "aunt_uncle" => "aunt_or_uncle",
           "parent" => "parent",
           "grandparent" => "parent",
       }.freeze

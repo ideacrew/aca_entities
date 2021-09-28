@@ -174,9 +174,10 @@ module AcaEntities
         result = []
         @insurance_coverage_hash[:enrolledCoverages].each do |enrolled_coverage|
           next if ['NONE', 'EMPLOYER_SPONSORED'].include?(enrolled_coverage[:insuranceMarketType])
-          if enrolled_coverage[:insuranceMarketType] == "INDIVIDUAL_INSURANCE" && @medicaid_hash[:insuranceCoverage]
+          if enrolled_coverage[:insuranceMarketType] == "INDIVIDUAL_INSURANCE" && @medicaid_hash && @medicaid_hash[:insuranceCoverage]
             # TODO what need to be done for EMPLOYER_SPONSORED for medicaid when "INDIVIDUAL_INSURANCE"
             @medicaid_hash[:insuranceCoverage].each do |medicaid_coverage|
+              next unless medicaid_coverage[:insuranceMarketType]
               next if ['NONE', 'EMPLOYER_SPONSORED'].include?(medicaid_coverage[:insuranceMarketType])
               next unless @medicaid_hash[:enrolledInHealthCoverageIndicator]
               result << {
@@ -187,6 +188,7 @@ module AcaEntities
               }
             end
           else
+            next unless enrolled_coverage[:insuranceMarketType]
             next unless Ffe::Types::BenefitsKindMapping[enrolled_coverage[:insuranceMarketType].to_sym]
             result << {
                 kind: Ffe::Types::BenefitsKindMapping[enrolled_coverage[:insuranceMarketType].to_sym],
