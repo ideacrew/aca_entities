@@ -11,7 +11,7 @@ PATH
       iso_country_codes
       nokogiri-happymapper
       oj (~> 3.11)
-      symmetric-encryption (~> 4.3)
+      symmetric-encryption (~> 3.9.1)
 
 GEM
   remote: https://rubygems.org/
@@ -126,7 +126,7 @@ GEM
     rubocop-ast (1.9.1)
       parser (>= 3.0.1.1)
     ruby-progressbar (1.11.0)
-    symmetric-encryption (4.3.3)
+    symmetric-encryption (3.9.1)
       coercible (~> 1.0)
     thread_safe (0.3.6)
     tzinfo (2.0.4)
