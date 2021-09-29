@@ -138,7 +138,7 @@ module AcaEntities
         "OTHER_DEDUCTION" => 'other'
       }.freeze
 
-      NEGATIVE_AMOUNT_INCOME_TYPE_KINDS = %w[SELF_EMPLOYMENT CAPITAL_GAINS FARMING_OR_FISHING_INCOME].freeze
+      NEGATIVE_AMOUNT_INCOME_TYPE_KINDS = %w[SELF_EMPLOYMENT CAPITAL_GAINS FARMING_OR_FISHING_INCOME RENTAL_OR_ROYALTY_INCOME].freeze
 
       def income_hash
         result = job_income_hash
