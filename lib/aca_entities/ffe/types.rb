@@ -60,6 +60,16 @@ module AcaEntities
         "SEMI_MONTHLY" => "monthly"
       }.freeze
 
+      CONTACT_METHOD_MAPPING = {
+        ["EMAIL", "MAIL", "E_TEXT"] => "Paper, Electronic and Text Message communications",
+        ["EMAIL", "E_TEXT"] => "Electronic and Text Message communications",
+        ["E_TEXT", "EMAIL"] => "Electronic and Text Message communications",
+        ["EMAIL", "MAIL"] => "Paper and Electronic communications",
+        ["MAIL", "E_TEXT"] => "Paper and Text Message communications",
+        ["E_TEXT"] => "Only Text Message communication",
+        ["MAIL"] => "Only Paper communication",
+        ["EMAIL"] => "Only Electronic communications"
+      }.freeze
     end
   end
 end

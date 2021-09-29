@@ -244,14 +244,7 @@ module AcaEntities
                         add_key 'admin_bookmark_url'
                         add_key 'contact_method', function: lambda { |v|
                                                               value = v.resolve('family.family_members.person.consumer_role.contact_method')&.item
-                                                              case value
-                                                              when ["EMAIL", "E_TEXT"], ["E_TEXT", "EMAIL"], ["EMAIL"], ["E_TEXT"]
-                                                                "Only Electronic communications"
-                                                              when ["MAIL"]
-                                                                "Only Paper communication"
-                                                              else
-                                                                "Paper and Electronic communications"
-                                                              end
+                                                              Ffe::Types::CONTACT_METHOD_MAPPING[value]
                                                             }
 
                         add_key 'language_preference',
