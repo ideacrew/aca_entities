@@ -63,7 +63,7 @@ module AcaEntities
               add_key 'foreign_keys', value: ->(_v) {[]}
 
               namespace 'application' do
-                map 'spokenLanguageType', 'family_members.person.consumer_role.language_preference', memoize: true, visible: false
+                map 'writtenLanguageType', 'family_members.person.consumer_role.language_preference', memoize: true, visible: false
 
                 namespace 'legalAttestations' do
                   map 'renewEligibilityYearQuantity', 'years_to_renew', memoize: true, visible: false
@@ -248,7 +248,7 @@ module AcaEntities
                                                             }
 
                         add_key 'language_preference',
-                                function: ->(v) {v.resolve('family_members.person.consumer_role.language_preference').item}
+                                function: ->(v) { Ffe::Types::Language[v.resolve('family_members.person.consumer_role.language_preference').item.to_s]}
                         add_key 'is_state_resident'
                         add_key 'identity_validation'
                         add_key 'identity_update_reason'
@@ -293,12 +293,10 @@ module AcaEntities
 
                       add_key 'person_demographics.ethnicity',
                               value: lambda { |v|
-                                       [v.resolve("race.#{v.find(/attestations.members.(\w+)$/).map(&:item).last}").item,
+                                       race_or_ethnicity =  [v.resolve("race.#{v.find(/attestations.members.(\w+)$/).map(&:item).last}").item,
                                         v.resolve("ethnicity.#{v.find(/attestations.members.(\w+)$/).map(&:item).last}").item,
-                                        v.resolve("otherRaceText.#{v.find(/attestations.members.(\w+)$/).map(&:item).last}").item,
-                                        v.resolve(
-                                          "otherEthnicityText.#{v.find(/attestations.members.(\w+)$/).map(&:item).last}"
-                                        ).item].flatten.compact
+                                       ].flatten.compact
+                                      race_or_ethnicity.collect {|r_or_e| Ffe::Types::RaceEthincity[r_or_e]}
                                      }
 
                       # race value storing in ethnicity, enroll doesn't have race record.

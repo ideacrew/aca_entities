@@ -70,6 +70,45 @@ module AcaEntities
         ["MAIL"] => "Only Paper communication",
         ["EMAIL"] => "Only Electronic communications"
       }.freeze
+
+      RaceEthincity = {
+        "WHITE" => "White",
+        "OTHER_ASIAN" => "Other Asian",
+        "ASIAN_INDIAN" => "Asian Indian",
+        "FILIPINO" => "Filipino",
+        "AMERICAN_INDIAN_OR_ALASKAN_NATIVE" => "American Indian/Alaska Native",
+        "CHINESE" => "Chinese",
+        "VIETNAMESE" => "Vietnamese",
+        "BLACK_OR_AFRICAN_AMERICAN" => "Black or African American",
+        "JAPANESE" => "Japanese",
+        "OTHER" => "Other",
+        "KOREAN" => "Korean",
+        "GUAMANIAN_OR_CHAMORRO" => "Guamanian or Chamorro",
+        "SAMOAN" => "Samoan",
+        "NATIVE_HAWAIIAN" => "Native Hawaiian",
+        "OTHER_PACIFIC_ISLANDER" => "Other Pacific Islander",
+        "MEXICAN" => "Mexican",
+        "PUERTO_RICAN" => "Puerto Rican",
+        "CUBAN" => "Cuban"
+      }
+
+      Language = {
+       "" => "English",
+       "ENGLISH" => "English",
+       "GUJARATI" => "ENGLISH",
+       "VIETNAMESE"=> "Vietnamese",
+       "OTHER"=> "English",
+       "SPANISH"=> "Spanish",
+       "CHINESE"=> "Chinese (Mandarin)",
+       "FRENCH"=> "French",
+       "PORTUGUESE"=> "Portuguese",
+       "RUSSIAN"=> "Russian",
+       "ARABIC"=> "Arabic",
+       "URDU"=> "English",
+       "KOREAN"=> "English",
+       "HINDI"=> "English",
+       "FRENCH_CREOLE"=> "French"
+      }
     end
   end
 end
