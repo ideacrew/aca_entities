@@ -6,8 +6,6 @@ module AcaEntities
     class IdentifyingInformation < Dry::Struct
 
       attribute :encrypted_ssn, Types::String.optional.meta(omittable: true)
-      attribute :ssn, Types::String.optional.meta(omittable: true)
-
       # Applicant's no_ssn maps to has_ssn.
       attribute :has_ssn, Types::Bool.meta(omittable: false)
     end

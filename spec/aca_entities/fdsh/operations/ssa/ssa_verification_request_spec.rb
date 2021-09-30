@@ -337,7 +337,7 @@ RSpec.describe ::AcaEntities::Fdsh::Ssa::H3::Operations::SsaVerificationRequest,
     context 'with valid demographics' do
       let!(:person_demographics) do
         {
-          ssn: "123456789",
+          encrypted_ssn: "ndF/A5V0udKwqZe34CjgHg==\n",
           no_ssn: false,
           gender: 'male',
           dob: Date.today,

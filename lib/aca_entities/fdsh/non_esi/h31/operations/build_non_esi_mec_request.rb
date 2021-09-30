@@ -36,7 +36,7 @@ module AcaEntities
 
             def construct_individual_request(application)
               application.applicants.collect do |applicant|
-                next unless applicant.identifying_information.ssn.present?
+                next unless applicant.identifying_information.encrypted_ssn.present?
                 org_codes = get_organization_codes(applicant)
                 individual_request = {
                   Applicant: construct_request_applicant(applicant),
@@ -72,7 +72,7 @@ module AcaEntities
 
             def construct_request_applicant(applicant)
               {
-                PersonSSNIdentification: applicant.identifying_information&.ssn,
+                PersonSSNIdentification: decrypt_ssn(applicant.identifying_information&.encrypted_ssn),
                 PersonName: construct_person_name(applicant.name),
                 PersonBirthDate: applicant.demographic.dob,
                 PersonSexCode: parse_gender(applicant.demographic)
@@ -97,6 +97,10 @@ module AcaEntities
                 PersonSurName: applicant_name&.last_name,
                 PersonNameSuffixText: applicant_name&.name_sfx
               }
+            end
+
+            def decrypt_ssn(encrypted_ssn)
+              AcaEntities::Operations::SymmetricEncryption::Decrypt.new.call({ value: encrypted_ssn }).value!
             end
           end
         end
