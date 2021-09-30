@@ -244,13 +244,18 @@ module AcaEntities
         income[:incomeAmount] < 0 && !NEGATIVE_AMOUNT_INCOME_TYPE_KINDS.include?(income[:incomeSourceType])
       end
 
+      def job_income_with_no_employer_name(income)
+        EMPLOYEMENT[income[:incomeSourceType]].present? && (income[:jobIncome].nil? || income[:jobIncome][:employerName].nil?)
+      end
+
       def job_income_hash
         return [] if attestations_income_hash.blank? || create_other_tax_income
 
         attestations_income_hash.each_with_object([]) do |(_k, income), result|
           next unless EMPLOYEMENT[income[:incomeSourceType]].present?
           next if negative_income(income)
-          employer_name = (income[:jobIncome].nil? ? "employer name not provided" : income[:jobIncome][:employerName])
+          next if income[:jobIncome].nil? || income[:jobIncome][:employerName].nil?
+          employer_name = income[:jobIncome][:employerName]
           emp_additional_details = employer_details(employer_name)
           employer_hash = { 'employer_name' => employer_name, 'employer_id' => emp_additional_details[0] }
 
@@ -340,7 +345,7 @@ module AcaEntities
           }]
         else
           attestations_income_hash.each_with_object([]) do |(_k, income), result|
-            if negative_income(income) && TAX_INCOME_KIND[income[:incomeSourceType]].present?
+            if (negative_income(income) && TAX_INCOME_KIND[income[:incomeSourceType]].present?) || job_income_with_no_employer_name(income)
               result << {
                 'kind' => "other",
                 'amount' => income_amount(income),
