@@ -129,7 +129,7 @@ module AcaEntities
 
         member_attestation = {
           is_incarcerated: false, # default value
-          is_self_attested_disabled: non_magi.nil? ? false : non_magi[:blindOrDisabledIndicator] || false,
+          is_self_attested_disabled: non_magi.nil? ? nil : non_magi[:blindOrDisabledIndicator],
           is_self_attested_blind: non_magi.nil? ? false : non_magi[:blindOrDisabledIndicator] || false,
           is_self_attested_long_term_care: non_magi.nil? ? false : (non_magi[:longTermCareIndicator] || false)
         }
@@ -258,8 +258,8 @@ module AcaEntities
           non_ssn_apply_reason: nil, # default value
           moved_on_or_after_welfare_reformed_law: nil, # default value
           is_currently_enrolled_in_health_plan: nil, # default value
-          has_daily_living_help: non_magi.nil? ? false : non_magi[:longTermCareIndicator] || false, # default value
-          need_help_paying_bills: non_magi.nil? ? false : non_magi[:longTermCareIndicator] || false, # default value
+          has_daily_living_help: non_magi.nil? ? nil : non_magi[:longTermCareIndicator],
+          need_help_paying_bills: non_magi.nil? ? nil : non_magi[:longTermCareIndicator],
 
           is_medicare_eligible: false, # default value
           has_insurance: false, # default value
@@ -267,7 +267,7 @@ module AcaEntities
           had_prior_insurance: false, # default value
           # prior_insurance_end_date: Date.parse("2021-05-07"), # default value
 
-          is_physically_disabled: non_magi.nil? ? false : non_magi[:blindOrDisabledIndicator] || false, # default value
+          is_physically_disabled: non_magi.nil? ? nil : non_magi[:blindOrDisabledIndicator],
           is_self_attested_long_term_care: non_magi.nil? ? false : non_magi[:longTermCareIndicator] || false # default value
         }
       end
