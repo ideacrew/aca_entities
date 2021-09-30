@@ -126,6 +126,7 @@ module AcaEntities
         "PRIZES_AWARDS_GAMBLING_WINNINGS" => 'prizes_and_awards',
         "COURT_AWARDS" => "other",
         "CASH_SUPPORT" => "other",
+        "JURY_DUTY_PAY" => "other",
         "SCHOLARSHIP" => "scholarship_payments"
       }.freeze
 
@@ -134,7 +135,6 @@ module AcaEntities
       DEDUCTION_TYPE = {
         "ALIMONY_PAYMENT" => 'alimony_paid',
         "STUDENT_LOAN_INTEREST" => 'student_loan_interest',
-        "JURY_DUTY_PAY" => "other",
         "OTHER_DEDUCTION" => 'other'
       }.freeze
 
