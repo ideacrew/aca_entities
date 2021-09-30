@@ -117,7 +117,7 @@ module AcaEntities
           ethnicity: [],
           race: nil,
           is_veteran_or_active_military: veteran_indicator || false,
-          is_vets_spouse_or_child: nil
+          is_vets_spouse_or_child: veteran_indicator ? nil : false
         }
 
         { demographic: member_demographic }
