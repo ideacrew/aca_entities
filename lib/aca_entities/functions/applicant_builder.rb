@@ -129,8 +129,8 @@ module AcaEntities
 
         member_attestation = {
           is_incarcerated: false, # default value
-          is_self_attested_disabled: non_magi.nil? ? nil : non_magi[:blindOrDisabledIndicator],
-          is_self_attested_blind: non_magi.nil? ? false : non_magi[:blindOrDisabledIndicator] || false,
+          is_self_attested_disabled: non_magi.nil? ? false : non_magi[:blindOrDisabledIndicator] || false,
+          is_self_attested_blind: non_magi.nil? ? nil : non_magi[:blindOrDisabledIndicator],
           is_self_attested_long_term_care: non_magi.nil? ? false : (non_magi[:longTermCareIndicator] || false)
         }
 
