@@ -48,7 +48,11 @@ module AcaEntities
             return false unless v.resolve("medicaidDeniedDueToImmigrationIndicator").item
             v.resolve("medicaidDeniedDueToImmigrationIndicator").item
           }
-          map 'immigrationStatusChangeSinceDeniedIndicator', 'medicaid_and_chip.immigration_status_changed_since_ineligibility'
+          map 'immigrationStatusChangeSinceDeniedIndicator', 'immigrationStatusChangeSinceDeniedIndicator', memoize: true, visible: false
+          add_key 'medicaid_and_chip.immigration_status_changed_since_ineligibility',function: lambda { |v|
+                                                                                      return false if v.nil? || !v.resolve("medicaidDeniedDueToImmigrationIndicator").item
+                                                                                      v.resolve('informationChangeSinceMedicaidEndedIndicator').item || false
+                                                                                    }
 
         end
       end
