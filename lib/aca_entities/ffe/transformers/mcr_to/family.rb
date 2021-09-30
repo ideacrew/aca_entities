@@ -293,10 +293,9 @@ module AcaEntities
 
                       add_key 'person_demographics.ethnicity',
                               value: lambda { |v|
-                                       race_or_ethnicity =  [v.resolve("race.#{v.find(/attestations.members.(\w+)$/).map(&:item).last}").item,
-                                        v.resolve("ethnicity.#{v.find(/attestations.members.(\w+)$/).map(&:item).last}").item,
-                                       ].flatten.compact
-                                      race_or_ethnicity.collect {|r_or_e| Ffe::Types::RaceEthincity[r_or_e]}
+                                       race_or_ethnicity = [v.resolve("race.#{v.find(/attestations.members.(\w+)$/).map(&:item).last}").item,
+                                                            v.resolve("ethnicity.#{v.find(/attestations.members.(\w+)$/).map(&:item).last}").item].flatten.compact
+                                       race_or_ethnicity.collect {|r_or_e| Ffe::Types::RaceEthincity[r_or_e]}
                                      }
 
                       # race value storing in ethnicity, enroll doesn't have race record.

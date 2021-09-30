@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# rubocop:disable  Lint/UnreachableCode
+# rubocop:disable  Lint/UnreachableCode, Metrics/CyclomaticComplexity, Metrics/MethodLength
 module AcaEntities
   module Functions
     # build IAP income
@@ -22,84 +22,84 @@ module AcaEntities
       #  "offeredIchraIndicator", "employerSponsoredCoverageOffers", "hraOffers"]
 
       # keys
-        # enrolledCoverages
-        # [{"insuranceMarketType"=>"INDIVIDUAL_INSURANCE"},
-        #  {"insuranceMarketType"=>"NONE"},
-        #  {"insuranceMarketType"=>"MARKETPLACE_COVERAGE"},
-        #  {"insuranceMarketType"=>"MEDICAID"},
-        #  {"insuranceMarketType"=>"CHIP"},
-        #  {"insuranceMarketType"=>"EMPLOYER_SPONSORED", "insurancePlanName"=>"bc/bs"},
-        #  {"insuranceMarketType"=>"MEDICARE"},
-        #  {"insuranceMarketType"=>"EMPLOYER_SPONSORED"},
-        #  {"insuranceMarketType"=>"MEDICARE", "insurancePolicyNumber"=>"1ED6-FN8-PJ68"},
-        #  {"insuranceMarketType"=>"TRICARE"},
-        #  {"insuranceMarketType"=>"VETERAN_HEALTH_PROGRAM"},
-        #  {"insuranceMarketType"=>"MEDICARE", "insurancePolicyNumber"=>"6DW3-AN5-VJ02"},
-        #  {"insuranceMarketType"=>"MEDICARE", "insurancePolicyNumber"=>"2P53-E15-DF90"},
-        #  {"insuranceMarketType"=>"MEDICARE", "insurancePolicyNumber"=>"4HY1A35FY17"},
-        #  {"insuranceMarketType"=>"PEACE_CORPS"},
-        #  {"insuranceMarketType"=>"MEDICARE", "insurancePolicyNumber"=>"4CY4Y40NV64"},
-        #  {"insuranceMarketType"=>"MARKETPLACE_COVERAGE",
-        #   "insurancePolicyMemberId"=>"570w03088",
-        #   "insurancePlanName"=>"anthem"},
-        #  {"insuranceMarketType"=>"MEDICARE", "insurancePolicyNumber"=>"5CJ5FF2KW63"},
-        #  {"insuranceMarketType"=>"MEDICAID", "insurancePolicyMemberId"=>"75603073A"},
-        #  {"insuranceMarketType"=>"MEDICARE", "insurancePolicyNumber"=>"9617039443"},
-        #  {"insuranceMarketType"=>"MEDICARE", "insurancePolicyNumber"=>"4V21-MW9-JE94"},
-        #  {"insuranceMarketType"=>"MEDICARE", "insurancePolicyNumber"=>"Part A only"},
-        #  {"insuranceMarketType"=>"MEDICARE", "insurancePolicyNumber"=>"3PT5VW25A53"},
-        #  {"insuranceMarketType"=>"VETERAN_HEALTH_PROGRAM",
-        #   "insurancePolicyMemberId"=>"7346 243 588",
-        #   "insurancePolicyNumber"=>"80840"},
-        #  {"insuranceMarketType"=>"MEDICARE",
-        #   "insurancePolicyMemberId"=>"8RV4-TV4-QA94"}]
+      # enrolledCoverages
+      # [{"insuranceMarketType"=>"INDIVIDUAL_INSURANCE"},
+      #  {"insuranceMarketType"=>"NONE"},
+      #  {"insuranceMarketType"=>"MARKETPLACE_COVERAGE"},
+      #  {"insuranceMarketType"=>"MEDICAID"},
+      #  {"insuranceMarketType"=>"CHIP"},
+      #  {"insuranceMarketType"=>"EMPLOYER_SPONSORED", "insurancePlanName"=>"bc/bs"},
+      #  {"insuranceMarketType"=>"MEDICARE"},
+      #  {"insuranceMarketType"=>"EMPLOYER_SPONSORED"},
+      #  {"insuranceMarketType"=>"MEDICARE", "insurancePolicyNumber"=>"1ED6-FN8-PJ68"},
+      #  {"insuranceMarketType"=>"TRICARE"},
+      #  {"insuranceMarketType"=>"VETERAN_HEALTH_PROGRAM"},
+      #  {"insuranceMarketType"=>"MEDICARE", "insurancePolicyNumber"=>"6DW3-AN5-VJ02"},
+      #  {"insuranceMarketType"=>"MEDICARE", "insurancePolicyNumber"=>"2P53-E15-DF90"},
+      #  {"insuranceMarketType"=>"MEDICARE", "insurancePolicyNumber"=>"4HY1A35FY17"},
+      #  {"insuranceMarketType"=>"PEACE_CORPS"},
+      #  {"insuranceMarketType"=>"MEDICARE", "insurancePolicyNumber"=>"4CY4Y40NV64"},
+      #  {"insuranceMarketType"=>"MARKETPLACE_COVERAGE",
+      #   "insurancePolicyMemberId"=>"570w03088",
+      #   "insurancePlanName"=>"anthem"},
+      #  {"insuranceMarketType"=>"MEDICARE", "insurancePolicyNumber"=>"5CJ5FF2KW63"},
+      #  {"insuranceMarketType"=>"MEDICAID", "insurancePolicyMemberId"=>"75603073A"},
+      #  {"insuranceMarketType"=>"MEDICARE", "insurancePolicyNumber"=>"9617039443"},
+      #  {"insuranceMarketType"=>"MEDICARE", "insurancePolicyNumber"=>"4V21-MW9-JE94"},
+      #  {"insuranceMarketType"=>"MEDICARE", "insurancePolicyNumber"=>"Part A only"},
+      #  {"insuranceMarketType"=>"MEDICARE", "insurancePolicyNumber"=>"3PT5VW25A53"},
+      #  {"insuranceMarketType"=>"VETERAN_HEALTH_PROGRAM",
+      #   "insurancePolicyMemberId"=>"7346 243 588",
+      #   "insurancePolicyNumber"=>"80840"},
+      #  {"insuranceMarketType"=>"MEDICARE",
+      #   "insurancePolicyMemberId"=>"8RV4-TV4-QA94"}]
 
       # employerSponsoredCoverageOffers
-        # ["cobraAvailableIndicator",
-        #  "employerOffersMinValuePlan",
-        #  "planToEnrollEscIndicator",
-        #  "employerWillChangeLcsopPremiumIndicator",
-        #  "employerWillNoLongerOfferLcsopIndicator",
-        #  "escEnrolledIndicator",
-        #  "doNotKnowLcsopPremiumIndicator",
-        #  "lcsopPremium",
-        #  "lcsopPremiumFrequencyType",
-        #  "primaryInsuredMemberIdentifier",
-        #  "employeeWillDropCoverageDate",
-        #  "employeeWillDropCoverageIndicator",
-        #  "planToEnrollEscDate",
-        #  "employeeStatus",
-        #  "waitingPeriodIndicator",
-        #  "insurancePlanName",
-        #  "insurancePolicyMemberId",
-        #  "insurancePolicyNumber",
-        #  "employeeCouldStartCoverageDate",
-        #  "retireePlanCoverageIndicator",
-        #  "employerWillStopProvidingCoverageDate"]
+      # ["cobraAvailableIndicator",
+      #  "employerOffersMinValuePlan",
+      #  "planToEnrollEscIndicator",
+      #  "employerWillChangeLcsopPremiumIndicator",
+      #  "employerWillNoLongerOfferLcsopIndicator",
+      #  "escEnrolledIndicator",
+      #  "doNotKnowLcsopPremiumIndicator",
+      #  "lcsopPremium",
+      #  "lcsopPremiumFrequencyType",
+      #  "primaryInsuredMemberIdentifier",
+      #  "employeeWillDropCoverageDate",
+      #  "employeeWillDropCoverageIndicator",
+      #  "planToEnrollEscDate",
+      #  "employeeStatus",
+      #  "waitingPeriodIndicator",
+      #  "insurancePlanName",
+      #  "insurancePolicyMemberId",
+      #  "insurancePolicyNumber",
+      #  "employeeCouldStartCoverageDate",
+      #  "retireePlanCoverageIndicator",
+      #  "employerWillStopProvidingCoverageDate"]
       # employer
-        # ["name", "streetName1", "cityName", "stateCode",
-        #  "zipCode", "employerPhoneNumber", "contact",
-        #  "employerIdentificationNumber", "streetName2", "plus4Code"]
+      # ["name", "streetName1", "cityName", "stateCode",
+      #  "zipCode", "employerPhoneNumber", "contact",
+      #  "employerIdentificationNumber", "streetName2", "plus4Code"]
 
       # hraOffers
-        # ["hraType", "startDate", "noticeDate",
-        #  "enrolledInOfferFromSameEmployerIndicator",
-        #  "enrolledInOfferFromSameEmployerUntilStartDateIndicator", "endDate",
-        #  "primaryInsuredMemberIdentifier", "primaryInsuredMemberNotInTaxHhIndicator",
-        #  "employeeSelfOnlyOfferAmount", "employeeSelfOnlyOfferFrequencyType", "employer"]
+      # ["hraType", "startDate", "noticeDate",
+      #  "enrolledInOfferFromSameEmployerIndicator",
+      #  "enrolledInOfferFromSameEmployerUntilStartDateIndicator", "endDate",
+      #  "primaryInsuredMemberIdentifier", "primaryInsuredMemberNotInTaxHhIndicator",
+      #  "employeeSelfOnlyOfferAmount", "employeeSelfOnlyOfferFrequencyType", "employer"]
 
-      #Mediaid
-        # ["medicaidDeniedDate", "medicaidDeniedIndicator", "enrolledInHealthCoverageIndicator",
-        #  "insuranceCoverage", "informationChangeSinceMedicaidEndedIndicator", "medicaidEndIndicator",
-        #  "coveredDependentChildIndicator", "medicaidDeniedDueToImmigrationIndicator",
-        #  "unpaidBillIndicator", "medicaidEndDate", "immigrationStatusFiveYearIndicator",
-        #  "immigrationStatusChangeSinceDeniedIndicator"]
+      # Mediaid
+      # ["medicaidDeniedDate", "medicaidDeniedIndicator", "enrolledInHealthCoverageIndicator",
+      #  "insuranceCoverage", "informationChangeSinceMedicaidEndedIndicator", "medicaidEndIndicator",
+      #  "coveredDependentChildIndicator", "medicaidDeniedDueToImmigrationIndicator",
+      #  "unpaidBillIndicator", "medicaidEndDate", "immigrationStatusFiveYearIndicator",
+      #  "immigrationStatusChangeSinceDeniedIndicator"]
 
-        # insuranceCoverage
-        # ["insuranceMarketType", "insurancePlanName", "insurancePolicyNumber", "insurancePolicyMemberId"]
-        # insuranceMarketType
-          # ["MARKETPLACE_COVERAGE", "OTHER_LIMITED_BENEFIT_COVERAGE", "CHIP", "OTHER_FULL_BENEFIT_COVERAGE",
-          #  "MEDICAID", "EMPLOYER_SPONSORED", "MEDICARE", "NONE", "PEACE_CORPS", "VETERAN_HEALTH_PROGRAM"]
+      # insuranceCoverage
+      # ["insuranceMarketType", "insurancePlanName", "insurancePolicyNumber", "insurancePolicyMemberId"]
+      # insuranceMarketType
+      # ["MARKETPLACE_COVERAGE", "OTHER_LIMITED_BENEFIT_COVERAGE", "CHIP", "OTHER_FULL_BENEFIT_COVERAGE",
+      #  "MEDICAID", "EMPLOYER_SPONSORED", "MEDICARE", "NONE", "PEACE_CORPS", "VETERAN_HEALTH_PROGRAM"]
 
       # Chip
       # ["coverageEndedIndicator", "stateHealthBenefitIndicator"]
@@ -175,26 +175,26 @@ module AcaEntities
         @insurance_coverage_hash[:enrolledCoverages].each do |enrolled_coverage|
           next if ['NONE', 'EMPLOYER_SPONSORED'].include?(enrolled_coverage[:insuranceMarketType])
           if enrolled_coverage[:insuranceMarketType] == "INDIVIDUAL_INSURANCE" && @medicaid_hash && @medicaid_hash[:insuranceCoverage]
-            # TODO what need to be done for EMPLOYER_SPONSORED for medicaid when "INDIVIDUAL_INSURANCE"
+            # TODO: what need to be done for EMPLOYER_SPONSORED for medicaid when "INDIVIDUAL_INSURANCE"
             @medicaid_hash[:insuranceCoverage].each do |medicaid_coverage|
               next unless medicaid_coverage[:insuranceMarketType]
               next if ['NONE', 'EMPLOYER_SPONSORED'].include?(medicaid_coverage[:insuranceMarketType])
               next unless @medicaid_hash[:enrolledInHealthCoverageIndicator]
               result << {
-                  kind: Ffe::Types::BenefitsKindMapping[medicaid_coverage[:insuranceMarketType].to_sym],
-                  status: 'is_enrolled',
-                  start_on: Date.parse('2021-01-01'), # default value
-                  end_on: medicaid_coverage[:medicaidEndIndicator] ? medicaid_coverage[:medicaidEndDate] : nil
+                kind: Ffe::Types::BenefitsKindMapping[medicaid_coverage[:insuranceMarketType].to_sym],
+                status: 'is_enrolled',
+                start_on: Date.parse('2021-01-01'), # default value
+                end_on: medicaid_coverage[:medicaidEndIndicator] ? medicaid_coverage[:medicaidEndDate] : nil
               }
             end
           else
             next unless enrolled_coverage[:insuranceMarketType]
             next unless Ffe::Types::BenefitsKindMapping[enrolled_coverage[:insuranceMarketType].to_sym]
             result << {
-                kind: Ffe::Types::BenefitsKindMapping[enrolled_coverage[:insuranceMarketType].to_sym],
-                status: 'is_enrolled',
-                start_on: Date.parse('2021-01-01'), # default value
-                end_on: nil
+              kind: Ffe::Types::BenefitsKindMapping[enrolled_coverage[:insuranceMarketType].to_sym],
+              status: 'is_enrolled',
+              start_on: Date.parse('2021-01-01'), # default value
+              end_on: nil
             }
           end
         end
@@ -250,4 +250,4 @@ module AcaEntities
     end
   end
 end
-# rubocop:enable  Lint/UnreachableCode
+# rubocop:enable  Lint/UnreachableCode, Metrics/CyclomaticComplexity, Metrics/MethodLength

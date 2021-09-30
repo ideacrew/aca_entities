@@ -90,25 +90,25 @@ module AcaEntities
         "MEXICAN" => "Mexican",
         "PUERTO_RICAN" => "Puerto Rican",
         "CUBAN" => "Cuban"
-      }
+      }.freeze
 
       Language = {
-       "" => "English",
-       "ENGLISH" => "English",
-       "GUJARATI" => "ENGLISH",
-       "VIETNAMESE"=> "Vietnamese",
-       "OTHER"=> "English",
-       "SPANISH"=> "Spanish",
-       "CHINESE"=> "Chinese (Mandarin)",
-       "FRENCH"=> "French",
-       "PORTUGUESE"=> "Portuguese",
-       "RUSSIAN"=> "Russian",
-       "ARABIC"=> "Arabic",
-       "URDU"=> "English",
-       "KOREAN"=> "English",
-       "HINDI"=> "English",
-       "FRENCH_CREOLE"=> "French"
-      }
+        "" => "English",
+        "ENGLISH" => "English",
+        "GUJARATI" => "ENGLISH",
+        "VIETNAMESE" => "Vietnamese",
+        "OTHER" => "English",
+        "SPANISH" => "Spanish",
+        "CHINESE" => "Chinese (Mandarin)",
+        "FRENCH" => "French",
+        "PORTUGUESE" => "Portuguese",
+        "RUSSIAN" => "Russian",
+        "ARABIC" => "Arabic",
+        "URDU" => "English",
+        "KOREAN" => "English",
+        "HINDI" => "English",
+        "FRENCH_CREOLE" => "French"
+      }.freeze
     end
   end
 end

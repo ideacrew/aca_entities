@@ -36,11 +36,7 @@ module AcaEntities
       end
 
       def has_american_indian_alaskan_native_indicator
-        if native_american
-          american_indian_and_alaskan_native_income_hash.present? ? true : false
-        else
-          nil
-        end
+        american_indian_and_alaskan_native_income_hash.present? if native_american
       end
 
       # annual income keys

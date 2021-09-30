@@ -24,21 +24,21 @@ module AcaEntities
       }.freeze
 
       DirectRelationshipMap = {
-          "self" => "self",
-          "spouse" => "spouse",
-          "sibling" => "sibling",
-          "domestic_partner" => "domestic_partner",
-          "unrelated" => "unrelated",
-          "parents_domestic_partner" => "unrelated",
-          "other_relative" => "unrelated",
-          "first_cousin" => "unrelated",
-          "brother_in_law_sister_in_law" => "sibling",
+        "self" => "self",
+        "spouse" => "spouse",
+        "sibling" => "sibling",
+        "domestic_partner" => "domestic_partner",
+        "unrelated" => "unrelated",
+        "parents_domestic_partner" => "unrelated",
+        "other_relative" => "unrelated",
+        "first_cousin" => "unrelated",
+        "brother_in_law_sister_in_law" => "sibling",
 
-          "mother_in_law_father_in_law" => "parent",
-          "step_parent" => "parent",
-          "aunt_uncle" => "aunt_or_uncle",
-          "parent" => "parent",
-          "grandparent" => "parent",
+        "mother_in_law_father_in_law" => "parent",
+        "step_parent" => "parent",
+        "aunt_uncle" => "aunt_or_uncle",
+        "parent" => "parent",
+        "grandparent" => "parent"
       }.freeze
 
       def call(cache)
@@ -55,15 +55,15 @@ module AcaEntities
             relationship = 'self'
             break
           elsif primary_match && current_member_match
-            if family_relationship[:no_key][1][:no_key][0] == @primary_applicant_id
-              # ["SELF", "SPOUSE", "PARENT", "GRANDPARENT", "DOMESTIC_PARTNER", "UNRELATED", "PARENTS_DOMESTIC_PARTNER", "AUNT_UNCLE",
-              #  "STEP_PARENT", "SIBLING", "OTHER_RELATIVE", "BROTHER_IN_LAW_SISTER_IN_LAW"]
-              relationship = RelationshipMap[family_relationship[:no_key][1][:no_key][1].downcase]
-            else
-              # ["SPOUSE", "PARENT", "DOMESTIC_PARTNER", "UNRELATED","OTHER_RELATIVE", "SIBLING", "PARENTS_DOMESTIC_PARTNER"
-              # "AUNT_UNCLE", "MOTHER_IN_LAW_FATHER_IN_LAW", "GRANDPARENT", "STEP_PARENT"]
-              relationship = DirectRelationshipMap[family_relationship[:no_key][1][:no_key][1].downcase]
-            end
+            relationship = if family_relationship[:no_key][1][:no_key][0] == @primary_applicant_id
+                             # ["SELF", "SPOUSE", "PARENT", "GRANDPARENT", "DOMESTIC_PARTNER", "UNRELATED", "PARENTS_DOMESTIC_PARTNER", "AUNT_UNCLE",
+                             #  "STEP_PARENT", "SIBLING", "OTHER_RELATIVE", "BROTHER_IN_LAW_SISTER_IN_LAW"]
+                             RelationshipMap[family_relationship[:no_key][1][:no_key][1].downcase]
+                           else
+                             # ["SPOUSE", "PARENT", "DOMESTIC_PARTNER", "UNRELATED","OTHER_RELATIVE", "SIBLING", "PARENTS_DOMESTIC_PARTNER"
+                             # "AUNT_UNCLE", "MOTHER_IN_LAW_FATHER_IN_LAW", "GRANDPARENT", "STEP_PARENT"]
+                             DirectRelationshipMap[family_relationship[:no_key][1][:no_key][1].downcase]
+                           end
             break
           end
         end
@@ -93,9 +93,7 @@ module AcaEntities
         relationships = []
         other_relationship = relationship.collect do |family_relationship|
           relationship = family_relationship[:no_key][1][:no_key]
-          if relationship.include?(@current_member) && !relationship.include?(@primary_applicant_id)
-            family_relationship[:no_key][1][:no_key]
-          end
+          family_relationship[:no_key][1][:no_key] if relationship.include?(@current_member) && !relationship.include?(@primary_applicant_id)
         end.compact
 
         other_relationship.each do |rel|
