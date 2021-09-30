@@ -196,9 +196,11 @@ module AcaEntities
       end
 
       def citizenship_hash
+        lived_in_us_5_year_indicator = memoized_data.find(Regexp.new("livedInUs5yearIndicator.#{member_identifier}"))&.first&.item
+
         member_citizenship = {
           citizen_status: AcaEntities::Functions::BuildLawfulPresenceDetermination.new.call(memoized_data, member_identifier),
-          is_resident_post_092296: nil,
+          is_resident_post_092296: lived_in_us_5_year_indicator.nil? ? nil : !lived_in_us_5_year_indicator,
           is_lawful_presence_self_attested: nil
         }
 

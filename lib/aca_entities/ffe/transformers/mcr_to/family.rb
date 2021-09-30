@@ -374,7 +374,7 @@ module AcaEntities
                   map 'other.veteranIndicator', 'veteranIndicator', memoize: true, visible: false, append_identifier: true
 
                   # map 'lawfulPresence', 'lawfulPresence', memoize_record: true, visible: false,  append_identifier: true
-
+                  map 'lawfulPresence.livedInUs5yearIndicator', 'livedInUs5yearIndicator', memoize: true, visible: false, append_identifier: true
                   map 'lawfulPresence.noAlienNumberIndicator', 'noAlienNumberIndicator', memoize: true, visible: false, append_identifier: true
                   map 'lawfulPresence.citizenshipIndicator', 'citizenshipIndicator', memoize: true, visible: false, append_identifier: true
                   map 'lawfulPresence.naturalizedCitizenIndicator', 'naturalizedCitizenIndicator', memoize: true, visible: false,
