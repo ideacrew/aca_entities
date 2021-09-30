@@ -57,6 +57,7 @@ module AcaEntities
       attribute :has_other_income, Types::Bool.optional.meta(omittable: true)
       attribute :has_deductions, Types::Bool.optional.meta(omittable: true)
       attribute :has_enrolled_health_coverage, Types::Bool.optional.meta(omittable: true)
+      attribute :has_american_indian_alaskan_native_income, Types::Bool.optional.meta(omittable: true)
 
       # @!attribute [r] has_eligible_health_coverage
       # Does this person currently have access to other health coverage that they are not enrolled in,

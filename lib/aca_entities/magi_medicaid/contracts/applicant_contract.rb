@@ -131,6 +131,9 @@ module AcaEntities
           # including coverage they could get through another person?
           required(:has_eligible_health_coverage).filled(:bool)
 
+          # Is any of this person's income from American Indian or Alaska Native tribal sources? conditonal question
+          optional(:has_american_indian_alaskan_native_income).maybe(:bool)
+
           # Did this person have coverage through a job (for example, a parent's job)
           # that ended in the last 3 months?
           optional(:job_coverage_ended_in_past_3_months).maybe(:bool)

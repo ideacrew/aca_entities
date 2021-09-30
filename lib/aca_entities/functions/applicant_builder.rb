@@ -223,8 +223,8 @@ module AcaEntities
           tribal_id: nil,
           tribal_name: native_american ? tribe[:federallyRecognizedTribeName] : nil,
           tribal_state: native_american ? "ME" : nil,
-          health_service_eligible: native_american ? tribe[:eligibleForItuIndicator] : nil,
-          health_service_through_referral: native_american ? tribe[:receiveItuIndicator] : nil
+          health_service_eligible: native_american ? (tribe[:eligibleForItuIndicator] || false) : nil,
+          health_service_through_referral: native_american ? (tribe[:receiveItuIndicator] || false) : nil
         }
         { native_american_information: tribe_info }
       end
