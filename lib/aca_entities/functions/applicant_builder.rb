@@ -129,8 +129,8 @@ module AcaEntities
 
         member_attestation = {
           is_incarcerated: false, # default value
-          is_self_attested_disabled: non_magi.nil? ? false : non_magi[:blindOrDisabledIndicator] || false,
-          is_self_attested_blind: non_magi.nil? ? nil : non_magi[:blindOrDisabledIndicator],
+          is_self_attested_disabled: non_magi.nil? ? false : non_magi[:blindOrDisabledIndicator] || false, # default value
+          is_self_attested_blind: false, # default value
           is_self_attested_long_term_care: non_magi.nil? ? false : (non_magi[:longTermCareIndicator] || false)
         }
 
@@ -267,7 +267,7 @@ module AcaEntities
           had_prior_insurance: false, # default value
           # prior_insurance_end_date: Date.parse("2021-05-07"), # default value
 
-          is_physically_disabled: non_magi.nil? ? nil : non_magi[:blindOrDisabledIndicator],
+          is_physically_disabled: non_magi.nil? ? false : non_magi[:blindOrDisabledIndicator] || false, # default value
           is_self_attested_long_term_care: non_magi.nil? ? false : non_magi[:longTermCareIndicator] || false # default value
         }
       end
