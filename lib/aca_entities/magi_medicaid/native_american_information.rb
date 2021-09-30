@@ -8,6 +8,8 @@ module AcaEntities
       attribute :tribal_id, Types::String.optional.meta(omittable: true)
       attribute :tribal_name, Types::String.optional.meta(omittable: true)
       attribute :tribal_state, Types::String.optional.meta(omittable: true)
+      attribute :health_service_eligible, Types::Bool.optional.meta(omittable: true)
+      attribute :health_service_through_referral, Types::Bool.optional.meta(omittable: true)
     end
   end
 end
