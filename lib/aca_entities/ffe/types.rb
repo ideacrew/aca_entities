@@ -33,16 +33,16 @@ module AcaEntities
       }.freeze
 
       BenefitsKindMapping = {
-        INDIVIDUAL_INSURANCE: 'private_individual_and_family_coverage',
+        MARKETPLACE_COVERAGE: 'private_individual_and_family_coverage',
         MEDICAID: 'medicaid',
         MEDICARE: 'medicare',
         TRICARE: 'tricare',
         VETERAN_HEALTH_PROGRAM: 'veterans_administration_health_benefits',
         EMPLOYER_SPONSORED: 'employer_sponsored_insurance',
         CHIP: 'child_health_insurance_plan',
-        PEACE_CORPS: 'peace_corps_health_benefits'
-        # OTHER_FULL_BENEFIT_COVERAGE: 'other_full_benefit_coverage',
-        # OTHER_LIMITED_BENEFIT_COVERAGE: 'OTHER_LIMITED_BENEFIT_COVERAGE'
+        PEACE_CORPS: 'peace_corps_health_benefits',
+        OTHER_FULL_BENEFIT_COVERAGE: 'other_full_benefit_coverage',
+        OTHER_LIMITED_BENEFIT_COVERAGE: 'other_limited_benefit_coverage'
       }.freeze
 
       HraTypeMapping =
@@ -60,6 +60,55 @@ module AcaEntities
         "SEMI_MONTHLY" => "monthly"
       }.freeze
 
+      CONTACT_METHOD_MAPPING = {
+        ["EMAIL", "MAIL", "E_TEXT"] => "Paper, Electronic and Text Message communications",
+        ["EMAIL", "E_TEXT"] => "Electronic and Text Message communications",
+        ["E_TEXT", "EMAIL"] => "Electronic and Text Message communications",
+        ["EMAIL", "MAIL"] => "Paper and Electronic communications",
+        ["MAIL", "E_TEXT"] => "Paper and Text Message communications",
+        ["E_TEXT"] => "Only Text Message communication",
+        ["MAIL"] => "Only Paper communication",
+        ["EMAIL"] => "Only Electronic communications"
+      }.freeze
+
+      RaceEthincity = {
+        "WHITE" => "White",
+        "OTHER_ASIAN" => "Other Asian",
+        "ASIAN_INDIAN" => "Asian Indian",
+        "FILIPINO" => "Filipino",
+        "AMERICAN_INDIAN_OR_ALASKAN_NATIVE" => "American Indian/Alaska Native",
+        "CHINESE" => "Chinese",
+        "VIETNAMESE" => "Vietnamese",
+        "BLACK_OR_AFRICAN_AMERICAN" => "Black or African American",
+        "JAPANESE" => "Japanese",
+        "OTHER" => "Other",
+        "KOREAN" => "Korean",
+        "GUAMANIAN_OR_CHAMORRO" => "Guamanian or Chamorro",
+        "SAMOAN" => "Samoan",
+        "NATIVE_HAWAIIAN" => "Native Hawaiian",
+        "OTHER_PACIFIC_ISLANDER" => "Other Pacific Islander",
+        "MEXICAN" => "Mexican",
+        "PUERTO_RICAN" => "Puerto Rican",
+        "CUBAN" => "Cuban"
+      }.freeze
+
+      Language = {
+        "" => "English",
+        "ENGLISH" => "English",
+        "GUJARATI" => "ENGLISH",
+        "VIETNAMESE" => "Vietnamese",
+        "OTHER" => "English",
+        "SPANISH" => "Spanish",
+        "CHINESE" => "Chinese (Mandarin)",
+        "FRENCH" => "French",
+        "PORTUGUESE" => "Portuguese",
+        "RUSSIAN" => "Russian",
+        "ARABIC" => "Arabic",
+        "URDU" => "English",
+        "KOREAN" => "English",
+        "HINDI" => "English",
+        "FRENCH_CREOLE" => "French"
+      }.freeze
     end
   end
 end

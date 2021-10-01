@@ -6,12 +6,16 @@ module AcaEntities
     # build IAP income
     class Income
 
-      attr_reader :attestations_annual_income_hash, :attestations_income_hash, :insurance_coverage
+      attr_reader :attestations_annual_income_hash, :attestations_income_hash, :insurance_coverage, :native_american
 
       def call(memoized_data, member)
         @attestations_annual_income_hash = memoized_data.find(Regexp.new("attestations.members.#{member.name.split('.').last}.income"))&.first&.item
         @attestations_income_hash = attestations_annual_income_hash.present? ? attestations_annual_income_hash[:currentIncome] : nil
         @insurance_coverage = memoized_data.find(Regexp.new("attestations.members.#{member.name.split('.').last}.insuranceCoverage"))&.first&.item
+
+        tribe_indicator = memoized_data.find(Regexp.new("americanIndianAlaskanNativeIndicator.#{member.name.split('.').last}"))&.first&.item
+        tribe = memoized_data.find(Regexp.new("attestations.members.#{member.name.split('.').last}.other.americanIndianAlaskanNative"))&.first&.item
+        @native_american = tribe_indicator == true && tribe.present? && tribe[:personRecognizedTribeIndicator] == true
 
         member_incomes
       end
@@ -25,9 +29,14 @@ module AcaEntities
           has_unemployment_income: !unemp_income_hash.empty?,
           has_other_income: !other_income_hash.empty?,
           has_deductions: !deduction_hash.empty?,
+          has_american_indian_alaskan_native_income: has_american_indian_alaskan_native_indicator,
           incomes: income_hash || [],
           deductions: deduction_hash || []
         }
+      end
+
+      def has_american_indian_alaskan_native_indicator
+        american_indian_and_alaskan_native_income_hash.present? if native_american
       end
 
       # annual income keys
@@ -126,6 +135,7 @@ module AcaEntities
         "PRIZES_AWARDS_GAMBLING_WINNINGS" => 'prizes_and_awards',
         "COURT_AWARDS" => "other",
         "CASH_SUPPORT" => "other",
+        "JURY_DUTY_PAY" => "other",
         "SCHOLARSHIP" => "scholarship_payments"
       }.freeze
 
@@ -134,15 +144,12 @@ module AcaEntities
       DEDUCTION_TYPE = {
         "ALIMONY_PAYMENT" => 'alimony_paid',
         "STUDENT_LOAN_INTEREST" => 'student_loan_interest',
-        "JURY_DUTY_PAY" => "other",
         "OTHER_DEDUCTION" => 'other'
       }.freeze
 
-      NEGATIVE_AMOUNT_INCOME_TYPE_KINDS = %w[SELF_EMPLOYMENT CAPITAL_GAINS FARMING_OR_FISHING_INCOME].freeze
+      NEGATIVE_AMOUNT_INCOME_TYPE_KINDS = %w[SELF_EMPLOYMENT CAPITAL_GAINS FARMING_OR_FISHING_INCOME RENTAL_OR_ROYALTY_INCOME].freeze
 
       def income_hash
-        return [] if attestations_income_hash.blank?
-
         result = job_income_hash
         result << self_emp_income_hash[0] unless self_emp_income_hash.empty?
         result << unemp_income_hash[0] unless unemp_income_hash.empty?
@@ -151,6 +158,12 @@ module AcaEntities
             result << income
           end
         end
+        unless american_indian_and_alaskan_native_income_hash.empty?
+          american_indian_and_alaskan_native_income_hash.each do |income|
+            result << income
+          end
+        end
+
         result
       end
 
@@ -173,6 +186,8 @@ module AcaEntities
       end
 
       def income_diff_with_annual_income
+        return true if attestations_income_hash.blank? && annual_amount != 0
+
         amount = 0.0
         attestations_income_hash.each_with_object([]) do |(_k, income), _result|
           frequency = income[:incomeFrequencyType]
@@ -235,6 +250,19 @@ module AcaEntities
         end
       end
 
+      def tribal_income_amount(income)
+        frequency = income[:incomeFrequencyType]
+        amount = income[:tribalIncomeAmount]
+        hours = income[:jobIncome][:averageWeeklyWorkHours] if income[:jobIncome]
+        if frequency == "HOURLY" && hours
+          hours.to_i * amount
+        elsif frequency == "SEMI_MONTHLY"
+          amount * 2
+        else
+          amount
+        end
+      end
+
       def end_on(income)
         frequency = income[:incomeFrequencyType]
         Date.parse('2021-12-31') if frequency == "ONE_TIME"
@@ -244,13 +272,35 @@ module AcaEntities
         income[:incomeAmount] < 0 && !NEGATIVE_AMOUNT_INCOME_TYPE_KINDS.include?(income[:incomeSourceType])
       end
 
+      def american_indian_and_alaskan_native_income_hash
+        return [] if attestations_income_hash.blank? || !native_american
+
+        attestations_income_hash.each_with_object([]) do |(_k, income), result|
+          next if income[:tribalIncomeAmount].nil?
+          result << {
+            'kind' => "american_indian_and_alaskan_native",
+            'amount' => tribal_income_amount(income),
+            'amount_tax_exempt' => 0,
+            'frequency_kind' => FREQUENCY_KINDS[income[:incomeFrequencyType]],
+            'start_on' => Date.parse('2021-01-01'), # default value
+            'end_on' => end_on(income),
+            'is_projected' => false
+          }
+        end
+      end
+
+      def job_income_with_no_employer_name(income)
+        EMPLOYEMENT[income[:incomeSourceType]].present? && (income[:jobIncome].nil? || income[:jobIncome][:employerName].nil?)
+      end
+
       def job_income_hash
         return [] if attestations_income_hash.blank? || create_other_tax_income
 
         attestations_income_hash.each_with_object([]) do |(_k, income), result|
           next unless EMPLOYEMENT[income[:incomeSourceType]].present?
           next if negative_income(income)
-          employer_name = (income[:jobIncome].nil? ? "employer name not provided" : income[:jobIncome][:employerName])
+          next if income[:jobIncome].nil? || income[:jobIncome][:employerName].nil?
+          employer_name = income[:jobIncome][:employerName]
           emp_additional_details = employer_details(employer_name)
           employer_hash = { 'employer_name' => employer_name, 'employer_id' => emp_additional_details[0] }
 
@@ -327,7 +377,7 @@ module AcaEntities
       end
 
       def other_income_hash
-        return [] if attestations_income_hash.blank?
+        return [] unless attestations_income_hash.present? || create_other_tax_income
         if create_other_tax_income
           [{
             'kind' => "other",
@@ -340,7 +390,7 @@ module AcaEntities
           }]
         else
           attestations_income_hash.each_with_object([]) do |(_k, income), result|
-            if negative_income(income) && TAX_INCOME_KIND[income[:incomeSourceType]].present?
+            if (negative_income(income) && TAX_INCOME_KIND[income[:incomeSourceType]].present?) || job_income_with_no_employer_name(income)
               result << {
                 'kind' => "other",
                 'amount' => income_amount(income),

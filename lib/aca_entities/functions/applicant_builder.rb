@@ -117,7 +117,7 @@ module AcaEntities
           ethnicity: [],
           race: nil,
           is_veteran_or_active_military: veteran_indicator || false,
-          is_vets_spouse_or_child: nil
+          is_vets_spouse_or_child: veteran_indicator ? nil : false
         }
 
         { demographic: member_demographic }
@@ -129,8 +129,8 @@ module AcaEntities
 
         member_attestation = {
           is_incarcerated: false, # default value
-          is_self_attested_disabled: non_magi.nil? ? false : non_magi[:blindOrDisabledIndicator] || false,
-          is_self_attested_blind: non_magi.nil? ? false : non_magi[:blindOrDisabledIndicator] || false,
+          is_self_attested_disabled: non_magi.nil? ? false : non_magi[:blindOrDisabledIndicator] || false, # default value
+          is_self_attested_blind: false, # default value
           is_self_attested_long_term_care: non_magi.nil? ? false : (non_magi[:longTermCareIndicator] || false)
         }
 
@@ -196,9 +196,11 @@ module AcaEntities
       end
 
       def citizenship_hash
+        lived_in_us_5_year_indicator = memoized_data.find(Regexp.new("livedInUs5yearIndicator.#{member_identifier}"))&.first&.item
+
         member_citizenship = {
           citizen_status: AcaEntities::Functions::BuildLawfulPresenceDetermination.new.call(memoized_data, member_identifier),
-          is_resident_post_092296: nil,
+          is_resident_post_092296: lived_in_us_5_year_indicator.nil? ? nil : !lived_in_us_5_year_indicator,
           is_lawful_presence_self_attested: nil
         }
 
@@ -222,7 +224,9 @@ module AcaEntities
           indian_tribe_member: native_american,
           tribal_id: nil,
           tribal_name: native_american ? tribe[:federallyRecognizedTribeName] : nil,
-          tribal_state: native_american ? "MA" : nil
+          tribal_state: native_american ? "ME" : nil,
+          health_service_eligible: native_american ? (tribe[:eligibleForItuIndicator] || false) : nil,
+          health_service_through_referral: native_american ? (tribe[:receiveItuIndicator] || false) : nil
         }
         { native_american_information: tribe_info }
       end
@@ -256,8 +260,8 @@ module AcaEntities
           non_ssn_apply_reason: nil, # default value
           moved_on_or_after_welfare_reformed_law: nil, # default value
           is_currently_enrolled_in_health_plan: nil, # default value
-          has_daily_living_help: non_magi.nil? ? false : non_magi[:longTermCareIndicator] || false, # default value
-          need_help_paying_bills: non_magi.nil? ? false : non_magi[:longTermCareIndicator] || false, # default value
+          has_daily_living_help: non_magi.nil? ? nil : non_magi[:longTermCareIndicator],
+          need_help_paying_bills: non_magi.nil? ? nil : non_magi[:longTermCareIndicator],
 
           is_medicare_eligible: false, # default value
           has_insurance: false, # default value
