@@ -3,6 +3,8 @@
 require_relative 'files/read'
 require_relative 'yaml/deserialize'
 require_relative 'yaml/serialize'
+require_relative 'symmetric_encryption/encrypt'
+require_relative 'symmetric_encryption/decrypt'
 
 module AcaEntities
   # Operations are perform Functions on domain entities

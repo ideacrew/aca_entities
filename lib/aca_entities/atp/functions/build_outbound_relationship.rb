@@ -58,7 +58,8 @@ module AcaEntities
           son_in_law_or_daughter_in_law: 'Son-in-law or daughter-in-law',
           mother_in_law_or_father_in_law: 'Mother-in-law or father-in law',
           other_relative: 'Unspecified relative',
-          other: 'Unspecified relationship'
+          other: 'Unspecified relationship',
+          domestic_partner: 'Domestic partner'
         }.freeze
 
         def call(cache)
@@ -68,12 +69,13 @@ module AcaEntities
           person_relationships = applicants_hash[member_id.to_sym][:mitc_relationships]
           @primary_applicant_id = @memoized_data.find(Regexp.new('is_primary_applicant.*')).select {|a|  a.item == true}.first.name.split('.').last
           return unless person_relationships
-          person_relationships.each_with_object([]) do |person_relationship, collect|
+
+          person_relationships.uniq.each_with_object([]) do |person_relationship, collect|
             mitc_relationship_code =
               ::AcaEntities::MagiMedicaid::Mitc::Types::RelationshipCodeMap.invert[person_relationship[:relationship_code]] || '88'
             relation = RelationshipCodeMap[mitc_relationship_code]
             atp_relationship_code = AcaEntities::Types::RelationshipToTaxFilerCodeMap.invert[relation.to_s].to_s
-            collect << { :relative_id => person_relationship[:other_id], :family_relationship_code => atp_relationship_code,
+            collect << { :person => { :ref => person_relationship[:other_id] }, :family_relationship_code => atp_relationship_code,
                          :caretaker_dependent_code => nil }
           end
         end

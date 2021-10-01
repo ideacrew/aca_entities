@@ -39,7 +39,7 @@ module AcaEntities
 
             def construct_ifsv_applicant_request(application)
               application.applicants.collect do |applicant|
-                next unless applicant.identifying_information.ssn.present?
+                next unless applicant.identifying_information.encrypted_ssn.present?
                 {
                   Person: construct_request_person(applicant),
                   TaxFilerCategoryCode: fetch_tax_filing_code(application, applicant)
@@ -50,7 +50,7 @@ module AcaEntities
             def construct_request_person(applicant)
               {
                 PersonName: construct_person_name(applicant.name),
-                PersonSSNIdentification: { IdentificationID: applicant.identifying_information&.ssn }
+                PersonSSNIdentification: { IdentificationID: decrypt_ssn(applicant.identifying_information&.encrypted_ssn) }
               }
             end
 
@@ -76,6 +76,10 @@ module AcaEntities
             def fetch_relationship_kind(application, applicant)
               relationship = application.relationships.detect {|rel| rel.applicant_reference.person_hbx_id == applicant.person_hbx_id }
               relationship&.kind
+            end
+
+            def decrypt_ssn(encrypted_ssn)
+              AcaEntities::Operations::SymmetricEncryption::Decrypt.new.call({ value: encrypted_ssn }).value!
             end
           end
         end

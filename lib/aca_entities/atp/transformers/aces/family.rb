@@ -24,7 +24,7 @@ module AcaEntities
 
           namespace 'family' do
             rewrap 'aces', type: :hash do
-              map 'ext_app_id', 'ext_app_id'
+              map 'external_app_id', 'external_app_id'
               map 'hbx_id', 'hbx_id', memoize: true, visible: false
               map 'magi_medicaid_applications.us_state', 'us_state', memoize: true, visible: false
               add_key "senders", function: lambda { |v|

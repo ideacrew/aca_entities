@@ -109,3 +109,30 @@ channels:
           bindingVersion: 0.2.0
       operationId: fti.eligibilities.fdsh_eligibilities_ifsv_delayed
       description: IFSV Determination has delay.
+
+  fti.renewal_eligibilities.ifsv.magi_medicaid_application_renewal_eligibilities_ifsv_determined:
+    bindings:
+      amqp:
+        is: :routing_key
+        exchange:
+          name: fti.renewal_eligibilities.ifsv
+          type: topic
+          durable: true
+          auto_delete: false
+          vhost: event_source
+        bindingVersion: 0.1.0
+    publish:
+      bindings:
+        amqp:
+          app_id: fti_gateway
+          type: fti.renewal_eligibilities.ifsv
+          routing_key: fti.renewal_eligibilities.ifsv.magi_medicaid_application_renewal_eligibilities_ifsv_determined
+          expiration: 100_000
+          deliveryMode: 2
+          mandatory: true
+          timestamp: true
+          content_type: application/json
+          bindingVersion: 0.2.0
+      operationId: fti.renewal_eligibilities.ifsv.magi_medicaid_application_renewal_eligibilities_ifsv_determined
+      description: RRV IFSV Determination completed.
+

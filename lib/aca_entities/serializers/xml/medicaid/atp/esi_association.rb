@@ -33,7 +33,7 @@ module AcaEntities
               mapper.enrolled_indicator = esi_association.enrolled_indicator
               mapper.planned_coverage_date_ranges = esi_association.planned_coverage_date_ranges
               mapper.eligibility_unknown_indicator = esi_association.eligibility_unknown_indicator
-              mapper.ref = esi_association.ref
+              mapper.ref = esi_association&.ref
               mapper
             end
 

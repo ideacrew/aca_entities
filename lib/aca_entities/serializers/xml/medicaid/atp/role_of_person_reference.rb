@@ -16,7 +16,7 @@ module AcaEntities
 
             def self.domain_to_mapper(role)
               mapper = self.new
-              mapper.ref = role.ref
+              mapper.ref = role&.ref
               mapper
             end
 

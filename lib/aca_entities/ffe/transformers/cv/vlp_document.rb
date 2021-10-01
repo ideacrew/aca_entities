@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# rubocop:disable Layout/LineLengthLayout/LineLength
+# rubocop:disable Layout/LineLength
 # TODO : Pending
 #  documentAlternateName - no mapping found
 #  employmentAuthorizationCategoryIdentifier - no mapping found
@@ -265,4 +265,4 @@ end
 # ["VAWA_SELF_PETITIONER", "PERMANENT_RESIDENT_CARD_I_551"],
 # ["NS1_MEMBERS_OF_A_FEDERALLY_RECOGNIZED_INDIAN_TRIBE", "EMPLOYMENT_AUTHORIZATION_CARD_I_766"]
 
-# rubocop:enable Layout/LineLengthLayout/LineLength
+# rubocop:enable Layout/LineLength

@@ -7,6 +7,9 @@ module AcaEntities
       class PersonAssociation < Dry::Struct
         attribute :person, PersonReference.optional.meta(omittable: true)
         attribute :family_relationship_code, Types::FamilyRelationshipHIPAACode.optional.meta(omittable: true)
+        attribute :caretaker_dependent_code, Types::String.optional.meta(omittable: true)
+        attribute :begin_date, AssociationBeginDate.optional.meta(omittable: true)
+        attribute :end_date, AssociationEndDate.optional.meta(omittable: true)
       end
     end
   end

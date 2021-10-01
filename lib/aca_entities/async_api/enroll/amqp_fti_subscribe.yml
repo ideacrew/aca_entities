@@ -51,3 +51,23 @@ channels:
           bindingVersion: '0.2.0'
       operationId: on_enroll.fti.eligibilities
       description: Events - CMS FTI IFSV Service requests
+
+  on_enroll.fti.renewal_eligibilities.ifsv:
+    bindings:
+      amqp:
+        is: queue
+        queue:
+          name: on_enroll.fti.renewal_eligibilities.ifsv
+          durable: true
+          exclusive: false
+          auto_delete: false
+          vhost: event_source
+    subscribe:
+      bindings:
+        amqp:
+          ack: true
+          exclusive: false
+          routing_key: fti.renewal_eligibilities.ifsv.#
+          bindingVersion: '0.2.0'
+      operationId: on_enroll.fti.renewal_eligibilities.ifsv
+      description: Events - CMS FTI RRV IFSV Service requests

@@ -47,10 +47,9 @@ module AcaEntities
           family_relationships = @memoized_data.find(Regexp.new('record.people.*.augementation')).map(&:item).last[:family_relationships]
           @primary_applicant_id = @memoized_data.resolve('primary_applicant_identifier').item
           current_member = @memoized_data.find(/record.people.(\w+)$/).map(&:item).last
-
           relationship = ''
           family_relationships.each do |family_relationship|
-            primary_match = family_relationship[:relative_id] == @primary_applicant_id
+            primary_match = family_relationship[:person] == @primary_applicant_id
             if @primary_applicant_id == current_member
               relationship = 'Self'
               break
