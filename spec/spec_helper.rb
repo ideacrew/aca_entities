@@ -20,12 +20,3 @@ RSpec.configure do |config|
     c.syntax = :expect
   end
 end
-
-AcaEntities::Configuration::Encryption.configure do |config|
-  config.key = "1234567890ABCDEF"
-  config.iv = "1234567890ABCDEF"
-  config.encrypted_key = "1234567890ABCDEF"
-  config.encrypted_iv = "1234567890ABCDEF"
-  config.private_rsa_key = "1234567890ABCDEF"
-  config.app_env = "test"
-end

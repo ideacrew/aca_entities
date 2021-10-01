@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'mongoid'
-require 'symmetric-encryption'
 module AcaEntities
   module Configuration
     module Encryption
@@ -10,8 +8,6 @@ module AcaEntities
         attr_accessor :app_env, :encrypted_key, :encrypted_iv, :key, :iv, :private_rsa_key
 
         def load_encryption
-          file_path = File.join(File.dirname(__FILE__), 'symmetric-encryption.yml')
-          ::SymmetricEncryption.load!(file_path, @app_env)
         end
       end
     end

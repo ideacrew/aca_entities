@@ -9,7 +9,7 @@ RSpec.describe AcaEntities::Operations::SymmetricEncryption::Encrypt do
     let(:encrypted_value) {AcaEntities::Operations::SymmetricEncryption::Encrypt.new.call({ value: "Hello World" }).value! }
     let(:input) { { value: "Hello World" } }
 
-    it 'should return success with encrypted value' do
+    xit 'should return success with encrypted value' do
       expect(subject).to be_a Dry::Monads::Result::Success
       expect(subject.value!).to eq encrypted_value
     end

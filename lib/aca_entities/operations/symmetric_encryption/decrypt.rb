@@ -2,7 +2,6 @@
 
 require 'dry/monads'
 require 'dry/monads/do'
-require 'symmetric_encryption'
 
 module AcaEntities
   module Operations
@@ -22,7 +21,7 @@ module AcaEntities
         private
 
         def decrypt(value)
-          Success(::SymmetricEncryption.decrypt(value))
+          # Success(::SymmetricEncryption.decrypt(value))
         end
       end
     end
