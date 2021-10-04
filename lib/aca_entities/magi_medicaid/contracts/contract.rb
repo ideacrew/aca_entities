@@ -71,12 +71,6 @@ module AcaEntities
             value[:benefits].each_with_index do |benefit, b_index|
               failure_key = [:applicants, index, :benefits, b_index]
 
-              if check_if_present?(benefit[:employer]) &&
-                 check_if_present?(benefit[:employer][:employer_id]) &&
-                 !benefit[:employer][:employer_id].match?(/\A[0-9]+\Z/)
-                key(failure_key + [:employer, :employer_id]).failure(text: 'must be numbers only')
-              end
-
               if benefit_kind_esi?(benefit[:kind])
                 # employer
                 if check_if_blank?(benefit[:employer])

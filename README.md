@@ -35,6 +35,27 @@ FDSH namespace.
 
 AcaEntities includes the following libraries:
 
+### {AcaEntities::Configuration::Encryption Encryption}
+
+Configuration setup to Encrypt and Decrypt sensitive information.
+
+Initializer file in other Applications(Rails App)
+
+```
+AcaEntities::Configuration::Encryption.configure do |config|
+    config.encrypted_key = ENV['SYMMETRIC_ENCRYPTION_ENCRYPTED_KEY']
+    config.encrypted_iv = ENV['SYMMETRIC_ENCRYPTION_ENCRYPTED_IV']
+    config.private_rsa_key = ENV['ENROLL_SYMMETRIC_ENCRYPTION_PRIVATE_KEY']
+    config.app_env = Rails.env
+end
+```
+
+Operations to Encrypt and Decrypt
+
+Encrypt - `AcaEntities::Operations::SymmetricEncryption::Encrypt`
+
+Decrypt - `AcaEntities::Operations::SymmetricEncryption::Decrypt`
+
 ### {AcaEntities::Atp ATP}
 
 Vocabularies and transforms that enable account and eligibility information exchange

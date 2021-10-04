@@ -132,6 +132,46 @@ channels:
       operationId: on_fdsh_gateway.fdsh.determination_requests.non_esi
       description: Events - CMS FDSH NON ESI Service requests
 
+  on_fdsh_gateway.enroll.fdsh.verifications:
+    bindings:
+      amqp:
+        is: queue
+        queue:
+          name: on_fdsh_gateway.enroll.fdsh.verifications
+          durable: true
+          exclusive: false
+          auto_delete: false
+          vhost: event_source
+    subscribe:
+      bindings:
+        amqp:
+          ack: true
+          exclusive: false
+          routing_key: enroll.fdsh.verifications.#
+          bindingVersion: '0.2.0'
+      operationId: on_fdsh_gateway.enroll.fdsh.verifications
+      description: Events - CMS FDSH ESI/NON-ESI requests
+
+  on_fdsh_gateway.enroll.fdsh_verifications.rrv:
+    bindings:
+      amqp:
+        is: queue
+        queue:
+          name: on_fdsh_gateway.enroll.fdsh_verifications.rrv
+          durable: true
+          exclusive: false
+          auto_delete: false
+          vhost: event_source
+    subscribe:
+      bindings:
+        amqp:
+          ack: true
+          exclusive: false
+          routing_key: enroll.fdsh_verifications.rrv.#
+          bindingVersion: '0.2.0'
+      operationId: on_fdsh_gateway.enroll.fdsh_verifications.rrv
+      description: Events - CMS FTI RRV Requests
+
 tags:
   - name: linter_tag
     description: placeholder that satisfies the linter

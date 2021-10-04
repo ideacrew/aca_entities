@@ -46,7 +46,7 @@ module AcaEntities
 
             def construct_person(person)
               {
-                PersonSSNIdentification: person.person_demographics.ssn,
+                PersonSSNIdentification: decrypt_ssn(person.person_demographics.encrypted_ssn),
                 PersonName: construct_person_name(person),
                 PersonBirthDate: construct_birth_date(person)
               }
@@ -64,6 +64,10 @@ module AcaEntities
               {
                 Date: person.person_demographics.dob
               }
+            end
+
+            def decrypt_ssn(encrypted_ssn)
+              AcaEntities::Operations::SymmetricEncryption::Decrypt.new.call({ value: encrypted_ssn }).value!
             end
           end
         end

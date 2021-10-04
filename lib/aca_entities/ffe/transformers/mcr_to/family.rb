@@ -63,7 +63,7 @@ module AcaEntities
               add_key 'foreign_keys', value: ->(_v) {[]}
 
               namespace 'application' do
-                map 'spokenLanguageType', 'family_members.person.consumer_role.language_preference', memoize: true, visible: false
+                map 'writtenLanguageType', 'family_members.person.consumer_role.language_preference', memoize: true, visible: false
 
                 namespace 'legalAttestations' do
                   map 'renewEligibilityYearQuantity', 'years_to_renew', memoize: true, visible: false
@@ -244,18 +244,11 @@ module AcaEntities
                         add_key 'admin_bookmark_url'
                         add_key 'contact_method', function: lambda { |v|
                                                               value = v.resolve('family.family_members.person.consumer_role.contact_method')&.item
-                                                              case value
-                                                              when ["EMAIL", "E_TEXT"], ["E_TEXT", "EMAIL"], ["EMAIL"], ["E_TEXT"]
-                                                                "Only Electronic communications"
-                                                              when ["MAIL"]
-                                                                "Only Paper communication"
-                                                              else
-                                                                "Paper and Electronic communications"
-                                                              end
+                                                              Ffe::Types::CONTACT_METHOD_MAPPING[value]
                                                             }
 
                         add_key 'language_preference',
-                                function: ->(v) {v.resolve('family_members.person.consumer_role.language_preference').item}
+                                function: ->(v) { Ffe::Types::Language[v.resolve('family_members.person.consumer_role.language_preference').item.to_s]}
                         add_key 'is_state_resident'
                         add_key 'identity_validation'
                         add_key 'identity_update_reason'
@@ -300,12 +293,9 @@ module AcaEntities
 
                       add_key 'person_demographics.ethnicity',
                               value: lambda { |v|
-                                       [v.resolve("race.#{v.find(/attestations.members.(\w+)$/).map(&:item).last}").item,
-                                        v.resolve("ethnicity.#{v.find(/attestations.members.(\w+)$/).map(&:item).last}").item,
-                                        v.resolve("otherRaceText.#{v.find(/attestations.members.(\w+)$/).map(&:item).last}").item,
-                                        v.resolve(
-                                          "otherEthnicityText.#{v.find(/attestations.members.(\w+)$/).map(&:item).last}"
-                                        ).item].flatten.compact
+                                       race_or_ethnicity = [v.resolve("race.#{v.find(/attestations.members.(\w+)$/).map(&:item).last}").item,
+                                                            v.resolve("ethnicity.#{v.find(/attestations.members.(\w+)$/).map(&:item).last}").item].flatten.compact
+                                       race_or_ethnicity.collect {|r_or_e| Ffe::Types::RaceEthincity[r_or_e]}
                                      }
 
                       # race value storing in ethnicity, enroll doesn't have race record.
@@ -335,6 +325,7 @@ module AcaEntities
                       map 'transientAddress', 'transientAddress', memoize_record: true, visible: false, append_identifier: true
 
                       add_key 'addresses', function: lambda { |v|
+                        is_homeless = v.resolve("is_homeless.#{v.find(/attestations.members.(\w+)$/).map(&:item).last}")&.item
                         demographic = "attestations.members.#{v.find(/attestations.members.(\w+)$/).map(&:item).last}.demographic"
                         transient_address = v.resolve("#{demographic}.transientAddress", identifier: true).item
                         home_address = v.resolve("#{demographic}.homeAddress", identifier: true).item
@@ -349,7 +340,7 @@ module AcaEntities
                                       end
                         elsif home_address.present? && mailing_address.present?
                           h_address = home_address&.merge!(kind: "home")
-                          m_address = if home_address == mailing_address
+                          m_address = if h_address.except(:kind) == mailing_address
                                         nil
                                       else
                                         mailing_address&.merge!(kind: "mailing")
@@ -359,7 +350,8 @@ module AcaEntities
                         elsif mailing_address.present?
                           m_address = mailing_address&.merge!(kind: "mailing")
                         end
-                        [m_address, h_address].compact.each_with_object([]) do |address, collect|
+                        addresses = is_homeless ? [m_address] : [m_address, h_address]
+                        addresses.compact.each_with_object([]) do |address, collect|
                           collect << AcaEntities::Ffe::Transformers::Cv::Address.transform(address)
                         end
                       }
@@ -381,7 +373,7 @@ module AcaEntities
                   map 'other.veteranIndicator', 'veteranIndicator', memoize: true, visible: false, append_identifier: true
 
                   # map 'lawfulPresence', 'lawfulPresence', memoize_record: true, visible: false,  append_identifier: true
-
+                  map 'lawfulPresence.livedInUs5yearIndicator', 'livedInUs5yearIndicator', memoize: true, visible: false, append_identifier: true
                   map 'lawfulPresence.noAlienNumberIndicator', 'noAlienNumberIndicator', memoize: true, visible: false, append_identifier: true
                   map 'lawfulPresence.citizenshipIndicator', 'citizenshipIndicator', memoize: true, visible: false, append_identifier: true
                   map 'lawfulPresence.naturalizedCitizenIndicator', 'naturalizedCitizenIndicator', memoize: true, visible: false,

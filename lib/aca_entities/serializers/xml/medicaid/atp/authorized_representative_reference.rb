@@ -16,7 +16,7 @@ module AcaEntities
 
             def self.domain_to_mapper(authorized_rep_ref)
               mapper = self.new
-              mapper.ref = authorized_rep_ref.ref
+              mapper.ref = authorized_rep_ref&.ref
               mapper
             end
 
