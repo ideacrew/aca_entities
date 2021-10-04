@@ -72,7 +72,7 @@ module AcaEntities
           {
             hbx_id: '1234', # default value
             us_state: 'ME', # default value
-            assistance_year: 2021, # default_value,         
+            assistance_year: 2021, # default_value,
             transfer_id: @memoized_data.resolve('external_id').item,
             parent_living_out_of_home_terms: @memoized_data.resolve('parent_living_out_of_home_terms').item,
             report_change_terms: @memoized_data.resolve('report_change_terms').item,
