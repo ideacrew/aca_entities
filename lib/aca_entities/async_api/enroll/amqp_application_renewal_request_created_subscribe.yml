@@ -48,6 +48,8 @@ channels:
           ack: true
           exclusive: false
           routing_key: enroll.iap.applications.renewals.application_renewal_request_created
+          prefetch: 1
+          block: true
           bindingVersion: '0.2.0'
       operationId: on_enroll.enroll.iap.applications.renewals
       description: Events - Application Renewal Request Created
