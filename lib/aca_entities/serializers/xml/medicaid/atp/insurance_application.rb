@@ -53,7 +53,7 @@ module AcaEntities
                 application_creation: application_creation&.to_hash,
                 application_submission: application_submission&.to_hash,
                 application_updates: application_updates.map(&:to_hash),
-                application_identifications: application_identifications.map(&:to_hash),
+                application_identifications: application_identifications&.map(&:to_hash).first,
                 insurance_applicants: if identifier
                                         insurance_applicants.map(&:to_hash).group_by do |h|
                                           h[:id]
