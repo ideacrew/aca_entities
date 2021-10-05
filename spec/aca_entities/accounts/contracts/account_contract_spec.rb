@@ -11,35 +11,45 @@ RSpec.describe AcaEntities::Accounts::Contracts::AccountContract do
   let(:last_name) { 'my_last_name' }
   let(:password) { '$3cr3tP@55w0rd' }
 
+  let(:enabled) { true }
+  let(:totp) { true }
+  let(:email_verified) { false }
+  let(:not_before) { 0 }
+  let(:access) { {} }
+  let(:groups) { [] }
   let(:created_at) { DateTime.now }
-  let(:submitted_at) { created_at }
-  let(:modified_at) { created_at }
-  let(:timestamps) do
-    {
-      created_at: created_at,
-      submitted_at: submitted_at,
-      modified_at: modified_at
-    }
-  end
 
-  let(:required_params) { {} }
+  let(:required_params) { { username: username } }
   let(:optional_params) do
     {
-      username: username,
       email: email,
       first_name: first_name,
       last_name: last_name,
       password: password,
-      timestamps: timestamps
+      enabled: enabled,
+      totp: totp,
+      email_verified: email_verified,
+      not_before: not_before,
+      access: access,
+      groups: groups,
+      created_at: created_at
     }
   end
+
   let(:all_params) { required_params.merge(optional_params) }
 
   context 'Calling the contract with optional params' do
-    it 'should pass validation' do
+    it 'should fail validation' do
       result = described_class.new.call(optional_params)
+      expect(result.failure?).to be_truthy
+    end
+  end
+
+  context 'Calling the contract with required params' do
+    it 'should pass validation' do
+      result = described_class.new.call(required_params)
       expect(result.success?).to be_truthy
-      expect(result.to_h).to eq optional_params
+      expect(result.to_h).to eq required_params
     end
   end
 

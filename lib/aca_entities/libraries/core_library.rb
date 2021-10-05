@@ -4,7 +4,6 @@
 module AcaEntities
   module Libraries
     module CoreLibrary
-
       require 'aca_entities/types'
       require 'aca_entities/attestations/types'
       require 'aca_entities/transitions/contracts/workflow_state_transition_contract'
@@ -17,7 +16,10 @@ module AcaEntities
       require 'aca_entities/evidences/contracts/ridp_evidence_contract'
       require 'aca_entities/attestations/contracts/ridp_attestation_contract'
       require 'aca_entities/attestations/contracts/attestation_contract'
-      require 'aca_entities/accounts/contracts/user_contract'
+
+      # Add User and Account library
+      require 'aca_entities/accounts/accounts'
+
       require 'aca_entities/contracts/people/person_reference_contract'
       require 'aca_entities/contracts/households/household_reference_contract'
       require 'aca_entities/contracts/households/coverage_household_reference_contract'
@@ -88,7 +90,8 @@ module AcaEntities
       require 'aca_entities/evidences/ridp_evidence'
       require 'aca_entities/attestations/ridp_attestation'
       require 'aca_entities/attestations/attestation'
-      require 'aca_entities/accounts/user'
+
+      # require 'aca_entities/accounts/user'
       require 'aca_entities/organizations/issuer_profile_reference'
       require 'aca_entities/products/product_reference'
       require 'aca_entities/people/person_reference'
@@ -150,7 +153,6 @@ module AcaEntities
       require 'aca_entities/benefit_markets/benefit_sponsor_catalog'
       require 'aca_entities/operations/operation'
       require 'aca_entities/async_api/async_api'
-
     end
   end
 end
