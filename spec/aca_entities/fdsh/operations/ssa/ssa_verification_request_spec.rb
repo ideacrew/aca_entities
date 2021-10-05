@@ -337,7 +337,7 @@ RSpec.describe ::AcaEntities::Fdsh::Ssa::H3::Operations::SsaVerificationRequest,
     context 'with valid demographics' do
       let!(:person_demographics) do
         {
-          encrypted_ssn: "ndF/A5V0udKwqZe34CjgHg==\n",
+          encrypted_ssn: "cKIpoO30YF+lB25u4Nd939OLYRCGzrXEktzMl3xIN8LZ+vtv0SM37TyswRhy\nMHbe8Q==\n",
           no_ssn: false,
           gender: 'male',
           dob: Date.today,
@@ -360,20 +360,20 @@ RSpec.describe ::AcaEntities::Fdsh::Ssa::H3::Operations::SsaVerificationRequest,
         ]
       end
 
-      xit 'should return success' do
+      it 'should return success' do
         expect(@result).to be_success
         expect(@result.value!).to be_a(AcaEntities::Fdsh::Ssa::H3::SSACompositeRequest)
       end
 
-      xit 'should return dob as date class' do
+      it 'should return dob as date class' do
         expect(@result.success.to_h[:SSACompositeIndividualRequests][0][:Person][:PersonBirthDate][:Date].class).to eq(Date)
       end
 
-      xit 'should return monthly income verification indicator as false' do
+      it 'should return monthly income verification indicator as false' do
         expect(@result.success.to_h[:SSACompositeIndividualRequests][0][:RequestTitleIIMonthlyIncomeVerificationIndicator]).to eq(false)
       end
 
-      xit 'should return citizenship indicator as true' do
+      it 'should return citizenship indicator as true' do
         expect(@result.success.to_h[:SSACompositeIndividualRequests][0][:RequestCitizenshipVerificationIndicator]).to eq(true)
       end
     end

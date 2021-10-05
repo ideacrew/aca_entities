@@ -20,7 +20,7 @@ RSpec.describe AcaEntities::Fdsh::Rrv::H79::Ifsv::Operations::CreateRrvIfsvReque
              :name_sfx => nil,
              :name_pfx => nil },
           :identifying_information =>
-           { :encrypted_ssn => "DURiMIC4YOK2GZ9UAjRxuw==\n",
+           { :encrypted_ssn => "cKIpoO30YF+lB25u4Nd939OLYRCGzrXEktzMl3xIN8LZ+vtv0SM37TyswRhy\nMHbe8Q==\n",
              :ssn => "518124854",
              :has_ssn => false },
           :demographic =>
@@ -168,7 +168,7 @@ RSpec.describe AcaEntities::Fdsh::Rrv::H79::Ifsv::Operations::CreateRrvIfsvReque
              :name_sfx => nil,
              :name_pfx => nil },
           :identifying_information =>
-           { :encrypted_ssn => "v4LuPc7oa7qlAUd7ZG83Pw==\n",
+           { :encrypted_ssn => "cKIpoO30YF+lB25u4Nd939OLYRCGzrXEktzMl3xIN8LZ+vtv0SM37TyswRhy\nMHbe8Q==\n",
              :ssn => "518124854",
              :has_ssn => false },
           :demographic =>
@@ -316,7 +316,7 @@ RSpec.describe AcaEntities::Fdsh::Rrv::H79::Ifsv::Operations::CreateRrvIfsvReque
              :name_sfx => nil,
              :name_pfx => nil },
           :identifying_information =>
-           { :encrypted_ssn => "TbEufi4OoOkGU6F+rCM4Hg==\n",
+           { :encrypted_ssn => "cKIpoO30YF+lB25u4Nd939OLYRCGzrXEktzMl3xIN8LZ+vtv0SM37TyswRhy\nMHbe8Q==\n",
              :ssn => "518124854",
              :has_ssn => false },
           :demographic =>
@@ -479,7 +479,7 @@ RSpec.describe AcaEntities::Fdsh::Rrv::H79::Ifsv::Operations::CreateRrvIfsvReque
                  :last_name => "jointly",
                  :dob => Date.new(1988, 1, 1),
                  :person_hbx_id => "163061945480778",
-                 :encrypted_ssn => "DURiMIC4YOK2GZ9UAjRxuw==\n" } },
+                 :encrypted_ssn => "cKIpoO30YF+lB25u4Nd939OLYRCGzrXEktzMl3xIN8LZ+vtv0SM37TyswRhy\nMHbe8Q==\n" } },
             { :product_eligibility_determination =>
                { :is_ia_eligible => false,
                  :is_medicaid_chip_eligible => false,
@@ -497,7 +497,7 @@ RSpec.describe AcaEntities::Fdsh::Rrv::H79::Ifsv::Operations::CreateRrvIfsvReque
                  :last_name => "spouse",
                  :dob => Date.new(1988, 1, 1),
                  :person_hbx_id => "1630619455508168",
-                 :encrypted_ssn => "v4LuPc7oa7qlAUd7ZG83Pw==\n" } }],
+                 :encrypted_ssn => "cKIpoO30YF+lB25u4Nd939OLYRCGzrXEktzMl3xIN8LZ+vtv0SM37TyswRhy\nMHbe8Q==\n" } }],
           :annual_tax_household_income => 0.0 },
         { :max_aptc => 0.0,
           :hbx_id => "10081",
@@ -520,7 +520,7 @@ RSpec.describe AcaEntities::Fdsh::Rrv::H79::Ifsv::Operations::CreateRrvIfsvReque
                  :last_name => "child",
                  :dob => Date.new(1988, 1, 1),
                  :person_hbx_id => "1630619455896266",
-                 :encrypted_ssn => "TbEufi4OoOkGU6F+rCM4Hg==\n" } }],
+                 :encrypted_ssn => "cKIpoO30YF+lB25u4Nd939OLYRCGzrXEktzMl3xIN8LZ+vtv0SM37TyswRhy\nMHbe8Q==\n" } }],
           :annual_tax_household_income => 0.0 }],
       :relationships =>
        [{ :kind => "spouse",
@@ -529,78 +529,78 @@ RSpec.describe AcaEntities::Fdsh::Rrv::H79::Ifsv::Operations::CreateRrvIfsvReque
              :last_name => "spouse",
              :dob => Date.new(1988, 1, 1),
              :person_hbx_id => "1630619455508168",
-             :encrypted_ssn => "v4LuPc7oa7qlAUd7ZG83Pw==\n" },
+             :encrypted_ssn => "cKIpoO30YF+lB25u4Nd939OLYRCGzrXEktzMl3xIN8LZ+vtv0SM37TyswRhy\nMHbe8Q==\n" },
           :relative_reference =>
            { :first_name => "filing",
              :last_name => "jointly",
              :dob => Date.new(1988, 1, 1),
              :person_hbx_id => "163061945480778",
-             :encrypted_ssn => "DURiMIC4YOK2GZ9UAjRxuw==\n" } },
+             :encrypted_ssn => "cKIpoO30YF+lB25u4Nd939OLYRCGzrXEktzMl3xIN8LZ+vtv0SM37TyswRhy\nMHbe8Q==\n" } },
         { :kind => "spouse",
           :applicant_reference =>
            { :first_name => "filing",
              :last_name => "jointly",
              :dob => Date.new(1988, 1, 1),
              :person_hbx_id => "163061945480778",
-             :encrypted_ssn => "DURiMIC4YOK2GZ9UAjRxuw==\n" },
+             :encrypted_ssn => "cKIpoO30YF+lB25u4Nd939OLYRCGzrXEktzMl3xIN8LZ+vtv0SM37TyswRhy\nMHbe8Q==\n" },
           :relative_reference =>
            { :first_name => "filing",
              :last_name => "spouse",
              :dob => Date.new(1988, 1, 1),
              :person_hbx_id => "1630619455508168",
-             :encrypted_ssn => "v4LuPc7oa7qlAUd7ZG83Pw==\n" } },
+             :encrypted_ssn => "cKIpoO30YF+lB25u4Nd939OLYRCGzrXEktzMl3xIN8LZ+vtv0SM37TyswRhy\nMHbe8Q==\n" } },
         { :kind => "child",
           :applicant_reference =>
            { :first_name => "filing",
              :last_name => "child",
              :dob => Date.new(1988, 1, 1),
              :person_hbx_id => "1630619455896266",
-             :encrypted_ssn => "TbEufi4OoOkGU6F+rCM4Hg==\n" },
+             :encrypted_ssn => "cKIpoO30YF+lB25u4Nd939OLYRCGzrXEktzMl3xIN8LZ+vtv0SM37TyswRhy\nMHbe8Q==\n" },
           :relative_reference =>
            { :first_name => "filing",
              :last_name => "jointly",
              :dob => Date.new(1988, 1, 1),
              :person_hbx_id => "163061945480778",
-             :encrypted_ssn => "DURiMIC4YOK2GZ9UAjRxuw==\n" } },
+             :encrypted_ssn => "cKIpoO30YF+lB25u4Nd939OLYRCGzrXEktzMl3xIN8LZ+vtv0SM37TyswRhy\nMHbe8Q==\n" } },
         { :kind => "parent",
           :applicant_reference =>
            { :first_name => "filing",
              :last_name => "jointly",
              :dob => Date.new(1988, 1, 1),
              :person_hbx_id => "163061945480778",
-             :encrypted_ssn => "DURiMIC4YOK2GZ9UAjRxuw==\n" },
+             :encrypted_ssn => "cKIpoO30YF+lB25u4Nd939OLYRCGzrXEktzMl3xIN8LZ+vtv0SM37TyswRhy\nMHbe8Q==\n" },
           :relative_reference =>
            { :first_name => "filing",
              :last_name => "child",
              :dob => Date.new(1988, 1, 1),
              :person_hbx_id => "1630619455896266",
-             :encrypted_ssn => "TbEufi4OoOkGU6F+rCM4Hg==\n" } },
+             :encrypted_ssn => "cKIpoO30YF+lB25u4Nd939OLYRCGzrXEktzMl3xIN8LZ+vtv0SM37TyswRhy\nMHbe8Q==\n" } },
         { :kind => "spouse",
           :applicant_reference =>
            { :first_name => "filing",
              :last_name => "spouse",
              :dob => Date.new(1988, 1, 1),
              :person_hbx_id => "1630619455508168",
-             :encrypted_ssn => "v4LuPc7oa7qlAUd7ZG83Pw==\n" },
+             :encrypted_ssn => "cKIpoO30YF+lB25u4Nd939OLYRCGzrXEktzMl3xIN8LZ+vtv0SM37TyswRhy\nMHbe8Q==\n" },
           :relative_reference =>
            { :first_name => "filing",
              :last_name => "child",
              :dob => Date.new(1988, 1, 1),
              :person_hbx_id => "1630619455896266",
-             :encrypted_ssn => "TbEufi4OoOkGU6F+rCM4Hg==\n" } },
+             :encrypted_ssn => "cKIpoO30YF+lB25u4Nd939OLYRCGzrXEktzMl3xIN8LZ+vtv0SM37TyswRhy\nMHbe8Q==\n" } },
         { :kind => "spouse",
           :applicant_reference =>
            { :first_name => "filing",
              :last_name => "child",
              :dob => Date.new(1988, 1, 1),
              :person_hbx_id => "1630619455896266",
-             :encrypted_ssn => "TbEufi4OoOkGU6F+rCM4Hg==\n" },
+             :encrypted_ssn => "cKIpoO30YF+lB25u4Nd939OLYRCGzrXEktzMl3xIN8LZ+vtv0SM37TyswRhy\nMHbe8Q==\n" },
           :relative_reference =>
            { :first_name => "filing",
              :last_name => "spouse",
              :dob => Date.new(1988, 1, 1),
              :person_hbx_id => "1630619455508168",
-             :encrypted_ssn => "v4LuPc7oa7qlAUd7ZG83Pw==\n" } }],
+             :encrypted_ssn => "cKIpoO30YF+lB25u4Nd939OLYRCGzrXEktzMl3xIN8LZ+vtv0SM37TyswRhy\nMHbe8Q==\n" } }],
       :us_state => "DC",
       :hbx_id => "163061945",
       :oe_start_on => Date.new(2021, 11, 1),
@@ -626,7 +626,7 @@ RSpec.describe AcaEntities::Fdsh::Rrv::H79::Ifsv::Operations::CreateRrvIfsvReque
     described_class.new.call([application])
   end
 
-  xit "is successful" do
+  it "is successful" do
     expect(subject.success?).to be_truthy
   end
 end

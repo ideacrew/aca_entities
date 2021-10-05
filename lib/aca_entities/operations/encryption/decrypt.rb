@@ -2,10 +2,12 @@
 
 require 'dry/monads'
 require 'dry/monads/do'
+require 'rbnacl'
+require 'base64'
 
 module AcaEntities
   module Operations
-    module SymmetricEncryption
+    module Encryption
       # Encrypt sensitive data
       class Decrypt
         send(:include, Dry::Monads[:result, :do])
@@ -21,7 +23,9 @@ module AcaEntities
         private
 
         def decrypt(value)
-          # Success(::SymmetricEncryption.decrypt(value))
+          key = AcaEntities::Configuration::Encryption.config.simple_box_secret_key
+          secret_box = RbNaCl::SimpleBox.from_secret_key([key].pack("H*"))
+          Success(secret_box.decrypt(Base64.decode64(value)))
         end
       end
     end
