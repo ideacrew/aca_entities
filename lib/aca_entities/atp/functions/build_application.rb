@@ -60,9 +60,6 @@ module AcaEntities
           #   collector << applicant_hash
           #   collector
           # end
-          puts "\n\n\n\n\n\n"
-          p @memoized_data.resolve('external_id').item
-          puts "\n\n\n\n\n\n"
           [application_hash.merge!(applicants: result)]
         end
 
