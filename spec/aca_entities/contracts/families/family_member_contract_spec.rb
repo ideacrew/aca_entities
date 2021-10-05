@@ -215,7 +215,7 @@ RSpec.describe ::AcaEntities::Contracts::Families::FamilyMemberContract, dbclean
         start_on: Date.today,
         end_on: Date.today,
         reason_code: "initial_individual_market_transition_created_using_data_migration",
-        submitted_at: Date.today
+        submitted_at: DateTime.now
       }
     ]
   end
