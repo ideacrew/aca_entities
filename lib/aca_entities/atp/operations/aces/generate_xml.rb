@@ -32,7 +32,8 @@ module AcaEntities
           private
 
           def validate(params)
-            Success(params)
+            payload = JSON.parse(params)
+            Success(payload)
           end
 
           def validate_aces(params)
@@ -87,13 +88,13 @@ module AcaEntities
             end
           end
 
-          def to_aces(payload)
-            record = JSON.parse(payload)
+          def prep_record(record)
             family_members = record["family"]["family_members"]
-            record["family"].merge!("family_members" => family_members.group_by do |h|
+            applicants = record["family"]["magi_medicaid_applications"]["applicants"]
+            applicant_ids = applicants.map { |h| h["person_hbx_id"] }
+            record["family"].merge!("family_members" => family_members.select { |h| applicant_ids.include? h["person"]["hbx_id"] }.group_by do |h|
                                                           h["person"]["hbx_id"]
                                                         end.transform_keys(&:to_s).transform_values(&:first))
-            applicants = record["family"]["magi_medicaid_applications"]["applicants"]
             record["family"]["magi_medicaid_applications"].merge!("applicants" => applicants.group_by do |h|
               h["person_hbx_id"]
             end.transform_keys(&:to_s).transform_values(&:first))
@@ -109,7 +110,12 @@ module AcaEntities
               family_member[1].merge!("person" => person)
             end
             record["family"].merge!("family_members" => family_members)
-            result = ::AcaEntities::Atp::Transformers::Aces::Family.transform(record)
+            record
+          end
+
+          def to_aces(record)
+            record_hash = prep_record(record)
+            result = ::AcaEntities::Atp::Transformers::Aces::Family.transform(record_hash)
             Success(result)
           rescue StandardError => e
             Failure("to_aces transformer #{e}")
