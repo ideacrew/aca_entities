@@ -11,7 +11,8 @@ module AcaEntities
         extend Forwardable
 
         def_delegators :config,
-                       :simple_box_secret_key
+                       :secret_key,
+                       :iv
 
         def configure
           yield(config)

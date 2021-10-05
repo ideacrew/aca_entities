@@ -23,9 +23,10 @@ module AcaEntities
         private
 
         def decrypt(value)
-          key = AcaEntities::Configuration::Encryption.config.simple_box_secret_key
-          secret_box = RbNaCl::SimpleBox.from_secret_key([key].pack("H*"))
-          Success(secret_box.decrypt(Base64.decode64(value)))
+          key = AcaEntities::Configuration::Encryption.config.secret_key
+          iv = AcaEntities::Configuration::Encryption.config.iv
+          secret_box = RbNaCl::SecretBox.new([key].pack("H*"))
+          Success(secret_box.decrypt(iv, Base64.decode64(value)))
         end
       end
     end

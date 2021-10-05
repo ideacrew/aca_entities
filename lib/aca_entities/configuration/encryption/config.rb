@@ -5,7 +5,7 @@ module AcaEntities
     module Encryption
       # load symmetric encryption configuration
       class Config
-        attr_accessor :simple_box_secret_key
+        attr_accessor :secret_key, :iv
       end
     end
   end
