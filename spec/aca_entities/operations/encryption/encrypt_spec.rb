@@ -12,7 +12,7 @@ RSpec.describe AcaEntities::Operations::Encryption::Encrypt do
 
     it 'should return success with encrypted value' do
       expect(subject).to be_a Dry::Monads::Result::Success
-      result = decryption_operation.call({value: subject.value!} )
+      result = decryption_operation.call({ value: subject.value! })
       expect(result.value!).to eq "Hello World"
     end
   end
