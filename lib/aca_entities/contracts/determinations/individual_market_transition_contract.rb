@@ -18,7 +18,7 @@ module AcaEntities
           optional(:start_on).maybe(:date)
           optional(:end_on).maybe(:date)
           required(:reason_code).filled(AcaEntities::Types::MarketTransitionReasonCodes)
-          required(:submitted_at).value(:date)
+          required(:submitted_at).value(:date_time)
         end
       end
     end

@@ -8,7 +8,7 @@ module AcaEntities
       attribute :start_on,                       Types::Date.optional.meta(omittable: false)
       attribute :end_on,                         Types::Date.optional.meta(omittable: false)
       attribute :reason_code,                    AcaEntities::Types::MarketTransitionReasonCodes.meta(omittable: false)
-      attribute :submitted_at,                   Types::Date.meta(omittable: false)
+      attribute :submitted_at,                   Types::DateTime.meta(omittable: false)
     end
   end
 end
