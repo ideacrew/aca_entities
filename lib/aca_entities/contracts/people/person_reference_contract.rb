@@ -22,6 +22,7 @@ module AcaEntities
           optional(:middle_name).maybe(:string)
           required(:last_name).value(:str?)
           optional(:ssn).maybe(:string)
+          optional(:encrypted_ssn).maybe(:string)
           optional(:no_ssn).maybe(:bool)
           optional(:dob).maybe(:date)
           required(:gender).filled(:string)

@@ -11,9 +11,7 @@ module AcaEntities
           # @option opts [String] :IdentificationID Social Security Number without dash delimiters
           params do
             # configure { predicates(AcaEntities::Fdsh::Predicates) }
-            required(:IdentificationID).filled(
-              AcaEntities::Fdsh::Types::FullyRestrictedSSNType
-            )
+            required(:IdentificationID).filled(:string)
           end
         end
       end

@@ -28,10 +28,7 @@ module AcaEntities
               #   data is requested
               # @return [AcaEntities::Fdsh::Types::FullyRestrictedSSNType]
               attribute :PrimaryTaxFiler do
-                attribute :TINIdentification,
-                          AcaEntities::Fdsh::Types::FullyRestrictedSSNType.meta(
-                            omittable: false
-                          )
+                attribute :TINIdentification, Types::String.meta(omittable: false)
               end
 
               # @!attribute [r] SpouseTaxFiler
@@ -39,10 +36,7 @@ module AcaEntities
               #   when both individuals are applicants
               # @return [AcaEntities::Fdsh::Types::FullyRestrictedSSNType]
               attribute :SpouseTaxFiler do
-                attribute :TINIdentification,
-                          AcaEntities::Fdsh::Types::FullyRestrictedSSNType.optional.meta(
-                            omittable: true
-                          )
+                attribute :TINIdentification, Types::String.optional.meta(omittable: false)
               end
 
               # @!attribute [r] TaxReturnYear
