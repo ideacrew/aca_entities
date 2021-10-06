@@ -22,6 +22,8 @@ module AcaEntities
       attribute :waiver_reason,                                   Types::String.optional.meta(omittable: true)
       attribute :review_status,                                   Types::String.optional.meta(omittable: true)
       attribute :external_enrollment,                             Types::Strict::Bool.optional.meta(omittable: true)
+      attribute :external_id,                                     Types::String.optional.meta(omittable: true)
+      attribute :external_group_identifiers,                       Types::Strict::Array.optional.meta(omittable: true)
       attribute :predecessor_enrollment,                          AcaEntities::Enrollments::HbxEnrollmentReference.optional.meta(omittable: true)
       attribute :special_enrollment_period_reference,
                 AcaEntities::EnrollmentPeriods::SpecialEnrollmentPeriodReference.optional.meta(omittable: true)

@@ -109,6 +109,20 @@ module AcaEntities
         "HINDI" => "English",
         "FRENCH_CREOLE" => "French"
       }.freeze
+
+      ProductKind = {
+          "HEALTHCARE" => "health",
+          "DENTAL" => "dental"
+      }.freeze
+
+      VariantMap = {
+        "EXCHANGE_VARIANT_NO_CSR" => "01",
+        "ZERO_COST_SHARING_PLAN_VARIATION" => "02",
+        "LIMITED_COST_SHARING_PLAN_VARIATION" => "03",
+        "73PCT_AV_LEVEL_SILVER_PLAN_CSR" => "04",
+        "87PCT_AV_LEVEL_SILVER_PLAN_CSR" => "05",
+        "94PCT_AV_LEVEL_SILVER_PLAN_CSR" => "06"
+      }
     end
   end
 end

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+require 'aca_entities/ffe/types'
 
 # This file defines the maps
 module AcaEntities
@@ -13,94 +14,106 @@ module AcaEntities
           include ::AcaEntities::Operations::Transforms::Transformer
 
           # record_delimiter 'enrollments'
-          map 'policyTrackingNumber', 'hbx_id', function: ->(v) {v.to_s}
+          map 'documentType', 'documentType', memoize_record: true, visible: false
+          map 'lastModifiedDateTime', 'created_at', memoize_record: true, visible: false
+          add_key 'timestamp.created_at', function: ->(v) {
+                    v.resolve('created_at').item.to_datetime}
+          map 'policyTrackingNumber', 'external_id', function: ->(v) {v.to_s}
+          map 'supersededIndicator', 'supersededIndicator', memoize_record: true, visible: false
+          map 'marketplaceGroupPolicyIdentifiersTiedToApplication', 'external_group_identifiers'
           map 'insurancePlanPolicyStartDate', 'effective_on',  memoize: true
           map 'insurancePlanPolicyEndDate', 'terminated_on',  memoize: true
+
           namespace 'insurancePolicyStatus' do
             # map 'insurancePolicyStatusDateTime'
-            map 'definingInsurancePolicyStatusTypeCodeName', 'aasm_state' # TODO: Add function
+            map 'definingInsurancePolicyStatusTypeCodeName', 'aasm_state',memoize_record: true, visible: false
           end
           map 'isActive', 'is_active'
           add_key 'market_place_kind', value: 'individual'
-          add_key 'enrollment_period_kind', value: 'open_enrollment' # TODO: revisit
+          add_key 'enrollment_period_kind', value: 'open_enrollment'
           map 'associatedProductDivisionReferenceTypeCodeName', 'product_kind', function: lambda { |value|
-                                                                                            { HEALTHCARE: "health" }[value.to_sym]
+                                                                                  Ffe::Types::ProductKind[value.to_s]
                                                                                           }, memoize: true
 
-          map 'selectedInsurancePlan', 'product_reference.hios_id' # TODO: check
-          map 'insurancePlanVariantName', 'product_reference.name' # TODO: check
+          # ********product details start***********
+          map 'selectedInsurancePlan', 'product_reference.hios_id', memoize_record: true, visible: false
+          map 'insurancePlanVariantName', 'product_reference.name'
           map 'coverageYear', 'product_reference.active_year'
-          map 'associatedMetalTierTypeCodeName', 'product_reference.metal_level'
-          add_key 'product_reference.benefit_market_kind', value: 'aca_individual' # TODO: revisit
-          add_key 'product_reference.is_dental_only', value: false # TODO: revisit
-          add_key 'product_reference.product_kind', function: ->(v) { { HEALTHCARE: "health" }[v.resolve('product_kind').item.to_sym]}
-
-          add_key 'product_reference.issuer_profile_reference.hbx_id', value: "1234" # TODO: revisit
-          add_key 'product_reference.issuer_profile_reference.abbrev', value: "Abbrev" # TODO: revisit
+          map 'associatedMetalTierTypeCodeName', 'product_reference.metal_level', function: lambda { |value| value.downcase.to_s}
+          add_key 'product_reference.benefit_market_kind', value: 'aca_individual'
+          add_key 'product_reference.is_dental_only', function: ->(v) { Ffe::Types::ProductKind[v.resolve('product_kind').item.to_s] == "health"}
+          add_key 'product_reference.product_kind', function: ->(v) { Ffe::Types::ProductKind[v.resolve('product_kind').item.to_s]}
+          add_key 'product_reference.issuer_profile_reference.hbx_id', value: "1234"
+          add_key 'product_reference.issuer_profile_reference.abbrev', value: "Abbrev"
           map 'issuerHIOSID', 'product_reference.issuer_profile_reference.hbx_carrier_id', function: ->(v) {v.to_s}, memoize: true  # TODO: check
           map 'issuerName', 'product_reference.issuer_profile_reference.name', memoize: true
-
-          # TODO: issuer_profile_reference  check
           add_key 'issuer_profile_reference.hbx_carrier_id', function: lambda { |v|
                                                                          v.resolve(
                                                                            'product_reference.issuer_profile_reference.hbx_carrier_id'
                                                                          ).item.to_s
                                                                        }
           add_key 'issuer_profile_reference.name', function: ->(v) {v.resolve('product_reference.issuer_profile_reference.name').item}
-          add_key 'issuer_profile_reference.hbx_id', value: "1234" # TODO: revisit
-          add_key 'issuer_profile_reference.abbrev', value: "Abbrev" # TODO: revisit
+          add_key 'issuer_profile_reference.hbx_id', value: "1234"
+          add_key 'issuer_profile_reference.abbrev', value: "Abbrev"
+          map 'definingPlanVariantComponentTypeCodeName', 'variant', memoize_record: true, visible: false
+          add_key 'product_reference.hios_id', function: lambda { |v|
+                                               product_base = v.resolve('product_reference.hios_id').item.to_s
+                                               variant = Ffe::Types::VariantMap[v.resolve('variant').item.to_s]
+                                               "#{product_base}-#{variant}"
+                                             }
+          # ********product details end***********
 
           # add_key 'coverage_household_reference'
-          map 'insuranceApplicationIdentifier', 'family_hbx_id', function: ->(v) {v.to_s} # TODO: which identifier we need to use
+          map 'insuranceApplicationIdentifier', 'family_hbx_id', function: ->(v) {v.to_s}
           add_key 'terminate_reason'
           add_key 'termination_submitted_on'
           add_key 'waiver_reason'
           add_key 'review_status'
-          add_key 'external_enrollment'  # TODO: what need to set
-          # add_key 'predecessor_enrollment', value: {} #TODO: what need to set
-          map 'applicationSEPTypeName', 'special_enrollment_period_reference.qualifying_life_event_kind_reference.title', memoize: true
-          add_key 'special_enrollment_period_reference.qualifying_life_event_kind_reference.start_on', function: lambda { |_value|
-                                                                                                                   convert_to_date(
-                                                                                                                     Date.parse("2021-05-10").to_s
-                                                                                                                   )
-                                                                                                                 }
-          add_key 'special_enrollment_period_reference.qualifying_life_event_kind_reference.end_on', function: lambda { |_value|
-                                                                                                                 convert_to_date(
-                                                                                                                   Date.parse("2021-05-10").to_s
-                                                                                                                 )
-                                                                                                               }
-          add_key 'special_enrollment_period_reference.qualifying_life_event_kind_reference.title',
-                  function:
-                    lambda { |v|
-                      v.resolve(
-                        'special_enrollment_period_reference.qualifying_life_event_kind_reference.title'
-                      ).item
-                    }
-          add_key 'special_enrollment_period_reference.qualifying_life_event_kind_reference.reason',
-                  function:
-                    lambda { |v|
-                      v.resolve(
-                        'special_enrollment_period_reference.qualifying_life_event_kind_reference.title'
-                      ).item
-                    }
-          add_key 'special_enrollment_period_reference.qualifying_life_event_kind_reference.market_kind', value: 'individual'
-          add_key 'special_enrollment_period_reference.qle_on', function: ->(_value) { convert_to_date(Date.parse("2021-05-10").to_s) }
-          add_key 'special_enrollment_period_reference.start_on', function: ->(_value) { convert_to_date(Date.parse("2021-05-10").to_s) }
-          add_key 'special_enrollment_period_reference.submitted_at', function: ->(_value) { convert_to_date(Date.parse("2021-05-10").to_s) }
-          add_key 'special_enrollment_period_reference.end_on', function: ->(_value) { convert_to_date(Date.parse("2021-05-10").to_s) }
-          add_key 'special_enrollment_period_reference.effective_on', function: ->(v) { convert_to_date(v.resolve('effective_on').item.to_s)}
-          add_key 'special_enrollment_period_reference.next_poss_effective_date', function: lambda { |_value|
-                                                                                              convert_to_date(Date.parse("2021-05-10").to_s)
-                                                                                            }
-          add_key 'special_enrollment_period_reference.option1_date', function: lambda { |_value|
-                                                                                  convert_to_date(
-                                                                                    Date.parse("2021-05-10").to_s
-                                                                                  )
-                                                                                }
-          add_key 'special_enrollment_period_reference.option2_date', function: ->(_value) { convert_to_date(Date.parse("2021-05-10").to_s) }
-          add_key 'special_enrollment_period_reference.option3_date', function: ->(_value) { convert_to_date(Date.parse("2021-05-10").to_s) }
+          add_key 'external_enrollment', function: ->(_v) { true }
+          # add_key 'predecessor_enrollment', value: {}
+          # map 'applicationSEPTypeName', 'special_enrollment_period_reference.qualifying_life_event_kind_reference.title', memoize: true
+          # add_key 'special_enrollment_period_reference.qualifying_life_event_kind_reference.start_on', function: lambda { |_value|
+          #                                                                                                          convert_to_date(
+          #                                                                                                            Date.parse("2021-01-01").to_s
+          #                                                                                                          )
+          #                                                                                                        }
+          # add_key 'special_enrollment_period_reference.qualifying_life_event_kind_reference.end_on', function: lambda { |_value|
+          #                                                                                                        convert_to_date(
+          #                                                                                                          Date.parse("2021-01-01").to_s
+          #                                                                                                        )
+          #                                                                                                      }
+          # add_key 'special_enrollment_period_reference.qualifying_life_event_kind_reference.title',
+          #         function:
+          #           lambda { |v|
+          #             v.resolve(
+          #               'special_enrollment_period_reference.qualifying_life_event_kind_reference.title'
+          #             ).item
+          #           }
+          # add_key 'special_enrollment_period_reference.qualifying_life_event_kind_reference.reason',
+          #         function:
+          #           lambda { |v|
+          #             v.resolve(
+          #               'special_enrollment_period_reference.qualifying_life_event_kind_reference.title'
+          #             ).item
+          #           }
+          # add_key 'special_enrollment_period_reference.qualifying_life_event_kind_reference.market_kind', value: 'individual'
+          # add_key 'special_enrollment_period_reference.qle_on', function: ->(_value) { convert_to_date(Date.parse("2021-01-01").to_s) }
+          # add_key 'special_enrollment_period_reference.start_on', function: ->(_value) { convert_to_date(Date.parse("2021-01-01").to_s) }
+          # add_key 'special_enrollment_period_reference.submitted_at', function: ->(_value) { convert_to_date(Date.parse("2021-01-01").to_s) }
+          # add_key 'special_enrollment_period_reference.end_on', function: ->(_value) { convert_to_date(Date.parse("2021-01-01").to_s) }
+          # add_key 'special_enrollment_period_reference.effective_on', function: ->(v) { convert_to_date(v.resolve('effective_on').item.to_s)}
+          # add_key 'special_enrollment_period_reference.next_poss_effective_date', function: lambda { |_value|
+          #                                                                                     convert_to_date(Date.parse("2021-01-01").to_s)
+          #                                                                                   }
+          # add_key 'special_enrollment_period_reference.option1_date', function: lambda { |_value|
+          #                                                                         convert_to_date(
+          #                                                                           Date.parse("2021-01-01").to_s
+          #                                                                         )
+          #                                                                       }
+          # add_key 'special_enrollment_period_reference.option2_date', function: ->(_value) { convert_to_date(Date.parse("2021-01-01").to_s) }
+          # add_key 'special_enrollment_period_reference.option3_date', function: ->(_value) { convert_to_date(Date.parse("2021-01-01").to_s) }
           # add_key 'special_enrollment_period_reference.optional_effective_on', function: lambda { |value| convert_to_date(
-          # Date.parse("2021-05-10").to_s) }
+          # Date.parse("2021-01-01").to_s) }
           # namespace 'definedAssistor' do
           # map 'definedAssistorReferenceTypeCodeName'
           # end
@@ -130,7 +143,7 @@ module AcaEntities
             # map 'ehbPremiumAmount'
             # map 'allocatedAPTCAmount', 'elected_aptc_pct', function: ->(v) {{ cents: 0.0, currency_iso: 'USD' }} # TODO
             # map 'receivedFromOtherQHPAmount'
-            map 'appliedAPTCAmount', 'applied_aptc_amount', function: ->(v) {{ cents: v.to_f, currency_iso: 'USD' }}
+            map 'appliedAPTCAmount', 'applied_aptc_amount', function: ->(v) { { cents: (100 * v.to_r).to_f, currency_iso: 'USD' }}
             map 'exchangeRateAreaReference', 'rating_area'
             # map 'distributedToOtherQHPAmount'
             # map 'distributedToSADPAmount'
@@ -144,18 +157,18 @@ module AcaEntities
           # add_key 'consumer_role_reference'
           # add_key 'resident_role_reference'
 
-          add_key 'benefit_package_reference.title', value: 'package title'
-          add_key 'benefit_package_reference.elected_premium_credit_strategy', value: 'unassisted'
-          add_key 'benefit_coverage_period_reference.title', value: 'coverage_period title'
-          add_key 'benefit_coverage_period_reference.market_place', value: 'individual'
-          add_key 'benefit_coverage_period_reference.start_on', function: ->(_value) { convert_to_date(Date.parse("2021-05-10").to_s) }
-          add_key 'benefit_coverage_period_reference.end_on', function: ->(_value) { convert_to_date(Date.parse("2021-05-10").to_s) }
-          add_key 'benefit_coverage_period_reference.open_enrollment_start_on', function: lambda { |_value|
-                                                                                            convert_to_date(Date.parse("2021-05-10").to_s)
-                                                                                          }
-          add_key 'benefit_coverage_period_reference.open_enrollment_end_on', function: lambda { |_value|
-                                                                                          convert_to_date(Date.parse("2021-05-10").to_s)
-                                                                                        }
+          # add_key 'benefit_package_reference.title', value: 'package title'
+          # add_key 'benefit_package_reference.elected_premium_credit_strategy', value: 'unassisted'
+          # add_key 'benefit_coverage_period_reference.title', value: 'coverage_period title'
+          # add_key 'benefit_coverage_period_reference.market_place', value: 'individual'
+          # add_key 'benefit_coverage_period_reference.start_on', function: ->(_value) { convert_to_date(Date.parse("2021-01-01").to_s) }
+          # add_key 'benefit_coverage_period_reference.end_on', function: ->(_value) { convert_to_date(Date.parse("2021-01-01").to_s) }
+          # add_key 'benefit_coverage_period_reference.open_enrollment_start_on', function: lambda { |_value|
+          #                                                                                   convert_to_date(Date.parse("2021-01-01").to_s)
+          #                                                                                 }
+          # add_key 'benefit_coverage_period_reference.open_enrollment_end_on', function: lambda { |_value|
+          #                                                                                 convert_to_date(Date.parse("2021-01-01").to_s)
+          #                                                                               }
           # add_key 'updated_by'
           # map 'documentType'
           # map 'partialDataIndicator'
@@ -192,17 +205,18 @@ module AcaEntities
             rewrap 'hbx_enrollment_members', type: :array do
               rewrap '' do
                 map 'subscriberIndicator', 'is_subscriber', memoize: true
-                map 'insuredMemberIdentifier', 'carrier_member_id', function: ->(v) {v.to_s}  # TODO: check on this
+                map 'issuerInsuredMemberIdentifier', 'carrier_member_id', function: ->(v) {v.to_s}
+                map 'insuredMemberIdentifier', 'external_id', function: ->(v) {v.to_s}
+                map 'identifyingTobaccoUseTypeCodeName', 'tobacco_use', function: ->(v) {v.to_s == "TOBACCO_USED" ? "Y" : "N"}
                 # map 'definingMemberAssociationToSubscriberTypeCodeName'
                 # map 'definingMemberMaritalStatusTypeCodeName'
                 # map 'identifyingTobaccoUseTypeCodeName'
                 # map 'definingInsurancePolicyStatusTypeCodeName'
                 # map 'memberEhbPremiumAmount'
-                map 'memberMonthlyPolicyPremiumAmount', 'premium_amount', function: ->(v) {{ cents: v.to_f, currency_iso: 'USD' }}
-                map 'memberAllocatedAPTCAmount', 'applied_aptc_amount', function: ->(v) {{ cents: v.to_f, currency_iso: 'USD' }}
+                # map 'memberMonthlyPolicyPremiumAmount', 'premium_amount', function: ->(v) {{ cents: v.to_f, currency_iso: 'USD' }}
+                # map 'memberAllocatedAPTCAmount', 'applied_aptc_amount', function: ->(v) {{ cents: v.to_f, currency_iso: 'USD' }}
                 add_key 'eligibility_date', function: ->(v) {v.resolve('effective_on').item}
                 add_key 'coverage_start_on', function: ->(v) {v.resolve('effective_on').item}
-                add_key 'terminated_on', function: ->(v) {v.resolve('terminated_on').item}
                 map 'personTrackingNumber', 'family_member_reference.person_hbx_id'
                 add_key 'family_member_reference.is_primary_family_member', function: ->(v) {v.resolve('is_subscriber').item}
                 add_key 'family_member_reference.family_member_hbx_id', value: '1234'
@@ -215,6 +229,29 @@ module AcaEntities
               end
             end
           end
+          map 'specifiedEOYEndDateIndicator', 'specifiedEOYEndDateIndicator', memoize_record: true, visible: false
+          add_key 'is_any_enrollment_member_outstanding', function: ->(v) {
+                                                      v.resolve('documentType').item == "PENDED_PLAN_SELECTION"
+                                                    }
+          add_key "aasm_state", function: ->(v) {
+                                state = v.resolve('aasm_state').item
+                                start_date = v.resolve('effective_on').item
+                                term_date = v.resolve('terminated_on').item
+                                end_of_year = v.resolve('specifiedEOYEndDateIndicator').item
+                                superseded_ind = v.resolve('supersededIndicator').item
+                                cancel_by_state = state == "CANCELLED"
+                                cancel_by_date = (start_date == term_date || start_date > term_date)
+                                cancel_by_indicator = superseded_ind.to_s == "true"
+                                if cancel_by_state || cancel_by_date || cancel_by_indicator
+                                  return "coverage_canceled"
+                                end
+                                term_by_date = (term_date > start_date && term_date.to_date != Date.new(2021,12,31))
+                                term_indicator = end_of_year.to_s == "true"
+                                if  term_by_date || term_indicator
+                                  return "coverage_terminated"
+                                end
+                                "coverage_selected"
+                              }
         end
       end
     end
