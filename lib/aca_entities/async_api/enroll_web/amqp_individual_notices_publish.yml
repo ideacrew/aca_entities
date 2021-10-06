@@ -30,12 +30,12 @@ servers:
     description: RabbitMQ Test Server
 
 channels:
-  enroll.iap.applications.renewals.application_renewal_request_created:
+  enroll.individual.notices.account_created:
     bindings:
       amqp:
         is: :routing_key
         exchange:
-          name: enroll.iap.applications.renewals
+          name: enroll.individual.notices
           type: topic
           content_type: application/json
           durable: true
@@ -43,25 +43,24 @@ channels:
           vhost: event_source
         binding_version: '0.2.0'
     publish:
-      operationId: enroll.iap.applications.renewals.application_renewal_request_created
-      description: Events - Application Renewal Request Created
+      operationId: enroll.individual.notices.account_created
+      description: Notices - Individual Account Created
       bindings:
         amqp:
           app_id: enroll
-          type: enroll.iap.applications.renewals
-          routing_key: enroll.iap.applications.renewals.application_renewal_request_created
+          type: enroll.individual.notices
+          routing_key: enroll.individual.notices.account_created
           deliveryMode: 2
           mandatory: true
           timestamp: true
           content_type: application/json
           bindingVersion: 0.2.0
-
-  enroll.iap.applications.determinations.application_renewal_created:
+  enroll.individual.notices.first_verifications_reminder:
     bindings:
       amqp:
         is: :routing_key
         exchange:
-          name: enroll.iap.applications.determinations
+          name: enroll.individual.notices
           type: topic
           content_type: application/json
           durable: true
@@ -69,25 +68,24 @@ channels:
           vhost: event_source
         binding_version: '0.2.0'
     publish:
-      operationId: enroll.iap.applications.determinations.application_renewal_created
-      description: Events - Application Renewal Created
+      operationId: enroll.individual.notices.first_verifications_reminder
+      description: Notices - Individual Outstanding Verifications First Reminder
       bindings:
         amqp:
           app_id: enroll
-          type: enroll.iap.applications.determinations
-          routing_key: enroll.iap.applications.determinations.application_renewal_created
+          type: enroll.individual.notices
+          routing_key: enroll.individual.notices.first_verifications_reminder
           deliveryMode: 2
           mandatory: true
           timestamp: true
           content_type: application/json
           bindingVersion: 0.2.0
-
-  enroll.iap.applications.haven_magi_medicaid_eligibility_determination_requested:
+  enroll.individual.notices.second_verifications_reminder:
     bindings:
       amqp:
         is: :routing_key
         exchange:
-          name: enroll.iap.applications
+          name: enroll.individual.notices
           type: topic
           content_type: application/json
           durable: true
@@ -95,25 +93,24 @@ channels:
           vhost: event_source
         binding_version: '0.2.0'
     publish:
-      operationId: enroll.iap.applications.haven_magi_medicaid_eligibility_determination_requested
-      description: Events - Haven Magi Medicaid Eligibility Determination Requested
+      operationId: enroll.individual.notices.second_verifications_reminder
+      description: Notices - Individual Outstanding Verifications Second Reminder
       bindings:
         amqp:
           app_id: enroll
-          type: enroll.iap.applications
-          routing_key: enroll.iap.applications.haven_magi_medicaid_eligibility_determination_requested
+          type: enroll.individual.notices
+          routing_key: enroll.individual.notices.second_verifications_reminder
           deliveryMode: 2
           mandatory: true
           timestamp: true
           content_type: application/json
           bindingVersion: 0.2.0
-
-  enroll.iap.applications.determine_eligibility:
+  enroll.individual.notices.third_verifications_reminder:
     bindings:
       amqp:
         is: :routing_key
         exchange:
-          name: enroll.iap.applications
+          name: enroll.individual.notices
           type: topic
           content_type: application/json
           durable: true
@@ -121,25 +118,24 @@ channels:
           vhost: event_source
         binding_version: '0.2.0'
     publish:
-      operationId: enroll.iap.applications.determine_eligibility
-      description: Events - eligibility determination Request
+      operationId: enroll.individual.notices.third_verifications_reminder
+      description: Notices - Individual Outstanding Verifications Third Reminder
       bindings:
         amqp:
           app_id: enroll
-          type: enroll.iap.applications
-          routing_key: enroll.iap.applications.determine_eligibility
+          type: enroll.individual.notices
+          routing_key: enroll.individual.notices.third_verifications_reminder
           deliveryMode: 2
           mandatory: true
           timestamp: true
           content_type: application/json
           bindingVersion: 0.2.0
-
-  enroll.iap.transfers.transfer_account:
+  enroll.individual.notices.fourth_verifications_reminder:
     bindings:
       amqp:
         is: :routing_key
         exchange:
-          name: enroll.iap.transfers
+          name: enroll.individual.notices
           type: topic
           content_type: application/json
           durable: true
@@ -147,45 +143,18 @@ channels:
           vhost: event_source
         binding_version: '0.2.0'
     publish:
-      operationId: enroll.iap.transfers.transfer_account
-      description: Events - Account Transfer from enroll
+      operationId: enroll.individual.notices.fourth_verifications_reminder
+      description: Notices - Individual Outstanding Verifications Fourth Reminder
       bindings:
         amqp:
           app_id: enroll
-          type: enroll.iap.transfers
-          routing_key: enroll.iap.transfers.transfer_account
+          type: enroll.individual.notices
+          routing_key: enroll.individual.notices.fourth_verifications_reminder
           deliveryMode: 2
           mandatory: true
           timestamp: true
           content_type: application/json
           bindingVersion: 0.2.0
-
-  enroll.iap.mec_check.mec_check_requested:
-    bindings:
-      amqp:
-        is: :routing_key
-        exchange:
-          name: enroll.iap.mec_check
-          type: topic
-          content_type: application/json
-          durable: true
-          auto_delete: false
-          vhost: event_source
-        binding_version: "0.2.0"
-    publish:
-      operationId: enroll.iap.mec_check.mec_check_requested
-      description: Events - MEC Check requested from enroll
-      bindings:
-        amqp:
-          app_id: enroll
-          type: enroll.iap.mec_check
-          routing_key: enroll.iap.mec_check.mec_check_requested
-          deliveryMode: 2
-          mandatory: true
-          timestamp: true
-          content_type: application/json
-          bindingVersion: 0.2.0
-
 tags:
   - name: linter_tag
     description: placeholder that satisfies the linter

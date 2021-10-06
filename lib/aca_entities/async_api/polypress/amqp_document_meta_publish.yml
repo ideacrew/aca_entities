@@ -49,7 +49,6 @@ channels:
           app_id: polypress
           type: polypress.document_builder.document_created
           routing_key: polypress.document_builder.document_created
-          expiration: 100_000
           deliveryMode: 2
           mandatory: true
           timestamp: true

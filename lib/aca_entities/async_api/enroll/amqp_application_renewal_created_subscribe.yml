@@ -49,7 +49,7 @@ channels:
           exclusive: false
           routing_key: enroll.iap.applications.determinations.application_renewal_created
           prefetch: 1
-          block: true
+          block: false
           bindingVersion: '0.2.0'
       operationId: on_enroll.enroll.iap.applications.determinations
       description: Events - Application Renewal Created
