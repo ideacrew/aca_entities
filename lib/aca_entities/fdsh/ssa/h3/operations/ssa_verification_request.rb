@@ -67,7 +67,7 @@ module AcaEntities
             end
 
             def decrypt_ssn(encrypted_ssn)
-              AcaEntities::Operations::SymmetricEncryption::Decrypt.new.call({ value: encrypted_ssn }).value!
+              AcaEntities::Operations::Encryption::Decrypt.new.call({ value: encrypted_ssn }).value!
             end
           end
         end

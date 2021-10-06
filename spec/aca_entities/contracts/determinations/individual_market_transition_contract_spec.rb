@@ -10,7 +10,7 @@ RSpec.describe ::AcaEntities::Contracts::Determinations::IndividualMarketTransit
       start_on: Date.today,
       end_on: Date.today,
       reason_code: "initial_individual_market_transition_created_using_data_migration",
-      submitted_at: Date.today
+      submitted_at: DateTime.now
     }
 
   end
@@ -62,7 +62,7 @@ RSpec.describe ::AcaEntities::Contracts::Determinations::IndividualMarketTransit
       end
 
       it 'should return error message' do
-        expect(@result.errors.messages.first.text).to eq('must be a date')
+        expect(@result.errors.messages.first.text).to eq('must be a date time')
       end
 
       it 'should return error message' do
