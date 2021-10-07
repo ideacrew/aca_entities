@@ -15,6 +15,8 @@ module AcaEntities
       attribute :last_name, Types::String.optional.meta(omittable: true)
       attribute :password, Types::String.optional.meta(omittable: true)
       attribute :attributes, Types::Hash.optional.meta(omittable: true)
+      attribute :roles,
+                Types::Array.of(Types::String).optional.meta(omittable: true)
       attribute :groups,
                 Types::Array.of(Types::String).optional.meta(omittable: true)
       attribute :access, Types::Hash.optional.meta(omittable: true)

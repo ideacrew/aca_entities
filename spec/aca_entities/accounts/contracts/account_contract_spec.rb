@@ -17,6 +17,7 @@ RSpec.describe AcaEntities::Accounts::Contracts::AccountContract do
   let(:not_before) { 0 }
   let(:access) { {} }
   let(:groups) { [] }
+  let(:roles) { [] }
   let(:created_at) { DateTime.now }
 
   let(:required_params) { { username: username } }
@@ -30,6 +31,7 @@ RSpec.describe AcaEntities::Accounts::Contracts::AccountContract do
       totp: totp,
       email_verified: email_verified,
       not_before: not_before,
+      roles: roles,
       access: access,
       groups: groups,
       created_at: created_at

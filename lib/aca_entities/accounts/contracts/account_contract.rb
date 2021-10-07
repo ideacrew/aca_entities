@@ -16,6 +16,7 @@ module AcaEntities
           optional(:last_name).maybe(:string)
           optional(:password).maybe(:string)
           optional(:attributes).maybe(:hash)
+          optional(:roles).array(:string)
           optional(:groups).array(:string)
           optional(:access).maybe(:hash)
           optional(:not_before).maybe(:integer)
