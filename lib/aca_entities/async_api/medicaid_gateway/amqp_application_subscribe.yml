@@ -48,7 +48,7 @@ channels:
           ack: true
           exclusive: false
           routing_key: enroll.iap.applications.determine_eligibility
-          prefetch: 10
+          prefetch: 1
           bindingVersion: "0.2.0"
       operationId: on_medicaid_gateway.enroll.iap.applications
       description: Events - magi medicaid eligibility determination Request
