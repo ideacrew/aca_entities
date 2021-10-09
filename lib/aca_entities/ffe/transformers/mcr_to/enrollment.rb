@@ -41,7 +41,7 @@ module AcaEntities
           map 'coverageYear', 'product_reference.active_year'
           map 'associatedMetalTierTypeCodeName', 'product_reference.metal_level', function: lambda { |value| value.downcase.to_s}
           add_key 'product_reference.benefit_market_kind', value: 'aca_individual'
-          add_key 'product_reference.is_dental_only', function: ->(v) { Ffe::Types::ProductKind[v.resolve('product_kind').item.to_s] == "health"}
+          add_key 'product_reference.is_dental_only', function: ->(v) { Ffe::Types::ProductKind[v.resolve('product_kind').item.to_s] == "dental"}
           add_key 'product_reference.product_kind', function: ->(v) { Ffe::Types::ProductKind[v.resolve('product_kind').item.to_s]}
           add_key 'product_reference.issuer_profile_reference.hbx_id', value: "1234"
           add_key 'product_reference.issuer_profile_reference.abbrev', value: "Abbrev"
@@ -58,6 +58,7 @@ module AcaEntities
           map 'definingPlanVariantComponentTypeCodeName', 'variant', memoize_record: true, visible: false
           add_key 'product_reference.hios_id', function: lambda { |v|
                                                product_base = v.resolve('product_reference.hios_id').item.to_s
+                                               return product_base if Ffe::Types::ProductKind[v.resolve('product_kind').item.to_s] == "dental"
                                                variant = Ffe::Types::VariantMap[v.resolve('variant').item.to_s]
                                                "#{product_base}-#{variant}"
                                              }
@@ -204,6 +205,7 @@ module AcaEntities
           namespace 'coveredInsuredMembers' do
             rewrap 'hbx_enrollment_members', type: :array do
               rewrap '' do
+                map 'definingInsurancePolicyStatusTypeCodeName', 'member_aasm_state', memoize: true
                 map 'subscriberIndicator', 'is_subscriber', memoize: true
                 map 'issuerInsuredMemberIdentifier', 'carrier_member_id', function: ->(v) {v.to_s}
                 map 'insuredMemberIdentifier', 'external_id', function: ->(v) {v.to_s}
@@ -217,13 +219,21 @@ module AcaEntities
                 # map 'memberAllocatedAPTCAmount', 'applied_aptc_amount', function: ->(v) {{ cents: v.to_f, currency_iso: 'USD' }}
                 add_key 'eligibility_date', function: ->(v) {v.resolve('effective_on').item}
                 add_key 'coverage_start_on', function: ->(v) {v.resolve('effective_on').item}
+                add_key 'coverage_end_on', function: ->(v) { if v.resolve('member_aasm_state').item == "CANCELLED"
+                                                               v.resolve('effective_on').item
+                                                             else
+                                                               v.resolve('terminated_on').item
+                                                             end
+                                         }
                 map 'personTrackingNumber', 'family_member_reference.person_hbx_id'
                 add_key 'family_member_reference.is_primary_family_member', function: ->(v) {v.resolve('is_subscriber').item}
                 add_key 'family_member_reference.family_member_hbx_id', value: '1234'
                 namespace 'memberInfo' do
                   rewrap 'hbx_enrollment_members.family_member_reference', type: :hash do
+                    map 'birthDate', 'dob'
                     map 'firstName', 'first_name'
                     map 'lastName', 'last_name'
+                    map 'ssn', 'ssn'
                   end
                 end
               end

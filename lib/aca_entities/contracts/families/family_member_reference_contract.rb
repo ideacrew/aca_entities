@@ -20,6 +20,9 @@ module AcaEntities
           optional(:person_hbx_id).value(:str?)
           optional(:is_primary_family_member).value(:bool?)
           optional(:age).value(:integer)
+          optional(:ssn).maybe(:string)
+          optional(:encrypted_ssn).maybe(:string)
+          optional(:dob).maybe(:date)
         end
       end
     end
