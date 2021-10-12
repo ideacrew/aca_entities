@@ -46,7 +46,6 @@ channels:
           exclusive: false
           routing_key: magi_medicaid.#.eligibilities.#
           prefetch: 1
-          block: true
           bindingVersion: "0.2.0"
       operationId: on_enroll.magi_medicaid.mitc.eligibilities
       description: Events - MitC eligibility determinations for Medicaid/CHIP and/or APTC/CSR financial assistance
