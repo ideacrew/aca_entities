@@ -22,15 +22,11 @@ module AcaEntities
                 # @return [Dry::Monads::Result]
                 params do
                   required(:PrimaryTaxFiler).hash do
-                    required(:TINIdentification).value(
-                      AcaEntities::Fdsh::Types::FullyRestrictedSSNType
-                    )
+                    required(:TINIdentification).value(:string)
                   end
 
                   optional(:SpouseTaxFiler).hash do
-                    optional(:TINIdentification).maybe(
-                      AcaEntities::Fdsh::Types::FullyRestrictedSSNType
-                    )
+                    optional(:TINIdentification).maybe(:string)
                   end
 
                   optional(:TaxReturnYear).maybe(

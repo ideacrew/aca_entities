@@ -15,7 +15,7 @@ module AcaEntities
         params do
           optional(:hbx_id).value(:str?)
           optional(:start_on).value(:date)
-          optional(:end_on).value(:date)
+          optional(:end_on).maybe(:date)
           optional(:is_active).maybe(:bool)
         end
       end

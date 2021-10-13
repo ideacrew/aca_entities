@@ -60,7 +60,6 @@ module AcaEntities
           #   collector << applicant_hash
           #   collector
           # end
-
           [application_hash.merge!(applicants: result)]
         end
 
@@ -70,13 +69,14 @@ module AcaEntities
           {
             hbx_id: '1234', # default value
             us_state: 'ME', # default value
-            assistance_year: 2021, # default_value
+            assistance_year: 2021, # default_value,
+            transfer_id: @memoized_data.resolve('external_id').item,
             parent_living_out_of_home_terms: @memoized_data.resolve('parent_living_out_of_home_terms').item,
             report_change_terms: @memoized_data.resolve('report_change_terms').item,
             medicaid_terms: @memoized_data.resolve('medicaid_terms').item,
             is_renewal_authorized: @memoized_data.resolve('is_renewal_authorized').item,
             family_reference: { hbx_id: @memoized_data.resolve('family.hbx_id').item.to_s },
-            aptc_effective_date: Date.today # default value
+            aptc_effective_date: Date.today # default value,
           }
         end
 

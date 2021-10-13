@@ -24,7 +24,7 @@ module AcaEntities
 
           namespace 'family' do
             rewrap 'aces', type: :hash do
-              map 'external_app_id', 'external_app_id'
+              map 'external_app_id', 'ext_app_id'
               map 'hbx_id', 'hbx_id', memoize: true, visible: false
               map 'magi_medicaid_applications.us_state', 'us_state', memoize: true, visible: false
               add_key "senders", function: lambda { |v|
@@ -135,8 +135,10 @@ module AcaEntities
                       member_id = v.find(/family.family_members.(\w+)$/).map(&:item).last
                       applicants_hash = v.resolve('family.magi_medicaid_applications.applicants').item
                       applicant_hash = applicants_hash[member_id.to_sym]
-                      citizenship_information = applicant_hash[:citizenship_immigration_status_information]
-                      citizen_status = citizenship_information[:citizen_status]
+                      if applicant_hash
+                        citizenship_information = applicant_hash[:citizenship_immigration_status_information]
+                        citizen_status = citizenship_information[:citizen_status]
+                      end
                       citizen_status == 'us_citizen'
                     }
                     add_key 'living_indicator'
@@ -156,7 +158,7 @@ module AcaEntities
                       member_id = v.find(/family.family_members.(\w+)$/).map(&:item).last
                       applicants_hash = v.resolve('family.magi_medicaid_applications.applicants').item
                       applicant_hash = applicants_hash[member_id.to_sym]
-                      applicant_hash[:age_of_applicant]
+                      applicant_hash ? applicant_hash[:age_of_applicant] : nil
                     }
                     map 'person_demographics.tribal_state', 'tribal_augmentation.location_state_us_postal_service_code', memoize: true, visible: true
                     map 'person_demographics.tribal_name', 'tribal_augmentation.person_tribe_name', memoize: true, visible: true
@@ -175,8 +177,10 @@ module AcaEntities
                       member_id = v.find(/family.family_members.(\w+)$/).map(&:item).last
                       applicants_hash = v.resolve('family.magi_medicaid_applications.applicants').item
                       applicant_hash = applicants_hash[member_id.to_sym]
-                      citizenship_information = applicant_hash[:citizenship_immigration_status_information]
-                      citizen_status = citizenship_information[:citizen_status]
+                      if applicant_hash
+                        citizenship_information = applicant_hash[:citizenship_immigration_status_information]
+                        citizen_status = citizenship_information[:citizen_status]
+                      end
                       citizen_status == 'naturalized_citizen'
                     }
 
@@ -187,13 +191,15 @@ module AcaEntities
                       member_id = v.find(/family.family_members.(\w+)$/).map(&:item).last
                       applicants_hash = v.resolve('family.magi_medicaid_applications.applicants').item
                       applicant_hash = applicants_hash[member_id.to_sym]
-                      pregnancy_information = applicant_hash[:pregnancy_information]
-                      due_date = pregnancy_information[:pregnancy_due_on]
-                      date_range = { :end_date => { :date => Date.parse(due_date) } } if due_date
+                      if applicant_hash
+                        pregnancy_information = applicant_hash[:pregnancy_information]
+                        due_date = pregnancy_information[:pregnancy_due_on]
+                        date_range = { :end_date => { :date => Date.parse(due_date) } } if due_date
 
-                      { :status_indicator => pregnancy_information[:is_pregnant],
-                        :status_valid_date_range => date_range,
-                        :expected_baby_quantity => pregnancy_information[:expected_children_count] }
+                        { :status_indicator => pregnancy_information[:is_pregnant],
+                          :status_valid_date_range => date_range,
+                          :expected_baby_quantity => pregnancy_information[:expected_children_count] }
+                      end
                     }
 
                     add_key 'person_augmentation.incomes', function: AcaEntities::Atp::Functions::IncomeBuilder.new

@@ -160,33 +160,6 @@ channels:
           content_type: application/json
           bindingVersion: 0.2.0
 
-  enroll.iap.transfers.transferred_account_response:
-    bindings:
-      amqp:
-        is: :routing_key
-        exchange:
-          name: enroll.iap.transfers
-          type: topic
-          content_type: application/json
-          durable: true
-          auto_delete: false
-          vhost: event_source
-        binding_version: '0.2.0'
-    publish:
-      operationId: enroll.iap.transfers.transferred_account_response
-      description: Events - Account Transfer Response from enroll
-      bindings:
-        amqp:
-          app_id: enroll
-          type: enroll.iap.transfers
-          routing_key: enroll.iap.transfers.transferred_account_response
-          expiration: 100_000
-          deliveryMode: 2
-          mandatory: true
-          timestamp: true
-          content_type: application/json
-          bindingVersion: 0.2.0
-
   enroll.iap.mec_check.mec_check_requested:
     bindings:
       amqp:

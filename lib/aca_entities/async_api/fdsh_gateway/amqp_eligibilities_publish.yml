@@ -49,7 +49,6 @@ channels:
           app_id: fdsh_gateway
           type: fdsh.eligibilities.ridp
           routing_key: fdsh.eligibilities.ridp.primary_determination_complete
-          expiration: 100_000
           deliveryMode: 2
           mandatory: true
           timestamp: true
@@ -76,7 +75,6 @@ channels:
           app_id: fdsh_gateway
           type: fdsh.eligibilities.ridp
           routing_key: fdsh.eligibilities.ridp.secondary_determination_complete
-          expiration: 100_000
           deliveryMode: 2
           mandatory: true
           timestamp: true
@@ -103,7 +101,6 @@ channels:
           app_id: fdsh_gateway
           type: fdsh.eligibilities.vlp
           routing_key: fdsh.eligibilities.vlp.initial_verification_complete
-          expiration: 100_000
           deliveryMode: 2
           mandatory: true
           timestamp: true
@@ -130,7 +127,6 @@ channels:
           app_id: fdsh_gateway
           type: fdsh.eligibilities.ssa
           routing_key: fdsh.eligibilities.ssa.ssa_verification_complete
-          expiration: 100_000
           deliveryMode: 2
           mandatory: true
           timestamp: true
@@ -156,7 +152,6 @@ channels:
           app_id: fdsh_gateway
           type: fdsh.eligibilities.esi
           routing_key: fdsh.eligibilities.esi.esi_determination_complete
-          expiration: 100_000
           deliveryMode: 2
           mandatory: true
           timestamp: true
@@ -182,7 +177,6 @@ channels:
           app_id: fdsh_gateway
           type: fdsh.eligibilities.non_esi
           routing_key: fdsh.eligibilities.non_esi.non_esi_determination_complete
-          expiration: 100_000
           deliveryMode: 2
           mandatory: true
           timestamp: true
@@ -208,7 +202,6 @@ channels:
           app_id: fdsh_gateway
           type: fdsh.eligibilities.ifsv
           routing_key: fdsh.eligibilities.ifsv.ifsv_eligibility_errored
-          expiration: 100_000
           deliveryMode: 2
           mandatory: true
           timestamp: true
@@ -234,7 +227,6 @@ channels:
           app_id: fdsh_gateway
           type: fdsh.eligibilities.ifsv
           routing_key: fdsh.eligibilities.ifsv.ifsv_eligibility_delayed
-          expiration: 100_000
           deliveryMode: 2
           mandatory: true
           timestamp: true
@@ -260,7 +252,6 @@ channels:
           app_id: fdsh_gateway
           type: fdsh.renewal_eligibilities.medicare
           routing_key: fdsh.renewal_eligibilities.medicare.magi_medicaid_application_renewal_eligibilities_medicare_determined
-          expiration: 100_000
           deliveryMode: 2
           mandatory: true
           timestamp: true

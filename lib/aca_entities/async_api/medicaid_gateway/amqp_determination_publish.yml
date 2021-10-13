@@ -49,7 +49,6 @@ channels:
           app_id: medicaid_gateway
           type: magi_medicaid.mitc.eligibilities
           routing_key: magi_medicaid.mitc.eligibilities.determined_uqhp_eligible
-          expiration: 100_000
           deliveryMode: 2
           mandatory: true
           timestamp: true
@@ -76,7 +75,6 @@ channels:
           app_id: medicaid_gateway
           type: magi_medicaid.mitc.eligibilities
           routing_key: magi_medicaid.mitc.eligibilities.determined_mixed_determination
-          expiration: 100_000
           deliveryMode: 2
           mandatory: true
           timestamp: true
@@ -103,7 +101,6 @@ channels:
           app_id: medicaid_gateway
           type: magi_medicaid.mitc.eligibilities
           routing_key: magi_medicaid.mitc.eligibilities.determined_magi_medicaid_eligible
-          expiration: 100_000
           deliveryMode: 2
           mandatory: true
           timestamp: true
@@ -129,7 +126,6 @@ channels:
           app_id: medicaid_gateway
           type: magi_medicaid.mitc.eligibilities
           routing_key: magi_medicaid.mitc.eligibilities.determined_totally_ineligible
-          expiration: 100_000
           deliveryMode: 2
           mandatory: true
           timestamp: true
@@ -156,7 +152,6 @@ channels:
           app_id: medicaid_gateway
           type: magi_medicaid.mitc.eligibilities
           routing_key: magi_medicaid.mitc.eligibilities.determined_medicaid_chip_eligible
-          expiration: 100_000
           deliveryMode: 2
           mandatory: true
           timestamp: true
@@ -183,7 +178,6 @@ channels:
           app_id: medicaid_gateway
           type: magi_medicaid.mitc.eligibilities
           routing_key: magi_medicaid.mitc.eligibilities.determined_aptc_eligible
-          expiration: 100_000
           deliveryMode: 2
           mandatory: true
           timestamp: true

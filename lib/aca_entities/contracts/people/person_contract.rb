@@ -54,9 +54,7 @@ module AcaEntities
           optional(:person_relationships).maybe(:array).each(AcaEntities::Contracts::People::PersonRelationshipContract.params)
           optional(:consumer_role).maybe(AcaEntities::Contracts::People::ConsumerRoleContract.params)
           optional(:resident_role).maybe(AcaEntities::Contracts::People::ResidentRoleContract.params)
-          optional(:individual_market_transitions).maybe(:array).each(
-            AcaEntities::Contracts::Determinations::IndividualMarketTransitionContract.params
-          )
+          optional(:individual_market_transitions).array(AcaEntities::Contracts::Determinations::IndividualMarketTransitionContract.params)
           optional(:verification_types).array(AcaEntities::Contracts::Verifications::VerificationTypeContract.params)
           optional(:user).maybe(AcaEntities::Contracts::Accounts::UserContract.params)
           optional(:broker_role).maybe(AcaEntities::Contracts::Brokers::BrokerRoleContract.params)
