@@ -193,20 +193,21 @@ module AcaEntities
             end
           end
 
+          # Disabled for maine as per CMS
           # Student
-          student = value[:student]
-          student_failure_key = [:applicants, index, :student]
+          # student = value[:student]
+          # student_failure_key = [:applicants, index, :student]
 
-          if Types::StudentRange.cover?(age_of_applicant)
-            err_text = "must be filled if age of applicant is within #{Types::StudentRange}."
-            key(student_failure_key + [:is_student]).failure(text: err_text) if check_if_blank?(student[:is_student])
+          # if Types::StudentRange.cover?(age_of_applicant)
+          #   err_text = "must be filled if age of applicant is within #{Types::StudentRange}."
+          #   key(student_failure_key + [:is_student]).failure(text: err_text) if check_if_blank?(student[:is_student])
 
-            if student[:is_student]
-              key(student_failure_key + [:student_kind]).failure(text: err_text) if check_if_blank?(student[:student_kind])
+          #   if student[:is_student]
+          #     key(student_failure_key + [:student_kind]).failure(text: err_text) if check_if_blank?(student[:student_kind])
 
-              key(student_failure_key + [:student_school_kind]).failure(text: err_text) if check_if_blank?(student[:student_school_kind])
-            end
-          end
+          #     key(student_failure_key + [:student_school_kind]).failure(text: err_text) if check_if_blank?(student[:student_school_kind])
+          #   end
+          # end
 
           # Phone
           if check_if_present?(value[:phones]) && value[:phones].is_a?(Array)
