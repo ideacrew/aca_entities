@@ -180,7 +180,6 @@ channels:
           app_id: enroll
           type: enroll.iap.transfers
           routing_key: enroll.iap.transfers.transferred_account_response
-          expiration: 100_000
           deliveryMode: 2
           mandatory: true
           timestamp: true
