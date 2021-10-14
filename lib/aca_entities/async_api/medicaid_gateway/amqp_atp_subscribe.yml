@@ -48,6 +48,7 @@ channels:
           ack: true
           exclusive: false
           routing_key: enroll.iap.transfers.#
+          prefetch: 1
           bindingVersion: "0.2.0"
       operationId: on_medicaid_gateway.enroll.iap.transfers
       description: Events - Enroll transfer account to Medicaid Gateway
