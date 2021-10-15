@@ -18,7 +18,11 @@ module AcaEntities
           map 'documentType', 'documentType', memoize_record: true, visible: false
           map 'lastModifiedDateTime', 'created_at', memoize_record: true, visible: false
           add_key 'timestamp.created_at', function: lambda { |v|
-                                                      v.resolve('created_at').item.to_datetime
+                                                      begin
+                                                        v.resolve('created_at').item.to_datetime
+                                                      rescue StandardError
+                                                        DateTime.now
+                                                      end
                                                     }
           map 'policyTrackingNumber', 'external_id', function: ->(v) {v.to_s}
           map 'supersededIndicator', 'supersededIndicator', memoize_record: true, visible: false
@@ -250,15 +254,16 @@ module AcaEntities
                                                                     }
           add_key "aasm_state", function: lambda { |v|
                                             state = v.resolve('aasm_state').item
-                                            start_date = v.resolve('effective_on').item
-                                            term_date = v.resolve('terminated_on').item
+                                            start_date = Date.strptime(v.resolve('effective_on').item, "%Y-%m-%d")
+                                            term_date = Date.strptime(v.resolve('terminated_on').item, "%Y-%m-%d")
                                             end_of_year = v.resolve('specifiedEOYEndDateIndicator').item
                                             superseded_ind = v.resolve('supersededIndicator').item
                                             cancel_by_state = state == "CANCELLED"
-                                            cancel_by_date = (start_date == term_date || start_date > term_date)
+                                            cancel_by_date = start_date && term_date && (start_date == term_date || start_date > term_date)
                                             cancel_by_indicator = superseded_ind.to_s == "true"
                                             return "coverage_canceled" if cancel_by_state || cancel_by_date || cancel_by_indicator
-                                            term_by_date = (term_date > start_date && term_date.to_date != Date.new(2021, 12, 31))
+                                            term_by_date = start_date && term_date &&
+                                                           (term_date > start_date && term_date.to_date != Date.new(2021, 12, 31))
                                             term_indicator = end_of_year.to_s == "true"
                                             return "coverage_terminated" if term_by_date || term_indicator
                                             "coverage_selected"
