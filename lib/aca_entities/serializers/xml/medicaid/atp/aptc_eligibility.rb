@@ -27,8 +27,8 @@ module AcaEntities
 
             def to_hash
               {
-                eligibility_date_range: eligibility_date_range.to_hash,
-                eligibility_establishing_system: eligibility_establishing_system.to_hash
+                eligibility_date_range: eligibility_date_range&.to_hash,
+                eligibility_establishing_system: eligibility_establishing_system&.to_hash
               }
             end
           end
