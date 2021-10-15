@@ -75,6 +75,8 @@ module AcaEntities
           optional(:waiver_reason).maybe(:string)
           optional(:review_status).maybe(:string)
           optional(:external_enrollment).maybe(:bool)
+          optional(:external_id).maybe(:string)
+          optional(:external_group_identifiers).maybe(:array)
           optional(:predecessor_enrollment).hash(AcaEntities::Contracts::Enrollments::HbxEnrollmentReferenceContract.params)
 
           optional(:coverage_household_reference).hash(AcaEntities::Contracts::Households::CoverageHouseholdReferenceContract.params)

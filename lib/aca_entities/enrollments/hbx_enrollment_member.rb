@@ -13,6 +13,8 @@ module AcaEntities
       attribute :eligibility_date,          Types::Date.meta(omittable: false)
       attribute :coverage_start_on,         Types::Date.meta(omittable: false)
       attribute :coverage_end_on,           Types::Date.optional.meta(omittable: true)
+      attribute :tobacco_use,               Types::String.optional.meta(omittable: true)
+      attribute :external_id,               Types::String.optional.meta(omittable: true)
     end
   end
 end

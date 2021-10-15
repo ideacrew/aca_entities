@@ -19,7 +19,7 @@ RSpec.describe AcaEntities::FFE::Operations::McrTo::Enrollment do
     end
 
     it 'should return all the enrollment level attributes' do
-      expect(@request_payload_hash).to have_key(:hbx_id)
+      expect(@request_payload_hash).to have_key(:external_id)
       expect(@request_payload_hash).to have_key(:effective_on)
       expect(@request_payload_hash).to have_key(:market_place_kind)
       expect(@request_payload_hash).to have_key(:enrollment_period_kind)

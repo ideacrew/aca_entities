@@ -25,6 +25,8 @@ module AcaEntities
           required(:eligibility_date).filled(:date)
           required(:coverage_start_on).filled(:date)
           optional(:coverage_end_on).maybe(:date)
+          optional(:tobacco_use).maybe(:string)
+          optional(:external_id).maybe(:string)
         end
       end
     end
