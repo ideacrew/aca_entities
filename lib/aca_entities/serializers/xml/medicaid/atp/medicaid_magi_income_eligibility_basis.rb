@@ -35,7 +35,7 @@ module AcaEntities
                 status_indicator: status_indicator,
                 status_code: status_code,
                 ineligibility_reason_text: ineligibility_reason_text,
-                eligibility_basis_determination: eligibility_basis_determination,
+                determination: determination,
                 income_compatibility: income_compatibility,
                 state_threshold_fpl_percent: state_threshold_fpl_percent
               }

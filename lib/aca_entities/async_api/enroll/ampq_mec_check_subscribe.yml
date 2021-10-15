@@ -46,6 +46,7 @@ channels:
           ack: true
           exclusive: false
           routing_key: magi_medicaid.mec_check.#
+          prefetch: 1
           bindingVersion: "0.2.0"
       operationId: on_enroll.magi_medicaid.mec_check
       description: Events - MEC Check from ACES into Enroll

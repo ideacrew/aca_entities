@@ -48,6 +48,7 @@ channels:
           ack: true
           exclusive: false
           routing_key: enroll.iap.mec_check.mec_check_requested
+          prefetch: 1
           bindingVersion: "0.2.0"
       operationId: on_medicaid_gateway.enroll.iap.mec_check
       description: Events - Enroll requested MEC Check to Medicaid Gateway

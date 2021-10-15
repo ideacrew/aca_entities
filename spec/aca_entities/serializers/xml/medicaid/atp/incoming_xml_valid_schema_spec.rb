@@ -4,9 +4,8 @@ require 'spec_helper'
 require 'aca_entities/serializers/xml/medicaid/atp'
 require 'open3'
 
-# rubocop:disable Lint/Syntax
 RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequest do
-  
+
   let(:sample_location) do
     loc = File.join(
       File.dirname(__FILE__),
@@ -21,7 +20,7 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
 
   # Split sample file on comments (ignoring the first one) and store just the payloads
   let(:payloads) {sample_xml.split(/<!-- payload (?:1[0-9]+|[2-9]+) -->/)}
-  
+
   let(:schema_location) do
     loc = File.join(
       File.dirname(__FILE__),
@@ -59,10 +58,10 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
       schema.validate(doc).each do |error|
         # Get payload specific line number from error message and adjust
         error_line_no = error.to_s[0..2].to_i + line_adjust
-        puts "\n\n======= Schema Error in Payload #{i+1} at line #{error_line_no} ======="
+        puts "\n\n======= Schema Error in Payload #{i + 1} at line #{error_line_no} ======="
         # Ignore unhelpful line number
-        puts error.message.to_s[7..]
-      end 
+        # puts error.message.to_s[7..]
+      end
       expect(schema.valid?(doc)).to be_truthy
 
       line_adjust += payloads[i].count("\n")
@@ -90,4 +89,3 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
   #   end
   # end
 end
-# rubocop:enable Lint/Syntax
