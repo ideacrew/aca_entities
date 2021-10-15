@@ -49,7 +49,6 @@ channels:
           app_id: medicaid_gateway
           type: magi_medicaid.mec_check
           routing_key: magi_medicaid.mec_check.mec_checked
-          expiration: 100_000
           deliveryMode: 2 
           mandatory: true
           timestamp: true

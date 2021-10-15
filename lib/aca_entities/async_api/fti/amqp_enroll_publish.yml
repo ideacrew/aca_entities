@@ -49,7 +49,6 @@ channels:
           app_id: fti_gateway
           type: fti.eligibilities
           routing_key: fti.eligibilities.fdsh_eligibilities_ifsv_determined
-          expiration: 100_000
           deliveryMode: 2
           mandatory: true
           timestamp: true
@@ -75,7 +74,6 @@ channels:
           app_id: fti_gateway
           type: fti.eligibilities
           routing_key: fti.eligibilities.fdsh_eligibilities_ifsv_errored
-          expiration: 100_000
           deliveryMode: 2
           mandatory: true
           timestamp: true
@@ -101,7 +99,6 @@ channels:
           app_id: fti_gateway
           type: fti.eligibilities
           routing_key: fti.eligibilities.fdsh_eligibilities_ifsv_delayed
-          expiration: 100_000
           deliveryMode: 2
           mandatory: true
           timestamp: true
@@ -127,7 +124,6 @@ channels:
           app_id: fti_gateway
           type: fti.renewal_eligibilities.ifsv
           routing_key: fti.renewal_eligibilities.ifsv.magi_medicaid_application_renewal_eligibilities_ifsv_determined
-          expiration: 100_000
           deliveryMode: 2
           mandatory: true
           timestamp: true
@@ -136,3 +132,6 @@ channels:
       operationId: fti.renewal_eligibilities.ifsv.magi_medicaid_application_renewal_eligibilities_ifsv_determined
       description: RRV IFSV Determination completed.
 
+tags:
+  - name: linter_tag
+    description: placeholder that satisfies the linter

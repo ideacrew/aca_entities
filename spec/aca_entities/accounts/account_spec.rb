@@ -11,26 +11,31 @@ RSpec.describe AcaEntities::Accounts::Account do
   let(:last_name) { 'my_last_name' }
   let(:password) { '$3cr3tP@55w0rd' }
 
-  let(:created_at) { DateTime.now }
-  let(:submitted_at) { created_at }
-  let(:modified_at) { created_at }
-  let(:timestamps) do
-    {
-      created_at: created_at,
-      submitted_at: submitted_at,
-      modified_at: modified_at
-    }
-  end
+  let(:enabled) { true }
+  let(:totp) { true }
+  let(:email_verified) { false }
+  let(:not_before) { 0 }
+  let(:access) { {} }
+  let(:groups) { [] }
+  let(:roles) { [] }
 
-  let(:required_params) { {} }
+  let(:created_at) { DateTime.now }
+
+  let(:required_params) { { username: username } }
   let(:optional_params) do
     {
-      username: username,
       email: email,
       first_name: first_name,
       last_name: last_name,
       password: password,
-      timestamps: timestamps
+      enabled: enabled,
+      totp: totp,
+      email_verified: email_verified,
+      not_before: not_before,
+      roles: roles,
+      access: access,
+      groups: groups,
+      created_at: created_at
     }
   end
   let(:all_params) { required_params.merge(optional_params) }

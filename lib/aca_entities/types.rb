@@ -1950,6 +1950,8 @@ module AcaEntities
     EmailAddressRegex = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
       .freeze
 
+    EmailAddressKind = Types::String.constrained(format: EmailAddressRegex)
+
     # Regex for PhoneNumber
     NumbersOnlyRegex = /^[0-9]/.freeze
 

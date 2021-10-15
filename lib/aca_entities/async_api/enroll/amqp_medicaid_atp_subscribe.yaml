@@ -45,6 +45,7 @@ channels:
           ack: true
           exclusive: false
           routing_key: magi_medicaid.atp.enroll.#
+          prefetch: 1
           bindingVersion: "0.2.0"
       operationId: on_enroll.magi_medicaid.atp.enroll
       description: Events - ATP from ACES into Enroll

@@ -49,7 +49,6 @@ channels:
           app_id: medicaid_gateway
           type: magi_medicaid.atp.enroll
           routing_key: magi_medicaid.atp.enroll.transfer_in
-          expiration: 100_000
           deliveryMode: 2 
           mandatory: true
           timestamp: true

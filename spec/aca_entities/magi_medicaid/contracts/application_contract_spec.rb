@@ -711,55 +711,55 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicationContract,  dbcle
         end
       end
 
-      context 'student' do
-        let(:obj_call) do
-          appl_params = applicant.merge({ student: local_student, demographic: demographic.merge({ dob: Date.new(Date.today.year - 18) }) })
-          subject.call(input_params.merge({ applicants: [appl_params] }))
-        end
-        let(:student) do
-          { age_of_applicant: (18..19).to_a.sample,
-            is_student: true,
-            student_kind: 'graduated',
-            student_school_kind: 'graduate_school',
-            student_status_end_on: nil }
-        end
+      # context 'student' do
+      #   let(:obj_call) do
+      #     appl_params = applicant.merge({ student: local_student, demographic: demographic.merge({ dob: Date.new(Date.today.year - 18) }) })
+      #     subject.call(input_params.merge({ applicants: [appl_params] }))
+      #   end
+      #   let(:student) do
+      #     { age_of_applicant: (18..19).to_a.sample,
+      #       is_student: true,
+      #       student_kind: 'graduated',
+      #       student_school_kind: 'graduate_school',
+      #       student_status_end_on: nil }
+      #   end
 
-        context 'is_student' do
-          let(:local_student) do
-            student.delete(:is_student)
-            student
-          end
+      #   context 'is_student' do
+      #     let(:local_student) do
+      #       student.delete(:is_student)
+      #       student
+      #     end
 
-          it 'should return failure with error message' do
-            err = obj_call.errors.to_h[:applicants][0][:student][:is_student].first
-            expect(err).to eq("must be filled if age of applicant is within #{AcaEntities::MagiMedicaid::Types::StudentRange}.")
-          end
-        end
+      #     it 'should return failure with error message' do
+      #       err = obj_call.errors.to_h[:applicants][0][:student][:is_student].first
+      #       expect(err).to eq("must be filled if age of applicant is within #{AcaEntities::MagiMedicaid::Types::StudentRange}.")
+      #     end
+      #   end
 
-        context 'student_kind' do
-          let(:local_student) do
-            student.delete(:student_kind)
-            student
-          end
+      #   context 'student_kind' do
+      #     let(:local_student) do
+      #       student.delete(:student_kind)
+      #       student
+      #     end
 
-          it 'should return failure with error message' do
-            err = obj_call.errors.to_h[:applicants][0][:student][:student_kind].first
-            expect(err).to eq("must be filled if age of applicant is within #{AcaEntities::MagiMedicaid::Types::StudentRange}.")
-          end
-        end
+      #     it 'should return failure with error message' do
+      #       err = obj_call.errors.to_h[:applicants][0][:student][:student_kind].first
+      #       expect(err).to eq("must be filled if age of applicant is within #{AcaEntities::MagiMedicaid::Types::StudentRange}.")
+      #     end
+      #   end
 
-        context 'student_school_kind' do
-          let(:local_student) do
-            student.delete(:student_school_kind)
-            student
-          end
+      #   context 'student_school_kind' do
+      #     let(:local_student) do
+      #       student.delete(:student_school_kind)
+      #       student
+      #     end
 
-          it 'should return failure with error message' do
-            err = obj_call.errors.to_h[:applicants][0][:student][:student_school_kind].first
-            expect(err).to eq("must be filled if age of applicant is within #{AcaEntities::MagiMedicaid::Types::StudentRange}.")
-          end
-        end
-      end
+      #     it 'should return failure with error message' do
+      #       err = obj_call.errors.to_h[:applicants][0][:student][:student_school_kind].first
+      #       expect(err).to eq("must be filled if age of applicant is within #{AcaEntities::MagiMedicaid::Types::StudentRange}.")
+      #     end
+      #   end
+      # end
 
       context 'phones' do
         context 'end_on' do

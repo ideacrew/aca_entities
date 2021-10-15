@@ -9,6 +9,9 @@ module AcaEntities
       attribute :person_hbx_id,                 Types::String.optional.meta(omittable: true)
       attribute :is_primary_family_member,      Types::Bool.optional.meta(omittable: true)
       attribute :age,                           Types::Integer.optional.meta(omittable: true)
+      attribute :ssn,                           Types::String.optional.meta(omittable: true)
+      attribute :encrypted_ssn,                 Types::String.optional.meta(omittable: true)
+      attribute :dob,                           Types::Date.optional.meta(omittable: true)
     end
   end
 end

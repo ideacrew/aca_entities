@@ -11,10 +11,8 @@ module AcaEntities
         extend Forwardable
 
         def_delegators :config,
-                       :load_encryption,
-                       :encrypted_key,
-                       :encrypted_iv,
-                       :private_rsa_key
+                       :secret_key,
+                       :iv
 
         def configure
           yield(config)
@@ -22,7 +20,6 @@ module AcaEntities
         end
 
         def initialize!
-          load_encryption
         end
 
         def config

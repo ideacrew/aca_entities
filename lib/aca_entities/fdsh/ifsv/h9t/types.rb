@@ -27,14 +27,14 @@ module AcaEntities
 
           TaxReturnFilingStatusCodeKind =
             Types::Coercible::String.enum(
-              '0', #: 'Single, Filing Declaration of Estimated Income Tax',
-              '1', #: 'Single Taxpayer',
-              '2', #: 'Married Taxpayer filing Joint Return',
-              '3', #: 'Married Taxpayer filing a Separate Return (Spouse exemption is NOT claimed)',
-              '4', #: 'Head of Household (Claiming Dependent)',
-              '5', #: 'Widow(er) with a Dependent Child',
-              '6', #: 'Married Taxpayer filing a Separate Return (Spouse exemption IS claimed)',
-              '7' #: 'Head of Household (Dependent is NOT Claimed)'
+              '0', # : 'Single, Filing Declaration of Estimated Income Tax',
+              '1', # : 'Single Taxpayer',
+              '2', # : 'Married Taxpayer filing Joint Return',
+              '3', # : 'Married Taxpayer filing a Separate Return (Spouse exemption is NOT claimed)',
+              '4', # : 'Head of Household (Claiming Dependent)',
+              '5', # : 'Widow(er) with a Dependent Child',
+              '6', # : 'Married Taxpayer filing a Separate Return (Spouse exemption IS claimed)',
+              '7' # : 'Head of Household (Dependent is NOT Claimed)'
             ).freeze
 
           TaxReturnYearType = Types::Coercible::Integer # # 1000 -> 9999

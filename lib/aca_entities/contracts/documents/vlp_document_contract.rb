@@ -25,7 +25,7 @@ module AcaEntities
           required(:subject).filled(Types::VlpDocumentKind)
           optional(:alien_number).maybe(:string, size?: 9)
           optional(:i94_number).maybe(:string, size?: 11)
-          optional(:visa_number).maybe(:string, size?: 8)
+          optional(:visa_number).maybe(:string, size?: 8..12)
           optional(:passport_number).maybe(:string, size?: 6..12)
           optional(:sevis_id).maybe(:string, size?: 10)
           optional(:naturalization_number).maybe(:string, size?: 6..12)

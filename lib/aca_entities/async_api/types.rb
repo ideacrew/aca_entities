@@ -13,7 +13,8 @@ module AcaEntities
           'medicaid_gateway',
           'polypress',
           'fdsh_gateway',
-          'enroll'
+          'enroll',
+          'enroll_web'
         ).freeze
 
       ProtocolNameKind =

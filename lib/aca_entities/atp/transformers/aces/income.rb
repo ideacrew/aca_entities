@@ -15,7 +15,7 @@ module AcaEntities
             'alimony_and_maintenance' => 'Alimony',
             'capital_gains' => 'CapitalGains',
             # 'Dividends' => 'dividend',
-            'dividend' => 'Dividends',
+            'dividend' => 'Unspecified',
             'interest' => 'Interest',
             'pension_retirement_benefits' => 'Pension',
             # 'pension_retirement_benefits' => 'Retirement',

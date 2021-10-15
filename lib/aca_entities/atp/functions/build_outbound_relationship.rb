@@ -75,7 +75,7 @@ module AcaEntities
               ::AcaEntities::MagiMedicaid::Mitc::Types::RelationshipCodeMap.invert[person_relationship[:relationship_code]] || '88'
             relation = RelationshipCodeMap[mitc_relationship_code]
             atp_relationship_code = AcaEntities::Types::RelationshipToTaxFilerCodeMap.invert[relation.to_s].to_s
-            collect << { :person => { :ref => person_relationship[:other_id] }, :family_relationship_code => atp_relationship_code,
+            collect << { :person => { :ref => "SBM#{person_relationship[:other_id]}" }, :family_relationship_code => atp_relationship_code,
                          :caretaker_dependent_code => nil }
           end
         end

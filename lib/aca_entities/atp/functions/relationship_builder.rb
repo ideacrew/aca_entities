@@ -48,6 +48,7 @@ module AcaEntities
           @primary_applicant_id = @memoized_data.resolve('primary_applicant_identifier').item
           current_member = @memoized_data.find(/record.people.(\w+)$/).map(&:item).last
           relationship = ''
+          default = @primary_applicant_id == current_member ? 'self' : 'other_relationship'
           family_relationships.each do |family_relationship|
             primary_match = family_relationship[:person] == @primary_applicant_id
             if @primary_applicant_id == current_member
@@ -60,7 +61,8 @@ module AcaEntities
             end
           end
 
-          [{ relative: person_hash, kind: MAPPING_RELATIONS[relationship] }]
+          kind = MAPPING_RELATIONS[relationship] || default
+          [{ relative: person_hash, kind: kind }]
         end
 
         private

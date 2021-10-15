@@ -30,12 +30,6 @@ module AcaEntities
           # Validates the params against MCR Enrollment Contract and Entity
           def validate_mcr_policy(_params)
             Success(true)
-            # TODO: Add MCR contracts
-            # if result.success?
-            #   Success(result.to_h)
-            # else
-            #   Failure(result)
-            # end
           end
 
           # Transform MCR Validated policy params to Enrollment Contract params

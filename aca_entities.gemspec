@@ -42,5 +42,6 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'deep_merge'
   spec.add_dependency 'nokogiri-happymapper'
   spec.add_dependency 'iso_country_codes'
+  spec.add_dependency 'rbnacl', "~> 7.1"
   spec.add_development_dependency 'pry-byebug'
 end
