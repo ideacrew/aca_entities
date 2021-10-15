@@ -111,8 +111,8 @@ module AcaEntities
       }.freeze
 
       ProductKind = {
-          "HEALTHCARE" => "health",
-          "DENTAL" => "dental"
+        "HEALTHCARE" => "health",
+        "DENTAL" => "dental"
       }.freeze
 
       VariantMap = {
@@ -122,7 +122,7 @@ module AcaEntities
         "73PCT_AV_LEVEL_SILVER_PLAN_CSR" => "04",
         "87PCT_AV_LEVEL_SILVER_PLAN_CSR" => "05",
         "94PCT_AV_LEVEL_SILVER_PLAN_CSR" => "06"
-      }
+      }.freeze
     end
   end
 end

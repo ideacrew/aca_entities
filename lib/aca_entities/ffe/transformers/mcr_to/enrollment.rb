@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'aca_entities/ffe/types'
 
 # This file defines the maps
@@ -16,8 +17,9 @@ module AcaEntities
           # record_delimiter 'enrollments'
           map 'documentType', 'documentType', memoize_record: true, visible: false
           map 'lastModifiedDateTime', 'created_at', memoize_record: true, visible: false
-          add_key 'timestamp.created_at', function: ->(v) {
-                    v.resolve('created_at').item.to_datetime}
+          add_key 'timestamp.created_at', function: lambda { |v|
+                                                      v.resolve('created_at').item.to_datetime
+                                                    }
           map 'policyTrackingNumber', 'external_id', function: ->(v) {v.to_s}
           map 'supersededIndicator', 'supersededIndicator', memoize_record: true, visible: false
           map 'marketplaceGroupPolicyIdentifiersTiedToApplication', 'external_group_identifiers'
@@ -26,20 +28,20 @@ module AcaEntities
 
           namespace 'insurancePolicyStatus' do
             # map 'insurancePolicyStatusDateTime'
-            map 'definingInsurancePolicyStatusTypeCodeName', 'aasm_state',memoize_record: true, visible: false
+            map 'definingInsurancePolicyStatusTypeCodeName', 'aasm_state', memoize_record: true, visible: false
           end
           map 'isActive', 'is_active'
           add_key 'market_place_kind', value: 'individual'
           add_key 'enrollment_period_kind', value: 'open_enrollment'
           map 'associatedProductDivisionReferenceTypeCodeName', 'product_kind', function: lambda { |value|
-                                                                                  Ffe::Types::ProductKind[value.to_s]
+                                                                                            Ffe::Types::ProductKind[value.to_s]
                                                                                           }, memoize: true
 
           # ********product details start***********
           map 'selectedInsurancePlan', 'product_reference.hios_id', memoize_record: true, visible: false
           map 'insurancePlanVariantName', 'product_reference.name'
           map 'coverageYear', 'product_reference.active_year'
-          map 'associatedMetalTierTypeCodeName', 'product_reference.metal_level', function: lambda { |value| value.downcase.to_s}
+          map 'associatedMetalTierTypeCodeName', 'product_reference.metal_level', function: ->(value) { value.downcase.to_s}
           add_key 'product_reference.benefit_market_kind', value: 'aca_individual'
           add_key 'product_reference.is_dental_only', function: ->(v) { Ffe::Types::ProductKind[v.resolve('product_kind').item.to_s] == "dental"}
           add_key 'product_reference.product_kind', function: ->(v) { Ffe::Types::ProductKind[v.resolve('product_kind').item.to_s]}
@@ -57,11 +59,13 @@ module AcaEntities
           add_key 'issuer_profile_reference.abbrev', value: "Abbrev"
           map 'definingPlanVariantComponentTypeCodeName', 'variant', memoize_record: true, visible: false
           add_key 'product_reference.hios_id', function: lambda { |v|
-                                               product_base = v.resolve('product_reference.hios_id').item.to_s
-                                               return product_base if Ffe::Types::ProductKind[v.resolve('product_kind').item.to_s] == "dental"
-                                               variant = Ffe::Types::VariantMap[v.resolve('variant').item.to_s]
-                                               "#{product_base}-#{variant}"
-                                             }
+                                                           product_base = v.resolve('product_reference.hios_id').item.to_s
+                                                           if Ffe::Types::ProductKind[v.resolve('product_kind').item.to_s] == "dental"
+                                                             return product_base
+                                                           end
+                                                           variant = Ffe::Types::VariantMap[v.resolve('variant').item.to_s]
+                                                           "#{product_base}-#{variant}"
+                                                         }
           # ********product details end***********
 
           # add_key 'coverage_household_reference'
@@ -219,12 +223,13 @@ module AcaEntities
                 # map 'memberAllocatedAPTCAmount', 'applied_aptc_amount', function: ->(v) {{ cents: v.to_f, currency_iso: 'USD' }}
                 add_key 'eligibility_date', function: ->(v) {v.resolve('effective_on').item}
                 add_key 'coverage_start_on', function: ->(v) {v.resolve('effective_on').item}
-                add_key 'coverage_end_on', function: ->(v) { if v.resolve('member_aasm_state').item == "CANCELLED"
-                                                               v.resolve('effective_on').item
-                                                             else
-                                                               v.resolve('terminated_on').item
-                                                             end
-                                         }
+                add_key 'coverage_end_on', function: lambda { |v|
+                                                       if v.resolve('member_aasm_state').item == "CANCELLED"
+                                                         v.resolve('effective_on').item
+                                                       else
+                                                         v.resolve('terminated_on').item
+                                                       end
+                                                     }
                 map 'personTrackingNumber', 'family_member_reference.person_hbx_id'
                 add_key 'family_member_reference.is_primary_family_member', function: ->(v) {v.resolve('is_subscriber').item}
                 add_key 'family_member_reference.family_member_hbx_id', value: '1234'
@@ -240,28 +245,24 @@ module AcaEntities
             end
           end
           map 'specifiedEOYEndDateIndicator', 'specifiedEOYEndDateIndicator', memoize_record: true, visible: false
-          add_key 'is_any_enrollment_member_outstanding', function: ->(v) {
-                                                      v.resolve('documentType').item == "PENDED_PLAN_SELECTION"
-                                                    }
-          add_key "aasm_state", function: ->(v) {
-                                state = v.resolve('aasm_state').item
-                                start_date = v.resolve('effective_on').item
-                                term_date = v.resolve('terminated_on').item
-                                end_of_year = v.resolve('specifiedEOYEndDateIndicator').item
-                                superseded_ind = v.resolve('supersededIndicator').item
-                                cancel_by_state = state == "CANCELLED"
-                                cancel_by_date = (start_date == term_date || start_date > term_date)
-                                cancel_by_indicator = superseded_ind.to_s == "true"
-                                if cancel_by_state || cancel_by_date || cancel_by_indicator
-                                  return "coverage_canceled"
-                                end
-                                term_by_date = (term_date > start_date && term_date.to_date != Date.new(2021,12,31))
-                                term_indicator = end_of_year.to_s == "true"
-                                if  term_by_date || term_indicator
-                                  return "coverage_terminated"
-                                end
-                                "coverage_selected"
-                              }
+          add_key 'is_any_enrollment_member_outstanding', function: lambda { |v|
+                                                                      v.resolve('documentType').item == "PENDED_PLAN_SELECTION"
+                                                                    }
+          add_key "aasm_state", function: lambda { |v|
+                                            state = v.resolve('aasm_state').item
+                                            start_date = v.resolve('effective_on').item
+                                            term_date = v.resolve('terminated_on').item
+                                            end_of_year = v.resolve('specifiedEOYEndDateIndicator').item
+                                            superseded_ind = v.resolve('supersededIndicator').item
+                                            cancel_by_state = state == "CANCELLED"
+                                            cancel_by_date = (start_date == term_date || start_date > term_date)
+                                            cancel_by_indicator = superseded_ind.to_s == "true"
+                                            return "coverage_canceled" if cancel_by_state || cancel_by_date || cancel_by_indicator
+                                            term_by_date = (term_date > start_date && term_date.to_date != Date.new(2021, 12, 31))
+                                            term_indicator = end_of_year.to_s == "true"
+                                            return "coverage_terminated" if term_by_date || term_indicator
+                                            "coverage_selected"
+                                          }
         end
       end
     end
