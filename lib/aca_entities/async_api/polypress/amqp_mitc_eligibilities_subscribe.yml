@@ -54,6 +54,8 @@ channels:
         amqp:
           ack: true
           exclusive: false
+          prefetch: 1
+          block: false
           routing_key: magi_medicaid.mitc.eligibilities.*
           bindingVersion: "0.2.0"
       operationId: on_polypress.magi_medicaid.mitc.eligibilities

@@ -47,8 +47,10 @@ channels:
         amqp:
           ack: true
           exclusive: false
+          prefetch: 1
+          block: false
           routing_key: enroll.individual.enrollments.first_verifications_reminder
-          bindingVersion: '0.2.0'
+          bindingVersion: "0.2.0"
       operationId: on_polypress.enroll.individual.enrollments.first_verifications_reminder
       description: Events - Indvidual Outstanding Verifications First Reminder Subscriber
   on_polypress.enroll.individual.enrollments.second_verifications_reminder:
@@ -66,8 +68,10 @@ channels:
         amqp:
           ack: true
           exclusive: false
+          prefetch: 1
+          block: false
           routing_key: enroll.individual.enrollments.second_verifications_reminder
-          bindingVersion: '0.2.0'
+          bindingVersion: "0.2.0"
       operationId: on_polypress.enroll.individual.enrollments.second_verifications_reminder
       description: Events - Indvidual Outstanding Verifications Second Reminder Subscriber
   on_polypress.enroll.individual.enrollments.third_verifications_reminder:
@@ -85,8 +89,10 @@ channels:
         amqp:
           ack: true
           exclusive: false
+          prefetch: 1
+          block: false
           routing_key: enroll.individual.enrollments.third_verifications_reminder
-          bindingVersion: '0.2.0'
+          bindingVersion: "0.2.0"
       operationId: on_polypress.enroll.individual.enrollments.third_verifications_reminder
       description: Events - Indvidual Outstanding Verifications Third Reminder Subscriber
   on_polypress.enroll.individual.enrollments.fourth_verifications_reminder:
@@ -104,8 +110,10 @@ channels:
         amqp:
           ack: true
           exclusive: false
+          prefetch: 1
+          block: false
           routing_key: enroll.individual.enrollments.fourth_verifications_reminder
-          bindingVersion: '0.2.0'
+          bindingVersion: "0.2.0"
       operationId: on_polypress.enroll.individual.enrollments.fourth_verifications_reminder
       description: Events - Indvidual Outstanding Verifications Fourth Reminder Subscriber
 tags:
