@@ -54,8 +54,6 @@ channels:
         amqp:
           ack: true
           exclusive: false
-          prefetch: 1
-          block: false
           routing_key: magi_medicaid.mitc.eligibilities.*
           prefetch: 1
           block: false
