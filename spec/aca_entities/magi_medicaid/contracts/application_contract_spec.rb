@@ -704,10 +704,11 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicationContract,  dbcle
             pregnancy_information.merge({ is_pregnant: true })
           end
 
-          it 'should return failure with error message' do
-            err = obj_call.errors.to_h[:applicants][0][:pregnancy_information][:pregnancy_due_on].first
-            expect(err).to eq('must be filled if the applicant is pregnant')
-          end
+          # TODO: make requirement for this entry a configuration setting
+          # it 'should return failure with error message' do
+          #   err = obj_call.errors.to_h[:applicants][0][:pregnancy_information][:pregnancy_due_on].first
+          #   expect(err).to eq('must be filled if the applicant is pregnant')
+          # end
         end
       end
 

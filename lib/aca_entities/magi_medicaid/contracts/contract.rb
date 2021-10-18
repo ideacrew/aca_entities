@@ -188,9 +188,9 @@ module AcaEntities
             end
 
             # TODO: pregnancy_due_on is Mandatory in DC, not in ME
-            if check_if_blank?(pregnancy[:pregnancy_due_on])
-              key(pregnancy_failure_key + [:pregnancy_due_on]).failure(text: 'must be filled if the applicant is pregnant')
-            end
+            # if check_if_blank?(pregnancy[:pregnancy_due_on])
+            #   key(pregnancy_failure_key + [:pregnancy_due_on]).failure(text: 'must be filled if the applicant is pregnant')
+            # end
           end
 
           # Disabled for maine as per CMS
