@@ -129,7 +129,7 @@ module AcaEntities
                     contacts_information = v.find(Regexp.new('record.people.*.augementation')).map(&:item).last[:contacts]
                     result = contacts_information.each_with_object([]) do |contact_info, collector|
                       phone = contact_info.dig(:contact, :telephone_number, :telephone, :telephone_number_full_id)
-                      next unless phone && PHONE_KINDS.include?(contact_info[:category_code].downcase)
+                      next unless phone && PHONE_KINDS.include?(contact_info[:category_code]&.downcase)
 
                       collector << AcaEntities::Atp::Transformers::Cv::Phone.transform(contact_info)
                     end
