@@ -371,7 +371,7 @@ module AcaEntities
         end
 
         def get_age(age)
-          return if age.nil?
+          return if age.blank?
           age_date = age.respond_to?(:strftime) ? Date.strptime(age, "%m/%d/%Y") : Date.parse(age)
           AcaEntities::Functions::AgeOn.new(on_date: Date.today.strftime('%Y/%m/%d'))
                                                          .call(age_date.strftime('%Y/%m/%d'))

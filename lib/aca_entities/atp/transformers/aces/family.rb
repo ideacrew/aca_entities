@@ -142,7 +142,9 @@ module AcaEntities
                       citizen_status == 'us_citizen'
                     }
                     add_key 'living_indicator'
-                    map 'person_demographics.ssn', 'ssn_identification.identification_id'
+                    map 'person_demographics.ssn', 'ssn_identification.identification_id', function: lambda { |v| 
+                      v ? AcaEntities::Operations::Encryption::Decrypt.new.call({ value: v }).value! : nil
+                    }
                     map 'person_demographics.gender', 'sex', function: ->(v) {v.capitalize}
                     map 'race', 'race'
                     add_key 'ethnicities'
