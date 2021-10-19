@@ -14,6 +14,8 @@ module AcaEntities
         class Family < ::AcaEntities::Operations::Transforms::Transform
           include ::AcaEntities::Operations::Transforms::Transformer
 
+          PHONE_KINDS = %w[home work mobile fax].freeze
+
           map "transfer_header.transfer_activity.transfer_id.identification_id", "family.ext_app_id"
           map 'insurance_application.insurance_applicants', 'applicants', memoize_record: true, visible: false
           map 'insurance_application.ssf_primary_contact.role_reference.ref', 'primary_applicant_identifier', memoize_record: true, visible: false
@@ -127,7 +129,7 @@ module AcaEntities
                     contacts_information = v.find(Regexp.new('record.people.*.augementation')).map(&:item).last[:contacts]
                     result = contacts_information.each_with_object([]) do |contact_info, collector|
                       phone = contact_info.dig(:contact, :telephone_number, :telephone, :telephone_number_full_id)
-                      next unless phone
+                      next unless phone && PHONE_KINDS.include?(contact_info[:category_code]&.downcase)
 
                       collector << AcaEntities::Atp::Transformers::Cv::Phone.transform(contact_info)
                     end
