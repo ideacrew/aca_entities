@@ -78,7 +78,9 @@ module AcaEntities
 
                   map 'ssn_identification.identification_id', 'person.person_demographics.ssn', memoize: true, append_identifier: true, function:
                   lambda { |v|
-                    v ? AcaEntities::Operations::Encryption::Encrypt.new.call({ value: v }).value! : nil
+                    return nil unless v
+                    result = AcaEntities::Operations::Encryption::Encrypt.new.call({ value: v })
+                    result.success? ? result.value! : nil
                   }
                   map 'sex', 'person.person_demographics.gender', memoize: true, append_identifier: true, function: ->(value) {value.downcase}
                   add_key 'person.person_demographics.no_ssn',
