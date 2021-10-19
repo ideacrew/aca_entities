@@ -118,7 +118,7 @@ module AcaEntities
             result = ::AcaEntities::Atp::Transformers::Aces::Family.transform(record_hash)
             Success(result)
           rescue StandardError => e
-            Failure("to_aces transformer #{e.backtrace}")
+            Failure("to_aces transformer #{e}")
           end
         end
       end
