@@ -6,6 +6,9 @@ require "aca_entities/atp/functions/lawful_presence_determination_builder"
 require "aca_entities/atp/functions/build_application"
 require "aca_entities/functions/age_on"
 require 'aca_entities/atp/transformers/cv/phone'
+require 'dry/monads'
+require 'dry/monads/do'
+
 module AcaEntities
   module Atp
     module Transformers

@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'aca_entities/types'
+require 'dry/monads'
 
 # rubocop:disable Metrics/CyclomaticComplexity
 module AcaEntities
@@ -78,7 +79,8 @@ module AcaEntities
 
         def encrypt_ssn(ssn)
           return unless ssn
-          AcaEntities::Operations::Encryption::Encrypt.new.call({ value: ssn }).value!
+          result = AcaEntities::Operations::Encryption::Encrypt.new.call({ value: ssn })
+          result.success? ? result.value! : nil
         end
       end
     end
