@@ -6,7 +6,7 @@ module AcaEntities
       module Medicaid
         module MecCheck
           # Happymapper implementation for the root object of an Individual response.
-          class NonESIMECIndividualResponse
+          class NonEsiMecIndividualResponse
             include HappyMapper
             register_namespace 'gov', 'http://gov.hhs.cms.hix.dsh.ee.nonesi_mec.ext'
 

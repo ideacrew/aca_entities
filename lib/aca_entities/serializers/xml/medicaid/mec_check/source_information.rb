@@ -24,7 +24,7 @@ module AcaEntities
 
             def to_hash
               {
-                mec_verification_code: mec_verification_code,
+                mec_verification_code: mec_verification_code
               }
             end
           end

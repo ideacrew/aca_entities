@@ -12,7 +12,7 @@ module AcaEntities
 
             tag 'VerifyNonESIMECResponse'
             namespace 'gov'
-           
+
             has_one :non_esi_mec_response, NonEsiMecResponse
 
             def self.domain_to_mapper(response)
@@ -23,9 +23,9 @@ module AcaEntities
             end
 
             def to_hash
-                {
-                    non_esi_mec_response: non_esi_mec_response.to_hash
-                }
+              {
+                non_esi_mec_response: non_esi_mec_response.to_hash
+              }
             end
           end
         end
