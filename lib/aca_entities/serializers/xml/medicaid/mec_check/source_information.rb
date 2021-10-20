@@ -15,13 +15,6 @@ module AcaEntities
 
             has_one :mec_verification_code, String, tag: 'MECVerificationCode', namespace: 'gov'
 
-            def self.domain_to_mapper(response)
-              mapper = self.new
-              mapper.mec_verification_code = response.mec_verification_code
-
-              mapper
-            end
-
             def to_hash
               {
                 mec_verification_code: mec_verification_code

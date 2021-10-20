@@ -17,15 +17,6 @@ module AcaEntities
             has_one :source_information, SourceInformation
             element :organization_code, String, tag: 'OrganizationCode', namespace: 'gov'
 
-            def self.domain_to_mapper(response)
-              mapper = self.new
-              mapper.person_ssn = response.PersonSSN
-              mapper.source_information = SourceInformation.domain_to_mapper(response.source_information)
-              mapper.organization_code = response.organization_code
-
-              mapper
-            end
-
             def to_hash
               {
                 person_ssn: person_ssn,

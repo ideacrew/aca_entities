@@ -15,13 +15,6 @@ module AcaEntities
 
             has_one :non_esi_mec_response, NonEsiMecResponse
 
-            def self.domain_to_mapper(response)
-              mapper = self.new
-              mapper.non_esi_mec_response = NonEsiMecResponse.domain_to_mapper(response.non_esi_mec_response)
-
-              mapper
-            end
-
             def to_hash
               {
                 non_esi_mec_response: non_esi_mec_response.to_hash
