@@ -10,6 +10,9 @@ require "aca_entities/atp/functions/contact_builder"
 require 'aca_entities/atp/transformers/aces/applicant'
 require 'aca_entities/atp/transformers/aces/ssf_signer'
 
+require 'dry/monads'
+require 'dry/monads/do'
+
 module AcaEntities
   module Atp
     module Transformers
@@ -142,7 +145,11 @@ module AcaEntities
                       citizen_status == 'us_citizen'
                     }
                     add_key 'living_indicator'
-                    map 'person_demographics.ssn', 'ssn_identification.identification_id'
+                    map 'person_demographics.encrypted_ssn', 'ssn_identification.identification_id', function: lambda { |v|
+                      return nil unless v
+                      result = AcaEntities::Operations::Encryption::Decrypt.new.call({ value: v })
+                      result.success? ? result.value! : nil
+                    }
                     map 'person_demographics.gender', 'sex', function: ->(v) {v.capitalize}
                     map 'race', 'race'
                     add_key 'ethnicities'

@@ -6,6 +6,9 @@ require "aca_entities/atp/functions/lawful_presence_determination_builder"
 require "aca_entities/atp/functions/build_application"
 require "aca_entities/functions/age_on"
 require 'aca_entities/atp/transformers/cv/phone'
+require 'dry/monads'
+require 'dry/monads/do'
+
 module AcaEntities
   module Atp
     module Transformers
@@ -76,7 +79,12 @@ module AcaEntities
                     end
                   end
 
-                  map 'ssn_identification.identification_id', 'person.person_demographics.ssn', memoize: true, append_identifier: true
+                  map 'ssn_identification.identification_id', 'person.person_demographics.ssn', memoize: true, append_identifier: true, function:
+                  lambda { |v|
+                    return nil unless v
+                    result = AcaEntities::Operations::Encryption::Encrypt.new.call({ value: v })
+                    result.success? ? result.value! : nil
+                  }
                   map 'sex', 'person.person_demographics.gender', memoize: true, append_identifier: true, function: ->(value) {value.downcase}
                   add_key 'person.person_demographics.no_ssn',
                           function: ->(v) { v.resolve(:'person_demographics.ssn', identifier: true).item.nil?}
