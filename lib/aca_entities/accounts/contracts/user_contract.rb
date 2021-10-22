@@ -29,7 +29,9 @@ module AcaEntities
           optional(:profile_type).maybe(:string)
           optional(:roles).maybe(:array)
           optional(:created_at).maybe(:time)
-          optional(:timestamp).hash(TimeStampContract.params)
+          optional(:timestamp).hash(
+            AcaEntities::Contracts::TimeStampContract.params
+          )
         end
       end
     end
