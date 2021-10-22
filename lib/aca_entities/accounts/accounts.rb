@@ -13,3 +13,4 @@ require_relative 'contracts/user_contract'
 # entities
 require_relative 'account'
 require_relative 'user'
+require_relative 'keycloak_credential_representation'

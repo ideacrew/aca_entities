@@ -5,7 +5,7 @@ module AcaEntities
     # contract for Accounts user
     module Contracts
       # Contract for validating a client service-level identity associated with an
-      # {AcaEntities::Accounts::Account}
+      # SSO {AcaEntities::Accounts::Account}
       class UserContract < Dry::Validation::Contract
         params do
           optional(:attestations).array(

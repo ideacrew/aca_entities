@@ -3,7 +3,8 @@
 module AcaEntities
   module Accounts
     module Contracts
-      # Contract for validating a Keycloak CredentialRepresentation payload
+      # Contract for validating a Keycloak CredentialRepresentation payload in the
+      # {AcaEntities::Accounts::Contracts::KeycloakUserRepresentationContract}
       class KeycloakCredentialRepresentationContract < Dry::Validation::Contract
         params do
           optional(:algorithm).maybe(:string)
