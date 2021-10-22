@@ -325,7 +325,7 @@ module AcaEntities
                       map 'transientAddress', 'transientAddress', memoize_record: true, visible: false, append_identifier: true
 
                       add_key 'addresses', function: lambda { |v|
-                        is_homeless = v.resolve("is_homeless.#{v.find(/attestations.members.(\w+)$/).map(&:item).last}")&.item
+                        _is_homeless = v.resolve("is_homeless.#{v.find(/attestations.members.(\w+)$/).map(&:item).last}")&.item
                         demographic = "attestations.members.#{v.find(/attestations.members.(\w+)$/).map(&:item).last}.demographic"
                         transient_address = v.resolve("#{demographic}.transientAddress", identifier: true).item
                         home_address = v.resolve("#{demographic}.homeAddress", identifier: true).item
