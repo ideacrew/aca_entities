@@ -27,6 +27,13 @@ module AcaEntities
       attribute :us_state, Types::UsStateAbbreviationKind.meta(omittable: false)
       attribute :hbx_id, Types::String.meta(omittable: false)
 
+      attribute :medicaid_terms, Types::Bool.optional.meta(omittable: true)
+      attribute :medicaid_insurance_collection_terms, Types::Bool.optional.meta(omittable: true)
+      attribute :report_change_terms, Types::Bool.optional.meta(omittable: true)
+      attribute :parent_living_out_of_home_terms, Types::Bool.optional.meta(omittable: true)
+      attribute :attestation_terms, Types::Bool.optional.meta(omittable: true)
+      attribute :submission_terms, Types::Bool.optional.meta(omittable: true)
+
       attribute :oe_start_on, Types::Date.meta(omittable: false)
 
       attribute :notice_options, NoticeOptions.meta(omittable: false)

@@ -350,8 +350,9 @@ module AcaEntities
                         elsif mailing_address.present?
                           m_address = mailing_address&.merge!(kind: "mailing")
                         end
-                        addresses = is_homeless ? [m_address] : [m_address, h_address]
-                        addresses.compact.each_with_object([]) do |address, collect|
+                        h_address = h_address.nil? && m_address.present? ? m_address.dup.merge!(kind: "home") : h_address
+                        # addresses = is_homeless ? [m_address] : [m_address, h_address]
+                        [m_address, h_address].compact.each_with_object([]) do |address, collect|
                           collect << AcaEntities::Ffe::Transformers::Cv::Address.transform(address)
                         end
                       }

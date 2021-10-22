@@ -40,6 +40,13 @@ module AcaEntities
           required(:us_state).filled(Types::UsStateAbbreviationKind)
           required(:hbx_id).filled(:string)
 
+          optional(:medicaid_terms).maybe(:bool)
+          optional(:medicaid_insurance_collection_terms).maybe(:bool)
+          optional(:report_change_terms).maybe(:bool)
+          optional(:parent_living_out_of_home_terms).maybe(:bool)
+          optional(:attestation_terms).maybe(:bool)
+          optional(:submission_terms).maybe(:bool)
+
           required(:oe_start_on).filled(:date)
 
           required(:notice_options).filled(NoticeOptionsContract.params)
