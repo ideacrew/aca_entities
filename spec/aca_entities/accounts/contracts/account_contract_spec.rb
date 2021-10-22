@@ -5,6 +5,7 @@ require 'spec_helper'
 RSpec.describe AcaEntities::Accounts::Contracts::AccountContract do
   subject { described_class.new }
 
+  let(:id) { '6304e375-c5f6-45c4-bd9c-da75b01d19f4' }
   let(:username) { 'my_username' }
   let(:email) { 'my_username@example.com' }
   let(:first_name) { 'my_first_name' }
@@ -15,7 +16,15 @@ RSpec.describe AcaEntities::Accounts::Contracts::AccountContract do
   let(:totp) { true }
   let(:email_verified) { false }
   let(:not_before) { 0 }
-  let(:access) { {} }
+  let(:access) do
+    {
+      manage_group_membership: true,
+      view: true,
+      map_roles: true,
+      impersonate: false,
+      manage: true
+    }
+  end
   let(:groups) { [] }
   let(:roles) { [] }
   let(:created_at) { DateTime.now }
@@ -23,6 +32,7 @@ RSpec.describe AcaEntities::Accounts::Contracts::AccountContract do
   let(:required_params) { { username: username } }
   let(:optional_params) do
     {
+      id: id,
       email: email,
       first_name: first_name,
       last_name: last_name,

@@ -2,7 +2,8 @@
 
 module AcaEntities
   module Accounts
-    # A Keycloak Account
+    # A Single Sign-on (SSO) identity assigned to a person or service for
+    # accessing multiple client services.  In Keycloak this is a Realm-level User
     class Account < Dry::Struct
       attribute :id, Types::String.optional.meta(omittable: true)
       attribute :username, Types::String.meta(omittable: false)
