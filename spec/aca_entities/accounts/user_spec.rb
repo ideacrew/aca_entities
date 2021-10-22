@@ -2,8 +2,13 @@
 
 require 'spec_helper'
 
-RSpec.describe AcaEntities::Accounts::KeycloakCredentialRepresentation do
-  subject { described_class.new }
+RSpec.describe AcaEntities::Accounts::User do
+  subject { described_class }
 
-  it { expect(1).to eql(1) }
+  it 'with no arguments it should create a new instance' do
+    result = subject.new
+
+    expect(result).to be_a AcaEntities::Accounts::User
+    expect(result.to_h).to eq Hash.new
+  end
 end
