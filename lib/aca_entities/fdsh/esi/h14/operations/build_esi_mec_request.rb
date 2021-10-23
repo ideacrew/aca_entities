@@ -34,9 +34,17 @@ module AcaEntities
               Success(request)
             end
 
+            def can_skip_applicant?(applicant)
+              applicant.identifying_information.encrypted_ssn.blank? || esi_evidence(applicant).blank?
+            end
+
+            def esi_evidence(applicant)
+              applicant.evidences.detect {|e| e.key == :esi_mec}
+            end
+
             def construct_applicant_request(application)
               application.applicants.collect do |applicant|
-                next unless applicant.identifying_information.encrypted_ssn.present?
+                next if can_skip_applicant?(applicant)
                 {
                   RequestPerson: construct_request_person(applicant),
                   InsuranceApplicantRequest: construct_insurance_request(application.assistance_year),

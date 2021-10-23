@@ -34,9 +34,18 @@ module AcaEntities
               Success(request)
             end
 
+            def can_skip_applicant?(applicant)
+              applicant.identifying_information.encrypted_ssn.blank? || non_esi_evidence(applicant).blank?
+            end
+
+            def non_esi_evidence(applicant)
+              applicant.evidences.detect {|e| e.key == :non_esi_mec}
+            end
+
             def construct_individual_request(application)
               application.applicants.collect do |applicant|
-                next unless applicant.identifying_information.encrypted_ssn.present?
+                next if can_skip_applicant?(applicant)
+
                 org_codes = get_organization_codes(applicant)
                 individual_request = {
                   Applicant: construct_request_applicant(applicant),
