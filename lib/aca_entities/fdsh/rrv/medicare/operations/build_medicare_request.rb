@@ -53,7 +53,7 @@ module AcaEntities
                   InsurancePolicy: construct_insurance_policy(application.assistance_year)
                 }
                 individual_request
-              end
+              end.compact
             end
 
             def construct_insurance_policy(year)
