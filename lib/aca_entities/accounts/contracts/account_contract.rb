@@ -26,7 +26,7 @@ module AcaEntities
         # @return [Dry::Monads::Failure] if the payload fails validation
         params do
           optional(:id).maybe(:string)
-          required(:username).filled(:string)
+          optional(:username).filled(:string)
           optional(:enabled).maybe(:bool)
           optional(:totp).maybe(:bool)
           optional(:email).maybe(AcaEntities::Types::EmailAddressKind)

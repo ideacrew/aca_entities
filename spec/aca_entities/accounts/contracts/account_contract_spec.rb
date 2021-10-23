@@ -29,11 +29,12 @@ RSpec.describe AcaEntities::Accounts::Contracts::AccountContract do
   let(:roles) { [] }
   let(:created_at) { DateTime.now }
 
-  let(:required_params) { { username: username } }
+  let(:required_params) { {} }
   let(:optional_params) do
     {
       id: id,
       email: email,
+      username: username,
       first_name: first_name,
       last_name: last_name,
       password: password,
@@ -51,9 +52,9 @@ RSpec.describe AcaEntities::Accounts::Contracts::AccountContract do
   let(:all_params) { required_params.merge(optional_params) }
 
   context 'Calling the contract with optional params' do
-    it 'should fail validation' do
+    it 'should pass validation' do
       result = described_class.new.call(optional_params)
-      expect(result.failure?).to be_truthy
+      expect(result.success?).to be_truthy
     end
   end
 

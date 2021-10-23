@@ -6,9 +6,11 @@ module AcaEntities
     # accessing multiple client services.  In Keycloak this is a Realm-level User
     class Account < Dry::Struct
       attribute :id, Types::String.optional.meta(omittable: true)
-      attribute :username, Types::String.meta(omittable: false)
+      attribute :username, Types::String.optional.meta(omittable: false)
       attribute :email,
-                AcaEntities::Types::EmailAddressKind.meta(omittable: true)
+                AcaEntities::Types::EmailAddressKind.optional.meta(
+                  omittable: true
+                )
       attribute :email_verified, Types::Bool.optional.meta(omittable: true)
       attribute :enabled, Types::Bool.optional.meta(omittable: true)
       attribute :totp, Types::Bool.optional.meta(omittable: true)
