@@ -6,6 +6,9 @@ require "aca_entities/atp/functions/lawful_presence_determination_builder"
 require "aca_entities/atp/functions/build_application"
 require "aca_entities/functions/age_on"
 require 'aca_entities/atp/transformers/cv/phone'
+require 'dry/monads'
+require 'dry/monads/do'
+
 module AcaEntities
   module Atp
     module Transformers
@@ -13,6 +16,8 @@ module AcaEntities
         # Transformers implementation for atp payloads
         class Family < ::AcaEntities::Operations::Transforms::Transform
           include ::AcaEntities::Operations::Transforms::Transformer
+
+          PHONE_KINDS = %w[home work mobile fax].freeze
 
           map "transfer_header.transfer_activity.transfer_id.identification_id", "family.ext_app_id"
           map 'insurance_application.insurance_applicants', 'applicants', memoize_record: true, visible: false
@@ -74,14 +79,19 @@ module AcaEntities
                     end
                   end
 
-                  map 'ssn_identification.identification_id', 'person.person_demographics.ssn', memoize: true, append_identifier: true
+                  map 'ssn_identification.identification_id', 'person.person_demographics.ssn', memoize: true, append_identifier: true, function:
+                  lambda { |v|
+                    return nil unless v
+                    result = AcaEntities::Operations::Encryption::Encrypt.new.call({ value: v })
+                    result.success? ? result.value! : nil
+                  }
                   map 'sex', 'person.person_demographics.gender', memoize: true, append_identifier: true, function: ->(value) {value.downcase}
                   add_key 'person.person_demographics.no_ssn',
                           function: ->(v) { v.resolve(:'person_demographics.ssn', identifier: true).item.nil?}
                   map 'birth_date.date', 'person.person_demographics.dob', memoize: true, append_identifier: true, function: ->(v) {v.to_date}
                   add_key 'person.person_demographics.date_of_death'
                   add_key 'person.person_demographics.dob_check'
-                  add_key 'person.person_demographics.is_incarcerated', function: lambda { |v|
+                  add_key 'person.person_demographics.is_incarcerated', memoize: true, function: lambda { |v|
                     member_id = v.find(/record.people.(\w+)$/).map(&:item).last
                     applicants = v.resolve(:'insurance_application.insurance_applicants').item
                     applicant = applicants[member_id.to_sym]
@@ -127,7 +137,7 @@ module AcaEntities
                     contacts_information = v.find(Regexp.new('record.people.*.augementation')).map(&:item).last[:contacts]
                     result = contacts_information.each_with_object([]) do |contact_info, collector|
                       phone = contact_info.dig(:contact, :telephone_number, :telephone, :telephone_number_full_id)
-                      next unless phone
+                      next unless phone && PHONE_KINDS.include?(contact_info[:category_code]&.downcase)
 
                       collector << AcaEntities::Atp::Transformers::Cv::Phone.transform(contact_info)
                     end

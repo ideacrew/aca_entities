@@ -313,6 +313,7 @@ module AcaEntities
             tribal_name: tribe_indicator ? @tribal_augmentation[:person_tribe_name] : nil,
             citizenship_immigration_status_information: @applicant_hash.nil? ? nil : citizenship_immigration_hash,
             eligible_immigration_status: lawful_presence_status_eligibility,
+            is_incarcerated: @memoized_data.find(Regexp.new("person_demographics.is_incarcerated.#{@applicant_identifier}"))&.first&.item || false,
             is_consumer_role: true, # default value
             is_resident_role: nil,
             is_applying_coverage: !@applicant_hash.nil?, # default value
@@ -370,7 +371,7 @@ module AcaEntities
         end
 
         def get_age(age)
-          return if age.nil?
+          return if age.blank?
           age_date = age.respond_to?(:strftime) ? Date.strptime(age, "%m/%d/%Y") : Date.parse(age)
           AcaEntities::Functions::AgeOn.new(on_date: Date.today.strftime('%Y/%m/%d'))
                                                          .call(age_date.strftime('%Y/%m/%d'))

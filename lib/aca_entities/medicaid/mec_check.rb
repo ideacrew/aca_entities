@@ -23,6 +23,7 @@ require_relative 'mec_check/transformers/person_to_request'
 
 # operations
 require_relative 'mec_check/operations/generate_xml'
+require_relative 'mec_check/operations/generate_result'
 
 # happymapper
 require 'aca_entities/serializers/xml/medicaid/mec_check'

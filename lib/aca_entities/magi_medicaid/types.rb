@@ -385,7 +385,9 @@ module AcaEntities
         'father_or_mother_in_law',
         'daughter_or_son_in_law',
         'brother_or_sister_in_law',
-        'cousin'
+        'cousin',
+        'domestic_partners_child',
+        'parents_domestic_partner'
       )
 
       PhoneKind = Types::Coercible::String.enum(

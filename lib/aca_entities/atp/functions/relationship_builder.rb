@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'aca_entities/types'
+require 'dry/monads'
 
 # rubocop:disable Metrics/CyclomaticComplexity
 module AcaEntities
@@ -73,7 +74,13 @@ module AcaEntities
             last_name: @memoized_data.find(Regexp.new("person_name.last_name.#{@primary_applicant_id}"))&.first&.item,
             gender: @memoized_data.find(Regexp.new("person.person_demographics.gender.#{@primary_applicant_id}"))&.first&.item&.capitalize,
             dob: @memoized_data.find(Regexp.new("person.person_demographics.dob.#{@primary_applicant_id}"))&.first&.item&.to_date,
-            ssn: @memoized_data.find(Regexp.new("person.person_demographics.ssn.#{@primary_applicant_id}"))&.first&.item }
+            ssn: encrypt_ssn(@memoized_data.find(Regexp.new("person.person_demographics.ssn.#{@primary_applicant_id}"))&.first&.item) }
+        end
+
+        def encrypt_ssn(ssn)
+          return unless ssn
+          result = AcaEntities::Operations::Encryption::Encrypt.new.call({ value: ssn })
+          result.success? ? result.value! : nil
         end
       end
     end
