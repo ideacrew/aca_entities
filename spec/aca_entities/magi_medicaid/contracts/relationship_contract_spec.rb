@@ -44,4 +44,17 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::RelationshipContract,  dbcl
       end
     end
   end
+
+  context 'domestic_partners_child and parents_domestic_partner' do
+    before do
+      input_params = { kind: ['domestic_partners_child', 'parents_domestic_partner'].sample,
+                       applicant_reference: applicant,
+                       relative_reference: relative }
+      @result = subject.call(input_params)
+    end
+
+    it 'should return success' do
+      expect(@result.success?).to be_truthy
+    end
+  end
 end
