@@ -1,0 +1,83 @@
+---
+asyncapi: 2.0.0
+info:
+  title: Enroll App
+  version: 0.1.0
+  description: AMQP Publish configuration for the Polypress Report generation services
+  contact:
+    name: IdeaCrew
+    url: https://ideacrew.com
+    email: info@ideacrew.com
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+
+servers:
+  production:
+    url: "amqp://rabbitmq:5672/event_source"
+    protocol: :amqp
+    protocolVersion: "0.9.2"
+    description: RabbitMQ Production Server
+  development:
+    url: "amqp://rabbitmq:5672/event_source"
+    protocol: :amqp
+    protocolVersion: "0.9.2"
+    description: RabbitMQ Test Server
+  test:
+    url: "amqp://rabbitmq:5672/event_source"
+    protocol: :amqp
+    protocolVersion: "0.9.2"
+    description: RabbitMQ Test Server
+
+channels:
+  edi.reports.subscribers_list.subscribers_list_received:
+    bindings:
+      amqp:
+        is: :routing_key
+        exchange:
+          name: edi.reports.subscribers_list
+          type: topic
+          content_type: application/json
+          durable: true
+          auto_delete: false
+          vhost: event_source
+        binding_version: "0.2.0"
+    publish:
+      operationId: edi.reports.subscribers_list.subscribers_list_received
+      description: Events - Pre audit report generation
+      bindings:
+        amqp:
+          app_id: edi_gateway
+          type: edi.reports.subscribers_list
+          routing_key: edi.reports.subscribers_list.subscribers_list_received
+          deliveryMode: 2
+          mandatory: true
+          timestamp: true
+          content_type: application/json
+          bindingVersion: 0.2.0
+
+  edi.reports.coverage_history_for_subscriber.coverage_history_for_subscribe_received:
+    bindings:
+      amqp:
+        is: :routing_key
+        exchange:
+          name: edi.reports.coverage_history_for_subscriber
+          type: topic
+          content_type: application/json
+          durable: true
+          auto_delete: false
+          vhost: event_source
+        binding_version: "0.2.0"
+    publish:
+      operationId: edi.reports.coverage_history_for_subscriber.coverage_history_for_subscribe_received
+      description: Events - Pre audit report generation
+      bindings:
+        amqp:
+          app_id: edi_gateway
+          type: edi.reports.coverage_history_for_subscriber
+          routing_key: edi.reports.coverage_history_for_subscriber.coverage_history_for_subscribe_received
+          deliveryMode: 2
+          mandatory: true
+          timestamp: true
+          content_type: application/json
+          bindingVersion: 0.2.0
