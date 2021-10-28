@@ -13,6 +13,22 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Mitc::Contracts::RelationshipContrac
     it { expect(subject.call(required_params).to_h).to eq required_params }
   end
 
+  context 'relationship_code 17 for relationship kind parents_domestic_partner' do
+    let(:input_params) { { other_id: 100, attest_primary_responsibility: 'Y', relationship_code: '17' } }
+
+    before do
+      @result = subject.call(input_params)
+    end
+
+    it 'should return success' do
+      expect(@result.success?).to be_truthy
+    end
+
+    it 'should return success' do
+      expect(@result.to_h).to eq(input_params)
+    end
+  end
+
   context 'invalid params' do
     context 'with no parameters' do
       it 'should list error for every required parameter' do
