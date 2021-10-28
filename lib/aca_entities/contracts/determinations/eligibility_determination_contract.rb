@@ -20,17 +20,11 @@ module AcaEntities
         # @option opts [Date] :determined_at optional
         # @return [Dry::Monads::Result]
         params do
-          optional(:e_pdc_id).filled(:string)  # TODO: verify
+          optional(:e_pdc_id).maybe(:string)  # TODO: verify
           optional(:benchmark_plan).hash(AcaEntities::Contracts::Products::ProductReferenceContract.params)
-          optional(:source).maybe(
-            AcaEntities::Types::EligibilitySourceKinds
-          )
-          optional(:premium_credit_strategy_kind).maybe(
-            AcaEntities::Types::PremiumCreditStrategyKinds
-          )
-          optional(:csr_eligibility_kind).maybe(
-            AcaEntities::Types::EligibilityCsrKinds
-          )
+          optional(:source).maybe(AcaEntities::Types::EligibilitySourceKinds)
+          optional(:premium_credit_strategy_kind).maybe(AcaEntities::Types::PremiumCreditStrategyKinds)
+          optional(:csr_eligibility_kind).maybe(AcaEntities::Types::EligibilityCsrKinds)
           optional(:aptc_csr_annual_household_income).maybe(AcaEntities::Contracts::CurrencyContract.params)
           optional(:aptc_annual_income_limit).maybe(AcaEntities::Contracts::CurrencyContract.params)
           optional(:csr_annual_income_limit).maybe(AcaEntities::Contracts::CurrencyContract.params)
