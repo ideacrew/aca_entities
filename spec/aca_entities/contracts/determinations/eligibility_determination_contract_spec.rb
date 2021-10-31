@@ -103,7 +103,7 @@ RSpec.describe ::AcaEntities::Contracts::Determinations::EligibilityDeterminatio
 
       it 'should return error message' do
         result = subject.call(required_params.merge(source: "test"))
-        expect(result.errors.messages.first.text).to eq('must be one of: Curam, Admin, Renewals, Faa')
+        expect(result.errors.messages.first.text).to eq('must be one of: Curam, Admin, Renewals, Faa, Ffe')
       end
     end
   end

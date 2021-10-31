@@ -1872,7 +1872,7 @@ module AcaEntities
       )
 
     EligibilitySourceKinds =
-      Types::Coercible::String.enum('Curam', 'Admin', 'Renewals', 'Faa')
+      Types::Coercible::String.enum('Curam', 'Admin', 'Renewals', 'Faa', 'Ffe')
 
     EligibilityCsrKinds =
       Types::Coercible::String.enum(
