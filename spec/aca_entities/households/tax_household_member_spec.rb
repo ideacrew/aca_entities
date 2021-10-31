@@ -58,15 +58,15 @@ RSpec.describe ::AcaEntities::Households::TaxHouseholdMember, dbclean: :after_ea
     end
   end
 
-  describe 'with invalid arguments' do
-    it 'should raise error' do
-      expect do
-        described_class.new(input_params.reject do |k, _v|
-                              k == :family_member_reference
-                            end)
-      end.to raise_error(Dry::Struct::Error, /:family_member_reference is missing/)
-    end
-  end
+  # describe 'with invalid arguments' do
+  #   it 'should raise error' do
+  #     expect do
+  #       described_class.new(input_params.reject do |k, _v|
+  #                             k == :family_member_reference
+  #                           end)
+  #     end.to raise_error(Dry::Struct::Error, /:family_member_reference is missing/)
+  #   end
+  # end
 end
 
 

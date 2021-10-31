@@ -15,11 +15,11 @@ module AcaEntities
         # @return [Dry::Monads::Result]
         params do
           required(:family_member_hbx_id).value(:str?)
-          optional(:first_name).value(:str?)
-          optional(:last_name).value(:str?)
-          optional(:person_hbx_id).value(:str?)
-          optional(:is_primary_family_member).value(:bool?)
-          optional(:age).value(:integer)
+          optional(:first_name).maybe(:string)
+          optional(:last_name).maybe(:string)
+          optional(:person_hbx_id).maybe(:string)
+          optional(:is_primary_family_member).maybe(:bool)
+          optional(:age).maybe(:integer)
           optional(:ssn).maybe(:string)
           optional(:encrypted_ssn).maybe(:string)
           optional(:dob).maybe(:date)

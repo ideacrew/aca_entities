@@ -5,9 +5,9 @@ module AcaEntities
     class TaxHousehold < Dry::Struct
 
       # This map to tax_household#hbx_assigned_id
-      attribute :hbx_id,                          Types::String.optional.meta(omittable: false)
-      attribute :allocated_aptc,                  AcaEntities::Curreny.meta(omittable: false)
-      attribute :is_eligibility_determined,       Types::Bool.optional.meta(omittable: false)
+      attribute :hbx_id,                          Types::String.optional.meta(omittable: true)
+      attribute :allocated_aptc,                  AcaEntities::Curreny.optional.meta(omittable: true)
+      attribute :is_eligibility_determined,       Types::Bool.optional.meta(omittable: true)
       attribute :start_date,                      Types::Date.optional.meta(omittable: true)
       attribute :end_date,                        Types::Date.optional.meta(omittable: true)
       # attribute :tax_household_size,              AcaEntities::Households::TaxHouseholdSize.meta(omittable: true)

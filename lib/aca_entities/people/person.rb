@@ -34,12 +34,10 @@ module AcaEntities
       ### Deprecate individual attributes for each role type
       attribute :consumer_role,
                 AcaEntities::People::ConsumerRole
-                  .meta(omittable: false)
                   .optional
                   .meta(omittable: true)
       attribute :resident_role,
                 AcaEntities::People::ResidentRole
-                  .meta(omittable: false)
                   .optional
                   .meta(omittable: true)
       attribute :individual_market_transitions,

@@ -6,8 +6,8 @@ module AcaEntities
 
       attribute :hbx_id,                        Types::String.optional.meta(omittable: false)
       attribute :start_on,                      Types::Date.optional.meta(omittable: false)
-      attribute :end_on,                        Types::Date.optional.meta(omittable: false)
-      attribute :is_active,                     Types::Bool.optional.meta(omittable: false)
+      attribute :end_on,                        Types::Date.optional.meta(omittable: true)
+      attribute :is_active,                     Types::Bool.optional.meta(omittable: true)
     end
   end
 end
