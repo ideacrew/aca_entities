@@ -40,7 +40,8 @@ module AcaEntities
                            'half_yearly' => 'half_yearly',
                            'monthly' => 'monthly',
                            'quarterly' => 'quarterly',
-                           'weekly' => 'weekly' }.freeze
+                           'weekly' => 'weekly',
+                           'hourly' => 'hourly' }.freeze
 
       DeductionKinds = {
         'Alimony' => 'alimony_paid',

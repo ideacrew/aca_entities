@@ -386,11 +386,13 @@ module AcaEntities
           end
         end
 
+        PHONE_KINDS = %w[home work mobile fax].freeze
+
         def phone_hash
           contacts_information = @member_hash[:contacts]
           contacts_information.each_with_object([]) do |contact_info, collector|
             phone = contact_info.dig(:contact, :telephone_number, :telephone, :telephone_number_full_id)
-            next unless phone
+            next unless phone && PHONE_KINDS.include?(contact_info[:category_code]&.downcase)
 
             collector << AcaEntities::Atp::Transformers::Cv::Phone.transform(contact_info)
           end
