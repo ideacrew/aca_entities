@@ -22,7 +22,7 @@ module AcaEntities
 
         def address_hash(address, contact_info)
           zip = address[:location_postal_code]
-          zip = zip.insert(5, '-') if zip.length == 9 # 9-digit zip code must include '-'
+          zip.insert(5, '-') if zip.length == 9 # 9-digit zip code must include '-'
           {
             kind: contact_info[:category_code].downcase,
             address_1: address[:location_street][:street_full_text],
