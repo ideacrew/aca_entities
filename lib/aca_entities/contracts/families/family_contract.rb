@@ -48,6 +48,19 @@ module AcaEntities
           optional(:updated_by).hash(AcaEntities::Contracts::People::PersonReferenceContract.params)
           optional(:timestamp).hash(TimeStampContract.params)
           optional(:documents_needed).maybe(:bool)
+          optional(:phones).maybe(:array)
+        end
+        
+        # Phones are saved onto primary gateway. Pulled from the primary person on enroll
+        rule(:phones).each do
+          if key? && value
+            if value.is_a?(Hash)
+              result = Validators::PhoneContract.new.call(value)
+              key.failure(text: "invalid phone", error: result.errors.to_h) if result&.failure?
+            else
+              key.failure(text: "invalid phones. Expected a hash.")
+            end
+          end
         end
 
         # Need to have below rule and cannot move all MagiMedicaidApplication level rules to AcaEntities::Contracts::Contract because

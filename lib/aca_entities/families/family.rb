@@ -54,6 +54,11 @@ module AcaEntities
       attribute :updated_by,                        AcaEntities::People::PersonReference.optional.meta(omittable: true)
       attribute :timestamp,                         AcaEntities::TimeStamp.optional.meta(omittable: true)
       attribute :documents_needed,                  Types::Bool.optional.meta(omittable: true)
+      attribute :phones,
+                Types::Array
+                  .of(AcaEntities::Contacts::PhoneContact)
+                  .optional
+                  .meta(omittable: true)
     end
   end
 end
