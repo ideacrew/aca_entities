@@ -37,11 +37,12 @@ module AcaEntities
       FrequencyCodeMap = { "annually" => "yearly",
                            'biweekly' => 'biweekly',
                            'daily' => 'daily',
-                           'half_yearly' => 'half_yearly',
+                           'semiannually' => 'half_yearly',
                            'monthly' => 'monthly',
                            'quarterly' => 'quarterly',
                            'weekly' => 'weekly',
-                           'hourly' => 'hourly' }.freeze
+                           'hourly' => 'hourly',
+                           'once' => 'yearly' }.freeze
 
       DeductionKinds = {
         'Alimony' => 'alimony_paid',
