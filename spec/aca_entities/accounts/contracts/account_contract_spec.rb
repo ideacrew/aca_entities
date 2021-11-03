@@ -79,11 +79,11 @@ RSpec.describe AcaEntities::Accounts::Contracts::AccountContract do
   end
 
   context 'when passed invalid relay state' do
-    let(:attributes) {
+    let(:attributes) do
       {
         relay_state: 'https://enroll.coverme.gov/benefit_sponsors/profiles/registrations/new'
       }
-    }
+    end
 
     it 'should fail' do
       result = described_class.new.call(all_params.merge(attributes: attributes))
@@ -93,11 +93,11 @@ RSpec.describe AcaEntities::Accounts::Contracts::AccountContract do
   end
 
   context 'when passed wrong type for relay state' do
-    let(:attributes) {
+    let(:attributes) do
       {
         relay_state: true
       }
-    }
+    end
 
     it 'should fail' do
       result = described_class.new.call(all_params.merge(attributes: attributes))

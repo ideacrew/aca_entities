@@ -10,7 +10,7 @@ module AcaEntities
         # @option opts [String] :relay_state optional
         # @return [Dry::Monads::Result]
         params do
-        #   optional(:relay_state).maybe(AcaEntities::Types::EnrollmentExemptionKinds)
+          #   optional(:relay_state).maybe(AcaEntities::Types::EnrollmentExemptionKinds)
           optional(:relay_state).maybe(:string)
         end
 
