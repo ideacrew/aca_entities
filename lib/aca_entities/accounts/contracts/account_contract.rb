@@ -34,12 +34,27 @@ module AcaEntities
           optional(:first_name).maybe(:string)
           optional(:last_name).maybe(:string)
           optional(:password).maybe(:string)
-          optional(:attributes).maybe(:hash)
+          optional(:attributes).hash(AttributesContract.params)
           optional(:roles).array(:string)
           optional(:groups).array(:string)
           optional(:access).maybe(:hash)
           optional(:not_before).maybe(:integer)
           optional(:created_at).maybe(:date_time)
+        end
+
+        rule(:attributes) do
+          if key? && value
+            if value.is_a?(Hash)
+              result = AttributesContract.new.call(value)
+              if result&.failure?
+                key.failure(text: 'invalid attributes', error: result.errors.to_h)
+              else
+                values.merge!(attributes: result.to_h)
+              end
+            else
+              key.failure(text: 'invalid attributes. Expected a hash.')
+            end
+          end
         end
       end
     end
