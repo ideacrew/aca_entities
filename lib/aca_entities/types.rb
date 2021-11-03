@@ -1977,5 +1977,19 @@ module AcaEntities
         'Other (With I-94 Number)'
       )
   end
+
+  RelayStateKinds = Types::Coercible::String.enum(
+    '/exchanges/hbx_profiles',
+    '/benefit_sponsors/profiles/registrations/new?portal=true&profile_type=broker_agency'
+  )
+
+  UriKind = Types.Constructor(String) {|value| URI(value) }
+
+  # RelayStateKind = Types.Constructor(String) {|value|
+  #   uri = UriKind[value]
+  #   path = [uri.path, uri.query].compact.join('?')
+  #   RelayStateKinds[path]
+  # }
+
   # rubocop:enable Metrics/ModuleLength
 end

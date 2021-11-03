@@ -45,6 +45,9 @@ RSpec.describe AcaEntities::Accounts::Contracts::AccountContract do
       roles: roles,
       access: access,
       groups: groups,
+      attributes: {
+        relay_state: 'https://enroll.coverme.gov/benefit_sponsors/profiles/registrations/new?portal=true&profile_type=broker_agency'
+      },
       created_at: created_at
     }
   end
@@ -69,8 +72,36 @@ RSpec.describe AcaEntities::Accounts::Contracts::AccountContract do
   context 'Calling the contract with all params' do
     it 'should pass validation' do
       result = described_class.new.call(all_params)
+
       expect(result.success?).to be_truthy
       expect(result.to_h).to eq all_params
+    end
+  end
+
+  context 'when passed invalid relay state' do
+    let(:attributes) do
+      {
+        relay_state: 'https://enroll.coverme.gov/benefit_sponsors/profiles/registrations/new'
+      }
+    end
+
+    it 'should fail' do
+      result = described_class.new.call(all_params.merge(attributes: attributes))
+      expect(result.failure?).to be_truthy
+      expect(result.errors.to_h).to include(:attributes)
+    end
+  end
+
+  context 'when passed wrong type for relay state' do
+    let(:attributes) do
+      {
+        relay_state: true
+      }
+    end
+
+    it 'should fail' do
+      result = described_class.new.call(all_params.merge(attributes: attributes))
+      expect(result.errors[:attributes][:relay_state]).to eq ["must be a string"]
     end
   end
 end
