@@ -622,8 +622,12 @@ RSpec.describe AcaEntities::Fdsh::Rrv::H79::Ifsv::Operations::CreateRrvIfsvReque
     AcaEntities::MagiMedicaid::Operations::InitializeApplication.new.call(application_params).value!
   end
 
+  let(:group) do
+    AcaEntities::Fdsh::Rrv::H79::Ifsv::Operations::CreateRrvIfsvApplicantRequestGroup.new.call(application).success.to_h
+  end
+
   subject do
-    described_class.new.call([application])
+    described_class.new.call([group])
   end
 
   it "is successful" do
