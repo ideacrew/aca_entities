@@ -72,10 +72,10 @@ module AcaEntities
               def construct_person_name(applicant_name)
                 return nil unless applicant_name
                 {
-                  PersonFirstName: applicant_name.first_name,
-                  PersonMiddleName: applicant_name.middle_name,
-                  PersonLastName: applicant_name.last_name,
-                  SuffixName: applicant_name.name_sfx
+                  PersonFirstName: applicant_name.first_name&.gsub(/[^A-Za-z]/, ''),
+                  PersonMiddleName: applicant_name.middle_name&.gsub(/[^A-Za-z]/, ''),
+                  PersonLastName: applicant_name.last_name&.gsub(/[^A-Za-z]/, ''),
+                  SuffixName: applicant_name.name_sfx&.gsub(/[^A-Za-z]/, '')
                 }
               end
 

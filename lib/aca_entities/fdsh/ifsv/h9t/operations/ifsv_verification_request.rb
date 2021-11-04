@@ -67,9 +67,9 @@ module AcaEntities
 
             def construct_person_name(applicant_name)
               {
-                PersonGivenName: applicant_name&.first_name,
-                PersonMiddleName: applicant_name&.middle_name,
-                PersonSurName: applicant_name&.last_name
+                PersonGivenName: applicant_name&.first_name&.gsub(/[^A-Za-z]/, ''),
+                PersonMiddleName: applicant_name&.middle_name&.gsub(/[^A-Za-z]/, ''),
+                PersonSurName: applicant_name&.last_name&.gsub(/[^A-Za-z]/, '')
               }
             end
 

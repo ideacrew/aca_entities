@@ -48,7 +48,7 @@ module AcaEntities
                 {
                   RequestPerson: construct_request_person(applicant),
                   InsuranceApplicantRequest: construct_insurance_request(application.assistance_year),
-                  PersonLocationState: applicant.home_address.state
+                  PersonLocationState: applicant.home_address.state || applicant.addresses.last.state
                 }
               end
             end
@@ -84,9 +84,9 @@ module AcaEntities
 
             def construct_person_name(applicant_name)
               {
-                PersonGivenName: applicant_name&.first_name,
-                PersonMiddleName: applicant_name&.middle_name,
-                PersonSurName: applicant_name&.last_name,
+                PersonGivenName: applicant_name&.first_name&.gsub(/[^A-Za-z]/, ''),
+                PersonMiddleName: applicant_name&.middle_name&.gsub(/[^A-Za-z]/, ''),
+                PersonSurName: applicant_name&.last_name&.gsub(/[^A-Za-z]/, ''),
                 PersonNameSuffixText: applicant_name&.name_sfx
               }
             end
