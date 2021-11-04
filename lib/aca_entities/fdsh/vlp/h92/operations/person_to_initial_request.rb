@@ -37,9 +37,9 @@ module AcaEntities
             def construct_initial_verification_request_set(person)
               {
                 DHSID: construct_dhs_id_params(person),
-                FirstName: person.person_name.first_name,
-                MiddleName: person.person_name.middle_name,
-                LastName: person.person_name.last_name,
+                FirstName: person.person_name.first_name&.gsub(/[^A-Za-z]/, ''),
+                MiddleName: person.person_name.middle_name&.gsub(/[^A-Za-z]/, ''),
+                LastName: person.person_name.last_name&.gsub(/[^A-Za-z]/, ''),
                 DateOfBirth: person.person_demographics.dob,
                 AKA: person.person_name.alternate_name,
                 FiveYearBarApplicabilityIndicator: true,
