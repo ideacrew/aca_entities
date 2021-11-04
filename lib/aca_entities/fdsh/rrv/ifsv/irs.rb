@@ -33,3 +33,4 @@ require_relative 'verify_household_income_bulk_request'
 # operations
 
 require_relative 'operations/create_rrv_ifsv_request'
+require_relative 'operations/create_rrv_ifsv_applicant_request_group'
