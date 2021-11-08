@@ -724,11 +724,13 @@ RSpec.describe AcaEntities::Families::Family, dbclean: :after_each do
     ]
   end
 
+  let(:min_verification_due_date) { nil }
+
   let(:input_params) do
     { hbx_id: '1000',
       foreign_keys: foreign_keys,
       renewal_consent_through_year: 2014,
-      min_verification_due_date: nil,
+      min_verification_due_date: min_verification_due_date,
       vlp_documents_status: nil,
       family_members: family_member_params,
       households: household_params,
@@ -758,6 +760,18 @@ RSpec.describe AcaEntities::Families::Family, dbclean: :after_each do
 
     it 'should not raise error' do
       expect { described_class.new(family_params.to_h) }.not_to raise_error
+    end
+
+    context 'when min_verification_due_date is present' do
+      let(:min_verification_due_date) { Date.today }
+
+      it 'validates input params with contract' do
+        expect(family_params.success?).to be_truthy
+      end
+
+      it 'should initialize' do
+        expect(described_class.new(family_params.to_h)).to be_a described_class
+      end
     end
   end
 
