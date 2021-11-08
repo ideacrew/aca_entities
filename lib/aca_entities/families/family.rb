@@ -33,7 +33,7 @@ module AcaEntities
       attribute :irs_groups,                        Types::Array.of(AcaEntities::Groups::IrsGroup).optional.meta(omittable: true)
 
       # TODO: Replace specific VLP eligibility reference with FamilyEligibility
-      # attribute :min_verification_due_date,         Types::Date.optional.meta(omittable: true)
+      attribute :min_verification_due_date,         Types::Date.optional.meta(omittable: true)
       # attribute :vlp_documents_status,              Types::String.optional.meta(omittable: true)
 
       # TODO: Domain model supports EA internal MagiMedicaid (IAP) applications only.  Extend to support other application types,
