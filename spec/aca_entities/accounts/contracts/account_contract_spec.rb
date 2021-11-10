@@ -26,7 +26,9 @@ RSpec.describe AcaEntities::Accounts::Contracts::AccountContract do
     }
   end
   let(:groups) { [] }
-  let(:roles) { [] }
+  let(:realm_roles) { ['hbx_staff'] }
+  let(:client_roles) { ['developer'] }
+
   let(:created_at) { DateTime.now }
 
   let(:required_params) { {} }
@@ -42,7 +44,8 @@ RSpec.describe AcaEntities::Accounts::Contracts::AccountContract do
       totp: totp,
       email_verified: email_verified,
       not_before: not_before,
-      roles: roles,
+      realm_roles: realm_roles,
+      client_roles: client_roles,
       access: access,
       groups: groups,
       attributes: {
@@ -89,6 +92,18 @@ RSpec.describe AcaEntities::Accounts::Contracts::AccountContract do
       result = described_class.new.call(all_params.merge(attributes: attributes))
       expect(result.failure?).to be_truthy
       expect(result.errors.to_h).to include(:attributes)
+    end
+  end
+
+  context 'when passed valid relay state which includes identifier' do
+    let(:attributes) do
+      { relay_state: 'https://enroll.coverme.gov/benefit_sponsors/profiles/broker_agencies/broker_agency_profiles/%23%5BDouble%20(anonymous)%5D' }
+    end
+
+    it 'should pass' do
+      result = described_class.new.call(all_params.merge(attributes: attributes))
+      expect(result.success?).to be_truthy
+      expect(result.to_h).to eq all_params.merge(attributes: attributes)
     end
   end
 

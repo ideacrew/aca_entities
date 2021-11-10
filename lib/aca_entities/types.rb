@@ -1980,7 +1980,8 @@ module AcaEntities
 
   RelayStateKinds = Types::Coercible::String.enum(
     '/exchanges/hbx_profiles',
-    '/benefit_sponsors/profiles/registrations/new?portal=true&profile_type=broker_agency'
+    '/benefit_sponsors/profiles/registrations/new?portal=true&profile_type=broker_agency',
+    '/benefit_sponsors/profiles/broker_agencies/broker_agency_profiles'
   )
 
   UriKind = Types.Constructor(String) {|value| URI(value) }
