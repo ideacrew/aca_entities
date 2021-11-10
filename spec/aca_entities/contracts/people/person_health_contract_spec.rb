@@ -30,30 +30,19 @@ RSpec.describe ::AcaEntities::Contracts::People::PersonHealthContract, dbclean: 
         expect(result.errors.empty?).to be_truthy
       end
     end
+
+    context 'for nil is_tobacco_user params' do
+      it 'should not have any errors' do
+        result = subject.call(required_params.merge(is_tobacco_user: nil))
+        expect(result.errors.empty?).to be_truthy
+      end
+    end
   end
 
   context 'failure case' do
-    context 'missing required param' do
-      before do
-        @result = subject.call(required_params.reject { |k, _v| k == :is_tobacco_user })
-      end
-
-      it 'should return failure' do
-        expect(@result.failure?).to be_truthy
-      end
-
-      it 'should have any errors' do
-        expect(@result.errors.empty?).to be_falsy
-      end
-
-      it 'should return error message' do
-        expect(@result.errors.messages.first.text).to eq('is missing')
-      end
-    end
-
     context 'with bad input data type' do
       before do
-        @result = subject.call(required_params.merge(is_tobacco_user: nil))
+        @result = subject.call(required_params.merge(is_tobacco_user: 1))
       end
 
       it 'should return failure' do

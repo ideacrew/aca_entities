@@ -11,7 +11,7 @@ module AcaEntities
         # @option opts [String] :is_physically_disabled optional
         # @return [Dry::Monads::Result]
         params do
-          required(:is_tobacco_user).value(:str?)
+          optional(:is_tobacco_user).maybe(:string)
           optional(:is_physically_disabled).maybe(:bool)
         end
 
