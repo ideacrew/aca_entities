@@ -3,7 +3,7 @@
 require 'aca_entities/types'
 require 'dry/monads'
 
-# rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+# rubocop:disable Metrics/CyclomaticComplexity
 module AcaEntities
   module Atp
     module Functions
@@ -86,6 +86,6 @@ module AcaEntities
     end
   end
 end
-# rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+# rubocop:enable Metrics/CyclomaticComplexity
 
 
