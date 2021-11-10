@@ -25,10 +25,8 @@ RSpec.describe ::AcaEntities::People::PersonHealth, dbclean: :after_each do
   describe 'with invalid arguments' do
     it 'should raise error' do
       expect do
-        described_class.new(input_params.reject do |k, _v|
-                              k == :is_tobacco_user
-                            end)
-      end.to raise_error(Dry::Struct::Error, /:is_tobacco_user is missing/)
+        described_class.new(input_params.merge(is_tobacco_user: 1))
+      end.to raise_error(Dry::Struct::Error, /has invalid type for :is_tobacco_user/)
     end
   end
 end
