@@ -10,7 +10,8 @@ module AcaEntities
         # @option opts [String] :relay_state optional
         # @return [Dry::Monads::Result]
         params do
-          #   optional(:relay_state).maybe(AcaEntities::Types::EnrollmentExemptionKinds)
+          # optional(:relay_state).maybe(AcaEntities::Types::EnrollmentExemptionKinds)
+          optional(:id).maybe(:string)
           optional(:relay_state).maybe(:string)
         end
 
@@ -18,7 +19,17 @@ module AcaEntities
           if key? && value
             uri = URI(value)
             path = [uri.path, uri.query].compact.join('?')
-            key.failure(text: "must be one of: #{AcaEntities::RelayStateKinds.values.join(', ')}") unless AcaEntities::RelayStateKinds.include?(path)
+            relay_state_kinds = AcaEntities::RelayStateKinds.values
+
+            match_found = true if relay_state_kinds.include?(path)
+            match_found = true if relay_state_kinds.any?{|relay_state_kind| path.scan(/^#{relay_state_kind}/).present? }
+
+            unless match_found 
+             key.failure(
+                text:
+                  "must be one of: #{AcaEntities::RelayStateKinds.values.join(', ')}"
+              )
+            end
           end
         end
       end

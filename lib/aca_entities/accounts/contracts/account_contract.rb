@@ -17,7 +17,8 @@ module AcaEntities
         # @option opts [String] :last_name The account user's last name or system service name
         # @option opts [String] :password Credentials that meet system complexity policies
         # @option opts [String] :attributes
-        # @option opts [String] :roles
+        # @option opts [String] :realm_roles
+        # @option opts [String] :client_roles
         # @option opts [String] :groups
         # @option opts [Hash] :access
         # @option opts [Integer] :not_before
@@ -35,7 +36,8 @@ module AcaEntities
           optional(:last_name).maybe(:string)
           optional(:password).maybe(:string)
           optional(:attributes).hash(AttributesContract.params)
-          optional(:roles).array(:string)
+          optional(:realm_roles).array(:string)
+          optional(:client_roles).array(:string)
           optional(:groups).array(:string)
           optional(:access).maybe(:hash)
           optional(:not_before).maybe(:integer)
