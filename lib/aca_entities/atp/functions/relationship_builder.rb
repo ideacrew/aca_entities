@@ -3,7 +3,7 @@
 require 'aca_entities/types'
 require 'dry/monads'
 
-# rubocop:disable Metrics/CyclomaticComplexity
+# rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 module AcaEntities
   module Atp
     module Functions
@@ -69,9 +69,11 @@ module AcaEntities
         private
 
         def person_hash
+          first_name = @memoized_data.find(Regexp.new("person_name.first_name.#{@primary_applicant_id}"))
+          last_name = @memoized_data.find(Regexp.new("person_name.last_name.#{@primary_applicant_id}"))
           { hbx_id: '1234', # default value
-            first_name: @memoized_data.find(Regexp.new("person_name.first_name.#{@primary_applicant_id}"))&.first&.item,
-            last_name: @memoized_data.find(Regexp.new("person_name.last_name.#{@primary_applicant_id}"))&.first&.item,
+            first_name: first_name&.first&.item&.downcase&.capitalize,
+            last_name: last_name&.first&.item&.downcase&.capitalize,
             gender: @memoized_data.find(Regexp.new("person.person_demographics.gender.#{@primary_applicant_id}"))&.first&.item&.capitalize,
             dob: @memoized_data.find(Regexp.new("person.person_demographics.dob.#{@primary_applicant_id}"))&.first&.item&.to_date,
             ssn: encrypt_ssn(@memoized_data.find(Regexp.new("person.person_demographics.ssn.#{@primary_applicant_id}"))&.first&.item) }
@@ -86,6 +88,6 @@ module AcaEntities
     end
   end
 end
-# rubocop:enable Metrics/CyclomaticComplexity
+# rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
 

@@ -216,15 +216,15 @@ module AcaEntities
         end
 
         def name_hash
-          { first_name: @memoized_data.find(Regexp.new("first_name.#{@applicant_identifier}"))&.first&.item,
-            middle_name: @memoized_data.find(Regexp.new("middle_name.#{@applicant_identifier}"))&.first&.item || '',
+          { first_name: @memoized_data.find(Regexp.new("first_name.#{@applicant_identifier}"))&.first&.item&.downcase&.capitalize,
+            middle_name: @memoized_data.find(Regexp.new("middle_name.#{@applicant_identifier}"))&.first&.item&.downcase&.capitalize || '',
             # default value, create new contract and entities for create family and IAP
-            last_name: @memoized_data.find(Regexp.new("last_name.#{@applicant_identifier}"))&.first&.item,
-            name_sfx: @memoized_data.find(Regexp.new("name_sfx.#{@applicant_identifier}"))&.first&.item || '',
-            name_pfx: @memoized_data.find(Regexp.new("name_pfx.#{@applicant_identifier}"))&.first&.item || '',
-            full_name: [@memoized_data.find(Regexp.new("first_name.#{@applicant_identifier}"))&.first&.item,
-                        @memoized_data.find(Regexp.new("last_name.#{@applicant_identifier}"))&.first&.item].join(' '),
-            alternate_name: @memoized_data.find(Regexp.new("alternate_name.#{@applicant_identifier}"))&.first&.item || 'nil' }
+            last_name: @memoized_data.find(Regexp.new("last_name.#{@applicant_identifier}"))&.first&.item&.downcase&.capitalize,
+            name_sfx: @memoized_data.find(Regexp.new("name_sfx.#{@applicant_identifier}"))&.first&.item&.downcase&.capitalize || '',
+            name_pfx: @memoized_data.find(Regexp.new("name_pfx.#{@applicant_identifier}"))&.first&.item&.downcase&.capitalize || '',
+            full_name: [@memoized_data.find(Regexp.new("first_name.#{@applicant_identifier}"))&.first&.item&.downcase&.capitalize,
+                        @memoized_data.find(Regexp.new("last_name.#{@applicant_identifier}"))&.first&.item&.downcase&.capitalize].join(' '),
+            alternate_name: @memoized_data.find(Regexp.new("alternate_name.#{@applicant_identifier}"))&.first&.item&.downcase&.capitalize || 'nil' }
         end
 
         def demographic_hash
@@ -243,8 +243,8 @@ module AcaEntities
         def family_member_reference_hash
           {
             family_member_hbx_id: '1234', # default value
-            first_name: @memoized_data.find(Regexp.new("first_name.#{@applicant_identifier}"))&.first&.item,
-            last_name: @memoized_data.find(Regexp.new("last_name.#{@applicant_identifier}"))&.first&.item,
+            first_name: @memoized_data.find(Regexp.new("first_name.#{@applicant_identifier}"))&.first&.item&.downcase&.capitalize,
+            last_name: @memoized_data.find(Regexp.new("last_name.#{@applicant_identifier}"))&.first&.item&.downcase&.capitalize,
             person_hbx_id: '1234', # default value
             is_primary_family_member: @primary_applicant_identifier == @applicant_identifier
           }
