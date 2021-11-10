@@ -49,11 +49,11 @@ module AcaEntities
 
                   namespace 'person_name' do
                     rewrap 'family.family_members.person', type: :hash do
-                      map 'given', 'person_name.first_name', memoize: true, append_identifier: true, function: ->(v) {v&.downcase&.capitalize}
-                      map 'middle', 'person_name.middle_name', memoize: true, append_identifier: true, function: ->(v) {v&.downcase&.capitalize}
-                      map 'sur', 'person_name.last_name', memoize: true, append_identifier: true, function: ->(v) {v&.downcase&.capitalize}
+                      map 'given', 'person_name.first_name', memoize: true, append_identifier: true, function: ->(v) {v&.capitalize}
+                      map 'middle', 'person_name.middle_name', memoize: true, append_identifier: true, function: ->(v) {v&.capitalize}
+                      map 'sur', 'person_name.last_name', memoize: true, append_identifier: true, function: ->(v) {v&.capitalize}
                       map 'full', 'person_name.full_name', memoize: true, append_identifier: true,
-                                                           function: ->(v) {v&.split&.map {|name| name.downcase.capitalize}&.join(" ")}
+                                                           function: ->(v) {v&.split&.map {|name| name.capitalize}&.join(" ")}
                       add_key 'hbx_id', value: 1234
                       add_key 'person_health.is_tobacco_user', value: "unknown"
                       add_key 'person_health.is_physically_disabled', value: nil
