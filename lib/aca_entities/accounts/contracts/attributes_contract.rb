@@ -22,10 +22,10 @@ module AcaEntities
             relay_state_kinds = AcaEntities::RelayStateKinds.values
 
             match_found = true if relay_state_kinds.include?(path)
-            match_found = true if relay_state_kinds.any?{|relay_state_kind| path.scan(/^#{relay_state_kind}/).present? }
+            match_found = true if relay_state_kinds.any? {|relay_state_kind| path.scan(/^#{relay_state_kind}/).present? }
 
-            unless match_found 
-             key.failure(
+            unless match_found
+              key.failure(
                 text:
                   "must be one of: #{AcaEntities::RelayStateKinds.values.join(', ')}"
               )

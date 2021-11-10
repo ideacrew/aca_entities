@@ -95,10 +95,10 @@ RSpec.describe AcaEntities::Accounts::Contracts::AccountContract do
     end
   end
 
-  context 'when passed valid relay state which includes identifier' do 
-    let(:attributes) {
-      {relay_state: 'https://enroll.coverme.gov/benefit_sponsors/profiles/broker_agencies/broker_agency_profiles/%23%5BDouble%20(anonymous)%5D'}
-    }
+  context 'when passed valid relay state which includes identifier' do
+    let(:attributes) do
+      { relay_state: 'https://enroll.coverme.gov/benefit_sponsors/profiles/broker_agencies/broker_agency_profiles/%23%5BDouble%20(anonymous)%5D' }
+    end
 
     it 'should pass' do
       result = described_class.new.call(all_params.merge(attributes: attributes))
