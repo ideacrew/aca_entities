@@ -14,13 +14,14 @@ module AcaEntities
           map 'address_1', 'contact.mailing_address.address.location_street.street_full_text'
           map 'address_2', 'contact.mailing_address.address.address_secondary_unit_text', function: lambda { |v|
                                                                                                       if v.nil?
-                                                                                                        '0'
+                                                                                                        ''
                                                                                                       else
-                                                                                                        (v.empty? ? "0" : v)
+                                                                                                        (v.empty? ? "" : v)
                                                                                                       end
                                                                                                     }
           map 'city', 'contact.mailing_address.address.location_city_name'
           map 'county', 'contact.mailing_address.address.location_county_name'
+          map 'county_fips', 'contact.mailing_address.address.location_county_code'
           map 'state', 'contact.mailing_address.address.location_state_us_postal_service_code'
           map 'zip', 'contact.mailing_address.address.location_postal_code'
           add_key 'contact.telephone_number'
