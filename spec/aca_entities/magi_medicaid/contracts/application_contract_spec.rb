@@ -86,6 +86,7 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicationContract,  dbcle
         us_state: 'DC',
         notice_options: notice_options,
         oe_start_on: Date.new(Date.today.year, 11, 1),
+        submitted_at: DateTime.now,
         hbx_id: '200000123' }
     end
 

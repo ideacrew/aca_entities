@@ -84,6 +84,7 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Application, dbclean: :after_each do
         us_state: 'DC',
         hbx_id: '200000123',
         oe_start_on: Date.new(Date.today.year, 11, 1),
+        submitted_at: DateTime.now,
         notice_options: notice_options }
     end
 
@@ -102,7 +103,7 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Application, dbclean: :after_each do
       end
 
       it 'should return all keys of application' do
-        expect(@result.to_h.keys).to eq(application_params.keys)
+        expect(@result.to_h.keys.sort).to eq(application_params.keys.sort)
       end
 
       it 'should match all the input keys of applicant' do

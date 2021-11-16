@@ -54,6 +54,7 @@ module AcaEntities
           # Set of attributes specific to MitC which helps to not have much logic in IapTo MitC Transform.
           optional(:mitc_households).array(AcaEntities::MagiMedicaid::Mitc::Contracts::HouseholdContract.params)
           optional(:mitc_tax_returns).array(AcaEntities::MagiMedicaid::Mitc::Contracts::TaxReturnContract.params)
+          optional(:submitted_at).maybe(:date_time)
         end
       end
     end

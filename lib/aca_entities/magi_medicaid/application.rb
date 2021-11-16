@@ -42,6 +42,8 @@ module AcaEntities
       attribute :mitc_households, Types::Array.of(AcaEntities::MagiMedicaid::Mitc::Household).optional.meta(omittable: true)
       attribute :mitc_tax_returns, Types::Array.of(AcaEntities::MagiMedicaid::Mitc::TaxReturn).optional.meta(omittable: true)
 
+      attribute :submitted_at, Types::DateTime.optional.meta(omittable: true)
+
       # Should have Product, PremiumTable and PremiumTuple
       # attribute :benchmark_product, ::AcaEntities::BenefitMarkets::Product.meta(omittable: false)
 
