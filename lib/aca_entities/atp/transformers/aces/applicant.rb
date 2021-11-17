@@ -23,9 +23,9 @@ module AcaEntities
           map 'attestation.is_self_attested_disabled', 'is_self_attested_disabled', memoize: true, visible: false
           map 'attestation.is_self_attested_blind', 'is_self_attested_blind', memoize: true, visible: false
           add_key 'blindness_or_disability_indicator', function: lambda { |v|
-            v.resolve('is_self_attested_disabled').item && v.resolve('is_self_attested_blind').item
+            v.resolve('is_self_attested_disabled').item || v.resolve('is_self_attested_blind').item
           }
-          add_key 'coverage_during_previous_six_months_indicator'
+          map 'job_coverage_ended_in_past_3_months', 'coverage_during_previous_six_months_indicator'
           add_key 'eligible_itu_services_indicator'
           map 'vlp_document', 'vlp_document', memoize_record: true, visible: false
           add_key 'lawful_presence_status.lawful_presence_status_eligibility.eligibility_indicator', function: lambda { |v|
