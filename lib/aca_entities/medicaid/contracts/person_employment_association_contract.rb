@@ -9,6 +9,7 @@ module AcaEntities
           optional(:start_date).maybe(:hash)
           optional(:end_date).maybe(:hash)
           optional(:employer).maybe(:hash)
+          optional(:esi_augmentation).maybe(:hash)
         end
       end
     end

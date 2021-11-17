@@ -8,6 +8,7 @@ module AcaEntities
         attribute :id, Types::String.meta(omittable: false)
         attribute :category_text, Types::String.optional.meta(omittable: true)
         attribute :organization_primary_contact_information, OrganizationPrimaryContactInformation.optional.meta(omittable: true)
+        attribute :organization_augmentation, OrganizationAugmentation.optional.meta(omittable: true)
       end
     end
   end
