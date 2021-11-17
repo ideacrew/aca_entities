@@ -333,7 +333,14 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
       begin_date: start_date,
       end_date: end_date,
       employer: employer,
-      esi_augmentation: {}
+      esi_augmentation: { esi: esi }
+    }
+  end
+
+  let(:esi) do
+    {
+      lowest_cost_plan: { minimum_avs_indicator: true },
+      via_current_employee_indicator: false
     }
   end
 

@@ -10,7 +10,7 @@ module AcaEntities
             include HappyMapper
 
             tag 'ESILowestCostPlan'
-            namespace 'hix-pm'
+            namespace 'hix-ee'
 
             element :minimum_avs_indicator, Boolean, tag: 'MinimumActuarialValueStandardIndicator', namespace: "hix-pm"
 
