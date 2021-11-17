@@ -14,11 +14,15 @@ module AcaEntities
 
             has_one :begin_date, AssociationBeginDate
             has_one :end_date, AssociationEndDate
+            has_one :esi_augmentation, EsiAugmentation
             has_one :employer, Employer
 
             def self.domain_to_mapper(employment_association)
               mapper = self.new
-              mapper.employer = Employer.domain_to_mapper(employment_association.employer)
+              if employment_association&.esi_augmentation
+                mapper.esi_augmentation = EsiAugmentation.domain_to_mapper(employment_association.esi_augmentation)
+              end
+              mapper.employer = Employer.domain_to_mapper(employment_association.employer) if employment_association&.employer
               mapper
             end
 
@@ -26,6 +30,7 @@ module AcaEntities
               {
                 begin_date: begin_date&.to_hash,
                 end_date: end_date&.to_hash,
+                esi_augmentation: esi_augmentation&.to_hash,
                 employer: employer&.to_hash
               }
             end
