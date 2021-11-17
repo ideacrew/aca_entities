@@ -332,7 +332,8 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
     {
       begin_date: start_date,
       end_date: end_date,
-      employer: employer
+      employer: employer,
+      esi_augmentation: {}
     }
   end
 
