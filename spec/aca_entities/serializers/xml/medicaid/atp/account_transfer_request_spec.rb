@@ -340,7 +340,8 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
     {
       id: 'MEORG000000209355581',
       category_text: "Acme",
-      organization_primary_contact_information: employer_contact
+      organization_primary_contact_information: employer_contact,
+      organization_augmentation: { tin_identification: tin_identification }
     }
   end
 
@@ -428,7 +429,13 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
     {
       role_reference: { ref: 'pe456' },
       claimed_by_custodial_parent_indicator: false,
-      tin_identification: { identification_id: '012345678' }
+      tin_identification: tin_identification
+    }
+  end
+
+  let(:tin_identification) do
+    {
+      identification_id: '012345678'
     }
   end
 

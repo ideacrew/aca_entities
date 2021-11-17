@@ -23,7 +23,9 @@ module AcaEntities
               mapper.category_text = employer.category_text
               mapper.organization_primary_contact_information =
                 OrganizationPrimaryContactInformation.domain_to_mapper(employer.organization_primary_contact_information)
-              mapper.organization_augmentation = OrganizationAugmentation.domain_to_mapper(employer.organization_augmentation)
+              if employer.organization_augmentation
+                mapper.organization_augmentation = OrganizationAugmentation.domain_to_mapper(employer.organization_augmentation)
+              end
               mapper
             end
 

@@ -10,6 +10,7 @@ module AcaEntities
           required(:id).filled(:string)
           optional(:category_text).maybe(:string)
           optional(:organization_primary_contact_information).maybe(:hash)
+          optional(:organization_augmentation).maybe(:hash)
         end
       end
     end
