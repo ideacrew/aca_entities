@@ -52,8 +52,8 @@ module AcaEntities
           map 'end_on', 'earned_date_range.end_date.date', function: ->(_v) { Date.today } # default
           map 'start_on', 'earned_date_range.start_date.date', function: ->(_v) { Date.today } # default
 
-          map 'frequency_kind', 'frequency.frequency_code'
-          add_key 'payment_frequency'
+          map 'frequency_kind', 'frequency.frequency_code', memoize: true
+          add_key 'payment_frequency.frequency_code', function: ->(v) { v.resolve('frequency.frequency_code').item }
           map 'employer.employer_id', 'source_organization_reference.ref'
         end
       end

@@ -14,18 +14,6 @@ module AcaEntities
 
             has_one :role_reference, RoleOfPersonReference
 
-            # True if an applicant is eligible for an employer sponsored insurance (ESI) plan; false otherwise.
-            element :esi_eligible_indicator, Boolean, tag: 'InsuranceApplicantESIEligibleIndicator'
-
-            # True if the applicant has a fixed address; false otherwise.
-            element :fixed_address_indicator, Boolean, tag: 'InsuranceApplicantFixedAddressIndicator'
-
-            # A description of the applicant's incarceration history.
-            has_many :incarcerations, Incarceration
-
-            # An indication of whether or not the applicant has an absent parent or spouse.
-            element :absent_parent_or_spouse_code, String, tag: 'InsuranceApplicantAbsentParentOrSpouseCode'
-
             # True if the applicant is blind or disabled; false otherwise
             element :blindness_or_disability_indicator, Boolean, tag: 'InsuranceApplicantBlindnessOrDisabilityIndicator'
 
@@ -35,8 +23,17 @@ module AcaEntities
             # True if the applicant is eligible for Indian Health Service/Tribal/Urban Indian Health (I/T/U) services; false otherwise
             element :eligible_itu_services_indicator, Boolean, tag: 'InsuranceApplicantEligibleITUServicesIndicator'
 
+            # True if the applicant has a fixed address; false otherwise.
+            element :fixed_address_indicator, Boolean, tag: 'InsuranceApplicantFixedAddressIndicator'
+
+            # A description of the applicant's incarceration history.
+            has_many :incarcerations, Incarceration
+
             # A status of the applicant's lawful presence in the United States
             has_one :lawful_presence_status, InsuranceApplicantLawfulPresenceStatus
+
+            # An indication of whether or not the applicant has an absent parent or spouse.
+            element :absent_parent_or_spouse_code, String, tag: 'InsuranceApplicantAbsentParentOrSpouseCode'
 
             # True if an applicant requires long term care; false otherwise.
             element :long_term_care_indicator, Boolean, tag: 'InsuranceApplicantLongTermCareIndicator'
@@ -106,6 +103,8 @@ module AcaEntities
             def self.domain_to_mapper(insurance_applicant)
               mapper = self.new
               mapper.fixed_address_indicator = insurance_applicant.fixed_address_indicator
+              mapper.blindness_or_disability_indicator = insurance_applicant.blindness_or_disability_indicator
+              mapper.coverage_during_previous_six_months_indicator = insurance_applicant.coverage_during_previous_six_months_indicator
               mapper.role_reference = RoleOfPersonReference.domain_to_mapper(insurance_applicant.role_reference)
               if insurance_applicant.incarcerations
                 mapper.incarcerations = insurance_applicant.incarcerations.map { |inc| Incarceration.domain_to_mapper(inc) }
