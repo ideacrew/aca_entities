@@ -9,7 +9,7 @@ module AcaEntities
         params do
           optional(:monthly_income_greater_than_fpl).maybe(:float)
           optional(:income_type_code).maybe(:string)
-          optional(:income_amount).maybe(:float)
+          optional(:amount).maybe(:float)
           optional(:income_frequency).maybe(:hash)
           optional(:income_from_tribal_source).maybe(:float)
           optional(:monthly_attested_medicaid_household_current_income).maybe(:float)
