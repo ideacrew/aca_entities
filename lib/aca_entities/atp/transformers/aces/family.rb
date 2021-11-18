@@ -14,6 +14,7 @@ require 'pry'
 require 'dry/monads'
 require 'dry/monads/do'
 
+# rubocop:disable Metrics/ClassLength
 module AcaEntities
   module Atp
     module Transformers
@@ -271,3 +272,4 @@ module AcaEntities
     end
   end
 end
+# rubocop:enable Metrics/ClassLength
