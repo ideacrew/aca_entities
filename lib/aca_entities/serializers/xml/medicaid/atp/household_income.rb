@@ -15,7 +15,7 @@ module AcaEntities
             has_one :income_frequency, IncomeFrequency
 
             # An amount of money (in dollars) earned
-            element :income_amount, Float, tag: 'IncomeAmount', namespace: "hix-core"
+            element :amount, Float, tag: 'IncomeAmount', namespace: "hix-core"
 
             # A number of hours worked per week.
             element :hours_per_week, Float, tag: 'IncomeHoursPerWeekMeasure', namespace: "hix-core"
@@ -50,7 +50,7 @@ module AcaEntities
 
             def self.domain_to_mapper(h_income)
               mapper = self.new
-              mapper.income_amount = h_income.income_amount
+              mapper.amount = h_income.amount
               mapper.hours_per_week = h_income.hours_per_week
               mapper.hours_per_pay_period = h_income.hours_per_pay_period
               mapper.days_per_week = h_income.days_per_week
@@ -59,18 +59,20 @@ module AcaEntities
               mapper.subject_to_federal_restrictions_indicator = h_income.subject_to_federal_restrictions_indicator
               mapper.description_text = h_income.description_text
               mapper.employment_source_text = h_income.employment_source_text
-              mapper.income_frequency = IncomeFrequency.domain_to_mapper(h_income.income_frequency)
-              mapper.date = IncomeDate.domain_to_mapper(h_income.date)
-              mapper.source_organization_reference = IncomeSourceOrganizationReference.domain_to_mapper(h_income.source_organization_reference)
-              mapper.payment_frequency = IncomePaymentFrequency.domain_to_mapper(h_income.payment_frequency)
-              mapper.earned_date_range = IncomeEarnedDateRange.domain_to_mapper(h_income.earned_date_range)
+              mapper.income_frequency = IncomeFrequency.domain_to_mapper(h_income.income_frequency) unless h_income.income_frequency.nil?
+              mapper.date = IncomeDate.domain_to_mapper(h_income.date) unless h_income.date.nil?
+              unless h_income.source_organization_reference.nil?
+                mapper.source_organization_reference = IncomeSourceOrganizationReference.domain_to_mapper(h_income.source_organization_reference)
+              end
+              mapper.payment_frequency = IncomePaymentFrequency.domain_to_mapper(h_income.payment_frequency) unless h_income.payment_frequency.nil?
+              mapper.earned_date_range = IncomeEarnedDateRange.domain_to_mapper(h_income.earned_date_range) unless h_income.earned_date_range.nil?
               mapper
             end
 
             def to_hash
               {
                 employment_source_text: employment_source_text,
-                income_amount: income_amount,
+                amount: amount,
                 days_per_week: days_per_week,
                 hours_per_pay_period: hours_per_pay_period,
                 hours_per_week: hours_per_week,

@@ -20,7 +20,7 @@ module AcaEntities
               mapper = self.new
               mapper.claimed_by_custodial_parent_indicator = filer.claimed_by_custodial_parent_indicator
               mapper.role_reference = RoleOfPersonReference.domain_to_mapper(filer.role_reference)
-              mapper.tin_identification = TinIdentification.domain_to_mapper(filer.tin_identification)
+              mapper.tin_identification = TinIdentification.domain_to_mapper(filer.tin_identification) if filer.tin_identification
               mapper
             end
 
