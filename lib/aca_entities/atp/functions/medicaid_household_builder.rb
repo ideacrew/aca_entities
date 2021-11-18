@@ -23,7 +23,7 @@ module AcaEntities
               household_incomes: incomes,
               household_member_references: member_references,
               effective_person_quantity: people.count
-              #   income_above_highest_applicable_magi_standard_indicator: nil
+              #   income_above_highest_applicable_magi_standard_indicator: nil # TODO: determine correct mapping
             }
           end
         end
