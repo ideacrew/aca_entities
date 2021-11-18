@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require "aca_entities/atp/functions/tax_return_builder"
 require "aca_entities/atp/functions/income_builder"
 require "aca_entities/atp/functions/expense_builder"
 require "aca_entities/atp/functions/applicant_builder"
@@ -64,6 +65,8 @@ module AcaEntities
                 end
                 add_key 'recipient_state_code'
               end
+
+              map 'households', 'households', memoize_record: true, visible: false
 
               namespace 'magi_medicaid_applications' do
                 rewrap 'aces.insurance_application', type: :hash  do
@@ -265,6 +268,7 @@ module AcaEntities
                   :application_terms_indicator => true } # default value
               }
               add_key "verification_metadata", function: ::AcaEntities::Atp::Functions::VerificationMetadataBuilder.new
+              add_key "tax_returns", function: ::AcaEntities::Atp::Functions::TaxReturnBuilder.new
             end
           end
         end

@@ -12,7 +12,7 @@ RSpec.describe ::AcaEntities::Medicaid::Atp::HouseholdIncome do
       {
         monthly_income_greater_than_fpl: 0.00,
         income_type_code: 'CapitalGains',
-        income_amount: 500.00,
+        amount: 500.00,
         income_frequency: { frequency_code: 'Weekly' },
         income_from_tribal_source: 120.00,
         monthly_attested_medicaid_household_current_income: nil,
