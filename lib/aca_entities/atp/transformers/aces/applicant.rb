@@ -26,7 +26,6 @@ module AcaEntities
             v.resolve('is_self_attested_disabled').item || v.resolve('is_self_attested_blind').item
           }
           map 'job_coverage_ended_in_past_3_months', 'coverage_during_previous_six_months_indicator'
-          add_key 'eligible_itu_services_indicator'
           map 'vlp_document', 'vlp_document', memoize_record: true, visible: false
           add_key 'lawful_presence_status.lawful_presence_status_eligibility.eligibility_indicator', function: lambda { |v|
             v.resolve('citizen_status').item == 'alien_lawfully_present'
@@ -54,9 +53,7 @@ module AcaEntities
           # end
           map 'is_self_attested_long_term_care', 'long_term_care_indicator'
           add_key 'non_esi_coverage_indicators', value: ->(_v) {[]}
-          add_key 'parent_caretaker_indicator'
-          add_key 'received_itu_services_indicator'
-          add_key 'recent_medical_bills_indicator'
+          map 'is_primary_caregiver', 'parent_caretaker_indicator'
           add_key 'state_benefits_through_public_employee_indicator'
           map 'student.is_student', 'student_indicator'
           add_key 'esi_associations', value: ->(_v) {[]}
@@ -77,6 +74,18 @@ module AcaEntities
           map 'foster_care_indicator', 'foster_care_indicator'
           add_key 'parent_average_hours_worked_per_week_values'
 
+          map 'native_american_information.indian_tribe_member', 'indian_tribe_member', memoize: true, visible: false
+          map 'other_health_service.is_eligible', 'is_eligible', memoize: true, visible: false
+          map 'other_health_service.has_received', 'has_received', memoize: true, visible: false
+
+          add_key 'eligible_itu_services_indicator', function: lambda { |v|
+            v.resolve('indian_tribe_member').item && v.resolve('is_eligible').item
+          }
+          add_key 'received_itu_services_indicator', function: lambda { |v|
+            v.resolve('indian_tribe_member').item && v.resolve('has_received').item
+          }
+
+          map 'need_help_paying_bills', 'recent_medical_bills_indicator'
           add_key 'referral_activity.activity_id.identification_id', value: "FFM45358121961474116" # default value
           add_key 'referral_activity.activity_date.date_time', value: ->(_v) {DateTime.now} # default value
           add_key 'referral_activity.sender_reference.ref', value: "Sender"

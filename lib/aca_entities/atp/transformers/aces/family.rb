@@ -10,10 +10,12 @@ require 'aca_entities/atp/functions/verification_metadata_builder'
 require "aca_entities/atp/functions/contact_builder"
 require 'aca_entities/atp/transformers/aces/applicant'
 require 'aca_entities/atp/transformers/aces/ssf_signer'
+require 'pry'
 
 require 'dry/monads'
 require 'dry/monads/do'
 
+# rubocop:disable Metrics/ClassLength
 module AcaEntities
   module Atp
     module Transformers
@@ -147,7 +149,7 @@ module AcaEntities
                       end
                       citizen_status == 'us_citizen'
                     }
-                    add_key 'living_indicator'
+                    add_key 'living_indicator', value: ->(_v) {true}
                     map 'person_demographics.encrypted_ssn', 'ssn_identification.identification_id', function: lambda { |v|
                       return nil unless v
                       result = AcaEntities::Operations::Encryption::Decrypt.new.call({ value: v })
@@ -195,7 +197,10 @@ module AcaEntities
                     }
 
                     add_key 'person_augmentation.preferred_languages', function: lambda { |v|
-                      [language_name: v.resolve(:language_preference).item, :speaks_language_indicator => nil, :writes_language_indicator => nil]
+                      language = v.resolve(:language_preference).item
+                      [language_name: v.resolve(:language_preference).item,
+                       :speaks_language_indicator => !language.blank?,
+                       :writes_language_indicator => !language.blank?]
                     }
                     add_key 'person_augmentation.pregnancy_status', function: lambda { |v|
                       member_id = v.find(/family.family_members.(\w+)$/).map(&:item).last
@@ -212,6 +217,12 @@ module AcaEntities
                       end
                     }
 
+                    add_key 'person_augmentation.us_veteran_indicator', function: lambda { |v|
+                      member_id = v.find(/family.family_members.(\w+)$/).map(&:item).last
+                      applicants_hash = v.resolve('family.magi_medicaid_applications.applicants').item
+                      applicant_hash = applicants_hash[member_id.to_sym]
+                      applicant_hash.dig(:demographic, :is_veteran_or_active_military) if applicant_hash
+                    }
                     add_key 'person_augmentation.incomes', function: AcaEntities::Atp::Functions::IncomeBuilder.new
                     add_key 'person_augmentation.expenses', function: AcaEntities::Atp::Functions::ExpenseBuilder.new
                     add_key 'person_augmentation.employments', function: AcaEntities::Atp::Functions::EmploymentBuilder.new
@@ -265,3 +276,4 @@ module AcaEntities
     end
   end
 end
+# rubocop:enable Metrics/ClassLength
