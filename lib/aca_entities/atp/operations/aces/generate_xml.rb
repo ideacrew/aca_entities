@@ -108,6 +108,10 @@ module AcaEntities
               households[i] = h if h["is_active"]
             end
             record["family"].merge!("households" => households)
+            mitc_households = record["family"]["magi_medicaid_applications"]["mitc_households"]
+            record["family"]["magi_medicaid_applications"].merge!("mitc_households" => mitc_households.group_by do |h|
+              h["household_id"]
+            end.transform_keys(&:to_s).transform_values(&:first))
 
             family_members.each do |family_member|
               person_relationships = family_member[1]["person"].delete("person_relationships")
