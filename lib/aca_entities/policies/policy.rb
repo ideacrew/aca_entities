@@ -4,7 +4,7 @@ module AcaEntities
   module Policies
     # entity for policy
     class Policy < Dry::Struct
-      attribute :policy_id,               Types::Bson
+      attribute :policy_id,               Types::String
       attribute :eg_id,                  Types::String.optional.meta(omittable: true)
       # hios_plan_id
       attribute :qhp_id,                 Types::String.optional.meta(omittable: true)
