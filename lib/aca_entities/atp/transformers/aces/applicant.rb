@@ -17,7 +17,8 @@ module AcaEntities
           map 'attestation', 'attestation', memoize_record: true, visible: false
           add_key 'incarcerations', function: lambda { |v|
             attestation = v.resolve('attestation').item
-            [{ incarceration_indicator: attestation[:is_incarcerated], incarceration_date:  { date: Date.today } }]
+            incarceration_date = { date: Date.today } if attestation[:is_incarcerated]
+            [{ incarceration_indicator: attestation[:is_incarcerated], incarceration_date: incarceration_date }]
           }
           add_key 'absent_parent_or_spouse_code'
           map 'attestation.is_self_attested_disabled', 'is_self_attested_disabled', memoize: true, visible: false
