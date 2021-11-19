@@ -108,10 +108,12 @@ module AcaEntities
               h["household_id"]
             end.transform_keys(&:to_s).transform_values(&:first))
 
-            tax_households = record["family"]["magi_medicaid_applications"]["tax_households"]
-            record["family"]["magi_medicaid_applications"].merge!("tax_households" => tax_households.group_by do |th|
-              th["hbx_id"]
-            end.transform_keys(&:to_s).transform_values(&:first))
+            if record["family"]["magi_medicaid_applications"].present?
+              tax_households = record["family"]["magi_medicaid_applications"]["tax_households"]
+              record["family"]["magi_medicaid_applications"].merge!("tax_households" => tax_households.group_by do |th|
+                th["hbx_id"]
+              end.transform_keys(&:to_s).transform_values(&:first))
+            end
 
             family_members.each do |family_member|
               person_relationships = family_member[1]["person"].delete("person_relationships")

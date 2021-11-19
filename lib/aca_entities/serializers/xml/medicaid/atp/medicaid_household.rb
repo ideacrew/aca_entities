@@ -15,16 +15,16 @@ module AcaEntities
             # A monetary payment received by a household, usually on a regular basis.
             has_many :household_incomes, HouseholdIncome
 
+            element :household_size_quantity, Integer, tag: 'HouseholdSizeQuantity'
+
+            has_many :household_member_references, HouseholdMemberReference
+
             # A  number of persons in a household based on a state's Medicaid rules.
             element :effective_person_quantity, Integer, tag: 'MedicaidHouseholdEffectivePersonQuantity'
 
             # True if a household's income is greater than the highest applicable MAGI standard for the household size; false otherwise
             element :income_above_highest_applicable_magi_standard_indicator, Boolean,
                     tag: 'MedicaidHouseholdIncomeAboveHighestApplicableMAGIStandardIndicator'
-
-            has_many :household_member_references, HouseholdMemberReference
-
-            element :household_size_quantity, Integer, tag: 'HouseholdSizeQuantity'
 
             def self.domain_to_mapper(household)
               mapper = self.new

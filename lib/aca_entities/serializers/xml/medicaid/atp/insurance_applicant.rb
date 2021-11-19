@@ -122,11 +122,10 @@ module AcaEntities
               mapper
             end
 
-            def to_hash # rubocop:disable Metrics/CyclomaticComplexity, Metrics/MethodLength, Metrics/AbcSize
+            def to_hash # rubocop:disable Metrics/CyclomaticComplexity, Metrics/MethodLength
               {
                 id: role_reference ? role_reference.to_hash[:ref] : nil,
                 role_reference: role_reference&.to_hash,
-                esi_eligible_indicator: esi_eligible_indicator,
                 fixed_address_indicator: fixed_address_indicator,
                 incarcerations: incarcerations.map(&:to_hash),
                 absent_parent_or_spouse_code: absent_parent_or_spouse_code,
