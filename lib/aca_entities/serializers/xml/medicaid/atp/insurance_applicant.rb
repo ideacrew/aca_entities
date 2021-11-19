@@ -117,6 +117,10 @@ module AcaEntities
                 MedicaidMagiEligibility.domain_to_mapper(medicaid_magi_eligibility)
               end
               mapper.age_left_foster_care = insurance_applicant.age_left_foster_care
+              if insurance_applicant.foster_care_state && !insurance_applicant.foster_care_state.empty?
+                mapper.foster_care_state = insurance_applicant.foster_care_state
+              end
+              mapper.had_medicaid_during_foster_care_indicator = insurance_applicant.had_medicaid_during_foster_care_indicator
               if insurance_applicant&.referral_activity
                 mapper.referral_activity = ReferralActivity.domain_to_mapper(insurance_applicant&.referral_activity)
               end

@@ -67,9 +67,9 @@ module AcaEntities
           add_key 'csr_eligibilities', value: ->(_v) {[]}
           add_key 'chip_eligibilities'
           add_key 'temporarily_lives_outside_application_state_indicator'
-          map 'age_left_foster_care', 'age_left_foster_care'
-          map 'foster_care_state', 'foster_care_state'
-          map 'had_medicaid_during_foster_care', 'had_medicaid_during_foster_care_indicator'
+          map 'foster_care.age_left_foster_care', 'age_left_foster_care'
+          map 'foster_care.foster_care_us_state', 'foster_care_state'
+          map 'foster_care.had_medicaid_during_foster_care', 'had_medicaid_during_foster_care_indicator'
           add_key 'lives_with_minor_age_dependent_indicator'
           add_key 'household_exception_indicator'
           map 'foster_care_indicator', 'foster_care_indicator'
