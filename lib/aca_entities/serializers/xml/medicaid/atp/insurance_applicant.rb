@@ -116,6 +116,7 @@ module AcaEntities
               mapper.medicaid_magi_eligibilities = insurance_applicant.medicaid_magi_eligibilities&.map do |medicaid_magi_eligibility|
                 MedicaidMagiEligibility.domain_to_mapper(medicaid_magi_eligibility)
               end
+              mapper.age_left_foster_care = insurance_applicant.age_left_foster_care
               if insurance_applicant&.referral_activity
                 mapper.referral_activity = ReferralActivity.domain_to_mapper(insurance_applicant&.referral_activity)
               end
