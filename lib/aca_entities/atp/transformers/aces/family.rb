@@ -7,6 +7,7 @@ require "aca_entities/atp/functions/applicant_builder"
 require "aca_entities/atp/functions/employment_builder"
 require "aca_entities/atp/functions/build_outbound_relationship"
 require 'aca_entities/atp/functions/verification_metadata_builder'
+require 'aca_entities/atp/functions/medicaid_household_builder'
 require "aca_entities/atp/functions/contact_builder"
 require 'aca_entities/atp/transformers/aces/applicant'
 require 'aca_entities/atp/transformers/aces/ssf_signer'
@@ -97,6 +98,7 @@ module AcaEntities
                   # map "report_change_terms", 'report_change_terms'
                   # map "medicaid_terms", 'medicaid_terms'
                   # map "is_renewal_authorized", 'is_renewal_authorized'
+                  map 'mitc_households', 'mitc_households', memoize_record: true, visible: false
                   map 'applicants', 'applicants', memoize_record: true, visible: false
 
                   # add_key 'insurance_applicants', function: AcaEntities::Atp::Functions::ApplicantBuilder.new
@@ -269,6 +271,7 @@ module AcaEntities
               }
               add_key "verification_metadata", function: ::AcaEntities::Atp::Functions::VerificationMetadataBuilder.new
               add_key "tax_returns", function: ::AcaEntities::Atp::Functions::TaxReturnBuilder.new
+              add_key "medicaid_households", function: ::AcaEntities::Atp::Functions::MedicaidHouseholdBuilder.new
             end
           end
         end

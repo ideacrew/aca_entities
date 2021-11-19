@@ -40,7 +40,7 @@ RSpec.describe ::AcaEntities::Medicaid::Atp::TaxReturn,  dbclean: :around_each d
         household_incomes:
         [{
           monthly_income_greater_than_fpl: 0.00,
-          income_type_code: 'CapitalGains',
+          category_code: 'CapitalGains',
           amount: 500.00,
           income_frequency: { frequency_code: 'Weekly' },
           income_from_tribal_source: 120.00,
