@@ -88,7 +88,7 @@ module AcaEntities
             end
           end
 
-          # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/MethodLength
+          # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity
           def prep_record(record)
             family_members = record["family"]["family_members"]
             applicants = record["family"]["magi_medicaid_applications"]["applicants"]
@@ -124,7 +124,7 @@ module AcaEntities
             record["family"].merge!("family_members" => family_members)
             record
           end
-          # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/MethodLength
+          # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity
 
           def to_aces(record)
             record_hash = prep_record(record)
