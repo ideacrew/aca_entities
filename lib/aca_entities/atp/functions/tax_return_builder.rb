@@ -7,22 +7,24 @@ module AcaEntities
     module Functions
       # Transformers implementation for atp payloads
       class TaxReturnBuilder
-        # rubocop:disable Metrics/MethodLength, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+        # rubocop:disable Metrics/MethodLength
         def call(cache)
           @memoized_data = cache
           applicants_hash = @memoized_data.resolve('family.magi_medicaid_applications.applicants').item
           member_id = @memoized_data.find(/family.family_members.(\w+)$/).map(&:item).last
           person_relationships = applicants_hash[member_id.to_sym][:mitc_relationships]
-          tax_households = @memoized_data.resolve('family.households').item&.values&.map {|h| h[:tax_households]}&.flatten
+          #   tax_households = @memoized_data.resolve('family.households').item&.values&.map {|h| h[:tax_households]}&.flatten
+          tax_households = @memoized_data.resolve('family.magi_medicaid_applications.tax_households').item
 
-          tax_households.each_with_object([]) do |household, collect|
-            members = household[:tax_household_members].map {|m| m[:family_member_reference]}
+          tax_households.values.each_with_object([]) do |household, collect|
+            # members = household[:tax_household_members].map {|m| m[:family_member_reference]}
+            members = household[:tax_household_members].map {|m| m.dig(:applicant_reference, :person_hbx_id)}
 
             primary_tax_filer = find_primary_tax_filer(members, applicants_hash).first.to_s
             primary_role_reference = { ref: "SBM#{primary_tax_filer}" }
             primary_hash = { role_reference: primary_role_reference } if primary_tax_filer.present?
 
-            spouse_tax_filer = find_spouse_tax_filer(members, person_relationships)
+            spouse_tax_filer = find_spouse_tax_filer(members, person_relationships, member_id)
             spouse_role_reference = { ref: "SBM#{spouse_tax_filer}" }
             spouse_hash = { role_reference: spouse_role_reference } if spouse_tax_filer.present?
 
@@ -32,11 +34,15 @@ module AcaEntities
             household_size_quantity = members.count
             household_member_references = members.map { |f| { ref: "SBM#{f}" } }
 
-            incomes = find_incomes(members, applicants_hash)&.flatten
-            incomes&.map! {|i| i.select {|k, _v| k == :amount}}
+            income = household.dig(:annual_tax_household_income, :cents)
+            income_dollars = cents_to_dollars(income) # convert to dollars
+            income_hash = { amount: income_dollars&.to_f }
+
+            # incomes = find_incomes(members, applicants_hash)&.flatten
+            # incomes&.map! {|i| i.select {|k, _v| k == :amount}}
 
             atp_tax_household = {
-              household_incomes: incomes,
+              household_incomes: [income_hash],
               household_size_quantity: household_size_quantity,
               primary_tax_filer: primary_hash,
               spouse_tax_filer: spouse_hash,
@@ -50,7 +56,12 @@ module AcaEntities
 
             collect << atp_tax_return
           end
-          # rubocop:enable Metrics/MethodLength, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+          # rubocop:enable Metrics/MethodLength
+        end
+
+        def cents_to_dollars(income)
+          return unless income && income.to_s.length > 2
+          income.to_s.insert(-3, ".")
         end
 
         def find_primary_tax_filer(members, applicants_hash)
@@ -60,9 +71,9 @@ module AcaEntities
           members.map(&:to_sym) & applicants_hash.select {|_k, v| v[:is_primary_applicant].present?}.keys
         end
 
-        def find_spouse_tax_filer(members, person_relationships)
-          person_relationships.select {|h| h[:relationship_code] == "02"}.each do |rel|
-            return rel[:other_id] unless ([rel[:other_id]] & members).empty?
+        def find_spouse_tax_filer(members, person_relationships, member_id)
+          person_relationships.select {|h| h[:relationship_code] == "02"}.each do
+            return member_id unless ([member_id] & members).empty?
           end
         end
 
@@ -77,13 +88,13 @@ module AcaEntities
           end
         end
 
-        def find_member_incomes(member, applicants_hash)
-          incomes = applicants_hash.dig(member, :incomes)
-          incomes.each_with_object([]) do |income, collect|
-            atp_income = ::AcaEntities::Atp::Transformers::Aces::Income.transform(income)
-            collect << atp_income
-          end
-        end
+        # def find_member_incomes(member, applicants_hash)
+        #   incomes = applicants_hash.dig(member, :incomes)
+        #   incomes.each_with_object([]) do |income, collect|
+        #     atp_income = ::AcaEntities::Atp::Transformers::Aces::Income.transform(income)
+        #     collect << atp_income
+        #   end
+        # end
       end
     end
   end
