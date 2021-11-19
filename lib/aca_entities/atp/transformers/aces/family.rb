@@ -67,7 +67,7 @@ module AcaEntities
                 add_key 'recipient_state_code'
               end
 
-              map 'households', 'households', memoize_record: true, visible: false
+              # map 'households', 'households', memoize_record: true, visible: false
 
               namespace 'magi_medicaid_applications' do
                 rewrap 'aces.insurance_application', type: :hash  do
@@ -113,6 +113,7 @@ module AcaEntities
                   add_key 'assister_association'
                   # add_key 'tax_return_access', value: ->v {}
                   add_key 'coverage_renewal_year_quantity', value: ->(_v) {5}
+                  map 'tax_households', 'tax_households', memoize_record: true, visible: false
                 end
               end
 
