@@ -11,7 +11,7 @@ module AcaEntities
         class Applicant < ::AcaEntities::Operations::Transforms::Transform
           include ::AcaEntities::Operations::Transforms::Transformer
 
-          map 'person_hbx_id', 'role_reference.ref', function: ->(v) {"SBM#{v}"}
+          map 'person_hbx_id', 'role_reference.ref', memoize: true, visible: true, function: ->(v) {"SBM#{v}"}
           add_key 'esi_eligible_indicator'
           map 'is_homeless', 'fixed_address_indicator'
           map 'attestation', 'attestation', memoize_record: true, visible: false
@@ -87,7 +87,9 @@ module AcaEntities
           }
 
           map 'need_help_paying_bills', 'recent_medical_bills_indicator'
-          add_key 'referral_activity.activity_id.identification_id', value: "FFM45358121961474116" # default value
+          add_key 'referral_activity.activity_id.identification_id', function: lambda {|v|
+            ["SBM", DateTime.now.strftime("%Y%m%d%H%M%S"), v.resolve('role_reference.ref').item].join
+          }
           add_key 'referral_activity.activity_date.date_time', value: ->(_v) {DateTime.now} # default value
           add_key 'referral_activity.sender_reference.ref', value: "Sender"
           add_key 'referral_activity.receiver_reference.ref', value: "medicaidReceiver"
