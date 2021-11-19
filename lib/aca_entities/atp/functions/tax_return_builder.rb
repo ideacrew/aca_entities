@@ -15,7 +15,7 @@ module AcaEntities
           person_relationships = applicants_hash[member_id.to_sym][:mitc_relationships]
           #   tax_households = @memoized_data.resolve('family.households').item&.values&.map {|h| h[:tax_households]}&.flatten
           tax_households = @memoized_data.resolve('family.magi_medicaid_applications.tax_households').item
-
+          return unless tax_households
           tax_households.values.each_with_object([]) do |household, collect|
             # members = household[:tax_household_members].map {|m| m[:family_member_reference]}
             members = household[:tax_household_members].map {|m| m.dig(:applicant_reference, :person_hbx_id)}
