@@ -49,8 +49,8 @@ module AcaEntities
                                      date: Date.today
                                    }
                                  } # default
-          map 'end_on', 'earned_date_range.end_date.date', function: ->(_v) { Date.today } # default
-          map 'start_on', 'earned_date_range.start_date.date', function: ->(_v) { Date.today } # default
+          map 'end_on', 'earned_date_range.end_date.date', function: ->(v) { Date.parse(v) unless v.nil? }
+          map 'start_on', 'earned_date_range.start_date.date', function: ->(v) { Date.parse(v) unless v.nil? }
 
           map 'frequency_kind', 'frequency.frequency_code', memoize: true
           add_key 'payment_frequency.frequency_code', function: ->(v) { v.resolve('frequency.frequency_code').item }
