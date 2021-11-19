@@ -108,7 +108,7 @@ module AcaEntities
               h["household_id"]
             end.transform_keys(&:to_s).transform_values(&:first))
 
-            if record["family"]["households"].present?
+            if record["family"]["magi_medicaid_applications"].present?
               tax_households = record["family"]["magi_medicaid_applications"]["tax_households"]
               record["family"]["magi_medicaid_applications"].merge!("tax_households" => tax_households.group_by do |th|
                 th["hbx_id"]
