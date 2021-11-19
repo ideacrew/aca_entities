@@ -6,14 +6,18 @@ module AcaEntities
     class Enrollee < Dry::Struct
       attribute :enrollee_demographics,
                 AcaEntities::Enrollees::EnrolleeDemographics.meta(omittable: false)
-      attribute :hbx_member_id,    Types::String.optional.meta(omittable: true)
-      attribute :pre_amt,          Types::Decimal.optional.meta(omittable: true)
-      attribute :coverage_start,   Types::Date.optional.meta(omittable: true)
+      attribute :first_name, Types::String.meta(omittable: false)
+      attribute :middle_name, Types::String.optional.meta(omittable: true)
+      attribute :last_name, Types::String.meta(omittable: false)
+      attribute :name_suffix, Types::String.optional.meta(omittable: true)
+      attribute :hbx_member_id,    Types::String.meta(omittable: false)
+      attribute :premium_amount,   Types::Decimal.meta(omittable: false)
+      attribute :coverage_start,   Types::Date.meta(omittable: false)
       attribute :coverage_end,     Types::Date.optional.meta(omittable: true)
       attribute :coverage_status,  Types::String.optional.meta(omittable: true)
       attribute :relationship_status_code, Types::String.meta(omittable: false)
-      attribute :issuer_assigned_member_id, Types::String.meta(omittable: false)
-      attribute :issuer_assigned_policy_id, Types::String.meta(omittable: false)
+      attribute :issuer_assigned_member_id, Types::String.optional.meta(omittable: true)
+      attribute :issuer_assigned_policy_id, Types::String.optional.meta(omittable: true)
       attribute :is_subscriber, Types::Bool.meta(omittable: false)
       attribute :is_responsible_party, Types::Bool.meta(omittable: false)
       attribute :addresses,

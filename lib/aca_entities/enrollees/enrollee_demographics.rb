@@ -7,6 +7,7 @@ module AcaEntities
       attribute :dob,    Types::Date.meta(omittable: false)
       attribute :ssn,     Types::String.optional.meta(omittable: true)
       attribute :gender_code,   Types::String.meta(omittable: false)
+      attribute :tobacco_use_code, Types::String.optional.meta(omittable: true)
       attribute :coverage_end,     Types::Date.optional.meta(omittable: true)
       attribute :coverage_status,  Types::String.optional.meta(omittable: true)
     end
