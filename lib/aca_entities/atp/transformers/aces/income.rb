@@ -21,7 +21,7 @@ module AcaEntities
             # 'pension_retirement_benefits' => 'Retirement',
             'rental_and_royalty' => 'RentalOrRoyalty',
             'social_security_benefit' => 'SocialSecurity',
-            'american_indian_and_alaskan_native' => 'American Indian/Alaska Native income',
+            'american_indian_and_alaskan_native' => 'Unspecified',
             'employer_funded_disability' => 'Employer-funded disability payments',
             'estate_trust' => 'Unspecified',
             'farming_and_fishing' => 'FarmingOrFishing',

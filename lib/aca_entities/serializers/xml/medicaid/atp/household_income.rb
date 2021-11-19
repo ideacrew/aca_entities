@@ -27,7 +27,7 @@ module AcaEntities
             element :days_per_week, Float, tag: 'IncomeDaysPerWeekMeasure', namespace: "hix-core"
 
             # A kind of income.
-            element :income_type_code, String, tag: 'IncomeCategoryCode', namespace: "hix-core"
+            element :category_code, String, tag: 'IncomeCategoryCode', namespace: "hix-core"
 
             has_one :date, IncomeDate
             has_one :source_organization_reference, IncomeSourceOrganizationReference
@@ -54,7 +54,7 @@ module AcaEntities
               mapper.hours_per_week = h_income.hours_per_week
               mapper.hours_per_pay_period = h_income.hours_per_pay_period
               mapper.days_per_week = h_income.days_per_week
-              mapper.income_type_code = h_income.income_type_code
+              mapper.category_code = h_income.category_code
               mapper.monthly_income_greater_than_fpl = h_income.monthly_income_greater_than_fpl
               mapper.subject_to_federal_restrictions_indicator = h_income.subject_to_federal_restrictions_indicator
               mapper.description_text = h_income.description_text
@@ -76,7 +76,7 @@ module AcaEntities
                 days_per_week: days_per_week,
                 hours_per_pay_period: hours_per_pay_period,
                 hours_per_week: hours_per_week,
-                income_type_code: income_type_code,
+                category_code: category_code,
                 description_text: description_text,
                 monthly_income_greater_than_fpl: monthly_income_greater_than_fpl,
                 subject_to_federal_restrictions_indicator: subject_to_federal_restrictions_indicator,

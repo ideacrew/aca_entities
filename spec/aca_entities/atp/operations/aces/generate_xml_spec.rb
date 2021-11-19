@@ -15,7 +15,7 @@ RSpec.describe AcaEntities::Atp::Operations::Aces::GenerateXml  do
     it 'should parse and then transform when transform_mode set to batch' do
       result = described_class.new.call(payload)
       _example_output_xml = File.read(Pathname.pwd.join('spec/support/atp/sample_payloads/simple_L_transformed_payload.xml'))
-
+      p result.value!
       expect(result.success?).to be_truthy
     end
   end
