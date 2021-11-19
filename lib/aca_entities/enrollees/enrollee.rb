@@ -14,6 +14,8 @@ module AcaEntities
       attribute :relationship_status_code, Types::String.meta(omittable: false)
       attribute :issuer_assigned_member_id, Types::String.meta(omittable: false)
       attribute :issuer_assigned_policy_id, Types::String.meta(omittable: false)
+      attribute :is_subscriber, Types::Bool.meta(omittable: false)
+      attribute :is_responsible_party, Types::Bool.meta(omittable: false)
       attribute :addresses,
                 Types::Array
                     .of(AcaEntities::Locations::Address)
