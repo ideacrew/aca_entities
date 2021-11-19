@@ -21,18 +21,18 @@ module AcaEntities
             members = household[:tax_household_members].map {|m| m.dig(:applicant_reference, :person_hbx_id)}
 
             primary_tax_filer = find_primary_tax_filer(members, applicants_hash).first.to_s
-            primary_role_reference = { ref: "SBM#{primary_tax_filer}" }
+            primary_role_reference = { ref: "pe#{primary_tax_filer}" }
             primary_hash = { role_reference: primary_role_reference } if primary_tax_filer.present?
 
             spouse_tax_filer = find_spouse_tax_filer(members, person_relationships, member_id)
-            spouse_role_reference = { ref: "SBM#{spouse_tax_filer}" }
+            spouse_role_reference = { ref: "pe#{spouse_tax_filer}" }
             spouse_hash = { role_reference: spouse_role_reference } if spouse_tax_filer.present?
 
             dependents = find_dependents(members, applicants_hash).map(&:to_s)
-            dependents_hash = dependents.map {|id| { role_reference: { ref: "SBM#{id}" } } }
+            dependents_hash = dependents.map {|id| { role_reference: { ref: "pe#{id}" } } }
 
             household_size_quantity = members.count
-            household_member_references = members.map { |f| { ref: "SBM#{f}" } }
+            household_member_references = members.map { |f| { ref: "pe#{f}" } }
 
             income = household.dig(:annual_tax_household_income, :cents)
             income_dollars = cents_to_dollars(income) # convert to dollars
