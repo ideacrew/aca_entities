@@ -23,7 +23,7 @@ module AcaEntities
             def self.domain_to_mapper(inc)
               mapper = self.new
               mapper.metadata = inc.metadata
-              mapper.incarceration_date = IncarcerationDate.domain_to_mapper(inc.incarceration_date)
+              mapper.incarceration_date = IncarcerationDate.domain_to_mapper(inc.incarceration_date) if inc.incarceration_date
               mapper.incarceration_indicator = inc.incarceration_indicator
               mapper
             end

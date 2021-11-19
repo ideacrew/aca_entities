@@ -17,7 +17,8 @@ module AcaEntities
           map 'attestation', 'attestation', memoize_record: true, visible: false
           add_key 'incarcerations', function: lambda { |v|
             attestation = v.resolve('attestation').item
-            [{ incarceration_indicator: attestation[:is_incarcerated], incarceration_date:  { date: Date.today } }]
+            incarceration_date = { date: Date.today } if attestation[:is_incarcerated]
+            [{ incarceration_indicator: attestation[:is_incarcerated], incarceration_date: incarceration_date }]
           }
           add_key 'absent_parent_or_spouse_code'
           map 'attestation.is_self_attested_disabled', 'is_self_attested_disabled', memoize: true, visible: false
@@ -66,9 +67,9 @@ module AcaEntities
           add_key 'csr_eligibilities', value: ->(_v) {[]}
           add_key 'chip_eligibilities'
           add_key 'temporarily_lives_outside_application_state_indicator'
-          map 'age_left_foster_care', 'age_left_foster_care'
-          map 'foster_care_state', 'foster_care_state'
-          map 'had_medicaid_during_foster_care', 'had_medicaid_during_foster_care_indicator'
+          map 'foster_care.age_left_foster_care', 'age_left_foster_care'
+          map 'foster_care.foster_care_us_state', 'foster_care_state'
+          map 'foster_care.had_medicaid_during_foster_care', 'had_medicaid_during_foster_care_indicator'
           add_key 'lives_with_minor_age_dependent_indicator'
           add_key 'household_exception_indicator'
           map 'foster_care_indicator', 'foster_care_indicator'

@@ -73,7 +73,7 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
       role_reference: role_reference,
       esi_eligible_indicator: false,
       age_left_foster_care: 14,
-      foster_care_state: "n/a",
+      foster_care_state: "ME",
       had_medicaid_during_foster_care_indicator: false,
       blindness_or_disability_indicator: false,
       lawful_presence_status: lawful_presence_status,

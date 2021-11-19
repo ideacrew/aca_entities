@@ -23,7 +23,9 @@ module AcaEntities
             def self.domain_to_mapper(structured_address)
               mapper = self.new
               mapper.location_street = LocationStreet.domain_to_mapper(structured_address&.location_street)
-              mapper.address_secondary_unit_text = structured_address&.address_secondary_unit_text
+              if structured_address&.address_secondary_unit_text && !structured_address&.address_secondary_unit_text&.empty?
+                mapper.address_secondary_unit_text = structured_address&.address_secondary_unit_text
+              end
               mapper.location_city_name = structured_address&.location_city_name
               if structured_address&.location_county_name && !structured_address.location_county_name.empty?
                 mapper.location_county_name = structured_address&.location_county_name

@@ -25,8 +25,8 @@ module AcaEntities
 
             def self.domain_to_mapper(person_association)
               mapper = self.new
-              mapper.begin_date = AssociationBeginDate.domain_to_mapper(person_association&.begin_date)
-              mapper.end_date = AssociationEndDate.domain_to_mapper(person_association&.end_date)
+              mapper.begin_date = AssociationBeginDate.domain_to_mapper(person_association&.begin_date) if person_association&.begin_date
+              mapper.end_date = AssociationEndDate.domain_to_mapper(person_association&.end_date) if person_association&.end_date
               mapper.person = PersonReference.domain_to_mapper(person_association&.person)
               mapper.family_relationship_code = person_association&.family_relationship_code
               mapper.caretaker_dependent_code = person_association&.caretaker_dependent_code
