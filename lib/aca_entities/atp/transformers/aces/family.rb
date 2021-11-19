@@ -11,7 +11,6 @@ require 'aca_entities/atp/functions/medicaid_household_builder'
 require "aca_entities/atp/functions/contact_builder"
 require 'aca_entities/atp/transformers/aces/applicant'
 require 'aca_entities/atp/transformers/aces/ssf_signer'
-require 'pry'
 
 require 'dry/monads'
 require 'dry/monads/do'
