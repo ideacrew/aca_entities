@@ -11,7 +11,7 @@ require 'aca_entities/atp/functions/medicaid_household_builder'
 require "aca_entities/atp/functions/contact_builder"
 require 'aca_entities/atp/transformers/aces/applicant'
 require 'aca_entities/atp/transformers/aces/ssf_signer'
-
+# require 'pry'
 require 'dry/monads'
 require 'dry/monads/do'
 
@@ -32,6 +32,7 @@ module AcaEntities
             rewrap 'aces', type: :hash do
               map 'external_app_id', 'ext_app_id'
               map 'hbx_id', 'hbx_id', memoize: true, visible: false
+              map 'magi_medicaid_applications.submitted_at', 'submitted_at', memoize: true, visible: false
               map 'magi_medicaid_applications.us_state', 'us_state', memoize: true, visible: false
               add_key "senders", function: lambda { |v|
                 state_code = v.resolve('us_state').item
@@ -85,7 +86,20 @@ module AcaEntities
                   add_namespace 'application_submission', 'aces.insurance_application.application_submission', type: :hash do
                     add_key 'activity_id'
                     add_namespace 'activity_date', 'aces.insurance_application.application_submission.activity_date', type: :hash do
-                      add_key 'date', value: ->(_v) { Date.today }
+                      add_key 'date', function: lambda { |v|
+                        day = v.resolve('submitted_at').item
+                        day ? Date.parse(day) : Date.today
+                      }
+                    end
+                  end
+
+                  add_namespace 'application_creation', 'aces.insurance_application.application_creation', type: :hash do
+                    add_key 'activity_id'
+                    add_namespace 'activity_date', 'aces.insurance_application.application_creation.creation_date', type: :hash do
+                      add_key 'date', function: lambda { |v|
+                        day = v.resolve('submitted_at').item
+                        day ? Date.parse(day) : Date.today
+                      }
                     end
                   end
 
@@ -174,15 +188,31 @@ module AcaEntities
                       applicant_hash = applicants_hash[member_id.to_sym]
                       applicant_hash ? applicant_hash[:age_of_applicant] : nil
                     }
-                    map 'person_demographics.tribal_state', 'tribal_augmentation.location_state_us_postal_service_code', memoize: true, visible: true
-                    map 'person_demographics.tribal_name', 'tribal_augmentation.person_tribe_name', memoize: true, visible: true
+                    # binding.pry
+                    add_key 'tribal_augmentation', function: lambda { |v|
+                      member_id = v.find(/family.family_members.(\w+)$/).map(&:item).last
+                      applicants_hash = v.resolve('family.magi_medicaid_applications.applicants').item
+                      applicant_hash = applicants_hash[member_id.to_sym]
+                      if applicant_hash
+                        info = applicant_hash[:native_american_information]
+                        native_hash = {}
+                        native_hash[:location_state_us_postal_service_code] = info[:tribal_state]
+                        native_hash[:person_tribe_name] = info[:tribal_name]
+                        native_hash[:recognized_tribe_indicator] = true if info[:tribal_name].present?
+                        native_hash[:american_indian_or_alaska_native_indicator] = info[:tribal_name].present? && info[:tribal_state].present?
+                        native_hash
+                      end
+                    }
+                    # 'person_demographics.tribal_state', 'tribal_augmentation.location_state_us_postal_service_code', memoize: true, visible: true
+                    # map 'person_demographics.tribal_name', 'tribal_augmentation.person_tribe_name', memoize: true, visible: true
+
                     map 'person_demographics.is_incarcerated', 'is_incarcerated', memoize: true, visible: false, append_identifier: true
 
-                    add_key 'tribal_augmentation.american_indian_or_alaska_native_indicator',
-                            function: lambda { |v|
-                                        !v.resolve(:'tribal_augmentation.location_state_us_postal_service_code').item.nil? &&
-                                          !v.resolve(:'tribal_augmentation.person_tribe_name').item.nil?
-                                      }
+                    # add_key 'tribal_augmentation.american_indian_or_alaska_native_indicator',
+                    # function: lambda { |v|
+                    #           !v.resolve(:'tribal_augmentation.location_state_us_postal_service_code').item.nil? &&
+                    #             !v.resolve(:'tribal_augmentation.person_tribe_name').item.nil?
+                    #         }
 
                     map 'consumer_role.marital_status', 'person_augmentation.married_indicator', function: ->(v) { v.nil? ? false : (v == "MARRIED")}
                     map 'consumer_role.language_preference', 'language_preference', memoize_record: true, visible: false
@@ -260,16 +290,16 @@ module AcaEntities
                 primary_applicant_id = v.find(Regexp.new("is_primary_applicant.*")).select {|i| i.item == true}.last.name.split('.').last
                 incarceration_indicator = v.find(Regexp.new("is_incarcerated.#{primary_applicant_id}")).last
 
-                { not_incarcerated_indicators: [{ value: !incarceration_indicator.item, metadata: "vm2009583325215611507" }],
+                { not_incarcerated_indicators: [{ value: !incarceration_indicator.item }],
                   :collections_agreement_indicator => true, # default value
                   :medicaid_obligations_indicator => true, # default value
                   :non_perjury_indicator => true, # default value
                   :privacy_agreement_indicator => true, # default value
-                  :pending_charges_indicator => true, # default value
+                  # :pending_charges_indicator => true, # default value
                   :information_changes_indicator => true, # default value
                   :application_terms_indicator => true } # default value
               }
-              add_key "verification_metadata", function: ::AcaEntities::Atp::Functions::VerificationMetadataBuilder.new
+              # add_key "verification_metadata", function: ::AcaEntities::Atp::Functions::VerificationMetadataBuilder.new
               add_key "tax_returns", function: ::AcaEntities::Atp::Functions::TaxReturnBuilder.new
               add_key "medicaid_households", function: ::AcaEntities::Atp::Functions::MedicaidHouseholdBuilder.new
             end
