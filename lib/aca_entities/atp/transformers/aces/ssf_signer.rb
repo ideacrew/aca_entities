@@ -18,7 +18,7 @@ module AcaEntities
              v.resolve('signature.signature_name.middle').item.to_s,
              v.resolve('signature.signature_name.sur').item.to_s].join(' ')
           }
-          add_key 'signature.signature_date.date', value: ->(_v) { Date.today } # default value
+          map 'day', 'signature.signature_date.date', function: ->(v) { Date.parse(v) }
         end
       end
     end

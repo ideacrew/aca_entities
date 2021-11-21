@@ -87,8 +87,7 @@ module AcaEntities
                     add_key 'activity_id'
                     add_namespace 'activity_date', 'aces.insurance_application.application_submission.activity_date', type: :hash do
                       add_key 'date', function: lambda { |v|
-                        day = v.resolve('submitted_at').item
-                        day ? Date.parse(day) : Date.today
+                        Date.parse(v.resolve('submitted_at').item) || Date.today
                       }
                     end
                   end
@@ -97,8 +96,7 @@ module AcaEntities
                     add_key 'activity_id'
                     add_namespace 'activity_date', 'aces.insurance_application.application_creation.creation_date', type: :hash do
                       add_key 'date', function: lambda { |v|
-                        day = v.resolve('submitted_at').item
-                        day ? Date.parse(day) : Date.today
+                        Date.parse(v.resolve('submitted_at').item) || Date.today
                       }
                     end
                   end
@@ -188,7 +186,7 @@ module AcaEntities
                       applicant_hash = applicants_hash[member_id.to_sym]
                       applicant_hash ? applicant_hash[:age_of_applicant] : nil
                     }
-                    # binding.pry
+
                     add_key 'tribal_augmentation', function: lambda { |v|
                       member_id = v.find(/family.family_members.(\w+)$/).map(&:item).last
                       applicants_hash = v.resolve('family.magi_medicaid_applications.applicants').item
@@ -283,7 +281,8 @@ module AcaEntities
                 ref = v.find(Regexp.new('is_primary_applicant.*')).select {|a|  a.item == true}.first.name.split('.').last
                 applicant_hash = v.resolve("family.magi_medicaid_applications.applicants").item
                 person_name_hash = applicant_hash[ref.to_sym][:name]
-                ::AcaEntities::Atp::Transformers::Aces::SsfSigner.transform(person_name_hash.merge!(ref: ref))
+                day = v.resolve('submitted_at').item || Date.today
+                ::AcaEntities::Atp::Transformers::Aces::SsfSigner.transform(person_name_hash.merge!(ref: ref, day: day))
               }
               add_key 'insurance_application.ssf_signer.ssf_signer_authorized_representative_association'
               add_key 'insurance_application.ssf_signer.ssf_attestation', value: lambda { |v|
