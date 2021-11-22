@@ -10,50 +10,33 @@ module AcaEntities
 
         def call(cache)
           @memoized_data = cache
-          applicants_hash = @memoized_data.resolve('family.magi_medicaid_applications.applicants').item
-          mitc_households = @memoized_data.resolve('family.magi_medicaid_applications.mitc_households').item
+          tax_households = @memoized_data.resolve('family.magi_medicaid_applications.tax_households').item
 
-          mitc_households.values.each_with_object([]) do |household, collect|
-            people = household[:people].map { |p| p[:person_id] }
-            incomes = find_incomes(people, applicants_hash)&.flatten
-            incomes.map! {|i| i.select {|k, _v| INCOME_FIELDS.include?(k)}}
-            member_references = people.map {|p| { ref: "pe#{p}" }}
+          tax_households.values.each_with_object([]) do |household, collect|
+            members = household[:tax_household_members].map {|m| m.dig(:applicant_reference, :person_hbx_id)}
 
+            income_cents = household[:annual_tax_household_income][:cents]
+            income = cents_to_dollars(income_cents)&.to_f
+            income_hash = {
+              amount: income,
+              income_payment_frequency: {
+                frequency_code: "Annually" # default
+              }
+            }
+
+            member_references = members.map {|m| { ref: "SBM#{m}" }}
             collect << {
-              household_incomes: incomes,
+              household_incomes: [income_hash],
               household_member_references: member_references,
-              effective_person_quantity: people.count
+              effective_person_quantity: members.count
               #   income_above_highest_applicable_magi_standard_indicator: nil # TODO: determine correct mapping
             }
           end
         end
 
-        def find_primary_tax_filer(filers, applicants_hash)
-          head_of_household = filers.map(&:to_sym) & applicants_hash.select {|_k, v| v[:is_filing_as_head_of_household] == true}.keys
-          return head_of_household unless head_of_household.empty?
-
-          filers.map(&:to_sym) & applicants_hash.select {|_k, v| v[:is_primary_applicant].present?}.keys
-        end
-
-        def find_spouse_tax_filer(filers, person_relationships)
-          person_relationships.select {|h| h[:relationship_code] == "02"}.each do |rel|
-            return rel[:other_id] unless ([rel[:other_id]] & filers).empty?
-          end
-        end
-
-        def find_incomes(people, applicants_hash)
-          people.map(&:to_sym).each_with_object([]) do |person, collect|
-            collect << find_person_incomes(person, applicants_hash)
-            collect
-          end
-        end
-
-        def find_person_incomes(person, applicants_hash)
-          incomes = applicants_hash.dig(person, :incomes)
-          incomes.each_with_object([]) do |income, collect|
-            atp_income = ::AcaEntities::Atp::Transformers::Aces::Income.transform(income)
-            collect << atp_income
-          end
+        def cents_to_dollars(income)
+          return unless income && income.to_s.length > 1
+          income.to_s.insert(-3, ".")
         end
       end
     end
