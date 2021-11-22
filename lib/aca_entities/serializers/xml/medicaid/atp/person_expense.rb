@@ -12,16 +12,16 @@ module AcaEntities
             tag 'PersonExpense'
             namespace 'hix-core'
 
-            # A description of a kind of expense.
-            element :category_text, String, tag: 'ExpenseCategoryText', namespace: "hix-core"
-
             # An amount of an expense.
             element :amount, Float, tag: 'ExpenseAmount', namespace: "hix-core"
 
-            has_one :frequency, ExpenseFrequency
+            # A description of a kind of expense.
+            element :category_text, String, tag: 'ExpenseCategoryText', namespace: "hix-core"
 
             # A kind of expense.
             element :category_code, String, tag: 'ExpenseCategoryCode', namespace: "hix-core"
+
+            has_one :frequency, ExpenseFrequency
 
             def self.domain_to_mapper(person_expense)
               mapper = self.new

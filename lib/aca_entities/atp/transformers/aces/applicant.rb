@@ -11,7 +11,7 @@ module AcaEntities
         class Applicant < ::AcaEntities::Operations::Transforms::Transform
           include ::AcaEntities::Operations::Transforms::Transformer
 
-          map 'person_hbx_id', 'role_reference.ref', memoize: true, visible: true, function: ->(v) {"SBM#{v}"}
+          map 'person_hbx_id', 'role_reference.ref', memoize: true, visible: true, function: ->(v) {"pe#{v}"}
           add_key 'esi_eligible_indicator'
           map 'is_homeless', 'fixed_address_indicator'
           map 'attestation', 'attestation', memoize_record: true, visible: false
@@ -72,7 +72,7 @@ module AcaEntities
           map 'foster_care.had_medicaid_during_foster_care', 'had_medicaid_during_foster_care_indicator'
           add_key 'lives_with_minor_age_dependent_indicator'
           add_key 'household_exception_indicator'
-          map 'foster_care_indicator', 'foster_care_indicator'
+          map 'foster_care.is_former_foster_care', 'foster_care_indicator'
           add_key 'parent_average_hours_worked_per_week_values'
 
           map 'native_american_information.indian_tribe_member', 'indian_tribe_member', memoize: true, visible: false
@@ -88,7 +88,7 @@ module AcaEntities
 
           map 'need_help_paying_bills', 'recent_medical_bills_indicator'
           add_key 'referral_activity.activity_id.identification_id', function: lambda {|v|
-            ["SBM", DateTime.now.strftime("%Y%m%d%H%M%S"), v.resolve('role_reference.ref').item].join
+            ["SBM", DateTime.now.strftime("%Y%m%d%H%M%S"), v.resolve('role_reference.ref').item&.slice(-3..-1)].join
           }
           add_key 'referral_activity.activity_date.date_time', value: ->(_v) {DateTime.now} # default value
           add_key 'referral_activity.sender_reference.ref', value: "Sender"

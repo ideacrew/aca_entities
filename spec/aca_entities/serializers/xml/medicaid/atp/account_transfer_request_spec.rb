@@ -18,7 +18,7 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
       receivers: [receiver],
 
       insurance_application: insurance_application,
-      medicaid_households: [],
+      medicaid_households: [medicaid_household],
       people: [person, dependent_person],
       tax_returns: [tax_return],
       physical_households: [{
@@ -408,6 +408,17 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
   let(:application_identity) do
     {
       identification_id: "A UUID"
+    }
+  end
+
+  let(:medicaid_household) do
+    {
+      id: "mh123",
+      effective_person_quantity: 1,
+      income_above_highest_applicable_magi_standard_indicator: true,
+      household_member_references: [{ ref: "pe123" }],
+      household_size_quantity: 1
+
     }
   end
 
