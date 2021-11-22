@@ -24,7 +24,7 @@ module AcaEntities
             def self.domain_to_mapper(contact_info)
               mapper = self.new
               mapper.email_id = contact_info&.email_id
-              mapper.mailing_address = ContactMailingAddress.domain_to_mapper(contact_info&.mailing_address)
+              mapper.mailing_address = ContactMailingAddress.domain_to_mapper(contact_info&.mailing_address) if contact_info&.mailing_address
               mapper.telephone_number = ContactTelephoneNumber.domain_to_mapper(contact_info&.telephone_number) if contact_info&.telephone_number
               mapper
             end

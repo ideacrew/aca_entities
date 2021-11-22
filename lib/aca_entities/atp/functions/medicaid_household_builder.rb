@@ -17,7 +17,7 @@ module AcaEntities
             people = household[:people].map { |p| p[:person_id] }
             incomes = find_incomes(people, applicants_hash)&.flatten
             incomes.map! {|i| i.select {|k, _v| INCOME_FIELDS.include?(k)}}
-            member_references = people.map {|p| { ref: "SBM#{p}" }}
+            member_references = people.map {|p| { ref: "pe#{p}" }}
 
             collect << {
               household_incomes: incomes,

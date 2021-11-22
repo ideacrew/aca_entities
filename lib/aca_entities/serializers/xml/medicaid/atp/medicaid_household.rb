@@ -12,6 +12,8 @@ module AcaEntities
             tag 'MedicaidHousehold'
             namespace 'hix-ee'
 
+            attribute :id, String, namespace: "niem-s"
+
             # A monetary payment received by a household, usually on a regular basis.
             has_many :household_incomes, HouseholdIncome
 
@@ -28,7 +30,8 @@ module AcaEntities
 
             def self.domain_to_mapper(household)
               mapper = self.new
-              mapper.household_incomes = household.household_incomes.map { |hi| HouseholdIncome.domain_to_mapper(hi) }
+              mapper.id = household.id if household.id && !household.id.empty?
+              mapper.household_incomes = household.household_incomes&.map { |hi| HouseholdIncome.domain_to_mapper(hi) }
               mapper.income_above_highest_applicable_magi_standard_indicator = household.income_above_highest_applicable_magi_standard_indicator
               if household.effective_person_quantity && !household.effective_person_quantity.blank?
                 mapper.effective_person_quantity = household.effective_person_quantity
@@ -41,6 +44,7 @@ module AcaEntities
 
             def to_hash
               {
+                id: id,
                 household_incomes: household_incomes,
                 effective_person_quantity: effective_person_quantity,
                 income_above_highest_applicable_magi_standard_indicator: income_above_highest_applicable_magi_standard_indicator,
