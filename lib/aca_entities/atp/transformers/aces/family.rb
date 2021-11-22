@@ -99,7 +99,7 @@ module AcaEntities
                   # map "report_change_terms", 'report_change_terms'
                   # map "medicaid_terms", 'medicaid_terms'
                   # map "is_renewal_authorized", 'is_renewal_authorized'
-                  map 'mitc_households', 'mitc_households', memoize_record: true, visible: false
+                  # map 'mitc_households', 'mitc_households', memoize_record: true, visible: false
                   map 'applicants', 'applicants', memoize_record: true, visible: false
 
                   # add_key 'insurance_applicants', function: AcaEntities::Atp::Functions::ApplicantBuilder.new
