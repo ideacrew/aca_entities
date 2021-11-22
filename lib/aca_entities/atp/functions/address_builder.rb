@@ -33,7 +33,7 @@ module AcaEntities
             county_code: address[:location_county_code],
             state: address[:location_state_us_postal_service_code],
             zip: zip,
-            country_name: nil
+            country_name: address[:country_name]
           }
         end
       end
