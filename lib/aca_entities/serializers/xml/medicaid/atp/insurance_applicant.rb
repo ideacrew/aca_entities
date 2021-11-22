@@ -100,11 +100,12 @@ module AcaEntities
             # An average number of hours worked (in total) by a parent of an applicant. Max of two values.
             element :parent_average_hours_worked_per_week_values, Float, tag: 'InsuranceApplicantParentAverageHoursWorkedPerWeekValue'
 
-            def self.domain_to_mapper(insurance_applicant)
+            def self.domain_to_mapper(insurance_applicant) # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
               mapper = self.new
               mapper.fixed_address_indicator = insurance_applicant.fixed_address_indicator
               mapper.blindness_or_disability_indicator = insurance_applicant.blindness_or_disability_indicator
               mapper.coverage_during_previous_six_months_indicator = insurance_applicant.coverage_during_previous_six_months_indicator
+              mapper.long_term_care_indicator = insurance_applicant.long_term_care_indicator
               mapper.role_reference = RoleOfPersonReference.domain_to_mapper(insurance_applicant.role_reference)
               if insurance_applicant.incarcerations
                 mapper.incarcerations = insurance_applicant.incarcerations.map { |inc| Incarceration.domain_to_mapper(inc) }
@@ -117,6 +118,8 @@ module AcaEntities
                 MedicaidMagiEligibility.domain_to_mapper(medicaid_magi_eligibility)
               end
               mapper.age_left_foster_care = insurance_applicant.age_left_foster_care
+              mapper.foster_care_indicator = insurance_applicant.foster_care_indicator
+              # mapper.parent_caretaker_indicator = insurance_applicant.parent_caretaker_indicator if insurance_applicant.parent_caretaker_indicator.present?
               if insurance_applicant.foster_care_state && !insurance_applicant.foster_care_state.empty?
                 mapper.foster_care_state = insurance_applicant.foster_care_state
               end

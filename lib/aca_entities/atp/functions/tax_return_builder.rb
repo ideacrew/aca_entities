@@ -11,7 +11,7 @@ module AcaEntities
         def call(cache)
           @memoized_data = cache
           applicants_hash = @memoized_data.resolve('family.magi_medicaid_applications.applicants').item
-          member_id = @memoized_data.find(/family.family_members.(\w+)$/).map(&:item).last
+          member_id = @memoized_data.find(Regexp.new('is_primary_applicant.*')).select {|a|  a.item == true}.first.name.split('.').last
           person_relationships = applicants_hash[member_id.to_sym][:mitc_relationships]
           #   tax_households = @memoized_data.resolve('family.households').item&.values&.map {|h| h[:tax_households]}&.flatten
           tax_households = @memoized_data.resolve('family.magi_medicaid_applications.tax_households').item
@@ -24,7 +24,7 @@ module AcaEntities
             primary_role_reference = { ref: "pe#{primary_tax_filer}" }
             primary_hash = { role_reference: primary_role_reference } if primary_tax_filer.present?
 
-            spouse_tax_filer = find_spouse_tax_filer(members, person_relationships, member_id)
+            spouse_tax_filer = find_spouse_tax_filer(members, person_relationships, primary_tax_filer)
             spouse_role_reference = { ref: "pe#{spouse_tax_filer}" }
             spouse_hash = { role_reference: spouse_role_reference } if spouse_tax_filer.present?
 
