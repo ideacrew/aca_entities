@@ -184,7 +184,14 @@ module AcaEntities
                                           !v.resolve(:'tribal_augmentation.person_tribe_name').item.nil?
                                       }
 
-                    map 'consumer_role.marital_status', 'person_augmentation.married_indicator', function: ->(v) { v.nil? ? false : (v == "MARRIED")}
+                    add_key 'person_augmentation.married_indicator', function: lambda { |v|
+                      member_id = v.find(/family.family_members.(\w+)$/).map(&:item).last
+                      applicants_hash = v.resolve('family.magi_medicaid_applications.applicants').item
+                      applicant_hash = applicants_hash[member_id.to_sym]
+                      person_relationships = applicant_hash[:mitc_relationships]
+                      person_relationships.select {|h| h[:relationship_code] == "02"}.any?
+                    }
+
                     map 'consumer_role.language_preference', 'language_preference', memoize_record: true, visible: false
                     map 'consumer_role.contact_method', 'consumer_role.contact_method', memoize_record: true, visible: false, append_identifier: true
                     add_key 'person_augmentation.us_naturalized_citizen_indicator', function: lambda { |v|
