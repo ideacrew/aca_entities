@@ -11,7 +11,7 @@ module AcaEntities
         def call(cache)
           @memoized_data = cache
           applicants_hash = @memoized_data.resolve('family.magi_medicaid_applications.applicants').item
-          member_id = @memoized_data.find(Regexp.new('is_primary_applicant.*')).select {|a|  a.item == true}.first.name.split('.').last
+          member_id = @memoized_data.find(/family.family_members.(\w+)$/).map(&:item).last
           person_relationships = applicants_hash[member_id.to_sym][:mitc_relationships]
           #   tax_households = @memoized_data.resolve('family.households').item&.values&.map {|h| h[:tax_households]}&.flatten
           tax_households = @memoized_data.resolve('family.magi_medicaid_applications.tax_households').item
