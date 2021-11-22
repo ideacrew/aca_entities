@@ -49,7 +49,9 @@ module AcaEntities
               add_namespace 'transfer_header', 'aces.transfer_header', type: :hash do
                 add_namespace 'transfer_activity', 'aces.transfer_header.transfer_activity', type: :hash do
                   add_namespace 'transfer_id', 'aces.transfer_header.transfer_activity.transfer_id', type: :hash do
-                    add_key 'identification_id', function: ->(v) { "#{v.resolve('hbx_id').item}_#{DateTime.now.strftime('%Y%m%dT%H%M')}" }
+                    add_key 'identification_id', function: lambda { |v|
+                                                             "SBM#{v.resolve('hbx_id').item&.slice(-3..-1)}#{DateTime.now.strftime('%Y%m%dT%H%M')}"
+                                                           }
                     add_key 'identification_category_text'
                     add_key 'identification_jurisdiction'
                   end
@@ -123,7 +125,7 @@ module AcaEntities
 
               namespace 'family_members.*', nil, context: { name: 'members' } do
                 rewrap 'aces.people', type: :array do
-                  map 'hbx_id', 'id', function: ->(v) {"SBM#{v}"}
+                  map 'hbx_id', 'id', function: ->(v) {"pe#{v}"}
                   map 'is_primary_applicant', 'is_primary_applicant', memoize: true, visible: false, append_identifier: true
                   namespace 'person' do
 
@@ -245,7 +247,7 @@ module AcaEntities
               add_key 'physical_households', function: lambda { |v|
                 applicants_hash = v.resolve('family.magi_medicaid_applications.applicants').item
                 result = applicants_hash.keys.map(&:to_s).each_with_object([]) do |id, collect|
-                  collect << { :ref => "SBM#{id}" }
+                  collect << { :ref => "pe#{id}" }
                 end
                 [{ :household_member_references => result, :household_size_quantity => result.size }]
               }
@@ -253,7 +255,7 @@ module AcaEntities
               add_key 'insurance_application.ssf_primary_contact', function: lambda { |v|
                 ref = v.find(Regexp.new('is_primary_applicant.*')).select {|a|  a.item == true}.first.name.split('.').last
                 contact_preference = v.find(Regexp.new('consumer_role.contact_method.*')).select {|a|  a.name.split('.').last == ref}.first.item
-                { role_reference: { ref: "SBM#{ref}" }, contact_preference: ContactPreferenceCode[contact_preference] }
+                { role_reference: { ref: "pe#{ref}" }, contact_preference: ContactPreferenceCode[contact_preference] }
               }
 
               add_key 'insurance_application.ssf_signer', value: lambda { |v|
