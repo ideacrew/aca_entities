@@ -25,7 +25,7 @@ module AcaEntities
           optional(:encrypted_ssn).maybe(:string)
           optional(:no_ssn).maybe(:bool)
           optional(:dob).maybe(:date)
-          required(:gender).filled(:string)
+          required(:gender).maybe(:string)
         end
       end
     end
