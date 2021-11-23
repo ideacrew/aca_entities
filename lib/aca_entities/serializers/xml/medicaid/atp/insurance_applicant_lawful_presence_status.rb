@@ -25,6 +25,7 @@ module AcaEntities
             def self.domain_to_mapper(lawful_presence_status)
               mapper = self.new
               # mapper.valid_date_range = StatusValidDateRange.domain_to_mapper(lawful_presence_status.valid_date_range)
+              mapper.arrived_before_1996_indicator = lawful_presence_status.arrived_before_1996_indicator
               if lawful_presence_status&.immigration_documents && !lawful_presence_status&.immigration_documents.nil?
                 mapper.immigration_documents = lawful_presence_status.immigration_documents.map { |imd| ImmigrationDocument.domain_to_mapper(imd) }
               end

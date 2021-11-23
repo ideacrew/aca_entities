@@ -4,7 +4,7 @@ module AcaEntities
   module Atp
     module Functions
       # build immigration documents
-      class ImmigrantDocumentBuilder
+      class ImmigrationDocumentBuilder
 
         def call(cache) # rubocop:disable Metrics/CyclomaticComplexity, Metrics/MethodLength
           @memoized_data = cache
