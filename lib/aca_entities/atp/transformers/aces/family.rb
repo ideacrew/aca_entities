@@ -121,7 +121,9 @@ module AcaEntities
                                       applicants_hash = v.resolve('family.magi_medicaid_applications.applicants').item
                                       applicants_hash.each_with_object([]) do |applicant_hash, collector|
                                         applicant = applicant_hash[1]
-                                        non_esi_coverage_enrolled_array = applicant[:benefits].select {|benefit| benefit[:status] == "is_enrolled"}
+                                        non_esi_coverage_enrolled_array = applicant[:benefits].select {|benefit| benefit[:status] == "is_enrolled" && benefit[:kind] != "employer_sponsored_insurance"}
+                                        esi_coverage_enrolled = applicant[:benefits].select {|benefit| benefit[:status] == "is_enrolled" && benefit[:kind] == "employer_sponsored_insurance"}
+                                        esi_coverage_eligible = applicant[:benefits].select {|benefit| benefit[:status] == "is_eligible" && benefit[:kind] == "employer_sponsored_insurance"}
                                         non_esi_coverage_indicators = if non_esi_coverage_enrolled_array
                                                                         { non_esi_coverage_indicators: [true],
                                                                           non_esi_policies: non_esi_coverage_enrolled_array.collect do |benefit|
@@ -131,8 +133,11 @@ module AcaEntities
                                                                         { non_esi_coverage_indicators: [false] }
                                                                       end
 
+                                        esi_coverage_indicators = [{ enrolled_indicator: esi_coverage_enrolled.present?,
+                                                                     eligible_indicator: esi_coverage_eligible.present?,
+                                                                     eligibility_unknown_indicator: (esi_coverage_enrolled.present? || esi_coverage_eligible.present?) ? false : true }]
                                         insurance_applicant = AcaEntities::Atp::Transformers::Aces::Applicant.transform(applicant)
-                                        collector << insurance_applicant.merge!(non_esi_coverage_indicators)
+                                        collector << insurance_applicant.merge!(non_esi_coverage_indicators, esi_associations: esi_coverage_indicators)
                                       end
                                     }
 

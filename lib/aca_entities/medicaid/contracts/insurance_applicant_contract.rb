@@ -22,6 +22,7 @@ module AcaEntities
           optional(:foster_care_state).maybe(:string)
           optional(:non_esi_coverage_indicators).maybe(:array)
           optional(:non_esi_policies).maybe(:array)
+          optional(:esi_associations).maybe(:array)
         end
       end
     end

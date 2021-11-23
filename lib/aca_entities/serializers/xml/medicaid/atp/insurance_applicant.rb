@@ -113,6 +113,7 @@ module AcaEntities
               mapper.lawful_presence_status = InsuranceApplicantLawfulPresenceStatus.domain_to_mapper(insurance_applicant.lawful_presence_status)
               mapper.non_esi_coverage_indicators = insurance_applicant.non_esi_coverage_indicators
               mapper.non_esi_policies =  insurance_applicant.non_esi_policies.map { |inc| InsuranceApplicantNonEsiPolicy.domain_to_mapper(inc) }
+              mapper.esi_associations =  insurance_applicant.esi_associations.map { |inc| EsiAssociation.domain_to_mapper(inc) }
               mapper.chip_eligibilities = insurance_applicant.chip_eligibilities&.map do |chip_eligibility|
                 ChipEligibility.domain_to_mapper(chip_eligibility)
               end
