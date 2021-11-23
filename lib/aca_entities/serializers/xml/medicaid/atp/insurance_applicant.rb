@@ -122,7 +122,7 @@ module AcaEntities
               end
               mapper.age_left_foster_care = insurance_applicant.age_left_foster_care
               mapper.foster_care_indicator = insurance_applicant.foster_care_indicator
-              # mapper.parent_caretaker_indicator = insurance_applicant.parent_caretaker_indicator
+              mapper.parent_caretaker_indicator = insurance_applicant.parent_caretaker_indicator
               if insurance_applicant.foster_care_state && !insurance_applicant.foster_care_state.empty?
                 mapper.foster_care_state = insurance_applicant.foster_care_state
               end

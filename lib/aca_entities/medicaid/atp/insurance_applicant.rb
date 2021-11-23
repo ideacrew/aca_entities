@@ -25,6 +25,7 @@ module AcaEntities
         attribute :non_esi_coverage_indicators, Types::Array.of(Types::Bool).optional.meta(omittable: true)
         attribute :non_esi_policies, Types::Array.of(InsuranceApplicantNonEsiPolicy).optional.meta(omittable: true)
         attribute :esi_associations, Types::Array.of(InsuranceApplicantEsiassociation).optional.meta(omittable: true)
+        attribute :parent_caretaker_indicator, Types::Bool.optional.meta(omittable: true)
       end
     end
   end
