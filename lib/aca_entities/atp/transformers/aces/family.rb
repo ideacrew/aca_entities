@@ -135,7 +135,7 @@ module AcaEntities
 
                                         esi_coverage_indicators = [{ enrolled_indicator: esi_coverage_enrolled.present?,
                                                                      eligible_indicator: esi_coverage_eligible.present?,
-                                                                     eligibility_unknown_indicator: (esi_coverage_enrolled.present? || esi_coverage_eligible.present?) ? false : true }]
+                                                                     eligibility_unknown_indicator: !(esi_coverage_enrolled.present? || esi_coverage_eligible.present?) }]
                                         insurance_applicant = AcaEntities::Atp::Transformers::Aces::Applicant.transform(applicant)
                                         collector << insurance_applicant.merge!(non_esi_coverage_indicators, esi_associations: esi_coverage_indicators)
                                       end
