@@ -11,7 +11,7 @@ require 'aca_entities/atp/functions/medicaid_household_builder'
 require "aca_entities/atp/functions/contact_builder"
 require 'aca_entities/atp/transformers/aces/applicant'
 require 'aca_entities/atp/transformers/aces/ssf_signer'
-# require 'pry'
+require 'pry'
 require 'dry/monads'
 require 'dry/monads/do'
 
@@ -89,7 +89,7 @@ module AcaEntities
                     add_key 'activity_id'
                     add_namespace 'activity_date', 'aces.insurance_application.application_submission.activity_date', type: :hash do
                       add_key 'date', function: lambda { |v|
-                        Date.parse(v.resolve('submitted_at').item) || Date.today
+                        v.resolve('submitted_at').item.present? ? Date.parse(v.resolve('submitted_at').item) : Date.today
                       }
                     end
                   end
@@ -98,7 +98,7 @@ module AcaEntities
                     add_key 'activity_id'
                     add_namespace 'activity_date', 'aces.insurance_application.application_creation.creation_date', type: :hash do
                       add_key 'date', function: lambda { |v|
-                        Date.parse(v.resolve('submitted_at').item) || Date.today
+                        v.resolve('submitted_at').item.present? ? Date.parse(v.resolve('submitted_at').item) : Date.today
                       }
                     end
                   end
