@@ -16,6 +16,7 @@ module AcaEntities
           required(:sex).filled(:string)
           required(:ssn_identification).filled(:hash)
           optional(:us_citizen_indicator).maybe(:bool)
+          optional(:living_indicator).maybe(:bool)
           optional(:person_augmentation).maybe(:hash)
           optional(:tribal_augmentation).maybe(:hash)
         end

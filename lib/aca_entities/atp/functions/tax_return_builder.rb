@@ -22,7 +22,7 @@ module AcaEntities
             primary_role_reference = { ref: "pe#{primary_tax_filer}" }
             primary_hash = { role_reference: primary_role_reference } if primary_tax_filer.present?
 
-            spouse_tax_filer = find_spouse_tax_filer(members, person_relationships, member_id)
+            spouse_tax_filer = find_spouse_tax_filer(members, person_relationships, primary_tax_filer)
             spouse_role_reference = { ref: "pe#{spouse_tax_filer}" }
             spouse_hash = { role_reference: spouse_role_reference } if spouse_tax_filer.present?
 

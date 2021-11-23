@@ -70,7 +70,7 @@ module AcaEntities
           map 'foster_care.had_medicaid_during_foster_care', 'had_medicaid_during_foster_care_indicator'
           add_key 'lives_with_minor_age_dependent_indicator'
           add_key 'household_exception_indicator'
-          map 'foster_care_indicator', 'foster_care_indicator'
+          map 'foster_care.is_former_foster_care', 'foster_care_indicator'
           add_key 'parent_average_hours_worked_per_week_values'
 
           map 'native_american_information.indian_tribe_member', 'indian_tribe_member', memoize: true, visible: false

@@ -14,6 +14,7 @@ module AcaEntities
         attribute :sex, Types::String.meta(omittable: false)
         attribute :ssn_identification, PersonSsnIdentification.optional.meta(omittable: true)
         attribute :us_citizen_indicator, Types::Bool.optional.meta(omittable: true)
+        attribute :living_indicator, Types::Bool.optional.meta(omittable: true)
         attribute :person_augmentation, PersonAugmentation.optional.meta(omittable: true)
         attribute :tribal_augmentation, TribalAugmentation.optional.meta(omittable: true)
       end
