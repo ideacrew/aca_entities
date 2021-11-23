@@ -80,6 +80,7 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
       long_term_care_indicator: false,
       non_esi_coverage_indicators: [true],
       non_esi_policies: [{ :source_code => "TRICARE" }],
+      esi_associations: [{eligible_indicator: true, enrolled_indicator: true, eligibility_unknown_indicator: false}],
       medicaid_magi_eligibilities: [medicaid_magi_eligibility],
       chip_eligibilities: [trafficking_victim_category_eligibility_basis],
       temporarily_lives_outside_application_state_indicator: false,
