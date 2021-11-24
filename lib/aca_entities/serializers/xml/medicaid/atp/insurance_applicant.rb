@@ -14,6 +14,9 @@ module AcaEntities
 
             has_one :role_reference, RoleOfPersonReference
 
+            # An indication of whether or not the applicant has an absent parent or spouse.
+            element :absent_parent_or_spouse_code, String, tag: 'InsuranceApplicantAbsentParentOrSpouseCode'
+
             # True if the applicant is blind or disabled; false otherwise
             element :blindness_or_disability_indicator, Boolean, tag: 'InsuranceApplicantBlindnessOrDisabilityIndicator'
 
@@ -32,14 +35,14 @@ module AcaEntities
             # A status of the applicant's lawful presence in the United States
             has_one :lawful_presence_status, InsuranceApplicantLawfulPresenceStatus
 
-            # An indication of whether or not the applicant has an absent parent or spouse.
-            element :absent_parent_or_spouse_code, String, tag: 'InsuranceApplicantAbsentParentOrSpouseCode'
-
             # True if an applicant requires long term care; false otherwise.
             element :long_term_care_indicator, Boolean, tag: 'InsuranceApplicantLongTermCareIndicator'
 
             # True if an applicant is enrolled in a non-employer sponsored insurance (ESI) plan; false otherwise.
             has_many :non_esi_coverage_indicators, Boolean, tag: 'InsuranceApplicantNonESICoverageIndicator'
+
+            # An insurance policy associated with an applicant that is not an employer sponsored insurance (ESI) arrangement.
+            has_many :non_esi_policies, InsuranceApplicantNonEsiPolicy
 
             # True if an applicant is a parent or caretaker of a child on the application; false otherwise.
             element :parent_caretaker_indicator, Boolean, tag: 'InsuranceApplicantParentCaretakerIndicator'
@@ -58,9 +61,6 @@ module AcaEntities
 
             # Relationships between an applicant and an employer sponsored insurance arrangement.
             has_many :esi_associations, EsiAssociation
-
-            # An insurance policy associated with an applicant that is not an employer sponsored insurance (ESI) arrangement.
-            has_many :non_esi_policies, InsuranceApplicantNonEsiPolicy
 
             # the various eligibilities are a choice, you can have only on them
             has_many :emergency_medicaid_eligibilities, EmergencyMedicaidEligibility
@@ -100,7 +100,7 @@ module AcaEntities
             # An average number of hours worked (in total) by a parent of an applicant. Max of two values.
             element :parent_average_hours_worked_per_week_values, Float, tag: 'InsuranceApplicantParentAverageHoursWorkedPerWeekValue'
 
-            def self.domain_to_mapper(insurance_applicant) # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
+            def self.domain_to_mapper(insurance_applicant) # rubocop:disable Metrics/CyclomaticComplexity, Metrics/MethodLength, Metrics/AbcSize
               mapper = self.new
               mapper.fixed_address_indicator = insurance_applicant.fixed_address_indicator
               mapper.blindness_or_disability_indicator = insurance_applicant.blindness_or_disability_indicator
@@ -111,6 +111,9 @@ module AcaEntities
                 mapper.incarcerations = insurance_applicant.incarcerations.map { |inc| Incarceration.domain_to_mapper(inc) }
               end
               mapper.lawful_presence_status = InsuranceApplicantLawfulPresenceStatus.domain_to_mapper(insurance_applicant.lawful_presence_status)
+              mapper.non_esi_coverage_indicators = insurance_applicant.non_esi_coverage_indicators
+              mapper.non_esi_policies =  insurance_applicant.non_esi_policies.map { |inc| InsuranceApplicantNonEsiPolicy.domain_to_mapper(inc) }
+              mapper.esi_associations =  insurance_applicant.esi_associations.map { |inc| EsiAssociation.domain_to_mapper(inc) }
               mapper.chip_eligibilities = insurance_applicant.chip_eligibilities&.map do |chip_eligibility|
                 ChipEligibility.domain_to_mapper(chip_eligibility)
               end
