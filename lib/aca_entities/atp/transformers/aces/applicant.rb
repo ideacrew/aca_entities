@@ -53,12 +53,10 @@ module AcaEntities
           #   end
           # end
           map 'is_self_attested_long_term_care', 'long_term_care_indicator'
-          add_key 'non_esi_coverage_indicators', value: ->(_v) {[]}
           map 'is_primary_caregiver', 'parent_caretaker_indicator'
           add_key 'state_benefits_through_public_employee_indicator'
           map 'student.is_student', 'student_indicator'
           add_key 'esi_associations', value: ->(_v) {[]}
-          add_key 'non_esi_policies', value: ->(_v) {[]}
           add_key 'emergency_medicaid_eligibilities', value: ->(_v) {[]}
           add_key 'medicaid_magi_eligibilities', value: ->(_v) {[]}
           add_key 'medicaid_non_magi_eligibilities', value: ->(_v) {[]}

@@ -11,7 +11,8 @@ require 'aca_entities/atp/functions/medicaid_household_builder'
 require "aca_entities/atp/functions/contact_builder"
 require 'aca_entities/atp/transformers/aces/applicant'
 require 'aca_entities/atp/transformers/aces/ssf_signer'
-# require 'pry'
+require 'aca_entities/atp/types'
+
 require 'dry/monads'
 require 'dry/monads/do'
 
@@ -89,7 +90,8 @@ module AcaEntities
                     add_key 'activity_id'
                     add_namespace 'activity_date', 'aces.insurance_application.application_submission.activity_date', type: :hash do
                       add_key 'date', function: lambda { |v|
-                        Date.parse(v.resolve('submitted_at').item) || Date.today
+                        submission_date = v.resolve('submitted_at').item
+                        submission_date ? Date.parse(submission_date) : Date.today
                       }
                     end
                   end
@@ -98,7 +100,8 @@ module AcaEntities
                     add_key 'activity_id'
                     add_namespace 'activity_date', 'aces.insurance_application.application_creation.creation_date', type: :hash do
                       add_key 'date', function: lambda { |v|
-                        Date.parse(v.resolve('submitted_at').item) || Date.today
+                        submission_date = v.resolve('submitted_at').item
+                        submission_date ? Date.parse(submission_date) : Date.today
                       }
                     end
                   end
@@ -113,15 +116,7 @@ module AcaEntities
                   # map "is_renewal_authorized", 'is_renewal_authorized'
                   # map 'mitc_households', 'mitc_households', memoize_record: true, visible: false
                   map 'applicants', 'applicants', memoize_record: true, visible: false
-
-                  # add_key 'insurance_applicants', function: AcaEntities::Atp::Functions::ApplicantBuilder.new
-                  add_key 'insurance_applicants', function: lambda { |v|
-                                                              applicants_hash = v.resolve('family.magi_medicaid_applications.applicants').item
-                                                              applicants_hash.each_with_object([]) do |applicant_hash, collector|
-                                                                applicant = applicant_hash[1]
-                                                                collector << AcaEntities::Atp::Transformers::Aces::Applicant.transform(applicant)
-                                                              end
-                                                            }
+                  add_key 'insurance_applicants', function: AcaEntities::Atp::Functions::ApplicantBuilder.new
 
                   add_key 'assister_association'
                   # add_key 'tax_return_access', value: ->v {}
@@ -290,7 +285,8 @@ module AcaEntities
                 ref = v.find(Regexp.new('is_primary_applicant.*')).select {|a|  a.item == true}.first.name.split('.').last
                 applicant_hash = v.resolve("family.magi_medicaid_applications.applicants").item
                 person_name_hash = applicant_hash[ref.to_sym][:name]
-                day = v.resolve('submitted_at').item || Date.today
+                submission_date = v.resolve('submitted_at').item
+                day = submission_date ? Date.parse(submission_date) : Date.today
                 ::AcaEntities::Atp::Transformers::Aces::SsfSigner.transform(person_name_hash.merge!(ref: ref, day: day))
               }
               add_key 'insurance_application.ssf_signer.ssf_signer_authorized_representative_association'

@@ -9,7 +9,7 @@ module AcaEntities
           class InsuranceApplicantNonEsiPolicy
             include HappyMapper
 
-            tag 'InsuranceApplicantNonEsiPolicy'
+            tag 'InsuranceApplicantNonESIPolicy'
             namespace 'hix-ee'
 
             # A person who has health insurance coverage.
@@ -31,11 +31,13 @@ module AcaEntities
 
             def self.domain_to_mapper(nep)
               mapper = self.new
-              mapper.member = InsuranceMember.domain_to_mapper(nep.member)
-              mapper.policy_id = InsurancePolicyIdentification.domain_to_mapper(nep.policy_id)
-              mapper.premium = InsurancePremium.domain_to_mapper(nep.premium)
+              mapper.member = InsuranceMember.domain_to_mapper(nep.member) if nep.member
+              mapper.policy_id = InsurancePolicyIdentification.domain_to_mapper(nep.policy_id) if nep.policy_id
+              mapper.premium = InsurancePremium.domain_to_mapper(nep.premium) if nep.premium
               mapper.source_code = nep.source_code
-              mapper.applied_effective_date_range = InsurancePolicyAppliedEffectiveDateRange.domain_to_mapper(nep.applied_effective_date_range)
+              if nep.applied_effective_date_range
+                mapper.applied_effective_date_range = InsurancePolicyAppliedEffectiveDateRange.domain_to_mapper(nep.applied_effective_date_range)
+              end
               mapper
             end
 
