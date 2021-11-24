@@ -28,8 +28,8 @@ module AcaEntities
           }
           map 'job_coverage_ended_in_past_3_months', 'coverage_during_previous_six_months_indicator'
 
-          map 'citizenship_immigration_status_information.is_resident_post_092296', 'lawful_presence_status.arrived_before_1996_indicator',
-              function: ->(v) { !v }
+          # map 'citizenship_immigration_status_information.is_resident_post_092296', 'lawful_presence_status.arrived_before_1996_indicator',
+          #     function: ->(v) { !v }
           map 'citizenship_immigration_status_information.citizen_status', 'citizen_status', memoize_record: true, visible: false
           add_key 'lawful_presence_status.lawful_presence_status_eligibility.eligibility_indicator', function: lambda { |v|
             v.resolve('citizen_status').item == 'alien_lawfully_present'
