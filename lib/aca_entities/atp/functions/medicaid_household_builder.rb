@@ -23,7 +23,7 @@ module AcaEntities
               }
             }
             members = household[:tax_household_members].map {|m| m.dig(:applicant_reference, :person_hbx_id)}
-            member_references = members.map {|m| { ref: "SBM#{m}" }}
+            member_references = members.map {|m| { ref: "pe#{m}" }}
 
             collect << {
               id: "mh#{family_id}#{household[:hbx_id]}",
