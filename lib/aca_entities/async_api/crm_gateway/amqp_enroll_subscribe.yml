@@ -48,6 +48,8 @@ channels:
           ack: true
           exclusive: false
           routing_key: crm_gateway.families.#
+          prefetch: 1
+          block: false
           bindingVersion: "0.2.0"
       operationId: on_crm_gateway.crm_gateway.families
       description: Events - CRM Gateway Family Update requests
@@ -67,6 +69,8 @@ channels:
           ack: true
           exclusive: false
           routing_key: crm_gateway.people.#
+          prefetch: 1
+          block: false
           bindingVersion: "0.2.0"
       operationId: on_crm_gateway.crm_gateway.people
       description: Events - CRM Gateway Person Update requests
