@@ -11,6 +11,7 @@ RSpec.describe ::AcaEntities::Medicaid::Atp::MedicaidHousehold,  dbclean: :aroun
 
     let(:optional_params) do
       {
+        id: "mh123",
         effective_person_quantity: 1,
         income_above_highest_applicable_magi_standard_indicator: true,
         household_member_references: [{ ref: "pe123" }],

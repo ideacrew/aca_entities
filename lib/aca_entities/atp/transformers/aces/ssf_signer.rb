@@ -8,7 +8,7 @@ module AcaEntities
         class SsfSigner < ::AcaEntities::Operations::Transforms::Transform
           include ::AcaEntities::Operations::Transforms::Transformer
 
-          map 'ref', 'role_reference.ref', function: ->(v) {"SBM#{v}"}
+          map 'ref', 'role_reference.ref', function: ->(v) {"pe#{v}"}
           map 'first_name', 'signature.signature_name.given', memoize: true, visible: false
           map 'middle_name', 'signature.signature_name.middle', memoize: true, visible: false
           map 'last_name', 'signature.signature_name.sur', memoize: true, visible: false
@@ -18,7 +18,7 @@ module AcaEntities
              v.resolve('signature.signature_name.middle').item.to_s,
              v.resolve('signature.signature_name.sur').item.to_s].join(' ')
           }
-          add_key 'signature.signature_date.date', value: ->(_v) { Date.today } # default value
+          map 'day', 'signature.signature_date.date', function: ->(v) { Date.parse(v) }
         end
       end
     end

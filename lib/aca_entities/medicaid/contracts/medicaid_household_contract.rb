@@ -7,6 +7,7 @@ module AcaEntities
       class MedicaidHouseholdContract < Dry::Validation::Contract
 
         params do
+          optional(:id).maybe(:string)
           optional(:household_incomes).maybe(:array)
           optional(:effective_person_quantity).maybe(:integer)
           optional(:income_above_highest_applicable_magi_standard_indicator).maybe(:bool)

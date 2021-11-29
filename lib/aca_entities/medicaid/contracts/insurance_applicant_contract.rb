@@ -21,6 +21,9 @@ module AcaEntities
           optional(:referral_activity).maybe(:hash)
           optional(:foster_care_state).maybe(:string)
           optional(:non_esi_coverage_indicators).maybe(:array)
+          optional(:non_esi_policies).maybe(:array)
+          optional(:esi_associations).maybe(:array)
+          optional(:parent_caretaker_indicator).maybe(:bool)
         end
       end
     end
