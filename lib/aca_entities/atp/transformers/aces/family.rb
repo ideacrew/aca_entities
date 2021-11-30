@@ -12,7 +12,7 @@ require "aca_entities/atp/functions/contact_builder"
 require 'aca_entities/atp/transformers/aces/applicant'
 require 'aca_entities/atp/transformers/aces/ssf_signer'
 require 'aca_entities/atp/types'
-require 'pry'
+
 require 'dry/monads'
 require 'dry/monads/do'
 
@@ -172,7 +172,6 @@ module AcaEntities
                     }
                     map 'person_demographics.gender', 'sex', function: ->(v) {v.capitalize}
                     map 'person_demographics.race', 'race'
-                    # map 'ethnicity', 'ethnicities', memoize: true, visible: true, function: ->(v) { binding.pry v.compact }
 
                     map 'person_demographics.dob', 'birth_date.date',  memoize: true, visible: true, append_identifier: true,
                                                                        function: lambda { |v|
@@ -193,10 +192,9 @@ module AcaEntities
                       member_id = v.find(/family.family_members.(\w+)$/).map(&:item).last
                       applicants_hash = v.resolve('family.magi_medicaid_applications.applicants').item
                       applicant_hash = applicants_hash[member_id.to_sym]
-                      binding.pry
-                      #ethnicity_array = applicant_hash[:demographic][:ethnicity]
-                      #earry = ethnicity_array&.compact&.map { |e| e[:ethnicity] }
-                      #earry ? earry.compact.flatten.compact.uniq.map(&:present?).map {|e| { value: e } } : nil
+                      ethnicity_array = applicant_hash[:demographic][:ethnicity]
+                      earry = ethnicity_array&.compact&.map { |e| e[:ethnicity] }
+                      earry ? earry.compact.flatten.compact.uniq.map {|e| { value: e } if e.present? }.compact : nil
                     }
 
                     add_key 'tribal_augmentation', function: lambda { |v|

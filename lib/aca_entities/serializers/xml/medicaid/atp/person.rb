@@ -31,10 +31,9 @@ module AcaEntities
               mapper.id = person.id
               mapper.age_measure = PersonAgeMeasure.domain_to_mapper(person.age_measure)
               mapper.birth_date = PersonBirthDate.domain_to_mapper(person.birth_date)
-              mapper.ethnicities = person.ethnicities
-              #if person&.ethnicities
-               # mapper.ethnicities = person&.ethnicities&.map { |v| PersonEthnicityText.domain_to_mapper(v) }
-              #end
+              if person&.ethnicities
+                mapper.ethnicities = person&.ethnicities&.map { |v| PersonEthnicityText.domain_to_mapper(v) if v.present? }
+              end
               mapper.person_name = PersonName.domain_to_mapper(person.person_name)
               mapper.race = person.race
               mapper.sex = person.sex

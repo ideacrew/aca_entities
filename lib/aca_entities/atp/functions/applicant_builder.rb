@@ -7,7 +7,7 @@ module AcaEntities
     module Functions
       # applicants builder
       class ApplicantBuilder
-        def call(cache)
+        def call(cache) # rubocop:disable Metrics/MethodLength, Metrics/CyclomaticComplexity
           applicants_hash = cache.resolve('family.magi_medicaid_applications.applicants').item
           applicants_hash.each_with_object([]) do |applicant_hash, collector|
             applicant = applicant_hash[1]
@@ -18,7 +18,6 @@ module AcaEntities
             non_esi_coverage_eligible_array = eligible_benefits.reject {|benefit| benefit[:kind] == "employer_sponsored_insurance" }
             esi_coverage_enrolled = enrolled_benefits.select {|benefit|  benefit[:kind] == "employer_sponsored_insurance" }
             esi_coverage_eligible = eligible_benefits.select {|benefit| benefit[:kind] == "employer_sponsored_insurance" }
-
 
             non_esi_coverage_indicators = if non_esi_coverage_enrolled_array
                                             { non_esi_coverage_indicators: [true] }
@@ -39,7 +38,8 @@ module AcaEntities
                                          eligible_indicator: esi_coverage_eligible.present?,
                                          eligibility_unknown_indicator: !(esi_coverage_enrolled.present? || esi_coverage_eligible.present?) }]
             insurance_applicant = AcaEntities::Atp::Transformers::Aces::Applicant.transform(applicant)
-            collector << insurance_applicant.merge!(non_esi_coverage_indicators, esi_associations: esi_coverage_indicators, non_esi_policies: non_esi_policies)
+            insurance_applicant.merge!(non_esi_coverage_indicators, esi_associations: esi_coverage_indicators, non_esi_policies: non_esi_policies)
+            collector << insurance_applicant
           end
         end
       end
