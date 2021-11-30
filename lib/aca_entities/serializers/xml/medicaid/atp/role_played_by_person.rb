@@ -17,7 +17,6 @@ module AcaEntities
             element :sex, String, tag: "PersonSexText", namespace: "nc"
             has_one :person_augmentation, PersonAugmentation
 
-
             def self.domain_to_mapper(role)
               mapper = self.new
               mapper.person_name = PersonName.domain_to_mapper(role.person_name)
@@ -31,7 +30,7 @@ module AcaEntities
               {
                 person_name: person_name&.to_hash,
                 sex: sex,
-                birth_date: birth_date&.to_hash
+                birth_date: birth_date&.to_hash,
                 augementation: person_augmentation&.to_hash
               }
             end
