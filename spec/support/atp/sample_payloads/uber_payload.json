@@ -14,7 +14,7 @@
                         "first_name": "Rob",
                         "middle_name": null,
                         "last_name": "Smith",
-                        "name_sfx": null,
+                        "name_sfx": "Esq",
                         "name_pfx": null,
                         "full_name": "Rob Smith",
                         "alternate_name": null
@@ -61,7 +61,7 @@
                                 "first_name": "Nancy",
                                 "middle_name": null,
                                 "last_name": "Smith",
-                                "encrypted_ssn": "01t3GgUqrFm0+INatUNqn4gKv/8HKMJKkg==\n",
+                                "encrypted_ssn": "f4/irRpyO0EmhwT1Y6NIyoIAv/8HKMJKkg==\n",
                                 "no_ssn": false,
                                 "dob": "1962-05-05",
                                 "gender": "female",
@@ -75,7 +75,7 @@
                                 "first_name": "James",
                                 "middle_name": null,
                                 "last_name": "Smith",
-                                "encrypted_ssn": "rJzmI/rSqb2B7ruAjZVfXIgEv/wGL8JNkg==\n",
+                                "encrypted_ssn": "4TOgDSon5aPlOSlthX2hLoUEv/wGL8JNkg==\n",
                                 "no_ssn": false,
                                 "dob": "2002-01-01",
                                 "gender": "male",
@@ -239,7 +239,7 @@
                             "country_code": "",
                             "area_code": "877",
                             "number": "2277733",
-                            "extension": "",
+                            "extension": "302",
                             "primary": null,
                             "full_phone_number": "8772277733"
                         }
@@ -273,7 +273,7 @@
                         "alternate_name": null
                     },
                     "person_demographics": {
-                        "encrypted_ssn": "01t3GgUqrFm0+INatUNqn4gKv/8HKMJKkg==\n",
+                        "encrypted_ssn": "f4/irRpyO0EmhwT1Y6NIyoIAv/8HKMJKkg==\n",
                         "no_ssn": false,
                         "gender": "female",
                         "dob": "1962-05-05",
@@ -458,7 +458,7 @@
                         "alternate_name": null
                     },
                     "person_demographics": {
-                        "encrypted_ssn": "rJzmI/rSqb2B7ruAjZVfXIgEv/wGL8JNkg==\n",
+                        "encrypted_ssn": "4TOgDSon5aPlOSlthX2hLoUEv/wGL8JNkg==\n",
                         "no_ssn": false,
                         "gender": "male",
                         "dob": "2002-01-01",
@@ -1272,7 +1272,7 @@
                             "area_code": "877",
                             "number": "2277733",
                             "country_code": "",
-                            "extension": "",
+                            "extension": "302",
                             "full_phone_number": "8772277733"
                         }
                     ],
@@ -1564,7 +1564,7 @@
                     },
                     "identifying_information": {
                         "has_ssn": "0",
-                        "encrypted_ssn": "01t3GgUqrFm0+INatUNqn4gKv/8HKMJKkg==\n"
+                        "encrypted_ssn": "f4/irRpyO0EmhwT1Y6NIyoIAv/8HKMJKkg==\n"
                     },
                     "demographic": {
                         "gender": "Female",
@@ -1661,7 +1661,7 @@
                     "moved_on_or_after_welfare_reformed_law": false,
                     "is_currently_enrolled_in_health_plan": false,
                     "has_daily_living_help": true,
-                    "need_help_paying_bills": false,
+                    "need_help_paying_bills": true,
                     "has_job_income": false,
                     "has_self_employment_income": false,
                     "has_unemployment_income": true,
@@ -1934,12 +1934,12 @@
                         "first_name": "James",
                         "middle_name": null,
                         "last_name": "Smith",
-                        "name_sfx": null,
+                        "name_sfx": "Esq.",
                         "name_pfx": null
                     },
                     "identifying_information": {
                         "has_ssn": "0",
-                        "encrypted_ssn": "rJzmI/rSqb2B7ruAjZVfXIgEv/wGL8JNkg==\n"
+                        "encrypted_ssn": "4TOgDSon5aPlOSlthX2hLoUEv/wGL8JNkg==\n"
                     },
                     "demographic": {
                         "gender": "Male",
@@ -2951,7 +2951,7 @@
                         "last_name": "Smith",
                         "dob": "1962-05-05",
                         "person_hbx_id": "2000191",
-                        "encrypted_ssn": "01t3GgUqrFm0+INatUNqn4gKv/8HKMJKkg==\n"
+                        "encrypted_ssn": "f4/irRpyO0EmhwT1Y6NIyoIAv/8HKMJKkg==\n"
                     },
                     "relative_reference": {
                         "first_name": "Rob",
@@ -2976,7 +2976,7 @@
                         "last_name": "Smith",
                         "dob": "1962-05-05",
                         "person_hbx_id": "2000191",
-                        "encrypted_ssn": "01t3GgUqrFm0+INatUNqn4gKv/8HKMJKkg==\n"
+                        "encrypted_ssn": "f4/irRpyO0EmhwT1Y6NIyoIAv/8HKMJKkg==\n"
                     },
                     "live_with_household_member": false
                 },
@@ -2987,7 +2987,7 @@
                         "last_name": "Smith",
                         "dob": "2002-01-01",
                         "person_hbx_id": "2000192",
-                        "encrypted_ssn": "rJzmI/rSqb2B7ruAjZVfXIgEv/wGL8JNkg==\n"
+                        "encrypted_ssn": "4TOgDSon5aPlOSlthX2hLoUEv/wGL8JNkg==\n"
                     },
                     "relative_reference": {
                         "first_name": "Rob",
@@ -3012,7 +3012,7 @@
                         "last_name": "Smith",
                         "dob": "2002-01-01",
                         "person_hbx_id": "2000192",
-                        "encrypted_ssn": "rJzmI/rSqb2B7ruAjZVfXIgEv/wGL8JNkg==\n"
+                        "encrypted_ssn": "4TOgDSon5aPlOSlthX2hLoUEv/wGL8JNkg==\n"
                     },
                     "live_with_household_member": false
                 },
@@ -3059,7 +3059,7 @@
                         "last_name": "Smith",
                         "dob": "2002-01-01",
                         "person_hbx_id": "2000192",
-                        "encrypted_ssn": "rJzmI/rSqb2B7ruAjZVfXIgEv/wGL8JNkg==\n"
+                        "encrypted_ssn": "4TOgDSon5aPlOSlthX2hLoUEv/wGL8JNkg==\n"
                     },
                     "relative_reference": {
                         "first_name": "Lucy",
@@ -3084,7 +3084,7 @@
                         "last_name": "Smith",
                         "dob": "2002-01-01",
                         "person_hbx_id": "2000192",
-                        "encrypted_ssn": "rJzmI/rSqb2B7ruAjZVfXIgEv/wGL8JNkg==\n"
+                        "encrypted_ssn": "4TOgDSon5aPlOSlthX2hLoUEv/wGL8JNkg==\n"
                     },
                     "live_with_household_member": false
                 },
@@ -3095,14 +3095,14 @@
                         "last_name": "Smith",
                         "dob": "1962-05-05",
                         "person_hbx_id": "2000191",
-                        "encrypted_ssn": "01t3GgUqrFm0+INatUNqn4gKv/8HKMJKkg==\n"
+                        "encrypted_ssn": "f4/irRpyO0EmhwT1Y6NIyoIAv/8HKMJKkg==\n"
                     },
                     "relative_reference": {
                         "first_name": "James",
                         "last_name": "Smith",
                         "dob": "2002-01-01",
                         "person_hbx_id": "2000192",
-                        "encrypted_ssn": "rJzmI/rSqb2B7ruAjZVfXIgEv/wGL8JNkg==\n"
+                        "encrypted_ssn": "4TOgDSon5aPlOSlthX2hLoUEv/wGL8JNkg==\n"
                     },
                     "live_with_household_member": false
                 },
@@ -3113,14 +3113,14 @@
                         "last_name": "Smith",
                         "dob": "2002-01-01",
                         "person_hbx_id": "2000192",
-                        "encrypted_ssn": "rJzmI/rSqb2B7ruAjZVfXIgEv/wGL8JNkg==\n"
+                        "encrypted_ssn": "4TOgDSon5aPlOSlthX2hLoUEv/wGL8JNkg==\n"
                     },
                     "relative_reference": {
                         "first_name": "Nancy",
                         "last_name": "Smith",
                         "dob": "1962-05-05",
                         "person_hbx_id": "2000191",
-                        "encrypted_ssn": "01t3GgUqrFm0+INatUNqn4gKv/8HKMJKkg==\n"
+                        "encrypted_ssn": "f4/irRpyO0EmhwT1Y6NIyoIAv/8HKMJKkg==\n"
                     },
                     "live_with_household_member": false
                 },
@@ -3131,7 +3131,7 @@
                         "last_name": "Smith",
                         "dob": "1962-05-05",
                         "person_hbx_id": "2000191",
-                        "encrypted_ssn": "01t3GgUqrFm0+INatUNqn4gKv/8HKMJKkg==\n"
+                        "encrypted_ssn": "f4/irRpyO0EmhwT1Y6NIyoIAv/8HKMJKkg==\n"
                     },
                     "relative_reference": {
                         "first_name": "Lucy",
@@ -3156,7 +3156,7 @@
                         "last_name": "Smith",
                         "dob": "1962-05-05",
                         "person_hbx_id": "2000191",
-                        "encrypted_ssn": "01t3GgUqrFm0+INatUNqn4gKv/8HKMJKkg==\n"
+                        "encrypted_ssn": "f4/irRpyO0EmhwT1Y6NIyoIAv/8HKMJKkg==\n"
                     },
                     "live_with_household_member": false
                 },
@@ -3203,7 +3203,7 @@
                         "last_name": "Smith",
                         "dob": "2002-01-01",
                         "person_hbx_id": "2000192",
-                        "encrypted_ssn": "rJzmI/rSqb2B7ruAjZVfXIgEv/wGL8JNkg==\n"
+                        "encrypted_ssn": "4TOgDSon5aPlOSlthX2hLoUEv/wGL8JNkg==\n"
                     },
                     "relative_reference": {
                         "first_name": "Juan Carlos",
@@ -3228,7 +3228,7 @@
                         "last_name": "Smith",
                         "dob": "2002-01-01",
                         "person_hbx_id": "2000192",
-                        "encrypted_ssn": "rJzmI/rSqb2B7ruAjZVfXIgEv/wGL8JNkg==\n"
+                        "encrypted_ssn": "4TOgDSon5aPlOSlthX2hLoUEv/wGL8JNkg==\n"
                     },
                     "live_with_household_member": false
                 },
@@ -3275,7 +3275,7 @@
                         "last_name": "Smith",
                         "dob": "1962-05-05",
                         "person_hbx_id": "2000191",
-                        "encrypted_ssn": "01t3GgUqrFm0+INatUNqn4gKv/8HKMJKkg==\n"
+                        "encrypted_ssn": "f4/irRpyO0EmhwT1Y6NIyoIAv/8HKMJKkg==\n"
                     },
                     "relative_reference": {
                         "first_name": "Juan Carlos",
@@ -3300,7 +3300,7 @@
                         "last_name": "Smith",
                         "dob": "1962-05-05",
                         "person_hbx_id": "2000191",
-                        "encrypted_ssn": "01t3GgUqrFm0+INatUNqn4gKv/8HKMJKkg==\n"
+                        "encrypted_ssn": "f4/irRpyO0EmhwT1Y6NIyoIAv/8HKMJKkg==\n"
                     },
                     "live_with_household_member": false
                 }
@@ -3352,7 +3352,7 @@
                                 "last_name": "Smith",
                                 "dob": "1962-05-05",
                                 "person_hbx_id": "2000191",
-                                "encrypted_ssn": "01t3GgUqrFm0+INatUNqn4gKv/8HKMJKkg==\n"
+                                "encrypted_ssn": "f4/irRpyO0EmhwT1Y6NIyoIAv/8HKMJKkg==\n"
                             },
                             "product_eligibility_determination": {
                                 "is_ia_eligible": true,
@@ -3380,7 +3380,7 @@
                                 "last_name": "Smith",
                                 "dob": "2002-01-01",
                                 "person_hbx_id": "2000192",
-                                "encrypted_ssn": "rJzmI/rSqb2B7ruAjZVfXIgEv/wGL8JNkg==\n"
+                                "encrypted_ssn": "4TOgDSon5aPlOSlthX2hLoUEv/wGL8JNkg==\n"
                             },
                             "product_eligibility_determination": {
                                 "is_ia_eligible": true,

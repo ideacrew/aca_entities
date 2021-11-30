@@ -15,8 +15,8 @@ module AcaEntities
             attribute :id, String, namespace: "niem-s"
             has_one :age_measure, PersonAgeMeasure
             has_one :birth_date, PersonBirthDate
-            # has_many :ethnicities, String, tag: "PersonEthnicityText", namespace: "nc"
-            has_many :ethnicities, PersonEthnicityText
+            has_many :ethnicities, String, tag: "PersonEthnicityText", namespace: "nc"
+            # has_many :ethnicities, PersonEthnicityText
             element :living_indicator, Boolean, tag: "PersonLivingIndicator", namespace: "nc"
             has_one :person_name, PersonName
             element :race, String, tag: "PersonRaceText", namespace: "nc"
@@ -31,9 +31,10 @@ module AcaEntities
               mapper.id = person.id
               mapper.age_measure = PersonAgeMeasure.domain_to_mapper(person.age_measure)
               mapper.birth_date = PersonBirthDate.domain_to_mapper(person.birth_date)
-              if person&.ethnicities
-                mapper.ethnicities = person&.ethnicities&.map { |v| PersonEthnicityText.domain_to_mapper(v) }
-              end
+              mapper.ethnicities = person.ethnicities
+              #if person&.ethnicities
+               # mapper.ethnicities = person&.ethnicities&.map { |v| PersonEthnicityText.domain_to_mapper(v) }
+              #end
               mapper.person_name = PersonName.domain_to_mapper(person.person_name)
               mapper.race = person.race
               mapper.sex = person.sex

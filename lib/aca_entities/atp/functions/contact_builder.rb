@@ -25,6 +25,7 @@ module AcaEntities
           end
 
           phone_result = phones.each_with_object([]) do |phone, collector|
+            p phone
             collector << ::AcaEntities::Atp::Transformers::Aces::Phone.transform(phone)
             collector
           end

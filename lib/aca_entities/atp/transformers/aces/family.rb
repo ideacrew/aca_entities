@@ -148,7 +148,11 @@ module AcaEntities
                       last_name = v&.gsub(/[^A-Za-z\-' ]/, ' ')
                       last_name&.strip&.empty? ? "BLANK LAST" : last_name
                     }
-                    add_key 'person_name.suffix'
+                    map 'person_name.name_sfx', 'person_name.suffix', function: lambda { |v|
+                      last_name = v&.gsub(/[^A-Za-z\-' ]/, ' ')
+                      last_name&.strip&.empty? ? "BLANK LAST" : last_name
+                    }
+                    # add_key 'person_name.suffix'
                     # map 'person_name.full_name', 'person_name.full' # removed as per business validation
                     add_key 'us_citizen_indicator', function: lambda { |v|
                       member_id = v.find(/family.family_members.(\w+)$/).map(&:item).last
@@ -189,10 +193,10 @@ module AcaEntities
                       member_id = v.find(/family.family_members.(\w+)$/).map(&:item).last
                       applicants_hash = v.resolve('family.magi_medicaid_applications.applicants').item
                       applicant_hash = applicants_hash[member_id.to_sym]
-                      ethnicity_array = applicant_hash[:demographic][:ethnicity]
                       binding.pry
-                      earry = ethnicity_array&.compact&.map { |e| e[:ethnicity] }
-                      earry ? earry.compact.flatten.compact.uniq.map(&:present?).map {|e| { value: e } } : nil
+                      #ethnicity_array = applicant_hash[:demographic][:ethnicity]
+                      #earry = ethnicity_array&.compact&.map { |e| e[:ethnicity] }
+                      #earry ? earry.compact.flatten.compact.uniq.map(&:present?).map {|e| { value: e } } : nil
                     }
 
                     add_key 'tribal_augmentation', function: lambda { |v|

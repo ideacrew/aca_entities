@@ -13,7 +13,8 @@ module AcaEntities
           add_key 'contact.email_id'
           add_key 'contact.mailing_address'
           map 'full_phone_number', 'contact.telephone_number.telephone.telephone_number_full_id'
-          add_key 'contact.telephone_number.telephone.telephone_suffix_id'
+          map 'extension', 'contact.telephone_number.telephone.telephone_suffix_id'
+          map 'contact.telephone_number.telephone.telephone_suffix_id'
           map 'kind', 'category_code', memoize: true, visible: true, function: lambda { |v|
             v.capitalize
           }
