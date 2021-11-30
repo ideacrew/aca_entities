@@ -320,6 +320,31 @@ module AcaEntities
               # add_key "verification_metadata", function: ::AcaEntities::Atp::Functions::VerificationMetadataBuilder.new
               add_key "tax_returns", function: ::AcaEntities::Atp::Functions::TaxReturnBuilder.new
               add_key "medicaid_households", function: ::AcaEntities::Atp::Functions::MedicaidHouseholdBuilder.new
+
+              map 'broker_accounts', 'broker_accounts', memoize_record: true, visible: false
+              add_key "assister", function: lambda { |v|
+                broker = v.resolve("family.broker_accounts").item
+                person = broker.dig(:broker_role_reference, :person_reference)
+                name = {
+                  given: person[:first_name],
+                  middle: person[:middle_name],
+                  sur: person[:last_name]
+                }
+                augmentation = {
+                  person_identification: {
+                    identification_id: broker[:broker_role_reference][:npn],
+                    identification_category_text: 'National Producer Number'
+                  }
+                }
+
+                {
+                  role_played_by_person:
+                  {
+                    person_name: name,
+                    person_augmentation: augmentation
+                  }
+                }
+              }
             end
           end
         end

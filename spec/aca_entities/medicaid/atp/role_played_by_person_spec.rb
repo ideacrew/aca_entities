@@ -11,14 +11,12 @@ RSpec.describe ::AcaEntities::Medicaid::Atp::RolePlayedByPerson, dbclean: :after
 
   let(:required_params) do
     {
-      person_name: person_name,
-      sex: "SEX"
+      person_name: person_name
     }
   end
 
   let(:optional_params) do
     {
-      birth_date: person_birth_date,
       person_augmentation: person_augmentation
     }
   end
@@ -30,12 +28,11 @@ RSpec.describe ::AcaEntities::Medicaid::Atp::RolePlayedByPerson, dbclean: :after
       full: 'prefix first middle last suffix' }
   end
 
-  let(:person_birth_date) do
-    { date: Date.today - 50 }
-  end
-
   let(:person_augmentation) do
-    {}
+    { person_identification: {
+      identification_id: "npn123",
+      identification_category_text: 'National Producer Number'
+    } }
   end
 
   let(:all_params) { required_params.merge(optional_params)}

@@ -26,15 +26,17 @@ module AcaEntities
             element :married_indicator, Boolean, tag: 'PersonMarriedIndicator', namespace: "hix-core"
             element :us_veteran_indicator, Boolean, tag: "PersonUSVeteranIndicator", namespace: "hix-core"
 
-            def self.domain_to_mapper(person_augmentation) # rubocop:disable Metrics/CyclomaticComplexity, Metrics/MethodLength
+            def self.domain_to_mapper(person_augmentation) # rubocop:disable Metrics/CyclomaticComplexity, Metrics/MethodLength, Metrics/PerceivedComplexity
               mapper = self.new
               if person_augmentation
                 mapper.us_veteran_indicator = person_augmentation.us_veteran_indicator
                 mapper.us_naturalized_citizen_indicator = person_augmentation.us_naturalized_citizen_indicator
                 mapper.married_indicator = person_augmentation.married_indicator
                 mapper.us_veteran_indicator = person_augmentation.us_veteran_indicator
-                mapper.pregnancy_status = PersonPregnancyStatus.domain_to_mapper(person_augmentation.pregnancy_status)
-                mapper.preferred_languages = person_augmentation.preferred_languages.map  do |preferred_language|
+                if person_augmentation.pregnancy_status
+                  mapper.pregnancy_status = PersonPregnancyStatus.domain_to_mapper(person_augmentation.pregnancy_status)
+                end
+                mapper.preferred_languages = person_augmentation.preferred_languages&.map  do |preferred_language|
                   PersonPreferredLanguage.domain_to_mapper(preferred_language)
                 end
                 mapper.incomes = person_augmentation.incomes&.map  do |income|

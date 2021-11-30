@@ -8,7 +8,7 @@ module AcaEntities
 
         attribute :person_name, PersonName.meta(omittable: false)
         attribute :birth_date, PersonBirthDate.optional.meta(omittable: true)
-        attribute :sex, Types::String.meta(omittable: false)
+        attribute :sex, Types::String.optional.meta(omittable: true)
         attribute :person_augmentation, PersonAugmentation.optional.meta(omittable: true)
       end
     end

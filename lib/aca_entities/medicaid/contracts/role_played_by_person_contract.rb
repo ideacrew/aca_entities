@@ -9,7 +9,7 @@ module AcaEntities
         params do
           required(:person_name).filled(:hash)
           optional(:birth_date).maybe(:hash)
-          required(:sex).filled(:string)
+          optional(:sex).maybe(:string)
           optional(:person_augmentation).maybe(:hash)
         end
       end

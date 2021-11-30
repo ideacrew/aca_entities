@@ -17,7 +17,7 @@ module AcaEntities
 
             def self.domain_to_mapper(assister)
               mapper = self.new
-              mapper.role_played_by_person = assister.role_played_by_person
+              mapper.role_played_by_person = RolePlayedByPerson.domain_to_mapper(assister.role_played_by_person)
               mapper
             end
 
