@@ -12,7 +12,7 @@ require "aca_entities/atp/functions/contact_builder"
 require 'aca_entities/atp/transformers/aces/applicant'
 require 'aca_entities/atp/transformers/aces/ssf_signer'
 require 'aca_entities/atp/types'
-
+require 'pry'
 require 'dry/monads'
 require 'dry/monads/do'
 
@@ -167,8 +167,9 @@ module AcaEntities
                       result.success? ? result.value! : nil
                     }
                     map 'person_demographics.gender', 'sex', function: ->(v) {v.capitalize}
-                    map 'race', 'race'
-                    add_key 'ethnicities'
+                    map 'person_demographics.race', 'race'
+                    # map 'ethnicity', 'ethnicities', memoize: true, visible: true, function: ->(v) { binding.pry v.compact }
+
                     map 'person_demographics.dob', 'birth_date.date',  memoize: true, visible: true, append_identifier: true,
                                                                        function: lambda { |v|
                                                                                    if v.respond_to?(:strftime)
@@ -182,6 +183,16 @@ module AcaEntities
                       applicants_hash = v.resolve('family.magi_medicaid_applications.applicants').item
                       applicant_hash = applicants_hash[member_id.to_sym]
                       applicant_hash ? applicant_hash[:age_of_applicant] : nil
+                    }
+
+                    add_key 'ethnicities', value: lambda { |v|
+                      member_id = v.find(/family.family_members.(\w+)$/).map(&:item).last
+                      applicants_hash = v.resolve('family.magi_medicaid_applications.applicants').item
+                      applicant_hash = applicants_hash[member_id.to_sym]
+                      ethnicity_array = applicant_hash[:demographic][:ethnicity]
+                      binding.pry
+                      earry = ethnicity_array&.compact&.map { |e| e[:ethnicity] }
+                      earry ? earry.compact.flatten.compact.uniq.map(&:present?).map {|e| { value: e } } : nil
                     }
 
                     add_key 'tribal_augmentation', function: lambda { |v|

@@ -465,7 +465,6 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
     {
       id: "pe456",
       birth_date: person_birth_date,
-      ethnicities: ["ethnicity1", "ethnicity2"],
       person_name: person_name,
       sex: "Female",
       race: "RACE",
