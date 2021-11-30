@@ -21,6 +21,7 @@ module AcaEntities
             has_many :preferred_languages, PersonPreferredLanguage
             has_one :chip_id, PersonMedicaidIdentification
             element :us_naturalized_citizen_indicator, Boolean, tag: "USNaturalizedCitizenIndicator", namespace: "hix-core"
+            has_one :person_identification, PersonIdentification
             has_many :expenses, PersonExpense
             element :married_indicator, Boolean, tag: 'PersonMarriedIndicator', namespace: "hix-core"
             element :us_veteran_indicator, Boolean, tag: "PersonUSVeteranIndicator", namespace: "hix-core"
@@ -51,6 +52,9 @@ module AcaEntities
                 mapper.family_relationships = person_augmentation.family_relationships&.map do |person_association|
                   PersonAssociation.domain_to_mapper(person_association)
                 end
+                if person_augmentation.person_identification
+                  mapper.person_identification = PersonIdentification.domain_to_mapper(person_augmentation.person_identification)
+                end
               end
               mapper
             end
@@ -68,7 +72,8 @@ module AcaEntities
                 expenses: expenses.map(&:to_hash),
                 employments: employments.map(&:to_hash),
                 contacts: contacts.map(&:to_hash),
-                family_relationships: family_relationships.map(&:to_hash)
+                family_relationships: family_relationships.map(&:to_hash),
+                person_identification: person_identification&.to_hash
               }
             end
           end

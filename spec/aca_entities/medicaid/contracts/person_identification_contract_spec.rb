@@ -7,7 +7,7 @@ RSpec.describe ::AcaEntities::Medicaid::Contracts::PersonIdentificationContract,
 
   let(:required_params) { { identification_id: "MET00000000001887090" } }
 
-  let(:optional_params) { {} }
+  let(:optional_params) { { identification_category_text: "Federally-Facilitated Marketplace" } }
 
   let(:all_params) { required_params.merge(optional_params)}
 

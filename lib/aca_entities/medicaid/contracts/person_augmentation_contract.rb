@@ -17,6 +17,7 @@ module AcaEntities
           optional(:employments).maybe(:array)
           optional(:contacts).maybe(:array)
           optional(:persons).maybe(:array)
+          optional(:person_identification).maybe(:hash)
         end
       end
     end
