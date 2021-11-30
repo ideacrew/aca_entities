@@ -140,7 +140,9 @@ require_relative "atp/tribal_augmentation"
 require_relative "atp/person_name"
 require_relative "atp/person_birth_date"
 require_relative "atp/person_age_measure"
+require_relative "atp/role_played_by_person"
 require_relative "atp/person"
+require_relative "atp/assister"
 require_relative "atp/account_transfer_request"
 
 module AcaEntities
