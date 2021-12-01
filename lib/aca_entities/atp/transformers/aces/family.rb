@@ -330,12 +330,11 @@ module AcaEntities
                   middle: person[:middle_name],
                   sur: person[:last_name]
                 }
-                # broker_npn = broker.dig(:broker_role_reference, :npn)
-                broker_npn = broker.dig(:broker_agency_reference, :corporate_npn)
-                identification_id = broker_npn ? broker_npn : "n/a"
+                # broker_npn = broker.dig(:broker_role_reference, :npn) || "n/a"
+                broker_npn = broker.dig(:broker_agency_reference, :corporate_npn) || "n/a"
                 augmentation = {
-                  person_identification: {                   
-                    identification_id: identification_id,
+                  person_identification: {
+                    identification_id: broker_npn,
                     identification_category_text: 'National Producer Number'
                   }
                 }
