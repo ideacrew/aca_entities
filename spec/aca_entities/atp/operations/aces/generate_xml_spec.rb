@@ -10,7 +10,8 @@ require 'pry'
 RSpec.describe AcaEntities::Atp::Operations::Aces::GenerateXml  do
   describe 'When a valid json file is passed' do
 
-    let(:payload) { File.read(Pathname.pwd.join("spec/support/atp/sample_payloads/complex_b.json")) }
+    # let(:payload) { File.read(Pathname.pwd.join("spec/support/atp/sample_payloads/complex_b.json")) }
+    let(:payload) { File.read(Pathname.pwd.join("/Users/michaelkaramanov/Desktop/test_scenarios_jsons/2000063.json")) }
 
     it 'should parse and then transform when transform_mode set to batch' do
       result = described_class.new.call(payload)

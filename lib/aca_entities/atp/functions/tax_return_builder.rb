@@ -14,6 +14,7 @@ module AcaEntities
           member_id = @memoized_data.find(Regexp.new('is_primary_applicant.*')).select {|a|  a.item == true}.first.name.split('.').last
           person_relationships = applicants_hash[member_id.to_sym][:mitc_relationships]
           tax_households = @memoized_data.resolve('family.magi_medicaid_applications.tax_households').item
+
           return unless tax_households
           tax_households.values.each_with_object([]) do |household, collect|
             members = household[:tax_household_members].map {|m| m.dig(:applicant_reference, :person_hbx_id)}
@@ -25,9 +26,13 @@ module AcaEntities
             spouse_tax_filer = find_spouse_tax_filer(members, person_relationships, primary_tax_filer)
             spouse_role_reference = { ref: "pe#{spouse_tax_filer}" }
             spouse_hash = { role_reference: spouse_role_reference } if spouse_tax_filer.present?
-
+            binding.pry
             dependents = find_dependents(members, applicants_hash).map(&:to_s)
-            dependents_hash = dependents.map {|id| { role_reference: { ref: "pe#{id}" } } }
+            dependents_hash = dependents.map do |id|
+              claimed_by_custodial_parent = is_claimed_by_custodial_parent(id, applicants_hash, person_relationships)
+              { role_reference: { ref: "pe#{id}" },
+                claimed_by_custodial_parent_indicator: claimed_by_custodial_parent }
+            end
 
             household_size_quantity = members.count
             household_member_references = members.map { |f| { ref: "pe#{f}" } }
@@ -75,6 +80,15 @@ module AcaEntities
 
         def find_dependents(members, applicants_hash)
           members.map(&:to_sym) & applicants_hash.select {|_k, v| v[:is_claimed_as_tax_dependent] == true}.keys
+        end
+
+        def is_claimed_by_custodial_parent(id, applicants_hash, person_relationships)          
+          claimed_by = applicants_hash[id.to_sym].dig(:claimed_as_tax_dependent_by, :person_hbx_id)
+          person_relationships.select {|h| h[:relationship_code] == "03"}.each do |rel|
+            binding.pry
+            return true if rel[:other_id] == claimed_by
+          end
+          false
         end
       end
     end
