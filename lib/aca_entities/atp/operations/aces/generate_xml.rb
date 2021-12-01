@@ -19,8 +19,6 @@ module AcaEntities
           include Dry::Monads[:result, :do, :try]
 
           def call(payload)
-            binding.pry
-
             valid_payload = yield validate(payload)
             aces_payload = yield to_aces(valid_payload)
             valid_aces_payload = yield validate_aces(aces_payload)
