@@ -123,6 +123,10 @@ module AcaEntities
               mapper.age_left_foster_care = insurance_applicant.age_left_foster_care
               mapper.foster_care_indicator = insurance_applicant.foster_care_indicator
               mapper.parent_caretaker_indicator = insurance_applicant.parent_caretaker_indicator
+              mapper.eligible_itu_services_indicator = insurance_applicant.eligible_itu_services_indicator
+              mapper.received_itu_services_indicator = insurance_applicant.received_itu_services_indicator
+              mapper.student_indicator = insurance_applicant.student_indicator
+              mapper.recent_medical_bills_indicator = insurance_applicant.recent_medical_bills_indicator
               if insurance_applicant.foster_care_state && !insurance_applicant.foster_care_state.empty?
                 mapper.foster_care_state = insurance_applicant.foster_care_state
               end

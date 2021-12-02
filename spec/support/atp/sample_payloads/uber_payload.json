@@ -1,0 +1,3537 @@
+{
+    "family": {
+        "hbx_id": "11046",
+        "family_members": [
+            {
+                "hbx_id": "2000190",
+                "is_primary_applicant": true,
+                "is_consent_applicant": false,
+                "is_coverage_applicant": true,
+                "is_active": true,
+                "person": {
+                    "hbx_id": "2000190",
+                    "person_name": {
+                        "first_name": "Rob",
+                        "middle_name": null,
+                        "last_name": "Smith",
+                        "name_sfx": "Esq",
+                        "name_pfx": null,
+                        "full_name": "Rob Smith",
+                        "alternate_name": null
+                    },
+                    "person_demographics": {
+                        "encrypted_ssn": "5khTNQlUYCWwHb0u/a1ih4kLv/8FLsRKkw==\n",
+                        "no_ssn": false,
+                        "gender": "male",
+                        "dob": "1960-01-01",
+                        "date_of_death": null,
+                        "dob_check": false,
+                        "is_incarcerated": false,
+                        "ethnicity": [
+                            "",
+                            "White",
+                            "",
+                            "",
+                            "",
+                            "",
+                            "",
+                            ""
+                        ],
+                        "race": null,
+                        "tribal_id": null,
+                        "language_code": "en"
+                    },
+                    "person_health": {
+                        "is_tobacco_user": "unknown",
+                        "is_physically_disabled": null
+                    },
+                    "no_dc_address": false,
+                    "no_dc_address_reason": "",
+                    "is_homeless": false,
+                    "is_temporarily_out_of_state": false,
+                    "age_off_excluded": false,
+                    "is_applying_for_assistance": null,
+                    "is_active": true,
+                    "is_disabled": null,
+                    "person_relationships": [
+                        {
+                            "kind": "spouse",
+                            "relative": {
+                                "hbx_id": "2000191",
+                                "first_name": "Nancy",
+                                "middle_name": null,
+                                "last_name": "Smith",
+                                "encrypted_ssn": "f4/irRpyO0EmhwT1Y6NIyoIAv/8HKMJKkg==\n",
+                                "no_ssn": false,
+                                "dob": "1962-05-05",
+                                "gender": "female",
+                                "relationship_to_primary": "spouse"
+                            }
+                        },
+                        {
+                            "kind": "child",
+                            "relative": {
+                                "hbx_id": "2000192",
+                                "first_name": "James",
+                                "middle_name": null,
+                                "last_name": "Smith",
+                                "encrypted_ssn": "4TOgDSon5aPlOSlthX2hLoUEv/wGL8JNkg==\n",
+                                "no_ssn": false,
+                                "dob": "2002-01-01",
+                                "gender": "male",
+                                "relationship_to_primary": "child"
+                            }
+                        },
+                        {
+                            "kind": "child",
+                            "relative": {
+                                "hbx_id": "2000193",
+                                "first_name": "Lucy",
+                                "middle_name": null,
+                                "last_name": "Smith",
+                                "encrypted_ssn": "wXQ8FaLPzz0tMwG48vR6g4EAv/8HLcZGkw==\n",
+                                "no_ssn": false,
+                                "dob": "2000-02-02",
+                                "gender": "female",
+                                "relationship_to_primary": "child"
+                            }
+                        },
+                        {
+                            "kind": "child",
+                            "relative": {
+                                "hbx_id": "2000194",
+                                "first_name": "Juan Carlos",
+                                "middle_name": "Sam",
+                                "last_name": "Smith",
+                                "encrypted_ssn": "6hYCGpO6WphdIQueO4Ji3okAvvwFKMdKkA==\n",
+                                "no_ssn": false,
+                                "dob": "1999-01-01",
+                                "gender": "male",
+                                "relationship_to_primary": "child"
+                            }
+                        }
+                    ],
+                    "consumer_role": {
+                        "five_year_bar": false,
+                        "requested_coverage_start_date": "2021-11-24",
+                        "aasm_state": "unverified",
+                        "is_applicant": true,
+                        "birth_location": null,
+                        "marital_status": null,
+                        "is_active": true,
+                        "is_applying_coverage": true,
+                        "bookmark_url": "https://qa-enroll.cme.openhbx.org/financial_assistance/applications/619ea45b5e7b86000e49915e/eligibility_results?cur=1",
+                        "admin_bookmark_url": "https://qa-enroll.cme.openhbx.org/financial_assistance/applications/619ea45b5e7b86000e49915e/eligibility_results?cur=1",
+                        "contact_method": "mail",
+                        "language_preference": "English",
+                        "is_state_resident": null,
+                        "identity_validation": "valid",
+                        "identity_update_reason": "Document in EnrollApp",
+                        "application_validation": "outstanding",
+                        "application_update_reason": null,
+                        "identity_rejected": false,
+                        "application_rejected": false,
+                        "documents": [],
+                        "vlp_documents": [],
+                        "ridp_documents": [],
+                        "verification_type_history_elements": [],
+                        "lawful_presence_determination": {
+                            "vlp_verified_at": null,
+                            "vlp_authority": null,
+                            "vlp_document_id": null,
+                            "citizen_status": "us_citizen",
+                            "citizenship_result": null,
+                            "qualified_non_citizenship_result": null,
+                            "aasm_state": "verification_pending",
+                            "ssa_responses": [],
+                            "ssa_requests": [],
+                            "vlp_responses": [],
+                            "vlp_requests": []
+                        },
+                        "local_residency_responses": [],
+                        "local_residency_requests": []
+                    },
+                    "resident_role": null,
+                    "individual_market_transitions": [
+                        {
+                            "role_type": "consumer",
+                            "start_on": "2021-11-24",
+                            "end_on": null,
+                            "reason_code": "generating_consumer_role",
+                            "submitted_at": "2021-11-24T19:52:42.000+00:00"
+                        }
+                    ],
+                    "verification_types": [
+                        {
+                            "type_name": "Social Security Number",
+                            "validation_status": "unverified",
+                            "applied_roles": [
+                                "consumer_role"
+                            ],
+                            "update_reason": null,
+                            "rejected": null,
+                            "external_service": null,
+                            "due_date": null,
+                            "due_date_type": null,
+                            "inactive": null,
+                            "vlp_documents": []
+                        },
+                        {
+                            "type_name": "Citizenship",
+                            "validation_status": "unverified",
+                            "applied_roles": [
+                                "consumer_role"
+                            ],
+                            "update_reason": null,
+                            "rejected": null,
+                            "external_service": null,
+                            "due_date": null,
+                            "due_date_type": null,
+                            "inactive": null,
+                            "vlp_documents": []
+                        }
+                    ],
+                    "user": {},
+                    "addresses": [
+                        {
+                            "kind": "home",
+                            "address_1": "2024 test road",
+                            "address_2": "apt 2",
+                            "address_3": "",
+                            "city": "Augusta",
+                            "county": "Kennebec",
+                            "state": "ME",
+                            "zip": "04330",
+                            "country_name": "United States of America",
+                            "has_fixed_address": true
+                        },
+                        {
+                            "kind": "mailing",
+                            "address_1": "3033 test",
+                            "address_2": "",
+                            "address_3": "",
+                            "city": "Augusta",
+                            "county": "Kennebec",
+                            "state": "ME",
+                            "zip": "04330",
+                            "country_name": "United States of America",
+                            "has_fixed_address": true
+                        }
+                    ],
+                    "emails": [
+                        {
+                            "kind": "home",
+                            "address": "robsmith@test.com"
+                        }
+                    ],
+                    "phones": [
+                        {
+                            "kind": "home",
+                            "country_code": "",
+                            "area_code": "283",
+                            "number": "6377382",
+                            "extension": "",
+                            "primary": null,
+                            "full_phone_number": "2836377382"
+                        },
+                        {
+                            "kind": "mobile",
+                            "country_code": "",
+                            "area_code": "877",
+                            "number": "2277733",
+                            "extension": "302",
+                            "primary": null,
+                            "full_phone_number": "8772277733"
+                        }
+                    ],
+                    "documents": [],
+                    "timestamp": {
+                        "created_at": "2021-11-24T19:52:42.395+00:00",
+                        "modified_at": "2021-11-24T20:49:58.263+00:00"
+                    }
+                },
+                "timestamp": {
+                    "created_at": "2021-11-24T19:52:42.429+00:00",
+                    "modified_at": "2021-11-24T19:52:42.429+00:00"
+                }
+            },
+            {
+                "hbx_id": "2000191",
+                "is_primary_applicant": false,
+                "is_consent_applicant": false,
+                "is_coverage_applicant": true,
+                "is_active": true,
+                "person": {
+                    "hbx_id": "2000191",
+                    "person_name": {
+                        "first_name": "Nancy",
+                        "middle_name": null,
+                        "last_name": "Smith",
+                        "name_sfx": null,
+                        "name_pfx": null,
+                        "full_name": "Nancy Smith",
+                        "alternate_name": null
+                    },
+                    "person_demographics": {
+                        "encrypted_ssn": "f4/irRpyO0EmhwT1Y6NIyoIAv/8HKMJKkg==\n",
+                        "no_ssn": false,
+                        "gender": "female",
+                        "dob": "1962-05-05",
+                        "date_of_death": null,
+                        "dob_check": null,
+                        "is_incarcerated": false,
+                        "ethnicity": [
+                            "Other",
+                            "Mexican"
+                        ],
+                        "race": null,
+                        "tribal_id": null,
+                        "language_code": "en"
+                    },
+                    "person_health": {
+                        "is_tobacco_user": "unknown",
+                        "is_physically_disabled": null
+                    },
+                    "no_dc_address": false,
+                    "no_dc_address_reason": "",
+                    "is_homeless": false,
+                    "is_temporarily_out_of_state": false,
+                    "age_off_excluded": false,
+                    "is_applying_for_assistance": null,
+                    "is_active": true,
+                    "is_disabled": null,
+                    "person_relationships": [],
+                    "consumer_role": {
+                        "five_year_bar": false,
+                        "requested_coverage_start_date": "2021-11-24",
+                        "aasm_state": "unverified",
+                        "is_applicant": false,
+                        "birth_location": null,
+                        "marital_status": null,
+                        "is_active": true,
+                        "is_applying_coverage": true,
+                        "bookmark_url": null,
+                        "admin_bookmark_url": null,
+                        "contact_method": "mail",
+                        "language_preference": "English",
+                        "is_state_resident": null,
+                        "identity_validation": "na",
+                        "identity_update_reason": null,
+                        "application_validation": "na",
+                        "application_update_reason": null,
+                        "identity_rejected": false,
+                        "application_rejected": false,
+                        "documents": [],
+                        "vlp_documents": [
+                            {
+                                "subject": "I-551 (Permanent Resident Card)",
+                                "alien_number": "987654325",
+                                "i94_number": null,
+                                "visa_number": null,
+                                "passport_number": null,
+                                "sevis_id": null,
+                                "naturalization_number": null,
+                                "receipt_number": null,
+                                "citizenship_number": null,
+                                "card_number": "AAA0000000000",
+                                "country_of_citizenship": null,
+                                "expiration_date": null,
+                                "issuing_country": null
+                            },
+                            {
+                                "subject": "I-551 (Permanent Resident Card)",
+                                "alien_number": "987654325",
+                                "i94_number": null,
+                                "visa_number": null,
+                                "passport_number": null,
+                                "sevis_id": null,
+                                "naturalization_number": null,
+                                "receipt_number": null,
+                                "citizenship_number": null,
+                                "card_number": "AAA0000000000",
+                                "country_of_citizenship": null,
+                                "expiration_date": null,
+                                "issuing_country": null
+                            }
+                        ],
+                        "ridp_documents": [],
+                        "verification_type_history_elements": [],
+                        "lawful_presence_determination": {
+                            "vlp_verified_at": null,
+                            "vlp_authority": null,
+                            "vlp_document_id": null,
+                            "citizen_status": "alien_lawfully_present",
+                            "citizenship_result": null,
+                            "qualified_non_citizenship_result": null,
+                            "aasm_state": "verification_pending",
+                            "ssa_responses": [],
+                            "ssa_requests": [],
+                            "vlp_responses": [],
+                            "vlp_requests": []
+                        },
+                        "local_residency_responses": [],
+                        "local_residency_requests": []
+                    },
+                    "resident_role": null,
+                    "individual_market_transitions": [
+                        {
+                            "role_type": "consumer",
+                            "start_on": "2021-11-24",
+                            "end_on": null,
+                            "reason_code": "generating_consumer_role",
+                            "submitted_at": "2021-11-24T19:58:24.000+00:00"
+                        }
+                    ],
+                    "verification_types": [
+                        {
+                            "type_name": "Social Security Number",
+                            "validation_status": "unverified",
+                            "applied_roles": [
+                                "consumer_role"
+                            ],
+                            "update_reason": null,
+                            "rejected": null,
+                            "external_service": null,
+                            "due_date": null,
+                            "due_date_type": null,
+                            "inactive": null,
+                            "vlp_documents": []
+                        },
+                        {
+                            "type_name": "Immigration status",
+                            "validation_status": "unverified",
+                            "applied_roles": [
+                                "consumer_role"
+                            ],
+                            "update_reason": null,
+                            "rejected": null,
+                            "external_service": null,
+                            "due_date": null,
+                            "due_date_type": null,
+                            "inactive": null,
+                            "vlp_documents": []
+                        }
+                    ],
+                    "user": {},
+                    "addresses": [
+                        {
+                            "kind": "home",
+                            "address_1": "2024 test road",
+                            "address_2": "apt 2",
+                            "address_3": "",
+                            "city": "Augusta",
+                            "county": "Kennebec",
+                            "state": "ME",
+                            "zip": "04330",
+                            "country_name": "United States of America",
+                            "has_fixed_address": true
+                        }
+                    ],
+                    "emails": [],
+                    "phones": [],
+                    "documents": [],
+                    "timestamp": {
+                        "created_at": "2021-11-24T19:58:23.850+00:00",
+                        "modified_at": "2021-11-24T20:50:11.316+00:00"
+                    }
+                },
+                "timestamp": {
+                    "created_at": "2021-11-24T19:58:23.878+00:00",
+                    "modified_at": "2021-11-24T19:58:23.878+00:00"
+                }
+            },
+            {
+                "hbx_id": "2000192",
+                "is_primary_applicant": false,
+                "is_consent_applicant": false,
+                "is_coverage_applicant": true,
+                "is_active": true,
+                "person": {
+                    "hbx_id": "2000192",
+                    "person_name": {
+                        "first_name": "James",
+                        "middle_name": null,
+                        "last_name": "Smith",
+                        "name_sfx": null,
+                        "name_pfx": null,
+                        "full_name": "James Smith",
+                        "alternate_name": null
+                    },
+                    "person_demographics": {
+                        "encrypted_ssn": "4TOgDSon5aPlOSlthX2hLoUEv/wGL8JNkg==\n",
+                        "no_ssn": false,
+                        "gender": "male",
+                        "dob": "2002-01-01",
+                        "date_of_death": null,
+                        "dob_check": null,
+                        "is_incarcerated": false,
+                        "ethnicity": [
+                            "American Indian/Alaska Native"
+                        ],
+                        "race": null,
+                        "tribal_id": null,
+                        "language_code": "en"
+                    },
+                    "person_health": {
+                        "is_tobacco_user": "unknown",
+                        "is_physically_disabled": null
+                    },
+                    "no_dc_address": false,
+                    "no_dc_address_reason": "",
+                    "is_homeless": false,
+                    "is_temporarily_out_of_state": false,
+                    "age_off_excluded": false,
+                    "is_applying_for_assistance": null,
+                    "is_active": true,
+                    "is_disabled": null,
+                    "person_relationships": [],
+                    "consumer_role": {
+                        "five_year_bar": false,
+                        "requested_coverage_start_date": "2021-11-24",
+                        "aasm_state": "unverified",
+                        "is_applicant": false,
+                        "birth_location": null,
+                        "marital_status": null,
+                        "is_active": true,
+                        "is_applying_coverage": true,
+                        "bookmark_url": null,
+                        "admin_bookmark_url": null,
+                        "contact_method": "mail",
+                        "language_preference": "English",
+                        "is_state_resident": null,
+                        "identity_validation": "na",
+                        "identity_update_reason": null,
+                        "application_validation": "na",
+                        "application_update_reason": null,
+                        "identity_rejected": false,
+                        "application_rejected": false,
+                        "documents": [],
+                        "vlp_documents": [],
+                        "ridp_documents": [],
+                        "verification_type_history_elements": [],
+                        "lawful_presence_determination": {
+                            "vlp_verified_at": null,
+                            "vlp_authority": null,
+                            "vlp_document_id": null,
+                            "citizen_status": "us_citizen",
+                            "citizenship_result": null,
+                            "qualified_non_citizenship_result": null,
+                            "aasm_state": "verification_pending",
+                            "ssa_responses": [],
+                            "ssa_requests": [],
+                            "vlp_responses": [],
+                            "vlp_requests": []
+                        },
+                        "local_residency_responses": [],
+                        "local_residency_requests": []
+                    },
+                    "resident_role": null,
+                    "individual_market_transitions": [
+                        {
+                            "role_type": "consumer",
+                            "start_on": "2021-11-24",
+                            "end_on": null,
+                            "reason_code": "generating_consumer_role",
+                            "submitted_at": "2021-11-24T20:05:15.000+00:00"
+                        }
+                    ],
+                    "verification_types": [
+                        {
+                            "type_name": "Social Security Number",
+                            "validation_status": "unverified",
+                            "applied_roles": [
+                                "consumer_role"
+                            ],
+                            "update_reason": null,
+                            "rejected": null,
+                            "external_service": null,
+                            "due_date": null,
+                            "due_date_type": null,
+                            "inactive": null,
+                            "vlp_documents": []
+                        },
+                        {
+                            "type_name": "American Indian Status",
+                            "validation_status": "unverified",
+                            "applied_roles": [
+                                "consumer_role"
+                            ],
+                            "update_reason": null,
+                            "rejected": null,
+                            "external_service": null,
+                            "due_date": null,
+                            "due_date_type": null,
+                            "inactive": null,
+                            "vlp_documents": []
+                        },
+                        {
+                            "type_name": "Citizenship",
+                            "validation_status": "unverified",
+                            "applied_roles": [
+                                "consumer_role"
+                            ],
+                            "update_reason": null,
+                            "rejected": null,
+                            "external_service": null,
+                            "due_date": null,
+                            "due_date_type": null,
+                            "inactive": null,
+                            "vlp_documents": []
+                        }
+                    ],
+                    "user": {},
+                    "addresses": [
+                        {
+                            "kind": "home",
+                            "address_1": "2900 jefferson",
+                            "address_2": "",
+                            "address_3": "",
+                            "city": "Augusta",
+                            "county": "",
+                            "state": "ME",
+                            "zip": "04330",
+                            "country_name": "United States of America",
+                            "has_fixed_address": true
+                        }
+                    ],
+                    "emails": [],
+                    "phones": [],
+                    "documents": [],
+                    "timestamp": {
+                        "created_at": "2021-11-24T20:05:15.723+00:00",
+                        "modified_at": "2021-11-24T20:50:17.720+00:00"
+                    }
+                },
+                "timestamp": {
+                    "created_at": "2021-11-24T20:05:15.746+00:00",
+                    "modified_at": "2021-11-24T20:05:15.746+00:00"
+                }
+            },
+            {
+                "hbx_id": "2000193",
+                "is_primary_applicant": false,
+                "is_consent_applicant": false,
+                "is_coverage_applicant": true,
+                "is_active": true,
+                "person": {
+                    "hbx_id": "2000193",
+                    "person_name": {
+                        "first_name": "Lucy",
+                        "middle_name": null,
+                        "last_name": "Smith",
+                        "name_sfx": null,
+                        "name_pfx": null,
+                        "full_name": "Lucy Smith",
+                        "alternate_name": null
+                    },
+                    "person_demographics": {
+                        "encrypted_ssn": "wXQ8FaLPzz0tMwG48vR6g4EAv/8HLcZGkw==\n",
+                        "no_ssn": false,
+                        "gender": "female",
+                        "dob": "2000-02-02",
+                        "date_of_death": null,
+                        "dob_check": null,
+                        "is_incarcerated": false,
+                        "ethnicity": [],
+                        "race": null,
+                        "tribal_id": null,
+                        "language_code": "en"
+                    },
+                    "person_health": {
+                        "is_tobacco_user": "unknown",
+                        "is_physically_disabled": null
+                    },
+                    "no_dc_address": false,
+                    "no_dc_address_reason": "",
+                    "is_homeless": false,
+                    "is_temporarily_out_of_state": false,
+                    "age_off_excluded": false,
+                    "is_applying_for_assistance": null,
+                    "is_active": true,
+                    "is_disabled": null,
+                    "person_relationships": [],
+                    "consumer_role": {
+                        "five_year_bar": false,
+                        "requested_coverage_start_date": "2021-11-24",
+                        "aasm_state": "unverified",
+                        "is_applicant": false,
+                        "birth_location": null,
+                        "marital_status": null,
+                        "is_active": true,
+                        "is_applying_coverage": true,
+                        "bookmark_url": null,
+                        "admin_bookmark_url": null,
+                        "contact_method": "mail",
+                        "language_preference": "English",
+                        "is_state_resident": null,
+                        "identity_validation": "na",
+                        "identity_update_reason": null,
+                        "application_validation": "na",
+                        "application_update_reason": null,
+                        "identity_rejected": false,
+                        "application_rejected": false,
+                        "documents": [],
+                        "vlp_documents": [],
+                        "ridp_documents": [],
+                        "verification_type_history_elements": [],
+                        "lawful_presence_determination": {
+                            "vlp_verified_at": null,
+                            "vlp_authority": null,
+                            "vlp_document_id": null,
+                            "citizen_status": "us_citizen",
+                            "citizenship_result": null,
+                            "qualified_non_citizenship_result": null,
+                            "aasm_state": "verification_pending",
+                            "ssa_responses": [],
+                            "ssa_requests": [],
+                            "vlp_responses": [],
+                            "vlp_requests": []
+                        },
+                        "local_residency_responses": [],
+                        "local_residency_requests": []
+                    },
+                    "resident_role": null,
+                    "individual_market_transitions": [
+                        {
+                            "role_type": "consumer",
+                            "start_on": "2021-11-24",
+                            "end_on": null,
+                            "reason_code": "generating_consumer_role",
+                            "submitted_at": "2021-11-24T20:12:54.000+00:00"
+                        }
+                    ],
+                    "verification_types": [
+                        {
+                            "type_name": "Social Security Number",
+                            "validation_status": "unverified",
+                            "applied_roles": [
+                                "consumer_role"
+                            ],
+                            "update_reason": null,
+                            "rejected": null,
+                            "external_service": null,
+                            "due_date": null,
+                            "due_date_type": null,
+                            "inactive": null,
+                            "vlp_documents": []
+                        },
+                        {
+                            "type_name": "Citizenship",
+                            "validation_status": "unverified",
+                            "applied_roles": [
+                                "consumer_role"
+                            ],
+                            "update_reason": null,
+                            "rejected": null,
+                            "external_service": null,
+                            "due_date": null,
+                            "due_date_type": null,
+                            "inactive": null,
+                            "vlp_documents": []
+                        },
+                        {
+                            "type_name": "Income",
+                            "validation_status": "unverified",
+                            "applied_roles": [
+                                "consumer_role"
+                            ],
+                            "update_reason": null,
+                            "rejected": null,
+                            "external_service": null,
+                            "due_date": null,
+                            "due_date_type": null,
+                            "inactive": true,
+                            "vlp_documents": []
+                        }
+                    ],
+                    "user": {},
+                    "addresses": [
+                        {
+                            "kind": "home",
+                            "address_1": "2024 test road",
+                            "address_2": "apt 2",
+                            "address_3": "",
+                            "city": "Augusta",
+                            "county": "Kennebec",
+                            "state": "ME",
+                            "zip": "04330",
+                            "country_name": "United States of America",
+                            "has_fixed_address": true
+                        }
+                    ],
+                    "emails": [],
+                    "phones": [],
+                    "documents": [],
+                    "timestamp": {
+                        "created_at": "2021-11-24T20:12:54.661+00:00",
+                        "modified_at": "2021-11-24T20:50:22.106+00:00"
+                    }
+                },
+                "timestamp": {
+                    "created_at": "2021-11-24T20:12:54.685+00:00",
+                    "modified_at": "2021-11-24T20:12:54.685+00:00"
+                }
+            },
+            {
+                "hbx_id": "2000194",
+                "is_primary_applicant": false,
+                "is_consent_applicant": false,
+                "is_coverage_applicant": true,
+                "is_active": true,
+                "person": {
+                    "hbx_id": "2000194",
+                    "person_name": {
+                        "first_name": "Juan Carlos",
+                        "middle_name": "Sam",
+                        "last_name": "Smith",
+                        "name_sfx": null,
+                        "name_pfx": null,
+                        "full_name": "Juan Carlos Sam Smith",
+                        "alternate_name": null
+                    },
+                    "person_demographics": {
+                        "encrypted_ssn": "6hYCGpO6WphdIQueO4Ji3okAvvwFKMdKkA==\n",
+                        "no_ssn": false,
+                        "gender": "male",
+                        "dob": "1999-01-01",
+                        "date_of_death": null,
+                        "dob_check": null,
+                        "is_incarcerated": true,
+                        "ethnicity": [
+                            "Other",
+                            "Other"
+                        ],
+                        "race": null,
+                        "tribal_id": null,
+                        "language_code": "en"
+                    },
+                    "person_health": {
+                        "is_tobacco_user": "unknown",
+                        "is_physically_disabled": null
+                    },
+                    "no_dc_address": false,
+                    "no_dc_address_reason": "",
+                    "is_homeless": false,
+                    "is_temporarily_out_of_state": false,
+                    "age_off_excluded": false,
+                    "is_applying_for_assistance": null,
+                    "is_active": true,
+                    "is_disabled": null,
+                    "person_relationships": [],
+                    "consumer_role": {
+                        "five_year_bar": false,
+                        "requested_coverage_start_date": "2021-11-24",
+                        "aasm_state": "unverified",
+                        "is_applicant": false,
+                        "birth_location": null,
+                        "marital_status": null,
+                        "is_active": true,
+                        "is_applying_coverage": true,
+                        "bookmark_url": null,
+                        "admin_bookmark_url": null,
+                        "contact_method": "mail",
+                        "language_preference": "English",
+                        "is_state_resident": null,
+                        "identity_validation": "na",
+                        "identity_update_reason": null,
+                        "application_validation": "na",
+                        "application_update_reason": null,
+                        "identity_rejected": false,
+                        "application_rejected": false,
+                        "documents": [],
+                        "vlp_documents": [],
+                        "ridp_documents": [],
+                        "verification_type_history_elements": [],
+                        "lawful_presence_determination": {
+                            "vlp_verified_at": null,
+                            "vlp_authority": null,
+                            "vlp_document_id": null,
+                            "citizen_status": "us_citizen",
+                            "citizenship_result": null,
+                            "qualified_non_citizenship_result": null,
+                            "aasm_state": "verification_pending",
+                            "ssa_responses": [],
+                            "ssa_requests": [],
+                            "vlp_responses": [],
+                            "vlp_requests": []
+                        },
+                        "local_residency_responses": [],
+                        "local_residency_requests": []
+                    },
+                    "resident_role": null,
+                    "individual_market_transitions": [
+                        {
+                            "role_type": "consumer",
+                            "start_on": "2021-11-24",
+                            "end_on": null,
+                            "reason_code": "generating_consumer_role",
+                            "submitted_at": "2021-11-24T20:46:30.000+00:00"
+                        }
+                    ],
+                    "verification_types": [
+                        {
+                            "type_name": "Social Security Number",
+                            "validation_status": "unverified",
+                            "applied_roles": [
+                                "consumer_role"
+                            ],
+                            "update_reason": null,
+                            "rejected": null,
+                            "external_service": null,
+                            "due_date": null,
+                            "due_date_type": null,
+                            "inactive": null,
+                            "vlp_documents": []
+                        },
+                        {
+                            "type_name": "Citizenship",
+                            "validation_status": "unverified",
+                            "applied_roles": [
+                                "consumer_role"
+                            ],
+                            "update_reason": null,
+                            "rejected": null,
+                            "external_service": null,
+                            "due_date": null,
+                            "due_date_type": null,
+                            "inactive": null,
+                            "vlp_documents": []
+                        },
+                        {
+                            "type_name": "Income",
+                            "validation_status": "unverified",
+                            "applied_roles": [
+                                "consumer_role"
+                            ],
+                            "update_reason": null,
+                            "rejected": null,
+                            "external_service": null,
+                            "due_date": null,
+                            "due_date_type": null,
+                            "inactive": true,
+                            "vlp_documents": []
+                        }
+                    ],
+                    "user": {},
+                    "addresses": [
+                        {
+                            "kind": "home",
+                            "address_1": "2024 test road",
+                            "address_2": "apt 2",
+                            "address_3": "",
+                            "city": "Augusta",
+                            "county": "Kennebec",
+                            "state": "ME",
+                            "zip": "04330",
+                            "country_name": "United States of America",
+                            "has_fixed_address": true
+                        }
+                    ],
+                    "emails": [],
+                    "phones": [],
+                    "documents": [],
+                    "timestamp": {
+                        "created_at": "2021-11-24T20:46:30.376+00:00",
+                        "modified_at": "2021-11-24T20:50:26.353+00:00"
+                    }
+                },
+                "timestamp": {
+                    "created_at": "2021-11-24T20:46:30.400+00:00",
+                    "modified_at": "2021-11-24T20:46:30.400+00:00"
+                }
+            }
+        ],
+        "households": [
+            {
+                "start_date": "2021-11-24",
+                "end_date": null,
+                "is_active": true,
+                "irs_groups": [
+                    {
+                        "hbx_id": null,
+                        "start_on": "2021-11-24",
+                        "end_on": null,
+                        "is_active": true
+                    }
+                ],
+                "tax_households": [
+                    {
+                        "hbx_id": 10726,
+                        "allocated_aptc": {
+                            "cents": 0,
+                            "currency_iso": "USD"
+                        },
+                        "is_eligibility_determined": true,
+                        "effective_starting_on": "2022-01-01",
+                        "effective_ending_on": "2022-01-01",
+                        "tax_household_members": [
+                            {
+                                "family_member_reference": "2000190",
+                                "is_subscriber": false,
+                                "reason": null
+                            },
+                            {
+                                "family_member_reference": "2000191",
+                                "is_subscriber": false,
+                                "reason": null
+                            },
+                            {
+                                "family_member_reference": "2000192",
+                                "is_subscriber": false,
+                                "reason": null
+                            },
+                            {
+                                "family_member_reference": "2000193",
+                                "is_subscriber": false,
+                                "reason": null
+                            }
+                        ],
+                        "eligibility_determinations": [
+                            {
+                                "e_pdc_id": null,
+                                "max_aptc": {
+                                    "cents": 73500,
+                                    "currency_iso": "USD"
+                                },
+                                "premium_credit_strategy_kind": "allocated_lump_sum_credit",
+                                "csr_percent_as_integer": 0,
+                                "csr_eligibility_kind": "csr_0",
+                                "aptc_csr_annual_household_income": {
+                                    "cents": 10850000,
+                                    "currency_iso": "USD"
+                                },
+                                "aptc_annual_income_limit": {
+                                    "cents": 0,
+                                    "currency_iso": "USD"
+                                },
+                                "csr_annual_income_limit": {
+                                    "cents": 58475200000,
+                                    "currency_iso": "USD"
+                                },
+                                "determined_at": "2021-11-24T00:00:00.000+00:00",
+                                "source": "Faa"
+                            }
+                        ]
+                    },
+                    {
+                        "hbx_id": 10727,
+                        "allocated_aptc": {
+                            "cents": 0,
+                            "currency_iso": "USD"
+                        },
+                        "is_eligibility_determined": true,
+                        "effective_starting_on": "2022-01-01",
+                        "effective_ending_on": null,
+                        "tax_household_members": [
+                            {
+                                "family_member_reference": "2000190",
+                                "is_subscriber": false,
+                                "reason": null
+                            },
+                            {
+                                "family_member_reference": "2000191",
+                                "is_subscriber": false,
+                                "reason": null
+                            },
+                            {
+                                "family_member_reference": "2000192",
+                                "is_subscriber": false,
+                                "reason": null
+                            },
+                            {
+                                "family_member_reference": "2000193",
+                                "is_subscriber": false,
+                                "reason": null
+                            },
+                            {
+                                "family_member_reference": "2000194",
+                                "is_subscriber": false,
+                                "reason": null
+                            }
+                        ],
+                        "eligibility_determinations": [
+                            {
+                                "e_pdc_id": null,
+                                "max_aptc": {
+                                    "cents": 84900,
+                                    "currency_iso": "USD"
+                                },
+                                "premium_credit_strategy_kind": "allocated_lump_sum_credit",
+                                "csr_percent_as_integer": 0,
+                                "csr_eligibility_kind": "csr_0",
+                                "aptc_csr_annual_household_income": {
+                                    "cents": 10850000,
+                                    "currency_iso": "USD"
+                                },
+                                "aptc_annual_income_limit": {
+                                    "cents": 0,
+                                    "currency_iso": "USD"
+                                },
+                                "csr_annual_income_limit": {
+                                    "cents": 73094000000,
+                                    "currency_iso": "USD"
+                                },
+                                "determined_at": "2021-11-24T00:00:00.000+00:00",
+                                "source": "Faa"
+                            }
+                        ]
+                    }
+                ],
+                "coverage_households": [
+                    {
+                        "is_immediate_family": true,
+                        "is_determination_split_household": false,
+                        "submitted_at": null,
+                        "aasm_state": "applicant"
+                    },
+                    {
+                        "is_immediate_family": false,
+                        "is_determination_split_household": false,
+                        "submitted_at": null,
+                        "aasm_state": "applicant"
+                    }
+                ]
+            }
+        ],
+        "renewal_consent_through_year": null,
+        "special_enrollment_periods": [],
+        "payment_transactions": [],
+        "magi_medicaid_applications": {
+            "family_reference": {
+                "hbx_id": "11046"
+            },
+            "assistance_year": 2022,
+            "aptc_effective_date": "2022-01-01T00:00:00.000+00:00",
+            "years_to_renew": 2027,
+            "renewal_consent_through_year": 5,
+            "is_ridp_verified": true,
+            "is_renewal_authorized": true,
+            "applicants": [
+                {
+                    "name": {
+                        "first_name": "Rob",
+                        "middle_name": null,
+                        "last_name": "Smith",
+                        "name_sfx": null,
+                        "name_pfx": null
+                    },
+                    "identifying_information": {
+                        "has_ssn": "0",
+                        "encrypted_ssn": "5khTNQlUYCWwHb0u/a1ih4kLv/8FLsRKkw==\n"
+                    },
+                    "demographic": {
+                        "gender": "Male",
+                        "dob": "1960-01-01",
+                        "ethnicity": [
+                            "",
+                            "White",
+                            "",
+                            "",
+                            "",
+                            "",
+                            "",
+                            ""
+                        ],
+                        "race": null,
+                        "is_veteran_or_active_military": false,
+                        "is_vets_spouse_or_child": false
+                    },
+                    "attestation": {
+                        "is_incarcerated": false,
+                        "is_self_attested_disabled": false,
+                        "is_self_attested_blind": false,
+                        "is_self_attested_long_term_care": false
+                    },
+                    "is_primary_applicant": true,
+                    "native_american_information": {
+                        "indian_tribe_member": false,
+                        "tribal_name": null,
+                        "tribal_state": null
+                    },
+                    "citizenship_immigration_status_information": {
+                        "citizen_status": "us_citizen",
+                        "is_lawful_presence_self_attested": false,
+                        "is_resident_post_092296": false
+                    },
+                    "is_consumer_role": true,
+                    "is_resident_role": false,
+                    "is_applying_coverage": true,
+                    "is_consent_applicant": false,
+                    "vlp_document": null,
+                    "family_member_reference": {
+                        "family_member_hbx_id": "2000190",
+                        "first_name": "Rob",
+                        "last_name": "Smith",
+                        "person_hbx_id": "2000190",
+                        "is_primary_family_member": true
+                    },
+                    "person_hbx_id": "2000190",
+                    "is_required_to_file_taxes": true,
+                    "is_filing_as_head_of_household": false,
+                    "is_joint_tax_filing": true,
+                    "is_claimed_as_tax_dependent": false,
+                    "claimed_as_tax_dependent_by": null,
+                    "tax_filer_kind": "tax_filer",
+                    "student": {
+                        "is_student": false,
+                        "student_kind": null,
+                        "student_school_kind": null,
+                        "student_status_end_on": null
+                    },
+                    "is_refugee": false,
+                    "is_trafficking_victim": false,
+                    "foster_care": {
+                        "is_former_foster_care": false,
+                        "age_left_foster_care": null,
+                        "foster_care_us_state": "",
+                        "had_medicaid_during_foster_care": false
+                    },
+                    "pregnancy_information": {
+                        "is_pregnant": false,
+                        "is_enrolled_on_medicaid": false,
+                        "is_post_partum_period": false,
+                        "expected_children_count": null,
+                        "pregnancy_due_on": null,
+                        "pregnancy_end_on": null
+                    },
+                    "is_primary_caregiver": false,
+                    "is_subject_to_five_year_bar": false,
+                    "is_five_year_bar_met": false,
+                    "is_forty_quarters": false,
+                    "is_ssn_applied": false,
+                    "non_ssn_apply_reason": null,
+                    "moved_on_or_after_welfare_reformed_law": false,
+                    "is_currently_enrolled_in_health_plan": false,
+                    "has_daily_living_help": false,
+                    "need_help_paying_bills": false,
+                    "has_job_income": true,
+                    "has_self_employment_income": false,
+                    "has_unemployment_income": false,
+                    "has_other_income": true,
+                    "has_deductions": true,
+                    "has_enrolled_health_coverage": true,
+                    "has_eligible_health_coverage": false,
+                    "job_coverage_ended_in_past_3_months": false,
+                    "job_coverage_end_date": null,
+                    "medicaid_and_chip": {
+                        "not_eligible_in_last_90_days": false,
+                        "denied_on": null,
+                        "ended_as_change_in_eligibility": false,
+                        "hh_income_or_size_changed": false,
+                        "medicaid_or_chip_coverage_end_date": null,
+                        "ineligible_due_to_immigration_in_last_5_years": false,
+                        "immigration_status_changed_since_ineligibility": false
+                    },
+                    "other_health_service": {
+                        "has_received": false,
+                        "is_eligible": false
+                    },
+                    "addresses": [
+                        {
+                            "kind": "home",
+                            "address_1": "2024 test road",
+                            "address_2": "apt 2",
+                            "address_3": "",
+                            "city": "Augusta",
+                            "county": "Kennebec",
+                            "state": "ME",
+                            "zip": "04330",
+                            "country_name": ""
+                        },
+                        {
+                            "kind": "mailing",
+                            "address_1": "3033 test",
+                            "address_2": "",
+                            "address_3": "",
+                            "city": "Augusta",
+                            "county": "Kennebec",
+                            "state": "ME",
+                            "zip": "04330",
+                            "country_name": ""
+                        }
+                    ],
+                    "emails": [
+                        {
+                            "kind": "home",
+                            "address": "robsmith@test.com"
+                        }
+                    ],
+                    "phones": [
+                        {
+                            "kind": "home",
+                            "primary": false,
+                            "area_code": "283",
+                            "number": "6377382",
+                            "country_code": "",
+                            "extension": "",
+                            "full_phone_number": "2836377382"
+                        },
+                        {
+                            "kind": "mobile",
+                            "primary": false,
+                            "area_code": "877",
+                            "number": "2277733",
+                            "country_code": "",
+                            "extension": "302",
+                            "full_phone_number": "8772277733"
+                        }
+                    ],
+                    "incomes": [
+                        {
+                            "title": null,
+                            "kind": "wages_and_salaries",
+                            "wage_type": null,
+                            "hours_per_week": null,
+                            "amount": 75000.0,
+                            "amount_tax_exempt": 0,
+                            "frequency_kind": "Annually",
+                            "start_on": "2021-01-01",
+                            "end_on": null,
+                            "is_projected": false,
+                            "tax_form": null,
+                            "employer": {
+                                "employer_name": "Test LLC",
+                                "employer_id": ""
+                            },
+                            "has_property_usage_rights": null,
+                            "submitted_at": "2021-11-24T20:16:38.000+00:00"
+                        },
+                        {
+                            "title": null,
+                            "kind": "interest",
+                            "wage_type": null,
+                            "hours_per_week": null,
+                            "amount": 100.0,
+                            "amount_tax_exempt": 0,
+                            "frequency_kind": "Monthly",
+                            "start_on": "2021-01-01",
+                            "end_on": null,
+                            "is_projected": false,
+                            "tax_form": null,
+                            "employer": null,
+                            "has_property_usage_rights": null,
+                            "submitted_at": "2021-11-24T20:18:19.000+00:00"
+                        },
+                        {
+                            "title": null,
+                            "kind": "capital_gains",
+                            "wage_type": null,
+                            "hours_per_week": null,
+                            "amount": 250.0,
+                            "amount_tax_exempt": 0,
+                            "frequency_kind": "Monthly",
+                            "start_on": "2021-01-01",
+                            "end_on": null,
+                            "is_projected": false,
+                            "tax_form": null,
+                            "employer": null,
+                            "has_property_usage_rights": null,
+                            "submitted_at": "2021-11-24T20:18:34.000+00:00"
+                        }
+                    ],
+                    "benefits": [
+                        {
+                            "name": null,
+                            "kind": "employer_sponsored_insurance",
+                            "status": "is_enrolled",
+                            "is_employer_sponsored": false,
+                            "employer": {
+                                "employer_name": "test llc",
+                                "employer_id": "35-5666443"
+                            },
+                            "esi_covered": "self",
+                            "is_esi_waiting_period": false,
+                            "is_esi_mec_met": true,
+                            "employee_cost": {
+                                "cents": 40000,
+                                "currency_iso": "USD"
+                            },
+                            "employee_cost_frequency": "Monthly",
+                            "start_on": "2021-01-01",
+                            "end_on": null,
+                            "submitted_at": "2021-11-24T20:20:20.000+00:00",
+                            "hra_kind": null
+                        }
+                    ],
+                    "deductions": [
+                        {
+                            "name": null,
+                            "kind": "alimony_paid",
+                            "amount": 700.0,
+                            "start_on": "2021-01-01",
+                            "end_on": null,
+                            "frequency_kind": "Monthly",
+                            "submitted_at": "2021-11-24T20:19:19.000+00:00"
+                        }
+                    ],
+                    "is_medicare_eligible": false,
+                    "is_self_attested_long_term_care": false,
+                    "has_insurance": true,
+                    "has_state_health_benefit": false,
+                    "had_prior_insurance": false,
+                    "prior_insurance_end_date": null,
+                    "age_of_applicant": 61,
+                    "hours_worked_per_week": 0,
+                    "is_temporarily_out_of_state": false,
+                    "is_claimed_as_dependent_by_non_applicant": false,
+                    "benchmark_premium": {
+                        "health_only_lcsp_premiums": [
+                            {
+                                "cost": 931.58,
+                                "product_id": "6138a9bdb3a4710561daf790",
+                                "member_identifier": "2000190",
+                                "monthly_premium": 931.58
+                            },
+                            {
+                                "cost": 844.03,
+                                "product_id": "6138a9bdb3a4710561daf790",
+                                "member_identifier": "2000191",
+                                "monthly_premium": 844.03
+                            },
+                            {
+                                "cost": 314.53,
+                                "product_id": "6138a9bdb3a4710561daf790",
+                                "member_identifier": "2000192",
+                                "monthly_premium": 314.53
+                            },
+                            {
+                                "cost": 324.25,
+                                "product_id": "6138a9bdb3a4710561daf790",
+                                "member_identifier": "2000193",
+                                "monthly_premium": 324.25
+                            },
+                            {
+                                "cost": 324.25,
+                                "product_id": "6138a9bdb3a4710561daf790",
+                                "member_identifier": "2000194",
+                                "monthly_premium": 324.25
+                            }
+                        ],
+                        "health_only_slcsp_premiums": [
+                            {
+                                "cost": 944.5,
+                                "product_id": "6138a9aab3a4710561dac576",
+                                "member_identifier": "2000190",
+                                "monthly_premium": 944.5
+                            },
+                            {
+                                "cost": 855.75,
+                                "product_id": "6138a9aab3a4710561dac576",
+                                "member_identifier": "2000191",
+                                "monthly_premium": 855.75
+                            },
+                            {
+                                "cost": 318.89,
+                                "product_id": "6138a9aab3a4710561dac576",
+                                "member_identifier": "2000192",
+                                "monthly_premium": 318.89
+                            },
+                            {
+                                "cost": 328.75,
+                                "product_id": "6138a9aab3a4710561dac576",
+                                "member_identifier": "2000193",
+                                "monthly_premium": 328.75
+                            },
+                            {
+                                "cost": 328.75,
+                                "product_id": "6138a9aab3a4710561dac576",
+                                "member_identifier": "2000194",
+                                "monthly_premium": 328.75
+                            }
+                        ]
+                    },
+                    "is_homeless": false,
+                    "mitc_income": {
+                        "amount": 75000,
+                        "taxable_interest": 1200,
+                        "tax_exempt_interest": 0,
+                        "taxable_refunds": 0,
+                        "alimony": 0,
+                        "capital_gain_or_loss": 3000,
+                        "pensions_and_annuities_taxable_amount": 0,
+                        "farm_income_or_loss": 0,
+                        "unemployment_compensation": 0,
+                        "other_income": 0,
+                        "magi_deductions": 8400,
+                        "adjusted_gross_income": 70800.0,
+                        "deductible_part_of_self_employment_tax": 0,
+                        "ira_deduction": 0,
+                        "student_loan_interest_deduction": 0,
+                        "tution_and_fees": 0,
+                        "other_magi_eligible_income": 0
+                    },
+                    "evidences": [
+                        {
+                            "_id": "619ea596291662000e837bf0",
+                            "created_at": "2021-11-24T20:50:30.730Z",
+                            "description": null,
+                            "due_on": null,
+                            "eligibility_results": [
+                                {
+                                    "_id": "619ea59c51328b000ac35321",
+                                    "code": "7313",
+                                    "code_description": null,
+                                    "created_at": "2021-11-24T20:50:36.289Z",
+                                    "result": "eligible",
+                                    "source": "MEDC",
+                                    "source_transaction_id": null,
+                                    "updated_at": "2021-11-24T20:50:36.289Z"
+                                }
+                            ],
+                            "eligibility_status": "attested",
+                            "external_service": null,
+                            "key": "aces_mec",
+                            "rejected": null,
+                            "title": "ACES MEC",
+                            "update_reason": null,
+                            "updated_at": "2021-11-24T20:50:30.730Z",
+                            "updated_by": null
+                        },
+                        {
+                            "_id": "619ea596291662000e837bf1",
+                            "created_at": "2021-11-24T20:50:30.730Z",
+                            "description": null,
+                            "due_on": null,
+                            "eligibility_status": "attested",
+                            "external_service": null,
+                            "key": "esi_mec",
+                            "rejected": null,
+                            "title": "ESI MEC",
+                            "update_reason": null,
+                            "updated_at": "2021-11-24T20:50:30.730Z",
+                            "updated_by": null
+                        },
+                        {
+                            "_id": "619ea596291662000e837bf2",
+                            "created_at": "2021-11-24T20:50:30.731Z",
+                            "description": null,
+                            "due_on": null,
+                            "eligibility_status": "attested",
+                            "external_service": null,
+                            "key": "non_esi_mec",
+                            "rejected": null,
+                            "title": "Non ESI MEC",
+                            "update_reason": null,
+                            "updated_at": "2021-11-24T20:50:30.731Z",
+                            "updated_by": null
+                        },
+                        {
+                            "_id": "619ea596291662000e837bf3",
+                            "created_at": "2021-11-24T20:50:30.731Z",
+                            "description": null,
+                            "due_on": null,
+                            "eligibility_status": "outstanding",
+                            "external_service": null,
+                            "key": "income",
+                            "rejected": null,
+                            "title": "Income",
+                            "update_reason": null,
+                            "updated_at": "2021-11-24T20:50:30.731Z",
+                            "updated_by": null
+                        }
+                    ],
+                    "mitc_relationships": [
+                        {
+                            "other_id": "2000191",
+                            "attest_primary_responsibility": "Y",
+                            "relationship_code": "02"
+                        },
+                        {
+                            "other_id": "2000192",
+                            "attest_primary_responsibility": "Y",
+                            "relationship_code": "03"
+                        },
+                        {
+                            "other_id": "2000193",
+                            "attest_primary_responsibility": "Y",
+                            "relationship_code": "03"
+                        },
+                        {
+                            "other_id": "2000194",
+                            "attest_primary_responsibility": "Y",
+                            "relationship_code": "03"
+                        }
+                    ],
+                    "mitc_is_required_to_file_taxes": true
+                },
+                {
+                    "name": {
+                        "first_name": "Nancy",
+                        "middle_name": null,
+                        "last_name": "Smith",
+                        "name_sfx": null,
+                        "name_pfx": null
+                    },
+                    "identifying_information": {
+                        "has_ssn": "0",
+                        "encrypted_ssn": "f4/irRpyO0EmhwT1Y6NIyoIAv/8HKMJKkg==\n"
+                    },
+                    "demographic": {
+                        "gender": "Female",
+                        "dob": "1962-05-05",
+                        "ethnicity": [
+                            "Other",
+                            "Mexican"
+                        ],
+                        "race": null,
+                        "is_veteran_or_active_military": false,
+                        "is_vets_spouse_or_child": false
+                    },
+                    "attestation": {
+                        "is_incarcerated": false,
+                        "is_self_attested_disabled": true,
+                        "is_self_attested_blind": true,
+                        "is_self_attested_long_term_care": false
+                    },
+                    "is_primary_applicant": false,
+                    "native_american_information": {
+                        "indian_tribe_member": false,
+                        "tribal_name": null,
+                        "tribal_state": null
+                    },
+                    "citizenship_immigration_status_information": {
+                        "citizen_status": "alien_lawfully_present",
+                        "is_lawful_presence_self_attested": true,
+                        "is_resident_post_092296": false
+                    },
+                    "is_consumer_role": true,
+                    "is_resident_role": false,
+                    "is_applying_coverage": true,
+                    "is_consent_applicant": false,
+                    "vlp_document": {
+                        "subject": "I-551 (Permanent Resident Card)",
+                        "alien_number": "987654325",
+                        "i94_number": null,
+                        "visa_number": null,
+                        "passport_number": null,
+                        "sevis_id": null,
+                        "naturalization_number": null,
+                        "receipt_number": null,
+                        "citizenship_number": null,
+                        "card_number": "AAA0000000000",
+                        "country_of_citizenship": null,
+                        "expiration_date": null,
+                        "issuing_country": null,
+                        "status": null,
+                        "verification_type": null,
+                        "comment": null
+                    },
+                    "family_member_reference": {
+                        "family_member_hbx_id": "2000191",
+                        "first_name": "Nancy",
+                        "last_name": "Smith",
+                        "person_hbx_id": "2000191",
+                        "is_primary_family_member": false
+                    },
+                    "person_hbx_id": "2000191",
+                    "is_required_to_file_taxes": true,
+                    "is_filing_as_head_of_household": false,
+                    "is_joint_tax_filing": true,
+                    "is_claimed_as_tax_dependent": false,
+                    "claimed_as_tax_dependent_by": null,
+                    "tax_filer_kind": "tax_filer",
+                    "student": {
+                        "is_student": false,
+                        "student_kind": null,
+                        "student_school_kind": null,
+                        "student_status_end_on": null
+                    },
+                    "is_refugee": false,
+                    "is_trafficking_victim": false,
+                    "foster_care": {
+                        "is_former_foster_care": false,
+                        "age_left_foster_care": null,
+                        "foster_care_us_state": "",
+                        "had_medicaid_during_foster_care": false
+                    },
+                    "pregnancy_information": {
+                        "is_pregnant": false,
+                        "is_enrolled_on_medicaid": false,
+                        "is_post_partum_period": false,
+                        "expected_children_count": null,
+                        "pregnancy_due_on": null,
+                        "pregnancy_end_on": null
+                    },
+                    "is_primary_caregiver": false,
+                    "is_subject_to_five_year_bar": false,
+                    "is_five_year_bar_met": false,
+                    "is_forty_quarters": false,
+                    "is_ssn_applied": false,
+                    "non_ssn_apply_reason": null,
+                    "moved_on_or_after_welfare_reformed_law": false,
+                    "is_currently_enrolled_in_health_plan": false,
+                    "has_daily_living_help": true,
+                    "need_help_paying_bills": true,
+                    "has_job_income": false,
+                    "has_self_employment_income": false,
+                    "has_unemployment_income": true,
+                    "has_other_income": false,
+                    "has_deductions": false,
+                    "has_enrolled_health_coverage": false,
+                    "has_eligible_health_coverage": true,
+                    "job_coverage_ended_in_past_3_months": false,
+                    "job_coverage_end_date": null,
+                    "medicaid_and_chip": {
+                        "not_eligible_in_last_90_days": false,
+                        "denied_on": null,
+                        "ended_as_change_in_eligibility": false,
+                        "hh_income_or_size_changed": false,
+                        "medicaid_or_chip_coverage_end_date": null,
+                        "ineligible_due_to_immigration_in_last_5_years": true,
+                        "immigration_status_changed_since_ineligibility": true
+                    },
+                    "other_health_service": {
+                        "has_received": false,
+                        "is_eligible": false
+                    },
+                    "addresses": [
+                        {
+                            "kind": "home",
+                            "address_1": "2024 test road",
+                            "address_2": "apt 2",
+                            "address_3": "",
+                            "city": "Augusta",
+                            "county": "Kennebec",
+                            "state": "ME",
+                            "zip": "04330",
+                            "country_name": ""
+                        }
+                    ],
+                    "emails": [],
+                    "phones": [],
+                    "incomes": [
+                        {
+                            "title": null,
+                            "kind": "unemployment_income",
+                            "wage_type": null,
+                            "hours_per_week": null,
+                            "amount": 250.0,
+                            "amount_tax_exempt": 0,
+                            "frequency_kind": "BiWeekly",
+                            "start_on": "2021-01-01",
+                            "end_on": null,
+                            "is_projected": false,
+                            "tax_form": null,
+                            "employer": null,
+                            "has_property_usage_rights": null,
+                            "submitted_at": "2021-11-24T20:21:46.000+00:00"
+                        }
+                    ],
+                    "benefits": [
+                        {
+                            "name": null,
+                            "kind": "other_full_benefit_coverage",
+                            "status": "is_eligible",
+                            "is_employer_sponsored": false,
+                            "employer": null,
+                            "esi_covered": null,
+                            "is_esi_waiting_period": false,
+                            "is_esi_mec_met": false,
+                            "employee_cost": {
+                                "cents": 0,
+                                "currency_iso": "USD"
+                            },
+                            "employee_cost_frequency": null,
+                            "start_on": "2021-01-01",
+                            "end_on": null,
+                            "submitted_at": "2021-11-24T20:42:37.000+00:00",
+                            "hra_kind": null
+                        }
+                    ],
+                    "deductions": [],
+                    "is_medicare_eligible": false,
+                    "is_self_attested_long_term_care": true,
+                    "has_insurance": false,
+                    "has_state_health_benefit": false,
+                    "had_prior_insurance": false,
+                    "prior_insurance_end_date": null,
+                    "age_of_applicant": 59,
+                    "hours_worked_per_week": 0,
+                    "is_temporarily_out_of_state": false,
+                    "is_claimed_as_dependent_by_non_applicant": false,
+                    "benchmark_premium": {
+                        "health_only_lcsp_premiums": [
+                            {
+                                "cost": 931.58,
+                                "product_id": "6138a9bdb3a4710561daf790",
+                                "member_identifier": "2000190",
+                                "monthly_premium": 931.58
+                            },
+                            {
+                                "cost": 844.03,
+                                "product_id": "6138a9bdb3a4710561daf790",
+                                "member_identifier": "2000191",
+                                "monthly_premium": 844.03
+                            },
+                            {
+                                "cost": 314.53,
+                                "product_id": "6138a9bdb3a4710561daf790",
+                                "member_identifier": "2000192",
+                                "monthly_premium": 314.53
+                            },
+                            {
+                                "cost": 324.25,
+                                "product_id": "6138a9bdb3a4710561daf790",
+                                "member_identifier": "2000193",
+                                "monthly_premium": 324.25
+                            },
+                            {
+                                "cost": 324.25,
+                                "product_id": "6138a9bdb3a4710561daf790",
+                                "member_identifier": "2000194",
+                                "monthly_premium": 324.25
+                            }
+                        ],
+                        "health_only_slcsp_premiums": [
+                            {
+                                "cost": 944.5,
+                                "product_id": "6138a9aab3a4710561dac576",
+                                "member_identifier": "2000190",
+                                "monthly_premium": 944.5
+                            },
+                            {
+                                "cost": 855.75,
+                                "product_id": "6138a9aab3a4710561dac576",
+                                "member_identifier": "2000191",
+                                "monthly_premium": 855.75
+                            },
+                            {
+                                "cost": 318.89,
+                                "product_id": "6138a9aab3a4710561dac576",
+                                "member_identifier": "2000192",
+                                "monthly_premium": 318.89
+                            },
+                            {
+                                "cost": 328.75,
+                                "product_id": "6138a9aab3a4710561dac576",
+                                "member_identifier": "2000193",
+                                "monthly_premium": 328.75
+                            },
+                            {
+                                "cost": 328.75,
+                                "product_id": "6138a9aab3a4710561dac576",
+                                "member_identifier": "2000194",
+                                "monthly_premium": 328.75
+                            }
+                        ]
+                    },
+                    "is_homeless": false,
+                    "mitc_income": {
+                        "amount": 0,
+                        "taxable_interest": 0,
+                        "tax_exempt_interest": 0,
+                        "taxable_refunds": 0,
+                        "alimony": 0,
+                        "capital_gain_or_loss": 0,
+                        "pensions_and_annuities_taxable_amount": 0,
+                        "farm_income_or_loss": 0,
+                        "unemployment_compensation": 6500,
+                        "other_income": 0,
+                        "magi_deductions": 0,
+                        "adjusted_gross_income": 6500.0,
+                        "deductible_part_of_self_employment_tax": 0,
+                        "ira_deduction": 0,
+                        "student_loan_interest_deduction": 0,
+                        "tution_and_fees": 0,
+                        "other_magi_eligible_income": 0
+                    },
+                    "evidences": [
+                        {
+                            "_id": "619ea596291662000e837bf5",
+                            "created_at": "2021-11-24T20:50:30.744Z",
+                            "description": null,
+                            "due_on": null,
+                            "eligibility_results": [
+                                {
+                                    "_id": "619ea5aa51328b000ac35322",
+                                    "code": "7313",
+                                    "code_description": null,
+                                    "created_at": "2021-11-24T20:50:50.426Z",
+                                    "result": "eligible",
+                                    "source": "MEDC",
+                                    "source_transaction_id": null,
+                                    "updated_at": "2021-11-24T20:50:50.426Z"
+                                }
+                            ],
+                            "eligibility_status": "attested",
+                            "external_service": null,
+                            "key": "aces_mec",
+                            "rejected": null,
+                            "title": "ACES MEC",
+                            "update_reason": null,
+                            "updated_at": "2021-11-24T20:50:30.744Z",
+                            "updated_by": null
+                        },
+                        {
+                            "_id": "619ea596291662000e837bf6",
+                            "created_at": "2021-11-24T20:50:30.744Z",
+                            "description": null,
+                            "due_on": null,
+                            "eligibility_status": "attested",
+                            "external_service": null,
+                            "key": "esi_mec",
+                            "rejected": null,
+                            "title": "ESI MEC",
+                            "update_reason": null,
+                            "updated_at": "2021-11-24T20:50:30.744Z",
+                            "updated_by": null
+                        },
+                        {
+                            "_id": "619ea596291662000e837bf7",
+                            "created_at": "2021-11-24T20:50:30.745Z",
+                            "description": null,
+                            "due_on": null,
+                            "eligibility_status": "attested",
+                            "external_service": null,
+                            "key": "non_esi_mec",
+                            "rejected": null,
+                            "title": "Non ESI MEC",
+                            "update_reason": null,
+                            "updated_at": "2021-11-24T20:50:30.745Z",
+                            "updated_by": null
+                        },
+                        {
+                            "_id": "619ea596291662000e837bf8",
+                            "created_at": "2021-11-24T20:50:30.745Z",
+                            "description": null,
+                            "due_on": null,
+                            "eligibility_status": "outstanding",
+                            "external_service": null,
+                            "key": "income",
+                            "rejected": null,
+                            "title": "Income",
+                            "update_reason": null,
+                            "updated_at": "2021-11-24T20:50:30.745Z",
+                            "updated_by": null
+                        }
+                    ],
+                    "mitc_relationships": [
+                        {
+                            "other_id": "2000190",
+                            "attest_primary_responsibility": "N",
+                            "relationship_code": "02"
+                        },
+                        {
+                            "other_id": "2000192",
+                            "attest_primary_responsibility": "N",
+                            "relationship_code": "03"
+                        },
+                        {
+                            "other_id": "2000193",
+                            "attest_primary_responsibility": "N",
+                            "relationship_code": "03"
+                        },
+                        {
+                            "other_id": "2000194",
+                            "attest_primary_responsibility": "N",
+                            "relationship_code": "03"
+                        }
+                    ],
+                    "mitc_is_required_to_file_taxes": true
+                },
+                {
+                    "name": {
+                        "first_name": "James",
+                        "middle_name": null,
+                        "last_name": "Smith",
+                        "name_sfx": "Esq.",
+                        "name_pfx": null
+                    },
+                    "identifying_information": {
+                        "has_ssn": "0",
+                        "encrypted_ssn": "4TOgDSon5aPlOSlthX2hLoUEv/wGL8JNkg==\n"
+                    },
+                    "demographic": {
+                        "gender": "Male",
+                        "dob": "2002-01-01",
+                        "ethnicity": [
+                            "American Indian/Alaska Native"
+                        ],
+                        "race": null,
+                        "is_veteran_or_active_military": false,
+                        "is_vets_spouse_or_child": false
+                    },
+                    "attestation": {
+                        "is_incarcerated": false,
+                        "is_self_attested_disabled": false,
+                        "is_self_attested_blind": false,
+                        "is_self_attested_long_term_care": false
+                    },
+                    "is_primary_applicant": false,
+                    "native_american_information": {
+                        "indian_tribe_member": true,
+                        "tribal_name": "Eastern Band of Cherokee Indians of North Carolina",
+                        "tribal_state": "ME"
+                    },
+                    "citizenship_immigration_status_information": {
+                        "citizen_status": "us_citizen",
+                        "is_lawful_presence_self_attested": false,
+                        "is_resident_post_092296": false
+                    },
+                    "is_consumer_role": true,
+                    "is_resident_role": false,
+                    "is_applying_coverage": true,
+                    "is_consent_applicant": false,
+                    "vlp_document": null,
+                    "family_member_reference": {
+                        "family_member_hbx_id": "2000192",
+                        "first_name": "James",
+                        "last_name": "Smith",
+                        "person_hbx_id": "2000192",
+                        "is_primary_family_member": false
+                    },
+                    "person_hbx_id": "2000192",
+                    "is_required_to_file_taxes": true,
+                    "is_filing_as_head_of_household": false,
+                    "is_joint_tax_filing": false,
+                    "is_claimed_as_tax_dependent": true,
+                    "claimed_as_tax_dependent_by": {
+                        "first_name": "Rob",
+                        "last_name": "Smith",
+                        "dob": "1960-01-01",
+                        "person_hbx_id": "2000190",
+                        "encrypted_ssn": "5khTNQlUYCWwHb0u/a1ih4kLv/8FLsRKkw==\n"
+                    },
+                    "tax_filer_kind": "dependent",
+                    "student": {
+                        "is_student": false,
+                        "student_kind": null,
+                        "student_school_kind": null,
+                        "student_status_end_on": null
+                    },
+                    "is_refugee": false,
+                    "is_trafficking_victim": false,
+                    "foster_care": {
+                        "is_former_foster_care": true,
+                        "age_left_foster_care": 7,
+                        "foster_care_us_state": "ME",
+                        "had_medicaid_during_foster_care": true
+                    },
+                    "pregnancy_information": {
+                        "is_pregnant": false,
+                        "is_enrolled_on_medicaid": false,
+                        "is_post_partum_period": false,
+                        "expected_children_count": null,
+                        "pregnancy_due_on": null,
+                        "pregnancy_end_on": null
+                    },
+                    "is_primary_caregiver": false,
+                    "is_subject_to_five_year_bar": false,
+                    "is_five_year_bar_met": false,
+                    "is_forty_quarters": false,
+                    "is_ssn_applied": false,
+                    "non_ssn_apply_reason": null,
+                    "moved_on_or_after_welfare_reformed_law": false,
+                    "is_currently_enrolled_in_health_plan": false,
+                    "has_daily_living_help": false,
+                    "need_help_paying_bills": false,
+                    "has_job_income": true,
+                    "has_self_employment_income": false,
+                    "has_unemployment_income": false,
+                    "has_other_income": false,
+                    "has_deductions": false,
+                    "has_enrolled_health_coverage": false,
+                    "has_eligible_health_coverage": false,
+                    "job_coverage_ended_in_past_3_months": false,
+                    "job_coverage_end_date": null,
+                    "medicaid_and_chip": {
+                        "not_eligible_in_last_90_days": false,
+                        "denied_on": null,
+                        "ended_as_change_in_eligibility": false,
+                        "hh_income_or_size_changed": false,
+                        "medicaid_or_chip_coverage_end_date": null,
+                        "ineligible_due_to_immigration_in_last_5_years": false,
+                        "immigration_status_changed_since_ineligibility": false
+                    },
+                    "other_health_service": {
+                        "has_received": false,
+                        "is_eligible": true
+                    },
+                    "addresses": [
+                        {
+                            "kind": "home",
+                            "address_1": "2900 jefferson",
+                            "address_2": "",
+                            "address_3": "",
+                            "city": "Augusta",
+                            "county": "",
+                            "state": "ME",
+                            "zip": "04330",
+                            "country_name": ""
+                        }
+                    ],
+                    "emails": [],
+                    "phones": [],
+                    "incomes": [
+                        {
+                            "title": null,
+                            "kind": "wages_and_salaries",
+                            "wage_type": null,
+                            "hours_per_week": null,
+                            "amount": 500.0,
+                            "amount_tax_exempt": 0,
+                            "frequency_kind": "Weekly",
+                            "start_on": "2021-01-01",
+                            "end_on": null,
+                            "is_projected": false,
+                            "tax_form": null,
+                            "employer": {
+                                "employer_name": "Augusta Test",
+                                "employer_id": ""
+                            },
+                            "has_property_usage_rights": null,
+                            "submitted_at": "2021-11-24T20:24:57.000+00:00"
+                        },
+                        {
+                            "title": null,
+                            "kind": "american_indian_and_alaskan_native",
+                            "wage_type": null,
+                            "hours_per_week": null,
+                            "amount": 100.0,
+                            "amount_tax_exempt": 0,
+                            "frequency_kind": "Weekly",
+                            "start_on": "2021-01-01",
+                            "end_on": null,
+                            "is_projected": false,
+                            "tax_form": null,
+                            "employer": null,
+                            "has_property_usage_rights": null,
+                            "submitted_at": "2021-11-24T20:25:42.000+00:00"
+                        }
+                    ],
+                    "benefits": [],
+                    "deductions": [],
+                    "is_medicare_eligible": false,
+                    "is_self_attested_long_term_care": false,
+                    "has_insurance": false,
+                    "has_state_health_benefit": false,
+                    "had_prior_insurance": false,
+                    "prior_insurance_end_date": null,
+                    "age_of_applicant": 19,
+                    "hours_worked_per_week": 0,
+                    "is_temporarily_out_of_state": false,
+                    "is_claimed_as_dependent_by_non_applicant": false,
+                    "benchmark_premium": {
+                        "health_only_lcsp_premiums": [
+                            {
+                                "cost": 931.58,
+                                "product_id": "6138a9bdb3a4710561daf790",
+                                "member_identifier": "2000190",
+                                "monthly_premium": 931.58
+                            },
+                            {
+                                "cost": 844.03,
+                                "product_id": "6138a9bdb3a4710561daf790",
+                                "member_identifier": "2000191",
+                                "monthly_premium": 844.03
+                            },
+                            {
+                                "cost": 314.53,
+                                "product_id": "6138a9bdb3a4710561daf790",
+                                "member_identifier": "2000192",
+                                "monthly_premium": 314.53
+                            },
+                            {
+                                "cost": 324.25,
+                                "product_id": "6138a9bdb3a4710561daf790",
+                                "member_identifier": "2000193",
+                                "monthly_premium": 324.25
+                            },
+                            {
+                                "cost": 324.25,
+                                "product_id": "6138a9bdb3a4710561daf790",
+                                "member_identifier": "2000194",
+                                "monthly_premium": 324.25
+                            }
+                        ],
+                        "health_only_slcsp_premiums": [
+                            {
+                                "cost": 944.5,
+                                "product_id": "6138a9aab3a4710561dac576",
+                                "member_identifier": "2000190",
+                                "monthly_premium": 944.5
+                            },
+                            {
+                                "cost": 855.75,
+                                "product_id": "6138a9aab3a4710561dac576",
+                                "member_identifier": "2000191",
+                                "monthly_premium": 855.75
+                            },
+                            {
+                                "cost": 318.89,
+                                "product_id": "6138a9aab3a4710561dac576",
+                                "member_identifier": "2000192",
+                                "monthly_premium": 318.89
+                            },
+                            {
+                                "cost": 328.75,
+                                "product_id": "6138a9aab3a4710561dac576",
+                                "member_identifier": "2000193",
+                                "monthly_premium": 328.75
+                            },
+                            {
+                                "cost": 328.75,
+                                "product_id": "6138a9aab3a4710561dac576",
+                                "member_identifier": "2000194",
+                                "monthly_premium": 328.75
+                            }
+                        ]
+                    },
+                    "is_homeless": false,
+                    "mitc_income": {
+                        "amount": 26000,
+                        "taxable_interest": 0,
+                        "tax_exempt_interest": 0,
+                        "taxable_refunds": 0,
+                        "alimony": 0,
+                        "capital_gain_or_loss": 0,
+                        "pensions_and_annuities_taxable_amount": 0,
+                        "farm_income_or_loss": 0,
+                        "unemployment_compensation": 0,
+                        "other_income": 5200,
+                        "magi_deductions": 0,
+                        "adjusted_gross_income": 31200.0,
+                        "deductible_part_of_self_employment_tax": 0,
+                        "ira_deduction": 0,
+                        "student_loan_interest_deduction": 0,
+                        "tution_and_fees": 0,
+                        "other_magi_eligible_income": 0
+                    },
+                    "evidences": [
+                        {
+                            "_id": "619ea596291662000e837bfa",
+                            "created_at": "2021-11-24T20:50:30.752Z",
+                            "description": null,
+                            "due_on": null,
+                            "eligibility_results": [
+                                {
+                                    "_id": "619ea5b151328b000ac35323",
+                                    "code": "7313",
+                                    "code_description": null,
+                                    "created_at": "2021-11-24T20:50:57.515Z",
+                                    "result": "eligible",
+                                    "source": "MEDC",
+                                    "source_transaction_id": null,
+                                    "updated_at": "2021-11-24T20:50:57.515Z"
+                                }
+                            ],
+                            "eligibility_status": "attested",
+                            "external_service": null,
+                            "key": "aces_mec",
+                            "rejected": null,
+                            "title": "ACES MEC",
+                            "update_reason": null,
+                            "updated_at": "2021-11-24T20:50:30.752Z",
+                            "updated_by": null
+                        },
+                        {
+                            "_id": "619ea596291662000e837bfb",
+                            "created_at": "2021-11-24T20:50:30.752Z",
+                            "description": null,
+                            "due_on": null,
+                            "eligibility_status": "attested",
+                            "external_service": null,
+                            "key": "esi_mec",
+                            "rejected": null,
+                            "title": "ESI MEC",
+                            "update_reason": null,
+                            "updated_at": "2021-11-24T20:50:30.752Z",
+                            "updated_by": null
+                        },
+                        {
+                            "_id": "619ea596291662000e837bfc",
+                            "created_at": "2021-11-24T20:50:30.752Z",
+                            "description": null,
+                            "due_on": null,
+                            "eligibility_status": "attested",
+                            "external_service": null,
+                            "key": "non_esi_mec",
+                            "rejected": null,
+                            "title": "Non ESI MEC",
+                            "update_reason": null,
+                            "updated_at": "2021-11-24T20:50:30.752Z",
+                            "updated_by": null
+                        },
+                        {
+                            "_id": "619ea596291662000e837bfd",
+                            "created_at": "2021-11-24T20:50:30.753Z",
+                            "description": null,
+                            "due_on": null,
+                            "eligibility_status": "outstanding",
+                            "external_service": null,
+                            "key": "income",
+                            "rejected": null,
+                            "title": "Income",
+                            "update_reason": null,
+                            "updated_at": "2021-11-24T20:50:30.753Z",
+                            "updated_by": null
+                        }
+                    ],
+                    "mitc_relationships": [
+                        {
+                            "other_id": "2000190",
+                            "attest_primary_responsibility": "N",
+                            "relationship_code": "04"
+                        },
+                        {
+                            "other_id": "2000193",
+                            "attest_primary_responsibility": "N",
+                            "relationship_code": "07"
+                        },
+                        {
+                            "other_id": "2000191",
+                            "attest_primary_responsibility": "N",
+                            "relationship_code": "04"
+                        },
+                        {
+                            "other_id": "2000194",
+                            "attest_primary_responsibility": "N",
+                            "relationship_code": "07"
+                        }
+                    ],
+                    "mitc_is_required_to_file_taxes": true
+                },
+                {
+                    "name": {
+                        "first_name": "Lucy",
+                        "middle_name": null,
+                        "last_name": "Smith",
+                        "name_sfx": null,
+                        "name_pfx": null
+                    },
+                    "identifying_information": {
+                        "has_ssn": "0",
+                        "encrypted_ssn": "wXQ8FaLPzz0tMwG48vR6g4EAv/8HLcZGkw==\n"
+                    },
+                    "demographic": {
+                        "gender": "Female",
+                        "dob": "2000-02-02",
+                        "ethnicity": [],
+                        "race": null,
+                        "is_veteran_or_active_military": false,
+                        "is_vets_spouse_or_child": false
+                    },
+                    "attestation": {
+                        "is_incarcerated": false,
+                        "is_self_attested_disabled": false,
+                        "is_self_attested_blind": false,
+                        "is_self_attested_long_term_care": false
+                    },
+                    "is_primary_applicant": false,
+                    "native_american_information": {
+                        "indian_tribe_member": false,
+                        "tribal_name": null,
+                        "tribal_state": null
+                    },
+                    "citizenship_immigration_status_information": {
+                        "citizen_status": "us_citizen",
+                        "is_lawful_presence_self_attested": false,
+                        "is_resident_post_092296": false
+                    },
+                    "is_consumer_role": true,
+                    "is_resident_role": false,
+                    "is_applying_coverage": true,
+                    "is_consent_applicant": false,
+                    "vlp_document": null,
+                    "family_member_reference": {
+                        "family_member_hbx_id": "2000193",
+                        "first_name": "Lucy",
+                        "last_name": "Smith",
+                        "person_hbx_id": "2000193",
+                        "is_primary_family_member": false
+                    },
+                    "person_hbx_id": "2000193",
+                    "is_required_to_file_taxes": false,
+                    "is_filing_as_head_of_household": false,
+                    "is_joint_tax_filing": false,
+                    "is_claimed_as_tax_dependent": true,
+                    "claimed_as_tax_dependent_by": {
+                        "first_name": "Rob",
+                        "last_name": "Smith",
+                        "dob": "1960-01-01",
+                        "person_hbx_id": "2000190",
+                        "encrypted_ssn": "5khTNQlUYCWwHb0u/a1ih4kLv/8FLsRKkw==\n"
+                    },
+                    "tax_filer_kind": "dependent",
+                    "student": {
+                        "is_student": false,
+                        "student_kind": null,
+                        "student_school_kind": null,
+                        "student_status_end_on": null
+                    },
+                    "is_refugee": false,
+                    "is_trafficking_victim": false,
+                    "foster_care": {
+                        "is_former_foster_care": true,
+                        "age_left_foster_care": 18,
+                        "foster_care_us_state": "ME",
+                        "had_medicaid_during_foster_care": true
+                    },
+                    "pregnancy_information": {
+                        "is_pregnant": true,
+                        "is_enrolled_on_medicaid": false,
+                        "is_post_partum_period": false,
+                        "expected_children_count": 1,
+                        "pregnancy_due_on": "2022-04-16",
+                        "pregnancy_end_on": null
+                    },
+                    "is_primary_caregiver": false,
+                    "is_subject_to_five_year_bar": false,
+                    "is_five_year_bar_met": false,
+                    "is_forty_quarters": false,
+                    "is_ssn_applied": false,
+                    "non_ssn_apply_reason": null,
+                    "moved_on_or_after_welfare_reformed_law": false,
+                    "is_currently_enrolled_in_health_plan": false,
+                    "has_daily_living_help": false,
+                    "need_help_paying_bills": false,
+                    "has_job_income": false,
+                    "has_self_employment_income": false,
+                    "has_unemployment_income": false,
+                    "has_other_income": false,
+                    "has_deductions": false,
+                    "has_enrolled_health_coverage": false,
+                    "has_eligible_health_coverage": false,
+                    "job_coverage_ended_in_past_3_months": false,
+                    "job_coverage_end_date": null,
+                    "medicaid_and_chip": {
+                        "not_eligible_in_last_90_days": true,
+                        "denied_on": "2021-09-01",
+                        "ended_as_change_in_eligibility": false,
+                        "hh_income_or_size_changed": false,
+                        "medicaid_or_chip_coverage_end_date": null,
+                        "ineligible_due_to_immigration_in_last_5_years": false,
+                        "immigration_status_changed_since_ineligibility": false
+                    },
+                    "other_health_service": {
+                        "has_received": false,
+                        "is_eligible": false
+                    },
+                    "addresses": [
+                        {
+                            "kind": "home",
+                            "address_1": "2024 test road",
+                            "address_2": "apt 2",
+                            "address_3": "",
+                            "city": "Augusta",
+                            "county": "Kennebec",
+                            "state": "ME",
+                            "zip": "04330",
+                            "country_name": ""
+                        }
+                    ],
+                    "emails": [],
+                    "phones": [],
+                    "incomes": [],
+                    "benefits": [],
+                    "deductions": [],
+                    "is_medicare_eligible": false,
+                    "is_self_attested_long_term_care": false,
+                    "has_insurance": false,
+                    "has_state_health_benefit": false,
+                    "had_prior_insurance": false,
+                    "prior_insurance_end_date": null,
+                    "age_of_applicant": 21,
+                    "hours_worked_per_week": 0,
+                    "is_temporarily_out_of_state": false,
+                    "is_claimed_as_dependent_by_non_applicant": false,
+                    "benchmark_premium": {
+                        "health_only_lcsp_premiums": [
+                            {
+                                "cost": 931.58,
+                                "product_id": "6138a9bdb3a4710561daf790",
+                                "member_identifier": "2000190",
+                                "monthly_premium": 931.58
+                            },
+                            {
+                                "cost": 844.03,
+                                "product_id": "6138a9bdb3a4710561daf790",
+                                "member_identifier": "2000191",
+                                "monthly_premium": 844.03
+                            },
+                            {
+                                "cost": 314.53,
+                                "product_id": "6138a9bdb3a4710561daf790",
+                                "member_identifier": "2000192",
+                                "monthly_premium": 314.53
+                            },
+                            {
+                                "cost": 324.25,
+                                "product_id": "6138a9bdb3a4710561daf790",
+                                "member_identifier": "2000193",
+                                "monthly_premium": 324.25
+                            },
+                            {
+                                "cost": 324.25,
+                                "product_id": "6138a9bdb3a4710561daf790",
+                                "member_identifier": "2000194",
+                                "monthly_premium": 324.25
+                            }
+                        ],
+                        "health_only_slcsp_premiums": [
+                            {
+                                "cost": 944.5,
+                                "product_id": "6138a9aab3a4710561dac576",
+                                "member_identifier": "2000190",
+                                "monthly_premium": 944.5
+                            },
+                            {
+                                "cost": 855.75,
+                                "product_id": "6138a9aab3a4710561dac576",
+                                "member_identifier": "2000191",
+                                "monthly_premium": 855.75
+                            },
+                            {
+                                "cost": 318.89,
+                                "product_id": "6138a9aab3a4710561dac576",
+                                "member_identifier": "2000192",
+                                "monthly_premium": 318.89
+                            },
+                            {
+                                "cost": 328.75,
+                                "product_id": "6138a9aab3a4710561dac576",
+                                "member_identifier": "2000193",
+                                "monthly_premium": 328.75
+                            },
+                            {
+                                "cost": 328.75,
+                                "product_id": "6138a9aab3a4710561dac576",
+                                "member_identifier": "2000194",
+                                "monthly_premium": 328.75
+                            }
+                        ]
+                    },
+                    "is_homeless": false,
+                    "mitc_income": {
+                        "amount": 0,
+                        "taxable_interest": 0,
+                        "tax_exempt_interest": 0,
+                        "taxable_refunds": 0,
+                        "alimony": 0,
+                        "capital_gain_or_loss": 0,
+                        "pensions_and_annuities_taxable_amount": 0,
+                        "farm_income_or_loss": 0,
+                        "unemployment_compensation": 0,
+                        "other_income": 0,
+                        "magi_deductions": 0,
+                        "adjusted_gross_income": 0.0,
+                        "deductible_part_of_self_employment_tax": 0,
+                        "ira_deduction": 0,
+                        "student_loan_interest_deduction": 0,
+                        "tution_and_fees": 0,
+                        "other_magi_eligible_income": 0
+                    },
+                    "evidences": [
+                        {
+                            "_id": "619ea596291662000e837bff",
+                            "created_at": "2021-11-24T20:50:30.759Z",
+                            "description": null,
+                            "due_on": null,
+                            "eligibility_results": [
+                                {
+                                    "_id": "619ea5b651328b000ac35324",
+                                    "code": "7313",
+                                    "code_description": null,
+                                    "created_at": "2021-11-24T20:51:02.698Z",
+                                    "result": "eligible",
+                                    "source": "MEDC",
+                                    "source_transaction_id": null,
+                                    "updated_at": "2021-11-24T20:51:02.698Z"
+                                }
+                            ],
+                            "eligibility_status": "attested",
+                            "external_service": null,
+                            "key": "aces_mec",
+                            "rejected": null,
+                            "title": "ACES MEC",
+                            "update_reason": null,
+                            "updated_at": "2021-11-24T20:50:30.759Z",
+                            "updated_by": null
+                        },
+                        {
+                            "_id": "619ea596291662000e837c00",
+                            "created_at": "2021-11-24T20:50:30.759Z",
+                            "description": null,
+                            "due_on": null,
+                            "eligibility_status": "attested",
+                            "external_service": null,
+                            "key": "esi_mec",
+                            "rejected": null,
+                            "title": "ESI MEC",
+                            "update_reason": null,
+                            "updated_at": "2021-11-24T20:50:30.759Z",
+                            "updated_by": null
+                        },
+                        {
+                            "_id": "619ea596291662000e837c01",
+                            "created_at": "2021-11-24T20:50:30.759Z",
+                            "description": null,
+                            "due_on": null,
+                            "eligibility_status": "attested",
+                            "external_service": null,
+                            "key": "non_esi_mec",
+                            "rejected": null,
+                            "title": "Non ESI MEC",
+                            "update_reason": null,
+                            "updated_at": "2021-11-24T20:50:30.759Z",
+                            "updated_by": null
+                        },
+                        {
+                            "_id": "619ea596291662000e837c02",
+                            "created_at": "2021-11-24T20:50:30.760Z",
+                            "description": null,
+                            "due_on": null,
+                            "eligibility_status": "outstanding",
+                            "external_service": null,
+                            "key": "income",
+                            "rejected": null,
+                            "title": "Income",
+                            "update_reason": null,
+                            "updated_at": "2021-11-24T20:50:30.760Z",
+                            "updated_by": null
+                        }
+                    ],
+                    "mitc_relationships": [
+                        {
+                            "other_id": "2000190",
+                            "attest_primary_responsibility": "N",
+                            "relationship_code": "04"
+                        },
+                        {
+                            "other_id": "2000192",
+                            "attest_primary_responsibility": "N",
+                            "relationship_code": "07"
+                        },
+                        {
+                            "other_id": "2000191",
+                            "attest_primary_responsibility": "N",
+                            "relationship_code": "04"
+                        },
+                        {
+                            "other_id": "2000194",
+                            "attest_primary_responsibility": "N",
+                            "relationship_code": "07"
+                        }
+                    ],
+                    "mitc_is_required_to_file_taxes": false
+                },
+                {
+                    "name": {
+                        "first_name": "Juan Carlos",
+                        "middle_name": "Sam",
+                        "last_name": "Smith",
+                        "name_sfx": null,
+                        "name_pfx": null
+                    },
+                    "identifying_information": {
+                        "has_ssn": "0",
+                        "encrypted_ssn": "6hYCGpO6WphdIQueO4Ji3okAvvwFKMdKkA==\n"
+                    },
+                    "demographic": {
+                        "gender": "Male",
+                        "dob": "1999-01-01",
+                        "ethnicity": [
+                            "Other",
+                            "Other"
+                        ],
+                        "race": null,
+                        "is_veteran_or_active_military": false,
+                        "is_vets_spouse_or_child": false
+                    },
+                    "attestation": {
+                        "is_incarcerated": true,
+                        "is_self_attested_disabled": false,
+                        "is_self_attested_blind": false,
+                        "is_self_attested_long_term_care": false
+                    },
+                    "is_primary_applicant": false,
+                    "native_american_information": {
+                        "indian_tribe_member": false,
+                        "tribal_name": null,
+                        "tribal_state": null
+                    },
+                    "citizenship_immigration_status_information": {
+                        "citizen_status": "us_citizen",
+                        "is_lawful_presence_self_attested": false,
+                        "is_resident_post_092296": false
+                    },
+                    "is_consumer_role": true,
+                    "is_resident_role": false,
+                    "is_applying_coverage": true,
+                    "is_consent_applicant": false,
+                    "vlp_document": null,
+                    "family_member_reference": {
+                        "family_member_hbx_id": "2000194",
+                        "first_name": "Juan Carlos",
+                        "last_name": "Smith",
+                        "person_hbx_id": "2000194",
+                        "is_primary_family_member": false
+                    },
+                    "person_hbx_id": "2000194",
+                    "is_required_to_file_taxes": false,
+                    "is_filing_as_head_of_household": false,
+                    "is_joint_tax_filing": false,
+                    "is_claimed_as_tax_dependent": true,
+                    "claimed_as_tax_dependent_by": {
+                        "first_name": "Rob",
+                        "last_name": "Smith",
+                        "dob": "1960-01-01",
+                        "person_hbx_id": "2000190",
+                        "encrypted_ssn": "5khTNQlUYCWwHb0u/a1ih4kLv/8FLsRKkw==\n"
+                    },
+                    "tax_filer_kind": "dependent",
+                    "student": {
+                        "is_student": false,
+                        "student_kind": null,
+                        "student_school_kind": null,
+                        "student_status_end_on": null
+                    },
+                    "is_refugee": false,
+                    "is_trafficking_victim": false,
+                    "foster_care": {
+                        "is_former_foster_care": false,
+                        "age_left_foster_care": null,
+                        "foster_care_us_state": "",
+                        "had_medicaid_during_foster_care": false
+                    },
+                    "pregnancy_information": {
+                        "is_pregnant": false,
+                        "is_enrolled_on_medicaid": false,
+                        "is_post_partum_period": false,
+                        "expected_children_count": null,
+                        "pregnancy_due_on": null,
+                        "pregnancy_end_on": null
+                    },
+                    "is_primary_caregiver": false,
+                    "is_subject_to_five_year_bar": false,
+                    "is_five_year_bar_met": false,
+                    "is_forty_quarters": false,
+                    "is_ssn_applied": false,
+                    "non_ssn_apply_reason": null,
+                    "moved_on_or_after_welfare_reformed_law": false,
+                    "is_currently_enrolled_in_health_plan": false,
+                    "has_daily_living_help": false,
+                    "need_help_paying_bills": false,
+                    "has_job_income": false,
+                    "has_self_employment_income": false,
+                    "has_unemployment_income": false,
+                    "has_other_income": false,
+                    "has_deductions": false,
+                    "has_enrolled_health_coverage": false,
+                    "has_eligible_health_coverage": false,
+                    "job_coverage_ended_in_past_3_months": false,
+                    "job_coverage_end_date": null,
+                    "medicaid_and_chip": {
+                        "not_eligible_in_last_90_days": false,
+                        "denied_on": null,
+                        "ended_as_change_in_eligibility": false,
+                        "hh_income_or_size_changed": false,
+                        "medicaid_or_chip_coverage_end_date": null,
+                        "ineligible_due_to_immigration_in_last_5_years": false,
+                        "immigration_status_changed_since_ineligibility": false
+                    },
+                    "other_health_service": {
+                        "has_received": false,
+                        "is_eligible": false
+                    },
+                    "addresses": [
+                        {
+                            "kind": "home",
+                            "address_1": "2024 test road",
+                            "address_2": "apt 2",
+                            "address_3": "",
+                            "city": "Augusta",
+                            "county": "Kennebec",
+                            "state": "ME",
+                            "zip": "04330",
+                            "country_name": ""
+                        }
+                    ],
+                    "emails": [],
+                    "phones": [],
+                    "incomes": [],
+                    "benefits": [],
+                    "deductions": [],
+                    "is_medicare_eligible": false,
+                    "is_self_attested_long_term_care": false,
+                    "has_insurance": false,
+                    "has_state_health_benefit": false,
+                    "had_prior_insurance": false,
+                    "prior_insurance_end_date": null,
+                    "age_of_applicant": 22,
+                    "hours_worked_per_week": 0,
+                    "is_temporarily_out_of_state": false,
+                    "is_claimed_as_dependent_by_non_applicant": false,
+                    "benchmark_premium": {
+                        "health_only_lcsp_premiums": [
+                            {
+                                "cost": 931.58,
+                                "product_id": "6138a9bdb3a4710561daf790",
+                                "member_identifier": "2000190",
+                                "monthly_premium": 931.58
+                            },
+                            {
+                                "cost": 844.03,
+                                "product_id": "6138a9bdb3a4710561daf790",
+                                "member_identifier": "2000191",
+                                "monthly_premium": 844.03
+                            },
+                            {
+                                "cost": 314.53,
+                                "product_id": "6138a9bdb3a4710561daf790",
+                                "member_identifier": "2000192",
+                                "monthly_premium": 314.53
+                            },
+                            {
+                                "cost": 324.25,
+                                "product_id": "6138a9bdb3a4710561daf790",
+                                "member_identifier": "2000193",
+                                "monthly_premium": 324.25
+                            },
+                            {
+                                "cost": 324.25,
+                                "product_id": "6138a9bdb3a4710561daf790",
+                                "member_identifier": "2000194",
+                                "monthly_premium": 324.25
+                            }
+                        ],
+                        "health_only_slcsp_premiums": [
+                            {
+                                "cost": 944.5,
+                                "product_id": "6138a9aab3a4710561dac576",
+                                "member_identifier": "2000190",
+                                "monthly_premium": 944.5
+                            },
+                            {
+                                "cost": 855.75,
+                                "product_id": "6138a9aab3a4710561dac576",
+                                "member_identifier": "2000191",
+                                "monthly_premium": 855.75
+                            },
+                            {
+                                "cost": 318.89,
+                                "product_id": "6138a9aab3a4710561dac576",
+                                "member_identifier": "2000192",
+                                "monthly_premium": 318.89
+                            },
+                            {
+                                "cost": 328.75,
+                                "product_id": "6138a9aab3a4710561dac576",
+                                "member_identifier": "2000193",
+                                "monthly_premium": 328.75
+                            },
+                            {
+                                "cost": 328.75,
+                                "product_id": "6138a9aab3a4710561dac576",
+                                "member_identifier": "2000194",
+                                "monthly_premium": 328.75
+                            }
+                        ]
+                    },
+                    "is_homeless": false,
+                    "mitc_income": {
+                        "amount": 0,
+                        "taxable_interest": 0,
+                        "tax_exempt_interest": 0,
+                        "taxable_refunds": 0,
+                        "alimony": 0,
+                        "capital_gain_or_loss": 0,
+                        "pensions_and_annuities_taxable_amount": 0,
+                        "farm_income_or_loss": 0,
+                        "unemployment_compensation": 0,
+                        "other_income": 0,
+                        "magi_deductions": 0,
+                        "adjusted_gross_income": 0.0,
+                        "deductible_part_of_self_employment_tax": 0,
+                        "ira_deduction": 0,
+                        "student_loan_interest_deduction": 0,
+                        "tution_and_fees": 0,
+                        "other_magi_eligible_income": 0
+                    },
+                    "evidences": [
+                        {
+                            "_id": "619ea596291662000e837c05",
+                            "created_at": "2021-11-24T20:50:30.776Z",
+                            "description": null,
+                            "due_on": null,
+                            "eligibility_results": [
+                                {
+                                    "_id": "619ea5bb51328b000ac35326",
+                                    "code": "7313",
+                                    "code_description": null,
+                                    "created_at": "2021-11-24T20:51:07.049Z",
+                                    "result": "eligible",
+                                    "source": "MEDC",
+                                    "source_transaction_id": null,
+                                    "updated_at": "2021-11-24T20:51:07.049Z"
+                                }
+                            ],
+                            "eligibility_status": "attested",
+                            "external_service": null,
+                            "key": "aces_mec",
+                            "rejected": null,
+                            "title": "ACES MEC",
+                            "update_reason": null,
+                            "updated_at": "2021-11-24T20:50:30.776Z",
+                            "updated_by": null
+                        },
+                        {
+                            "_id": "619ea596291662000e837c06",
+                            "created_at": "2021-11-24T20:50:30.777Z",
+                            "description": null,
+                            "due_on": null,
+                            "eligibility_status": "attested",
+                            "external_service": null,
+                            "key": "esi_mec",
+                            "rejected": null,
+                            "title": "ESI MEC",
+                            "update_reason": null,
+                            "updated_at": "2021-11-24T20:50:30.777Z",
+                            "updated_by": null
+                        },
+                        {
+                            "_id": "619ea596291662000e837c07",
+                            "created_at": "2021-11-24T20:50:30.777Z",
+                            "description": null,
+                            "due_on": null,
+                            "eligibility_status": "attested",
+                            "external_service": null,
+                            "key": "non_esi_mec",
+                            "rejected": null,
+                            "title": "Non ESI MEC",
+                            "update_reason": null,
+                            "updated_at": "2021-11-24T20:50:30.777Z",
+                            "updated_by": null
+                        },
+                        {
+                            "_id": "619ea596291662000e837c08",
+                            "created_at": "2021-11-24T20:50:30.777Z",
+                            "description": null,
+                            "due_on": null,
+                            "eligibility_status": "outstanding",
+                            "external_service": null,
+                            "key": "income",
+                            "rejected": null,
+                            "title": "Income",
+                            "update_reason": null,
+                            "updated_at": "2021-11-24T20:50:30.777Z",
+                            "updated_by": null
+                        }
+                    ],
+                    "mitc_relationships": [
+                        {
+                            "other_id": "2000190",
+                            "attest_primary_responsibility": "N",
+                            "relationship_code": "04"
+                        },
+                        {
+                            "other_id": "2000192",
+                            "attest_primary_responsibility": "N",
+                            "relationship_code": "07"
+                        },
+                        {
+                            "other_id": "2000193",
+                            "attest_primary_responsibility": "N",
+                            "relationship_code": "07"
+                        },
+                        {
+                            "other_id": "2000191",
+                            "attest_primary_responsibility": "N",
+                            "relationship_code": "04"
+                        }
+                    ],
+                    "mitc_is_required_to_file_taxes": false
+                }
+            ],
+            "relationships": [
+                {
+                    "kind": "spouse",
+                    "applicant_reference": {
+                        "first_name": "Nancy",
+                        "last_name": "Smith",
+                        "dob": "1962-05-05",
+                        "person_hbx_id": "2000191",
+                        "encrypted_ssn": "f4/irRpyO0EmhwT1Y6NIyoIAv/8HKMJKkg==\n"
+                    },
+                    "relative_reference": {
+                        "first_name": "Rob",
+                        "last_name": "Smith",
+                        "dob": "1960-01-01",
+                        "person_hbx_id": "2000190",
+                        "encrypted_ssn": "5khTNQlUYCWwHb0u/a1ih4kLv/8FLsRKkw==\n"
+                    },
+                    "live_with_household_member": false
+                },
+                {
+                    "kind": "spouse",
+                    "applicant_reference": {
+                        "first_name": "Rob",
+                        "last_name": "Smith",
+                        "dob": "1960-01-01",
+                        "person_hbx_id": "2000190",
+                        "encrypted_ssn": "5khTNQlUYCWwHb0u/a1ih4kLv/8FLsRKkw==\n"
+                    },
+                    "relative_reference": {
+                        "first_name": "Nancy",
+                        "last_name": "Smith",
+                        "dob": "1962-05-05",
+                        "person_hbx_id": "2000191",
+                        "encrypted_ssn": "f4/irRpyO0EmhwT1Y6NIyoIAv/8HKMJKkg==\n"
+                    },
+                    "live_with_household_member": false
+                },
+                {
+                    "kind": "child",
+                    "applicant_reference": {
+                        "first_name": "James",
+                        "last_name": "Smith",
+                        "dob": "2002-01-01",
+                        "person_hbx_id": "2000192",
+                        "encrypted_ssn": "4TOgDSon5aPlOSlthX2hLoUEv/wGL8JNkg==\n"
+                    },
+                    "relative_reference": {
+                        "first_name": "Rob",
+                        "last_name": "Smith",
+                        "dob": "1960-01-01",
+                        "person_hbx_id": "2000190",
+                        "encrypted_ssn": "5khTNQlUYCWwHb0u/a1ih4kLv/8FLsRKkw==\n"
+                    },
+                    "live_with_household_member": false
+                },
+                {
+                    "kind": "parent",
+                    "applicant_reference": {
+                        "first_name": "Rob",
+                        "last_name": "Smith",
+                        "dob": "1960-01-01",
+                        "person_hbx_id": "2000190",
+                        "encrypted_ssn": "5khTNQlUYCWwHb0u/a1ih4kLv/8FLsRKkw==\n"
+                    },
+                    "relative_reference": {
+                        "first_name": "James",
+                        "last_name": "Smith",
+                        "dob": "2002-01-01",
+                        "person_hbx_id": "2000192",
+                        "encrypted_ssn": "4TOgDSon5aPlOSlthX2hLoUEv/wGL8JNkg==\n"
+                    },
+                    "live_with_household_member": false
+                },
+                {
+                    "kind": "child",
+                    "applicant_reference": {
+                        "first_name": "Lucy",
+                        "last_name": "Smith",
+                        "dob": "2000-02-02",
+                        "person_hbx_id": "2000193",
+                        "encrypted_ssn": "wXQ8FaLPzz0tMwG48vR6g4EAv/8HLcZGkw==\n"
+                    },
+                    "relative_reference": {
+                        "first_name": "Rob",
+                        "last_name": "Smith",
+                        "dob": "1960-01-01",
+                        "person_hbx_id": "2000190",
+                        "encrypted_ssn": "5khTNQlUYCWwHb0u/a1ih4kLv/8FLsRKkw==\n"
+                    },
+                    "live_with_household_member": false
+                },
+                {
+                    "kind": "parent",
+                    "applicant_reference": {
+                        "first_name": "Rob",
+                        "last_name": "Smith",
+                        "dob": "1960-01-01",
+                        "person_hbx_id": "2000190",
+                        "encrypted_ssn": "5khTNQlUYCWwHb0u/a1ih4kLv/8FLsRKkw==\n"
+                    },
+                    "relative_reference": {
+                        "first_name": "Lucy",
+                        "last_name": "Smith",
+                        "dob": "2000-02-02",
+                        "person_hbx_id": "2000193",
+                        "encrypted_ssn": "wXQ8FaLPzz0tMwG48vR6g4EAv/8HLcZGkw==\n"
+                    },
+                    "live_with_household_member": false
+                },
+                {
+                    "kind": "sibling",
+                    "applicant_reference": {
+                        "first_name": "James",
+                        "last_name": "Smith",
+                        "dob": "2002-01-01",
+                        "person_hbx_id": "2000192",
+                        "encrypted_ssn": "4TOgDSon5aPlOSlthX2hLoUEv/wGL8JNkg==\n"
+                    },
+                    "relative_reference": {
+                        "first_name": "Lucy",
+                        "last_name": "Smith",
+                        "dob": "2000-02-02",
+                        "person_hbx_id": "2000193",
+                        "encrypted_ssn": "wXQ8FaLPzz0tMwG48vR6g4EAv/8HLcZGkw==\n"
+                    },
+                    "live_with_household_member": false
+                },
+                {
+                    "kind": "sibling",
+                    "applicant_reference": {
+                        "first_name": "Lucy",
+                        "last_name": "Smith",
+                        "dob": "2000-02-02",
+                        "person_hbx_id": "2000193",
+                        "encrypted_ssn": "wXQ8FaLPzz0tMwG48vR6g4EAv/8HLcZGkw==\n"
+                    },
+                    "relative_reference": {
+                        "first_name": "James",
+                        "last_name": "Smith",
+                        "dob": "2002-01-01",
+                        "person_hbx_id": "2000192",
+                        "encrypted_ssn": "4TOgDSon5aPlOSlthX2hLoUEv/wGL8JNkg==\n"
+                    },
+                    "live_with_household_member": false
+                },
+                {
+                    "kind": "parent",
+                    "applicant_reference": {
+                        "first_name": "Nancy",
+                        "last_name": "Smith",
+                        "dob": "1962-05-05",
+                        "person_hbx_id": "2000191",
+                        "encrypted_ssn": "f4/irRpyO0EmhwT1Y6NIyoIAv/8HKMJKkg==\n"
+                    },
+                    "relative_reference": {
+                        "first_name": "James",
+                        "last_name": "Smith",
+                        "dob": "2002-01-01",
+                        "person_hbx_id": "2000192",
+                        "encrypted_ssn": "4TOgDSon5aPlOSlthX2hLoUEv/wGL8JNkg==\n"
+                    },
+                    "live_with_household_member": false
+                },
+                {
+                    "kind": "child",
+                    "applicant_reference": {
+                        "first_name": "James",
+                        "last_name": "Smith",
+                        "dob": "2002-01-01",
+                        "person_hbx_id": "2000192",
+                        "encrypted_ssn": "4TOgDSon5aPlOSlthX2hLoUEv/wGL8JNkg==\n"
+                    },
+                    "relative_reference": {
+                        "first_name": "Nancy",
+                        "last_name": "Smith",
+                        "dob": "1962-05-05",
+                        "person_hbx_id": "2000191",
+                        "encrypted_ssn": "f4/irRpyO0EmhwT1Y6NIyoIAv/8HKMJKkg==\n"
+                    },
+                    "live_with_household_member": false
+                },
+                {
+                    "kind": "parent",
+                    "applicant_reference": {
+                        "first_name": "Nancy",
+                        "last_name": "Smith",
+                        "dob": "1962-05-05",
+                        "person_hbx_id": "2000191",
+                        "encrypted_ssn": "f4/irRpyO0EmhwT1Y6NIyoIAv/8HKMJKkg==\n"
+                    },
+                    "relative_reference": {
+                        "first_name": "Lucy",
+                        "last_name": "Smith",
+                        "dob": "2000-02-02",
+                        "person_hbx_id": "2000193",
+                        "encrypted_ssn": "wXQ8FaLPzz0tMwG48vR6g4EAv/8HLcZGkw==\n"
+                    },
+                    "live_with_household_member": false
+                },
+                {
+                    "kind": "child",
+                    "applicant_reference": {
+                        "first_name": "Lucy",
+                        "last_name": "Smith",
+                        "dob": "2000-02-02",
+                        "person_hbx_id": "2000193",
+                        "encrypted_ssn": "wXQ8FaLPzz0tMwG48vR6g4EAv/8HLcZGkw==\n"
+                    },
+                    "relative_reference": {
+                        "first_name": "Nancy",
+                        "last_name": "Smith",
+                        "dob": "1962-05-05",
+                        "person_hbx_id": "2000191",
+                        "encrypted_ssn": "f4/irRpyO0EmhwT1Y6NIyoIAv/8HKMJKkg==\n"
+                    },
+                    "live_with_household_member": false
+                },
+                {
+                    "kind": "child",
+                    "applicant_reference": {
+                        "first_name": "Juan Carlos",
+                        "last_name": "Smith",
+                        "dob": "1999-01-01",
+                        "person_hbx_id": "2000194",
+                        "encrypted_ssn": "6hYCGpO6WphdIQueO4Ji3okAvvwFKMdKkA==\n"
+                    },
+                    "relative_reference": {
+                        "first_name": "Rob",
+                        "last_name": "Smith",
+                        "dob": "1960-01-01",
+                        "person_hbx_id": "2000190",
+                        "encrypted_ssn": "5khTNQlUYCWwHb0u/a1ih4kLv/8FLsRKkw==\n"
+                    },
+                    "live_with_household_member": false
+                },
+                {
+                    "kind": "parent",
+                    "applicant_reference": {
+                        "first_name": "Rob",
+                        "last_name": "Smith",
+                        "dob": "1960-01-01",
+                        "person_hbx_id": "2000190",
+                        "encrypted_ssn": "5khTNQlUYCWwHb0u/a1ih4kLv/8FLsRKkw==\n"
+                    },
+                    "relative_reference": {
+                        "first_name": "Juan Carlos",
+                        "last_name": "Smith",
+                        "dob": "1999-01-01",
+                        "person_hbx_id": "2000194",
+                        "encrypted_ssn": "6hYCGpO6WphdIQueO4Ji3okAvvwFKMdKkA==\n"
+                    },
+                    "live_with_household_member": false
+                },
+                {
+                    "kind": "sibling",
+                    "applicant_reference": {
+                        "first_name": "James",
+                        "last_name": "Smith",
+                        "dob": "2002-01-01",
+                        "person_hbx_id": "2000192",
+                        "encrypted_ssn": "4TOgDSon5aPlOSlthX2hLoUEv/wGL8JNkg==\n"
+                    },
+                    "relative_reference": {
+                        "first_name": "Juan Carlos",
+                        "last_name": "Smith",
+                        "dob": "1999-01-01",
+                        "person_hbx_id": "2000194",
+                        "encrypted_ssn": "6hYCGpO6WphdIQueO4Ji3okAvvwFKMdKkA==\n"
+                    },
+                    "live_with_household_member": false
+                },
+                {
+                    "kind": "sibling",
+                    "applicant_reference": {
+                        "first_name": "Juan Carlos",
+                        "last_name": "Smith",
+                        "dob": "1999-01-01",
+                        "person_hbx_id": "2000194",
+                        "encrypted_ssn": "6hYCGpO6WphdIQueO4Ji3okAvvwFKMdKkA==\n"
+                    },
+                    "relative_reference": {
+                        "first_name": "James",
+                        "last_name": "Smith",
+                        "dob": "2002-01-01",
+                        "person_hbx_id": "2000192",
+                        "encrypted_ssn": "4TOgDSon5aPlOSlthX2hLoUEv/wGL8JNkg==\n"
+                    },
+                    "live_with_household_member": false
+                },
+                {
+                    "kind": "sibling",
+                    "applicant_reference": {
+                        "first_name": "Lucy",
+                        "last_name": "Smith",
+                        "dob": "2000-02-02",
+                        "person_hbx_id": "2000193",
+                        "encrypted_ssn": "wXQ8FaLPzz0tMwG48vR6g4EAv/8HLcZGkw==\n"
+                    },
+                    "relative_reference": {
+                        "first_name": "Juan Carlos",
+                        "last_name": "Smith",
+                        "dob": "1999-01-01",
+                        "person_hbx_id": "2000194",
+                        "encrypted_ssn": "6hYCGpO6WphdIQueO4Ji3okAvvwFKMdKkA==\n"
+                    },
+                    "live_with_household_member": false
+                },
+                {
+                    "kind": "sibling",
+                    "applicant_reference": {
+                        "first_name": "Juan Carlos",
+                        "last_name": "Smith",
+                        "dob": "1999-01-01",
+                        "person_hbx_id": "2000194",
+                        "encrypted_ssn": "6hYCGpO6WphdIQueO4Ji3okAvvwFKMdKkA==\n"
+                    },
+                    "relative_reference": {
+                        "first_name": "Lucy",
+                        "last_name": "Smith",
+                        "dob": "2000-02-02",
+                        "person_hbx_id": "2000193",
+                        "encrypted_ssn": "wXQ8FaLPzz0tMwG48vR6g4EAv/8HLcZGkw==\n"
+                    },
+                    "live_with_household_member": false
+                },
+                {
+                    "kind": "parent",
+                    "applicant_reference": {
+                        "first_name": "Nancy",
+                        "last_name": "Smith",
+                        "dob": "1962-05-05",
+                        "person_hbx_id": "2000191",
+                        "encrypted_ssn": "f4/irRpyO0EmhwT1Y6NIyoIAv/8HKMJKkg==\n"
+                    },
+                    "relative_reference": {
+                        "first_name": "Juan Carlos",
+                        "last_name": "Smith",
+                        "dob": "1999-01-01",
+                        "person_hbx_id": "2000194",
+                        "encrypted_ssn": "6hYCGpO6WphdIQueO4Ji3okAvvwFKMdKkA==\n"
+                    },
+                    "live_with_household_member": false
+                },
+                {
+                    "kind": "child",
+                    "applicant_reference": {
+                        "first_name": "Juan Carlos",
+                        "last_name": "Smith",
+                        "dob": "1999-01-01",
+                        "person_hbx_id": "2000194",
+                        "encrypted_ssn": "6hYCGpO6WphdIQueO4Ji3okAvvwFKMdKkA==\n"
+                    },
+                    "relative_reference": {
+                        "first_name": "Nancy",
+                        "last_name": "Smith",
+                        "dob": "1962-05-05",
+                        "person_hbx_id": "2000191",
+                        "encrypted_ssn": "f4/irRpyO0EmhwT1Y6NIyoIAv/8HKMJKkg==\n"
+                    },
+                    "live_with_household_member": false
+                }
+            ],
+            "tax_households": [
+                {
+                    "hbx_id": "11370",
+                    "max_aptc": {
+                        "cents": 84900,
+                        "currency_iso": "USD"
+                    },
+                    "is_insurance_assistance_eligible": "Yes",
+                    "annual_tax_household_income": {
+                        "cents": 10850000,
+                        "currency_iso": "USD"
+                    },
+                    "tax_household_members": [
+                        {
+                            "applicant_reference": {
+                                "first_name": "Rob",
+                                "last_name": "Smith",
+                                "dob": "1960-01-01",
+                                "person_hbx_id": "2000190",
+                                "encrypted_ssn": "5khTNQlUYCWwHb0u/a1ih4kLv/8FLsRKkw==\n"
+                            },
+                            "product_eligibility_determination": {
+                                "is_ia_eligible": false,
+                                "is_medicaid_chip_eligible": false,
+                                "is_totally_ineligible": null,
+                                "is_magi_medicaid": false,
+                                "is_non_magi_medicaid_eligible": false,
+                                "is_without_assistance": true,
+                                "magi_medicaid_monthly_household_income": {
+                                    "cents": 10850000,
+                                    "currency_iso": "USD"
+                                },
+                                "medicaid_household_size": 6,
+                                "magi_medicaid_monthly_income_limit": {
+                                    "cents": 0,
+                                    "currency_iso": "USD"
+                                },
+                                "magi_as_percentage_of_fpl": 304.0,
+                                "magi_medicaid_category": "adult_group"
+                            }
+                        },
+                        {
+                            "applicant_reference": {
+                                "first_name": "Nancy",
+                                "last_name": "Smith",
+                                "dob": "1962-05-05",
+                                "person_hbx_id": "2000191",
+                                "encrypted_ssn": "f4/irRpyO0EmhwT1Y6NIyoIAv/8HKMJKkg==\n"
+                            },
+                            "product_eligibility_determination": {
+                                "is_ia_eligible": true,
+                                "is_medicaid_chip_eligible": false,
+                                "is_totally_ineligible": null,
+                                "is_magi_medicaid": false,
+                                "is_non_magi_medicaid_eligible": false,
+                                "is_without_assistance": null,
+                                "magi_medicaid_monthly_household_income": {
+                                    "cents": 10850000,
+                                    "currency_iso": "USD"
+                                },
+                                "medicaid_household_size": 6,
+                                "magi_medicaid_monthly_income_limit": {
+                                    "cents": 0,
+                                    "currency_iso": "USD"
+                                },
+                                "magi_as_percentage_of_fpl": 304.0,
+                                "magi_medicaid_category": "adult_group"
+                            }
+                        },
+                        {
+                            "applicant_reference": {
+                                "first_name": "James",
+                                "last_name": "Smith",
+                                "dob": "2002-01-01",
+                                "person_hbx_id": "2000192",
+                                "encrypted_ssn": "4TOgDSon5aPlOSlthX2hLoUEv/wGL8JNkg==\n"
+                            },
+                            "product_eligibility_determination": {
+                                "is_ia_eligible": true,
+                                "is_medicaid_chip_eligible": false,
+                                "is_totally_ineligible": null,
+                                "is_magi_medicaid": false,
+                                "is_non_magi_medicaid_eligible": false,
+                                "is_without_assistance": null,
+                                "magi_medicaid_monthly_household_income": {
+                                    "cents": 10850000,
+                                    "currency_iso": "USD"
+                                },
+                                "medicaid_household_size": 6,
+                                "magi_medicaid_monthly_income_limit": {
+                                    "cents": 0,
+                                    "currency_iso": "USD"
+                                },
+                                "magi_as_percentage_of_fpl": 304.0,
+                                "magi_medicaid_category": "child"
+                            }
+                        },
+                        {
+                            "applicant_reference": {
+                                "first_name": "Lucy",
+                                "last_name": "Smith",
+                                "dob": "2000-02-02",
+                                "person_hbx_id": "2000193",
+                                "encrypted_ssn": "wXQ8FaLPzz0tMwG48vR6g4EAv/8HLcZGkw==\n"
+                            },
+                            "product_eligibility_determination": {
+                                "is_ia_eligible": true,
+                                "is_medicaid_chip_eligible": false,
+                                "is_totally_ineligible": null,
+                                "is_magi_medicaid": false,
+                                "is_non_magi_medicaid_eligible": false,
+                                "is_without_assistance": null,
+                                "magi_medicaid_monthly_household_income": {
+                                    "cents": 10850000,
+                                    "currency_iso": "USD"
+                                },
+                                "medicaid_household_size": 6,
+                                "magi_medicaid_monthly_income_limit": {
+                                    "cents": 0,
+                                    "currency_iso": "USD"
+                                },
+                                "magi_as_percentage_of_fpl": 304.0,
+                                "magi_medicaid_category": "pregnancy"
+                            }
+                        },
+                        {
+                            "applicant_reference": {
+                                "first_name": "Juan Carlos",
+                                "last_name": "Smith",
+                                "dob": "1999-01-01",
+                                "person_hbx_id": "2000194",
+                                "encrypted_ssn": "6hYCGpO6WphdIQueO4Ji3okAvvwFKMdKkA==\n"
+                            },
+                            "product_eligibility_determination": {
+                                "is_ia_eligible": false,
+                                "is_medicaid_chip_eligible": false,
+                                "is_totally_ineligible": true,
+                                "is_magi_medicaid": false,
+                                "is_non_magi_medicaid_eligible": false,
+                                "is_without_assistance": null,
+                                "magi_medicaid_monthly_household_income": {
+                                    "cents": 10850000,
+                                    "currency_iso": "USD"
+                                },
+                                "medicaid_household_size": 6,
+                                "magi_medicaid_monthly_income_limit": {
+                                    "cents": 0,
+                                    "currency_iso": "USD"
+                                },
+                                "magi_as_percentage_of_fpl": 304.0,
+                                "magi_medicaid_category": "adult_group"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "us_state": "ME",
+            "hbx_id": "2000088",
+            "oe_start_on": "2021-09-08",
+            "submitted_at": "2021-11-24T20:49:20.610+00:00",
+            "notice_options": {
+                "send_eligibility_notices": true,
+                "send_open_enrollment_notices": false
+            },
+            "mitc_households": [
+                {
+                    "household_id": "1",
+                    "people": [
+                        {
+                            "person_id": "2000192"
+                        }
+                    ]
+                },
+                {
+                    "household_id": "2",
+                    "people": [
+                        {
+                            "person_id": "2000190"
+                        },
+                        {
+                            "person_id": "2000191"
+                        },
+                        {
+                            "person_id": "2000193"
+                        },
+                        {
+                            "person_id": "2000194"
+                        }
+                    ]
+                }
+            ],
+            "mitc_tax_returns": [
+                {
+                    "filers": [
+                        {
+                            "person_id": "2000190"
+                        },
+                        {
+                            "person_id": "2000191"
+                        }
+                    ],
+                    "dependents": [
+                        {
+                            "person_id": "2000192"
+                        },
+                        {
+                            "person_id": "2000193"
+                        },
+                        {
+                            "person_id": "2000194"
+                        }
+                    ]
+                }
+            ]
+        },
+        "documents": [],
+        "timestamp": {
+            "created_at": "2021-11-24T19:52:42.430+00:00",
+            "modified_at": "2021-11-24T20:50:28.660+00:00"
+        },
+        "irs_groups": [
+            {
+                "hbx_id": null,
+                "start_on": "2021-11-24",
+                "end_on": null,
+                "is_active": true
+            }
+        ]
+    }
+}
