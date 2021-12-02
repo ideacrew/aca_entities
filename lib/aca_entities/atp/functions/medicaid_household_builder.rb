@@ -20,7 +20,8 @@ module AcaEntities
               amount: income,
               income_frequency: {
                 frequency_code: "Annually" # default
-              }
+              },
+              category_code: "Unspecified" # default
             }
             members = household[:tax_household_members].map {|m| m.dig(:applicant_reference, :person_hbx_id)}
             member_references = members.map {|m| { ref: "pe#{m}" }}
@@ -36,8 +37,8 @@ module AcaEntities
         end
 
         def cents_to_dollars(income)
-          return unless income && income.to_s.length > 1
-          income.to_s.insert(-3, ".")
+          return if income.nil?
+          format("%.2f", Rational(income.to_i, 100))
         end
       end
     end
