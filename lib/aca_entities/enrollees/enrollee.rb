@@ -11,7 +11,7 @@ module AcaEntities
       attribute :last_name, Types::String.meta(omittable: false)
       attribute :name_suffix, Types::String.optional.meta(omittable: true)
       attribute :hbx_member_id,    Types::String.meta(omittable: false)
-      attribute :premium_amount,   Types::Decimal.meta(omittable: false)
+      attribute :premium_amount,   Types::Float.meta(omittable: false)
       attribute :coverage_start,   Types::Date.meta(omittable: false)
       attribute :coverage_end,     Types::Date.optional.meta(omittable: true)
       attribute :coverage_status,  Types::String.optional.meta(omittable: true)
