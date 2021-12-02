@@ -55,8 +55,8 @@ module AcaEntities
         end
 
         def cents_to_dollars(income)
-          return unless income && income.to_s.length > 2
-          income.to_s.insert(-3, ".")
+          return if income.nil?
+          format("%.2f", Rational(income.to_i, 100))
         end
 
         def find_primary_tax_filer(members, applicants_hash)
