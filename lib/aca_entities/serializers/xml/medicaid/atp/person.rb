@@ -60,7 +60,7 @@ module AcaEntities
                 ssn_identification: ssn_identification&.to_hash,
                 sex: sex,
                 race: race,
-                ethnicities: ethnicities&.to_hash,
+                ethnicities: ethnicities,
                 birth_date: birth_date&.to_hash,
                 tribal_augmentation: tribal_augmentation&.to_hash,
                 augementation: person_augmentation&.to_hash # update the name in family transform
