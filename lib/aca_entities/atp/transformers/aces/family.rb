@@ -324,28 +324,32 @@ module AcaEntities
               map 'broker_accounts', 'broker_accounts', memoize_record: true, visible: false
               add_key "assister", function: lambda { |v|
                 broker = v.resolve("family.broker_accounts").item
-                person = broker.dig(:broker_role_reference, :person_reference)
-                name = {
-                  given: person[:first_name],
-                  middle: person[:middle_name],
-                  sur: person[:last_name]
-                }
-                # broker_npn = broker.dig(:broker_role_reference, :npn) || "n/a"
-                broker_npn = broker.dig(:broker_agency_reference, :corporate_npn) || "n/a"
-                augmentation = {
-                  person_identification: {
-                    identification_id: broker_npn,
-                    identification_category_text: 'National Producer Number'
+                if broker
+                  person = broker.dig(:broker_role_reference, :person_reference)
+                  if person
+                    name = {
+                      given: person[:first_name],
+                      middle: person[:middle_name],
+                      sur: person[:last_name]
+                    }
+                  end
+                  # broker_npn = broker.dig(:broker_role_reference, :npn) || "n/a"
+                  broker_npn = broker.dig(:broker_agency_reference, :corporate_npn) || "n/a"
+                  augmentation = {
+                    person_identification: {
+                      identification_id: broker_npn,
+                      identification_category_text: 'National Producer Number'
+                    }
                   }
-                }
 
-                {
-                  role_played_by_person:
                   {
-                    person_name: name,
-                    person_augmentation: augmentation
+                    role_played_by_person:
+                    {
+                      person_name: name,
+                      person_augmentation: augmentation
+                    }
                   }
-                }
+                end
               }
             end
           end
