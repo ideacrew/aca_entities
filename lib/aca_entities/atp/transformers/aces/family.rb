@@ -127,7 +127,8 @@ module AcaEntities
 
               add_key 'transfer_header.transfer_activity.number_of_referrals',
                       function: lambda { |v|
-                                  v.resolve('family.magi_medicaid_applications.applicants').item.count
+                                  applicants = v.resolve('family.magi_medicaid_applications.applicants').item
+                                  applicants.values.select { |applicant| applicant[:is_applying_coverage] }.count
                                 }
 
               namespace 'family_members.*', nil, context: { name: 'members' } do
