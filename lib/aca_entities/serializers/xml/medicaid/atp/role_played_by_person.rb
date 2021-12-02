@@ -10,7 +10,7 @@ module AcaEntities
             include HappyMapper
 
             tag 'RolePlayedByPerson'
-            namespace 'hix-ee'
+            namespace 'hix-core'
 
             has_one :person_name, PersonName
             has_one :birth_date, PersonBirthDate
