@@ -19,13 +19,13 @@ module AcaEntities
       attribute :rating_area,            Types::String.meta(omittable: false)
       attribute :service_area,           Types::String.optional.meta(omittable: true)
 
-      attribute :last_maintenance_date, Types::Date.optional.meta(omittable: true)
+      attribute :last_maintenance_date, Types::String.optional.meta(omittable: true)
       attribute :last_maintenance_time, Types::String.optional.meta(omittable: true)
       attribute :aasm_state,           Types::String.meta(omittable: true)
       # policy subscriber id
       attribute :exchange_subscriber_id, Types::String.optional.meta(omittable: true)
       # policy effectuation status canceled or resubmitted
-      attribute :effectuation_status, Types::Bool.optional.meta(omittable: true)
+      attribute :effectuation_status, Types::String.optional.meta(omittable: true)
       # policy plan coverage type health or dental
       attribute :insurance_line_code,   Types::String.optional.meta(omittable: true)
       # fetch this from policy plan hios_id
