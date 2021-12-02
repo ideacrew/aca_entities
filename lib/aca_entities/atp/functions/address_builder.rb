@@ -29,7 +29,7 @@ module AcaEntities
             address_2: address[:address_secondary_unit_text],
             address_3: nil,
             city: address[:location_city_name],
-            county: address[:location_county_name],
+            county: address[:location_county_name]&.capitalize,
             county_code: address[:location_county_code],
             state: address[:location_state_us_postal_service_code],
             zip: zip,
