@@ -67,10 +67,9 @@ module AcaEntities
         end
 
         def find_spouse_tax_filer(members, person_relationships, _member_id)
-          person_relationships.select {|h| h[:relationship_code] == "02"}.each do |rel|
-            spouse = [rel[:other_id]] & members
-            return spouse.first unless spouse.empty?
-          end
+          spouse = person_relationships.detect {|h| h[:relationship_code] == "02" && members.include?(h[:other_id])}
+          return unless spouse
+          spouse[:other_id]
         end
 
         def find_dependents(members, applicants_hash)
