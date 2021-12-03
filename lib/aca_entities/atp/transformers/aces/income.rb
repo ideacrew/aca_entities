@@ -44,13 +44,21 @@ module AcaEntities
           }
           add_key 'description_text'
           add_key 'subject_to_federal_restrictions_indicator'
-          add_key 'date', value: lambda { |_v|
-                                   {
-                                     date: Date.today
-                                   }
-                                 } # default
-          map 'end_on', 'earned_date_range.end_date.date', function: ->(v) { Date.parse(v) unless v.nil? }
-          map 'start_on', 'earned_date_range.start_date.date', function: ->(v) { Date.parse(v) unless v.nil? }
+
+          map 'end_on', 'end_on', memoize: true, visible: false
+          add_key 'date', function: lambda { |v|
+                                      end_on = v.resolve("end_on").item
+                                      frequency = v.resolve("frequency.frequency_code").item
+                                      unless end_on.nil?
+                                        income_date = { year: Date.parse(end_on).year.to_s } if frequency == "Annually"
+                                        income_date = { year_month: DateTime.parse("2021-01-01").strftime("%Y-%m").to_s } if frequency == "Monthly"
+                                      end
+                                      income_date
+                                    }
+
+          # Date range tags not mapped due to ACES ingestion issues
+          # map 'end_on', 'earned_date_range.end_date.date', function: ->(v) { Date.parse(v) unless v.nil? }
+          # map 'start_on', 'earned_date_range.start_date.date', function: ->(v) { Date.parse(v) unless v.nil? }
 
           map 'frequency_kind', 'frequency.frequency_code', memoize: true
           add_key 'payment_frequency.frequency_code', function: ->(v) { v.resolve('frequency.frequency_code').item }
