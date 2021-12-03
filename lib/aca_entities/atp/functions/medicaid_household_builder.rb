@@ -13,25 +13,27 @@ module AcaEntities
           family_id = @memoized_data.resolve("hbx_id").item
           tax_households = @memoized_data.resolve('family.magi_medicaid_applications.tax_households').item
 
-          tax_households.values.each_with_object([]) do |household, collect|
-            income_cents = household[:annual_tax_household_income][:cents]
-            income = cents_to_dollars(income_cents)&.to_f
-            income_hash = {
-              amount: income,
-              income_frequency: {
-                frequency_code: "Annually" # default
+          if tax_households
+            tax_households.values.each_with_object([]) do |household, collect|
+              income_cents = household[:annual_tax_household_income][:cents]
+              income = cents_to_dollars(income_cents)&.to_f
+              income_hash = {
+                amount: income,
+                income_frequency: {
+                  frequency_code: "Annually" # default
+                }
               }
-            }
-            members = household[:tax_household_members].map {|m| m.dig(:applicant_reference, :person_hbx_id)}
-            member_references = members.map {|m| { ref: "pe#{m}" }}
+              members = household[:tax_household_members].map {|m| m.dig(:applicant_reference, :person_hbx_id)}
+              member_references = members.map {|m| { ref: "pe#{m}" }}
 
-            collect << {
-              id: "mh#{family_id}#{household[:hbx_id]}",
-              household_incomes: [income_hash],
-              household_member_references: member_references,
-              effective_person_quantity: members.count
-              #   income_above_highest_applicable_magi_standard_indicator: nil # TODO: determine correct mapping
-            }
+              collect << {
+                id: "mh#{family_id}#{household[:hbx_id]}",
+                household_incomes: [income_hash],
+                household_member_references: member_references,
+                effective_person_quantity: members.count
+                #   income_above_highest_applicable_magi_standard_indicator: nil # TODO: determine correct mapping
+              }
+            end
           end
         end
 
