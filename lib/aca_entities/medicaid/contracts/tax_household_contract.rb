@@ -7,7 +7,7 @@ module AcaEntities
       class TaxHouseholdContract < Dry::Validation::Contract
 
         params do
-          required(:household_incomes).array(:hash)
+          required(:household_incomes).maybe(:array)
           optional(:household_size_change_expected_indicator).maybe(:bool)
           optional(:primary_tax_filer).maybe(:hash)
           optional(:spouse_tax_filer).maybe(:hash)
