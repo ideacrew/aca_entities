@@ -34,15 +34,32 @@ module AcaEntities
             'scholorship_payments' => 'Scholarship'
           }.freeze
 
-          add_key 'employment_source_text'
           map 'amount', 'amount'
-          add_key 'days_per_week'
-          add_key 'hours_per_pay_period', value: ->(_v) {0.0} # default value
-          map 'hours_per_week', 'hours_per_week'
-          map 'kind', 'category_code', function: lambda { |v|
+          add_key 'days_per_week', value: lambda { |v|
+                                            frequency = v.resolve('frequency.frequency_code').item
+                                            if frequency == "Daily"
+                                              0 # default
+                                            end
+                                          }
+          # add_key 'hours_per_pay_period', value: ->(_v) {0.0} # default value only required if Date tag is used
+          # map 'hours_per_week', 'hours_per_week'
+          map 'kind', 'category_code', memoize: true, function: lambda { |v|
             IncomeTypes[v]
           }
-          add_key 'description_text'
+          add_key 'employment_source_text', value: lambda { |v|
+                                                     category_code = v.resolve("category_code").item
+                                                     if category_code == "unemployment_income"
+                                                       "unemployment" # default
+                                                     end
+                                                   }
+
+          add_key 'description_text', value: lambda { |v|
+                                               category_code = v.resolve("category_code").item
+                                               if category_code == "net_self_employment"
+                                                 "self employed" # default
+                                               end
+                                             }
+
           add_key 'subject_to_federal_restrictions_indicator'
 
           map 'end_on', 'end_on', memoize: true, visible: false
