@@ -16,10 +16,10 @@ module AcaEntities
       attribute :total_responsible_amt,  Types::Float.meta(omittable: false)
       attribute :coverage_kind,          Types::String.meta(omittable: false)
       attribute :term_for_np,            Types::Bool.optional.meta(omittable: true)
-      attribute :rating_area,            Types::String.meta(omittable: false)
+      attribute :rating_area,            Types::String.optional.meta(omittable: false)
       attribute :service_area,           Types::String.optional.meta(omittable: true)
 
-      attribute :last_maintenance_date, Types::String.optional.meta(omittable: true)
+      attribute :last_maintenance_date, Types::Date.optional.meta(omittable: true)
       attribute :last_maintenance_time, Types::String.optional.meta(omittable: true)
       attribute :aasm_state,           Types::String.meta(omittable: true)
       # policy subscriber id
@@ -31,10 +31,10 @@ module AcaEntities
       # fetch this from policy plan hios_id
       attribute :csr_variant,           Types::String.optional.meta(omittable: true)
       attribute :enrollees,             Types::Array.of(AcaEntities::Enrollees::Enrollee).meta(omittable: false)
-      attribute :aptc_maximums,     Types::Array.of(AcaEntities::Policies::AptcMaximum)
-                                               .optional.meta(omittable: true)
-      attribute :aptc_credits,     Types::Array.of(AcaEntities::Policies::AptcCredit)
-                                               .optional.meta(omittable: true)
+      # attribute :aptc_maximums,     Types::Array.of(AcaEntities::Policies::AptcMaximum)
+      #                                          .optional.meta(omittable: true)
+      # attribute :aptc_credits,     Types::Array.of(AcaEntities::Policies::AptcCredit)
+      #                                          .optional.meta(omittable: true)
     end
   end
 end
