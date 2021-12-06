@@ -41,6 +41,29 @@ module AcaEntities
                    .optional
                    .meta(omittable: true)
 
+      def residential_address
+        return if addresses.blank?
+
+        addresses.detect do |address|
+          address.kind == 'home'
+        end
+      end
+
+      def mailing_address
+        return if addresses.blank?
+
+        addresses.detect do |address|
+          address.kind == 'mailing'
+        end
+      end
+
+      def home_phone
+        return if phones.blank?
+
+        phones.detect do |phone|
+          phone.kind == 'home'
+        end
+      end
     end
   end
 end

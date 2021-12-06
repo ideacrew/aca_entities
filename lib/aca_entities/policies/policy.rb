@@ -35,6 +35,22 @@ module AcaEntities
       #                                          .optional.meta(omittable: true)
       # attribute :aptc_credits,     Types::Array.of(AcaEntities::Policies::AptcCredit)
       #                                          .optional.meta(omittable: true)
+
+      def primary_subscriber
+        return if enrollees.blank?
+
+        enrollees.detect do |enrollee|
+          enrollee.is_subscriber == true
+        end
+      end
+
+      def responsible_party_subscriber
+        return if enrollees.blank?
+
+        enrollees.detect do |enrollee|
+          enrollee.is_responsible_party == true
+        end
+      end
     end
   end
 end
