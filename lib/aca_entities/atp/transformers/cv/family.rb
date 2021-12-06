@@ -8,7 +8,7 @@ require "aca_entities/functions/age_on"
 require 'aca_entities/atp/transformers/cv/phone'
 require 'dry/monads'
 require 'dry/monads/do'
-require 'pry'
+
 module AcaEntities
   module Atp
     module Transformers
@@ -112,7 +112,7 @@ module AcaEntities
                   }
                   map 'augementation', 'augementation', memoize_record: true, visible: false
                   add_key 'person.addresses', memoize_record: true, function: AcaEntities::Atp::Functions::AddressBuilder.new
-                  add_key 'is_homeless', function: lambda { |v|
+                  add_key 'person.is_homeless', function: lambda { |v|
                     member_id = v.find(/record.people.(\w+)$/).map(&:item).last
                     contacts_information = v.find(Regexp.new("record.people.#{member_id}.augementation")).map(&:item).last[:contacts]
                     contacts_information.select { |co| co[:category_code].downcase == "home" && co[:contact][:mailing_address].present? }.empty?
