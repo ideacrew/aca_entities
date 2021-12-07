@@ -16,8 +16,8 @@ module AcaEntities
             has_one :activity_date, ActivityDate
             has_one :sender_reference, ReferralActivitySenderReference
             has_one :receiver_reference, ReferralActivityReceiverReference
-            element :reason_code, String, tag: 'ReferralActivityReasonCode'
             has_one :status, ReferralActivityStatus
+            element :reason_code, String, tag: 'ReferralActivityReasonCode'
             has_many :eligibility_reason_reference, ReferralActivityEligibilityReasonReference
 
             def self.domain_to_mapper(referral_activity)
