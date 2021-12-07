@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-require 'pry'
+
 module AcaEntities
   module Atp
     module Transformers
@@ -45,7 +45,6 @@ module AcaEntities
           # add_key 'hours_per_pay_period', value: ->(_v) {0.0} # default value only required if Date tag is used
           # map 'hours_per_week', 'hours_per_week'
           map 'kind', 'category_code', memoize: true, function: lambda { |v|
-            # binding.pry
             IncomeTypes[v]
           }
           add_key 'employment_source_text', value: lambda { |v|
