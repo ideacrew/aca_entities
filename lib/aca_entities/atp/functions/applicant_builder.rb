@@ -7,10 +7,12 @@ module AcaEntities
     module Functions
       # applicants builder
       class ApplicantBuilder
-        def call(cache) # rubocop:disable Metrics/MethodLength, Metrics/CyclomaticComplexity
+        def call(cache) # rubocop:disable Metrics/MethodLength, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
           applicants_hash = cache.resolve('family.magi_medicaid_applications.applicants').item
           applicants_hash.each_with_object([]) do |applicant_hash, collector|
             applicant = applicant_hash[1]
+            next unless applicant[:is_applying_coverage]
+
             enrolled_benefits = applicant[:benefits].select {|benefit| benefit[:status] == "is_enrolled" }
             eligible_benefits = applicant[:benefits].select {|benefit| benefit[:status] == "is_eligible" }
 
