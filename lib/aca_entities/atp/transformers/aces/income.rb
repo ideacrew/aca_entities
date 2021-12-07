@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-
+require 'pry'
 module AcaEntities
   module Atp
     module Transformers
@@ -22,16 +22,17 @@ module AcaEntities
             'rental_and_royalty' => 'RentalOrRoyalty',
             'social_security_benefit' => 'SocialSecurity',
             'american_indian_and_alaskan_native' => 'Unspecified',
-            'employer_funded_disability' => 'Employer-funded disability payments',
+            'employer_funded_disability' => 'Unspecified',
             'estate_trust' => 'Unspecified',
             'farming_and_fishing' => 'FarmingOrFishing',
-            'foreign' => 'foreign',
+            'foreign' => 'Unspecified',
             # 'other' => 'Other taxable income',
             'other' => 'Unspecified',
             'INVESTMENT_INCOME' => 'INVESTMENT_INCOME',
             'prizes_and_awards' => 'Winnings',
             # 'scholorship_payments' => 'Taxable scholarship payments',
-            'scholorship_payments' => 'Scholarship'
+
+            'scholarship_payments' => 'Scholarship'
           }.freeze
 
           map 'amount', 'amount'
@@ -44,6 +45,7 @@ module AcaEntities
           # add_key 'hours_per_pay_period', value: ->(_v) {0.0} # default value only required if Date tag is used
           # map 'hours_per_week', 'hours_per_week'
           map 'kind', 'category_code', memoize: true, function: lambda { |v|
+            # binding.pry
             IncomeTypes[v]
           }
           add_key 'employment_source_text', value: lambda { |v|
