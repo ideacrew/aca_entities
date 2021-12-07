@@ -20,74 +20,54 @@ require 'aca_entities/medicaid/atp/tax_household'
 
 RSpec.describe ::AcaEntities::Medicaid::Atp::TaxHousehold,  dbclean: :around_each do
 
-  let(:required_params) do
-    { household_incomes: [household_income] }
-  end
+  describe 'with valid arguments' do
+    let(:required_params) { {} }
 
-  let(:optional_params) do
-    {
-      household_size_change_expected_indicator: false,
-      primary_tax_filer: { role_reference: { ref: 'pe123' } },
-      spouse_tax_filer: { role_reference: { ref: 'pe123' } },
-      tax_dependents:
-      [{
-        role_reference: { ref: 'pe123' },
-        claimed_by_custodial_parent_indicator: true,
-        tin_identification: { identification_id: '123' }
-      }],
-      household_member_references: [{ ref: 'pe123' }],
-      household_size_quantity: 2
-    }
-  end
-
-  let(:household_income) do
-    {
-      monthly_income_greater_than_fpl: 0.00,
-      income_type_code: 'CapitalGains',
-      income_amount: 500.00,
-      income_frequency: { frequency_code: 'Weekly' },
-      date: { date: Date.today },
-      income_from_tribal_source: 120.00,
-      source_organization_reference: { ref: 'em123' },
-      monthly_attested_medicaid_household_current_income: 0.00,
-      annual_total_project_medicaid_household_current_income: 0.00
-    }
-  end
-
-  let(:all_params) { required_params.merge(optional_params) }
-
-  context 'invalid parameters' do
-    context 'with empty parameters' do
-      it 'should list error for every required parameter' do
-        expect { described_class.new }.to raise_error(Dry::Struct::Error, /:household_incomes is missing in Hash input/)
-      end
+    let(:optional_params) do
+      {
+        household_incomes: [household_income],
+        household_size_change_expected_indicator: false,
+        primary_tax_filer: { role_reference: { ref: 'pe123' } },
+        spouse_tax_filer: { role_reference: { ref: 'pe123' } },
+        tax_dependents:
+        [{
+          role_reference: { ref: 'pe123' },
+          claimed_by_custodial_parent_indicator: true,
+          tin_identification: { identification_id: '123' }
+        }],
+        household_member_references: [{ ref: 'pe123' }],
+        household_size_quantity: 2
+      }
     end
 
-    context 'with optional parameters only' do
-      it 'should list error for every required parameter' do
-        expect { described_class.new(optional_params) }.to raise_error(Dry::Struct::Error, /:household_incomes is missing in Hash input/)
-      end
-    end
-  end
-
-  context 'valid parameters' do
-    context 'with required parameters only' do
-      it 'should initialize' do
-        expect(described_class.new(required_params)).to be_a described_class
-      end
-
-      it 'should not raise error' do
-        expect { described_class.new(required_params) }.not_to raise_error
-      end
+    let(:household_income) do
+      {
+        monthly_income_greater_than_fpl: 0.00,
+        category_code: 'CapitalGains',
+        amount: 500.00,
+        income_frequency: { frequency_code: 'Weekly' },
+        date: { date: Date.today },
+        income_from_tribal_source: 120.00,
+        source_organization_reference: { ref: 'em123' },
+        monthly_attested_medicaid_household_current_income: 0.00,
+        annual_total_project_medicaid_household_current_income: 0.00
+      }
     end
 
-    context 'with all required and optional parameters' do
-      it 'should initialize' do
-        expect(described_class.new(required_params)).to be_a described_class
-      end
+    let(:all_params) { required_params.merge(optional_params) }
 
-      it 'should not raise error' do
-        expect { described_class.new(required_params) }.not_to raise_error
+    it 'should initialize' do
+      expect(described_class.new(all_params)).to be_a described_class
+    end
+
+    it 'should not raise error' do
+      expect { described_class.new(all_params) }.not_to raise_error
+    end
+
+    context 'with only optional parameters' do
+      it 'should contain all optional keys and values' do
+        result = described_class.new(optional_params)
+        expect(result.to_h).to eq optional_params
       end
     end
   end

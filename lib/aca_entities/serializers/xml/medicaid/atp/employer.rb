@@ -21,8 +21,10 @@ module AcaEntities
               mapper = self.new
               mapper.id = employer.id if employer.id && !employer.id.empty?
               mapper.category_text = employer.category_text
-              mapper.organization_primary_contact_information =
-                OrganizationPrimaryContactInformation.domain_to_mapper(employer.organization_primary_contact_information)
+              if employer.organization_primary_contact_information
+                mapper.organization_primary_contact_information =
+                  OrganizationPrimaryContactInformation.domain_to_mapper(employer.organization_primary_contact_information)
+              end
               if employer.organization_augmentation
                 mapper.organization_augmentation = OrganizationAugmentation.domain_to_mapper(employer.organization_augmentation)
               end

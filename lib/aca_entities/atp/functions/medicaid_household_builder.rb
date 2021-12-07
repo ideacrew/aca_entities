@@ -12,6 +12,7 @@ module AcaEntities
           @memoized_data = cache
           family_id = @memoized_data.resolve("hbx_id").item
           tax_households = @memoized_data.resolve('family.magi_medicaid_applications.tax_households').item
+          return unless tax_households
 
           tax_households.values.each_with_object([]) do |household, collect|
             income_cents = household[:annual_tax_household_income][:cents]
