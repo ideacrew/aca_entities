@@ -149,7 +149,11 @@ module AcaEntities
                       last_name = v&.gsub(/[^A-Za-z\-' ]/, ' ')
                       last_name&.strip&.empty? ? "BLANK LAST" : last_name
                     }
-                    add_key 'person_name.suffix'
+                    map 'person_name.name_sfx', 'person_name.suffix', function: lambda { |v|
+                      last_name = v&.gsub(/[^A-Za-z\-' ]/, ' ')
+                      last_name&.strip&.empty? ? "BLANK LAST" : last_name
+                    }
+                    # add_key 'person_name.suffix'
                     # map 'person_name.full_name', 'person_name.full' # removed as per business validation
                     add_key 'us_citizen_indicator', function: lambda { |v|
                       member_id = v.find(/family.family_members.(\w+)$/).map(&:item).last
@@ -168,8 +172,8 @@ module AcaEntities
                       result.success? ? result.value! : nil
                     }
                     map 'person_demographics.gender', 'sex', function: ->(v) {v.capitalize}
-                    map 'race', 'race'
-                    add_key 'ethnicities'
+                    map 'person_demographics.race', 'race'
+
                     map 'person_demographics.dob', 'birth_date.date',  memoize: true, visible: true, append_identifier: true,
                                                                        function: lambda { |v|
                                                                                    if v.respond_to?(:strftime)
@@ -183,6 +187,15 @@ module AcaEntities
                       applicants_hash = v.resolve('family.magi_medicaid_applications.applicants').item
                       applicant_hash = applicants_hash[member_id.to_sym]
                       applicant_hash ? applicant_hash[:age_of_applicant] : nil
+                    }
+
+                    add_key 'ethnicities', value: lambda { |v|
+                      member_id = v.find(/family.family_members.(\w+)$/).map(&:item).last
+                      applicants_hash = v.resolve('family.magi_medicaid_applications.applicants').item
+                      applicant_hash = applicants_hash[member_id.to_sym]
+                      ethnicity_array = applicant_hash[:demographic][:ethnicity]
+                      earry = ethnicity_array&.compact&.map { |e| e[:ethnicity] }
+                      earry ? earry.compact.flatten.compact.uniq.map {|e| { value: e } if e.present? }.compact : nil
                     }
 
                     add_key 'tribal_augmentation', function: lambda { |v|

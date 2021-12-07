@@ -144,7 +144,6 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
   let(:person) do
     { id: "pe123",
       birth_date: person_birth_date,
-      ethnicities: ["ethnicity1", "ethnicity2"],
       person_name: person_name,
       sex: "Female",
       race: "RACE",
@@ -465,7 +464,6 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
     {
       id: "pe456",
       birth_date: person_birth_date,
-      ethnicities: ["ethnicity1", "ethnicity2"],
       person_name: person_name,
       sex: "Female",
       race: "RACE",
