@@ -22,16 +22,17 @@ module AcaEntities
             'rental_and_royalty' => 'RentalOrRoyalty',
             'social_security_benefit' => 'SocialSecurity',
             'american_indian_and_alaskan_native' => 'Unspecified',
-            'employer_funded_disability' => 'Employer-funded disability payments',
+            'employer_funded_disability' => 'Unspecified',
             'estate_trust' => 'Unspecified',
             'farming_and_fishing' => 'FarmingOrFishing',
-            'foreign' => 'foreign',
+            'foreign' => 'Unspecified',
             # 'other' => 'Other taxable income',
             'other' => 'Unspecified',
             'INVESTMENT_INCOME' => 'INVESTMENT_INCOME',
             'prizes_and_awards' => 'Winnings',
             # 'scholorship_payments' => 'Taxable scholarship payments',
-            'scholorship_payments' => 'Scholarship'
+
+            'scholarship_payments' => 'Scholarship'
           }.freeze
 
           map 'amount', 'amount'
