@@ -9,7 +9,6 @@ require 'aca_entities/medicaid/contracts/account_transfer_request_contract'
 require 'aca_entities/serializers/xml/medicaid/atp'
 require 'aca_entities/atp/transformers/aces/family'
 require 'aca_entities/serializers/xml/medicaid/atp/account_transfer_request'
-require 'pry'
 
 module AcaEntities
   module Atp
