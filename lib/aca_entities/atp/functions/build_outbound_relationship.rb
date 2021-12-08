@@ -59,7 +59,9 @@ module AcaEntities
           mother_in_law_or_father_in_law: 'Mother-in-law or father-in law',
           other_relative: 'Unspecified relative',
           other: 'Unspecified relationship',
-          domestic_partner: 'Domestic partner'
+          domestic_partner: 'Domestic partner',
+          parents_domestic_partner: "Parent's domestic partner",
+          domestic_partners_child: "Child of domestic partner"
         }.freeze
 
         def call(cache)
