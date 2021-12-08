@@ -76,17 +76,17 @@ module AcaEntities
               mapper
             end
 
-            def to_hash(identifier: false)
+            def to_hash(identifier: false) # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
               {
                 version: "2.4",
-                senders: senders,
-                receivers: receivers,
-                transfer_header: transfer_header.to_hash,
+                senders: senders.map(&:to_hash),
+                receivers: receivers.map(&:to_hash),
+                transfer_header: transfer_header&.to_hash,
                 # insurance_application: insurance_application.to_hash(identifier: true).merge(tax_return: tax_return&.to_hash),
-                insurance_application: insurance_application.to_hash(identifier: true).merge(tax_returns: tax_returns.map(&:to_hash).first),
+                insurance_application: insurance_application&.to_hash(identifier: true)&.merge(tax_returns: tax_returns.map(&:to_hash).first),
                 record: identifier ? { people: people.map(&:to_hash).group_by {|h| h[:id]}.transform_keys(&:to_s).transform_values(&:first) } : nil,
                 people: identifier ? nil : people.map(&:to_hash),
-                physical_households: physical_households.map(&:to_hash)
+                physical_households: physical_households&.map(&:to_hash)
               }
             end
           end
