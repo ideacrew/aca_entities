@@ -93,6 +93,8 @@ module AcaEntities
             family_members = record["family"]["family_members"]
             applicants = record["family"]["magi_medicaid_applications"]["applicants"]
             applicant_ids = applicants.map { |h| h["person_hbx_id"] }
+            broker_account = record["family"]["broker_accounts"]&.first
+
             record["family"].merge!("family_members" => family_members.select { |h| applicant_ids.include? h["person"]["hbx_id"] }.group_by do |h|
                                                           h["person"]["hbx_id"]
                                                         end.transform_keys(&:to_s).transform_values(&:first))
@@ -118,6 +120,8 @@ module AcaEntities
               family_member[1].merge!("person" => person)
             end
             record["family"].merge!("family_members" => family_members)
+            record["family"].merge!("broker_accounts" => broker_account)
+
             record
           end
           # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/MethodLength

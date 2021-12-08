@@ -57,7 +57,7 @@ module AcaEntities
             # A set of persons that reside together.
             has_many :physical_households, PhysicalHousehold
 
-            def self.domain_to_mapper(account_transfer_request)
+            def self.domain_to_mapper(account_transfer_request) # rubocop:disable Metrics/CyclomaticComplexity
               mapper = self.new
               mapper.version = "2.4"
               mapper.senders = account_transfer_request.senders.map {|s| Sender.domain_to_mapper(s)}
@@ -73,6 +73,7 @@ module AcaEntities
                 mapper.verification_metadata = account_transfer_request.verification_metadata.map {|vm| VerificationMetadata.domain_to_mapper(vm)}
               end
               mapper.tax_returns = account_transfer_request.tax_returns&.map { |tr| TaxReturn.domain_to_mapper(tr) }
+              mapper.assister = Assister.domain_to_mapper(account_transfer_request.assister) if account_transfer_request.assister
               mapper
             end
 
@@ -86,7 +87,8 @@ module AcaEntities
                 insurance_application: insurance_application&.to_hash(identifier: true)&.merge(tax_returns: tax_returns.map(&:to_hash).first),
                 record: identifier ? { people: people.map(&:to_hash).group_by {|h| h[:id]}.transform_keys(&:to_s).transform_values(&:first) } : nil,
                 people: identifier ? nil : people.map(&:to_hash),
-                physical_households: physical_households&.map(&:to_hash)
+                physical_households: physical_households&.map(&:to_hash),
+                assister: assister&.map(&:to_hash)
               }
             end
           end

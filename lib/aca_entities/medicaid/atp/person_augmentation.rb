@@ -15,6 +15,7 @@ module AcaEntities
         attribute :employments, Types::Array.of(PersonEmploymentAssociation).optional.meta(omittable: true)
         attribute :contacts, Types::Array.of(PersonContactInformationAssociation).optional.meta(omittable: true)
         attribute :family_relationships, Types::Array.of(PersonAssociation).optional.meta(omittable: true)
+        attribute :person_identification, PersonIdentification.optional.meta(omittable: true)
       end
     end
   end

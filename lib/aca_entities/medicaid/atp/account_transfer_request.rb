@@ -10,7 +10,7 @@ module AcaEntities
         attribute :senders,            Types::Array.of(Sender).meta(omittable: false)
         attribute :receivers,          Types::Array.of(Receiver).meta(omittable: false)
         attribute :insurance_application,     InsuranceApplication.meta(omittable: false)
-        # attribute :assister,                Assister.optional.meta(omittable:true)
+        attribute :assister,                Assister.optional.meta(omittable: true)
         attribute :authorized_representative, AuthorizedRepresentative.optional.meta(omittable: true)
         attribute :medicaid_households,       Types::Array.of(MedicaidHousehold).optional.meta(omittable: true)
         attribute :people,                    Types::Array.of(Person).meta(omittable: false)
