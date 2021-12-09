@@ -40,8 +40,8 @@ module AcaEntities
             'Trustee' => 'trustee',
             'Unspecified relationship' => 'other_relationship', # no related mapping in enroll
             'Unspecified relative' => 'other_relationship', # no related mapping in enroll
-            "Parent's domestic partner" => 'other_relationship', # no related mapping in enroll
-            'Child of domestic partner' => 'other_relationship' }.freeze  # no related mapping in enroll
+            "Parent's domestic partner" => 'parents_domestic_partner',
+            'Child of domestic partner' => 'domestic_partners_child' }.freeze
 
         def call(cache)
           @memoized_data = cache
