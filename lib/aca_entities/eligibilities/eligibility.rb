@@ -17,9 +17,158 @@ module AcaEntities
       ]
     }
 
-    each Evidence has one Determination
+    class Family
+      embeds_many :eligibility_snapshots
+    end
 
-    class Determination
+    class EligibilitySnapshot
+      attribute :enrollment_period # OE or SEP
+
+      attribute :eligibility_items
+      attribute :determinations
+    end
+
+    class EligibilitySnapshotHistory
+      belongs_to :family
+      has_many :eligibility_snapshots
+
+      def self.eligibilities_on(date)
+        []
+      end
+    end
+
+    # This is an Operation with corresponding Event
+    module Operations
+      module Eligibilities
+        class CreateEligibilitySnapshot
+          params family, options = { event: event, evidences: [:non_esi] }
+          def call(params)
+            values = yield validate(params)
+            eligibilities = yield(values)
+
+            income_eligibilities
+          end
+        end
+      end
+    end
+
+    AcaEntities::Eligibilities::EligibilityItem = {
+      key: 'aptc_csr_credit',
+      evidence_items: %i[esi non_esi income asus_mec]
+    }
+
+    AcaEntities::Eligibilities::EvidenceItem = {
+      key: 'esi',
+      source: {
+        source_klass_name: 'FinancialAssitance::Application::Applicant'
+      }
+    }
+
+    {
+      subject_1: {
+        el_1: {
+          is_eligible: true,
+          due_on: Date.today,
+          eligibility_states: {
+            es_1: {},
+            es_2: {}
+          }
+        },
+        el_2: {
+          is_eligible: true,
+          eligibility_states: {
+            es_1: {},
+            es_2: {}
+          }
+        }
+      }
+    }
+
+    AcaEntities::Eligibilities::EligibilitySnapshot = {
+      # Used by Visitor
+      eligibility_items: [
+        {
+          key: 'aptc_csr_credit',
+          evidence_items: [
+            {
+              key: :esi_evidence,
+              subject_ref: 'gid://enroll_app/Family::FamilyMember',
+              evidence_ref: 'gid://enroll_app/FinancialAssitance::Application'
+            }
+          ]
+        }
+      ],
+      subjects: {
+        'gid://enroll_app/Family::FamilyMember/22222': {
+          determinations: {
+            aptc_csr_credit: {
+              status: 'eligible',
+              determined_at: DateTime.now,
+              earliest_due_date: Date.today + 1.day,
+              evidence_states: {
+                non_esi_evidence_state: {
+                  subject_gid: 'gid://enroll_app/Family::FamilyMember/22222',
+                  evidence_gid:
+                    # Visitor call will include Family's current FAA application ID, e.g. 676767
+                    # Visitor will map subject id: 33333 to evidence instance Appplicant ID, e.g. 555555
+                    'gid://enroll_app/FinancialAssistance::Application/676767/Applicant/55555',
+                  state: 'determined',
+                  is_satisfied: true,
+                  verification_outstanding: false,
+                  due_on: (Date.today + 21.days),
+                  visited_at: DateTime.now
+                },
+                esi_evidence_state: {
+                  subject_gid: 'gid://enroll_app/Family::FamilyMember/33333',
+                  evidence_gid:
+                    # Visitor call will include Family's current FAA application ID, e.g. 676767
+                    # Visitor will map subject id: 33333 to evidence instance Appplicant ID, e.g. 555555
+                    'gid://enroll_app/FinancialAssistance::Application/676767/Applicant/55555',
+                  state: 'determined',
+                  is_satisfied: true,
+                  verification_outstanding: false,
+                  due_on: (Date.today + 21.days),
+                  visited_at: DateTime.now
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+    # # For UI remap to structure by subject
+    # [
+    #   family_member_id: '33333',
+    #   evidences: [
+    #     esi: {
+    #       state: 'determined',
+    #       is_satisfied: true
+    #     },
+    #     non_esi: {
+    #       state: 'determined',
+    #       is_satisfied: true
+    #     }
+    #   ]
+    # ]
+
+    class EligibilityItem
+      attribute :resource
+      attribute :evidences,
+                Types::Array
+                  .of(AcaEntities::Evideneces::EvidenceItem)
+                  .meta(ommittable: false)
+      attribute :is_satisfied, Types::Bool.meta(ommittable: false) # default = false
+
+      attribute :determines, Types::Any.meta(ommittable: false)
+
+      attribute :marketplace
+      attribute :category
+      attribute :kind
+      attribute :status
+      attribute :expires_on
+      attribure :workflow
+
       # @!attribute [r] indicator_code
       # Whether the {Applicant} qualifies for the category.
       # One character code, Y for yes, N for No, X for doesn't apply
