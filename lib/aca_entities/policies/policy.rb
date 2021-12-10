@@ -13,7 +13,7 @@ module AcaEntities
       attribute :applied_aptc,           Types::Float.optional.meta(omittable: true)
       attribute :csr_amt,                Types::Float.optional.meta(omittable: true)
       attribute :total_premium_amount,   Types::Float.meta(omittable: false)
-      attribute :total_responsible_amt,  Types::Float.meta(omittable: false)
+      attribute :total_responsible_amount,  Types::Float.meta(omittable: false)
       attribute :coverage_kind,          Types::String.meta(omittable: false)
       attribute :term_for_np,            Types::Bool.optional.meta(omittable: true)
       attribute :rating_area,            Types::String.optional.meta(omittable: false)
