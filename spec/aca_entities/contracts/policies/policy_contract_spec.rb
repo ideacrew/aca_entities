@@ -108,7 +108,7 @@ RSpec.describe AcaEntities::Contracts::Policies::PolicyContract,  dbclean: :afte
       applied_aptc: "20.0",
       csr_amt: nil,
       total_premium_amount: "20.0",
-      total_responsible_amt: "20.0",
+      total_responsible_amount: "20.0",
       coverage_kind: "health",
       term_for_np: "false",
       rating_area: "RDC",

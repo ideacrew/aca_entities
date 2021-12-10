@@ -14,7 +14,7 @@ module AcaEntities
           optional(:applied_aptc).maybe(:float)
           optional(:csr_amt).maybe(:float)
           required(:total_premium_amount).filled(:float)
-          required(:total_responsible_amt).filled(:float)
+          required(:total_responsible_amount).filled(:float)
           required(:coverage_kind).filled(:string)
           optional(:term_for_np).maybe(:bool)
           optional(:rating_area).maybe(:string)
