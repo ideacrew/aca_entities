@@ -1,17 +1,16 @@
 # frozen_string_literal: true
 
 module AcaEntities
+  # All types Eligibilities
   module Eligibilities
-    # An Eligibility definition
-    class EligibilityItem < Dry::Struct
+    # Reference to an class or other object type instance
+    class EvidenceItem < Dry::Struct
       attribute :id, Types::String.meta(ommittable: true)
       attribute :key, Types::Coercible::String.meta(omittable: false)
       attribute :title, Types::String.meta(omittable: true)
       attribute :description, Types::String.optional.meta(omittable: true)
-      attribute :evidence_items,
-                Array
-                  .of(AcaEntities::Eligibilities::EvidenceItem)
-                  .meta(ommittable: true)
+      attribute :subject_ref, Types::String.optional.meta(omittable: false)
+      attribute :evidence_ref, Types::String.optional.meta(omittable: false)
     end
   end
 end

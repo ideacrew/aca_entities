@@ -25,7 +25,7 @@ module AcaEntities
       attribute :enrollment_period # OE or SEP
 
       attribute :eligibility_items
-      attribute :determinations
+      attribute :subjects
     end
 
     class EligibilitySnapshotHistory
@@ -107,7 +107,6 @@ module AcaEntities
               earliest_due_date: Date.today + 1.day,
               evidence_states: {
                 non_esi_evidence_state: {
-                  subject_gid: 'gid://enroll_app/Family::FamilyMember/22222',
                   evidence_gid:
                     # Visitor call will include Family's current FAA application ID, e.g. 676767
                     # Visitor will map subject id: 33333 to evidence instance Appplicant ID, e.g. 555555
