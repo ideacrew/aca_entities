@@ -4,6 +4,8 @@
 module AcaEntities
   module Libraries
     module IndividualMarketLibrary
+
+      require 'aca_entities/eligibilities/eligibilities_library'
       require 'aca_entities/magi_medicaid/libraries/iap_library'
 
       # contracts

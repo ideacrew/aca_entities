@@ -19,39 +19,5 @@ module AcaEntities
     require_relative 'eligibility_snapshot'
     require_relative 'determination'
 
-    # class Family
-    #   embeds_many :eligibility_snapshots
-    # end
-
-    # class EligibilitySnapshot
-    #   attribute :enrollment_period # OE or SEP
-
-    #   attribute :eligibility_items
-    #   attribute :subjects
-    # end
-
-    # class EligibilitySnapshotHistory
-    #   belongs_to :family
-    #   has_many :eligibility_snapshots
-
-    #   def self.eligibilities_on(date)
-    #     []
-    #   end
-    # end
-
-    # This is an Operation with corresponding Event
-    # module Operations
-    #   module Eligibilities
-    #     class CreateEligibilitySnapshot
-    #       params family, options = { event: event, evidences: [:non_esi] }
-    #       def call(params)
-    #         values = yield validate(params)
-    #         eligibilities = yield(values)
-
-    #         income_eligibilities
-    #       end
-    #     end
-    #   end
-    # end
   end
 end

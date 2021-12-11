@@ -35,11 +35,7 @@ module AcaEntities
             end
 
             def can_skip_applicant?(applicant)
-              applicant.identifying_information.encrypted_ssn.blank? || esi_evidence(applicant).blank?
-            end
-
-            def esi_evidence(applicant)
-              applicant.evidences.detect {|e| e.key == :esi_mec}
+              applicant.identifying_information.encrypted_ssn.blank? || applicant.esi_evidence.blank?
             end
 
             def construct_applicant_request(application)

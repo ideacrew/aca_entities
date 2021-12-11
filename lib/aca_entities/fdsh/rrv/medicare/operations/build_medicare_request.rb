@@ -37,11 +37,7 @@ module AcaEntities
             end
 
             def can_skip_applicant?(applicant)
-              applicant.identifying_information.encrypted_ssn.blank? || non_esi_evidence(applicant).blank?
-            end
-
-            def non_esi_evidence(applicant)
-              applicant.evidences.detect {|e| e.key == :non_esi_mec}
+              applicant.identifying_information.encrypted_ssn.blank? || applicant.non_esi_evidence.blank?
             end
 
             def construct_individual_request(application)
