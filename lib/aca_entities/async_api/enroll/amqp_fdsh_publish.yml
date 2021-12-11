@@ -134,12 +134,12 @@ channels:
           content_type: application/json
           bindingVersion: 0.2.0
 
-  fdsh.determination_requests.esi.determine_esi_mec_eligibility:
+  fdsh.evidences.esi_determination_requested:
     bindings:
       amqp:
         is: :routing_key
         exchange:
-          name: fdsh.determination_requests.esi
+          name: fdsh.evidences
           type: topic
           content_type: application/json
           durable: true
@@ -147,25 +147,25 @@ channels:
           vhost: event_source
         binding_version: "0.2.0"
     publish:
-      operationId: fdsh.determination_requests.esi.determine_esi_mec_eligibility
+      operationId: fdsh.evidences.esi_determination_requested
       description: Events - ESI eligibility determination Request
       bindings:
         amqp:
           app_id: enroll
-          type: fdsh.determination_requests.esi
-          routing_key: fdsh.determination_requests.esi.determine_esi_mec_eligibility
+          type: fdsh.evidences
+          routing_key: fdsh.evidences.esi_determination_requested
           deliveryMode: 2
           mandatory: true
           timestamp: true
           content_type: application/json
           bindingVersion: 0.2.0
 
-  fdsh.determination_requests.non_esi.determine_non_esi_mec_eligibility:
+  fdsh.evidences.non_esi_determination_requested:
     bindings:
       amqp:
         is: :routing_key
         exchange:
-          name: fdsh.determination_requests.non_esi
+          name: fdsh.evidences
           type: topic
           content_type: application/json
           durable: true
@@ -173,13 +173,13 @@ channels:
           vhost: event_source
         binding_version: "0.2.0"
     publish:
-      operationId: fdsh.determination_requests.non_esi.determine_non_esi_mec_eligibility
+      operationId: fdsh.evidences.non_esi_determination_requested
       description: Events - NON ESI eligibility determination Request
       bindings:
         amqp:
           app_id: enroll
-          type: fdsh.determination_requests.non_esi
-          routing_key: fdsh.determination_requests.non_esi.determine_non_esi_mec_eligibility
+          type: fdsh.evidences
+          routing_key: fdsh.evidences.non_esi_determination_requested
           deliveryMode: 2
           mandatory: true
           timestamp: true
