@@ -1,6 +1,48 @@
 # frozen_string_literal: true
 
 RSpec.shared_context 'eligibilities_shared_context' do
+  let(:applicant_evidence_gid) { 'gid://enroll_app/FinancialAssistance::Application/676767/Applicant/55555' }
+  let(:verification_outstanding) { 'verification_outstanding' }
+  let(:satisfied) { true }
+  let(:unsatisfied) { false }
+  let(:five_days_from_today) { Date.today + 5 }
+  let(:now) { DateTime.now }
+
+  let(:evidence_states_undetermined) do
+    {
+      evidence_states: {
+        income_evidence: {
+          evidence_gid: applicant_evidence_gid,
+          state: verification_outstanding,
+          is_satisfied: unsatisfied,
+          due_on: five_days_from_today,
+          visited_at: now,
+        },
+        esi_evidence: {
+          evidence_gid: applicant_evidence_gid,
+          state: verification_outstanding,
+          is_satisfied: unsatisfied,
+          due_on: five_days_from_today,
+          visited_at: now,
+        },
+        non_esi_evidence: {
+          evidence_gid: applicant_evidence_gid,
+          state: verification_outstanding,
+          is_satisfied: unsatisfied,
+          due_on: five_days_from_today,
+          visited_at: now,
+        },
+        aces_mec_evidence: {
+          evidence_gid: applicant_evidence_gid,
+          state: verification_outstanding,
+          is_satisfied: unsatisfied,
+          due_on: five_days_from_today,
+          visited_at: now,
+        },
+      },
+    }
+  end
+
   # {
   #   marketplace: 'aca_individual_market',
   #   products: [{ catastrophic_plans: false, eligibility_evidences: [{ key: :enrollment_members_overage_30, evidences: [] }], financial_assistance: {} }],
