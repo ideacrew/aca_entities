@@ -7,12 +7,10 @@ module AcaEntities
       class EvidenceStateContract < Dry::Validation::Contract
         params do
           optional(:evidence_gid).maybe(:string)
-          required(:state).filled(
-            :AcaEntities::Eligibilities::Types::EvidenceStateKind
-          )
-          optional(:is_satisfied).filled(:boolean)
-          optional(:verification_outstanding).filled(:boolean)
-          optional(:due_on).filled(:date)
+          required(:state).filled(AcaEntities::Eligibilities::Types::EvidenceStateKind)
+          required(:is_satisfied).filled(:bool)
+          required(:verification_outstanding).filled(:bool)
+          required(:due_on).filled(:date)
           optional(:visted_at).filled(:date_time)
         end
       end

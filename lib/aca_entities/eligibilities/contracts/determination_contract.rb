@@ -4,12 +4,10 @@ module AcaEntities
   module Eligibilities
     module Contracts
       # contract for EvidenceContract
-      class DeterminedContract < Dry::Validation::Contract
+      class DeterminationContract < Dry::Validation::Contract
         params do
           required(:key).filled(:string)
-          required(:status).filled(
-            AcaEntities::Eligibilities::Types::DeterminationStatusKind
-          )
+          required(:status).filled(AcaEntities::Eligibilities::Types::DeterminationStateKind)
           optional(:earliest_due_date).filled(:date)
           optional(:determined_at).filled(:date_time)
         end
