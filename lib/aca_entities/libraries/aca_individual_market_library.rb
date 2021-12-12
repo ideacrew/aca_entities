@@ -5,11 +5,12 @@ module AcaEntities
   module Libraries
     module IndividualMarketLibrary
 
+      require 'aca_entities/types'
+
       require 'aca_entities/eligibilities/eligibilities_library'
       require 'aca_entities/magi_medicaid/libraries/iap_library'
 
       # contracts
-      require 'aca_entities/types'
       require 'aca_entities/contracts/timestamp_contract'
       require 'aca_entities/contracts/currency_contract'
       require 'aca_entities/contracts/organizations/issuer_profile_reference_contract'
@@ -73,9 +74,9 @@ module AcaEntities
       require 'aca_entities/policies/aptc_maximum'
       require 'aca_entities/policies/policy'
 
+      require_relative 'eligibility_library'
       require_relative 'fdsh_library'
       require_relative 'core_library'
-      require_relative 'eligibility_library'
     end
   end
 end
