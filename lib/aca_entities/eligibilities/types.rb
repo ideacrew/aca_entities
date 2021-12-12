@@ -8,23 +8,8 @@ module AcaEntities
     module Types
       send(:include, Dry.Types)
 
-      DeterminationStateKind =
-        Types::Coercible::String.enum(
-          'eligible',
-          'ineligible',
-          'outstanding_verification'
-        )
-
-      EvidenceStateKind =
-        Types::Coercible::String.enum(
-          'pending',
-          'requested',
-          'eligibility_review_required',
-          'determined',
-          'expired',
-          'rejected',
-          'errored'
-        ).freeze
+      DeterminationStateKind = Types::Coercible::String.enum('eligible', 'ineligible', 'outstanding_verification').freeze
+      EvidenceStateKind = Types::Coercible::String.enum('pending', 'requested', 'eligibility_review_required', 'determined', 'expired', 'rejected', 'errored').freeze
     end
   end
 end
