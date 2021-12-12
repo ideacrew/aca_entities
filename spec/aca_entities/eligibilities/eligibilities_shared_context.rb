@@ -21,7 +21,7 @@ RSpec.shared_context 'eligibilities_shared_context' do
             aptc_csr_credit: {
               status: 'eligible',
               determined_at: DateTime.now,
-              earliest_due_date: Date.today + 1.day,
+              earliest_due_date: Date.today + 1,
               evidence_states: {
                 non_esi_evidence_state: {
                   evidence_gid:
@@ -31,7 +31,7 @@ RSpec.shared_context 'eligibilities_shared_context' do
                   state: 'determined',
                   is_satisfied: true,
                   verification_outstanding: false,
-                  due_on: (Date.today + 21.days),
+                  due_on: (Date.today + 21),
                   visited_at: DateTime.now,
                 },
                 esi_evidence_state: {
@@ -43,7 +43,7 @@ RSpec.shared_context 'eligibilities_shared_context' do
                   state: 'determined',
                   is_satisfied: true,
                   verification_outstanding: false,
-                  due_on: (Date.today + 21.days),
+                  due_on: (Date.today + 21),
                   visited_at: DateTime.now,
                 },
               },
@@ -91,7 +91,7 @@ RSpec.shared_context 'eligibilities_shared_context' do
       description: '',
       summary_status: :pending, # :applying, :pending, :determined
       status_expires_on: Date.next_week,
-      is_eligible: :false, # => :true, :false, :pending
+      is_eligible: false, # => :true, :false, :pending
       workflow: {
         marketplace: :aca_individual_market,
         key: :vlp_workflow,
