@@ -4,7 +4,7 @@ module AcaEntities
   module Eligibilities
     module Contracts
       # contract for EvidenceContract
-      class EligibilityItemContract < Dry::Validation::Contract
+      class EvidenceItemContract < Dry::Validation::Contract
         params do
           optional(:id).maybe(:string)
           required(:key).filled(:string)

@@ -4,7 +4,6 @@
 module AcaEntities
   module Libraries
     module IndividualMarketLibrary
-
       require 'aca_entities/magi_medicaid/libraries/iap_library'
 
       # contracts
@@ -74,6 +73,7 @@ module AcaEntities
 
       require_relative 'fdsh_library'
       require_relative 'core_library'
+      require_relative 'eligibility_library'
     end
   end
 end
