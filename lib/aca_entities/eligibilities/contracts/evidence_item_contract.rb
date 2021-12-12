@@ -10,8 +10,8 @@ module AcaEntities
           required(:key).filled(:string)
           optional(:title).maybe(:string)
           optional(:description).maybe(:string)
-          optional(:subject_ref).maybe(:string)
-          optional(:evidence_ref).maybe(:string)
+          required(:subject_ref).maybe(:string)
+          required(:evidence_ref).maybe(:string)
         end
       end
     end
