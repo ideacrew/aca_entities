@@ -5,7 +5,7 @@ require 'spec_helper'
 RSpec.describe AcaEntities::Eligibilities::Contracts::EvidenceStateContract do
   subject { described_class.new }
 
-  let(:evidence_gid) { 'gid://enroll_app/FinancialAssistance::Application/676767/Applicant/55555' }
+  let(:evidence_gid) { URI('gid://enroll_app/FinancialAssistance::Application/676767/Applicant/55555') }
   let(:state) { 'determined' }
   let(:is_satisfied) { false }
   let(:verification_outstanding) { true }

@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require 'dry/types/predicate_inferrer'
 module AcaEntities
   module Eligibilities
     module Contracts
@@ -10,8 +11,8 @@ module AcaEntities
           required(:key).filled(:string)
           optional(:title).maybe(:string)
           optional(:description).maybe(:string)
-          required(:subject_ref).maybe(:string)
-          required(:evidence_ref).maybe(:string)
+          required(:subject_ref).value(type?: URI)
+          required(:evidence_ref).value(type?: URI)
         end
       end
     end
