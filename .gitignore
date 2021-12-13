@@ -42,3 +42,6 @@
 
 # Commit sample payloads file (no PII is included)
 !sample_payloads.xml
+
+# Exclude node packages
+/node_modules
