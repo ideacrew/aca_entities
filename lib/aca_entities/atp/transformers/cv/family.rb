@@ -57,12 +57,6 @@ module AcaEntities
                       add_key 'hbx_id', value: 1234
                       add_key 'person_health.is_tobacco_user', value: "unknown"
                       add_key 'person_health.is_physically_disabled', value: nil
-                      add_key 'is_homeless', function: lambda { |v|
-                        member_id = v.find(/record.people.(\w+)$/).map(&:item).last
-                        applicants = v.resolve(:'insurance_application.insurance_applicants').item
-                        return false unless applicants[member_id.to_sym]
-                        !applicants[member_id.to_sym][:fixed_address_indicator]
-                      }
                       add_key 'is_temporarily_out_of_state', function: lambda { |v|
                         member_id = v.find(/record.people.(\w+)$/).map(&:item).last
                         applicants = v.resolve(:'insurance_application.insurance_applicants').item
@@ -117,7 +111,12 @@ module AcaEntities
                     tribal_augmentation[:person_tribe_name]
                   }
                   map 'augementation', 'augementation', memoize_record: true, visible: false
-                  add_key 'person.addresses', function: AcaEntities::Atp::Functions::AddressBuilder.new
+                  add_key 'person.addresses', memoize_record: true, function: AcaEntities::Atp::Functions::AddressBuilder.new
+                  add_key 'person.is_homeless', function: lambda { |v|
+                    member_id = v.find(/record.people.(\w+)$/).map(&:item).last
+                    contacts_information = v.find(Regexp.new("record.people.#{member_id}.augementation")).map(&:item).last[:contacts]
+                    contacts_information.select { |co| co[:category_code].downcase == "home" && co[:contact][:mailing_address].present? }.empty?
+                  }
                   add_key 'person.emails', function: lambda {|v|
                     # revisit if condition for emails and phone for dependents
                     # if v.resolve('family.family_members.is_primary_applicant').item ==
