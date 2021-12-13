@@ -171,7 +171,10 @@ module AcaEntities
           optional(:mitc_is_required_to_file_taxes).maybe(:bool)
 
           # fdsh evidences
-          optional(:evidences).array(AcaEntities::Evidences::EvidenceContract.params)
+          optional(:income_evidence).maybe(AcaEntities::Eligibilities::Contracts::EvidenceContract.params)
+          optional(:esi_evidence).maybe(AcaEntities::Eligibilities::Contracts::EvidenceContract.params)
+          optional(:non_esi_evidence).maybe(AcaEntities::Eligibilities::Contracts::EvidenceContract.params)
+          optional(:aces_mec_evidence).maybe(AcaEntities::Eligibilities::Contracts::EvidenceContract.params)
 
           # fdsh esi response
           optional(:esi_eligibility_indicator).maybe(:bool)
