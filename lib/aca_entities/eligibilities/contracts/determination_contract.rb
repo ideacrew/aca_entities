@@ -5,30 +5,18 @@ module AcaEntities
     module Contracts
       # contract for EvidenceContract
       class DeterminationContract < Dry::Validation::Contract
-        EligibilitySchema =
-          Dry::Schema.Params do
-            required(:status).filled(AcaEntities::Eligibilities::Types::DeterminationStateKind)
-            required(:earliest_due_date).filled(:date)
-            required(:determined_at).filled(:date_time)
-            required(:evidence_states).value(:hash)
-          end
-
-        rule(:evidence_states).each do
-          values
-            .to_h
-            .slice(:evidence_states)
-            .each_pair do |evidence_state_key, evidence_state_val|
-              result = EligibilitySchema.call(evidence_state_val)
-              result.errors.to_h.each { |path, message| key([:determinations, *path]).failure(message) } if result.failure?
-            end
-        end
-
         params { required(:determinations).value(:hash) }
 
-        rule(:determinations).each do
+        rule(:determinations) do
           values.to_h[:determinations].each_pair do |eligibility_key, eligibility_val|
-            result = EligibilitySchema.call(eligibility_val)
-            result.errors.to_h.each { |path, message| key([:determinations, *path]).failure(message) } if result.failure?
+            result = AcaEntities::Eligibilities::Contracts::EligibilityContract.new.call(eligibility_val)
+
+            next unless result.failure?
+            result.errors.to_h.each do |path, message|
+              # require 'pry'
+              # binding.pry
+              key([eligibility_key, eligibility_val.keys.first, *path]).failure(text: message)
+            end
           end
         end
       end
