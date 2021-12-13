@@ -6,7 +6,8 @@ module AcaEntities
       # contract for EvidenceContract
       class EvidenceStateContract < Dry::Validation::Contract
         params do
-          required(:evidence_gid).maybe(type?: URI)
+          required(:subject_gid).maybe(type?: GlobalID)
+          required(:evidence_gid).maybe(type?: GlobalID)
           required(:state).filled(AcaEntities::Eligibilities::Types::EvidenceStateKind)
           required(:is_satisfied).filled(:bool)
           required(:verification_outstanding).filled(:bool)
