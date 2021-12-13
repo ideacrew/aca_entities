@@ -10,35 +10,33 @@ RSpec.shared_context 'eligibilities_shared_context' do
 
   let(:evidence_states_undetermined) do
     {
-      evidence_states: {
-        income_evidence: {
-          evidence_gid: applicant_evidence_gid,
-          state: verification_outstanding,
-          is_satisfied: unsatisfied,
-          due_on: five_days_from_today,
-          visited_at: now,
-        },
-        esi_evidence: {
-          evidence_gid: applicant_evidence_gid,
-          state: verification_outstanding,
-          is_satisfied: unsatisfied,
-          due_on: five_days_from_today,
-          visited_at: now,
-        },
-        non_esi_evidence: {
-          evidence_gid: applicant_evidence_gid,
-          state: verification_outstanding,
-          is_satisfied: unsatisfied,
-          due_on: five_days_from_today,
-          visited_at: now,
-        },
-        aces_mec_evidence: {
-          evidence_gid: applicant_evidence_gid,
-          state: verification_outstanding,
-          is_satisfied: unsatisfied,
-          due_on: five_days_from_today,
-          visited_at: now,
-        },
+      income_evidence: {
+        evidence_gid: applicant_evidence_gid,
+        state: verification_outstanding,
+        is_satisfied: unsatisfied,
+        due_on: five_days_from_today,
+        visited_at: now,
+      },
+      esi_evidence: {
+        evidence_gid: applicant_evidence_gid,
+        state: verification_outstanding,
+        is_satisfied: unsatisfied,
+        due_on: five_days_from_today,
+        visited_at: now,
+      },
+      non_esi_evidence: {
+        evidence_gid: applicant_evidence_gid,
+        state: verification_outstanding,
+        is_satisfied: unsatisfied,
+        due_on: five_days_from_today,
+        visited_at: now,
+      },
+      aces_mec_evidence: {
+        evidence_gid: applicant_evidence_gid,
+        state: verification_outstanding,
+        is_satisfied: unsatisfied,
+        due_on: five_days_from_today,
+        visited_at: now,
       },
     }
   end
