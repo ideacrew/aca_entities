@@ -10,7 +10,7 @@ module AcaEntities
 
           add_key 'begin_date', value: ->(_v) { { date: Date.today }} # default
           add_key 'end_date', value: ->(_v) { { date: Date.today }} # default
-          map 'employer.employer_id', 'employer.id'
+          map 'employer.employer_id', 'employer.id', function: ->(v) { "em#{v}" if v.present? }
           map 'employer.employer_name', 'employer.category_text'
           add_key 'organization_primary_contact_information.email_id'
           map 'address_1', 'organization_primary_contact_information.mailing_address.address.location_street.street_full_text'

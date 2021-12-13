@@ -81,7 +81,8 @@ module AcaEntities
 
           map 'frequency_kind', 'frequency.frequency_code', memoize: true
           add_key 'payment_frequency.frequency_code', function: ->(v) { v.resolve('frequency.frequency_code').item }
-          map 'employer.employer_id', 'source_organization_reference.ref'
+          map 'employer', 'employer', memoize_record: true, visible: false
+          map 'employer.employer_id', 'source_organization_reference.ref', function: ->(v) { "em#{v}" if v.present? }
         end
       end
     end

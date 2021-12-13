@@ -6,7 +6,7 @@ module AcaEntities
       # IncomeSourceOrganizationReference information contract
       class IncomeSourceOrganizationReferenceContract < Dry::Validation::Contract
         params do
-          required(:ref).filled(:string)
+          optional(:ref).maybe(:string)
         end
       end
     end
