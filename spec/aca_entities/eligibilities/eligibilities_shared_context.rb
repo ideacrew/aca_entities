@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 RSpec.shared_context 'eligibilities_shared_context' do
-  let(:applicant_evidence_gid) { 'gid://enroll_app/FinancialAssistance::Application/676767/Applicant/55555' }
+  let(:applicant_evidence_gid) { URI('gid://enroll_app/FinancialAssistance::Application/676767/Applicant/55555') }
   let(:verification_outstanding) { 'verification_outstanding' }
   let(:satisfied) { true }
   let(:unsatisfied) { false }

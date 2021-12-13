@@ -10,8 +10,8 @@ RSpec.describe AcaEntities::Eligibilities::Contracts::EvidenceItemContract do
   let(:title) { 'Verification of Lawful Presence Evidence' }
   let(:description) { 'Evidence that a person is a qualified immigrants or other non-U.S. citizens who has ave permission to live or work in the U.S.' }
 
-  let(:subject_ref) { 'gid://enroll_app/Family::FamilyMember' }
-  let(:evidence_ref) { 'gid://enroll_app/ConsumerRole' }
+  let(:subject_ref) { URI('gid://enroll_app/Family::FamilyMember') }
+  let(:evidence_ref) { URI('gid://enroll_app/ConsumerRole') }
 
   let(:optional_params) { { id: id, title: title, description: description } }
   let(:required_params) { { key: key, subject_ref: subject_ref, evidence_ref: evidence_ref } }
