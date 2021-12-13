@@ -13,8 +13,6 @@ module AcaEntities
 
             next unless result.failure?
             result.errors.to_h.each do |path, message|
-              # require 'pry'
-              # binding.pry
               key([eligibility_key, eligibility_val.keys.first, *path]).failure(text: message)
             end
           end

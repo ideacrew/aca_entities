@@ -18,8 +18,6 @@ module AcaEntities
             next unless result.failure?
             result.errors.to_h.each { |path, message| key([evidence_state_key, *path]).failure(text: message) }
           end
-          require 'pry'
-          binding.pry
         end
       end
     end
