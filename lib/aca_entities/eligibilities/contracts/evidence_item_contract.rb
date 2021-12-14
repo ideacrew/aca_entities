@@ -7,7 +7,7 @@ module AcaEntities
       class EvidenceItemContract < Dry::Validation::Contract
         params do
           optional(:id).maybe(:string)
-          required(:key).filled(:string)
+          required(:key).filled(:symbol)
           optional(:title).maybe(:string)
           optional(:description).maybe(:string)
           required(:subject_ref).value(type?: URI)

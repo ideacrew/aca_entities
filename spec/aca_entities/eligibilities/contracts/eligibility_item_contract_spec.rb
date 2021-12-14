@@ -8,20 +8,33 @@ RSpec.describe AcaEntities::Eligibilities::Contracts::EligibilityItemContract do
   subject { described_class.new }
 
   let(:id) { '5255488' }
-  let(:key) { 'aptc_csr_eligibility' }
+  let(:key) { :aptc_csr_eligibility }
   let(:title) { 'APTC/CSR Credit' }
-  let(:description) { 'ACA Advance Premium Tax Credit and Cost Sharing Reduction Benefit' }
-  let(:evidence_items) { %i[income_evidence esi_evidence non_esi_evidence aces_mec_evidence] }
+  let(:description) do
+    'ACA Advance Premium Tax Credit and Cost Sharing Reduction Benefit'
+  end
+  let(:evidence_items) { aptc_evidence_items }
   let(:published_at) { now }
   let(:tags) { %w[aca credit faa] }
 
   let(:required_params) { { key: key, evidence_items: evidence_items } }
-  let(:optional_params) { { id: id, key: key, title: title, description: description, tags: tags, published_at: published_at } }
+  let(:optional_params) do
+    {
+      id: id,
+      key: key,
+      title: title,
+      description: description,
+      tags: tags,
+      published_at: published_at
+    }
+  end
 
-  let(:all_params) { required_params.merge_optional_params }
+  let(:all_params) { required_params.merge(optional_params) }
 
   context 'Calling the contract with no params' do
-    let(:error_message) { { key: ['is missing'], evidence_items: ['is missing'] } }
+    let(:error_message) do
+      { key: ['is missing'], evidence_items: ['is missing'] }
+    end
 
     it 'should fail validation' do
       result = described_class.new.call({})
