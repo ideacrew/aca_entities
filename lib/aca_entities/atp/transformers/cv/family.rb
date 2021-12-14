@@ -83,7 +83,11 @@ module AcaEntities
                   map 'sex', 'person.person_demographics.gender', memoize: true, append_identifier: true, function: ->(value) {value.downcase}
                   add_key 'person.person_demographics.no_ssn',
                           function: ->(v) { v.resolve(:'person_demographics.ssn', identifier: true).item.nil?}
-                  map 'birth_date.date', 'person.person_demographics.dob', memoize: true, append_identifier: true, function: ->(v) {v.to_date}
+                  map 'birth_date.date', 'person.person_demographics.dob', memoize: true, append_identifier: true # , function: ->(v) {v.to_date}
+                  add_key 'person.person_demographics.dob', memoize: true, append_identifier: true, function: lambda { |v|
+                    member_id = v.find(/record.people.(\w+)$/).map(&:item).last
+                    v.resolve("person.person_demographics.dob.#{member_id}").item
+                  }
                   add_key 'person.person_demographics.date_of_death'
                   add_key 'person.person_demographics.dob_check'
                   add_key 'person.person_demographics.is_incarcerated', memoize: true, function: lambda { |v|
@@ -195,7 +199,13 @@ module AcaEntities
                   add_key 'person.person_relationships', function: AcaEntities::Atp::Functions::RelationshipBuilder.new
 
                   map 'race', 'person.race'
-                  map 'ethnicities', 'person.ethnicity'
+                  map 'ethnicities', 'person.ethnicity', visible: false, memoize_record: true, append_identifier: true
+                  add_key 'person.ethnicity', function: lambda { |v|
+                    member_id = v.find(/record.people.(\w+)$/).map(&:item).last
+                    ethnicities = v.resolve("person.ethnicity.#{member_id}").item
+                    ethnicities.nil? ? [] : ethnicities
+                  }
+                  # map 'ethnicities', 'person.ethnicity'
                 end
               end
 
