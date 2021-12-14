@@ -24,13 +24,17 @@ module AcaEntities
 
     # A granted permission or benefit
     class Eligibility < Dry::Struct
-      attribute :status, AcaEntities::Eligibilities::Types::DeterminationStateKind.meta(omittable: false)
+      attribute :status,
+                AcaEntities::Eligibilities::Types::DeterminationStateKind.meta(
+                  omittable: false
+                )
       attribute :earliest_due_date, Types::Date.meta(omittable: false)
       attribute :determined_at, Types::DateTime.meta(omittable: false)
-      attribute :evidence_states, AcaEntities::Eligibilities::EvidenceState.meta(omittable: false)
+      attribute :evidence_states,
+                AcaEntities::Eligibilities::EvidenceState.meta(omittable: false)
 
       def status
-        @status = 'verification_outstanding' if evidence_states.any? { |evidence_state| evidence_state.verification_outstanding }
+        # @status = 'verification_outstanding' if evidence_states.any? { |evidence_state| evidence_state.verification_outstanding }
       end
 
       def earliest_evidence_due_date

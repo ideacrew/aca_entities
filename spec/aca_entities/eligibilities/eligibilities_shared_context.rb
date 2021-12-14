@@ -1,7 +1,11 @@
 # frozen_string_literal: true
 
 RSpec.shared_context 'eligibilities_shared_context' do
-  let(:applicant_evidence_gid) { URI('gid://enroll_app/FinancialAssistance::Application/676767/Applicant/55555') }
+  let(:applicant_evidence_gid) do
+    URI(
+      'gid://enroll_app/FinancialAssistance::Application/676767/Applicant/55555'
+    )
+  end
   let(:verification_outstanding) { 'outstanding' }
   let(:satisfied) { true }
   let(:unsatisfied) { false }
@@ -16,7 +20,7 @@ RSpec.shared_context 'eligibilities_shared_context' do
         is_satisfied: unsatisfied,
         due_on: five_days_from_today,
         verification_outstanding: true,
-        visited_at: now,
+        visited_at: now
       },
       esi_evidence: {
         evidence_gid: applicant_evidence_gid,
@@ -24,7 +28,7 @@ RSpec.shared_context 'eligibilities_shared_context' do
         is_satisfied: unsatisfied,
         due_on: five_days_from_today,
         verification_outstanding: true,
-        visited_at: now,
+        visited_at: now
       },
       non_esi_evidence: {
         evidence_gid: applicant_evidence_gid,
@@ -32,7 +36,7 @@ RSpec.shared_context 'eligibilities_shared_context' do
         is_satisfied: unsatisfied,
         due_on: five_days_from_today,
         verification_outstanding: true,
-        visited_at: now,
+        visited_at: now
       },
       aces_mec_evidence: {
         evidence_gid: applicant_evidence_gid,
@@ -40,15 +44,43 @@ RSpec.shared_context 'eligibilities_shared_context' do
         is_satisfied: unsatisfied,
         due_on: five_days_from_today,
         verification_outstanding: true,
-        visited_at: now,
-      },
+        visited_at: now
+      }
     }
   end
 
-  # {
-  #   marketplace: 'aca_individual_market',
-  #   products: [{ catastrophic_plans: false, eligibility_evidences: [{ key: :enrollment_members_overage_30, evidences: [] }], financial_assistance: {} }],
-  # }
+  let(:aptc_evidence_items) do
+    [
+      {
+        key: :income_evidence,
+        title: 'Income',
+        description: 'Applicant income and benefits',
+        subject_ref: URI('gid://enroll_app/Family::FamilyMember'),
+        evidence_ref: URI('gid://enroll_app/FinancialAssistance::Application')
+      },
+      {
+        key: :esi_evidence,
+        title: 'ESI',
+        description: 'ESI benefits',
+        subject_ref: URI('gid://enroll_app/Family::FamilyMember'),
+        evidence_ref: URI('gid://enroll_app/FinancialAssistance::Application')
+      },
+      {
+        key: :non_esi_evidence,
+        title: 'Non-ESI',
+        description: 'Non-ESI benefits',
+        subject_ref: URI('gid://enroll_app/Family::FamilyMember'),
+        evidence_ref: URI('gid://enroll_app/FinancialAssistance::Application')
+      },
+      {
+        key: :aces_mec_evidence,
+        title: 'MEC',
+        description: 'MEC benefits',
+        subject_ref: URI('gid://enroll_app/Family::FamilyMember'),
+        evidence_ref: URI('gid://enroll_app/FinancialAssistance::Application')
+      }
+    ]
+  end
 
   let(:eligibility_snapshot) do
     {
@@ -56,8 +88,14 @@ RSpec.shared_context 'eligibilities_shared_context' do
       eligibility_items: [
         {
           key: 'aptc_csr_credit',
-          evidence_items: [{ key: :esi_evidence, subject_ref: 'gid://enroll_app/Family::FamilyMember', evidence_ref: 'gid://enroll_app/FinancialAssitance::Application' }],
-        },
+          evidence_items: [
+            {
+              key: :esi_evidence,
+              subject_ref: 'gid://enroll_app/Family::FamilyMember',
+              evidence_ref: 'gid://enroll_app/FinancialAssitance::Application'
+            }
+          ]
+        }
       ],
       subjects: {
         'gid://enroll_app/Family::FamilyMember/22222': {
@@ -76,7 +114,7 @@ RSpec.shared_context 'eligibilities_shared_context' do
                   is_satisfied: true,
                   verification_outstanding: false,
                   due_on: (Date.today + 21),
-                  visited_at: DateTime.now,
+                  visited_at: DateTime.now
                 },
                 esi_evidence_state: {
                   subject_gid: 'gid://enroll_app/Family::FamilyMember/33333',
@@ -88,13 +126,13 @@ RSpec.shared_context 'eligibilities_shared_context' do
                   is_satisfied: true,
                   verification_outstanding: false,
                   due_on: (Date.today + 21),
-                  visited_at: DateTime.now,
-                },
-              },
-            },
-          },
-        },
-      },
+                  visited_at: DateTime.now
+                }
+              }
+            }
+          }
+        }
+      }
     }
   end
 
@@ -109,17 +147,17 @@ RSpec.shared_context 'eligibilities_shared_context' do
           due_on: Date.today,
           eligibility_states: {
             es_1: {},
-            es_2: {},
-          },
+            es_2: {}
+          }
         },
         el_2: {
           is_eligible: true,
           eligibility_states: {
             es_1: {},
-            es_2: {},
-          },
-        },
-      },
+            es_2: {}
+          }
+        }
+      }
     }
   end
 
@@ -147,109 +185,109 @@ RSpec.shared_context 'eligibilities_shared_context' do
             begin_state: {
               title: 'Initial application not submitted',
               description: '',
-              key: :applying,
+              key: :applying
             },
             end_state: {
               title: 'Verification of Lawful Presence Requested',
               description: 'Applicant Lawful Presence Verification Requested',
-              key: 'fdsh.vlp_service.eligibility_determination_requested',
+              key: 'fdsh.vlp_service.eligibility_determination_requested'
             },
             assigned_to: {
-              ea_user_id: '1234567',
+              ea_user_id: '1234567'
             },
             due_on: Date.last_month,
             updated_by: {
-              ea_admin_schedule_service_id: '1',
+              ea_admin_schedule_service_id: '1'
             },
-            timestamp: {},
+            timestamp: {}
           },
           {
             sequence_number: 2,
             begin_state: {
               title: '',
               description: '',
-              key: 'fdsh.vlp_service.negative_eligibility_determined',
+              key: 'fdsh.vlp_service.negative_eligibility_determined'
             },
             end_state: {
               title: '',
               description: '',
-              key: :supplemental_documentation_requested,
+              key: :supplemental_documentation_requested
             },
             assigned_to: {
-              ea_user_id: '1234567',
+              ea_user_id: '1234567'
             },
             due_on: Date.last_month,
             updated_by: {
-              ea_admin_schedule_service_id: '1',
+              ea_admin_schedule_service_id: '1'
             },
-            timestamp: {},
+            timestamp: {}
           },
           {
             sequence_number: 3,
             begin_state: {
               title: '',
               description: '',
-              key: :supplemental_documentation_requested,
+              key: :supplemental_documentation_requested
             },
             end_state: {
               title: '',
               description: '',
-              key: :documentation_final_notice_issued,
+              key: :documentation_final_notice_issued
             },
             assigned_to: {
-              ea_user_id: '1234567',
+              ea_user_id: '1234567'
             },
             due_on: Date.last_week,
             updated_by: {
-              ea_admin_schedule_service_id: '1',
+              ea_admin_schedule_service_id: '1'
             },
-            timestamp: {},
+            timestamp: {}
           },
           {
             sequence_number: 4,
             begin_state: {
               title: '',
               description: '',
-              key: :documentation_final_notice_issued,
+              key: :documentation_final_notice_issued
             },
             end_state: {
               title: '',
               description: '',
-              key: :case_assignment_pending,
+              key: :case_assignment_pending
             },
             assigned_to: {
-              ea_admin_schedule_service_id: '1',
+              ea_admin_schedule_service_id: '1'
             },
             due_on: Date.today,
             updated_by: {
-              ea_admin_schedule_service_id: '1',
+              ea_admin_schedule_service_id: '1'
             },
-            timestamp: {},
+            timestamp: {}
           },
           {
             sequence_number: 5,
             begin_state: {
               title: '',
               description: '',
-              key: :case_assigned,
+              key: :case_assigned
             },
             end_state: {
               title: '',
               description: '',
-              key: :supplemental_documentation_review_pending,
+              key: :supplemental_documentation_review_pending
             },
             assigned_to: {
-              ea_csr_id: '1234567',
+              ea_csr_id: '1234567'
             },
             due_on: Date.next_week,
             updated_by: {
-              ea_user_id: '1234567',
+              ea_user_id: '1234567'
             },
-            timestamp: {},
-          },
-        ],
+            timestamp: {}
+          }
+        ]
       },
-      timestamp: {},
+      timestamp: {}
     }
   end
 end
