@@ -14,8 +14,9 @@ RSpec.describe AcaEntities::Eligibilities::Contracts::EligibilityContract do
   let(:evidence_states) { evidence_states_undetermined }
 
   let(:required_params) do
-    { evidence_states: { key.to_sym => { status: status, evidence_states: evidence_states, earliest_due_date: earliest_due_date, determined_at: determined_at } } }
+    { status: status, evidence_states: evidence_states, earliest_due_date: earliest_due_date, determined_at: determined_at }
   end
+
   let(:all_params) { required_params }
 
   context 'Calling the contract with no params' do

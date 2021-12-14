@@ -2,7 +2,7 @@
 
 RSpec.shared_context 'eligibilities_shared_context' do
   let(:applicant_evidence_gid) { URI('gid://enroll_app/FinancialAssistance::Application/676767/Applicant/55555') }
-  let(:verification_outstanding) { 'verification_outstanding' }
+  let(:verification_outstanding) { 'outstanding' }
   let(:satisfied) { true }
   let(:unsatisfied) { false }
   let(:five_days_from_today) { Date.today + 5 }
@@ -15,6 +15,7 @@ RSpec.shared_context 'eligibilities_shared_context' do
         state: verification_outstanding,
         is_satisfied: unsatisfied,
         due_on: five_days_from_today,
+        verification_outstanding: true,
         visited_at: now,
       },
       esi_evidence: {
@@ -22,6 +23,7 @@ RSpec.shared_context 'eligibilities_shared_context' do
         state: verification_outstanding,
         is_satisfied: unsatisfied,
         due_on: five_days_from_today,
+        verification_outstanding: true,
         visited_at: now,
       },
       non_esi_evidence: {
@@ -29,6 +31,7 @@ RSpec.shared_context 'eligibilities_shared_context' do
         state: verification_outstanding,
         is_satisfied: unsatisfied,
         due_on: five_days_from_today,
+        verification_outstanding: true,
         visited_at: now,
       },
       aces_mec_evidence: {
@@ -36,6 +39,7 @@ RSpec.shared_context 'eligibilities_shared_context' do
         state: verification_outstanding,
         is_satisfied: unsatisfied,
         due_on: five_days_from_today,
+        verification_outstanding: true,
         visited_at: now,
       },
     }
