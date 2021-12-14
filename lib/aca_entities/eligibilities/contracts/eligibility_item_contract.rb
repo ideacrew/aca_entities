@@ -5,13 +5,13 @@ module AcaEntities
     # contract for EvidenceContract
     class EligibilityItemContract < Dry::Validation::Contract
       params do
-        required(:id).maybe(:string)
+        optional(:id).maybe(:string)
         required(:key).filled(:string)
-        required(:title).maybe(:string)
+        optional(:title).maybe(:string)
         optional(:description).maybe(:string)
-        optional(:evidence_items).array(
-          AcaEntities::Eligibilities::Contracts::EvidenceItemContract.params
-        )
+        required(:evidence_items).array(AcaEntities::Eligibilities::Contracts::EvidenceItemContract.params)
+        optional(:tags).array(:string)
+        optional(:published_at).maybe(:date_time)
       end
     end
   end

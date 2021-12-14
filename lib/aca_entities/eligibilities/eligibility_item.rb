@@ -8,19 +8,11 @@ module AcaEntities
 
       attribute :id, Types::String.meta(ommittable: true)
       attribute :key, Types::Coercible::String.meta(omittable: false)
-      attribute :title, Types::String.meta(omittable: true)
+      attribute :title, Types::String.optional.meta(omittable: true)
       attribute :description, Types::String.optional.meta(omittable: true)
-      attribute :evidence_items, Types::Array.of(AcaEntities::Eligibilities::EvidenceItem).meta(ommittable: true)
-
-      # @!attribute [r] marketplaces
-      # The Enroll App marketplaces where this Eligibility is used
-      # @return [Array<String>]
-      attribute :marketplaces, Types::String.meta(ommittable: true)
-      attribute :tags, Types::String.meta(ommittable: true)
-
-      # attribute :workflow
-      # attribute :status
-      # attribute :published_at
+      attribute :evidence_items, Types::Hash.meta(ommittable: false)
+      attribute :tags, Types::Array.of(Types::String).optional.meta(ommittable: true)
+      attribute :published_at, Types::DateTime.optional.meta(ommittable: true)
 
       # Persist the model instance to the backing store
       def create_model
