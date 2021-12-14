@@ -14,12 +14,16 @@ RSpec.describe AcaEntities::Eligibilities::Contracts::DeterminationContract do
   let(:determined_at) { now }
 
   let(:required_params) do
-    { determinations: { key.to_sym => { status: status, evidence_states: evidence_states, earliest_due_date: earliest_due_date, determined_at: determined_at } } }
+    { determinations: { key.to_sym => { status: status, evidence_states: evidence_states, earliest_due_date: earliest_due_date,
+                                        determined_at: determined_at } } }
   end
   let(:all_params) { required_params }
 
   context 'Calling the contract with no params' do
-    let(:error_message) { { key: ['is missing'], status: ['is missing'], evidence_states: ['is missing'], earliest_due_date: ['is missing'], determined_at: ['is missing'] } }
+    let(:error_message) do
+      { key: ['is missing'], status: ['is missing'], evidence_states: ['is missing'], earliest_due_date: ['is missing'],
+        determined_at: ['is missing'] }
+    end
 
     it 'should fail validation' do
       # result = described_class.new.call({ determinations: {} })

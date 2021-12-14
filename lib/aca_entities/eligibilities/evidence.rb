@@ -20,7 +20,7 @@ module AcaEntities
       attribute :external_service, Types::String.optional.meta(omittable: true)
       attribute :updated_by, Types::String.optional.meta(omittable: true)
 
-      attribute :verification_history, AcaEntities::Eligibilities::VerificationHistory.optional.meta(omittable: true)
+      attribute :verification_histories, Types::Array.of(AcaEntities::Eligibilities::VerificationHistory).optional.meta(omittable: true)
       attribute :request_results, Types::Array.of(AcaEntities::Eligibilities::RequestResult).optional.meta(omittable: true)
 
     end

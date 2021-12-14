@@ -20,7 +20,9 @@ RSpec.describe AcaEntities::Eligibilities::Contracts::EligibilityContract do
   let(:all_params) { required_params }
 
   context 'Calling the contract with no params' do
-    let(:error_message) { { status: ['is missing'], evidence_states: ['is missing'], earliest_due_date: ['is missing'], determined_at: ['is missing'] } }
+    let(:error_message) do
+      { status: ['is missing'], evidence_states: ['is missing'], earliest_due_date: ['is missing'], determined_at: ['is missing'] }
+    end
 
     it 'should fail validation' do
       # result = described_class.new.call({ determinations: {} })
