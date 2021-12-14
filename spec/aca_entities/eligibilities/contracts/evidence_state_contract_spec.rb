@@ -16,7 +16,8 @@ RSpec.describe AcaEntities::Eligibilities::Contracts::EvidenceStateContract do
   let(:optional_params) { {} }
 
   let(:required_params) do
-    { evidence_gid: evidence_gid, visited_at: visited_at, state: state, is_satisfied: is_satisfied, verification_outstanding: verification_outstanding, due_on: due_on }
+    { evidence_gid: evidence_gid, visited_at: visited_at, state: state, is_satisfied: is_satisfied,
+      verification_outstanding: verification_outstanding, due_on: due_on }
   end
 
   let(:all_params) { required_params.merge(optional_params) }
@@ -29,7 +30,7 @@ RSpec.describe AcaEntities::Eligibilities::Contracts::EvidenceStateContract do
         state: ['is missing'],
         is_satisfied: ['is missing'],
         verification_outstanding: ['is missing'],
-        due_on: ['is missing'],
+        due_on: ['is missing']
       }
     end
 

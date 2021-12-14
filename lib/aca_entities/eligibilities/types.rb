@@ -14,6 +14,7 @@ module AcaEntities
           'ineligible',
           'verification_outstanding'
         ).freeze
+
       EvidenceStateKind =
         Types::Coercible::String.enum(
           'pending',
@@ -25,6 +26,7 @@ module AcaEntities
           'rejected',
           'errored'
         ).freeze
+
     end
   end
 end
