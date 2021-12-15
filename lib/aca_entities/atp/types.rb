@@ -75,6 +75,20 @@ module AcaEntities
         'UnspecifiedFullCoverage' => 'other_full_benefit_coverage',
         'UnspecifiedLimitedCoverage' => 'other_limited_benefit_coverage'
       }.freeze
+
+      InsuranceKindsOutbound = {
+        'private_individual_and_family_coverage' => 'Private',
+        'child_health_insurance_plan' => 'CHIP',
+        'medicaid' => 'Medicaid',
+        'medicare' => 'Medicare',
+        'tricare' => 'TRICARE',
+        'cobra' => 'Private',
+        'veterans_benefits' => 'VeteranHealthProgram',
+        'health_care_for_peace_corp_volunteers' => 'PeaceCorps',
+        "employer_sponsored_insurance" => 'Employer',
+        'other_full_benefit_coverage' => 'UnspecifiedFullCoverage',
+        'other_limited_benefit_coverage' => 'UnspecifiedLimitedCoverage'
+      }.freeze
     end
   end
 end
