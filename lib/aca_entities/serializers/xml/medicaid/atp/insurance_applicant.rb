@@ -170,7 +170,7 @@ module AcaEntities
                 had_medicaid_during_foster_care_indicator: had_medicaid_during_foster_care_indicator,
                 lives_with_minor_age_dependent_indicator: lives_with_minor_age_dependent_indicator,
                 household_exception_indicator: household_exception_indicator,
-                # referral_activity: referral_activity&.to_hash, # revisit this element
+                referral_activity: referral_activity&.to_hash, # revisit this element
                 foster_care_indicator: foster_care_indicator,
                 parent_average_hours_worked_per_week_values: parent_average_hours_worked_per_week_values
               }
