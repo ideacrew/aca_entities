@@ -7,7 +7,7 @@ module AcaEntities
       class EmployerContract < Dry::Validation::Contract
 
         params do
-          required(:id).filled(:string)
+          optional(:id).maybe(:string)
           optional(:category_text).maybe(:string)
           optional(:organization_primary_contact_information).maybe(:hash)
           optional(:organization_augmentation).maybe(:hash)
