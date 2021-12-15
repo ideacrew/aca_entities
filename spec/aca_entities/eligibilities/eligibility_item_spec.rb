@@ -31,12 +31,30 @@ RSpec.describe AcaEntities::Eligibilities::EligibilityItem do
 
   let(:all_params) { required_params.merge(optional_params) }
 
-  context 'Initializing with all required params' do
+  context 'Initializing with required params' do
     it 'should initialize without error' do
-      result = subject.new(required_params)
+      expect(subject.new(required_params)).to be_a described_class
+      expect(subject.new(required_params).to_h[:key]).to eq key.to_s
+    end
+  end
 
-      expect(result.success).to be_truthy
-      expect(result.to_h).to eq required_params
+  context 'Initializing with all params' do
+    let(:compare_params) do
+      {
+        id: id,
+        key: key.to_s,
+        title: title,
+        description: description,
+        tags: tags,
+        published_at: published_at
+      }
+    end
+
+    it 'should initialize without error' do
+      expect(subject.new(all_params)).to be_a described_class
+      expect(
+        subject.new(all_params).to_h.tap { |h| h.delete(:evidence_items) }
+      ).to eq compare_params
     end
   end
 end
