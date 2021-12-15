@@ -34,8 +34,6 @@ RSpec.describe AcaEntities::Eligibilities::EligibilityItem do
   context 'Initializing with all required params' do
     it 'should initialize without error' do
       result = subject.new(required_params)
-      require 'pry'
-      binding.pry
 
       expect(result.success).to be_truthy
       expect(result.to_h).to eq required_params
