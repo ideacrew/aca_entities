@@ -378,8 +378,6 @@ module AcaEntities
           }
         end
 
-
-
         def get_age(age)
           return if age.blank?
           age_date = age.respond_to?(:strftime) ? Date.strptime(age, "%m/%d/%Y") : Date.parse(age)
