@@ -258,9 +258,7 @@ module AcaEntities
         def referral_status
           ra_info = @applicant_hash[:referral_activity]
           return nil unless ra_info.present?
-          status = ra_info[:status]
-          return nil unless status.present?
-          status[:status_code]
+          ra_info.dig(:status, :status_code)
         end
 
         TAX_FILER_KIND = {
