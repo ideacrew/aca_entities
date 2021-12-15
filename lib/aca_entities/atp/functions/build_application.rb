@@ -5,7 +5,6 @@ require 'aca_entities/atp/transformers/cv/other_questions'
 require 'aca_entities/atp/transformers/cv/deduction'
 require 'aca_entities/atp/transformers/cv/income'
 require 'aca_entities/atp/transformers/cv/contact_info'
-
 # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity, Metrics/MethodLength, Layout/LineLength, Metrics/AbcSize, Metrics/ClassLength
 module AcaEntities
   module Atp
@@ -256,6 +255,12 @@ module AcaEntities
             is_lawful_presence_self_attested: nil }
         end
 
+        def referral_status
+          ra_info = @applicant_hash[:referral_activity]
+          return nil unless ra_info.present?
+          ra_info.dig(:status, :status_code)
+        end
+
         TAX_FILER_KIND = {
           "0" => "single",
           "1" => "single",
@@ -366,7 +371,8 @@ module AcaEntities
             age_of_applicant: get_age(@memoized_data.find(Regexp.new("person_demographics.dob.#{@applicant_identifier}"))&.first&.item),
             # is_self_attested_long_term_care: non_magi.nil? ? false : non_magi[:longTermCareIndicator],
             is_primary_caregiver: !@applicant_hash.nil? && !@applicant_hash[:parent_caretaker_indicator].nil? ? @applicant_hash[:parent_caretaker_indicator] : false,
-            hours_worked_per_week: '2' # default value??
+            hours_worked_per_week: '2', # default value??
+            transfer_referral_reason: referral_status
           }
         end
 
