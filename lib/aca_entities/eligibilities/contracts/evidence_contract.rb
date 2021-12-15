@@ -23,7 +23,7 @@ module AcaEntities
 
           optional(:evidence_items).array(AcaEntities::Eligibilities::Contracts::EvidenceItemContract.params)
           optional(:verification_histories).array(AcaEntities::Eligibilities::Contracts::VerificationHistoryContract.params)
-          optional(:eligibility_results).array(AcaEntities::Eligibilities::Contracts::RequestResultContract.params)
+          optional(:request_results).array(AcaEntities::Eligibilities::Contracts::RequestResultContract.params)
         end
       end
     end
