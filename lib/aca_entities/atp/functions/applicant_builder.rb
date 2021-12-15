@@ -21,7 +21,7 @@ module AcaEntities
             esi_coverage_enrolled = enrolled_benefits.select {|benefit|  benefit[:kind] == "employer_sponsored_insurance" }
             esi_coverage_eligible = eligible_benefits.select {|benefit| benefit[:kind] == "employer_sponsored_insurance" }
 
-            non_esi_coverage_indicators = if non_esi_coverage_enrolled_array
+            non_esi_coverage_indicators = if non_esi_coverage_enrolled_array.present?
                                             { non_esi_coverage_indicators: [true] }
                                           else
                                             { non_esi_coverage_indicators: [false] }
