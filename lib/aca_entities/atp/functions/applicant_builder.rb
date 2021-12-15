@@ -21,7 +21,7 @@ module AcaEntities
             esi_coverage_enrolled = enrolled_benefits.select {|benefit|  benefit[:kind] == "employer_sponsored_insurance" }
             esi_coverage_eligible = eligible_benefits.select {|benefit| benefit[:kind] == "employer_sponsored_insurance" }
 
-            non_esi_coverage_indicators = if non_esi_coverage_enrolled_array
+            non_esi_coverage_indicators = if non_esi_coverage_enrolled_array.present?
                                             { non_esi_coverage_indicators: [true] }
                                           else
                                             { non_esi_coverage_indicators: [false] }
@@ -29,7 +29,7 @@ module AcaEntities
 
             non_esi_policies = if non_esi_coverage_eligible_array
                                  non_esi_coverage_eligible_array.collect do |benefit|
-                                   source_code = AcaEntities::Atp::Types::InsuranceKinds.invert[benefit[:kind]]
+                                   source_code = AcaEntities::Atp::Types::InsuranceKindsOutbound[benefit[:kind]]
                                    { source_code: source_code } if source_code
                                  end.compact
                                else
@@ -39,6 +39,7 @@ module AcaEntities
             esi_coverage_indicators = [{ enrolled_indicator: esi_coverage_enrolled.present?,
                                          eligible_indicator: esi_coverage_eligible.present?,
                                          eligibility_unknown_indicator: !(esi_coverage_enrolled.present? || esi_coverage_eligible.present?) }]
+
             insurance_applicant = AcaEntities::Atp::Transformers::Aces::Applicant.transform(applicant)
             insurance_applicant.merge!(non_esi_coverage_indicators, esi_associations: esi_coverage_indicators, non_esi_policies: non_esi_policies)
             collector << insurance_applicant
