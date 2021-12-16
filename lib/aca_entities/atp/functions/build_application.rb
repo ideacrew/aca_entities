@@ -256,6 +256,7 @@ module AcaEntities
         end
 
         def referral_status
+          return nil unless @applicant_hash.present?
           ra_info = @applicant_hash[:referral_activity]
           return nil unless ra_info.present?
           ra_info.dig(:status, :status_code)
