@@ -3,6 +3,8 @@
 module AcaEntities
   # All types Eligibilities
   module Eligibilities
+    # require 'aca_entities/operations/mongoid/model_adapter'
+
     require_relative 'types'
 
     # require_relative 'contracts/types_contract'
