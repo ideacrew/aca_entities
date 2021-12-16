@@ -19,7 +19,7 @@ module AcaEntities
 
             def self.domain_to_mapper(employer)
               mapper = self.new
-              mapper.id = employer.id if employer.id && !employer.id.empty?
+              mapper.id = employer.id if employer&.id.present?
               mapper.category_text = employer.category_text
               if employer.organization_primary_contact_information
                 mapper.organization_primary_contact_information =
