@@ -7,16 +7,15 @@ RSpec.describe AcaEntities::Eligibilities::Contracts::SubjectsContract do
   include_context 'eligibilities_shared_context'
   subject { described_class.new }
 
-  let(:subject_1_gid) { URI('gid://enroll_app/Family/98765/FamilyMember/234567') }
-  let(:subject_2_gid) { URI('gid://enroll_app/Family/98765/FamilyMember/234568') }
+  let(:subject_gid_string) do
+    'gid://enroll_app/Family/98765/FamilyMember/234567'
+  end
+  let(:eligibility_subject) { { subject_gid_string: {} } }
+  let(:subjects) { { subjects: eligibility_subject } }
 
-  let(:required_params) { { subjects: { subject_1_gid => { determinations: {} }, subject_2_gid => { determinations: {} } } } }
-
-  context 'Calling the contract with required params' do
-    it 'should pass validation' do
-      result = subject.call(required_params)
-      expect(result.success?).to be_truthy
-      expect(result.to_h).to eq required_params
+  context 'Given a subjects key' do
+    it 'should validate' do
+      expect(subject.call(subjects)).to be_truthy
     end
   end
 end
