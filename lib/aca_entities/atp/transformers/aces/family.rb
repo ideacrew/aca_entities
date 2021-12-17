@@ -12,7 +12,6 @@ require "aca_entities/atp/functions/contact_builder"
 require 'aca_entities/atp/transformers/aces/applicant'
 require 'aca_entities/atp/transformers/aces/ssf_signer'
 require 'aca_entities/atp/types'
-
 require 'dry/monads'
 require 'dry/monads/do'
 
@@ -52,8 +51,10 @@ module AcaEntities
                 add_namespace 'transfer_activity', 'aces.transfer_header.transfer_activity', type: :hash do
                   add_namespace 'transfer_id', 'aces.transfer_header.transfer_activity.transfer_id', type: :hash do
                     add_key 'identification_id', function: lambda { |v|
-                                                             "SBM#{v.resolve('hbx_id').item&.slice(-3..-1)}#{DateTime.now.strftime('%Y%m%dT%H%M')}"
-                                                           }
+                      id = v.resolve('hbx_id').item.chars.last(17).join
+                      timestamp = DateTime.now.strftime('%s').chars.last(17 - id.length).join
+                      "SBM#{id}#{timestamp}"
+                    }
                     add_key 'identification_category_text'
                     add_key 'identification_jurisdiction'
                   end

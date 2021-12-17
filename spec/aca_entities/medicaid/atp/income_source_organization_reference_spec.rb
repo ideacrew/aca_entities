@@ -5,44 +5,25 @@ require 'aca_entities/medicaid/atp/income_source_organization_reference'
 
 RSpec.describe ::AcaEntities::Medicaid::Atp::IncomeSourceOrganizationReference,  dbclean: :around_each do
 
-  let(:required_params) { { ref: "pe123" } }
+  describe 'with valid arguments' do
+    let(:required_params) { {} }
 
-  let(:optional_params) { {} }
+    let(:optional_params) { { ref: "pe123" } }
 
-  let(:all_params) { required_params.merge(optional_params)}
+    let(:all_params) { required_params.merge(optional_params)}
 
-  context 'invalid parameters' do
-    context 'with empty parameters' do
-      it 'should list error for every required parameter' do
-        expect { described_class.new }.to raise_error(Dry::Struct::Error, /:ref is missing in Hash input/)
-      end
+    it 'should initialize' do
+      expect(described_class.new(all_params)).to be_a described_class
     end
 
-    context 'with optional parameters only' do
-      it 'should list error for every required parameter' do
-        expect { described_class.new(optional_params) }.to raise_error(Dry::Struct::Error, /:ref is missing in Hash input/)
-      end
-    end
-  end
-
-  context 'valid parameters' do
-    context 'with required parameters only' do
-      it 'should initialize' do
-        expect(described_class.new(required_params)).to be_a described_class
-      end
-
-      it 'should not raise error' do
-        expect { described_class.new(required_params) }.not_to raise_error
-      end
+    it 'should not raise error' do
+      expect { described_class.new(all_params) }.not_to raise_error
     end
 
-    context 'with all required and optional parameters' do
-      it 'should initialize' do
-        expect(described_class.new(required_params)).to be_a described_class
-      end
-
-      it 'should not raise error' do
-        expect { described_class.new(required_params) }.not_to raise_error
+    context 'with only optional parameters' do
+      it 'should contain all optional keys and values' do
+        result = described_class.new(optional_params)
+        expect(result.to_h).to eq optional_params
       end
     end
   end
