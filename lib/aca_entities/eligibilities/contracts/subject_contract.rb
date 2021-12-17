@@ -5,28 +5,25 @@ module AcaEntities
     module Contracts
       # contract for EvidenceContract
       class SubjectContract < Dry::Validation::Contract
-        params { required(:subjects).filled(:hash) }
+        params do
+          required(:gid).filled(type?: URI)
+          required(:first_name).filled(:string)
+          required(:last_name).filled(:string)
+          required(:is_primary).filled(:bool)
+          required(:determinations).maybe(:hash)
+        end
 
-        rule(:subjects) do
-          values.to_h.slice(:subjects)[:subjects]
-            .each_pair do |subject_key, determinations|
+        rule(:determinations) do
+          values.to_h[:determinations]
+            .each_pair do |determination_key, determination_val|
             result =
               AcaEntities::Eligibilities::Contracts::DeterminationContract.new
-                .call(determinations)
-
-            # require 'pry'
-            # binding.pry
+                .call(determination_val)
             next unless result.failure?
-            result
-              .errors
-              .to_h
-              .each do |path, message|
-                # require 'pry'
-                # binding.pry
-                key([subject_key, determinations.keys.first, *path]).failure(
-                  text: message
-                )
-              end
+
+            key([*path, determination_key]).failure(
+              { text: 'error', code: result.errors.to_h }
+            )
           end
         end
       end
