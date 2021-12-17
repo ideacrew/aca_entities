@@ -4,11 +4,11 @@ module AcaEntities
   module Eligibilities
     # An class or object to which an eligiblity is applied
     class Subject < Dry::Struct
-      attribute :gid, Types::String.meta(omittable: true)
-      attribute :determinations,
-                Types::Array
-                  .of(AcaEntities::Eligibilities::Determination)
-                  .meta(omittable: true)
+      attribute :gid, Types::Coercible::String.meta(omittable: false)
+      attribute :first_name, Types::String.meta(omittable: false)
+      attribute :last_name, Types::String.meta(omittable: false)
+      attribute :is_primary, Types::Bool.meta(omittable: false)
+      attribute :determinations, Types::Hash.meta(omittable: false)
     end
   end
 end
