@@ -53,8 +53,6 @@ module AcaEntities
       end
 
       def fetch_earliest_due_date
-        require 'pry'
-        binding.pry
         evidence_states.min_by(&:due_on)
       end
 
