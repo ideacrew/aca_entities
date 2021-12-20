@@ -78,7 +78,7 @@ module AcaEntities
           required(:name).hash(AcaEntities::Contracts::People::PersonNameContract.params)
           required(:identifying_information).filled(IdentifyingInformationContract.params)
           required(:demographic).filled(DemographicContract.params)
-          required(:attestation).filled(AttestationContract.params)
+          optional(:attestation).maybe(AttestationContract.params)
           required(:is_primary_applicant).filled(:bool)
           optional(:native_american_information).maybe(NativeAmericanInformationContract.params)
           required(:citizenship_immigration_status_information).hash(CitizenshipImmigrationStatusInformationContract.params)
@@ -151,7 +151,7 @@ module AcaEntities
           optional(:deductions).array(DeductionContract.params)
 
           optional(:is_medicare_eligible).filled(:bool)
-          optional(:is_self_attested_long_term_care).filled(:bool)
+          optional(:is_self_attested_long_term_care).maybe(:bool)
           optional(:has_insurance).filled(:bool)
           optional(:has_state_health_benefit).filled(:bool)
           optional(:had_prior_insurance).filled(:bool)

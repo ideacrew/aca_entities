@@ -336,7 +336,7 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicationContract,  dbcle
 
       context 'invalid applicant value' do
         let(:required_applicant_keys) do
-          [:name, :identifying_information, :demographic, :attestation, :is_primary_applicant,
+          [:name, :identifying_information, :demographic, :is_primary_applicant,
            :citizenship_immigration_status_information, :is_applying_coverage, :family_member_reference,
            :person_hbx_id, :is_required_to_file_taxes, :pregnancy_information, :has_job_income,
            :has_self_employment_income, :has_unemployment_income, :has_other_income, :has_deductions,
