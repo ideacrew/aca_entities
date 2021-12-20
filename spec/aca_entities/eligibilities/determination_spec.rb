@@ -7,20 +7,9 @@ RSpec.describe AcaEntities::Eligibilities::Determination do
   include_context 'eligibilities_shared_context'
   subject { described_class }
 
-  let(:id) { '5255488' }
-  let(:status) { 'verification_outstanding' }
-  let(:evidence_states) { { evidence_states: {} } }
-  let(:earliest_due_date) { five_days_from_today }
-  let(:determined_at) { now }
+  let(:subjects) { { subjects: {} } }
 
-  let(:required_params) do
-    {
-      status: status,
-      evidence_states: evidence_states,
-      earliest_due_date: earliest_due_date,
-      determined_at: determined_at
-    }
-  end
+  let(:required_params) { { subjects: subjects } }
 
   let(:all_params) { required_params }
 

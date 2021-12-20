@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'Date'
+
 module AcaEntities
   # All types Eligibilities
   module Eligibilities
@@ -32,24 +34,37 @@ module AcaEntities
 
     # A granted permission or benefit
     class Eligibility < Dry::Struct
-      attribute :status,
-                AcaEntities::Eligibilities::Types::DeterminationStateKind.meta(
-                  omittable: false
-                )
+      attribute? :id, Types::Coercible::String.meta(omittable: true)
+      attribute :eligibility_item_key,
+                Types::Coercible::String.meta(omittable: false)
+      attribute :is_eligible, Types::Bool.meta(omittable: false)
       attribute :earliest_due_date, Types::Date.meta(omittable: false)
       attribute :determined_at, Types::DateTime.meta(omittable: false)
-      attribute :evidence_states,
-                AcaEntities::Eligibilities::EvidenceState.meta(omittable: false)
+      attribute :evidence_states, Types::Hash.meta(omittable: false)
 
-      def status
-        # @status = 'verification_outstanding' if evidence_states.any? { |evidence_state| evidence_state.verification_outstanding }
+      # def initialize(*args)
+      #   super(args)
+      # end
+
+      # after_initialize :set_attributes
+
+      def fetch_status
+        evidence_states.all?(&:is_satisfied)
       end
 
-      def earliest_evidence_due_date
-        evidence_states
+      def fetch_earliest_due_date
+        require 'pry'
+        binding.pry
+        evidence_states.min_by(&:due_on)
       end
 
-      def determined_at; end
+      private
+
+      def set_attributes
+        @earliest_due_date = fetch_earliest_due_date
+        @is_eligible = fetch_status
+        @determined_at = DateTime.now
+      end
     end
   end
 end

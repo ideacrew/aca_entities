@@ -11,7 +11,7 @@ RSpec.describe AcaEntities::Eligibilities::Subject do
   let(:first_name) { 'Michael' }
   let(:last_name) { 'Brady' }
   let(:is_primary) { true }
-  let(:determinations) { {} }
+  let(:eligibilities) { {} }
 
   let(:required_params) do
     {
@@ -19,7 +19,7 @@ RSpec.describe AcaEntities::Eligibilities::Subject do
       first_name: first_name,
       last_name: last_name,
       is_primary: is_primary,
-      determinations: determinations
+      eligibilities: eligibilities
     }
   end
 

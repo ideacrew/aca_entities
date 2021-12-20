@@ -5,24 +5,17 @@ module AcaEntities
     module Contracts
       # contract for EvidenceContract
       class DeterminationContract < Dry::Validation::Contract
-        params do
-          required(:status).filled(
-            AcaEntities::Eligibilities::Types::DeterminationStateKind
-          )
-          required(:earliest_due_date).filled(:date)
-          required(:determined_at).filled(:date_time)
-          required(:evidence_states).value(:hash)
-        end
+        params { required(:subjects).value(:hash) }
 
-        rule(:evidence_states) do
-          values.to_h[:evidence_states]
-            .each_pair do |evidence_state_key, evidence_state_val|
+        rule(:subjects) do
+          values.to_h[:subjects].each_pair do |subject_key, subject_val|
             result =
-              AcaEntities::Eligibilities::Contracts::EvidenceStateContract.new
-                .call(evidence_state_val)
+              AcaEntities::Eligibilities::Contracts::SubjectContract.new.call(
+                subject_val
+              )
             next unless result.failure?
 
-            key([*path, evidence_state_key]).failure(
+            key([*path, subject_key]).failure(
               { text: 'error', code: result.errors.to_h }
             )
           end
