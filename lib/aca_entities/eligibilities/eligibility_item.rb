@@ -5,10 +5,9 @@ module AcaEntities
     # An Eligibility definition
     class EligibilityItem < Dry::Struct
       include Dry::Monads[:result, :do, :try]
-
       # include AcaEntities::Operations::Mongoid::ModelAdapter
 
-      # persistence_model_name 'Eligibilities::EligibilityItemModel'
+      # persistence_model_name 'Eligibilities::EligibilityItem'
 
       attribute? :id, Types::Coercible::String.optional.meta(ommittable: true)
       attribute :key, Types::Coercible::String.meta(omittable: false)

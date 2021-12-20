@@ -3,12 +3,12 @@
 require 'spec_helper'
 require 'aca_entities/eligibilities/eligibilities_shared_context'
 
-RSpec.describe AcaEntities::Eligibilities::Contracts::EligibilityContract do
+RSpec.describe AcaEntities::Eligibilities::Contracts::EligibilityStateContract do
   include_context 'eligibilities_shared_context'
   subject { described_class.new }
 
   let(:id) { 'zxy765' }
-  let(:eligibility_item_key) { 'aptc_csr_eligibility' }
+  # let(:eligibility_item_key) { 'aptc_csr_eligibility' }
   let(:is_eligible) { false }
   let(:evidence_states) { evidence_states_undetermined }
   let(:earliest_due_date) { five_days_from_today }
@@ -16,7 +16,7 @@ RSpec.describe AcaEntities::Eligibilities::Contracts::EligibilityContract do
 
   let(:required_params) do
     {
-      eligibility_item_key: eligibility_item_key,
+      # eligibility_item_key: eligibility_item_key,
       is_eligible: is_eligible,
       evidence_states: evidence_states,
       earliest_due_date: earliest_due_date,
@@ -31,7 +31,7 @@ RSpec.describe AcaEntities::Eligibilities::Contracts::EligibilityContract do
   context 'Calling the contract with no params' do
     let(:error_message) do
       {
-        eligibility_item_key: ['is missing'],
+        # eligibility_item_key: ['is missing'],
         is_eligible: ['is missing'],
         evidence_states: ['is missing'],
         earliest_due_date: ['is missing'],

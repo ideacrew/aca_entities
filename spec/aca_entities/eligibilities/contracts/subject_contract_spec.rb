@@ -11,7 +11,7 @@ RSpec.describe AcaEntities::Eligibilities::Contracts::SubjectContract do
   let(:first_name) { 'Michael' }
   let(:last_name) { 'Brady' }
   let(:is_primary) { true }
-  let(:determinations) { {} }
+  let(:eligibility_states) { {} }
 
   let(:required_params) do
     {
@@ -19,7 +19,7 @@ RSpec.describe AcaEntities::Eligibilities::Contracts::SubjectContract do
       first_name: first_name,
       last_name: last_name,
       is_primary: is_primary,
-      determinations: determinations
+      eligibility_states: eligibility_states
     }
   end
 
@@ -30,7 +30,7 @@ RSpec.describe AcaEntities::Eligibilities::Contracts::SubjectContract do
         first_name: ['is missing'],
         last_name: ['is missing'],
         is_primary: ['is missing'],
-        determinations: ['is missing']
+        eligibility_states: ['is missing']
       }
     end
 
