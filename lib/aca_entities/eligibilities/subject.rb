@@ -8,7 +8,7 @@ module AcaEntities
       attribute :first_name, Types::String.meta(omittable: false)
       attribute :last_name, Types::String.meta(omittable: false)
       attribute :is_primary, Types::Bool.meta(omittable: false)
-      attribute :determinations, Types::Hash.meta(omittable: false)
+      attribute :eligibilities, Types::Hash.meta(omittable: false)
     end
   end
 end

@@ -7,29 +7,42 @@ RSpec.describe AcaEntities::Eligibilities::Contracts::EligibilityContract do
   include_context 'eligibilities_shared_context'
   subject { described_class.new }
 
-  let(:key) { 'income_evidence' }
-  let(:status) { 'verification_outstanding' }
+  let(:id) { 'zxy765' }
+  let(:eligibility_item_key) { 'aptc_csr_eligibility' }
+  let(:is_eligible) { false }
+  let(:evidence_states) { evidence_states_undetermined }
   let(:earliest_due_date) { five_days_from_today }
   let(:determined_at) { now }
-  let(:evidence_states) { evidence_states_undetermined }
 
   let(:required_params) do
-    { status: status, evidence_states: evidence_states, earliest_due_date: earliest_due_date, determined_at: determined_at }
+    {
+      eligibility_item_key: eligibility_item_key,
+      is_eligible: is_eligible,
+      evidence_states: evidence_states,
+      earliest_due_date: earliest_due_date,
+      determined_at: determined_at
+    }
   end
 
-  let(:all_params) { required_params }
+  let(:optional_params) { { id: id } }
+
+  let(:all_params) { required_params.merge(optional_params) }
 
   context 'Calling the contract with no params' do
     let(:error_message) do
-      { status: ['is missing'], evidence_states: ['is missing'], earliest_due_date: ['is missing'], determined_at: ['is missing'] }
+      {
+        eligibility_item_key: ['is missing'],
+        is_eligible: ['is missing'],
+        evidence_states: ['is missing'],
+        earliest_due_date: ['is missing'],
+        determined_at: ['is missing']
+      }
     end
 
     it 'should fail validation' do
-      # result = described_class.new.call({ determinations: {} })
-      # require 'pry'
-      # binding.pry
-      # expect(result.failure?).to be_truthy
-      # expect(result.errors.to_h).to eq error_message
+      result = described_class.new.call({ determinations: {} })
+      expect(result.failure?).to be_truthy
+      expect(result.errors.to_h).to eq error_message
     end
   end
 
