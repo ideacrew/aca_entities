@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'Date'
+require 'date'
 
 module AcaEntities
   # All types Eligibilities
@@ -14,9 +14,9 @@ module AcaEntities
     require_relative 'contracts/evidence_state_contract'
     require_relative 'contracts/evidence_states_contract'
     require_relative 'contracts/eligibility_item_contract'
-    require_relative 'contracts/eligibility_contract'
+    require_relative 'contracts/eligibility_state_contract'
+    require_relative 'contracts/eligibility_states_contract'
     require_relative 'contracts/determination_contract'
-    require_relative 'contracts/determinations_contract'
     require_relative 'contracts/subject_contract'
     require_relative 'contracts/subjects_contract'
 
@@ -26,14 +26,13 @@ module AcaEntities
     require_relative 'evidence_state'
     require_relative 'evidence_states'
     require_relative 'eligibility_item'
+    require_relative 'eligibility_states'
     require_relative 'determination'
-    require_relative 'determinations'
     require_relative 'subject'
     require_relative 'subjects'
-    require_relative 'eligibility_snapshot'
 
     # A granted permission or benefit
-    class Eligibility < Dry::Struct
+    class EligibilityState < Dry::Struct
       attribute? :id, Types::Coercible::String.meta(omittable: true)
       attribute :eligibility_item_key,
                 Types::Coercible::String.meta(omittable: false)

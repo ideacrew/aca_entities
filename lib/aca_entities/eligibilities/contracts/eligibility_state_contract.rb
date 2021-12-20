@@ -3,11 +3,11 @@
 module AcaEntities
   module Eligibilities
     module Contracts
-      # contract for EvidenceContract
-      class EligibilityContract < Dry::Validation::Contract
+      # contract for { EligibilityState }
+      class EligibilityStateContract < Dry::Validation::Contract
         params do
           optional(:id).maybe(:string)
-          required(:eligibility_item_key).filled(:string)
+          # required(:eligibility_item_key).filled(:string)
           required(:is_eligible).filled(:bool)
           required(:earliest_due_date).filled(:date)
           required(:determined_at).filled(:date_time)

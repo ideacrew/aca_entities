@@ -4,7 +4,7 @@
 module AcaEntities
   module Libraries
     module EligibilityLibrary
-      require 'aca_entities/eligibilities/eligibility'
+      require 'aca_entities/eligibilities/eligibility_state'
     end
   end
 end

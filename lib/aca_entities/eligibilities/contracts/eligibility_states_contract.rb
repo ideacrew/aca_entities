@@ -3,13 +3,13 @@
 module AcaEntities
   module Eligibilities
     module Contracts
-      # Contract for validating {AcaEntities::Eligibilities::Determinations} entity hashes
-      class DeterminationsContract < Dry::Validation::Contract
+      # Contract for validating { EligibilityState } entity hashes
+      class EligibilityStatesContract < Dry::Validation::Contract
         # @!method call(opts)
-        # @param [Hash] :determinations required
+        # @param [Hash] :eligibility_states required
         # @return [Dry::Monads::Result::Success] if valid
         # @return [Dry::Monads::Result::Failure] if invalid
-        params { required(:determinations).value(:hash) }
+        params { required(:eligibility_states).value(:hash) }
       end
     end
   end
