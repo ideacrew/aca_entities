@@ -2,7 +2,6 @@
 
 require 'spec_helper'
 require 'aca_entities/magi_medicaid/libraries/iap_library'
-require 'pry'
 
 RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicantContract,  dbclean: :after_each do
   context 'applicant is not applying for coverage' do
