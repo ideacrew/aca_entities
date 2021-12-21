@@ -227,9 +227,10 @@ module AcaEntities
         end
 
         def demographic_hash
+          ethnicity = @memoized_data.find(Regexp.new("person_demographics.ethnicity.#{@applicant_identifier}"))&.first&.item
           { gender: @memoized_data.find(Regexp.new("person_demographics.gender.#{@applicant_identifier}"))&.first&.item&.downcase,
             dob: @memoized_data.find(Regexp.new("person_demographics.dob.#{@applicant_identifier}"))&.first&.item,
-            ethnicity: @memoized_data.find(Regexp.new("person_demographics.ethnicity.#{@applicant_identifier}"))&.first&.item,
+            ethnicity: ethnicity || ["", "", "", "", "", "", ""],
             race: nil,
             is_veteran_or_active_military: @member_hash[:us_verteran_indicator] || false,
             is_vets_spouse_or_child: nil }
