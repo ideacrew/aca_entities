@@ -202,8 +202,7 @@ module AcaEntities
                   map 'ethnicities', 'person.person_demographics.ethnicity', memoize_record: true, append_identifier: true, visible: false
                   add_key 'person.person_demographics.ethnicity', function: lambda { |v|
                     member_id = v.find(/record.people.(\w+)$/).map(&:item).last
-                    ethnicities = v.resolve("person.person_demographics.ethnicity.#{member_id}").item
-                    ethnicities.nil? ? [] : ethnicities
+                    v.resolve("person.person_demographics.ethnicity.#{member_id}").item
                   }
                 end
               end
