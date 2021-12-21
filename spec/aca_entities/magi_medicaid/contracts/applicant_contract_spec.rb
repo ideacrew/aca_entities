@@ -14,7 +14,7 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicantContract,  dbclean
         health_only_slcsp_premiums: [{ member_identifier: '95', monthly_premium: 320.50 },
                                      { member_identifier: '96', monthly_premium: 320.60 }] }
     end
-    let(:attestation) { { is_self_attested_disabled: false, is_self_attested_blind: false } }
+    let(:attestation) { {} }
     let(:family_member_reference) do
       { family_member_hbx_id: '1000',
         first_name: 'first',
@@ -96,6 +96,10 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicantContract,  dbclean
         input_app_keys = input_params.keys
         expect(result_app_keys - input_app_keys).to be_empty
         expect(input_app_keys - result_app_keys).to be_empty
+      end
+
+      it 'should return all keys of applicant' do
+        expect(@result.to_h[:attestation]).to be_empty
       end
     end
   end
