@@ -6,6 +6,7 @@ module AcaEntities
     # A stateful instance of a defined eligibility with one or more
     #   {AcaEntities::Eligiblities::EvidenceState}s
     class Determination < Dry::Struct
+      attribute :effective_date, Types::Date
       attribute :subjects, Types::Hash.meta(ommittable: false)
     end
   end
