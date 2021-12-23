@@ -35,6 +35,21 @@ module AcaEntities
           result ? Success(result) : Failure(result)
         end
 
+        # Transform a JSON-style nested hash into a flat hash moving the
+        #   top-level key name to value of a designated key
+        # @param [Hash] attr_hash the hash to transform
+        # @param [Symbol, String] attribute_key the key on which to assign
+        #   the top-level key
+        # @return [Hash]
+        # @example
+        #   attr_hash = { :favorite_foods => { :fruit => 'apple', :vegetable => 'asparagus' } }
+        #   to_flat_hash(attr_hash, :category)
+        #   #=> { :fruit => 'apple', :vegetable => 'asparagus', :category => :favorite_foods }
+        def to_flat_hash(attr_hash, attribute_key)
+          hash_key = attr_hash.keys.first
+          attr_hash[hash_key].merge(attribute_key => hash_key)
+        end
+
         private
 
         # Strip any Mondoid-managed attributes from hash
