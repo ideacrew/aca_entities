@@ -25,7 +25,7 @@ module AcaEntities
               .errors
               .to_h
               .each do |path, message|
-                key([evidence_state_key, *path]).failure(text: message)
+                key([evidence_state_key, *path]).failure(text: message.first)
               end
           end
         end
