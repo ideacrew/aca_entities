@@ -9,7 +9,7 @@ RSpec.describe AcaEntities::Eligibilities::Determination do
 
   let(:subjects) { { subjects: {} } }
 
-  let(:required_params) { { subjects: subjects } }
+  let(:required_params) { { subjects: subjects, effective_date: Date.today } }
 
   let(:all_params) { required_params }
 

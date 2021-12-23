@@ -49,7 +49,6 @@ RSpec.describe AcaEntities::Eligibilities::Contracts::EligibilityStateContract d
   context 'Calling the contract with required params' do
     it 'should pass validation' do
       result = described_class.new.call(required_params)
-
       expect(result.success?).to be_truthy
       expect(result.to_h).to eq required_params
     end

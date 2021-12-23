@@ -16,7 +16,7 @@ RSpec.shared_context 'eligibilities_shared_context' do
     {
       income_evidence: {
         evidence_gid: applicant_evidence_gid,
-        state: verification_outstanding,
+        status: verification_outstanding,
         is_satisfied: unsatisfied,
         due_on: five_days_from_today,
         verification_outstanding: true,
@@ -24,7 +24,7 @@ RSpec.shared_context 'eligibilities_shared_context' do
       },
       esi_evidence: {
         evidence_gid: applicant_evidence_gid,
-        state: verification_outstanding,
+        status: verification_outstanding,
         is_satisfied: unsatisfied,
         due_on: five_days_from_today,
         verification_outstanding: true,
@@ -32,15 +32,15 @@ RSpec.shared_context 'eligibilities_shared_context' do
       },
       non_esi_evidence: {
         evidence_gid: applicant_evidence_gid,
-        state: verification_outstanding,
+        status: verification_outstanding,
         is_satisfied: unsatisfied,
         due_on: five_days_from_today,
         verification_outstanding: true,
         visited_at: now
       },
-      aces_mec_evidence: {
+      local_mec_evidence: {
         evidence_gid: applicant_evidence_gid,
-        state: verification_outstanding,
+        status: verification_outstanding,
         is_satisfied: unsatisfied,
         due_on: five_days_from_today,
         verification_outstanding: true,
@@ -73,7 +73,7 @@ RSpec.shared_context 'eligibilities_shared_context' do
         evidence_ref: URI('gid://enroll_app/FinancialAssistance::Application')
       },
       {
-        key: :aces_mec_evidence,
+        key: :local_mec_evidence,
         title: 'MEC',
         description: 'MEC benefits',
         subject_ref: URI('gid://enroll_app/Family::FamilyMember'),

@@ -745,9 +745,9 @@
                             ],
                             "eligibility_status": "attested",
                             "external_service": null,
-                            "key": "aces_mec",
+                            "key": "local_mec",
                             "rejected": null,
-                            "title": "ACES MEC",
+                            "title": "Local MEC",
                             "update_reason": null,
                             "updated_at": "2021-11-17T18:17:05.641Z",
                             "updated_by": null
@@ -1011,9 +1011,9 @@
                             ],
                             "eligibility_status": "attested",
                             "external_service": null,
-                            "key": "aces_mec",
+                            "key": "local_mec",
                             "rejected": null,
-                            "title": "ACES MEC",
+                            "title": "Local MEC",
                             "update_reason": null,
                             "updated_at": "2021-11-17T18:17:05.652Z",
                             "updated_by": null

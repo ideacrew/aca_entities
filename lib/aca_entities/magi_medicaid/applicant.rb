@@ -161,7 +161,7 @@ module AcaEntities
       attribute :income_evidence, AcaEntities::Eligibilities::Evidence.optional.meta(omittable: true)
       attribute :esi_evidence, AcaEntities::Eligibilities::Evidence.optional.meta(omittable: true)
       attribute :non_esi_evidence, AcaEntities::Eligibilities::Evidence.optional.meta(omittable: true)
-      attribute :aces_mec_evidence, AcaEntities::Eligibilities::Evidence.optional.meta(omittable: true)
+      attribute :local_mec_evidence, AcaEntities::Eligibilities::Evidence.optional.meta(omittable: true)
 
       # fdsh esi response
       attribute :esi_eligibility_indicator,   Types::Bool.optional.meta(omittable: true)

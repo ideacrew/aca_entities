@@ -13,7 +13,7 @@ RSpec.describe AcaEntities::Eligibilities::EvidenceState do
     )
   end
 
-  let(:state) { 'determined' }
+  let(:status) { 'determined' }
   let(:is_satisfied) { false }
   let(:verification_outstanding) { true }
   let(:due_on) { Date.today + 1 }
@@ -25,7 +25,7 @@ RSpec.describe AcaEntities::Eligibilities::EvidenceState do
     {
       evidence_gid: evidence_gid,
       visited_at: visited_at,
-      state: state,
+      status: status,
       is_satisfied: is_satisfied,
       verification_outstanding: verification_outstanding,
       due_on: due_on
@@ -39,8 +39,8 @@ RSpec.describe AcaEntities::Eligibilities::EvidenceState do
       result = subject.new(required_params)
       expect(result).to be_a described_class
       expect(result.to_h).to eq required_params.merge(
-           evidence_gid: evidence_gid.to_s
-         )
+        evidence_gid: evidence_gid.to_s
+      )
     end
   end
 
@@ -48,8 +48,8 @@ RSpec.describe AcaEntities::Eligibilities::EvidenceState do
     it 'should initialize without error' do
       expect(subject.new(all_params)).to be_a described_class
       expect(subject.new(all_params).to_h).to eq all_params.merge(
-           evidence_gid: evidence_gid.to_s
-         )
+        evidence_gid: evidence_gid.to_s
+      )
     end
   end
 end

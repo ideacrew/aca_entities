@@ -7,7 +7,7 @@ RSpec.describe AcaEntities::Eligibilities::Contracts::EvidenceStateContract do
 
   let(:evidence_gid) { URI('gid://enroll_app/FinancialAssistance::Application/676767/Applicant/55555') }
 
-  let(:state) { 'determined' }
+  let(:status) { 'determined' }
   let(:is_satisfied) { false }
   let(:verification_outstanding) { true }
   let(:due_on) { Date.today + 1 }
@@ -16,7 +16,7 @@ RSpec.describe AcaEntities::Eligibilities::Contracts::EvidenceStateContract do
   let(:optional_params) { {} }
 
   let(:required_params) do
-    { evidence_gid: evidence_gid, visited_at: visited_at, state: state, is_satisfied: is_satisfied,
+    { evidence_gid: evidence_gid, visited_at: visited_at, status: status, is_satisfied: is_satisfied,
       verification_outstanding: verification_outstanding, due_on: due_on }
   end
 
@@ -27,7 +27,7 @@ RSpec.describe AcaEntities::Eligibilities::Contracts::EvidenceStateContract do
       {
         evidence_gid: ['is missing'],
         visited_at: ['is missing'],
-        state: ['is missing'],
+        status: ['is missing'],
         is_satisfied: ['is missing'],
         verification_outstanding: ['is missing'],
         due_on: ['is missing']
