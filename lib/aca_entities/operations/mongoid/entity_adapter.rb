@@ -12,23 +12,25 @@ module AcaEntities
           serializable_hash.merge('_id' => id.to_s).deep_symbolize_keys
         end
 
-        # Transform a flat hash into a JSON-style nested hash using the value
-        #   of a designated key as the top-level key
-        # Returns original hash if the key isn't found
-        # @param [Hash] attr_hash the hash to transform
+        # Transform a Mongoid record hash into a JSON-style nested map hash using the value
+        #   of a designated field as the top-level key
         # @param [Symbol, String] attribute_key the key thats value will become
         #   the top-level key
         # @return [Hash]
         # @example
         #   attr_hash = { :fruit => 'apple', :vegetable => 'asparagus', :category => :favorite_foods }
-        #   to_map_hash(attr_hash, :category)
+        #   attr_hash.to_entity_map_hash(:category)
         #   #=> { :favorite_foods => { :fruit => 'apple', :vegetable => 'asparagus' } }
-        def to_map_hash(attr_hash, attribute_key)
-          return attr_hash unless attr_hash.keys.include? attribute_key
+        # rubocop:disable Style/IfUnlessModifier
+        def to_entity_map_hash(attribute_key)
+          unless has_attribute?(attribute_key)
+            raise(ArgumentError, "#{attribute_key} attribute key not found")
+          end
 
-          hash_key = attr_hash[attribute_key]
-          { hash_key => attr_hash.reject { |k, _v| k == attribute_key } }
+          hash_key = attributes[attribute_key]
+          { hash_key => attributes.reject { |k, _v| k == attribute_key } }
         end
+        # rubocop:enable Style/IfUnlessModifier
       end
     end
   end
