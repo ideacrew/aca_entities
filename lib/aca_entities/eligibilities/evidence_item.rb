@@ -22,12 +22,12 @@ module AcaEntities
       # @!attribute [r] title
       # A name given to the resource by which the resource is formally known
       # @return [String]
-      attribute :title, Types::String.meta(omittable: true)
+      attribute? :title, Types::String.optional.meta(omittable: true)
 
       # @!attribute [r] description
       # An optional account of the content of this resource
       # @return [String]
-      attribute :description, Types::String.optional.meta(ommitable: true)
+      attribute? :description, Types::String.optional.meta(ommitable: true)
 
       # @!attribute [r] subject_ref
       # A class or object described by the {evidence_ref}

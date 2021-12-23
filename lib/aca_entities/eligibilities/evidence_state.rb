@@ -6,7 +6,7 @@ module AcaEntities
     class EvidenceState < Dry::Struct
       attribute :evidence_gid,
                 Types::Coercible::String.optional.meta(omittable: false)
-      attribute :state,
+      attribute :status,
                 AcaEntities::Eligibilities::Types::EvidenceStateKind.meta(
                   ommittable: false
                 )
@@ -14,6 +14,7 @@ module AcaEntities
       attribute :verification_outstanding, Types::Bool.meta(ommittable: false)
       attribute :due_on, Types::Date.meta(ommittable: false)
       attribute :visited_at, Types::DateTime.meta(ommittable: false)
+      attribute? :meta, Types::Hash.meta(ommittable: true)
     end
   end
 end

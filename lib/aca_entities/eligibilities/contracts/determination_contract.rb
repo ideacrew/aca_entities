@@ -5,7 +5,11 @@ module AcaEntities
     module Contracts
       # contract for EvidenceContract
       class DeterminationContract < Dry::Validation::Contract
-        params { required(:subjects).value(:hash) }
+
+        params do
+          required(:effective_period).filled(type?: Range)
+          required(:subjects).value(:hash)
+        end
 
         rule(:subjects) do
           values.to_h[:subjects].each_pair do |subject_key, subject_val|
