@@ -30,7 +30,9 @@ module AcaEntities
               if structured_address&.location_county_name && !structured_address.location_county_name.empty?
                 mapper.location_county_name = structured_address&.location_county_name
               end
-              mapper.location_county_code = structured_address&.location_county_code
+              if structured_address&.location_county_code && !structured_address.location_county_code.empty?
+                mapper.location_county_code = structured_address&.location_county_code
+              end
               mapper.location_state_us_postal_service_code = structured_address&.location_state_us_postal_service_code
               mapper.location_postal_code = structured_address&.location_postal_code
               mapper
