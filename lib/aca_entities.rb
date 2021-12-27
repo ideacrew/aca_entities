@@ -11,6 +11,7 @@ require 'aca_entities/version'
 require 'aca_entities/error'
 
 require 'aca_entities/configuration/encryption'
+require 'aca_entities/operations/mongoid/model_adapter'
 
 require 'aca_entities/libraries/aca_individual_market_library'
 require 'aca_entities/libraries/fdsh_library'
@@ -22,6 +23,7 @@ require 'aca_entities/libraries/core_library'
 require 'aca_entities/individual_market'
 require 'aca_entities/shop_market'
 require 'aca_entities/transform'
+
 
 # TODO: Decide how to incorporate versioning? e.g. Iap::V3_0::Application
 # TODO: Should we insure unique namespacing with prefix? e.g. AcaIap::Application

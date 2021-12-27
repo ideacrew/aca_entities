@@ -110,7 +110,7 @@ RSpec.shared_context 'eligibilities_shared_context' do
                     # Visitor call will include Family's current FAA application ID, e.g. 676767
                     # Visitor will map subject id: 33333 to evidence instance Appplicant ID, e.g. 555555
                     'gid://enroll_app/FinancialAssistance::Application/676767/Applicant/55555',
-                  state: 'determined',
+                  status: 'determined',
                   is_satisfied: true,
                   verification_outstanding: false,
                   due_on: (Date.today + 21),
@@ -122,7 +122,7 @@ RSpec.shared_context 'eligibilities_shared_context' do
                     # Visitor call will include Family's current FAA application ID, e.g. 676767
                     # Visitor will map subject id: 33333 to evidence instance Appplicant ID, e.g. 555555
                     'gid://enroll_app/FinancialAssistance::Application/676767/Applicant/55555',
-                  state: 'determined',
+                  status: 'determined',
                   is_satisfied: true,
                   verification_outstanding: false,
                   due_on: (Date.today + 21),

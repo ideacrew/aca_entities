@@ -7,7 +7,7 @@ module AcaEntities
       class DeterminationContract < Dry::Validation::Contract
 
         params do
-          required(:effective_period).filled(type?: Range)
+          required(:effective_date).filled(type?: Date)
           required(:subjects).value(:hash)
         end
 

@@ -3,14 +3,23 @@
 module AcaEntities
   module Operations
     module Mongoid
-      MongoidPrivateKeys = %i[_id created_at updated_at].freeze
-
       # Resources for Dry-Structs to interact with Mongoid persistence
       module ModelAdapter
+        MongoidPrivateKeys = %i[_id created_at updated_at].freeze
+
+        # def included(base)
+        def self.included base
+          base.extend(ClassMethods)
+        end
+
         module ClassMethods
+          attr_reader :persistence_model_name
+
           # @attr_reader [persistence_model_name] Mongoid Model class associated
           # with the Dry-Model Struct
-          attr_reader :persistence_model_name
+          def persistence_model_name(model_name)
+            @persistence_model_name = model_name
+          end
         end
 
         def persistence_klass
@@ -48,8 +57,6 @@ module AcaEntities
           hash_key = attr_hash.keys.first
           attr_hash[hash_key].merge(attribute_key => hash_key)
         end
-
-        private
 
         # Strip any Mondoid-managed attributes from hash
         def sanitize_attributes

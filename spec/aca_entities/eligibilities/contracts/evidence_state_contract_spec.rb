@@ -30,7 +30,7 @@ RSpec.describe AcaEntities::Eligibilities::Contracts::EvidenceStateContract do
         status: ['is missing'],
         is_satisfied: ['is missing'],
         verification_outstanding: ['is missing'],
-        due_on: ['is missing']
+        # due_on: ['is missing']
       }
     end
 

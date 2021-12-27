@@ -10,7 +10,7 @@ module AcaEntities
           required(:status).filled(AcaEntities::Eligibilities::Types::EvidenceStateKind)
           required(:is_satisfied).filled(:bool)
           required(:verification_outstanding).filled(:bool)
-          required(:due_on).maybe(:date)
+          optional(:due_on).maybe(:date)
           optional(:meta).maybe(:hash)
           required(:visited_at).filled(:date_time)
         end

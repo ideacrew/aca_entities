@@ -34,34 +34,52 @@ module AcaEntities
     # A granted permission or benefit
     class EligibilityState < Dry::Struct
       attribute? :id, Types::Coercible::String.meta(omittable: true)
-      attribute :eligibility_item_key,
-                Types::Coercible::String.meta(omittable: false)
-      attribute :is_eligible, Types::Bool.meta(omittable: false)
-      attribute :earliest_due_date, Types::Date.meta(omittable: false)
+
+      # attribute :eligibility_item_key,
+      #           Types::Coercible::String.meta(omittable: false)
+      attribute? :is_eligible, Types::Bool.meta(omittable: true)
+      attribute? :earliest_due_date, Types::Date.meta(omittable: true)
       attribute :determined_at, Types::DateTime.meta(omittable: false)
       attribute :evidence_states, Types::Hash.meta(omittable: false)
 
-      # def initialize(*args)
+      # def initialize(args)
+      #   if args[:evidence_states].present?
+      #     hash_to_transform = args[:evidence_states]
+
+      #     args[:evidence_states] =
+      #       hash_to_transform
+      #         .keys
+      #         .collect do |key|
+      #           Hash[key, EvidenceState.new(hash_to_transform[key].deep_symbolize_keys)]
+      #         end
+      #         .reduce(:merge)
+      #     args[:earliest_due_date] =
+      #       args[:evidence_states].values.min_by(&:due_on)
+      #   end
+
+      #   args[:is_eligible] = false #args[:evidence_states].values.all?(&:is_satisfied)
+      #   args[:determined_at] = DateTime.now
+
       #   super(args)
       # end
 
-      # after_initialize :set_attributes
+      # # after_initialize :set_attributes
 
-      def fetch_status
-        evidence_states.all?(&:is_satisfied)
-      end
+      # def fetch_status
+      #   evidence_states.all?(&:is_satisfied)
+      # end
 
-      def fetch_earliest_due_date
-        evidence_states.min_by(&:due_on)
-      end
+      # def fetch_earliest_due_date
+      #   evidence_states.min_by(&:due_on)
+      # end
 
-      private
+      # private
 
-      def set_attributes
-        @earliest_due_date = fetch_earliest_due_date
-        @is_eligible = fetch_status
-        @determined_at = DateTime.now
-      end
+      # def set_attributes
+      #   @earliest_due_date = fetch_earliest_due_date
+      #   @is_eligible = fetch_status
+      #   @determined_at = DateTime.now
+      # end
     end
   end
 end

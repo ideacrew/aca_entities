@@ -7,9 +7,8 @@ module AcaEntities
       class EligibilityStateContract < Dry::Validation::Contract
         params do
           optional(:id).maybe(:string)
-          # required(:eligibility_item_key).filled(:string)
-          required(:is_eligible).filled(:bool)
-          required(:earliest_due_date).filled(:date)
+          optional(:is_eligible).filled(:bool)
+          optional(:earliest_due_date).maybe(:date)
           required(:determined_at).filled(:date_time)
           required(:evidence_states).value(:hash)
         end

@@ -6,7 +6,7 @@ module AcaEntities
       # contract for { Subject }
       class SubjectContract < Dry::Validation::Contract
         params do
-          required(:gid).filled(type?: URI)
+          # required(:gid).filled(type?: URI)
           required(:first_name).filled(:string)
           required(:last_name).filled(:string)
           required(:is_primary).filled(:bool)

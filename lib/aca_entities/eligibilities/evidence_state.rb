@@ -12,9 +12,10 @@ module AcaEntities
                 )
       attribute :is_satisfied, Types::Bool.meta(ommittable: false)
       attribute :verification_outstanding, Types::Bool.meta(ommittable: false)
-      attribute :due_on, Types::Date.meta(ommittable: false)
+      attribute? :due_on, Types::Date.meta(ommittable: true)
       attribute :visited_at, Types::DateTime.meta(ommittable: false)
       attribute? :meta, Types::Hash.meta(ommittable: true)
+
     end
   end
 end

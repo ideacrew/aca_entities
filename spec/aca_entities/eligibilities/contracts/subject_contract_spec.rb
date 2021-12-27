@@ -7,7 +7,7 @@ RSpec.describe AcaEntities::Eligibilities::Contracts::SubjectContract do
   include_context 'eligibilities_shared_context'
   subject { described_class.new }
 
-  let(:gid) { URI('gid://enroll_app/Family/98765/FamilyMember/234567') }
+  # let(:gid) { URI('gid://enroll_app/Family/98765/FamilyMember/234567') }
   let(:first_name) { 'Michael' }
   let(:last_name) { 'Brady' }
   let(:is_primary) { true }
@@ -15,7 +15,7 @@ RSpec.describe AcaEntities::Eligibilities::Contracts::SubjectContract do
 
   let(:required_params) do
     {
-      gid: gid,
+      # gid: gid,
       first_name: first_name,
       last_name: last_name,
       is_primary: is_primary,
@@ -26,7 +26,7 @@ RSpec.describe AcaEntities::Eligibilities::Contracts::SubjectContract do
   context 'Calling the contract with no params' do
     let(:error_message) do
       {
-        gid: ['is missing'],
+        # gid: ['is missing'],
         first_name: ['is missing'],
         last_name: ['is missing'],
         is_primary: ['is missing'],

@@ -32,9 +32,9 @@ RSpec.describe AcaEntities::Eligibilities::Contracts::EligibilityStateContract d
     let(:error_message) do
       {
         # eligibility_item_key: ['is missing'],
-        is_eligible: ['is missing'],
+        # is_eligible: ['is missing'],
         evidence_states: ['is missing'],
-        earliest_due_date: ['is missing'],
+        # earliest_due_date: ['is missing'],
         determined_at: ['is missing']
       }
     end
