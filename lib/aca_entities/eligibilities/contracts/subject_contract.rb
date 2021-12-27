@@ -15,7 +15,7 @@ module AcaEntities
 
         rule(:eligibility_states) do
           values.to_h[:eligibility_states]
-            .each_pair do |eligibility_state_key, eligibility_state_val|
+              &.each_pair do |eligibility_state_key, eligibility_state_val|
             result =
               AcaEntities::Eligibilities::Contracts::EligibilityStateContract.new
                 .call(eligibility_state_val)
