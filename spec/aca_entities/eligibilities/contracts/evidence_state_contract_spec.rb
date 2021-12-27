@@ -29,7 +29,7 @@ RSpec.describe AcaEntities::Eligibilities::Contracts::EvidenceStateContract do
         visited_at: ['is missing'],
         status: ['is missing'],
         is_satisfied: ['is missing'],
-        verification_outstanding: ['is missing'],
+        verification_outstanding: ['is missing']
         # due_on: ['is missing']
       }
     end

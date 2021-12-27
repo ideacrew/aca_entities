@@ -24,7 +24,6 @@ require 'aca_entities/individual_market'
 require 'aca_entities/shop_market'
 require 'aca_entities/transform'
 
-
 # TODO: Decide how to incorporate versioning? e.g. Iap::V3_0::Application
 # TODO: Should we insure unique namespacing with prefix? e.g. AcaIap::Application
 
