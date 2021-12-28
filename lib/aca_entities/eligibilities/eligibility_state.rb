@@ -34,6 +34,7 @@ module AcaEntities
     # A granted permission or benefit
     class EligibilityState < Dry::Struct
       attribute? :id, Types::Coercible::String.meta(omittable: true)
+      attribute? :document_status, Types::Coercible::String.meta(omittable: true)
 
       # attribute :eligibility_item_key,
       #           Types::Coercible::String.meta(omittable: false)

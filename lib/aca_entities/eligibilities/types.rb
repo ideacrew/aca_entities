@@ -24,7 +24,8 @@ module AcaEntities
           'determined',
           'expired',
           'rejected',
-          'errored'
+          'errored',
+          'review'
         ).freeze
 
     end
