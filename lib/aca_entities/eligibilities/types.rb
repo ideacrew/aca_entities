@@ -25,7 +25,14 @@ module AcaEntities
           'expired',
           'rejected',
           'errored',
-          'review'
+          'review',
+          'attested',
+          'verified',
+          'non_verified',
+          'denied',
+          'errored',
+          'closed',
+          'corrected'
         ).freeze
 
     end

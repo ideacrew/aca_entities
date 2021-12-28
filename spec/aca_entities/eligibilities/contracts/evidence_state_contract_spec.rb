@@ -49,39 +49,39 @@ RSpec.describe AcaEntities::Eligibilities::Contracts::EvidenceStateContract do
     end
   end
 
-  context 'Verify co-dependent is_satisfied and due_on attributes' do
-    context 'When is_satisfied == false' do
-      let(:valid_attribute_pair) { required_params.merge({ is_satisfied: false, due_on: Date.today }) }
-      let(:invalid_attribute_pair) { required_params.merge({ is_satisfied: false, due_on: nil }) }
-      let(:is_satisfied_true_error) { ['when is_satisfied is false, due_on must be present'] }
+  # context 'Verify co-dependent is_satisfied and due_on attributes' do
+  #   context 'When is_satisfied == false' do
+  #     let(:valid_attribute_pair) { required_params.merge({ is_satisfied: false, due_on: Date.today }) }
+  #     let(:invalid_attribute_pair) { required_params.merge({ is_satisfied: false, due_on: nil }) }
+  #     let(:is_satisfied_true_error) { ['when is_satisfied is false, due_on must be present'] }
 
-      it 'and due_on has a value it should validate' do
-        result = subject.call(valid_attribute_pair)
-        expect(result).to be_truthy
-      end
+  #     it 'and due_on has a value it should validate' do
+  #       result = subject.call(valid_attribute_pair)
+  #       expect(result).to be_truthy
+  #     end
 
-      it 'and due_on is nil it should not validate' do
-        result = subject.call(invalid_attribute_pair)
-        expect(result.success?).to be_falsey
-        expect(result.errors.to_h[:is_satisfied]).to eq is_satisfied_true_error
-      end
-    end
+  #     it 'and due_on is nil it should not validate' do
+  #       result = subject.call(invalid_attribute_pair)
+  #       expect(result.success?).to be_falsey
+  #       expect(result.errors.to_h[:is_satisfied]).to eq is_satisfied_true_error
+  #     end
+  #   end
 
-    context 'When is_satisfied == true' do
-      let(:valid_attribute_pair) { required_params.merge({ is_satisfied: true, due_on: nil }) }
-      let(:invalid_attribute_pair) { required_params.merge({ is_satisfied: true, due_on: Date.today }) }
-      let(:is_satisfied_false_error) { ['when is_satisfied is true, due_on must be nil'] }
+  #   context 'When is_satisfied == true' do
+  #     let(:valid_attribute_pair) { required_params.merge({ is_satisfied: true, due_on: nil }) }
+  #     let(:invalid_attribute_pair) { required_params.merge({ is_satisfied: true, due_on: Date.today }) }
+  #     let(:is_satisfied_false_error) { ['when is_satisfied is true, due_on must be nil'] }
 
-      it 'and due_on has a value it should not validate' do
-        result = subject.call(valid_attribute_pair)
-        expect(result.success?).to be_truthy
-      end
+  #     it 'and due_on has a value it should not validate' do
+  #       result = subject.call(valid_attribute_pair)
+  #       expect(result.success?).to be_truthy
+  #     end
 
-      it 'and due_on is nil it should validate' do
-        result = subject.call(invalid_attribute_pair)
-        expect(result.success?).to be_falsey
-        expect(result.errors.to_h[:is_satisfied]).to eq is_satisfied_false_error
-      end
-    end
-  end
+  #     it 'and due_on is nil it should validate' do
+  #       result = subject.call(invalid_attribute_pair)
+  #       expect(result.success?).to be_falsey
+  #       expect(result.errors.to_h[:is_satisfied]).to eq is_satisfied_false_error
+  #     end
+  #   end
+  # end
 end

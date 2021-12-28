@@ -15,10 +15,10 @@ module AcaEntities
           required(:visited_at).filled(:date_time)
         end
 
-        rule(:is_satisfied, :due_on) do
-          key.failure('when is_satisfied is true, due_on must be nil') if values[:is_satisfied] && !values[:due_on].nil?
-          key.failure('when is_satisfied is false, due_on must be present') if !values[:is_satisfied] && values[:due_on].nil?
-        end
+        # rule(:is_satisfied, :due_on) do
+        #   key.failure('when is_satisfied is true, due_on must be nil') if values[:is_satisfied] && !values[:due_on].nil?
+        #   key.failure('when is_satisfied is false, due_on must be present') if !values[:is_satisfied] && values[:due_on].nil?
+        # end
       end
     end
   end
