@@ -22,7 +22,7 @@ RSpec.describe AcaEntities::Eligibilities::Subject do
       dob: Date.new(1985, 2, 1),
       hbx_id: '4121212',
       person_id: '2',
-      is_ov_eligible: 'eligible',
+      outstanding_verification_status: 'eligible',
       eligibility_states: eligibility_states
     }
   end

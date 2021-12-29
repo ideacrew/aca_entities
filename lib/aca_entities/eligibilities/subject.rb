@@ -13,7 +13,7 @@ module AcaEntities
       attribute :person_id, Types::String.meta(omittable: false)
       attribute :is_primary, Types::Bool.meta(omittable: false)
       attribute :eligibility_states, Types::Hash.meta(omittable: false)
-      attribute :is_ov_eligible,
+      attribute :outstanding_verification_status,
                 AcaEntities::Eligibilities::Types::DeterminationStateKind.meta(
                   ommittable: false
                 )

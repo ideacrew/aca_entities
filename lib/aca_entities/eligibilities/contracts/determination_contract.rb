@@ -5,11 +5,12 @@ module AcaEntities
     module Contracts
       # contract for EvidenceContract
       class DeterminationContract < Dry::Validation::Contract
-
         params do
           required(:effective_date).filled(type?: Date)
           required(:subjects).value(:hash)
-          required(:is_ov_eligible).filled(AcaEntities::Eligibilities::Types::DeterminationStateKind)
+          required(:outstanding_verification_status).filled(
+            AcaEntities::Eligibilities::Types::DeterminationStateKind
+          )
         end
 
         rule(:subjects) do
