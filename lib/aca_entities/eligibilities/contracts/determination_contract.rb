@@ -9,7 +9,7 @@ module AcaEntities
         params do
           required(:effective_date).filled(type?: Date)
           required(:subjects).value(:hash)
-          required(:is_ov_eligible).filled(Types::DeterminationStateKind)
+          required(:is_ov_eligible).filled(AcaEntities::Eligibilities::Types::DeterminationStateKind)
         end
 
         rule(:subjects) do

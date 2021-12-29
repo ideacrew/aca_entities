@@ -19,6 +19,10 @@ RSpec.describe AcaEntities::Eligibilities::Subject do
       first_name: first_name,
       last_name: last_name,
       is_primary: is_primary,
+      dob: Date.new(1985, 2, 1),
+      hbx_id: '4121212',
+      person_id: '2',
+      is_ov_eligible: 'eligible',
       eligibility_states: eligibility_states
     }
   end
