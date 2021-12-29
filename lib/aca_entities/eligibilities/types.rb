@@ -12,7 +12,9 @@ module AcaEntities
         Types::Coercible::String.enum(
           'eligible',
           'ineligible',
-          'verification_outstanding'
+          'outstanding',
+          'pending',
+          'not_enrolled'
         ).freeze
 
       EvidenceStateKind =

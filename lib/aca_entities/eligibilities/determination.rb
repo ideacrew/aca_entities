@@ -12,6 +12,7 @@ module AcaEntities
 
       attribute :effective_date, Types::Date
       attribute :subjects, Types::Hash.meta(ommittable: false)
+      attribute :is_ov_eligible, Types::DeterminationStateKind.meta(ommittable: false)
 
       # def initialize(args)
       #   hash_to_transform = args[:subjects]

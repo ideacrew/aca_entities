@@ -9,6 +9,7 @@ module AcaEntities
       attribute :last_name, Types::String.meta(omittable: false)
       attribute :is_primary, Types::Bool.meta(omittable: false)
       attribute :eligibility_states, Types::Hash.meta(omittable: false)
+      attribute :is_ov_eligible, Types::DeterminationStateKind.meta(ommittable: false)
 
       # def initialize(args)
       #   hash_to_transform = args[:eligibility_states]

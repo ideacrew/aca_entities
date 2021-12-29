@@ -11,6 +11,7 @@ module AcaEntities
           required(:last_name).filled(:string)
           required(:is_primary).filled(:bool)
           required(:eligibility_states).maybe(:hash)
+          required(:is_ov_eligible).filled(Types::DeterminationStateKind)
         end
 
         rule(:eligibility_states) do
