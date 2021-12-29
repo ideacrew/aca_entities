@@ -21,7 +21,7 @@ RSpec.describe AcaEntities::Eligibilities::Contracts::SubjectContract do
       dob: Date.new(1985, 2, 1),
       hbx_id: '4121212',
       person_id: '2',
-      is_ov_eligible: 'eligible',
+      outstanding_verification_status: 'eligible',
       is_primary: is_primary,
       eligibility_states: eligibility_states
     }
@@ -35,7 +35,7 @@ RSpec.describe AcaEntities::Eligibilities::Contracts::SubjectContract do
         last_name: ['is missing'],
         dob: ['is missing'],
         hbx_id: ['is missing'],
-        is_ov_eligible: ['is missing'],
+        outstanding_verification_status: ['is missing'],
         person_id: ['is missing'],
         is_primary: ['is missing'],
         eligibility_states: ['is missing']

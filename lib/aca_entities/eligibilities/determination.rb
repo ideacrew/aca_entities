@@ -12,7 +12,7 @@ module AcaEntities
 
       attribute :effective_date, Types::Date
       attribute :subjects, Types::Hash.meta(ommittable: false)
-      attribute :is_ov_eligible,
+      attribute :outstanding_verification_status,
                 AcaEntities::Eligibilities::Types::DeterminationStateKind.meta(
                   ommittable: false
                 )

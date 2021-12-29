@@ -15,7 +15,7 @@ module AcaEntities
           required(:person_id).filled(:string)
           required(:is_primary).filled(:bool)
           required(:eligibility_states).maybe(:hash)
-          required(:is_ov_eligible).filled(AcaEntities::Eligibilities::Types::DeterminationStateKind)
+          required(:outstanding_verification_status).filled(AcaEntities::Eligibilities::Types::DeterminationStateKind)
         end
 
         rule(:eligibility_states) do

@@ -9,7 +9,7 @@ RSpec.describe AcaEntities::Eligibilities::Determination do
 
   let(:subjects) { { subjects: {} } }
 
-  let(:required_params) { { subjects: subjects, effective_date: Date.today, is_ov_eligible: 'not_enrolled' } }
+  let(:required_params) { { subjects: subjects, effective_date: Date.today, outstanding_verification_status: 'not_enrolled' } }
 
   let(:all_params) { required_params }
 
