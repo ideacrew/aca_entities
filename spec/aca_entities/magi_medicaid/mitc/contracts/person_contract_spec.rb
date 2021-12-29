@@ -7,13 +7,10 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Mitc::Contracts::PersonContract do
   let(:required_params) do
     { person_id: 100,
       is_applicant: 'Y',
-      is_blind_or_disabled: 'Y',
       is_full_time_student: 'Y',
       is_medicare_entitled: 'Y',
-      is_incarcerated: 'Y',
       resides_in_state_of_application: 'Y',
       is_claimed_as_dependent_by_non_applicant: 'Y',
-      is_self_attested_long_term_care: 'Y',
       has_insurance: 'Y',
       has_state_health_benefit: 'Y',
       had_prior_insurance: 'Y',
@@ -30,7 +27,6 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Mitc::Contracts::PersonContract do
       hours_worked_per_week: 40,
       is_temporarily_out_of_state: 'Y',
       is_us_citizen: 'Y',
-      is_lawful_presence_self_attested: 'Y',
       immigration_status: '01',
       is_amerasian: 'Y',
       has_forty_title_ii_work_quarters: 'Y',
@@ -68,12 +64,12 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Mitc::Contracts::PersonContract do
 
   context 'invalid params' do
     let(:required_keys) do
-      [:person_id, :is_applicant, :is_blind_or_disabled, :is_full_time_student, :is_medicare_entitled,
-       :is_incarcerated, :resides_in_state_of_application, :is_claimed_as_dependent_by_non_applicant,
-       :is_self_attested_long_term_care, :has_insurance, :has_state_health_benefit, :had_prior_insurance,
+      [:person_id, :is_applicant, :is_full_time_student, :is_medicare_entitled,
+       :resides_in_state_of_application, :is_claimed_as_dependent_by_non_applicant,
+       :has_insurance, :has_state_health_benefit, :had_prior_insurance,
        :is_pregnant, :is_in_former_foster_care, :is_required_to_file_taxes, :age_of_applicant,
        :hours_worked_per_week, :is_temporarily_out_of_state, :is_us_citizen,
-       :is_lawful_presence_self_attested, :is_trafficking_victim, :is_eligible_for_refugee_medical_assistance,
+       :is_trafficking_victim, :is_eligible_for_refugee_medical_assistance,
        :is_veteran, :income, :relationships]
     end
 
