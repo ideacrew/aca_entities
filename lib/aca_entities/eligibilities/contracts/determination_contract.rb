@@ -8,9 +8,9 @@ module AcaEntities
         params do
           required(:effective_date).filled(type?: Date)
           required(:subjects).value(:hash)
-          required(:outstanding_verification_status).filled(
-            AcaEntities::Eligibilities::Types::DeterminationStateKind
-          )
+          required(:outstanding_verification_status).filled(AcaEntities::Eligibilities::Types::DeterminationStateKind)
+          required(:outstanding_verification_earliest_due_date).maybe(:date)
+          required(:outstanding_verification_document_status).maybe(:string)
         end
 
         rule(:subjects) do

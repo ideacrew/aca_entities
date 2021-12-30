@@ -17,6 +17,9 @@ module AcaEntities
                   ommittable: false
                 )
 
+      attribute :outstanding_verification_earliest_due_date, Types::Date.optional.meta(ommittable: false)
+      attribute :outstanding_verification_document_status, Types::String.optional.meta(ommittable: false)
+
       # def initialize(args)
       #   hash_to_transform = args[:subjects]
       #   args[:subjects] =
