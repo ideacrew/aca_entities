@@ -21,7 +21,7 @@ module AcaEntities
                                                                                                     }
           map 'city', 'contact.mailing_address.address.location_city_name'
           map 'county', 'contact.mailing_address.address.location_county_name'
-          map 'county_fips', 'contact.mailing_address.address.location_county_code'
+          # map 'county_fips', 'contact.mailing_address.address.location_county_code'
           map 'state', 'contact.mailing_address.address.location_state_us_postal_service_code'
           map 'zip', 'contact.mailing_address.address.location_postal_code'
           add_key 'contact.telephone_number'
