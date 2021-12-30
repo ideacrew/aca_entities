@@ -209,7 +209,8 @@ module AcaEntities
                         native_hash[:location_state_us_postal_service_code] = info.nil? ? nil : info[:tribal_state]
                         native_hash[:person_tribe_name] =  info.nil? ? nil : info[:tribal_name]
                         native_hash[:recognized_tribe_indicator] = info.nil? ? false : info[:tribal_name].present?
-                        native_hash[:american_indian_or_alaska_native_indicator] =  info.nil? ? nil : info[:tribal_name].present? && info[:tribal_state].present?
+                        indicator = info.nil? ? nil : info[:tribal_name].present? && info[:tribal_state].present?
+                        native_hash[:american_indian_or_alaska_native_indicator] = indicator
                         native_hash
                       end
                     }
