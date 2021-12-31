@@ -162,7 +162,7 @@ module AcaEntities
                       applicant_hash = applicants_hash[member_id.to_sym]
                       if applicant_hash
                         citizenship_information = applicant_hash[:citizenship_immigration_status_information]
-                        citizen_status = citizenship_information[:citizen_status]
+                        citizen_status = citizenship_information.nil? ? nil : citizenship_information[:citizen_status]
                       end
                       citizen_status == 'us_citizen'
                     }
@@ -206,10 +206,11 @@ module AcaEntities
                       if applicant_hash
                         info = applicant_hash[:native_american_information]
                         native_hash = {}
-                        native_hash[:location_state_us_postal_service_code] = info[:tribal_state]
-                        native_hash[:person_tribe_name] = info[:tribal_name]
-                        native_hash[:recognized_tribe_indicator] = true if info[:tribal_name].present?
-                        native_hash[:american_indian_or_alaska_native_indicator] = info[:tribal_name].present? && info[:tribal_state].present?
+                        native_hash[:location_state_us_postal_service_code] = info.nil? ? nil : info[:tribal_state]
+                        native_hash[:person_tribe_name] =  info.nil? ? nil : info[:tribal_name]
+                        native_hash[:recognized_tribe_indicator] = info.nil? ? false : info[:tribal_name].present?
+                        indicator = info.nil? ? nil : info[:tribal_name].present? && info[:tribal_state].present?
+                        native_hash[:american_indian_or_alaska_native_indicator] = indicator
                         native_hash
                       end
                     }
@@ -240,7 +241,7 @@ module AcaEntities
                       applicant_hash = applicants_hash[member_id.to_sym]
                       if applicant_hash
                         citizenship_information = applicant_hash[:citizenship_immigration_status_information]
-                        citizen_status = citizenship_information[:citizen_status]
+                        citizen_status = citizenship_information.nil? ? nil : citizenship_information[:citizen_status]
                       end
                       citizen_status == 'naturalized_citizen'
                     }
