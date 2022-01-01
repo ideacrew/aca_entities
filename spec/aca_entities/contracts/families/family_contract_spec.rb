@@ -861,6 +861,7 @@ RSpec.describe AcaEntities::Contracts::Families::FamilyContract,  dbclean: :afte
                        applicants: { 0 => { name: { first_name: ['is missing'], last_name: ['is missing'] },
                                             identifying_information: ["must be filled"],
                                             demographic: ["must be filled"],
+                                            attestation: ["must be filled"],
                                             family_member_reference: { family_member_hbx_id: ['is missing'] },
                                             pregnancy_information: { is_pregnant: ['is missing'] },
                                             age_of_applicant: ['is missing'],
