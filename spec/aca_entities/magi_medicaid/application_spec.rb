@@ -145,6 +145,7 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Application, dbclean: :after_each do
         { max_aptc: 100.56,
           hbx_id: '12345',
           is_insurance_assistance_eligible: 'Yes',
+          annual_tax_household_income: nil,
           tax_household_members: [tax_household_member] }
       end
 
