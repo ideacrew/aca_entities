@@ -28,6 +28,12 @@ module AcaEntities
           optional(:effective_on).maybe(:date)
           optional(:determined_on).maybe(:date)
         end
+
+        rule(:annual_tax_household_income) do
+          if key? && value.nil?
+            values.merge!(annual_tax_household_income: 0.0)
+          end
+        end
       end
     end
   end
