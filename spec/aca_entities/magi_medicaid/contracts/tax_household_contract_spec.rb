@@ -36,7 +36,7 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Contracts::TaxHouseholdContract, dbc
       hbx_id: '12345',
       is_insurance_assistance_eligible: 'Yes',
       tax_household_members: [tax_household_member],
-      annual_tax_household_income: nil
+      annual_tax_household_income: 50_000.00
     }
   end
 
@@ -74,7 +74,6 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Contracts::TaxHouseholdContract, dbc
     it "should pass validation" do
       result = subject.call(all_params)
       expect(result.success?).to be_truthy
-      expect(result.to_h[:annual_tax_household_income]).to eql(0.0)
     end
   end
 end

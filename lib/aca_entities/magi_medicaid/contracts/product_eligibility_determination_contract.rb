@@ -49,14 +49,6 @@ module AcaEntities
 
           optional(:category_determinations).array(CategoryDeterminationContract.params)
         end
-
-        rule(:magi_medicaid_monthly_income_limit) do
-          values.merge!(magi_medicaid_monthly_income_limit: 0.0) if key? && value.nil?
-        end
-
-        rule(:magi_medicaid_monthly_household_income) do
-          values.merge!(magi_medicaid_monthly_household_income: 0.0) if key? && value.nil?
-        end
       end
     end
   end

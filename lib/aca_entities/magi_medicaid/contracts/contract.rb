@@ -250,8 +250,12 @@ module AcaEntities
         end
 
         rule(:tax_households).each do |index:|
+          value.merge!(annual_tax_household_income: 0.0) if value[:annual_tax_household_income].nil?
+
           value[:tax_household_members].each_with_index do |thhm, thhm_index|
             ped = thhm[:product_eligibility_determination]
+            ped.merge!(magi_medicaid_monthly_income_limit: 0.0) if ped[:magi_medicaid_monthly_income_limit].nil?
+            ped.merge!(magi_medicaid_monthly_household_income: 0.0) if ped[:magi_medicaid_monthly_household_income].nil?
 
             if ped[:is_csr_eligible] && check_if_blank?(ped[:csr])
               key_name = [:tax_households, index, :tax_household_members, thhm_index, :product_eligibility_determination, :csr]

@@ -40,30 +40,4 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Contracts::ProductEligibilityDetermi
       expect(result.to_h).to eq all_params
     end
   end
-
-  context "with nil Money values" do
-    let(:nil_params) do
-      {
-        is_ia_eligible: true,
-        is_medicaid_chip_eligible: false,
-        is_non_magi_medicaid_eligible: false,
-        is_totally_ineligible: false,
-        is_without_assistance: false,
-        is_magi_medicaid: false,
-        magi_medicaid_monthly_household_income: nil,
-        medicaid_household_size: 1,
-        magi_medicaid_monthly_income_limit: nil,
-        magi_as_percentage_of_fpl: 10.0,
-        magi_medicaid_category: 'parent_caretaker'
-      }
-    end
-
-    let(:result) { subject.call(nil_params) }
-
-    [:magi_medicaid_monthly_income_limit, :magi_medicaid_monthly_household_income].each do |income_field|
-      it "changes the #{income_field} to 0.0" do
-        expect(result.to_h[income_field]).to eq(0.0)
-      end
-    end
-  end
 end
