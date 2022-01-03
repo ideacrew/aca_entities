@@ -222,7 +222,6 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicationContract,  dbcle
               is_without_assistance: false,
               is_magi_medicaid: true,
               is_csr_eligible: false,
-              magi_medicaid_monthly_household_income: 6474.42,
               medicaid_household_size: 1,
               magi_medicaid_monthly_income_limit: nil,
               magi_medicaid_monthly_household_income: nil,
@@ -239,11 +238,13 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicationContract,  dbcle
           end
 
           it 'should return 0.00 for magi_medicaid_monthly_household_income' do
-            expect(@result.to_h[:tax_households].first[:tax_household_members].first[:product_eligibility_determination][:magi_medicaid_monthly_household_income]).to eq(0.0)
+            ped_hash = @result.to_h[:tax_households].first[:tax_household_members].first[:product_eligibility_determination]
+            expect(ped_hash[:magi_medicaid_monthly_household_income]).to eq(0.0)
           end
 
           it 'should return 0.00 for magi_medicaid_monthly_income_limit' do
-            expect(@result.to_h[:tax_households].first[:tax_household_members].first[:product_eligibility_determination][:magi_medicaid_monthly_income_limit]).to eq(0.0)
+            ped_hash = @result.to_h[:tax_households].first[:tax_household_members].first[:product_eligibility_determination]
+            expect(ped_hash[:magi_medicaid_monthly_income_limit]).to eq(0.0)
           end
         end
       end
