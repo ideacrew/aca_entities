@@ -58,11 +58,6 @@ module AcaEntities
           # rubocop:enable Metrics/MethodLength, Metrics/CyclomaticComplexity
         end
 
-        def cents_to_dollars(income)
-          return if income.nil?
-          format("%.2f", Rational(income.to_i, 100))
-        end
-
         def find_primary_tax_filer(members)
           head_of_household = members.map(&:to_sym) & @applicants_hash.select {|_k, v| v[:is_filing_as_head_of_household] == true}.keys
           return head_of_household unless head_of_household.empty?
