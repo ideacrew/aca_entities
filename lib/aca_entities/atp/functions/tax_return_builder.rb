@@ -37,9 +37,8 @@ module AcaEntities
             household_size_quantity = members.count
             household_member_references = members.map { |f| { ref: "pe#{f}" } }
 
-            income = household.dig(:annual_tax_household_income, :cents)
-            income_dollars = cents_to_dollars(income)&.to_f # convert to dollars
-            incomes = [{ amount: income_dollars }] if income_dollars
+            income = household[:annual_tax_household_income]
+            incomes = [{ amount: income&.to_f }] if income
 
             atp_tax_household = {
               household_incomes: incomes,
