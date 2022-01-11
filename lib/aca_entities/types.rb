@@ -10,7 +10,21 @@ module AcaEntities
     send(:include, Dry.Types)
     send(:include, Dry::Logic)
 
-    # Money = ::Types.Instance(BigDecimal)
+    CommunicationKinds =
+      Types::String.enum('electronic_preferred', 'paper_only').freeze
+
+    CommunicationKindsMap = {
+      paper_only: 'Only Paper communication',
+      electronic_only: 'Only Electronic communications'
+    }.freeze
+
+    ElectronicCommunicationKinds = Types::String.enum('sms', 'smtp').freeze
+
+    ElectronicCommunicationKindsMap = {
+      simple_message_service: 'Text message',
+      smtp: 'Email'
+    }.freeze
+
     Money = Types.Constructor(BigDecimal) { |val| BigDecimal(val.to_s) }
 
     # @!attribute [r] HbxIdentifierKind
@@ -1909,6 +1923,8 @@ module AcaEntities
         'religious_conscience'
       )
 
+    LocaleKinds = Types::Coercible::String.enum('en')
+
     MarketTransitionRoleTypes =
       Types::Coercible::String.enum('consumer', 'resident')
 
@@ -1978,19 +1994,13 @@ module AcaEntities
       )
   end
 
-  RelayStateKinds = Types::Coercible::String.enum(
-    '/exchanges/hbx_profiles',
-    '/benefit_sponsors/profiles/registrations/new?portal=true&profile_type=broker_agency',
-    '/benefit_sponsors/profiles/broker_agencies/broker_agency_profiles'
-  )
+  RelayStateKinds =
+    Types::Coercible::String.enum(
+      '/exchanges/hbx_profiles',
+      '/benefit_sponsors/profiles/registrations/new?portal=true&profile_type=broker_agency',
+      '/benefit_sponsors/profiles/broker_agencies/broker_agency_profiles'
+    )
 
-  UriKind = Types.Constructor(String) {|value| URI(value) }
-
-  # RelayStateKind = Types.Constructor(String) {|value|
-  #   uri = UriKind[value]
-  #   path = [uri.path, uri.query].compact.join('?')
-  #   RelayStateKinds[path]
-  # }
-
+  UriKind = Types.Constructor(String) { |value| URI(value) }
   # rubocop:enable Metrics/ModuleLength
 end
