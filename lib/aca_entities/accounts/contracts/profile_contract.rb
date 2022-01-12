@@ -16,9 +16,16 @@ module AcaEntities
         # @return [Dry::Monads::Failure] if the payload fails validation
 
         params do
-          optional(:locale).maybe(::AcaEntities::Types::LocaleKinds)
-          optional(:communication_preference).maybe(::AcaEntities::Types::CommunicationKinds)
-          optional(:electronic_communication_method).maybe(::AcaEntities::Types::ElectronicCommunicationKinds)
+          optional(:client_key).maybe(AcaEntities::Types::ClientKinds)
+          optional(:settings).hash do
+            optional(:locale).maybe(::AcaEntities::Types::LocaleKinds)
+            optional(:communication_preference).maybe(
+              ::AcaEntities::Types::CommunicationKinds
+            )
+            optional(:electronic_communication_method).maybe(
+              ::AcaEntities::Types::ElectronicCommunicationKinds
+            )
+          end
         end
       end
     end

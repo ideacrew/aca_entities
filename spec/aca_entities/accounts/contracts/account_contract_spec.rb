@@ -28,6 +28,7 @@ RSpec.describe AcaEntities::Accounts::Contracts::AccountContract do
   let(:groups) { [] }
   let(:realm_roles) { ['hbx_staff'] }
   let(:client_roles) { ['developer'] }
+  let(:profiles) { [{ client_key: 'enroll', settings: { locale: 'en' } }] }
 
   let(:created_at) { DateTime.now }
 
@@ -48,8 +49,10 @@ RSpec.describe AcaEntities::Accounts::Contracts::AccountContract do
       client_roles: client_roles,
       access: access,
       groups: groups,
+      profiles: profiles,
       attributes: {
-        relay_state: 'https://enroll.coverme.gov/benefit_sponsors/profiles/registrations/new?portal=true&profile_type=broker_agency'
+        relay_state:
+          'https://enroll.coverme.gov/benefit_sponsors/profiles/registrations/new?portal=true&profile_type=broker_agency'
       },
       created_at: created_at
     }
@@ -84,12 +87,14 @@ RSpec.describe AcaEntities::Accounts::Contracts::AccountContract do
   context 'when passed invalid relay state' do
     let(:attributes) do
       {
-        relay_state: 'https://enroll.coverme.gov/benefit_sponsors/profiles/registrations/new'
+        relay_state:
+          'https://enroll.coverme.gov/benefit_sponsors/profiles/registrations/new'
       }
     end
 
     it 'should fail' do
-      result = described_class.new.call(all_params.merge(attributes: attributes))
+      result =
+        described_class.new.call(all_params.merge(attributes: attributes))
       expect(result.failure?).to be_truthy
       expect(result.errors.to_h).to include(:attributes)
     end
@@ -97,26 +102,27 @@ RSpec.describe AcaEntities::Accounts::Contracts::AccountContract do
 
   context 'when passed valid relay state which includes identifier' do
     let(:attributes) do
-      { relay_state: 'https://enroll.coverme.gov/benefit_sponsors/profiles/broker_agencies/broker_agency_profiles/%23%5BDouble%20(anonymous)%5D' }
+      {
+        relay_state:
+          'https://enroll.coverme.gov/benefit_sponsors/profiles/broker_agencies/broker_agency_profiles/%23%5BDouble%20(anonymous)%5D'
+      }
     end
 
     it 'should pass' do
-      result = described_class.new.call(all_params.merge(attributes: attributes))
+      result =
+        described_class.new.call(all_params.merge(attributes: attributes))
       expect(result.success?).to be_truthy
       expect(result.to_h).to eq all_params.merge(attributes: attributes)
     end
   end
 
   context 'when passed wrong type for relay state' do
-    let(:attributes) do
-      {
-        relay_state: true
-      }
-    end
+    let(:attributes) { { relay_state: true } }
 
     it 'should fail' do
-      result = described_class.new.call(all_params.merge(attributes: attributes))
-      expect(result.errors[:attributes][:relay_state]).to eq ["must be a string"]
+      result =
+        described_class.new.call(all_params.merge(attributes: attributes))
+      expect(result.errors[:attributes][:relay_state]).to eq ['must be a string']
     end
   end
 end

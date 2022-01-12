@@ -10,6 +10,9 @@ module AcaEntities
     send(:include, Dry.Types)
     send(:include, Dry::Logic)
 
+    ClientKinds =
+      Types::String.enum('enroll', 'edi_db', 'sugar_crm', 'polypress').freeze
+
     CommunicationKinds =
       Types::String.enum('electronic_preferred', 'paper_only').freeze
 

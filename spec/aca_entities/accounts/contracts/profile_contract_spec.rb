@@ -5,6 +5,7 @@ require 'spec_helper'
 RSpec.describe AcaEntities::Accounts::Contracts::ProfileContract do
   subject { described_class.new }
 
+  let(:client_key) { 'polypress' }
   let(:locale) { 'en' }
   let(:communication_preference) { 'electronic_preferred' }
   let(:electronic_communication_method) { 'sms' }
@@ -12,9 +13,12 @@ RSpec.describe AcaEntities::Accounts::Contracts::ProfileContract do
   let(:required_params) { {} }
   let(:optional_params) do
     {
-      locale: locale,
-      communication_preference: communication_preference,
-      electronic_communication_method: electronic_communication_method
+      client_key: client_key,
+      settings: {
+        locale: locale,
+        communication_preference: communication_preference,
+        electronic_communication_method: electronic_communication_method
+      }
     }
   end
 
