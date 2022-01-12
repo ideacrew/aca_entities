@@ -13,6 +13,8 @@ module AcaEntities
         params do
           required(:send_eligibility_notices).filled(:bool)
           required(:send_open_enrollment_notices).filled(:bool)
+
+          optional(:paper_notification).maybe(:bool)
         end
       end
     end

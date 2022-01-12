@@ -75,7 +75,7 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Application, dbclean: :after_each do
         mitc_income: mitc_income }
     end
     let(:family_reference) { { hbx_id: '10011' } }
-    let(:notice_options) { { send_eligibility_notices: true, send_open_enrollment_notices: false } }
+    let(:notice_options) { { send_eligibility_notices: true, send_open_enrollment_notices: false, paper_notification: false } }
     let(:application_params) do
       { family_reference: family_reference,
         assistance_year: Date.today.year,
