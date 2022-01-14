@@ -25,6 +25,11 @@ module AcaEntities
       attribute :groups,
                 Types::Array.of(Types::String).optional.meta(omittable: true)
       attribute :access, Types::Hash.optional.meta(omittable: true)
+      attribute :profiles,
+                Types::Array
+                  .of(AcaEntities::Accounts::Profile)
+                  .optional
+                  .meta(omittable: true)
       attribute :not_before, Types::Integer.optional.meta(omittable: true)
       attribute :created_at, Types::DateTime.meta(omittable: true)
     end

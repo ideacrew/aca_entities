@@ -152,6 +152,27 @@ channels:
       operationId: on_fdsh_gateway.enroll.fdsh.verifications
       description: Events - CMS FDSH ESI/NON-ESI requests
 
+  on_fdsh_gateway.fdsh.evidences:
+    bindings:
+      amqp:
+        is: queue
+        queue:
+          name: on_fdsh_gateway.fdsh.evidences
+          durable: true
+          exclusive: false
+          auto_delete: false
+          vhost: event_source
+    subscribe:
+      bindings:
+        amqp:
+          ack: true
+          exclusive: false
+          routing_key: enroll.fdsh.evidences.#
+          bindingVersion: '0.2.0'
+      operationId: on_fdsh_gateway.fdsh.evidences
+      description: Events - CMS FDSH ESI/NON-ESI requests
+
+
   on_fdsh_gateway.enroll.fdsh_verifications.rrv:
     bindings:
       amqp:

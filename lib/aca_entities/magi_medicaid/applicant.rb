@@ -158,7 +158,10 @@ module AcaEntities
       #    (only in the household of the tax filer)
 
       # fdsh evidences
-      attribute :evidences, Types::Array.of(AcaEntities::Evidences::Evidence).optional.meta(omittable: true)
+      attribute :income_evidence, AcaEntities::Eligibilities::Evidence.optional.meta(omittable: true)
+      attribute :esi_evidence, AcaEntities::Eligibilities::Evidence.optional.meta(omittable: true)
+      attribute :non_esi_evidence, AcaEntities::Eligibilities::Evidence.optional.meta(omittable: true)
+      attribute :local_mec_evidence, AcaEntities::Eligibilities::Evidence.optional.meta(omittable: true)
 
       # fdsh esi response
       attribute :esi_eligibility_indicator,   Types::Bool.optional.meta(omittable: true)
@@ -255,14 +258,6 @@ module AcaEntities
         end
 
         health_benefits.present?
-      end
-
-      def esi_evidence
-        evidences.detect {|evidence| evidence.key.to_sym == :esi_mec}
-      end
-
-      def non_esi_evidence
-        evidences.detect {|evidence| evidence.key.to_sym == :non_esi_mec}
       end
     end
   end

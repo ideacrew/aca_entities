@@ -11,6 +11,7 @@ require 'aca_entities/version'
 require 'aca_entities/error'
 
 require 'aca_entities/configuration/encryption'
+require 'aca_entities/operations/mongoid/model_adapter'
 
 require 'aca_entities/libraries/aca_individual_market_library'
 require 'aca_entities/libraries/fdsh_library'
@@ -26,8 +27,11 @@ require 'aca_entities/transform'
 # TODO: Decide how to incorporate versioning? e.g. Iap::V3_0::Application
 # TODO: Should we insure unique namespacing with prefix? e.g. AcaIap::Application
 
-# AcaEntities provides a shared interface for the serialization and deserialization
-# of shared ACA entities across applications.
+# AcaEntities is a portable domain model for sharing both Affordable Care Act (ACA)
+# and general benefits management system information between services and applications.
+#
+# AcaEntities defines a Canonical Vocabulay (CV) for the benefits management domain along
+# with schemas, validation contracts and transformations between other vocabularies
 module AcaEntities
 
   def self.async_api_config_find_by_service_name(args)

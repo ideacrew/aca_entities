@@ -53,6 +53,26 @@ channels:
       operationId: on_medicaid_gateway.enroll.iap.mec_check
       description: Events - Enroll requested MEC Check to Medicaid Gateway
 
+  on_medicaid_gateway.enroll.fdsh.verifications:
+    bindings:
+      amqp:
+        is: queue
+        queue:
+          name: on_medicaid_gateway.enroll.fdsh.verifications
+          durable: true
+          exclusive: false
+          auto_delete: false
+          vhost: event_source
+    subscribe:
+      bindings:
+        amqp:
+          ack: true
+          exclusive: false
+          routing_key: enroll.fdsh.verifications.#
+          bindingVersion: '0.2.0'
+      operationId: on_medicaid_gateway.enroll.fdsh.verifications
+      description: Events - CMS FDSH ESI/NON-ESI requests
+
 tags:
   - name: linter_tag
     description: placeholder that satisfies the linter

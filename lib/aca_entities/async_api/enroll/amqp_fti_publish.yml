@@ -56,6 +56,32 @@ channels:
           content_type: application/json
           bindingVersion: 0.2.0
 
+  fti.evidences.ifsv_determination_requested:
+    bindings:
+      amqp:
+        is: :routing_key
+        exchange:
+          name: fti.evidences
+          type: topic
+          content_type: application/json
+          durable: true
+          auto_delete: false
+          vhost: event_source
+        binding_version: "0.2.0"
+    publish:
+      operationId: fti.evidences.ifsv_determination_requested
+      description: Events - eligibility determination Request
+      bindings:
+        amqp:
+          app_id: enroll
+          type: fti.evidences
+          routing_key: enroll.fdsh.verifications.ifsv_determination_requested
+          deliveryMode: 2
+          mandatory: true
+          timestamp: true
+          content_type: application/json
+          bindingVersion: 0.2.0
+
 tags:
   - name: linter_tag
     description: placeholder that satisfies the linter
