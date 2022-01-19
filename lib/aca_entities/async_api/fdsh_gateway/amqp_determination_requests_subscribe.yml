@@ -173,12 +173,11 @@ channels:
         amqp:
           ack: true
           exclusive: false
-          routing_key: enroll.fdsh.evidences.#
+          routing_key: fdsh.evidences.#
           bindingVersion: '0.2.0'
           prefetch: 1
       operationId: on_fdsh_gateway.fdsh.evidences
       description: Events - CMS FDSH ESI/NON-ESI requests
-
 
   on_fdsh_gateway.enroll.fdsh_verifications.rrv:
     bindings:

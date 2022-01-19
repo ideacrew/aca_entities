@@ -75,7 +75,7 @@ channels:
         amqp:
           app_id: enroll
           type: fti.evidences
-          routing_key: enroll.fdsh.verifications.ifsv_determination_requested
+          routing_key: fti.evidences.ifsv_determination_requested
           deliveryMode: 2
           mandatory: true
           timestamp: true

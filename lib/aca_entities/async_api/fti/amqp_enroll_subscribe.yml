@@ -53,6 +53,27 @@ channels:
       operationId: on_fti.enroll.fdsh.verifications
       description: Events - CMS FTI IFSV requests
 
+  on_fti.fti.evidences:
+    bindings:
+      amqp:
+        is: queue
+        queue:
+          name: on_fti.fti.evidences
+          durable: true
+          exclusive: false
+          auto_delete: false
+          vhost: event_source
+    subscribe:
+      bindings:
+        amqp:
+          ack: true
+          exclusive: false
+          routing_key: fti.evidences.#
+          bindingVersion: '0.2.0'
+          prefetch: 1
+      operationId: on_fti.fti.evidences
+      description: Events - CMS FDSH IFSV requests
+
   on_fti.enroll.fdsh_verifications.rrv:
     bindings:
       amqp:
