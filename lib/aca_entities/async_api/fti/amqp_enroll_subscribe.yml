@@ -49,6 +49,7 @@ channels:
           exclusive: false
           routing_key: enroll.fdsh.verifications.#
           bindingVersion: '0.2.0'
+          prefetch: 1
       operationId: on_fti.enroll.fdsh.verifications
       description: Events - CMS FTI IFSV requests
 
@@ -69,5 +70,6 @@ channels:
           exclusive: false
           routing_key: enroll.fdsh_verifications.rrv.#
           bindingVersion: '0.2.0'
+          prefetch: 1
       operationId: on_fti.enroll.fdsh_verifications.rrv
       description: Events - CMS FTI RRV Requests

@@ -49,6 +49,7 @@ channels:
           exclusive: false
           routing_key: fdsh.eligibilities.ridp.#
           bindingVersion: '0.2.0'
+          prefetch: 1
       operationId: on_enroll.fdsh.eligibilities.ridp
       description: Events - CMS FDSH RIDP Service requests
   on_enroll.fdsh.eligibilities.vlp:
@@ -68,6 +69,7 @@ channels:
           exclusive: false
           routing_key: fdsh.eligibilities.vlp.#
           bindingVersion: '0.2.0'
+          prefetch: 1
       operationId: on_enroll.fdsh.eligibilities.vlp
       description: Events - CMS FDSH VLP Service requests
 
@@ -88,6 +90,7 @@ channels:
           exclusive: false
           routing_key: fdsh.eligibilities.ssa.#
           bindingVersion: '0.2.0'
+          prefetch: 1
       operationId: on_enroll.fdsh.eligibilities.ssa
       description: Events - CMS FDSH SSA Service requests
 
@@ -108,6 +111,7 @@ channels:
           exclusive: false
           routing_key: fdsh.eligibilities.esi.#
           bindingVersion: '0.2.0'
+          prefetch: 1
       operationId: on_enroll.fdsh.eligibilities.esi
       description: Events - CMS FDSH ESI Service requests
 
@@ -128,6 +132,7 @@ channels:
           exclusive: false
           routing_key: fdsh.eligibilities.non_esi.#
           bindingVersion: '0.2.0'
+          prefetch: 1
       operationId: on_enroll.fdsh.eligibilities.non_esi
       description: Events - CMS FDSH NON ESI Service requests
 
@@ -148,6 +153,7 @@ channels:
           exclusive: false
           routing_key: fdsh.renewal_eligibilities.medicare.#
           bindingVersion: '0.2.0'
+          prefetch: 1
       operationId: on_enroll.fdsh.renewal_eligibilities.medicare
       description: Events - CMS RRV Medicare eligibility determined
 

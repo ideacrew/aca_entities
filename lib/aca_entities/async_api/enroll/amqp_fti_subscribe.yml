@@ -49,6 +49,7 @@ channels:
           exclusive: false
           routing_key: fti.eligibilities.#
           bindingVersion: '0.2.0'
+          prefetch: 1
       operationId: on_enroll.fti.eligibilities
       description: Events - CMS FTI IFSV Service requests
 
@@ -69,5 +70,6 @@ channels:
           exclusive: false
           routing_key: fti.renewal_eligibilities.ifsv.#
           bindingVersion: '0.2.0'
+          prefetch: 1
       operationId: on_enroll.fti.renewal_eligibilities.ifsv
       description: Events - CMS FTI RRV IFSV Service requests
