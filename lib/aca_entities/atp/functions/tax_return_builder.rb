@@ -38,6 +38,7 @@ module AcaEntities
             household_member_references = members.map { |f| { ref: "pe#{f}" } }
 
             income = household[:annual_tax_household_income]
+            # some incomes come in already converted, adding conditional so both ways still work!
             income_dollars = if income.is_a?(Hash)
                                cents = income[:cents]
                                cents_to_dollars(cents)&.to_f # convert to dollars
