@@ -37,8 +37,15 @@ module AcaEntities
             household_size_quantity = members.count
             household_member_references = members.map { |f| { ref: "pe#{f}" } }
 
-            income = household[:annual_tax_household_income]
-            incomes = [{ amount: income&.to_f }] if income
+            income = household.dig(:annual_tax_household_income)
+            income_dollars = if income&.is_a?(Hash)
+                               cents = income.dig(:cents)
+                               cents_to_dollars(cents)&.to_f # convert to dollars
+                             else 
+                               income&.to_f
+                             end
+            
+            incomes = [{ amount: income_dollars }] if income_dollars
 
             atp_tax_household = {
               household_incomes: incomes,
@@ -56,6 +63,11 @@ module AcaEntities
             collect << atp_tax_return
           end
           # rubocop:enable Metrics/MethodLength, Metrics/CyclomaticComplexity
+        end
+
+        def cents_to_dollars(income)
+          return if income.nil?
+          format("%.2f", Rational(income.to_i, 100))
         end
 
         def find_primary_tax_filer(members)

@@ -15,9 +15,15 @@ module AcaEntities
           return unless tax_households
 
           tax_households.values.each_with_object([]) do |household, collect|
-            income = household[:annual_tax_household_income]
+            income = household.dig(:annual_tax_household_income)
+            income_dollars = if income&.is_a?(Hash)
+                               cents = income.dig(:cents)
+                               cents_to_dollars(cents)&.to_f # convert to dollars
+                             else 
+                               income&.to_f
+                             end
             income_hash = {
-              amount: income&.to_f,
+              amount: income_dollars,
               income_frequency: {
                 frequency_code: "Annually" # default
               },
@@ -34,6 +40,11 @@ module AcaEntities
               #   income_above_highest_applicable_magi_standard_indicator: nil # TODO: determine correct mapping
             }
           end
+        end
+
+        def cents_to_dollars(income)
+          return if income.nil?
+          format("%.2f", Rational(income.to_i, 100))
         end
       end
     end
