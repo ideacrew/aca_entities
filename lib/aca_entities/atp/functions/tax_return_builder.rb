@@ -7,7 +7,7 @@ module AcaEntities
     module Functions
       # Transformers implementation for atp payloads
       class TaxReturnBuilder
-        # rubocop:disable Metrics/MethodLength, Metrics/CyclomaticComplexity
+        # rubocop:disable Metrics/MethodLength, Metrics/CyclomaticComplexity, Metrics/AbcSize
         def call(cache)
           @memoized_data = cache
           @applicants_hash = @memoized_data.resolve('family.magi_medicaid_applications.applicants').item
@@ -37,14 +37,13 @@ module AcaEntities
             household_size_quantity = members.count
             household_member_references = members.map { |f| { ref: "pe#{f}" } }
 
-            income = household.dig(:annual_tax_household_income)
-            income_dollars = if income&.is_a?(Hash)
-                               cents = income.dig(:cents)
+            income = household[:annual_tax_household_income]
+            income_dollars = if income.is_a?(Hash)
+                               cents = income[:cents]
                                cents_to_dollars(cents)&.to_f # convert to dollars
-                             else 
+                             else
                                income&.to_f
                              end
-            
             incomes = [{ amount: income_dollars }] if income_dollars
 
             atp_tax_household = {
@@ -62,7 +61,7 @@ module AcaEntities
 
             collect << atp_tax_return
           end
-          # rubocop:enable Metrics/MethodLength, Metrics/CyclomaticComplexity
+          # rubocop:enable Metrics/MethodLength, Metrics/CyclomaticComplexity, Metrics/AbcSize
         end
 
         def cents_to_dollars(income)

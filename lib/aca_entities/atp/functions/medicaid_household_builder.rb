@@ -5,7 +5,7 @@ module AcaEntities
     module Functions
       # Transformers implementation for atp payloads
       class MedicaidHouseholdBuilder
-
+        # rubocop:disable Metrics/MethodLength
         INCOME_FIELDS = [:category_code, :amount, :frequency].freeze
 
         def call(cache)
@@ -15,11 +15,11 @@ module AcaEntities
           return unless tax_households
 
           tax_households.values.each_with_object([]) do |household, collect|
-            income = household.dig(:annual_tax_household_income)
-            income_dollars = if income&.is_a?(Hash)
-                               cents = income.dig(:cents)
+            income = household[:annual_tax_household_income]
+            income_dollars = if income.is_a?(Hash)
+                               cents = income[:cents]
                                cents_to_dollars(cents)&.to_f # convert to dollars
-                             else 
+                             else
                                income&.to_f
                              end
             income_hash = {
@@ -41,6 +41,7 @@ module AcaEntities
             }
           end
         end
+        # rubocop:enable Metrics/MethodLength
 
         def cents_to_dollars(income)
           return if income.nil?
