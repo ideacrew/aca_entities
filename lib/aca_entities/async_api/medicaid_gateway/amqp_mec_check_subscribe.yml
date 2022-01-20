@@ -69,6 +69,7 @@ channels:
           ack: true
           exclusive: false
           routing_key: enroll.fdsh.verifications.#
+          prefetch: 1
           bindingVersion: '0.2.0'
       operationId: on_medicaid_gateway.enroll.fdsh.verifications
       description: Events - CMS FDSH ESI/NON-ESI requests

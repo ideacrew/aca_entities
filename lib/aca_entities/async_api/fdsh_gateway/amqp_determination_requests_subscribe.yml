@@ -49,6 +49,7 @@ channels:
           exclusive: false
           routing_key: fdsh.determination_requests.ridp.#
           bindingVersion: "0.2.0"
+          prefetch: 1
       operationId: on_fdsh_gateway.fdsh.determination_requests.ridp
       description: Events - CMS FDSH RIDP Service requests
 
@@ -69,6 +70,7 @@ channels:
           exclusive: false
           routing_key: fdsh.verification_requests.vlp.#
           bindingVersion: "0.2.0"
+          prefetch: 1
       operationId: on_fdsh_gateway.fdsh.verification_requests.vlp
       description: Events - CMS FDSH VLP Service requests
 
@@ -89,6 +91,7 @@ channels:
           exclusive: false
           routing_key: fdsh.verification_requests.ssa.#
           bindingVersion: "0.2.0"
+          prefetch: 1
       operationId: on_fdsh_gateway.fdsh.verification_requests.ssa
       description: Events - CMS FDSH SSA Service requests
 
@@ -109,6 +112,7 @@ channels:
           exclusive: false
           routing_key: fdsh.determination_requests.esi.#
           bindingVersion: "0.2.0"
+          prefetch: 1
       operationId: on_fdsh_gateway.fdsh.determination_requests.esi
       description: Events - CMS FDSH ESI Service requests
 
@@ -129,6 +133,7 @@ channels:
           exclusive: false
           routing_key: fdsh.determination_requests.non_esi.#
           bindingVersion: "0.2.0"
+          prefetch: 1
       operationId: on_fdsh_gateway.fdsh.determination_requests.non_esi
       description: Events - CMS FDSH NON ESI Service requests
 
@@ -149,6 +154,7 @@ channels:
           exclusive: false
           routing_key: enroll.fdsh.verifications.#
           bindingVersion: '0.2.0'
+          prefetch: 1
       operationId: on_fdsh_gateway.enroll.fdsh.verifications
       description: Events - CMS FDSH ESI/NON-ESI requests
 
@@ -167,11 +173,11 @@ channels:
         amqp:
           ack: true
           exclusive: false
-          routing_key: enroll.fdsh.evidences.#
+          routing_key: fdsh.evidences.#
           bindingVersion: '0.2.0'
+          prefetch: 1
       operationId: on_fdsh_gateway.fdsh.evidences
       description: Events - CMS FDSH ESI/NON-ESI requests
-
 
   on_fdsh_gateway.enroll.fdsh_verifications.rrv:
     bindings:
@@ -190,6 +196,7 @@ channels:
           exclusive: false
           routing_key: enroll.fdsh_verifications.rrv.#
           bindingVersion: '0.2.0'
+          prefetch: 1
       operationId: on_fdsh_gateway.enroll.fdsh_verifications.rrv
       description: Events - CMS FTI RRV Requests
 

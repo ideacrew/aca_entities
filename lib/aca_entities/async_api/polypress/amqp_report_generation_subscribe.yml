@@ -49,6 +49,7 @@ channels:
           exclusive: false
           routing_key: enroll.reports.recon_preaudit.preaudit_generation_report
           bindingVersion: '0.2.0'
+          prefetch: 1
       operationId: on_polypress.enroll.reports.recon_preaudit
       description: Events - Monthly Recon Pre Audit reports generation
 
@@ -69,5 +70,6 @@ channels:
           exclusive: false
           routing_key: polypress.report_generation.generate_pre_audit_report
           bindingVersion: '0.2.0'
+          prefetch: 1
       operationId: on_polypress.polypress.report_generation
       description: Generate pre audit report
