@@ -46,6 +46,7 @@ channels:
           exclusive: false
           routing_key: enroll.enterprise.events.#
           prefetch: 1
+          block: false
           bindingVersion: "0.2.0"
       operationId: on_enroll.enroll.enterprise.events
       description: Events - for system wide changes
