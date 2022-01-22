@@ -44,7 +44,7 @@ channels:
         amqp:
           ack: true
           exclusive: false
-          routing_key: enroll.individual.enrollments.#
+          routing_key: enroll.individual.enrollments.enrollment_saved
           prefetch: 1
           bindingVersion: "0.2.0"
       operationId: on_enroll.enroll.individual.enrollments
