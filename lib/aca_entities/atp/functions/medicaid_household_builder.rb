@@ -17,14 +17,16 @@ module AcaEntities
           tax_households.values.each_with_object([]) do |household, collect|
             income = household[:annual_tax_household_income]
             # some incomes come in already converted, adding conditional so both ways still work!
-            income_dollars = if income.is_a?(Hash)
+            income_dollars = if income.nil?
+                               "0.0"
+                             elsif income.is_a?(Hash)
                                cents = income[:cents]
-                               cents_to_dollars(cents)&.to_f # convert to dollars
+                               cents_to_dollars(cents) # convert to dollars
                              else
-                               income&.to_f
+                               income
                              end
             income_hash = {
-              amount: income_dollars,
+              amount: income_dollars&.to_f,
               income_frequency: {
                 frequency_code: "Annually" # default
               },
