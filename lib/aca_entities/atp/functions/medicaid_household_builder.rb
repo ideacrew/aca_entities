@@ -25,8 +25,9 @@ module AcaEntities
                              else
                                income
                              end
+            incomes = income_dollars&.to_f
             income_hash = {
-              amount: income_dollars&.to_f,
+              amount: incomes,
               income_frequency: {
                 frequency_code: "Annually" # default
               },
