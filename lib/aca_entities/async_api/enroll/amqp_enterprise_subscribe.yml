@@ -44,7 +44,7 @@ channels:
         amqp:
           ack: true
           exclusive: false
-          routing_key: enroll.enterprise.events.#
+          routing_key: enroll.enterprise.events.date_advanced
           prefetch: 1
           bindingVersion: "0.2.0"
       operationId: on_enroll.enroll.enterprise.events
