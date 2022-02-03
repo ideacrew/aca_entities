@@ -18,7 +18,7 @@ module AcaEntities
             income_dollars = cents_to_dollars(income)&.to_f # convert to dollars
 
             income_hash = {
-              amount: income_dollars,
+              amount: get_income(income),
               income_frequency: {
                 frequency_code: "Annually" # default
               },
