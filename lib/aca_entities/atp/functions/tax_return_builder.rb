@@ -37,17 +37,16 @@ module AcaEntities
             household_size_quantity = members.count
             household_member_references = members.map { |f| { ref: "pe#{f}" } }
 
-            income = household["annual_tax_household_income"]
-
+            income = household[:annual_tax_household_income]
             income_dollars = if income.nil?
-                               "0.0"
+                               0.0
                              elsif income.is_a?(Hash)
                                cents = income[:cents]
                                cents_to_dollars(cents) # convert to dollars
                              else
-                               income
+                               income&.to_f
                              end
-            incomes = [{ amount: income_dollars&.to_f }]
+            incomes = [{ amount: income_dollars }]
 
             atp_tax_household = {
               household_incomes: incomes,
@@ -68,8 +67,7 @@ module AcaEntities
         end
 
         def cents_to_dollars(income)
-          return if income.nil?
-          format("%.2f", Rational(income.to_i, 100))
+          income.to_i / 100.0
         end
 
         def find_primary_tax_filer(members)
