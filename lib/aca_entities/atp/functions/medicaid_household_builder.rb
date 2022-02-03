@@ -18,16 +18,15 @@ module AcaEntities
             income = household[:annual_tax_household_income]
             # some incomes come in already converted, adding conditional so both ways still work!
             income_dollars = if income.nil?
-                               "0.0"
+                               0.0
                              elsif income.is_a?(Hash)
                                cents = income[:cents]
                                cents_to_dollars(cents) # convert to dollars
                              else
-                               income
+                               income&.to_f
                              end
-            incomes = income_dollars&.to_f
             income_hash = {
-              amount: incomes,
+              amount: income_dollars,
               income_frequency: {
                 frequency_code: "Annually" # default
               },
@@ -48,8 +47,7 @@ module AcaEntities
         # rubocop:enable Metrics/MethodLength
 
         def cents_to_dollars(income)
-          return if income.nil?
-          format("%.2f", Rational(income.to_i, 100))
+          income.to_i / 100.0
         end
       end
     end
