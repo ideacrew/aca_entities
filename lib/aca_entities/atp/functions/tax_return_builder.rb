@@ -7,7 +7,7 @@ module AcaEntities
     module Functions
       # Transformers implementation for atp payloads
       class TaxReturnBuilder
-        # rubocop:disable Metrics/MethodLength, Metrics/CyclomaticComplexity, Metrics/AbcSize
+        # rubocop:disable Metrics/MethodLength
         def call(cache)
           @memoized_data = cache
           @applicants_hash = @memoized_data.resolve('family.magi_medicaid_applications.applicants').item
@@ -56,11 +56,11 @@ module AcaEntities
 
             collect << atp_tax_return
           end
-          # rubocop:enable Metrics/MethodLength, Metrics/CyclomaticComplexity, Metrics/AbcSize
+          # rubocop:enable Metrics/MethodLength
         end
 
         def get_income(income)
-          cents = income[:cents] if income.class == Hash
+          cents = income[:cents] if income.instance_of?(Hash)
           cents.present? ? cents.to_i / 100.0 : income.to_f
         end
 

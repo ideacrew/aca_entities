@@ -5,7 +5,6 @@ module AcaEntities
     module Functions
       # Transformers implementation for atp payloads
       class MedicaidHouseholdBuilder
-        # rubocop:disable Metrics/MethodLength
         INCOME_FIELDS = [:category_code, :amount, :frequency].freeze
 
         def call(cache)
@@ -38,10 +37,9 @@ module AcaEntities
             }
           end
         end
-        # rubocop:enable Metrics/MethodLength
 
         def get_income(income)
-          cents = income[:cents] if income.class == Hash
+          cents = income[:cents] if income.instance_of?(Hash)
           cents.present? ? cents.to_i / 100.0 : income.to_f
         end
 
