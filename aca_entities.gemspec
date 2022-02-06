@@ -17,16 +17,13 @@ Gem::Specification.new do |spec|
 
   spec.metadata['homepage_uri'] = spec.homepage
   spec.metadata['source_code_uri'] = 'https://github.com/ideacrew/aca_entities'
-  spec.metadata['changelog_uri'] =
-    'https://github.com/ideacrew/aca_entities/CHANGELOG.md'
+  spec.metadata['changelog_uri'] = 'https://github.com/ideacrew/aca_entities/CHANGELOG.md'
 
   # Specify which files should be added to the gem when it is released.
   # The `git ls-files -z` loads the files in the RubyGem that have been added into git.
   spec.files =
     Dir.chdir(File.expand_path(__dir__)) do
-      `git ls-files -z`.split("\x0").reject do |f|
-        f.match(%r{^(test|spec|features)/})
-      end
+      `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
     end
 
   spec.bindir = 'exe'
@@ -42,5 +39,8 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'nokogiri-happymapper'
   spec.add_dependency 'oj', '~> 3.11'
   spec.add_dependency 'rbnacl', '~> 7.1'
+
+  # SmartyStreets address validation service Ruby SDK
+  spec.add_dependency 'smartystreets_ruby_sdk'
   spec.add_development_dependency 'pry-byebug'
 end
