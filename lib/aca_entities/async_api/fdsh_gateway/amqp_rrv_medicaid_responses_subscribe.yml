@@ -1,0 +1,58 @@
+---
+asyncapi: 2.0.0
+info:
+  title: FDSH Gateway Subscriber
+  version: 0.1.0
+  description: AMQP Consumer configuration for the FDSH Gateway Consumer services
+  contact:
+    name: IdeaCrew
+    url: https://ideacrew.com
+    email: info@ideacrew.com
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+
+servers:
+  development:
+    url: amqp://rabbitmq:5672/event_source
+    protocol: amqp
+    protocolVersion: 0.9.2
+    description: RabbitMQ Development Server
+  test:
+    url: amqp://rabbitmq:5672/event_source
+    protocol: amqp
+    protocolVersion: 0.9.2
+    description: RabbitMQ Test Server
+  production:
+    url: amqp://rabbitmq:5672/event_source
+    protocol: amqp
+    protocolVersion: 0.9.2
+    description: RabbitMQ Production Server
+
+defaultContentType: application/json
+
+channels:
+  on_fdsh_gateway.fdsh.rrv_medicaid.responses:
+    bindings:
+      amqp:
+        is: queue
+        queue:
+          name: on_fdsh_gateway.fdsh.rrv_medicaid.responses
+          durable: true
+          exclusive: false
+          auto_delete: false
+          vhost: event_source
+    subscribe:
+      bindings:
+        amqp:
+          ack: true
+          exclusive: false
+          routing_key: fdsh.rrv_medicaid.responses.#
+          prefetch: 1
+          bindingVersion: "0.2.0"
+      operationId: on_fdsh_gateway.fdsh.rrv_medicaid.responses
+      description: Events - FDSH RRV Medicaid Responses Events
+
+tags:
+  - name: linter_tag
+    description: placeholder that satisfies the linter
