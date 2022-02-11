@@ -1,9 +1,9 @@
 ---
 asyncapi: 2.0.0
 info:
-  title: FDSH Gateway
+  title: FTI
   version: 0.1.0
-  description: AMQP Producer configuration for the FDSH Gateway service
+  description: AMQP Producer configuration for the FTI service
   contact:
     name: IdeaCrew
     url: https://ideacrew.com
@@ -32,12 +32,12 @@ servers:
 defaultContentType: application/json
 
 channels:
-  fdsh.rrv_medicaid.individual_responses.individual_response_received:
+  fti.rrv_ifsv.individual_responses.individual_response_received:
     bindings:
       amqp:
         is: :routing_key
         exchange:
-          name: fdsh.rrv_medicaid.individual_responses
+          name: fti.rrv_ifsv.individual_responses
           type: topic
           durable: true
           auto_delete: false
@@ -46,16 +46,16 @@ channels:
     publish:
       bindings:
         amqp:
-          app_id: fdsh_gateway
-          type: fdsh.rrv_medicaid.individual_responses
-          routing_key: fdsh.rrv_medicaid.individual_responses.individual_response_received
+          app_id: fti_gateway
+          type: fti.rrv_ifsv.individual_responses
+          routing_key: fti.rrv_ifsv.individual_responses.individual_response_received
           deliveryMode: 2
           mandatory: true
           timestamp: true
           content_type: application/json
           bindingVersion: 0.2.0
-      operationId: fdsh.rrv_medicaid.individual_responses.individual_response_received
-      description: RRV Medicare Determination completed.
+      operationId: fti.rrv_ifsv.individual_responses.individual_response_received
+      description: RRV IFSV Individual Process.
 
 tags:
   - name: linter_tag
