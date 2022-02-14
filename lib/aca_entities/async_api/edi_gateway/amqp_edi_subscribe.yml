@@ -1,0 +1,56 @@
+---
+asyncapi: 2.0.0
+info:
+  title: Enroll App
+  version: 0.1.0
+  description: AMQP Subsribe configuration for the EDI gateway App services
+  contact:
+    name: IdeaCrew
+    url: https://ideacrew.com
+    email: info@ideacrew.com
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+
+servers:
+  production:
+    url: "amqp://rabbitmq:5672/event_source"
+    protocol: :amqp
+    protocolVersion: "0.9.2"
+    description: RabbitMQ Production Server
+  development:
+    url: "amqp://rabbitmq:5672/event_source"
+    protocol: :amqp
+    protocolVersion: "0.9.2"
+    description: RabbitMQ Test Server
+  test:
+    url: "amqp://rabbitmq:5672/event_source"
+    protocol: :amqp
+    protocolVersion: "0.9.2"
+    description: RabbitMQ Test Server
+
+channels:
+  on_edi_gateway.edi_gateway.gdb.members.member_publisher:
+    bindings:
+      amqp:
+        is: queue
+        queue:
+          name: on_edi_gateway.edi_gateway.gdb.members.member_publisher
+          durable: true
+          exclusive: false
+          auto_delete: false
+          vhost: event_source
+    subscribe:
+      bindings:
+        amqp:
+          ack: true
+          exclusive: false
+          routing_key: edi_gateway.gdb.members.member_publisher.gdb_subscriber_policy_requested
+          prefetch: 1
+          bindingVersion: "0.2.0"
+      operationId: on_edi_gateway.edi_gateway.gdb.members.member_publisher
+      description: Event for subscriber policy information
+
+tags:
+  - name: linter_tag
+    description: placeholder that satisfies the linter

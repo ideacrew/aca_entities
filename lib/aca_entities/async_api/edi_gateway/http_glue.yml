@@ -1,0 +1,58 @@
+asyncapi: "2.0.0"
+info:
+  title: GLUE
+  version: 0.1.0
+  description: Configuration for accessing Subscribers and Coverage Information from Glue
+  contact:
+    name: IdeaCrew
+    url: https://ideacrew.com
+    email: info@ideacrew.com
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+
+servers:
+  production:
+    url: http://localhost:3000/api/event_source
+    protocol: http
+    protocolVersion: 0.1.0
+    description: Glue Production Server
+  development:
+    url: http://localhost:3000/api/event_source
+    protocol: http
+    protocolVersion: 0.1.0
+    description: Glue Development Server
+  test:
+    url: http://localhost:3000/api/event_source
+    protocol: http
+    protocolVersion: 0.1.0
+    description: Glue Test Server
+
+defaultContentType: application/json
+
+channels:
+  /enrolled_subjects/subscribers_list:
+    publish:
+      operationId: /enrolled_subjects/subscribers_list
+      description: HTTP endpoint for fetching subscribers list from GLUE
+      bindings:
+        http:
+          type: request
+          method: GET
+          headers:
+            Content-Type: application/json
+            Accept: application/json
+    subscribe:
+      operationId: /on/enrolled_subjects/subscribers_list
+      description: EventSource Subscriber that published Glue responses
+      bindings:
+        http:
+          type: response
+          method: GET
+          headers:
+            Content-Type: application/json
+            Accept: application/json
+
+tags:
+  - name: linter_tag
+    description: placeholder that satisfies the linter
