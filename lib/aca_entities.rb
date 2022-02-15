@@ -13,10 +13,11 @@ require 'aca_entities/error'
 require 'aca_entities/configuration/encryption'
 require 'aca_entities/operations/mongoid/model_adapter'
 
+require 'aca_entities/libraries/location_library'
 require 'aca_entities/libraries/aca_individual_market_library'
 require 'aca_entities/libraries/fdsh_library'
-require 'aca_entities/libraries/smarty_library'
 require 'aca_entities/libraries/core_library'
+require 'aca_entities/libraries/smarty_library'
 
 # require 'aca_entities/operations/operation'
 

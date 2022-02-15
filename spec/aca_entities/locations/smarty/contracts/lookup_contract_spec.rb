@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe ::Locations::Smarty::Contracts::LookupContract do
+RSpec.describe AcaEntities::Locations::Smarty::Contracts::LookupContract do
   subject { described_class.new }
 
   let(:input_id) { '12345' }
@@ -57,7 +57,7 @@ RSpec.describe ::Locations::Smarty::Contracts::LookupContract do
   end
 
   context 'Calling the contract with no params' do
-    let(:error_message) { { street: ['is missing', 'must be a string'] } }
+    let(:error_message) { { street: ['is missing'] } }
     it 'should fail vaidation' do
       result = subject.call({})
       expect(result.failure?).to be_truthy

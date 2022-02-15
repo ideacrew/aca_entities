@@ -8,9 +8,9 @@ module AcaEntities
     module Smarty
       module Operations
         module Transforms
-          module SmartyResponseTo
+          module AddressTo
             # Transform a Smarty response payload to CV address
-            class Address
+            class SmartyLookup
               include Dry::Monads[:result, :do]
 
               # @param [Hash] params the response payload to transform
