@@ -13,17 +13,17 @@ info:
 
 servers:
   production:
-    url: http://localhost:3000/api/event_source
+    url: http://localhost:3000/api/event_source/enrolled_subjects
     protocol: http
     protocolVersion: 0.1.0
     description: Glue Production Server
   development:
-    url: http://localhost:3000/api/event_source
+    url: http://localhost:3000/api/event_source/enrolled_subjects
     protocol: http
     protocolVersion: 0.1.0
     description: Glue Development Server
   test:
-    url: http://localhost:3000/api/event_source
+    url: http://localhost:3000/api/event_source/enrolled_subjects
     protocol: http
     protocolVersion: 0.1.0
     description: Glue Test Server
@@ -31,9 +31,9 @@ servers:
 defaultContentType: application/json
 
 channels:
-  /enrolled_subjects/subscribers_list:
+  /subscribers_list:
     publish:
-      operationId: /enrolled_subjects/subscribers_list
+      operationId: /subscribers_list
       description: HTTP endpoint for fetching subscribers list from GLUE
       bindings:
         http:
@@ -43,7 +43,28 @@ channels:
             Content-Type: application/json
             Accept: application/json
     subscribe:
-      operationId: /on/enrolled_subjects/subscribers_list
+      operationId: /on/subscribers_list
+      description: EventSource Subscriber that published Glue responses
+      bindings:
+        http:
+          type: response
+          method: GET
+          headers:
+            Content-Type: application/json
+            Accept: application/json
+  /subscriber_coverage:
+    publish:
+      operationId: /subscriber_coverage
+      description: HTTP endpoint for fetching coverage information for subcriber from GLUE
+      bindings:
+        http:
+          type: request
+          method: GET
+          headers:
+            Content-Type: application/json
+            Accept: application/json
+    subscribe:
+      operationId: /on/subscriber_coverage
       description: EventSource Subscriber that published Glue responses
       bindings:
         http:
