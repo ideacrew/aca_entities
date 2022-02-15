@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe ::Locations::Smarty::Contracts::ResponseContract do
+RSpec.describe AcaEntities::Locations::Smarty::Contracts::ResponseContract do
   subject { described_class.new }
 
   let(:sample_response) do

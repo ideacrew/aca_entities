@@ -2,6 +2,6 @@
 
 require 'spec_helper'
 
-RSpec.describe AcaEntties::Locations::Smarty::Operations::Transforms::SmartyResponseTo::Address do
+RSpec.describe AcaEntities::Locations::Smarty::Operations::Transforms::SmartyResponseTo::Address do
   subject { described_class.new }
 end

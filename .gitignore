@@ -45,3 +45,5 @@
 
 # Exclude node packages
 /node_modules
+package.json
+yarn.lock

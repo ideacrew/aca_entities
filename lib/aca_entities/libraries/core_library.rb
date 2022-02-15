@@ -5,9 +5,9 @@ module AcaEntities
   module Libraries
     module CoreLibrary
       require 'aca_entities/types'
+      require 'aca_entities/contracts/contract'
       require 'aca_entities/attestations/types'
       require 'aca_entities/transitions/contracts/workflow_state_transition_contract'
-      require 'aca_entities/contracts/contract'
       require 'aca_entities/contracts/timestamp_contract'
       require 'aca_entities/contracts/currency_contract'
       require 'aca_entities/contracts/identifiers/identifier_kind_contract'
@@ -43,7 +43,6 @@ module AcaEntities
       require 'aca_entities/contracts/households/coverage_household_member_contract'
       require 'aca_entities/contracts/households/coverage_household_contract'
       require 'aca_entities/contracts/financial/payment_transactions/payment_transaction_contract'
-      require 'aca_entities/contracts/locations/address_contract'
       require 'aca_entities/contracts/contacts/phone_contact_contract'
       require 'aca_entities/contracts/contacts/email_contact_contract'
       require 'aca_entities/contracts/people/person_name_contract'
@@ -120,7 +119,6 @@ module AcaEntities
       require 'aca_entities/households/coverage_household_member'
       require 'aca_entities/households/coverage_household'
       require 'aca_entities/financial/payment_transactions/payment_transaction'
-      require 'aca_entities/locations/address'
       require 'aca_entities/contacts/phone_contact'
       require 'aca_entities/contacts/email_contact'
       require 'aca_entities/people/person_name'
