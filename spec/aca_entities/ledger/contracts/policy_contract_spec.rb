@@ -15,6 +15,8 @@ RSpec.describe AcaEntities::Ledger::Contracts::PolicyContract do
   let(:kind) { 'health' }
   let(:product) { { hbx_qhp_id: hbx_qhp_id, effective_year: effective_year, kind: kind } }
 
+  let(:tax_household) { { aptc_amount_total: 585.69 } }
+
   let(:service_area_id) { '1374126' }
   let(:rating_area_id) { 'R-ME001' }
   let(:start_on) { Date.new(2022, 2, 1) }
@@ -43,6 +45,7 @@ RSpec.describe AcaEntities::Ledger::Contracts::PolicyContract do
       id: id,
       insurer_assigned_id: insurer_assigned_id,
       service_area_id: service_area_id,
+      tax_household: tax_household,
       end_on: end_on,
       timestamps: timestamps
     }
