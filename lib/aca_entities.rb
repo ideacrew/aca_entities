@@ -18,6 +18,7 @@ require 'aca_entities/libraries/aca_individual_market_library'
 require 'aca_entities/libraries/fdsh_library'
 require 'aca_entities/libraries/core_library'
 require 'aca_entities/libraries/smarty_library'
+require 'aca_entities/libraries/ledger_library'
 
 # require 'aca_entities/operations/operation'
 
