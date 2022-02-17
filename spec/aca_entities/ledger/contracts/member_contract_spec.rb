@@ -7,7 +7,7 @@ RSpec.describe AcaEntities::Ledger::Contracts::MemberContract do
 
   let(:id) { '12345' }
   let(:hbx_id) { '987654' }
-  let(:issuer_assigned_id) { '555555' }
+  let(:insurer_assigned_id) { '555555' }
   let(:person_name) { { first_name: 'George', last_name: 'Jetson' } }
   let(:is_tobacco_user) { false }
 
@@ -16,7 +16,7 @@ RSpec.describe AcaEntities::Ledger::Contracts::MemberContract do
 
   let(:required_params) { { hbx_id: hbx_id, person_name: person_name } }
   let(:optional_params) do
-    { id: id, is_tobacco_user: is_tobacco_user, issuer_assigned_id: issuer_assigned_id, timestamps: timestamps }
+    { id: id, is_tobacco_user: is_tobacco_user, insurer_assigned_id: insurer_assigned_id, timestamps: timestamps }
   end
 
   let(:all_params) { required_params.merge(optional_params) }

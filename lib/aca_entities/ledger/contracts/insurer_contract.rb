@@ -3,11 +3,11 @@
 module AcaEntities
   module Ledger
     module Contracts
-      # Schema and validation rules for {AcaEntities::Ledger::Issuer}
-      class IssuerContract < Contract
+      # Schema and validation rules for {AcaEntities::Ledger::Insurer}
+      class InsurerContract < Contract
         params do
           optional(:id).maybe(:string)
-          required(:cms_assigned_id).filled(:string)
+          required(:hios_id).filled(:string)
           optional(:name).maybe(:string)
           optional(:description).maybe(:string)
 

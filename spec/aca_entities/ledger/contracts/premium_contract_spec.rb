@@ -7,20 +7,18 @@ RSpec.describe AcaEntities::Ledger::Contracts::PremiumContract do
 
   let(:id) { '12345' }
 
-  let(:hios_id) { '96667ME031005806' }
+  let(:hbx_qhp_id) { '96667ME031005806' }
   let(:effective_year) { 2022 }
   let(:kind) { 'health' }
-  let(:product) { { hios_id: hios_id, effective_year: effective_year, kind: kind } }
+  let(:product) { { hbx_qhp_id: hbx_qhp_id, effective_year: effective_year, kind: kind } }
 
-  let(:member_age_on_effective_date) { 33 }
+  let(:insured_age) { 33 }
   let(:amount) { 875.22 }
 
   let(:moment) { DateTime.now }
   let(:timestamps) { { created_at: moment, modified_at: moment } }
 
-  let(:required_params) do
-    { product: product, amount: amount, member_age_on_effective_date: member_age_on_effective_date }
-  end
+  let(:required_params) { { product: product, amount: amount, insured_age: insured_age } }
 
   let(:optional_params) { { id: id, timestamps: timestamps } }
 
@@ -45,9 +43,7 @@ RSpec.describe AcaEntities::Ledger::Contracts::PremiumContract do
   end
 
   context 'Calling the contract with no params' do
-    let(:error_message) do
-      { amount: ['is missing'], member_age_on_effective_date: ['is missing'], product: ['is missing'] }
-    end
+    let(:error_message) { { amount: ['is missing'], insured_age: ['is missing'], product: ['is missing'] } }
 
     it 'should fail vaidation' do
       result = subject.call({})

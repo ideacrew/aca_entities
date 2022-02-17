@@ -7,7 +7,7 @@ module AcaEntities
       class ProductContract < Contract
         params do
           optional(:id).maybe(:string)
-          required(:hios_id).filled(:string)
+          required(:hbx_qhp_id).filled(:string)
           required(:effective_year).filled(:integer)
           optional(:name).maybe(:string)
           optional(:description).maybe(:string)

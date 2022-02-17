@@ -8,7 +8,7 @@ module AcaEntities
         params do
           optional(:id).maybe(:string)
           required(:product).filled(ProductContract.params)
-          required(:member_age_on_effective_date).filled(:integer)
+          required(:insured_age).filled(:integer)
           required(:amount).filled(:float)
           optional(:timestamps).maybe(AcaEntities::Contracts::TimeStampContract.params)
         end

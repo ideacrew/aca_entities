@@ -6,7 +6,7 @@ RSpec.describe AcaEntities::Ledger::Contracts::ProductContract do
   subject { described_class.new }
 
   let(:id) { '12345' }
-  let(:hios_id) { '96667ME031005806' }
+  let(:hbx_qhp_id) { '96667ME031005806' }
   let(:effective_year) { 2022 }
   let(:kind) { 'health' }
   let(:name) { nil }
@@ -15,7 +15,7 @@ RSpec.describe AcaEntities::Ledger::Contracts::ProductContract do
   let(:moment) { DateTime.now }
   let(:timestamps) { { created_at: moment, modified_at: moment } }
 
-  let(:required_params) { { hios_id: hios_id, effective_year: effective_year, kind: kind } }
+  let(:required_params) { { hbx_qhp_id: hbx_qhp_id, effective_year: effective_year, kind: kind } }
   let(:optional_params) { { id: id, name: name, description: description, timestamps: timestamps } }
 
   let(:all_params) { required_params.merge(optional_params) }
@@ -39,7 +39,7 @@ RSpec.describe AcaEntities::Ledger::Contracts::ProductContract do
   end
 
   context 'Calling the contract with no params' do
-    let(:error_message) { { effective_year: ['is missing'], hios_id: ['is missing'], kind: ['is missing'] } }
+    let(:error_message) { { effective_year: ['is missing'], hbx_qhp_id: ['is missing'], kind: ['is missing'] } }
     it 'should fail validation' do
       result = subject.call({})
       expect(result.failure?).to be_truthy
