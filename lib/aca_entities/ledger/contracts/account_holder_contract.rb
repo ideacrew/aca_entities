@@ -7,7 +7,7 @@ module AcaEntities
       class AccountHolderContract < Contract
         params do
           optional(:id).value(:string)
-          optional(:person_name).filled(AcaEntities::People::PersonName)
+          optional(:person_name).filled(AcaEntities::Contracts::People::PersonNameContract.params)
           optional(:subscriber).filled(AcaEntities::Ledger::Contracts::MemberContract.params)
           optional(:account).filled(AcaEntities::Ledger::Contracts::AccountContract.params)
           optional(:policies).array(AcaEntities::Ledger::Contracts::PolicyContract.params)
