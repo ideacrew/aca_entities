@@ -8,7 +8,7 @@ module AcaEntities
         params do
           optional(:id).value(:string)
           required(:hbx_id).filled(:string)
-          optional(:issuer_assigned_id).maybe(:string)
+          optional(:insurer_assigned_id).maybe(:string)
           required(:person_name).filled(AcaEntities::Contracts::People::PersonNameContract.params)
           optional(:is_tobacco_user).maybe(:bool)
           optional(:timestamps).maybe(AcaEntities::Contracts::TimeStampContract.params)

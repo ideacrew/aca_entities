@@ -7,7 +7,7 @@ module AcaEntities
       class PartyContract < Contract
         params do
           optional(:id).value(:string)
-          optional(:party_role).value(AcaEntities::Ledger::Types::PartyRoleKind) # consumer_role, issuer_role
+          optional(:party_role).value(AcaEntities::Ledger::Types::PartyRoleKind)
           optional(:party_role_relationship).value(AcaEntities::Ledger::Types::AllPartyRoleRelationshipKind)
           optional(:start_on).filled(:date)
           optional(:end_on).filled(:date)

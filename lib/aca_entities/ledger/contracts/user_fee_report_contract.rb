@@ -7,7 +7,7 @@ module AcaEntities
       class UserFeeReportContract < Contract
         params do
           required(:id).value(:string)
-          required(:issuer_id).value(:string)
+          required(:hios_id).value(:string)
           required(:billing_cycle_year).value(:string)
           required(:billing_cycle_month).value(:string)
           required(:premium_amount_total).value(:float)

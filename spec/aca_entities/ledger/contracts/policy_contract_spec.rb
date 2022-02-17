@@ -7,13 +7,13 @@ RSpec.describe AcaEntities::Ledger::Contracts::PolicyContract do
 
   let(:id) { '12345' }
   let(:exchange_assigned_id) { '68576' }
-  let(:issuer_assigned_id) { 'HP5992049' }
+  let(:insurer_assigned_id) { 'HP5992049' }
   let(:marketplace_segment_id) { '1138345-68576-20220201' }
 
-  let(:hios_id) { '96667ME031005806' }
+  let(:hbx_qhp_id) { '96667ME031005806' }
   let(:effective_year) { 2022 }
   let(:kind) { 'health' }
-  let(:product) { { hios_id: hios_id, effective_year: effective_year, kind: kind } }
+  let(:product) { { hbx_qhp_id: hbx_qhp_id, effective_year: effective_year, kind: kind } }
 
   let(:service_area_id) { '1374126' }
   let(:rating_area_id) { 'R-ME001' }
@@ -41,7 +41,7 @@ RSpec.describe AcaEntities::Ledger::Contracts::PolicyContract do
   let(:optional_params) do
     {
       id: id,
-      issuer_assigned_id: issuer_assigned_id,
+      insurer_assigned_id: insurer_assigned_id,
       service_area_id: service_area_id,
       end_on: end_on,
       timestamps: timestamps

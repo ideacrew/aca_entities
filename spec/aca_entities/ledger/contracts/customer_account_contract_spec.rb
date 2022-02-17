@@ -11,20 +11,19 @@ RSpec.describe AcaEntities::Ledger::Contracts::CustomerAccountContract do
 
   let(:exchange_assigned_id) { '68576' }
   let(:marketplace_segment_id) { '1138345-68576-20220201' }
-  let(:product) { { hios_id: hios_id, effective_year: effective_year, kind: kind } }
   let(:rating_area_id) { 'R-ME001' }
   let(:start_on) { Date.new(2022, 2, 1) }
 
-  let(:hios_id) { '96667ME031005806' }
+  let(:hbx_qhp_id) { '96667ME031005806' }
   let(:effective_year) { 2022 }
   let(:kind) { 'health' }
-  let(:product) { { hios_id: hios_id, effective_year: effective_year, kind: kind } }
+  let(:product) { { hbx_qhp_id: hbx_qhp_id, effective_year: effective_year, kind: kind } }
 
   let(:amount) { 875.22 }
-  let(:member_age_on_effective_date) { 33 }
+  let(:insured_age) { 33 }
   let(:amount) { 875.22 }
 
-  let(:premium) { { product: product, amount: amount, member_age_on_effective_date: member_age_on_effective_date } }
+  let(:premium) { { product: product, amount: amount, insured_age: insured_age } }
   let(:enrolled_members) { [{ member: customer, premium: premium, start_on: start_on }] }
 
   let(:policies) do

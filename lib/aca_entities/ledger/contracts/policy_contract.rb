@@ -8,7 +8,7 @@ module AcaEntities
         params do
           optional(:id).value(:string)
           required(:exchange_assigned_id).filled(:string)
-          optional(:issuer_assigned_id).maybe(:string)
+          optional(:insurer_assigned_id).maybe(:string)
           required(:marketplace_segment_id).filled(:string)
           required(:product).filled(ProductContract.params)
           optional(:service_area_id).maybe(:string)
