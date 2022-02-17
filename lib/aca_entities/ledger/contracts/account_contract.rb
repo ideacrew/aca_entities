@@ -11,16 +11,16 @@ module AcaEntities
         # @return [Dry::Monads::Result::Success] if params pass validation
         # @return [Dry::Monads::Result::Failure] if params fail validation
         params do
-          optional(:id).filled(:string)
-          optional(:name).filled(:string)
-          optional(:description).filled(:string)
-          optional(:number).filled(:string)
-          optional(:kind).filled(:string)
-          optional(:category).filled(:string)
-          optional(:is_active).value(:bool)
-          optional(:scope).value(:string)
-          optional(:balance).value(:float)
-          optional(:timestamps).filled(AcaEntities::Contracts::TimeStampContract.params)
+          optional(:id).maybe(:string)
+          optional(:name).maybe(:string)
+          optional(:description).maybe(:string)
+          optional(:number).maybe(:string)
+          optional(:category).maybe(AcaEntities::Ledger::Types::AccountCategoryKind)
+          optional(:kind).maybe(AcaEntities::Ledger::Types::AssetAccountKind)
+          required(:is_active).filled(:bool)
+          optional(:scope).maybe(:string)
+          optional(:balance).maybe(:float)
+          optional(:timestamps).maybe(AcaEntities::Contracts::TimeStampContract.params)
         end
       end
     end

@@ -21,7 +21,7 @@ module AcaEntities
     require_relative 'contracts/member_contract'
     require_relative 'contracts/policy_contract'
     require_relative 'contracts/account_contract'
-    require_relative 'contracts/account_holder_contract'
+    require_relative 'contracts/customer_account_contract'
 
     # operations
   end
