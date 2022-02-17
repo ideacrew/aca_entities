@@ -4,7 +4,6 @@ require 'dry-types'
 
 module AcaEntities
   module Ledger
-    # rubocop:disable Layout/LineLength
     # custom Qbo types
     module Types
       send(:include, Dry.Types)
@@ -107,6 +106,5 @@ module AcaEntities
 
       Callable = Types.Interface(:call)
     end
-    # rubocop:enable Layout/LineLength
   end
 end

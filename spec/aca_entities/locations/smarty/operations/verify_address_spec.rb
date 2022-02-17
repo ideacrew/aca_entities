@@ -217,33 +217,32 @@ RSpec.describe AcaEntities::Locations::Smarty::Operations::VerifyAddress do
         expect(validated_address.components.state_abbreviation).to eq verified_state_abbreviation
         expect(validated_address.components.zipcode).not_to be_empty
         expect(maine_counties).to include validated_address.metadata.county_name
-        binding.pry
 
-        csv = CSV.new(valid_addresses)
+        _csv = CSV.new(valid_addresses)
         puts [
-               '{',
-               'address:',
-               '{',
-               'source_address:',
-               "#{evil_address}",
-               '}',
-               'validated_address',
-               '{',
-               'line_1:',
-               validated_address.delivery_line_1,
-               'city:',
-               validated_address.components.city_name,
-               'state:',
-               validated_address.components.state_abbreviation,
-               'zipcode',
-               validated_address.components.zipcode,
-               'county_name:',
-               validated_address.metadata.county_name,
-               'county_fips_code:',
-               validated_address.metadata.county_fips,
-               '}',
-               '}'
-             ].join(' ')
+          '{',
+          'address:',
+          '{',
+          'source_address:',
+          evil_address.to_s,
+          '}',
+          'validated_address',
+          '{',
+          'line_1:',
+          validated_address.delivery_line_1,
+          'city:',
+          validated_address.components.city_name,
+          'state:',
+          validated_address.components.state_abbreviation,
+          'zipcode',
+          validated_address.components.zipcode,
+          'county_name:',
+          validated_address.metadata.county_name,
+          'county_fips_code:',
+          validated_address.metadata.county_fips,
+          '}',
+          '}'
+        ].join(' ')
       end
       puts "\n Failed Addresses:"
       failed_addresses.each { |addr| puts addr }
@@ -295,7 +294,7 @@ RSpec.describe AcaEntities::Locations::Smarty::Operations::VerifyAddress do
         expect(maine_counties).to include result.success.first.metadata.county_name
 
         puts "#{parsed_evil_address} => " +
-               [result.success.first.delivery_line_1, result.success.first.last_line].join(' ')
+             [result.success.first.delivery_line_1, result.success.first.last_line].join(' ')
       end
       puts "\n Failed Parsed Addresses:"
       failed_parsed_addresses.each { |addr| puts addr }

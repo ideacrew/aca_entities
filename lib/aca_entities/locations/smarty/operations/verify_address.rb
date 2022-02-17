@@ -34,7 +34,6 @@ module AcaEntities
           def validate(params)
             # Locations::Smarty::Contracts::AddressContract.new.call(params)
             result = AcaEntities::Locations::Smarty::Contracts::LookupContract.new.call(params[:credentials])
-            result = AcaEntities::Locations::Smarty::Contracts::LookupContract.new.call(params[:credentials])
             result.errors.empty? ? Success(result) : Failure(result)
           end
 
