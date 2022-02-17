@@ -13,17 +13,17 @@ info:
 
 servers:
   production:
-    url: http://localhost:3000/api/event_source/enrolled_subjects
+    url: http://localhost:3000
     protocol: http
     protocolVersion: 0.1.0
     description: Glue Production Server
   development:
-    url: http://localhost:3000/api/event_source/enrolled_subjects
+    url: http://localhost:3000
     protocol: http
     protocolVersion: 0.1.0
     description: Glue Development Server
   test:
-    url: http://localhost:3000/api/event_source/enrolled_subjects
+    url: http://localhost:3000
     protocol: http
     protocolVersion: 0.1.0
     description: Glue Test Server
@@ -31,9 +31,9 @@ servers:
 defaultContentType: application/json
 
 channels:
-  /subscribers_list:
+  /api/event_source/enrolled_subjects:
     publish:
-      operationId: /subscribers_list
+      operationId: /api/event_source/enrolled_subjects
       description: HTTP endpoint for fetching subscribers list from GLUE
       bindings:
         http:
@@ -43,7 +43,7 @@ channels:
             Content-Type: application/json
             Accept: application/json
     subscribe:
-      operationId: /on/subscribers_list
+      operationId: /on/api/event_source/enrolled_subjects
       description: EventSource Subscriber that published Glue responses
       bindings:
         http:
@@ -52,9 +52,9 @@ channels:
           headers:
             Content-Type: application/json
             Accept: application/json
-  /subscriber_coverage:
+  /api/event_source/enrolled_subjects/show:
     publish:
-      operationId: /subscriber_coverage
+      operationId: /api/event_source/enrolled_subjects/show
       description: HTTP endpoint for fetching coverage information for subcriber from GLUE
       bindings:
         http:
@@ -64,7 +64,7 @@ channels:
             Content-Type: application/json
             Accept: application/json
     subscribe:
-      operationId: /on/subscriber_coverage
+      operationId: /on/api/event_source/enrolled_subjects/show
       description: EventSource Subscriber that published Glue responses
       bindings:
         http:
