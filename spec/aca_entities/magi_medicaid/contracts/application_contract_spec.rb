@@ -87,7 +87,8 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicationContract,  dbcle
         notice_options: notice_options,
         oe_start_on: Date.new(Date.today.year, 11, 1),
         submitted_at: DateTime.now,
-        hbx_id: '200000123' }
+        hbx_id: '200000123',
+        full_medicaid_determination: true }
     end
 
     it 'should return success' do
