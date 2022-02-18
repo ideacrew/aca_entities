@@ -23,7 +23,7 @@ RSpec.describe AcaEntities::Ledger::Contracts::CustomerAccountContract do
   let(:insured_age) { 33 }
   let(:amount) { 875.22 }
 
-  let(:premium) { { product: product, amount: amount, insured_age: insured_age } }
+  let(:premium) { { amount: amount, insured_age: insured_age } }
   let(:enrolled_members) { [{ member: customer, premium: premium, start_on: start_on }] }
 
   let(:policies) do
