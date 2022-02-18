@@ -9,6 +9,7 @@ module AcaEntities
           optional(:id).value(:string)
           required(:insurer).filled(InsurerContract.params)
           required(:exchange_assigned_id).filled(:string)
+          required(:subscriber_hbx_id).filled(:string)
           optional(:insurer_assigned_id).maybe(:string)
           required(:marketplace_segments).array(MarketplaceSegmentContract.params)
           required(:product).filled(ProductContract.params)
