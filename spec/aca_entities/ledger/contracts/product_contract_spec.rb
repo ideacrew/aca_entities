@@ -9,15 +9,13 @@ RSpec.describe AcaEntities::Ledger::Contracts::ProductContract do
   let(:hbx_qhp_id) { '96667ME031005806' }
   let(:effective_year) { 2022 }
   let(:kind) { 'health' }
-  let(:name) { nil }
-  let(:description) { nil }
-
+  let(:name) { 'Comprehensive Coverage Level 11' }
+  let(:description) { 'Includes all health care from head to toe' }
   let(:moment) { DateTime.now }
   let(:timestamps) { { created_at: moment, modified_at: moment } }
 
   let(:required_params) { { hbx_qhp_id: hbx_qhp_id, effective_year: effective_year, kind: kind } }
   let(:optional_params) { { id: id, name: name, description: description, timestamps: timestamps } }
-
   let(:all_params) { required_params.merge(optional_params) }
 
   context 'Calling contract with Valid params' do
