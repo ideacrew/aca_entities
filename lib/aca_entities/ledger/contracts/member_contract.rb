@@ -10,6 +10,7 @@ module AcaEntities
           required(:hbx_id).filled(:string)
           optional(:insurer_assigned_id).maybe(:string)
           required(:person_name).filled(AcaEntities::Contracts::People::PersonNameContract.params)
+          optional(:tax_household_id).maybe(:string)
           optional(:is_tobacco_user).maybe(:bool)
           optional(:timestamps).maybe(AcaEntities::Contracts::TimeStampContract.params)
         end
