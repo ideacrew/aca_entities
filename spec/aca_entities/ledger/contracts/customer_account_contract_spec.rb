@@ -10,15 +10,52 @@ RSpec.describe AcaEntities::Ledger::Contracts::CustomerAccountContract do
   let(:account) { { category: 'accounts_receivable', kind: 'accounts_receivable', is_active: true } }
 
   let(:exchange_assigned_id) { '68576' }
-  let(:marketplace_segment_id) { '1138345-68576-20220201' }
   let(:rating_area_id) { 'R-ME001' }
   let(:start_on) { Date.new(2022, 2, 1) }
 
+  let(:subscriber_hbx_id) { '1138345' }
+  let(:policy_id) { '68576' }
+  let(:segment) { [subscriber_hbx_id, policy_id, start_on.strftime('%Y%m%d')].join('-') }
+
+  let(:hbx_id) { subscriber_hbx_id }
+  let(:person_name) { { first_name: 'George', last_name: 'Jetson' } }
+  let(:insured_age) { 33 }
+  let(:amount) { 875.22 }
+  let(:premium) { { insured_age: insured_age, amount: amount } }
+
+  let(:member) { { member: { hbx_id: hbx_id, person_name: person_name }, premium: premium, start_on: start_on } }
+  let(:enrolled_members) { [member] }
+  let(:marketplace_segment) do
+    {
+      subscriber_hbx_id: subscriber_hbx_id,
+      policy_id: policy_id,
+      start_on: start_on,
+      segment: segment,
+      enrolled_members: enrolled_members
+    }
+  end
+
+  let(:marketplace_segments) { [marketplace_segment] }
+
+  let(:hios_id) { '96667' }
+  let(:insurer) { { hios_id: hios_id } }
   let(:hbx_qhp_id) { '96667ME031005806' }
   let(:effective_year) { 2022 }
   let(:kind) { 'health' }
   let(:product) { { hbx_qhp_id: hbx_qhp_id, effective_year: effective_year, kind: kind } }
-
+  let(:policies) do
+    [
+      {
+        exchange_assigned_id: exchange_assigned_id,
+        marketplace_segments: marketplace_segments,
+        subscriber_hbx_id: subscriber_hbx_id,
+        insurer: insurer,
+        product: product,
+        rating_area_id: rating_area_id,
+        start_on: start_on
+      }
+    ]
+  end
   let(:amount) { 875.22 }
   let(:insured_age) { 33 }
   let(:amount) { 875.22 }
@@ -26,25 +63,16 @@ RSpec.describe AcaEntities::Ledger::Contracts::CustomerAccountContract do
   let(:premium) { { amount: amount, insured_age: insured_age } }
   let(:enrolled_members) { [{ member: customer, premium: premium, start_on: start_on }] }
 
-  let(:policies) do
-    [
-      {
-        exchange_assigned_id: exchange_assigned_id,
-        marketplace_segment_id: marketplace_segment_id,
-        product: product,
-        rating_area_id: rating_area_id,
-        start_on: start_on,
-        enrolled_members: enrolled_members
-      }
-    ]
-  end
+  let(:tax_household) { { aptc_amount_total: 585.69 } }
+  let(:tax_households) { [tax_household] }
+
   let(:is_active) { true }
 
   let(:moment) { DateTime.now }
   let(:timestamps) { { created_at: moment, modified_at: moment } }
 
   let(:required_params) { { customer: customer, account: account, policies: policies, is_active: is_active } }
-  let(:optional_params) { { id: id, timestamps: timestamps } }
+  let(:optional_params) { { id: id, tax_households: tax_households, timestamps: timestamps } }
 
   let(:all_params) { required_params.merge(optional_params) }
 
