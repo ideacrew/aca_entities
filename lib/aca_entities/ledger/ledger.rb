@@ -19,6 +19,8 @@ module AcaEntities
     require_relative 'contracts/tax_household_contract'
     require_relative 'contracts/insurer_contract'
     require_relative 'contracts/member_contract'
+    require_relative 'contracts/enrolled_member_contract'
+    require_relative 'contracts/marketplace_segment_contract'
     require_relative 'contracts/policy_contract'
     require_relative 'contracts/account_contract'
     require_relative 'contracts/customer_account_contract'

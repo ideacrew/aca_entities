@@ -2,21 +2,10 @@
 
 require 'spec_helper'
 
-RSpec.describe AcaEntities::Ledger::Contracts::PolicyContract do
+RSpec.describe AcaEntities::Ledger::Contracts::MarketplaceSegmentContract do
   subject { described_class.new }
 
   let(:id) { '12345' }
-
-  let(:insurer) { { name: 'Harvard Pilgrim Health Care', hios_id: '96667' } }
-  let(:exchange_assigned_id) { '68576' }
-  let(:insurer_assigned_id) { 'HP5992049' }
-  let(:marketplace_segment_id) { '1138345-68576-20220201' }
-
-  let(:hbx_qhp_id) { '96667ME031005806' }
-  let(:effective_year) { 2022 }
-  let(:kind) { 'health' }
-  let(:product) { { hbx_qhp_id: hbx_qhp_id, effective_year: effective_year, kind: kind } }
-
   let(:subscriber_hbx_id) { '1138345' }
   let(:policy_id) { '68576' }
   let(:start_on) { Date.new(2022, 1, 1) }
@@ -31,7 +20,11 @@ RSpec.describe AcaEntities::Ledger::Contracts::PolicyContract do
 
   let(:member) { { member: { hbx_id: hbx_id, person_name: person_name }, premium: premium, start_on: start_on } }
   let(:enrolled_members) { [member] }
-  let(:marketplace_segment) do
+
+  let(:moment) { DateTime.now }
+  let(:timestamps) { { created_at: moment, modified_at: moment } }
+
+  let(:required_params) do
     {
       subscriber_hbx_id: subscriber_hbx_id,
       policy_id: policy_id,
@@ -40,38 +33,7 @@ RSpec.describe AcaEntities::Ledger::Contracts::PolicyContract do
       enrolled_members: enrolled_members
     }
   end
-
-  let(:marketplace_segments) { [marketplace_segment] }
-
-  let(:service_area_id) { 'ME001' }
-  let(:rating_area_id) { 'R-ME001' }
-  let(:start_on) { Date.new(2022, 2, 1) }
-  let(:end_on) { Date.new(2022, 2, 28) }
-
-  let(:moment) { DateTime.now }
-  let(:timestamps) { { created_at: moment, modified_at: moment } }
-
-  let(:required_params) do
-    {
-      insurer: insurer,
-      product: product,
-      marketplace_segments: marketplace_segments,
-      exchange_assigned_id: exchange_assigned_id,
-      subscriber_hbx_id: subscriber_hbx_id,
-      rating_area_id: rating_area_id,
-      start_on: start_on
-    }
-  end
-
-  let(:optional_params) do
-    {
-      id: id,
-      insurer_assigned_id: insurer_assigned_id,
-      service_area_id: service_area_id,
-      end_on: end_on,
-      timestamps: timestamps
-    }
-  end
+  let(:optional_params) { { id: id, end_on: end_on, timestamps: timestamps } }
 
   let(:all_params) { required_params.merge(optional_params) }
 
@@ -96,11 +58,9 @@ RSpec.describe AcaEntities::Ledger::Contracts::PolicyContract do
   context 'Calling the contract with no params' do
     let(:error_message) do
       {
-        exchange_assigned_id: ['is missing'],
-        product: ['is missing'],
-        insurer: ['is missing'],
-        marketplace_segments: ['is missing'],
-        rating_area_id: ['is missing'],
+        enrolled_members: ['is missing'],
+        policy_id: ['is missing'],
+        segment: ['is missing'],
         start_on: ['is missing'],
         subscriber_hbx_id: ['is missing']
       }
