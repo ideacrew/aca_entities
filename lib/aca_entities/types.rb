@@ -1969,12 +1969,24 @@ module AcaEntities
     EmailAddressRegex = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
       .freeze
 
-    EmailAddressKind = Types::String.constrained(format: EmailAddressRegex)
+    PhoneNumberRegex = /^\(?\d{3}[)|.]?[\s|-]?\d{3}[-|.]?\d{4}$/.freeze
 
-    # Regex for PhoneNumber
+    # US Zip+4 Regex
+    ZipCodeRegex = /\A\d{5}(-\d{4})?\z/.freeze
+
+    # Numbers-only Phone Number Regex
     NumbersOnlyRegex = /^[0-9]/.freeze
 
-    ZipCodeRegex = /\A\d{5}(-\d{4})?\z/.freeze
+    # Internet email address format
+    EmailAddressKind = Types::String.constrained(format: EmailAddressRegex)
+
+    # US phone number format
+    # Handles dash '-', parenthesis '(', ')' and period '.' chars as seperators
+    PhoneNumberKind = Types::String.constrained(format: PhoneNumberRegex)
+
+    # US Zip+4 zipcode format
+    ZipcodeKind = Types::String.constrained(format: ZipCodeRegex)
+
 
     # List of the documents user can provide to verify Immigration status
     VlpDocumentKind =
