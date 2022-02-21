@@ -7,7 +7,9 @@ module AcaEntities
       class TaxHouseholdContract < Contract
         params do
           optional(:id).filled(:string)
-          optional(:aptc_amount_total).maybe(:float)
+          optional(:aptc_amount).maybe(:float)
+          optional(:start_on).maybe(:date)
+          optional(:end_on).maybe(:date)
           optional(:csr).maybe(:integer)
           optional(:timestamps).filled(AcaEntities::Contracts::TimeStampContract.params)
         end

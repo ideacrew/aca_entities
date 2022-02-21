@@ -29,15 +29,26 @@ RSpec.describe AcaEntities::Ledger::Contracts::PolicyContract do
   let(:amount) { 875.22 }
   let(:premium) { { insured_age: insured_age, amount: amount } }
 
-  let(:member) { { member: { hbx_id: hbx_id, person_name: person_name }, premium: premium, start_on: start_on } }
-  let(:enrolled_members) { [member] }
+  let(:enrolled_member) do
+    {
+      member: {
+        hbx_id: hbx_id,
+        subscriber_hbx_id: subscriber_hbx_id,
+        person_name: person_name
+      },
+      premium: premium,
+      start_on: start_on
+    }
+  end
+  let(:enrolled_members) { [enrolled_member] }
   let(:marketplace_segment) do
     {
       subscriber_hbx_id: subscriber_hbx_id,
-      policy_id: policy_id,
       start_on: start_on,
       segment: segment,
-      enrolled_members: enrolled_members
+      enrolled_members: enrolled_members,
+      total_premium_amount: amount,
+      total_premium_responsibility_amount: amount
     }
   end
 

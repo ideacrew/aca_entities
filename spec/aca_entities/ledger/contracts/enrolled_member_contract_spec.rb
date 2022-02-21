@@ -9,7 +9,8 @@ RSpec.describe AcaEntities::Ledger::Contracts::EnrolledMemberContract do
 
   let(:hbx_id) { '987654' }
   let(:person_name) { { first_name: 'George', last_name: 'Jetson' } }
-  let(:member) { { hbx_id: hbx_id, person_name: person_name } }
+  let(:subscriber_hbx_id) { '1138345' }
+  let(:member) { { hbx_id: hbx_id, person_name: person_name, subscriber_hbx_id: subscriber_hbx_id } }
 
   let(:insured_age) { 33 }
   let(:amount) { 875.22 }

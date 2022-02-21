@@ -6,12 +6,12 @@ RSpec.describe AcaEntities::Ledger::Contracts::TaxHouseholdContract do
   subject { described_class.new }
 
   let(:id) { '12345' }
-  let(:aptc_amount_total) { 585.69 }
+  let(:aptc_amount) { 585.69 }
   let(:moment) { DateTime.now }
   let(:timestamps) { { created_at: moment, modified_at: moment } }
 
   let(:required_params) { {} }
-  let(:optional_params) { { id: id, aptc_amount_total: aptc_amount_total, timestamps: timestamps } }
+  let(:optional_params) { { id: id, aptc_amount: aptc_amount, timestamps: timestamps } }
 
   let(:all_params) { required_params.merge(optional_params) }
 

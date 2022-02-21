@@ -22,17 +22,22 @@ module AcaEntities
 
           # Coerce common alternative gender values to GenderKind type before validating
           before(:value_coercer) do |result|
-            parms = result.to_h
+            # require 'pry'
+            # binding.pry
+            if result.to_h && result.to_h[:gender]
+              parms = result.to_h
 
-            if parms.key?(:gender) && !parms[:gender].nil?
-              # require 'pry'
-              # binding.pry
-              gender_val = 'female' if %w[Female f female girl woman].include? parms[:gender]
-              gender_val = 'male' if %w[Male m male boy man].include? parms[:gender]
-              gender_val ||= parms[:gender]
+              if parms[:gender].present?
+                gender_val = 'female' if %w[Female f female girl woman].include? parms[:gender]
+                gender_val = 'male' if %w[Male m male boy man].include? parms[:gender]
+                gender_val ||= parms[:gender]
 
-              result.to_h.merge!({ gender: gender_val }) if %w[female male].include? gender_val
+                result.to_h.merge!({ gender: gender_val }) if %w[female male].include? gender_val
+              end
             end
+            # Dry::Schema::Result doesn't handle nested values
+          rescue TypeError
+            puts '      INFO: MemberContract value_coercer received nil gender attribute'
           end
         end
       end
