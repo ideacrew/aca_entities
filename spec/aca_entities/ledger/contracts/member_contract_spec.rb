@@ -46,7 +46,7 @@ RSpec.describe AcaEntities::Ledger::Contracts::MemberContract do
     end
 
     context 'Calling the contract with all params' do
-      let(:all_params_with_coerced_gender) { all_params.merge!(gender: 'Male') }
+      let(:all_params_with_coerced_gender) { all_params.merge!(gender: 'male') }
       it 'should pass validation' do
         result = subject.call(all_params)
         expect(result.success?).to be_truthy
@@ -57,9 +57,9 @@ RSpec.describe AcaEntities::Ledger::Contracts::MemberContract do
 
   context 'Calling the contract with alternate gender values' do
     let(:alternative_gender) { 'girl' }
-    let(:female_gender) { 'Female' }
+    let(:female_gender) { 'female' }
     let(:invalid_gender) { 'clown' }
-    let(:gender_error) { 'must be one of: Male, Female' }
+    let(:gender_error) { 'must be one of: male, female' }
 
     it 'should coerce valid alternative gender to expected kind' do
       result = subject.call(all_params.merge!(gender: alternative_gender))
