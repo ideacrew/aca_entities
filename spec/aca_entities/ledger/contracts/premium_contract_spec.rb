@@ -11,8 +11,8 @@ RSpec.describe AcaEntities::Ledger::Contracts::PremiumContract do
   let(:moment) { DateTime.now }
   let(:timestamps) { { created_at: moment, modified_at: moment } }
 
-  let(:required_params) { { amount: amount, insured_age: insured_age } }
-  let(:optional_params) { { id: id, timestamps: timestamps } }
+  let(:required_params) { { amount: amount } }
+  let(:optional_params) { { id: id, insured_age: insured_age, timestamps: timestamps } }
   let(:all_params) { required_params.merge(optional_params) }
 
   context 'Calling contract with Valid params' do
@@ -34,7 +34,7 @@ RSpec.describe AcaEntities::Ledger::Contracts::PremiumContract do
   end
 
   context 'Calling the contract with no params' do
-    let(:error_message) { { amount: ['is missing'], insured_age: ['is missing'] } }
+    let(:error_message) { { amount: ['is missing'] } }
 
     it 'should fail vaidation' do
       result = subject.call({})

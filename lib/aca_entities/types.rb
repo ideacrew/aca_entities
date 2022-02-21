@@ -1799,6 +1799,7 @@ module AcaEntities
 
     ParentCaretakerToChildRelationshipCode = RelationshipToTaxFilerCode
 
+    BinaryGenderKind = Types::Coercible::String.enum('male', 'female')
     GenderKind = Types::Coercible::String.enum('Male', 'Female')
 
     DeductionCategoryCode =

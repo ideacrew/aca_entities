@@ -1,14 +1,17 @@
 # frozen_string_literal: true
 
+require 'active_support'
+require 'active_support/core_ext'
 require 'dry-types'
 
 module AcaEntities
   module Ledger
-    # custom Qbo types
+    # Premium Billing Custom Data Types
     module Types
       send(:include, Dry.Types)
       include Dry::Logic
 
+      AccountCustomerRole = Types::Coercible::String.enum('subscriber', 'custodial_parent', 'responsible_person')
       UserFeeReportItemKind = Types::Coercible::String.enum('adjustment', 'fee')
       InsuranceProductKind = Types::Coercible::String.enum('health', 'dental')
 
@@ -75,36 +78,6 @@ module AcaEntities
             'ShortTermLoansAndAdvancesToRelatedParties',
             'TradeAndOtherReceivables'
           )
-
-      # Duration            = Types.Constructor(::ActiveSupport::Duration) {|val| ::ActiveSupport::Duration.build(val) }
-
-      # E.164 Standard
-      PhoneNumber = Types::String.constrained(format: /^\+(?:[0-9] ?){6,14}[0-9]$/)
-
-      # PhoneNumber       = Types::String.constrained(format: /^\+\d{1,3}\s\d{1,14}(\s\d{1,13})$/)
-      # PhoneNumber       = Types::String.constrained(format: /^\+\d{1,3}\s\d{1,14}(\s\d{1,13})?/)
-
-      Email = Types::String.constrained(format: /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i)
-      EmailOrString = Types::Email | Types::String
-
-      Stores = Types::String.default('file_store').enum('file_store')
-
-      CallableDate = Types::Date.default { Date.today }
-      CallableDateTime = Types::DateTime.default { DateTime.now }
-
-      HashOrNil = Types::Hash | Types::Nil
-      StringOrNil = Types::String | Types::Nil
-
-      RequiredString = Types::Strict::String.constrained(min_size: 1)
-      StrippedString = Types::String.constructor(&:strip)
-      SymbolOrString = Types::Symbol | Types::String
-      NilOrString = Types::Nil | Types::String
-
-      CoercedInteger = Types::Coercible::Integer | Types::Coercible::Float.constructor(&:to_i)
-
-      StrictSymbolizingHash = Types::Hash.schema({}).strict.with_key_transform(&:to_sym)
-
-      Callable = Types.Interface(:call)
     end
   end
 end

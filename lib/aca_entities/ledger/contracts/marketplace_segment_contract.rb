@@ -9,8 +9,9 @@ module AcaEntities
           optional(:id).maybe(:string)
           optional(:coverage_period).filled(:string)
 
-          required(:subscriber_hbx_id).filled(:string)
-          required(:policy_id).filled(:string)
+          optional(:subscriber_hbx_id).filled(:string)
+          required(:total_premium_amount).filled(:float)
+          required(:total_premium_responsibility_amount).filled(:float)
           required(:start_on).filled(:date)
           optional(:end_on).maybe(:date)
           required(:segment).filled(:string)
