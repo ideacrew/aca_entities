@@ -16,7 +16,8 @@ module AcaEntities
           optional(:dob).maybe(:date)
           optional(:gender).maybe(AcaEntities::Types::BinaryGenderKind)
           optional(:tax_household_id).maybe(:string)
-          optional(:relationshihp_code).maybe(:string)
+          optional(:relationship_code).maybe(:string)
+          optional(:is_subscriber).maybe(:bool)
           optional(:is_tobacco_user).maybe(:bool)
           optional(:timestamps).maybe(AcaEntities::Contracts::TimeStampContract.params)
 
@@ -28,8 +29,8 @@ module AcaEntities
               parms = result.to_h
 
               if parms[:gender].present?
-                gender_val = 'female' if %w[Female f female girl woman].include? parms[:gender]
-                gender_val = 'male' if %w[Male m male boy man].include? parms[:gender]
+                gender_val = 'female' if %w[Female female F f girl woman].include? parms[:gender]
+                gender_val = 'male' if %w[Male male M m boy man].include? parms[:gender]
                 gender_val ||= parms[:gender]
 
                 result.to_h.merge!({ gender: gender_val }) if %w[female male].include? gender_val
