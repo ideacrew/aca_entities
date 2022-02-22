@@ -18,9 +18,10 @@ RSpec.describe AcaEntities::Ledger::Contracts::AccountContract do
   let(:moment) { DateTime.now }
   let(:timestamps) { { created_at: moment, modified_at: moment } }
 
-  let(:required_params) { { is_active: is_active } }
+  let(:required_params) { {} }
   let(:optional_params) do
     {
+      is_active: is_active,
       id: id,
       name: name,
       description: description,
@@ -36,14 +37,6 @@ RSpec.describe AcaEntities::Ledger::Contracts::AccountContract do
   let(:all_params) { required_params.merge(optional_params) }
 
   context 'Calling contract with Valid params' do
-    context 'Calling the contract with required params' do
-      it 'should pass validation' do
-        result = subject.call(required_params)
-        expect(result.success?).to be_truthy
-        expect(result.to_h).to eq required_params
-      end
-    end
-
     context 'Calling the contract with all params' do
       it 'should pass validation' do
         result = subject.call(all_params)
@@ -54,11 +47,9 @@ RSpec.describe AcaEntities::Ledger::Contracts::AccountContract do
   end
 
   context 'Calling the contract with no params' do
-    let(:error_message) { { is_active: ['is missing'] } }
     it 'should pass validation' do
       result = subject.call({})
-      expect(result.failure?).to be_truthy
-      expect(result.errors.to_h).to eq error_message
+      expect(result.success?).to be_truthy
     end
   end
 end

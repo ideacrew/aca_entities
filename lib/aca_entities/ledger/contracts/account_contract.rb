@@ -17,7 +17,7 @@ module AcaEntities
           optional(:number).maybe(:string)
           optional(:category).maybe(AcaEntities::Ledger::Types::AccountCategoryKind)
           optional(:kind).maybe(AcaEntities::Ledger::Types::AssetAccountKind)
-          required(:is_active).filled(:bool)
+          optional(:is_active).filled(:bool)
           optional(:scope).maybe(:string)
           optional(:balance).maybe(:float)
           optional(:timestamps).maybe(AcaEntities::Contracts::TimeStampContract.params)

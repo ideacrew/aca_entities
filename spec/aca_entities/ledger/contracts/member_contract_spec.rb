@@ -11,6 +11,7 @@ RSpec.describe AcaEntities::Ledger::Contracts::MemberContract do
   let(:insurer_assigned_id) { '555555' }
   let(:insurer_assigned_subscriber_id) { '555555' }
   let(:person_name) { { first_name: 'George', last_name: 'Jetson' } }
+  let(:is_subscriber) { true }
   let(:is_tobacco_user) { false }
 
   let(:ssn) { '777665432' }
@@ -27,6 +28,7 @@ RSpec.describe AcaEntities::Ledger::Contracts::MemberContract do
       ssn: ssn,
       dob: dob,
       gender: gender,
+      is_subscriber: is_subscriber,
       is_tobacco_user: is_tobacco_user,
       insurer_assigned_id: insurer_assigned_id,
       insurer_assigned_subscriber_id: insurer_assigned_subscriber_id,

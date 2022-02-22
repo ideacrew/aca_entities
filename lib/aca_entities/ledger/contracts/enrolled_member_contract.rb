@@ -3,7 +3,7 @@
 module AcaEntities
   module Ledger
     module Contracts
-      # Schema and validation rules for {AcaEntities::Ledger::TaxHousehold}
+      # Schema and validation rules for {AcaEntities::Ledger::EnrolledMember}
       class EnrolledMemberContract < Contract
         params do
           optional(:id).filled(:string)
