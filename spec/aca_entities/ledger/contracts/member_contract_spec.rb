@@ -16,7 +16,7 @@ RSpec.describe AcaEntities::Ledger::Contracts::MemberContract do
 
   let(:ssn) { '777665432' }
   let(:dob) { Date.new(1988, 3, 15) }
-  let(:gender) { 'm' }
+  let(:gender) { 'male' }
 
   let(:moment) { DateTime.now }
   let(:timestamps) { { created_at: moment, modified_at: moment } }
@@ -48,30 +48,11 @@ RSpec.describe AcaEntities::Ledger::Contracts::MemberContract do
     end
 
     context 'Calling the contract with all params' do
-      let(:all_params_with_coerced_gender) { all_params.merge!(gender: 'male') }
       it 'should pass validation' do
         result = subject.call(all_params)
         expect(result.success?).to be_truthy
-        expect(result.to_h).to eq all_params_with_coerced_gender
+        expect(result.to_h).to eq all_params
       end
-    end
-  end
-
-  context 'Calling the contract with alternate gender values' do
-    let(:alternative_gender) { 'girl' }
-    let(:female_gender) { 'female' }
-    let(:invalid_gender) { 'clown' }
-    let(:gender_error) { 'must be one of: male, female' }
-
-    it 'should coerce valid alternative gender to expected kind' do
-      result = subject.call(all_params.merge!(gender: alternative_gender))
-      expect(result[:gender]).to eq female_gender
-      expect(result.errors[:gender]).to be_nil
-    end
-
-    it 'should fail to coerce invalid alternative gender to expected kind and return error' do
-      result = subject.call(gender: invalid_gender)
-      expect(result.errors[:gender].first).to eq gender_error
     end
   end
 
