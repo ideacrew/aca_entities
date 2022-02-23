@@ -20,26 +20,6 @@ module AcaEntities
           optional(:is_subscriber).maybe(:bool)
           optional(:is_tobacco_user).maybe(:bool)
           optional(:timestamps).maybe(AcaEntities::Contracts::TimeStampContract.params)
-
-          # Coerce common alternative gender values to GenderKind type before validating
-          before(:value_coercer) do |result|
-            # require 'pry'
-            # binding.pry
-            if result.to_h && result.to_h[:gender]
-              parms = result.to_h
-
-              if parms[:gender].present?
-                gender_val = 'female' if %w[Female female F f girl woman].include? parms[:gender]
-                gender_val = 'male' if %w[Male male M m boy man].include? parms[:gender]
-                gender_val ||= parms[:gender]
-
-                result.to_h.merge!({ gender: gender_val }) if %w[female male].include? gender_val
-              end
-            end
-            # Dry::Schema::Result doesn't handle nested values
-          rescue TypeError
-            puts '      INFO: MemberContract value_coercer received nil gender attribute'
-          end
         end
       end
     end
