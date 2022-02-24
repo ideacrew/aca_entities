@@ -6,16 +6,16 @@ module AcaEntities
       # Schema and validation rules for {AcaEntities::Ledger::UserFeeReport}
       class UserFeeReportContract < Contract
         params do
-          required(:id).value(:string)
+          optional(:id).maybe(:string)
           required(:hios_id).value(:string)
-          required(:billing_cycle_year).value(:string)
-          required(:billing_cycle_month).value(:string)
-          required(:premium_amount_total).value(:float)
-          required(:fee_amount_total).value(:float)
-          required(:adjustment_amount_total).value(:float)
-          required(:fee_amount_due).value(:float)
+          required(:user_fee_rate).value(:float)
+          required(:billing_cycle_date).value(:date)
+          required(:premium_amount_total).value(:decimal)
+          required(:user_fee_amount_total).value(:decimal)
+          required(:adjustment_amount_total).value(:decimal)
+          required(:user_fee_amount_due).value(:decimal)
           optional(:user_fee_report_items).array(AcaEntities::Ledger::Contracts::UserFeeReportItemContract.params)
-          required(:timestamps).filled(AcaEntities::Contracts::TimeStampContract.params)
+          optional(:report_timestamp).maybe(:date_time)
         end
       end
     end
