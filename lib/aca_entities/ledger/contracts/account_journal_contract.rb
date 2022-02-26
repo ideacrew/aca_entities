@@ -3,8 +3,8 @@
 module AcaEntities
   module Ledger
     module Contracts
-      # Schema and validation rules for the {AcaEntities::Ledger::AccountContract} entity
-      class AccountContract < Contract
+      # Schema and validation rules for the {AcaEntities::Ledger::AccountJournalContract} entity
+      class AccountJournalContract < Contract
         # @!method call(opts)
         # @param [Hash] opts the parameters to validate using this contract
         # @option opts [String] :id (optional)
@@ -12,10 +12,14 @@ module AcaEntities
         # @return [Dry::Monads::Result::Failure] if params fail validation
         params do
           optional(:id).maybe(:string)
-          required(:number).filled(:integer)
-          required(:name).filled(:string)
-          required(:kind).filled(AcaEntities::Ledger::Types::KeeprAccountKind)
-          optional(:parent).maybe(:string)
+          optional(:number).maybe(:string)
+          optional(:name).maybe(:string)
+          optional(:date).maybe(:date)
+          optional(:subject).maybe(:string)
+          optional(:account_kind).maybe(:string)
+          optional(:account_id).maybe(:integer)
+          optional(:note).maybe(:string)
+          optional(:permanent).maybe(:bool)
           optional(:timestamps).maybe(AcaEntities::Contracts::TimeStampContract.params)
         end
       end
