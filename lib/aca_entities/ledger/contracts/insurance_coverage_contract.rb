@@ -3,13 +3,10 @@
 module AcaEntities
   module Ledger
     module Contracts
-      # Schema and validation rules for {AcaEntities::Ledger::CustomerAccount}
-      class CustomerAccountContract < Contract
+      # Schema and validation rules for {AcaEntities::Ledger::InsuranceCoverage}
+      class InsuranceCoverageContract < Contract
         params do
           optional(:id).value(:string)
-          required(:customer).filled(AcaEntities::Ledger::Contracts::MemberContract.params)
-          required(:customer_role).filled(AcaEntities::Ledger::Types::AccountCustomerRole)
-          optional(:account).maybe(AcaEntities::Ledger::Contracts::AccountContract.params)
           optional(:tax_households).array(TaxHouseholdContract.params)
           required(:policies).array(AcaEntities::Ledger::Contracts::PolicyContract.params)
           required(:is_active).filled(:bool)

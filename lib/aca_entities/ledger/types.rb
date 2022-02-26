@@ -17,11 +17,12 @@ module AcaEntities
 
       PartyRoleKind = Types::Coercible::String.enum('person', 'organization')
       PersonPartyRoleRelationshipKind = Types::Coercible::String.enum('subscriber', 'billing_contact')
-      OrganizationRolePartyRelationshipKind = Types::Coercible::String.enum('carrier', 'state_based_marketplace')
+      OrganizationRolePartyRelationshipKind = Types::Coercible::String.enum('insurer', 'state_based_marketplace')
       AllPartyRoleRelationshipKind = PersonPartyRoleRelationshipKind | OrganizationRolePartyRelationshipKind
 
-      AccountCategoryKind =
-        Types::Coercible::String.enum('asset', 'equity', 'accounts_receivable', 'liability', 'revenue')
+      # Keepr gem account kinds
+      KeeprAccountKind =
+        Types::Coercible::String.enum('asset', 'liability', 'revenue', 'expense', 'forward', 'debtor', 'creditor')
 
       AssetAccountKind =
         Types::Coercible::String.enum(

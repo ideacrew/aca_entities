@@ -25,7 +25,8 @@ module AcaEntities
     require_relative 'contracts/marketplace_segment_contract'
     require_relative 'contracts/policy_contract'
     require_relative 'contracts/account_contract'
-    require_relative 'contracts/customer_account_contract'
+    require_relative 'contracts/insurance_coverage_contract'
+    require_relative 'contracts/customer_contract'
     require_relative 'contracts/user_fee_report_item_contract'
     require_relative 'contracts/user_fee_report_contract'
 

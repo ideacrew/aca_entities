@@ -3,39 +3,18 @@
 module AcaEntities
   module Ledger
     module Contracts
-      # Schema and validation rules for {AcaEntities::Ledger::Customer}
+      # Schema and validation rules for {AcaEntities::Ledger::Member}
       class CustomerContract < Contract
         params do
-          required(:DisplayName).value(Ledger::Qbo::Types::StrippedString)
-          required(:PrimaryTaxIdentifier).value(Ledger::Qbo::Types::StrippedString)
-          optional(:ExternalId).value(Ledger::Qbo::Types::StrippedString)
-          optional(:GivenName).value(Ledger::Qbo::Types::StrippedString)
-          optional(:FullyQualifiedName).value(Ledger::Qbo::Types::StrippedString)
-          optional(:CompanyName).value(Ledger::Qbo::Types::StrippedString)
-          optional(:FamilyName).value(Ledger::Qbo::Types::StrippedString)
-
-          optional(:Id).value(Ledger::Qbo::Types::StrippedString)
-          optional(:SyncToken).value(Ledger::Qbo::Types::StrippedString)
-          optional(:domain).value(Ledger::Qbo::Types::StrippedString)
-
-          optional(:BillWithParent).value(:bool)
-          optional(:sparse).value(:bool)
-
-          optional(:BillAddr).maybe(:hash)
-
-          optional(:PrimaryEmailAddr).hash { optional(:Address).maybe(Ledger::Qbo::Types::StrippedString) }
-
-          optional(:PrimaryPhone).hash { optional(:FreeFormNumber).maybe(Ledger::Qbo::Types::StrippedString) }
-
-          optional(:Active).value(:bool)
-          optional(:MetaData).maybe(:hash)
-          optional(:Job).value(:bool)
-          optional(:Taxable).value(:bool)
-
-          optional(:BalanceWithJobs).value(Types::Coercible::Float)
-          optional(:Balance).value(Types::Coercible::Float)
-          optional(:PrintOnCheckName).value(Ledger::Qbo::Types::StrippedString)
-          optional(:PreferredDeliveryMethod).value(Ledger::Qbo::Types::StrippedString)
+          optional(:id).value(:string)
+          required(:hbx_id).filled(:string)
+          required(:first_name).filled(:string)
+          required(:last_name).filled(:string)
+          required(:customer_role).filled(:string)
+          required(:account).filled(AcaEntities::Ledger::Contracts::AccountContract.params)
+          required(:insurance_coverage).filled(AcaEntities::Ledger::Contracts::InsuranceCoverageContract.params)
+          required(:is_active).filled(:bool)
+          optional(:timestamps).maybe(AcaEntities::Contracts::TimeStampContract.params)
         end
       end
     end
