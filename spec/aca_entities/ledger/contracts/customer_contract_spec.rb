@@ -12,6 +12,7 @@ RSpec.describe AcaEntities::Ledger::Contracts::CustomerContract do
     let(:hbx_id) { '1138345' }
     let(:first_name) { 'George' }
     let(:last_name) { 'Jetson' }
+    let(:customer_role) { 'subscriber' }
 
     # Account
     let(:number) { '1100001'.to_i }
@@ -34,10 +35,6 @@ RSpec.describe AcaEntities::Ledger::Contracts::CustomerContract do
     let(:insured_age) { 33 }
     let(:amount) { 875.22 }
     let(:premium) { { insured_age: insured_age, amount: amount } }
-
-    # Customer
-    let(:customer) { member }
-    let(:customer_role) { 'subscriber' }
 
     # Enrolled Member
     let(:start_on) { Date.new(2022, 2, 1) }
