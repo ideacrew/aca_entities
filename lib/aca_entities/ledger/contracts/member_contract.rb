@@ -10,7 +10,7 @@ module AcaEntities
           required(:hbx_id).filled(:string)
           optional(:insurer_assigned_id).maybe(:string)
           required(:subscriber_hbx_id).filled(:string)
-          optional(:insurer_assigned_subscriber_id).filled(:string)
+          optional(:insurer_assigned_subscriber_id).maybe(:string)
           required(:person_name).filled(AcaEntities::Contracts::People::PersonNameContract.params)
           optional(:ssn).maybe(:string)
           optional(:dob).maybe(:date)
