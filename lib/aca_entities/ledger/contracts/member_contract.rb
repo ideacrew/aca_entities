@@ -6,7 +6,7 @@ module AcaEntities
       # Schema and validation rules for {AcaEntities::Ledger::Member}
       class MemberContract < Contract
         params do
-          optional(:id).value(:string)
+          optional(:id).maybe(:string)
           required(:hbx_id).filled(:string)
           optional(:insurer_assigned_id).maybe(:string)
           required(:subscriber_hbx_id).filled(:string)

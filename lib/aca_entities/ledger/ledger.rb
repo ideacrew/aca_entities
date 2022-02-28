@@ -16,19 +16,20 @@ module AcaEntities
 
     # shared contracts
     require_relative 'contracts/contract'
-    require_relative 'contracts/product_contract'
-    require_relative 'contracts/premium_contract'
-    require_relative 'contracts/tax_household_contract'
+    require_relative 'contracts/user_fee_report_item_contract'
+    require_relative 'contracts/user_fee_report_contract'
     require_relative 'contracts/insurer_contract'
+    require_relative 'contracts/premium_contract'
+    require_relative 'contracts/account_contract'
+    require_relative 'contracts/product_contract'
+    require_relative 'contracts/user_fee_contract'
+    require_relative 'contracts/tax_household_contract'
     require_relative 'contracts/member_contract'
     require_relative 'contracts/enrolled_member_contract'
     require_relative 'contracts/marketplace_segment_contract'
     require_relative 'contracts/policy_contract'
-    require_relative 'contracts/account_contract'
     require_relative 'contracts/insurance_coverage_contract'
     require_relative 'contracts/customer_contract'
-    require_relative 'contracts/user_fee_report_item_contract'
-    require_relative 'contracts/user_fee_report_contract'
 
     # operations
   end
