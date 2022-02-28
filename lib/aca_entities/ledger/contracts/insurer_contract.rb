@@ -10,6 +10,7 @@ module AcaEntities
           required(:hios_id).filled(:string)
           optional(:name).maybe(:string)
           optional(:description).maybe(:string)
+          optional(:user_fee_reports).array(UserFeeReportContract.params)
 
           # optional(:billing_periods)
           optional(:timestamps).maybe(AcaEntities::Contracts::TimeStampContract.params)

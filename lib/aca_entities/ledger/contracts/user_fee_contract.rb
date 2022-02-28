@@ -3,16 +3,15 @@
 module AcaEntities
   module Ledger
     module Contracts
-      # Schema and validation rules for {AcaEntities::Ledger::Product}
-      class ProductContract < Contract
+      # Schema and validation rules for {AcaEntities::Ledger::UserFee}
+      class UserFeeContract < Contract
         params do
           optional(:id).maybe(:string)
-          required(:hbx_qhp_id).filled(:string)
-          required(:effective_year).filled(:integer)
           optional(:name).maybe(:string)
           optional(:description).maybe(:string)
-          required(:kind).filled(AcaEntities::Ledger::Types::InsuranceProductKind)
-          optional(:income_account).maybe(AcaEntities::Ledger::Contracts::AccountContract.params)
+          required(:effective_year).filled(:integer)
+          required(:rate).filled(:decimal)
+          required(:income_account).filled(AcaEntities::Ledger::Contracts::AccountContract.params)
           optional(:expense_account).maybe(AcaEntities::Ledger::Contracts::AccountContract.params)
           optional(:timestamps).maybe(AcaEntities::Contracts::TimeStampContract.params)
         end
