@@ -2,6 +2,8 @@
 
 require 'spec_helper'
 require 'date'
+require 'bigdecimal'
+require 'bigdecimal/util'
 
 RSpec.describe AcaEntities::Ledger::Contracts::UserFeeReportContract do
   subject { described_class.new }
@@ -12,9 +14,10 @@ RSpec.describe AcaEntities::Ledger::Contracts::UserFeeReportContract do
   let(:id) { '12345' }
   let(:hios_id) { '96667' }
   let(:billing_cycle_date) { Date.new(moment.year, moment.month, 1) }
-  let(:premium_amount_total) { 1_000_000_000.0 }
+  let(:due_date) { billing_cycle_date + 30.days }
+  let(:premium_amount_total) { 1_000_000_000.0.to_d }
   let(:user_fee_amount_total) { premium_amount_total * user_fee_rate }
-  let(:adjustment_amount_total) { -25_000.0 }
+  let(:adjustment_amount_total) { -25_000.0.to_d }
   let(:user_fee_amount_due) { premium_amount_total + adjustment_amount_total }
   let(:user_fee_report_items) { [] }
 
