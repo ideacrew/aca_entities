@@ -16,6 +16,7 @@ module AcaEntities
           required(:user_fee_amount_due).value(:decimal)
           optional(:user_fee_report_items).array(AcaEntities::Ledger::Contracts::UserFeeReportItemContract.params)
           optional(:report_timestamp).maybe(:date_time)
+          optional(:due_date).maybe(:date)
         end
       end
     end
