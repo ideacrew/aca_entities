@@ -7,7 +7,7 @@ module AcaEntities
       class PremiumContract < Contract
         params do
           optional(:id).maybe(:string)
-          optional(:insured_age).filled(:integer)
+          optional(:insured_age).maybe(:integer)
           required(:amount).filled(:float)
           optional(:timestamps).maybe(AcaEntities::Contracts::TimeStampContract.params)
         end

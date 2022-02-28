@@ -6,7 +6,7 @@ module AcaEntities
       # Schema and validation rules for {AcaEntities::Ledger::Policy}
       class PolicyContract < Contract
         params do
-          optional(:id).value(:string)
+          optional(:id).maybe(:string)
           required(:insurer).filled(InsurerContract.params)
           required(:product).filled(ProductContract.params)
           required(:marketplace_segments).array(MarketplaceSegmentContract.params)
@@ -17,7 +17,7 @@ module AcaEntities
           required(:rating_area_id).filled(:string)
           required(:start_on).filled(:date)
           optional(:end_on).maybe(:date)
-          optional(:timestamps).filled(AcaEntities::Contracts::TimeStampContract.params)
+          optional(:timestamps).maybe(AcaEntities::Contracts::TimeStampContract.params)
         end
       end
     end

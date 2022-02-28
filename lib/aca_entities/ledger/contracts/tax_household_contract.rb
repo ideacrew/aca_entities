@@ -6,7 +6,7 @@ module AcaEntities
       # Schema and validation rules for {AcaEntities::Ledger::TaxHousehold}
       class TaxHouseholdContract < Contract
         params do
-          optional(:id).filled(:string)
+          optional(:id).maybe(:string)
           optional(:aptc_amount).maybe(:float)
           optional(:start_on).maybe(:date)
           optional(:end_on).maybe(:date)

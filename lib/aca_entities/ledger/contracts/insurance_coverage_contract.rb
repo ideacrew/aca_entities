@@ -6,7 +6,7 @@ module AcaEntities
       # Schema and validation rules for {AcaEntities::Ledger::InsuranceCoverage}
       class InsuranceCoverageContract < Contract
         params do
-          optional(:id).value(:string)
+          optional(:id).maybe(:string)
           optional(:tax_households).array(TaxHouseholdContract.params)
           required(:policies).array(AcaEntities::Ledger::Contracts::PolicyContract.params)
           required(:is_active).filled(:bool)
