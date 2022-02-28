@@ -12,7 +12,7 @@ module AcaEntities
           optional(:description).maybe(:string)
 
           # optional(:billing_periods)
-          optional(:timestamps).filled(AcaEntities::Contracts::TimeStampContract.params)
+          optional(:timestamps).maybe(AcaEntities::Contracts::TimeStampContract.params)
         end
       end
     end
