@@ -1,17 +1,21 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
+require 'bigdecimal'
+require 'bigdecimal/util'
 
 RSpec.describe AcaEntities::Ledger::Contracts::TaxHouseholdContract do
   subject { described_class.new }
 
   let(:id) { '12345' }
-  let(:aptc_amount) { 585.69 }
+  let(:aptc_amount) { 585.69.to_d }
+  let(:start_on) { Date.new(moment.year, moment.month, 1) }
+  let(:end_on) { (start_on + 1.month).prev_day }
   let(:moment) { DateTime.now }
   let(:timestamps) { { created_at: moment, modified_at: moment } }
 
-  let(:required_params) { {} }
-  let(:optional_params) { { id: id, aptc_amount: aptc_amount, timestamps: timestamps } }
+  let(:required_params) { { aptc_amount: aptc_amount, start_on: start_on } }
+  let(:optional_params) { { id: id, end_on: end_on, timestamps: timestamps } }
 
   let(:all_params) { required_params.merge(optional_params) }
 
@@ -34,11 +38,11 @@ RSpec.describe AcaEntities::Ledger::Contracts::TaxHouseholdContract do
   end
 
   context 'Calling the contract with no params' do
-    let(:error_message) { { effective_year: ['is missing'], hios_id: ['is missing'], kind: ['is missing'] } }
+    let(:error_message) { { aptc_amount: ['is missing'], start_on: ['is missing'] } }
     it 'should pass validation' do
       result = subject.call({})
-      expect(result.success?).to be_truthy
-      expect(result.errors.to_h).to be_empty
+      expect(result.failure?).to be_truthy
+      expect(result.errors.to_h).to eq error_message
     end
   end
 end
