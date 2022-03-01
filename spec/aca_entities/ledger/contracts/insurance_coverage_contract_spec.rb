@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
+require 'bigdecimal'
+require 'bigdecimal/util'
 
 RSpec.describe AcaEntities::Ledger::Contracts::InsuranceCoverageContract do
   subject { described_class.new }
@@ -66,7 +68,7 @@ RSpec.describe AcaEntities::Ledger::Contracts::InsuranceCoverageContract do
     let(:marketplace_segments) { [marketplace_segment] }
 
     # Tax Household
-    let(:tax_household) { { aptc_amount: 585.69 } }
+    let(:tax_household) { { aptc_amount: 585.69.to_d, start_on: start_on } }
     let(:tax_households) { [tax_household] }
 
     let(:is_active) { true }
@@ -74,7 +76,7 @@ RSpec.describe AcaEntities::Ledger::Contracts::InsuranceCoverageContract do
     let(:moment) { DateTime.now }
     let(:timestamps) { { created_at: moment, modified_at: moment } }
 
-    let(:required_params) { { policies: policies, is_active: is_active } }
+    let(:required_params) { { hbx_id: hbx_id, policies: policies, is_active: is_active } }
     let(:optional_params) { { id: id, tax_households: tax_households, timestamps: timestamps } }
     let(:all_params) { required_params.merge(optional_params) }
 
@@ -90,6 +92,7 @@ RSpec.describe AcaEntities::Ledger::Contracts::InsuranceCoverageContract do
       context 'Calling the contract with all params' do
         it 'should pass validation' do
           result = subject.call(all_params)
+
           expect(result.success?).to be_truthy
           expect(result.to_h).to eq all_params
         end
@@ -97,7 +100,7 @@ RSpec.describe AcaEntities::Ledger::Contracts::InsuranceCoverageContract do
     end
 
     context 'Calling the contract with no params' do
-      let(:error_message) { { is_active: ['is missing'], policies: ['is missing'] } }
+      let(:error_message) { { hbx_id: ['is missing'], is_active: ['is missing'], policies: ['is missing'] } }
       it 'should pass validation' do
         result = subject.call({})
         expect(result.failure?).to be_truthy

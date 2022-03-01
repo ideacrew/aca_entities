@@ -7,6 +7,7 @@ module AcaEntities
       class InsuranceCoverageContract < Contract
         params do
           optional(:id).maybe(:string)
+          required(:hbx_id).filled(:string)
           optional(:tax_households).array(TaxHouseholdContract.params)
           required(:policies).array(AcaEntities::Ledger::Contracts::PolicyContract.params)
           required(:is_active).filled(:bool)

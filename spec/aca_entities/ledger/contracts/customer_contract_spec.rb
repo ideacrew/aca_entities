@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
+require 'bigdecimal'
+require 'bigdecimal/util'
 
 RSpec.describe AcaEntities::Ledger::Contracts::CustomerContract do
   subject { described_class.new }
@@ -33,7 +35,7 @@ RSpec.describe AcaEntities::Ledger::Contracts::CustomerContract do
 
     # Premium
     let(:insured_age) { 33 }
-    let(:amount) { 875.22 }
+    let(:amount) { 875.22.to_d }
     let(:premium) { { insured_age: insured_age, amount: amount } }
 
     # Enrolled Member
@@ -77,7 +79,7 @@ RSpec.describe AcaEntities::Ledger::Contracts::CustomerContract do
     let(:marketplace_segments) { [marketplace_segment] }
 
     # Tax Household
-    let(:tax_household) { { aptc_amount: 585.69 } }
+    let(:tax_household) { { aptc_amount: 585.69.to_d, start_on: start_on } }
     let(:tax_households) { [tax_household] }
 
     let(:is_active) { true }
@@ -85,7 +87,9 @@ RSpec.describe AcaEntities::Ledger::Contracts::CustomerContract do
     let(:moment) { DateTime.now }
     let(:timestamps) { { created_at: moment, modified_at: moment } }
 
-    let(:insurance_coverage) { { tax_households: tax_households, policies: policies, is_active: is_active } }
+    let(:insurance_coverage) do
+      { tax_households: tax_households, policies: policies, is_active: is_active, hbx_id: hbx_id }
+    end
 
     let(:required_params) do
       {
@@ -155,7 +159,8 @@ RSpec.describe AcaEntities::Ledger::Contracts::CustomerContract do
           is_active: true
         },
         insurance_coverage: {
-          tax_households: [{ id: '100', aptc_amount: 850.0, csr: 0, start_on: '20220101', end_on: '20221231' }],
+          hbx_id: '1055668',
+          tax_households: [{ id: '100', aptc_amount: 850.0.to_d, csr: 0, start_on: '20220101' }],
           policies: [
             {
               exchange_assigned_id: '50836',
@@ -175,8 +180,8 @@ RSpec.describe AcaEntities::Ledger::Contracts::CustomerContract do
               marketplace_segments: [
                 {
                   segment: '1055668-50836-20220101',
-                  total_premium_amount: 1104.58,
-                  total_premium_responsibility_amount: 254.58,
+                  total_premium_amount: 1104.58.to_d,
+                  total_premium_responsibility_amount: 254.58.to_d,
                   start_on: '20220101',
                   enrolled_members: [
                     {
@@ -197,7 +202,7 @@ RSpec.describe AcaEntities::Ledger::Contracts::CustomerContract do
                         tax_household_id: '100'
                       },
                       premium: {
-                        amount: 423.86
+                        amount: 423.86.to_d
                       },
                       start_on: '20220101',
                       end_on: '20221231'
@@ -220,7 +225,7 @@ RSpec.describe AcaEntities::Ledger::Contracts::CustomerContract do
                         tax_household_id: '100'
                       },
                       premium: {
-                        amount: 410.06
+                        amount: 410.06.to_d
                       },
                       start_on: '20220101',
                       end_on: '20221231'
@@ -244,7 +249,7 @@ RSpec.describe AcaEntities::Ledger::Contracts::CustomerContract do
                         emails: 'jetsons@example.com'
                       },
                       premium: {
-                        amount: 270.66
+                        amount: 270.66.to_d
                       },
                       start_on: '20220101',
                       end_on: '20221231'
