@@ -19,7 +19,7 @@ module AcaEntities
           if key? && value
             uri = URI(value)
             path = [uri.path, uri.query].compact.join('?')
-            relay_state_kinds = AcaEntities::RelayStateKinds.values
+            relay_state_kinds = AcaEntities::Types::RelayStateKinds.values
 
             match_found = true if relay_state_kinds.include?(path)
             match_found = true if relay_state_kinds.any? {|relay_state_kind| path.scan(/^#{relay_state_kind}/).present? }
@@ -27,7 +27,7 @@ module AcaEntities
             unless match_found
               key.failure(
                 text:
-                  "must be one of: #{AcaEntities::RelayStateKinds.values.join(', ')}"
+                  "must be one of: #{AcaEntities::Types::RelayStateKinds.values.join(', ')}"
               )
             end
           end
