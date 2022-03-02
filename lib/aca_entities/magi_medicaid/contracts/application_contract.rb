@@ -24,6 +24,8 @@ module AcaEntities
         # @option opts [AcaEntities::MagiMedicaid::NoticeOptionsContract] :notice_options required
         # @option opts [AcaEntities::MagiMedicaid::Mitc::Contracts::HouseholdContract] :mitc_households optional
         # @option opts [AcaEntities::MagiMedicaid::Mitc::Contracts::TaxReturnContract] :mitc_tax_returns optional
+        # @option opts [DateTime] :submitted_at
+        # @option opts [Boolean] :full_medicaid_determination
         # @return [Dry::Monads::Result]
         params do
           required(:family_reference).hash(::AcaEntities::Contracts::Families::FamilyReferenceContract.params)
@@ -54,7 +56,9 @@ module AcaEntities
           # Set of attributes specific to MitC which helps to not have much logic in IapTo MitC Transform.
           optional(:mitc_households).array(AcaEntities::MagiMedicaid::Mitc::Contracts::HouseholdContract.params)
           optional(:mitc_tax_returns).array(AcaEntities::MagiMedicaid::Mitc::Contracts::TaxReturnContract.params)
+
           optional(:submitted_at).maybe(:date_time)
+          optional(:full_medicaid_determination).maybe(:bool)
         end
       end
     end

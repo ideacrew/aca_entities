@@ -15,6 +15,8 @@ module AcaEntities
           optional(:csr_amt).maybe(:float)
           required(:total_premium_amount).filled(:float)
           required(:total_responsible_amount).filled(:float)
+          required(:coverage_start).filled(:date)
+          required(:coverage_end).filled(:date)
           required(:coverage_kind).filled(:string)
           optional(:term_for_np).maybe(:bool)
           optional(:rating_area).maybe(:string)

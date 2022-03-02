@@ -10,6 +10,7 @@ module AcaEntities
 
       ServiceNameKind =
         Types::Coercible::String.enum(
+          'edi_gateway',
           'medicaid_gateway',
           'polypress',
           'fdsh_gateway',

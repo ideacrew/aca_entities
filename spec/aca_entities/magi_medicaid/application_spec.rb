@@ -85,7 +85,8 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Application, dbclean: :after_each do
         hbx_id: '200000123',
         oe_start_on: Date.new(Date.today.year, 11, 1),
         submitted_at: DateTime.now,
-        notice_options: notice_options }
+        notice_options: notice_options,
+        full_medicaid_determination: true }
     end
 
     context 'with one applicant' do
