@@ -3,6 +3,14 @@
 require 'spec_helper'
 
 RSpec.describe AcaEntities::Types do
+  # checks if string adheres to a 8-4-4-4-12 format
+  describe 'CorrelationId' do
+    let(:uuid_regex) { /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/ }
+    it 'should generate a random v4 Universally Unique IDentifier (UUID)' do
+      expect(AcaEntities::Types::CorrelationId).to match uuid_regex
+    end
+  end
+
   describe 'EmailAddressKind' do
     let(:valid_emails) { %w[info@example.com info@example.com info@example.com] }
     let(:invalid_emails) { %w[blah @nonsense nodomain@ badc!rs@example.com] }

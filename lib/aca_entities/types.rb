@@ -2,6 +2,7 @@
 
 require 'dry-types'
 require 'bigdecimal'
+require 'securerandom'
 
 module AcaEntities
   # Extend DryTypes
@@ -11,6 +12,7 @@ module AcaEntities
     send(:include, Dry::Logic)
 
     ClientKinds = Types::String.enum('enroll', 'edi_db', 'sugar_crm', 'polypress').freeze
+    CorrelationId = SecureRandom.uuid
 
     CommunicationKinds = Types::String.enum('electronic_preferred', 'paper_only').freeze
 
