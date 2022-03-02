@@ -49,4 +49,17 @@ RSpec.describe AcaEntities::Types do
       invalid_zipcodes.each { |zipcode| expect(AcaEntities::Types::ZipcodeKind.valid?(zipcode)).to be_falsey }
     end
   end
+
+  describe 'UriKind' do
+    let(:valid_uri) { 'https://example.com/api/v1/whazzup' }
+    let(:invalid_uri) { 'just a regular string' }
+
+    it 'a valid URI should pass validation' do
+      expect(AcaEntities::Types::UriKind.valid?(valid_uri)).to be_truthy
+    end
+
+    it 'an invalid URI should fail validation' do
+      expect { AcaEntities::Types::UriKind.valid?(invalid_uri) }.to raise_error URI::InvalidURIError
+    end
+  end
 end
