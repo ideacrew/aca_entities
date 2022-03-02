@@ -29,7 +29,10 @@ module AcaEntities
     require_relative 'contracts/marketplace_segment_contract'
     require_relative 'contracts/policy_contract'
     require_relative 'contracts/insurance_coverage_contract'
+    require_relative 'contracts/transaction_header_contract'
+    require_relative 'contracts/meta_contract'
     require_relative 'contracts/customer_contract'
+    require_relative 'contracts/gdb_transaction_contract'
 
     # operations
   end
