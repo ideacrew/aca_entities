@@ -79,7 +79,7 @@ RSpec.describe AcaEntities::Ledger::Contracts::CustomerContract do
     let(:marketplace_segments) { [marketplace_segment] }
 
     # Tax Household
-    let(:tax_household) { { aptc_amount: 585.69.to_d, start_on: start_on } }
+    let(:tax_household) { { exchange_assigned_id: 898_989, aptc_amount: 585.69.to_d, start_on: start_on } }
     let(:tax_households) { [tax_household] }
 
     let(:is_active) { true }
@@ -160,7 +160,7 @@ RSpec.describe AcaEntities::Ledger::Contracts::CustomerContract do
         },
         insurance_coverage: {
           hbx_id: '1055668',
-          tax_households: [{ id: '100', aptc_amount: 850.0.to_d, csr: 0, start_on: '20220101' }],
+          tax_households: [{ exchange_assigned_id: 898_989, aptc_amount: 850.0.to_d, csr: 0, start_on: '20220101' }],
           policies: [
             {
               exchange_assigned_id: '50836',
@@ -199,7 +199,7 @@ RSpec.describe AcaEntities::Ledger::Contracts::CustomerContract do
                         ssn: '012859874',
                         dob: '19781219',
                         gender: 'male',
-                        tax_household_id: '100'
+                        tax_household_id: 898_989
                       },
                       premium: {
                         amount: 423.86.to_d
@@ -222,7 +222,7 @@ RSpec.describe AcaEntities::Ledger::Contracts::CustomerContract do
                         ssn: '012859875',
                         dob: '19830906',
                         gender: 'female',
-                        tax_household_id: '100'
+                        tax_household_id: 898_989
                       },
                       premium: {
                         amount: 410.06.to_d
@@ -245,7 +245,7 @@ RSpec.describe AcaEntities::Ledger::Contracts::CustomerContract do
                         ssn: '012859876',
                         dob: '20070215',
                         gender: 'female',
-                        tax_household_id: '100',
+                        tax_household_id: 898_989,
                         emails: 'jetsons@example.com'
                       },
                       premium: {

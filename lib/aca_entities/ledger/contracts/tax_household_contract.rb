@@ -7,6 +7,7 @@ module AcaEntities
       class TaxHouseholdContract < Contract
         params do
           optional(:id).maybe(:string)
+          required(:exchange_assigned_id).filled(:integer)
           required(:aptc_amount).filled(:decimal)
           optional(:csr).maybe(:integer)
           required(:start_on).filled(:date)

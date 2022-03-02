@@ -68,7 +68,7 @@ RSpec.describe AcaEntities::Ledger::Contracts::InsuranceCoverageContract do
     let(:marketplace_segments) { [marketplace_segment] }
 
     # Tax Household
-    let(:tax_household) { { aptc_amount: 585.69.to_d, start_on: start_on } }
+    let(:tax_household) { { exchange_assigned_id: 898_989, aptc_amount: 585.69.to_d, start_on: start_on } }
     let(:tax_households) { [tax_household] }
 
     let(:is_active) { true }
@@ -92,7 +92,6 @@ RSpec.describe AcaEntities::Ledger::Contracts::InsuranceCoverageContract do
       context 'Calling the contract with all params' do
         it 'should pass validation' do
           result = subject.call(all_params)
-
           expect(result.success?).to be_truthy
           expect(result.to_h).to eq all_params
         end
