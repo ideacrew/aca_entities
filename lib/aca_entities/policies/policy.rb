@@ -14,6 +14,8 @@ module AcaEntities
       attribute :csr_amt,                Types::Float.optional.meta(omittable: true)
       attribute :total_premium_amount,   Types::Float.meta(omittable: false)
       attribute :total_responsible_amount,  Types::Float.meta(omittable: false)
+      attribute :coverage_start,   Types::Date.meta(omittable: false)
+      attribute :coverage_end,  Types::Date.meta(omittable: false)
       attribute :coverage_kind,          Types::String.meta(omittable: false)
       attribute :term_for_np,            Types::Bool.optional.meta(omittable: true)
       attribute :rating_area,            Types::String.optional.meta(omittable: false)

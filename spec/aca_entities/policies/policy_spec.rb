@@ -108,6 +108,8 @@ RSpec.describe ::AcaEntities::Policies::Policy, dbclean: :after_each do
         csr_amt: nil,
         total_premium_amount: "20.0",
         total_responsible_amount: "20.0",
+        coverage_start: "2022-01-01",
+        coverage_end: "2022-12-31",
         coverage_kind: "health",
         term_for_np: "false",
         rating_area: "RDC",
