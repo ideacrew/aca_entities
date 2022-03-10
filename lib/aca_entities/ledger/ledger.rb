@@ -22,7 +22,8 @@ module AcaEntities
     require_relative 'contracts/premium_contract'
     require_relative 'contracts/account_contract'
     require_relative 'contracts/product_contract'
-    require_relative 'contracts/user_fee_contract'
+
+    # require_relative 'contracts/user_fee_contract'
     require_relative 'contracts/tax_household_contract'
     require_relative 'contracts/member_contract'
     require_relative 'contracts/enrolled_member_contract'
@@ -33,6 +34,18 @@ module AcaEntities
     require_relative 'contracts/meta_contract'
     require_relative 'contracts/customer_contract'
     require_relative 'contracts/gdb_transaction_contract'
+
+    # entities
+    require_relative 'account'
+    require_relative 'insurer'
+    require_relative 'product'
+    require_relative 'premium'
+
+    # require_relative 'tax_household'
+    require_relative 'member'
+    require_relative 'enrolled_member'
+    require_relative 'marketplace_segment'
+    require_relative 'policy'
 
     # operations
   end
