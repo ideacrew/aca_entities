@@ -44,7 +44,7 @@ channels:
         amqp:
           ack: true
           exclusive: false
-          routing_key: enroll.user_fees.enrollment_adds.events.date_advanced
+          routing_key: edi_gateway.user_fees.enrollment_adds.events.#
           prefetch: 1
           bindingVersion: "0.2.0"
       operationId: on_edi_gateway.edi_gateway.user_fees.enrollment_adds.events
