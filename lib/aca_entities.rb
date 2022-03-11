@@ -36,6 +36,9 @@ require 'aca_entities/transform'
 # AcaEntities defines a Canonical Vocabulay (CV) for the benefits management domain along
 # with schemas, validation contracts and transformations between other vocabularies
 module AcaEntities
+  # State-based Marketplaces first effective date
+  SBM_START_ON = Date.new(2014, 1, 1)
+
   def self.async_api_config_find_by_service_name(args)
     ::AcaEntities::AsyncApi::Operations::FindConfigsByServiceName.new.call(args)
   end
