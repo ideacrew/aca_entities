@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe AcaEntities::Ledger::Contracts::UserFeeContract do
+RSpec.describe AcaEntities::Ledger::Contracts::UserFeeReportAccountContract do
   subject { described_class.new }
 
   let(:id) { '12345' }

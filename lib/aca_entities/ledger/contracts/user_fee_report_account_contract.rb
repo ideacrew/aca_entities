@@ -3,8 +3,8 @@
 module AcaEntities
   module Ledger
     module Contracts
-      # Schema and validation rules for {AcaEntities::Ledger::UserFee}
-      class UserFeeContract < Contract
+      # Schema and validation rules for {AcaEntities::Ledger::UserFeeReportAccount}
+      class UserFeeReportAccountContract < Contract
         params do
           optional(:id).maybe(:string)
           optional(:name).maybe(:string)

@@ -79,7 +79,9 @@ RSpec.describe AcaEntities::Ledger::Contracts::CustomerContract do
     let(:marketplace_segments) { [marketplace_segment] }
 
     # Tax Household
-    let(:tax_household) { { exchange_assigned_id: 898_989, aptc_amount: 585.69.to_d, start_on: start_on } }
+    let(:tax_household) do
+      { assistance_year: moment.year, exchange_assigned_id: '898989', aptc_amount: 585.69.to_d, start_on: start_on }
+    end
     let(:tax_households) { [tax_household] }
 
     let(:is_active) { true }
@@ -144,6 +146,9 @@ RSpec.describe AcaEntities::Ledger::Contracts::CustomerContract do
   end
 
   context 'Customer transaction' do
+    let(:moment) { DateTime.new }
+    let(:start_on) { Date.new(moment.to_date.year, 1, 1) }
+    let(:end_on) { Date.new(moment.to_date.year, 12, 31) }
     let(:transaction) do
       {
         # customer_id: '1055668',
@@ -160,15 +165,23 @@ RSpec.describe AcaEntities::Ledger::Contracts::CustomerContract do
         },
         insurance_coverage: {
           hbx_id: '1055668',
-          tax_households: [{ exchange_assigned_id: 898_989, aptc_amount: 850.0.to_d, csr: 0, start_on: '20220101' }],
+          tax_households: [
+            {
+              assistance_year: moment.year,
+              exchange_assigned_id: '898989',
+              aptc_amount: 850.0.to_d,
+              csr: 0,
+              start_on: start_on
+            }
+          ],
           policies: [
             {
               exchange_assigned_id: '50836',
               insurer_assigned_id: 'HP5977620',
               rating_area_id: 'R-ME003',
               subscriber_hbx_id: '1055668',
-              start_on: '20220101',
-              end_on: '20221231',
+              start_on: start_on,
+              end_on: end_on,
               insurer: {
                 hios_id: '96667'
               },
@@ -182,7 +195,7 @@ RSpec.describe AcaEntities::Ledger::Contracts::CustomerContract do
                   segment: '1055668-50836-20220101',
                   total_premium_amount: 1104.58.to_d,
                   total_premium_responsibility_amount: 254.58.to_d,
-                  start_on: '20220101',
+                  start_on: start_on,
                   enrolled_members: [
                     {
                       member: {
@@ -204,8 +217,8 @@ RSpec.describe AcaEntities::Ledger::Contracts::CustomerContract do
                       premium: {
                         amount: 423.86.to_d
                       },
-                      start_on: '20220101',
-                      end_on: '20221231'
+                      start_on: start_on,
+                      end_on: end_on
                     },
                     {
                       member: {
@@ -228,7 +241,7 @@ RSpec.describe AcaEntities::Ledger::Contracts::CustomerContract do
                         amount: 410.06.to_d
                       },
                       start_on: '20220101',
-                      end_on: '20221231'
+                      end_on: end_on
                     },
                     {
                       member: {
@@ -251,8 +264,8 @@ RSpec.describe AcaEntities::Ledger::Contracts::CustomerContract do
                       premium: {
                         amount: 270.66.to_d
                       },
-                      start_on: '20220101',
-                      end_on: '20221231'
+                      start_on: start_on,
+                      end_on: end_on
                     }
                   ]
                 }

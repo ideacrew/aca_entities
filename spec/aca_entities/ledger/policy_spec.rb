@@ -104,14 +104,14 @@ RSpec.describe AcaEntities::Ledger::Policy do
 
     context 'and comparing two policies, one with different exchange_assigned_id' do
       let(:policy_1) { all_params }
-      let(:policy_2) { all_params.merge(exchange_assigned_id: '68568') }
+      let(:policy_2) { all_params.merge(exchange_assigned_id: '68577') }
 
       it 'they should not be equal' do
         expect(described_class.new(policy_1)).not_to eq described_class.new(policy_2)
       end
     end
 
-    context 'and comparing two policies, one with different person_name' do
+    context 'and comparing two policies, one with different product' do
       let(:policy_1) { all_params }
       let(:different_hbx_qhp_id) { '96667ME031005807' }
       let(:different_product) { { hbx_qhp_id: different_hbx_qhp_id, effective_year: effective_year, kind: kind } }

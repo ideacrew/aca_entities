@@ -30,7 +30,7 @@ module AcaEntities
       attribute? :timestamps, AcaEntities::TimeStamp.meta(omittable: true)
 
       def <=>(other)
-        [effective_year, kind] <=> [other.effective_year, other.kind]
+        [hbx_qhp_id, effective_year, kind] <=> [other.hbx_qhp_id, other.effective_year, other.kind]
       end
     end
   end

@@ -47,6 +47,15 @@ RSpec.describe AcaEntities::Ledger::Product do
       end
     end
 
+    context 'and comparing two products, one with different hbx_qhp_id' do
+      let(:product_1) { all_params }
+      let(:product_2) { all_params.merge(hbx_qhp_id: '96667ME031005807') }
+
+      it 'they should not be equal' do
+        expect(described_class.new(product_1)).not_to eq described_class.new(product_2)
+      end
+    end
+
     context 'and comparing two products, one with different effective_year' do
       let(:product_1) { all_params }
       let(:product_2) { all_params.merge(effective_year: 2023) }

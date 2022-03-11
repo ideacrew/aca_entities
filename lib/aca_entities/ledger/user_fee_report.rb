@@ -2,10 +2,9 @@
 
 module AcaEntities
   module Ledger
-    # Schema and validation rules for {AcaEntities::Ledger::Product}
+    # Container class for {AcaEntities::Ledger::UserFeeReportItem} with summary
+    #   accumulator values
     class UserFeeReport < Dry::Struct
-      # include ::AcaEntities::Operations::Mongoid::ModelAdapter
-
       # @!attribute [r] id
       # A unique identifier -- typically system-assigned -- for a
       #   User Fee report instance

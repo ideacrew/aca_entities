@@ -4,8 +4,8 @@ require 'spec_helper'
 require 'bigdecimal'
 require 'bigdecimal/util'
 
-RSpec.describe AcaEntities::Ledger::Contracts::InsuranceCoverageContract do
-  subject { described_class.new }
+RSpec.describe AcaEntities::Ledger::InsuranceCoverage do
+  subject { described_class }
 
   context 'CustomerAccount components' do
     let(:id) { '12345' }
@@ -82,30 +82,29 @@ RSpec.describe AcaEntities::Ledger::Contracts::InsuranceCoverageContract do
     let(:optional_params) { { id: id, tax_households: tax_households, timestamps: timestamps } }
     let(:all_params) { required_params.merge(optional_params) }
 
-    context 'Calling contract with Valid params' do
-      context 'Calling the contract with required params' do
-        it 'should pass validation' do
-          result = subject.call(required_params)
-          expect(result.success?).to be_truthy
-          expect(result.to_h).to eq required_params
-        end
-      end
-
-      context 'Calling the contract with all params' do
-        it 'should pass validation' do
-          result = subject.call(all_params)
-          expect(result.success?).to be_truthy
-          expect(result.to_h).to eq all_params
-        end
+    describe 'with required arguments' do
+      it 'should initialize' do
+        expect(subject.new(required_params)).to be_a described_class
       end
     end
 
-    context 'Calling the contract with no params' do
-      let(:error_message) { { hbx_id: ['is missing'], is_active: ['is missing'], policies: ['is missing'] } }
-      it 'should pass validation' do
-        result = subject.call({})
-        expect(result.failure?).to be_truthy
-        expect(result.errors.to_h).to eq error_message
+    describe 'Applying Comparable methods' do
+      context 'and comparing two insurance_coverages with same attributes' do
+        let(:insurance_coverage_1) { all_params }
+        let(:insurance_coverage_2) { all_params }
+
+        it 'they should be equal' do
+          expect(subject.new(insurance_coverage_1)).to eq subject.new(insurance_coverage_2)
+        end
+      end
+
+      context 'and comparing two insurance_coverages, one with different hios_id' do
+        let(:insurance_coverage_1) { all_params }
+        let(:insurance_coverage_2) { all_params.merge(is_active: false) }
+
+        it 'they should not be equal' do
+          expect(subject.new(insurance_coverage_1)).not_to eq subject.new(insurance_coverage_2)
+        end
       end
     end
   end
