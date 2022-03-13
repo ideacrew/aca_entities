@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 module AcaEntities
+  # Attributes for managin dates and times when records were created, updated
+  #   and submitted
   class TimeStamp < Dry::Struct
     include Comparable
 
