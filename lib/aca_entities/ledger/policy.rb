@@ -16,7 +16,7 @@ module AcaEntities
       attribute? :service_area_id, Types::Coercible::String.meta(omittable: true)
       attribute :rating_area_id, Types::Coercible::String.meta(omittable: false)
       attribute :start_on, Types::Date.meta(omittable: false)
-      attribute? :end_on, Types::Date.meta(omittable: true)
+      attribute? :end_on, AcaEntities::Types::DateOrNil.meta(omittable: true)
       attribute? :timestamps, AcaEntities::TimeStamp.meta(omittable: true)
 
       # Define attribute differences that constitute equality (==) between two Policy class instances.

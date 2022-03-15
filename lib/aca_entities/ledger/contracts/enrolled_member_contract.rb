@@ -12,7 +12,7 @@ module AcaEntities
           required(:member).filled(MemberContract.params)
           required(:premium).filled(PremiumContract.params)
           required(:start_on).filled(:date)
-          optional(:end_on).maybe(:date)
+          optional(:end_on).maybe(AcaEntities::Types::DateOrNil)
 
           optional(:timestamps).maybe(AcaEntities::Contracts::TimeStampContract.params)
         end

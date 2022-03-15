@@ -13,7 +13,7 @@ module AcaEntities
       attribute :total_premium_amount, AcaEntities::Types::Money.meta(omittable: true)
       attribute :total_premium_responsibility_amount, AcaEntities::Types::Money.meta(omittable: true)
       attribute :start_on, Types::Date.meta(omittable: true)
-      attribute? :end_on, Types::Date.meta(omittable: true)
+      attribute? :end_on, AcaEntities::Types::DateOrNil.meta(omittable: true)
       attribute :enrolled_members, Types::Array.of(AcaEntities::Ledger::EnrolledMember).meta(omittable: true)
       attribute? :subscriber_hbx_id, Types::Coercible::String.meta(omittable: true)
       attribute? :timestamps, AcaEntities::TimeStamp.meta(omittable: true)

@@ -12,7 +12,7 @@ module AcaEntities
       attribute :member, AcaEntities::Ledger::Member.meta(omittable: false)
       attribute :premium, AcaEntities::Ledger::Premium.meta(omittable: false)
       attribute :start_on, Types::Date.meta(omittable: false)
-      attribute? :end_on, Types::Date.meta(omittable: true)
+      attribute? :end_on, AcaEntities::Types::DateOrNil.meta(omittable: true)
       attribute? :timestamps, AcaEntities::TimeStamp.meta(omittable: true)
 
       def <=>(other)

@@ -36,6 +36,8 @@ module AcaEntities
 
     HashOrNil = Types::Hash | Types::Nil
     StringOrNil = Types::String | Types::Nil
+    DateOrNil = Types::Date | Types::Nil
+    DateTimeOrNil = Types::DateTime | Types::Nil
 
     UsStateAbbreviationKind =
       Types::String.enum(

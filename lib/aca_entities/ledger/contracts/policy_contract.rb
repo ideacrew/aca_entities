@@ -16,7 +16,7 @@ module AcaEntities
           optional(:service_area_id).maybe(:string)
           required(:rating_area_id).filled(:string)
           required(:start_on).filled(:date)
-          optional(:end_on).maybe(:date)
+          optional(:end_on).maybe(AcaEntities::Types::DateOrNil)
           optional(:timestamps).maybe(AcaEntities::Contracts::TimeStampContract.params)
         end
       end

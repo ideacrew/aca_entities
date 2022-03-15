@@ -20,9 +20,13 @@ module AcaEntities
         comparison = [first_name, last_name, is_active] <=> [other.first_name, other.last_name, other.is_active]
 
         insurance_coverage_comparison = insurance_coverage <=> other.insurance_coverage
+
+        # rubocop:disable Style/IfUnlessModifier
         if (comparison == 0) && (insurance_coverage_comparison != 0)
           return insurance_coverage_comparison <=> other.insurance_coverage_comparison
         end
+
+        # rubocop:enable Style/IfUnlessModifier
 
         comparison
       end
