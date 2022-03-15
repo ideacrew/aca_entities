@@ -4,16 +4,27 @@ require 'spec_helper'
 require 'bigdecimal'
 require 'bigdecimal/util'
 
-RSpec.describe AcaEntities::Ledger::InsuranceCoverage do
+RSpec.describe AcaEntities::Ledger::Customer do
   subject { described_class }
 
-  context 'CustomerAccount components' do
+  context 'Customer components' do
     let(:id) { '12345' }
 
-    # Member
+    # Customer
     let(:hbx_id) { '1138345' }
+    let(:first_name) { 'George' }
+    let(:last_name) { 'Jetson' }
+    let(:customer_role) { 'subscriber' }
+
+    # Account
+    let(:number) { '1100001'.to_i }
+    let(:name) { 'Accounts Receivable' }
+    let(:account_kind) { 'asset' }
+    let(:account) { { number: number, name: name, kind: account_kind } }
+
+    # Member
     let(:subscriber_hbx_id) { hbx_id }
-    let(:person_name) { { first_name: 'George', last_name: 'Jetson' } }
+    let(:person_name) { { first_name: first_name, last_name: first_name } }
     let(:member) { { hbx_id: hbx_id, subscriber_hbx_id: subscriber_hbx_id, person_name: person_name } }
 
     # Product
@@ -24,7 +35,7 @@ RSpec.describe AcaEntities::Ledger::InsuranceCoverage do
 
     # Premium
     let(:insured_age) { 33 }
-    let(:amount) { 875.22 }
+    let(:amount) { 875.22.to_d }
     let(:premium) { { insured_age: insured_age, amount: amount } }
 
     # Enrolled Member
@@ -78,8 +89,22 @@ RSpec.describe AcaEntities::Ledger::InsuranceCoverage do
     let(:moment) { DateTime.now }
     let(:timestamps) { { created_at: moment, modified_at: moment } }
 
-    let(:required_params) { { hbx_id: hbx_id, policies: policies, is_active: is_active } }
-    let(:optional_params) { { id: id, tax_households: tax_households, timestamps: timestamps } }
+    let(:insurance_coverage) do
+      { tax_households: tax_households, policies: policies, is_active: is_active, hbx_id: hbx_id }
+    end
+
+    let(:required_params) do
+      {
+        hbx_id: hbx_id,
+        first_name: first_name,
+        last_name: last_name,
+        customer_role: customer_role,
+        account: account,
+        insurance_coverage: insurance_coverage,
+        is_active: is_active
+      }
+    end
+    let(:optional_params) { { id: id, timestamps: timestamps } }
     let(:all_params) { required_params.merge(optional_params) }
 
     describe 'with required arguments' do
@@ -89,21 +114,21 @@ RSpec.describe AcaEntities::Ledger::InsuranceCoverage do
     end
 
     describe 'Applying Comparable methods' do
-      context 'and comparing two insurance_coverages with same attributes' do
-        let(:insurance_coverage_1) { all_params }
-        let(:insurance_coverage_2) { all_params }
+      context 'and comparing two customers with same attributes' do
+        let(:customer_1) { all_params }
+        let(:customer_2) { all_params }
 
         it 'they should be equal' do
-          expect(subject.new(insurance_coverage_1)).to eq subject.new(insurance_coverage_2)
+          expect(subject.new(customer_1)).to eq subject.new(customer_2)
         end
       end
 
-      context 'and comparing two insurance_coverages, one with different is_active value' do
-        let(:insurance_coverage_1) { all_params }
-        let(:insurance_coverage_2) { all_params.merge(is_active: false) }
+      context 'and comparing two customers, one with different is_active value' do
+        let(:customer_1) { all_params }
+        let(:customer_2) { all_params.merge(is_active: false) }
 
         it 'they should not be equal' do
-          expect(subject.new(insurance_coverage_1)).not_to eq subject.new(insurance_coverage_2)
+          expect(subject.new(customer_1)).not_to eq subject.new(customer_2)
         end
       end
     end

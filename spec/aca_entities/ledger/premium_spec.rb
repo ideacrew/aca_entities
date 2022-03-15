@@ -1,13 +1,15 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
+require 'bigdecimal'
+require 'bigdecimal/util'
 
 RSpec.describe AcaEntities::Ledger::Premium do
   subject { described_class }
 
   let(:id) { '12345' }
   let(:insured_age) { 33 }
-  let(:amount) { 875.22 }
+  let(:amount) { 875.22.to_d }
   let(:moment) { DateTime.now }
   let(:timestamps) { { created_at: moment, modified_at: moment } }
 

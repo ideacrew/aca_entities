@@ -46,6 +46,7 @@ module AcaEntities
     require_relative 'marketplace_segment'
     require_relative 'policy'
     require_relative 'insurance_coverage'
+    require_relative 'customer'
     # require_relative 'user_fee_report_account'
 
     # operations
