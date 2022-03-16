@@ -8,8 +8,8 @@ module AcaEntities
 
       attribute? :id, Types::Coercible::String.meta(omittable: true)
       attribute? :product, AcaEntities::Ledger::Product.meta(omittable: true)
-      attribute? :insured_age, Types::Integer.meta(omittable: true)
-      attribute :amount, AcaEntities::Types::Money.meta(omittable: false)
+      attribute? :insured_age, AcaEntities::Types::IntegerOrNil.meta(omittable: true)
+      attribute :amount, Types::Coercible::Decimal.meta(omittable: false)
       attribute? :timestamps, AcaEntities::TimeStamp.meta(omittable: true)
 
       def <=>(other)

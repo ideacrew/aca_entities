@@ -24,7 +24,7 @@ RSpec.describe AcaEntities::Ledger::InsuranceCoverage do
 
     # Premium
     let(:insured_age) { 33 }
-    let(:amount) { 875.22 }
+    let(:amount) { 875.22.to_d }
     let(:premium) { { insured_age: insured_age, amount: amount } }
 
     # Enrolled Member

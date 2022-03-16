@@ -15,10 +15,10 @@ module AcaEntities
           optional(:ssn).maybe(:string)
           optional(:dob).maybe(:date)
           optional(:gender).maybe(AcaEntities::Types::BinaryGenderKind)
-          optional(:tax_household_id).maybe(:integer)
+          optional(:tax_household_id).maybe(AcaEntities::Types::StringOrNil)
           optional(:relationship_code).maybe(:string)
-          optional(:is_subscriber).maybe(:bool)
-          optional(:is_tobacco_user).maybe(:bool)
+          optional(:is_subscriber).maybe(AcaEntities::Types::BoolOrNil)
+          optional(:is_tobacco_user).maybe(AcaEntities::Types::BoolOrNil)
           optional(:timestamps).maybe(AcaEntities::Contracts::TimeStampContract.params)
         end
       end

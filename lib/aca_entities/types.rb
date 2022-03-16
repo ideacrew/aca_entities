@@ -34,10 +34,12 @@ module AcaEntities
 
     McrToCvIncarcerationKind = Types.Constructor(self) { |value| value == 'INCARCERATED' }
 
-    HashOrNil = Types::Hash | Types::Nil
-    StringOrNil = Types::String | Types::Nil
+    BoolOrNil = Types::Bool | Types::Nil
     DateOrNil = Types::Date | Types::Nil
     DateTimeOrNil = Types::DateTime | Types::Nil
+    HashOrNil = Types::Hash | Types::Nil
+    IntegerOrNil = Types::Integer | Types::Nil
+    StringOrNil = Types::String | Types::Nil
 
     UsStateAbbreviationKind =
       Types::String.enum(

@@ -13,7 +13,7 @@ RSpec.describe AcaEntities::Ledger::EnrolledMember do
   let(:member) { { hbx_id: hbx_id, person_name: person_name, subscriber_hbx_id: subscriber_hbx_id } }
 
   let(:insured_age) { 33 }
-  let(:amount) { 875.22 }
+  let(:amount) { 875.22.to_d }
   let(:premium) { { insured_age: insured_age, amount: amount } }
 
   let(:start_on) { Date.new(2022, 2, 1) }
@@ -54,7 +54,7 @@ RSpec.describe AcaEntities::Ledger::EnrolledMember do
 
     context 'and comparing two enrolled_members, one with different premium' do
       let(:enrolled_member_1) { all_params }
-      let(:different_premium) { { insured_age: insured_age, amount: 414.89 } }
+      let(:different_premium) { { insured_age: insured_age, amount: 414.89.to_d } }
       let(:enrolled_member_2) { all_params.merge(premium: different_premium) }
 
       it 'they should not be equal' do

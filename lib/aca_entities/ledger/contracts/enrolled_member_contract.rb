@@ -8,12 +8,10 @@ module AcaEntities
         params do
           optional(:id).maybe(:string)
           optional(:coverage_period).filled(:string)
-
           required(:member).filled(MemberContract.params)
           required(:premium).filled(PremiumContract.params)
           required(:start_on).filled(:date)
           optional(:end_on).maybe(AcaEntities::Types::DateOrNil)
-
           optional(:timestamps).maybe(AcaEntities::Contracts::TimeStampContract.params)
         end
       end

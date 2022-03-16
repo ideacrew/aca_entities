@@ -15,10 +15,10 @@ module AcaEntities
       attribute? :ssn, Types::Coercible::String.meta(omittable: true)
       attribute? :dob, Types::Date.meta(omittable: true)
       attribute? :gender, AcaEntities::Types::BinaryGenderKind.meta(omittable: true)
-      attribute? :tax_household_id, Types::Integer.meta(omittable: true)
+      attribute? :tax_household_id, AcaEntities::Types::StringOrNil.meta(omittable: true)
       attribute? :relationship_code, Types::Coercible::String.meta(omittable: true)
-      attribute? :is_subscriber, Types::Bool.meta(omittable: true)
-      attribute? :is_tobacco_user, Types::Bool.meta(omittable: true)
+      attribute? :is_subscriber, AcaEntities::Types::BoolOrNil.meta(omittable: true)
+      attribute? :is_tobacco_user, AcaEntities::Types::BoolOrNil.meta(omittable: true)
       attribute? :timestamps, AcaEntities::TimeStamp.meta(omittable: true)
 
       def <=>(other)

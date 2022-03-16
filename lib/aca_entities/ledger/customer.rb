@@ -6,7 +6,7 @@ module AcaEntities
     class Customer < Dry::Struct
       include Comparable
 
-      attribute? :id, Types::Coercible::String.meta(omittable: true)
+      attribute? :id, Types::Coercible::Integer.meta(omittable: true)
       attribute :hbx_id, Types::Coercible::String.meta(omittable: false)
       attribute :first_name, Types::Coercible::String.meta(omittable: false)
       attribute :last_name, Types::Coercible::String.meta(omittable: false)

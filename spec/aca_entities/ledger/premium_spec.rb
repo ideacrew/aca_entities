@@ -35,7 +35,7 @@ RSpec.describe AcaEntities::Ledger::Premium do
 
     context 'and comparing two premiums, one with different amount' do
       let(:premium_1) { all_params }
-      let(:different_amount) { 606.32 }
+      let(:different_amount) { 606.32.to_d }
       let(:premium_2) { all_params.merge(amount: different_amount) }
 
       it 'they should not be equal' do

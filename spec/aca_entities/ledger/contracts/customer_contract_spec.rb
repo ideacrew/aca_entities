@@ -8,7 +8,7 @@ RSpec.describe AcaEntities::Ledger::Contracts::CustomerContract do
   subject { described_class.new }
 
   context 'Customer components' do
-    let(:id) { '12345' }
+    let(:id) { 12_345 }
 
     # Customer
     let(:hbx_id) { '1138345' }
@@ -151,7 +151,7 @@ RSpec.describe AcaEntities::Ledger::Contracts::CustomerContract do
     let(:end_on) { Date.new(moment.to_date.year, 12, 31) }
     let(:transaction) do
       {
-        # customer_id: '1055668',
+        customer_id: 1_055_668,
         hbx_id: '1055668',
         last_name: 'Jetson',
         first_name: 'George',
@@ -212,7 +212,7 @@ RSpec.describe AcaEntities::Ledger::Contracts::CustomerContract do
                         ssn: '012859874',
                         dob: '19781219',
                         gender: 'male',
-                        tax_household_id: 898_989
+                        tax_household_id: '6161'
                       },
                       premium: {
                         amount: 423.86.to_d
@@ -235,7 +235,7 @@ RSpec.describe AcaEntities::Ledger::Contracts::CustomerContract do
                         ssn: '012859875',
                         dob: '19830906',
                         gender: 'female',
-                        tax_household_id: 898_989
+                        tax_household_id: '6161'
                       },
                       premium: {
                         amount: 410.06.to_d
@@ -258,7 +258,7 @@ RSpec.describe AcaEntities::Ledger::Contracts::CustomerContract do
                         ssn: '012859876',
                         dob: '20070215',
                         gender: 'female',
-                        tax_household_id: 898_989,
+                        tax_household_id: '6161',
                         emails: 'jetsons@example.com'
                       },
                       premium: {

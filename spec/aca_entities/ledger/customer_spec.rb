@@ -8,7 +8,7 @@ RSpec.describe AcaEntities::Ledger::Customer do
   subject { described_class }
 
   context 'Customer components' do
-    let(:id) { '12345' }
+    let(:id) { 12_345 }
 
     # Customer
     let(:hbx_id) { '1138345' }

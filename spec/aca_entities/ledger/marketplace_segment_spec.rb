@@ -12,13 +12,13 @@ RSpec.describe AcaEntities::Ledger::MarketplaceSegment do
   let(:end_on) { Date.new(2022, 12, 31) }
   let(:segment) { [subscriber_hbx_id, policy_id, start_on.strftime('%Y%m%d')].join('-') }
 
-  let(:total_premium_amount) { 1174.0 }
-  let(:total_premium_responsibility_amount) { 588.0 }
+  let(:total_premium_amount) { 1174.0.to_d }
+  let(:total_premium_responsibility_amount) { 588.0.to_d }
 
   let(:hbx_id) { subscriber_hbx_id }
   let(:person_name) { { first_name: 'George', last_name: 'Jetson' } }
   let(:insured_age) { 33 }
-  let(:amount) { 875.22 }
+  let(:amount) { 875.22.to_d }
   let(:premium) { { insured_age: insured_age, amount: amount } }
 
   let(:member) do
