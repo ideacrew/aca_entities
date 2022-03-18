@@ -28,13 +28,14 @@ servers:
     protocol: :amqp
     protocolVersion: "0.9.2"
     description: RabbitMQ Test Server
+
 channels:
-  edi_gateway.gdb.members.gdb_subscriber_policy_requested:
+  edi_gateway.edi_database.transactions.gdb_transaction_created:
     bindings:
       amqp:
         is: :routing_key
         exchange:
-          name: edi_gateway.gdb.members
+          name: edi_gateway.edi_database.transactions
           type: topic
           content_type: application/json
           durable: true
@@ -42,14 +43,14 @@ channels:
           vhost: event_source
         binding_version: "0.2.0"
     publish:
-      operationId: edi_gateway.gdb.members.gdb_subscriber_policy_requested
+      operationId: edi_gateway.edi_database.transactions.gdb_transaction_created
       description: Events - EDI gateway publisher
-      summary: Events - Document created
+      summary: Events - GlueDB Trasaction created
       bindings:
         amqp:
           app_id: edi_gateway
-          type: edi_gateway.gdb.members.member_publisher
-          routing_key: edi_gateway.gdb.members.gdb_subscriber_policy_requested
+          type: edi_gateway.edi_database.transactions.member_publisher
+          routing_key: edi_gateway.edi_database.transactions.gdb_transaction_created
           deliveryMode: 2
           mandatory: true
           timestamp: true

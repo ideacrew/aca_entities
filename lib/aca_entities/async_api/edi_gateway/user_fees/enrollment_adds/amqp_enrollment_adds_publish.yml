@@ -3,7 +3,7 @@ asyncapi: 2.0.0
 info:
   title: Enroll App
   version: 0.1.0
-  description: AMQP Publish configuration for EdiGateway UserFee Enrollment Terms
+  description: AMQP Publish configuration for EdiGateway UserFee Enrollment Adds
   contact:
     name: IdeaCrew
     url: https://ideacrew.com
@@ -30,12 +30,12 @@ servers:
     description: RabbitMQ Test Server
 
 channels:
-  edi_gateway.user_fees.enrollment_terminations.events.enrollment_terminated:
+  edi_gateway.user_fees.enrollment_adds.initial_enrollment_added:
     bindings:
       amqp:
         is: :routing_key
         exchange:
-          name: edi_gateway.user_fees.enrollment_terminations.events
+          name: edi_gateway.user_fees.enrollment_adds
           type: topic
           content_type: application/json
           durable: true
@@ -43,25 +43,25 @@ channels:
           vhost: event_source
         binding_version: "0.2.0"
     publish:
-      operationId: edi_gateway.user_fees.enrollment_terminations.events.enrollment_terminated
+      operationId: edi_gateway.user_fees.enrollment_adds.initial_enrollment_added
       description: Enrollment events - initial enrollment added
       bindings:
         amqp:
           app_id: enroll
-          type: edi_gateway.user_fees.enrollment_terminations.events
-          routing_key: edi_gateway.user_fees.enrollment_terminations.events.enrollment_terminated
+          type: edi_gateway.user_fees.enrollment_adds
+          routing_key: edi_gateway.user_fees.enrollment_adds.initial_enrollment_added
           deliveryMode: 2
           mandatory: true
           timestamp: true
           content_type: application/json
           bindingVersion: 0.2.0
 
-  edi_gateway.user_fees.enrollment_terminations.events.policies_terminated:
+  edi_gateway.user_fees.enrollment_adds.policies_added:
     bindings:
       amqp:
         is: :routing_key
         exchange:
-          name: edi_gateway.user_fees.enrollment_terminations.events
+          name: edi_gateway.user_fees.enrollment_adds
           type: topic
           content_type: application/json
           durable: true
@@ -69,25 +69,25 @@ channels:
           vhost: event_source
         binding_version: "0.2.0"
     publish:
-      operationId: edi_gateway.user_fees.enrollment_terminations.events.policies_terminated
+      operationId: edi_gateway.user_fees.enrollment_adds.policies_added
       description: Enrollment events - customer added new policy
       bindings:
         amqp:
           app_id: enroll
-          type: edi_gateway.user_fees.enrollment_terminations.events
-          routing_key: edi_gateway.user_fees.enrollment_terminations.events.policies_terminated
+          type: edi_gateway.user_fees.enrollment_adds
+          routing_key: edi_gateway.user_fees.enrollment_adds.policies_added
           deliveryMode: 2
           mandatory: true
           timestamp: true
           content_type: application/json
           bindingVersion: 0.2.0
 
-  edi_gateway.user_fees.enrollment_terminations.events.tax_households_terminated:
+  edi_gateway.user_fees.enrollment_adds.tax_households_added:
     bindings:
       amqp:
         is: :routing_key
         exchange:
-          name: edi_gateway.user_fees.enrollment_terminations.events
+          name: edi_gateway.user_fees.enrollment_adds
           type: topic
           content_type: application/json
           durable: true
@@ -95,13 +95,13 @@ channels:
           vhost: event_source
         binding_version: "0.2.0"
     publish:
-      operationId: edi_gateway.user_fees.enrollment_terminations.events.tax_households_terminated
+      operationId: edi_gateway.user_fees.enrollment_adds.tax_households_added
       description: Enrollment events - finanial assistance Tax Household added
       bindings:
         amqp:
           app_id: enroll
-          type: edi_gateway.user_fees.enrollment_terminations.events
-          routing_key: edi_gateway.user_fees.enrollment_terminations.events.tax_households_terminated
+          type: edi_gateway.user_fees.enrollment_adds
+          routing_key: edi_gateway.user_fees.enrollment_adds.tax_households_added
           deliveryMode: 2
           mandatory: true
           timestamp: true
