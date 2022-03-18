@@ -1,9 +1,9 @@
 ---
 asyncapi: 2.0.0
 info:
-  title: Enroll App
+  title: EDI Gateway
   version: 0.1.0
-  description: AMQP Subsribe configuration for the EDI gateway App services
+  description: AMQP Subsribe configuration for EDI Gateway Entollment Terms
   contact:
     name: IdeaCrew
     url: https://ideacrew.com
@@ -28,16 +28,13 @@ servers:
     protocol: :amqp
     protocolVersion: "0.9.2"
     description: RabbitMQ Test Server
-
-defaultContentType: application/json
-
 channels:
-  on_edi_gateway.edi_gateway.gdb.members:
+  on_edi_gateway.edi_gateway.user_fees.enrollment_terminations:
     bindings:
       amqp:
         is: queue
         queue:
-          name: on_edi_gateway.edi_gateway.gdb.members
+          name: on_edi_gateway.edi_gateway.user_fees.enrollment_terminations
           durable: true
           exclusive: false
           auto_delete: false
@@ -47,12 +44,11 @@ channels:
         amqp:
           ack: true
           exclusive: false
-          routing_key: edi_gateway.gdb.members.gdb_subscriber_policy_requested
+          routing_key: edi_gateway.user_fees.enrollment_terminations.#
           prefetch: 1
-          block: false
           bindingVersion: "0.2.0"
-      operationId: on_edi_gateway.edi_gateway.gdb.members
-      description: Event for subscriber policy information
+      operationId: on_edi_gateway.edi_gateway.user_fees.enrollment_terminations
+      description: Enrollment additions in form of initial enrollments, policies, tax households, enrolled members
 
 tags:
   - name: linter_tag
