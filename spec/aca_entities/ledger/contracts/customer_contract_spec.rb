@@ -19,13 +19,14 @@ RSpec.describe AcaEntities::Ledger::Contracts::CustomerContract do
     # Account
     let(:number) { '1100001'.to_i }
     let(:name) { 'Accounts Receivable' }
-    let(:account_kind) { 'asset' }
+    let(:account_kind) { :asset }
     let(:account) { { number: number, name: name, kind: account_kind } }
 
     # Member
     let(:subscriber_hbx_id) { hbx_id }
     let(:person_name) { { first_name: first_name, last_name: first_name } }
-    let(:member) { { hbx_id: hbx_id, subscriber_hbx_id: subscriber_hbx_id, person_name: person_name } }
+    let(:dob) { Date.new(1982, 6, 1) }
+    let(:member) { { hbx_id: hbx_id, subscriber_hbx_id: subscriber_hbx_id, person_name: person_name, dob: dob } }
 
     # Product
     let(:hbx_qhp_id) { '96667ME031005806' }
@@ -160,7 +161,7 @@ RSpec.describe AcaEntities::Ledger::Contracts::CustomerContract do
         account: {
           number: '1100001'.to_i,
           name: 'Accounts Receivable',
-          kind: 'asset',
+          kind: :asset,
           is_active: true
         },
         insurance_coverage: {

@@ -14,7 +14,8 @@ RSpec.describe AcaEntities::Ledger::Contracts::InsuranceCoverageContract do
     let(:hbx_id) { '1138345' }
     let(:subscriber_hbx_id) { hbx_id }
     let(:person_name) { { first_name: 'George', last_name: 'Jetson' } }
-    let(:member) { { hbx_id: hbx_id, subscriber_hbx_id: subscriber_hbx_id, person_name: person_name } }
+    let(:dob) { Date.new(1982, 6, 1) }
+    let(:member) { { hbx_id: hbx_id, subscriber_hbx_id: subscriber_hbx_id, person_name: person_name, dob: dob } }
 
     # Product
     let(:hbx_qhp_id) { '96667ME031005806' }

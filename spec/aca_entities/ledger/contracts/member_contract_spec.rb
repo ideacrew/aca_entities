@@ -21,12 +21,11 @@ RSpec.describe AcaEntities::Ledger::Contracts::MemberContract do
   let(:moment) { DateTime.now }
   let(:timestamps) { { created_at: moment, modified_at: moment } }
 
-  let(:required_params) { { hbx_id: hbx_id, subscriber_hbx_id: subscriber_hbx_id, person_name: person_name } }
+  let(:required_params) { { hbx_id: hbx_id, subscriber_hbx_id: subscriber_hbx_id, person_name: person_name, dob: dob } }
   let(:optional_params) do
     {
       id: id,
       ssn: ssn,
-      dob: dob,
       gender: gender,
       is_subscriber: is_subscriber,
       is_tobacco_user: is_tobacco_user,
@@ -57,7 +56,9 @@ RSpec.describe AcaEntities::Ledger::Contracts::MemberContract do
   end
 
   context 'Calling the contract with no params' do
-    let(:error_message) { { hbx_id: ['is missing'], subscriber_hbx_id: ['is missing'], person_name: ['is missing'] } }
+    let(:error_message) do
+      { hbx_id: ['is missing'], subscriber_hbx_id: ['is missing'], person_name: ['is missing'], dob: ['is missing'] }
+    end
     it 'should pass validation' do
       result = subject.call({})
       expect(result.failure?).to be_truthy

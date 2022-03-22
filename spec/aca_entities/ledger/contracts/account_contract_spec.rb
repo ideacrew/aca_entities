@@ -6,16 +6,16 @@ RSpec.describe AcaEntities::Ledger::Contracts::AccountContract do
   subject { described_class.new }
 
   let(:id) { '12345' }
-  let(:number) { 1_100_001 }
+  let(:number) { 1_200_001 }
   let(:name) { 'Accounts Receivable' }
-  let(:kind) { 'asset' }
-  let(:parent) { 'account_1100' }
+  let(:kind) { :asset }
+  let(:parent_account) { { number: 1200, name: 'Carrier #1 A/R', kind: :asset } }
 
   let(:moment) { DateTime.now }
   let(:timestamps) { { created_at: moment, modified_at: moment } }
 
   let(:required_params) { { number: number, name: name, kind: kind } }
-  let(:optional_params) { { id: id, parent: parent, timestamps: timestamps } }
+  let(:optional_params) { { id: id, parent: parent_account, timestamps: timestamps } }
 
   let(:all_params) { required_params.merge(optional_params) }
 

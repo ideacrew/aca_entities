@@ -17,6 +17,7 @@ RSpec.describe AcaEntities::Ledger::Contracts::MarketplaceSegmentContract do
 
   let(:hbx_id) { subscriber_hbx_id }
   let(:person_name) { { first_name: 'George', last_name: 'Jetson' } }
+  let(:dob) { Date.new(1982, 6, 1) }
   let(:insured_age) { 33 }
   let(:amount) { 875.22 }
   let(:premium) { { insured_age: insured_age, amount: amount } }
@@ -26,7 +27,8 @@ RSpec.describe AcaEntities::Ledger::Contracts::MarketplaceSegmentContract do
       member: {
         hbx_id: hbx_id,
         subscriber_hbx_id: subscriber_hbx_id,
-        person_name: person_name
+        person_name: person_name,
+        dob: dob
       },
       premium: premium,
       start_on: start_on

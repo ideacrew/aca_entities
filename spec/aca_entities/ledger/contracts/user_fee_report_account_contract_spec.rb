@@ -11,8 +11,13 @@ RSpec.describe AcaEntities::Ledger::Contracts::UserFeeReportAccountContract do
   let(:expense_account_name) { '2022 Harvard Pilgrim Member Full Premiums' }
   let(:description) { 'SBM Fees charged to Insurers' }
   let(:rate) { 3.0 }
-  let(:income_account) { { number: 410_010, name: name, kind: 'revenue', parent: 'account_4100' } }
-  let(:expense_account) { { number: 810_010, name: expense_account_name, kind: 'expense', parent: 'account_8100' } }
+  let(:parent_income_account) { { number: 4100, name: 'Carrier #1 A/R', kind: :asset } }
+  let(:parent_expense_account) { { number: 8100, name: 'Carrier #1 Expense', kind: :liability } }
+
+  let(:income_account) { { number: 410_010, name: name, kind: :revenue, parent: parent_income_account } }
+  let(:expense_account) do
+    { number: 810_010, name: expense_account_name, kind: :expense, parent: parent_expense_account }
+  end
 
   let(:moment) { DateTime.now }
   let(:timestamps) { { created_at: moment, modified_at: moment } }

@@ -10,9 +10,14 @@ RSpec.describe AcaEntities::Ledger::Contracts::ProductContract do
   let(:effective_year) { 2022 }
   let(:kind) { 'health' }
   let(:name) { 'Comprehensive Coverage Level 11' }
+
   let(:expense_account_name) { '2022 Harvard Pilgrim Member Full Premiums' }
-  let(:income_account) { { number: 410_010, name: name, kind: 'revenue', parent: 'account_4100' } }
-  let(:expense_account) { { number: 810_010, name: expense_account_name, kind: 'expense', parent: 'account_8100' } }
+  let(:parent_income_account) { { number: 4100, name: 'Carrier #1 A/R', kind: :asset } }
+  let(:parent_expense_account) { { number: 8100, name: 'Carrier #1 Expense', kind: :liability } }
+  let(:income_account) { { number: 410_010, name: name, kind: :revenue, parent: parent_income_account } }
+  let(:expense_account) do
+    { number: 810_010, name: expense_account_name, kind: :expense, parent: parent_expense_account }
+  end
 
   let(:description) { 'Includes all health care from head to toe' }
   let(:moment) { DateTime.now }
