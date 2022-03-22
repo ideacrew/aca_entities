@@ -15,7 +15,9 @@ module AcaEntities
           required(:number).filled(:integer)
           required(:name).filled(:string)
           required(:kind).filled(AcaEntities::Ledger::Types::KeeprAccountKind)
-          optional(:parent).maybe(:string)
+          optional(:parent).maybe(:hash)
+
+          # optional(:parent).maybe(AcaEntities::Ledger::Contracts::AccountContract.params)
           optional(:timestamps).maybe(AcaEntities::Contracts::TimeStampContract.params)
         end
       end

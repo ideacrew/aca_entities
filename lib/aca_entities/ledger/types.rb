@@ -2,8 +2,9 @@
 
 require 'active_support'
 require 'active_support/core_ext'
+require 'bigdecimal'
+require 'bigdecimal/util'
 require 'dry-types'
-
 module AcaEntities
   module Ledger
     # Premium Billing Custom Data Types
@@ -22,7 +23,9 @@ module AcaEntities
 
       # Keepr gem account kinds
       KeeprAccountKind =
-        Types::Coercible::String.enum('asset', 'liability', 'revenue', 'expense', 'forward', 'debtor', 'creditor')
+        Types::Coercible::Symbol.enum(:asset, :liability, :revenue, :expense, :forward, :debtor, :creditor)
+
+      KeeprSideKind = Types::Coercible::String.enum('credit', 'debit')
 
       AssetAccountKind =
         Types::Coercible::String.enum(

@@ -13,7 +13,7 @@ module AcaEntities
           optional(:insurer_assigned_subscriber_id).maybe(:string)
           required(:person_name).filled(AcaEntities::Contracts::People::PersonNameContract.params)
           optional(:ssn).maybe(:string)
-          optional(:dob).maybe(:date)
+          required(:dob).filled(:date)
           optional(:gender).maybe(AcaEntities::Types::BinaryGenderKind)
           optional(:tax_household_id).maybe(AcaEntities::Types::StringOrNil)
           optional(:relationship_code).maybe(:string)

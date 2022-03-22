@@ -32,6 +32,9 @@ module AcaEntities
     require_relative 'contracts/meta_contract'
     require_relative 'contracts/customer_contract'
     require_relative 'contracts/gdb_transaction_contract'
+    require_relative 'contracts/account_credit_entry_contract'
+    require_relative 'contracts/account_debit_entry_contract'
+    require_relative 'contracts/account_entry_contract'
 
     # entities
     require_relative 'user_fee_report_item'

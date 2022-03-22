@@ -12,7 +12,7 @@ module AcaEntities
           required(:total_premium_amount).filled(AcaEntities::Types::Money)
           required(:total_premium_responsibility_amount).filled(AcaEntities::Types::Money)
           required(:start_on).filled(:date)
-          optional(:end_on).maybe(AcaEntities::Types::DateOrNil)
+          optional(:end_on).value(AcaEntities::Types::DateOrNil)
           required(:enrolled_members).array(EnrolledMemberContract.params)
           optional(:subscriber_hbx_id).maybe(:string)
           optional(:timestamps).maybe(AcaEntities::Contracts::TimeStampContract.params)
