@@ -42,7 +42,8 @@ module AcaEntities
 
           # Transform Iap Validated params To MitC Contract params
           def transform_magi_medicaid_to_mitc(mm_application)
-            ::AcaEntities::MagiMedicaid::Transformers::IapTo::Mitc.call(mm_application.to_h.to_json) { |record| @transform_result = record }
+            updated_hash = add_residency_key(mm_application.to_h)
+            ::AcaEntities::MagiMedicaid::Transformers::IapTo::Mitc.call(updated_hash.to_json) { |record| @transform_result = record }
             Success(@transform_result)
           end
 
@@ -61,6 +62,16 @@ module AcaEntities
           def transform_mitc_keys(params)
             ::AcaEntities::MagiMedicaid::Mitc::Transformers::MitcTo::Request.call(params.to_json) { |record| @key_transform_result = record }
             Success(@key_transform_result)
+          end
+
+          # find out whether applicants are a resident of the state
+          def add_residency_key(params)
+            state = params[:us_state]
+            params[:applicants].each do |applicant|
+              resident = applicant[:addresses].any? { |address| address[:kind] == "home" && address[:state] == state }
+              applicant[:resident] = resident
+            end
+            params
           end
         end
       end
