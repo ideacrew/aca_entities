@@ -68,7 +68,7 @@ module AcaEntities
           def add_residency_key(params)
             state = params[:us_state]
             params[:applicants].each do |applicant|
-              resident = applicant[:addresses].any? { |address| address[:kind] == "home" && address[:state] == state }
+              resident = applicant[:is_homeless] ? true : applicant[:addresses].any? { |address| address[:kind] == "home" && address[:state] == state }
               applicant[:resident] = resident
             end
             params
