@@ -11,12 +11,13 @@ RSpec.describe AcaEntities::MagiMedicaid::Transformers::IapTo::Mitc do
     let(:magi_medicaid_application) do
       # Only store in-state home address so transform can access it when determing residency
       # This action is performed in AcaEntities::MagiMedicaid::Operations::Mitc::GenerateRequestPayload
-      iap_application[:applicants].each do |applicant|
-        home_address = applicant[:addresses].detect {|address| address[:kind] == 'home'}
-        applicant[:addresses] = home_address
-      end
       contract_result = ::AcaEntities::MagiMedicaid::Contracts::ApplicationContract.new.call(iap_application)
-      contract_result.to_h.to_json
+      result = contract_result.to_h
+      result[:applicants].each do |applicant|
+        home_address = applicant[:addresses].detect {|address| address[:kind] == 'home'}
+        applicant[:has_in_state_home_address] = home_address.present? || {}
+      end
+      result.to_json
     end
 
     before do

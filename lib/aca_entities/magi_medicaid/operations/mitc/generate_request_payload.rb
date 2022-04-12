@@ -44,14 +44,14 @@ module AcaEntities
           def transform_magi_medicaid_to_mitc(mm_application)
             mm_application_hash = mm_application.to_h
 
-            # Only store in-state home address so transform can access it when determing residency
+            # Store in-state home address so transform can access it when determing residency
             mm_application_hash[:applicants].each do |applicant|
-            application_us_state = mm_application_hash[:us_state]&.downcase
-              home_address = applicant[:addresses].detect {|address| address[:kind] == 'home' && address[:state]&.downcase == application_us_state} || {}         
-              applicant[:addresses] = home_address              
+              us_state = mm_application_hash[:us_state]&.downcase
+              home_address = applicant[:addresses].detect {|address| address[:kind] == 'home' && address[:state]&.downcase == us_state} || {}
+              applicant[:has_in_state_home_address] = home_address.present?
             end
 
-            ::AcaEntities::MagiMedicaid::Transformers::IapTo::Mitc.call(mm_application_hash.to_json) { |record| @transform_result = record }            
+            ::AcaEntities::MagiMedicaid::Transformers::IapTo::Mitc.call(mm_application_hash.to_json) { |record| @transform_result = record }
             Success(@transform_result)
           end
 
