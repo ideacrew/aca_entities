@@ -42,7 +42,16 @@ module AcaEntities
 
           # Transform Iap Validated params To MitC Contract params
           def transform_magi_medicaid_to_mitc(mm_application)
-            ::AcaEntities::MagiMedicaid::Transformers::IapTo::Mitc.call(mm_application.to_h.to_json) { |record| @transform_result = record }
+            mm_application_hash = mm_application.to_h
+
+            # Only store in-state home address so transform can access it when determing residency
+            mm_application_hash[:applicants].each do |applicant|
+            application_us_state = mm_application_hash[:us_state]&.downcase
+              home_address = applicant[:addresses].detect {|address| address[:kind] == 'home' && address[:state]&.downcase == application_us_state} || {}         
+              applicant[:addresses] = home_address              
+            end
+
+            ::AcaEntities::MagiMedicaid::Transformers::IapTo::Mitc.call(mm_application_hash.to_json) { |record| @transform_result = record }            
             Success(@transform_result)
           end
 
@@ -60,6 +69,7 @@ module AcaEntities
           # Transform Keys of MitcApplication to match RequestDeterminationPayload keys
           def transform_mitc_keys(params)
             ::AcaEntities::MagiMedicaid::Mitc::Transformers::MitcTo::Request.call(params.to_json) { |record| @key_transform_result = record }
+
             Success(@key_transform_result)
           end
         end

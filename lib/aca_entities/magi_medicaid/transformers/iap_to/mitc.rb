@@ -11,8 +11,8 @@ module AcaEntities
         # AcaEntities::MagiMedicaid::Operations::Mitc::GenerateRequestPayload
         # TODO: Remove the mocked attributes
         class Mitc < ::AcaEntities::Operations::Transforms::Transform
-          include ::AcaEntities::Operations::Transforms::Transformer
-
+          include ::AcaEntities::Operations::Transforms::Transformer          
+          
           namespace 'applicants' do
             rewrap 'people', type: :array do
               rewrap '', type: :hash do
@@ -110,11 +110,33 @@ module AcaEntities
                 map 'hours_worked_per_week', 'hours_worked_per_week'
 
                 map 'is_temporarily_out_of_state', 'is_temporarily_out_of_state', memoize: true, visible: false
+                map 'mitc_state_resident', 'mitc_state_resident', memoize: true, visible: false
+                map 'is_homeless', 'is_homeless', memoize: true, visible: false
+                map 'addresses', 'addresses', memoize_record: true, visible: false
                 add_key 'resides_in_state_of_application', function: ->(v) {
-                  boolean_string(!v.resolve('is_temporarily_out_of_state').item)
+                  mitc_state_resident = boolean_string(v.resolve('mitc_state_resident').item)
+                  return mitc_state_resident unless mitc_state_resident.nil?
+
+                  # only in-state home address is sent to transformer, if present
+                  home_address = v.resolve('applicants.no_key.addresses').item
+                  is_homeless = v.resolve('is_homeless').item
+                  is_temporarily_out_of_state = v.resolve('is_temporarily_out_of_state').item
+                  resides_in_state = home_address.present? || is_homeless #|| is_temporarily_out_of_state
+
+                  boolean_string(resides_in_state)
                 }
                 add_key 'is_temporarily_out_of_state', function: ->(v) {
-                  boolean_string(v.resolve('is_temporarily_out_of_state').item)
+                  home_address = v.resolve('applicants.no_key.addresses').item
+                  is_homeless = v.resolve('is_homeless').item
+                  is_temporarily_out_of_state = v.resolve('is_temporarily_out_of_state').item
+                  resides_in_state = home_address.present? || is_homeless #|| !is_temporarily_out_of_state
+
+                  if resides_in_state
+                    boolean_string(is_temporarily_out_of_state)
+                  else
+                    boolean_string(true)
+                  end
+                  # boolean_string(v.resolve('is_temporarily_out_of_state').item)
                 }
 
                 namespace 'citizenship_immigration_status_information' do

@@ -169,6 +169,7 @@ module AcaEntities
           optional(:mitc_income).hash(AcaEntities::MagiMedicaid::Mitc::Contracts::IncomeContract.params)
           optional(:mitc_relationships).array(AcaEntities::MagiMedicaid::Mitc::Contracts::RelationshipContract.params)
           optional(:mitc_is_required_to_file_taxes).maybe(:bool)
+          optional(:mitc_state_resident).maybe(:bool)
 
           # fdsh evidences
           optional(:income_evidence).maybe(AcaEntities::Eligibilities::Contracts::EvidenceContract.params)
