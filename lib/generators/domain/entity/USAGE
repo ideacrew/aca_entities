@@ -1,0 +1,12 @@
+Usage:
+  bin/rails generate domain:entity NAME [attribute[:type][:key_requirement] attribute[:type][:key_requirement]] [options]
+
+Description:
+  Generate a Domain Entity file with optional attributes
+
+Example:
+  bin/rails generate domain:entity account title:type:require_key description:type:optional_key
+
+  Creates an Account class and RSpec spec:
+    domain/account.rb
+    spec/domain/account_spec.rb

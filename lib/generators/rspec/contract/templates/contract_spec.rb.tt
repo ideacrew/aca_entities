@@ -1,0 +1,46 @@
+# frozen_string_literal: true
+
+require 'rails_helper'
+
+<% module_namespacing do -%>
+RSpec.describe <%= class_name %> do
+  subject { described_class.new }
+
+  let(:required_params) { {} }
+  let(:optional_params) { {} }
+  let(:all_params) { required_params.merge(optional_params) }
+
+  describe 'Calling the contract with no params' do
+    pending "add 'no params' scenario #{__FILE__}"
+
+    # let(:error_message) { { required_params.keys.first ['is missing'] } }
+    # it 'should fail validation' do
+      # result = subject.call({})
+      # expect(result.failure?).to be_truthy
+      # expect(result.errors.to_h).to include error_message
+    # end
+  end
+
+  describe 'Calling contract with valid params' do
+    context 'Calling the contract with required params' do
+      pending "add 'required params' scenario #{__FILE__}"
+
+      # it 'should pass validation' do
+        # result = subject.call(required_params)
+        # expect(result.success?).to be_truthy
+        # expect(result.to_h).to eq required_params
+      # end
+    end
+
+    context 'Calling the contract with all params' do
+      pending "add 'all params' scenario #{__FILE__}"
+
+      # it 'should pass validation' do
+        # result = subject.call(all_params)
+        # expect(result.success?).to be_truthy
+        # expect(result.to_h).to eq all_params
+      # end
+    end
+  end
+end
+<% end -%>

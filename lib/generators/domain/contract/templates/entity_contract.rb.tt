@@ -1,0 +1,13 @@
+# frozen_string_literal: true
+
+<% class_path.each_with_index do |path_fragment, index| -%>
+<%= indent("module #{path_fragment.to_s.camelcase}", index * @indentation) %>
+<% end -%>
+<%= indent("# Schema, rules and macros for {#{class_name}} entity", @class_indent * @indentation) %>
+<%= indent("class #{@local_class_name}Contract < Contracts::Contract", @class_indent * @indentation) %>
+<%= indent(@doc_content, (@class_indent + 1) * (@indentation)) %>
+<%= indent("params do", (@class_indent + 1) * (@indentation)) %>
+<%= indent(@params_content.strip, (@class_indent + 2) * (@indentation)) %>
+<% (0...(@class_indent + 2)).reverse_each do |index| -%>
+<%= indent('end', index * @indentation) %>
+<% end -%>

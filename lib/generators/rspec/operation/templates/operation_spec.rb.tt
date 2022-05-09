@@ -1,0 +1,10 @@
+# frozen_string_literal: true
+
+require 'rails_helper'
+
+<% module_namespacing do -%>
+RSpec.describe <%= class_name %> do
+  # subject { described_class.new }
+  pending "add Operation scenarios here #{__FILE__}"
+end
+<% end -%>
