@@ -1,0 +1,65 @@
+---
+asyncapi: 2.0.0
+info:
+  title: Fdsh Gateway
+  version: 0.1.0
+  description: AMQP Publish configuration for the Fdsh services
+  contact:
+    name: IdeaCrew
+    url: https://ideacrew.com
+    email: info@ideacrew.com
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+
+servers:
+  production:
+    url: "amqp://rabbitmq:5672/event_source"
+    protocol: :amqp
+    protocolVersion: "0.9.2"
+    description: RabbitMQ Production Server
+  development:
+    url: "amqp://rabbitmq:5672/event_source"
+    protocol: :amqp
+    protocolVersion: "0.9.2"
+    description: RabbitMQ Test Server
+  test:
+    url: "amqp://rabbitmq:5672/event_source"
+    protocol: :amqp
+    protocolVersion: "0.9.2"
+    description: RabbitMQ Test Server
+
+channels:
+  fdsh.esi_service_delayed.events.message_retry_requested:
+    bindings:
+      amqp:
+        is: :routing_key
+        exchange:
+          name: fdsh.esi_service_delayed.events
+          type: x-delayed-message
+          content_type: application/json
+          durable: true
+          auto_delete: false
+          vhost: event_source
+          options: 
+            x-delayed-type: topic
+            x-delay: 10000
+            x-dealy-max-retries: 5
+        binding_version: "0.2.0"
+    publish:
+      operationId: fdsh.esi_service_delayed.events.message_retry_requested
+      description: Events - system date advanced
+      bindings:
+        amqp:
+          app_id: enroll
+          type: fdsh.esi_service_delayed.events
+          routing_key: fdsh.esi_service_delayed.events.message_retry_requested
+          deliveryMode: 2
+          mandatory: true
+          timestamp: true
+          content_type: application/json
+          bindingVersion: 0.2.0
+
+tags:
+  - name: linter_tag
+    description: placeholder that satisfies the linter
