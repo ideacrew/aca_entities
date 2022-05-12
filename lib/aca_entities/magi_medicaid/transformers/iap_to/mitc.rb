@@ -110,11 +110,34 @@ module AcaEntities
                 map 'hours_worked_per_week', 'hours_worked_per_week'
 
                 map 'is_temporarily_out_of_state', 'is_temporarily_out_of_state', memoize: true, visible: false
+                map 'mitc_state_resident', 'mitc_state_resident', memoize: true, visible: false
+                map 'is_homeless', 'is_homeless', memoize: true, visible: false
+                map 'has_in_state_home_address', 'has_in_state_home_address', memoize: true, visible: false
                 add_key 'resides_in_state_of_application', function: ->(v) {
-                  boolean_string(!v.resolve('is_temporarily_out_of_state').item)
+                  mitc_state_resident = boolean_string(v.resolve('mitc_state_resident').item)
+                  return mitc_state_resident unless mitc_state_resident.nil?
+
+                  # logic to handle older applications that don't contatain the mitc_state_resident field
+                  has_in_state_home_address = v.resolve('has_in_state_home_address').item
+                  is_homeless = v.resolve('is_homeless').item
+                  resides_in_state = has_in_state_home_address || is_homeless
+
+                  boolean_string(resides_in_state)
                 }
                 add_key 'is_temporarily_out_of_state', function: ->(v) {
-                  boolean_string(v.resolve('is_temporarily_out_of_state').item)
+                  has_in_state_home_address = v.resolve('has_in_state_home_address').item
+                  is_homeless = v.resolve('is_homeless').item
+                  is_temporarily_out_of_state = v.resolve('is_temporarily_out_of_state').item
+                  resides_in_state = has_in_state_home_address || is_homeless
+
+                  # is_temporarily_out_of_state is used to set 'Claimer Is Out of State' in Mitc Request
+                  if resides_in_state
+                    # if the applicant resides in state, then is_temporarily_out_of_state can be used
+                    boolean_string(is_temporarily_out_of_state)
+                  else
+                    # if the applicant does not reside in state, this must be set to true for mitc to produce the correct determination
+                    boolean_string(true)
+                  end
                 }
 
                 namespace 'citizenship_immigration_status_information' do

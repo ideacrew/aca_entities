@@ -9,8 +9,15 @@ RSpec.describe AcaEntities::MagiMedicaid::Transformers::IapTo::Mitc do
     include_context 'setup magi_medicaid application with two applicants'
 
     let(:magi_medicaid_application) do
+      # Only store in-state home address so transform can access it when determing residency
+      # This action is performed in AcaEntities::MagiMedicaid::Operations::Mitc::GenerateRequestPayload
       contract_result = ::AcaEntities::MagiMedicaid::Contracts::ApplicationContract.new.call(iap_application)
-      contract_result.to_h.to_json
+      result = contract_result.to_h
+      result[:applicants].each do |applicant|
+        home_address = applicant[:addresses].detect {|address| address[:kind] == 'home'}
+        applicant[:has_in_state_home_address] = home_address.present? || {}
+      end
+      result.to_json
     end
 
     before do
@@ -158,6 +165,22 @@ RSpec.describe AcaEntities::MagiMedicaid::Transformers::IapTo::Mitc do
       it 'should add all the keys of each filer' do
         filer = @transform_result[:tax_returns].first[:filers].first
         expect(filer).to have_key(:person_id)
+      end
+    end
+
+    context 'mitc_state_resident' do
+      context 'when mitc_state_resident field is present in payload' do
+        before do
+          iap_application[:applicants].first.merge!(mitc_state_resident: false)
+          contract_result = ::AcaEntities::MagiMedicaid::Contracts::ApplicationContract.new.call(iap_application)
+          magi_medicaid_application = contract_result.to_h.to_json
+          described_class.call(magi_medicaid_application) { |record| @transform_result = record }
+        end
+
+        it 'should use mitc_state_resident field to determine if applicant resides in state' do
+          person = @transform_result[:people].first
+          expect(person[:resides_in_state_of_application]).to eq('N')
+        end
       end
     end
   end

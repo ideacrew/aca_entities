@@ -34,7 +34,9 @@ module AcaEntities
           'denied',
           'errored',
           'closed',
-          'corrected'
+          'corrected',
+          'unverified',
+          'negative_response_received'
         ).freeze
 
     end
