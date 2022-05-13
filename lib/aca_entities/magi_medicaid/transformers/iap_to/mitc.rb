@@ -119,9 +119,10 @@ module AcaEntities
 
                   # logic to handle older applications that don't contatain the mitc_state_resident field
                   has_in_state_home_address = v.resolve('has_in_state_home_address').item
+                  is_temporarily_out_of_state = v.resolve('is_temporarily_out_of_state').item
                   is_homeless = v.resolve('is_homeless').item
-                  resides_in_state = has_in_state_home_address || is_homeless
-
+                  resides_in_state = (has_in_state_home_address && !is_temporarily_out_of_state) ||
+                                     (has_in_state_home_address && !is_temporarily_out_of_state && is_homeless)
                   boolean_string(resides_in_state)
                 }
                 add_key 'is_temporarily_out_of_state', function: ->(v) {
