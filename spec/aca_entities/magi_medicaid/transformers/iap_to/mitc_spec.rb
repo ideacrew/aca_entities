@@ -169,6 +169,13 @@ RSpec.describe AcaEntities::MagiMedicaid::Transformers::IapTo::Mitc do
     end
 
     context 'mitc_state_resident' do
+      context 'when mitc_state_resident field is not present in payload' do
+        it 'should use non mitc_state_resident fields to determine if applicant resides in state' do
+          person = @transform_result[:people].first
+          expect(person[:resides_in_state_of_application]).to eq('Y')
+        end
+      end
+
       context 'when mitc_state_resident field is present in payload' do
         before do
           iap_application[:applicants].first.merge!(mitc_state_resident: false)
