@@ -34,7 +34,7 @@ channels:
       amqp:
         is: queue
         queue:
-          name: on_enroll.enroll.consumer_roles
+          name: on_enroll.enroll.individual.consumer_roles
           durable: true
           exclusive: false
           auto_delete: false
@@ -44,10 +44,10 @@ channels:
         amqp:
           ack: true
           exclusive: false
-          routing_key: enroll.consumer_roles.#
+          routing_key: enroll.individual.consumer_roles.#
           prefetch: 1
           bindingVersion: "0.2.0"
-      operationId: on_enroll.enroll.consumer_roles
+      operationId: on_enroll.enroll.individual.consumer_roles
       description: Event for consumer role create
 
 tags:
