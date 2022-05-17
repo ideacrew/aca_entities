@@ -1,0 +1,60 @@
+---
+asyncapi: 2.0.0
+info:
+  title: Enroll App
+  version: 0.1.0
+  description: AMQP Publish configuration for the Enroll services
+  contact:
+    name: IdeaCrew
+    url: https://ideacrew.com
+    email: info@ideacrew.com
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+
+servers:
+  production:
+    url: "amqp://rabbitmq:5672/event_source"
+    protocol: :amqp
+    protocolVersion: "0.9.2"
+    description: Enroll Production Server
+  development:
+    url: "amqp://rabbitmq:5672/event_source"
+    protocol: :amqp
+    protocolVersion: "0.9.2"
+    description: Enroll Test Server
+  test:
+    url: "amqp://rabbitmq:5672/event_source"
+    protocol: :amqp
+    protocolVersion: "0.9.2"
+    description: Enroll Test Server
+channels:
+  enroll.individual.consumer_roles.created:
+    bindings:
+      amqp:
+        is: :routing_key
+        exchange:
+          name: enroll.individual.consumer_roles
+          type: topic
+          content_type: application/json
+          durable: true
+          auto_delete: false
+          vhost: event_source
+        binding_version: "0.2.0"
+    publish:
+      operationId: enroll.individual.consumer_roles.created
+      description: Events - Consumer role create
+      summary: Events - consumer role created
+      bindings:
+        amqp:
+          app_id: enroll
+          type: enroll.individual.consumer_roles
+          routing_key: enroll.individual.consumer_roles.created
+          deliveryMode: 2
+          mandatory: true
+          timestamp: true
+          content_type: application/json
+          bindingVersion: 0.2.0
+tags:
+  - name: linter_tag
+    description: placeholder that satisfies the linter
