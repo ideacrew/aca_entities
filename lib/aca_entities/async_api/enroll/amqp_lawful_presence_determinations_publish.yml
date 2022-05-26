@@ -34,7 +34,7 @@ channels:
       amqp:
         is: :routing_key
         exchange:
-          name: individual.consumer_roles.lawful_presence_determinations
+          name: enroll.individual.consumer_roles.lawful_presence_determinations
           type: topic
           content_type: application/json
           durable: true
@@ -48,7 +48,7 @@ channels:
       bindings:
         amqp:
           app_id: enroll
-          type: individual.consumer_roles.lawful_presence_determinations
+          type: enroll.individual.consumer_roles.lawful_presence_determinations
           routing_key: enroll.individual.consumer_roles.lawful_presence_determinations.updated
           deliveryMode: 2
           mandatory: true
