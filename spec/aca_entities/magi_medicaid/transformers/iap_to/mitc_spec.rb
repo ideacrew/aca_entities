@@ -22,9 +22,6 @@ RSpec.describe AcaEntities::MagiMedicaid::Transformers::IapTo::Mitc do
 
     before do
       described_class.call(magi_medicaid_application) { |record| @transform_result = record }
-      # mitc_application_result = ::AcaEntities::MagiMedicaid::Mitc::Contracts::ApplicationContract.new.call(@transform_result)
-      # binding.pry
-      # mitc_application_result.errors.to_h
     end
 
     it 'should transform the payload according to instructions' do
@@ -81,8 +78,8 @@ RSpec.describe AcaEntities::MagiMedicaid::Transformers::IapTo::Mitc do
         expect(person).to have_key(:is_lawful_presence_self_attested)
         expect(person[:is_lawful_presence_self_attested]).to eq('N')
         expect(AcaEntities::MagiMedicaid::Mitc::Types::ImmigrationStatusCodeMap.values).to include(person[:immigration_status])
-        expect(person).to have_key(:five_year_bar_applies)
-        expect(person).to have_key(:is_five_year_bar_met)
+        expect(person[:five_year_bar_applies]).to eq('Y')
+        expect(person[:is_five_year_bar_met]).to eq('Y')
         expect(person).to have_key(:is_trafficking_victim)
         expect(person).to have_key(:is_eligible_for_refugee_medical_assistance)
         expect(person).to have_key(:is_veteran)
@@ -205,19 +202,4 @@ RSpec.describe AcaEntities::MagiMedicaid::Transformers::IapTo::Mitc do
       end
     end
   end
-
-  # def tax_return_hash(application_hash, thh)
-  #   filers = []
-  #   dependents = []
-  #   thh[:tax_household_members].each do |thh_member|
-  #     applicant = applicant_by_reference(application_hash[:applicants], thh_member[:applicant_reference][:person_hbx_id])
-  #     case applicant[:is_claimed_as_tax_dependent]
-  #     when true
-  #       dependents << { person_id: thh_member[:applicant_reference][:person_hbx_id] }
-  #     when false
-  #       filers << { person_id: thh_member[:applicant_reference][:person_hbx_id] }
-  #     end
-  #   end
-  #   { filers: filers, dependents: dependents }
-  # end
 end
