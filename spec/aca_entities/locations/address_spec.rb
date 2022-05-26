@@ -21,7 +21,8 @@ RSpec.describe ::AcaEntities::Locations::Address, dbclean: :after_each do
         validation_status: nil,
         start_on: nil,
         end_on: nil,
-        lives_outside_state_temporarily: false
+        lives_outside_state_temporarily: false,
+        geocode: "00000"
       }
     end
 
