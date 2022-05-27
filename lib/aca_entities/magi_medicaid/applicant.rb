@@ -35,6 +35,8 @@ module AcaEntities
       attribute :is_trafficking_victim, Types::Bool.optional.meta(omittable: true)
       attribute :foster_care, FosterCare.optional.meta(omittable: true)
       attribute :pregnancy_information, PregnancyInformation.optional.meta(omittable: true)
+      attribute :is_primary_caregiver, Types::Bool.optional.meta(omittable: true)
+      attribute :is_primary_caregiver_for, Types::Array.of(Types::String).optional.meta(omittable: true)
 
       # TODO: do we want to move these anywhere?
       attribute :is_subject_to_five_year_bar, Types::Bool.optional.meta(omittable: true)

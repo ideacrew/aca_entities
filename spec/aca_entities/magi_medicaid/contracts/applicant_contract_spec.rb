@@ -74,6 +74,8 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicantContract,  dbclean
         benefits: [],
         deductions: [],
         prior_insurance_end_date: nil,
+        is_primary_caregiver: true,
+        is_primary_caregiver_for: [],
         age_of_applicant: 45,
         is_claimed_as_dependent_by_non_applicant: false,
         benchmark_premium: benchmark_premium,
@@ -92,10 +94,7 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicantContract,  dbclean
       end
 
       it 'should return all keys of applicant' do
-        result_app_keys = @result.to_h.keys
-        input_app_keys = input_params.keys
-        expect(result_app_keys - input_app_keys).to be_empty
-        expect(input_app_keys - result_app_keys).to be_empty
+        expect(@result.to_h.keys.difference(input_params.keys)).to be_empty
       end
 
       it 'should return all keys of applicant' do
@@ -155,6 +154,8 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicantContract,  dbclean
         deductions: [],
         prior_insurance_end_date: nil,
         age_of_applicant: 45,
+        is_primary_caregiver: true,
+        is_primary_caregiver_for: [],
         is_claimed_as_dependent_by_non_applicant: false,
         benchmark_premium: benchmark_premium,
         is_homeless: false }
@@ -170,7 +171,7 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicantContract,  dbclean
       end
 
       it 'should return result with all the param keys' do
-        expect(@result.to_h.keys).to eq(input_params.keys)
+        expect(@result.to_h.keys.difference(input_params.keys)).to be_empty
       end
     end
   end
