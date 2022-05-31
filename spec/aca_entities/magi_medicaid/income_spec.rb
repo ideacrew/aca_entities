@@ -21,7 +21,8 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Income, dbclean: :after_each do
         end_on: nil,
         is_projected: false,
         employer: employer,
-        has_property_usage_rights: false }
+        has_property_usage_rights: false,
+        ssi_type: 'Disability' }
     end
 
     before do
