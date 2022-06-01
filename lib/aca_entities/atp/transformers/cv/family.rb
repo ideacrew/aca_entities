@@ -74,7 +74,7 @@ module AcaEntities
                     end
                   end
 
-                  map 'ssn_identification', 'person.person_demographics.ssn_identification', memoize_record: true, append_identifier: true, visible: false
+                  map 'ssn_identification', 'person.ssn_identification', memoize_record: true, append_identifier: true, visible: false
                   map 'ssn_identification.identification_id', 'person.person_demographics.ssn', memoize: true, append_identifier: true, function:
                   lambda { |v|
                     return nil unless v
@@ -83,7 +83,7 @@ module AcaEntities
                   }
                   map 'sex', 'person.person_demographics.gender', memoize: true, append_identifier: true, function: ->(value) {value.downcase}
                   add_key 'person.person_demographics.no_ssn',
-                          function: ->(v) { v.resolve(:'person.person_demographics.ssn_identification', identifier: true).item.nil? }
+                          function: ->(v) { v.resolve(:'person.ssn_identification', identifier: true).item.nil? }
                   map 'birth_date.date', 'person.person_demographics.dob', memoize: true, append_identifier: true
                   add_key 'person.person_demographics.dob', memoize: true, append_identifier: true, function: lambda { |v|
                     member_id = v.find(/record.people.(\w+)$/).map(&:item).last
