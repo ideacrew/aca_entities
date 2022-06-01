@@ -4,6 +4,8 @@ require 'spec_helper'
 
 RSpec.describe AcaEntities::Fdsh::Ifsv::H9t::Operations::IfsvVerificationRequest, dbclean: :after_each do
 
+  let(:encrypted_ssn) { "yobheUbYUK2Abfc6lrq37YQCsPgBL8lLkw==\n" }
+  let(:encrypted_ssn_2) { encrypted_ssn }
   let(:application_params) do
     { :family_reference => { :hbx_id => "10208" },
       :assistance_year => 2021,
@@ -20,7 +22,7 @@ RSpec.describe AcaEntities::Fdsh::Ifsv::H9t::Operations::IfsvVerificationRequest
              :name_sfx => nil,
              :name_pfx => nil },
           :identifying_information =>
-           { :encrypted_ssn => "yobheUbYUK2Abfc6lrq37YQCsPgBL8lLkw==\n",
+           { :encrypted_ssn => encrypted_ssn,
              :has_ssn => false },
           :demographic =>
            { :gender => "Male",
@@ -170,7 +172,7 @@ RSpec.describe AcaEntities::Fdsh::Ifsv::H9t::Operations::IfsvVerificationRequest
              :name_sfx => nil,
              :name_pfx => nil },
           :identifying_information =>
-           { :encrypted_ssn => "yobheUbYUK2Abfc6lrq37YQCsPgBL8lLkw==\n",
+           { :encrypted_ssn => encrypted_ssn_2,
              :has_ssn => false },
           :demographic =>
            { :gender => "Female",
@@ -634,5 +636,13 @@ RSpec.describe AcaEntities::Fdsh::Ifsv::H9t::Operations::IfsvVerificationRequest
 
   it "is successful" do
     expect(subject.success?).to be_truthy
+  end
+
+  context "when applicant doesn't have an ssn" do
+    let(:encrypted_ssn_2) { nil }
+
+    it "is successful" do
+      expect(subject.success?).to be_truthy
+    end
   end
 end

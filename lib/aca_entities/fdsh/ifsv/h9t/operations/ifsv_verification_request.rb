@@ -44,7 +44,7 @@ module AcaEntities
                   Person: construct_request_person(applicant),
                   TaxFilerCategoryCode: fetch_tax_filing_code(application, applicant)
                 }
-              end
+              end.compact
             end
 
             def construct_request_person(applicant)
