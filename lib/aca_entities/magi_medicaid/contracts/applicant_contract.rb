@@ -104,6 +104,8 @@ module AcaEntities
           optional(:is_trafficking_victim).maybe(:bool)
           optional(:foster_care).maybe(FosterCareContract.params)
           required(:pregnancy_information).hash(PregnancyInformationContract.params)
+          optional(:is_primary_caregiver).maybe(:bool)
+          optional(:is_primary_caregiver_for).maybe(:array)
           optional(:is_subject_to_five_year_bar).maybe(:bool)
           optional(:is_five_year_bar_met).maybe(:bool)
           optional(:is_forty_quarters).maybe(:bool)
