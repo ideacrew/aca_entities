@@ -55,32 +55,6 @@ channels:
           timestamp: true
           content_type: application/json
           bindingVersion: 0.2.0
-  enroll.people.person_updated:
-    bindings:
-      amqp:
-        is: :routing_key
-        exchange:
-          name: enroll.people
-          type: topic
-          content_type: application/json
-          durable: true
-          auto_delete: false
-          vhost: event_source
-        binding_version: "0.2.0"
-    publish:
-      operationId: enroll.people.person_updated
-      description: Events - Individual Person Updated
-      summary: Events - Person Update
-      bindings:
-        amqp:
-          app_id: enroll
-          type: enroll.people
-          routing_key: enroll.people.person_updated
-          deliveryMode: 2
-          mandatory: true
-          timestamp: true
-          content_type: application/json
-          bindingVersion: 0.2.0
 tags:
   - name: linter_tag
     description: placeholder that satisfies the linter
