@@ -18,6 +18,7 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Contracts::IncomeContract,  dbclean:
       end_on: nil,
       is_projected: false,
       has_property_usage_rights: false,
+      ssi_type: 'Survivor',
       submitted_at: DateTime.now.to_s }
   end
 
