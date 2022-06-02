@@ -16,6 +16,17 @@ module AcaEntities
       attribute :is_consumer_role, Types::Bool.optional.meta(omittable: true)
       attribute :is_resident_role, Types::Bool.optional.meta(omittable: true)
       attribute :is_applying_coverage, Types::Bool.optional.meta(omittable: true)
+
+      # @!attribute [r] five_year_bar_applies
+      # Is the non-citizen subject to the 5 year bar?
+      # @return [Bool]
+      attribute :five_year_bar_applies, Types::Bool.optional.meta(omittable: true)
+
+      # @!attribute [r] five_year_bar_met
+      # Has the non-citizen applicant met the 5 year bar?
+      # @return [Bool]
+      attribute :five_year_bar_met, Types::Bool.optional.meta(omittable: true)
+
       attribute :is_consent_applicant, Types::Bool.optional.meta(omittable: true)
       attribute :vlp_document, AcaEntities::Documents::VlpDocument.optional.meta(omittable: true)
       attribute :family_member_reference, AcaEntities::Families::FamilyMemberReference.meta(omittable: false)
