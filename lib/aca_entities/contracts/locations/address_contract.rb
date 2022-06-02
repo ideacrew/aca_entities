@@ -43,6 +43,7 @@ module AcaEntities
           optional(:start_on).maybe(:date)
           optional(:end_on).maybe(:date)
           optional(:lives_outside_state_temporarily).maybe(:bool)
+          optional(:geocode).maybe(:string)
         end
       end
     end

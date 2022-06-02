@@ -93,6 +93,8 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Applicant, dbclean: :after_each do
         is_required_to_file_taxes: false,
         is_filing_as_head_of_household: false,
         pregnancy_information: pregnancy_information,
+        is_primary_caregiver: true,
+        is_primary_caregiver_for: ["test"],
         has_job_income: true,
         has_self_employment_income: false,
         has_unemployment_income: false,
