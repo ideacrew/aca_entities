@@ -190,6 +190,20 @@ RSpec.describe AcaEntities::MagiMedicaid::Transformers::IapTo::Mitc do
         end
       end
     end
+
+    context 'applicant is naturalized citizen' do
+      before do
+        iap_application[:applicants].first[:citizenship_immigration_status_information][:citizen_status] = 'naturalized_citizen'
+        contract_result = ::AcaEntities::MagiMedicaid::Contracts::ApplicationContract.new.call(iap_application)
+        magi_medicaid_application = contract_result.to_h.to_json
+        described_class.call(magi_medicaid_application) { |record| @transform_result = record }
+      end
+
+      it 'should consider the applicant a US citizen' do
+        person = @transform_result[:people].first
+        expect(person[:is_us_citizen]).to eq('Y')
+      end
+    end
   end
 
   # def tax_return_hash(application_hash, thh)
