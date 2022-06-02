@@ -144,7 +144,11 @@ module AcaEntities
                 namespace 'citizenship_immigration_status_information' do
                   rewrap '' do
                     map 'citizen_status', 'citizen_status', memoize: true, visible: false
-                    add_key 'is_us_citizen', function: ->(v) { boolean_string(v.resolve('citizen_status').item == 'us_citizen') }
+                    add_key 'is_us_citizen', function: ->(v) { 
+                      citizen_status = v.resolve('citizen_status').item
+                      us_citizen_kinds = ['us_citizen', 'naturalized_citizen']
+                      boolean_string(us_citizen_kinds.include?(citizen_status)) 
+                    }
 
                     # TODO: use mapper to determine the immigration status code from AcaEntities::MagiMedicaid::Mitc::Types::ImmigrationStatusCodeMap
                     # Currently defaulting immigration_status to 01 which maps to 'Lawful Permanent Resident (LPR/Green Card Holder)'
