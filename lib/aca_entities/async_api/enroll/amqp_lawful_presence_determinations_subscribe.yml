@@ -29,7 +29,7 @@ servers:
     protocolVersion: "0.9.2"
     description: RabbitMQ Test Server
 channels:
-  on_enroll.enroll.consumer_roles.lawful_presence_determinations:
+  on_enroll.enroll.consumer_roles.individual.lawful_presence_determinations:
     bindings:
       amqp:
         is: queue
