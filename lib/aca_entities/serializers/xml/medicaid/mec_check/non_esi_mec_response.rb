@@ -21,7 +21,7 @@ module AcaEntities
               {
                 response_code: response_code,
                 response_description: response_description,
-                non_esi_mec_individual_response: non_esi_mec_individual_response.to_hash
+                non_esi_mec_individual_response: non_esi_mec_individual_response&.to_hash
               }
             end
           end
