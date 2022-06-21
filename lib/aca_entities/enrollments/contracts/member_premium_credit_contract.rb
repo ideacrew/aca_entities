@@ -4,7 +4,7 @@ module AcaEntities
   module Enrollments
     module Contracts
       # Schema and validation rules for the {AcaEntities::Enrollments::PremiumCredit} entity
-      class GroupPremiumCreditContract < Contract
+      class MemberPremiumCreditContract < Contract
         # @!method call(opts)
         # @param [Hash] opts the parameters to validate using this contract
         # @option opts [String] :id unique key for this entity (optional)
@@ -19,9 +19,28 @@ module AcaEntities
           optional(:label).maybe(:string)
           required(:kind).filled(AcaEntities::Enrollments::Types::PremiumCreditKind)
           optional(:authority_determination).maybe(:any)
+
           required(:tax_household).filled(:tax_hh)
+          required(:benchmark_plan_ref).filled(:tax_hh)
+
           required(:start_on).filled(:date)
           optional(:end_on).maybe(AcaEntities::Types::DateOrNil)
+
+          required(:month_0).filled(:monthly_premium_credits)
+          required(:month_1).filled(:monthly_premium_credits)
+          required(:month_2).filled(:monthly_premium_credits)
+          required(:month_3).filled(:monthly_premium_credits)
+          required(:month_4).filled(:monthly_premium_credits)
+          required(:month_5).filled(:monthly_premium_credits)
+          required(:month_6).filled(:monthly_premium_credits)
+
+          required(:month_7).filled(:monthly_premium_credits)
+          required(:month_8).filled(:monthly_premium_credits)
+          required(:month_9).filled(:monthly_premium_credits)
+          required(:month_10).filled(:monthly_premium_credits)
+          required(:month_11).filled(:monthly_premium_credits)
+          required(:month_12).filled(:monthly_premium_credits)
+
           optional(:timestamps).maybe(AcaEntities::Contracts::TimeStampContract.params)
         end
       end
