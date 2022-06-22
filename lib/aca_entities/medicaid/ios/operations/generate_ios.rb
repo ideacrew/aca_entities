@@ -29,26 +29,25 @@ module AcaEntities
           end
 
           def to_ios(payload)
-              result = ::AcaEntities::Medicaid::Ios::Transformers::Cv3ToIos.transform(payload)
-              Success(result)
-            rescue StandardError => e
-              Failure("to_ios transformer #{e}")
-            end
+            result = ::AcaEntities::Medicaid::Ios::Transformers::Cv3ToIos.transform(payload)
+            Success(result)
+          rescue StandardError => e
+            Failure("to_ios transformer #{e}")
           end
-
-          def validate_ios_payload(payload)
-            result = Try do
-              AcaEntities::Medicaid::Ios::Contracts::SSPDCRequestContract.new.call(payloads)
-            end.to_result
-
-            if result.success?
-              result
-            else
-              Failure("SSPDCRequestContract -> #{result.failure.errors.to_h}")
-            end
-          end
-
         end
+
+        def validate_ios_payload(_payload)
+          result = Try do
+            AcaEntities::Medicaid::Ios::Contracts::SSPDCRequestContract.new.call(payloads)
+          end.to_result
+
+          if result.success?
+            result
+          else
+            Failure("SSPDCRequestContract -> #{result.failure.errors.to_h}")
+          end
+        end
+
       end
     end
   end
