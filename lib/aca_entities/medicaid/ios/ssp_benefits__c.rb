@@ -2,9 +2,9 @@
 
 module AcaEntities
   module Medicaid
-    module IOS
+    module Ios
       # entity for SSP_Benefits__c
-      class SSP_Benefits__c < Dry::Struct
+      class SSPBenefitsC < Dry::Struct
         attribute :SSP_Member__c, Types::String.optional.meta(omittable: true)
         attribute :Id, Types::String.optional.meta(omittable: true)
         attribute :BenefitPrograms__c, Types::String.optional.meta(omittable: true)
@@ -22,7 +22,7 @@ module AcaEntities
         attribute :StatusofApplication__c, Types::String.optional.meta(omittable: true)
         attribute :HasMedicareCoverageButNoInfo__c, Types::Boolean.optional.meta(omittable: true)
         attribute :RecordType, RecordType.optional.meta(omittable: true)
-        attribute :SSP_Member__r, SSP_Member__r.optional.meta(omittable: true)
+        attribute :SSP_Member__r, SSPMemberR.optional.meta(omittable: true)
       end
     end
   end

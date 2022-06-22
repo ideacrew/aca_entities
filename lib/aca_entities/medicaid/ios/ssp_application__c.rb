@@ -2,9 +2,9 @@
 
 module AcaEntities
   module Medicaid
-    module IOS
+    module Ios
       # entity for SSP_Application__c
-      class SSP_Application__c < Dry::Struct
+      class SSPApplicationC < Dry::Struct
         attribute :ApplicationReceivedDateTime__c, Types::DateTime.optional.meta(omittable: true)
         attribute :DCsnapHouseholdExpeditedScreeningId__c, Types::Integer.optional.meta(omittable: true)
         attribute :DeclrtnfAnnuitiesAcceptanceCode__c, Types::String.optional.meta(omittable: true)

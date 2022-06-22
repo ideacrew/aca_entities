@@ -2,9 +2,9 @@
 
 module AcaEntities
   module Medicaid
-    module IOS
+    module Ios
       # entity for SSP_Member__c
-      class SSP_Member__c < Dry::Struct
+      class SSPMemberC < Dry::Struct # rubocop:disable Metrics/ClassLength
         attribute :Name, Types::String.optional.meta(omittable: true)
         attribute :Id, Types::String.optional.meta(omittable: true)
         attribute :AgeAtFosterCare__c, Types::Integer.optional.meta(omittable: true)
@@ -157,10 +157,14 @@ module AcaEntities
         attribute :MailingZipCode4__c, Types::String.optional.meta(omittable: true)
         attribute :MailingZipCode5__c, Types::String.optional.meta(omittable: true) # RequiredValidator, MaxStringLengthValidator(5)
         attribute :PreferredIssuanceMethod__c, Types::String.optional.meta(omittable: true)
-        attribute :PreferredNotificationMethodCode__c, Types::String.meta(omittable: false) # SelectAtLeast1Validator, PreferredContactMethodValidator PreferredContactEmailValidator, PreferredContactTextValidator, TextMessageOptInValidator
+        # PreferredNotificationMethodCode__c SelectAtLeast1Validator, PreferredContactMethodValidator PreferredContactEmailValidator,
+        # PreferredContactTextValidator, TextMessageOptInValidator
+        attribute :PreferredNotificationMethodCode__c, Types::String.meta(omittable: false)
         attribute :PreferredSpokenLanguageCode__c, Types::String.optional.meta(omittable: true)  # RequiredValidator
         attribute :PreferredWrittenLanguageCode__c, Types::String.optional.meta(omittable: true)  # RequiredValidator
-        attribute :PregnancyDueDate__c, Types::Date.optional.meta(omittable: true) # required by db if pregnant, RequiredValidator, PregnancyDueDateValidator, PastDateValidator, PregnancyOverlappingDateValidator
+        # PregnancyDueDate__c required by db if pregnant, RequiredValidator, PregnancyDueDateValidator,
+        # PastDateValidator, PregnancyOverlappingDateValidator
+        attribute :PregnancyDueDate__c, Types::Date.optional.meta(omittable: true)
         attribute :PregnancyTerminationDate__c, Types::Date.optional.meta(omittable: true) # RequiredValidator
         attribute :PrimaryPhoneExtension__c, Types::Integer.optional.meta(omittable: true) # MaxStringLengthValidator(10)
         attribute :PrimaryPhoneNumber__c, Types::String.optional.meta(omittable: true) # PhoneNumberValidator
@@ -193,7 +197,8 @@ module AcaEntities
         # attribute :OrganizationName__r, OrganizationName__r.optional.meta(omittable: true)
         # attribute :TaxFilerMemberNext__r, TaxFilerMemberNext__r.optional.meta(omittable: true)
         # attribute :FederalReserve__r, FederalReserve__r.optional.meta(omittable: true)
-        attribute :TaxFilerStatusCurrentYear__c, Types::String.optional.meta(omittable: true) # RequiredValidator, TaxFilingWarning, MarkedClaimantWarning
+        # TaxFilerStatusCurrentYear__c RequiredValidator, TaxFilingWarning, MarkedClaimantWarning
+        attribute :TaxFilerStatusCurrentYear__c, Types::String.optional.meta(omittable: true)
         attribute :TaxFilerStatusNextYear__c, Types::String.optional.meta(omittable: true)
         attribute :UnableToBuyCookForSelfToggle__c, Types::String.optional.meta(omittable: true)
         attribute :USCitizenCode__c, Types::String.optional.meta(omittable: true)
