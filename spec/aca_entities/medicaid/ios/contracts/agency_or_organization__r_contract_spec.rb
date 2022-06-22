@@ -10,7 +10,7 @@ RSpec.describe AcaEntities::Medicaid::Ios::Contracts::AgencyOrOrganizationRContr
   context 'invalid parameters' do
     context 'with incorrect data type' do
       it 'should list error for every parameter' do
-        bad_params = { DCDataId__c: "0" }
+        bad_params = { DCDataId__c: "Id" }
         expect(subject.call(bad_params).errors.to_h.keys).to match_array all_params.keys
       end
     end

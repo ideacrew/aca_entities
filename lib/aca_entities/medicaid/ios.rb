@@ -6,6 +6,7 @@ require 'aca_entities/types'
 
 # contracts
 require_relative "ios/contracts/record_type_contract"
+require_relative "ios/contracts/agency_or_organization__r_contract"
 # require_relative "ios/contracts/agency_or_organization__r_contract"
 # require_relative "ios/contracts/contact_contract"
 
