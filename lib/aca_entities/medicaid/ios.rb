@@ -8,6 +8,7 @@ require 'aca_entities/types'
 require_relative "ios/contracts/record_type_contract"
 require_relative "ios/contracts/agency_or_organization__r_contract"
 require_relative "ios/contracts/contact_contract"
+require_relative "ios/contracts/account_contact_relation_contract"
 
 # entities -> for reference only, to be cleaned up and removed once contracts have been built
 # require_relative "ios/agency_or_organization__r"
