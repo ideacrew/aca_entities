@@ -31,7 +31,7 @@ RSpec.describe AcaEntities::Medicaid::Ios::Contracts::SspApplicationIndividualCC
       CareCoordinatorPhoneNumber__c: "1234567",
       DCCareCoordinatorAddressId__c: 12_345,
       CareCoordinatorAddressLine1__c: "123 Main St",
-      CareCoordinatorAddressLine2__c: "",
+      CareCoordinatorAddressLine2__c: "n/a",
       CareCoordinatorCity__c: "Atlantis",
       CareCoordinatorStateCode__c: "FL",
       CareCoordinatorZipcode4__c: "1234",
@@ -54,8 +54,8 @@ RSpec.describe AcaEntities::Medicaid::Ios::Contracts::SspApplicationIndividualCC
   context 'invalid parameters' do
     context 'with incorrect data type' do
       it 'should list error for every parameter' do
-        bad_params = { DCDataId__c: "Id" }
-        expect(subject.call(bad_params).errors.to_h.keys).to match_array all_params.keys
+        bad_params = { MemberProgramsApplied__c: 0 }
+        expect(subject.call(bad_params).errors.to_h.keys).to match_array bad_params.keys
       end
     end
   end
