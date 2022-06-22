@@ -42,11 +42,11 @@ module AcaEntities
         attribute :EIN__c, Types::Integer.optional.meta(omittable: true)
         attribute :EmployerName__c, Types::String.optional.meta(omittable: true)
         attribute :EmploymentEndReason__c, Types::String.optional.meta(omittable: true)
-        attribute :EndDate__c, Types::Date.meta(omittable: false) # RequiredValidator, FutureDateValidator, EndDateStartDateValidator
-        attribute :ExpenseAmount__c, Types::Float.meta(omittable: false) # CurrencyValidator, RequiredValidator
-        attribute :ExpenseFrequencyCode__c, Types::String.meta(omittable: false)
-        attribute :ExpenseSubType__c, Types::String.meta(omittable: false)
-        attribute :ExpenseTypeCode__c, Types::String.meta(omittable: false)
+        attribute :EndDate__c, Types::Date.optional.meta(omittable: true) # RequiredValidator, FutureDateValidator, EndDateStartDateValidator
+        attribute :ExpenseAmount__c, Types::Float.optional.meta(omittable: true) # CurrencyValidator, RequiredValidator
+        attribute :ExpenseFrequencyCode__c, Types::String.optional.meta(omittable: true)
+        attribute :ExpenseSubType__c, Types::String.optional.meta(omittable: true)
+        attribute :ExpenseTypeCode__c, Types::String.optional.meta(omittable: true)
         attribute :FaceValueAmount__c, Types::Integer.optional.meta(omittable: true)
         attribute :FeesAmount__c, Types::Integer.optional.meta(omittable: true)
         attribute :FuneralFundCode__c, Types::String.optional.meta(omittable: true)
@@ -54,9 +54,9 @@ module AcaEntities
         attribute :HasItemizedStmtOfGoodsSignByClientToggle__c, Types::String.optional.meta(omittable: true)
         attribute :HasPolicyAssignedToFuneralHomeToggle__c, Types::String.optional.meta(omittable: true)
         attribute :IncomePayDetailHoursPerWeek__c, Types::Integer.optional.meta(omittable: true)
-        attribute :IncomePayFrequency__c, Types::String.meta(omittable: false)
-        attribute :IncomeTypeCode__c, Types::String.meta(omittable: false)
-        attribute :IncomeSubtypeCode__c, Types::String.meta(omittable: false)
+        attribute :IncomePayFrequency__c, Types::String.optional.meta(omittable: true)
+        attribute :IncomeTypeCode__c, Types::String.optional.meta(omittable: true)
+        attribute :IncomeSubtypeCode__c, Types::String.optional.meta(omittable: true)
         attribute :InsuranceCompanyAddress__c, Types::String.optional.meta(omittable: true)
         attribute :InsuranceCompanyName__c, Types::String.optional.meta(omittable: true)
         attribute :InsuranceCompanyPhoneNumber__c, Types::String.optional.meta(omittable: true)
@@ -88,10 +88,10 @@ module AcaEntities
         attribute :ResourceEndReason__c, Types::String.optional.meta(omittable: true)
         attribute :ResourceSubTypeCode__c, Types::String.optional.meta(omittable: true)
         attribute :ResourceTypeCode__c, Types::String.optional.meta(omittable: true)
-        attribute :StartDate__c, Types::Date.meta(omittable: false) # FutureDateValidator, RequiredValidator
+        attribute :StartDate__c, Types::Date.optional.meta(omittable: true) # FutureDateValidator, RequiredValidator
         attribute :StateCode__c, Types::String.optional.meta(omittable: true)
         attribute :Tips__c, Types::Float.optional.meta(omittable: true)
-        attribute :TotalGrossAmount__c, Types::Float.meta(omittable: false) # RequiredValidator, NotZeroValidator, CurrencyValidator
+        attribute :TotalGrossAmount__c, Types::Float.optional.meta(omittable: true) # RequiredValidator, NotZeroValidator, CurrencyValidator
         attribute :TuitionAmount__c, Types::Float.optional.meta(omittable: true)
         attribute :VehicleCategoryCode__c, Types::String.optional.meta(omittable: true)
         attribute :VehicleDebt__c, Types::Float.optional.meta(omittable: true)
