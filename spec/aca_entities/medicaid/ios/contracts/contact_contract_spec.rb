@@ -54,6 +54,14 @@ RSpec.describe AcaEntities::Medicaid::Ios::Contracts::ContactContract, dbclean: 
         expect(subject.call(optional_params).errors.to_h.keys).to match_array required_params.keys
       end
     end
+
+    context 'with invalid address line 2 characters' do
+      it 'should list errors' do
+        all_params[:MailingAddressLine2__c] = "Address!"
+        result = subject.call(all_params)
+        expect(result.success?).to be_falsey
+      end
+    end
   end
 
   context 'valid parameters' do
