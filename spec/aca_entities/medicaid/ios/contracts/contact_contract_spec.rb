@@ -15,9 +15,9 @@ RSpec.describe AcaEntities::Medicaid::Ios::Contracts::ContactContract, dbclean: 
   let(:optional_params) do
     {
       AddressTypeCode__c: "Code",
-      AgencyEmployeeId__c: "Id",
+      AgencyEmployeeId__c: 12_345,
       AssociationStartDate__c: Date.today,
-      Birthdate: 10.years.ago.to_date,
+      Birthdate: Date.new(1990, 1, 1),
       Email: "fake@test.com",
       GenderCode__c: "M",
       MailingAddressLine2__c: "Address",
@@ -31,7 +31,7 @@ RSpec.describe AcaEntities::Medicaid::Ios::Contracts::ContactContract, dbclean: 
       SuffixCode__c: "n/a",
       IndividualId__c: "Id",
       Id: "Id",
-      MiddleName: "",
+      MiddleName: "M",
       Phone: "123-4567",
       DCDataId__c: 12_345,
       IsManualAuthRep__c: false,
