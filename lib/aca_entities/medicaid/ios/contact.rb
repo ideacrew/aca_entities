@@ -14,8 +14,8 @@ module AcaEntities
         attribute :LastName, Types::String.meta(omittable: false)
         attribute :GenderCode__c, Types::String.optional.meta(omittable: true)
         attribute :MailingAddressLine2__c, Types::String.optional.meta(omittable: true) # AddressLine2Validator
-        attribute :OrganizationName__c, Types::Integer.optional.meta(omittable: true)
-        attribute :OrgranizationIdentificationNumber__c, Types::Date.optional.meta(omittable: true)
+        attribute :OrganizationName__c, Types::String.optional.meta(omittable: true)
+        attribute :OrgranizationIdentificationNumber__c, Types::String.optional.meta(omittable: true)
         attribute :PreferredLanguageCode__c, Types::String.optional.meta(omittable: true)
         attribute :PrimaryPhoneExtension__c, Types::Integer.optional.meta(omittable: true)
         attribute :PrimaryPhoneNumber__c, Types::String.optional.meta(omittable: true)
