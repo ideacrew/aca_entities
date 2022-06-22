@@ -10,7 +10,8 @@ module AcaEntities
         attribute :AssociationStartDate__c, Types::Date.optional.meta(omittable: true)
         attribute :Birthdate, Types::Date.optional.meta(omittable: true)
         attribute :Email, Types::String.optional.meta(omittable: true) # EmailAddressValidator
-        attribute :FirstName, Types::String.optional.meta(omittable: true)
+        attribute :FirstName, Types::String.meta(omittable: false)
+        attribute :LastName, Types::String.meta(omittable: false)
         attribute :GenderCode__c, Types::String.optional.meta(omittable: true)
         attribute :MailingAddressLine2__c, Types::String.optional.meta(omittable: true) # AddressLine2Validator
         attribute :OrganizationName__c, Types::Integer.optional.meta(omittable: true)

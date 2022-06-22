@@ -8,7 +8,6 @@ require 'aca_entities/medicaid/mec_check'
 module AcaEntities
   module Medicaid
     module Ios
-      # Operation to create valid IOS payload from a CV3 application
       module Operations
         # Operation to create valid IOS payload from a CV3 application
         class GenerateIos
@@ -25,30 +24,31 @@ module AcaEntities
           private
 
           def prep_data(cv3_payload)
-            # payload = JSON.parse(cv3_payload, symbolize_names: true)
+            payload = JSON.parse(cv3_payload, symbolize_names: true)
             # call the to do operation to make the data easier to transform
           end
 
           def to_ios(payload)
-            result = ::AcaEntities::Medicaid::Ios::Transformers::Cv3ToIos.transform(payload)
-            Success(result)
-          rescue StandardError => e
-            Failure("to_ios transformer #{e}")
+              result = ::AcaEntities::Medicaid::Ios::Transformers::Cv3ToIos.transform(payload)
+              Success(result)
+            rescue StandardError => e
+              Failure("to_ios transformer #{e}")
+            end
           end
-        end
 
-        def validate_ios_payload(_payload)
-          result = Try do
-            AcaEntities::Medicaid::Ios::Contracts::SSPDCRequestContract.new.call(payloads)
-          end.to_result
+          def validate_ios_payload(payload)
+            result = Try do
+              AcaEntities::Medicaid::Ios::Contracts::SSPDCRequestContract.new.call(payloads)
+            end.to_result
 
-          if result.success?
-            result
-          else
-            Failure("SSPDCRequestContract -> #{result.failure.errors.to_h}")
+            if result.success?
+              result
+            else
+              Failure("SSPDCRequestContract -> #{result.failure.errors.to_h}")
+            end
           end
-        end
 
+        end
       end
     end
   end
