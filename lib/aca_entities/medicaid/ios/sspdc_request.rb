@@ -5,13 +5,12 @@ module AcaEntities
     module IOS
       # entity for SspdcRequest, commented out fields are from the schema but not expected from us
       class SSPDCRequest < Dry::Struct
-        attribute :SubmitType, Types::String.meta(omittable: false) # this should be defaulted to 'Intake'
+        attribute :SubmitType, Types::String.optional.meta(omittable: true) # this should be defaulted to 'Intake'
         attribute :SubmittedBy, Types::String.optional.meta(omittable: true)
-        attribute :ApplicationReceivedDateTime, Types::DateTime.meta(omittable: false) # application submission timestamp
+        attribute :ApplicationReceivedDateTime, Types::DateTime.optional.meta(omittable: true) # application submission timestamp
         
         attribute :SSP_Application__c, SSP_Application__c.meta(omittable: true)
         attribute :SSP_Member__c, Types::Array.of(SSP_Member__c).optional.meta(omittable: true)
-
         attribute :SSP_Asset__c, Types::Array.of(SSP_Asset__c).optional.meta(omittable: true)
         attribute :SSP_Benefits__c, Types::Array.of(SSP_Benefits__c).optional.meta(omittable: true)
         # attribute :SSP_Transaction__c, Types::Array.of(SSP_Transaction__c).optional.meta(omittable: true)

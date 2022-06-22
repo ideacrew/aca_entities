@@ -44,7 +44,7 @@ module AcaEntities
         attribute :EthnicityCode__c, Types::String.optional.meta(omittable: true)
         attribute :ExpectedReturnDate__c, Types::Date.optional.meta(omittable: true) # PastDateValidator
         attribute :FederalCaseNumber__c, Types::String.optional.meta(omittable: true)
-        attribute :FirstName__c, Types::String.optional.meta(omittable: true)
+        attribute :FirstName__c, Types::String.meta(omittable: false)
         attribute :FosterStateCode__c, Types::String.optional.meta(omittable: true) # RequiredValidator
         attribute :GenderCode__c, Types::String.optional.meta(omittable: true)
         attribute :HasAlimonyExpenseToggle__c, Types::String.optional.meta(omittable: true)
@@ -77,7 +77,7 @@ module AcaEntities
         attribute :ImmigrationDateOfBirth__c, Types::Date.optional.meta(omittable: true)
         attribute :ImmigrationDocumentTypeCode__c, Types::String.optional.meta(omittable: true) # RequiredValidator
         attribute :ImmigrationFirstName__c, Types::String.optional.meta(omittable: true) # RequiredValidator, NameIllegalCharsValidator
-        attribute :ImmigrationLastName__c, Types::String.optional.meta(omittable: true)
+        attribute :ImmigrationLastName__c, Types::String.meta(omittable: false)
         attribute :ImmigrationMiddleName__c, Types::String.optional.meta(omittable: true)
         attribute :ImmigrationSuffix__c, Types::String.optional.meta(omittable: true)
         attribute :IncarcerationBeginDate__c, Types::Date.optional.meta(omittable: true)
@@ -86,7 +86,7 @@ module AcaEntities
         attribute :IndividualId__c, Types::Integer.optional.meta(omittable: true)
         attribute :InHomeCareType__c, Types::String.optional.meta(omittable: true)
         attribute :InmateStatusIndicator__c, Types::Boolean.optional.meta(omittable: true)
-        attribute :LATypeCode__c, Types::String.optional.meta(omittable: true) # RequiredValidator
+        attribute :LATypeCode__c, Types::String.meta(omittable: false) # RequiredValidator
         attribute :IsBlindToggle__c, Types::String.optional.meta(omittable: true)
         attribute :IsCoverageMonth1__c, Types::Boolean.optional.meta(omittable: true)
         attribute :IsCoverageMonth2__c, Types::Boolean.optional.meta(omittable: true)
@@ -136,19 +136,19 @@ module AcaEntities
         attribute :NonCitizenClassOfAdmissionCode__c, Types::String.optional.meta(omittable: true)
         attribute :NonCitizenEntryDate__c, Types::Date.optional.meta(omittable: true)
         attribute :NoReasonSSNCode__c, Types::String.optional.meta(omittable: true)
-        attribute :NumberOfBirthsExpected__c, Types::Integer.optional.meta(omittable: true) # RequiredValidator
+        attribute :NumberOfBirthsExpected__c, Types::Integer.optional.meta(omittable: true) # RequiredValidator, required by db if pregnancy
         attribute :OrganizationName__c, Types::String.optional.meta(omittable: true)
         attribute :ParentUnableToCareForChildToggle__c, Types::String.optional.meta(omittable: true)
         attribute :PassportNumber__c, Types::String.optional.meta(omittable: true) # RequiredValidator, ImDocumentNumberValidator
-        attribute :PhysicalAddressLine1__c, Types::String.optional.meta(omittable: true) # RequiredValidator
+        attribute :PhysicalAddressLine1__c, Types::String.meta(omittable: false) # RequiredValidator
         attribute :PhysicalAddressLine2__c, Types::String.optional.meta(omittable: true) # AddressLine2Validator
         attribute :PhysicalAddrValidated__c, Types::Boolean.optional.meta(omittable: true)
         attribute :MailingAddrValidated__c, Types::Boolean.optional.meta(omittable: true)
-        attribute :PhysicalCity__c, Types::String.optional.meta(omittable: true) # RequiredValidator
+        attribute :PhysicalCity__c, Types::String.meta(omittable: false) # RequiredValidator
         attribute :PhysicalCountyCode__c, Types::String.optional.meta(omittable: true) # RequiredValidator
-        attribute :PhysicalStateCode__c, Types::String.optional.meta(omittable: true)  # RequiredValidator
+        attribute :PhysicalStateCode__c, Types::String.meta(omittable: false)  # RequiredValidator
         attribute :PhysicalZipCode4__c, Types::String.optional.meta(omittable: true)
-        attribute :PhysicalZipCode5__c, Types::String.optional.meta(omittable: true) # RequiredValidator, MaxStringLengthValidator(5)
+        attribute :PhysicalZipCode5__c, Types::String.meta(omittable: false) # RequiredValidator, MaxStringLengthValidator(5)
         attribute :MailingAddressLine1__c, Types::String.optional.meta(omittable: true) # RequiredAddressValidator, AddressLine2Validator
         attribute :MailingAddressLine2__c, Types::String.optional.meta(omittable: true) # AddressLine2Validator
         attribute :MailingCity__c, Types::String.optional.meta(omittable: true) # RequiredValidator
@@ -157,10 +157,10 @@ module AcaEntities
         attribute :MailingZipCode4__c, Types::String.optional.meta(omittable: true)
         attribute :MailingZipCode5__c, Types::String.optional.meta(omittable: true) # RequiredValidator, MaxStringLengthValidator(5)
         attribute :PreferredIssuanceMethod__c, Types::String.optional.meta(omittable: true)
-        attribute :PreferredNotificationMethodCode__c, Types::String.optional.meta(omittable: true) # SelectAtLeast1Validator, PreferredContactMethodValidator PreferredContactEmailValidator, PreferredContactTextValidator, TextMessageOptInValidator
+        attribute :PreferredNotificationMethodCode__c, Types::String.meta(omittable: false) # SelectAtLeast1Validator, PreferredContactMethodValidator PreferredContactEmailValidator, PreferredContactTextValidator, TextMessageOptInValidator
         attribute :PreferredSpokenLanguageCode__c, Types::String.optional.meta(omittable: true)  # RequiredValidator
         attribute :PreferredWrittenLanguageCode__c, Types::String.optional.meta(omittable: true)  # RequiredValidator
-        attribute :PregnancyDueDate__c, Types::Date.optional.meta(omittable: true) # RequiredValidator, PregnancyDueDateValidator, PastDateValidator, PregnancyOverlappingDateValidator
+        attribute :PregnancyDueDate__c, Types::Date.optional.meta(omittable: true) # required by db if pregnant, RequiredValidator, PregnancyDueDateValidator, PastDateValidator, PregnancyOverlappingDateValidator
         attribute :PregnancyTerminationDate__c, Types::Date.optional.meta(omittable: true) # RequiredValidator
         attribute :PrimaryPhoneExtension__c, Types::Integer.optional.meta(omittable: true) # MaxStringLengthValidator(10)
         attribute :PrimaryPhoneNumber__c, Types::String.optional.meta(omittable: true) # PhoneNumberValidator
@@ -189,7 +189,7 @@ module AcaEntities
         attribute :HasAlienSponsorToggle__c, Types::String.optional.meta(omittable: true)
         attribute :SpecialNeedIndicatorToggle__c, Types::String.optional.meta(omittable: true)
         attribute :RecordType, RecordType.optional.meta(omittable: true)
-        attribute :TaxFilerMemberCurrent__r, TaxFilerMemberCurrent__r.optional.meta(omittable: true) # RequiredValidator, ClaimantTaxFilingValidator
+        attribute :TaxFilerMemberCurrent__r, TaxFilerMemberCurrent__r.meta(omittable: false) # RequiredValidator, ClaimantTaxFilingValidator
         # attribute :OrganizationName__r, OrganizationName__r.optional.meta(omittable: true)
         # attribute :TaxFilerMemberNext__r, TaxFilerMemberNext__r.optional.meta(omittable: true)
         # attribute :FederalReserve__r, FederalReserve__r.optional.meta(omittable: true)
@@ -214,6 +214,9 @@ module AcaEntities
         attribute :IsNonUSCitizenMilitaryMemberToggle__c, Types::String.optional.meta(omittable: true)
         attribute :Alias_First_Name__c, Types::String.optional.meta(omittable: true)
         attribute :Alias_Last_Name__c, Types::String.optional.meta(omittable: true)
+        attribute :LivingArrangementAfterReleaseDate__c, Types::String.meta(omittable: false) # not on schema
+        attribute :MedicareTypeCode__c, Types::String.meta(omittable: false) # not on schema
+        attribute :PregnancyExpectedDueDate__c, Types::Date.optional.meta(omittable: true)
       end
     end
   end
