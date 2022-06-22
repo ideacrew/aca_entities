@@ -2,9 +2,9 @@
 
 module AcaEntities
   module Medicaid
-    module IOS
+    module Ios
       # entity for TaxFilerMemberCurrent__r
-      class TaxFilerMemberCurrent__r < Dry::Struct
+      class TaxFilerMemberCurrentR < Dry::Struct
         attribute :IndividualId__c, Types::Integer.optional.meta(omittable: true)
       end
     end

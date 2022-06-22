@@ -2,9 +2,9 @@
 
 module AcaEntities
   module Medicaid
-    module IOS
+    module Ios
       # entity for SSP_NonCustodialParent__c
-      class SSP_NonCustodialParent__c < Dry::Struct
+      class SSPNonCustodialParentC < Dry::Struct
         attribute :FirstName__c, Types::String.meta(omittable: false)
         attribute :LastName__c, Types::String.meta(omittable: false)
         attribute :MiddleInitial__c, Types::String.optional.meta(omittable: true)

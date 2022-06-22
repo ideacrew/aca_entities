@@ -2,9 +2,9 @@
 
 module AcaEntities
   module Medicaid
-    module IOS
+    module Ios
       # entity for SSP_HealthInsuranceFacilityType__c
-      class SSP_HealthInsuranceFacilityType__c < Dry::Struct
+      class SSPHealthInsuranceFacilityTypeC < Dry::Struct
         attribute :SSP_InsuranceCoveredIndiv__c, Types::String.optional.meta(omittable: true)
         attribute :Id, Types::String.optional.meta(omittable: true)
         attribute :CoverageEndDate__c, Types::Date.optional.meta(omittable: true) # CoverageEndDateAndReasonValidator, EndDateStartDateValidator

@@ -2,9 +2,9 @@
 
 module AcaEntities
   module Medicaid
-    module IOS
+    module Ios
       # entity for SSP_ApplicationIndividual__c
-      class SSP_ApplicationIndividual__c < Dry::Struct
+      class SSPApplicationIndividualC < Dry::Struct
         attribute :MemberProgramsApplied__c, Types::String.optional.meta(omittable: true)
         attribute :IndividualId__c, Types::Integer.optional.meta(omittable: true)
         attribute :SSP_Application__c, Types::String.optional.meta(omittable: true)

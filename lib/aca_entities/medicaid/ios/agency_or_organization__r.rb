@@ -2,9 +2,9 @@
 
 module AcaEntities
   module Medicaid
-    module IOS
+    module Ios
       # entity for ios AgencyOrOrganization__r
-      class AgencyOrOrganization__r < Dry::Struct
+      class AgencyOrOrganizationR < Dry::Struct
         attribute :DCDataId__c, Types::Integer.optional.meta(omittable: true)
       end
     end
