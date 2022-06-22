@@ -52,6 +52,8 @@ module AcaEntities
         attribute :IsAgreeingToMedicaidPenalty__c, Types::String.optional.meta(omittable: true)
         attribute :HasPendingAccidentSettlementToggle__c, Types::String.optional.meta(omittable: true)
         attribute :IsPrimaryApplicantAddressModified__c, Types::Boolean.optional.meta(omittable: true)
+        # NotEnrolledInHealthCareCoverageToggle__c: not in schema RequiredValidator
+        attribute :NotEnrolledInHealthCareCoverageToggle__c, Types::String.optional.meta(omittable: true)
       end
     end
   end

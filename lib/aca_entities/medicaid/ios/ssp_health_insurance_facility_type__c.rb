@@ -12,9 +12,8 @@ module AcaEntities
         attribute :DCInsuranceCoveredIndivId__c, Types::Integer.optional.meta(omittable: true)
         attribute :DCId__c, Types::Integer.optional.meta(omittable: true)
         attribute :FacilityType__c, Types::String.optional.meta(omittable: true) # SelectAtLeast1Validator
+        attribute :EmploymentEndReason__c, Types::String.optional.meta(omittable: true) # not on schema RequiredValidator
       end
     end
   end
 end
-
-# missing endreason_c
