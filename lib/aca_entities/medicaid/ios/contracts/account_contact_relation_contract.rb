@@ -34,7 +34,6 @@ module AcaEntities
             optional(:StartDate).maybe(:date)
             optional(:RepresentativeRelationshipCode__c).maybe(:string)
             required(:Contact).filled(:hash)
-
           end
 
           rule(:AddressLine2__c) do
