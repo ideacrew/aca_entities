@@ -33,7 +33,6 @@ require_relative "ios/contracts/record_type_contract"
 # file name TBD require_relative 'ios/operations/prep_data'
 require_relative 'ios/operations/generate_ios'
 
-
 module AcaEntities
   module Medicaid
     # Domain objects representing IOS payload

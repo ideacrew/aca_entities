@@ -2,9 +2,9 @@
 
 module AcaEntities
   module Medicaid
-    module IOS
+    module Ios
       # entity for SSP_Asset__c
-      class SSP_Asset__c < Dry::Struct
+      class SSPAssetC < Dry::Struct
         attribute :SSP_Member__c, Types::String.optional.meta(omittable: true)
         attribute :ProviderName__C, Types::String.optional.meta(omittable: true)
         attribute :IsExistingData__c, Types::Boolean.optional.meta(omittable: true)
@@ -22,7 +22,8 @@ module AcaEntities
         attribute :BusinessTitle__c, Types::String.optional.meta(omittable: true)
         attribute :BusinessTypeCode__c, Types::String.optional.meta(omittable: true)
         attribute :CashSurrenderValue__c, Types::Float.optional.meta(omittable: true)
-        attribute :ChildName__c, Types::String.optional.meta(omittable: true) # "RequiredValidator; MaxStringLengthValidator(25); NameIllegalCharactersValidator"
+        # ChildName__c "RequiredValidator; MaxStringLengthValidator(25); NameIllegalCharactersValidator"
+        attribute :ChildName__c, Types::String.optional.meta(omittable: true)
         attribute :City__c, Types::String.optional.meta(omittable: true)
         attribute :CountyCode__c, Types::String.optional.meta(omittable: true)
         attribute :DateOfissuance__c, Types::Date.optional.meta(omittable: true)

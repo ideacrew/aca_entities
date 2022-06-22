@@ -2,7 +2,7 @@
 
 module AcaEntities
   module Medicaid
-    module IOS
+    module Ios
       # entity for ios RecordType
       class RecordType < Dry::Struct
         attribute :DeveloperName, Types::String.optional.meta(omittable: true)

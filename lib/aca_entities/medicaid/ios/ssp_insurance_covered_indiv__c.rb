@@ -2,9 +2,9 @@
 
 module AcaEntities
   module Medicaid
-    module IOS
+    module Ios
       # entity for SSP_InsuranceCoveredIndiv__c
-      class SSP_InsuranceCoveredIndiv__c < Dry::Struct
+      class SSPInsuranceCoveredIndivC < Dry::Struct
         attribute :DateofBirth__c, Types::Date.optional.meta(omittable: true)
         attribute :DCId__c, Types::Integer.optional.meta(omittable: true)
         attribute :DCIndividualId__c, Types::Integer.optional.meta(omittable: true)
@@ -37,7 +37,7 @@ module AcaEntities
         attribute :InsuranceInternalPolicyHolder__c, Types::String.optional.meta(omittable: true)
         attribute :Id, Types::String.optional.meta(omittable: true)
         attribute :RecordType, RecordType.optional.meta(omittable: true)
-        attribute :SSP_Member__r, SSP_Member__r.optional.meta(omittable: true)
+        attribute :SSP_Member__r, SSPMemberR.optional.meta(omittable: true)
       end
     end
   end

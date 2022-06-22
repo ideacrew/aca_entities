@@ -2,7 +2,7 @@
 
 module AcaEntities
   module Medicaid
-    module IOS
+    module Ios
       # entity for Contact
       class Contact < Dry::Struct
         attribute :AddressTypeCode__c, Types::String.optional.meta(omittable: true)
@@ -30,7 +30,7 @@ module AcaEntities
         attribute :PreferredLanguageCode__c, Types::String.optional.meta(omittable: true)
         attribute :IsManualAuthRep__c, Types::Boolean.optional.meta(omittable: true)
         attribute :RecordType, RecordType.optional.meta(omittable: true)
-        attribute :AgencyOrOrganization__r, AgencyOrOrganization__r.optional.meta(omittable: true)
+        attribute :AgencyOrOrganization__r, AgencyOrOrganizationR.optional.meta(omittable: true)
       end
     end
   end

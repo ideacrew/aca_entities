@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    aca_entities (0.9.0)
+    aca_entities (0.10.0)
       deep_merge
       dry-monads (~> 1.2)
       dry-struct (~> 1.0)
@@ -76,14 +76,12 @@ GEM
     ice_nine (0.11.2)
     iso_country_codes (0.7.8)
     method_source (1.0.0)
-    mini_portile2 (2.6.1)
     minitest (5.14.4)
-    nokogiri (1.12.5)
-      mini_portile2 (~> 2.6.1)
+    nokogiri (1.12.5-x86_64-darwin)
       racc (~> 1.4)
     nokogiri-happymapper (0.8.1)
       nokogiri (~> 1.5)
-    oj (3.13.10)
+    oj (3.13.9)
     parallel (1.20.1)
     parser (3.0.2.0)
       ast (~> 2.4.1)
