@@ -5,13 +5,13 @@ require 'aca_entities/medicaid/ios'
 
 RSpec.describe AcaEntities::Medicaid::Ios::Contracts::RecordTypeContract, dbclean: :after_each do
 
-  let(:all_params) { { DeveloperName: "Dev" } }
+  let(:all_params) { DeveloperName: "Dev" }
 
   context 'invalid parameters' do
     context 'with incorrect data type' do
-      it 'should list error for every bad parameter' do
-        bad_params = { DeveloperName: 0 }
-        expect(subject.call(bad_params).errors.to_h.keys).to match_array all_params.keys
+      it 'should list error for every parameter' do
+        bad_params = {DeveloperName: 0}
+        expect(subject.call(bad_params).errors.to_h.keys).to match_array required_params.keys
       end
     end
   end
