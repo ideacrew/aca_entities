@@ -53,7 +53,7 @@ RSpec.describe AcaEntities::Medicaid::Ios::Contracts::SspApplicationIndividualCC
 
   context 'invalid parameters' do
     context 'with incorrect data type' do
-      it 'should list error for every parameter' do
+      it 'should list error for every bad parameter' do
         bad_params = { MemberProgramsApplied__c: 0 }
         expect(subject.call(bad_params).errors.to_h.keys).to match_array bad_params.keys
       end

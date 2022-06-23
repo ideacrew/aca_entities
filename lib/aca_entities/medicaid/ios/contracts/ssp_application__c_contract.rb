@@ -54,7 +54,7 @@ module AcaEntities
             optional(:IsAgreeingToMedicaidPenalty__c).maybe(:string)
             optional(:HasPendingAccidentSettlementToggle__c).maybe(:string)
             optional(:IsPrimaryApplicantAddressModified__c).maybe(:bool)
-            required(:NotEnrolledInHealthCareCoverageToggle__c).filled(:string)
+            optional(:NotEnrolledInHealthCareCoverageToggle__c).maybe(:string)
           end
         end
       end
