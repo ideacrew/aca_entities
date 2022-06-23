@@ -123,14 +123,6 @@ module AcaEntities
             end
           end
 
-          # assumption is that ExpenseTypeCode__c indicates presence of expense
-          rule(:ExpenseTypeCode__c, :EndDate__c) do
-            if key && values[:ExpenseTypeCode__c] && values[:EndDate__c].nil?
-              key.failure(text: "invalid End Date - cannot be blank if Expense Type Code is present",
-                          error: result.errors.to_h)
-            end
-          end
-
           rule(:EndDate__c) do
             if key && value && value > Date.today
               key.failure(text: "invalid End Date - Date should be today or in the past.",

@@ -140,15 +140,6 @@ RSpec.describe AcaEntities::Medicaid::Ios::Contracts::SspAssetCContract, dbclean
     end
 
     context 'invalid end date' do
-      context 'with  expense type code present and end date missing' do
-        # need to confirm RequiredValidator for EndDate__c
-        it 'should fail validation' do
-          all_params[:EndDate__c] = nil
-          result = subject.call(all_params)
-          expect(result.success?).to be_falsey
-        end
-      end
-
       context 'with end date in the future' do
         it 'should fail validation' do
           all_params[:EndDate__c] = Date.today + 1
@@ -211,16 +202,6 @@ RSpec.describe AcaEntities::Medicaid::Ios::Contracts::SspAssetCContract, dbclean
     end
 
     context 'invalid start date' do
-      # need to confirm RequiredValidator for StartDate__c and EndDate__c
-
-      # context 'with  income type code present and end date missing' do
-      #   it 'should fail validation' do
-      #     all_params[:StartDate__c] = nil
-      #     result = subject.call(all_params)
-      #     expect(result.success?).to be_falsey
-      #   end
-      # end
-
       context 'with start date in the future' do
         it 'should fail validation' do
           all_params[:ExpenseTypeCode__c] = nil
