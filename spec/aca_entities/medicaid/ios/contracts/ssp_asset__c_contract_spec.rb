@@ -24,7 +24,6 @@ RSpec.describe AcaEntities::Medicaid::Ios::Contracts::SspAssetCContract, dbclean
       BusinessTitle__c: "Business",
       BusinessTypeCode__c: "Code",
       CashSurrenderValue__c: 1.00,
-      # ChildName__c:  "RequiredValidator; MaxStringLengthValidator(25); NameIllegalCharactersValidator"
       ChildName__c: "Child Name",
       City__c: "City",
       CountyCode__c: "Aroostok",
@@ -45,11 +44,11 @@ RSpec.describe AcaEntities::Medicaid::Ios::Contracts::SspAssetCContract, dbclean
       EIN__c: 12_345,
       EmployerName__c: "Employer",
       EmploymentEndReason__c: "Employment Reason",
-      EndDate__c: Date.today + 1, # RequiredValidator, FutureDateValidator, EndDateStartDateValidator
-      ExpenseAmount__c: 1.00, # CurrencyValidator, RequiredValidator
+      EndDate__c: Date.today,
+      ExpenseAmount__c: 1.00,
       ExpenseFrequencyCode__c: "Expense Frequency Code",
       ExpenseSubType__c: "Expense Type Code",
-      ExpenseTypeCode__c: "Code",
+      ExpenseTypeCode__c: "Child Support",
       FaceValueAmount__c: 1,
       FeesAmount__c: 1,
       FuneralFundCode__c: "Funeral Code",
@@ -83,7 +82,7 @@ RSpec.describe AcaEntities::Medicaid::Ios::Contracts::SspAssetCContract, dbclean
       PolicyNumber__c: "12345",
       PreFuneralAgmtGoodsAndServicesCost__c: 1.00,
       PrimaryPhoneExtension__c: "123",
-      PrimaryPhoneNumber__c: "1234567", # PhoneNumberValidator
+      PrimaryPhoneNumber__c: "123-456-7890",
       PrimaryUserIndividual__c: "Primary User",
       PrimaryUserIfOther__c: "Primary User If Other",
       RealEstateFairMarketValue__c: 1.00,
@@ -91,10 +90,10 @@ RSpec.describe AcaEntities::Medicaid::Ios::Contracts::SspAssetCContract, dbclean
       ResourceEndReason__c: "End Reason",
       ResourceSubTypeCode__c: "Resource Sub Type",
       ResourceTypeCode__c: "Resource Type Code",
-      StartDate__c: Date.today, # FutureDateValidator, RequiredValidator
+      StartDate__c: Date.today, # RequiredValidator
       StateCode__c: "State Code",
       Tips__c: 1.00,
-      TotalGrossAmount__c: 1.00,  # RequiredValidator, NotZeroValidator, CurrencyValidator
+      TotalGrossAmount__c: 1.00,  # CurrencyValidator
       TuitionAmount__c: 1.00,
       VehicleCategoryCode__c: "Vehicle Category Code",
       VehicleDebt__c: 1.00,
@@ -122,6 +121,152 @@ RSpec.describe AcaEntities::Medicaid::Ios::Contracts::SspAssetCContract, dbclean
     end
 
     # add examples to test validation rules
+    context 'invalid child name' do
+      context 'with expense type as Child Support and child name missing' do
+        it 'should fail validation' do
+          all_params[:ChildName__c] = nil
+          result = subject.call(all_params)
+          expect(result.success?).to be_falsey
+        end
+      end
+
+      context 'with child name longer than 25 characters' do
+        it 'should fail validation' do
+          all_params[:ChildName__c] = 'This Child Name is longer than 25 characters'
+          result = subject.call(all_params)
+          expect(result.success?).to be_falsey
+        end
+      end
+    end
+
+    context 'invalid end date' do
+      context 'with  expense type code present and end date missing' do
+        # need to confirm RequiredValidator for EndDate__c
+        it 'should fail validation' do
+          all_params[:EndDate__c] = nil
+          result = subject.call(all_params)
+          expect(result.success?).to be_falsey
+        end
+      end
+
+      context 'with end date in the future' do
+        it 'should fail validation' do
+          all_params[:EndDate__c] = Date.today + 1
+          result = subject.call(all_params)
+          expect(result.success?).to be_falsey
+        end
+      end
+
+      context 'with end date earlier than start date' do
+        it 'should fail validation' do
+          all_params[:EndDate__c] = Date.today - 1
+          result = subject.call(all_params)
+          expect(result.success?).to be_falsey
+        end
+      end
+    end
+
+    context 'invalid expense amount' do
+      context 'with more than 2 decimal places in amount' do
+        it 'should fail validation' do
+          all_params[:ExpenseAmount__c] = 1.111111
+          result = subject.call(all_params)
+          expect(result.success?).to be_falsey
+        end
+      end
+
+      context 'with value greater than 9999999999.99' do
+        it 'should fail validation' do
+          all_params[:ExpenseAmount__c] = 11_111_111_111_111
+          result = subject.call(all_params)
+          expect(result.success?).to be_falsey
+        end
+      end
+    end
+
+    context 'invalid primary phone number' do
+      context 'with invalid characters' do
+        it 'should fail validation' do
+          all_params[:PrimaryPhoneNumber__c] = '!23-4S6-7890'
+          result = subject.call(all_params)
+          expect(result.success?).to be_falsey
+        end
+      end
+
+      context 'with invalid length' do
+        it 'should fail validation' do
+          all_params[:PrimaryPhoneNumber__c] = '456-7890'
+          result = subject.call(all_params)
+          expect(result.success?).to be_falsey
+        end
+      end
+
+      context 'with invalid format' do
+        it 'should fail validation' do
+          all_params[:PrimaryPhoneNumber__c] = '1234567890'
+          result = subject.call(all_params)
+          expect(result.success?).to be_falsey
+        end
+      end
+    end
+
+    context 'invalid start date' do
+      # need to confirm RequiredValidator for StartDate__c and EndDate__c
+
+      # context 'with  income type code present and end date missing' do
+      #   it 'should fail validation' do
+      #     all_params[:StartDate__c] = nil
+      #     result = subject.call(all_params)
+      #     expect(result.success?).to be_falsey
+      #   end
+      # end
+
+      context 'with start date in the future' do
+        it 'should fail validation' do
+          all_params[:ExpenseTypeCode__c] = nil
+          all_params[:EndDate__c] = nil
+          all_params[:StartDate__c] = Date.today + 1
+          result = subject.call(all_params)
+          expect(result.success?).to be_falsey
+        end
+      end
+    end
+
+    context 'invalid total gross amount' do
+      context 'with income frequency present and total gross amount missing' do
+        it 'should fail validation' do
+          all_params[:TotalGrossAmount__c] = nil
+          result = subject.call(all_params)
+          expect(result.success?).to be_falsey
+        end
+      end
+
+      context 'with total gross amount of 0' do
+        it 'should fail validation' do
+          all_params[:TotalGrossAmount__c] = 0.00
+          result = subject.call(all_params)
+          expect(result.success?).to be_falsey
+        end
+      end
+
+      context 'with more than 2 decimal places in amount' do
+        it 'should fail validation' do
+          all_params[:TotalGrossAmount__c] = 1.111111
+          result = subject.call(all_params)
+          expect(result.success?).to be_falsey
+        end
+      end
+
+      context 'with value greater than 9999999999.99' do
+        it 'should fail validation' do
+          all_params[:TotalGrossAmount__c] = 11_111_111_111_111
+          result = subject.call(all_params)
+          expect(result.success?).to be_falsey
+        end
+      end
+
+    end
+
   end
 
   context 'valid parameters' do

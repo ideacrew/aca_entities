@@ -24,7 +24,6 @@ module AcaEntities
             optional(:BusinessTitle__c).maybe(:string)
             optional(:BusinessTypeCode__c).maybe(:string)
             optional(:CashSurrenderValue__c).maybe(:float)
-            # ChildName__c "RequiredValidator; MaxStringLengthValidator(25); NameIllegalCharactersValidator"
             optional(:ChildName__c).maybe(:string)
             optional(:City__c).maybe(:string)
             optional(:CountyCode__c).maybe(:string)
@@ -45,8 +44,8 @@ module AcaEntities
             optional(:EIN__c).maybe(:integer)
             optional(:EmployerName__c).maybe(:string)
             optional(:EmploymentEndReason__c).maybe(:string)
-            optional(:EndDate__c).maybe(:date) # RequiredValidator FutureDateValidator EndDateStartDateValidator
-            optional(:ExpenseAmount__c).maybe(:float)  # CurrencyValidator RequiredValidator
+            optional(:EndDate__c).maybe(:date)
+            optional(:ExpenseAmount__c).maybe(:float)
             optional(:ExpenseFrequencyCode__c).maybe(:string)
             optional(:ExpenseSubType__c).maybe(:string)
             optional(:ExpenseTypeCode__c).maybe(:string)
@@ -83,7 +82,7 @@ module AcaEntities
             optional(:PolicyNumber__c).maybe(:string)
             optional(:PreFuneralAgmtGoodsAndServicesCost__c).maybe(:float)
             optional(:PrimaryPhoneExtension__c).maybe(:string)
-            optional(:PrimaryPhoneNumber__c).maybe(:string) # PhoneNumberValidator
+            optional(:PrimaryPhoneNumber__c).maybe(:string)
             optional(:PrimaryUserIndividual__c).maybe(:string)
             optional(:PrimaryUserIfOther__c).maybe(:string)
             optional(:RealEstateFairMarketValue__c).maybe(:float)
@@ -91,10 +90,10 @@ module AcaEntities
             optional(:ResourceEndReason__c).maybe(:string)
             optional(:ResourceSubTypeCode__c).maybe(:string)
             optional(:ResourceTypeCode__c).maybe(:string)
-            optional(:StartDate__c).maybe(:date)  # FutureDateValidator RequiredValidator
+            optional(:StartDate__c).maybe(:date)
             optional(:StateCode__c).maybe(:string)
             optional(:Tips__c).maybe(:float)
-            optional(:TotalGrossAmount__c).maybe(:float)  # RequiredValidator NotZeroValidator CurrencyValidator
+            optional(:TotalGrossAmount__c).maybe(:float)
             optional(:TuitionAmount__c).maybe(:float)
             optional(:VehicleCategoryCode__c).maybe(:string)
             optional(:VehicleDebt__c).maybe(:float)
@@ -108,6 +107,102 @@ module AcaEntities
             # attribute :DependentCareProvider__r DependentCareProvider__r.optional.meta(omittable: true)
             # attribute :DependentIndividual__r DependentIndividual__r.optional.meta(omittable: true)
             optional(:DCResourceDetailId__c).maybe(:integer)
+          end
+
+          rule(:ChildName__c, :ExpenseTypeCode__c) do
+            if key && values[:ExpenseTypeCode__c] == 'Child Support' && values[:ChildName__c].nil?
+              key.failure(text: "invalid Child Name - cannot be blank if Expense Type Code is 'Child Support'",
+                          error: result.errors.to_h)
+            end
+          end
+
+          rule(:ChildName__c) do
+            if key && value && value.length > 25
+              key.failure(text: "invalid Child Name - Only a maximum of 25 characters allowed",
+                          error: result.errors.to_h)
+            end
+          end
+
+          # assumption is that ExpenseTypeCode__c indicates presence of expense
+          rule(:ExpenseTypeCode__c, :EndDate__c) do
+            if key && values[:ExpenseTypeCode__c] && values[:EndDate__c].nil?
+              key.failure(text: "invalid End Date - cannot be blank if Expense Type Code is present",
+                          error: result.errors.to_h)
+            end
+          end
+
+          rule(:EndDate__c) do
+            if key && value && value > Date.today
+              key.failure(text: "invalid End Date - Date should be today or in the past.",
+                          error: result.errors.to_h)
+            end
+          end
+
+          rule(:StartDate__c, :EndDate__c) do
+            if key && values[:StartDate__c] && values[:EndDate__c] && values[:EndDate__c] < values[:StartDate__c]
+              key.failure(text: "invalid End Date - End Date should be later than Start Date.",
+                          error: result.errors.to_h)
+            end
+          end
+
+          rule(:ExpenseAmount__c) do
+            if key && value
+              amount_strings = value.to_s.split('.')
+              fractional_string = amount_strings.last
+              whole_number, fractional = amount_strings.map(&:to_i)
+              if fractional_string.length > 2 || whole_number < 0 || whole_number > 9_999_999_999 || fractional < 0 || fractional > 99
+                key.failure(text: "invalid Expense Amount - must only have numbers, two decimal places, and have a value between 0 to 9999999999.99",
+                            error: result.errors.to_h)
+              end
+            end
+          end
+
+          rule(:PrimaryPhoneNumber__c) do
+            if key && value && value.match(/[^\d-]/)
+              key.failure(text: "invalid Primary Phone Number - Letters and special characters cannot be input into the field.",
+                          error: result.errors.to_h)
+            end
+          end
+
+          rule(:PrimaryPhoneNumber__c) do
+            if (key && value && value.length != 12) && (value[3] != '-' || value[7] != '-')
+              key.failure(text: "invalid Primary Phone Number - must be a valid 10-digit number in the following format: “123-456-7890”.",
+                          error: result.errors.to_h)
+            end
+          end
+
+          rule(:StartDate__c) do
+            if key && value && value > Date.today
+              key.failure(text: "invalid Start Date - Date should be today or in the past.",
+                          error: result.errors.to_h)
+            end
+          end
+
+          rule(:IncomePayFrequency__c, :TotalGrossAmount__c) do
+            if key && values[:IncomePayFrequency__c] && values[:TotalGrossAmount__c].nil?
+              key.failure(text: "invalid Total Gross Amount - cannot be blank if Income Pay Frequency is present.",
+                          error: result.errors.to_h)
+            end
+          end
+
+          rule(:TotalGrossAmount__c) do
+            if key && value && value == 0
+              key.failure(text: "invalid Total Gross Amount - Value must not be zero.",
+                          error: result.errors.to_h)
+            end
+          end
+
+          rule(:TotalGrossAmount__c) do
+            if key && value
+              amount_strings = value.to_s.split('.')
+              fractional_string = amount_strings.last
+              whole_number, fractional = amount_strings.map(&:to_i)
+              if fractional_string.length > 2 || whole_number < 0 || whole_number > 9_999_999_999 || fractional < 0 || fractional > 99
+                failure_text = "invalid Total Gross Amount - must only have numbers, two decimal places, and have a value between 0 to 9999999999.99"
+                key.failure(text: failure_text,
+                            error: result.errors.to_h)
+              end
+            end
           end
         end
       end
