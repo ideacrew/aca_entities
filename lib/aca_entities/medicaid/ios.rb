@@ -12,6 +12,10 @@ require_relative "ios/contracts/account_contact_relation_contract"
 require_relative "ios/contracts/ssp_application__c_contract"
 require_relative "ios/contracts/ssp_application_individual__c_contract"
 require_relative "ios/contracts/ssp_asset__c_contract"
+require_relative "ios/contracts/ssp_member__r_contract"
+require_relative "ios/contracts/ssp_relationship__c_contract"
+require_relative "ios/contracts/tax_filer_member_current__r_contract"
+require_relative "ios/contracts/ssp_noncustodialparent__c_contract"
 
 # entities -> for reference only, to be cleaned up and removed once contracts have been built
 # require_relative "ios/agency_or_organization__r"
