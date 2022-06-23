@@ -9,7 +9,7 @@ RSpec.describe AcaEntities::Medicaid::Ios::Contracts::RecordTypeContract, dbclea
 
   context 'invalid parameters' do
     context 'with incorrect data type' do
-      it 'should list error for every parameter' do
+      it 'should list error for every bad parameter' do
         bad_params = { DeveloperName: 0 }
         expect(subject.call(bad_params).errors.to_h.keys).to match_array all_params.keys
       end
