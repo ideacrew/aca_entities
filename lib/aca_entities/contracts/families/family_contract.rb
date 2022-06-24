@@ -25,6 +25,7 @@ module AcaEntities
         # @option opts [Hash] :updated_by optional
         # @option opts [Hash] :timestamp optional
         # @option opts [Boolean] :documents_needed optional
+        # @option opts [Array] :group_premium_credits (optional)
         # @return [Dry::Monads::Result]
         params do
           required(:family_members).array(AcaEntities::Contracts::Families::FamilyMemberContract.params)
@@ -48,6 +49,8 @@ module AcaEntities
           optional(:updated_by).hash(AcaEntities::Contracts::People::PersonReferenceContract.params)
           optional(:timestamp).hash(TimeStampContract.params)
           optional(:documents_needed).maybe(:bool)
+
+          optional(:group_premium_credits).array(AcaEntities::PremiumCredits::Contracts::GroupContract.params)
         end
 
         # Need to have below rule and cannot move all MagiMedicaidApplication level rules to AcaEntities::Contracts::Contract because

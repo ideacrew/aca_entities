@@ -724,6 +724,20 @@ RSpec.describe AcaEntities::Families::Family, dbclean: :after_each do
     ]
   end
 
+  let(:group_premium_credits) do
+    [{
+      kind: 'aptc_csr',
+      start_on: Date.today,
+      members: [{ kind: 'aptc_eligible',
+                  value: 'true',
+                  start_on: Date.today,
+                  family_member_reference: { family_member_hbx_id: '1001',
+                                             first_name: 'first name',
+                                             last_name: 'last name',
+                                             person_hbx_id: '1001',
+                                             is_primary_family_member: true } }] }]
+  end
+
   let(:min_verification_due_date) { nil }
 
   let(:input_params) do
@@ -734,6 +748,7 @@ RSpec.describe AcaEntities::Families::Family, dbclean: :after_each do
       vlp_documents_status: nil,
       family_members: family_member_params,
       households: household_params,
+      group_premium_credits: group_premium_credits,
       documents: documents,
       special_enrollment_periods: special_enrollment_periods,
       broker_accounts: broker_accounts,

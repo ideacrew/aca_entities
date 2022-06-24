@@ -55,6 +55,12 @@ module AcaEntities
       attribute :timestamp,                         AcaEntities::TimeStamp.optional.meta(omittable: true)
       attribute :documents_needed,                  Types::Bool.optional.meta(omittable: true)
       attribute :policies,                  Types::Array.of(AcaEntities::Policies::Policy).optional.meta(omittable: true)
+
+      # @!attribute [r] group_premium_credits
+      # group_premium_credits of a family
+      # @return [Array<AcaEntities::PremiumCredits::Group>]
+      attribute :group_premium_credits, Types::Array.of(AcaEntities::PremiumCredits::Group).optional.meta(omittable: true)
+
     end
   end
 end
