@@ -7,7 +7,7 @@ RSpec.describe AcaEntities::Medicaid::Ios::Contracts::SspHealthInsuranceFacility
 
   let(:required_params) do
     {
-      CoverageStartDate__c: Date.today - 1 # RequiredValidator, EndDateStartDateValidator
+      CoverageStartDate__c: Date.today - 1
     }
   end
 
@@ -15,11 +15,11 @@ RSpec.describe AcaEntities::Medicaid::Ios::Contracts::SspHealthInsuranceFacility
     {
       SSP_InsuranceCoveredIndiv__c: "Insurance Coverd Indiv",
       Id: "12345",
-      CoverageEndDate__c: Date.today,  # CoverageEndDateAndReasonValidator, EndDateStartDateValidator
+      CoverageEndDate__c: Date.today,
       DCInsuranceCoveredIndivId__c: 12_345,
       DCId__c: 12_345,
-      FacilityType__c: "Facility Type",  # SelectAtLeast1Validator
-      EmploymentEndReason__c: "Employment End Reason"  # not on schema RequiredValidator
+      FacilityType__c: "Facility Type",  # SelectAtLeast1Validator <- validate in transform
+      EmploymentEndReason__c: "Employment End Reason"  # not on schema RequiredValidator <- need to confirm this field and requirement
     }
   end
 
@@ -38,24 +38,15 @@ RSpec.describe AcaEntities::Medicaid::Ios::Contracts::SspHealthInsuranceFacility
       end
     end
 
-    # ADD VALIDATION EXAMPLE GROUPS
-    # context 'invalid begin date' do
-    #   context 'with begin date in the future' do
-    #     it 'should fail validation' do
-    #       all_params[:BeginDate__c] = Date.today + 1
-    #       result = subject.call(all_params)
-    #       expect(result.success?).to be_falsey
-    #     end
-    #   end
-
-    #   context 'with end date earlier than start date' do
-    #     it 'should fail validation' do
-    #       all_params[:EndDate__c] = Date.today - 1
-    #       result = subject.call(all_params)
-    #       expect(result.success?).to be_falsey
-    #     end
-    #   end
-    # end
+    context 'invalid coverage end date' do
+      context 'with coverage end date earlier than coverage start date' do
+        it 'should fail validation' do
+          all_params[:CoverageEndDate__c] = Date.today - 2
+          result = subject.call(all_params)
+          expect(result.success?).to be_falsey
+        end
+      end
+    end
   end
 
   context 'valid parameters' do
