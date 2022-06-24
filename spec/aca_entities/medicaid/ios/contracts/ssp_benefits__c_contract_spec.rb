@@ -7,7 +7,7 @@ RSpec.describe AcaEntities::Medicaid::Ios::Contracts::SspBenefitsCContract, dbcl
 
   let(:required_params) do
     {
-      BeginDate__c: Date.now # OverlappingMedicareCoverageValidator, FutureDateValidator, RequiredValidator
+      BeginDate__c: Date.today # OverlappingMedicareCoverageValidator, FutureDateValidator, RequiredValidator
     }
   end
 
@@ -48,13 +48,11 @@ RSpec.describe AcaEntities::Medicaid::Ios::Contracts::SspBenefitsCContract, dbcl
       end
     end
 
-    context 'with invalid address line 2 characters' do
-      it 'should list fail validation' do
-        all_params[:MailingAddressLine2__c] = "Address!"
-        result = subject.call(all_params)
-        expect(result.success?).to be_falsey
-      end
-    end
+    # ADD VALIDATIONS EXAMPLE GROUPS
+    # context 'with invalid ...' do
+    #   it 'should list fail validation' do
+    #   end
+    # end
   end
 
   context 'valid parameters' do
