@@ -746,7 +746,8 @@ RSpec.describe AcaEntities::Contracts::Families::FamilyContract,  dbclean: :afte
                                              first_name: 'first name',
                                              last_name: 'last name',
                                              person_hbx_id: '1001',
-                                             is_primary_family_member: true } }] }]
+                                             is_primary_family_member: true } }]
+    }]
   end
 
   let(:required_params) do

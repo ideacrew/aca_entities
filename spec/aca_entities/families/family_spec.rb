@@ -735,7 +735,8 @@ RSpec.describe AcaEntities::Families::Family, dbclean: :after_each do
                                              first_name: 'first name',
                                              last_name: 'last name',
                                              person_hbx_id: '1001',
-                                             is_primary_family_member: true } }] }]
+                                             is_primary_family_member: true } }]
+    }]
   end
 
   let(:min_verification_due_date) { nil }
