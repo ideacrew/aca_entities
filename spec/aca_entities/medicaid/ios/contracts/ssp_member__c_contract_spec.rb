@@ -1,0 +1,258 @@
+# frozen_string_literal: true
+
+require 'spec_helper'
+require 'aca_entities/medicaid/ios'
+
+RSpec.describe AcaEntities::Medicaid::Ios::Contracts::SSPMemberCContract, dbclean: :after_each do
+
+  let(:required_params) do
+    {
+      FirstName__c: "Jane",
+      LATypeCode__c: "Code",
+      PhysicalAddressLine1__c: "1 Main St",
+      PhysicalCity__c: "Atlantis",
+      PhysicalStateCode__c: "CA",
+      PhysicalZipCode5__c: "12901",
+      PreferredNotificationMethodCode__c: "email",
+      TaxFilerMemberCurrent__r: { IndividualId__c: 129 },
+      LastName__c: "Doe",
+      MemberProgramsApplied__c: "MA"
+    }
+  end
+
+  let(:optional_params) do
+    {
+      Name: "Name",
+      Id: "Id",
+      AgeAtFosterCare__c: 21,
+      AlienNumber__c: "3498578345",
+      AlienTypeCode__c: "Code",
+      BenefitTypeCode__c: "Code",
+      BirthDate__c: Date.new(1999, 1, 1),
+      BlindnessBenefitTypeCode__c: "Code",
+      BlindnessHasEndStageRenalDisease__c: "false",
+      BlindnessParentUnableToCareForChild__c: "false",
+      BlindnessStatus__c: "false",
+      CanBuyCookWithHOH__c: "true",
+      CheckingAccountNumber__c: "32498574835748457485",
+      CitizenshipNumber__c: "4253453453",
+      CitizenShipVerificationCode__c: "Code",
+      CountryOfIssuanceCode__c: "Code",
+      DCId__c: 123,
+      DCMemberHighestEducationLevelDetailsId__c: 3,
+      ProviderId__c: 485,
+      ProviderName__c: "Abott Costello",
+      DCMemberLivingArrangementId__c: 12,
+      DCMemberWorkReqExemptionId__c: 498,
+      DCPhysicalAddressId__c: "123 Main St",
+      DCMailingAddressId__c: "123 Main St",
+      DCPregnancyId__c: 283,
+      DeathConfirmationCode__c: "false",
+      DeathDate__c: Date.new(2022, 1, 1),
+      DHSComments__c: "look, such comment",
+      DisabilityStatus__c: "Status",
+      DivorceDate__c: Date.new(2019, 4, 3),
+      DocumentExpiryDate__c: Date.new(2025, 4, 5),
+      DocumentOtherDescription__c: "what a doc",
+      EligibilityStatementCode__c: "Code",
+      Email__c: "email@ems.com",
+      EmergencyBeginDate__c: Date.new(2021, 1, 1),
+      EmergencyEndDate__c: Date.new(2021, 12, 31),
+      EthnicityCode__c: "W",
+      ExpectedReturnDate__c: Date.new(2019, 1, 1),
+      FederalCaseNumber__c: "Cae number",
+      FosterStateCode__c: "ME",
+      GenderCode__c: "F",
+      HasAlimonyExpenseToggle__c: "false",
+      HasDependentCareExpenseToggle__c: "true",
+      HasDifferentMailingAddressToggle__c: "false",
+      HasDisabledExpensesToggle__c: "false",
+      HasEarnedIncomeFromEmploymentToggle__c: "false",
+      HasEndStageRenalDiseaseToggle__c: "false",
+      HasFederalIncarcerationInformation__c: "false",
+      HasHouseholdPaidChildSupportToggle__c: "false",
+      HasLegalImmigrationStatusToggle__c: "true",
+      HasLifeInsuranceToggle__c: "false",
+      HasLivedInUsToggle__c: "true",
+      HasMedicalExpensePartDToggle__c: "false",
+      HasOwnBankAccountToggle__c: "true",
+      HasPreArrangedFuneralContractToggle__c: "false",
+      HasRealEstatePropertyToggle__c: "false",
+      HasReceivedBenefitsFromOtherStateToggle__c: "false",
+      HasRecievedHalfMealsFrmInstToggle__c: "false",
+      HasSelfEmploymentIncomeToggle__c: "false",
+      HasShelterExpenseToggle__c: "false",
+      HasTaxDeductionsExpenseToggle__c: "false",
+      HasUnearnedIncomeToggle__c: "false",
+      HasUtilityExpenseToggle__c: "false",
+      HasVehicleToggle__c: "true",
+      HighestEducationGraduatedDate__c: Date.new(2004, 6, 6),
+      HighestEducationLevelCode__c: "Code",
+      I94Number__c: "I-94 Number",
+      IAVTypeCode__c: "Code",
+      ImmigrationLastName__c: "Doedoe",
+      ImmigrationDateOfBirth__c: Date.new(1989, 9, 8),
+      ImmigrationDocumentTypeCode__c: "Code",
+      ImmigrationFirstName__c: "Jane",
+      ImmigrationMiddleName__c: "II",
+      ImmigrationSuffix__c: "MD",
+      IncarcerationBeginDate__c: Date.new(2019, 1, 4),
+      IndianTribeCode__c: "HO",
+      IndianTribeState__c: "ME",
+      IndividualId__c: 854,
+      InHomeCareType__c: "false",
+      InmateStatusIndicator__c: "false",
+      IsBlindToggle__c: "false",
+      IsCoverageMonth1__c: false,
+      IsCoverageMonth2__c: false,
+      IsCoverageMonth3__c: false,
+      IsDateOfBirthValidated__c: true,
+      IsDateOfDeathValidated__c: false,
+      IsDisabledToggle__c: "false",
+      IsEligibleForIndianHealthServicesToggle__c: "true",
+      IsFederalRecognizedIndianTribeToggle__c: "true",
+      IsFileCleared__c: "false",
+      IsFiveYearBar__c: "false",
+      IsFiveYearBarMet__c: "false",
+      IsFixedAddressToggle__c: "false",
+      IsHispanicLatinoSpanishToggle__c: "false",
+      IsImmigrationDetailsMatch__c: "true",
+      IsIndividualAbleToRideToggle__c: "true",
+      IsIntendToResideToggle__c: "false",
+      IsMCICreateUpdateRequired__c: "false",
+      IsMigrantOrSeasonalFarmWorkerToggle__c: "false",
+      IsOnSickLeaveToggle__c: "false",
+      IsPregnantInLastThreeMonthsToggle__c: "false",
+      IsPrimaryTextPreferred__c: "false",
+      IsQualifiedNonCitizen__c: "false",
+      IsReceivingMedicareBenefitToggle__c: "false",
+      IsStateMedicaidprogramCode__c: "Cpde",
+      IsTMember__c: "false",
+      IsToBeReferredToWicToggle__c: "false",
+      IsUSCitizenToggle__c: "true",
+      IsUSCitizenValidated__c: "true",
+      IsVerifiedLawfulPresence__c: "true",
+      IsWaitingForDecisionToggle__c: "false",
+      LifeTimeQuarterQuantity__c: 3,
+      MaidCardNumber__c: "Card Number",
+      MailingCertifiedNoStatIndicator__c: "true",
+      PhysicalCertifiedNoStatIndicator__c: "true",
+      MailingCotVacancyIndicator__c: "false",
+      PhysicalCotVacancyIndicator__c: "false",
+      MailingMailAddrDeliveryCode__c: "Code",
+      PhysicalMailAddrDeliveryCode__c: "Code",
+      MailingResidentialDeliveryIndicator__c: "true",
+      PhysicalResidentialDeliveryIndicator__c: "true",
+      MCIId__c: "Id",
+      MiddleInitial__c: "O",
+      NationalityCode__c: "Code",
+      NaturalizationNumber__c: "123456",
+      NonCitizenClassOfAdmissionCode__c: "Code",
+      NonCitizenEntryDate__c: Date.new(1994, 7, 1),
+      NoReasonSSNCode__c: "Reason",
+      NumberOfBirthsExpected__c: 1,
+      OrganizationName__c: "Org",
+      ParentUnableToCareForChildToggle__c: "false",
+      PassportNumber__c: "4589678",
+      PhysicalAddressLine2__c: "Apt #54",
+      PhysicalAddrValidated__c: "false",
+      MailingAddrValidated__c: "false",
+      PhysicalCountyCode__c: "Code",
+      PhysicalZipCode4__c: "4567",
+      MailingAddressLine1__c: "123 Main St",
+      MailingAddressLine2__c: "Apt #54",
+      MailingCity__c: "Atlantis",
+      MailingCountyCode__c: "Code",
+      MailingStateCode__c: "ME",
+      MailingZipCode4__c: "4567",
+      MailingZipCode5__c: "12901",
+      PreferredIssuanceMethod__c: "Method",
+      PreferredSpokenLanguageCode__c: "EN",
+      PreferredWrittenLanguageCode__c: "EN",
+      PregnancyDueDate__c: Date.new(Date.today.year + 1, Date.today.month, Date.today.day),
+      PregnancyTerminationDate__c: Date.today,
+      PrimaryPhoneExtension__c: 123,
+      PrimaryPhoneNumber__c: "3476574567",
+      PrimaryPhoneTypeCode__c: "Code",
+      PrisonerConfinementDate__c: Date.today,
+      PseudoSSN__c: "999999999",
+      RaceCode__c: "Code",
+      ReceiptNumber__c: "38576745",
+      ReceivesSSIBenefitsToggle__c: "false",
+      RecoveryDate__c: Date.today,
+      IsAgreeingToLTCResourceTransferConsent__c: "true",
+      ReturnToWorkDate__c: Date.today,
+      RoutingNumber__c: "348574857345",
+      SecondaryPhoneExtension__c: 456,
+      DCAlienSponsorRelationship__c: 897,
+      SecondaryPhoneNumber__c: "11112223333",
+      SecondaryPhoneTypeCode__c: "Code",
+      IsMilitaryMemberToggle__c: "false",
+      SSN__c: "999999999",
+      SSNVerificationCode__c: "Code",
+      SSNVerificationDate__c: Date.today,
+      SSNVerified__c: true,
+      SuffixCode__c: "ESQ",
+      FederalReserve__c: "Reserve",
+      DCInternalAlienSponsorId__c: 872,
+      HasAlienSponsorToggle__c: "false",
+      SpecialNeedIndicatorToggle__c: "false",
+      RecordType: {},
+      TaxFilerStatusCurrentYear__c: "Single",
+      TaxFilerStatusNextYear__c: "Married",
+      UnableToBuyCookForSelfToggle__c: "false",
+      USCitizenCode__c: "Code",
+      MatchType__c: "Type",
+      SevisId__c: "32786473",
+      DeathDateVerificationCode__c: "Code",
+      IsFosterCareToggle__c: "false",
+      HasDeathDateChanged__c: "false",
+      SponsoredByOrganization__c: "Org",
+      InternalAlienSponsor__c: "Org",
+      ExternalAlienSponsor__c: "Org",
+      HasHouseholdHomeless__c: "false",
+      TemporarilyLivesElsewhereToggle__c: "false",
+      HospitalizationStartDate__c: Date.today,
+      HospitalizationEndDate__c: Date.today,
+      IsRequestingOrReceivingCISToggle__c: "false",
+      IsReceivingCaretakerServicesToggle__c: "false",
+      IsNonUSCitizenMilitaryMemberToggle__c: "false",
+      Alias_First_Name__c: "Jason",
+      Alias_Last_Name__c: "Bourne",
+      PregnancyExpectedDueDate__c: Date.today,
+      LivingArrangementAfterReleaseDate__c: "Home",
+      MedicareTypeCode__c: "Code"
+    }
+  end
+
+  let(:all_params) { required_params.merge(optional_params) }
+
+  context 'invalid parameters' do
+    context 'with empty parameters' do
+      it 'should list error for every required parameter' do
+        expect(subject.call({}).errors.to_h.keys).to match_array required_params.keys
+      end
+    end
+
+    context 'with optional parameters only' do
+      it 'should list error for every required parameter' do
+        expect(subject.call(optional_params).errors.to_h.keys).to match_array required_params.keys
+      end
+    end
+  end
+
+  context 'valid parameters' do
+    context 'with required parameters only' do
+      it { expect(subject.call(required_params).success?).to be_truthy }
+      it { expect(subject.call(required_params).to_h).to eq required_params }
+    end
+
+    context 'with all required and optional parameters' do
+      it 'should pass validation' do
+        result = subject.call(all_params)
+        expect(result.success?).to be_truthy
+        expect(result.to_h).to eq all_params
+      end
+    end
+  end
+end

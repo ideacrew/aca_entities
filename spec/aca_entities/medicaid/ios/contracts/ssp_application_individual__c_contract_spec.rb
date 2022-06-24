@@ -47,7 +47,8 @@ RSpec.describe AcaEntities::Medicaid::Ios::Contracts::SspApplicationIndividualCC
       ServiceEndDate__c: Date.today + 1,
       ServiceStartDate__c: Date.today,
       CaretakerRelation__c: "Caretaker",
-      IsCaretakerLivingTogetherToggle__c: "Y"
+      IsCaretakerLivingTogetherToggle__c: "Y",
+      MaineCareSubProgram__c: "MA"
     }
   end
 

@@ -48,6 +48,7 @@ module AcaEntities
             optional(:ServiceStartDate__c).maybe(:date)
             optional(:CaretakerRelation__c).maybe(:string)
             optional(:IsCaretakerLivingTogetherToggle__c).maybe(:string)
+            optional(:MaineCareSubProgram__c).maybe(:string)
             #  optional(:"" Types).maybe()::Boolean.meta(omittable: false)
           end
         end
