@@ -7,7 +7,7 @@ RSpec.describe AcaEntities::Medicaid::Ios::Contracts::SspBenefitsCContract, dbcl
 
   let(:required_params) do
     {
-      BeginDate__c: Date.today # OverlappingMedicareCoverageValidator, , RequiredValidator
+      BeginDate__c: Date.today # OverlappingMedicareCoverageValidator <- validate in transform
     }
   end
 
@@ -24,7 +24,7 @@ RSpec.describe AcaEntities::Medicaid::Ios::Contracts::SspBenefitsCContract, dbcl
       BenefitInfoCounty__c: "Benefit Info County",
       BenefitTypeCode__c: "Benefit Type Code",
       DCId__c: 12_345,
-      EndDate__c: Date.today, # OverlappingMedicareCoverageValidator, EndDateStartDateValidator
+      EndDate__c: Date.today, # OverlappingMedicareCoverageValidator <- need to implement? no definnition in spreadsheet
       State__c: "State",
       StatusofApplication__c: "Status of Application",
       HasMedicareCoverageButNoInfo__c: false,
