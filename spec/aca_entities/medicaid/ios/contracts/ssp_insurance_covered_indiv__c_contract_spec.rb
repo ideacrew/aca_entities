@@ -51,15 +51,15 @@ RSpec.describe AcaEntities::Medicaid::Ios::Contracts::SspInsuranceCoveredIndivCC
       end
     end
 
-    # add examples to test validation rules
-    # context 'invalid ext policy holder middle initial' do
-    #   context 'with middle initial longer than 30 characters' do
-    #     it 'should fail validation' do
-    #       all_params[:ExtPolicyHolderMiddleInitial__c] = "ExtPolicyHolderMiddleInitial__c longer than 30 chars"
-    #       result = subject.call(all_params)
-    #       expect(result.success?).to be_falsey
-    #     end
-    #   end
+    context 'invalid ext policy holder middle initial' do
+      context 'with middle initial longer than 30 characters' do
+        it 'should fail validation' do
+          all_params[:ExtPolicyHolderMiddleInitial__c] = "ExtPolicyHolderMiddleInitial__c longer than 30 chars"
+          result = subject.call(all_params)
+          expect(result.success?).to be_falsey
+        end
+      end
+    end
   end
 
   context 'valid parameters' do

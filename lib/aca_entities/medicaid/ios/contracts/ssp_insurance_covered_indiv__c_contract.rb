@@ -16,14 +16,15 @@ module AcaEntities
             optional(:ExtCity__c).maybe(:string)
             optional(:ExtPolicyHolderFirstName__c).maybe(:string)
             optional(:ExtPolicyHolderLastName__c).maybe(:string)
-            optional(:ExtPolicyHolderMiddleInitial__c).maybe(:string) # MaxStringLengthValidator(30)
+            optional(:ExtPolicyHolderMiddleInitial__c).maybe(:string)
             optional(:ExtPolicyHolderSsn__c).maybe(:integer)
             optional(:ExtStateCode__c).maybe(:string)
             optional(:ExtZipCode4__c).maybe(:string)
             optional(:ExtZipCode5__c).maybe(:string)
             optional(:FirstName__c).maybe(:string)
             optional(:Gender__c).maybe(:string)
-            optional(:IsEnrolled__c).maybe(:bool) # SelectAtLeast1CoverageEnrollmentValidator
+            # IsEnrolled__c: SelectAtLeast1CoverageEnrollmentValidator not defined in spreadsheet, need more info to implement
+            optional(:IsEnrolled__c).maybe(:bool)
             optional(:IsTobbacoConsumerToggle__c).maybe(:string)
             optional(:LastName__c).maybe(:string)
             optional(:MedicaidId__c).maybe(:string)
@@ -41,6 +42,14 @@ module AcaEntities
             optional(:RecordType).maybe(:hash)
             optional(:SSP_Member__r).maybe(:hash)
           end
+
+          rule(:ExtPolicyHolderMiddleInitial__c) do
+            if key && value && value.length > 30
+              key.failure(text: "invalid Ext Policy Holder Middle Initial - Only a maximum of 30 characters allowed",
+                          error: result.errors.to_h)
+            end
+          end
+
         end
       end
     end
