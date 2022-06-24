@@ -12,14 +12,14 @@ module AcaEntities
             optional(:BenefitPrograms__c).maybe(:string)
             optional(:MedicareTypeCode__c).maybe(:string)
             optional(:MedicareNumber__c).maybe(:string)
-            required(:BeginDate__c).filled(:date)  # OverlappingMedicareCoverageValidator FutureDateValidator RequiredValidator
+            required(:BeginDate__c).filled(:date)  # OverlappingMedicareCoverageValidator  RequiredValidator <- VALIDATE THESE IN TRANSFORM?
             optional(:BenefitApplicationDate__c).maybe(:date)
             optional(:BenefitDenialDate__c).maybe(:date)
             optional(:BenefitDenialReason__c).maybe(:string)
             optional(:BenefitInfoCounty__c).maybe(:string)
             optional(:BenefitTypeCode__c).maybe(:string)
             optional(:DCId__c).maybe(:integer)
-            optional(:EndDate__c).maybe(:date) # OverlappingMedicareCoverageValidator EndDateStartDateValidator
+            optional(:EndDate__c).maybe(:date) # OverlappingMedicareCoverageValidator <- VALIDATE THIS IN TRANSFORM?
             optional(:State__c).maybe(:string)
             optional(:StatusofApplication__c).maybe(:string)
             optional(:HasMedicareCoverageButNoInfo__c).maybe(:bool)
@@ -27,11 +27,19 @@ module AcaEntities
             optional(:SSP_Member__r).maybe(:hash)
           end
 
-          # ADD VALIDATIONS
-          # rule(:BeginDate__c) do
-          #   if key && value
-          #   end
-          # end
+          rule(:BeginDate__c) do
+            if key && value && value > Date.today
+              key.failure(text: "invalid Begin Date - Date should be today or in the past.",
+                          error: result.errors.to_h)
+            end
+          end
+
+          rule(:BeginDate__c, :EndDate__c) do
+            if key && values[:BeginDate__c] && values[:EndDate__c] && values[:EndDate__c] < values[:BeginDate__c]
+              key.failure(text: "invalid End Date - End Date should be later than Begin Date.",
+                          error: result.errors.to_h)
+            end
+          end
         end
       end
     end

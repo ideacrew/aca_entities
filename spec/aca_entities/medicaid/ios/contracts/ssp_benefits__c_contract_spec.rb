@@ -7,7 +7,7 @@ RSpec.describe AcaEntities::Medicaid::Ios::Contracts::SspBenefitsCContract, dbcl
 
   let(:required_params) do
     {
-      BeginDate__c: Date.today # OverlappingMedicareCoverageValidator, FutureDateValidator, RequiredValidator
+      BeginDate__c: Date.today # OverlappingMedicareCoverageValidator, , RequiredValidator
     }
   end
 
@@ -48,11 +48,23 @@ RSpec.describe AcaEntities::Medicaid::Ios::Contracts::SspBenefitsCContract, dbcl
       end
     end
 
-    # ADD VALIDATIONS EXAMPLE GROUPS
-    # context 'with invalid ...' do
-    #   it 'should list fail validation' do
-    #   end
-    # end
+    context 'invalid begin date' do
+      context 'with begin date in the future' do
+        it 'should fail validation' do
+          all_params[:BeginDate__c] = Date.today + 1
+          result = subject.call(all_params)
+          expect(result.success?).to be_falsey
+        end
+      end
+
+      context 'with end date earlier than start date' do
+        it 'should fail validation' do
+          all_params[:EndDate__c] = Date.today - 1
+          result = subject.call(all_params)
+          expect(result.success?).to be_falsey
+        end
+      end
+    end
   end
 
   context 'valid parameters' do
