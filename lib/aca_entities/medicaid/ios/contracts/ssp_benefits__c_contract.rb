@@ -12,14 +12,14 @@ module AcaEntities
             optional(:BenefitPrograms__c).maybe(:string)
             optional(:MedicareTypeCode__c).maybe(:string)
             optional(:MedicareNumber__c).maybe(:string)
-            required(:BeginDate__c).filled(:date)  # OverlappingMedicareCoverageValidator  RequiredValidator <- VALIDATE THESE IN TRANSFORM?
+            required(:BeginDate__c).filled(:date)  # OverlappingMedicareCoverageValidator <- VALIDATE THESE IN TRANSFORM
             optional(:BenefitApplicationDate__c).maybe(:date)
             optional(:BenefitDenialDate__c).maybe(:date)
             optional(:BenefitDenialReason__c).maybe(:string)
             optional(:BenefitInfoCounty__c).maybe(:string)
             optional(:BenefitTypeCode__c).maybe(:string)
             optional(:DCId__c).maybe(:integer)
-            optional(:EndDate__c).maybe(:date) # OverlappingMedicareCoverageValidator <- VALIDATE THIS IN TRANSFORM?
+            optional(:EndDate__c).maybe(:date) # OverlappingMedicareCoverageValidator <- VALIDATE THIS IN TRANSFORM
             optional(:State__c).maybe(:string)
             optional(:StatusofApplication__c).maybe(:string)
             optional(:HasMedicareCoverageButNoInfo__c).maybe(:bool)
