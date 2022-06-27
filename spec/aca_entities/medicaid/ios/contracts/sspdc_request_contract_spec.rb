@@ -17,7 +17,7 @@ RSpec.describe AcaEntities::Medicaid::Ios::Contracts::SspdcRequestContract, dbcl
       SSP_HealthInsuranceFacilityType__c: [health_insurance_facility_type],
       SSP_Relationship__c: [relationship],
       SSP_ApplicationIndividual__c: [application_individual],
-      SSP_InsurancePolicy__c: [], # Types::Array.of(SSPInsurancePolicyC).optional.meta(omittable: true) # <- no ticket (needs contract, etc)???
+      SSP_InsurancePolicy__c: [insurance_policy],
       SSP_InsuranceCoveredIndiv__c: [insurance_covered_indiv],
       contact: [contact]
     }
@@ -311,6 +311,35 @@ RSpec.describe AcaEntities::Medicaid::Ios::Contracts::SspdcRequestContract, dbcl
       Id: "Id",
       RecordType: {},
       SSP_Member__r: {}
+    }
+  end
+
+  let(:insurance_policy) do
+    {
+      Is_this_an_empl__c: "N",
+      IsEnrolledInInsurance__c: true,
+      DCId__c: 12_345,
+      InsuranceCompanyName__c: "Insurance Co",
+      InsuranceGroupNumber__c: "Group 123",
+      InsurancePolicyNumber__c: "Policy 123",
+      PhysicalAddressLine1__c: "123 Main St",
+      PhysicalAddressLine2__c: "Apt 1",
+      PhysicalCity__c: "Atlantis",
+      PhysicalCountryCode__c: "USA",
+      PhysicalStateCode__c: "ME",
+      PhysicalZipCode4__c: "1234",
+      PhysicalZipCode5__c: "12345",
+      PlanName__c: "Plan Name",
+      PolicyBeginDate__c: Date.today,
+      TypeOfCoverageCode__c: "Coverage Code",
+      IndividualId__c: 12_345,
+      EnrollmentTierLevel__c: "Tier Level",
+      IsPolicyUpdated__c: false,
+      Id: "Id",
+      IsDeleted__c: false,
+      DCEmploymentDetailId__c: 12_345,
+      EmployerName__c: "Employer Name",
+      IsHealthCareCovPolicyHolderOutSideCase__c: false
     }
   end
 
