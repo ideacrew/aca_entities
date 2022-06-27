@@ -120,7 +120,6 @@ RSpec.describe AcaEntities::Medicaid::Ios::Contracts::SspAssetCContract, dbclean
       end
     end
 
-    # add examples to test validation rules
     context 'invalid child name' do
       context 'with expense type as Child Support and child name missing' do
         it 'should fail validation' do
