@@ -825,6 +825,37 @@ RSpec.describe AcaEntities::Contracts::Families::FamilyContract,  dbclean: :afte
       end
     end
 
+    context 'rules of group_premium_credits' do
+      let(:end_on) { (Date.today - 10).to_s }
+      let(:start_on) { Date.today.to_s }
+      let(:group_premium_credits) do
+        [{
+          kind: 'aptc_csr',
+          start_on: start_on,
+          end_on: end_on,
+          members: [{ kind: 'aptc_eligible',
+                      value: 'true',
+                      start_on: start_on,
+                      end_on: end_on,
+                      family_member_reference: { family_member_hbx_id: '1001',
+                                                 first_name: 'first name',
+                                                 last_name: 'last name',
+                                                 person_hbx_id: '1001',
+                                                 is_primary_family_member: true } }]
+        }]
+      end
+
+      before do
+        @result = subject.call(required_params)
+      end
+
+      it 'should return failure with error message' do
+        errors = subject.call(required_params).errors.to_h[:group_premium_credits][0]
+        error_msg = "end_on: #{end_on} should always succeed start_on: #{start_on}"
+        expect(errors).to eq({ end_on: [error_msg], members: { 0 => { end_on: [error_msg] } } })
+      end
+    end
+
     context 'with magi_medicaid_applications' do
       let(:applicant) do
         { name: {},
