@@ -6,29 +6,20 @@ require 'aca_entities/medicaid/ios'
 RSpec.describe AcaEntities::Medicaid::Ios::Contracts::SspdcRequestContract, dbclean: :after_each do
 
   let(:all_params) do
-    # commented out fields are from the schema but not expected from us
     {
-      SubmitType: "Submit Type", # this should be defaulted to 'Intake'
+      SubmitType: "Submit Type",
       SubmittedBy: "Submitted By",
-      ApplicationReceivedDateTime: DateTime.now,  # application submission timestamp
+      ApplicationReceivedDateTime: DateTime.now,
       SSP_Application__c: application,
       SSP_Member__c: [{ IndividualId__c: 1 }],
       SSP_Asset__c: [asset],
       SSP_Benefits__c: [benefit],
-      # attribute :SSP_Transaction__c, Types::Array.of(SSP_Transaction__c).optional.meta(omittable: true)
-      # attribute :SSP_ResourceOwnership__c, Types::Array.of(SSP_ResourceOwnership__c).optional.meta(omittable: true)
       SSP_HealthInsuranceFacilityType__c: [health_insurance_facility_type],
-      # attribute :SSP_Attendance__c, Types::Array.of(SSP_Attendance__c).optional.meta(omittable: true)
       SSP_Relationship__c: [relationship],
       SSP_ApplicationIndividual__c: [application_individual],
       SSP_InsurancePolicy__c: [], # Types::Array.of(SSPInsurancePolicyC).optional.meta(omittable: true) # <- no ticket (needs contract, etc)???
       SSP_InsuranceCoveredIndiv__c: [insurance_covered_indiv],
       contact: [contact]
-      # attribute :SSP_TrackDeletion__c, Types::Array.of(SSP_TrackDeletion__c).optional.meta(omittable: true)
-      # attribute :SSP_NoncustodialRelationship__c, Types::Array.of(SSP_NoncustodialRelationship__c).optional.meta(omittable: true)
-      # attribute :SSP_NonCustodialParent__c, Types::Array.of(SSP_NonCustodialParent__c).optional.meta(omittable: true)
-      # attribute :accountContactRelation, Types::Array.of(accountContactRelation).optional.meta(omittable: true)
-      # attribute :SSP_AlienSponsor__c, Types::Array.of(SSP_AlienSponsor__c).optional.meta(omittable: true)
     }
   end
 
@@ -190,7 +181,7 @@ RSpec.describe AcaEntities::Medicaid::Ios::Contracts::SspdcRequestContract, dbcl
 
   let(:benefit) do
     {
-      BeginDate__c: Date.today, # OverlappingMedicareCoverageValidator <- validate in transform
+      BeginDate__c: Date.today,
       SSP_Member__c: "Member",
       Id: "12345",
       BenefitPrograms__c: "Benefits Programs",
@@ -202,7 +193,7 @@ RSpec.describe AcaEntities::Medicaid::Ios::Contracts::SspdcRequestContract, dbcl
       BenefitInfoCounty__c: "Benefit Info County",
       BenefitTypeCode__c: "Benefit Type Code",
       DCId__c: 12_345,
-      EndDate__c: Date.today, # OverlappingMedicareCoverageValidator <- need to implement? no definnition in spreadsheet
+      EndDate__c: Date.today,
       State__c: "State",
       StatusofApplication__c: "Status of Application",
       HasMedicareCoverageButNoInfo__c: false,
@@ -219,8 +210,8 @@ RSpec.describe AcaEntities::Medicaid::Ios::Contracts::SspdcRequestContract, dbcl
       CoverageEndDate__c: Date.today,
       DCInsuranceCoveredIndivId__c: 12_345,
       DCId__c: 12_345,
-      FacilityType__c: "Facility Type",  # SelectAtLeast1Validator <- validate in transform
-      EmploymentEndReason__c: "Employment End Reason"  # not on schema RequiredValidator <- need to confirm this field and requirement
+      FacilityType__c: "Facility Type",
+      EmploymentEndReason__c: "Employment End Reason"
     }
   end
 
@@ -296,14 +287,14 @@ RSpec.describe AcaEntities::Medicaid::Ios::Contracts::SspdcRequestContract, dbcl
       ExtCity__c: "Sim City",
       ExtPolicyHolderFirstName__c: "Ex",
       ExtPolicyHolderLastName__c: "PolicyHolder",
-      ExtPolicyHolderMiddleInitial__c: "T",  # MaxStringLengthValidator(30)
+      ExtPolicyHolderMiddleInitial__c: "T",
       ExtPolicyHolderSsn__c: 123_456_789,
       ExtStateCode__c: "State",
       ExtZipCode4__c: "1234",
       ExtZipCode5__c: "12345",
       FirstName__c: "First",
       Gender__c: "F",
-      IsEnrolled__c: true,  # SelectAtLeast1CoverageEnrollmentValidator
+      IsEnrolled__c: true,
       IsTobbacoConsumerToggle__c: "N",
       LastName__c: "Last",
       MedicaidId__c: "Medicaid Id",
