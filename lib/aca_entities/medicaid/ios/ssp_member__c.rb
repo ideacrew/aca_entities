@@ -34,7 +34,7 @@ module AcaEntities
         attribute :DeathDate__c, Types::Date.optional.meta(omittable: true)
         attribute :DHSComments__c, Types::String.optional.meta(omittable: true)
         attribute :DisabilityStatus__c, Types::String.optional.meta(omittable: true)
-        attribute :DivorceDate__c, Types::Date.optional.meta(omittable: true) # RequiredValidator
+        attribute :DivorceDate__c, Types::Date.optional.meta(omittable: true) # RequiredValidator do validation in transform
         attribute :DocumentExpiryDate__c, Types::Date.optional.meta(omittable: true) # RequiredValidator, DateFieldValidator
         attribute :DocumentOtherDescription__c, Types::String.optional.meta(omittable: true) # RequiredValidator
         attribute :EligibilityStatementCode__c, Types::String.optional.meta(omittable: true)
@@ -49,7 +49,7 @@ module AcaEntities
         attribute :GenderCode__c, Types::String.optional.meta(omittable: true)
         attribute :HasAlimonyExpenseToggle__c, Types::String.optional.meta(omittable: true)
         attribute :HasDependentCareExpenseToggle__c, Types::String.optional.meta(omittable: true)
-        attribute :HasDifferentMailingAddressToggle__c, Types::String.optional.meta(omittable: true) # RequiredValidator
+        attribute :HasDifferentMailingAddressToggle__c, Types::String.optional.meta(omittable: true) # RequiredValidator coudn't figure out this one
         attribute :HasDisabledExpensesToggle__c, Types::String.optional.meta(omittable: true)
         attribute :HasEarnedIncomeFromEmploymentToggle__c, Types::String.optional.meta(omittable: true)
         attribute :HasEndStageRenalDiseaseToggle__c, Types::String.optional.meta(omittable: true)
@@ -160,8 +160,8 @@ module AcaEntities
         # PreferredNotificationMethodCode__c SelectAtLeast1Validator, PreferredContactMethodValidator PreferredContactEmailValidator,
         # PreferredContactTextValidator, TextMessageOptInValidator
         attribute :PreferredNotificationMethodCode__c, Types::String.meta(omittable: false)
-        attribute :PreferredSpokenLanguageCode__c, Types::String.optional.meta(omittable: true)  # RequiredValidator
-        attribute :PreferredWrittenLanguageCode__c, Types::String.optional.meta(omittable: true)  # RequiredValidator
+        attribute :PreferredSpokenLanguageCode__c, Types::String.optional.meta(omittable: true)
+        attribute :PreferredWrittenLanguageCode__c, Types::String.optional.meta(omittable: true)
         # PregnancyDueDate__c required by db if pregnant, RequiredValidator, PregnancyDueDateValidator,
         # PastDateValidator, PregnancyOverlappingDateValidator
         attribute :PregnancyDueDate__c, Types::Date.optional.meta(omittable: true)
@@ -193,7 +193,7 @@ module AcaEntities
         attribute :HasAlienSponsorToggle__c, Types::String.optional.meta(omittable: true)
         attribute :SpecialNeedIndicatorToggle__c, Types::String.optional.meta(omittable: true)
         attribute :RecordType, RecordType.optional.meta(omittable: true)
-        attribute :TaxFilerMemberCurrent__r, TaxFilerMemberCurrent__r.meta(omittable: false) # RequiredValidator, ClaimantTaxFilingValidator
+        attribute :TaxFilerMemberCurrent__r, TaxFilerMemberCurrent__r.meta(omittable: false) # RequiredValidator, ClaimantTaxFilingValidator # this will have to be validated on transform!
         # attribute :OrganizationName__r, OrganizationName__r.optional.meta(omittable: true)
         # attribute :TaxFilerMemberNext__r, TaxFilerMemberNext__r.optional.meta(omittable: true)
         # attribute :FederalReserve__r, FederalReserve__r.optional.meta(omittable: true)
@@ -219,8 +219,8 @@ module AcaEntities
         attribute :IsNonUSCitizenMilitaryMemberToggle__c, Types::String.optional.meta(omittable: true)
         attribute :Alias_First_Name__c, Types::String.optional.meta(omittable: true)
         attribute :Alias_Last_Name__c, Types::String.optional.meta(omittable: true)
-        attribute :LivingArrangementAfterReleaseDate__c, Types::String.meta(omittable: false) # not on schema
-        attribute :MedicareTypeCode__c, Types::String.meta(omittable: false) # not on schema
+        attribute :LivingArrangementAfterReleaseDate__c, Types::String.meta(omittable: false)
+        attribute :MedicareTypeCode__c, Types::String.meta(omittable: false)
         attribute :PregnancyExpectedDueDate__c, Types::Date.optional.meta(omittable: true)
       end
     end
