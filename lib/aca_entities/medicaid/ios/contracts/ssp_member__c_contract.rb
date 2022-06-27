@@ -267,7 +267,7 @@ module AcaEntities
           rule(:I94Number__c) do
             re = Regexp.new('^\d{9}[a-zA-Z0-9]\d$').freeze
             if key && value && !value.match(re)
-              key.failure(text: "invalid I94 Number - I-94 numbers should be 11 digits long with the format of 9 digits, 
+              key.failure(text: "invalid I94 Number - I-94 numbers should be 11 digits long with the format of 9 digits,
                                  followed by a letter or digit in the 10th position, and a digit in the 11th position",
                           error: result.errors.to_h)
             end
@@ -379,7 +379,7 @@ module AcaEntities
           end
 
           rule(:PreferredNotificationMethodCode__c, :Email__c) do
-            if key && value && values[:PreferredNotificationMethodCode__c] == "Electronic - Email" && values[:Email__c] == nil
+            if key && value && values[:PreferredNotificationMethodCode__c] == "Electronic - Email" && values[:Email__c].nil?
               key.failure(text: "invalid contact method - You selected Email as your preferred method of contact but did not enter an email address.
                                  Please update your preferred method of contact or enter an email address.",
                           error: result.errors.to_h)
@@ -387,21 +387,23 @@ module AcaEntities
           end
 
           rule(:PreferredNotificationMethodCode__c, :PrimaryPhoneTypeCode__c, :SecondaryPhoneTypeCode__c) do
-            if key && value && (values[:PreferredNotificationMethodCode__c] == "Electronic - Text Message") && (values[:PrimaryPhoneTypeCode__c] != "M" || value[:SecondaryPhoneTypeCode__c] != "M")
-              key.failure(text: "invalid contact method - You selected Text Message as your preferred method of contact but did not enter a mobile phone number.",
+            if key && value && (values[:PreferredNotificationMethodCode__c] == "Electronic - Text Message") &&
+               (values[:PrimaryPhoneTypeCode__c] != "M" || value[:SecondaryPhoneTypeCode__c] != "M")
+              key.failure(text: "invalid contact method - You selected Text Message but did not enter a mobile phone number.",
                           error: result.errors.to_h)
             end
           end
 
           rule(:PreferredNotificationMethodCode__c, :IsPrimaryTextPreferred__c) do
-            if key && value && (values[:PreferredNotificationMethodCode__c] == "Electronic - Text Message") && (values[:IsPrimaryTextPreferred__c] != "Y")
+            if key && value && (values[:PreferredNotificationMethodCode__c] == "Electronic - Text Message") &&
+               (values[:IsPrimaryTextPreferred__c] != "Y")
               key.failure(text: "invalid contact method - You did not allow us to send you text messages",
                           error: result.errors.to_h)
             end
           end
 
           rule(:PreferredNotificationMethodCode__c, :IsPrimaryTextPreferred__c) do
-            if key && value && (values[:PreferredNotificationMethodCode__c] == "Electronic - Text Message") && (values[:IsPrimaryTextPreferred__c] == nil)
+            if key && value && (values[:PreferredNotificationMethodCode__c] == "Electronic - Text Message") && values[:IsPrimaryTextPreferred__c].nil?
               key.failure(text: "missing if allow us to send you text messages",
                           error: result.errors.to_h)
             end
@@ -460,15 +462,36 @@ module AcaEntities
           end
 
           rule(:IsUSCitizenToggle__c, :ImmigrationDocumentTypeCode__c) do
-            if key && value && (values[:IsUSCitizenToggle__c] == "N" && values[:ImmigrationDocumentTypeCode__c] == nil)
+            if key && value && (values[:IsUSCitizenToggle__c] == "N" && values[:ImmigrationDocumentTypeCode__c].nil?)
               key.failure(text: "missing Immigration Document Type - Immigration document type is required if not US citizen",
                           error: result.errors.to_h)
             end
           end
 
           rule(:ImmigrationDocumentTypeCode__c, :AlienNumber__c) do
-            doc_types = ["Member of a federally recognized Indian tribe or American Indian born in Canada", "I-551 (Permanent Resident Card)", "Cuban/Haitian entrant", "Certificate of Citizenship in non-US country", "Administrative order staying removal issued by DHS", "Certification from HHS", "I-327 (Reentry Permit)", "Temporary I-551 Stamp (on passport or I-94)", "I-571 (Refugee Travel Document)", "I-766 (Employment Authorization Card)", "Notice of Action (I-797)", "Machine Readable Immigrant Visa (with Temporary I-551 Language)", "Naturalization Certificate", "Office of Refugee Resettlement eligibility letter (if under 18)", "Office of Refugee Resettlement", "Other Immigration Document", "Resident of American Samoa", "Document indicating withholding of removal", "Petition under section 204(a)(1)(A) or (B) of INA", "Petition under section 244(a)(3) of INA", "Conversion", "Not Available"]
-            if key && value && (doc_types.include?(values[:ImmigrationDocumentTypeCode__c]) && values[:AlienNumber__c] == nil)
+            doc_types =
+              ["Member of a federally recognized Indian tribe or American Indian born in Canada",
+               "I-551 (Permanent Resident Card)",
+               "Cuban/Haitian entrant",
+               "Certificate of Citizenship in non-US country",
+               "Administrative order staying removal issued by DHS",
+               "Certification from HHS", "I-327 (Reentry Permit)",
+               "Temporary I-551 Stamp (on passport or I-94)",
+               "I-571 (Refugee Travel Document)",
+               "I-766 (Employment Authorization Card)",
+               "Notice of Action (I-797)",
+               "Machine Readable Immigrant Visa (with Temporary I-551 Language)",
+               "Naturalization Certificate",
+               "Office of Refugee Resettlement eligibility letter (if under 18)",
+               "Office of Refugee Resettlement",
+               "Other Immigration Document",
+               "Resident of American Samoa",
+               "Document indicating withholding of removal",
+               "Petition under section 204(a)(1)(A) or (B) of INA",
+               "Petition under section 244(a)(3) of INA",
+               "Conversion",
+               "Not Available"]
+            if key && value && (doc_types.include?(values[:ImmigrationDocumentTypeCode__c]) && values[:AlienNumber__c].nil?)
               key.failure(text: "missing alien number",
                           error: result.errors.to_h)
             end
@@ -476,7 +499,7 @@ module AcaEntities
 
           rule(:ImmigrationDocumentTypeCode__c, :CitizenshipNumber__c) do
             doc_types = ["Certificate of Citizenship in non-US country"]
-            if key && value && (doc_types.include?(values[:ImmigrationDocumentTypeCode__c]) && values[:CitizenshipNumber__c] == nil)
+            if key && value && (doc_types.include?(values[:ImmigrationDocumentTypeCode__c]) && values[:CitizenshipNumber__c].nil?)
               key.failure(text: "missing citizenship number",
                           error: result.errors.to_h)
             end
@@ -484,47 +507,64 @@ module AcaEntities
 
           rule(:ImmigrationDocumentTypeCode__c, :NaturalizationNumber__c) do
             doc_types = ["Naturalization Certificate"]
-            if key && value && (doc_types.include?(values[:ImmigrationDocumentTypeCode__c]) && values[:NaturalizationNumber__c] == nil)
+            if key && value && (doc_types.include?(values[:ImmigrationDocumentTypeCode__c]) && values[:NaturalizationNumber__c].nil?)
               key.failure(text: "missing Naturalization number",
                           error: result.errors.to_h)
             end
           end
 
           rule(:ImmigrationDocumentTypeCode__c, :CountryOfIssuanceCode__c) do
-            doc_types = ["I-94 (Arrival/Departure Record) in Unexpired Foreign Passport", "Unexpired Foreign Passport or Machine Readable Immigrant Visa (with Temporary I-551 Language)"]
-            if key && value && (doc_types.include?(values[:ImmigrationDocumentTypeCode__c]) && values[:CountryOfIssuanceCode__c] == nil)
+            doc_types = ["I-94 (Arrival/Departure Record) in Unexpired Foreign Passport",
+                         "Unexpired Foreign Passport or Machine Readable Immigrant Visa (with Temporary I-551 Language)"]
+            if key && value && (doc_types.include?(values[:ImmigrationDocumentTypeCode__c]) && values[:CountryOfIssuanceCode__c].nil?)
               key.failure(text: "missing country code",
                           error: result.errors.to_h)
             end
           end
 
           rule(:ImmigrationDocumentTypeCode__c, :I94Number__c) do
-            doc_types = ["I-94 (Arrival/Departure Record) in Unexpired Foreign Passport", "Unexpired Foreign Passport or Machine Readable Immigrant Visa (with Temporary I-551 Language)"]
-            if key && value && (doc_types.include?(values[:ImmigrationDocumentTypeCode__c]) && values[:I94Number__c] == nil)
+            doc_types = ["I-94 (Arrival/Departure Record) in Unexpired Foreign Passport",
+                         "Unexpired Foreign Passport or Machine Readable Immigrant Visa (with Temporary I-551 Language)"]
+            if key && value && (doc_types.include?(values[:ImmigrationDocumentTypeCode__c]) && values[:I94Number__c].nil?)
               key.failure(text: "missing I-94 number",
                           error: result.errors.to_h)
             end
           end
 
           rule(:ImmigrationDocumentTypeCode__c, :DocumentExpiryDate__c) do
-            doc_types = ["I-94 (Arrival/Departure Record) in Unexpired Foreign Passport", "Unexpired Foreign Passport or Machine Readable Immigrant Visa (with Temporary I-551 Language)"]
-            if key && value && (doc_types.include?(values[:ImmigrationDocumentTypeCode__c]) && values[:DocumentExpiryDate__c] == nil)
+            doc_types = ["I-94 (Arrival/Departure Record) in Unexpired Foreign Passport",
+                         "Unexpired Foreign Passport or Machine Readable Immigrant Visa (with Temporary I-551 Language)"]
+            if key && value && (doc_types.include?(values[:ImmigrationDocumentTypeCode__c]) && values[:DocumentExpiryDate__c].nil?)
               key.failure(text: "missing document expiry date",
                           error: result.errors.to_h)
             end
           end
 
           rule(:ImmigrationDocumentTypeCode__c, :DocumentOtherDescription__c) do
-            doc_types = ["Cuban/Haitian entrant", "Administrative order staying removal issued by DHS", "Certification from HHS", "Notice of Action (I-797)", "Office of Refugee Resettlement eligibility letter (if under 18)", "Office of Refugee Resettlement", "Other Immigration Document", "Resident of American Samoa", "Document indicating withholding of removal", "Petition under section 204(a)(1)(A) or (B) of INA p", "Petition under section 244(a)(3) of INA", "Conversion", "Not Available", "Member of a federally recognized Indian tribe or American Indian born in Canada"]
-            if key && value && (doc_types.include?(values[:ImmigrationDocumentTypeCode__c]) && values[:DocumentOtherDescription__c] == nil)
+            doc_types =
+              ["Cuban/Haitian entrant",
+               "Administrative order staying removal issued by DHS",
+               "Certification from HHS",
+               "Notice of Action (I-797)", "Office of Refugee Resettlement eligibility letter (if under 18)",
+               "Office of Refugee Resettlement",
+               "Other Immigration Document",
+               "Resident of American Samoa",
+               "Document indicating withholding of removal",
+               "Petition under section 204(a)(1)(A) or (B) of INA p",
+               "Petition under section 244(a)(3) of INA",
+               "Conversion",
+               "Not Available",
+               "Member of a federally recognized Indian tribe or American Indian born in Canada"]
+            if key && value && (doc_types.include?(values[:ImmigrationDocumentTypeCode__c]) && values[:DocumentOtherDescription__c].nil?)
               key.failure(text: "missing other document description",
                           error: result.errors.to_h)
             end
           end
 
           rule(:ImmigrationDocumentTypeCode__c, :SevisId__c) do
-            doc_types = ["DS2019 (Certificate of Eligibility for Exchange Visitor (J-1) Status)", "I-20 (Certificate of Eligibility for Nonimmigrant (F-1) Student Status)"]
-            if key && value && (doc_types.include?(values[:ImmigrationDocumentTypeCode__c]) && values[:SevisId__c] == nil)
+            doc_types = ["DS2019 (Certificate of Eligibility for Exchange Visitor (J-1) Status)",
+                         "I-20 (Certificate of Eligibility for Nonimmigrant (F-1) Student Status)"]
+            if key && value && (doc_types.include?(values[:ImmigrationDocumentTypeCode__c]) && values[:SevisId__c].nil?)
               key.failure(text: "missing Sevis id",
                           error: result.errors.to_h)
             end
@@ -532,120 +572,121 @@ module AcaEntities
 
           rule(:ImmigrationDocumentTypeCode__c, :ReceiptNumber__c) do
             doc_types = ["I-551 (Permanent Resident Card)", "I-766 (Employment Authorization Card)"]
-            if key && value && (doc_types.include?(values[:ImmigrationDocumentTypeCode__c]) && values[:ReceiptNumber__c] == nil)
-              key.failure(text: "missing Receipt #{}",
+            if key && value && (doc_types.include?(values[:ImmigrationDocumentTypeCode__c]) && values[:ReceiptNumber__c].nil?)
+              key.failure(text: "missing Receipt ",
                           error: result.errors.to_h)
             end
           end
 
           rule(:ImmigrationDocumentTypeCode__c, :PassportNumber__c) do
-            doc_types = ["I-94 (Arrival/Departure Record) in Unexpired Foreign Passport", "Unexpired Foreign Passport or Machine Readable Immigrant Visa (with Temporary I-551 Language)"]
-            if key && value && (doc_types.include?(values[:ImmigrationDocumentTypeCode__c]) && values[:PassportNumber__c] == nil)
-              key.failure(text: "missing Receipt #{}",
+            doc_types = ["I-94 (Arrival/Departure Record) in Unexpired Foreign Passport",
+                         "Unexpired Foreign Passport or Machine Readable Immigrant Visa (with Temporary I-551 Language)"]
+            if key && value && (doc_types.include?(values[:ImmigrationDocumentTypeCode__c]) && values[:PassportNumber__c].nil?)
+              key.failure(text: "missing Receipt ",
                           error: result.errors.to_h)
             end
           end
 
           rule(:IsFosterCareToggle__c, :FosterStateCode__c) do
-            if key && value && (values[:IsFosterCareToggle__c] == "Y" && values[:FosterStateCode__c] == nil)
+            if key && value && (values[:IsFosterCareToggle__c] == "Y" && values[:FosterStateCode__c].nil?)
               key.failure(text: "missing foster state code",
                           error: result.errors.to_h)
             end
           end
 
           rule(:IsFosterCareToggle__c, :IsStateMedicaidprogramCode__c) do
-            if key && value && (values[:IsFosterCareToggle__c] == "Y" && values[:IsStateMedicaidprogramCode__c] == nil)
+            if key && value && (values[:IsFosterCareToggle__c] == "Y" && values[:IsStateMedicaidprogramCode__c].nil?)
               key.failure(text: "missing former foster care medicaid",
                           error: result.errors.to_h)
             end
           end
 
           rule(:IsFederalRecognizedIndianTribeToggle__c, :IndianTribeCode__c) do
-            if key && value && (values[:IsFederalRecognizedIndianTribeToggle__c] == "Y" && values[:IndianTribeCode__c] == nil)
+            if key && value && (values[:IsFederalRecognizedIndianTribeToggle__c] == "Y" && values[:IndianTribeCode__c].nil?)
               key.failure(text: "missing forster state code",
                           error: result.errors.to_h)
             end
           end
 
           rule(:IsPregnant__c, :NumberOfBirthsExpected__c) do
-            if key && value && (values[:IsPregnant__c] == "Y" && values[:NumberOfBirthsExpected__c] == nil)
+            if key && value && (values[:IsPregnant__c] == "Y" && values[:NumberOfBirthsExpected__c].nil?)
               key.failure(text: "missing number of births expected",
                           error: result.errors.to_h)
             end
           end
 
           rule(:IsPregnant__c, :PregnancyDueDate__c) do
-            if key && value && (values[:IsPregnant__c] == "Y" && values[:PregnancyDueDate__c] == nil)
+            if key && value && (values[:IsPregnant__c] == "Y" && values[:PregnancyDueDate__c].nil?)
               key.failure(text: "missing due date",
                           error: result.errors.to_h)
             end
           end
 
           rule(:IsFixedAddressToggle__c, :PhysicalAddressLine1__c) do
-            if key && value && (values[:IsFixedAddressToggle__c] == "Y" && values[:PhysicalAddressLine1__c] == nil)
+            if key && value && (values[:IsFixedAddressToggle__c] == "Y" && values[:PhysicalAddressLine1__c].nil?)
               key.failure(text: "missing address line 1",
                           error: result.errors.to_h)
             end
           end
 
           rule(:IsFixedAddressToggle__c, :PhysicalCity__c) do
-            if key && value && (values[:IsFixedAddressToggle__c] == "Y" && values[:PhysicalCity__c] == nil)
+            if key && value && (values[:IsFixedAddressToggle__c] == "Y" && values[:PhysicalCity__c].nil?)
               key.failure(text: "missing city",
                           error: result.errors.to_h)
             end
           end
 
           rule(:IsFixedAddressToggle__c, :PhysicalStateCode__c) do
-            if key && value && (values[:IsFixedAddressToggle__c] == "Y" && values[:PhysicalStateCode__c] == nil)
+            if key && value && (values[:IsFixedAddressToggle__c] == "Y" && values[:PhysicalStateCode__c].nil?)
               key.failure(text: "missing state",
                           error: result.errors.to_h)
             end
           end
 
           rule(:IsFixedAddressToggle__c, :PhysicalCity__c) do
-            if key && value && (values[:IsFixedAddressToggle__c] == "Y" && values[:PhysicalZipCode5__c] == nil)
+            if key && value && (values[:IsFixedAddressToggle__c] == "Y" && values[:PhysicalZipCode5__c].nil?)
               key.failure(text: "missing zip",
                           error: result.errors.to_h)
             end
           end
 
           rule(:IsFixedAddressToggle__c, :PhysicalZipCode5__c) do
-            if key && value && (values[:IsFixedAddressToggle__c] == "Y" && values[:PhysicalZipCode5__c] == nil)
+            if key && value && (values[:IsFixedAddressToggle__c] == "Y" && values[:PhysicalZipCode5__c].nil?)
               key.failure(text: "missing zip",
                           error: result.errors.to_h)
             end
           end
 
           rule(:HasDifferentMailingAddress__c, :MailingAddressLine1__c) do
-            if key && value && (values[:HasDifferentMailingAddress__c] == "Y" && values[:MailingAddressLine1__c] == nil)
+            if key && value && (values[:HasDifferentMailingAddress__c] == "Y" && values[:MailingAddressLine1__c].nil?)
               key.failure(text: "missing address line 1",
                           error: result.errors.to_h)
             end
           end
 
           rule(:HasDifferentMailingAddress__c, :MailingCity__c) do
-            if key && value && (values[:HasDifferentMailingAddress__c] == "Y" && values[:MailingCity__c] == nil)
+            if key && value && (values[:HasDifferentMailingAddress__c] == "Y" && values[:MailingCity__c].nil?)
               key.failure(text: "missing city",
                           error: result.errors.to_h)
             end
           end
 
           rule(:HasDifferentMailingAddress__c, :MailingStateCode__c) do
-            if key && value && (values[:HasDifferentMailingAddress__c] == "Y" && values[:MailingStateCode__c] == nil)
+            if key && value && (values[:HasDifferentMailingAddress__c] == "Y" && values[:MailingStateCode__c].nil?)
               key.failure(text: "missing state",
                           error: result.errors.to_h)
             end
           end
 
           rule(:HasDifferentMailingAddress__c, :MailingCity__c) do
-            if key && value && (values[:HasDifferentMailingAddress__c] == "Y" && values[:MailingCity__c] == nil)
+            if key && value && (values[:HasDifferentMailingAddress__c] == "Y" && values[:MailingCity__c].nil?)
               key.failure(text: "missing zip",
                           error: result.errors.to_h)
             end
           end
 
           rule(:HasDifferentMailingAddress__c, :MailingZipCode5__c) do
-            if key && value && (values[:HasDifferentMailingAddress__c] == "Y" && values[:MailingZipCode5__c] == nil)
+            if key && value && (values[:HasDifferentMailingAddress__c] == "Y" && values[:MailingZipCode5__c].nil?)
               key.failure(text: "missing zip",
                           error: result.errors.to_h)
             end

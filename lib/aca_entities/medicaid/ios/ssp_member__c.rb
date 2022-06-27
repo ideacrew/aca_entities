@@ -169,6 +169,7 @@ module AcaEntities
         attribute :PrimaryPhoneExtension__c, Types::Integer.optional.meta(omittable: true) # MaxStringLengthValidator(10)
         attribute :PrimaryPhoneNumber__c, Types::String.optional.meta(omittable: true) # PhoneNumberValidator
         attribute :PrimaryPhoneTypeCode__c, Types::String.optional.meta(omittable: true) # SamePhoneTypeValidator
+        # PrisonerConfinementDate__c required but we don't collect this info!
         attribute :PrisonerConfinementDate__c, Types::Date.optional.meta(omittable: true) # RequiredValidator, FutureDateValidator
         attribute :PseudoSSN__c, Types::String.optional.meta(omittable: true)
         attribute :RaceCode__c, Types::String.optional.meta(omittable: true)
@@ -193,7 +194,8 @@ module AcaEntities
         attribute :HasAlienSponsorToggle__c, Types::String.optional.meta(omittable: true)
         attribute :SpecialNeedIndicatorToggle__c, Types::String.optional.meta(omittable: true)
         attribute :RecordType, RecordType.optional.meta(omittable: true)
-        attribute :TaxFilerMemberCurrent__r, TaxFilerMemberCurrent__r.meta(omittable: false) # RequiredValidator, ClaimantTaxFilingValidator # this will have to be validated on transform!
+        # TaxFilerMemberCurrent__r will have to be validated on transform!
+        attribute :TaxFilerMemberCurrent__r, TaxFilerMemberCurrent__r.meta(omittable: false) # RequiredValidator, ClaimantTaxFilingValidator
         # attribute :OrganizationName__r, OrganizationName__r.optional.meta(omittable: true)
         # attribute :TaxFilerMemberNext__r, TaxFilerMemberNext__r.optional.meta(omittable: true)
         # attribute :FederalReserve__r, FederalReserve__r.optional.meta(omittable: true)

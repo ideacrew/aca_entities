@@ -456,14 +456,14 @@ RSpec.describe AcaEntities::Medicaid::Ios::Contracts::SSPMemberCContract, dbclea
 
       it 'should list fail validation for text if no mobile number' do
         all_params[:PreferredNotificationMethodCode__c] = "Electronic - Text Message"
-        all_params[:IsPrimaryTextPreferred__c] == nil
+        all_params[:IsPrimaryTextPreferred__c].nil?
         result = subject.call(all_params)
         expect(result.success?).to be_falsey
       end
 
       it 'should list fail validation for text if did not allow for sending texts' do
         all_params[:PreferredNotificationMethodCode__c] = "Electronic - Text Message"
-        all_params[:IsPrimaryTextPreferred__c] == "N"
+        all_params[:IsPrimaryTextPreferred__c] = "N"
         result = subject.call(all_params)
         expect(result.success?).to be_falsey
       end
@@ -482,7 +482,7 @@ RSpec.describe AcaEntities::Medicaid::Ios::Contracts::SSPMemberCContract, dbclea
     context 'invalid phone extension' do
       context 'with invalid length' do
         it 'should fail validation if it is too long' do
-          all_params[:PrimaryPhoneExtension__c] = 123456789123456789
+          all_params[:PrimaryPhoneExtension__c] = 123_456_789_123_456_789
           result = subject.call(all_params)
           expect(result.success?).to be_falsey
         end
@@ -815,8 +815,6 @@ RSpec.describe AcaEntities::Medicaid::Ios::Contracts::SSPMemberCContract, dbclea
     end
 
   end
-
-
 
   context 'valid parameters' do
     context 'with required parameters only' do
