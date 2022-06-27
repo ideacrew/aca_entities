@@ -816,8 +816,6 @@ RSpec.describe AcaEntities::Medicaid::Ios::Contracts::SSPMemberCContract, dbclea
 
   end
 
-
-
   context 'valid parameters' do
     context 'with required parameters only' do
       it { expect(subject.call(required_params).success?).to be_truthy }
