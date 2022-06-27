@@ -18,7 +18,7 @@ module AcaEntities
         attribute :PhysicalZipCode4__c, Types::String.optional.meta(omittable: true)
         attribute :PhysicalZipCode5__c, Types::String.optional.meta(omittable: true)
         attribute :PlanName__c, Types::String.optional.meta(omittable: true)
-        attribute :PolicyBeginDate__c, Types::String.optional.meta(omittable: true) # does "format": "date" imply validation?
+        attribute :PolicyBeginDate__c, Types::String.optional.meta(omittable: true)
         attribute :TypeOfCoverageCode__c, Types::String.optional.meta(omittable: true)
         attribute :IndividualId__c, Types::Integer.optional.meta(omittable: true)
         attribute :EnrollmentTierLevel__c, Types::String.optional.meta(omittable: true)
