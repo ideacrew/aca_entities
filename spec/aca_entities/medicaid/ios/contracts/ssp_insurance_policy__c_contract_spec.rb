@@ -26,7 +26,7 @@ RSpec.describe AcaEntities::Medicaid::Ios::Contracts::SspInsurancePolicyCContrac
       PhysicalZipCode4__c: "1234",
       PhysicalZipCode5__c: "12345",
       PlanName__c: "Plan Name",
-      PolicyBeginDate__c: "#{Date.today.year}-#{Date.today.month}-#{Date.today.day}",
+      PolicyBeginDate__c: Date.today,
       TypeOfCoverageCode__c: "Coverage Code",
       IndividualId__c: 12_345,
       EnrollmentTierLevel__c: "Tier Level",
