@@ -6,7 +6,7 @@ module AcaEntities
       # entity for SSP_InsurancePolicy__c
       class SspInsurancePolicyC < Dry::Struct
         attribute :DCId__c, Types::Integer.optional.meta(omittable: true)
-        attribute :Is_this_an_empl__c,  Types::String.meta(omittable: false)  # what data type is this?? bool v string
+        attribute :Is_this_an_empl__c, Types::String.meta(omittable: false)
         attribute :InsuranceCompanyName__c, Types::String.optional.meta(omittable: true)
         attribute :InsuranceGroupNumber__c, Types::String.optional.meta(omittable: true)
         attribute :InsurancePolicyNumber__c, Types::String.optional.meta(omittable: true)
@@ -23,7 +23,7 @@ module AcaEntities
         attribute :IndividualId__c, Types::Integer.optional.meta(omittable: true)
         attribute :EnrollmentTierLevel__c, Types::String.optional.meta(omittable: true)
         attribute :IsPolicyUpdated__c, Types::Boolean.optional.meta(omittable: true)
-        attribute :IsEnrolledInInsurance__c, Types::Boolean.optional.meta(omittable: true)
+        attribute :IsEnrolledInInsurance__c, Types::Boolean.meta(omittable: false)
         attribute :Id, Types::String.optional.meta(omittable: true)
         attribute :IsDeleted__c, Types::Boolean.optional.meta(omittable: true)
         attribute :DCEmploymentDetailId__c, Types::Integer.optional.meta(omittable: true)
