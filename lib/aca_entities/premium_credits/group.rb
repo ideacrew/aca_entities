@@ -28,7 +28,7 @@ module AcaEntities
 
       # @!attribute [r] premium_credit_monthly_cap
       # Value of the Group Premium Credit.
-      # Example: '0.0318'
+      # Example: '300.18'
       # @return [String]
       attribute :premium_credit_monthly_cap, Types::String.optional.meta(omittable: true)
 
@@ -39,6 +39,7 @@ module AcaEntities
 
       # @!attribute [r] expected_contribution_percentage
       # The Expected Contribution Percentage for the Group
+      # Example: 0.0318
       # @return [AcaEntities::Types::Money]
       attribute :expected_contribution_percentage, ::AcaEntities::Types::Money.optional.meta(omittable: true)
 
