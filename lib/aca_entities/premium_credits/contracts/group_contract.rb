@@ -12,7 +12,7 @@ module AcaEntities
         # @option opts [AcaEntities::PremiumCredits::Types::GroupKind] :kind the type of premium credit (required)
         # @option opts [AcaEntities::PremiumCredits::Contracts::ObjectReferenceContract]
         #  :authority_determination_reference the source of the premium credit (optional)
-        # @option opts [String] :premium_credit_monthly_cap the premium credit monthly cap (optional)
+        # @option opts [AcaEntities::Types::Money] :premium_credit_monthly_cap the premium credit monthly cap (optional)
         # @option opts [AcaEntities::PremiumCredits::Contracts::ObjectReferenceContract]
         #  :sub_group_reference the sub group reference of the premium credit (optional)
         # @option opts [AcaEntities::Types::Money] :expected_contribution_percentage the expected contribution percentage (optional)
@@ -26,7 +26,7 @@ module AcaEntities
           optional(:id).maybe(:string)
           required(:kind).filled(AcaEntities::PremiumCredits::Types::GroupKind)
           optional(:authority_determination_reference).hash(AcaEntities::PremiumCredits::Contracts::ObjectReferenceContract.params)
-          optional(:premium_credit_monthly_cap).maybe(:string)
+          optional(:premium_credit_monthly_cap).maybe(AcaEntities::Types::Money)
           optional(:sub_group_reference).hash(AcaEntities::PremiumCredits::Contracts::ObjectReferenceContract.params)
           optional(:expected_contribution_percentage).maybe(AcaEntities::Types::Money)
           required(:start_on).filled(:date)

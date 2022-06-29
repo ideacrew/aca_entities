@@ -29,8 +29,8 @@ module AcaEntities
       # @!attribute [r] premium_credit_monthly_cap
       # Value of the Group Premium Credit.
       # Example: '300.18'
-      # @return [String]
-      attribute :premium_credit_monthly_cap, Types::String.optional.meta(omittable: true)
+      # @return [Money]
+      attribute :premium_credit_monthly_cap, ::AcaEntities::Types::Money.optional.meta(omittable: true)
 
       # @!attribute [r] sub_group_reference
       # The Sub Group Mapper of the Group Premium Credit

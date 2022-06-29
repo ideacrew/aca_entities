@@ -34,9 +34,9 @@ RSpec.describe ::AcaEntities::PremiumCredits::Contracts::GroupContract,  dbclean
       {
         id: '10',
         authority_determination_reference: { identifier: '10', label: 'FinancialAssistance::Application' },
-        premium_credit_monthly_cap: '300.08',
+        premium_credit_monthly_cap: BigDecimal('300.08'),
         sub_group_reference: { identifier: '100', label: 'FinancialAssistance::EligibilityDetermination' },
-        expected_contribution_percentage: 0.0316,
+        expected_contribution_percentage: BigDecimal('0.0316'),
         end_on: Date.today + 30,
         timestamps: timestamps
       }
