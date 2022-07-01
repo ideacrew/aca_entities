@@ -10,6 +10,7 @@ module AcaEntities
         def call(cache)
           @memoized_data = cache
           applicants_hash = @memoized_data.resolve('family.magi_medicaid_applications.applicants').item
+          binding.irb
           member_id = @memoized_data.find(/family.family_members.(\w+)$/).map(&:item).last
           incomes = applicants_hash[member_id.to_sym][:incomes]
 
