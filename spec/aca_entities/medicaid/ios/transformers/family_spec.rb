@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require 'aca_entities/medicaid/ios/functions/ssp_member__c_builder'
 require 'aca_entities/medicaid/ios/transformers/family'
 
 RSpec.describe AcaEntities::Medicaid::Ios::Transformers::Family do
@@ -18,12 +17,19 @@ RSpec.describe AcaEntities::Medicaid::Ios::Transformers::Family do
       allow(AcaEntities::Medicaid::Ios::Functions::SspBenefitsCBuilder).to receive(:new).and_return(double)
       allow(AcaEntities::Medicaid::Ios::Functions::SspApplicationIndividualCBuilder).to receive(:new).and_return(double)
       allow(AcaEntities::Medicaid::Ios::Functions::SspInsurancePolicyCBuilder).to receive(:new).and_return(double)
+      allow(AcaEntities::Medicaid::Ios::Functions::SspInsuranceCoveredIndivCBuilder).to receive(:new).and_return(double)
       described_class.call(family) { |record| @transform_result = record }
     end
 
     it 'should transform the payload according to instructions' do
       expect(@transform_result).to have_key(:SspdcRequest)
       expect(@transform_result[:SspdcRequest]).to have_key(:SSP_Application__c)
+      expect(@transform_result[:SspdcRequest]).to have_key(:SSP_Member__c)
+      expect(@transform_result[:SspdcRequest]).to have_key(:SSP_Asset__c)
+      expect(@transform_result[:SspdcRequest]).to have_key(:SSP_Benefits__c)
+      expect(@transform_result[:SspdcRequest]).to have_key(:SSP_ApplicationIndividual__c)
+      expect(@transform_result[:SspdcRequest]).to have_key(:SSP_InsurancePolicy__c)
+      expect(@transform_result[:SspdcRequest]).to have_key(:SSP_InsuranceCoveredIndiv__c)
     end
   end
 end

@@ -8,6 +8,7 @@ require 'aca_entities/medicaid/ios/functions/ssp_asset__c_builder'
 require 'aca_entities/medicaid/ios/functions/ssp_benefits__c_builder'
 require 'aca_entities/medicaid/ios/functions/ssp_application_individual__c_builder'
 require 'aca_entities/medicaid/ios/functions/ssp_insurance_policy__c_builder'
+require 'aca_entities/medicaid/ios/functions/ssp_insurance_covered_indiv__c_builder'
 
 module AcaEntities
   module Medicaid
@@ -52,8 +53,7 @@ module AcaEntities
 
               add_key 'SSP_ApplicationIndividual__c', function: AcaEntities::Medicaid::Ios::Functions::SspApplicationIndividualCBuilder.new # SSP_Member__r is nested in here
               add_key 'SSP_InsurancePolicy__c', function: AcaEntities::Medicaid::Ios::Functions::SspInsurancePolicyCBuilder.new 
-
-              # add_key 'SSP_InsuranceCoveredIndiv__c', function: AcaEntities::Medicaid::Ios::Functions::SspInsuranceCoveredIndivCBuilder.new <- RecordType, SSP_Member__r is nested in here 
+              add_key 'SSP_InsuranceCoveredIndiv__c', function: AcaEntities::Medicaid::Ios::Functions::SspInsuranceCoveredIndivCBuilder.new # RecordType, SSP_Member__r is nested in here 
 
               # add_key 'contact', function: AcaEntities::Medicaid::Ios::Functions::ContactBuilder.new <- RecordType, AgencyOrOrganization__r is nested in here 
 
