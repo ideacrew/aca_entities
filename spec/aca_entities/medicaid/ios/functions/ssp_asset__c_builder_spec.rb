@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require 'aca_entities/medicaid/ios/functions/ssp_member__c_builder'
+require 'aca_entities/medicaid/ios/functions/ssp_asset__c_builder'
 
-RSpec.describe AcaEntities::Medicaid::Ios::Functions::SspMemberCBuilder, dbclean: :after_each do
+RSpec.describe AcaEntities::Medicaid::Ios::Functions::SspAssetCBuilder, dbclean: :after_each do
 
   # should use more recent example payload?
   let(:family) do
@@ -12,7 +12,7 @@ RSpec.describe AcaEntities::Medicaid::Ios::Functions::SspMemberCBuilder, dbclean
     family_hash['family']
   end
 
-  # assuming member data is transformed from Applicant (could also be from Person or FamilyMember)
+  # assuming asset data is transformed from something in Application (likely need to pass in something nested inside application)
   let(:applications) do
     # need to use test payload that has array of applications (as opposed to single hash, or assume data prep prepares a hash)
     family['magi_medicaid_applications']
@@ -30,7 +30,7 @@ RSpec.describe AcaEntities::Medicaid::Ios::Functions::SspMemberCBuilder, dbclean
     described_class.new.call(context)
   end
 
-  context 'with valid cv3 application passed in' do
+  context 'with valid cv3 application(???) passed in' do
     it "should return an array" do
       expect(subject).to be_a(Array)
     end
