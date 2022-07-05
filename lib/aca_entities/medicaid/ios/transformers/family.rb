@@ -2,10 +2,11 @@
 
 require 'dry/monads'
 require 'dry/monads/do'
-require 'aca_entities/medicaid/ios/transformers/application.rb'
-require 'aca_entities/medicaid/ios/functions/ssp_member__c_builder.rb'
-require 'aca_entities/medicaid/ios/functions/ssp_asset__c_builder.rb'
-require 'aca_entities/medicaid/ios/functions/ssp_benefits__c_builder.rb'
+require 'aca_entities/medicaid/ios/transformers/application'
+require 'aca_entities/medicaid/ios/functions/ssp_member__c_builder'
+require 'aca_entities/medicaid/ios/functions/ssp_asset__c_builder'
+require 'aca_entities/medicaid/ios/functions/ssp_benefits__c_builder'
+require 'aca_entities/medicaid/ios/functions/ssp_application_individual__c_builder'
 
 module AcaEntities
   module Medicaid
@@ -48,7 +49,7 @@ module AcaEntities
               #   end
               # end
 
-              # add_key 'SSP_ApplicationIndividual__c', function: AcaEntities::Medicaid::Ios::Functions::SspApplicationIndividualCBuilder.new <- SSP_Member__r is nested in here
+              add_key 'SSP_ApplicationIndividual__c', function: AcaEntities::Medicaid::Ios::Functions::SspApplicationIndividualCBuilder.new # SSP_Member__r is nested in here
               
               # add_key 'SSP_InsurancePolicy__c', function: AcaEntities::Medicaid::Ios::Functions::SspInsurancePolicyCBuilder.new 
 
