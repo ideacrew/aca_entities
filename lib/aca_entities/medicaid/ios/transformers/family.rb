@@ -27,7 +27,7 @@ module AcaEntities
 
               add_key 'SSP_Member__c', function: AcaEntities::Medicaid::Ios::Functions::SspMemberCBuilder.new
             
-              # add_key 'SSP_Asset__c', function: AcaEntities::Medicaid::Ios::Functions::SspAssetCBuilder.new  <- RecordType is nested in here
+              add_key 'SSP_Asset__c', function: AcaEntities::Medicaid::Ios::Functions::SspAssetCBuilder.new  # RecordType is nested in here
 
               # add_key 'SSP_Benefits__c', function: AcaEntities::Medicaid::Ios::Functions::SspBeneftsCBuilder.new <- RecordType, SSP_Member__r is nested in here
 
