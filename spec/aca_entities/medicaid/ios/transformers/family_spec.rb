@@ -18,6 +18,7 @@ RSpec.describe AcaEntities::Medicaid::Ios::Transformers::Family do
       allow(AcaEntities::Medicaid::Ios::Functions::SspApplicationIndividualCBuilder).to receive(:new).and_return(double)
       allow(AcaEntities::Medicaid::Ios::Functions::SspInsurancePolicyCBuilder).to receive(:new).and_return(double)
       allow(AcaEntities::Medicaid::Ios::Functions::SspInsuranceCoveredIndivCBuilder).to receive(:new).and_return(double)
+      allow(AcaEntities::Medicaid::Ios::Functions::ContactBuilder).to receive(:new).and_return(double)
       described_class.call(family) { |record| @transform_result = record }
     end
 
@@ -30,6 +31,7 @@ RSpec.describe AcaEntities::Medicaid::Ios::Transformers::Family do
       expect(@transform_result[:SspdcRequest]).to have_key(:SSP_ApplicationIndividual__c)
       expect(@transform_result[:SspdcRequest]).to have_key(:SSP_InsurancePolicy__c)
       expect(@transform_result[:SspdcRequest]).to have_key(:SSP_InsuranceCoveredIndiv__c)
+      expect(@transform_result[:SspdcRequest]).to have_key(:contact)
     end
   end
 end

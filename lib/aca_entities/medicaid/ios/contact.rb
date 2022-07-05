@@ -3,7 +3,7 @@
 module AcaEntities
   module Medicaid
     module Ios
-      # entity for Contact
+      # entity for contact
       class Contact < Dry::Struct
         attribute :AddressTypeCode__c, Types::String.optional.meta(omittable: true)
         attribute :AgencyEmployeeId__c, Types::Integer.optional.meta(omittable: true)

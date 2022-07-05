@@ -9,6 +9,7 @@ require 'aca_entities/medicaid/ios/functions/ssp_benefits__c_builder'
 require 'aca_entities/medicaid/ios/functions/ssp_application_individual__c_builder'
 require 'aca_entities/medicaid/ios/functions/ssp_insurance_policy__c_builder'
 require 'aca_entities/medicaid/ios/functions/ssp_insurance_covered_indiv__c_builder'
+require 'aca_entities/medicaid/ios/functions/contact_builder'
 
 module AcaEntities
   module Medicaid
@@ -31,13 +32,17 @@ module AcaEntities
                 AcaEntities::Medicaid::Ios::Transformers::Application.transform(appplication_hash)
               }
               add_key 'SSP_Member__c', function: AcaEntities::Medicaid::Ios::Functions::SspMemberCBuilder.new
-              add_key 'SSP_Asset__c', function: AcaEntities::Medicaid::Ios::Functions::SspAssetCBuilder.new  # RecordType is nested in here
-              add_key 'SSP_Benefits__c', function: AcaEntities::Medicaid::Ios::Functions::SspBenefitsCBuilder.new # RecordType, SSP_Member__r is nested in here
-              
+
+              # RecordType is nested in SSP_Asset__c
+              add_key 'SSP_Asset__c', function: AcaEntities::Medicaid::Ios::Functions::SspAssetCBuilder.new
+
+              # RecordType, SSP_Member__r is nested in SSP_Benefits__c
+              add_key 'SSP_Benefits__c', function: AcaEntities::Medicaid::Ios::Functions::SspBenefitsCBuilder.new
+
               # namespace '???' do
               #   rewrap 'SSP_HealthInsuranceFacilityType__c', type: :array do
               #     rewrap '', type: :hash do
-                      # map SSP_HealthInsuranceFacilityType__c fields
+              # map SSP_HealthInsuranceFacilityType__c fields
               #     end
               #   end
               # end
@@ -45,20 +50,25 @@ module AcaEntities
               # namespace '???' do
               #   rewrap 'SSP_Relationship__c', type: :array do
               #     rewrap '', type: :hash do
-                      # map SSP_Relationship__c fields
-                      # SSP_Member__r is nested in here
+              # map SSP_Relationship__c fields
+              # SSP_Member__r is nested in here
               #     end
               #   end
               # end
 
-              add_key 'SSP_ApplicationIndividual__c', function: AcaEntities::Medicaid::Ios::Functions::SspApplicationIndividualCBuilder.new # SSP_Member__r is nested in here
-              add_key 'SSP_InsurancePolicy__c', function: AcaEntities::Medicaid::Ios::Functions::SspInsurancePolicyCBuilder.new 
-              add_key 'SSP_InsuranceCoveredIndiv__c', function: AcaEntities::Medicaid::Ios::Functions::SspInsuranceCoveredIndivCBuilder.new # RecordType, SSP_Member__r is nested in here 
+              # SSP_Member__r is nested in SSP_ApplicationIndividual__c
+              add_key 'SSP_ApplicationIndividual__c', function: AcaEntities::Medicaid::Ios::Functions::SspApplicationIndividualCBuilder.new
 
-              # add_key 'contact', function: AcaEntities::Medicaid::Ios::Functions::ContactBuilder.new <- RecordType, AgencyOrOrganization__r is nested in here 
+              add_key 'SSP_InsurancePolicy__c', function: AcaEntities::Medicaid::Ios::Functions::SspInsurancePolicyCBuilder.new
+
+              # RecordType, SSP_Member__r is nested in SSP_InsuranceCoveredIndiv__c
+              add_key 'SSP_InsuranceCoveredIndiv__c', function: AcaEntities::Medicaid::Ios::Functions::SspInsuranceCoveredIndivCBuilder.new
+
+              # RecordType, AgencyOrOrganization__r is nested in contact
+              add_key 'contact', function: AcaEntities::Medicaid::Ios::Functions::ContactBuilder.new
 
               # ***NOTE***
-              # SSP_Member__c nests TaxFilerMemberCurrent__r and RecordType 
+              # SSP_Member__c nests TaxFilerMemberCurrent__r and RecordType
 
             end
           end
