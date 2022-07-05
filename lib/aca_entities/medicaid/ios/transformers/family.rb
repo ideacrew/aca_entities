@@ -7,6 +7,7 @@ require 'aca_entities/medicaid/ios/functions/ssp_member__c_builder'
 require 'aca_entities/medicaid/ios/functions/ssp_asset__c_builder'
 require 'aca_entities/medicaid/ios/functions/ssp_benefits__c_builder'
 require 'aca_entities/medicaid/ios/functions/ssp_application_individual__c_builder'
+require 'aca_entities/medicaid/ios/functions/ssp_insurance_policy__c_builder'
 
 module AcaEntities
   module Medicaid
@@ -24,7 +25,7 @@ module AcaEntities
               # map '???', 'ApplicationReceivedDateTime'
 
               map 'magi_medicaid_applications', '', memoize_record: true, visible: false
-              add_key 'SSP_Application__c', function: lambda { |v| 
+              add_key 'SSP_Application__c', function: lambda { |v|
                 appplication_hash = v.resolve('family.magi_medicaid_applications').item
                 AcaEntities::Medicaid::Ios::Transformers::Application.transform(appplication_hash)
               }
@@ -50,8 +51,7 @@ module AcaEntities
               # end
 
               add_key 'SSP_ApplicationIndividual__c', function: AcaEntities::Medicaid::Ios::Functions::SspApplicationIndividualCBuilder.new # SSP_Member__r is nested in here
-              
-              # add_key 'SSP_InsurancePolicy__c', function: AcaEntities::Medicaid::Ios::Functions::SspInsurancePolicyCBuilder.new 
+              add_key 'SSP_InsurancePolicy__c', function: AcaEntities::Medicaid::Ios::Functions::SspInsurancePolicyCBuilder.new 
 
               # add_key 'SSP_InsuranceCoveredIndiv__c', function: AcaEntities::Medicaid::Ios::Functions::SspInsuranceCoveredIndivCBuilder.new <- RecordType, SSP_Member__r is nested in here 
 
