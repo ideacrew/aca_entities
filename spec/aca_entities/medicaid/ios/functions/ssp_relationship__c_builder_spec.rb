@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require 'aca_entities/medicaid/ios/functions/ssp_member__c_builder'
+require 'aca_entities/medicaid/ios/functions/ssp_relationship__c_builder'
 
-RSpec.describe AcaEntities::Medicaid::Ios::Functions::SspMemberCBuilder, dbclean: :after_each do
+RSpec.describe AcaEntities::Medicaid::Ios::Functions::SspRelationshipCBuilder, dbclean: :after_each do
 
   # should use more recent example payload?
   let(:family) do
@@ -12,17 +12,29 @@ RSpec.describe AcaEntities::Medicaid::Ios::Functions::SspMemberCBuilder, dbclean
     family_hash['family']
   end
 
-  # assuming member data is transformed from FinancialAssistance::Applicant (could also be from Person or FamilyMember)
   let(:application) do
     # need to use test payload that has array of applications (as opposed to single hash, or assume data prep prepares a hash)
     family['magi_medicaid_applications']
   end
 
+  let(:family_members) do
+# simulate data prep
+    family['family_members'].each_with_object({}) do |family_member, member_hash|
+        member_hash[family_member['hbx_id']] = family_member
+    end
+  end
+
   let(:context) do
-    context_hash = { 'family.magi_medicaid_applications' => {
-      name: 'family.magi_medicaid_applications',
-      item: application
-    } }
+    context_hash = {
+      'family.magi_medicaid_applications' => {
+        name: 'family.magi_medicaid_applications',
+        item: application
+      },
+      'family.family_members' => {
+        name: 'family.family_members',
+        item: family_members
+      }
+    }
     AcaEntities::Operations::Transforms::Context.new(context_hash)
   end
 

@@ -6,6 +6,7 @@ require 'aca_entities/medicaid/ios/transformers/application'
 require 'aca_entities/medicaid/ios/functions/ssp_member__c_builder'
 require 'aca_entities/medicaid/ios/functions/ssp_asset__c_builder'
 require 'aca_entities/medicaid/ios/functions/ssp_benefits__c_builder'
+require 'aca_entities/medicaid/ios/functions/ssp_relationship__c_builder'
 require 'aca_entities/medicaid/ios/functions/ssp_application_individual__c_builder'
 require 'aca_entities/medicaid/ios/functions/ssp_insurance_policy__c_builder'
 require 'aca_entities/medicaid/ios/functions/ssp_insurance_covered_indiv__c_builder'
@@ -26,6 +27,7 @@ module AcaEntities
               # map '???', 'SubmittedBy'
               # map '???', 'ApplicationReceivedDateTime'
 
+              map 'family_members', '', memoize_record: true, visible: false
               map 'magi_medicaid_applications', '', memoize_record: true, visible: false
               add_key 'SSP_Application__c', function: lambda { |v|
                 appplication_hash = v.resolve('family.magi_medicaid_applications').item
@@ -42,19 +44,29 @@ module AcaEntities
               # namespace '???' do
               #   rewrap 'SSP_HealthInsuranceFacilityType__c', type: :array do
               #     rewrap '', type: :hash do
-              # map SSP_HealthInsuranceFacilityType__c fields
+              #       map SSP_HealthInsuranceFacilityType__c fields
               #     end
               #   end
               # end
 
-              # namespace '???' do
-              #   rewrap 'SSP_Relationship__c', type: :array do
-              #     rewrap '', type: :hash do
-              # map SSP_Relationship__c fields
-              # SSP_Member__r is nested in here
+              # namespace 'family_members' do
+              # namespace 'family_members.' do
+              #   rewrap '', type: :array do
+              #     namespace 'person' do
+              #       rewrap '', type: :hash do
+              #         namespace 'person_relationships' do
+              #           rewrap 'SSP_Relationship__c', type: :array do
+              #             # map SSP_Relationship__c fields
+              #             # SSP_Member__r is nested in here
+              #             map 'kind', 'RelationshipType__c'
+              #           end
+              #         end
+              #       end
               #     end
               #   end
               # end
+
+              add_key 'SSP_Relationship__c', function: AcaEntities::Medicaid::Ios::Functions::SspRelationshipCBuilder.new
 
               # SSP_Member__r is nested in SSP_ApplicationIndividual__c
               add_key 'SSP_ApplicationIndividual__c', function: AcaEntities::Medicaid::Ios::Functions::SspApplicationIndividualCBuilder.new
