@@ -7,11 +7,12 @@ module AcaEntities
         # build SSP_Member__c for IOS transform
         class SspMemberCBuilder
           def call(cache)
+            @memoized_data = cache
             # TO DO
             # loop through applicants/people (?? depends on mappings)
             # call transform on individual applicant/person
             # return array of transformed members
-            
+
             [] # mocked return array for initial spec
           end
         end

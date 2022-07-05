@@ -3,6 +3,9 @@
 require 'dry/monads'
 require 'dry/monads/do'
 require 'aca_entities/medicaid/ios/transformers/application.rb'
+require 'aca_entities/medicaid/ios/functions/ssp_member__c_builder.rb'
+require 'aca_entities/medicaid/ios/functions/ssp_asset__c_builder.rb'
+require 'aca_entities/medicaid/ios/functions/ssp_benefits__c_builder.rb'
 
 module AcaEntities
   module Medicaid
@@ -24,13 +27,10 @@ module AcaEntities
                 appplication_hash = v.resolve('family.magi_medicaid_applications').item
                 AcaEntities::Medicaid::Ios::Transformers::Application.transform(appplication_hash)
               }
-
               add_key 'SSP_Member__c', function: AcaEntities::Medicaid::Ios::Functions::SspMemberCBuilder.new
-            
               add_key 'SSP_Asset__c', function: AcaEntities::Medicaid::Ios::Functions::SspAssetCBuilder.new  # RecordType is nested in here
-
-              # add_key 'SSP_Benefits__c', function: AcaEntities::Medicaid::Ios::Functions::SspBeneftsCBuilder.new <- RecordType, SSP_Member__r is nested in here
-
+              add_key 'SSP_Benefits__c', function: AcaEntities::Medicaid::Ios::Functions::SspBenefitsCBuilder.new # RecordType, SSP_Member__r is nested in here
+              
               # namespace '???' do
               #   rewrap 'SSP_HealthInsuranceFacilityType__c', type: :array do
               #     rewrap '', type: :hash do

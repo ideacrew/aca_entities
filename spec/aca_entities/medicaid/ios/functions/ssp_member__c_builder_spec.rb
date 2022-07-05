@@ -12,8 +12,8 @@ RSpec.describe AcaEntities::Medicaid::Ios::Functions::SspMemberCBuilder, dbclean
     family_hash['family']
   end
 
-  # assuming member data is transformed from Applicant (could also be from Person or FamilyMember)
-  let(:applications) do
+  # assuming member data is transformed from FinancialAssistance::Applicant (could also be from Person or FamilyMember)
+  let(:application) do
     # need to use test payload that has array of applications (as opposed to single hash, or assume data prep prepares a hash)
     family['magi_medicaid_applications']
   end
@@ -30,7 +30,7 @@ RSpec.describe AcaEntities::Medicaid::Ios::Functions::SspMemberCBuilder, dbclean
     described_class.new.call(context)
   end
 
-  context 'with valid cv3 application passed in' do
+  context 'with valid cv3 application in context' do
     it "should return an array" do
       expect(subject).to be_a(Array)
     end

@@ -4,14 +4,14 @@ module AcaEntities
   module Medicaid
     module Ios
       module Functions
-        # build SSP_Asset__c for IOS transform
-        class SspAssetCBuilder
+        # build SSP_Benefits__c for IOS transform
+        class SspBenefitsCBuilder
           def call(cache)
             @memoized_data = cache
             # TO DO
-            # loop through ??
-            # call transform on individual elements
-            # return array of transformed elements
+            # loop through benefits
+            # call transform on individual benefit
+            # return array of transformed benefits
 
             [] # mocked return array for initial spec
           end

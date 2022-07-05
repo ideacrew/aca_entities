@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require 'aca_entities/medicaid/ios/functions/ssp_asset__c_builder'
+require 'aca_entities/medicaid/ios/functions/ssp_benefits__c_builder'
 
-RSpec.describe AcaEntities::Medicaid::Ios::Functions::SspAssetCBuilder, dbclean: :after_each do
+RSpec.describe AcaEntities::Medicaid::Ios::Functions::SspBenefitsCBuilder, dbclean: :after_each do
 
   # should use more recent example payload?
   let(:family) do
@@ -12,7 +12,7 @@ RSpec.describe AcaEntities::Medicaid::Ios::Functions::SspAssetCBuilder, dbclean:
     family_hash['family']
   end
 
-  # assuming asset data is transformed from something in cv3 Application (likely need to pass in something nested inside application)
+  # assuming benefit data is transformed from ::FinancialAssistance::Benefit
   let(:application) do
     # need to use test payload that has array of applications (as opposed to single hash, or assume data prep prepares a hash)
     family['magi_medicaid_applications']
@@ -21,7 +21,7 @@ RSpec.describe AcaEntities::Medicaid::Ios::Functions::SspAssetCBuilder, dbclean:
   let(:context) do
     context_hash = { 'family.magi_medicaid_applications' => {
       name: 'family.magi_medicaid_applications',
-      item: applications
+      item: application
     } }
     AcaEntities::Operations::Transforms::Context.new(context_hash)
   end

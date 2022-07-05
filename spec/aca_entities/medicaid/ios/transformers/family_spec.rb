@@ -14,6 +14,8 @@ RSpec.describe AcaEntities::Medicaid::Ios::Transformers::Family do
     before do
       allow(AcaEntities::Medicaid::Ios::Transformers::Application).to receive(:transform).and_return(double)
       allow(AcaEntities::Medicaid::Ios::Functions::SspMemberCBuilder).to receive(:new).and_return(double)
+      allow(AcaEntities::Medicaid::Ios::Functions::SspAssetCBuilder).to receive(:new).and_return(double)
+      allow(AcaEntities::Medicaid::Ios::Functions::SspBenefitsCBuilder).to receive(:new).and_return(double)
       described_class.call(family) { |record| @transform_result = record }
     end
 
