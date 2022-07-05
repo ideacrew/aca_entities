@@ -18,8 +18,6 @@ module AcaEntities
             OpenStruct.new @contexts.values.detect{|hash| hash[:name].to_s == key_identifier.to_s}
           else
             OpenStruct.new @contexts.values.detect{|hash| hash[:name].to_s == key.to_s}
-            # binding.irb
-            # OpenStruct.new @contexts.values.detect{|value| value.is_a? Array ? value.dig(:name, 0) : hash[:name].to_s == key.to_s}
           end
           
         end

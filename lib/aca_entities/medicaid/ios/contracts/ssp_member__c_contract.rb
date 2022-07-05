@@ -6,7 +6,7 @@ module AcaEntities
     module Ios
       module Contracts
         # Contract for SSP_Member__c
-        class SSPMemberCContract < Dry::Validation::Contract
+        class SspMemberCContract < Dry::Validation::Contract
           params do
             required(:FirstName__c).filled(:string)
             required(:LATypeCode__c).filled(:string)

@@ -7,10 +7,9 @@ require 'aca_entities/medicaid/ios/transformers/application'
 RSpec.describe AcaEntities::Medicaid::Ios::Transformers::Application do
 
   describe 'When a valid cv3 application payload is passed' do
-    # should use more recent example payload
+    # should use more recent example payload?
     let(:family) do
-      #   File.read(Pathname.pwd.join("spec/support/atp/sample_payloads/simple_L_cv_payload.json"))
-      File.read(Pathname.pwd.join("/Users/michaelkaramanov/Desktop/testing/transfer_test_json.txt"))
+      File.read(Pathname.pwd.join("spec/support/atp/sample_payloads/uber_payload.json"))
     end
 
     # should just load in a sample json of data-prepped application

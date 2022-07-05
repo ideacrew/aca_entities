@@ -25,7 +25,7 @@ module AcaEntities
                 AcaEntities::Medicaid::Ios::Transformers::Application.transform(appplication_hash)
               }
 
-              # add_key 'SSP_Member__c', function: AcaEntities::Medicaid::Ios::Functions::SspMemberBuilder.new
+              add_key 'SSP_Member__c', function: AcaEntities::Medicaid::Ios::Functions::SspMemberCBuilder.new
             
               # add_key 'SSP_Asset__c', function: AcaEntities::Medicaid::Ios::Functions::SspAssetCBuilder.new  <- RecordType is nested in here
 
