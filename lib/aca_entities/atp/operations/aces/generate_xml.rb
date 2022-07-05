@@ -107,6 +107,10 @@ module AcaEntities
 
             if record["family"]["magi_medicaid_applications"].present?
               tax_households = record["family"]["magi_medicaid_applications"]["tax_households"]
+              tax_households.each do |th|
+                next unless th["annual_tax_household_income"].class == String
+                th["annual_tax_household_income"] = {"cents": th["annual_tax_household_income"].to_f, "currency_iso": "USD"}
+              end
               record["family"]["magi_medicaid_applications"].merge!("tax_households" => tax_households.group_by do |th|
                 th["hbx_id"]
               end.transform_keys(&:to_s).transform_values(&:first))
