@@ -11,6 +11,9 @@ module AcaEntities
         class Application < ::AcaEntities::Operations::Transforms::Transform
           include ::AcaEntities::Operations::Transforms::Transformer
 
+          map 'primary_applicant.name.first_name', 'ApplicationEsignFirstName__c'
+          map 'primary_applicant.name.middle_name', 'ApplicationEsignMiddleInitial__c'
+          map 'primary_applicant.name.last_name', 'ApplicationEsignLastName__c'
           #   map '???', 'ApplicationReceivedDateTime__c'
           #   map '???', 'DCsnapHouseholdExpeditedScreeningId__c'
           #   map '???', 'DeclrtnfAnnuitiesAcceptanceCode__c'
@@ -22,9 +25,7 @@ module AcaEntities
           #   map '???', 'IsDestituteFarmOrMigrantHouseholdToggle__c'
           #   map '???', 'IsReceivingHousingAssistanceToggle__c'
           #   map '???', 'IsRenewalConsent__c'
-
-          map 'primary_applicant_name', 'Name' # this will require a lot of data prep on the application (see spec)
-
+          #   map '???', 'Name'
           #   map '???', 'ProgramsApplied__c'
           #   map '???', 'Status__c'
           #   map '???', 'DcCaseNumber__c'

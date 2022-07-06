@@ -3,6 +3,7 @@
 require 'spec_helper'
 require 'aca_entities/medicaid/ios/transformers/family'
 require 'aca_entities/medicaid/ios/operations/generate_ios'
+require 'aca_entities/medicaid/ios/contracts/sspdc_request_contract'
 
 RSpec.describe AcaEntities::Medicaid::Ios::Transformers::Family do
 
@@ -21,6 +22,8 @@ RSpec.describe AcaEntities::Medicaid::Ios::Transformers::Family do
 
     it 'should transform the payload according to instructions' do
       expect(@transform_result).to have_key(:SspdcRequest)
+      expect(@transform_result[:SspdcRequest]).to have_key(:SubmitType)
+      expect(@transform_result[:SspdcRequest]).to have_key(:ApplicationReceivedDateTime)
       expect(@transform_result[:SspdcRequest]).to have_key(:SSP_Application__c)
       expect(@transform_result[:SspdcRequest]).to have_key(:SSP_Member__c)
       expect(@transform_result[:SspdcRequest]).to have_key(:SSP_Asset__c)
@@ -31,6 +34,20 @@ RSpec.describe AcaEntities::Medicaid::Ios::Transformers::Family do
       expect(@transform_result[:SspdcRequest]).to have_key(:SSP_InsurancePolicy__c)
       expect(@transform_result[:SspdcRequest]).to have_key(:SSP_InsuranceCoveredIndiv__c)
       expect(@transform_result[:SspdcRequest]).to have_key(:contact)
+    end
+
+    it 'should produce a valid SSPDCRequest object' do
+      result = @transform_result[:SspdcRequest]
+      expect(AcaEntities::Medicaid::Ios::Contracts::SspdcRequestContract.new(result)).to be_truthy
+    end
+
+    context 'default values' do
+      context 'SubmitType' do
+        it 'should have the correct default value' do
+          value = @transform_result[:SspdcRequest][:SubmitType]
+          expect(value).to eq 'Intake'
+        end
+      end
     end
   end
 end

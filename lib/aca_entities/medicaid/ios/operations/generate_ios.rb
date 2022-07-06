@@ -32,6 +32,8 @@ module AcaEntities
             end
             payload[:family][:family_members_hash] = family_members_hash
 
+            primary_applicant = payload[:family][:magi_medicaid_applications][:applicants].detect {|applicant| applicant[:is_primary_applicant]}
+            payload[:family][:magi_medicaid_applications][:primary_applicant] = primary_applicant
             Success(payload) # add Failure ?
           end
 

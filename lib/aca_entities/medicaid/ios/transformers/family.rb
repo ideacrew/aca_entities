@@ -24,13 +24,18 @@ module AcaEntities
           namespace 'family' do
             rewrap 'SspdcRequest', type: :hash do
 
-              # map '???', 'IndividualId__c'
-              # map '???', 'SubmitType'
-              # map '???', 'SubmittedBy'
-              # map '???', 'ApplicationReceivedDateTime'
+              map 'magi_medicaid_applications', '', memoize_record: true, visible: false
+              add_key 'SubmitType', value: ->(_v) { 'Intake' } # default value
+
+              # map '???', 'SubmittedBy' <- likely not needed
+
+              add_key 'ApplicationReceivedDateTime', value: lambda { |v|
+                application = v.resolve('family.magi_medicaid_applications').item
+                Time.parse(application[:submitted_at]).utc.iso8601
+              }
 
               map 'family_members_hash', '', memoize_record: true, visible: false
-              map 'magi_medicaid_applications', '', memoize_record: true, visible: false
+
               add_key 'SSP_Application__c', function: lambda { |v|
                 appplication_hash = v.resolve('family.magi_medicaid_applications').item
                 AcaEntities::Medicaid::Ios::Transformers::Application.transform(appplication_hash)
@@ -42,14 +47,6 @@ module AcaEntities
 
               # RecordType, SSP_Member__r is nested in SSP_Benefits__c
               add_key 'SSP_Benefits__c', function: AcaEntities::Medicaid::Ios::Functions::SspBenefitsCBuilder.new
-
-              # namespace '???' do
-              #   rewrap 'SSP_HealthInsuranceFacilityType__c', type: :array do
-              #     rewrap '', type: :hash do
-              #       map SSP_HealthInsuranceFacilityType__c fields
-              #     end
-              #   end
-              # end
 
               add_key 'SSP_HealthInsuranceFacilityType__c',
                       function: AcaEntities::Medicaid::Ios::Functions::SspHealthInsuranceFacilityTypeCBuilder.new
