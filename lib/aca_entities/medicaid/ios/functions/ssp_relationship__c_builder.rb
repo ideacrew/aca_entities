@@ -30,18 +30,17 @@ module AcaEntities
           def call(cache)
             @memoized_data = cache
             # TO DO
-            #   add relationships kind/type map
-            # loop through family member relationships and return array of hashes with type and member
-            family_members = @memoized_data.resolve('family.family_members').item
-            relationships = family_members.values.map {|family_member| family_member['person']['person_relationships']}.flatten
-            relationships.each_with_object([]) do |relationship, collector|
-              collector << {
-                'RelationshipType__c' => relationship[:kind],
-                'SSP_Member__r' => {
-                  'IndividualId__c' => relationship['relative']['hbx_id'] # assuming IndividualId__c is family member hbx_id (but it's probably not)
+            #   add all relationship kinds/types to map
+            family_members = @memoized_data.resolve('family.family_members_hash').item
+            family_members.values.map do |family_member|
+              family_member.dig(:person, :person_relationships).map do |relationship|
+                {
+                  'RelationshipType__c' => relationship[:kind],
+                  'SSP_Member__c' => family_member[:hbx_id],
+                  'SSP_MemberRelatedTo__c' => relationship[:relative][:hbx_id]
                 }
-              }
-            end
+              end
+            end.flatten
           end
         end
       end

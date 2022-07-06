@@ -22,12 +22,13 @@ module AcaEntities
 
           namespace 'family' do
             rewrap 'SspdcRequest', type: :hash do
+
               # map '???', 'IndividualId__c'
               # map '???', 'SubmitType'
               # map '???', 'SubmittedBy'
               # map '???', 'ApplicationReceivedDateTime'
 
-              map 'family_members', '', memoize_record: true, visible: false
+              map 'family_members_hash', '', memoize_record: true, visible: false
               map 'magi_medicaid_applications', '', memoize_record: true, visible: false
               add_key 'SSP_Application__c', function: lambda { |v|
                 appplication_hash = v.resolve('family.magi_medicaid_applications').item

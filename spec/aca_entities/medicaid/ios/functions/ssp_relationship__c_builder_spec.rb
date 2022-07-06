@@ -2,26 +2,24 @@
 
 require 'spec_helper'
 require 'aca_entities/medicaid/ios/functions/ssp_relationship__c_builder'
+require 'aca_entities/medicaid/ios/operations/generate_ios'
 
 RSpec.describe AcaEntities::Medicaid::Ios::Functions::SspRelationshipCBuilder, dbclean: :after_each do
 
   # should use more recent example payload?
   let(:family) do
-    family_json = File.read(Pathname.pwd.join("spec/support/atp/sample_payloads/uber_payload.json"))
-    family_hash = JSON.parse(family_json)
-    family_hash['family']
+    json = File.read(Pathname.pwd.join("spec/support/atp/sample_payloads/uber_payload.json"))
+    prepped_data = AcaEntities::Medicaid::Ios::Operations::GenerateIos.new.send(:prep_data, json).value!
+    prepped_data[:family]
   end
 
   let(:application) do
     # need to use test payload that has array of applications (as opposed to single hash, or assume data prep prepares a hash)
-    family['magi_medicaid_applications']
+    family[:magi_medicaid_applications]
   end
 
-  let(:family_members) do
-# simulate data prep
-    family['family_members'].each_with_object({}) do |family_member, member_hash|
-        member_hash[family_member['hbx_id']] = family_member
-    end
+  let(:family_members_hash) do
+    family[:family_members_hash]
   end
 
   let(:context) do
@@ -30,9 +28,9 @@ RSpec.describe AcaEntities::Medicaid::Ios::Functions::SspRelationshipCBuilder, d
         name: 'family.magi_medicaid_applications',
         item: application
       },
-      'family.family_members' => {
-        name: 'family.family_members',
-        item: family_members
+      'family.family_members_hash' => {
+        name: 'family.family_members_hash',
+        item: family_members_hash
       }
     }
     AcaEntities::Operations::Transforms::Context.new(context_hash)

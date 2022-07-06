@@ -25,8 +25,14 @@ module AcaEntities
           private
 
           def prep_data(cv3_payload)
-            # payload = JSON.parse(cv3_payload, symbolize_names: true)
+            payload = JSON.parse(cv3_payload, symbolize_names: true)
             # call the to do operation to make the data easier to transform
+            family_members_hash = payload[:family][:family_members].each_with_object({}) do |family_member, member_hash|
+              member_hash[family_member[:hbx_id]] = family_member
+            end
+            payload[:family][:family_members_hash] = family_members_hash
+
+            Success(payload) # add Failure ?
           end
 
           def to_ios(payload)
