@@ -18,7 +18,7 @@ module AcaEntities
     module Ios
       module Transformers
         # CV3 Family transform to IOS payload format
-        class Family < ::AcaEntities::Operations::Transforms::Transform
+        class Cv3ToIos < ::AcaEntities::Operations::Transforms::Transform
           include ::AcaEntities::Operations::Transforms::Transformer
 
           namespace 'family' do

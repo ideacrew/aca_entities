@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require 'aca_entities/medicaid/ios/transformers/family'
+require 'aca_entities/medicaid/ios/transformers/cv3_to_ios'
 require 'aca_entities/medicaid/ios/operations/generate_ios'
 require 'aca_entities/medicaid/ios/contracts/sspdc_request_contract'
 
-RSpec.describe AcaEntities::Medicaid::Ios::Transformers::Family do
+RSpec.describe AcaEntities::Medicaid::Ios::Transformers::Cv3ToIos do
 
   describe 'When a valid cv3 family payload is passed' do
     # should use more recent example payload (and ultimately replace with prepared data version of family)?
