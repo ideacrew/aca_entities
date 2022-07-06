@@ -1,11 +1,10 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require 'aca_entities/medicaid/ios/functions/ssp_relationship__c_builder'
+require 'aca_entities/medicaid/ios/functions/ssp_health_insurance_facility_type__c_builder'
 require 'aca_entities/medicaid/ios/operations/generate_ios'
-require 'aca_entities/medicaid/ios/contracts/ssp_relationship__c_contract'
 
-RSpec.describe AcaEntities::Medicaid::Ios::Functions::SspRelationshipCBuilder, dbclean: :after_each do
+RSpec.describe AcaEntities::Medicaid::Ios::Functions::SspHealthInsuranceFacilityTypeCBuilder, dbclean: :after_each do
 
   # should use more recent example payload?
   let(:family) do
@@ -19,17 +18,11 @@ RSpec.describe AcaEntities::Medicaid::Ios::Functions::SspRelationshipCBuilder, d
     family[:magi_medicaid_applications]
   end
 
-  let(:family_members_hash) do
-    family[:family_members_hash]
-  end
-
   let(:context) do
-    context_hash = {
-      'family.family_members_hash' => {
-        name: 'family.family_members_hash',
-        item: family_members_hash
-      }
-    }
+    context_hash = { 'family.magi_medicaid_applications' => {
+      name: 'family.magi_medicaid_applications',
+      item: application
+    } }
     AcaEntities::Operations::Transforms::Context.new(context_hash)
   end
 
@@ -37,14 +30,14 @@ RSpec.describe AcaEntities::Medicaid::Ios::Functions::SspRelationshipCBuilder, d
     described_class.new.call(context)
   end
 
-  context 'with valid family members in context' do
+  context 'with valid cv3 application in context' do
     it "should return an array" do
       expect(subject).to be_a(Array)
     end
 
-    it 'should only contain valid SSPRelationshipC objects' do
-      subject.each do |ssp_relationship__c|
-        result = AcaEntities::Medicaid::Ios::Contracts::SSPRelationshipCContract.new.call(ssp_relationship__c)
+    it 'should only contain valid SSP_HealthInsuranceFacilityType__c objects' do
+      subject.each do |ssp_health_insurance_facility_type__c|
+        result = AcaEntities::Medicaid::Ios::Contracts::SspHealthInsuranceFacilityTypeCContract.new.call(ssp_health_insurance_facility_type__c)
         expect(result).to be_truthy
       end
     end

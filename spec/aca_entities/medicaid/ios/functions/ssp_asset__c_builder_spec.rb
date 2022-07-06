@@ -34,5 +34,12 @@ RSpec.describe AcaEntities::Medicaid::Ios::Functions::SspAssetCBuilder, dbclean:
     it "should return an array" do
       expect(subject).to be_a(Array)
     end
+
+    it 'should only contain valid SSP_Asset__c objects' do
+      subject.each do |ssp_asset__c|
+        result = AcaEntities::Medicaid::Ios::Contracts::SspAssetCContract.new.call(ssp_asset__c)
+        expect(result).to be_truthy
+      end
+    end
   end
 end

@@ -34,5 +34,12 @@ RSpec.describe AcaEntities::Medicaid::Ios::Functions::SspBenefitsCBuilder, dbcle
     it "should return an array" do
       expect(subject).to be_a(Array)
     end
+
+    it 'should only contain valid SSP_Benefits__c objects' do
+      subject.each do |ssp_benefits__c|
+        result = AcaEntities::Medicaid::Ios::Contracts::SspBenefitsCContract.new.call(ssp_benefits__c)
+        expect(result).to be_truthy
+      end
+    end
   end
 end

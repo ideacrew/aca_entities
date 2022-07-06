@@ -6,6 +6,7 @@ require 'aca_entities/medicaid/ios/transformers/application'
 require 'aca_entities/medicaid/ios/functions/ssp_member__c_builder'
 require 'aca_entities/medicaid/ios/functions/ssp_asset__c_builder'
 require 'aca_entities/medicaid/ios/functions/ssp_benefits__c_builder'
+require 'aca_entities/medicaid/ios/functions/ssp_health_insurance_facility_type__c_builder'
 require 'aca_entities/medicaid/ios/functions/ssp_relationship__c_builder'
 require 'aca_entities/medicaid/ios/functions/ssp_application_individual__c_builder'
 require 'aca_entities/medicaid/ios/functions/ssp_insurance_policy__c_builder'
@@ -50,22 +51,8 @@ module AcaEntities
               #   end
               # end
 
-              # namespace 'family_members' do
-              # namespace 'family_members.' do
-              #   rewrap '', type: :array do
-              #     namespace 'person' do
-              #       rewrap '', type: :hash do
-              #         namespace 'person_relationships' do
-              #           rewrap 'SSP_Relationship__c', type: :array do
-              #             # map SSP_Relationship__c fields
-              #             # SSP_Member__r is nested in here
-              #             map 'kind', 'RelationshipType__c'
-              #           end
-              #         end
-              #       end
-              #     end
-              #   end
-              # end
+              add_key 'SSP_HealthInsuranceFacilityType__c',
+                      function: AcaEntities::Medicaid::Ios::Functions::SspHealthInsuranceFacilityTypeCBuilder.new
 
               add_key 'SSP_Relationship__c', function: AcaEntities::Medicaid::Ios::Functions::SspRelationshipCBuilder.new
 
