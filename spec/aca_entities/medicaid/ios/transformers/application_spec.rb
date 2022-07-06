@@ -2,33 +2,20 @@
 
 require 'spec_helper'
 require 'aca_entities/medicaid/ios/transformers/application'
+require 'aca_entities/medicaid/ios/operations/generate_ios'
 
 RSpec.describe AcaEntities::Medicaid::Ios::Transformers::Application do
 
   describe 'When a valid cv3 application payload is passed' do
     # should use more recent example payload?
     let(:family) do
-      File.read(Pathname.pwd.join("spec/support/atp/sample_payloads/uber_payload.json"))
+      json = File.read(Pathname.pwd.join("spec/support/atp/sample_payloads/uber_payload.json"))
+      prepped_data = AcaEntities::Medicaid::Ios::Operations::GenerateIos.new.send(:prep_data, json).value!
+      prepped_data[:family]
     end
 
-    # should just load in a sample json of data-prepped application
     let(:application) do
-      family_hash = JSON.parse(family)
-      application = family_hash['family']['magi_medicaid_applications']
-      applicants = application['applicants']
-
-      # simulate data prep (transforms can't handle arrays, need to prepare as hash)
-      person_hbx_ids = applicants.map {|applicant| applicant['person_hbx_id']}
-      applicants_hash = person_hbx_ids.each_with_object({}) do |id, hash|
-        hash[id] = applicants.detect {|applicant| applicant['person_hbx_id'] == id}
-      end
-      application['applicants'] = applicants_hash
-      primary_applicant = applicants.detect {|applicant| applicant['is_primary_applicant']}
-      primary_first_name = primary_applicant['name']['first_name']
-      primary_last_name = primary_applicant['name']['last_name']
-      application['primary_applicant_name'] = "#{primary_first_name} #{primary_last_name}"
-
-      JSON.generate(application)
+      JSON.generate(family[:magi_medicaid_applications])
     end
 
     before do
@@ -36,7 +23,9 @@ RSpec.describe AcaEntities::Medicaid::Ios::Transformers::Application do
     end
 
     it 'should transform the payload according to instructions' do
-      expect(@transform_result).to have_key(:Name)
+      expect(@transform_result).to have_key(:ApplicationEsignFirstName__c)
+      expect(@transform_result).to have_key(:ApplicationEsignMiddleInitial__c)
+      expect(@transform_result).to have_key(:ApplicationEsignLastName__c)
     end
   end
 end

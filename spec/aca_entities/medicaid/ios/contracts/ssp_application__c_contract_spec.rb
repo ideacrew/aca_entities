@@ -18,7 +18,7 @@ RSpec.describe AcaEntities::Medicaid::Ios::Contracts::SspApplicationCContract, d
       IsDestituteFarmOrMigrantHouseholdToggle__c: "N",
       IsReceivingHousingAssistanceToggle__c: "Y",
       IsRenewalConsent__c: "N",
-      Name: "Name",
+      Name: "First Last",
       ProgramsApplied__c: "Medicaid",
       Status__c: "Pending",
       DcCaseNumber__c: "12345",
