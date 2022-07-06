@@ -38,7 +38,7 @@ RSpec.describe AcaEntities::Medicaid::Ios::Functions::SspHealthInsuranceFacility
     it 'should only contain valid SSP_HealthInsuranceFacilityType__c objects' do
       subject.each do |ssp_health_insurance_facility_type__c|
         result = AcaEntities::Medicaid::Ios::Contracts::SspHealthInsuranceFacilityTypeCContract.new.call(ssp_health_insurance_facility_type__c)
-        expect(result).to be_truthy
+        expect(result.success?).to be_truthy
       end
     end
   end

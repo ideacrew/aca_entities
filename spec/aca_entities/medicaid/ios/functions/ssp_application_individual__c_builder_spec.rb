@@ -2,20 +2,21 @@
 
 require 'spec_helper'
 require 'aca_entities/medicaid/ios/functions/ssp_application_individual__c_builder'
+require 'aca_entities/medicaid/ios/operations/generate_ios'
 
 RSpec.describe AcaEntities::Medicaid::Ios::Functions::SspApplicationIndividualCBuilder, dbclean: :after_each do
 
   # should use more recent example payload?
   let(:family) do
-    family_json = File.read(Pathname.pwd.join("spec/support/atp/sample_payloads/uber_payload.json"))
-    family_hash = JSON.parse(family_json)
-    family_hash['family']
+    json = File.read(Pathname.pwd.join("spec/support/atp/sample_payloads/uber_payload.json"))
+    prepped_data = AcaEntities::Medicaid::Ios::Operations::GenerateIos.new.send(:prep_data, json).value!
+    prepped_data[:family]
   end
 
   # assuming application individual data is transformed from ::FinancialAssistance::Applicant
   let(:application) do
     # need to use test payload that has array of applications (as opposed to single hash, or assume data prep prepares a hash)
-    family['magi_medicaid_applications']
+    family[:magi_medicaid_applications]
   end
 
   let(:context) do
@@ -38,7 +39,7 @@ RSpec.describe AcaEntities::Medicaid::Ios::Functions::SspApplicationIndividualCB
     it 'should only contain valid SSP_ApplicationIndividual__c objects' do
       subject.each do |ssp_application_individual__c|
         result = AcaEntities::Medicaid::Ios::Contracts::SspApplicationIndividualCContract.new.call(ssp_application_individual__c)
-        expect(result).to be_truthy
+        expect(result.success?).to be_truthy
       end
     end
   end

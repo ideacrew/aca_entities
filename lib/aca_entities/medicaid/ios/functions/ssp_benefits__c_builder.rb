@@ -12,7 +12,6 @@ module AcaEntities
             # loop through benefits
             # call transform on individual benefit
             # return array of transformed benefits
-
             [] # mocked return array for initial spec
           end
         end

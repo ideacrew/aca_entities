@@ -12,7 +12,6 @@ module AcaEntities
             # loop through applicants (?)
             # call transform on individual applicant
             # return array of transformed applicants
-
             [] # mocked return array for initial spec
           end
         end

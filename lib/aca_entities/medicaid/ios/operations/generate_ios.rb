@@ -47,7 +47,7 @@ module AcaEntities
 
         def validate_ios_payload(_payload)
           result = Try do
-            AcaEntities::Medicaid::Ios::Contracts::SSPDCRequestContract.new.call(payloads)
+            AcaEntities::Medicaid::Ios::Contracts::SspdcRequestContract.new.call(payloads)
           end.to_result
 
           if result.success?
