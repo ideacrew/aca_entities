@@ -45,7 +45,7 @@ RSpec.describe AcaEntities::Medicaid::Ios::Functions::SspRelationshipCBuilder, d
     it 'should only contain valid SSPRelationshipC objects' do
       subject.each do |ssp_relationship__c|
         result = AcaEntities::Medicaid::Ios::Contracts::SSPRelationshipCContract.new.call(ssp_relationship__c)
-        expect(result).to be_truthy
+        expect(result.success?).to be_truthy
       end
     end
   end

@@ -12,7 +12,6 @@ module AcaEntities
             # loop through ??
             # call transform on individual elements
             # return array of transformed elements
-
             [] # mocked return array for initial spec
           end
         end
