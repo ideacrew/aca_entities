@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-# require 'aca_entities/medicaid/ios/functions/ssp_application__c_builder'
 require 'aca_entities/medicaid/ios/transformers/application'
 
 RSpec.describe AcaEntities::Medicaid::Ios::Transformers::Application do

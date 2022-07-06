@@ -15,8 +15,6 @@ RSpec.describe AcaEntities::Medicaid::Ios::Transformers::Family do
       JSON.generate(prepped_data)
     end
 
-    let(:relationship_builder) {instance_double(AcaEntities::Medicaid::Ios::Functions::SspRelationshipCBuilder)}
-
     before do
       described_class.call(family) { |record| @transform_result = record }
     end
@@ -27,6 +25,7 @@ RSpec.describe AcaEntities::Medicaid::Ios::Transformers::Family do
       expect(@transform_result[:SspdcRequest]).to have_key(:SSP_Member__c)
       expect(@transform_result[:SspdcRequest]).to have_key(:SSP_Asset__c)
       expect(@transform_result[:SspdcRequest]).to have_key(:SSP_Benefits__c)
+      expect(@transform_result[:SspdcRequest]).to have_key(:SSP_HealthInsuranceFacilityType__c)
       expect(@transform_result[:SspdcRequest]).to have_key(:SSP_Relationship__c)
       expect(@transform_result[:SspdcRequest]).to have_key(:SSP_ApplicationIndividual__c)
       expect(@transform_result[:SspdcRequest]).to have_key(:SSP_InsurancePolicy__c)

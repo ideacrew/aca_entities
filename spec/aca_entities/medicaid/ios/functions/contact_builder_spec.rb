@@ -34,5 +34,12 @@ RSpec.describe AcaEntities::Medicaid::Ios::Functions::ContactBuilder, dbclean: :
     it "should return an array" do
       expect(subject).to be_a(Array)
     end
+
+    it 'should only contain valid contact objects' do
+      subject.each do |contact|
+        result = AcaEntities::Medicaid::Ios::Contracts::ContactContract.new.call(contact)
+        expect(result).to be_truthy
+      end
+    end
   end
 end
