@@ -21,7 +21,7 @@ RSpec.describe AcaEntities::Medicaid::Ios::Functions::SspAssetCBuilder, dbclean:
   let(:context) do
     context_hash = { 'family.magi_medicaid_applications' => {
       name: 'family.magi_medicaid_applications',
-      item: applications
+      item: application
     } }
     AcaEntities::Operations::Transforms::Context.new(context_hash)
   end

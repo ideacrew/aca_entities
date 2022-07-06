@@ -2,24 +2,22 @@
 
 require 'spec_helper'
 require 'aca_entities/medicaid/ios/transformers/family'
+require 'aca_entities/medicaid/ios/operations/generate_ios'
 
 RSpec.describe AcaEntities::Medicaid::Ios::Transformers::Family do
 
   describe 'When a valid cv3 family payload is passed' do
     # should use more recent example payload (and ultimately replace with prepared data version of family)?
     let(:family) do
-      File.read(Pathname.pwd.join("spec/support/atp/sample_payloads/uber_payload.json"))
+      json = File.read(Pathname.pwd.join("spec/support/atp/sample_payloads/uber_payload.json"))
+      #   json = File.read(Pathname.pwd.join("/Users/michaelkaramanov/Desktop/development/payloads/simple_c.json"))
+      prepped_data = AcaEntities::Medicaid::Ios::Operations::GenerateIos.new.send(:prep_data, json).value!
+      JSON.generate(prepped_data)
     end
+
+    let(:relationship_builder) {instance_double(AcaEntities::Medicaid::Ios::Functions::SspRelationshipCBuilder)}
+
     before do
-      allow(AcaEntities::Medicaid::Ios::Transformers::Application).to receive(:transform).and_return(double)
-      allow(AcaEntities::Medicaid::Ios::Functions::SspMemberCBuilder).to receive(:new).and_return(double)
-      allow(AcaEntities::Medicaid::Ios::Functions::SspAssetCBuilder).to receive(:new).and_return(double)
-      allow(AcaEntities::Medicaid::Ios::Functions::SspBenefitsCBuilder).to receive(:new).and_return(double)
-      allow(AcaEntities::Medicaid::Ios::Functions::SspRelationshipCBuilder).to receive(:new).and_return(double)
-      allow(AcaEntities::Medicaid::Ios::Functions::SspApplicationIndividualCBuilder).to receive(:new).and_return(double)
-      allow(AcaEntities::Medicaid::Ios::Functions::SspInsurancePolicyCBuilder).to receive(:new).and_return(double)
-      allow(AcaEntities::Medicaid::Ios::Functions::SspInsuranceCoveredIndivCBuilder).to receive(:new).and_return(double)
-      allow(AcaEntities::Medicaid::Ios::Functions::ContactBuilder).to receive(:new).and_return(double)
       described_class.call(family) { |record| @transform_result = record }
     end
 
