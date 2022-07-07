@@ -212,6 +212,37 @@ RSpec.describe AcaEntities::Medicaid::Ios::Contracts::SspAssetCContract, dbclean
       end
     end
 
+    context 'invalid income subtype code' do
+      context 'with an income type of Job income from employer' do
+        it 'should fail validation' do
+          all_params[:IncomeTypeCode__c] = "Job income from employer"
+          all_params[:IncomeSubtypeCode__c] = nil
+          result = subject.call(all_params)
+          expect(result.success?).to be_falsey
+        end
+      end
+    end
+
+    context 'invalid expense frequency code' do
+      context 'with an expense type' do
+        it 'should fail validation' do
+          all_params[:ExpenseFrequencyCode__c] = nil
+          result = subject.call(all_params)
+          expect(result.success?).to be_falsey
+        end
+      end
+    end
+
+    context 'invalid expense amount' do
+      context 'with an expense type' do
+        it 'should fail validation' do
+          all_params[:ExpenseAmount__c] = nil
+          result = subject.call(all_params)
+          expect(result.success?).to be_falsey
+        end
+      end
+    end
+
     context 'invalid total gross amount' do
       context 'with income frequency present and total gross amount missing' do
         it 'should fail validation' do

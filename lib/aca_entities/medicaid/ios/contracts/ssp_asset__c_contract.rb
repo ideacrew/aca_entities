@@ -196,6 +196,29 @@ module AcaEntities
               end
             end
           end
+
+          rule(:IncomeTypeCode__c, :IncomeSubtypeCode__c) do
+            income_types = ["Job income from employer", "Self employment income",
+                            "Social Security, Railroad Retirement, & Veteran’s Administration Benefits'"]
+            if key && value && (income_types.include?(values[:IncomeTypeCode__c]) && values[:IncomeSubtypeCode__c].nil?)
+              key.failure(text: "missing income sub type",
+                          error: result.errors.to_h)
+            end
+          end
+
+          rule(:ExpenseFrequencyCode__c, :ExpenseTypeCode__c) do
+            if key && values[:ExpenseTypeCode__c] && values[:ExpenseFrequencyCode__c].nil?
+              key.failure(text: "invalid Expense Frequency Code - cannot be blank if Expense Type is present.",
+                          error: result.errors.to_h)
+            end
+          end
+
+          rule(:ExpenseAmount__c, :ExpenseTypeCode__c) do
+            if key && values[:ExpenseTypeCode__c] && values[:ExpenseAmount__c].nil?
+              key.failure(text: "invalid Expense Amount - cannot be blank if Expense Type is present.",
+                          error: result.errors.to_h)
+            end
+          end
         end
       end
     end
