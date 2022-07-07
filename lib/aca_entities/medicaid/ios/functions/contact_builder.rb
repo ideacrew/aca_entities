@@ -9,9 +9,9 @@ module AcaEntities
           def call(cache)
             @memoized_data = cache
             # TO DO
-            # loop through ??
-            # call transform on individual elements
-            # return array of transformed elements
+            # loop through applicants (all or just primary or ???)
+            # build hash of field mappings
+            # return array of transformed contact hashes
             [] # mocked return array for initial spec
           end
         end

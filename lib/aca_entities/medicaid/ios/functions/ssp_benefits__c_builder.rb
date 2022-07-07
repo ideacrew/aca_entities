@@ -10,8 +10,8 @@ module AcaEntities
             @memoized_data = cache
             # TO DO
             # loop through benefits
-            # call transform on individual benefit
-            # return array of transformed benefits
+            # build hash of field mappings
+            # return array of transformed SSP_Benefits__c hashes
             [] # mocked return array for initial spec
           end
         end
