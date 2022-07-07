@@ -23,23 +23,6 @@ require_relative "ios/contracts/ssp_health_insurance_facility_type__c_contract"
 require_relative "ios/contracts/ssp_insurance_policy__c_contract"
 require_relative "ios/contracts/sspdc_request_contract"
 
-# entities -> for reference only, to be cleaned up and removed once contracts have been built
-# require_relative "ios/agency_or_organization__r"
-# require_relative "ios/tax_filer_member_current__r"
-# require_relative "ios/sspdc_request"
-# require_relative "ios/ssp_relationship__c"
-# require_relative "ios/ssp_noncustodialparent__c"
-# require_relative "ios/ssp_member__r"
-# require_relative "ios/ssp_member__c"
-# require_relative "ios/ssp_insurance_covered_indiv__c"
-# require_relative "ios/ssp_health_insurance_facility_type__c"
-# require_relative "ios/ssp_benefits__c"
-# require_relative "ios/ssp_asset__c"
-# require_relative "ios/ssp_application_individual__c"
-# require_relative "ios/ssp_application__c"
-# require_relative "ios/record_type"
-# require_relative "ios/contact"
-
 # transformers
 # require_relative 'ios/transformers/cv3_to_ios'
 
