@@ -54,7 +54,11 @@ RSpec.describe AcaEntities::Medicaid::Ios::Contracts::SspApplicationCContract, d
       IsAgreeingToMedicaidPenalty__c: "Y",
       HasPendingAccidentSettlementToggle__c: "Y",
       IsPrimaryApplicantAddressModified__c: false,
-      NotEnrolledInHealthCareCoverageToggle__c: "Y"
+      NotEnrolledInHealthCareCoverageToggle__c: "Y",
+      ApplicationEsignFirstName__c: "John",
+      ApplicationEsignLastName__c: "Doe",
+      ApplicationEsignMiddleName__c: "Atticus",
+      ApplicationEsignSuffixCode__c: "Esq"
     }
   end
 
