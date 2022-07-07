@@ -25,6 +25,8 @@ module AcaEntities
             rewrap 'SspdcRequest', type: :hash do
 
               map 'magi_medicaid_applications', '', memoize_record: true, visible: false
+              map 'family_members_hash', '', memoize_record: true, visible: false
+
               add_key 'SubmitType', value: ->(_v) { 'Intake' } # default value
 
               # map '???', 'SubmittedBy' <- likely not needed
@@ -33,8 +35,6 @@ module AcaEntities
                 application = v.resolve('family.magi_medicaid_applications').item
                 Time.parse(application[:submitted_at]).utc.iso8601
               }
-
-              map 'family_members_hash', '', memoize_record: true, visible: false
 
               add_key 'SSP_Application__c', function: lambda { |v|
                 appplication_hash = v.resolve('family.magi_medicaid_applications').item

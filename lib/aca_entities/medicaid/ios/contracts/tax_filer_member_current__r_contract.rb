@@ -9,6 +9,8 @@ module AcaEntities
 
           params do
             optional(:IndividualId__c).maybe(:integer)
+            # TO DO: confirm if we should use this Id field instead
+            # optional(:Id).maybe(:string)
           end
         end
       end
