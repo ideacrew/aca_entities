@@ -55,6 +55,10 @@ module AcaEntities
             optional(:HasPendingAccidentSettlementToggle__c).maybe(:string)
             optional(:IsPrimaryApplicantAddressModified__c).maybe(:bool)
             optional(:NotEnrolledInHealthCareCoverageToggle__c).maybe(:string)
+            optional(:ApplicationEsignFirstName__c).maybe(:string)
+            optional(:ApplicationEsignLastName__c).maybe(:string)
+            optional(:ApplicationEsignMiddleName__c).maybe(:string)
+            optional(:ApplicationEsignSuffixCode__c).maybe(:string)
           end
         end
       end

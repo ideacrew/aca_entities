@@ -8,7 +8,8 @@ RSpec.describe AcaEntities::Medicaid::Ios::Contracts::SspInsurancePolicyCContrac
   let(:required_params) do
     {
       Is_this_an_empl__c: "N",
-      IsEnrolledInInsurance__c: true
+      IsEnrolledInInsurance__c: true,
+      EnrollmentTierLevel__c: "Tier Level"
     }
   end
 
@@ -17,7 +18,7 @@ RSpec.describe AcaEntities::Medicaid::Ios::Contracts::SspInsurancePolicyCContrac
       DCId__c: 12_345,
       InsuranceCompanyName__c: "Insurance Co",
       InsuranceGroupNumber__c: "Group 123",
-      InsurancePolicyNumber__c: "Policy 123",
+      InsurancePolicyNumber__c: "Policy123",
       PhysicalAddressLine1__c: "123 Main St",
       PhysicalAddressLine2__c: "Apt 1",
       PhysicalCity__c: "Atlantis",
@@ -29,7 +30,6 @@ RSpec.describe AcaEntities::Medicaid::Ios::Contracts::SspInsurancePolicyCContrac
       PolicyBeginDate__c: Date.today,
       TypeOfCoverageCode__c: "Coverage Code",
       IndividualId__c: 12_345,
-      EnrollmentTierLevel__c: "Tier Level",
       IsPolicyUpdated__c: false,
       Id: "Id",
       IsDeleted__c: false,
@@ -52,6 +52,25 @@ RSpec.describe AcaEntities::Medicaid::Ios::Contracts::SspInsurancePolicyCContrac
       it 'should list error for every required parameter' do
         expect(subject.call(optional_params).errors.to_h.keys).to match_array required_params.keys
       end
+    end
+
+    context 'invalid insurance policy number' do
+      context 'with invalid characters' do
+        it 'should fail validation' do
+          all_params[:InsurancePolicyNumber__c] = '!34_7#'
+          result = subject.call(all_params)
+          expect(result.success?).to be_falsey
+        end
+      end
+
+      context 'with invalid length' do
+        it 'should fail validation' do
+          all_params[:InsurancePolicyNumber__c] = '12345678901234567890'
+          result = subject.call(all_params)
+          expect(result.success?).to be_falsey
+        end
+      end
+
     end
   end
 
