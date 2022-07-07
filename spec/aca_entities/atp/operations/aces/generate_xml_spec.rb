@@ -18,5 +18,15 @@ RSpec.describe AcaEntities::Atp::Operations::Aces::GenerateXml  do
 
       expect(result.success?).to be_truthy
     end
+
+    context "when annual_tax_household_income is a string" do
+      let(:payload1) { File.read(Pathname.pwd.join("spec/support/atp/sample_payloads/simple_L_string_income_payload.json")) }
+
+      it 'should parse and then transform when transform_mode set to batch' do
+        result = described_class.new.call(payload1)
+        _example_output_xml = File.read(Pathname.pwd.join('spec/support/atp/sample_payloads/simple_L_transformed_payload.xml'))
+        expect(result.success?).to be_truthy
+      end
+    end
   end
 end
