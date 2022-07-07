@@ -243,6 +243,16 @@ RSpec.describe AcaEntities::Medicaid::Ios::Contracts::SspAssetCContract, dbclean
       end
     end
 
+    context 'invalid expense type' do
+      context 'with an expense amount' do
+        it 'should fail validation' do
+          all_params[:ExpenseTypeCode__c] = nil
+          result = subject.call(all_params)
+          expect(result.success?).to be_falsey
+        end
+      end
+    end
+
     context 'invalid total gross amount' do
       context 'with income frequency present and total gross amount missing' do
         it 'should fail validation' do

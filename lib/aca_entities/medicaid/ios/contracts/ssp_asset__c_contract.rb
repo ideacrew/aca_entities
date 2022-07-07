@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# rubocop:disable Metrics/ClassLength
 module AcaEntities
   module Medicaid
     module Ios
@@ -219,8 +220,16 @@ module AcaEntities
                           error: result.errors.to_h)
             end
           end
+
+          rule(:ExpenseAmount__c, :ExpenseTypeCode__c) do
+            if key && values[:ExpenseAmount__c] && values[:ExpenseTypeCode__c].nil?
+              key.failure(text: "invalid Expense Type - cannot be blank if Expense Amount is present.",
+                          error: result.errors.to_h)
+            end
+          end
         end
       end
     end
   end
 end
+# rubocop:enable Metrics/ClassLength
