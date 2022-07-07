@@ -20,11 +20,21 @@ RSpec.describe AcaEntities::Medicaid::Ios::Functions::SspMemberCBuilder, dbclean
     family[:magi_medicaid_applications]
   end
 
+  let(:family_members_hash) do
+    family[:family_members_hash]
+  end
+
   let(:context) do
-    context_hash = { 'family.magi_medicaid_applications' => {
-      name: 'family.magi_medicaid_applications',
-      item: application
-    } }
+    context_hash = {
+      'family.magi_medicaid_applications' => {
+        name: 'family.magi_medicaid_applications',
+        item: application
+      },
+      'family.family_members_hash' => {
+        name: 'family.family_members_hash',
+        item: family_members_hash
+      }
+    }
     AcaEntities::Operations::Transforms::Context.new(context_hash)
   end
 
