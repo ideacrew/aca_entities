@@ -24,6 +24,8 @@ module AcaEntities
           required(:aptc_amount).value(:decimal)
           required(:enrolled_member_premium_amount).value(:decimal)
           required(:enrolled_member_user_fee_amount).value(:decimal)
+          optional(:member_premium_amt).value(:decimal)
+          optional(:policy_premium_amt).value(:decimal)
           required(:external_doc_reference).maybe(AcaEntities::Types::StringOrNil)
           required(:created_at).value(:date_time)
           required(:updated_at).value(:date_time)

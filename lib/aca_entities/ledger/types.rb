@@ -14,6 +14,16 @@ module AcaEntities
 
       AccountCustomerRole = Types::Coercible::String.enum('subscriber', 'custodial_parent', 'responsible_person')
       UserFeeReportItemKind = Types::Coercible::String.enum('adjustment', 'fee')
+      EnrollmentTransition =
+        Types::Coercible::String.enum(
+          'active',
+          'term',
+          'reinstate',
+          'initial',
+          'current_month_term',
+          'current_month_drop_term',
+          'current_month_new_and_term'
+        )
       InsuranceProductKind = Types::Coercible::String.enum('health', 'dental')
 
       PartyRoleKind = Types::Coercible::String.enum('person', 'organization')
