@@ -166,8 +166,10 @@ module AcaEntities
                 # value should be the new attributes, currently this is not mapped to anything.
                 # add_key 'has_forty_title_ii_work_quarters', value
 
-                map 'is_subject_to_five_year_bar', 'five_year_bar_applies', function: ->(value) { boolean_string(value) }
-                map 'is_five_year_bar_met', 'is_five_year_bar_met', function: ->(value) { boolean_string(value) }
+                # Five Year Bar Information that we got as part of VLP response payload from FDSH Gateway.
+                map 'five_year_bar_applies', 'five_year_bar_applies', function: ->(value) { boolean_string(value) }
+                map 'five_year_bar_met', 'is_five_year_bar_met', function: ->(value) { boolean_string(value) }
+
                 map 'is_trafficking_victim', 'is_trafficking_victim', function: ->(value) { boolean_string(value) }
                 map 'is_refugee', 'is_eligible_for_refugee_medical_assistance', function: ->(value) { boolean_string(value) }
 

@@ -1,0 +1,55 @@
+---
+asyncapi: 2.0.0
+info:
+  title: Enroll App
+  version: 0.1.0
+  description: AMQP Subsribe configuration for the Enroll App services
+  contact:
+    name: IdeaCrew
+    url: https://ideacrew.com
+    email: info@ideacrew.com
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+
+servers:
+  production:
+    url: "amqp://rabbitmq:5672/event_source"
+    protocol: :amqp
+    protocolVersion: "0.9.2"
+    description: RabbitMQ Production Server
+  development:
+    url: "amqp://rabbitmq:5672/event_source"
+    protocol: :amqp
+    protocolVersion: "0.9.2"
+    description: RabbitMQ Test Server
+  test:
+    url: "amqp://rabbitmq:5672/event_source"
+    protocol: :amqp
+    protocolVersion: "0.9.2"
+    description: RabbitMQ Test Server
+channels:
+  on_enroll.enroll.consumer_roles.lawful_presence_determinations:
+    bindings:
+      amqp:
+        is: queue
+        queue:
+          name: on_enroll.enroll.individual.consumer_roles.lawful_presence_determinations
+          durable: true
+          exclusive: false
+          auto_delete: false
+          vhost: event_source
+    subscribe:
+      bindings:
+        amqp:
+          ack: true
+          exclusive: false
+          routing_key: enroll.individual.consumer_roles.lawful_presence_determinations.#
+          prefetch: 1
+          bindingVersion: "0.2.0"
+      operationId: on_enroll.enroll.individual.consumer_roles.lawful_presence_determinations
+      description: Event for consumer role create
+
+tags:
+  - name: linter_tag
+    description: placeholder that satisfies the linter
