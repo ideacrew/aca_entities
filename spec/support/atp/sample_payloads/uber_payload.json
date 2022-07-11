@@ -1144,9 +1144,10 @@
                     },
                     "is_primary_applicant": true,
                     "native_american_information": {
-                        "indian_tribe_member": false,
-                        "tribal_name": null,
-                        "tribal_state": null
+                        "indian_tribe_member": true,
+                        "tribal_name": "Lakota",
+                        "tribal_state": "ME",
+                        "tribe_codes": ["OT"]
                     },
                     "citizenship_immigration_status_information": {
                         "citizen_status": "us_citizen",
@@ -1587,7 +1588,8 @@
                     "native_american_information": {
                         "indian_tribe_member": false,
                         "tribal_name": null,
-                        "tribal_state": null
+                        "tribal_state": null,
+                        "tribe_codes": []
                     },
                     "citizenship_immigration_status_information": {
                         "citizen_status": "alien_lawfully_present",
@@ -1960,8 +1962,9 @@
                     "is_primary_applicant": false,
                     "native_american_information": {
                         "indian_tribe_member": true,
-                        "tribal_name": "Eastern Band of Cherokee Indians of North Carolina",
-                        "tribal_state": "ME"
+                        "tribal_name": null,
+                        "tribal_state": "ME",
+                        "tribe_codes": ["HM"]
                     },
                     "citizenship_immigration_status_information": {
                         "citizen_status": "us_citizen",
@@ -2321,7 +2324,8 @@
                     "native_american_information": {
                         "indian_tribe_member": false,
                         "tribal_name": null,
-                        "tribal_state": null
+                        "tribal_state": null,
+                        "tribe_codes": []
                     },
                     "citizenship_immigration_status_information": {
                         "citizen_status": "us_citizen",
@@ -2648,7 +2652,8 @@
                     "native_american_information": {
                         "indian_tribe_member": false,
                         "tribal_name": null,
-                        "tribal_state": null
+                        "tribal_state": null,
+                        "tribe_codes": []
                     },
                     "citizenship_immigration_status_information": {
                         "citizen_status": "us_citizen",
