@@ -140,10 +140,8 @@ module AcaEntities
 
       def extract_date_from_segment(marketplace_segment_id)
         segment_date_part = marketplace_segment_id.split('-')[2]
-        segment_year = segment_date_part[0..3].to_i
-        segment_month = segment_date_part[4..5].to_i
-        segment_day = segment_date_part[6..7].to_i
-        Date.new(segment_year, segment_month, segment_day)
+        reverse_date = '%Y%m%d'
+        Date.strptime(segment_date_part, reverse_date)
       end
 
       def currencyize(value = 0.0)

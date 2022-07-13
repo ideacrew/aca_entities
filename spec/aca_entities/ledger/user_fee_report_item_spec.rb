@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require 'date'
 
 RSpec.describe AcaEntities::Ledger::UserFeeReportItem do
   subject { described_class }

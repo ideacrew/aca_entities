@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'date'
+
 module AcaEntities
   module Ledger
     # Container class for {AcaEntities::Ledger::UserFeeReportItem} with summary
