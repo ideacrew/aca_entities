@@ -8,7 +8,7 @@ RSpec.describe AcaEntities::Medicaid::Ios::Contracts::SspApplicationCContract, d
     {
       NotEnrolledInHealthCareCoverageToggle__c: "Y",
       ApplicationEsignFirstName__c: "John",
-      ApplicationEsignLastName__c: "Doe",
+      ApplicationEsignLastName__c: "Doe"
     }
   end
 
@@ -67,11 +67,14 @@ RSpec.describe AcaEntities::Medicaid::Ios::Contracts::SspApplicationCContract, d
   end
 
   let(:all_params) { required_params.merge(optional_params) }
-  
+
   context 'invalid parameters' do
     context 'with incorrect data type' do
       it 'should list error for every bad parameter' do
-        bad_params = { ApplicationReceivedDateTime__c: 0, :ApplicationEsignLastName__c => 1, :ApplicationEsignFirstName__c => 1, :NotEnrolledInHealthCareCoverageToggle__c => 1 }
+        bad_params = {  :ApplicationReceivedDateTime__c => 0,
+                        :ApplicationEsignLastName__c => 1,
+                        :ApplicationEsignFirstName__c => 1,
+                        :NotEnrolledInHealthCareCoverageToggle__c => 1 }
         expect(subject.call(bad_params).errors.to_h.keys).to match_array bad_params.keys
       end
     end
