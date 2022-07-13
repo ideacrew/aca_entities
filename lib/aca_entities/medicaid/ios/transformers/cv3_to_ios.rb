@@ -2,13 +2,13 @@
 
 require 'dry/monads'
 require 'dry/monads/do'
-require 'aca_entities/medicaid/ios/transformers/application'
 require 'aca_entities/medicaid/ios/functions/ssp_member__c_builder'
 require 'aca_entities/medicaid/ios/functions/ssp_asset__c_builder'
 require 'aca_entities/medicaid/ios/functions/ssp_benefits__c_builder'
 require 'aca_entities/medicaid/ios/functions/ssp_health_insurance_facility_type__c_builder'
 require 'aca_entities/medicaid/ios/functions/ssp_relationship__c_builder'
 require 'aca_entities/medicaid/ios/functions/ssp_application_individual__c_builder'
+require 'aca_entities/medicaid/ios/functions/ssp_application__c_builder'
 require 'aca_entities/medicaid/ios/functions/ssp_insurance_policy__c_builder'
 require 'aca_entities/medicaid/ios/functions/ssp_insurance_covered_indiv__c_builder'
 require 'aca_entities/medicaid/ios/functions/contact_builder'
@@ -36,10 +36,12 @@ module AcaEntities
                 Time.parse(application[:submitted_at]).utc.iso8601
               }
 
-              add_key 'SSP_Application__c', function: lambda { |v|
-                appplication_hash = v.resolve('family.magi_medicaid_applications').item
-                AcaEntities::Medicaid::Ios::Transformers::Application.transform(appplication_hash)
-              }
+              # add_key 'SSP_Application__c', function: lambda { |v|
+              #   appplication_hash = v.resolve('family.magi_medicaid_applications').item
+              #   AcaEntities::Medicaid::Ios::Transformers::Application.transform(appplication_hash)
+              # }
+              add_key 'SSP_Application__c', function: AcaEntities::Medicaid::Ios::Functions::SspApplicationCBuilder.new
+
               add_key 'SSP_Member__c', function: AcaEntities::Medicaid::Ios::Functions::SspMemberCBuilder.new
 
               # RecordType is nested in SSP_Asset__c

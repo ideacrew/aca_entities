@@ -1,10 +1,11 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require 'aca_entities/medicaid/ios/functions/ssp_benefits__c_builder'
+require 'aca_entities/medicaid/ios/functions/ssp_application__c_builder'
 require 'aca_entities/medicaid/ios/operations/generate_ios'
+require 'aca_entities/medicaid/ios/contracts/ssp_application__c_contract'
 
-RSpec.describe AcaEntities::Medicaid::Ios::Functions::SspBenefitsCBuilder, dbclean: :after_each do
+RSpec.describe AcaEntities::Medicaid::Ios::Functions::SspApplicationCBuilder, dbclean: :after_each do
 
   # should use more recent example payload?
   let(:family) do
@@ -13,14 +14,14 @@ RSpec.describe AcaEntities::Medicaid::Ios::Functions::SspBenefitsCBuilder, dbcle
     prepped_data[:family]
   end
 
-  # assuming benefit data is transformed from ::FinancialAssistance::Benefit
+  # assuming application individual data is transformed from ::FinancialAssistance::Applicant
   let(:application) do
     # need to use test payload that has array of applications (as opposed to single hash, or assume data prep prepares a hash)
     family[:magi_medicaid_applications]
   end
 
   let(:context) do
-    context_hash = { 'family.magi_medicaid_applications' => {
+    context_hash = { 'family' => {
       name: 'family.magi_medicaid_applications',
       item: application
     } }
@@ -32,16 +33,12 @@ RSpec.describe AcaEntities::Medicaid::Ios::Functions::SspBenefitsCBuilder, dbcle
   end
 
   context 'with valid cv3 application in context' do
-    it "should return an array" do
-      expect(subject).to be_a(Array)
-    end
 
-    # unncomment when ready to test
-    # it 'should only contain valid SSP_Benefits__c objects' do
-    #   subject.each do |ssp_benefits__c|
-    #     result = AcaEntities::Medicaid::Ios::Contracts::SspBenefitsCContract.new.call(ssp_benefits__c)
-    #     expect(result.success?).to be_truthy
-    #   end
-    # end
+    it 'should conform to the SSP_Application__c contract' do
+      result = AcaEntities::Medicaid::Ios::Contracts::SspApplicationCContract.new.call(subject)
+      p result
+      expect(result.success?).to be_truthy
+    end
   end
+
 end
