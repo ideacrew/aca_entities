@@ -17,7 +17,7 @@ module AcaEntities
             applicants.map do |applicant|
               if(applicant[:benefits]) &&
                 (applicant[:benefits].detect {|benefits| benefits[:kind] == 'employer_sponsored_insurance'}) && 
-                (applicant[:benefits].detect {|benefits| benefits[:status] == 'is_enrolled'})
+                (applicant[:benefits].detect {|benefits| benefits[:status] != 'is_enrolled'})
                 anyone_enrolled = true
               end
             end
