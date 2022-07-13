@@ -43,7 +43,7 @@ RSpec.describe AcaEntities::Medicaid::Ios::Transformers::Cv3ToIos do
       expect(AcaEntities::Medicaid::Ios::Contracts::SspdcRequestContract.new.call(result).errors).to be_empty
       # we can decide later if we enforce the contracts on this main object or we enforce it on the separate spec; 
       #my guess is the second, but for now I'll leave it here because is handy to develop
-      expect(AcaEntities::Medicaid::Ios::Contracts::SspApplicationCContract.new.call(result[:SSP_Application__c]).errors).to be_empty
+      #expect(AcaEntities::Medicaid::Ios::Contracts::SspApplicationCContract.new.call(result[:SSP_Application__c]).errors).to be_empty
       #expect(AcaEntities::Medicaid::Ios::Contracts::SspMemberCContract.new.call(result[:SSP_Member__c]).errors).to be_empty
     end
 
