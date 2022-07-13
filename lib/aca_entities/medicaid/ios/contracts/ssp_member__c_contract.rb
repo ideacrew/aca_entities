@@ -435,7 +435,7 @@ module AcaEntities
           rule(:SecondaryPhoneNumber__c) do
             re = Regexp.new('^\d{3}-\d{3}-\d{4}$').freeze
             if key && value && !value.match(re)
-              key.failure(text: "invalid Primary Phone Number - must be a valid 10-digit number in the following format: “123-456-7890”.",
+              key.failure(text: "invalid Secondary Phone Number - must be a valid 10-digit number in the following format: “123-456-7890”.",
                           error: result.errors.to_h)
             end
           end
