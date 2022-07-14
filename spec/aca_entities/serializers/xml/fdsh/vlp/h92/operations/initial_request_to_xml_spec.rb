@@ -33,8 +33,7 @@ RSpec.describe ::AcaEntities::Serializers::Xml::Fdsh::Vlp::H92::Operations::Init
          :RequesterCommentsForHub => nil,
          :CasePOCFullName => "DHS Tester",
          :CasePOCPhoneNumber => "5555555555",
-         :CasePOCPhoneNumberExtension => "444"
-      }]
+         :CasePOCPhoneNumberExtension => "444" }]
     }
   end
 
