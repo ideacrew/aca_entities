@@ -72,7 +72,7 @@ module AcaEntities
             def all_dhs_id_sub_params(vlp_doc)
               {
                 AlienNumber: vlp_doc.alien_number,
-                ReceiptNumber: vlp_doc.receipt_number,
+                ReceiptNumber: vlp_doc.receipt_number || vlp_doc.card_number,
                 I94Number: vlp_doc.i94_number,
                 VisaNumber: vlp_doc.visa_number,
                 PassportNumber: vlp_doc.passport_number,
