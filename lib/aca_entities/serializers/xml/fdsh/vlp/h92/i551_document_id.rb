@@ -23,7 +23,7 @@ module AcaEntities
                 mapper = self.new
                 mapper.AlienNumber = document.AlienNumber
                 mapper.ReceiptNumber = document.ReceiptNumber
-                mapper.DocExpirationDate = document.DocExpirationDate.strftime
+                mapper.DocExpirationDate = document.DocExpirationDate&.strftime
 
                 mapper
               end
