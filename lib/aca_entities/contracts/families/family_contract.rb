@@ -34,6 +34,7 @@ module AcaEntities
           optional(:hbx_id).filled(:string)
           optional(:foreign_keys).array(AcaEntities::Contracts::Identifiers::IdContract.params)
           optional(:renewal_consent_through_year).maybe(:integer, included_in?: 2014..2025)
+
           # TODO: Fix this, Move to right namespace as per DAN
           # optional(:application_type).maybe(:string)
           # TODO: Move to appropriate model
@@ -41,16 +42,18 @@ module AcaEntities
           optional(:vlp_documents_status).maybe(:string)
           optional(:magi_medicaid_applications).array(MagiMedicaid::Contracts::ApplicationContract.params)
           optional(:documents).array(AcaEntities::Contracts::Documents::DocumentContract.params)
-          optional(:special_enrollment_periods).array(AcaEntities::Contracts::EnrollmentPeriods::SpecialEnrollmentPeriodContract.params)
+          optional(:special_enrollment_periods).array(
+            AcaEntities::Contracts::EnrollmentPeriods::SpecialEnrollmentPeriodContract.params
+          )
           optional(:broker_accounts).array(AcaEntities::Contracts::Brokers::BrokerAccountContract.params)
-          optional(:general_agency_accounts).array(AcaEntities::Contracts::GeneralAgencies::GeneralAgencyAccountContract.params)
+          optional(:general_agency_accounts).array(
+            AcaEntities::Contracts::GeneralAgencies::GeneralAgencyAccountContract.params
+          )
           optional(:irs_groups).array(AcaEntities::Contracts::Groups::IrsGroupContract.params)
           optional(:payment_transactions).array(Financial::PaymentTransactions::PaymentTransactionContract.params)
           optional(:updated_by).hash(AcaEntities::Contracts::People::PersonReferenceContract.params)
           optional(:timestamp).hash(TimeStampContract.params)
           optional(:documents_needed).maybe(:bool)
-
-          optional(:group_premium_credits).array(AcaEntities::PremiumCredits::Contracts::GroupContract.params)
         end
 
         # Need to have below rule and cannot move all MagiMedicaidApplication level rules to AcaEntities::Contracts::Contract because
@@ -60,7 +63,12 @@ module AcaEntities
           if key? && value
             if value.is_a?(Hash)
               result = MagiMedicaid::Contracts::ApplicationContract.new.call(value)
-              key([:applications, index]).failure(text: 'invalid magi_medicaid application', error: result.errors.to_h) if result&.failure?
+              if result&.failure?
+                key([:applications, index]).failure(
+                  text: 'invalid magi_medicaid application',
+                  error: result.errors.to_h
+                )
+              end
             else
               key([:applications, index]).failure(text: 'invalid magi_medicaid applications. Expected a hash.')
             end

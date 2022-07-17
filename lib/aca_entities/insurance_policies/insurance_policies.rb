@@ -4,15 +4,16 @@ require 'date'
 
 module AcaEntities
   # Types, Entities and Contracts for the {AcaEntities::InsurancePolicies} Domain Model
-  module Eligibilities
+  module InsurancePolicies
     # TODO: Add the classes for the domain in dependency order
     # Custom Types
     require_relative 'types'
 
     # Contracts
-    # require_relative 'contracts/adjustment_type_contract'
+    require_relative 'contracts/contract'
+    require_relative 'contracts/member_contract'
 
     # Domain Model Entitities
-    # require_relative 'adjustment_type'
+    # require_relative 'member'
   end
 end

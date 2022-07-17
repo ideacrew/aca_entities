@@ -10,6 +10,9 @@ module AcaEntities
     send(:include, Dry.Types)
     send(:include, Dry::Logic)
 
+    BinaryGenderKind = Types::Coercible::String.enum('male', 'female')
+    StringOrNil = Types::String | Types::Nil
+
     ClientKinds =
       Types::String.enum('enroll', 'edi_db', 'sugar_crm', 'polypress').freeze
 
