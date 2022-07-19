@@ -2,6 +2,7 @@
 
 require 'spec_helper'
 require 'aca_entities/medicaid/ios'
+require 'pry'
 
 RSpec.describe AcaEntities::Medicaid::Ios::Contracts::SspMemberCContract, dbclean: :after_each do
 
@@ -52,7 +53,7 @@ RSpec.describe AcaEntities::Medicaid::Ios::Contracts::SspMemberCContract, dbclea
       DeathDate__c: Date.new(2022, 1, 1),
       DHSComments__c: "look, such comment",
       DisabilityStatus__c: "Status",
-      DivorceDate__c: Date.new(2019, 4, 3),
+      DivorceDate__c: "N",
       DocumentExpiryDate__c: Date.new(2025, 4, 5),
       DocumentOtherDescription__c: "what a doc",
       EligibilityStatementCode__c: "Code",

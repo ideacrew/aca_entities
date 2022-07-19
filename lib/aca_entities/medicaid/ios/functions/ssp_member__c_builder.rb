@@ -91,6 +91,7 @@ module AcaEntities
             return "false" if options.nil? || options.empty?
           end
 
+          # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/MethodLength, Metrics/PerceivedComplexity
           def call(cache)
             # TODO: loop through applicants/people (?? depends on mappings)
             # build hash of field mappings
@@ -109,7 +110,7 @@ module AcaEntities
               primary_phone = applicant[:phones].detect { |num| num[:primary] == true }
               secondary_phone = applicant[:phones].detect { |num| num[:primary] == false }
 
-              member_hash = {
+              {
                 # required
                 'FirstName__c' => applicant&.dig(:name, :first_name),
                 'HasDifferentMailingAddress__c' => boolean_string(home_address.equal?(mailing_address)),
@@ -195,9 +196,9 @@ module AcaEntities
               #   }
               #   member_hash.merge!(claimant_hash)
               # end
-              member_hash
             end
           end
+          # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/MethodLength, Metrics/PerceivedComplexity
         end
       end
     end
