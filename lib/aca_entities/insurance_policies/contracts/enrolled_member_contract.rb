@@ -11,6 +11,7 @@ module AcaEntities
           required(:enrolled_member_premium).value(
             AcaEntities::InsurancePolicies::Contracts::EnrolledMemberPremiumContract.params
           )
+          optional(:is_tobacco_user).value(:bool)
           optional(:primary_care_provider).value(
             AcaEntities::InsurancePolicies::Contracts::HealthCarePractitionerContract.params
           )

@@ -12,7 +12,8 @@ module AcaEntities
         params do
           optional(:id).value(:string)
           required(:name).value(AcaEntities::Contracts::People::PersonNameContract.params)
-          optional(:organization).value(AcaEntities::Organizations::Contracts::OrganizationContract.params)
+
+          # optional(:organization).value(AcaEntities::Organizations::Contracts::OrganizationContract.params)
           optional(:timestamps).maybe(AcaEntities::Contracts::TimeStampContract.params)
         end
       end

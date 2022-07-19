@@ -12,7 +12,7 @@ module AcaEntities
         params do
           optional(:id).value(:string)
           required(:health_care_practitioner).value(
-            AcaEntities::InsurancePolicies::Contracts::HealthCarePractiioner.params
+            AcaEntities::InsurancePolicies::Contracts::HealthCarePractitionerContract.params
           )
           required(:begin_on).value(:date)
           required(:end_on).value(:date)
