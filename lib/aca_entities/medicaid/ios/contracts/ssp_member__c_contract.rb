@@ -608,7 +608,7 @@ module AcaEntities
 
           rule(:IsFederalRecognizedIndianTribeToggle__c, :IndianTribeCode__c) do
             if key && value && (values[:IsFederalRecognizedIndianTribeToggle__c] == "Y" && values[:IndianTribeCode__c].nil?)
-              key.failure(text: "missing tribe code(s) for " + values[:FirstName__c],
+              key.failure(text: "missing tribe code(s) for #{values[:FirstName__c]}",
                           error: result.errors.to_h)
             end
           end
