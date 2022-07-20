@@ -17,17 +17,18 @@ RSpec.describe AcaEntities::InsurancePolicies::Contracts::MemberContract do
   let(:relationship_code) { '1:18' }
   let(:irs_group_id) { 'abc987' }
   let(:tax_household_id) { '6161' }
-  let(:emails) { [{ kind: 'home', address: 'george@example.com', start_on: moment }] }
-  let(:phones) { [{ kind: 'mobile', primary: true, area_code: 202, number: 5_551_212, start_on: moment }] }
+
+  let(:emails) { [{ kind: 'home', address: 'george.jetson@example.com' }] }
+  let(:phones) { [{ kind: 'mobile', primary: true, area_code: '208', number: '5551212', start_on: moment }] }
   let(:addresses) do
     [
       {
-        kind: 'primary',
-        line_1: '1406 Albright St',
+        kind: 'home',
+        address_1: '1406 Albright St',
         city: 'Boise',
-        county: 'Ada',
-        state: 'ID',
-        zip: '83705',
+        county_name: 'Ada',
+        state_abbreviation: 'ID',
+        zip_code: '83705',
         start_on: moment
       }
     ]
@@ -45,6 +46,9 @@ RSpec.describe AcaEntities::InsurancePolicies::Contracts::MemberContract do
       gender: gender,
       tax_household_id: tax_household_id,
       irs_group_id: irs_group_id,
+      emails: emails,
+      phones: phones,
+      addresses: addresses,
       timestamps: timestamps
     }
   end
