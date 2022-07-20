@@ -1,47 +1,14 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
+require 'support/shared_content/insurance_policies/contracts/shared_context'
 
 RSpec.describe AcaEntities::InsurancePolicies::Contracts::EnrolledMemberContract do
+  include_context('insurance_policies_context')
   subject { described_class.new }
 
   let(:id) { '12345' }
-
-  # Member
-  let(:member_id) { '987654' }
-  let(:person_name) { { first_name: 'George', last_name: 'Jetson' } }
-  let(:dob) { Date.new(1988, 3, 15) }
-  let(:gender) { 'male' }
-  let(:timestamps) { { created_at: moment, modified_at: moment } }
-  let(:member) { { member_id: member_id, person_name: person_name, gender: gender, dob: dob } }
-
-  # PremiumSchedule
-  let(:premium_amount) { 345.66 }
-  let(:insured_start_on) { Date.new(moment.year, 1, 1) }
-  let(:insured_end_on) { Date.new(moment.year, 3, 1) }
-  let(:valid_start_on) { Date.new(moment.year, 1, 1) }
-  let(:valid_end_on) { Date.new(moment.year, 12, 31) }
-
-  let(:premium_schedule) do
-    {
-      premium_amount: premium_amount,
-      insured_start_on: insured_start_on,
-      insured_end_on: insured_end_on,
-      valid_start_on: valid_start_on,
-      valid_end_on: valid_end_on
-    }
-  end
-
-  # EnrolledMemberPremium
-  let(:insurance_rate) { 575.23 }
-  let(:enrolled_member_premium) { { premium_schedule: premium_schedule, insurance_rate: insurance_rate } }
-
-  # PrimaryCareProvider
-  let(:primary_care_provider) { { name: { first_name: 'Florence', last_name: 'Nightengale' } } }
-
-  let(:is_tobacco_user) { false }
-  let(:moment) { DateTime.now }
-  let(:timestamps) { { created_at: moment, modified_at: moment } }
+  let(:member) { george_jetson[:member] }
 
   let(:required_params) { { member: member, enrolled_member_premium: enrolled_member_premium } }
   let(:optional_params) do
