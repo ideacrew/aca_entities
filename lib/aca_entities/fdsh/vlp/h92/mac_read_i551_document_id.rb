@@ -11,7 +11,7 @@ module AcaEntities
           attribute :VisaNumber,          Types::String.optional.meta(omittable: true)
           attribute :PassportNumber,      Types::Strict::String.meta(omittable: false)
           attribute :CountryOfIssuance,   Types::Strict::String.meta(omittable: false)
-          attribute :DocExpirationDate,   Types::Strict::Date.meta(omittable: true)
+          attribute :DocExpirationDate,   Types::Date.optional.meta(omittable: true)
         end
       end
     end

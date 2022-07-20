@@ -17,7 +17,7 @@ module AcaEntities
 
             def to_hash
               {
-                non_esi_mec_response: non_esi_mec_response
+                non_esi_mec_response: non_esi_mec_response.to_hash
               }
             end
           end
