@@ -1,8 +1,10 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
+require 'support/shared_content/insurance_policies/contracts/shared_context'
 
 RSpec.describe AcaEntities::InsurancePolicies::Contracts::MemberContract do
+  include_context('insurance_policies_context')
   subject { described_class.new }
 
   let(:id) { '12345' }
@@ -12,10 +14,24 @@ RSpec.describe AcaEntities::InsurancePolicies::Contracts::MemberContract do
   let(:encrypted_ssn) { '777665432' }
   let(:dob) { Date.new(1988, 3, 15) }
   let(:gender) { 'male' }
-
-  # TODO: Add relationship attrib
-  # let(:relationship) { 'self' }
-  let(:tax_household_id) { '1' }
+  let(:relationship_code) { '1:18' }
+  let(:irs_group_id) { 'abc987' }
+  let(:tax_household_id) { '6161' }
+  let(:emails) { [{ kind: 'home', address: 'george@example.com', start_on: moment }] }
+  let(:phones) { [{ kind: 'mobile', primary: true, area_code: 202, number: 5_551_212, start_on: moment }] }
+  let(:addresses) do
+    [
+      {
+        kind: 'primary',
+        line_1: '1406 Albright St',
+        city: 'Boise',
+        county: 'Ada',
+        state: 'ID',
+        zip: '83705',
+        start_on: moment
+      }
+    ]
+  end
 
   let(:moment) { DateTime.now }
   let(:timestamps) { { created_at: moment, modified_at: moment } }
@@ -28,6 +44,7 @@ RSpec.describe AcaEntities::InsurancePolicies::Contracts::MemberContract do
       encrypted_ssn: encrypted_ssn,
       gender: gender,
       tax_household_id: tax_household_id,
+      irs_group_id: irs_group_id,
       timestamps: timestamps
     }
   end

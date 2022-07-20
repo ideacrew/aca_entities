@@ -13,9 +13,11 @@ module AcaEntities
           optional(:encrypted_ssn).maybe(:string)
           required(:dob).filled(:date)
           required(:gender).maybe(AcaEntities::Types::BinaryGenderKind)
-
-          # TODO: Add relationship attrib
-          # required(:relationship).maybe(AcaEntities::Contracts::People::PersonRelationshipContract.params)
+          optional(:relationship_code).maybe(:string)
+          optional(:addresses).array(AcaEntities::Locations::Contracts::SiteAddressContract.params)
+          optional(:emails).array(AcaEntities::Contracts::Contacts::EmailContactContract.params)
+          optional(:phones).array(AcaEntities::Contracts::Contacts::PhoneContactContract.params)
+          optional(:irs_group_id).maybe(AcaEntities::Types::StringOrNil)
           optional(:tax_household_id).maybe(AcaEntities::Types::StringOrNil)
           optional(:timestamps).maybe(AcaEntities::Contracts::TimeStampContract.params)
         end
