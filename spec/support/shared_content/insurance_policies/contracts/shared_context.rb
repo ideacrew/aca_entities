@@ -7,13 +7,39 @@ RSpec.shared_context 'insurance_policies_context' do
   let(:moment) { DateTime.now }
   let(:timestamps) { { created_at: moment, modified_at: moment } }
 
-  # InsuranceProdcutFeature
+  # InsuranceProductFeatures
   let(:key) { 'pediatric_dental' }
   let(:title) { 'Pediatric Dental Coverage' }
   let(:description) { 'Plan includes dental essential benefits for all enrollees under age 19' }
   let(:value) { 100.00 }
 
-  let(:shared_insurance_product_feature) { { key: key, title: title, description: description, value: value } }
+  let(:shared_health_insurance_product_feature) { { key: key, title: title, description: description, value: value } }
+
+  # InsuranceProducts
+  let(:health_insurance_product_name) { 'Insurer Coverall Health Product' }
+  let(:health_insurance_product_features) { [shared_health_insurance_product_feature] }
+
+  let(:shared_health_insurance_product) do
+    { name: health_insurance_product_name, insurance_product_features: health_insurance_product_features }
+  end
+
+  let(:dental_insurance_product_name) { 'Insurer Sparkle Dental Product' }
+  let(:shared_dental_insurance_product) { { name: dental_insurance_product_name } }
+
+  # IndividualInsurancePolicy
+  let(:policy_id) { 'policy_101' }
+  let(:marketplace_segment_id) { '0130345-68576-20220201' }
+  let(:coverage_kind) { 'health' }
+  let(:insurance_product) { shared_insurance_product }
+
+  let(:shared_individual_insurance_policy) do
+    {
+      policy_id: policy_id,
+      marketplace_segment_id: marketplace_segment_id,
+      coverage_kind: coverage_kind,
+      insurance_product: insurance_product
+    }
+  end
 
   # PremiumSchedule
   let(:premium_amount) { 345.66 }

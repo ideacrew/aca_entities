@@ -11,11 +11,11 @@ RSpec.describe AcaEntities::InsurancePolicies::Contracts::InsuranceProductContra
   let(:id) { '12345' }
 
   let(:name) { 'Insurer Coverall Health Product' }
-  let(:insurance_product_features) { [shared_insurance_product_feature] }
+  let(:insurance_product_features) { [shared_health_insurance_product_feature] }
   let(:timestamps) { { created_at: moment, modified_at: moment } }
 
-  let(:required_params) { { name: name, insurance_product_features: insurance_product_features } }
-  let(:optional_params) { { id: id, timestamps: timestamps } }
+  let(:required_params) { { name: name } }
+  let(:optional_params) { { id: id, insurance_product_features: insurance_product_features, timestamps: timestamps } }
 
   let(:all_params) { required_params.merge(optional_params) }
 
@@ -38,7 +38,7 @@ RSpec.describe AcaEntities::InsurancePolicies::Contracts::InsuranceProductContra
   end
 
   context 'Calling the contract with no params' do
-    let(:error_message) { { name: ['is missing'], insurance_product_features: ['is missing'] } }
+    let(:error_message) { { name: ['is missing'] } }
     it 'should pass validation' do
       result = subject.call({})
       expect(result.failure?).to be_truthy

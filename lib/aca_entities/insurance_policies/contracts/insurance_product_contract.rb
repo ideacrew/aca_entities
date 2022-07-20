@@ -12,7 +12,7 @@ module AcaEntities
         params do
           optional(:id)
           required(:name)
-          required(:insurance_product_features).array(
+          optional(:insurance_product_features).array(
             AcaEntities::InsurancePolicies::Contracts::InsuranceProductFeatureContract.params
           )
           optional(:timestamps).maybe(AcaEntities::Contracts::TimeStampContract.params)
