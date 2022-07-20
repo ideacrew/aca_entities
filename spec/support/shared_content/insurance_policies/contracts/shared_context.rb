@@ -7,6 +7,14 @@ RSpec.shared_context 'insurance_policies_context' do
   let(:moment) { DateTime.now }
   let(:timestamps) { { created_at: moment, modified_at: moment } }
 
+  # InsuranceProvider
+  let(:hios_id) { '98765432' }
+  let(:shared_insurance_provider_title) { 'Red Heart Healthcare' }
+  let(:shared_insurance_products) { [shared_health_insurance_product] }
+  let(:shared_insurance_policies) { [shared_individual_insurance_policy] }
+
+  let(:shared_insurance_provider) { { hios_id: hios_id, title: shared_insurance_provider_title } }
+
   # InsuranceProductFeatures
   let(:key) { 'pediatric_dental' }
   let(:title) { 'Pediatric Dental Coverage' }
@@ -16,21 +24,21 @@ RSpec.shared_context 'insurance_policies_context' do
   let(:shared_health_insurance_product_feature) { { key: key, title: title, description: description, value: value } }
 
   # InsuranceProducts
-  let(:health_insurance_product_name) { 'Insurer Coverall Health Product' }
-  let(:health_insurance_product_features) { [shared_health_insurance_product_feature] }
+  let(:shared_health_insurance_product_name) { 'Insurer Coverall Health Product' }
+  let(:shared_health_insurance_product_features) { [shared_health_insurance_product_feature] }
 
   let(:shared_health_insurance_product) do
-    { name: health_insurance_product_name, insurance_product_features: health_insurance_product_features }
+    { name: shared_health_insurance_product_name, insurance_product_features: shared_health_insurance_product_features }
   end
 
-  let(:dental_insurance_product_name) { 'Insurer Sparkle Dental Product' }
-  let(:shared_dental_insurance_product) { { name: dental_insurance_product_name } }
+  let(:shared_dental_insurance_product_name) { 'Insurer Sparkle Dental Product' }
+  let(:shared_dental_insurance_product) { { name: shared_dental_insurance_product_name } }
 
   # IndividualInsurancePolicy
   let(:policy_id) { 'policy_101' }
   let(:marketplace_segment_id) { '0130345-68576-20220201' }
   let(:coverage_kind) { 'health' }
-  let(:insurance_product) { shared_insurance_product }
+  let(:insurance_product) { shared_health_insurance_product }
 
   let(:shared_individual_insurance_policy) do
     {
@@ -85,7 +93,7 @@ RSpec.shared_context 'insurance_policies_context' do
 
   # Members & Enrolled Members
   let(:irs_group_id) { 'abc987' }
-  let(:tax_household_id) { '6161' }
+  let(:tax_household_id) { 'th_101' }
   let(:is_tobacco_user) { false }
 
   let(:george_jetson) do
@@ -173,8 +181,37 @@ RSpec.shared_context 'insurance_policies_context' do
     }
   end
 
+  # TaxHousehold
+
+  let(:shared_tax_household_members) do
+    [
+      george_jetson[:enrolled_member][:member],
+      jane_jetson[:enrolled_member][:member],
+      judy_jetson[:enrolled_member][:member]
+    ]
+  end
+  let(:tax_household_id) { 'th_101' }
+  let(:assistance_year) { moment.year }
+  let(:health_benchmark_plan) { shared_health_insurance_product }
+  let(:dental_benchmark_plan) { shared_dental_insurance_product }
+  let(:thh_aptc_amount) { 450.00 }
+  let(:start_on) { january_1 }
+
+  let(:shared_tax_household) do
+    {
+      tax_household_id: tax_household_id,
+      assistance_year: assistance_year,
+      members: shared_tax_household_members,
+      health_benchmark_plan: health_benchmark_plan,
+      dental_benchmark_plan: dental_benchmark_plan,
+      aptc_amount: thh_aptc_amount,
+      start_on: start_on
+    }
+  end
+
   # EnrollmentElections
   let(:january_1) { Date.new(moment.year, 1, 1) }
+  let(:january_2) { Date.new(moment.year, 1, 2) }
   let(:march_121) { Date.new(moment.year, 3, 12) }
   let(:june_30) { Date.new(moment.year, 6, 30) }
   let(:december_31) { Date.new(moment.year, 12, 31) }

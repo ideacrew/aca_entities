@@ -12,10 +12,8 @@ module AcaEntities
         params do
           optional(:id)
           required(:policy_id).value(:string)
-          optional(:insurance_provider_policy_id).value(:string)
-          required(:marketplace_segment_id).value(
-            AcaEntities::InsurancePolicies::Contracts::MarketplaceSegmentContract.params
-          )
+          optional(:insurer_policy_id).value(:string)
+          required(:marketplace_segment_id).value(:string)
           required(:coverage_kind).value(AcaEntities::InsurancePolicies::Types::CoverageKind)
           required(:insurance_product).value(AcaEntities::InsurancePolicies::Contracts::InsuranceProductContract.params)
           optional(:timestamps).maybe(AcaEntities::Contracts::TimeStampContract.params)

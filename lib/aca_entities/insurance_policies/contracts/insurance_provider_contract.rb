@@ -11,11 +11,18 @@ module AcaEntities
         # @return [Dry::Monads::Result::Failure] if params fail validation
         params do
           optional(:id).value(:string)
+          required(:title).value(:string)
           required(:hios_id).filled(:string)
-          required(:organization).filled(AcaEntities::Organizations::Contracts::OrganizationContract.params)
-          optional(:insurance_policies).array(AcaEntities::InsurancePolicies::Contracts::InsurancePolicyContract.params)
-          required(:description).value(:string)
-          required(:text).value(:string)
+
+          # required(:organization).filled(AcaEntities::Organizations::Contracts::OrganizationContract.params)
+          optional(:insurance_products).array(
+            AcaEntities::InsurancePolicies::Contracts::InsuranceProductContract.params
+          )
+          optional(:insurance_policies).array(
+            AcaEntities::InsurancePolicies::Contracts::IndividualInsurancePolicyContract.params
+          )
+          optional(:description).value(:string)
+          optional(:text).value(:string)
           optional(:timestamps).maybe(AcaEntities::Contracts::TimeStampContract.params)
         end
       end

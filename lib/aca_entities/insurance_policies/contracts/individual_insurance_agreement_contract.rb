@@ -15,12 +15,12 @@ module AcaEntities
           required(:insurance_provider).value(
             AcaEntities::InsurancePolicies::Contracts::InsuranceProviderContract.params
           )
-          required(:insurance_policy).value(AcaEntities::InsurancePolicies::Contracts::InsurancePolicyContract.params)
-          required(:begin_on).value(:date)
-          required(:end_on).value(:date)
+          required(:insurance_policies).array(
+            AcaEntities::InsurancePolicies::Contracts::IndividualInsurancePolicyContract.params
+          )
+          required(:start_on).value(:date)
+          optional(:end_on).value(:date)
           optional(:effectuated_on).value(:date)
-          required(:description).value(:string)
-          required(:text).value(:string)
           optional(:timestamps).maybe(AcaEntities::Contracts::TimeStampContract.params)
         end
       end
