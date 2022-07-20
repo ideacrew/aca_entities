@@ -11,13 +11,13 @@ module AcaEntities
     send(:include, Dry::Logic)
 
     BinaryGenderKind = Types::Coercible::String.enum('male', 'female')
+    BoolOrNil = Types::Bool | Types::Nil
+    DateOrNil = Types::Date | Types::Nil
     StringOrNil = Types::String | Types::Nil
 
-    ClientKinds =
-      Types::String.enum('enroll', 'edi_db', 'sugar_crm', 'polypress').freeze
+    ClientKinds = Types::String.enum('enroll', 'edi_db', 'sugar_crm', 'polypress').freeze
 
-    CommunicationKinds =
-      Types::String.enum('electronic_preferred', 'paper_only').freeze
+    CommunicationKinds = Types::String.enum('electronic_preferred', 'paper_only').freeze
 
     CommunicationKindsMap = {
       paper_only: 'Only Paper communication',
@@ -26,10 +26,7 @@ module AcaEntities
 
     ElectronicCommunicationKinds = Types::String.enum('sms', 'smtp').freeze
 
-    ElectronicCommunicationKindsMap = {
-      simple_message_service: 'Text message',
-      smtp: 'Email'
-    }.freeze
+    ElectronicCommunicationKindsMap = { simple_message_service: 'Text message', smtp: 'Email' }.freeze
 
     Money = Types.Constructor(BigDecimal) { |val| BigDecimal(val.to_s) }
 
@@ -38,8 +35,7 @@ module AcaEntities
     # String, min length: 1 character, max length: 15 characters, numeric-only
     HbxIdentifierKind = Types::String.constrained(format: /^[0-9]{1,15}$/)
 
-    McrToCvIncarcerationKind =
-      Types.Constructor(self) { |value| value == 'INCARCERATED' }
+    McrToCvIncarcerationKind = Types.Constructor(self) { |value| value == 'INCARCERATED' }
 
     UsStateAbbreviationKind =
       Types::String.enum(
@@ -104,12 +100,7 @@ module AcaEntities
         'WY'
       )
 
-    EmployeeStatusCodeKinds =
-      Types::Coercible::String.enum(
-        'NoLongerEmployed',
-        'Retired',
-        'CurrentlyEmployed'
-      )
+    EmployeeStatusCodeKinds = Types::Coercible::String.enum('NoLongerEmployed', 'Retired', 'CurrentlyEmployed')
 
     LcsopCoverageCodeKinds =
       Types::Coercible::String.enum(
@@ -195,10 +186,8 @@ module AcaEntities
       IR9: 'Orphans to be adopted, adjustments',
       IR5: 'Parents of adult U.S. citizens, new arrivals',
       IR0: 'Parents of adult U.S. citizens, adjustments',
-      IB5:
-        'Parents battered or abused, of U.S. citizens, new arrivals, self petitioning',
-      IB0:
-        'Parents battered or abused, of U.S. citizens, adjustments, self petitioning',
+      IB5: 'Parents battered or abused, of U.S. citizens, new arrivals, self petitioning',
+      IB0: 'Parents battered or abused, of U.S. citizens, adjustments, self petitioning',
       # Family-sponsored preferences
       # Family members not included in the immediate relative class of
       # admission may be eligible for immigration under family-sponsored preferences.
@@ -209,10 +198,8 @@ module AcaEntities
       A16: 'Unmarried Amerasian sons/daughters of U.S. citizens, adjustments',
       F11: 'Unmarried sons/daughters of U.S. citizens, new arrivals',
       F16: 'Unmarried sons/daughters of U.S. citizens, adjustments',
-      B11:
-        'Unmarried sons/daughters of U.S. citizens, new arrivals, self petitioning',
-      B16:
-        'Unmarried sons/daughters of U.S. citizens, adjustments, self petitioning',
+      B11: 'Unmarried sons/daughters of U.S. citizens, new arrivals, self petitioning',
+      B16: 'Unmarried sons/daughters of U.S. citizens, adjustments, self petitioning',
       A12: 'Children of A11 or A16, new arrivals',
       A17: 'Children of A11 or A16, adjustments',
       F12: 'Children of F11 or F16, new arrivals',
@@ -220,125 +207,77 @@ module AcaEntities
       B12: 'Children of B11 or B16, new arrivals',
       B17: 'Children of B11 or B16, adjustments',
       # Second: Spouses, children, and unmarried sons/daughters of alien residents
-      F21:
-        'Spouses of alien residents, subject to country limits, new arrivals',
+      F21: 'Spouses of alien residents, subject to country limits, new arrivals',
       F26: 'Spouses of alien residents, subject to country limits, adjustments',
-      B21:
-        'Spouses of alien residents, subject to country limits, new arrivals, self petitioning',
-      B26:
-        'Spouses of alien residents, subject to country limits, adjustments, self petitioning',
-      C21:
-        'Spouses of alien residents, subject to country limits, new arrivals, conditional',
-      C26:
-        'Spouses of alien residents, subject to country limits, adjustments, conditional',
-      FX1:
-        'Spouses of alien residents, exempt from country limits, new arrivals',
-      FX6:
-        'Spouses of alien residents, exempt from country limits, adjustments',
-      BX1:
-        'Spouses of alien residents, exempt from country limits, new arrivals, self petitioning',
-      BX6:
-        'Spouses of alien residents, exempt from country limits, adjustments, self petitioning',
-      CX1:
-        'Spouses of alien residents, exempt from country limits, new arrivals, conditional',
-      CX6:
-        'Spouses of alien residents, exempt from country limits, adjustments, conditional',
-      F22:
-        'Children of alien residents, subject to country limits, new arrivals',
-      F27:
-        'Children of alien residents, subject to country limits, adjustments',
-      B22:
-        'Children of alien residents, subject to country limits, new arrivals, self petitioning',
-      B27:
-        'Children of alien residents, subject to country limits, adjustments, self petitioning',
-      C23:
-        'Children of C21, C22, C26, or C27, subject to country limits, new arrivals, conditional',
-      C28:
-        'Children of C21, C22, C26, or C27, subject to country limits, adjustments, conditional',
-      B23:
-        'Children of B21, B22, B26, or B27, subject to country limits, new arrivals',
-      B28:
-        'Children of B21, B22, B26, or B27, subject to country limits, adjustments',
-      F23:
-        'Children of F21, F22, F26, or F27, subject to country limits, new arrivals',
-      F28:
-        'Children of F21, F22, F26, or F27, subject to country limits, adjustments',
-      C25:
-        'Children of C24 or C29, subject to country limits, new arrivals, conditional',
-      C20:
-        'Children of C24 or C29, subject to country limits, adjustments, conditional',
+      B21: 'Spouses of alien residents, subject to country limits, new arrivals, self petitioning',
+      B26: 'Spouses of alien residents, subject to country limits, adjustments, self petitioning',
+      C21: 'Spouses of alien residents, subject to country limits, new arrivals, conditional',
+      C26: 'Spouses of alien residents, subject to country limits, adjustments, conditional',
+      FX1: 'Spouses of alien residents, exempt from country limits, new arrivals',
+      FX6: 'Spouses of alien residents, exempt from country limits, adjustments',
+      BX1: 'Spouses of alien residents, exempt from country limits, new arrivals, self petitioning',
+      BX6: 'Spouses of alien residents, exempt from country limits, adjustments, self petitioning',
+      CX1: 'Spouses of alien residents, exempt from country limits, new arrivals, conditional',
+      CX6: 'Spouses of alien residents, exempt from country limits, adjustments, conditional',
+      F22: 'Children of alien residents, subject to country limits, new arrivals',
+      F27: 'Children of alien residents, subject to country limits, adjustments',
+      B22: 'Children of alien residents, subject to country limits, new arrivals, self petitioning',
+      B27: 'Children of alien residents, subject to country limits, adjustments, self petitioning',
+      C23: 'Children of C21, C22, C26, or C27, subject to country limits, new arrivals, conditional',
+      C28: 'Children of C21, C22, C26, or C27, subject to country limits, adjustments, conditional',
+      B23: 'Children of B21, B22, B26, or B27, subject to country limits, new arrivals',
+      B28: 'Children of B21, B22, B26, or B27, subject to country limits, adjustments',
+      F23: 'Children of F21, F22, F26, or F27, subject to country limits, new arrivals',
+      F28: 'Children of F21, F22, F26, or F27, subject to country limits, adjustments',
+      C25: 'Children of C24 or C29, subject to country limits, new arrivals, conditional',
+      C20: 'Children of C24 or C29, subject to country limits, adjustments, conditional',
       B25: 'Children of B24 or B29, subject to country limits, new arrivals',
       B20: 'Children of B24 or B29, subject to country limits, adjustments',
       F25: 'Children of F24 or F29, subject to country limits, new arrivals',
       F20: 'Children of F24 or F29, subject to country limits, adjustments',
-      C22:
-        'Children of alien residents, subject to country limits, new arrivals, conditional',
-      C27:
-        'Children of alien residents, subject to country limits, adjustments, conditional',
-      FX2:
-        'Children of alien residents, exempt from country limits, new arrivals',
-      FX7:
-        'Children of alien residents, exempt from country limits, adjustments',
-      BX2:
-        'Children of alien residents, exempt from country limits, new arrivals, self petitioning',
-      BX7:
-        'Children of alien residents, exempt from country limits, adjustments, self petitioning',
-      CX3:
-        'Children of CX2 or CX7, exempt from country limits, new arrivals, conditional',
-      CX8:
-        'Children of CX2 or CX7, exempt from country limits, adjustments, conditional',
-      BX3:
-        'Children of BX1, BX2, BX6, or BX7, exempt from country limits, new arrivals',
-      BX8:
-        'Children of BX1, BX2, BX6, or BX7, exempt from country limits, adjustments',
-      FX3:
-        'Children of FX1, FX2, FX7, or FX8, exempt from country limits, new arrivals',
-      FX8:
-        'Children of FX1, FX2, FX7, or FX8, exempt from country limits, adjustments',
-      CX2:
-        'Children of alien residents, exempt from country limits, new arrivals, conditional',
-      CX7:
-        'Children of alien residents, exempt from country limits, adjustments, conditional',
-      F24:
-        'Unmarried sons/daughters of alien residents, subject to country limits, new arrivals',
-      F29:
-        'Unmarried sons/daughters of alien residents, subject to country limits, adjustments',
-      B24:
-        'Unmarried sons/daughters of alien residents, subject to country limits, new arrivals, self petitioning',
-      B29:
-        'Unmarried sons/daughters of alien residents, subject to country limits, adjustments, self petitioning',
-      C24:
-        'Unmarried children of alien residents, subject to country limits, new arrivals, conditional',
-      C29:
-        'Unmarried children of alien residents, subject to country limits, adjustments, conditional',
+      C22: 'Children of alien residents, subject to country limits, new arrivals, conditional',
+      C27: 'Children of alien residents, subject to country limits, adjustments, conditional',
+      FX2: 'Children of alien residents, exempt from country limits, new arrivals',
+      FX7: 'Children of alien residents, exempt from country limits, adjustments',
+      BX2: 'Children of alien residents, exempt from country limits, new arrivals, self petitioning',
+      BX7: 'Children of alien residents, exempt from country limits, adjustments, self petitioning',
+      CX3: 'Children of CX2 or CX7, exempt from country limits, new arrivals, conditional',
+      CX8: 'Children of CX2 or CX7, exempt from country limits, adjustments, conditional',
+      BX3: 'Children of BX1, BX2, BX6, or BX7, exempt from country limits, new arrivals',
+      BX8: 'Children of BX1, BX2, BX6, or BX7, exempt from country limits, adjustments',
+      FX3: 'Children of FX1, FX2, FX7, or FX8, exempt from country limits, new arrivals',
+      FX8: 'Children of FX1, FX2, FX7, or FX8, exempt from country limits, adjustments',
+      CX2: 'Children of alien residents, exempt from country limits, new arrivals, conditional',
+      CX7: 'Children of alien residents, exempt from country limits, adjustments, conditional',
+      F24: 'Unmarried sons/daughters of alien residents, subject to country limits, new arrivals',
+      F29: 'Unmarried sons/daughters of alien residents, subject to country limits, adjustments',
+      B24: 'Unmarried sons/daughters of alien residents, subject to country limits, new arrivals, self petitioning',
+      B29: 'Unmarried sons/daughters of alien residents, subject to country limits, adjustments, self petitioning',
+      C24: 'Unmarried children of alien residents, subject to country limits, new arrivals, conditional',
+      C29: 'Unmarried children of alien residents, subject to country limits, adjustments, conditional',
       # Third: Married sons/daughters of U.S. citizens and their spouses and children
       A31: 'Married Amerasian sons/daughters of U.S. citizens, new arrivals',
       F31: 'Married sons/daughters of U.S. citizens, new arrivals',
       C31: 'Married sons/daughters of U.S. citizens, new arrivals, conditional',
-      B31:
-        'Married sons/daughters of U.S. citizens, new arrivals, self petitioning',
+      B31: 'Married sons/daughters of U.S. citizens, new arrivals, self petitioning',
       A36: 'Married Amerasian sons/daughters of U.S. citizens, adjustments',
       F36: 'Married sons/daughters of U.S. citizens, adjustments',
       C36: 'Married sons/daughters of U.S. citizens, adjustments, conditional',
-      B36:
-        'Married sons/daughters of U.S. citizens, adjustments, self petitioning',
+      B36: 'Married sons/daughters of U.S. citizens, adjustments, self petitioning',
       A32: 'Spouses of A31 or A36, new arrivals',
       A37: 'Spouses of A31 or A36, adjustments',
       F32: 'Spouses of married sons/daughters of U.S. citizens, new arrivals',
       F37: 'Spouses of married sons/daughters of U.S. citizens, adjustments',
       C32: 'Spouses of C31 or C36, new arrivals, conditional',
-      C37:
-        'Spouses of married sons/daughters of U.S. citizens, adjustments, conditional',
+      C37: 'Spouses of married sons/daughters of U.S. citizens, adjustments, conditional',
       B32: 'Spouses of B31 or B36, new arrivals',
       B37: 'Spouses of B31 or B36, adjustments',
       A33: 'Children of A31 or A36, subject to country limits, new arrivals',
       A38: 'Children of A31 or A36, subject to country limits, adjustments',
       F33: 'Children of married sons/daughters of U.S. citizens, new arrivals',
       F38: 'Children of married sons/daughters of U.S. citizens, adjustments',
-      C33:
-        'Children of C31 or C36, subject to country limits, new arrivals, conditional',
-      C38:
-        'Children of C31 or C36, subject to country limits, adjustments, conditional',
+      C33: 'Children of C31 or C36, subject to country limits, new arrivals, conditional',
+      C38: 'Children of C31 or C36, subject to country limits, adjustments, conditional',
       B33: 'Children of B31 or B36, subject to country limits, new arrivals',
       B38: 'Children of B31 or B36, subject to country limits, adjustments',
       # Fourth: Brothers/sisters of U.S. citizens (at least 21 years of age) and their spouses and children
@@ -405,14 +344,10 @@ module AcaEntities
       SD6: 'Ministers, adjustments',
       SE1: 'Employees of U.S. government abroad, new arrivals',
       SE6: 'Employees of U.S. government abroad, adjustments',
-      SF1:
-        'Former employees of the Panama Canal Company or Canal Zone Government, new arrivals',
-      SF6:
-        'Former employees of the Panama Canal Company or Canal Zone Government, adjustments',
-      SG1:
-        'Former U.S. government employees in the Panama Canal Zone, new arrivals',
-      SG6:
-        'Former U.S. government employees in the Panama Canal Zone, adjustments',
+      SF1: 'Former employees of the Panama Canal Company or Canal Zone Government, new arrivals',
+      SF6: 'Former employees of the Panama Canal Company or Canal Zone Government, adjustments',
+      SG1: 'Former U.S. government employees in the Panama Canal Zone, new arrivals',
+      SG6: 'Former U.S. government employees in the Panama Canal Zone, adjustments',
       SH1:
         'Former employees of the Panama Canal Company or Canal Zone government, employed on April 1, 1979, new arrivals',
       SH6:
@@ -421,20 +356,16 @@ module AcaEntities
         'Foreign medical school graduate who was licensed to practice in the United States on Jan. 9, 1978, adjustments',
       SK1: 'Retired employees of international organizations, new arrivals',
       SK6: 'Retired employees of international organizations, adjustments',
-      SK4:
-        'Certain surviving spouses of deceased international organization employees, new arrivals',
-      SK9:
-        'Certain surviving spouses of deceased international organization employees, adjustments',
+      SK4: 'Certain surviving spouses of deceased international organization employees, new arrivals',
+      SK9: 'Certain surviving spouses of deceased international organization employees, adjustments',
       SL1: 'Juvenile court dependents, new arrivals',
       SL6: 'Juvenile court dependents, adjustments',
       SN1: 'Retired NATO-6 civilian employees, new arrivals',
       SN6: 'Retired NATO-6 civilian employees, adjustments',
       SR1: 'Religious workers, new arrivals',
       SR6: 'Religious workers, adjustments',
-      SN4:
-        'Certain surviving spouses of deceased NATO-6 civilian employees, new arrivals',
-      SN9:
-        'Certain surviving spouses of deceased NATO-6 civilian employees, adjustments',
+      SN4: 'Certain surviving spouses of deceased NATO-6 civilian employees, new arrivals',
+      SN9: 'Certain surviving spouses of deceased NATO-6 civilian employees, adjustments',
       BC2: 'Spouses of BC1 or BC6, new arrivals',
       BC7: 'Spouses of BC1 or BC6, adjustments',
       SD2: 'Spouses of SD1 or SD6, new arrivals',
@@ -468,16 +399,12 @@ module AcaEntities
       SN3: 'Certain unmarried sons/daughters of SN1 or SN6, new arrivals',
       SN8: 'Certain unmarried sons/daughters of SN1 or SN6, adjustments',
       # Fifth: Employment creation (investors)',
-      C51:
-        'Employment creation, not in targeted area, new arrivals, conditional',
-      C56:
-        'Employment creation, not in targeted area, adjustments, conditional',
+      C51: 'Employment creation, not in targeted area, new arrivals, conditional',
+      C56: 'Employment creation, not in targeted area, adjustments, conditional',
       E51: 'Employment creation, new arrivals',
       E56: 'Employment creation, adjustments',
-      I51:
-        'Employment creation, targeted area, pilot program, new arrivals, conditional',
-      I56:
-        'Employment creation, targeted area, pilot program, adjustments, conditional',
+      I51: 'Employment creation, targeted area, pilot program, new arrivals, conditional',
+      I56: 'Employment creation, targeted area, pilot program, adjustments, conditional',
       T51: 'Employment creation, targeted area, new arrivals, conditional',
       T56: 'Employment creation, targeted area, adjustments, conditional',
       R51: 'Investor pilot program, not targeted, new arrivals, conditional',
@@ -512,11 +439,9 @@ module AcaEntities
       CU6: 'Cuban refugees (P.L. 89-732 of 1966)',
       CU7: 'Non-Cuban spouses or children of Cuban refugees',
       IC6: 'Indochinese refugees (P.L. 95-145 of 1977)',
-      IC7:
-        'Spouses or children of Indochinese refugees not qualified as refugees on their own',
+      IC7: 'Spouses or children of Indochinese refugees not qualified as refugees on their own',
       R86: 'Refugee parolees (P.L. 95-412 of 1978)',
-      M83:
-        'Refugee escapees previously admitted for lawful permanent resident status, adjustments',
+      M83: 'Refugee escapees previously admitted for lawful permanent resident status, adjustments',
       Y64: 'Refugees in the United States prior to July 1, 1953, adjustments',
       RE6: 'Other refugees (P.L. 96-212 Refugee Act of 1980)',
       RE7: 'Spouses of RE6',
@@ -551,8 +476,7 @@ module AcaEntities
       PH6: 'Parolees, Polish/Hungarian',
       LA6: 'Parolees, Soviet/Indochinese',
       ID6: 'Parolees, Indochinese',
-      M93:
-        'Parolees, Hungarian previously admitted for lawful permanent resident status',
+      M93: 'Parolees, Hungarian previously admitted for lawful permanent resident status',
       NA3: 'Children born abroad to alien residents',
       # Nicaraguan and Central American Relief Act (NACARA Section 202, P.L. 105-100)',
       NC6: 'Principals',
@@ -563,12 +487,10 @@ module AcaEntities
       Z13: 'Sec. 244, P.L. 89-236, subject to 4,000 annual limit',
       Z14:
         'Battered spouses or children (Violence Against Women Act), P.L. 103-322 of 1994, subject to 4,000 annual limit',
-      Z15:
-        'Salvadoran, Guatemalan and former Soviet bloc country nationals (NACARA Section 203, P.L. 105-100 of 1997)',
+      Z15: 'Salvadoran, Guatemalan and former Soviet bloc country nationals (NACARA Section 203, P.L. 105-100 of 1997)',
       Z56:
         'Crewmen who entered on or before June 30, 1964 and are immediate relatives of U.S. citizens or special immigrants',
-      Z57:
-        'Crewmen who entered on or before June 30, 1964 and are preference or non-preference immigrants',
+      Z57: 'Crewmen who entered on or before June 30, 1964 and are preference or non-preference immigrants',
       Z11: 'Preference or non-preference immigrants (other than crewmen)',
       # Haitian Refugee Immigration Fairness Act (HRIFA, P.L. 105-277)',
       HA6: 'Haitian asylum applicants',
@@ -597,8 +519,7 @@ module AcaEntities
       W36: 'Blanket enforced voluntary departure (EVD) group',
       S16:
         'Seasonal Agricultural Workers (SAW), worked at least 90 days during each year ending May 1, 1984, 1985, and 1986',
-      S26:
-        'Seasonal Agricultural Workers (SAW), worked at least 90 days during the year ending on May 1, 1986',
+      S26: 'Seasonal Agricultural Workers (SAW), worked at least 90 days during the year ending on May 1, 1986',
       # IRCA legalization dependents',
       LB1: 'Spouses of legalized aliens, new arrivals',
       CB1: 'Spouses of legalized aliens, new arrivals, conditional',
@@ -631,10 +552,8 @@ module AcaEntities
       HK8: 'Children of HK1 or HK6, adjustments',
       CH6: 'Cuban Haitian entrants, adjustments (P.L. 99-603)',
       S13: 'American Indians born in Canada, new arrivals',
-      DT1:
-        'Natives of Tibet who continuously resided in Nepal or India (Displaced Tibetan), new arrivals',
-      DT6:
-        'Natives of Tibet who continuously resided in Nepal or India (Displaced Tibetan), adjustments',
+      DT1: 'Natives of Tibet who continuously resided in Nepal or India (Displaced Tibetan), new arrivals',
+      DT6: 'Natives of Tibet who continuously resided in Nepal or India (Displaced Tibetan), adjustments',
       DT2: 'Spouses of DT1 or DT6, new arrivals',
       DT7: 'Spouses of DT1 or DT6, adjustments',
       DT3: 'Children of DT1 or DT6, new arrivals',
@@ -645,43 +564,32 @@ module AcaEntities
         'Spouses of U.S. citizens presumed to be lawful permanent resident aliens - Northern Mariana Islands, adjustments',
       MR7:
         'Children of U.S. citizens presumed to be lawful permanent resident aliens - Northern Mariana Islands, adjustments',
-      NP8:
-        'Alien who filed and was qualified with investor status prior to June 1, 1978',
+      NP8: 'Alien who filed and was qualified with investor status prior to June 1, 1978',
       NP9: 'Spouses or children of NP8, adjustments',
       RN6: 'Certain former H1 nonimmigrant registered nurses, adjustments',
       RN7: 'Spouses or children of RN6, adjustments',
       SC1: 'Lost citizenship through marriage, new arrivals',
       SC6: 'Lost citizenship through marriage, adjustments',
-      SC2:
-        'Lost citizenship through serving in foreign armed forces, new arrivals',
-      SC7:
-        'Lost citizenship through serving in foreign armed forces, adjustments',
-      SI1:
-        'Special immigrant interpreters who are nationals of Iraq or Afghanistan, new arrivals',
-      SI6:
-        'Special immigrant interpreters who are nationals of Iraq or Afghanistan, adjustments',
+      SC2: 'Lost citizenship through serving in foreign armed forces, new arrivals',
+      SC7: 'Lost citizenship through serving in foreign armed forces, adjustments',
+      SI1: 'Special immigrant interpreters who are nationals of Iraq or Afghanistan, new arrivals',
+      SI6: 'Special immigrant interpreters who are nationals of Iraq or Afghanistan, adjustments',
       SI2: 'Spouses of SI1 or SI6, new arrivals',
       SI7: 'Spouses of SI1 or SI6, adjustments',
       SI3: 'Children of SI1 or SI6, new arrivals',
       SI8: 'Children of SI1 or SI6, adjustments',
-      SM1:
-        'U.S. Armed Forces personnel, service (12 years) after 10/1/91, new arrivals',
-      SM6:
-        'U.S. Armed Forces personnel, service (12 years) after 10/1/91, adjustments',
-      SM4:
-        'U.S. Armed Forces personnel, service (12 years) by 10/91, new arrivals',
-      SM9:
-        'U.S. Armed Forces personnel, service (12 years) by 10/91, adjustments',
+      SM1: 'U.S. Armed Forces personnel, service (12 years) after 10/1/91, new arrivals',
+      SM6: 'U.S. Armed Forces personnel, service (12 years) after 10/1/91, adjustments',
+      SM4: 'U.S. Armed Forces personnel, service (12 years) by 10/91, new arrivals',
+      SM9: 'U.S. Armed Forces personnel, service (12 years) by 10/91, adjustments',
       SM2: 'Spouses of SM1 or SM6, new arrivals',
       SM7: 'Spouses of SM1 or SM6, adjustments',
       SM5: 'Spouses or children of SM4 or SM9, new arrivals',
       SM0: 'Spouses or children of SM4 or SM9, adjustments',
       SM3: 'Children of SM1 or SM6, new arrivals',
       SM8: 'Children of SM1 or SM6, adjustments',
-      SQ1:
-        'Certain Iraqis and Afghans employed by U.S. Government, new arrivals',
-      SQ6:
-        'Certain Iraqis and Afghans employed by U.S. Government, adjustments',
+      SQ1: 'Certain Iraqis and Afghans employed by U.S. Government, new arrivals',
+      SQ6: 'Certain Iraqis and Afghans employed by U.S. Government, adjustments',
       SQ2: 'Spouses of SQ1 or SQ6, new arrivals',
       SQ7: 'Spouses of SQ1 or SQ6, adjustments',
       SQ3: 'Children of SQ1 or SQ6, new arrivals',
@@ -701,22 +609,16 @@ module AcaEntities
       SU9: 'Adjustment of U5 nonimmigrant',
       W46: 'Late amnesty applicants (Immigration Reform and Control Act)',
       XB3: 'Presumed lawfully admitted for permanent residence',
-      XA3:
-        "Children born subsequent to issuance of parent's non-quota visa, new arrivals",
-      XE3:
-        "Children born subsequent to issuance of parent's employment-based preference visa, new arrivals",
-      XF3:
-        "Children born subsequent to issuance of parent's family-sponsored preference visa, new arrivals",
-      XR3:
-        "Children born subsequent to issuance of parent's immediate relative of U.S. citizen visa, new arrivals",
-      XN3:
-        "Children born subsequent to issuance of parent's visa other, new arrivals",
+      XA3: "Children born subsequent to issuance of parent's non-quota visa, new arrivals",
+      XE3: "Children born subsequent to issuance of parent's employment-based preference visa, new arrivals",
+      XF3: "Children born subsequent to issuance of parent's family-sponsored preference visa, new arrivals",
+      XR3: "Children born subsequent to issuance of parent's immediate relative of U.S. citizen visa, new arrivals",
+      XN3: "Children born subsequent to issuance of parent's visa other, new arrivals",
       Z43: 'Private bill, adjustments',
       Z33: 'Entered before 7/1/24, Section 249, P.L. 89-236, adjustments',
       Z03: 'Entered 7/1/24-6/28/40, Section 249, P.L. 89-236, adjustments',
       Z66: 'Entered 6/29/40-1/1/72, Section 249, P.L. 89-236, adjustments',
-      Z83:
-        'Foreign government official who is immediate relative of U.S. citizen or special immigrant'
+      Z83: 'Foreign government official who is immediate relative of U.S. citizen or special immigrant'
     }.freeze
 
     ClassOfAdmissionCode =
@@ -1717,14 +1619,7 @@ module AcaEntities
         'Dental'
       )
 
-    MetalLevelCode =
-      Types::Coercible::String.enum(
-        'Platinum',
-        'Gold',
-        'Silver',
-        'Bronze',
-        'Catastrophic'
-      )
+    MetalLevelCode = Types::Coercible::String.enum('Platinum', 'Gold', 'Silver', 'Bronze', 'Catastrophic')
 
     RelationshipToTaxFilerCodeMap = {
       '01': 'Spouse',
@@ -1795,8 +1690,7 @@ module AcaEntities
         '53-19'
       )
 
-    AttestedChildOfCaretakerCode =
-      Types::Coercible::String.enum('YesCovered', 'YesNotCovered', 'No')
+    AttestedChildOfCaretakerCode = Types::Coercible::String.enum('YesCovered', 'YesNotCovered', 'No')
 
     AbsentParentCode = Types::Coercible::String.enum('Yes', 'No', 'Yes-Exempt')
 
@@ -1804,8 +1698,7 @@ module AcaEntities
 
     GenderKind = Types::Coercible::String.enum('Male', 'Female')
 
-    DeductionCategoryCode =
-      Types::Coercible::String.enum('Alimony', 'StudentLoanInterest')
+    DeductionCategoryCode = Types::Coercible::String.enum('Alimony', 'StudentLoanInterest')
 
     MarketPlaceKinds =
       Types::Coercible::String.enum(
@@ -1833,13 +1726,11 @@ module AcaEntities
         'tanf'
       )
 
-    ProductKinds =
-      Types::Coercible::String.enum('health_catastrophic', 'health', 'dental')
+    ProductKinds = Types::Coercible::String.enum('health_catastrophic', 'health', 'dental')
 
     DocumentRights = Types::Coercible::String.enum('public', 'pii_restricted')
 
-    ServiceMarketKind =
-      Types::Coercible::String.enum('shop', 'individual', 'coverall')
+    ServiceMarketKind = Types::Coercible::String.enum('shop', 'individual', 'coverall')
 
     GaState = Types::Coercible::String.enum('active', 'incactive')
 
@@ -1860,52 +1751,23 @@ module AcaEntities
         'federal_employee_health_benefit'
       )
 
-    BrokerMarketKind =
-      Types::Coercible::String.enum('individual', 'shop', 'both')
+    BrokerMarketKind = Types::Coercible::String.enum('individual', 'shop', 'both')
 
-    GeneralAgencyMarketKinds =
-      Types::Coercible::String.enum('individual', 'shop', 'both')
+    GeneralAgencyMarketKinds = Types::Coercible::String.enum('individual', 'shop', 'both')
 
     ProviderKinds = Types::Coercible::String.enum('broker', 'assister')
 
     EmailKind = Types::Coercible::String.enum('home', 'work')
 
-    AddressKinds =
-      Types::Coercible::String.enum(
-        'home',
-        'work',
-        'mailing',
-        'primary',
-        'mailing',
-        'branch'
-      )
+    AddressKinds = Types::Coercible::String.enum('home', 'work', 'mailing', 'primary', 'mailing', 'branch')
 
-    PhoneKind =
-      Types::Coercible::String.enum(
-        'home',
-        'work',
-        'mobile',
-        'main',
-        'fax',
-        'phone',
-        'main'
-      )
+    PhoneKind = Types::Coercible::String.enum('home', 'work', 'mobile', 'main', 'fax', 'phone', 'main')
 
-    EligibilitySourceKinds =
-      Types::Coercible::String.enum('Curam', 'Admin', 'Renewals', 'Faa', 'Ffe')
+    EligibilitySourceKinds = Types::Coercible::String.enum('Curam', 'Admin', 'Renewals', 'Faa', 'Ffe')
 
-    EligibilityCsrKinds =
-      Types::Coercible::String.enum(
-        'csr_100',
-        'csr_94',
-        'csr_87',
-        'csr_73',
-        'csr_0',
-        'csr_limited'
-      )
+    EligibilityCsrKinds = Types::Coercible::String.enum('csr_100', 'csr_94', 'csr_87', 'csr_73', 'csr_0', 'csr_limited')
 
-    EnrollmentKind =
-      Types::Coercible::String.enum('open_enrollment', 'special_enrollment')
+    EnrollmentKind = Types::Coercible::String.enum('open_enrollment', 'special_enrollment')
 
     EnrollmentMarketPlaceKind =
       Types::Coercible::String.enum(
@@ -1931,8 +1793,7 @@ module AcaEntities
 
     LocaleKinds = Types::Coercible::String.enum('en')
 
-    MarketTransitionRoleTypes =
-      Types::Coercible::String.enum('consumer', 'resident')
+    MarketTransitionRoleTypes = Types::Coercible::String.enum('consumer', 'resident')
 
     MarketTransitionReasonCodes =
       Types::Coercible::String.enum(
@@ -1949,28 +1810,14 @@ module AcaEntities
       aca_congress: %w[health dental],
       individual: %w[health dental],
       cover_all: %w[health dental],
-      group: %w[
-        health
-        dental
-        life
-        short_term_disability
-        long_term_disability
-        annuities
-      ],
+      group: %w[health dental life short_term_disability long_term_disability annuities],
       fehb: %w[health dental],
       medicaid: %w[chip snap tanf]
     }.freeze
 
-    AddressValidationStatusCode =
-      Types::Coercible::String.enum(
-        'ValidMatch',
-        'PartialMatch',
-        'NoStreet',
-        'NoCity'
-      )
+    AddressValidationStatusCode = Types::Coercible::String.enum('ValidMatch', 'PartialMatch', 'NoStreet', 'NoCity')
 
-    EmailAddressRegex = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
-      .freeze
+    EmailAddressRegex = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i.freeze
 
     EmailAddressKind = Types::String.constrained(format: EmailAddressRegex)
 

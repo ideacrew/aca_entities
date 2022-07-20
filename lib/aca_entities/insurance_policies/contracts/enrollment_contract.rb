@@ -11,9 +11,9 @@ module AcaEntities
         # @return [Dry::Monads::Result::Failure] if params fail validation
         params do
           optional(:id).value(:string)
-          required(:subscriber).value(AcaEntities::InsurancePolicies::Contracts::EnrolledMemberContract.params)
           required(:subscriber_service_area_id).value(:string)
           required(:subscriber_rating_area_id).value(:string)
+          required(:subscriber).value(AcaEntities::InsurancePolicies::Contracts::EnrolledMemberContract.params)
           optional(:dependents).array(AcaEntities::InsurancePolicies::Contracts::EnrolledMemberContract.params)
           required(:enrollment_elections).array(
             AcaEntities::InsurancePolicies::Contracts::EnrollmentElectionContract.params

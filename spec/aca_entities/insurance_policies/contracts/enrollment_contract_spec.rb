@@ -3,17 +3,30 @@
 require 'spec_helper'
 require 'support/shared_content/insurance_policies/contracts/shared_context'
 
-RSpec.describe AcaEntities::InsurancePolicies::Contracts::EnrolledMemberContract do
+RSpec.describe AcaEntities::InsurancePolicies::Contracts::EnrollmentContract do
   include_context('insurance_policies_context')
   subject { described_class.new }
 
+  let(:moment) { DateTime.now }
   let(:id) { '12345' }
-  let(:member) { george_jetson[:enrolled_member][:member] }
 
-  let(:required_params) { { member: member, enrolled_member_premium: enrolled_member_premium } }
-  let(:optional_params) do
-    { id: id, is_tobacco_user: is_tobacco_user, primary_care_provider: primary_care_provider, timestamps: timestamps }
+  let(:subscriber) { george_jetson[:enrolled_member] }
+  let(:dependents) { [jane_jetson[:enrolled_member]] }
+  let(:enrollment_elections) { [initial_enrollment_election] }
+  let(:subscriber_service_area_id) { 's101' }
+  let(:subscriber_rating_area_id) { 'r101' }
+  let(:timestamps) { { created_at: moment, modified_at: moment } }
+
+  let(:required_params) do
+    {
+      subscriber: subscriber,
+      enrollment_elections: enrollment_elections,
+      subscriber_service_area_id: subscriber_service_area_id,
+      subscriber_rating_area_id: subscriber_rating_area_id
+    }
   end
+  let(:optional_params) { { id: id, dependents: dependents, timestamps: timestamps } }
+
   let(:all_params) { required_params.merge(optional_params) }
 
   context 'Calling contract with Valid params' do
@@ -35,7 +48,14 @@ RSpec.describe AcaEntities::InsurancePolicies::Contracts::EnrolledMemberContract
   end
 
   context 'Calling the contract with no params' do
-    let(:error_message) { { member: ['is missing'], enrolled_member_premium: ['is missing'] } }
+    let(:error_message) do
+      {
+        subscriber: ['is missing'],
+        enrollment_elections: ['is missing'],
+        subscriber_service_area_id: ['is missing'],
+        subscriber_rating_area_id: ['is missing']
+      }
+    end
     it 'should pass validation' do
       result = subject.call({})
       expect(result.failure?).to be_truthy

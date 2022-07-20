@@ -11,10 +11,10 @@ module AcaEntities
         # @return [Dry::Monads::Result::Failure] if params fail validation
         params do
           optional(:id).value(:string)
-          required(:enrollment_event).value(AcaEntities::InsurancePolicies::Types::EnrollmentEventKind)
-          required(:affected_enrolled_members).array(
-            AcaEntities::InsurancePolicies::Contracts::EnrolledMemberContract.params
-          )
+          required(:enrollment_event_name).value(AcaEntities::InsurancePolicies::Types::EnrollmentEventKind)
+          required(:enrollment_event_payload).value(:hash)
+          required(:subscriber).value(AcaEntities::InsurancePolicies::Contracts::EnrolledMemberContract.params)
+          optional(:dependents).array(AcaEntities::InsurancePolicies::Contracts::EnrolledMemberContract.params)
           required(:effective_date).value(:date)
           optional(:end_on).maybe(AcaEntities::Types::DateOrNil)
           optional(:timestamps).maybe(AcaEntities::Contracts::TimeStampContract.params)

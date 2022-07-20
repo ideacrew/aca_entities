@@ -13,15 +13,16 @@ module AcaEntities
 
       EnrollmentEventKind =
         Types::Coercible::String.enum(
-          'initial_enrollment',
-          'dependent_drop',
-          'dependent_add',
-          'address_change',
-          'tobacco_use_rating_change',
-          'termination',
-          'cancel',
-          'reinstate',
-          'change_effective_date'
+          'enrolled',
+          'enrollment_renewed',
+          'dependent_dropped',
+          'dependent_added',
+          'address_changed',
+          'tobacco_use_rating_changed',
+          'terminated',
+          'canceled',
+          'reinstated',
+          'effective_date_changed'
         )
 
       InsurancePolicyKind = Types::Coercible::String.enum('individual', 'group')

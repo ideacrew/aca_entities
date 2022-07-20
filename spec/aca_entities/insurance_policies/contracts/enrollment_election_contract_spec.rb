@@ -3,17 +3,31 @@
 require 'spec_helper'
 require 'support/shared_content/insurance_policies/contracts/shared_context'
 
-RSpec.describe AcaEntities::InsurancePolicies::Contracts::EnrolledMemberContract do
+RSpec.describe AcaEntities::InsurancePolicies::Contracts::EnrollmentElectionContract do
   include_context('insurance_policies_context')
   subject { described_class.new }
 
   let(:id) { '12345' }
-  let(:member) { george_jetson[:enrolled_member][:member] }
 
-  let(:required_params) { { member: member, enrolled_member_premium: enrolled_member_premium } }
-  let(:optional_params) do
-    { id: id, is_tobacco_user: is_tobacco_user, primary_care_provider: primary_care_provider, timestamps: timestamps }
+  let(:enrollment_event_name) { initial_enrollment_event_name }
+  let(:enrollment_event_payload) { { description: 'payload stub for enrollment event' } }
+  let(:subscriber) { george_jetson[:enrolled_member] }
+  let(:dependents) { [jane_jetson[:enrolled_member], judy_jetson[:enrolled_member]] }
+  let(:effective_date) { january_1 }
+  let(:end_on) { nil }
+  let(:timestamps) { { created_at: moment, modified_at: moment } }
+
+  let(:required_params) do
+    {
+      enrollment_event_name: enrollment_event_name,
+      enrollment_event_payload: enrollment_event_payload,
+      subscriber: subscriber,
+      effective_date: effective_date,
+      end_on: end_on
+    }
   end
+  let(:optional_params) { { id: id, dependents: dependents, timestamps: timestamps } }
+
   let(:all_params) { required_params.merge(optional_params) }
 
   context 'Calling contract with Valid params' do
@@ -35,7 +49,14 @@ RSpec.describe AcaEntities::InsurancePolicies::Contracts::EnrolledMemberContract
   end
 
   context 'Calling the contract with no params' do
-    let(:error_message) { { member: ['is missing'], enrolled_member_premium: ['is missing'] } }
+    let(:error_message) do
+      {
+        enrollment_event_name: ['is missing'],
+        enrollment_event_payload: ['is missing'],
+        subscriber: ['is missing'],
+        effective_date: ['is missing']
+      }
+    end
     it 'should pass validation' do
       result = subject.call({})
       expect(result.failure?).to be_truthy

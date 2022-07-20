@@ -32,18 +32,18 @@ RSpec.shared_context 'insurance_policies_context' do
   let(:primary_care_provider) { { name: { first_name: 'Florence', last_name: 'Nightengale' } } }
 
   # Phones
-  let(:phones) { [{ kind: 'mobile', primary: true, area_code: 208, number: 5_551_212, start_on: moment }] }
+  let(:phones) { [{ kind: 'mobile', primary: true, area_code: '208', number: '5551212', start_on: moment }] }
 
   # Address
   let(:addresses) do
     [
       {
-        kind: 'primary',
-        line_1: '1406 Albright St',
+        kind: 'home',
+        address_1: '1406 Albright St',
         city: 'Boise',
-        county: 'Ada',
-        state: 'ID',
-        zip: '83705',
+        county_name: 'Ada',
+        state_abbreviation: 'ID',
+        zip_code: '83705',
         start_on: moment
       }
     ]
@@ -56,21 +56,24 @@ RSpec.shared_context 'insurance_policies_context' do
 
   let(:george_jetson) do
     {
-      member: {
-        member_id: '1055668',
-        insurer_assigned_id: 'HP597762000',
-        person_name: {
-          last_name: 'Jetson',
-          first_name: 'George'
-        },
-        relationship_code: '1:18',
-        encrypted_ssn: '012859874',
-        dob: Date.new(1978, 12, 19),
-        gender: 'male',
-        irs_group_id: irs_group_id,
-        tax_household_id: tax_household_id
-      },
       enrolled_member: {
+        member: {
+          member_id: '1055668',
+          insurer_assigned_id: 'HP597762000',
+          person_name: {
+            last_name: 'Jetson',
+            first_name: 'George'
+          },
+          relationship_code: '1:18',
+          encrypted_ssn: '012859874',
+          dob: Date.new(1978, 12, 19),
+          gender: 'male',
+          irs_group_id: irs_group_id,
+          tax_household_id: tax_household_id,
+          addresses: addresses,
+          phones: phones,
+          emails: [{ kind: 'home', address: 'george.jetson@example.com' }]
+        },
         enrolled_member_premium: {
           insurance_rate: 575.23,
           premium_schedule: premium_schedule
@@ -83,21 +86,22 @@ RSpec.shared_context 'insurance_policies_context' do
 
   let(:jane_jetson) do
     {
-      member: {
-        member_id: '1055678',
-        insurer_assigned_id: 'HP597762002',
-        person_name: {
-          last_name: 'Jetson',
-          first_name: 'Jane'
-        },
-        relationship_code: '4:19',
-        encrypted_ssn: '012859875',
-        dob: Date.new(1983, 9, 6),
-        gender: 'female',
-        irs_group_id: irs_group_id,
-        tax_household_id: tax_household_id
-      },
       enrolled_member: {
+        member: {
+          member_id: '1055678',
+          insurer_assigned_id: 'HP597762002',
+          person_name: {
+            last_name: 'Jetson',
+            first_name: 'Jane'
+          },
+          relationship_code: '4:19',
+          encrypted_ssn: '012859875',
+          dob: Date.new(1983, 9, 6),
+          gender: 'female',
+          irs_group_id: irs_group_id,
+          tax_household_id: tax_household_id,
+          addresses: addresses
+        },
         enrolled_member_premium: {
           insurance_rate: 615.88,
           premium_schedule: premium_schedule
@@ -110,21 +114,21 @@ RSpec.shared_context 'insurance_policies_context' do
 
   let(:judy_jetson) do
     {
-      member: {
-        member_id: '1055689',
-        insurer_assigned_id: 'HP597762001',
-        person_name: {
-          last_name: 'Jetson',
-          first_name: 'Judy'
-        },
-        relationship_code: '2:01',
-        dob: Date.new(2007, 2, 15),
-        gender: 'female',
-        irs_group_id: irs_group_id,
-        tax_household_id: tax_household_id,
-        emails: 'jetsons@example.com'
-      },
       enrolled_member: {
+        member: {
+          member_id: '1055689',
+          insurer_assigned_id: 'HP597762001',
+          person_name: {
+            last_name: 'Jetson',
+            first_name: 'Judy'
+          },
+          relationship_code: '2:01',
+          dob: Date.new(2007, 2, 15),
+          gender: 'female',
+          irs_group_id: irs_group_id,
+          tax_household_id: tax_household_id,
+          addresses: addresses
+        },
         enrolled_member_premium: {
           insurance_rate: 220.16,
           premium_schedule: premium_schedule
@@ -135,13 +139,38 @@ RSpec.shared_context 'insurance_policies_context' do
     }
   end
 
-  # EnrolledMembers
-  let(:is_tobacco_user) { false }
-  let(:timestamps) { { created_at: moment, modified_at: moment } }
+  ## EnrollmentElections
+  let(:january_1) { Date.new(moment.year, 1, 1) }
+  let(:march_121) { Date.new(moment.year, 3, 12) }
+  let(:june_30) { Date.new(moment.year, 6, 30) }
+  let(:december_31) { Date.new(moment.year, 12, 31) }
 
-  let(:is_active) { true }
-  let(:moment) { DateTime.now }
-  let(:timestamps) { { created_at: moment, modified_at: moment } }
-  let(:start_on) { Date.new(moment.to_date.year, 1, 1) }
-  let(:end_on) { Date.new(moment.to_date.year, 12, 31) }
+  # InitialEnrollment
+  let(:initial_enrollment_event_name) { 'enrolled' }
+  let(:initial_enrollment_event_payload) { { description: 'payload stub for initial enrollment event' } }
+  let(:initial_enrollment_subscriber) { george_jetson[:enrolled_member] }
+  let(:initial_enrollment_dependents) { [jane_jetson[:enrolled_member]] }
+  let(:initial_enrollment_effective_date) { january_1 }
+
+  let(:initial_enrollment_election) do
+    {
+      enrollment_event_name: initial_enrollment_event_name,
+      enrollment_event_payload: initial_enrollment_event_payload,
+      subscriber: subscriber,
+      effective_date: january_1,
+      end_on: december_31
+    }
+  end
+
+  # DependentAdd
+  let(:dependent_add_event_name) { 'dependent_added' }
+
+  # DependentDrop
+  let(:dependent_drop_event_name) { 'dependent_dropped' }
+
+  # Cancelation
+  let(:enrollment_canceled_event_name) { 'canceled' }
+
+  # Termination
+  let(:enrollment_terminated_event_name) { 'terminated' }
 end
