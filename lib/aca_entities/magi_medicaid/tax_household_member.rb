@@ -19,6 +19,18 @@ module AcaEntities
         return nil unless product_eligibility_determination
         product_eligibility_determination.chip_cd_for_income
       end
+
+      def aptc_csr_eligible?
+        product_eligibility_determination&.is_ia_eligible || product_eligibility_determination&.is_csr_eligible
+      end
+
+      def csr
+        product_eligibility_determination&.csr
+      end
+
+      def person_hbx_id
+        applicant_reference&.person_hbx_id
+      end
     end
   end
 end
