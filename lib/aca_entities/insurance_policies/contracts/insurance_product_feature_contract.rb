@@ -13,8 +13,9 @@ module AcaEntities
         params do
           optional(:id).value(:string)
           required(:key).value(:string)
-          required(:description).value(:string)
-          required(:value).value(AcaEntities::Types::Money)
+          required(:title).value(:string)
+          optional(:description).value(AcaEntities::Types::StringOrNil)
+          optional(:value).value(AcaEntities::Types::Money)
           optional(:timestamps).maybe(AcaEntities::Contracts::TimeStampContract.params)
         end
       end

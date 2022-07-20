@@ -7,6 +7,14 @@ RSpec.shared_context 'insurance_policies_context' do
   let(:moment) { DateTime.now }
   let(:timestamps) { { created_at: moment, modified_at: moment } }
 
+  # InsuranceProdcutFeature
+  let(:key) { 'pediatric_dental' }
+  let(:title) { 'Pediatric Dental Coverage' }
+  let(:description) { 'Plan includes dental essential benefits for all enrollees under age 19' }
+  let(:value) { 100.00 }
+
+  let(:shared_insurance_product_feature) { { key: key, title: title, description: description, value: value } }
+
   # PremiumSchedule
   let(:premium_amount) { 345.66 }
   let(:insured_start_on) { Date.new(moment.year, 1, 1) }
@@ -139,13 +147,13 @@ RSpec.shared_context 'insurance_policies_context' do
     }
   end
 
-  ## EnrollmentElections
+  # EnrollmentElections
   let(:january_1) { Date.new(moment.year, 1, 1) }
   let(:march_121) { Date.new(moment.year, 3, 12) }
   let(:june_30) { Date.new(moment.year, 6, 30) }
   let(:december_31) { Date.new(moment.year, 12, 31) }
 
-  # InitialEnrollment
+  ## InitialEnrollment
   let(:initial_enrollment_event_name) { 'enrolled' }
   let(:initial_enrollment_event_payload) { { description: 'payload stub for initial enrollment event' } }
   let(:initial_enrollment_subscriber) { george_jetson[:enrolled_member] }
@@ -162,15 +170,32 @@ RSpec.shared_context 'insurance_policies_context' do
     }
   end
 
-  # DependentAdd
+  ## DependentAdd
   let(:dependent_add_event_name) { 'dependent_added' }
 
-  # DependentDrop
+  ## DependentDrop
   let(:dependent_drop_event_name) { 'dependent_dropped' }
 
-  # Cancelation
+  ## Cancelation
   let(:enrollment_canceled_event_name) { 'canceled' }
 
-  # Termination
+  ## Termination
   let(:enrollment_terminated_event_name) { 'terminated' }
+
+  # Enrollment
+  let(:enrollment_subscriber) { george_jetson[:enrolled_member] }
+  let(:enrollment_dependents) { [jane_jetson[:enrolled_member]] }
+  let(:enrollment_elections) { [initial_enrollment_election] }
+  let(:subscriber_service_area_id) { 's101' }
+  let(:subscriber_rating_area_id) { 'r101' }
+
+  let(:enrollment) do
+    {
+      subscriber: enrollment_subscriber,
+      dependents: enrollment_dependents,
+      enrollment_elections: enrollment_elections,
+      subscriber_service_area_id: subscriber_service_area_id,
+      subscriber_rating_area_id: subscriber_rating_area_id
+    }
+  end
 end
