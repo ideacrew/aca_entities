@@ -19,7 +19,7 @@ RSpec.describe AcaEntities::Medicaid::Ios::Contracts::SSPRelationshipCContract, 
       Id: "Id",
       IntendToPursueLegalCustodyToggle__c: "false",
       IsActingParentToggle__c: "false",
-      IsCareTakerToggle__c: "false",
+      IsCareTakerToggle__c: "N",
       IndividualId__c: 1234,
       SSP_Member__r: {}
     }
