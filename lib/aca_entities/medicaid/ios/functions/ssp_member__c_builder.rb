@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'aca_entities/medicaid/ios/types'
+
 module AcaEntities
   module Medicaid
     module Ios
@@ -7,69 +9,6 @@ module AcaEntities
         # build SSP_Member__c for IOS transform
         class SspMemberCBuilder
           include ::AcaEntities::Operations::Transforms::HashFunctions
-
-          GENDER_MAP = {  'female' => 'F', 'male' => 'M' }.freeze
-
-          TAX_KINDS_MAP = {
-            # TODO: check on logic for ? mappings
-            'dependent' => 'D',
-            # ? => 'E'	Dependent of individual not in the household
-            'joint' => 'M',
-            'separate' => 'S',
-            'tax_filer' => 'H',
-            'single' => 'H',
-            # ? => 'A'	Not Applicable
-            'non_filer' => 'I'
-          }.freeze
-
-          CONTACT_METHOD_MAP = {
-            # TODO: confirm types to use from EA and map to IOS codes
-            # below types are from EA
-            # ["Email", "Mail", "Text"] => "Paper, Electronic and Text Message communications",
-            # ["Email", "Text"] => "Electronic and Text Message communications",
-            # ["Email", "Mail"] => "Paper and Electronic communications",
-            # ["Mail", "Text"] => "Paper and Text Message communications",
-            # ["Text"] => "Only Text Message communication",
-            # ["mail"] => "Only Paper communication",
-            # ["Email"] => "Only Electronic communications",
-          }.freeze
-
-          IMMIGRATION_DOCUMENT_TYPE_CODE_MAP = {
-            'Certificate of Citizenship' => 'CC',
-            'Cuban/Haitian entrant' => 'CH',
-            'DS2019 (Certificate of Eligibility for Exchange Visitor (J-1) Status)' => 'DS',
-            'I-327 (Reentry Permit)' => 'RP',
-            'I-551 (Permanent Resident Card)' => 'R',
-            'I-551 - Permanent Resident Card' => 'R',
-            'I-766 (Employment Authorization Card)' => 'EA',
-            'I-94 (Arrival/Departure Record)' => 'N',
-            'I-94 (Arrival/Departure Record) in Unexpired Foreign Passport' => 'IU',
-            'Machine Readable Immigrant Visa (with Temporary I-551 Language)' => 'MR',
-            'Certification from U.S. Department of Health and Human Services (HHS) Office of Refugee Resettlement (ORR)' => 'RR',
-            'Unexpired Foreign Passport' => 'UP'
-          }.freeze
-
-          HISPANIC_MAP = [
-            'Mexican', 'Mexican American', 'Chicano/a', 'Puerto Rican', 'Cuban'
-          ].freeze
-
-          RACE_MAP = {
-            "White" => "WH",
-            "Black or African American" => "AA",
-            "Asian Indian" => "AI",
-            "Chinese" => "CH",
-            "Filipino" => "FI",
-            "Japanese" => "JA",
-            "Korean" => "KO",
-            "Vietnamese" => "VI",
-            "Other Asian" => "OA",
-            "Native Hawaiian" => "HA",
-            "Samoan" => "SA",
-            "Guamanian or Chamorro" => "GU",
-            "Other Pacific Islander" => "OP",
-            "American Indian/Alaska Native" => "AI",
-            "OTHER" => "Other"
-          }.freeze
 
           def resolve_la_type(applicant)
             if applicant&.dig(:is_homeless)
@@ -84,7 +23,7 @@ module AcaEntities
           def resolve_hispanic(options)
             # applicant&.dig(:person_demographics, :ethnicity) ? not applicant&.dig(:person_demographics, :ethnicity).empty? : false
             return "false" if options.nil? || options.empty?
-            (options & HISPANIC_MAP).empty?
+            (options & AcaEntities::Medicaid::Ios::Types::HISPANIC_MAP).empty?
           end
 
           def resolve_race(options)
@@ -122,7 +61,7 @@ module AcaEntities
                 'MemberProgramsApplied__c' => 'MA', # waiting on client to map
                 'PreferredNotificationMethodCode__c' => 'Email', # waiting on client to map
                 'TaxFilerMemberCurrent__r' => { 'IndividualId__c' => applicant&.dig(:claimed_as_tax_dependent_by, :person_hbx_id) },
-                'TaxFilerStatusCurrentYear__c' => TAX_KINDS_MAP[applicant&.dig(:tax_filer_kind)],
+                'TaxFilerStatusCurrentYear__c' => AcaEntities::Medicaid::Ios::Types::TAX_KINDS_MAP[applicant&.dig(:tax_filer_kind)],
                 # optional
                 'AlienNumber__c' => vlp_document&.dig(:alien_number),
                 'BirthDate__c' => applicant&.dig(:demographic, :dob),
@@ -132,12 +71,13 @@ module AcaEntities
                 'DocumentExpiryDate__c' => vlp_document&.dig(:expiration_date),
                 'DocumentOtherDescription__c' => vlp_document&.dig(:subject),
                 'FosterStateCode__c' => applicant&.dig(:foster_care, :foster_care_us_state),
-                'GenderCode__c' => GENDER_MAP[applicant&.dig(:demographic, :gender)],
+                'GenderCode__c' => AcaEntities::Medicaid::Ios::Types::GENDER_MAP[applicant&.dig(:demographic, :gender)],
                 'HasDifferentMailingAddressToggle__c' => boolean_string(home_address.equal?(mailing_address)),
                 'I94Number__c' => vlp_document&.dig(:i94_number),
                 'Id' => applicant&.dig(:person_hbx_id),
                 'ImmigrationDateOfBirth__c' => applicant&.dig(:demographic, :dob),
-                'ImmigrationDocumentTypeCode__c' => IMMIGRATION_DOCUMENT_TYPE_CODE_MAP[vlp_document&.dig(:subject)],
+                'ImmigrationDocumentTypeCode__c' =>
+                  AcaEntities::Medicaid::Ios::Types::IMMIGRATION_DOCUMENT_TYPE_CODE_MAP[vlp_document&.dig(:subject)],
                 'ImmigrationFirstName__c' => applicant&.dig(:name, :first_name),
                 'ImmigrationLastName__c' => applicant&.dig(:name, :last_name),
                 'ImmigrationMiddleName__c' => applicant&.dig(:name, :middle_name),
@@ -180,7 +120,7 @@ module AcaEntities
                 'PrimaryPhoneExtension__c' => primary_phone&.dig(:extension),
                 'PrimaryPhoneNumber__c' => convert_to_phone(primary_phone&.dig(:full_phone_number)),
                 'PrimaryPhoneTypeCode__c' => primary_phone&.dig(:kind),
-                'RaceCode__c' => RACE_MAP[applicant&.dig(:demographic, :race)],
+                'RaceCode__c' => AcaEntities::Medicaid::Ios::Types::RACE_MAP[applicant&.dig(:demographic, :race)],
                 'SecondaryPhoneExtension__c' => secondary_phone&.dig(:extension),
                 'SecondaryPhoneNumber__c' => convert_to_phone(secondary_phone&.dig(:full_phone_number)),
                 'SecondaryPhoneTypeCode__c' => secondary_phone&.dig(:kind),

@@ -36,7 +36,6 @@ RSpec.describe AcaEntities::Medicaid::Ios::Functions::SspApplicationCBuilder, db
 
     it 'should conform to the SSP_Application__c contract' do
       result = AcaEntities::Medicaid::Ios::Contracts::SspApplicationCContract.new.call(subject)
-      p result
       expect(result.success?).to be_truthy
     end
   end

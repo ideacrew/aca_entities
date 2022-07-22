@@ -36,10 +36,6 @@ module AcaEntities
                 Time.parse(application[:submitted_at]).utc.iso8601
               }
 
-              # add_key 'SSP_Application__c', function: lambda { |v|
-              #   appplication_hash = v.resolve('family.magi_medicaid_applications').item
-              #   AcaEntities::Medicaid::Ios::Transformers::Application.transform(appplication_hash)
-              # }
               add_key 'SSP_Application__c', function: AcaEntities::Medicaid::Ios::Functions::SspApplicationCBuilder.new
 
               add_key 'SSP_Member__c', function: AcaEntities::Medicaid::Ios::Functions::SspMemberCBuilder.new

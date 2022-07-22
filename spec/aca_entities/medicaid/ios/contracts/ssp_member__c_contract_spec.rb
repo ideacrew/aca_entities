@@ -2,7 +2,6 @@
 
 require 'spec_helper'
 require 'aca_entities/medicaid/ios'
-require 'pry'
 
 RSpec.describe AcaEntities::Medicaid::Ios::Contracts::SspMemberCContract, dbclean: :after_each do
 

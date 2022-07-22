@@ -36,7 +36,7 @@ module AcaEntities
 
             primary_applicant = payload[:family][:magi_medicaid_applications][:applicants].detect {|applicant| applicant[:is_primary_applicant]}
             payload[:family][:magi_medicaid_applications][:primary_applicant] = primary_applicant
-            Success(payload) # TODO: add Failure ?
+            Success(payload) # TODO: add Failure here
           end
 
           def to_ios(payload)

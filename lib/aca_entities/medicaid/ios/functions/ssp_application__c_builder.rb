@@ -20,6 +20,7 @@ module AcaEntities
               anyone_enrolled = true
             end
             {
+              'ProgramsApplied__c' => "MA",
               'ApplicationEsignFirstName__c' => primary_applicant[:name][:first_name],
               'ApplicationEsignMiddleInitial__c' => primary_applicant[:name][:middle_name],
               'ApplicationEsignLastName__c' => primary_applicant[:name][:last_name],
