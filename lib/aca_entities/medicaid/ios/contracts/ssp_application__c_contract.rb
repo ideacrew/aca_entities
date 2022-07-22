@@ -54,9 +54,9 @@ module AcaEntities
             optional(:IsAgreeingToMedicaidPenalty__c).maybe(:string)
             optional(:HasPendingAccidentSettlementToggle__c).maybe(:string)
             optional(:IsPrimaryApplicantAddressModified__c).maybe(:bool)
-            optional(:NotEnrolledInHealthCareCoverageToggle__c).maybe(:string)
-            optional(:ApplicationEsignFirstName__c).maybe(:string)
-            optional(:ApplicationEsignLastName__c).maybe(:string)
+            required(:NotEnrolledInHealthCareCoverageToggle__c).filled(:string)
+            required(:ApplicationEsignFirstName__c).filled(:string)
+            required(:ApplicationEsignLastName__c).filled(:string)
             optional(:ApplicationEsignMiddleName__c).maybe(:string)
             optional(:ApplicationEsignSuffixCode__c).maybe(:string)
           end

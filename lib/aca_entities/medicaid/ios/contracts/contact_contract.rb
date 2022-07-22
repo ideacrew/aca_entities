@@ -4,7 +4,7 @@ module AcaEntities
   module Medicaid
     module Ios
       module Contracts
-        # Contract for Contact
+        # Contract for contact
         class ContactContract < Dry::Validation::Contract
           params do
             optional(:AddressTypeCode__c).maybe(:string)

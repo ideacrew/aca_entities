@@ -4,7 +4,7 @@ module AcaEntities
   module Medicaid
     module Ios
       module Contracts
-        # Contract for SspdcRequest, commented out fields are from the schema but not expected from us
+        # Contract for SSPDCRequest, commented out fields are from the schema but not expected from us
         class SspdcRequestContract < Dry::Validation::Contract
 
           params do
