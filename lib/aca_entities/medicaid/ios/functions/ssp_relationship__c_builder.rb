@@ -39,8 +39,10 @@ module AcaEntities
               applicant = applicants&.detect { |a| a[:hbx_id] == family_member[:hbx_id] }
               family_member.dig(:person, :person_relationships).map do |relationship|
                 {
-                  'IsCareTakerToggle__c' => boolean_string(applicant&.dig(:is_primary_caregiver_for)&.include?(relationship[:relative][:hbx_id])),
+                  # required
                   'RelationshipType__c' => RELATIONSHIPS_MAP[relationship[:kind]],
+                  # optional
+                  'IsCareTakerToggle__c' => boolean_string(applicant&.dig(:is_primary_caregiver_for)&.include?(relationship[:relative][:hbx_id])),
                   'SSP_Member__c' => family_member[:hbx_id],
                   'SSP_MemberRelatedTo__c' => relationship[:relative][:hbx_id]
                 }
