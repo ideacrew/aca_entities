@@ -17,7 +17,7 @@ module AcaEntities
             'nephew_or_niece' => 'NN',
             'parent' => 'PR',
             'sibling' => 'SB',
-            'spouse' => 'SP',
+            'spouse' => 'SP'
             # '' => 'FPR', # Foster Parent
             # '' => 'FSD', # Foster Son/Daughter
             # '' => 'HS', # Half Sibling
@@ -32,7 +32,7 @@ module AcaEntities
 
             application = @memoized_data.resolve('family.magi_medicaid_applications').item
             applicants = application&.dig(:applicants)
-            
+
             family_members = @memoized_data.resolve('family.family_members_hash').item
 
             family_members.values.map do |family_member|
