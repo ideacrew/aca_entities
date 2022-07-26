@@ -4,12 +4,12 @@ module AcaEntities
   module InsurancePolicies
     module Contracts
       # Schema and validation rules for {AcaEntities::InsurancePolicies::TaxHousehold}
-      class TaxHouseholdContract < Contract
+      class TaxHouseholdGroupContract < Contract
         params do
           optional(:id).maybe(:string)
-          required(:tax_household_id).filled(:string)
-          required(:assistance_year).filled(:integer, min_size?: 4, gt?: 2013)
+          required(:tax_household_group_id).filled(:string)
           required(:members).array(AcaEntities::InsurancePolicies::Contracts::MemberContract.params)
+          required(:assistance_year).filled(:integer, min_size?: 4, gt?: 2013)
           required(:health_benchmark_plan).value(
             AcaEntities::InsurancePolicies::Contracts::InsuranceProductContract.params
           )
