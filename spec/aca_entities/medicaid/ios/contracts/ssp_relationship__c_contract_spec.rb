@@ -15,13 +15,7 @@ RSpec.describe AcaEntities::Medicaid::Ios::Contracts::SSPRelationshipCContract, 
     {
       SSP_MemberRelatedTo__c: "Related Member",
       SSP_Member__c: "Member",
-      DCId__c: 2345,
-      Id: "Id",
-      IntendToPursueLegalCustodyToggle__c: "false",
-      IsActingParentToggle__c: "false",
-      IsCareTakerToggle__c: "N",
-      IndividualId__c: 1234,
-      SSP_Member__r: {}
+      IsCareTakerToggle__c: "N"
     }
   end
 
