@@ -93,7 +93,6 @@ RSpec.shared_context 'insurance_policies_context' do
 
   # Members & Enrolled Members
   let(:irs_group_id) { 'abc987' }
-  let(:tax_household_id) { 'th_101' }
   let(:is_tobacco_user) { false }
 
   let(:george_jetson) do
@@ -111,7 +110,6 @@ RSpec.shared_context 'insurance_policies_context' do
           dob: Date.new(1978, 12, 19),
           gender: 'male',
           irs_group_id: irs_group_id,
-          tax_household_id: tax_household_id,
           addresses: addresses,
           phones: phones,
           emails: [{ kind: 'home', address: 'george.jetson@example.com' }]
@@ -141,7 +139,6 @@ RSpec.shared_context 'insurance_policies_context' do
           dob: Date.new(1983, 9, 6),
           gender: 'female',
           irs_group_id: irs_group_id,
-          tax_household_id: tax_household_id,
           addresses: addresses
         },
         enrolled_member_premium: {
@@ -168,7 +165,6 @@ RSpec.shared_context 'insurance_policies_context' do
           dob: Date.new(2007, 2, 15),
           gender: 'female',
           irs_group_id: irs_group_id,
-          tax_household_id: tax_household_id,
           addresses: addresses
         },
         enrolled_member_premium: {
@@ -181,16 +177,16 @@ RSpec.shared_context 'insurance_policies_context' do
     }
   end
 
-  # TaxHousehold
+  # TaxHouseholdGroup
 
-  let(:shared_tax_household_members) do
+  let(:shared_tax_household_group_members) do
     [
       george_jetson[:enrolled_member][:member],
       jane_jetson[:enrolled_member][:member],
       judy_jetson[:enrolled_member][:member]
     ]
   end
-  let(:tax_household_id) { 'th_101' }
+  let(:tax_household_group_id) { 'th_101' }
   let(:assistance_year) { moment.year }
   let(:health_benchmark_plan) { shared_health_insurance_product }
   let(:dental_benchmark_plan) { shared_dental_insurance_product }
@@ -199,9 +195,9 @@ RSpec.shared_context 'insurance_policies_context' do
 
   let(:shared_tax_household) do
     {
-      tax_household_id: tax_household_id,
+      tax_household_group_id: tax_household_group_id,
       assistance_year: assistance_year,
-      members: shared_tax_household_members,
+      members: shared_tax_household_group_members,
       health_benchmark_plan: health_benchmark_plan,
       dental_benchmark_plan: dental_benchmark_plan,
       aptc_amount: thh_aptc_amount,
@@ -217,17 +213,29 @@ RSpec.shared_context 'insurance_policies_context' do
   let(:december_31) { Date.new(moment.year, 12, 31) }
 
   ## InitialEnrollment
-  let(:initial_enrollment_event_name) { 'enrolled' }
-  let(:initial_enrollment_event_payload) { { description: 'payload stub for initial enrollment event' } }
   let(:initial_enrollment_subscriber) { george_jetson[:enrolled_member] }
   let(:initial_enrollment_dependents) { [jane_jetson[:enrolled_member]] }
   let(:initial_enrollment_effective_date) { january_1 }
+  let(:product_kind) { 'health' }
+  let(:product) { shared_health_insurance_product }
+  let(:coverage_kind) { 'hmo' }
+  let(:coverage_level_kind) { 'silver' }
+  let(:coverage_level_basis_kind) { 'in_network_coverage_payment' }
+
+  let(:product_details) do
+    {
+      coverage_kind: coverage_kind,
+      coverage_level_kind: coverage_level_kind,
+      coverage_level_basis_kind: coverage_level_basis_kind
+    }
+  end
 
   let(:initial_enrollment_election) do
     {
-      enrollment_event_name: initial_enrollment_event_name,
-      enrollment_event_payload: initial_enrollment_event_payload,
       subscriber: subscriber,
+      product_kind: product_kind,
+      product: product,
+      product_details: product_details,
       effective_date: january_1,
       end_on: december_31
     }
