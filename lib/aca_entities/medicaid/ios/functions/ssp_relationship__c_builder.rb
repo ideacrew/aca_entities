@@ -23,7 +23,7 @@ module AcaEntities
               family_member.dig(:person, :person_relationships).map do |relationship|
                 {
                   # required
-                  'RelationshipType__c' => RELATIONSHIPS_MAP[relationship[:kind]],
+                  'RelationshipType__c' => AcaEntities::Medicaid::Ios::Types::RELATIONSHIPS_MAP[relationship[:kind]],
                   # optional
                   'IsCareTakerToggle__c' => boolean_string(applicant&.dig(:is_primary_caregiver_for)&.include?(relationship[:relative][:hbx_id])),
                   'SSP_Member__c' => family_member[:hbx_id],
