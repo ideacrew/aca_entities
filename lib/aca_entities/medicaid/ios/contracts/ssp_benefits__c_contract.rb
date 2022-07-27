@@ -8,6 +8,8 @@ module AcaEntities
         class SspBenefitsCContract < Dry::Validation::Contract
           params do
             required(:BeginDate__c).filled(:date)  # OverlappingMedicareCoverageValidator <- VALIDATE THESE IN TRANSFORM
+            optional(:EndDate__c).maybe(:date) # OverlappingMedicareCoverageValidator <- VALIDATE THIS IN TRANSFORM
+            optional(:Id).maybe(:string)
             # optional(:BenefitApplicationDate__c).maybe(:date)
             # optional(:BenefitDenialDate__c).maybe(:date)
             # optional(:BenefitDenialReason__c).maybe(:string)
@@ -15,9 +17,7 @@ module AcaEntities
             # optional(:BenefitPrograms__c).maybe(:string)
             # optional(:BenefitTypeCode__c).maybe(:string)
             # optional(:DCId__c).maybe(:integer)
-            optional(:EndDate__c).maybe(:date) # OverlappingMedicareCoverageValidator <- VALIDATE THIS IN TRANSFORM
             # optional(:HasMedicareCoverageButNoInfo__c).maybe(:bool)
-            # optional(:Id).maybe(:string)
             # optional(:MedicareNumber__c).maybe(:string)
             # optional(:MedicareTypeCode__c).maybe(:string)
             # optional(:RecordType).maybe(:hash)

@@ -17,9 +17,9 @@ module AcaEntities
               next unless applicant[:benefits] && applicant[:benefits].any?
               applicant[:benefits].map do |benefit|
                 {
-                  # required
                   :BeginDate__c => benefit&.dig(:start_on),
-                  :EndDate__c => benefit&.dig(:end_on)
+                  :EndDate__c => benefit&.dig(:end_on),
+                  :Id => applicant&.dig(:hbx_id)
                 }
               end
             end.flatten.compact
