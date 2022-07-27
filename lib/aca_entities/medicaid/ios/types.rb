@@ -24,8 +24,8 @@ module AcaEntities
         }.freeze
 
         GENDER_MAP = {
-          'female' => 'F', 
-          'male' => 'M' 
+          'female' => 'F',
+          'male' => 'M'
         }.freeze
 
         HISPANIC_MAP = [

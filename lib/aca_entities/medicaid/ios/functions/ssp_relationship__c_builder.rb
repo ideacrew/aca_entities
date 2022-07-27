@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'aca_entities/medicaid/ios/types'
 
 module AcaEntities
