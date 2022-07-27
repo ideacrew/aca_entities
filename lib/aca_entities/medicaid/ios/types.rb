@@ -11,20 +11,6 @@ module AcaEntities
         send(:include, Dry.Types)
         send(:include, Dry::Logic)
 
-        GENDER_MAP = {  'female' => 'F', 'male' => 'M' }.freeze
-
-        TAX_KINDS_MAP = {
-          # TODO: check on logic for ? mappings
-          'dependent' => 'D',
-          # ? => 'E'	Dependent of individual not in the household
-          'joint' => 'M',
-          'separate' => 'S',
-          'tax_filer' => 'H',
-          'single' => 'H',
-          # ? => 'A'	Not Applicable
-          'non_filer' => 'I'
-        }.freeze
-
         CONTACT_METHOD_MAP = {
           # TODO: confirm types to use from EA and map to IOS codes
           # below types are from EA
@@ -36,6 +22,15 @@ module AcaEntities
           # ["mail"] => "Only Paper communication",
           # ["Email"] => "Only Electronic communications",
         }.freeze
+
+        GENDER_MAP = {
+          'female' => 'F', 
+          'male' => 'M' 
+        }.freeze
+
+        HISPANIC_MAP = [
+          'Mexican', 'Mexican American', 'Chicano/a', 'Puerto Rican', 'Cuban'
+        ].freeze
 
         IMMIGRATION_DOCUMENT_TYPE_CODE_MAP = {
           'Certificate of Citizenship' => 'CC',
@@ -51,10 +46,6 @@ module AcaEntities
           'Certification from U.S. Department of Health and Human Services (HHS) Office of Refugee Resettlement (ORR)' => 'RR',
           'Unexpired Foreign Passport' => 'UP'
         }.freeze
-
-        HISPANIC_MAP = [
-          'Mexican', 'Mexican American', 'Chicano/a', 'Puerto Rican', 'Cuban'
-        ].freeze
 
         RACE_MAP = {
           "White" => "WH",
@@ -73,6 +64,38 @@ module AcaEntities
           "American Indian/Alaska Native" => "AI",
           "OTHER" => "Other"
         }.freeze
+
+        RELATIONSHIPS_MAP = {
+          'aunt_or_uncle' => 'AU',
+          'child' => 'SD',
+          'cousin' => 'OR', # Other Relative
+          'grandchild' => 'GSGD',
+          'grandparent' => 'GP',
+          'nephew_or_niece' => 'NN',
+          'parent' => 'PR',
+          'sibling' => 'SB',
+          'spouse' => 'SP'
+          # '' => 'FPR', # Foster Parent
+          # '' => 'FSD', # Foster Son/Daughter
+          # '' => 'HS', # Half Sibling
+          # '' => 'SPR', # Step Parent
+          # '' => 'SSB', # Step Sibling
+          # '' => 'SSD', # Step Son/Daughter
+          # '' => 'UR', # Unrelated
+        }.freeze
+
+        TAX_KINDS_MAP = {
+          # TODO: check on logic for ? mappings
+          'dependent' => 'D',
+          # ? => 'E'	Dependent of individual not in the household
+          'joint' => 'M',
+          'separate' => 'S',
+          'tax_filer' => 'H',
+          'single' => 'H',
+          # ? => 'A'	Not Applicable
+          'non_filer' => 'I'
+        }.freeze
+
       end
     end
   end

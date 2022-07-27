@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+require 'aca_entities/medicaid/ios/types'
 
 module AcaEntities
   module Medicaid
@@ -7,25 +8,6 @@ module AcaEntities
         # build SSP_Relationship__c for IOS transform
         class SspRelationshipCBuilder
           include ::AcaEntities::Operations::Transforms::HashFunctions
-
-          RELATIONSHIPS_MAP = {
-            'aunt_or_uncle' => 'AU',
-            'child' => 'SD',
-            'cousin' => 'OR', # Other Relative
-            'grandchild' => 'GSGD',
-            'grandparent' => 'GP',
-            'nephew_or_niece' => 'NN',
-            'parent' => 'PR',
-            'sibling' => 'SB',
-            'spouse' => 'SP'
-            # '' => 'FPR', # Foster Parent
-            # '' => 'FSD', # Foster Son/Daughter
-            # '' => 'HS', # Half Sibling
-            # '' => 'SPR', # Step Parent
-            # '' => 'SSB', # Step Sibling
-            # '' => 'SSD', # Step Son/Daughter
-            # '' => 'UR', # Unrelated
-          }.freeze
 
           def call(cache)
             @memoized_data = cache
