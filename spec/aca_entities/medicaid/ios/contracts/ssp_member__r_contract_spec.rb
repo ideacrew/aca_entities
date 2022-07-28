@@ -6,7 +6,7 @@ require 'aca_entities/medicaid/ios'
 RSpec.describe AcaEntities::Medicaid::Ios::Contracts::SspMemberRContract, dbclean: :after_each do
 
   let(:required_params) do
-    { 
+    {
       IsFixedAddressToggle__c: 'Y',
       In_Which_City_Town_Applicant_Live__c: 'City',
       FirstName__c: 'First',
@@ -15,7 +15,7 @@ RSpec.describe AcaEntities::Medicaid::Ios::Contracts::SspMemberRContract, dbclea
       GenderCode__c: 'M',
       IsHispanicLatinoSpanishToggle__c: 'Y',
       IsIntendToResideToggle__c: 'Y'
-    } 
+    }
   end
 
   let(:optional_params) do
@@ -30,7 +30,7 @@ RSpec.describe AcaEntities::Medicaid::Ios::Contracts::SspMemberRContract, dbclea
       NoReasonSSNCode__c: 'N',
       SSN__c: '123456789',
       IsMilitaryMemberToggle__c: 'Y',
-      HasSSN__c: 'Y',
+      HasSSN__c: 'Y'
     }
   end
 
