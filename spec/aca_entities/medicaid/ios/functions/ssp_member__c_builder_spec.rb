@@ -57,11 +57,10 @@ RSpec.describe AcaEntities::Medicaid::Ios::Functions::SspMemberCBuilder, dbclean
   end
 
   context 'default values' do
-
     it 'should have the correct value for LATypeCode__c' do
       expect(subject.first["LATypeCode__c"]).to eq('CH')
     end
-    
+
     it 'should have the correct value for MemberProgramsApplied__c' do
       expect(subject.first["MemberProgramsApplied__c"]).to eq('MA')
     end
