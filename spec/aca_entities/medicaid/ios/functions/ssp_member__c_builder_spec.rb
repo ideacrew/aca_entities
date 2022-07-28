@@ -55,4 +55,43 @@ RSpec.describe AcaEntities::Medicaid::Ios::Functions::SspMemberCBuilder, dbclean
       end
     end
   end
+
+  context 'default values' do
+
+    it 'should have the correct value for LATypeCode__c' do
+      expect(subject.first["LATypeCode__c"]).to eq('CH')
+    end
+    
+    it 'should have the correct value for MemberProgramsApplied__c' do
+      expect(subject.first["MemberProgramsApplied__c"]).to eq('MA')
+    end
+
+    it 'should have the correct value for TaxFilerStatusCurrentYear__c' do
+      expect(subject.first["TaxFilerStatusCurrentYear__c"]).to eq('H')
+    end
+
+    it 'should have the correct value for GenderCode__c' do
+      expect(subject.first["GenderCode__c"]).to eq('M')
+    end
+
+    it 'should have the correct value for ImmigrationDocumentTypeCode__c' do
+      expect(subject[1]["ImmigrationDocumentTypeCode__c"]).to eq('R')
+    end
+
+    it 'should have the correct value for IsDeleted__c' do
+      expect(subject.first["IsDeleted__c"]).to eq('N')
+    end
+
+    it 'should have the correct value for IsReceivingMedicareBenefitToggle__c' do
+      expect(subject.first["IsReceivingMedicareBenefitToggle__c"]).to eq('N')
+    end
+
+    it 'should have the correct value for IsUSCitizenToggle__c' do
+      expect(subject.first["IsUSCitizenToggle__c"]).to eq('Y')
+    end
+
+    it 'should have the correct value for RaceCode__c' do
+      expect(subject.first["RaceCode__c"]).to eq('WH')
+    end
+  end
 end
