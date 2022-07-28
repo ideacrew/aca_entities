@@ -94,7 +94,7 @@ module AcaEntities
                 'IsIntendToResideToggle__c' => boolean_string(applicant&.dig(:mitc_state_resident)),
                 'IsMilitaryMemberToggle__c' => boolean_string(applicant&.dig(:demographic, :is_veteran_or_active_military)),
                 'IsPregnantInLastThreeMonthsToggle__c' => boolean_string(applicant&.dig(:pregnancy_information, :is_post_partum_period)),
-                'IsReceivingMedicareBenefitToggle__c' => boolean_string(!applicant&.dig(:benefits)&.detect { |x| x[:kind] == 'medicare' }&.nil?),
+                'IsReceivingMedicareBenefitToggle__c' => boolean_string(!applicant&.dig(:benefits)&.detect { |x| x[:kind] == 'medicare' }.nil?),
                 'IsStateMedicaidprogramCode__c' => boolean_string(applicant&.dig(:foster_care, :had_medicaid_during_foster_care)),
                 'IsUSCitizenToggle__c' =>
                   boolean_string(applicant&.dig(:citizenship_immigration_status_information, :citizen_status) == "us_citizen"),
