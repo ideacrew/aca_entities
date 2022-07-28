@@ -1,12 +1,11 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require 'aca_entities/medicaid/ios/functions/ssp_application_individual__c_builder'
-require 'aca_entities/medicaid/ios/contracts/ssp_application_individual__c_contract'
-
+require 'aca_entities/medicaid/ios/functions/ssp_member__r_builder'
+require 'aca_entities/medicaid/ios/contracts/ssp_member__r_contract'
 require 'aca_entities/medicaid/ios/operations/generate_ios'
 
-RSpec.describe AcaEntities::Medicaid::Ios::Functions::SspApplicationIndividualCBuilder, dbclean: :after_each do
+RSpec.describe AcaEntities::Medicaid::Ios::Functions::SspMemberRBuilder, dbclean: :after_each do
 
   # should use more recent example payload?
   let(:family) do
@@ -22,27 +21,30 @@ RSpec.describe AcaEntities::Medicaid::Ios::Functions::SspApplicationIndividualCB
   end
 
   let(:context) do
-    context_hash = { 'family.magi_medicaid_applications' => {
+    context_hash = { 'family' => {
       name: 'family.magi_medicaid_applications',
       item: application
     } }
     AcaEntities::Operations::Transforms::Context.new(context_hash)
   end
 
-  subject do
-    described_class.new.call(context)
-  end
-
   context 'with valid cv3 application in context' do
-    it "should return an array" do
-      expect(subject).to be_a(Array)
+    it 'should conform to the SSP_Member__r contract' do
+      result = described_class.new.call(application[:applicants].first)
+      contract = AcaEntities::Medicaid::Ios::Contracts::SspMemberRContract.new.call(result)
+      expect(contract.errors).to be_empty
     end
 
-    it 'should only contain valid SSP_ApplicationIndividual__c objects' do
-      subject.each do |ssp_application_individual__c|
-        result = AcaEntities::Medicaid::Ios::Contracts::SspApplicationIndividualCContract.new.call(ssp_application_individual__c)
-        expect(result.errors).to be_empty
-      end
+    it 'should return valid hispanic data' do
+      result = described_class.new.call(application[:applicants][1])
+      expect(result[:IsHispanicLatinoSpanishToggle__c]).to eq 'Y'
     end
+
+    it 'should return valid indian tribe data' do
+      result = described_class.new.call(application[:applicants][2])
+      expect(result[:IsIntendToResideToggle__c]).to eq 'Y'
+    end
+
   end
+
 end
