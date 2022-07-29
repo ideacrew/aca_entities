@@ -17,7 +17,7 @@ module AcaEntities
 
             asset_incomes = incomes.map do |income|
               {
-                # 'Id' => generate_hash,
+                'Id' => SecureRandom.uuid.gsub("-",""),
                 'IncomeTypeCode__c' => AcaEntities::Medicaid::Ios::Types::INCOME_TYPE_MAP[income&.dig(:kind)&.upcase],
                 # 'IncomeSubtypeCode__c' => income&.dig(:subtype)&.upcase,
                 'StartDate__c' => income&.dig(:start_on),
@@ -31,7 +31,7 @@ module AcaEntities
 
             asset_deductions = deductions.map do |deduction|
               {
-                # 'Id' => generate_hash,
+                'Id' => SecureRandom.uuid.gsub("-",""),
                 'StartDate__c' => deduction&.dig(:start_on),
                 'ExpenseAmount__c' => deduction&.dig(:amount),
                 'ExpenseFrequencyCode__c' => AcaEntities::Medicaid::Ios::Types::FREQUENCY_MAP[deduction&.dig(:frequency_kind)&.upcase],
