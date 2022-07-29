@@ -7,16 +7,11 @@ module AcaEntities
         # Contract for SSPRelationshipC
         class SSPRelationshipCContract < Dry::Validation::Contract
           params do
-            optional(:SSP_MemberRelatedTo__c).maybe(:string)
-            optional(:SSP_Member__c).maybe(:string)
-            optional(:DCId__c).maybe(:integer)
-            optional(:Id).maybe(:string)
-            optional(:IntendToPursueLegalCustodyToggle__c).maybe(:string)
             required(:RelationshipType__c).filled(:string)
-            optional(:IsActingParentToggle__c).maybe(:string)
+            optional(:Id).maybe(:string)
             optional(:IsCareTakerToggle__c).maybe(:string)
-            optional(:IndividualId__c).maybe(:integer)
-            optional(:SSP_Member__r).maybe(:hash)
+            optional(:SSP_Member__c).maybe(:string)
+            optional(:SSP_MemberRelatedTo__c).maybe(:string)
           end
         end
       end
