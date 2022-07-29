@@ -1132,7 +1132,7 @@
                             "",
                             ""
                         ],
-                        "race": null,
+                        "race": "White",
                         "is_veteran_or_active_military": false,
                         "is_vets_spouse_or_child": false
                     },
@@ -1287,7 +1287,7 @@
                             "amount_tax_exempt": 0,
                             "frequency_kind": "Annually",
                             "start_on": "2021-01-01",
-                            "end_on": null,
+                            "end_on": "2021-11-01",
                             "is_projected": false,
                             "tax_form": null,
                             "employer": {
