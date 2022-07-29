@@ -65,6 +65,34 @@ module AcaEntities
           "OTHER" => "Other"
         }.freeze
 
+        FREQUENCY_MAP = {
+          # these are placeholder values
+          "BI WEEKLY" => "Every 2 Weeks",
+          "DAILY" => "Daily",
+          "HALF YEARLY" => "Semi-Annually",
+          "MONTHLY" => "Monthly",
+          "QUARTERLY" => "Quarterly",
+          "WEEKLY" => "Weekly",
+          "ANNUALLY" => "Annually"
+        }.freeze
+
+        EXPENSE_TYPE_MAP = {
+          # these are placeholder values
+          'alimony_paid' => 'ALIMONY',
+          'deductable_part_of_self_employment_taxes' => 'SELFTAX',
+          'self_employment_sep_simple_and_qualified_plans' => 'SEP',
+          'self_employed_health_insurance' => 'HEALTHINSURANCE',
+          'ira_deduction' => 'IRA',
+          'reservists_performing_artists_and_fee_basis_government_official_expenses' => 'SPECIAL'
+        }.freeze
+
+        INCOME_TYPE_MAP = {
+          # these are placeholder values
+          'WAGES_AND_SALARIES' => 'JOBINCOMETYPE',
+          'INTEREST' => 'UNEARNEDINCOMETYPE',
+          'CAPITAL_GAINS' => 'UNEARNEDINCOMETYPE'
+        }.freeze
+
         RELATIONSHIPS_MAP = {
           'aunt_or_uncle' => 'AU',
           'child' => 'SD',
