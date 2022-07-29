@@ -9,6 +9,7 @@ module AcaEntities
         # build SSP_Asset__c for IOS transform
         class SspAssetCBuilder
 
+          # rubocop:disable Metrics/MethodLength
           def call(cache)
             application = cache.resolve('family.magi_medicaid_applications').item
             applicants = application[:applicants]
@@ -17,7 +18,7 @@ module AcaEntities
 
             asset_incomes = incomes.map do |income|
               {
-                'Id' => SecureRandom.uuid.gsub("-",""),
+                'Id' => SecureRandom.uuid.gsub("-", ""),
                 'IncomeTypeCode__c' => AcaEntities::Medicaid::Ios::Types::INCOME_TYPE_MAP[income&.dig(:kind)&.upcase],
                 # 'IncomeSubtypeCode__c' => income&.dig(:subtype)&.upcase,
                 'StartDate__c' => income&.dig(:start_on),
@@ -31,7 +32,7 @@ module AcaEntities
 
             asset_deductions = deductions.map do |deduction|
               {
-                'Id' => SecureRandom.uuid.gsub("-",""),
+                'Id' => SecureRandom.uuid.gsub("-", ""),
                 'StartDate__c' => deduction&.dig(:start_on),
                 'ExpenseAmount__c' => deduction&.dig(:amount),
                 'ExpenseFrequencyCode__c' => AcaEntities::Medicaid::Ios::Types::FREQUENCY_MAP[deduction&.dig(:frequency_kind)&.upcase],
@@ -41,6 +42,7 @@ module AcaEntities
             end
             asset_incomes + asset_deductions
           end
+          # rubocop:enable Metrics/MethodLength
         end
       end
     end
