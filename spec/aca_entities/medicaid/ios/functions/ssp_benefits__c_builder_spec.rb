@@ -3,6 +3,7 @@
 require 'spec_helper'
 require 'aca_entities/medicaid/ios/functions/ssp_benefits__c_builder'
 require 'aca_entities/medicaid/ios/operations/generate_ios'
+require 'aca_entities/medicaid/ios/contracts/ssp_benefits__c_contract'
 
 RSpec.describe AcaEntities::Medicaid::Ios::Functions::SspBenefitsCBuilder, dbclean: :after_each do
 
@@ -36,12 +37,11 @@ RSpec.describe AcaEntities::Medicaid::Ios::Functions::SspBenefitsCBuilder, dbcle
       expect(subject).to be_a(Array)
     end
 
-    # unncomment when ready to test
-    # it 'should only contain valid SSP_Benefits__c objects' do
-    #   subject.each do |ssp_benefits__c|
-    #     result = AcaEntities::Medicaid::Ios::Contracts::SspBenefitsCContract.new.call(ssp_benefits__c)
-    #     expect(result.success?).to be_truthy
-    #   end
-    # end
+    it 'should only contain valid SSP_Benefits__c objects' do
+      subject.each do |ssp_benefits__c|
+        result = AcaEntities::Medicaid::Ios::Contracts::SspBenefitsCContract.new.call(ssp_benefits__c)
+        expect(result.success?).to be_truthy
+      end
+    end
   end
 end
