@@ -169,6 +169,7 @@ module AcaEntities
                 # Five Year Bar Information that we got as part of VLP response payload from FDSH Gateway.
                 map 'five_year_bar_applies', 'five_year_bar_applies', function: ->(value) { boolean_string(value) }
                 map 'five_year_bar_met', 'is_five_year_bar_met', function: ->(value) { boolean_string(value) }
+                map 'qualified_non_citizen', 'immigration_status', function: ->(value) { value ? '01' : '99' }
 
                 map 'is_trafficking_victim', 'is_trafficking_victim', function: ->(value) { boolean_string(value) }
                 map 'is_refugee', 'is_eligible_for_refugee_medical_assistance', function: ->(value) { boolean_string(value) }
