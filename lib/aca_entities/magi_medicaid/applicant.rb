@@ -27,6 +27,11 @@ module AcaEntities
       # @return [Bool]
       attribute :five_year_bar_met, Types::Bool.optional.meta(omittable: true)
 
+      # @!attribute [r] qualified_non_citizen
+      # Has the non-citizen applicant is qualified non citizen?
+      # @return [Bool]
+      attribute :qualified_non_citizen, Types::Bool.optional.meta(omittable: true)
+
       attribute :is_consent_applicant, Types::Bool.optional.meta(omittable: true)
       attribute :vlp_document, AcaEntities::Documents::VlpDocument.optional.meta(omittable: true)
       attribute :family_member_reference, AcaEntities::Families::FamilyMemberReference.meta(omittable: false)

@@ -19,6 +19,7 @@ module AcaEntities
         # @option opts [Boolean] :is_applying_coverage required
         # @option opts [Boolean] :five_year_bar_applies optional
         # @option opts [Boolean] :five_year_bar_met optional
+        # @option opts [Boolean] :qualified_non_citizen optional
         # @option opts [Boolean] :is_consent_applicant optional
         # @option opts [Hash] :vlp_document optional
         # @option opts [Hash] :family_member_reference required
@@ -89,6 +90,7 @@ module AcaEntities
           required(:is_applying_coverage).filled(:bool)
           optional(:five_year_bar_applies).maybe(:bool)
           optional(:five_year_bar_met).maybe(:bool)
+          optional(:qualified_non_citizen).maybe(:bool)
           optional(:is_consent_applicant).maybe(:bool)
           optional(:vlp_document).maybe(AcaEntities::Contracts::Documents::VlpDocumentContract.params)
           required(:family_member_reference).hash(::AcaEntities::Contracts::Families::FamilyMemberReferenceContract.params)

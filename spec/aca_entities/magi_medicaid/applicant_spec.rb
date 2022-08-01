@@ -86,6 +86,7 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Applicant, dbclean: :after_each do
         is_applying_coverage: false,
         five_year_bar_applies: false,
         five_year_bar_met: false,
+        qualified_non_citizen: true,
         job_coverage_end_date: Date.today,
         prior_insurance_end_date: Date.today,
         family_member_reference: family_member_reference,
