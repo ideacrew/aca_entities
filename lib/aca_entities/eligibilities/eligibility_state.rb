@@ -10,6 +10,7 @@ module AcaEntities
     require_relative 'types'
 
     # require_relative 'contracts/types_contract'
+    require_relative 'contracts/grant_contract'
     require_relative 'contracts/evidence_item_contract'
     require_relative 'contracts/evidence_state_contract'
     require_relative 'contracts/evidence_states_contract'
@@ -30,6 +31,7 @@ module AcaEntities
     require_relative 'determination'
     require_relative 'subject'
     require_relative 'subjects'
+    require_relative 'grant'
 
     # A granted permission or benefit
     class EligibilityState < Dry::Struct
@@ -42,6 +44,10 @@ module AcaEntities
       attribute? :earliest_due_date, Types::Date.meta(omittable: true)
       attribute :determined_at, Types::DateTime.meta(omittable: false)
       attribute :evidence_states, Types::Hash.meta(omittable: false)
+      attribute? :grants, Types::Hash.meta(omittable: true)
+
+      attribute? :start_on, Types::Date.meta(omittable: true)
+      attribute? :end_on, Types::Date.meta(omittable: true)
 
       # def initialize(args)
       #   if args[:evidence_states].present?
