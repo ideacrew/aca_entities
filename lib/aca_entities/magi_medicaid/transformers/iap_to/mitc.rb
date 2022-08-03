@@ -150,12 +150,6 @@ module AcaEntities
                       boolean_string(us_citizen_kinds.include?(citizen_status))
                     }
 
-                    # TODO: use mapper to determine the immigration status code from AcaEntities::MagiMedicaid::Mitc::Types::ImmigrationStatusCodeMap
-                    # Currently defaulting immigration_status to 01 which maps to 'Lawful Permanent Resident (LPR/Green Card Holder)'
-                    add_key 'immigration_status', function: ->(v) {
-                      AcaEntities::MagiMedicaid::Mitc::Types::ImmigrationStatusCodeMap[v.resolve('citizen_status').item] || '01'
-                    }
-
                     map 'is_lawful_presence_self_attested', 'is_lawful_presence_self_attested', function: ->(value) { boolean_string(value) }
                   end
                 end
