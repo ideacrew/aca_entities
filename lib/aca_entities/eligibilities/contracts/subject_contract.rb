@@ -29,7 +29,8 @@ module AcaEntities
 
         rule(:subject) do
           if key? && value
-            if subject_type = values.to_h[:subject_type]
+            subject_type = values.to_h[:subject_type]
+            if subject_type
               result = "AcaEntities::Eligibilities::Contracts::#{subject_type}Contract".constantize.new.call(value)
               key.failure(text: "invalid subject", error: result.errors.to_h) if result&.failure?
             end

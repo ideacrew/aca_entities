@@ -3,8 +3,8 @@
 module AcaEntities
   # All types Eligibilities
   module Eligibilities
-   # A grant can be cost sharing grant, employer contribution grant
-   # or osse premium credit
+    # A grant can be cost sharing grant, employer contribution grant
+    # or osse premium credit
     class Grant < Dry::Struct
       # @!attribute [r] premium_adjustment_grant
       # Type of grant, for example cost sharing grant, employer contribution grant

@@ -43,7 +43,7 @@ RSpec.describe AcaEntities::Eligibilities::Subject do
   context "when subject type missing" do
     it 'should raise Dry::Struct::Error' do
       expect do
-        described_class.new(required_params.reject{|key| key == :subject_type})
+        described_class.new(required_params.reject {|key| key == :subject_type})
       end.to raise_error(Dry::Struct::Error, /:subject_type is missing in Hash input/)
     end
   end

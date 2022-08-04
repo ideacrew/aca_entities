@@ -46,7 +46,7 @@ RSpec.describe AcaEntities::Eligibilities::Contracts::SubjectContract do
     end
 
     it 'should fail validation' do
-      result = described_class.new.call({subject_type: 'FamilyMemberSubject', subject: {}})
+      result = described_class.new.call({ subject_type: 'FamilyMemberSubject', subject: {} })
       expect(result.failure?).to be_truthy
       expect(result.errors.to_h).to eq error_message
     end
