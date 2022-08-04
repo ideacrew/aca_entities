@@ -8,7 +8,6 @@ module AcaEntities
     # require 'aca_entities/operations/mongoid/model_adapter'
 
     require_relative 'types'
-
     # require_relative 'contracts/types_contract'
     require_relative 'contracts/grant_contract'
     require_relative 'contracts/evidence_item_contract'
@@ -18,6 +17,7 @@ module AcaEntities
     require_relative 'contracts/eligibility_state_contract'
     require_relative 'contracts/eligibility_states_contract'
     require_relative 'contracts/determination_contract'
+    require_relative 'contracts/family_member_subject_contract'
     require_relative 'contracts/subject_contract'
     require_relative 'contracts/subjects_contract'
 
@@ -29,6 +29,7 @@ module AcaEntities
     require_relative 'eligibility_item'
     require_relative 'eligibility_states'
     require_relative 'determination'
+    require_relative 'family_member_subject'
     require_relative 'subject'
     require_relative 'subjects'
     require_relative 'grant'

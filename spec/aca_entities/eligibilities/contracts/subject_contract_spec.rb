@@ -15,14 +15,16 @@ RSpec.describe AcaEntities::Eligibilities::Contracts::SubjectContract do
 
   let(:required_params) do
     {
-      # gid: gid,
-      first_name: first_name,
-      last_name: last_name,
-      dob: Date.new(1985, 2, 1),
-      hbx_id: '4121212',
-      person_id: '2',
+      subject_type: 'FamilyMemberSubject',
+      subject: {
+        first_name: first_name,
+        last_name: last_name,
+        dob: Date.new(1985, 2, 1),
+        hbx_id: '4121212',
+        person_id: '2',
+        is_primary: is_primary
+      },
       outstanding_verification_status: 'eligible',
-      is_primary: is_primary,
       eligibility_states: eligibility_states
     }
   end
@@ -30,20 +32,21 @@ RSpec.describe AcaEntities::Eligibilities::Contracts::SubjectContract do
   context 'Calling the contract with no params' do
     let(:error_message) do
       {
-        # gid: ['is missing'],
-        first_name: ['is missing'],
-        last_name: ['is missing'],
-        dob: ['is missing'],
-        hbx_id: ['is missing'],
         outstanding_verification_status: ['is missing'],
-        person_id: ['is missing'],
-        is_primary: ['is missing'],
-        eligibility_states: ['is missing']
+        eligibility_states: ['is missing'],
+        subject: [error: {
+          first_name: ['is missing'],
+          last_name: ['is missing'],
+          dob: ['is missing'],
+          hbx_id: ['is missing'],
+          person_id: ['is missing'],
+          is_primary: ['is missing']
+        }, text: "invalid subject"]
       }
     end
 
     it 'should fail validation' do
-      result = described_class.new.call({})
+      result = described_class.new.call({subject_type: 'FamilyMemberSubject', subject: {}})
       expect(result.failure?).to be_truthy
       expect(result.errors.to_h).to eq error_message
     end

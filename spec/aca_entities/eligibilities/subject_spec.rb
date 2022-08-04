@@ -16,12 +16,15 @@ RSpec.describe AcaEntities::Eligibilities::Subject do
   let(:required_params) do
     {
       gid: gid,
-      first_name: first_name,
-      last_name: last_name,
-      is_primary: is_primary,
-      dob: Date.new(1985, 2, 1),
-      hbx_id: '4121212',
-      person_id: '2',
+      subject_type: 'FamilyMemberSubject',
+      subject: {
+        first_name: first_name,
+        last_name: last_name,
+        is_primary: is_primary,
+        dob: Date.new(1985, 2, 1),
+        hbx_id: '4121212',
+        person_id: '2'
+      },
       outstanding_verification_status: 'eligible',
       eligibility_states: eligibility_states
     }
@@ -34,6 +37,14 @@ RSpec.describe AcaEntities::Eligibilities::Subject do
       result = described_class.new(required_params)
 
       expect(result).to be_a described_class
+    end
+  end
+
+  context "when subject type missing" do
+    it 'should raise Dry::Struct::Error' do
+      expect do
+        described_class.new(required_params.reject{|key| key == :subject_type})
+      end.to raise_error(Dry::Struct::Error, /:subject_type is missing in Hash input/)
     end
   end
 end

@@ -39,6 +39,11 @@ module AcaEntities
           'negative_response_received'
         ).freeze
 
+      SubjectType =
+        Types::Coercible::String.enum(
+          'FamilyMemberSubject',
+          'OrganizationSubject'
+        ).freeze
     end
   end
 end
