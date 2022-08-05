@@ -7,7 +7,7 @@ RSpec.describe AcaEntities::Eligibilities::Contracts::GrantContract do
   include_context 'eligibilities_shared_context'
   subject { described_class.new }
 
-  let(:premium_adjustment_grant) { 'employer_contribution' }
+  let(:premium_adjustment_grant) { 'OsseBenefitSponsorGrant' }
   let(:subject) { 'Employer Contribution' }
   let(:value) { 0.8 }
   let(:start_on) { five_days_from_today }

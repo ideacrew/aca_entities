@@ -17,4 +17,19 @@ RSpec.describe AcaEntities::Eligibilities::Types do
       invalid_state_values.each { |state| expect(AcaEntities::Eligibilities::Types::EvidenceStateKind.valid?(state)).to be_falsey }
     end
   end
+
+  context 'PremiumAdjustmentGrantType' do
+    let(:valid_types) do
+      %w[AdvancePremiumAdjustmentGrant OsseEmployeeRoleGrant OsseConsumerRoleGrant OseeResidentRoleGrant OsseBenefitSponsorGrant CsrAdjustmentGrant]
+    end
+    let(:invalid_types) { %w[SomeDummyType] }
+
+    it 'should pass validation for valid types' do
+      valid_types.each { |state| expect(AcaEntities::Eligibilities::Types::PremiumAdjustmentGrantType.valid?(state)).to be_truthy }
+    end
+
+    it 'should fail validation for invalid types' do
+      invalid_types.each { |state| expect(AcaEntities::Eligibilities::Types::PremiumAdjustmentGrantType.valid?(state)).to be_falsey }
+    end
+  end
 end

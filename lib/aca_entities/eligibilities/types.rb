@@ -44,6 +44,16 @@ module AcaEntities
           'FamilyMemberSubject',
           'OrganizationSubject'
         ).freeze
+
+      PremiumAdjustmentGrantType =
+        Types::Coercible::String.enum(
+          'AdvancePremiumAdjustmentGrant',
+          'OsseEmployeeRoleGrant',
+          'OsseConsumerRoleGrant',
+          'OseeResidentRoleGrant',
+          'OsseBenefitSponsorGrant',
+          'CsrAdjustmentGrant'
+        ).freeze
     end
   end
 end

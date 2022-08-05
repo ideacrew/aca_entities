@@ -10,12 +10,10 @@ module AcaEntities
       # Type of grant, for example cost sharing grant, employer contribution grant
       # or osse premium credit
       # @return [String]
-      attribute :premium_adjustment_grant, Types::Coercible::String.meta(omittable: false)
-
-      # @!attribute [r] subject
-      # A name given to the resource by which the resource is formally known
-      # @return [String]
-      attribute? :subject, Types::String.optional.meta(omittable: true)
+      attribute :premium_adjustment_grant,
+                AcaEntities::Eligibilities::Types::PremiumAdjustmentGrantType.meta(
+                  ommittable: false
+                )
 
       # @!attribute [r] value
       # Value can be csr, aptc or employer contribution

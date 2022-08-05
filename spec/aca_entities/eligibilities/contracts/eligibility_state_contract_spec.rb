@@ -21,7 +21,7 @@ RSpec.describe AcaEntities::Eligibilities::Contracts::EligibilityStateContract d
       start_on: start_on,
       end_on: end_on,
       value: 0.9,
-      premium_adjustment_grant: 'employer_contribution'
+      premium_adjustment_grant: 'AdvancePremiumAdjustmentGrant'
     }
   end
 

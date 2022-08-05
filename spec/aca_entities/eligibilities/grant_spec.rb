@@ -9,7 +9,7 @@ RSpec.describe AcaEntities::Eligibilities::Grant do
 
   let(:required_params) do
     {
-      premium_adjustment_grant: :employer_contribution,
+      premium_adjustment_grant: 'OsseBenefitSponsorGrant',
       value: 0.9,
       start_on: five_days_from_today,
       end_on: Date.today.next_month
