@@ -115,7 +115,11 @@ RSpec.shared_context 'setup magi_medicaid application with two applicants', :sha
   let(:applicant_hash) do
     { name: name,
       identifying_information: identifying_information,
-      citizenship_immigration_status_information: { citizen_status: 'us_citizen', is_lawful_presence_self_attested: false },
+      citizenship_immigration_status_information: {
+        citizen_status: 'us_citizen',
+        is_lawful_presence_self_attested: false,
+        is_resident_post_092296: false
+      },
       demographic: demographic,
       attestation: attestation,
       is_primary_applicant: true,

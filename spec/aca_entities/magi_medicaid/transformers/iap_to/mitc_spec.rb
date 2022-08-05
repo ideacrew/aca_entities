@@ -83,6 +83,7 @@ RSpec.describe AcaEntities::MagiMedicaid::Transformers::IapTo::Mitc do
         expect(person).to have_key(:is_trafficking_victim)
         expect(person).to have_key(:is_eligible_for_refugee_medical_assistance)
         expect(person).to have_key(:is_veteran)
+        expect(person[:is_veteran]).to eq('Y')
 
         person[:relationships].each do |relationship|
           expect(relationship).to be_a(Hash)
