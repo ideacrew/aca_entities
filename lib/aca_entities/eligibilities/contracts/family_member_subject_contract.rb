@@ -3,7 +3,6 @@
 module AcaEntities
   module Eligibilities
     module Contracts
-      # contract for EvidenceContract
       class FamilyMemberSubjectContract < Dry::Validation::Contract
         params do
           required(:first_name).filled(:string)
@@ -18,4 +17,3 @@ module AcaEntities
     end
   end
 end
-

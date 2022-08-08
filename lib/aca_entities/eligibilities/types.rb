@@ -42,7 +42,7 @@ module AcaEntities
       SubjectType =
         Types::Coercible::String.enum(
           'FamilyMemberSubject',
-          'OrganizationSubject'
+          'BenefitSponsorSubject'
         ).freeze
 
       PremiumAdjustmentGrantType =
