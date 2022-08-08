@@ -9,7 +9,7 @@ RSpec.describe AcaEntities::Eligibilities::BenefitSponsorSubject do
     {
       fein: '4232323',
       legal_name: 'Ideacrew',
-      benefit_sponsorship_id: "122fwewe3456789",
+      benefit_sponsorship_id: "122fwewe3456789"
     }
   end
 

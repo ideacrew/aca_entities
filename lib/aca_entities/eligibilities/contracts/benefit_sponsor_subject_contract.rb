@@ -3,6 +3,7 @@
 module AcaEntities
   module Eligibilities
     module Contracts
+      # contract for Benefit Sponsors subject
       class BenefitSponsorSubjectContract < Dry::Validation::Contract
         params do
           required(:fein).filled(:string)

@@ -3,6 +3,7 @@
 module AcaEntities
   module Eligibilities
     module Contracts
+      # contract for Family members subject
       class FamilyMemberSubjectContract < Dry::Validation::Contract
         params do
           required(:first_name).filled(:string)
