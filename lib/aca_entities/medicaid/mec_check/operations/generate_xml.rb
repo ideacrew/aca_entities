@@ -51,12 +51,12 @@ module AcaEntities
 
           def to_serialized_obj(entity, request_for)
             seralized_xml = Try do
-             if request_for == "aces"
-              AcaEntities::Serializers::Xml::Medicaid::MecCheck::VerifyNonEsiMecRequest.domain_to_mapper(entity)
-             else
-              entity_hash = entity.to_h[:non_esi_mec_request][:non_esi_mec_individual_information]
-              AcaEntities::Serializers::Xml::Medicaid::MecCheck::GetEligibilityIndividualInformation.domain_to_mapper(entity_hash)
-             end
+              if request_for == "aces"
+                AcaEntities::Serializers::Xml::Medicaid::MecCheck::VerifyNonEsiMecRequest.domain_to_mapper(entity)
+              else
+                entity_hash = entity.to_h[:non_esi_mec_request][:non_esi_mec_individual_information]
+                AcaEntities::Serializers::Xml::Medicaid::MecCheck::GetEligibilityIndividualInformation.domain_to_mapper(entity_hash)
+              end
             end.to_result
 
             if seralized_xml.success?
