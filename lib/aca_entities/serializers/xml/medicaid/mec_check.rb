@@ -13,6 +13,7 @@ require_relative "mec_check/non_esi_mec_individual_response"
 require_relative "mec_check/non_esi_mec_response"
 require_relative "mec_check/verify_non_esi_mec_response"
 require_relative "mec_check/get_eligibility_individual_information"
+require_relative 'mec_check/v1/get_eligibility_individual_information_response'
 require_relative "mec_check/v1/person_name"
 
 module AcaEntities
