@@ -9,7 +9,9 @@ module AcaEntities
           include ::AcaEntities::Operations::Transforms::Transformer
 
           GenderCode = { "male" => "M",
+                         "Male" => "M",
                          "female" => "F",
+                         "Female" => "F",
                          nil => "U" }.freeze
 
           namespace 'person' do

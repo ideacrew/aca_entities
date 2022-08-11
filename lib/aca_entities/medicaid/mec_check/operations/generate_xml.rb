@@ -14,10 +14,11 @@ module AcaEntities
           include Dry::Monads[:result, :do, :try]
 
           def call(payload)
-            mc_payload = yield to_mec_check(payload)
+            record = yield parse_payload(payload)
+            mc_payload = yield to_mec_check(record)
             validated_payload = yield validate_mec_check(mc_payload)
             entity = yield initialize_entity(validated_payload)
-            serialized_payload = yield to_serialized_obj(entity)
+            serialized_payload = yield to_serialized_obj(entity, record["request_for"])
             xml_payload = serialized_payload.to_xml
             Success(xml_payload)
           end
@@ -48,9 +49,14 @@ module AcaEntities
             end
           end
 
-          def to_serialized_obj(entity)
+          def to_serialized_obj(entity, request_for)
             seralized_xml = Try do
-              AcaEntities::Serializers::Xml::Medicaid::MecCheck::VerifyNonEsiMecRequest.domain_to_mapper(entity)
+              if request_for == "aces"
+                AcaEntities::Serializers::Xml::Medicaid::MecCheck::VerifyNonEsiMecRequest.domain_to_mapper(entity)
+              else
+                entity_hash = entity.to_h[:non_esi_mec_request][:non_esi_mec_individual_information]
+                AcaEntities::Serializers::Xml::Medicaid::MecCheck::GetEligibilityIndividualInformation.domain_to_mapper(entity_hash)
+              end
             end.to_result
 
             if seralized_xml.success?
@@ -60,8 +66,14 @@ module AcaEntities
             end
           end
 
-          def to_mec_check(payload)
+          def parse_payload(payload)
             record = JSON.parse(payload)
+            Success(record)
+          rescue StandardError => e
+            Failure("Could not parse the payload #{e}")
+          end
+
+          def to_mec_check(record)
             result = ::AcaEntities::Medicaid::MecCheck::Transformers::PersonToRequest.transform(record)
             top_hash = {}
             top_hash["verify_non_esi_mec_request"] = result
