@@ -15,10 +15,6 @@ module AcaEntities
           end
 
           def call(cache)
-            # TO DO
-            # loop through applicants
-            # build hash of field mappings
-            # return array of transformed SSP_InsuranceCoveredIndiv__c hashes
             application = cache.resolve('family.magi_medicaid_applications').item
             applicants = application[:applicants]
             applicants.map do |applicant|
