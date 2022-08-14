@@ -124,6 +124,12 @@ module AcaEntities
           'non_filer' => 'I'
         }.freeze
 
+        ESI_TIER_MAP = {
+          "self" => "N",
+          "self_and_spouse" => "S",
+          "family" => "B"
+        }.freeze
+
       end
     end
   end
