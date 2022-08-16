@@ -6,23 +6,27 @@ module AcaEntities
       # contract for eligibilies
       class EligibilityContract < Dry::Validation::Contract
         params do
-          required(:effective_date).filled(type?: Date)
-          required(:subjects).value(:hash)
+          required(:subject).filled(AcaEntities::Eligibilities::Contracts::SubjectContract.params)
+          optional(:status).maybe(:string)
+          optional(:evidences).array(AcaEntities::Eligibilities::Contracts::EvidenceContract.params)
+          required(:grants).array(AcaEntities::Eligibilities::Contracts::GrantContract.params)
+          required(:start_on).filled(type?: Date)
+          required(:end_on).filled(type?: Date)
         end
 
-        rule(:subjects) do
-          values.to_h[:subjects].each_pair do |subject_key, subject_val|
-            result =
-              AcaEntities::Eligibilities::Contracts::SubjectContract.new.call(
-                subject_val
-              )
-            next unless result.failure?
+        # rule(:subjects) do
+        #   values.to_h[:subjects].each_pair do |subject_key, subject_val|
+        #     result =
+        #       AcaEntities::Eligibilities::Contracts::SubjectContract.new.call(
+        #         subject_val
+        #       )
+        #     next unless result.failure?
 
-            key([*path, subject_key]).failure(
-              { text: 'error', code: result.errors.to_h }
-            )
-          end
-        end
+        #     key([*path, subject_key]).failure(
+        #       { text: 'error', code: result.errors.to_h }
+        #     )
+        #   end
+        # end
       end
     end
   end

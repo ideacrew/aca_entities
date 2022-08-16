@@ -3,23 +3,14 @@
 require 'spec_helper'
 require 'aca_entities/eligibilities/eligibilities_shared_context'
 
-RSpec.describe AcaEntities::Eligibilities::Grant do
+RSpec.describe AcaEntities::Eligibilities::Value do
   include_context 'eligibilities_shared_context'
   subject { described_class }
 
-  let(:value) do
+  let(:required_params) do
     {
       title: 'Osse Premium Credit',
       key: 'OsseBenefitSponsorGrant'
-    }
-  end
-  let(:required_params) do
-    {
-      title: 'Osse Eligibility',
-      key: 'OsseBenefitSponsorGrant',
-      value: value,
-      start_on: five_days_from_today,
-      end_on: Date.today.next_month
     }
   end
 
@@ -34,10 +25,8 @@ RSpec.describe AcaEntities::Eligibilities::Grant do
   context 'with invalid arguments' do
     it 'should raise error' do
       expect do
-        described_class.new(required_params.reject do |k, _v|
-                              k == :value
-                            end)
-      end.to raise_error(Dry::Struct::Error, /:value is missing/)
+        described_class.new({title: 'Osse Premium Credit'})
+      end.to raise_error(Dry::Struct::Error, /:key is missing/)
     end
   end
 end

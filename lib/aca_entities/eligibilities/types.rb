@@ -45,7 +45,7 @@ module AcaEntities
           'BenefitSponsorSubject'
         ).freeze
 
-      PremiumAdjustmentGrantType =
+      GrantType =
         Types::Coercible::String.enum(
           'AdvancePremiumAdjustmentGrant',
           'OsseEmployeeRoleGrant',

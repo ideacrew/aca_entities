@@ -7,7 +7,7 @@ RSpec.describe AcaEntities::Eligibilities::Subject do
   include_context 'eligibilities_shared_context'
   subject { described_class }
 
-  let(:gid) { URI('gid://enroll_app/Family/98765/FamilyMember/234567') }
+  let(:klass) { URI('gid://enroll_app/Family/98765/FamilyMember/234567') }
   let(:first_name) { 'Michael' }
   let(:last_name) { 'Brady' }
   let(:is_primary) { true }
@@ -15,16 +15,17 @@ RSpec.describe AcaEntities::Eligibilities::Subject do
 
   let(:required_params) do
     {
-      gid: gid,
-      subject_type: 'FamilyMemberSubject',
-      subject: {
-        first_name: first_name,
-        last_name: last_name,
-        is_primary: is_primary,
-        dob: Date.new(1985, 2, 1),
-        hbx_id: '4121212',
-        person_id: '2'
-      },
+      title: 'OSSE Eligibility',
+      klass: klass,
+      key: 'FamilyMemberSubject',
+      # subject: {
+      #   first_name: first_name,
+      #   last_name: last_name,
+      #   is_primary: is_primary,
+      #   dob: Date.new(1985, 2, 1),
+      #   hbx_id: '4121212',
+      #   person_id: '2'
+      # },
       outstanding_verification_status: 'eligible',
       eligibility_states: eligibility_states
     }
@@ -40,11 +41,11 @@ RSpec.describe AcaEntities::Eligibilities::Subject do
     end
   end
 
-  context "when subject type missing" do
+  context "when key is missing" do
     it 'should raise Dry::Struct::Error' do
       expect do
-        described_class.new(required_params.reject {|key| key == :subject_type})
-      end.to raise_error(Dry::Struct::Error, /:subject_type is missing in Hash input/)
+        described_class.new(required_params.reject {|key| key == :key})
+      end.to raise_error(Dry::Struct::Error, /:key is missing in Hash input/)
     end
   end
 end

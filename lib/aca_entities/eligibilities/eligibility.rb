@@ -7,15 +7,26 @@ module AcaEntities
     #   {AcaEntities::Eligiblities::EligibilityStates}
     class Eligibility < Dry::Struct
 
-      # @!attribute [r] fein
-      # Eligibility effective date
-      # @return [Date]
-      attribute :effective_date, Types::Date
+      # @!attribute [r] subject
+      # Subject for the eligibility
+      # @return [Dry::Struct]
+      attribute :subject, AcaEntities::Eligibilities::Subject.meta(omittable: false)
 
-      # @!attribute [r] fein
-      # Subject entities for the eligibility
+      attribute :status?, Types::String.optional.meta(omittable: true)
+
+      attribute :evidences?, Types::Array.of(AcaEntities::Eligibilities::Evidence).meta(omittable: true)
+
+      attribute :grants, Types::Array.of(AcaEntities::Eligibilities::Grant).meta(omittable: false)
+
+      # @!attribute [r] start_on
+      # Eligibility start date
       # @return [Date]
-      attribute :subjects, Types::Hash.meta(ommittable: false)
+      attribute :start_on, Types::Date
+
+      # @!attribute [r] end_on
+      # Eligibility end date
+      # @return [Date]
+      attribute :end_on, Types::Date
     end
   end
 end

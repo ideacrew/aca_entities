@@ -3,28 +3,18 @@
 require 'spec_helper'
 require 'aca_entities/eligibilities/eligibilities_shared_context'
 
-RSpec.describe AcaEntities::Eligibilities::Contracts::GrantContract do
+RSpec.describe AcaEntities::Eligibilities::Contracts::ValueContract do
   include_context 'eligibilities_shared_context'
   subject { described_class.new }
 
   let(:key) { 'OsseBenefitSponsorGrant' }
-  let(:description) { 'Employer Contribution' }
-  let(:value) do
-    {
-      title: 'Osse Premium Credit',
-      key: 'OsseBenefitSponsorGrant'
-    }
-  end
-  let(:start_on) { five_days_from_today }
-  let(:end_on) { Date.today.next_month }
+  let(:title) { 'Employer Contribution' }
+  let(:description) { 'Osse Eligibility - Employer Contribution' }
 
   let(:required_params) do
     {
-      title: 'Osse Eligibility',
       key: key,
-      value: value,
-      start_on: start_on,
-      end_on: end_on
+      title: title
     }
   end
   let(:optional_params) do
@@ -37,7 +27,7 @@ RSpec.describe AcaEntities::Eligibilities::Contracts::GrantContract do
 
   context 'Calling the contract with no params' do
     let(:error_message) do
-      { end_on: ['is missing'], start_on: ['is missing'], value: ['is missing'], key: ['is missing'], title: ['is missing'] }
+      { key: ['is missing'], title: ['is missing'] }
     end
 
     it 'should fail validation' do

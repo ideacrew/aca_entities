@@ -9,7 +9,9 @@ module AcaEntities
 
     require_relative 'types'
     # require_relative 'contracts/types_contract'
+    require_relative 'contracts/value_contract'
     require_relative 'contracts/grant_contract'
+    require_relative 'contracts/subject_contract'
     require_relative 'contracts/evidence_item_contract'
     require_relative 'contracts/evidence_state_contract'
     require_relative 'contracts/evidence_states_contract'
@@ -20,11 +22,13 @@ module AcaEntities
     require_relative 'contracts/determination_contract'
     require_relative 'contracts/benefit_sponsor_subject_contract'
     require_relative 'contracts/family_member_subject_contract'
-    require_relative 'contracts/subject_contract'
     require_relative 'contracts/subjects_contract'
 
     # require_relative 'contracts/eligibility_snapshot_contract'
 
+    require_relative 'value'
+    require_relative 'grant'
+    require_relative 'subject'
     require_relative 'evidence_item'
     require_relative 'evidence_state'
     require_relative 'evidence_states'
@@ -34,9 +38,7 @@ module AcaEntities
     require_relative 'determination'
     require_relative 'benefit_sponsor_subject'
     require_relative 'family_member_subject'
-    require_relative 'subject'
     require_relative 'subjects'
-    require_relative 'grant'
 
     # A granted permission or benefit
     class EligibilityState < Dry::Struct
@@ -49,7 +51,7 @@ module AcaEntities
       attribute? :earliest_due_date, Types::Date.meta(omittable: true)
       attribute :determined_at, Types::DateTime.meta(omittable: false)
       attribute :evidence_states, Types::Hash.meta(omittable: false)
-      attribute? :grants, Types::Hash.meta(omittable: true)
+      # attribute? :grants, Types::Hash.meta(omittable: true)
 
       attribute? :start_on, Types::Date.meta(omittable: true)
       attribute? :end_on, Types::Date.meta(omittable: true)

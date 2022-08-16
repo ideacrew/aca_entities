@@ -16,15 +16,6 @@ RSpec.describe AcaEntities::Eligibilities::Contracts::EligibilityStateContract d
   let(:start_on) { five_days_from_today }
   let(:end_on) { Date.today.next_month }
 
-  let(:grants) do
-    {
-      start_on: start_on,
-      end_on: end_on,
-      value: 0.9,
-      premium_adjustment_grant: 'AdvancePremiumAdjustmentGrant'
-    }
-  end
-
   let(:required_params) do
     {
       # eligibility_item_key: eligibility_item_key,
@@ -35,7 +26,7 @@ RSpec.describe AcaEntities::Eligibilities::Contracts::EligibilityStateContract d
     }
   end
 
-  let(:optional_params) { { id: id, start_on: start_on, end_on: end_on, grants: grants } }
+  let(:optional_params) { { id: id, start_on: start_on, end_on: end_on } }
 
   let(:all_params) { required_params.merge(optional_params) }
 

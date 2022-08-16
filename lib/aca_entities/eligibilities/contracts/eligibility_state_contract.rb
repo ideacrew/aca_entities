@@ -14,7 +14,7 @@ module AcaEntities
           required(:evidence_states).value(:hash)
           optional(:start_on).maybe(:date)
           optional(:end_on).maybe(:date)
-          optional(:grants).maybe(AcaEntities::Eligibilities::Contracts::GrantContract.params)
+          # optional(:grants).maybe(AcaEntities::Eligibilities::Contracts::GrantContract.params)
         end
 
         rule(:evidence_states).each do
