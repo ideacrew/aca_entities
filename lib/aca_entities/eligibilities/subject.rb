@@ -6,10 +6,10 @@ module AcaEntities
     class Subject < Dry::Struct
       # attribute :gid, Types::Coercible::String.meta(omittable: false)
 
-      attribute :title, Types::String.meta(omittable: false) 
+      attribute :title, Types::String.meta(omittable: false)
       attribute :description?, Types::String.meta(omittable: true)
       attribute :key, AcaEntities::Eligibilities::Types::SubjectType.meta(ommittable: false)
-      attribute :klass, Types::Coercible::String.meta(omittable: false)# GlobalID
+      attribute :klass, Types::Coercible::String.meta(omittable: false) # GlobalID
 
       attribute :eligibility_states, Types::Hash.meta(omittable: false)
       attribute :outstanding_verification_status,

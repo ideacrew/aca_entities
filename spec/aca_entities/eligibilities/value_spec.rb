@@ -25,7 +25,7 @@ RSpec.describe AcaEntities::Eligibilities::Value do
   context 'with invalid arguments' do
     it 'should raise error' do
       expect do
-        described_class.new({title: 'Osse Premium Credit'})
+        described_class.new({ title: 'Osse Premium Credit' })
       end.to raise_error(Dry::Struct::Error, /:key is missing/)
     end
   end

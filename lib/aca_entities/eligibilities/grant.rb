@@ -11,7 +11,6 @@ module AcaEntities
       # @return [String]
       attribute :title, Types::String.meta(ommitable: false)
 
-
       # @!attribute [r] description
       # Grant description
       # @return [String]
