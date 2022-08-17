@@ -36,6 +36,7 @@ RSpec.describe ::AcaEntities::MagiMedicaid::TaxHousehold, dbclean: :after_each d
       { max_aptc: 100.56,
         hbx_id: '12345',
         is_insurance_assistance_eligible: 'Yes',
+        yearly_expected_contribution: BigDecimal('102.78238'),
         tax_household_members: [tax_household_member],
         annual_tax_household_income: 50_000.00 }
     end
@@ -50,14 +51,13 @@ RSpec.describe ::AcaEntities::MagiMedicaid::TaxHousehold, dbclean: :after_each d
     end
 
     it 'should return all keys of thh' do
-      expect(@result.to_h.keys).to eq(input_params.keys)
+      expect(@result.to_h.keys.sort).to eq(input_params.keys.sort)
     end
 
     it 'should match all the input keys of tax_household_members' do
-      result_thhm_keys = @result.to_h[:tax_household_members].first.keys
-      input_thhm_keys = tax_household_member.keys
-      expect(result_thhm_keys - input_thhm_keys).to be_empty
-      expect(input_thhm_keys - result_thhm_keys).to be_empty
+      expect(
+        @result.to_h[:tax_household_members].first.keys.sort
+      ).to eq(tax_household_member.keys.sort)
     end
   end
 end

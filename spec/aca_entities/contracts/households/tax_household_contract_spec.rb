@@ -103,6 +103,7 @@ RSpec.describe ::AcaEntities::Contracts::Households::TaxHouseholdContract, dbcle
       is_eligibility_determined: true,
       start_date: Date.today,
       tax_household_members: tax_household_members,
+      yearly_expected_contribution: BigDecimal('102.78238'),
       eligibility_determinations: eligibility_determinations
     }
   end

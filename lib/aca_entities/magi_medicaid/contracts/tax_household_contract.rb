@@ -14,6 +14,7 @@ module AcaEntities
         # @option opts [Array] :csr_annual_income_limit optional
         # @option opts [Array] :effective_on optional
         # @option opts [Array] :determined_on optional
+        # @option opts [AcaEntities::Types::Money] :yearly_expected_contribution optional
         # @return [Dry::Monads::Result]
         params do
           optional(:max_aptc).maybe(Types::Money)
@@ -27,6 +28,9 @@ module AcaEntities
 
           optional(:effective_on).maybe(:date)
           optional(:determined_on).maybe(:date)
+
+          # Yearly Expected Contribution
+          optional(:yearly_expected_contribution).maybe(::AcaEntities::Types::Money)
         end
       end
     end
