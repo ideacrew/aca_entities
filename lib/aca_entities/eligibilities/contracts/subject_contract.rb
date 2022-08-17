@@ -7,10 +7,13 @@ module AcaEntities
       class SubjectContract < Dry::Validation::Contract
         params do
           # required(:gid).filled(type?: URI)
-          required(:title).filled(:string)
-          optional(:description).maybe(:hash)
-          required(:key).filled(AcaEntities::Eligibilities::Types::SubjectType)
-          required(:klass).filled(type?: URI)
+          required(:first_name).filled(:string)
+          required(:last_name).filled(:string)
+          required(:dob).filled(:date)
+          optional(:encrypted_ssn).maybe(:string)
+          required(:hbx_id).filled(:string)
+          required(:person_id).filled(:string)
+          required(:is_primary).filled(:bool)
           required(:eligibility_states).maybe(:hash)
           required(:outstanding_verification_status).filled(AcaEntities::Eligibilities::Types::DeterminationStateKind)
         end
@@ -28,16 +31,6 @@ module AcaEntities
             )
           end
         end
-
-        # rule(:subject) do
-        #   if key? && value
-        #     subject_type = values.to_h[:subject_type]
-        #     if subject_type
-        #       result = "AcaEntities::Eligibilities::Contracts::#{subject_type}Contract".constantize.new.call(value)
-        #       key.failure(text: "invalid subject", error: result.errors.to_h) if result&.failure?
-        #     end
-        #   end
-        # end
       end
     end
   end

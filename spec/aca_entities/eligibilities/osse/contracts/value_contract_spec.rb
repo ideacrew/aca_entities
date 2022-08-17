@@ -3,7 +3,7 @@
 require 'spec_helper'
 require 'aca_entities/eligibilities/eligibilities_shared_context'
 
-RSpec.describe AcaEntities::Eligibilities::Contracts::ValueContract do
+RSpec.describe AcaEntities::Eligibilities::Osse::Contracts::ValueContract do
   include_context 'eligibilities_shared_context'
   subject { described_class.new }
 

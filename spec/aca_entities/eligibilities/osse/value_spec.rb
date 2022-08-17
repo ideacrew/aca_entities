@@ -1,15 +1,16 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
+require 'aca_entities/eligibilities/eligibilities_shared_context'
 
-RSpec.describe AcaEntities::Eligibilities::BenefitSponsorSubject do
+RSpec.describe AcaEntities::Eligibilities::Osse::Value do
+  include_context 'eligibilities_shared_context'
   subject { described_class }
 
   let(:required_params) do
     {
-      fein: '4232323',
-      legal_name: 'Ideacrew',
-      benefit_sponsorship_id: "122fwewe3456789"
+      title: 'Osse Premium Credit',
+      key: 'OsseBenefitSponsorGrant'
     }
   end
 
@@ -24,10 +25,8 @@ RSpec.describe AcaEntities::Eligibilities::BenefitSponsorSubject do
   context 'with invalid arguments' do
     it 'should raise error' do
       expect do
-        described_class.new(required_params.reject do |k, _v|
-                              k == :fein
-                            end)
-      end.to raise_error(Dry::Struct::Error, /:fein is missing/)
+        described_class.new({ title: 'Osse Premium Credit' })
+      end.to raise_error(Dry::Struct::Error, /:key is missing/)
     end
   end
 end
