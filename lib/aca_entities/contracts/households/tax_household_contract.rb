@@ -23,6 +23,16 @@ module AcaEntities
           optional(:end_date).value(:date)
           required(:tax_household_members).array(AcaEntities::Contracts::Households::TaxHouseholdMemberContract.params)
           optional(:eligibility_determinations).array(AcaEntities::Contracts::Determinations::EligibilityDeterminationContract.params)
+
+          # Yearly Expected Contribution
+          optional(:yearly_expected_contribution).maybe(::AcaEntities::Types::Money)
+
+          optional(:determination_reference).maybe(AcaEntities::Contracts::Determinations::EligibilityDeterminationReferenceContract.params)
+          optional(:max_aptc).maybe(AcaEntities::Contracts::CurrencyContract.params)
+          optional(:monthly_expected_contribution).maybe(::AcaEntities::Types::Money)
+          optional(:aptc_accumulator).maybe(AcaEntities::AptcCsrEligibilitiesEnrollments::Contracts::AptcAccumulatorContract.params)
+          optional(:contribution_accumulators).maybe(AcaEntities::AptcCsrEligibilitiesEnrollments::Contracts::ContributionAccumulatorContract.params)
+
         end
       end
     end
