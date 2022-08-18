@@ -14,6 +14,7 @@ module AcaEntities
         # @option opts [Date] :end_date optional
         # @option opts [Array] :tax_household_members optional
         # @option opts [Array] :eligibility_determinations optional
+        # @option opts [AcaEntities::Types::Money] :yearly_expected_contribution optional
         # @return [Dry::Monads::Result]
         params do
           optional(:hbx_id).maybe(:string)
@@ -32,7 +33,6 @@ module AcaEntities
           optional(:monthly_expected_contribution).maybe(::AcaEntities::Types::Money)
           optional(:aptc_accumulator).maybe(AcaEntities::AptcCsrEligibilitiesEnrollments::Contracts::AptcAccumulatorContract.params)
           optional(:contribution_accumulators).maybe(AcaEntities::AptcCsrEligibilitiesEnrollments::Contracts::ContributionAccumulatorContract.params)
-
         end
       end
     end

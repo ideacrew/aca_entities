@@ -25,7 +25,6 @@ module AcaEntities
       attribute :monthly_expected_contribution, AcaEntities::Types::Money.optional.meta(omittable: true)
       attribute :aptc_accumulator,              AcaEntities::AptcCsrEligibilitiesEnrollments::AptcAccumulator.optional.meta(omittable: true)
       attribute :contribution_accumulators,     AcaEntities::AptcCsrEligibilitiesEnrollments::ContributionAccumulator.optional.meta(omittable: true)
-
     end
   end
 end
