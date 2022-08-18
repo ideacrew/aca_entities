@@ -17,7 +17,7 @@ module AcaEntities
 
         attribute :evidences?, Types::Array.of(AcaEntities::Eligibilities::Evidence).meta(omittable: true)
 
-        attribute :grants, Types::Array.of(AcaEntities::Eligibilities::Osse::Grant).meta(omittable: false)
+        attribute :grants, Types::Array.of(AcaEntities::Eligibilities::Osse::Grant).meta(omittable: true)
 
         # @!attribute [r] start_on
         # Eligibility start date
@@ -27,7 +27,7 @@ module AcaEntities
         # @!attribute [r] end_on
         # Eligibility end date
         # @return [Date]
-        attribute :end_on, Types::Date
+        attribute :end_on, Types::Date.optional.meta(omittable: true)
       end
     end
   end

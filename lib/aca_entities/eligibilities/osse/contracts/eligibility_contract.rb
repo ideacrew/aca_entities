@@ -10,9 +10,9 @@ module AcaEntities
             required(:subject).filled(AcaEntities::Eligibilities::Osse::Contracts::SubjectContract.params)
             optional(:status).maybe(:string)
             optional(:evidences).array(AcaEntities::Eligibilities::Contracts::EvidenceContract.params)
-            required(:grants).array(AcaEntities::Eligibilities::Osse::Contracts::GrantContract.params)
+            optional(:grants).array(AcaEntities::Eligibilities::Osse::Contracts::GrantContract.params)
             required(:start_on).filled(type?: Date)
-            required(:end_on).filled(type?: Date)
+            optional(:end_on).filled(type?: Date)
           end
 
           # rule(:subjects) do
