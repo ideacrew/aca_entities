@@ -16,6 +16,9 @@ module AcaEntities
       attribute :tax_household_members,           Types::Strict::Array.of(AcaEntities::Households::TaxHouseholdMember).meta(omittable: false)
       attribute :eligibility_determinations,
                 Types::Strict::Array.of(AcaEntities::Determinations::EligibilityDetermination).optional.meta(omittable: true)
+
+      # Yearly Expected Contribution
+      attribute :yearly_expected_contribution, ::AcaEntities::Types::Money.optional.meta(omittable: true)
     end
   end
 end

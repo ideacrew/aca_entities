@@ -105,6 +105,7 @@ RSpec.describe ::AcaEntities::Households::TaxHousehold, dbclean: :after_each do
       start_date: Date.today,
       end_date: nil,
       tax_household_members: tax_household_members,
+      yearly_expected_contribution: BigDecimal('102.78238'),
       eligibility_determinations: eligibility_determinations
     }
 

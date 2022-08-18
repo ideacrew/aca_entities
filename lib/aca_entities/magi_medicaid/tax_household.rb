@@ -20,6 +20,9 @@ module AcaEntities
       # The effective on date of the tax household
       attribute :effective_on, Types::Date.optional.meta(omittable: true)
       attribute :determined_on, Types::Date.optional.meta(omittable: true)
+
+      # Yearly Expected Contribution
+      attribute :yearly_expected_contribution, ::AcaEntities::Types::Money.optional.meta(omittable: true)
     end
   end
 end
