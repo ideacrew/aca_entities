@@ -16,7 +16,7 @@ module AcaEntities
         # @option opts [String] :tobacco_use optional
         # @return [Dry::Monads::Result]
         params do
-          required(:is_subscriber).maybe(:boolean)
+          required(:is_subscriber).filled(:bool)
           optional(:premium_amount).hash(AcaEntities::Contracts::CurrencyContract.params)
           optional(:applied_aptc_amount).hash(AcaEntities::Contracts::CurrencyContract.params)
           required(:eligibility_date).maybe(:date)

@@ -2,8 +2,8 @@
 
 module AcaEntities
   module Contracts
-    module Enrollments
-      # Schema and validation rules for {AcaEntities::Enrollments::TaxHouseholdMemberReference}
+    module Households
+      # Schema and validation rules for {AcaEntities::Households::TaxHouseholdMemberReference}
       class TaxHouseholdMemberReferenceContract < Dry::Validation::Contract
         # @!method call(opts)
         # @param [Hash] opts the parameters to validate using this contract
@@ -11,7 +11,7 @@ module AcaEntities
         # @option opts [String] :reason optional
         # @return [Dry::Monads::Result]
         params do
-          required(:is_subscriber).maybe(:boolean)
+          required(:is_subscriber).filled(:bool)
           optional(:reason).maybe(:string)
         end
       end

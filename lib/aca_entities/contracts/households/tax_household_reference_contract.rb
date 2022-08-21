@@ -8,11 +8,11 @@ module AcaEntities
         # @!method call(opts)
         # @param [Hash] opts the parameters to validate using this contract
         # @option opts [Hash] :max_aptc required
-        # @option opts [Hash] :monthly_expected_contribution optional
+        # @option opts [Hash] :monthly_expected_contribution required
         # @return [Dry::Monads::Result]
         params do
           required(:max_aptc).hash(AcaEntities::Contracts::CurrencyContract.params)
-          optional(:monthly_expected_contribution).hash(AcaEntities::Contracts::CurrencyContract.params)
+          required(:monthly_expected_contribution).hash(AcaEntities::Contracts::CurrencyContract.params)
         end
       end
     end
