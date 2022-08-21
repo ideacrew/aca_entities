@@ -12,7 +12,7 @@ module AcaEntities
         # @return [Dry::Monads::Result]
         params do
           required(:is_subscriber).maybe(:boolean)
-          optional(:reason).maybe(:string)          
+          optional(:reason).maybe(:string)
         end
       end
     end
