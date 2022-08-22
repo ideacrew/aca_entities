@@ -32,7 +32,7 @@ module AcaEntities
           optional(:max_aptc).maybe(AcaEntities::Contracts::CurrencyContract.params)
           optional(:monthly_expected_contribution).maybe(::AcaEntities::Types::Money)
           optional(:aptc_accumulator).maybe(AcaEntities::AptcCsrEligibilitiesEnrollments::Contracts::AptcAccumulatorContract.params)
-          optional(:contribution_accumulators).maybe(AcaEntities::AptcCsrEligibilitiesEnrollments::Contracts::ContributionAccumulatorContract.params)
+          optional(:contribution_accumulator).maybe(AcaEntities::AptcCsrEligibilitiesEnrollments::Contracts::ContributionAccumulatorContract.params)
         end
       end
     end

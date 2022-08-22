@@ -10,6 +10,7 @@ module AcaEntities
     require_relative 'types'
 
     # require_relative 'contracts/types_contract'
+    require_relative 'contracts/grant_contract'
     require_relative 'contracts/evidence_item_contract'
     require_relative 'contracts/evidence_state_contract'
     require_relative 'contracts/evidence_states_contract'
@@ -22,6 +23,7 @@ module AcaEntities
 
     # require_relative 'contracts/eligibility_snapshot_contract'
 
+    require_relative 'grant'
     require_relative 'evidence_item'
     require_relative 'evidence_state'
     require_relative 'evidence_states'
@@ -42,6 +44,7 @@ module AcaEntities
       attribute? :earliest_due_date, Types::Date.meta(omittable: true)
       attribute :determined_at, Types::DateTime.meta(omittable: false)
       attribute :evidence_states, Types::Hash.meta(omittable: false)
+      attribute :grants, Types::Array.of(AcaEntities::Eligibilities::Grant).optional.meta(omittable: true)
 
       # def initialize(args)
       #   if args[:evidence_states].present?

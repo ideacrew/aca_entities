@@ -12,7 +12,7 @@ module AcaEntities
     # may be a ConsumerRole that maintains the Verification of Lawful
     # Presence (VLP) for that individual.
     class EvidenceItem < Dry::Struct
-      attribute? :id, Types::String.optional.meta(ommittable: true)
+      attribute? :id, Types::String.optional.meta(omittable: true)
 
       # @!attribute [r] key
       # An unambiguous reference to this EvidenceItem
@@ -27,7 +27,7 @@ module AcaEntities
       # @!attribute [r] description
       # An optional account of the content of this resource
       # @return [String]
-      attribute? :description, Types::String.optional.meta(ommitable: true)
+      attribute? :description, Types::String.optional.meta(omittable: true)
 
       # @!attribute [r] subject_ref
       # A class or object described by the {evidence_ref}

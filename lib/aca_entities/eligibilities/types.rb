@@ -39,6 +39,16 @@ module AcaEntities
           'negative_response_received'
         ).freeze
 
+      GrantType =
+        Types::Coercible::String.enum(
+          'AdvancePremiumAdjustmentGrant',
+          'OsseEmployeeRoleGrant',
+          'OsseConsumerRoleGrant',
+          'OseeResidentRoleGrant',
+          'OsseBenefitSponsorGrant',
+          'CsrAdjustmentGrant'
+        ).freeze
+
     end
   end
 end
