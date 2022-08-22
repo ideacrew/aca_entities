@@ -8,7 +8,7 @@ RSpec.describe AcaEntities::Eligibilities::Osse::Contracts::SubjectContract do
   subject { described_class.new }
 
   let(:title) { 'OSSE Eligibility' }
-  let(:klass) { URI('gid://enroll_app/Family/98765/FamilyMember/234567') }
+  let(:key) { URI('gid://enroll_app/Family/98765/FamilyMember/234567') }
   let(:first_name) { 'Michael' }
   let(:last_name) { 'Brady' }
   let(:is_primary) { true }
@@ -17,37 +17,17 @@ RSpec.describe AcaEntities::Eligibilities::Osse::Contracts::SubjectContract do
   let(:required_params) do
     {
       title: title,
-      klass: klass,
-      key: 'FamilyMemberSubject',
-      # subject: {
-      #   first_name: first_name,
-      #   last_name: last_name,
-      #   dob: Date.new(1985, 2, 1),
-      #   hbx_id: '4121212',
-      #   person_id: '2',
-      #   is_primary: is_primary
-      # },
-      outstanding_verification_status: 'eligible',
-      eligibility_states: eligibility_states
+      klass: 'SomeClass',
+      key: key
     }
   end
 
   context 'Calling the contract with no params' do
     let(:error_message) do
       {
-        outstanding_verification_status: ['is missing'],
-        eligibility_states: ['is missing'],
         key: ['is missing'],
         klass: ['is missing'],
         title: ['is missing']
-        # subject: [error: {
-        #   first_name: ['is missing'],
-        #   last_name: ['is missing'],
-        #   dob: ['is missing'],
-        #   hbx_id: ['is missing'],
-        #   person_id: ['is missing'],
-        #   is_primary: ['is missing']
-        # }, text: "invalid subject"]
       }
     end
 

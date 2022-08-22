@@ -37,7 +37,7 @@ RSpec.describe AcaEntities::Eligibilities::Osse::Contracts::GrantContract do
 
   context 'Calling the contract with no params' do
     let(:error_message) do
-      { end_on: ['is missing'], start_on: ['is missing'], value: ['is missing'], key: ['is missing'], title: ['is missing'] }
+      { start_on: ['is missing'], value: ['is missing'], key: ['is missing'], title: ['is missing'] }
     end
 
     it 'should fail validation' do

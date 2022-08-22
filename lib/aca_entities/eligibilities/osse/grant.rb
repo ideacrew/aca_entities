@@ -21,13 +21,13 @@ module AcaEntities
         # Type of grant, for example cost sharing grant, employer contribution grant
         # or osse premium credit
         # @return [String]
-        attribute :key, AcaEntities::Eligibilities::Types::GrantType.meta(ommittable: false)
+        attribute :key, Types::String.meta(ommittable: false)
 
         # @!attribute [r] value
         # Value can be csr, aptc or employer contribution
         # csr is a percentage, aptc is a $ amount, employer contribution, enrollment ratio
         # @return [Dry::Struct]
-        attribute :value, AcaEntities::Eligibilities::Osse::Value.meta(ommitable: false)
+        attribute :value, AcaEntities::Eligibilities::Osse::Value
 
         # @!attribute [r] start_on
         # Start date for the grant
@@ -37,7 +37,7 @@ module AcaEntities
         # @!attribute [r] end_on
         # End date for the grant
         # @return [Date]
-        attribute :end_on, Types::Date.meta(omittable: false)
+        attribute :end_on, Types::Date.optional.meta(omittable: true)
       end
     end
   end

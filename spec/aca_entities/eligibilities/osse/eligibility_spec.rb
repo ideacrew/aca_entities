@@ -10,8 +10,8 @@ RSpec.describe AcaEntities::Eligibilities::Osse::Eligibility do
   let(:subject) do
     {
       title: 'OSSE Eligibility',
-      klass: URI('gid://enroll_app/Family/98765/FamilyMember/234567'),
-      key: 'FamilyMemberSubject',
+      key: URI('gid://enroll_app/Family/98765/FamilyMember/234567'),
+      klass: 'FamilyMemberSubject',
       outstanding_verification_status: 'eligible',
       eligibility_states: {}
     }

@@ -7,7 +7,7 @@ RSpec.describe AcaEntities::Eligibilities::Osse::Subject do
   include_context 'eligibilities_shared_context'
   subject { described_class }
 
-  let(:klass) { URI('gid://enroll_app/Family/98765/FamilyMember/234567') }
+  let(:key) { URI('gid://enroll_app/Family/98765/FamilyMember/234567') }
   let(:first_name) { 'Michael' }
   let(:last_name) { 'Brady' }
   let(:is_primary) { true }
@@ -16,18 +16,8 @@ RSpec.describe AcaEntities::Eligibilities::Osse::Subject do
   let(:required_params) do
     {
       title: 'OSSE Eligibility',
-      klass: klass,
-      key: 'FamilyMemberSubject',
-      # subject: {
-      #   first_name: first_name,
-      #   last_name: last_name,
-      #   is_primary: is_primary,
-      #   dob: Date.new(1985, 2, 1),
-      #   hbx_id: '4121212',
-      #   person_id: '2'
-      # },
-      outstanding_verification_status: 'eligible',
-      eligibility_states: eligibility_states
+      klass: 'FamilyMemberSubject',
+      key: key
     }
   end
 

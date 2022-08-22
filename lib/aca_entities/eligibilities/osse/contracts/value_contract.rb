@@ -9,7 +9,7 @@ module AcaEntities
           params do
             required(:title).filled(:string)
             optional(:description).maybe(:string)
-            required(:key).filled(AcaEntities::Eligibilities::Types::GrantType)
+            required(:key).filled(:string)
           end
         end
       end

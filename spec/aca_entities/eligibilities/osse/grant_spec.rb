@@ -18,8 +18,7 @@ RSpec.describe AcaEntities::Eligibilities::Osse::Grant do
       title: 'Osse Eligibility',
       key: 'OsseBenefitSponsorGrant',
       value: value,
-      start_on: five_days_from_today,
-      end_on: Date.today.next_month
+      start_on: five_days_from_today
     }
   end
 

@@ -9,10 +9,10 @@ module AcaEntities
           params do
             required(:title).filled(:string)
             optional(:description).maybe(:string)
-            required(:key).filled(AcaEntities::Eligibilities::Types::GrantType)
+            required(:key).filled(:string)
             required(:value).filled(AcaEntities::Eligibilities::Osse::Contracts::ValueContract.params)
             required(:start_on).filled(:date)
-            required(:end_on).filled(:date)
+            optional(:end_on).maybe(:date)
           end
         end
       end
