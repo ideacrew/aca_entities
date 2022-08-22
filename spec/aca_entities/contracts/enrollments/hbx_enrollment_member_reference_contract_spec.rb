@@ -19,7 +19,7 @@ RSpec.describe ::AcaEntities::Contracts::Enrollments::HbxEnrollmentMemberReferen
       eligibility_date: Date.today,
       coverage_start_on: Date.today,
       coverage_end_on: nil,
-      tobacco_use: 'no',
+      tobacco_use: 'no'
     }
   end
 
