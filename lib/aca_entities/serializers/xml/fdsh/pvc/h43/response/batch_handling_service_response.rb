@@ -10,9 +10,9 @@ module AcaEntities
               # Happymapper implementation for the root object of an BatchHandlingServiceResponse.
               class BatchHandlingServiceResponse
                 include HappyMapper
-                register_namespace 'exch', 'http://rrvhtorresp.dsh.cms.gov/exchange/1.0'
+                register_namespace 'exch', 'http://pvchtorresp.dsh.cms.gov/exchange/1.0'
                 register_namespace 'hix-core', 'http://hix.cms.gov/0.1/hix-core'
-                register_namespace 'ext', 'http://rrvhtorresp.dsh.cms.gov/extension/1.0'
+                register_namespace 'ext', 'http://pvchtorresp.dsh.cms.gov/extension/1.0'
 
                 tag 'BatchHandlingServiceRequest'
                 namespace 'exch'
