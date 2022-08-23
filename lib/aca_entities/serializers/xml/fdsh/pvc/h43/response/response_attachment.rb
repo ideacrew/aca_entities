@@ -11,7 +11,7 @@ module AcaEntities
               class ResponseAttachment
                 include HappyMapper
                 register_namespace 'hix-core', 'http://hix.cms.gov/0.1/hix-core'
-                register_namespace 'ext', 'http://rrvhtorresp.dsh.cms.gov/extension/1.0'
+                register_namespace 'ext', 'http://pvchtorresp.dsh.cms.gov/extension/1.0'
                 register_namespace 'Q1', 'http://niem.gov/niem/niem-core/2.0'
 
                 tag 'Attachment'

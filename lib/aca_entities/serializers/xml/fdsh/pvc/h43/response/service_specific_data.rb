@@ -10,7 +10,7 @@ module AcaEntities
               # Happymapper implementation for the root object of an ServiceSpecificData.
               class ServiceSpecificData
                 include HappyMapper
-                register_namespace 'ext', 'http://rrvhtorresp.dsh.cms.gov/extension/1.0'
+                register_namespace 'ext', 'http://pvchtorresp.dsh.cms.gov/extension/1.0'
                 register_namespace 'hix-core', 'http://hix.cms.gov/0.1/hix-core'
 
                 tag 'ServiceSpecificData'

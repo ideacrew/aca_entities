@@ -7,7 +7,7 @@ module AcaEntities
         module Pvc
           module H43
             module Operations
-              # RRV Request manifest to payload xml
+              # PVC Request manifest to payload xml
               class ValidatePvcManifestResponsePayloadXml
                 send(:include, Dry::Monads[:result, :do, :try])
 
