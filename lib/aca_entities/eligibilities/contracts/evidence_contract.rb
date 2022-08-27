@@ -8,7 +8,7 @@ module AcaEntities
         params do
           optional(:key).filled(:symbol)
           required(:title).filled(:string)
-          required(:aasm_state).filled(:string)
+          optional(:aasm_state).maybe(:string)
 
           optional(:description).maybe(:string)
           optional(:received_at).maybe(:date_time)

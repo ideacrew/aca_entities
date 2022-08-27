@@ -8,27 +8,34 @@ module AcaEntities
     # require 'aca_entities/operations/mongoid/model_adapter'
 
     require_relative 'types'
-
     # require_relative 'contracts/types_contract'
+    require_relative 'osse/contracts/value_contract'
+    require_relative 'osse/contracts/grant_contract'
+    require_relative 'osse/contracts/subject_contract'
+    require_relative 'contracts/subject_contract'
     require_relative 'contracts/evidence_item_contract'
     require_relative 'contracts/evidence_state_contract'
     require_relative 'contracts/evidence_states_contract'
     require_relative 'contracts/eligibility_item_contract'
     require_relative 'contracts/eligibility_state_contract'
     require_relative 'contracts/eligibility_states_contract'
+    require_relative 'osse/contracts/eligibility_contract'
     require_relative 'contracts/determination_contract'
-    require_relative 'contracts/subject_contract'
     require_relative 'contracts/subjects_contract'
 
     # require_relative 'contracts/eligibility_snapshot_contract'
 
+    require_relative 'osse/value'
+    require_relative 'osse/grant'
+    require_relative 'osse/subject'
+    require_relative 'subject'
     require_relative 'evidence_item'
     require_relative 'evidence_state'
     require_relative 'evidence_states'
     require_relative 'eligibility_item'
     require_relative 'eligibility_states'
+    require_relative 'osse/eligibility'
     require_relative 'determination'
-    require_relative 'subject'
     require_relative 'subjects'
 
     # A granted permission or benefit
@@ -42,6 +49,10 @@ module AcaEntities
       attribute? :earliest_due_date, Types::Date.meta(omittable: true)
       attribute :determined_at, Types::DateTime.meta(omittable: false)
       attribute :evidence_states, Types::Hash.meta(omittable: false)
+      # attribute? :grants, Types::Hash.meta(omittable: true)
+
+      attribute? :start_on, Types::Date.meta(omittable: true)
+      attribute? :end_on, Types::Date.meta(omittable: true)
 
       # def initialize(args)
       #   if args[:evidence_states].present?
