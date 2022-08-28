@@ -32,12 +32,12 @@ servers:
 defaultContentType: application/json
 
 channels:
-  on_enroll.enroll.benefit_sponsors.benefit_application:
+  on_enroll.enroll.benefit_sponsors.census_employee:
     bindings:
       amqp:
         is: queue
         queue:
-          name: on_enroll.enroll.benefit_sponsors.benefit_application
+          name: on_enroll.enroll.benefit_sponsors.census_employee
           durable: true
           exclusive: false
           auto_delete: false
@@ -47,12 +47,12 @@ channels:
         amqp:
           ack: true
           exclusive: false
-          routing_key: enroll.benefit_sponsors.benefit_application.open_enrollment_began
+          routing_key: enroll.benefit_sponsors.census_employee.created
           prefetch: 1
           block: false
           bindingVersion: '0.2.0'
-      operationId: on_enroll.enroll.benefit_sponsors.benefit_application
-      description: Events - Application Renewal Created
+      operationId: on_enroll.enroll.benefit_sponsors.census_employee
+      description: Events - Census employee added to roster
 
 tags:
   - name: linter_tag

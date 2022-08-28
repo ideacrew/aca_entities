@@ -30,12 +30,12 @@ servers:
     description: RabbitMQ Test Server
 
 channels:
-  enroll.benefit_sponsors.benefit_application.open_enrollment_began:
+  enroll.benefit_sponsors.census_employee.created:
     bindings:
       amqp:
         is: :routing_key
         exchange:
-          name: enroll.benefit_sponsors.benefit_application
+          name: enroll.benefit_sponsors.census_employee
           type: topic
           content_type: application/json
           durable: true
@@ -43,13 +43,13 @@ channels:
           vhost: event_source
         binding_version: '0.2.0'
     publish:
-      operationId: enroll.benefit_sponsors.benefit_application.open_enrollment_began
-      description: Events - BenefitSponsors BenefitApplication Open Enrollment Began
+      operationId: enroll.benefit_sponsors.census_employee.created
+      description: Events - BenefitSponsors Census Employee Added to Roster
       bindings:
         amqp:
           app_id: enroll
-          type: enroll.benefit_sponsors.benefit_application
-          routing_key: enroll.benefit_sponsors.benefit_application.open_enrollment_began
+          type: enroll.benefit_sponsors.census_employee
+          routing_key: enroll.benefit_sponsors.census_employee.created
           deliveryMode: 2
           mandatory: true
           timestamp: true
