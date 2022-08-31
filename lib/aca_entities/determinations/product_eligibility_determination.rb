@@ -15,6 +15,8 @@ module AcaEntities
       attribute :magi_medicaid_monthly_income_limit,      AcaEntities::Currency.optional.meta(omittable: true)
       attribute :magi_as_percentage_of_fpl,               Types::Float.optional.meta(omittable: true)
       attribute :magi_medicaid_category,                  MagiMedicaid::Types::MagiMedicaidCategoryType.optional.meta(omittable: true)
+      attribute :csr,                                     Types::CsrKind.optional.meta(omittable: true)
+
     end
   end
 end

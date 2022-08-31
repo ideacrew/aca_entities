@@ -20,9 +20,10 @@ module AcaEntities
           required(:assistance_year).filled(:integer)
           required(:start_on).value(:date)
           optional(:end_on).maybe(:date)
-          optional(:source).maybe(:string)
+          optional(:source).maybe(::AcaEntities::Types::EligibilityDeterminationSourceKinds)
           optional(:application_reference).maybe(AcaEntities::MagiMedicaid::Contracts::ApplicationReferenceContract.params)
           optional(:tax_households).array(AcaEntities::Contracts::Households::TaxHouseholdContract.params)
+          optional(:household_group_benchmark_ehb_premium).maybe(Types::Money)
         end
       end
     end

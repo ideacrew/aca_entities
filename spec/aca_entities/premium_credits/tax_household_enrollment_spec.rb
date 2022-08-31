@@ -13,6 +13,7 @@ RSpec.describe ::AcaEntities::PremiumCredits::TaxHouseholdEnrollment, dbclean: :
 
   let(:tax_household_reference) do
     {
+      hbx_id: '123456789',
       max_aptc: currency,
       monthly_expected_contribution: currency
     }
@@ -29,15 +30,26 @@ RSpec.describe ::AcaEntities::PremiumCredits::TaxHouseholdEnrollment, dbclean: :
     }
   end
 
+  let(:family_member_reference) do
+    {
+      family_member_hbx_id: '1001',
+      first_name: 'first name',
+      last_name: 'last name',
+      person_hbx_id: '1001',
+      is_primary_family_member: true
+    }
+  end
+
   let(:hbx_enrollment_member_reference) do
     {
-      is_subscriber: true,
+      family_member_reference: family_member_reference,
+      carrier_member_id: nil,
       premium_amount: currency,
       applied_aptc_amount: currency,
-      eligibility_date: Date.today,
-      coverage_start_on: Date.today,
       coverage_end_on: nil,
-      tobacco_use: 'no'
+      is_subscriber: true,
+      eligibility_date: Date.today,
+      coverage_start_on: Date.today
     }
   end
 
@@ -48,11 +60,11 @@ RSpec.describe ::AcaEntities::PremiumCredits::TaxHouseholdEnrollment, dbclean: :
     }
   end
 
-  let(:tax_household_enrollment_members) do
+  let(:tax_household_members_enrollment_members) do
     [
       {
-        hbx_enrollment_member_id: hbx_enrollment_member_reference,
-        tax_household_member_id: tax_household_member_reference,
+        hbx_enrollment_member: hbx_enrollment_member_reference,
+        tax_household_member: tax_household_member_reference,
         member_ehb_benchmark_health_premium: currency,
         member_ehb_benchmark_dental_premium: currency,
         age_on_effective_date: '25'
@@ -62,12 +74,14 @@ RSpec.describe ::AcaEntities::PremiumCredits::TaxHouseholdEnrollment, dbclean: :
 
   let(:input_params) do
     {
-      tax_household_id: tax_household_reference,
-      hbx_enrollment_id: hbx_enrollment_reference,
+      tax_household_reference: tax_household_reference,
+      hbx_enrollment_reference: hbx_enrollment_reference,
       health_product_hios_id: 'health_product_hios_id',
       dental_product_hios_id: nil,
-      total_benchmark_ehb_premium: currency,
-      tax_household_enrollment_members: tax_household_enrollment_members
+      household_benchmark_ehb_premium: currency,
+      household_health_benchmark_ehb_premium: currency,
+      household_health_benchmark_ehb_premium: nil,
+      tax_household_members_enrollment_members: tax_household_members_enrollment_members
     }
   end
 
@@ -86,9 +100,9 @@ RSpec.describe ::AcaEntities::PremiumCredits::TaxHouseholdEnrollment, dbclean: :
     it 'should raise error' do
       expect do
         described_class.new(input_params.reject do |k, _v|
-                              k == :tax_household_id
+                              k == :tax_household_reference
                             end)
-      end.to raise_error(Dry::Struct::Error, /:tax_household_id is missing/)
+      end.to raise_error(Dry::Struct::Error, /:tax_household_reference is missing/)
     end
   end
 end

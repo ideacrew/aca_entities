@@ -13,6 +13,7 @@ RSpec.describe ::AcaEntities::Households::TaxHouseholdReference, dbclean: :after
 
   let(:input_params) do
     {
+      hbx_id: '123456789',
       max_aptc: currency,
       monthly_expected_contribution: currency
     }

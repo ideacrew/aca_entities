@@ -13,6 +13,7 @@ RSpec.describe ::AcaEntities::Contracts::Households::TaxHouseholdReferenceContra
 
   let(:params) do
     {
+      hbx_id: '123456789',
       max_aptc: currency,
       monthly_expected_contribution: currency
     }
@@ -39,15 +40,15 @@ RSpec.describe ::AcaEntities::Contracts::Households::TaxHouseholdReferenceContra
       end
 
       it 'should return failure' do
-        # expect(@result.failure?).to be_truthy
+        expect(@result.failure?).to be_truthy
       end
 
       it 'should have any errors' do
-        # expect(@result.errors.empty?).to be_falsy
+        expect(@result.errors.empty?).to be_falsy
       end
 
       it 'should return error message' do
-        # expect(@result.errors.messages.first.text).to eq('is missing')
+        expect(@result.errors.messages.first.text).to eq('is missing')
       end
     end
 

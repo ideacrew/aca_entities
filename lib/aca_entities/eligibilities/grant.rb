@@ -28,7 +28,6 @@ module AcaEntities
       # @return [Dry::Struct]
       attribute :value, Types::Float.meta(omittable: false)
 
-
       # @!attribute [r] value
       # assistance_year of that grant
       # @return [Dry::Struct]
@@ -44,10 +43,20 @@ module AcaEntities
       # @return [Date]
       attribute :end_on, Types::Date.meta(omittable: false)
 
-      # @!attribute [r] members
+      # @!attribute [r] member_ids
       # Members receiving the grant
+      # @return String
+      attribute :member_ids, Types::Array.of(Types::String).optional.meta(omittable: true)
+
+      # @!attribute [r] tax_household_group_id
+      # tax_household_group receiving the grant
       # @return array of [String]
-      attribute :members, Types::Array.of(Types::String).optional.meta(omittable: true)
+      attribute :tax_household_group_id, Types::String.optional.meta(omittable: true)
+
+      # @!attribute [r] tax_household_id
+      # Tax_household related to that grant
+      # @return String
+      attribute :tax_household_id, Types::String.optional.meta(omittable: true)
     end
   end
 end

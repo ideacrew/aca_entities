@@ -13,7 +13,9 @@ module AcaEntities
           required(:assistance_year).filled(:integer)
           required(:start_on).filled(:date)
           optional(:end_on).maybe(:date)
-          optional(:members).array(:string)
+          optional(:member_ids).array(:string)
+          optional(:tax_household_group_id).maybe(:string)
+          optional(:tax_household_id).maybe(:string)
         end
       end
     end

@@ -11,6 +11,7 @@ module AcaEntities
         # @option opts [Hash] :monthly_expected_contribution required
         # @return [Dry::Monads::Result]
         params do
+          required(:hbx_id).filled(:string)
           required(:max_aptc).hash(AcaEntities::Contracts::CurrencyContract.params)
           required(:monthly_expected_contribution).hash(AcaEntities::Contracts::CurrencyContract.params)
         end

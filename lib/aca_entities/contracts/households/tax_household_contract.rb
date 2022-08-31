@@ -28,7 +28,7 @@ module AcaEntities
           # Yearly Expected Contribution
           optional(:yearly_expected_contribution).maybe(::AcaEntities::Types::Money)
 
-          optional(:determination_reference).maybe(AcaEntities::Contracts::Determinations::EligibilityDeterminationReferenceContract.params)
+          optional(:eligibility_determination_hbx_id).maybe(:string)
           optional(:max_aptc).maybe(AcaEntities::Contracts::CurrencyContract.params)
           optional(:monthly_expected_contribution).maybe(::AcaEntities::Types::Money)
           optional(:aptc_accumulator).maybe(AcaEntities::AptcCsrEligibilitiesEnrollments::Contracts::AptcAccumulatorContract.params)

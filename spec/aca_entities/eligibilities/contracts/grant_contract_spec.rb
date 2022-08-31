@@ -19,7 +19,8 @@ RSpec.describe AcaEntities::Eligibilities::Contracts::GrantContract do
       key: key,
       value: value,
       start_on: start_on,
-      end_on: end_on
+      end_on: end_on,
+      assistance_year: Date.today.year
     }
   end
   let(:optional_params) do
@@ -32,7 +33,7 @@ RSpec.describe AcaEntities::Eligibilities::Contracts::GrantContract do
 
   context 'Calling the contract with no params' do
     let(:error_message) do
-      { start_on: ['is missing'], value: ['is missing'], key: ['is missing'], title: ['is missing'] }
+      { start_on: ['is missing'], value: ['is missing'], key: ['is missing'], title: ['is missing'], :assistance_year => ["is missing"] }
     end
 
     it 'should fail validation' do

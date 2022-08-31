@@ -20,7 +20,7 @@ module AcaEntities
       # Yearly Expected Contribution
       attribute :yearly_expected_contribution, ::AcaEntities::Types::Money.optional.meta(omittable: true)
 
-      attribute :determination_reference,       AcaEntities::Determinations::EligibilityDeterminationReference.optional.meta(omittable: true)
+      attribute :eligibility_determination_hbx_id, Types::String.optional.meta(omittable: true)
       attribute :max_aptc,                      AcaEntities::Currency.optional.meta(omittable: true)
       attribute :monthly_expected_contribution, AcaEntities::Types::Money.optional.meta(omittable: true)
       attribute :aptc_accumulator,              AcaEntities::AptcCsrEligibilitiesEnrollments::AptcAccumulator.optional.meta(omittable: true)

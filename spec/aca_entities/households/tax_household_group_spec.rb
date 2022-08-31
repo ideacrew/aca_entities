@@ -122,7 +122,7 @@ RSpec.describe AcaEntities::Households::TaxHouseholdGroup, dbclean: :after_each 
       assistance_year: Date.today.year,
       start_on: Date.today,
       end_on: Date.today,
-      source: 'faa',
+      source: 'Faa',
       application_reference: { hbx_id: '123454321' },
       tax_households: [tax_household_params]
     }
