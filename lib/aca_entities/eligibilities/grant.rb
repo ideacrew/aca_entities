@@ -28,6 +28,12 @@ module AcaEntities
       # @return [Dry::Struct]
       attribute :value, Types::Float.meta(omittable: false)
 
+
+      # @!attribute [r] value
+      # assistance_year of that grant
+      # @return [Dry::Struct]
+      attribute :assistance_year, Types::Integer.meta(omittable: false)
+
       # @!attribute [r] start_on
       # Start date for the grant
       # @return [Date]

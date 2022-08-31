@@ -10,6 +10,7 @@ module AcaEntities
           optional(:description).maybe(:string)
           required(:key).filled(AcaEntities::Eligibilities::Types::GrantType)
           required(:value).filled(:float)
+          required(:assistance_year).filled(:integer)
           required(:start_on).filled(:date)
           optional(:end_on).maybe(:date)
           optional(:members).array(:string)
