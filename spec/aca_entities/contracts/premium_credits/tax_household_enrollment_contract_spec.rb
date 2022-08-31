@@ -80,7 +80,7 @@ RSpec.describe ::AcaEntities::Contracts::PremiumCredits::TaxHouseholdEnrollmentC
       dental_product_hios_id: nil,
       household_benchmark_ehb_premium: currency,
       household_health_benchmark_ehb_premium: currency,
-      household_health_benchmark_ehb_premium: nil,
+      household_dental_benchmark_ehb_premium: nil,
       tax_household_members_enrollment_members: tax_household_members_enrollment_members
     }
   end
