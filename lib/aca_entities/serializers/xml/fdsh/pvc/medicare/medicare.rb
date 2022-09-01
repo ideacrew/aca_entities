@@ -23,7 +23,7 @@ module AcaEntities
   module Serializers
     module Xml
       module Fdsh
-        # XML serialization for Rrv objects.
+        # XML serialization for Pvc objects.
         module Medicare
         end
       end

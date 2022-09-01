@@ -7,7 +7,7 @@ module AcaEntities
         module Pvc
           module Medicare
             module Operations
-              # Validate rrv medicare response with xsd
+              # Validate pvc medicare response with xsd
               class ValidateMedicareResponsePayloadXml
                 send(:include, Dry::Monads[:result, :do, :try])
 
@@ -21,7 +21,7 @@ module AcaEntities
                     "..",
                     "..",
                     "fdsh",
-                    "rrv",
+                    "pvc",
                     "medicare",
                     "xsd",
                     "medicare_response.xsd"

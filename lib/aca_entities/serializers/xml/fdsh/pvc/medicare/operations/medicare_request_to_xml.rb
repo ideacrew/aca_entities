@@ -7,7 +7,7 @@ module AcaEntities
         module Pvc
           module Medicare
             module Operations
-              # RRV Request to payload xml
+              # PVC Request to payload xml
               class MedicareRequestToXml
                 send(:include, Dry::Monads[:result, :do, :try])
 
@@ -21,7 +21,7 @@ module AcaEntities
 
                 def convert_to_xml(non_esi_request)
                   encode_result = Try do
-                    ::AcaEntities::Serializers::Xml::Fdsh::Rrv::Medicare::EesDshBatchRequestData.domain_to_mapper(non_esi_request).to_xml
+                    ::AcaEntities::Serializers::Xml::Fdsh::Pvc::Medicare::EesDshBatchRequestData.domain_to_mapper(non_esi_request).to_xml
                   end
 
                   encode_result.or do |e|
