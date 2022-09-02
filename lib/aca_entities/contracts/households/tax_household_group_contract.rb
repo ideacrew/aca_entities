@@ -21,7 +21,7 @@ module AcaEntities
           required(:start_on).value(:date)
           optional(:end_on).maybe(:date)
           optional(:source).maybe(::AcaEntities::Types::EligibilityDeterminationSourceKinds)
-          optional(:application_reference).maybe(AcaEntities::MagiMedicaid::Contracts::ApplicationReferenceContract.params)
+          optional(:application_hbx_id).maybe(:string)
           optional(:tax_households).array(AcaEntities::Contracts::Households::TaxHouseholdContract.params)
           optional(:household_group_benchmark_ehb_premium).maybe(Types::Money)
         end

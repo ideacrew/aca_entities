@@ -10,7 +10,7 @@ RSpec.describe AcaEntities::Eligibilities::Grant do
     {
       title: 'CSR Grant',
       key: 'CsrAdjustmentGrant',
-      value: 0.73,
+      value: "csr_73",
       start_on: five_days_from_today,
       end_on: Date.today.next_month,
       assistance_year: Date.today.year

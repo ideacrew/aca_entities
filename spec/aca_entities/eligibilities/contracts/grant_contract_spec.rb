@@ -9,7 +9,7 @@ RSpec.describe AcaEntities::Eligibilities::Contracts::GrantContract do
 
   let(:key) { 'AdvancePremiumAdjustmentGrant' }
   let(:description) { 'APTC Grant' }
-  let(:value) { 100.00 }
+  let(:value) { "100.00" }
   let(:start_on) { five_days_from_today }
   let(:end_on) { Date.today.next_month }
 

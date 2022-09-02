@@ -26,7 +26,7 @@ module AcaEntities
       # Value can be csr, aptc
       # csr is a percentage, aptc is a amount
       # @return [Dry::Struct]
-      attribute :value, Types::Float.meta(omittable: false)
+      attribute :value, Types::String.meta(omittable: false)
 
       # @!attribute [r] value
       # assistance_year of that grant

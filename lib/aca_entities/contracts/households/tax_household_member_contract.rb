@@ -17,8 +17,6 @@ module AcaEntities
           optional(:product_eligibility_determination).hash(AcaEntities::Contracts::Determinations::ProductEligibilityDeterminationContract.params)
           optional(:is_subscriber).value(:bool?)
           optional(:reason).maybe(:string)
-          optional(:csr_eligibility_kind).maybe(AcaEntities::Types::EligibilityCsrKinds)
-          optional(:csr_percent_as_integer).maybe(:integer)
         end
       end
     end

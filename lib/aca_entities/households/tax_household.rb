@@ -22,7 +22,6 @@ module AcaEntities
 
       attribute :eligibility_determination_hbx_id, Types::String.optional.meta(omittable: true)
       attribute :max_aptc,                      AcaEntities::Currency.optional.meta(omittable: true)
-      attribute :monthly_expected_contribution, AcaEntities::Types::Money.optional.meta(omittable: true)
       attribute :aptc_accumulator,              AcaEntities::AptcCsrEligibilitiesEnrollments::AptcAccumulator.optional.meta(omittable: true)
       attribute :contribution_accumulator,     AcaEntities::AptcCsrEligibilitiesEnrollments::ContributionAccumulator.optional.meta(omittable: true)
     end

@@ -30,7 +30,6 @@ module AcaEntities
 
           optional(:eligibility_determination_hbx_id).maybe(:string)
           optional(:max_aptc).maybe(AcaEntities::Contracts::CurrencyContract.params)
-          optional(:monthly_expected_contribution).maybe(::AcaEntities::Types::Money)
           optional(:aptc_accumulator).maybe(AcaEntities::AptcCsrEligibilitiesEnrollments::Contracts::AptcAccumulatorContract.params)
           optional(:contribution_accumulator).maybe(AcaEntities::AptcCsrEligibilitiesEnrollments::Contracts::ContributionAccumulatorContract.params)
         end
