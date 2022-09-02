@@ -260,6 +260,31 @@ channels:
       operationId: fdsh.renewal_eligibilities.medicare.magi_medicaid_application_renewal_eligibilities_medicare_determined
       description: RRV Medicare Determination completed.
 
+  fdsh.pvc.medicare.on_periodic_verification_confirmation_determined:
+    bindings:
+      amqp:
+        is: :routing_key
+        exchange:
+          name: fdsh.pvc.medicare
+          type: topic
+          durable: true
+          auto_delete: false
+          vhost: event_source
+        bindingVersion: 0.1.0
+    publish:
+      bindings:
+        amqp:
+          app_id: fdsh_gateway
+          type: fdsh.pvc.medicare
+          routing_key: fdsh.pvc.medicare.on_periodic_verification_confirmation_determined
+          deliveryMode: 2
+          mandatory: true
+          timestamp: true
+          content_type: application/json
+          bindingVersion: 0.2.0
+      operationId: fdsh.pvc.medicare.on_periodic_verification_confirmation_determined
+      description: Periodic Verification of Medicare Confirmation completed.
+
 tags:
   - name: linter_tag
     description: placeholder that satisfies the linter
