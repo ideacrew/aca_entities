@@ -15,7 +15,7 @@ RSpec.describe ::AcaEntities::Contracts::Households::TaxHouseholdReferenceContra
     {
       hbx_id: '123456789',
       max_aptc: currency,
-      monthly_expected_contribution: currency
+      yearly_expected_contribution: currency
     }
   end
 

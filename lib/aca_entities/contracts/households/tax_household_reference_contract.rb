@@ -13,7 +13,7 @@ module AcaEntities
         params do
           required(:hbx_id).filled(:string)
           required(:max_aptc).hash(AcaEntities::Contracts::CurrencyContract.params)
-          required(:monthly_expected_contribution).hash(AcaEntities::Contracts::CurrencyContract.params)
+          required(:yearly_expected_contribution).hash(AcaEntities::Contracts::CurrencyContract.params)
         end
       end
     end
