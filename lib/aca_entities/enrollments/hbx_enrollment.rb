@@ -33,10 +33,10 @@ module AcaEntities
                 AcaEntities::Organizations::BrokerAgencyProfileReference.optional.meta(omittable: true)
 
       # ivl attributes
-      attribute :elected_amount,                                  AcaEntities::Curreny.meta(omittable: true)
-      attribute :elected_premium_credit,                          AcaEntities::Curreny.meta(omittable: true)
-      attribute :applied_premium_credit,                          AcaEntities::Curreny.meta(omittable: true)
-      attribute :applied_aptc_amount,                             AcaEntities::Curreny.meta(omittable: true)
+      attribute :elected_amount,                                  AcaEntities::Currency.meta(omittable: true)
+      attribute :elected_premium_credit,                          AcaEntities::Currency.meta(omittable: true)
+      attribute :applied_premium_credit,                          AcaEntities::Currency.meta(omittable: true)
+      attribute :applied_aptc_amount,                             AcaEntities::Currency.meta(omittable: true)
       attribute :total_premium,                                   Types::Float.meta(omittable: true)
       attribute :elected_aptc_pct,                                Types::Float.meta(omittable: true)
       attribute :is_receiving_assistance,                         Types::Bool.optional.meta(omittable: true)

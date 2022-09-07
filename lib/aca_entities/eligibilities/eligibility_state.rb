@@ -9,6 +9,7 @@ module AcaEntities
 
     require_relative 'types'
     # require_relative 'contracts/types_contract'
+    require_relative 'contracts/grant_contract'
     require_relative 'osse/contracts/value_contract'
     require_relative 'osse/contracts/grant_contract'
     require_relative 'osse/contracts/subject_contract'
@@ -25,6 +26,7 @@ module AcaEntities
 
     # require_relative 'contracts/eligibility_snapshot_contract'
 
+    require_relative 'grant'
     require_relative 'osse/value'
     require_relative 'osse/grant'
     require_relative 'osse/subject'
@@ -49,8 +51,7 @@ module AcaEntities
       attribute? :earliest_due_date, Types::Date.meta(omittable: true)
       attribute :determined_at, Types::DateTime.meta(omittable: false)
       attribute :evidence_states, Types::Hash.meta(omittable: false)
-      # attribute? :grants, Types::Hash.meta(omittable: true)
-
+      attribute :grants, Types::Array.of(AcaEntities::Eligibilities::Grant).optional.meta(omittable: true)
       attribute? :start_on, Types::Date.meta(omittable: true)
       attribute? :end_on, Types::Date.meta(omittable: true)
 

@@ -12,9 +12,9 @@ module AcaEntities
           optional(:earliest_due_date).maybe(:date)
           required(:determined_at).filled(:date_time)
           required(:evidence_states).value(:hash)
+          optional(:grants).array(AcaEntities::Eligibilities::Contracts::GrantContract.params)
           optional(:start_on).maybe(:date)
           optional(:end_on).maybe(:date)
-          # optional(:grants).maybe(AcaEntities::Eligibilities::Contracts::GrantContract.params)
         end
 
         rule(:evidence_states).each do
