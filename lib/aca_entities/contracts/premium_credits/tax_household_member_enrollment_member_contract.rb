@@ -16,9 +16,10 @@ module AcaEntities
         params do
           required(:hbx_enrollment_member).hash(AcaEntities::Contracts::Enrollments::HbxEnrollmentMemberContract.params)
           required(:tax_household_member).hash(AcaEntities::Contracts::Households::TaxHouseholdMemberContract.params)
-          required(:age_on_effective_date).maybe(:string)
-          optional(:member_ehb_benchmark_health_premium).hash(AcaEntities::Contracts::CurrencyContract.params)
-          optional(:member_ehb_benchmark_dental_premium).hash(AcaEntities::Contracts::CurrencyContract.params)
+          required(:age_on_effective_date).maybe(:integer)
+          required(:family_member_reference).hash(AcaEntities::Contracts::Families::FamilyMemberReferenceContract.params)
+          required(:relationship_with_primary).maybe(:string)
+          required(:date_of_birth).maybe(:date)
         end
       end
     end

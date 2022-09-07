@@ -7,7 +7,6 @@ module AcaEntities
       class TaxHouseholdGroupContract < Dry::Validation::Contract
         # @!method call(opts)
         # @param [Hash] opts the parameters to validate using this contract
-        # @option opts [Date] :aasm_state required
         # @option opts [Integer] :assistance_year optional
         # @option opts [Date] :start_on required
         # @option opts [Date] :end_on optional
@@ -16,7 +15,6 @@ module AcaEntities
         # @option opts [Hash] :tax_households optional
         # @return [Dry::Monads::Result]
         params do
-          required(:aasm_state).value(:string)
           required(:assistance_year).filled(:integer)
           required(:start_on).value(:date)
           optional(:end_on).maybe(:date)

@@ -46,9 +46,10 @@ RSpec.describe ::AcaEntities::PremiumCredits::TaxHouseholdMemberEnrollmentMember
     {
       hbx_enrollment_member: hbx_enrollment_member_reference,
       tax_household_member: tax_household_member_reference,
-      member_ehb_benchmark_health_premium: currency,
-      member_ehb_benchmark_dental_premium: currency,
-      age_on_effective_date: '25'
+      family_member_reference: { family_member_hbx_id: '1234567' },
+      relationship_with_primary: 'child',
+      date_of_birth: Date.today,
+      age_on_effective_date: 25
     }
   end
 

@@ -24,7 +24,6 @@ module AcaEntities
       # Yearly Expected Contribution
       attribute :yearly_expected_contribution, ::AcaEntities::Types::Money.optional.meta(omittable: true)
 
-
       def aptc_csr_eligible?
         tax_household_members.any?(&:aptc_csr_eligible?)
       end

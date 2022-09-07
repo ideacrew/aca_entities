@@ -118,7 +118,6 @@ RSpec.describe AcaEntities::Contracts::Households::TaxHouseholdGroupContract, db
 
   let(:required_params) do
     {
-      aasm_state: 'active',
       assistance_year: Date.today.year,
       start_on: Date.today,
       end_on: Date.today,

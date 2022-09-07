@@ -4,11 +4,13 @@ module AcaEntities
   module PremiumCredits
     class TaxHouseholdMemberEnrollmentMember < Dry::Struct
 
-      attribute :hbx_enrollment_member, AcaEntities::Enrollments::HbxEnrollmentMember.meta(omittable: false)
-      attribute :tax_household_member,  AcaEntities::Households::TaxHouseholdMember.meta(omittable: false)
-      attribute :member_ehb_benchmark_health_premium,                             AcaEntities::Currency.meta(omittable: true)
-      attribute :member_ehb_benchmark_dental_premium,                             AcaEntities::Currency.meta(omittable: true)
-      attribute :age_on_effective_date,                                           Types::String.optional.meta(omittable: false)
+      attribute :hbx_enrollment_member,     AcaEntities::Enrollments::HbxEnrollmentMember.meta(omittable: false)
+      attribute :tax_household_member,      AcaEntities::Households::TaxHouseholdMember.meta(omittable: false)
+      attribute :age_on_effective_date,     Types::Integer.optional.meta(omittable: false)
+      attribute :family_member_reference,   AcaEntities::Families::FamilyMemberReference.meta(omittable: false)
+      attribute :relationship_with_primary, Types::String.optional.meta(omittable: false)
+      attribute :date_of_birth,             Types::Date.optional.meta(omittable: false)
+
     end
   end
 end
