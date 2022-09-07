@@ -54,7 +54,7 @@ RSpec.describe ::AcaEntities::Contracts::Households::TaxHouseholdReferenceContra
 
     context 'with bad input data type' do
       before do
-        @result = subject.call(params.merge(monthly_expected_contribution: nil))
+        @result = subject.call(params.merge(yearly_expected_contribution: nil))
       end
 
       it 'should return failure' do
