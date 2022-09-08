@@ -41,7 +41,7 @@ module AcaEntities
       # @!attribute [r] end_on
       # End date for the grant
       # @return [Date]
-      attribute :end_on, Types::Date.meta(omittable: false)
+      attribute :end_on, Types::Date.optional.meta(omittable: true)
 
       # @!attribute [r] member_ids
       # Members receiving the grant
