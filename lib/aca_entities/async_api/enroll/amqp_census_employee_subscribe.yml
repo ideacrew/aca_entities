@@ -53,6 +53,17 @@ channels:
           bindingVersion: '0.2.0'
       operationId: on_enroll.enroll.benefit_sponsors.census_employee
       description: Events - Census employee added to roster
+    subscribe:
+      bindings:
+        amqp:
+          ack: true
+          exclusive: false
+          routing_key: enroll.benefit_sponsors.census_employee.terminated
+          prefetch: 1
+          block: false
+          bindingVersion: '0.2.0'
+      operationId: on_enroll.enroll.benefit_sponsors.census_employee
+      description: Events - Census employee terminated from roster
 
 tags:
   - name: linter_tag

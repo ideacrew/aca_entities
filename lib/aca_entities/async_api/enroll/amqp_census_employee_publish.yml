@@ -55,6 +55,19 @@ channels:
           timestamp: true
           content_type: application/json
           bindingVersion: 0.2.0
+    publish:
+      operationId: enroll.benefit_sponsors.census_employee.terminated
+      description: Events - Census Employee Terminated from Roster
+      bindings:
+        amqp:
+          app_id: enroll
+          type: enroll.benefit_sponsors.census_employee
+          routing_key: enroll.benefit_sponsors.census_employee.terminated
+          deliveryMode: 2
+          mandatory: true
+          timestamp: true
+          content_type: application/json
+          bindingVersion: 0.2.0
 tags:
   - name: linter_tag
     description: placeholder that satisfies the linter
