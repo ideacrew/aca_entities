@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 
+# DEPRECATED - {AcaEntities::Accounts} namespace is deprecated.  Please use {AcaEntities::Identities} instead
+warn '[DEPRECATION] `AcaEntities::Accounts` namespace is deprecated.  Please use `AcaEntities::Identities` instead.'
+
 # dependencies
 # external
 require 'aca_entities/attestations/attestations'
