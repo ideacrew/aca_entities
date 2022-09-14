@@ -49,7 +49,17 @@ channels:
           bindingVersion: "0.2.0"
       operationId: on_enroll.enroll.individual.enrollments
       description: Event for enrollment saved
-
+    subscribe:
+      bindings:
+        amqp:
+          ack: true
+          exclusive: false
+          routing_key: enroll.individual.enrollments.coverage_selected
+          prefetch: 1
+          block: false
+          bindingVersion: "0.2.0"
+      operationId: on_enroll.enroll.individual.enrollments
+      description: Event for enrollment coverage selected
 tags:
   - name: linter_tag
     description: placeholder that satisfies the linter
