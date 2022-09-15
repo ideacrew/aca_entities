@@ -4,8 +4,15 @@ require 'spec_helper'
 require 'aca_entities/medicaid/ios'
 
 RSpec.describe AcaEntities::Medicaid::Ios::Contracts::SspApplicationCContract, dbclean: :after_each do
+  let(:required_params) do
+    {
+      NotEnrolledInHealthCareCoverageToggle__c: "Y",
+      ApplicationEsignFirstName__c: "John",
+      ApplicationEsignLastName__c: "Doe"
+    }
+  end
 
-  let(:all_params) do
+  let(:optional_params) do
     {
       ApplicationReceivedDateTime__c: DateTime.now,
       DCsnapHouseholdExpeditedScreeningId__c: 12_345,
@@ -18,7 +25,7 @@ RSpec.describe AcaEntities::Medicaid::Ios::Contracts::SspApplicationCContract, d
       IsDestituteFarmOrMigrantHouseholdToggle__c: "N",
       IsReceivingHousingAssistanceToggle__c: "Y",
       IsRenewalConsent__c: "N",
-      Name: "Name",
+      Name: "First Last",
       ProgramsApplied__c: "Medicaid",
       Status__c: "Pending",
       DcCaseNumber__c: "12345",
@@ -54,20 +61,28 @@ RSpec.describe AcaEntities::Medicaid::Ios::Contracts::SspApplicationCContract, d
       IsAgreeingToMedicaidPenalty__c: "Y",
       HasPendingAccidentSettlementToggle__c: "Y",
       IsPrimaryApplicantAddressModified__c: false,
-      NotEnrolledInHealthCareCoverageToggle__c: "Y",
-      ApplicationEsignFirstName__c: "John",
-      ApplicationEsignLastName__c: "Doe",
       ApplicationEsignMiddleName__c: "Atticus",
       ApplicationEsignSuffixCode__c: "Esq"
     }
   end
 
+  let(:all_params) { required_params.merge(optional_params) }
+
   context 'invalid parameters' do
     context 'with incorrect data type' do
       it 'should list error for every bad parameter' do
-        bad_params = { ApplicationReceivedDateTime__c: 0 }
+        bad_params = {  :ApplicationReceivedDateTime__c => 0,
+                        :ApplicationEsignLastName__c => 1,
+                        :ApplicationEsignFirstName__c => 1,
+                        :NotEnrolledInHealthCareCoverageToggle__c => 1 }
         expect(subject.call(bad_params).errors.to_h.keys).to match_array bad_params.keys
       end
+    end
+  end
+
+  context 'with optional parameters only' do
+    it 'should list error for every required parameter' do
+      expect(subject.call(optional_params).errors.to_h.keys).to match_array required_params.keys
     end
   end
 

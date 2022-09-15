@@ -28,6 +28,12 @@ module AcaEntities
       # @return [Array<Household>]
       attribute :households, Types::Array.of(AcaEntities::Households::Household).optional.meta(omittable: true)
 
+      # @!attribute [r] tax_household_groups
+      # Physical tax_household_groups over time with eligibility determinations
+      # @return [Array<Household>]
+      attribute :tax_household_groups,
+                Types::Array.of(AcaEntities::Households::TaxHouseholdGroup).optional.meta(omittable: true)
+
       attribute :irs_groups, Types::Array.of(AcaEntities::Groups::IrsGroup).optional.meta(omittable: true)
 
       # TODO: Replace specific VLP eligibility reference with FamilyEligibility

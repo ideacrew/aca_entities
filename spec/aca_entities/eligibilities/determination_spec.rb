@@ -15,7 +15,8 @@ RSpec.describe AcaEntities::Eligibilities::Determination do
       effective_date: Date.today,
       outstanding_verification_status: 'not_enrolled',
       outstanding_verification_earliest_due_date: Date.today + 30,
-      outstanding_verification_document_status: 'Partially Uploaded'
+      outstanding_verification_document_status: 'Partially Uploaded',
+      grants: []
     }
   end
 

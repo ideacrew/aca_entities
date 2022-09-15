@@ -35,6 +35,10 @@ module AcaEntities
     # String, min length: 1 character, max length: 15 characters, numeric-only
     HbxIdentifierKind = Types::String.constrained(format: /^[0-9]{1,15}$/)
 
+    EligibilityDeterminationSourceKinds = Types::String.enum('Curam', 'Admin', 'Renewals', 'Faa', 'Ffe')
+
+    CsrKind = Types::Coercible::String.enum('0', '73', '87', '94', '100', 'limited')
+
     McrToCvIncarcerationKind = Types.Constructor(self) { |value| value == 'INCARCERATED' }
 
     UsStateAbbreviationKind =

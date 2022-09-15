@@ -25,8 +25,18 @@ module AcaEntities
           private
 
           def prep_data(cv3_payload)
-            # payload = JSON.parse(cv3_payload, symbolize_names: true)
+            # FinancialAssistance::Operations::Transfers::MedicaidGateway::AccountTransferOut in Enroll
+            # sends a single hash for magi_medicaid_applications (no need to convert array into hash)
+            payload = JSON.parse(cv3_payload, symbolize_names: true)
             # call the to do operation to make the data easier to transform
+            family_members_hash = payload[:family][:family_members].each_with_object({}) do |family_member, member_hash|
+              member_hash[family_member[:hbx_id]] = family_member
+            end
+            payload[:family][:family_members_hash] = family_members_hash
+
+            primary_applicant = payload[:family][:magi_medicaid_applications][:applicants].detect {|applicant| applicant[:is_primary_applicant]}
+            payload[:family][:magi_medicaid_applications][:primary_applicant] = primary_applicant
+            Success(payload) # TODO: add Failure here
           end
 
           def to_ios(payload)
@@ -37,9 +47,9 @@ module AcaEntities
           end
         end
 
-        def validate_ios_payload(_payload)
+        def validate_ios_payload(payload)
           result = Try do
-            AcaEntities::Medicaid::Ios::Contracts::SSPDCRequestContract.new.call(payloads)
+            AcaEntities::Medicaid::Ios::Contracts::SspdcRequestContract.new.call(payload)
           end.to_result
 
           if result.success?

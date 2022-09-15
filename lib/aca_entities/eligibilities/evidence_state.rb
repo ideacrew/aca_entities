@@ -8,13 +8,13 @@ module AcaEntities
                 Types::Coercible::String.optional.meta(omittable: false)
       attribute :status,
                 AcaEntities::Eligibilities::Types::EvidenceStateKind.meta(
-                  ommittable: false
+                  omittable: false
                 )
-      attribute :is_satisfied, Types::Bool.meta(ommittable: false)
-      attribute :verification_outstanding, Types::Bool.meta(ommittable: false)
-      attribute? :due_on, Types::Date.meta(ommittable: true)
-      attribute :visited_at, Types::DateTime.meta(ommittable: false)
-      attribute? :meta, Types::Hash.meta(ommittable: true)
+      attribute :is_satisfied, Types::Bool.meta(omittable: false)
+      attribute :verification_outstanding, Types::Bool.meta(omittable: false)
+      attribute? :due_on, Types::Date.meta(omittable: true)
+      attribute :visited_at, Types::DateTime.meta(omittable: false)
+      attribute? :meta, Types::Hash.meta(omittable: true)
 
     end
   end

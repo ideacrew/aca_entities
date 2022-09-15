@@ -13,23 +13,23 @@ RSpec.describe AcaEntities::Medicaid::Ios::Contracts::SspBenefitsCContract, dbcl
 
   let(:optional_params) do
     {
-      SSP_Member__c: "Member",
-      Id: "12345",
-      BenefitPrograms__c: "Benefits Programs",
-      MedicareTypeCode__c: "Medicare Type Code",
-      MedicareNumber__c: "MedicareNumber",
-      BenefitApplicationDate__c: Date.today,
-      BenefitDenialDate__c: Date.today,
-      BenefitDenialReason__c: "Benefit Denial Reason",
-      BenefitInfoCounty__c: "Benefit Info County",
-      BenefitTypeCode__c: "Benefit Type Code",
-      DCId__c: 12_345,
-      EndDate__c: Date.today, # OverlappingMedicareCoverageValidator <- need to implement? no definnition in spreadsheet
-      State__c: "State",
-      StatusofApplication__c: "Status of Application",
-      HasMedicareCoverageButNoInfo__c: false,
-      RecordType: {},
-      SSP_Member__r: {}
+      # SSP_Member__c: "Member",
+      # Id: "12345",
+      # BenefitPrograms__c: "Benefits Programs",
+      # MedicareTypeCode__c: "Medicare Type Code",
+      # MedicareNumber__c: "MedicareNumber",
+      # BenefitApplicationDate__c: Date.today,
+      # BenefitDenialDate__c: Date.today,
+      # BenefitDenialReason__c: "Benefit Denial Reason",
+      # BenefitInfoCounty__c: "Benefit Info County",
+      # BenefitTypeCode__c: "Benefit Type Code",
+      # DCId__c: 12_345,
+      EndDate__c: Date.today # OverlappingMedicareCoverageValidator <- need to implement? no definnition in spreadsheet
+      # State__c: "State",
+      # StatusofApplication__c: "Status of Application",
+      # HasMedicareCoverageButNoInfo__c: false,
+      # RecordType: {},
+      # SSP_Member__r: {}
     }
   end
 

@@ -8,9 +8,9 @@ module AcaEntities
                 AcaEntities::Families::FamilyMemberReference.optional.meta(omittable: true)
       attribute :product_eligibility_determination,
                 AcaEntities::Determinations::ProductEligibilityDetermination.optional.meta(omittable: true)
-      attribute :is_subscriber,                                   Types::Bool.optional.meta(omittable: true)
-      attribute :reason,                                          Types::String.optional.meta(omittable: true)
+      attribute :is_subscriber,            Types::Bool.optional.meta(omittable: true)
+      attribute :reason,                   Types::String.optional.meta(omittable: true)
+
     end
   end
 end
-

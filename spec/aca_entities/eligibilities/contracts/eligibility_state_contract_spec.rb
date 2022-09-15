@@ -13,6 +13,8 @@ RSpec.describe AcaEntities::Eligibilities::Contracts::EligibilityStateContract d
   let(:evidence_states) { evidence_states_undetermined }
   let(:earliest_due_date) { five_days_from_today }
   let(:determined_at) { now }
+  let(:start_on) { five_days_from_today }
+  let(:end_on) { Date.today.next_month }
 
   let(:required_params) do
     {
@@ -24,7 +26,7 @@ RSpec.describe AcaEntities::Eligibilities::Contracts::EligibilityStateContract d
     }
   end
 
-  let(:optional_params) { { id: id } }
+  let(:optional_params) { { id: id, start_on: start_on, end_on: end_on } }
 
   let(:all_params) { required_params.merge(optional_params) }
 

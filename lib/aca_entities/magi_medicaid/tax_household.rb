@@ -4,7 +4,6 @@ module AcaEntities
   module MagiMedicaid
     # Cv3 IAP Entity for TaxHousehold.
     class TaxHousehold < Dry::Struct
-
       attribute :max_aptc, Types::Money.optional.meta(omittable: true)
       attribute :hbx_id, Types::String
 
@@ -20,6 +19,9 @@ module AcaEntities
       # The effective on date of the tax household
       attribute :effective_on, Types::Date.optional.meta(omittable: true)
       attribute :determined_on, Types::Date.optional.meta(omittable: true)
+
+      # Yearly Expected Contribution
+      attribute :yearly_expected_contribution, ::AcaEntities::Types::Money.optional.meta(omittable: true)
 
       def aptc_csr_eligible?
         tax_household_members.any?(&:aptc_csr_eligible?)

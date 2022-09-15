@@ -11,6 +11,7 @@ module AcaEntities
           required(:outstanding_verification_status).filled(AcaEntities::Eligibilities::Types::DeterminationStateKind)
           required(:outstanding_verification_earliest_due_date).maybe(:date)
           required(:outstanding_verification_document_status).maybe(:string)
+          optional(:grants).array(AcaEntities::Eligibilities::Contracts::GrantContract.params)
         end
 
         rule(:subjects) do
