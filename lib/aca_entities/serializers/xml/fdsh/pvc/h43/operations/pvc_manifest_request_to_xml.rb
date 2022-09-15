@@ -20,7 +20,7 @@ module AcaEntities
 
                 def convert_to_xml(medicare_request)
                   encode_result = Try do
-                    ::AcaEntities::Serializers::Xml::Fdsh::Pvc::H43::BatchHandlingServiceRequest.domain_to_mapper(medicare_request).to_xml
+                    ::AcaEntities::Serializers::Xml::Fdsh::Pvc::H43::Request::BatchHandlingServiceRequest.domain_to_mapper(medicare_request).to_xml
                   end
 
                   encode_result.or do |e|

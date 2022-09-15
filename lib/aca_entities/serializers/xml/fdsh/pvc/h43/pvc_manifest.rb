@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 require "happymapper"
-# response
 
+# response
 require_relative 'response/checksum_augmentation'
 require_relative 'response/document_binary'
 require_relative 'response/response_metadata'
@@ -12,17 +12,18 @@ require_relative 'response/transmission_metadata'
 require_relative 'response/batch_metadata'
 require_relative 'response/batch_handling_service_response'
 
-require_relative 'checksum_augmentation'
-require_relative 'document_binary'
-require_relative 'request_attachment'
-require_relative 'current_income_file_metadata'
-require_relative 'medicare_file_metadata'
-require_relative 'ssa_file_metadata'
-require_relative 'irs_file_metadata'
-require_relative 'service_specific_data'
-require_relative 'transmission_metadata'
-require_relative 'batch_metadata'
-require_relative 'batch_handling_service_request'
+# request
+require_relative 'request/checksum_augmentation'
+require_relative 'request/document_binary'
+require_relative 'request/request_attachment'
+require_relative 'request/current_income_file_metadata'
+require_relative 'request/medicare_file_metadata'
+require_relative 'request/ssa_file_metadata'
+require_relative 'request/irs_file_metadata'
+require_relative 'request/service_specific_data'
+require_relative 'request/transmission_metadata'
+require_relative 'request/batch_metadata'
+require_relative 'request/batch_handling_service_request'
 
 # operations
 require_relative 'operations/pvc_manifest_request_to_xml'
