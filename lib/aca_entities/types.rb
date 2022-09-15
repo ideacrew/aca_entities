@@ -10,6 +10,11 @@ module AcaEntities
     send(:include, Dry.Types)
     send(:include, Dry::Logic)
 
+    AcaHealthInsuranceCoverageLevelBasisKind = Types::Coercible::String.enum('in_network_coverage_payment')
+    AcaHealthInsuranceCoverageLevelKind = Types::Coercible::String.enum('bronze', 'silver', 'gold', 'platinum')
+    AcaHealthInsuranceCoverageKind = Types::Coercible::String.enum('hmo', 'ppo')
+    AcaInsuranceProductKind = Types::Coercible::String.enum('health', 'dental', 'health_catastrophic')
+
     BinaryGenderKind = Types::Coercible::String.enum('male', 'female')
     BoolOrNil = Types::Bool | Types::Nil
     DateOrNil = Types::Date | Types::Nil
@@ -18,7 +23,6 @@ module AcaEntities
     ClientKinds = Types::String.enum('enroll', 'edi_db', 'sugar_crm', 'polypress').freeze
 
     CommunicationKinds = Types::String.enum('electronic_preferred', 'paper_only').freeze
-
     CommunicationKindsMap = {
       paper_only: 'Only Paper communication',
       electronic_only: 'Only Electronic communications'
