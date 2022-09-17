@@ -18,3 +18,4 @@ require_relative 'identity'
 
 # child entities
 require_relative 'keycloak/keycloak'
+require_relative 'omniauth/omniauth'
