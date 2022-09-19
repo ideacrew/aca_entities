@@ -55,6 +55,18 @@ channels:
           timestamp: true
           content_type: application/json
           bindingVersion: 0.2.0
+  enroll.benefit_sponsors.census_employee.terminated:
+    bindings:
+      amqp:
+        is: :routing_key
+        exchange:
+          name: enroll.benefit_sponsors.census_employee
+          type: topic
+          content_type: application/json
+          durable: true
+          auto_delete: false
+          vhost: event_source
+        binding_version: '0.2.0'
     publish:
       operationId: enroll.benefit_sponsors.census_employee.terminated
       description: Events - Census Employee Terminated from Roster
