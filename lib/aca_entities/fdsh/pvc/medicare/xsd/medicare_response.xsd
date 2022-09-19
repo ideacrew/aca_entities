@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <xsd:element name="EESDSHBatchResponseData">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="IndividualResponses" minOccurs="1" maxOccurs="1">
+          <xsd:complexType>
+            <xsd:sequence>
+              <xsd:element name="IndividualResponse"  maxOccurs="unbounded">
+                <xsd:complexType>
+                  <xsd:sequence>
+                    <xsd:element name="PersonSSNIdentification" minOccurs="0" maxOccurs="1" type="xsd:int"/>
+                    <xsd:element name="Insurance" minOccurs="0" maxOccurs="12">
+                      <xsd:complexType>
+                        <xsd:sequence>
+                          <xsd:element name="InsuranceEffectiveDate" minOccurs="0" maxOccurs="1" type="xsd:date"/>
+                          <xsd:element name="InsuranceEndDate" minOccurs="0" maxOccurs="1" type="xsd:date"/>
+                        </xsd:sequence>
+                      </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="OrganizationResponseCode" minOccurs="0" maxOccurs="1" type="xsd:int"/>
+                    <xsd:element name="OrganizationResponseCodeText" minOccurs="0" maxOccurs="1" type="xsd:string"/>
+                  </xsd:sequence>
+                </xsd:complexType>
+              </xsd:element>
+            </xsd:sequence>
+          </xsd:complexType>
+        </xsd:element>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+</xsd:schema>
