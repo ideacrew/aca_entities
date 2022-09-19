@@ -54,6 +54,7 @@ module AcaEntities
           'OsseBenefitSponsorGrant',
           'CsrAdjustmentGrant'
         ).freeze
+
     end
   end
 end

@@ -14,12 +14,12 @@ module AcaEntities
       # @!attribute [r] description
       # An optional account of the content of this resource
       # @return [String]
-      attribute :description,       Types::String.optional.meta(ommitable: true)
+      attribute :description,       Types::String.optional.meta(omittable: true)
 
       # @!attribute [r] entries
       # A collection of term/definition pairs
       # @return [Array<GlossaryEntry>]
-      attribute :entries,  Types::Array.of(Entry).optional.meta(ommitable: true)
+      attribute :entries,  Types::Array.of(Entry).optional.meta(omittable: true)
     end
 
   end

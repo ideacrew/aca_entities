@@ -15,7 +15,7 @@ module AcaEntities
       attribute :eligibility_states, Types::Hash.meta(omittable: false)
       attribute :outstanding_verification_status,
                 AcaEntities::Eligibilities::Types::DeterminationStateKind.meta(
-                  ommittable: false
+                  omittable: false
                 )
       # def initialize(args)
       #   hash_to_transform = args[:eligibility_states]

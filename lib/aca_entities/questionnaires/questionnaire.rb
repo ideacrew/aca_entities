@@ -33,14 +33,14 @@ module AcaEntities
       # @!attribute [r] description
       # An optional account of the content of this resource
       # @return [String]
-      attribute :description,     Types::String.optional.meta(ommitable: true)
+      attribute :description,     Types::String.optional.meta(omittable: true)
 
-      attribute :glossaries,      Types::Array.of(Glossary).optional.meta(ommitable: true)
+      attribute :glossaries,      Types::Array.of(Glossary).optional.meta(omittable: true)
 
       # @!attribute [r] ordered_topics
       # A tree of {OrderedTopic}s for grouping related Questions into named collections
       # @return [Array<OrderedTopic>]
-      attribute :ordered_topics,  Types::Array.of(OrderedTopic).optional.meta(ommitable: true)
+      attribute :ordered_topics,  Types::Array.of(OrderedTopic).optional.meta(omittable: true)
 
     end
   end
