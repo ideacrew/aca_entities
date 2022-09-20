@@ -16,10 +16,10 @@ module AcaEntities
           # @option opts [String] :last_name The surname name of the authenticated identity
           # @option opts [String] :location The general location of the authenticated identity, usually a city and state
           # @option opts [String] :description A short description of the authenticated identity
-          # @option opts [String] :image A URL representing a profile image of the authenticated identity. Where possible, should be specified to a
+          # @option opts [AcaEntities::UriKind] :image A URL representing a profile image of the authenticated identity. Where possible, should be specified to a
           #   square, roughly 50x50 pixel image.
           # @option opts [String] :phone telephone number of the authenticated identity
-          # @option opts [Hash] :urls A hash containing key value pairs of an identifier for the website and its URL. For example, an entry could
+          # @option opts [Hash] :urls A hash containing key-value pairs of an identifier for the website and its URL. For example, an entry could
           #   be "Blog" => "http://example.com/blog"
           # @return [Dry::Monads::Success] if the payload passes validation
           # @return [Dry::Monads::Failure] if the payload fails validation
@@ -31,7 +31,7 @@ module AcaEntities
             optional(:last_name).maybe(:string)
             optional(:location).maybe(:string)
             optional(:description).maybe(:string)
-            optional(:image).maybe(:string)
+            optional(:image).maybe(AcaEntities::Types::UriKind)
             optional(:phone).maybe(:string)
             optional(:urls).maybe(:hash)
           end
