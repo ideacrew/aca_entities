@@ -12,9 +12,9 @@ RSpec.describe AcaEntities::Identities::Omniauth::Contracts::InfoContract do
   let(:last_name) { 'Jetson' }
   let(:location) { 'New Columbia' }
   let(:description) { "George likes cloud surfing and observing Saturn's Rings" }
-  let(:image) { 'https://example.com/images/george_jetson.jpeg' }
+  let(:image) { URI('https://example.com/images/george_jetson.jpeg') }
   let(:phone) { '4105551212' }
-  let(:urls) { { blog: 'https://example.com/blogs/george_jetson' } }
+  let(:urls) { { blog: URI('https://example.com/blogs/george_jetson') } }
 
   let(:required_params) { { name: name } }
   let(:optional_params) do

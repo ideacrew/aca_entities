@@ -2,8 +2,8 @@
 
 module AcaEntities
   module Identities
-    # Identity-level configutation settings for a client
-    class Profile < Dry::Struct
+    # User preferences and configuration settings
+    class UserProfile < Dry::Struct
       attribute :client_key, ::AcaEntities::Types::ClientKinds.meta(omittable: true)
       attribute :settings do
         attribute :locale, ::AcaEntities::Types::LocaleKinds.meta(omittable: true)

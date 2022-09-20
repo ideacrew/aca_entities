@@ -6,7 +6,7 @@ module AcaEntities
     module Contracts
       # Contract for validating an {AcaEntities::Accounts::Profile}
       # with customized option configuration
-      class ProfileContract < Contract
+      class UserProfileContract < Contract
         # @!method call(opts)
         # @param [Hash] opts the attributes of an {AcaEntities::Accounts::Account}
         # @option opts [String] :locale Preferred system-supported language in ISO 639 encoding

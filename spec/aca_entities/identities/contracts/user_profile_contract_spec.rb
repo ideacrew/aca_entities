@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe AcaEntities::Accounts::Contracts::ProfileContract do
+RSpec.describe AcaEntities::Identities::Contracts::UserProfileContract do
   subject { described_class.new }
 
   let(:client_key) { 'polypress' }
