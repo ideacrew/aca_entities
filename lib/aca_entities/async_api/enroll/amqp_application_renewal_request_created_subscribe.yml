@@ -54,6 +54,28 @@ channels:
       operationId: on_enroll.enroll.iap.applications.renewals
       description: Events - Application Renewal Request Created
 
+  on_enroll.enroll.iap.applications.renewals:
+    bindings:
+      amqp:
+        is: queue
+        queue:
+          name: on_enroll.enroll.iap.applications.renewals
+          durable: true
+          exclusive: false
+          auto_delete: false
+          vhost: event_source
+    subscribe:
+      bindings:
+        amqp:
+          ack: true
+          exclusive: false
+          routing_key: enroll.iap.applications.renewals.eligibility_determination_triggered
+          prefetch: 1
+          block: false
+          bindingVersion: '0.2.0'
+      operationId: on_enroll.enroll.iap.applications.renewals
+      description: Events - Eligibility Determination Triggered
+
 tags:
   - name: linter_tag
     description: placeholder that satisfies the linter
