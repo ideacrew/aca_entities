@@ -48,7 +48,7 @@ channels:
           ack: true
           exclusive: false
           routing_key: enroll.iap.applications.determine_eligibility
-          prefetch: 1
+          prefetch: 5
           block: false
           bindingVersion: "0.2.0"
       operationId: on_medicaid_gateway.enroll.iap.applications
