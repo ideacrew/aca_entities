@@ -110,25 +110,48 @@ module AcaEntities
                 map 'hours_worked_per_week', 'hours_worked_per_week'
 
                 map 'is_temporarily_out_of_state', 'is_temporarily_out_of_state', memoize: true, visible: false
+                map 'mitc_state_resident', 'mitc_state_resident', memoize: true, visible: false
+                map 'is_homeless', 'is_homeless', memoize: true, visible: false
+                map 'has_in_state_home_address', 'has_in_state_home_address', memoize: true, visible: false
                 add_key 'resides_in_state_of_application', function: ->(v) {
-                  boolean_string(!v.resolve('is_temporarily_out_of_state').item)
+                  mitc_state_resident = boolean_string(v.resolve('mitc_state_resident').item)
+                  return mitc_state_resident unless mitc_state_resident.nil?
+
+                  # logic to handle older applications that don't contatain the mitc_state_resident field
+                  has_in_state_home_address = v.resolve('has_in_state_home_address').item
+                  is_temporarily_out_of_state = v.resolve('is_temporarily_out_of_state').item
+                  is_homeless = v.resolve('is_homeless').item
+                  resides_in_state = (has_in_state_home_address && !is_temporarily_out_of_state) ||
+                                     (has_in_state_home_address && !is_temporarily_out_of_state && is_homeless)
+                  boolean_string(resides_in_state)
                 }
                 add_key 'is_temporarily_out_of_state', function: ->(v) {
-                  boolean_string(v.resolve('is_temporarily_out_of_state').item)
+                  has_in_state_home_address = v.resolve('has_in_state_home_address').item
+                  is_homeless = v.resolve('is_homeless').item
+                  is_temporarily_out_of_state = v.resolve('is_temporarily_out_of_state').item
+                  resides_in_state = has_in_state_home_address || is_homeless
+
+                  # is_temporarily_out_of_state is used to set 'Claimer Is Out of State' in Mitc Request
+                  if resides_in_state
+                    # if the applicant resides in state, then is_temporarily_out_of_state can be used
+                    boolean_string(is_temporarily_out_of_state)
+                  else
+                    # if the applicant does not reside in state, this must be set to true for mitc to produce the correct determination
+                    boolean_string(true)
+                  end
                 }
 
                 namespace 'citizenship_immigration_status_information' do
                   rewrap '' do
                     map 'citizen_status', 'citizen_status', memoize: true, visible: false
-                    add_key 'is_us_citizen', function: ->(v) { boolean_string(v.resolve('citizen_status').item == 'us_citizen') }
-
-                    # TODO: use mapper to determine the immigration status code from AcaEntities::MagiMedicaid::Mitc::Types::ImmigrationStatusCodeMap
-                    # Currently defaulting immigration_status to 01 which maps to 'Lawful Permanent Resident (LPR/Green Card Holder)'
-                    add_key 'immigration_status', function: ->(v) {
-                      AcaEntities::MagiMedicaid::Mitc::Types::ImmigrationStatusCodeMap[v.resolve('citizen_status').item] || '01'
+                    add_key 'is_us_citizen', function: ->(v) {
+                      citizen_status = v.resolve('citizen_status').item
+                      us_citizen_kinds = ['us_citizen', 'naturalized_citizen']
+                      boolean_string(us_citizen_kinds.include?(citizen_status))
                     }
 
                     map 'is_lawful_presence_self_attested', 'is_lawful_presence_self_attested', function: ->(value) { boolean_string(value) }
+                    map 'is_resident_post_092296', 'is_resident_post_092296', memoize: true, visible: false
                   end
                 end
 
@@ -138,8 +161,11 @@ module AcaEntities
                 # value should be the new attributes, currently this is not mapped to anything.
                 # add_key 'has_forty_title_ii_work_quarters', value
 
-                map 'is_subject_to_five_year_bar', 'five_year_bar_applies', function: ->(value) { boolean_string(value) }
-                map 'is_five_year_bar_met', 'is_five_year_bar_met', function: ->(value) { boolean_string(value) }
+                # Five Year Bar Information that we got as part of VLP response payload from FDSH Gateway.
+                map 'five_year_bar_applies', 'five_year_bar_applies', function: ->(value) { boolean_string(value) }
+                map 'five_year_bar_met', 'is_five_year_bar_met', function: ->(value) { boolean_string(value) }
+                map 'qualified_non_citizen', 'immigration_status', function: ->(value) { value ? '01' : '99' }
+
                 map 'is_trafficking_victim', 'is_trafficking_victim', function: ->(value) { boolean_string(value) }
                 map 'is_refugee', 'is_eligible_for_refugee_medical_assistance', function: ->(value) { boolean_string(value) }
 
@@ -151,9 +177,19 @@ module AcaEntities
 
                 namespace 'demographic' do
                   rewrap '' do
-                    map 'is_veteran_or_active_military', 'is_veteran', function: ->(value) { boolean_string(value) }
+                    map 'is_veteran_or_active_military', 'is_veteran_or_active_military', memoize: true, visible: false
+                    map 'is_vets_spouse_or_child', 'is_vets_spouse_or_child', memoize: true, visible: false
                   end
                 end
+
+                add_key 'is_veteran', function: ->(v) {
+                  is_resident_post_092296 = v.resolve('is_resident_post_092296').item
+                  is_veteran_or_active_military = v.resolve('is_veteran_or_active_military').item.present?
+                  is_vets_spouse_or_child = v.resolve('is_vets_spouse_or_child').item.present?
+                  veteran_by_self_or_dep = is_veteran_or_active_military || is_vets_spouse_or_child
+
+                  is_resident_post_092296 == false ? 'Y' : boolean_string(veteran_by_self_or_dep)
+                }
               end
             end
           end

@@ -9,7 +9,7 @@ module AcaEntities
           params do
             required(:AlienNumber).filled(:string)
             required(:ReceiptNumber).filled(:string)
-            optional(:DocExpirationDate).maybe(:string)
+            optional(:DocExpirationDate).maybe(:date)
           end
         end
       end

@@ -9,15 +9,19 @@ RSpec.describe AcaEntities::MagiMedicaid::Transformers::IapTo::Mitc do
     include_context 'setup magi_medicaid application with two applicants'
 
     let(:magi_medicaid_application) do
+      # Only store in-state home address so transform can access it when determing residency
+      # This action is performed in AcaEntities::MagiMedicaid::Operations::Mitc::GenerateRequestPayload
       contract_result = ::AcaEntities::MagiMedicaid::Contracts::ApplicationContract.new.call(iap_application)
-      contract_result.to_h.to_json
+      result = contract_result.to_h
+      result[:applicants].each do |applicant|
+        home_address = applicant[:addresses].detect {|address| address[:kind] == 'home'}
+        applicant[:has_in_state_home_address] = home_address.present? || {}
+      end
+      result.to_json
     end
 
     before do
       described_class.call(magi_medicaid_application) { |record| @transform_result = record }
-      # mitc_application_result = ::AcaEntities::MagiMedicaid::Mitc::Contracts::ApplicationContract.new.call(@transform_result)
-      # binding.pry
-      # mitc_application_result.errors.to_h
     end
 
     it 'should transform the payload according to instructions' do
@@ -70,15 +74,16 @@ RSpec.describe AcaEntities::MagiMedicaid::Transformers::IapTo::Mitc do
         expect(person).to have_key(:is_us_citizen)
         expect(person[:is_us_citizen]).to eq('Y')
         expect(person).to have_key(:immigration_status)
-        expect(person[:immigration_status]).to eq('01')
+        expect(person[:immigration_status]).to eq('99')
         expect(person).to have_key(:is_lawful_presence_self_attested)
         expect(person[:is_lawful_presence_self_attested]).to eq('N')
         expect(AcaEntities::MagiMedicaid::Mitc::Types::ImmigrationStatusCodeMap.values).to include(person[:immigration_status])
-        expect(person).to have_key(:five_year_bar_applies)
-        expect(person).to have_key(:is_five_year_bar_met)
+        expect(person[:five_year_bar_applies]).to eq('Y')
+        expect(person[:is_five_year_bar_met]).to eq('Y')
         expect(person).to have_key(:is_trafficking_victim)
         expect(person).to have_key(:is_eligible_for_refugee_medical_assistance)
         expect(person).to have_key(:is_veteran)
+        expect(person[:is_veteran]).to eq('Y')
 
         person[:relationships].each do |relationship|
           expect(relationship).to be_a(Hash)
@@ -160,20 +165,42 @@ RSpec.describe AcaEntities::MagiMedicaid::Transformers::IapTo::Mitc do
         expect(filer).to have_key(:person_id)
       end
     end
-  end
 
-  # def tax_return_hash(application_hash, thh)
-  #   filers = []
-  #   dependents = []
-  #   thh[:tax_household_members].each do |thh_member|
-  #     applicant = applicant_by_reference(application_hash[:applicants], thh_member[:applicant_reference][:person_hbx_id])
-  #     case applicant[:is_claimed_as_tax_dependent]
-  #     when true
-  #       dependents << { person_id: thh_member[:applicant_reference][:person_hbx_id] }
-  #     when false
-  #       filers << { person_id: thh_member[:applicant_reference][:person_hbx_id] }
-  #     end
-  #   end
-  #   { filers: filers, dependents: dependents }
-  # end
+    context 'mitc_state_resident' do
+      context 'when mitc_state_resident field is not present in payload' do
+        it 'should use non mitc_state_resident fields to determine if applicant resides in state' do
+          person = @transform_result[:people].first
+          expect(person[:resides_in_state_of_application]).to eq('Y')
+        end
+      end
+
+      context 'when mitc_state_resident field is present in payload' do
+        before do
+          iap_application[:applicants].first.merge!(mitc_state_resident: false)
+          contract_result = ::AcaEntities::MagiMedicaid::Contracts::ApplicationContract.new.call(iap_application)
+          magi_medicaid_application = contract_result.to_h.to_json
+          described_class.call(magi_medicaid_application) { |record| @transform_result = record }
+        end
+
+        it 'should use mitc_state_resident field to determine if applicant resides in state' do
+          person = @transform_result[:people].first
+          expect(person[:resides_in_state_of_application]).to eq('N')
+        end
+      end
+    end
+
+    context 'applicant is naturalized citizen' do
+      before do
+        iap_application[:applicants].first[:citizenship_immigration_status_information][:citizen_status] = 'naturalized_citizen'
+        contract_result = ::AcaEntities::MagiMedicaid::Contracts::ApplicationContract.new.call(iap_application)
+        magi_medicaid_application = contract_result.to_h.to_json
+        described_class.call(magi_medicaid_application) { |record| @transform_result = record }
+      end
+
+      it 'should consider the applicant a US citizen' do
+        person = @transform_result[:people].first
+        expect(person[:is_us_citizen]).to eq('Y')
+      end
+    end
+  end
 end

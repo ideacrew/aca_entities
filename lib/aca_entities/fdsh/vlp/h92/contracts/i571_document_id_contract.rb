@@ -7,8 +7,8 @@ module AcaEntities
         # Contract for Fdsh Vlp I571DocumentId
         class I571DocumentIdContract < Dry::Validation::Contract
           params do
-            optional(:AlienNumber).filled(:string)
-            optional(:DocExpirationDate).filled(:date)
+            optional(:AlienNumber).maybe(:string)
+            optional(:DocExpirationDate).maybe(:date)
           end
         end
       end

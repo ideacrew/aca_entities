@@ -34,6 +34,7 @@ module AcaEntities
           optional(:is_projected).maybe(:bool)
           optional(:employer).maybe(EmployerContract.params)
           optional(:has_property_usage_rights).maybe(:bool)
+          optional(:ssi_type).maybe(:string)
           optional(:submitted_at).maybe(:date_time)
         end
       end

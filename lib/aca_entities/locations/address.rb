@@ -31,6 +31,7 @@ module AcaEntities
       attribute :end_on, Types::Date.optional.meta(omittable: true)
 
       attribute :lives_outside_state_temporarily, Types::Bool.optional.meta(omittable: true)
+      attribute :geocode, Types::String.optional.meta(omittable: true)
     end
   end
 end

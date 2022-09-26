@@ -24,7 +24,8 @@ RSpec.describe ::AcaEntities::Contracts::Locations::AddressContract,  dbclean: :
         validation_status: 'ValidMatch',
         start_on: '2021/1/12',
         end_on: nil,
-        lives_outside_state_temporarily: false }
+        lives_outside_state_temporarily: false,
+        geocode: "00000" }
     end
     let(:error_message) { { :address_1 => ["is missing"] } }
 

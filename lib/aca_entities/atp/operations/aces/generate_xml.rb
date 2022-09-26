@@ -88,7 +88,7 @@ module AcaEntities
             end
           end
 
-          # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/MethodLength
+          # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/MethodLength, Metrics/PerceivedComplexity
           def prep_record(record)
             family_members = record["family"]["family_members"]
             applicants = record["family"]["magi_medicaid_applications"]["applicants"]
@@ -107,6 +107,10 @@ module AcaEntities
 
             if record["family"]["magi_medicaid_applications"].present?
               tax_households = record["family"]["magi_medicaid_applications"]["tax_households"]
+              tax_households.each do |th|
+                next unless th["annual_tax_household_income"].instance_of?(String)
+                th["annual_tax_household_income"] = { "cents" => th["annual_tax_household_income"].to_f, "currency_iso" => "USD" }
+              end
               record["family"]["magi_medicaid_applications"].merge!("tax_households" => tax_households.group_by do |th|
                 th["hbx_id"]
               end.transform_keys(&:to_s).transform_values(&:first))
@@ -124,7 +128,7 @@ module AcaEntities
 
             record
           end
-          # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/MethodLength
+          # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/MethodLength, Metrics/PerceivedComplexity
 
           def to_aces(record)
             record_hash = prep_record(record)

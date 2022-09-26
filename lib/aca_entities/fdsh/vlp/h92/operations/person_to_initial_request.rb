@@ -72,13 +72,13 @@ module AcaEntities
             def all_dhs_id_sub_params(vlp_doc)
               {
                 AlienNumber: vlp_doc.alien_number,
-                ReceiptNumber: vlp_doc.receipt_number,
+                ReceiptNumber: vlp_doc.receipt_number || vlp_doc.card_number,
                 I94Number: vlp_doc.i94_number,
                 VisaNumber: vlp_doc.visa_number,
                 PassportNumber: vlp_doc.passport_number,
                 CountryOfIssuance: vlp_doc.three_letter_country_of_citizenship,
                 SEVISID: vlp_doc.sevis_id,
-                DocExpirationDate: vlp_doc.expiration_date.to_date,
+                DocExpirationDate: vlp_doc.expiration_date&.to_date,
                 CitizenshipNumber: vlp_doc.citizenship_number,
                 NaturalizationNumber: vlp_doc.naturalization_number,
                 PassportCountry: passport_country_doc(vlp_doc),

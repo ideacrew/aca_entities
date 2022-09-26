@@ -18,12 +18,12 @@ module AcaEntities
         # @!attribute [r] is_medicaid_eligible
         # Is this person Medicaid eligible?
         # @return [String]
-        attribute :is_medicaid_eligible,    Types::YesNoKind.meta(ommittable: false)
+        attribute :is_medicaid_eligible,    Types::YesNoKind.meta(omittable: false)
 
         # @!attribute [r] is_chip_eligible
         # Is this person CHIP eligible?
         # @return [String]
-        attribute :is_chip_eligible,  Types::YesNoKind.meta(ommittable: false)
+        attribute :is_chip_eligible,  Types::YesNoKind.meta(omittable: false)
 
         # @!attribute [r] medicaid_ineligibility_reasons
         # A list of reasons the person is not Medicaid eligible.
@@ -33,7 +33,7 @@ module AcaEntities
         # @!attribute [r] is_eligible_for_non_magi_reasons
         # Is the person potentially eligible for non-MAGI reasons?
         # @return [String]
-        attribute :is_eligible_for_non_magi_reasons,  Types::YesNoKind.meta(ommittable: false)
+        attribute :is_eligible_for_non_magi_reasons,  Types::YesNoKind.meta(omittable: false)
 
         # @!attribute [r] chip_ineligibility_reasons
         # A list of reasons the person is not CHIP eligible.
@@ -45,7 +45,7 @@ module AcaEntities
         # If there are multiple qualifying categories, the highest-threshold category will be used.
         # If not eligible under any category, the value will be "None".
         # @return [String]
-        attribute :medicaid_category,    Types::String.meta(ommittable: false)
+        attribute :medicaid_category,    Types::String.meta(omittable: false)
 
         # @!attribute [r] medicaid_category_threshold
         # The cutoff threshold for eligibility for this category.  Expressed in dollar amount.
@@ -57,7 +57,7 @@ module AcaEntities
         # This will be the largest threshold for which they're eligble.
         # If not eligible under any category, the value willbe "None".
         # @return [String]
-        attribute :chip_category,    Types::String.meta(ommittable: false)
+        attribute :chip_category,    Types::String.meta(omittable: false)
 
         # @!attribute [r] chip_category_threshold
         # The cutoff threshold for eligibility for the qualifying category.  Expressed in dollar amount.

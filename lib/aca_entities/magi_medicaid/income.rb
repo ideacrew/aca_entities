@@ -16,6 +16,7 @@ module AcaEntities
       attribute :is_projected, Types::Bool.optional.meta(omittable: true)
       attribute :employer, Employer.optional.meta(omittable: true)
       attribute :has_property_usage_rights, Types::Bool.optional.meta(omittable: true)
+      attribute :ssi_type, Types::String.optional.meta(omittable: true)
       attribute :submitted_at, Types::DateTime.optional.meta(omittable: true)
 
       def earned?

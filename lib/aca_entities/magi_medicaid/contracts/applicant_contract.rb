@@ -17,6 +17,9 @@ module AcaEntities
         # @option opts [Boolean] :is_consumer_role optional
         # @option opts [Boolean] :is_resident_role optional
         # @option opts [Boolean] :is_applying_coverage required
+        # @option opts [Boolean] :five_year_bar_applies optional
+        # @option opts [Boolean] :five_year_bar_met optional
+        # @option opts [Boolean] :qualified_non_citizen optional
         # @option opts [Boolean] :is_consent_applicant optional
         # @option opts [Hash] :vlp_document optional
         # @option opts [Hash] :family_member_reference required
@@ -85,6 +88,9 @@ module AcaEntities
           optional(:is_consumer_role).maybe(:bool)
           optional(:is_resident_role).maybe(:bool)
           required(:is_applying_coverage).filled(:bool)
+          optional(:five_year_bar_applies).maybe(:bool)
+          optional(:five_year_bar_met).maybe(:bool)
+          optional(:qualified_non_citizen).maybe(:bool)
           optional(:is_consent_applicant).maybe(:bool)
           optional(:vlp_document).maybe(AcaEntities::Contracts::Documents::VlpDocumentContract.params)
           required(:family_member_reference).hash(::AcaEntities::Contracts::Families::FamilyMemberReferenceContract.params)
@@ -100,6 +106,8 @@ module AcaEntities
           optional(:is_trafficking_victim).maybe(:bool)
           optional(:foster_care).maybe(FosterCareContract.params)
           required(:pregnancy_information).hash(PregnancyInformationContract.params)
+          optional(:is_primary_caregiver).maybe(:bool)
+          optional(:is_primary_caregiver_for).maybe(:array)
           optional(:is_subject_to_five_year_bar).maybe(:bool)
           optional(:is_five_year_bar_met).maybe(:bool)
           optional(:is_forty_quarters).maybe(:bool)
@@ -169,6 +177,7 @@ module AcaEntities
           optional(:mitc_income).hash(AcaEntities::MagiMedicaid::Mitc::Contracts::IncomeContract.params)
           optional(:mitc_relationships).array(AcaEntities::MagiMedicaid::Mitc::Contracts::RelationshipContract.params)
           optional(:mitc_is_required_to_file_taxes).maybe(:bool)
+          optional(:mitc_state_resident).maybe(:bool)
 
           # fdsh evidences
           optional(:income_evidence).maybe(AcaEntities::Eligibilities::Contracts::EvidenceContract.params)

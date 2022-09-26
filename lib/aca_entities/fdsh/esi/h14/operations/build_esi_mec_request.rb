@@ -46,7 +46,7 @@ module AcaEntities
                   InsuranceApplicantRequest: construct_insurance_request(application.assistance_year),
                   PersonLocationState: applicant.home_address.state || applicant.addresses.last.state
                 }
-              end
+              end.compact
             end
 
             def construct_insurance_request(year)

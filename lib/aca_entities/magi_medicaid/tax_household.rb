@@ -20,6 +20,17 @@ module AcaEntities
       # The effective on date of the tax household
       attribute :effective_on, Types::Date.optional.meta(omittable: true)
       attribute :determined_on, Types::Date.optional.meta(omittable: true)
+
+      # Yearly Expected Contribution
+      attribute :yearly_expected_contribution, ::AcaEntities::Types::Money.optional.meta(omittable: true)
+
+      def aptc_csr_eligible?
+        tax_household_members.any?(&:aptc_csr_eligible?)
+      end
+
+      def aptc_csr_eligible_members
+        tax_household_members.select(&:aptc_csr_eligible?)
+      end
     end
   end
 end

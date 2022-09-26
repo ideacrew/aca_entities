@@ -1132,7 +1132,7 @@
                             "",
                             ""
                         ],
-                        "race": null,
+                        "race": "White",
                         "is_veteran_or_active_military": false,
                         "is_vets_spouse_or_child": false
                     },
@@ -1144,9 +1144,10 @@
                     },
                     "is_primary_applicant": true,
                     "native_american_information": {
-                        "indian_tribe_member": false,
-                        "tribal_name": null,
-                        "tribal_state": null
+                        "indian_tribe_member": true,
+                        "tribal_name": "Lakota",
+                        "tribal_state": "ME",
+                        "tribe_codes": ["OT"]
                     },
                     "citizenship_immigration_status_information": {
                         "citizen_status": "us_citizen",
@@ -1286,7 +1287,7 @@
                             "amount_tax_exempt": 0,
                             "frequency_kind": "Annually",
                             "start_on": "2021-01-01",
-                            "end_on": null,
+                            "end_on": "2021-11-01",
                             "is_projected": false,
                             "tax_form": null,
                             "employer": {
@@ -1587,7 +1588,8 @@
                     "native_american_information": {
                         "indian_tribe_member": false,
                         "tribal_name": null,
-                        "tribal_state": null
+                        "tribal_state": null,
+                        "tribe_codes": []
                     },
                     "citizenship_immigration_status_information": {
                         "citizen_status": "alien_lawfully_present",
@@ -1960,8 +1962,9 @@
                     "is_primary_applicant": false,
                     "native_american_information": {
                         "indian_tribe_member": true,
-                        "tribal_name": "Eastern Band of Cherokee Indians of North Carolina",
-                        "tribal_state": "ME"
+                        "tribal_name": null,
+                        "tribal_state": "ME",
+                        "tribe_codes": ["HM"]
                     },
                     "citizenship_immigration_status_information": {
                         "citizen_status": "us_citizen",
@@ -2321,7 +2324,8 @@
                     "native_american_information": {
                         "indian_tribe_member": false,
                         "tribal_name": null,
-                        "tribal_state": null
+                        "tribal_state": null,
+                        "tribe_codes": []
                     },
                     "citizenship_immigration_status_information": {
                         "citizen_status": "us_citizen",
@@ -2648,7 +2652,8 @@
                     "native_american_information": {
                         "indian_tribe_member": false,
                         "tribal_name": null,
-                        "tribal_state": null
+                        "tribal_state": null,
+                        "tribe_codes": []
                     },
                     "citizenship_immigration_status_information": {
                         "citizen_status": "us_citizen",

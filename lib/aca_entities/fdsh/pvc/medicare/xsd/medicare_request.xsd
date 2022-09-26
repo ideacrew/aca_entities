@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="qualified">
+  <xsd:element name="EESDSHBatchRequestData">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="IndividualRequests" type="IndividualRequestsType" minOccurs="1" maxOccurs="1" />
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:complexType name="IndividualRequestsType">
+    <xsd:sequence>
+      <xsd:element name="IndividualRequest" type="IndividualRequestType" minOccurs="1" maxOccurs="unbounded" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="IndividualRequestType">
+    <xsd:sequence>
+      <xsd:element name="Applicant" type="RequestApplicant" minOccurs="1" maxOccurs="1" />
+      <xsd:element name="InsurancePolicy" type="InsurancePolicy" minOccurs="1" maxOccurs="1" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="RequestApplicant">
+    <xsd:sequence>
+      <xsd:element name="PersonSSNIdentification" type="xsd:string" minOccurs="1" maxOccurs="1" />
+      <xsd:element name="PersonName" type="PersonName" minOccurs="1" maxOccurs="1" />
+      <xsd:element name="PersonBirthDate" type="PersonBirthDateType" minOccurs="1" maxOccurs="1" />
+      <xsd:element name="PersonSexCode" type="xsd:string" minOccurs="0" maxOccurs="1" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="PersonName">
+    <xsd:sequence>
+      <xsd:element name="PersonGivenName" type="xsd:string" minOccurs="1" maxOccurs="1" />
+      <xsd:element name="PersonMiddleName" type="xsd:string" minOccurs="0" maxOccurs="1" />
+      <xsd:element name="PersonSurName" type="xsd:string" minOccurs="1" maxOccurs="1" />
+      <xsd:element name="PersonNameSuffixText" type="xsd:string" minOccurs="0" maxOccurs="1" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="PersonBirthDateType">
+    <xsd:sequence>
+      <xsd:element name="Date" type="xsd:string" minOccurs="1" maxOccurs="1" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="InsurancePolicy">
+    <xsd:sequence>
+      <xsd:element name="InsurancePolicyEffectiveDate" type="xsd:string" minOccurs="1" maxOccurs="1" />
+      <xsd:element name="InsurancePolicyExpirationDate" type="xsd:string" minOccurs="1" maxOccurs="1" />
+    </xsd:sequence>
+  </xsd:complexType>
+</xsd:schema>

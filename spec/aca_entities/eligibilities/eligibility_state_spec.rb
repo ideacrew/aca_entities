@@ -35,4 +35,24 @@ RSpec.describe AcaEntities::Eligibilities::EligibilityState do
       expect(result).to be_a described_class
     end
   end
+
+  context 'initializing with additional optional params' do
+    let(:required_params) do
+      {
+        eligibility_item_key: eligibility_item_key,
+        is_eligible: is_eligible,
+        evidence_states: evidence_states,
+        earliest_due_date: earliest_due_date,
+        determined_at: determined_at,
+        start_on: five_days_from_today,
+        end_on: Date.today.next_month
+      }
+    end
+
+    it 'should initialize the entity' do
+      result = described_class.new(required_params)
+
+      expect(result).to be_a described_class
+    end
+  end
 end

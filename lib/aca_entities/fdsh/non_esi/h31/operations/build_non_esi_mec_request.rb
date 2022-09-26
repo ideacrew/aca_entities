@@ -50,7 +50,7 @@ module AcaEntities
                 }
                 individual_request.merge!({ Organization: { OrganizationCodes: org_codes } }) if org_codes.present?
                 individual_request
-              end
+              end.compact
             end
 
             def get_organization_codes(applicant)

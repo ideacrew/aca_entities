@@ -375,6 +375,18 @@ module AcaEntities
         def convert_to_date(value)
           t(:to_date)[value]
         end
+
+        # Convert string to formated phone number string
+        # @param value The input value
+        # @example
+        #   convert_to_phone("1234567890")
+        #   # => '123-456-7890'
+        #
+        # @return value
+        # @api public
+        def convert_to_phone(value)
+          value&.insert(3, '-')&.insert(-5, '-')
+        end
       end
     end
   end

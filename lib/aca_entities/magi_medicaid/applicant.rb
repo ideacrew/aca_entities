@@ -16,6 +16,22 @@ module AcaEntities
       attribute :is_consumer_role, Types::Bool.optional.meta(omittable: true)
       attribute :is_resident_role, Types::Bool.optional.meta(omittable: true)
       attribute :is_applying_coverage, Types::Bool.optional.meta(omittable: true)
+
+      # @!attribute [r] five_year_bar_applies
+      # Is the non-citizen subject to the 5 year bar?
+      # @return [Bool]
+      attribute :five_year_bar_applies, Types::Bool.optional.meta(omittable: true)
+
+      # @!attribute [r] five_year_bar_met
+      # Has the non-citizen applicant met the 5 year bar?
+      # @return [Bool]
+      attribute :five_year_bar_met, Types::Bool.optional.meta(omittable: true)
+
+      # @!attribute [r] qualified_non_citizen
+      # Has the non-citizen applicant is qualified non citizen?
+      # @return [Bool]
+      attribute :qualified_non_citizen, Types::Bool.optional.meta(omittable: true)
+
       attribute :is_consent_applicant, Types::Bool.optional.meta(omittable: true)
       attribute :vlp_document, AcaEntities::Documents::VlpDocument.optional.meta(omittable: true)
       attribute :family_member_reference, AcaEntities::Families::FamilyMemberReference.meta(omittable: false)
@@ -35,6 +51,8 @@ module AcaEntities
       attribute :is_trafficking_victim, Types::Bool.optional.meta(omittable: true)
       attribute :foster_care, FosterCare.optional.meta(omittable: true)
       attribute :pregnancy_information, PregnancyInformation.optional.meta(omittable: true)
+      attribute :is_primary_caregiver, Types::Bool.optional.meta(omittable: true)
+      attribute :is_primary_caregiver_for, Types::Array.of(Types::String).optional.meta(omittable: true)
 
       # TODO: do we want to move these anywhere?
       attribute :is_subject_to_five_year_bar, Types::Bool.optional.meta(omittable: true)
@@ -149,6 +167,7 @@ module AcaEntities
       # Set of attributes specific to MitC which helps to not have much logic in IapTo MitC Transform.
       attribute :mitc_income, AcaEntities::MagiMedicaid::Mitc::Income.optional.meta(omittable: true)
       attribute :mitc_relationships, Types::Array.of(AcaEntities::MagiMedicaid::Mitc::Relationship).optional.meta(omittable: true)
+      attribute :mitc_state_resident, Types::Bool.optional.meta(omittable: true)
       attribute :mitc_is_required_to_file_taxes, Types::Bool.optional.meta(omittable: true)
       # mitc_is_required_to_file_taxes is special attribute that is used to bypass some of the Income rules of Mitc.
       # Mitc has some rules to Include/Exclude Income which do not match with any policy per Sarah:
