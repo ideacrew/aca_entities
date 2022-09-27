@@ -172,6 +172,13 @@ module AcaEntities
                       result = AcaEntities::Operations::Encryption::Decrypt.new.call({ value: v })
                       result.success? ? result.value! : nil
                     }
+                    add_key 'ssn_identification.identification_category_text', value: lambda { |v|
+                      return nil unless v
+                      member_id = v.find(/family.family_members.(\w+)$/).map(&:item).last
+                      applicants_hash = v.resolve('family.magi_medicaid_applications.applicants').item
+                      applicant_hash = applicants_hash[member_id.to_sym]
+                      applicant_hash&.dig(:non_ssn_apply_reason)
+                    }
                     map 'person_demographics.gender', 'sex', function: ->(v) {v.capitalize}
                     map 'person_demographics.race', 'race'
 
