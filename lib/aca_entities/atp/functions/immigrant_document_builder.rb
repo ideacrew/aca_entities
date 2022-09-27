@@ -19,6 +19,7 @@ module AcaEntities
           @visa_number = visa_number(vlp_document)
           @i94_number = i94_number(vlp_document)
           @sevis_id = sevis_id(vlp_document)
+          @expiration_date = expiration_date(vlp_document)
 
           case vlp_document[:subject]
           when 'I-327 (Reentry Permit)'
@@ -59,7 +60,7 @@ module AcaEntities
         def i327_doc(vlp_document)
           {
             category_code: 'I327',
-            expiration_date: vlp_document[:expiration_date],
+            expiration_date: @expiration_date,
             document_numbers: [@alien_number]
           }
         end
@@ -67,7 +68,7 @@ module AcaEntities
         def i551_doc(vlp_document)
           {
             category_code: 'I551',
-            expiration_date: vlp_document[:expiration_date],
+            expiration_date: @expiration_date,
             document_numbers: [@alien_number, @card_number]
           }
         end
@@ -75,7 +76,7 @@ module AcaEntities
         def i571_doc(vlp_document)
           {
             category_code: 'I571',
-            expiration_date: vlp_document[:expiration_date],
+            expiration_date: @expiration_date,
             document_numbers: [@alien_number]
           }
         end
@@ -83,7 +84,7 @@ module AcaEntities
         def i766_doc(vlp_document)
           {
             category_code: 'I766',
-            expiration_date: vlp_document[:expiration_date],
+            expiration_date: @expiration_date,
             document_numbers: [@alien_number, @card_number]
           }
         end
@@ -91,7 +92,7 @@ module AcaEntities
         def citizenship_doc(vlp_document)
           {
             category_code: 'CertificateOfCitizenship',
-            expiration_date: vlp_document[:expiration_date],
+            expiration_date: @expiration_date,
             document_numbers: [@citizenship_number, @alien_number]
           }
         end
@@ -99,7 +100,7 @@ module AcaEntities
         def naturalization_doc(vlp_document)
           {
             category_code: 'NaturalizationCertificate',
-            expiration_date: vlp_document[:expiration_date],
+            expiration_date: @expiration_date,
             document_numbers: [@naturalization_number]
           }
         end
@@ -107,7 +108,7 @@ module AcaEntities
         def machine_readable_visa_doc(vlp_document)
           {
             category_code: 'MachineReadableVisa',
-            expiration_date: vlp_document[:expiration_date],
+            expiration_date: @expiration_date,
             document_numbers: [@alien_number, @passport_number, @visa_number]
           }
         end
@@ -115,7 +116,7 @@ module AcaEntities
         def i557_stamp_doc(vlp_document)
           {
             category_code: 'TemporaryI551Stamp',
-            expiration_date: vlp_document[:expiration_date],
+            expiration_date: @expiration_date,
             document_numbers: [@alien_number, @passport_number]
           }
         end
@@ -123,7 +124,7 @@ module AcaEntities
         def i94_doc(vlp_document)
           {
             category_code: 'I94',
-            expiration_date: vlp_document[:expiration_date],
+            expiration_date: @expiration_date,
             document_numbers: [@i94_number, @sevis_id]
           }
         end
@@ -131,7 +132,7 @@ module AcaEntities
         def i94_in_passport_doc(vlp_document)
           {
             category_code: 'I94InPassport',
-            expiration_date: vlp_document[:expiration_date],
+            expiration_date: @expiration_date,
             document_numbers: [@i94_number, @visa_number, @sevis_id, @passport_number]
           }
         end
@@ -139,7 +140,7 @@ module AcaEntities
         def foreign_passport_doc(vlp_document)
           {
             category_code: 'UnexpiredForeignPassport',
-            expiration_date: vlp_document[:expiration_date],
+            expiration_date: @expiration_date,
             document_numbers: [@passport_number, @i94_number, @sevis_id]
           }
         end
@@ -147,7 +148,7 @@ module AcaEntities
         def i20_doc(vlp_document)
           {
             category_code: 'I20',
-            expiration_date: vlp_document[:expiration_date],
+            expiration_date: @expiration_date,
             document_numbers: [@i94_number, @sevis_id, @passport_number]
           }
         end
@@ -155,7 +156,7 @@ module AcaEntities
         def ds2019_doc(vlp_document)
           {
             category_code: 'DS2019',
-            expiration_date: vlp_document[:expiration_date],
+            expiration_date: @expiration_date,
             document_numbers: [@i94_number, @sevis_id, @passport_number]
           }
         end
@@ -231,6 +232,11 @@ module AcaEntities
             :identification_id => vlp_document[:card_number],
             :identification_category_text => "Card Number"
           }
+        end
+
+        def expiration_date(vlp_document)
+          exp_date = Date.parse(vlp_document[:expiration_date])
+          { date: exp_date }
         end
       end
     end

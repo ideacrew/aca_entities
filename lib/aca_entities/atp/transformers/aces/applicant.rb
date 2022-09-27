@@ -31,7 +31,7 @@ module AcaEntities
           add_key 'lawful_presence_status.lawful_presence_status_eligibility.eligibility_indicator', function: lambda { |v|
             v.resolve('citizen_status').item == 'alien_lawfully_present'
           }
-          add_key 'lawful_presence_status.immigrant_documents',
+          add_key 'lawful_presence_status.immigration_documents',
                   function: AcaEntities::Atp::Functions::ImmigrantDocumentBuilder.new
           # namespace 'vlp_document' do
           #   rewrap 'lawful_presence_status.immigrant_documents', type: :array do
