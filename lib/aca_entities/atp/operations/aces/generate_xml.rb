@@ -131,10 +131,10 @@ module AcaEntities
 
           def remove_flagged_params(record)
             record['family']['magi_medicaid_applications']['applicants'].each do |applicant|
-              applicant['non_ssn_apply_reason'] = nil if record['non_ssn_apply_reason']
+              applicant['non_ssn_apply_reason'] = nil if record['drop_non_ssn_apply_reason']
               applicant['incomes'].each do |income|
-                income['start_on'] = nil if record['income_start_on']
-                income['end_on'] = nil if record['income_end_on']
+                income['start_on'] = nil if record['drop_income_start_on']
+                income['end_on'] = nil if record['drop_income_end_on']
               end
             end
             record

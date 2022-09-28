@@ -39,7 +39,7 @@ RSpec.describe AcaEntities::Atp::Operations::Aces::GenerateXml  do
 
       context "when non_ssn_apply_reason flag is present in payload" do
         it 'should not populate IdentificationCategoryText tag in PersonSSNIdentification' do
-          flagged_payload = payload_hash.merge(non_ssn_apply_reason: true).to_json
+          flagged_payload = payload_hash.merge(drop_non_ssn_apply_reason: true).to_json
           result = described_class.new.call(flagged_payload)
           doc = Nokogiri::XML.parse(result.value!)
           texts = doc.xpath("//nc:PersonSSNIdentification/nc:IdentificationCategoryText", namespaces)
@@ -49,7 +49,7 @@ RSpec.describe AcaEntities::Atp::Operations::Aces::GenerateXml  do
 
       context 'income_start_on flag present in payload' do
         it 'should not populate StartDate/Date tag in IncomeEarnedDateRange' do
-          flagged_payload = payload_hash.merge(income_start_on: true).to_json
+          flagged_payload = payload_hash.merge(drop_income_start_on: true).to_json
           result = described_class.new.call(flagged_payload)
           doc = Nokogiri::XML.parse(result.value!)
           texts = doc.xpath('//hix-core:IncomeEarnedDateRange/nc:StartDate/nc:Date', namespaces)
@@ -59,7 +59,7 @@ RSpec.describe AcaEntities::Atp::Operations::Aces::GenerateXml  do
 
       context 'income_end_on flag present in payload' do
         it 'should populate EndDate/Date tag in IncomeEarnedDateRange' do
-          flagged_payload = payload_hash.merge(income_end_on: true).to_json
+          flagged_payload = payload_hash.merge(drop_income_end_on: true).to_json
           result = described_class.new.call(flagged_payload)
           doc = Nokogiri::XML.parse(result.value!)
           texts = doc.xpath('//hix-core:IncomeEarnedDateRange/nc:EndDate/nc:Date', namespaces)
