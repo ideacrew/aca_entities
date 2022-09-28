@@ -1,0 +1,348 @@
+---
+asyncapi: 2.0.0
+info:
+  title: Enroll App
+  version: 0.1.0
+  description: AMQP Publishconfiguration for the Enroll App services
+  contact:
+    name: IdeaCrew
+    url: https://ideacrew.com
+    email: info@ideacrew.com
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+
+servers:
+  production:
+    url: 'amqp://rabbitmq:5672/event_source'
+    protocol: :amqp
+    protocolVersion: '0.9.2'
+    description: RabbitMQ Production Server
+  development:
+    url: 'amqp://rabbitmq:5672/event_source'
+    protocol: :amqp
+    protocolVersion: '0.9.2'
+    description: RabbitMQ Test Server
+  test:
+    url: 'amqp://rabbitmq:5672/event_source'
+    protocol: :amqp
+    protocolVersion: '0.9.2'
+    description: RabbitMQ Test Server
+
+defaultContentType: application/json
+
+channels:
+  enroll.applications.aptc_csr_credits.renewals.renewal_requested:
+    bindings:
+      amqp:
+        is: :routing_key
+        exchange:
+          name: enroll.applications.aptc_csr_credits.renewals
+          type: topic
+          content_type: application/json
+          durable: true
+          auto_delete: false
+          vhost: event_source
+        bindingVersion: 0.1.0
+    publish:
+      bindings:
+        amqp:
+          app_id: enroll
+          type: enroll.applications.aptc_csr_credits.renewals
+          routing_key: enroll.applications.aptc_csr_credits.renewals.renewal_requested
+          deliveryMode: 2
+          mandatory: true
+          timestamp: true
+          content_type: application/json
+          bindingVersion: 0.2.0
+      operationId: enroll.applications.aptc_csr_credits.renewals.renewal_requested
+      description: Events - Application Renewal Requested
+
+  enroll.applications.aptc_csr_credits.renewals.renewed:
+    bindings:
+      amqp:
+        is: :routing_key
+        exchange:
+          name: enroll.applications.aptc_csr_credits.renewals
+          type: topic
+          content_type: application/json
+          durable: true
+          auto_delete: false
+          vhost: event_source
+        bindingVersion: 0.1.0
+    publish:
+      bindings:
+        amqp:
+          app_id: enroll
+          type: enroll.applications.aptc_csr_credits.renewals
+          routing_key: enroll.applications.aptc_csr_credits.renewals.renewed
+          deliveryMode: 2
+          mandatory: true
+          timestamp: true
+          content_type: application/json
+          bindingVersion: 0.2.0
+      operationId: enroll.applications.aptc_csr_credits.renewals.renewed
+      description: Events - Application Renewed
+
+  enroll.applications.aptc_csr_credits.renewals.determination_submission_requested:
+    bindings:
+      amqp:
+        is: :routing_key
+        exchange:
+          name: enroll.applications.aptc_csr_credits.renewals
+          type: topic
+          content_type: application/json
+          durable: true
+          auto_delete: false
+          vhost: event_source
+        bindingVersion: 0.1.0
+    publish:
+      bindings:
+        amqp:
+          app_id: enroll
+          type: enroll.applications.aptc_csr_credits.renewals
+          routing_key: enroll.applications.aptc_csr_credits.renewals.determination_submission_requested
+          deliveryMode: 2
+          mandatory: true
+          timestamp: true
+          content_type: application/json
+          bindingVersion: 0.2.0
+      operationId: enroll.applications.aptc_csr_credits.renewals.determination_submission_requested
+      description: Events - Application determination submission requested
+
+  enroll.applications.aptc_csr_credits.renewals.determination_requested:
+    bindings:
+      amqp:
+        is: :routing_key
+        exchange:
+          name: enroll.applications.aptc_csr_credits.renewals
+          type: topic
+          content_type: application/json
+          durable: true
+          auto_delete: false
+          vhost: event_source
+        bindingVersion: 0.1.0
+    publish:
+      bindings:
+        amqp:
+          app_id: enroll
+          type: enroll.applications.aptc_csr_credits.renewals
+          routing_key: enroll.applications.aptc_csr_credits.renewals.determination_requested
+          deliveryMode: 2
+          mandatory: true
+          timestamp: true
+          content_type: application/json
+          bindingVersion: 0.2.0
+      operationId: enroll.applications.aptc_csr_credits.renewals.determination_requested
+      description: Events - Application determination requested
+
+  enroll.applications.aptc_csr_credits.renewals.determination_added:
+    bindings:
+      amqp:
+        is: :routing_key
+        exchange:
+          name: enroll.applications.aptc_csr_credits.renewals
+          type: topic
+          content_type: application/json
+          durable: true
+          auto_delete: false
+          vhost: event_source
+        bindingVersion: 0.1.0
+    publish:
+      bindings:
+        amqp:
+          app_id: enroll
+          type: enroll.applications.aptc_csr_credits.renewals
+          routing_key: enroll.applications.aptc_csr_credits.renewals.determination_added
+          deliveryMode: 2
+          mandatory: true
+          timestamp: true
+          content_type: application/json
+          bindingVersion: 0.2.0
+      operationId: enroll.applications.aptc_csr_credits.renewals.determination_added
+      description: Events - Application determination added
+
+  enroll.applications.aptc_csr_credits.renewals.determination_notice_requested:
+    bindings:
+      amqp:
+        is: :routing_key
+        exchange:
+          name: enroll.applications.aptc_csr_credits.renewals
+          type: topic
+          content_type: application/json
+          durable: true
+          auto_delete: false
+          vhost: event_source
+        bindingVersion: 0.1.0
+    publish:
+      bindings:
+        amqp:
+          app_id: enroll
+          type: enroll.applications.aptc_csr_credits.renewals
+          routing_key: enroll.applications.aptc_csr_credits.renewals.determination_notice_requested
+          deliveryMode: 2
+          mandatory: true
+          timestamp: true
+          content_type: application/json
+          bindingVersion: 0.2.0
+      operationId: enroll.applications.aptc_csr_credits.renewals.determination_notice_requested
+      description: Events - Application determination notice requested
+
+  enroll.applications.aptc_csr_credits.renewals.notice.determined_uqhp_eligible:
+    bindings:
+      amqp:
+        is: :routing_key
+        exchange:
+          name: enroll.applications.aptc_csr_credits.renewals.notice
+          type: topic
+          durable: true
+          auto_delete: false
+          vhost: event_source
+        bindingVersion: 0.1.0
+    publish:
+      bindings:
+        amqp:
+          app_id: medicaid_gateway
+          type: enroll.applications.aptc_csr_credits.renewals.notice
+          routing_key: enroll.applications.aptc_csr_credits.renewals.notice.determined_uqhp_eligible
+          deliveryMode: 2
+          mandatory: true
+          timestamp: true
+          content_type: application/json
+          bindingVersion: 0.2.0
+      operationId: enroll.applications.aptc_csr_credits.renewals.notice.determined_uqhp_eligible
+      description: Some applicants ineligible for Medicaid/CHIP and APTC/SR at renewal
+
+  enroll.applications.aptc_csr_credits.renewals.notice.determined_mixed_determination:
+    bindings:
+      amqp:
+        is: :routing_key
+        exchange:
+          name: enroll.applications.aptc_csr_credits.renewals.notice
+          type: topic
+          content_type: application/json
+          durable: true
+          auto_delete: false
+          vhost: event_source
+        bindingVersion: 0.1.0
+    publish:
+      bindings:
+        amqp:
+          app_id: medicaid_gateway
+          type: enroll.applications.aptc_csr_credits.renewals.notice
+          routing_key: enroll.applications.aptc_csr_credits.renewals.notice.determined_mixed_determination
+          deliveryMode: 2
+          mandatory: true
+          timestamp: true
+          content_type: application/json
+          bindingVersion: 0.2.0
+      operationId: enroll.applications.aptc_csr_credits.renewals.notice.determined_mixed_determination
+      description: MitC determined applicants eligible for APTC/CSR financial assistance
+
+  enroll.applications.aptc_csr_credits.renewals.notice.determined_magi_medicaid_eligible:
+    bindings:
+      amqp:
+        is: :routing_key
+        exchange:
+          name: enroll.applications.aptc_csr_credits.renewals.notice
+          type: topic
+          content_type: application/json
+          durable: true
+          auto_delete: false
+          vhost: event_source
+        bindingVersion: 0.1.0
+    publish:
+      bindings:
+        amqp:
+          app_id: medicaid_gateway
+          type: enroll.applications.aptc_csr_credits.renewals.notice
+          routing_key: enroll.applications.aptc_csr_credits.renewals.notice.determined_magi_medicaid_eligible
+          deliveryMode: 2
+          mandatory: true
+          timestamp: true
+          content_type: application/json
+          bindingVersion: 0.2.0
+      operationId: enroll.applications.aptc_csr_credits.renewals.notice.determined_magi_medicaid_eligible
+      description: MitC determined applicants eligible for Medicaid/CHIP financial assistance
+
+  enroll.applications.aptc_csr_credits.renewals.notice.determined_totally_ineligible:
+    bindings:
+      amqp:
+        is: :routing_key
+        exchange:
+          name: enroll.applications.aptc_csr_credits.renewals.notice
+          type: topic
+          durable: true
+          auto_delete: false
+          vhost: event_source
+        bindingVersion: 0.1.0
+    publish:
+      bindings:
+        amqp:
+          app_id: medicaid_gateway
+          type: enroll.applications.aptc_csr_credits.renewals.notice
+          routing_key: enroll.applications.aptc_csr_credits.renewals.notice.determined_totally_ineligible
+          deliveryMode: 2
+          mandatory: true
+          timestamp: true
+          content_type: application/json
+          bindingVersion: 0.2.0
+      operationId: enroll.applications.aptc_csr_credits.renewals.notice.determined_totally_ineligible
+      description: MitC determined applicants eligible for CHIP financial assistance
+
+  enroll.applications.aptc_csr_credits.renewals.notice.determined_medicaid_chip_eligible:
+    bindings:
+      amqp:
+        is: :routing_key
+        exchange:
+          name: enroll.applications.aptc_csr_credits.renewals.notice
+          type: topic
+          content_type: application/json
+          durable: true
+          auto_delete: false
+          vhost: event_source
+        bindingVersion: 0.1.0
+    publish:
+      bindings:
+        amqp:
+          app_id: medicaid_gateway
+          type: enroll.applications.aptc_csr_credits.renewals.notice
+          routing_key: enroll.applications.aptc_csr_credits.renewals.notice.determined_medicaid_chip_eligible
+          deliveryMode: 2
+          mandatory: true
+          timestamp: true
+          content_type: application/json
+          bindingVersion: 0.2.0
+      operationId: enroll.applications.aptc_csr_credits.renewals.notice.determined_medicaid_chip_eligible
+      description: Some applicants eligible for Medicaid/CHIP at renewal
+
+  enroll.applications.aptc_csr_credits.renewals.notice.determined_aptc_eligible:
+    bindings:
+      amqp:
+        is: :routing_key
+        exchange:
+          name: enroll.applications.aptc_csr_credits.renewals.notice
+          type: topic
+          content_type: application/json
+          durable: true
+          auto_delete: false
+          vhost: event_source
+        bindingVersion: 0.1.0
+    publish:
+      bindings:
+        amqp:
+          app_id: medicaid_gateway
+          type: enroll.applications.aptc_csr_credits.renewals.notice
+          routing_key: enroll.applications.aptc_csr_credits.renewals.notice.determined_aptc_eligible
+          deliveryMode: 2
+          mandatory: true
+          timestamp: true
+          content_type: application/json
+          bindingVersion: 0.2.0
+      operationId: enroll.applications.aptc_csr_credits.renewals.notice.determined_aptc_eligible
+      description: Some applicants eligible for APTC/CSR at renewal
+      
+
+tags:
+  - name: linter_tag
+    description: placeholder that satisfies the linter
