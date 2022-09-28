@@ -63,8 +63,6 @@ module AcaEntities
 
           add_key 'subject_to_federal_restrictions_indicator'
 
-          # Date range tags originally not mapped due to ACES ingestion issues;
-          # revisit these mappings if ingestion issues resurface
           map 'start_on', 'earned_date_range.start_date.date', function: lambda { |v|
             begin
               Date.parse(v) unless v.nil?
