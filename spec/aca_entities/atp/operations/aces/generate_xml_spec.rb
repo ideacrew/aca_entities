@@ -10,6 +10,12 @@ RSpec.describe AcaEntities::Atp::Operations::Aces::GenerateXml  do
   describe 'When a valid json file is passed' do
 
     let(:payload) { File.read(Pathname.pwd.join("spec/support/atp/sample_payloads/simple_L_cv_payload.json")) }
+    let(:namespaces) do
+      {
+        'hix-core' => 'http://hix.cms.gov/0.1/hix-core',
+        "nc" => "http://niem.gov/niem/niem-core/2.0"
+      }
+    end
 
     it 'should parse and then transform when transform_mode set to batch' do
       result = described_class.new.call(payload)
@@ -32,9 +38,31 @@ RSpec.describe AcaEntities::Atp::Operations::Aces::GenerateXml  do
       it 'should populate IdentificationCategoryText tag in PersonSSNIdentification' do
         result = described_class.new.call(payload)
         doc = Nokogiri::XML.parse(result.value!)
-        texts = doc.xpath("//xmlns:PersonSSNIdentification/xmlns:IdentificationCategoryText", "xmlns" => "http://niem.gov/niem/niem-core/2.0")
+        texts = doc.xpath("//nc:PersonSSNIdentification/nc:IdentificationCategoryText", namespaces)
         expect(texts.present?).to be_truthy
         expect(texts.first.text).to eq 'NoGoodCause'
+      end
+    end
+
+    context 'applicant income' do
+      context 'income start date present' do
+        it 'should populate StartDate/Date tag in IncomeEarnedDateRange' do
+          result = described_class.new.call(payload)
+          doc = Nokogiri::XML.parse(result.value!)
+          texts = doc.xpath('//hix-core:IncomeEarnedDateRange/nc:StartDate/nc:Date', namespaces)
+          expect(texts.present?).to be_truthy
+          expect(texts.first.text).to eq '2021-01-01'
+        end
+      end
+
+      context 'income end date present' do
+        it 'should populate EndDate/Date tag in IncomeEarnedDateRange' do
+          result = described_class.new.call(payload)
+          doc = Nokogiri::XML.parse(result.value!)
+          texts = doc.xpath('//hix-core:IncomeEarnedDateRange/nc:EndDate/nc:Date', namespaces)
+          expect(texts.present?).to be_truthy
+          expect(texts.first.text).to eq '2021-12-31'
+        end
       end
     end
   end

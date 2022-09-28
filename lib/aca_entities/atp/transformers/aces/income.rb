@@ -63,7 +63,26 @@ module AcaEntities
 
           add_key 'subject_to_federal_restrictions_indicator'
 
-          map 'end_on', 'end_on', memoize: true, visible: false
+          # Date range tags originally not mapped due to ACES ingestion issues;
+          # revisit these mappings if ingestion issues resurface
+          map 'start_on', 'earned_date_range.start_date.date', function: lambda { |v|
+            begin
+              Date.parse(v) unless v.nil?
+            rescue ArgumentError
+              nil
+            end
+          }
+          map 'end_on', 'earned_date_range.end_date.date', function: lambda { |v|
+            begin
+              Date.parse(v) unless v.nil?
+            rescue ArgumentError
+              nil
+            end
+          }
+
+          # map 'end_on', 'end_on', memoize: true, visible: false
+          # map 'end_on', 'earned_date_range.end_date.date', function: ->(v) { Date.parse(v) unless v.nil? }
+          # map 'start_on', 'earned_date_range.start_date.date', function: ->(v) { Date.parse(v) unless v.nil? }
 
           # add_key 'date', function: lambda { |v|
           #                             end_on = v.resolve("end_on").item
@@ -74,10 +93,6 @@ module AcaEntities
           #                             end
           #                             income_date
           #                           }
-
-          # Date range tags not mapped due to ACES ingestion issues
-          # map 'end_on', 'earned_date_range.end_date.date', function: ->(v) { Date.parse(v) unless v.nil? }
-          # map 'start_on', 'earned_date_range.start_date.date', function: ->(v) { Date.parse(v) unless v.nil? }
 
           map 'frequency_kind', 'frequency.frequency_code', memoize: true
           add_key 'payment_frequency.frequency_code', function: ->(v) { v.resolve('frequency.frequency_code').item }
