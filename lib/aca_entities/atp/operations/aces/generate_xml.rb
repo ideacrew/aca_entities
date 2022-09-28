@@ -128,10 +128,22 @@ module AcaEntities
 
             record
           end
+
+          def remove_flagged_params(record)
+            record['family']['magi_medicaid_applications']['applicants'].each do |applicant|
+              applicant['non_ssn_apply_reason'] = nil if record['non_ssn_apply_reason']
+              applicant['incomes'].each do |income|
+                income['start_on'] = nil if record['income_start_on']
+                income['end_on'] = nil if record['income_end_on']
+              end
+            end
+            record
+          end
           # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/MethodLength, Metrics/PerceivedComplexity
 
           def to_aces(record)
-            record_hash = prep_record(record)
+            cleaned_record = remove_flagged_params(record)
+            record_hash = prep_record(cleaned_record)
             result = ::AcaEntities::Atp::Transformers::Aces::Family.transform(record_hash)
             Success(result)
           rescue StandardError => e

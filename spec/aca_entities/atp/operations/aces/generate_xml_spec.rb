@@ -34,34 +34,36 @@ RSpec.describe AcaEntities::Atp::Operations::Aces::GenerateXml  do
       end
     end
 
-    context "when non_ssn_apply_reason is present on applicant" do
-      it 'should populate IdentificationCategoryText tag in PersonSSNIdentification' do
-        result = described_class.new.call(payload)
-        doc = Nokogiri::XML.parse(result.value!)
-        texts = doc.xpath("//nc:PersonSSNIdentification/nc:IdentificationCategoryText", namespaces)
-        expect(texts.present?).to be_truthy
-        expect(texts.first.text).to eq 'NoGoodCause'
-      end
-    end
+    context 'param flags' do
+      let(:payload_hash) { JSON.parse(payload) }
 
-    context 'applicant income' do
-      context 'income start date present' do
-        it 'should populate StartDate/Date tag in IncomeEarnedDateRange' do
-          result = described_class.new.call(payload)
+      context "when non_ssn_apply_reason flag is present in payload" do
+        it 'should not populate IdentificationCategoryText tag in PersonSSNIdentification' do
+          flagged_payload = payload_hash.merge(non_ssn_apply_reason: true).to_json
+          result = described_class.new.call(flagged_payload)
           doc = Nokogiri::XML.parse(result.value!)
-          texts = doc.xpath('//hix-core:IncomeEarnedDateRange/nc:StartDate/nc:Date', namespaces)
-          expect(texts.present?).to be_truthy
-          expect(texts.first.text).to eq '2021-01-01'
+          texts = doc.xpath("//nc:PersonSSNIdentification/nc:IdentificationCategoryText", namespaces)
+          expect(texts.present?).to be_falsey
         end
       end
 
-      context 'income end date present' do
+      context 'income_start_on flag present in payload' do
+        it 'should not populate StartDate/Date tag in IncomeEarnedDateRange' do
+          flagged_payload = payload_hash.merge(income_start_on: true).to_json
+          result = described_class.new.call(flagged_payload)
+          doc = Nokogiri::XML.parse(result.value!)
+          texts = doc.xpath('//hix-core:IncomeEarnedDateRange/nc:StartDate/nc:Date', namespaces)
+          expect(texts.present?).to be_falsey
+        end
+      end
+
+      context 'income_end_on flag present in payload' do
         it 'should populate EndDate/Date tag in IncomeEarnedDateRange' do
-          result = described_class.new.call(payload)
+          flagged_payload = payload_hash.merge(income_end_on: true).to_json
+          result = described_class.new.call(flagged_payload)
           doc = Nokogiri::XML.parse(result.value!)
           texts = doc.xpath('//hix-core:IncomeEarnedDateRange/nc:EndDate/nc:Date', namespaces)
-          expect(texts.present?).to be_truthy
-          expect(texts.first.text).to eq '2021-12-31'
+          expect(texts.present?).to be_falsey
         end
       end
     end
