@@ -14,7 +14,7 @@ RSpec.describe AcaEntities::Atp::Operations::Aces::GenerateXml  do
       {
         'hix-core' => 'http://hix.cms.gov/0.1/hix-core',
         'nc' => 'http://niem.gov/niem/niem-core/2.0',
-        'hix-ee'=> 'http://hix.cms.gov/0.1/hix-ee'
+        'hix-ee' => 'http://hix.cms.gov/0.1/hix-ee'
       }
     end
 
