@@ -38,7 +38,7 @@ RSpec.describe AcaEntities::Atp::Operations::Aces::GenerateXml  do
 
       context "when non_ssn_apply_reason flag is present in payload" do
         it 'should not populate IdentificationCategoryText tag in PersonSSNIdentification' do
-          param_flags = {'drop_param_flags' => ['drop_non_ssn_apply_reason']}
+          param_flags = { 'drop_param_flags' => ['drop_non_ssn_apply_reason'] }
           flagged_payload = payload_hash.merge(param_flags).to_json
           result = described_class.new.call(flagged_payload)
           doc = Nokogiri::XML.parse(result.value!)
@@ -49,7 +49,7 @@ RSpec.describe AcaEntities::Atp::Operations::Aces::GenerateXml  do
 
       context 'income_start_on flag present in payload' do
         it 'should not populate StartDate/Date tag in IncomeEarnedDateRange' do
-          param_flags = {'drop_param_flags' => ['drop_income_start_on']}
+          param_flags = { 'drop_param_flags' => ['drop_income_start_on'] }
           flagged_payload = payload_hash.merge(param_flags).to_json
           result = described_class.new.call(flagged_payload)
           doc = Nokogiri::XML.parse(result.value!)
@@ -60,7 +60,7 @@ RSpec.describe AcaEntities::Atp::Operations::Aces::GenerateXml  do
 
       context 'income_end_on flag present in payload' do
         it 'should not populate EndDate/Date tag in IncomeEarnedDateRange' do
-          param_flags = {'drop_param_flags' => ['drop_income_end_on']}
+          param_flags = { 'drop_param_flags' => ['drop_income_end_on'] }
           flagged_payload = payload_hash.merge(param_flags).to_json
           result = described_class.new.call(flagged_payload)
           doc = Nokogiri::XML.parse(result.value!)
