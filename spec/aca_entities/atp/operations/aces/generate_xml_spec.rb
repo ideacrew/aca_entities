@@ -13,7 +13,8 @@ RSpec.describe AcaEntities::Atp::Operations::Aces::GenerateXml  do
     let(:namespaces) do
       {
         'hix-core' => 'http://hix.cms.gov/0.1/hix-core',
-        "nc" => "http://niem.gov/niem/niem-core/2.0"
+        'nc' => 'http://niem.gov/niem/niem-core/2.0',
+        'hix-ee'=> 'http://hix.cms.gov/0.1/hix-ee'
       }
     end
 
@@ -65,6 +66,17 @@ RSpec.describe AcaEntities::Atp::Operations::Aces::GenerateXml  do
           result = described_class.new.call(flagged_payload)
           doc = Nokogiri::XML.parse(result.value!)
           texts = doc.xpath('//hix-core:IncomeEarnedDateRange/nc:EndDate/nc:Date', namespaces)
+          expect(texts.present?).to be_falsey
+        end
+      end
+
+      context 'drop_vlp_document flag present in payload' do
+        it 'should not populate LawfulPresenceStatusImmigrationDocument tags' do
+          param_flags = { 'drop_param_flags' => ['drop_vlp_document'] }
+          flagged_payload = payload_hash.merge(param_flags).to_json
+          result = described_class.new.call(flagged_payload)
+          doc = Nokogiri::XML.parse(result.value!)
+          texts = doc.xpath('//hix-ee:LawfulPresenceStatusImmigrationDocument', namespaces)
           expect(texts.present?).to be_falsey
         end
       end
