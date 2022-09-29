@@ -573,7 +573,7 @@
                                 "amount_tax_exempt": 0,
                                 "frequency_kind": "Annually",
                                 "start_on": "2021-01-01",
-                                "end_on": null,
+                                "end_on": "2021-12-31",
                                 "is_projected": false,
                                 "tax_form": null,
                                 "employer": {

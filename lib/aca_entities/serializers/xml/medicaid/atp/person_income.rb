@@ -45,6 +45,7 @@ module AcaEntities
             # A description of the source of an income received as unemployment compensation (e.g. the name of a state or employer).
             element :employment_source_text, String, tag: 'IncomeUnemploymentSourceText', namespace: "hix-core"
 
+            # rubocop:disable  Metrics/AbcSize, Metrics/CyclomaticComplexity
             def self.domain_to_mapper(income)
               mapper = self.new
               mapper.employment_source_text = income.employment_source_text
@@ -56,7 +57,9 @@ module AcaEntities
               mapper.description_text = income.description_text
               mapper.subject_to_federal_restrictions_indicator = income.subject_to_federal_restrictions_indicator
               mapper.date = IncomeDate.domain_to_mapper(income.date) if income.date
-              mapper.earned_date_range = IncomeEarnedDateRange.domain_to_mapper(income.earned_date_range) if income.earned_date_range
+              if income.earned_date_range&.start_date&.date.present? || income.earned_date_range&.end_date&.date.present?
+                mapper.earned_date_range = IncomeEarnedDateRange.domain_to_mapper(income.earned_date_range)
+              end
               mapper.frequency = IncomeFrequency.domain_to_mapper(income.frequency)
               mapper.payment_frequency = IncomePaymentFrequency.domain_to_mapper(income&.payment_frequency) if income.payment_frequency
               if income&.source_organization_reference.present? && income&.source_organization_reference&.ref.present?
@@ -64,6 +67,7 @@ module AcaEntities
               end
               mapper
             end
+            # rubocop:enable  Metrics/AbcSize, Metrics/CyclomaticComplexity
 
             def to_hash
               {
