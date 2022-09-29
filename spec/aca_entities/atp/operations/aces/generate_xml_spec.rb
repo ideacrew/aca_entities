@@ -36,7 +36,7 @@ RSpec.describe AcaEntities::Atp::Operations::Aces::GenerateXml  do
     context 'param flags' do
       let(:payload_hash) { JSON.parse(payload) }
 
-      context "when non_ssn_apply_reason flag is present in payload" do
+      context "when drop_non_ssn_apply_reason flag is present in payload" do
         it 'should not populate IdentificationCategoryText tag in PersonSSNIdentification' do
           param_flags = { 'drop_param_flags' => ['drop_non_ssn_apply_reason'] }
           flagged_payload = payload_hash.merge(param_flags).to_json
@@ -47,7 +47,7 @@ RSpec.describe AcaEntities::Atp::Operations::Aces::GenerateXml  do
         end
       end
 
-      context 'income_start_on flag present in payload' do
+      context 'drop_income_start_on flag present in payload' do
         it 'should not populate StartDate/Date tag in IncomeEarnedDateRange' do
           param_flags = { 'drop_param_flags' => ['drop_income_start_on'] }
           flagged_payload = payload_hash.merge(param_flags).to_json
@@ -58,7 +58,7 @@ RSpec.describe AcaEntities::Atp::Operations::Aces::GenerateXml  do
         end
       end
 
-      context 'income_end_on flag present in payload' do
+      context 'drop_income_end_on flag present in payload' do
         it 'should not populate EndDate/Date tag in IncomeEarnedDateRange' do
           param_flags = { 'drop_param_flags' => ['drop_income_end_on'] }
           flagged_payload = payload_hash.merge(param_flags).to_json
