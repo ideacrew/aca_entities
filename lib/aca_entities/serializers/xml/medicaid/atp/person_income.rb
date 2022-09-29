@@ -45,6 +45,7 @@ module AcaEntities
             # A description of the source of an income received as unemployment compensation (e.g. the name of a state or employer).
             element :employment_source_text, String, tag: 'IncomeUnemploymentSourceText', namespace: "hix-core"
 
+            # rubocop:disable  Metrics/AbcSize, Metrics/CyclomaticComplexity
             def self.domain_to_mapper(income)
               mapper = self.new
               mapper.employment_source_text = income.employment_source_text
@@ -66,6 +67,7 @@ module AcaEntities
               end
               mapper
             end
+            # rubocop:enable  Metrics/AbcSize, Metrics/CyclomaticComplexity
 
             def to_hash
               {
