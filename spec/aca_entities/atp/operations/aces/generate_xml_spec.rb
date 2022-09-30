@@ -24,6 +24,16 @@ RSpec.describe AcaEntities::Atp::Operations::Aces::GenerateXml  do
       expect(result.success?).to be_truthy
     end
 
+    it 'should have an IdentificationCategoryText of AppliedForSSN if applicant applied for ssn' do
+      payload_hash = JSON.parse(payload, symbolize_names: true)
+      payload_hash[:family][:magi_medicaid_applications][:applicants].first[:is_ssn_applied] = true
+      result = described_class.new.call(payload_hash.to_json)
+      doc = Nokogiri::XML.parse(result.value!)
+      texts = doc.xpath("//nc:PersonSSNIdentification/nc:IdentificationCategoryText", namespaces)
+      expect(texts.present?).to be_truthy
+      expect(texts.first.content).to eq 'AppliedForSSN'
+    end
+
     context "when annual_tax_household_income is a string" do
       let(:payload1) { File.read(Pathname.pwd.join("spec/support/atp/sample_payloads/simple_L_string_income_payload.json")) }
 
@@ -56,6 +66,16 @@ RSpec.describe AcaEntities::Atp::Operations::Aces::GenerateXml  do
 
       context "when drop_non_ssn_apply_reason flag is present in payload" do
         it 'should not populate IdentificationCategoryText tag in PersonSSNIdentification' do
+          param_flags = { 'drop_param_flags' => ['drop_non_ssn_apply_reason'] }
+          flagged_payload = payload_hash.merge(param_flags).to_json
+          result = described_class.new.call(flagged_payload)
+          doc = Nokogiri::XML.parse(result.value!)
+          texts = doc.xpath("//nc:PersonSSNIdentification/nc:IdentificationCategoryText", namespaces)
+          expect(texts.present?).to be_falsey
+        end
+
+        it 'should not have an IdentificationCategoryText of AppliedForSSN if applicant applied for ssn' do
+          payload_hash["family"]["magi_medicaid_applications"]["applicants"].first["is_ssn_applied"] = true
           param_flags = { 'drop_param_flags' => ['drop_non_ssn_apply_reason'] }
           flagged_payload = payload_hash.merge(param_flags).to_json
           result = described_class.new.call(flagged_payload)
