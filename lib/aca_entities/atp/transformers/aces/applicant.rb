@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'aca_entities/atp/transformers/aces/vlp_document'
-require 'aca_entities/atp/functions/immigrant_document_builder'
+require 'aca_entities/atp/functions/immigration_document_builder'
 
 module AcaEntities
   module Atp
@@ -31,8 +31,8 @@ module AcaEntities
           add_key 'lawful_presence_status.lawful_presence_status_eligibility.eligibility_indicator', function: lambda { |v|
             v.resolve('citizen_status').item == 'alien_lawfully_present'
           }
-          add_key 'lawful_presence_status.immigrant_documents',
-                  function: AcaEntities::Atp::Functions::ImmigrantDocumentBuilder.new
+          add_key 'lawful_presence_status.immigration_documents',
+                  function: AcaEntities::Atp::Functions::ImmigrationDocumentBuilder.new
           # namespace 'vlp_document' do
           #   rewrap 'lawful_presence_status.immigrant_documents', type: :array do
           #     add_key 'category_text'

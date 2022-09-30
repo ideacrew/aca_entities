@@ -135,6 +135,7 @@ module AcaEntities
 
             record['family']['magi_medicaid_applications']['applicants'].each do |applicant|
               applicant['non_ssn_apply_reason'] = nil if param_flags.include?('drop_non_ssn_apply_reason')
+              applicant['vlp_document'] = nil if param_flags.include?('drop_vlp_document')
               applicant['incomes'].each do |income|
                 income['start_on'] = nil if param_flags.include?('drop_income_start_on')
                 income['end_on'] = nil if param_flags.include?('drop_income_end_on')
