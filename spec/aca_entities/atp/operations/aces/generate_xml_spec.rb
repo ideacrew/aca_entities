@@ -34,6 +34,23 @@ RSpec.describe AcaEntities::Atp::Operations::Aces::GenerateXml  do
       end
     end
 
+    context 'when no applicants are filing taxes' do
+      let(:no_tax_filers_payload) do
+        payload_hash = JSON.parse(payload)
+        payload_hash['family']['magi_medicaid_applications']['applicants'].each do |applicant|
+          applicant['is_required_to_file_taxes'] = false
+        end
+        payload_hash.to_json
+      end
+
+      it 'should not include tax return tags in the payload' do
+        result = described_class.new.call(no_tax_filers_payload)
+        doc = Nokogiri::XML.parse(result.value!)
+        texts = doc.xpath("//hix-ee:TaxReturn", namespaces)
+        expect(texts.present?).to be_falsey
+      end
+    end
+
     context 'param flags' do
       let(:payload_hash) { JSON.parse(payload) }
 
