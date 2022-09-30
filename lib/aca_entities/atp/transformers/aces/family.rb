@@ -177,6 +177,7 @@ module AcaEntities
                       member_id = v.find(/family.family_members.(\w+)$/).map(&:item).last
                       applicants_hash = v.resolve('family.magi_medicaid_applications.applicants').item
                       applicant_hash = applicants_hash[member_id.to_sym]
+                      return "AppliedForSSN" if applicant_hash&.dig(:is_ssn_applied)
                       applicant_hash&.dig(:non_ssn_apply_reason)
                     }
                     map 'person_demographics.gender', 'sex', function: ->(v) {v.capitalize}
