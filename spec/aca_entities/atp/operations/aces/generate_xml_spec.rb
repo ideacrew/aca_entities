@@ -34,6 +34,17 @@ RSpec.describe AcaEntities::Atp::Operations::Aces::GenerateXml  do
       expect(texts.first.content).to eq 'AppliedForSSN'
     end
 
+    it 'should have a preganacy end date if in post partum period' do
+      payload_hash = JSON.parse(payload, symbolize_names: true)
+      payload_hash[:family][:magi_medicaid_applications][:applicants].first[:pregnancy_information][:is_post_partum_period] = true
+      payload_hash[:family][:magi_medicaid_applications][:applicants].first[:pregnancy_information][:pregnancy_end_on] = Date.today
+      result = described_class.new.call(payload_hash.to_json)
+      doc = Nokogiri::XML.parse(result.value!)
+      texts = doc.xpath("//hix-core:PersonPregnancyStatus/hix-core:StatusValidDateRange/nc:EndDate", namespaces)
+      expect(texts.present?).to be_truthy
+      expect(texts&.first&.content&.strip).to eq Date.today.strftime("%F")
+    end
+
     context "when annual_tax_household_income is a string" do
       let(:payload1) { File.read(Pathname.pwd.join("spec/support/atp/sample_payloads/simple_L_string_income_payload.json")) }
 

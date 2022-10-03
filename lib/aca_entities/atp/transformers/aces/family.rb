@@ -266,7 +266,8 @@ module AcaEntities
                       applicant_hash = applicants_hash[member_id.to_sym]
                       if applicant_hash
                         pregnancy_information = applicant_hash[:pregnancy_information]
-                        due_date = pregnancy_information[:pregnancy_due_on]
+                        post_partum = pregnancy_information[:is_post_partum_period]
+                        due_date = post_partum ? pregnancy_information[:pregnancy_end_on] : pregnancy_information[:pregnancy_due_on]
                         date_range = { :end_date => { :date => Date.parse(due_date) } } if due_date
 
                         { :status_indicator => pregnancy_information[:is_pregnant],
