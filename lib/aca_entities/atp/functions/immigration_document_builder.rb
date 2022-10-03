@@ -16,7 +16,7 @@ module AcaEntities
           when 'I-551 (Permanent Resident Card)'
             doc = i551_doc
           when 'I-571 (Refugee Travel Document)'
-            doc - i571_doc
+            doc = i571_doc
           when 'I-766 (Employment Authorization Card)'
             doc = i766_doc
           when 'Certificate of Citizenship'
