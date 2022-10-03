@@ -224,8 +224,14 @@ module AcaEntities
         end
 
         def expiration_date
-          exp_date = Date.parse(@vlp_document[:expiration_date])
-          { date: exp_date }
+          exp_date = @vlp_document[:expiration_date]
+          return unless exp_date
+
+          parsed_exp_date = exp_date.respond_to?(:strftime) ? Date.strptime(exp_date, "%m/%d/%Y") : Date.parse(exp_date)
+          { date: parsed_exp_date }
+        rescue ArgumentError => _e
+          # exclude expiration date if unparsable
+          nil
         end
       end
     end
