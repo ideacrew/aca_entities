@@ -32,12 +32,12 @@ servers:
 defaultContentType: application/json
 
 channels:
-  enroll.applications.aptc_csr_credits.renewals.renewal_requested.all:
+  enroll.applications.aptc_csr_credits.renewals.renewal.requested:
     bindings:
       amqp:
         is: :routing_key
         exchange:
-          name: enroll.applications.aptc_csr_credits.renewals.renewal_requested
+          name: enroll.applications.aptc_csr_credits.renewals.renewal
           type: topic
           content_type: application/json
           durable: true
@@ -48,14 +48,14 @@ channels:
       bindings:
         amqp:
           app_id: enroll
-          type: enroll.applications.aptc_csr_credits.renewals.renewal_requested
-          routing_key: enroll.applications.aptc_csr_credits.renewals.renewal_requested.all
+          type: enroll.applications.aptc_csr_credits.renewals.renewal
+          routing_key: enroll.applications.aptc_csr_credits.renewals.renewal.requested
           deliveryMode: 2
           mandatory: true
           timestamp: true
           content_type: application/json
           bindingVersion: 0.2.0
-      operationId: enroll.applications.aptc_csr_credits.renewals.renewal_requested.all
+      operationId: enroll.applications.aptc_csr_credits.renewals.renewal.requested
       description: Events - Application Renewal Requested
 
   enroll.applications.aptc_csr_credits.renewals.renewed:
@@ -84,12 +84,12 @@ channels:
       operationId: enroll.applications.aptc_csr_credits.renewals.renewed
       description: Events - Application Renewed
 
-  enroll.applications.aptc_csr_credits.renewals.determination_submission_requested.all:
+  enroll.applications.aptc_csr_credits.renewals.determination_submission.requested:
     bindings:
       amqp:
         is: :routing_key
         exchange:
-          name: enroll.applications.aptc_csr_credits.renewals.determination_submission_requested
+          name: enroll.applications.aptc_csr_credits.renewals.determination_submission
           type: topic
           content_type: application/json
           durable: true
@@ -100,14 +100,14 @@ channels:
       bindings:
         amqp:
           app_id: enroll
-          type: enroll.applications.aptc_csr_credits.renewals.determination_submission_requested
-          routing_key: enroll.applications.aptc_csr_credits.renewals.determination_submission_requested.all
+          type: enroll.applications.aptc_csr_credits.renewals.determination_submission
+          routing_key: enroll.applications.aptc_csr_credits.renewals.determination_submission.requested
           deliveryMode: 2
           mandatory: true
           timestamp: true
           content_type: application/json
           bindingVersion: 0.2.0
-      operationId: enroll.applications.aptc_csr_credits.renewals.determination_submission_requested.all
+      operationId: enroll.applications.aptc_csr_credits.renewals.determination_submission.requested
       description: Events - Application determination submission requested
 
   enroll.applications.aptc_csr_credits.renewals.determination_requested:
@@ -263,7 +263,7 @@ channels:
           content_type: application/json
           bindingVersion: 0.2.0
       operationId: enroll.applications.aptc_csr_credits.renewals.notice.determined_magi_medicaid_eligible
-      description: MitC determined applicants eligible for Medicaid/CHIP financial assistance
+      description: MitC determined applicants eligible for Medicaid/CHIP financial assistance at renewal
 
   enroll.applications.aptc_csr_credits.renewals.notice.determined_totally_ineligible:
     bindings:
