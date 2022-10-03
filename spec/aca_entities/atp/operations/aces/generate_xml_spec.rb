@@ -45,6 +45,19 @@ RSpec.describe AcaEntities::Atp::Operations::Aces::GenerateXml  do
       expect(texts&.first&.content&.strip).to eq Date.today.strftime("%F")
     end
 
+    context 'when vlp document is present on applicant' do
+      context 'when expiration date is nil' do
+        it 'should not create and populate LawfulPresenceDocumentExpirationDate tags' do
+          payload_hash = JSON.parse(payload, symbolize_names: true)
+          payload_hash[:family][:magi_medicaid_applications][:applicants].first[:vlp_document][:expiration_date] = nil
+          result = described_class.new.call(payload_hash.to_json)
+          doc = Nokogiri::XML.parse(result.value!)
+          texts = doc.xpath("//hix-ee:LawfulPresenceDocumentExpirationDate", namespaces)
+          expect(texts.present?).to be_falsey
+        end
+      end
+    end
+
     context "when annual_tax_household_income is a string" do
       let(:payload1) { File.read(Pathname.pwd.join("spec/support/atp/sample_payloads/simple_L_string_income_payload.json")) }
 
