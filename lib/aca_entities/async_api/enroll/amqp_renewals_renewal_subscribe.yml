@@ -32,12 +32,12 @@ servers:
 defaultContentType: application/json
 
 channels:
-  on_enroll.enroll.applications.aptc_csr_credits.renewals.determination_submission_requested:
+  on_enroll.enroll.applications.aptc_csr_credits.renewals.renewal:
     bindings:
       amqp:
         is: queue
         queue:
-          name: on_enroll.enroll.applications.aptc_csr_credits.renewals.determination_submission_requested
+          name: on_enroll.enroll.applications.aptc_csr_credits.renewals.renewal
           durable: true
           exclusive: false
           auto_delete: false
@@ -47,11 +47,11 @@ channels:
         amqp:
           ack: true
           exclusive: false
-          routing_key: enroll.applications.aptc_csr_credits.renewals.determination_submission_requested.all
+          routing_key: enroll.applications.aptc_csr_credits.renewals.renewal.requested
           prefetch: 1
           block: false
           bindingVersion: '0.2.0'
-      operationId: on_enroll.enroll.applications.aptc_csr_credits.renewals.determination_submission_requested
+      operationId: on_enroll.enroll.applications.aptc_csr_credits.renewals.renewal
       description: Events - For renewal application
 
 tags:
