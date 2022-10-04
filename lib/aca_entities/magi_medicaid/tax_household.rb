@@ -4,7 +4,6 @@ module AcaEntities
   module MagiMedicaid
     # Cv3 IAP Entity for TaxHousehold.
     class TaxHousehold < Dry::Struct
-
       attribute :max_aptc, Types::Money.optional.meta(omittable: true)
       attribute :hbx_id, Types::String
 

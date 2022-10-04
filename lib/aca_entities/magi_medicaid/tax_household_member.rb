@@ -4,7 +4,6 @@ module AcaEntities
   module MagiMedicaid
     # Cv3 IAP Entity for TaxHouseholdMember.
     class TaxHouseholdMember < Dry::Struct
-
       attribute :product_eligibility_determination, ProductEligibilityDetermination.optional.meta(omittable: true)
       attribute :applicant_reference, ApplicantReference.meta(omittable: false)
       attribute :is_subscriber,           Types::Bool.optional.meta(omittable: true)

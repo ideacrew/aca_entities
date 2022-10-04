@@ -4,6 +4,7 @@ module AcaEntities
   module Contracts
     # Configuration values and shared rules and macros for {AcaEntities::Medicaid} validation contracts
     class Contract < Dry::Validation::Contract
+      include AcaEntities::AppHelper
       # config.messages.backend - the localization backend to use. Supported values are: :yaml and :i18n
       # config.messages.backend = :i18n
       # config.messages.default_locale - default I18n-compatible locale identifier
@@ -143,6 +144,30 @@ module AcaEntities
               key([:households, index, :hbx_enrollments, hbx_index, :hbx_enrollment_members, hbxm_index,
                    :coverage_end_on]).failure('must be on or after coverage_start_on.')
             end
+          end
+        end
+      end
+
+      def end_on_preceding_start_on?(start_on, end_on)
+        return false if check_if_blank?(end_on)
+
+        start_on && end_on <= start_on
+      end
+
+      rule(:group_premium_credits).each do |index:|
+        next unless key?
+
+        if end_on_preceding_start_on?(value[:start_on], value[:end_on])
+          key([:group_premium_credits, index, :end_on]).failure(text: "end_on: #{value[:end_on]} should always succeed start_on: #{value[:start_on]}")
+        end
+
+        next unless check_if_present?(value[:members]) && value[:members].is_a?(Array)
+
+        value[:members].each_with_index do |member, m_index|
+          failure_key = [:group_premium_credits, index, :members, m_index]
+
+          if end_on_preceding_start_on?(member[:start_on], member[:end_on])
+            key(failure_key + [:end_on]).failure(text: "end_on: #{member[:end_on]} should always succeed start_on: #{member[:start_on]}")
           end
         end
       end
