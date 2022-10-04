@@ -4,7 +4,6 @@ module AcaEntities
   module Eligibilities
     # Entity for Evidence
     class Evidence < Dry::Struct
-
       attribute :key, Types::Symbol.meta(omittable: false)
       attribute :title, Types::String.meta(omittable: false)
       attribute :aasm_state, Types::String.meta(omittable: true)
@@ -22,7 +21,6 @@ module AcaEntities
 
       attribute :verification_histories, Types::Array.of(AcaEntities::Eligibilities::VerificationHistory).optional.meta(omittable: true)
       attribute :request_results, Types::Array.of(AcaEntities::Eligibilities::RequestResult).optional.meta(omittable: true)
-
     end
   end
 end
