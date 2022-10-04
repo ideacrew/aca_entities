@@ -45,8 +45,7 @@ module AcaEntities
       attribute :submitted_at, Types::DateTime.optional.meta(omittable: true)
       attribute :full_medicaid_determination, Types::Bool.optional.meta(omittable: true)
 
-      # Should have Product, PremiumTable and PremiumTuple
-      # attribute :benchmark_product, ::AcaEntities::BenefitMarkets::Product.meta(omittable: false)
+      attribute :benchmark_product, AcaEntities::MagiMedicaid::BenchmarkProducts::BenchmarkProduct.optional.meta(omittable: true)
 
       # Method to return relationship from applicant to relative
       # Example: if A is parent to B, relationship_kind(A, B) returns 'parent'
