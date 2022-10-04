@@ -50,6 +50,8 @@ module AcaEntities
       attribute :benefit_coverage_period_reference,
                 AcaEntities::BenefitCatalogs::BenefitCoveragePeriodReference.optional.meta(omittable: true)
 
+      attribute :tax_households_references, Types::Array.of(AcaEntities::PremiumCredits::TaxHouseholdEnrollment).optional.meta(omittable: true)
+
       # shop attributes
       # attribute :employee_role,                                   AcaEntities::People::EmployeeRole.optional.meta(omittable: false)
       # attribute :benefit_group_assignment,                        AcaEntities::References::BenefitGroupAssignment.optional.meta(omittable: false)

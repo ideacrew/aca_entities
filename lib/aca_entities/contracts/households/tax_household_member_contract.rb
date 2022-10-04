@@ -16,6 +16,7 @@ module AcaEntities
           optional(:family_member_reference).hash(AcaEntities::Contracts::Families::FamilyMemberReferenceContract.params)
           optional(:product_eligibility_determination).hash(AcaEntities::Contracts::Determinations::ProductEligibilityDeterminationContract.params)
           optional(:is_subscriber).value(:bool?)
+          optional(:is_tax_filer).value(:bool?)
           optional(:reason).maybe(:string)
         end
       end

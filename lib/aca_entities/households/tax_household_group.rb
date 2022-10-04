@@ -4,6 +4,7 @@ module AcaEntities
   module Households
     class TaxHouseholdGroup < Dry::Struct
 
+      attribute :hbx_id,                 Types::String.meta(omittable: false)
       attribute :assistance_year,        Types::Integer.meta(omittable: false)
       attribute :start_on,               Types::Date.meta(omittable: false)
       attribute :end_on,                 Types::Date.meta(omittable: true)

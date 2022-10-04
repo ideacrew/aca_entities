@@ -118,6 +118,7 @@ RSpec.describe AcaEntities::Contracts::Households::TaxHouseholdGroupContract, db
 
   let(:required_params) do
     {
+      hbx_id: "123456789",
       assistance_year: Date.today.year,
       start_on: Date.today,
       end_on: Date.today,
