@@ -122,7 +122,7 @@ channels:
     publish:
       operationId: enroll.individual.enrollments.initial_purchase
       description: Events - Individual Enrollment Initial Purchase
-      summary: Events - Document created
+      summary: Events - Enrollment Initial Purchase
       bindings:
         amqp:
           app_id: enroll
@@ -148,7 +148,7 @@ channels:
     publish:
       operationId: enroll.individual.enrollments.auto_renew
       description: Events - Individual Enrollment Auto Renew
-      summary: Events - Document created
+      summary: Events - Individual Enrollment Auto Renew
       bindings:
         amqp:
           app_id: enroll
@@ -174,7 +174,7 @@ channels:
     publish:
       operationId: enroll.individual.enrollments.terminated
       description: Events - Individual Enrollment Terminated
-      summary: Events - Document created
+      summary: Events - Individual Enrollment Terminated
       bindings:
         amqp:
           app_id: enroll
