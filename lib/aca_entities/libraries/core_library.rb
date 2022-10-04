@@ -1,38 +1,69 @@
 # frozen_string_literal: true
 
-# Include the baseline entities and types
 module AcaEntities
   module Libraries
+    # Domain entities and types that make AcaEntities work
     module CoreLibrary
       require 'aca_entities/types'
-      require 'aca_entities/attestations/types'
-      require 'aca_entities/transitions/contracts/workflow_state_transition_contract'
+
+      require 'aca_entities/contracts/locations/address_contract'
+      require 'aca_entities/contracts/contacts/phone_contact_contract'
+      require 'aca_entities/contracts/contacts/email_contact_contract'
+
       require 'aca_entities/contracts/contract'
       require 'aca_entities/contracts/timestamp_contract'
+      require 'aca_entities/timestamp'
+
       require 'aca_entities/contracts/currency_contract'
+      require 'aca_entities/currency'
+
+      require 'aca_entities/transitions/contracts/workflow_state_transition_contract'
+      require 'aca_entities/transitions/workflow_state_transition'
+
+      require 'aca_entities/app_helper'
+      require 'aca_entities/operations/operation'
+
+      require 'aca_entities/events/events'
+      require 'aca_entities/documents/documents'
+
       require 'aca_entities/contracts/identifiers/identifier_kind_contract'
       require 'aca_entities/contracts/identifiers/id_contract'
-      require 'aca_entities/contracts/documents/ridp_document_contract'
-      require 'aca_entities/evidences/contracts/ridp_evidence_contract'
-      require 'aca_entities/attestations/contracts/ridp_attestation_contract'
-      require 'aca_entities/attestations/contracts/attestation_contract'
 
-      # Add User and Account library
+      # Identities and users
+      require 'aca_entities/libraries/identities_library'
       require 'aca_entities/accounts/accounts'
 
-      require 'aca_entities/contracts/people/person_reference_contract'
+      require 'aca_entities/determinations/determinations'
+
+      require 'aca_entities/people/people'
+
+      require 'aca_entities/contracts/verifications/verification_type_contract'
+      require 'aca_entities/contracts/verifications/verification_type_history_element_contract'
+
+      require 'aca_entities/organizations/organizations'
+
+      require 'aca_entities/brokers/brokers'
+
+      require 'aca_entities/contracts/general_agencies/general_agency_account_contract'
+
+      require 'aca_entities/transitions/transitions'
+
+      require 'aca_entities/libraries/attestations_library'
+
+      require 'aca_entities/products/products'
+
+      require 'aca_entities/libraries/eligibility_library'
+
+      require 'aca_entities/evidences/evidences'
+
+      require 'aca_entities/contracts/documents/ridp_document_contract'
+      require 'aca_entities/evidences/contracts/ridp_evidence_contract'
+
       require 'aca_entities/contracts/households/household_reference_contract'
       require 'aca_entities/contracts/households/coverage_household_reference_contract'
       require 'aca_entities/contracts/families/family_reference_contract'
       require 'aca_entities/contracts/families/family_member_reference_contract'
-      require 'aca_entities/contracts/organizations/issuer_profile_reference_contract'
-      require 'aca_entities/contracts/products/product_reference_contract'
-      require 'aca_entities/contracts/organizations/general_agency_reference_contract'
-      require 'aca_entities/contracts/organizations/broker_agency_profile_reference_contract'
-      require 'aca_entities/contracts/brokers/broker_role_reference_contract'
-      require 'aca_entities/contracts/brokers/broker_account_contract'
-      require 'aca_entities/contracts/brokers/broker_role_contract'
-      require 'aca_entities/contracts/general_agencies/general_agency_account_contract'
+
       require 'aca_entities/contracts/qualifying_life_events/qualifying_life_event_kind_reference_contract'
       require 'aca_entities/contracts/enrollment_periods/special_enrollment_period_contract'
       require 'aca_entities/contracts/enrollment_periods/special_enrollment_period_reference_contract'
@@ -40,20 +71,15 @@ module AcaEntities
       require 'aca_entities/contracts/enrollments/hbx_enrollment_member_contract'
       require 'aca_entities/contracts/enrollments/hbx_enrollment_reference_contract'
       require 'aca_entities/contracts/enrollments/hbx_enrollment_contract'
+
       require 'aca_entities/aptc_csr_eligibilities_enrollments/contracts/accumulator_adjustment_contract'
       require 'aca_entities/aptc_csr_eligibilities_enrollments/contracts/aptc_accumulator_contract'
       require 'aca_entities/aptc_csr_eligibilities_enrollments/contracts/contribution_accumulator_contract'
+
       require 'aca_entities/contracts/households/coverage_household_member_contract'
       require 'aca_entities/contracts/households/coverage_household_contract'
       require 'aca_entities/contracts/financial/payment_transactions/payment_transaction_contract'
-      require 'aca_entities/contracts/locations/address_contract'
-      require 'aca_entities/contracts/contacts/phone_contact_contract'
-      require 'aca_entities/contracts/contacts/email_contact_contract'
-      require 'aca_entities/contracts/people/person_name_contract'
-      require 'aca_entities/contracts/people/person_relationship_contract'
-      require 'aca_entities/contracts/people/person_health_contract'
-      require 'aca_entities/contracts/people/person_demographics_contract'
-      require 'aca_entities/contracts/people/person_contract'
+
       require 'aca_entities/contracts/enrollees/enrollee_demographics_contract'
       require 'aca_entities/contracts/enrollees/segment_contract'
       require 'aca_entities/contracts/enrollees/enrollee_contract'
@@ -62,14 +88,17 @@ module AcaEntities
       require 'aca_entities/contracts/households/tax_household_contract'
       require 'aca_entities/contracts/households/tax_household_group_contract'
       require 'aca_entities/contracts/households/household_contract'
+
       require 'aca_entities/contracts/families/family_member_contract'
       require 'aca_entities/contracts/families/family_contract'
+
       require 'aca_entities/contracts/households/tax_household_reference_contract'
       require 'aca_entities/contracts/premium_credits/tax_household_member_enrollment_member_contract'
       require 'aca_entities/contracts/premium_credits/tax_household_enrollment_contract'
+
       require 'aca_entities/benefit_markets/types'
+
       require 'aca_entities/benefit_markets/contracts/application_contract'
-      require 'aca_entities/benefit_markets/contracts/document_contract'
       require 'aca_entities/benefit_markets/contracts/pricing_models/member_relationship_contract'
       require 'aca_entities/benefit_markets/contracts/pricing_models/member_relationship_map_contract'
       require 'aca_entities/benefit_markets/contracts/pricing_models/pricing_unit_contract'
@@ -95,25 +124,18 @@ module AcaEntities
       require 'aca_entities/benefit_markets/contracts/benefit_sponsor_catalogs/benefit_sponsor_catalog_contract'
 
       # entities
-      require 'aca_entities/timestamp'
-      require 'aca_entities/currency'
       require 'aca_entities/identifiers/identifier_kind'
       require 'aca_entities/identifiers/id'
-      require 'aca_entities/transitions/workflow_state_transition'
       require 'aca_entities/evidences/ridp_evidence'
       require 'aca_entities/attestations/ridp_attestation'
       require 'aca_entities/attestations/attestation'
 
-      # require 'aca_entities/accounts/user'
-      require 'aca_entities/organizations/issuer_profile_reference'
       require 'aca_entities/products/product_reference'
       require 'aca_entities/people/person_reference'
       require 'aca_entities/households/household_reference'
       require 'aca_entities/households/coverage_household_reference'
       require 'aca_entities/families/family_reference'
       require 'aca_entities/families/family_member_reference'
-      require 'aca_entities/organizations/general_agency_reference'
-      require 'aca_entities/organizations/broker_agency_profile_reference'
       require 'aca_entities/brokers/broker_role_reference'
       require 'aca_entities/brokers/broker_account'
       require 'aca_entities/brokers/broker_role'

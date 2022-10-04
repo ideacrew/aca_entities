@@ -7,7 +7,6 @@ module AcaEntities
       # A stateful instance of a defined eligibility with one or more
       #   {AcaEntities::Eligiblities::EligibilityStates}
       class Eligibility < Dry::Struct
-
         # @!attribute [r] subject
         # Subject for the eligibility
         # @return [Dry::Struct]
@@ -15,7 +14,7 @@ module AcaEntities
 
         attribute :status?, Types::String.optional.meta(omittable: true)
 
-        attribute :evidences?, Types::Array.of(AcaEntities::Eligibilities::Evidence).meta(omittable: true)
+        attribute :evidences?, Types::Array.of(AcaEntities::Eligibilities::EvidenceItem).meta(omittable: true)
 
         attribute :grants, Types::Array.of(AcaEntities::Eligibilities::Osse::Grant).meta(omittable: true)
 

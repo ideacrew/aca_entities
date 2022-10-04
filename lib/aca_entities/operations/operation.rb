@@ -8,6 +8,10 @@ require_relative 'encryption/decrypt'
 require_relative 'mongoid/model_adapter'
 require_relative 'mongoid/entity_adapter'
 
+require_relative 'transforms/transform'
+require_relative 'transforms/hash_functions'
+require_relative 'transforms/transformer'
+
 module AcaEntities
   # Operations are perform Functions on domain entities
   module Operations

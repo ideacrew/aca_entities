@@ -27,9 +27,9 @@ module AcaEntities
           optional(:external_service).maybe(:string)
           optional(:due_date).maybe(:date)
           optional(:due_date_type).maybe(:string)
-          optional(:updated_by).hash(AcaEntities::Contracts::People::PersonReferenceContract.params)
+          optional(:updated_by).maybe(AcaEntities::Identities::Contracts::OmniauthIdentityContract.params)
           optional(:inactive).maybe(:bool)
-          optional(:vlp_documents).array(AcaEntities::Contracts::Documents::VlpDocumentContract.params)
+          optional(:vlp_documents).array(AcaEntities::Documents::Contracts::VlpDocumentContract.params)
         end
       end
     end

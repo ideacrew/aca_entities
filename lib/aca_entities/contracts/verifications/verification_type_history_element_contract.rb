@@ -19,8 +19,8 @@ module AcaEntities
           optional(:action).filled(:string)
           optional(:modifier).filled(:string)
           optional(:update_reason).filled(:string)
-          optional(:event_response_record).hash(AcaEntities::Contracts::Events::EventResponseContract.params)
-          optional(:event_request_record).hash(AcaEntities::Contracts::Events::EventRequestContract.params)
+          optional(:event_response_record).hash(AcaEntities::Events::Contracts::EventResponseContract.params)
+          optional(:event_request_record).hash(AcaEntities::Events::Contracts::EventRequestContract.params)
         end
       end
     end
