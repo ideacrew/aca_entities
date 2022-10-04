@@ -45,6 +45,7 @@ module AcaEntities
       attribute :submitted_at, Types::DateTime.optional.meta(omittable: true)
       attribute :full_medicaid_determination, Types::Bool.optional.meta(omittable: true)
 
+      # benchmark_product is used for dynamic ehb premium values including pediatric dental values.
       attribute :benchmark_product, AcaEntities::MagiMedicaid::BenchmarkProducts::BenchmarkProduct.optional.meta(omittable: true)
 
       # Method to return relationship from applicant to relative
