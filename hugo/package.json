@@ -2,8 +2,8 @@
   "name": "aca_entities-docsite",
   "version": "1.0.0",
   "devDependencies": {
-    "autoprefixer": "^10.2.3",
-    "postcss": "^8.2.4",
+    "autoprefixer": "^10.4.12",
+    "postcss": "^8.4.16",
     "postcss-cli": "^8.3.1"
   }
 }
