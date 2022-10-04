@@ -11,9 +11,40 @@ module AcaEntities
     send(:include, Dry::Logic)
 
     AcaHealthInsuranceCoverageLevelBasisKind = Types::Coercible::String.enum('in_network_coverage_payment')
-    AcaHealthInsuranceCoverageLevelKind = Types::Coercible::String.enum('bronze', 'silver', 'gold', 'platinum')
-    AcaHealthInsuranceCoverageKind = Types::Coercible::String.enum('hmo', 'ppo')
     AcaInsuranceProductKind = Types::Coercible::String.enum('health', 'dental', 'health_catastrophic')
+
+    AcaHealthInsuranceCoverageKind =
+      Types::Coercible::String.enum('hmo', 'ppo', 'epo', 'pos', 'catastrophic', 'high_deductable')
+
+    AcaHealthInsuranceCoverageLevelKind =
+      Types::Coercible::String.enum('bronze', 'silver', 'gold', 'platinum', 'catastrophic')
+
+    AcaMarketplaceKind = Types::Coercible::String.enum('aca_individual', 'aca_shop', 'aca_congress')
+    AcaHealthInsuranceProductFeatureKind = Types::Coercible::String.enum('non_tobacco_user', 'tobacco_user')
+
+    AcaHealthInsuranceCoverageKindMap = {
+      'hmo' => 'Health Maintenance Organization (HMO)',
+      'ppo' => 'Preferred Provider Organization (PPO)',
+      'epo' => 'Exclusive Provider Organization (EPO)',
+      'pos' => 'Point-of-Service Plan (POS)',
+      'catastrophic' => 'Catastrophic Plan',
+      'high_deductable' => 'High-Deductible Health Plan With or Without a Health Savings Account'
+    }
+
+    AcaEssentialHealthBenefitKind =
+      Types::Coercible::String.enum(
+        'ambulatory_care',
+        'emergency_services',
+        'hospital_coverage',
+        'maternity_and_newborn_care',
+        'pediatric_dental',
+        'pediatric_vision',
+        'mental_health_and_addictive_treatment',
+        'presecription_drugs',
+        'rehabilitative_coverage',
+        'laboratory_services',
+        'preventive_services_and_chronic_disease_management'
+      )
 
     BinaryGenderKind = Types::Coercible::String.enum('male', 'female')
     BoolOrNil = Types::Bool | Types::Nil

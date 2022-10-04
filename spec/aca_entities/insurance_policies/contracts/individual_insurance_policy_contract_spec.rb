@@ -12,7 +12,7 @@ RSpec.describe AcaEntities::InsurancePolicies::Contracts::IndividualInsurancePol
 
   let(:policy_id) { 'policy_101' }
   let(:insurer_policy_id) { 'insurer_id_123' }
-  let(:coverage_kind) { 'health' }
+  let(:coverage_kind) { 'hmo' }
   let(:insurance_product) { shared_health_insurance_product }
   let(:marketplace_segment_id) { '0130345-68576-20220201' }
 

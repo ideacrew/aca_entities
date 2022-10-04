@@ -21,6 +21,11 @@ module AcaEntities
           optional(:tax_household_id).maybe(AcaEntities::Types::StringOrNil)
           optional(:timestamps).maybe(AcaEntities::Contracts::TimeStampContract.params)
         end
+
+        rule(:relationship_code) do
+          # TODO: when relationship is present, if this Member's relationship is 'self' then:
+          #   at least one site address must be present for service/rating area determination
+        end
       end
     end
   end

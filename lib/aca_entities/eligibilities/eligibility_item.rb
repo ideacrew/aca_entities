@@ -2,9 +2,11 @@
 
 module AcaEntities
   module Eligibilities
-    # An Eligibility definition
+    # The definition of a right conveyed to a system actor to do or obtain something
+    #   provided certain conditions are met.
     class EligibilityItem < Dry::Struct
       include Dry::Monads[:result, :do, :try]
+
       # include AcaEntities::Operations::Mongoid::ModelAdapter
 
       # persistence_model_name 'Eligibilities::EligibilityItem'

@@ -4,7 +4,7 @@ module AcaEntities
   module InsurancePolicies
     module Contracts
       # Schema and validation rules for the {AcaEntities::InsurancePolicies::PeriodType} entity
-      class PeriodTypeContract < Dry::Validation::Contract
+      class PeriodTypeContract < Contract
         # @!method call(opts)
         # @param [Hash] opts the parameters to validate using this contract
         # @return [Dry::Monads::Result::Success] if params pass validation

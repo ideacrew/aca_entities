@@ -735,21 +735,6 @@ RSpec.describe AcaEntities::Contracts::Families::FamilyContract,  dbclean: :afte
     ]
   end
 
-  let(:group_premium_credits) do
-    [{
-      kind: 'aptc_csr',
-      start_on: Date.today,
-      members: [{ kind: 'aptc_eligible',
-                  value: 'true',
-                  start_on: Date.today,
-                  family_member_reference: { family_member_hbx_id: '1001',
-                                             first_name: 'first name',
-                                             last_name: 'last name',
-                                             person_hbx_id: '1001',
-                                             is_primary_family_member: true } }]
-    }]
-  end
-
   let(:required_params) do
     { hbx_id: '1000',
       foreign_keys: foreign_keys,
@@ -758,7 +743,6 @@ RSpec.describe AcaEntities::Contracts::Families::FamilyContract,  dbclean: :afte
       vlp_documents_status: nil,
       family_members: family_member_params,
       households: household_params,
-      group_premium_credits: group_premium_credits,
       documents: documents,
       special_enrollment_periods: special_enrollment_periods,
       broker_accounts: broker_accounts,
@@ -822,37 +806,6 @@ RSpec.describe AcaEntities::Contracts::Families::FamilyContract,  dbclean: :afte
       it 'should return error message' do
         result = subject.call(required_params.merge(renewal_consent_through_year: 2012))
         expect(result.errors.messages.first.text).to eq('must be one of: 2014 - 2025')
-      end
-    end
-
-    context 'rules of group_premium_credits' do
-      let(:end_on) { (Date.today - 10).to_s }
-      let(:start_on) { Date.today.to_s }
-      let(:group_premium_credits) do
-        [{
-          kind: 'aptc_csr',
-          start_on: start_on,
-          end_on: end_on,
-          members: [{ kind: 'aptc_eligible',
-                      value: 'true',
-                      start_on: start_on,
-                      end_on: end_on,
-                      family_member_reference: { family_member_hbx_id: '1001',
-                                                 first_name: 'first name',
-                                                 last_name: 'last name',
-                                                 person_hbx_id: '1001',
-                                                 is_primary_family_member: true } }]
-        }]
-      end
-
-      before do
-        @result = subject.call(required_params)
-      end
-
-      it 'should return failure with error message' do
-        errors = subject.call(required_params).errors.to_h[:group_premium_credits][0]
-        error_msg = "end_on: #{end_on} should always succeed start_on: #{start_on}"
-        expect(errors).to eq({ end_on: [error_msg], members: { 0 => { end_on: [error_msg] } } })
       end
     end
 

@@ -25,6 +25,7 @@ RSpec.describe AcaEntities::InsurancePolicies::Contracts::EnrollmentContract do
       subscriber_rating_area_id: subscriber_rating_area_id
     }
   end
+
   let(:optional_params) { { id: id, dependents: dependents, timestamps: timestamps } }
 
   let(:all_params) { required_params.merge(optional_params) }
