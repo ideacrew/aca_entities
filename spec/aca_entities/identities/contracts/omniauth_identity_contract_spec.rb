@@ -9,6 +9,8 @@ RSpec.describe AcaEntities::Identities::Contracts::OmniauthIdentityContract do
   let(:id) { '6304e375-c5f6-45c4-bd9c-da75b01d19f4' }
   let(:name) { 'George Jetson' }
   let(:enabled) { true }
+  let(:moment) { DateTime.now }
+  let(:time_stamp) { { submitted_at: moment, created_at: moment, modified_at: moment } }
 
   # OmniauthIdentity class attributes
   let(:provider) { 'keycloak_openid' }
@@ -24,14 +26,8 @@ RSpec.describe AcaEntities::Identities::Contracts::OmniauthIdentityContract do
         'https://enroll.coverme.gov/benefit_sponsors/profiles/registrations/new?portal=true&profile_type=broker_agency'
     }
   end
-  let(:profile) { { client_key: 'enroll', settings: { locale: 'en' } } }
 
-  # let(:access) { { manage_group_membership: true, view: true, map_roles: true, impersonate: false, manage: true } }
-  # let(:groups) { [] }
-  # let(:realm_roles) { ['hbx_staff'] }
-  # let(:client_roles) { ['developer'] }
-
-  let(:required_params) { { provider: provider, user_id: user_id } }
+  let(:required_params) { { provider: provider, user_id: user_id, name: name, enabled: enabled } }
   let(:optional_params) do
     {
       id: id,
@@ -40,11 +36,8 @@ RSpec.describe AcaEntities::Identities::Contracts::OmniauthIdentityContract do
       email_verified: email_verified,
       first_name: first_name,
       last_name: last_name,
-      attributes: attributes
-      # realm_roles: realm_roles,
-      # client_roles: client_roles,
-      # access: access,
-      # groups: groups,
+      attributes: attributes,
+      time_stamp: time_stamp
     }
   end
 
@@ -60,7 +53,6 @@ RSpec.describe AcaEntities::Identities::Contracts::OmniauthIdentityContract do
   context 'Calling the contract with required params' do
     it 'should pass validation' do
       result = described_class.new.call(required_params)
-
       expect(result.success?).to be_truthy
       expect(result.to_h).to eq required_params
     end

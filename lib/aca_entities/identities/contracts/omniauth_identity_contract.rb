@@ -4,28 +4,24 @@ module AcaEntities
   module Identities
     module Contracts
       # Contract for validating a {AcaEntities::Identities::Identity} entity
-      class OmniauthIdentityContract < Dry::Validation::Contract
+      class OmniauthIdentityContract < Contract
         # @!method call(opts)
-        # @param [Hash] opts the attributes of an {AcaEntities::Identities::Identity}
+        # @param [Hash] opts the attributes of an {AcaEntities::Identities::OmniauthIdentity}
         # @option opts [String] :id System-assigned unique identifier
         # @option opts [String] :provider The service with which this identity is authenticated (required)
         # @option opts [String] :user_id An identifier unique to the given provider (required)
+        # @option opts [String] :password Credentials that meet system complexity policies
+        # @option opts [String] :name The display name - usually a concatenation of first and last name (required)
+        # @option opts [Boolean] :enabled Flag indicating whether the user_id is active
         # @option opts [String] :email The email name of the authenticated identity
         # @option opts [Boolean] :email_verified Flag indicating the email addresss is validated
         # @option opts [String] :first_name The account user's first name
         # @option opts [String] :last_name The account user's last name or system service name
-        # @option opts [String] :password Credentials that meet system complexity policies
         # @option opts [AttributesContract] :attributes Custom key/value pairs
-        # @option opts [Array<String>] :realm_roles Realm-level access and permissions for this account
-        # @option opts [Array<String>] :client_roles Client-level access and permissions for this account
-        # @option opts [Array<String>] :groups Hiearchical attributes and role mappings for this account
-        # @option opts [Array<String>] :access
-        # @option opts [Array<String>] :profiles Account-managed client configurtion settings
-        # @option opts [Integer] :not_before
-        # @option opts [DateTime] :created_at Timestamp when this account was created
+        # @option opts [AcaEntities::Contracts::TimeStampContract] :time_stamp Date and time when this record was created and last updated
         # @return [Dry::Monads::Success] if the payload passes validation
         # @return [Dry::Monads::Failure] if the payload fails validation
-        params do
+        params(AcaEntities::Identities::Contracts::IdentityContract) do
           optional(:id).maybe(:string)
           required(:provider).filled(:string)
           required(:user_id).filled(:string)
@@ -35,11 +31,6 @@ module AcaEntities
           optional(:first_name).maybe(:string)
           optional(:last_name).maybe(:string)
           optional(:attributes).hash(AcaEntities::Identities::Contracts::AttributesContract.params)
-
-          # optional(:realm_roles).array(:string)
-          # optional(:client_roles).array(:string)
-          # optional(:groups).array(:string)
-          # optional(:access).maybe(:hash)
         end
 
         rule(:email, :email_verified) do

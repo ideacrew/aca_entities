@@ -4,12 +4,10 @@ module AcaEntities
   module Identities
     module Contracts
       # Contract for validating {AcaEntities::Identities::User} entity
-      class UserContract < Dry::Validation::Contract
+      class UserContract < Contract
         # @!method call(opts)
         # @param [Hash] opts the attributes of an {AcaEntities::Accounts::Account}
         # @option opts [String] :id Application-assigned unique identifier
-        # @option opts [AcaEntities::Identities::Identity] :identity A security scheme that authenticates and authorizes access to system resources
-        # @option opts [AcaEntities::People::Person] :person Domain representation of an individual
         # @option opts [AcaEntities::Types::EmailAddressKind] :email An email addresss associated with the account
         # @option opts [Boolean] :email_verified Flag indicating the email addresss is validated
         # @option opts [Array<AcaEntities::Attestations::Attestation>] :attestations Attestations made by this user regarding proof of identity

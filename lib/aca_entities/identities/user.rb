@@ -16,11 +16,6 @@ module AcaEntities
       # @return [AcaEntities::Identities::Identity]
       attribute :identity, AcaEntities::Identities::Identity.meta(omittable: false)
 
-      # @!attribute [r] person
-      # Domain representation of an individual
-      # @return [AcaEntities::Identities::Identity]
-      attribute? :person, AcaEntities::People::Person.meta(omittable: true)
-
       # @!attribute [r] email
       # The email name of the authenticated identity
       # Either an {email} or {username} value must be present to pass validation
