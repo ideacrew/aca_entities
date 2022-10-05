@@ -5,7 +5,7 @@ module AcaEntities
     module Contracts
       # Schema and validation rules for the {AcaEntities::InsurancePolicies::InsuranceProductFeature} entity
       # Example feature key values include: 'pediatric_dental'
-      class InsuranceProductFeatureContract < Dry::Validation::Contract
+      class InsuranceProductFeatureContract < Contract
         # @!method call(opts)
         # @param [Hash] opts the parameters to validate using this contract
         # @return [Dry::Monads::Result::Success] if params pass validation

@@ -1,10 +1,10 @@
 #  frozen_string_literal: true
 
 module AcaEntities
-  module InsurancePolicies
+  module Brokers
     module Contracts
       # Schema and validation rules for the {AcaEntities::InsurancePolicies::InsuranceProvider} entity
-      class InsuranceProviderContract < Contract
+      class AgencyContract < Contract
         # @!method call(opts)
         # @param [Hash] opts the parameters to validate using this contract
         # @return [Dry::Monads::Result::Success] if params pass validation
@@ -12,15 +12,10 @@ module AcaEntities
         params do
           optional(:id).value(:string)
           required(:title).value(:string)
-          required(:hios_id).filled(:string)
+          required(:broker_npn_id).value(:string)
+          required(:agents).array(AcaEntities::Brokers::Contracts::AgentAgencyAssignmentContract.params)
 
           # required(:organization).filled(AcaEntities::Organizations::Contracts::OrganizationContract.params)
-          optional(:insurance_products).array(
-            AcaEntities::InsurancePolicies::Contracts::InsuranceProductContract.params
-          )
-          optional(:insurance_policies).array(
-            AcaEntities::InsurancePolicies::Contracts::IndividualInsurancePolicyContract.params
-          )
           optional(:description).value(:string)
           optional(:text).value(:string)
           optional(:timestamps).maybe(AcaEntities::Contracts::TimeStampContract.params)

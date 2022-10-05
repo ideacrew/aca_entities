@@ -37,7 +37,7 @@ RSpec.shared_context 'insurance_policies_context' do
   # IndividualInsurancePolicy
   let(:policy_id) { 'policy_101' }
   let(:marketplace_segment_id) { '0130345-68576-20220201' }
-  let(:coverage_kind) { 'health' }
+  let(:coverage_kind) { 'hmo' }
   let(:insurance_product) { shared_health_insurance_product }
 
   let(:shared_individual_insurance_policy) do
