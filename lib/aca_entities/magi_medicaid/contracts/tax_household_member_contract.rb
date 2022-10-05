@@ -13,6 +13,8 @@ module AcaEntities
         params do
           optional(:product_eligibility_determination).maybe(ProductEligibilityDeterminationContract.params)
           required(:applicant_reference).maybe(ApplicantReferenceContract.params)
+          optional(:is_subscriber).value(:bool?)
+          optional(:is_tax_filer).value(:bool?)
         end
       end
     end

@@ -118,6 +118,7 @@ RSpec.describe AcaEntities::Households::TaxHouseholdGroup, dbclean: :after_each 
 
   let(:input_params) do
     {
+      hbx_id: '123456789',
       assistance_year: Date.today.year,
       start_on: Date.today,
       end_on: Date.today,
