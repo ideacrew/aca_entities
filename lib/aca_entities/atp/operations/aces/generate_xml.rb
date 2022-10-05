@@ -137,6 +137,12 @@ module AcaEntities
               applicant['non_ssn_apply_reason'] = nil if param_flags.include?('drop_non_ssn_apply_reason')
               applicant['is_ssn_applied'] = nil if param_flags.include?('drop_non_ssn_apply_reason')
               applicant['vlp_document'] = nil if param_flags.include?('drop_vlp_document')
+              applicant['vlp_document'] = nil if param_flags.include?('drop_vlp_document')
+              if param_flags.include?('post_partum_is_pregnancy')
+                post_partum = applicant.dig('pregnancy_information', 'is_post_partum_period')
+                pregnant = applicant.dig('pregnancy_information', 'is_pregnant')
+                applicant["pregnancy_information"]["is_pregnant"] = pregnant || post_partum
+              end
               applicant['incomes'].each do |income|
                 income['start_on'] = nil if param_flags.include?('drop_income_start_on')
                 income['end_on'] = nil if param_flags.include?('drop_income_end_on')
