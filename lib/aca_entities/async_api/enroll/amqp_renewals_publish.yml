@@ -162,32 +162,6 @@ channels:
       operationId: enroll.applications.aptc_csr_credits.renewals.determination_added
       description: Events - Application determination added
 
-  enroll.applications.aptc_csr_credits.renewals.determination_notice_requested:
-    bindings:
-      amqp:
-        is: :routing_key
-        exchange:
-          name: enroll.applications.aptc_csr_credits.renewals
-          type: topic
-          content_type: application/json
-          durable: true
-          auto_delete: false
-          vhost: event_source
-        bindingVersion: 0.1.0
-    publish:
-      bindings:
-        amqp:
-          app_id: enroll
-          type: enroll.applications.aptc_csr_credits.renewals
-          routing_key: enroll.applications.aptc_csr_credits.renewals.determination_notice_requested
-          deliveryMode: 2
-          mandatory: true
-          timestamp: true
-          content_type: application/json
-          bindingVersion: 0.2.0
-      operationId: enroll.applications.aptc_csr_credits.renewals.determination_notice_requested
-      description: Events - Application determination notice requested
-
   enroll.applications.aptc_csr_credits.renewals.notice.determined_uqhp_eligible:
     bindings:
       amqp:
