@@ -45,8 +45,6 @@
 
 # Exclude node packages
 /node_modules
-temp/backtrace.log
-temp/error1.rb
-temp/error2.rb
 package.json
 yarn.lock
+/temp/
