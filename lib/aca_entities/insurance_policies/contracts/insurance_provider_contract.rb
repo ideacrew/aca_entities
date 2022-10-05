@@ -18,9 +18,10 @@ module AcaEntities
           optional(:insurance_products).array(
             AcaEntities::InsurancePolicies::Contracts::InsuranceProductContract.params
           )
-          optional(:insurance_policies).array(
-            AcaEntities::InsurancePolicies::Contracts::IndividualInsurancePolicyContract.params
-          )
+
+          # optional(:insurance_policies).array(
+          #   AcaEntities::InsurancePolicies::Contracts::IndividualInsurancePolicyContract.params
+          # )
           optional(:description).value(:string)
           optional(:text).value(:string)
           optional(:timestamps).maybe(AcaEntities::Contracts::TimeStampContract.params)

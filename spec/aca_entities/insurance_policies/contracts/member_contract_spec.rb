@@ -15,8 +15,6 @@ RSpec.describe AcaEntities::InsurancePolicies::Contracts::MemberContract do
   let(:dob) { Date.new(1988, 3, 15) }
   let(:gender) { 'male' }
   let(:relationship_code) { '1:18' }
-  let(:irs_group_id) { 'abc987' }
-  let(:tax_household_id) { '6161' }
 
   let(:emails) { [{ kind: 'home', address: 'george.jetson@example.com' }] }
   let(:phones) { [{ kind: 'mobile', primary: true, area_code: '208', number: '5551212', start_on: moment }] }
@@ -44,8 +42,6 @@ RSpec.describe AcaEntities::InsurancePolicies::Contracts::MemberContract do
       insurer_assigned_id: insurer_assigned_id,
       encrypted_ssn: encrypted_ssn,
       gender: gender,
-      tax_household_id: tax_household_id,
-      irs_group_id: irs_group_id,
       emails: emails,
       phones: phones,
       addresses: addresses,

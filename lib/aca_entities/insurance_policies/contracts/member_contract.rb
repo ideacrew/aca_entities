@@ -17,15 +17,16 @@ module AcaEntities
           optional(:addresses).array(AcaEntities::Locations::Contracts::SiteAddressContract.params)
           optional(:emails).array(AcaEntities::Contracts::Contacts::EmailContactContract.params)
           optional(:phones).array(AcaEntities::Contracts::Contacts::PhoneContactContract.params)
-          optional(:irs_group_id).maybe(AcaEntities::Types::StringOrNil)
-          optional(:tax_household_id).maybe(AcaEntities::Types::StringOrNil)
+
+          # optional(:irs_group_id).maybe(AcaEntities::Types::StringOrNil)
+          # optional(:tax_household_id).maybe(AcaEntities::Types::StringOrNil)
           optional(:timestamps).maybe(AcaEntities::Contracts::TimeStampContract.params)
         end
 
-        rule(:relationship_code) do
-          # TODO: when relationship is present, if this Member's relationship is 'self' then:
-          #   at least one site address must be present for service/rating area determination
-        end
+        # site address must be present for contract holders to support service/rating area determination
+        # rule(:is_contract_holder) do
+        #   # TODO: site address required when member is contract holder
+        # end
       end
     end
   end

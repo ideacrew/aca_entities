@@ -3,13 +3,14 @@
 require 'spec_helper'
 require 'support/shared_content/insurance_policies/contracts/shared_context'
 
-RSpec.describe AcaEntities::InsurancePolicies::Contracts::IndividualInsuranceAgreementContract do
+RSpec.describe AcaEntities::InsurancePolicies::AcaIndividuals::Contracts::InsuranceAgreementContract do
   include_context('insurance_policies_context')
   subject { described_class.new }
 
   context 'CustomerAccount components' do
     let(:id) { '12345' }
-    let(:contract_holder) { george_jetson[:enrolled_member][:member] }
+
+    let!(:contract_holder) { george_jetson[:enrolled_member][:member] }
     let(:insurance_provider) { shared_insurance_provider }
     let(:insurance_policies) { [shared_individual_insurance_policy] }
     let(:start_on) { january_1 }

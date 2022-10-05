@@ -4,7 +4,7 @@
 module AcaEntities
   module Libraries
     module Library
-      require 'aca_entities/insurance_policies/insurance_policies'
+      require 'aca_entities/insurance_policies/aca_individuals/aca_individuals'
     end
   end
 end

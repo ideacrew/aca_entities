@@ -3,25 +3,25 @@
 require 'spec_helper'
 require 'support/shared_content/insurance_policies/contracts/shared_context'
 
-RSpec.describe AcaEntities::InsurancePolicies::Contracts::InsuranceProviderContract do
+RSpec.describe AcaEntities::InsurancePolicies::AcaIndividuals::Contracts::IrsGroupContract do
   include_context('insurance_policies_context')
+
   subject { described_class.new }
 
   let(:moment) { DateTime.now }
   let(:id) { '12345' }
 
-  let(:hios_id) { '98765432' }
-  let(:title) { 'Red Heart Healthcare' }
-  let(:description) { 'Local and National Networks' }
-  let(:insurance_products) { [shared_health_insurance_product] }
+  let(:irs_group_id) { 'irs_101' }
+  let(:insurance_agreements) { [shared_insurance_agreement] }
+  let(:start_on) { january_1 }
+  let(:end_on) { december_31 }
 
-  let(:text) { 'Some annotations/notes here' }
   let(:timestamps) { { created_at: moment, modified_at: moment } }
 
-  let(:required_params) { { hios_id: hios_id, title: title } }
-  let(:optional_params) do
-    { id: id, insurance_products: insurance_products, description: description, text: text, timestamps: timestamps }
+  let(:required_params) do
+    { irs_group_id: irs_group_id, insurance_agreements: insurance_agreements, start_on: start_on }
   end
+  let(:optional_params) { { id: id, end_on: end_on, timestamps: timestamps } }
 
   let(:all_params) { required_params.merge(optional_params) }
 
@@ -44,7 +44,9 @@ RSpec.describe AcaEntities::InsurancePolicies::Contracts::InsuranceProviderContr
   end
 
   context 'Calling the contract with no params' do
-    let(:error_message) { { hios_id: ['is missing'], title: ['is missing'] } }
+    let(:error_message) do
+      { irs_group_id: ['is missing'], insurance_agreements: ['is missing'], start_on: ['is missing'] }
+    end
     it 'should pass validation' do
       result = subject.call({})
       expect(result.failure?).to be_truthy

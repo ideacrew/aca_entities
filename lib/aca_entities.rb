@@ -15,7 +15,7 @@ require 'aca_entities/operations/mongoid/model_adapter'
 
 require 'aca_entities/libraries/aca_individual_market_library'
 require 'aca_entities/libraries/locations_library'
-require 'aca_entities/libraries/insurance_policies_library'
+require 'aca_entities/libraries/insurance_policies_aca_individuals_library'
 require 'aca_entities/libraries/fdsh_library'
 require 'aca_entities/libraries/identities_library'
 require 'aca_entities/libraries/core_library'

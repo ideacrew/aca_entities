@@ -7,6 +7,21 @@ RSpec.shared_context 'insurance_policies_context' do
   let(:moment) { DateTime.now }
   let(:timestamps) { { created_at: moment, modified_at: moment } }
 
+  # InsuranceAgreement
+  let!(:contract_holder) { george_jetson[:enrolled_member][:member] }
+  let(:insurance_provider) { shared_insurance_provider }
+  let(:insurance_policies) { [shared_individual_insurance_policy] }
+  let(:start_on) { january_1 }
+
+  let(:shared_insurance_agreement) do
+    {
+      contract_holder: contract_holder,
+      insurance_provider: insurance_provider,
+      insurance_policies: insurance_policies,
+      start_on: start_on
+    }
+  end
+
   # InsuranceProvider
   let(:hios_id) { '98765432' }
   let(:shared_insurance_provider_title) { 'Red Heart Healthcare' }
@@ -109,7 +124,6 @@ RSpec.shared_context 'insurance_policies_context' do
           encrypted_ssn: '012859874',
           dob: Date.new(1978, 12, 19),
           gender: 'male',
-          irs_group_id: irs_group_id,
           addresses: addresses,
           phones: phones,
           emails: [{ kind: 'home', address: 'george.jetson@example.com' }]
@@ -138,7 +152,6 @@ RSpec.shared_context 'insurance_policies_context' do
           encrypted_ssn: '012859875',
           dob: Date.new(1983, 9, 6),
           gender: 'female',
-          irs_group_id: irs_group_id,
           addresses: addresses
         },
         enrolled_member_premium: {
@@ -164,7 +177,6 @@ RSpec.shared_context 'insurance_policies_context' do
           relationship_code: '2:01',
           dob: Date.new(2007, 2, 15),
           gender: 'female',
-          irs_group_id: irs_group_id,
           addresses: addresses
         },
         enrolled_member_premium: {
@@ -200,7 +212,7 @@ RSpec.shared_context 'insurance_policies_context' do
       members: shared_tax_household_group_members,
       health_benchmark_plan: health_benchmark_plan,
       dental_benchmark_plan: dental_benchmark_plan,
-      aptc_amount: thh_aptc_amount,
+      max_aptc_amount: thh_aptc_amount,
       start_on: start_on
     }
   end

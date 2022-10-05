@@ -3,7 +3,7 @@
 require 'spec_helper'
 require 'support/shared_content/insurance_policies/contracts/shared_context'
 
-RSpec.describe AcaEntities::InsurancePolicies::Contracts::IndividualInsurancePolicyContract do
+RSpec.describe AcaEntities::InsurancePolicies::AcaIndividuals::Contracts::InsurancePolicyContract do
   include_context('insurance_policies_context')
   subject { described_class.new }
 

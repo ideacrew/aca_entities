@@ -4,7 +4,14 @@ module AcaEntities
   module InsurancePolicies
     module Contracts
       # Schema and validation rules for the {AcaEntities::InsurancePolicies::InsuranceProductFeature} entity
-      # Example feature key values include: 'pediatric_dental'
+      # Product Features are additional items that further define the insurance product or how the product works,
+      # such as what is/isn't covered.
+      # @example Product that includes pediatric dental coverage
+      #   {
+      #     id: 'abc123',
+      #     key: 'pediatric_dental_included',
+      #     title: 'Includes pediatric dental coverage'
+      #   }
       class InsuranceProductFeatureContract < Contract
         # @!method call(opts)
         # @param [Hash] opts the parameters to validate using this contract
