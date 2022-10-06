@@ -9,6 +9,8 @@ module AcaEntities
         class InsuranceAgreementContract < Contract
           # @!method call(opts)
           # @param [Hash] opts the parameters to validate using this contract
+          # @option opts [Integer] :contract_holder the party responsible for the policies and payment
+
           # @return [Dry::Monads::Result::Success] if params pass validation
           # @return [Dry::Monads::Result::Failure] if params fail validation
           params do
@@ -21,20 +23,15 @@ module AcaEntities
               AcaEntities::InsurancePolicies::AcaIndividuals::Contracts::InsurancePolicyContract.params
             )
 
-            optional(:tax_household_groups).array(AcaEntities::Contracts::Households::TaxHouseholdGroupContract.params)
-            optional(:tax_household).maybe(AcaEntities::Contracts::Households::TaxHouseholdContract.params)
+            # use tax_household in Single THH scenario using date periods to match with enrollments
+            optional(:tax_household).array(AcaEntities::Contracts::Households::TaxHouseholdContract.params)
 
+            optional(:plan_year).value(:integer)
             required(:start_on).value(:date)
             optional(:end_on).value(:date)
             optional(:effectuated_on).value(:date)
             optional(:timestamps).maybe(AcaEntities::Contracts::TimeStampContract.params)
           end
-
-          # rule(:tax_household_groups, :tax_household) do
-          #   if values[:tax_household_groups].blank? && values[:tax_household].blank?
-          #     key.failure('tax_household or tax_houshold_group must be present')
-          #   end
-          # end
         end
       end
     end

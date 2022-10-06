@@ -11,14 +11,21 @@ module AcaEntities
         # @return [Dry::Monads::Result::Failure] if params fail validation
         params do
           optional(:id).value(:string)
-          required(:subscriber_service_area_id).value(:string)
-          required(:subscriber_rating_area_id).value(:string)
+          required(:subscriber).value(AcaEntities::InsurancePolicies::Contracts::EnrolledMemberContract.params)
+          optional(:spouse).maybe(AcaEntities::InsurancePolicies::Contracts::EnrolledMemberContract.params)
+          optional(:dependents).array(AcaEntities::InsurancePolicies::Contracts::EnrolledMemberContract.params)
+          optional(:survivor).maybe(AcaEntities::InsurancePolicies::Contracts::EnrolledMemberContract.params)
 
-          required(:subscriber).value(EnrolledMemberContract.params)
+          # use tax_household_groups in MTHH scenario
+          optional(:tax_household_groups).array(AcaEntities::Contracts::Households::TaxHouseholdGroupContract.params)
 
-          # required(:subscriber).value(:hash)
-          optional(:dependents).array(EnrolledMemberContract.params)
-          required(:enrollment_elections).array(EnrollmentElectionContract.params)
+          optional(:total_premium).maybe(AcaEntities::Types::Money)
+          optional(:total_premium_adjustments).maybe(AcaEntities::Types::Money)
+          optional(:total_responsible_premium).maybe(AcaEntities::Types::Money)
+
+          required(:start_on).value(:date)
+          optional(:end_on).maybe(AcaEntities::Types::DateOrNil)
+
           optional(:timestamps).maybe(AcaEntities::Contracts::TimeStampContract.params)
 
           # before(:value_coercer) do |result|
@@ -36,6 +43,12 @@ module AcaEntities
           #   AcaEntities::InsurancePolicies::Contract.validate_nested_contract(key_name, contract_klass, value)
           # end
         end
+
+        # rule(:tax_household_groups, :tax_household) do
+        #   if values[:tax_household_groups].blank? && values[:tax_household].blank?
+        #     key.failure('tax_household or tax_houshold_group must be present')
+        #   end
+        # end
 
         # rule(:subscriber).validate(nested_contract: EnrolledMemberContract)
         # rule(:subscriber) do
