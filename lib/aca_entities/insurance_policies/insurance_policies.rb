@@ -7,9 +7,6 @@ module AcaEntities
   module InsurancePolicies
     # TODO: Add the classes for the domain in dependency order
 
-    # Custom Types
-    require_relative 'types'
-
     # Contracts
     require_relative 'contracts/contract'
     require_relative 'contracts/member_contract'
