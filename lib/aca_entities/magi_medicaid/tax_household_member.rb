@@ -29,6 +29,17 @@ module AcaEntities
       def csr
         product_eligibility_determination&.csr
       end
+
+      def age_on(date)
+        dob = applicant_reference.dob
+        age = date.year - dob.year
+
+        if date.month < dob.month || (date.month == dob.month && date.day < dob.day)
+          age - 1
+        else
+          age
+        end
+      end
     end
   end
 end
