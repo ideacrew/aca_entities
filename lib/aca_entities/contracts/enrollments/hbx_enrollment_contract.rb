@@ -104,6 +104,7 @@ module AcaEntities
           optional(:resident_role_reference).hash(AcaEntities::Contracts::People::ResidentRoleReferenceContract.params)  # TODO: revisit
           optional(:benefit_package_reference).hash(AcaEntities::Contracts::BenefitCatalogs::BenefitPackageReferenceContract.params)
           optional(:benefit_coverage_period_reference).hash(AcaEntities::Contracts::BenefitCatalogs::BenefitCoveragePeriodReferenceContract.params)
+          optional(:tax_households_references).array(AcaEntities::Contracts::PremiumCredits::TaxHouseholdEnrollmentContract.params)
 
           # TODO: Add shop contracts
           # optional(:employee_role_reference).filled(:hash)

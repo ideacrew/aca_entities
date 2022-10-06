@@ -22,6 +22,8 @@ module AcaEntities
           optional(:household_dental_benchmark_ehb_premium).maybe(:hash)
           optional(:health_product_hios_id).maybe(:string)
           optional(:dental_product_hios_id).maybe(:string)
+          optional(:applied_aptc).maybe(:hash)
+          optional(:available_max_aptc).maybe(:hash)
           required(:tax_household_members_enrollment_members).array(
             AcaEntities::Contracts::PremiumCredits::TaxHouseholdMemberEnrollmentMemberContract.params
           )

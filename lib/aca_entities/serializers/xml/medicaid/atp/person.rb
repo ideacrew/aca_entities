@@ -37,12 +37,9 @@ module AcaEntities
               mapper.person_name = PersonName.domain_to_mapper(person.person_name)
               mapper.race = person.race
               mapper.sex = person.sex
-              if person&.ssn_identification&.identification_id && !person.ssn_identification.identification_id.empty?
+              if person.ssn_identification&.identification_id.present? || person.ssn_identification&.identification_category_text.present?
                 mapper.ssn_identification = PersonSsnIdentification.domain_to_mapper(person.ssn_identification)
               end
-              # if person.ssn_identification && person.ssn_identification.identification_id && !person.ssn_identification.identification_id.empty?
-              #   mapper.ssn_identification = PersonSsnIdentification.domain_to_mapper(person.ssn_identification)
-              # end
               mapper.us_citizen_indicator = person.us_citizen_indicator
               mapper.living_indicator = person.living_indicator
               mapper.person_augmentation = PersonAugmentation.domain_to_mapper(person.person_augmentation)

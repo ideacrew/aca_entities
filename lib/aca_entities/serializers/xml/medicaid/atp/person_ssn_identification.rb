@@ -13,10 +13,12 @@ module AcaEntities
             namespace 'nc'
 
             element :identification_id, String, tag: "IdentificationID"
+            element :identification_category_text, String, tag: "IdentificationCategoryText"
 
             def self.domain_to_mapper(ssn)
               mapper = self.new
               mapper.identification_id = ssn&.identification_id || ""
+              mapper.identification_category_text = ssn.identification_category_text if ssn&.identification_category_text
               mapper
             end
 
