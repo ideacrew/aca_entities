@@ -138,4 +138,14 @@ RSpec.describe AcaEntities::Households::TaxHouseholdGroup, dbclean: :after_each 
       expect { described_class.new(input_params) }.not_to raise_error
     end
   end
+
+  describe 'without end_on' do
+    it 'should not raise error' do
+      expect do
+        described_class.new(input_params.reject do |k, _v|
+                              k == :end_on
+                            end)
+      end.not_to raise_error
+    end
+  end
 end
