@@ -39,6 +39,8 @@ module AcaEntities
 
     CsrKind = Types::Coercible::String.enum('0', '73', '87', '94', '100', 'limited')
 
+    TaxFilerKind = Types::Coercible::String.enum('tax_filer', 'single', 'joint', 'separate', 'dependent', 'non_filer')
+
     McrToCvIncarcerationKind =
       Types.Constructor(self) { |value| value == 'INCARCERATED' }
 

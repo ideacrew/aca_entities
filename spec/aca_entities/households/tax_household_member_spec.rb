@@ -43,6 +43,8 @@ RSpec.describe ::AcaEntities::Households::TaxHouseholdMember, dbclean: :after_ea
     { family_member_reference: family_member_reference,
       reason: "",
       is_subscriber: true,
+      tax_filer_status: 'single',
+      slcsp_benchmark_premium: currency,
       product_eligibility_determination: tax_household_member_eligibity_determination }
 
   end

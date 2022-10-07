@@ -14,7 +14,7 @@ module AcaEntities
           optional(:product_eligibility_determination).maybe(ProductEligibilityDeterminationContract.params)
           required(:applicant_reference).maybe(ApplicantReferenceContract.params)
           optional(:is_subscriber).value(:bool?)
-          optional(:is_tax_filer).value(:bool?)
+          optional(:tax_filer_status).maybe(::AcaEntities::MagiMedicaid::Types::TaxFilerKind)
         end
       end
     end
