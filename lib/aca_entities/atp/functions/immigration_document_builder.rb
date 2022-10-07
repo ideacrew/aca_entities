@@ -4,10 +4,11 @@ module AcaEntities
   module Atp
     module Functions
       # build immigration documents
-      class ImmigrationDocumentBuilder
+      class ImmigrationDocumentBuilder # rubocop:disable Metrics/ClassLength
 
         def call(cache) # rubocop:disable Metrics/CyclomaticComplexity, Metrics/MethodLength
           @vlp_document = cache.resolve('vlp_document').item
+          @document_person_ids = []
           return [] unless @vlp_document
 
           case @vlp_document[:subject]
@@ -46,110 +47,141 @@ module AcaEntities
           [doc]
         end
 
+        # Document hash methods
         def i327_doc
+          @document_person_ids << alien_number if alien_number
           {
             category_code: 'I327',
             expiration_date: expiration_date,
-            document_numbers: [alien_number]
+            document_person_ids: @document_person_ids
           }
         end
 
         def i551_doc
+          @document_person_ids << alien_number if alien_number
+          @document_person_ids << card_number if card_number
           {
             category_code: 'I551',
             expiration_date: expiration_date,
-            document_numbers: [alien_number, card_number]
+            document_person_ids: @document_person_ids
           }
         end
 
         def i571_doc
+          @document_person_ids << alien_number if alien_number
           {
             category_code: 'I571',
             expiration_date: expiration_date,
-            document_numbers: [alien_number]
+            document_person_ids: @document_person_ids
           }
         end
 
         def i766_doc
+          @document_person_ids << alien_number if alien_number
+          @document_person_ids << card_number if card_number
           {
             category_code: 'I766',
             expiration_date: expiration_date,
-            document_numbers: [alien_number, card_number]
+            document_person_ids: @document_person_ids
           }
         end
 
         def citizenship_doc
+          @document_person_ids << citizenship_number if citizenship_number
+          @document_person_ids << alien_number if alien_number
           {
             category_code: 'CertificateOfCitizenship',
             expiration_date: expiration_date,
-            document_numbers: [citizenship_number, alien_number]
+            document_person_ids: @document_person_ids
           }
         end
 
         def naturalization_doc
+          @document_person_ids << naturalization_number if naturalization_number
           {
             category_code: 'NaturalizationCertificate',
             expiration_date: expiration_date,
-            document_numbers: [naturalization_number]
+            document_person_ids: @document_person_ids
           }
         end
 
         def machine_readable_visa_doc
+          @document_person_ids << alien_number if alien_number
+          @document_person_ids << passport_number if passport_number
+          @document_person_ids << visa_number if visa_number
           {
             category_code: 'MachineReadableVisa',
             expiration_date: expiration_date,
-            document_numbers: [alien_number, passport_number, visa_number]
+            document_person_ids: @document_person_ids
           }
         end
 
         def i557_stamp_doc
+          @document_person_ids << alien_number if alien_number
+          @document_person_ids << passport_number if passport_number
           {
             category_code: 'TemporaryI551Stamp',
             expiration_date: expiration_date,
-            document_numbers: [alien_number, passport_number]
+            document_person_ids: @document_person_ids
           }
         end
 
         def i94_doc
+          @document_person_ids << i94_number if i94_number
+          @document_person_ids << sevis_id if sevis_id
           {
             category_code: 'I94',
             expiration_date: expiration_date,
-            document_numbers: [i94_number, sevis_id]
+            document_person_ids: @document_person_ids
           }
         end
 
         def i94_in_passport_doc
+          @document_person_ids << i94_number if i94_number
+          @document_person_ids << visa_number if visa_number
+          @document_person_ids << sevis_id if sevis_id
+          @document_person_ids << passport_number if passport_number
           {
             category_code: 'I94InPassport',
             expiration_date: expiration_date,
-            document_numbers: [i94_number, visa_number, sevis_id, passport_number]
+            document_person_ids: @document_person_ids
           }
         end
 
         def foreign_passport_doc
+          @document_person_ids << passport_number if passport_number
+          @document_person_ids << i94_number if i94_number
+          @document_person_ids << sevis_id if sevis_id
           {
             category_code: 'UnexpiredForeignPassport',
             expiration_date: expiration_date,
-            document_numbers: [passport_number, i94_number, sevis_id]
+            document_person_ids: @document_person_ids
           }
         end
 
         def i20_doc
+          @document_person_ids << i94_number if i94_number
+          @document_person_ids << sevis_id if sevis_id
+          @document_person_ids << passport_number if passport_number
           {
             category_code: 'I20',
             expiration_date: expiration_date,
-            document_numbers: [i94_number, sevis_id, passport_number]
+            document_person_ids: @document_person_ids
           }
         end
 
         def ds2019_doc
+          @document_person_ids << i94_number if i94_number
+          @document_person_ids << sevis_id if sevis_id
+          @document_person_ids << passport_number if passport_number
           {
             category_code: 'DS2019',
             expiration_date: expiration_date,
-            document_numbers: [i94_number, sevis_id, passport_number]
+            document_person_ids: @document_person_ids
           }
         end
 
+        # Document number hash methods
         def alien_number
           return unless @vlp_document[:alien_number]
           {
@@ -187,7 +219,7 @@ module AcaEntities
           return unless @vlp_document[:sevis_id]
           {
             :identification_id => @vlp_document[:sevis_id],
-            :identification_category_text => "SEVIS ID"
+            :identification_category_text => "Sevis ID"
           }
         end
 
@@ -195,7 +227,7 @@ module AcaEntities
           return unless @vlp_document[:naturalization_number]
           {
             :identification_id => @vlp_document[:naturalization_number],
-            :identification_category_text => "Naturalization Number"
+            :identification_category_text => "Naturalization Certificate Number"
           }
         end
 
@@ -211,7 +243,7 @@ module AcaEntities
           return unless @vlp_document[:citizenship_number]
           {
             :identification_id => @vlp_document[:citizenship_number],
-            :identification_category_text => "Citizenship Number"
+            :identification_category_text => "Certificate Of Citizenship"
           }
         end
 
