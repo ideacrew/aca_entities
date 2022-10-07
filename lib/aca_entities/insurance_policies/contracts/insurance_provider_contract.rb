@@ -13,6 +13,7 @@ module AcaEntities
           optional(:id).value(:string)
           required(:title).value(:string)
           required(:hios_id).filled(:string)
+          required(:fein).filled(:string)
 
           # required(:organization).filled(AcaEntities::Organizations::Contracts::OrganizationContract.params)
           optional(:insurance_products).array(

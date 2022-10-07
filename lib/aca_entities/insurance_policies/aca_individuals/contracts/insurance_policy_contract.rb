@@ -20,7 +20,7 @@ module AcaEntities
             required(:insurance_product).value(
               AcaEntities::InsurancePolicies::Contracts::InsuranceProductContract.params
             )
-            required(:enrollments).array(AcaEntities::InsurancePolicies::EnrollmentContract.params)
+            required(:enrollments).array(AcaEntities::InsurancePolicies::Contracts::EnrollmentContract.params)
             required(:start_on).value(:date)
             optional(:end_on).maybe(AcaEntities::Types::DateOrNil)
             optional(:timestamps).maybe(AcaEntities::Contracts::TimeStampContract.params)
