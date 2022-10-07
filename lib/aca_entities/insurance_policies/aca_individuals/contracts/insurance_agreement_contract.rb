@@ -19,7 +19,9 @@ module AcaEntities
             required(:insurance_provider).value(
               AcaEntities::InsurancePolicies::Contracts::InsuranceProviderContract.params
             )
-            required(:insurance_policies).array(
+
+            # TODO: make this required followin initial 'partial seed' process
+            optional(:insurance_policies).array(
               AcaEntities::InsurancePolicies::AcaIndividuals::Contracts::InsurancePolicyContract.params
             )
 
