@@ -412,6 +412,8 @@ module AcaEntities
 
       # Benchmark Products Household Type
       BenchmarkProductsHouseholdType = Types::Coercible::String.enum('adult_only', 'adult_and_child', 'child_only')
+
+      TaxFilerKind = Types::Coercible::String.enum('tax_filer', 'single', 'joint', 'separate', 'dependent', 'non_filer')
     end
     # rubocop:enable Metrics/ModuleLength
   end

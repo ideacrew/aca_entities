@@ -8,7 +8,7 @@ module AcaEntities
       attribute :product_eligibility_determination, ProductEligibilityDetermination.optional.meta(omittable: true)
       attribute :applicant_reference, ApplicantReference.meta(omittable: false)
       attribute :is_subscriber,           Types::Bool.optional.meta(omittable: true)
-      attribute :is_tax_filer,            Types::Bool.optional.meta(omittable: true)
+      attribute :tax_filer_status,        ::AcaEntities::MagiMedicaid::Types::TaxFilerKind.optional.meta(omittable: true)
 
       # MagiMedicaid Category Determination for type Income
       def medicaid_cd_for_income
