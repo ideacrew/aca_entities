@@ -24,7 +24,10 @@ RSpec.describe ::AcaEntities::Contracts::Products::ProductReferenceContract, dbc
       product_kind: 'health',
       benefit_market_kind: 'aca_shop',
       ehb_percent: '0.0',
-      issuer_profile_reference: issuer_profile_reference
+      issuer_profile_reference: issuer_profile_reference,
+      covers_pediatric_dental_costs: true,
+      rating_method: 'Age-Based Rates',
+      pediatric_dental_ehb: nil
     }
   end
 

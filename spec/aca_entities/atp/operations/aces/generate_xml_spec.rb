@@ -68,6 +68,15 @@ RSpec.describe AcaEntities::Atp::Operations::Aces::GenerateXml  do
       end
     end
 
+    context 'when applicant is filing taxes' do
+      it 'should include tax return tags in the payload' do
+        result = described_class.new.call(payload)
+        doc = Nokogiri::XML.parse(result.value!)
+        texts = doc.xpath("//hix-ee:TaxReturn", namespaces)
+        expect(texts.present?).to be_truthy
+      end
+    end
+
     context 'when no applicants are filing taxes' do
       let(:no_tax_filers_payload) do
         payload_hash = JSON.parse(payload)

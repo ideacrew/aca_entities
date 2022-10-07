@@ -59,6 +59,9 @@ module AcaEntities
 
           optional(:submitted_at).maybe(:date_time)
           optional(:full_medicaid_determination).maybe(:bool)
+
+          # benchmark_product is used for dynamic ehb premium values including pediatric dental values.
+          optional(:benchmark_product).maybe(AcaEntities::MagiMedicaid::Contracts::BenchmarkProducts::BenchmarkProductContract.params)
         end
       end
     end
