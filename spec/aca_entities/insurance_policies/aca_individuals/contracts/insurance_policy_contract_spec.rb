@@ -23,7 +23,9 @@ RSpec.describe AcaEntities::InsurancePolicies::AcaIndividuals::Contracts::Insura
       policy_id: policy_id,
       marketplace_segment_id: marketplace_segment_id,
       coverage_kind: coverage_kind,
-      insurance_product: insurance_product
+      insurance_product: insurance_product,
+      enrollments: [enrollment],
+      start_on: Date.new(moment.year, 1, 1)
     }
   end
   let(:optional_params) { { id: id, insurer_policy_id: insurer_policy_id, timestamps: timestamps } }
@@ -54,7 +56,9 @@ RSpec.describe AcaEntities::InsurancePolicies::AcaIndividuals::Contracts::Insura
         policy_id: ['is missing'],
         marketplace_segment_id: ['is missing'],
         coverage_kind: ['is missing'],
-        insurance_product: ['is missing']
+        insurance_product: ['is missing'],
+        enrollments: ["is missing"],
+        start_on: ["is missing"]
       }
     end
     it 'should pass validation' do

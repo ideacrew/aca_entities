@@ -11,9 +11,12 @@ module AcaEntities
           # @option opts [String] :id
           # @option opts [String] :irs_group_id (required)
           # @option opts [Array<Hash>] :families one or more (in MTHH scenario) Enroll App family (required)
-          # @option opts [Array<AcaEntities::InsurancePolicies::AcaIndividuals::Contracts::InsuranceAgreementContract>] :individual_insurance_agreements
-          # @option opts [Array<AcaEntities::Contracts::Households::TaxHouseholdGroupContract>] :tax_household_groups Multi-Tax Household attributes
-          # @option opts [AcaEntities::Contracts::Households::TaxHouseholdContract] :tax_household Single Tax Household attributes
+          # @option opts [Array<AcaEntities::InsurancePolicies::AcaIndividuals::Contracts::InsuranceAgreementContract>]
+          # :individual_insurance_agreements
+          # @option opts [Array<AcaEntities::Contracts::Households::TaxHouseholdGroupContract>] :tax_household_groups
+          # Multi-Tax Household attributes
+          # @option opts [AcaEntities::Contracts::Households::TaxHouseholdContract] :tax_household Single
+          # Tax Household attributes
           # @option opts [Array<Hash>] :edi_db_policies EDI database policy records associated with this IRS Group
           # @option opts [Date] :start_on (required)
           # @option opts [Date] :end_on

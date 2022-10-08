@@ -37,11 +37,9 @@ module AcaEntities
           end
 
           rule(:tax_household_groups, :tax_household) do
-            # rubocop:disable Style/IfUnlessModifier
             if values[:tax_household_groups].empty? && values[:tax_household].empty?
               key.failure('tax_household or tax_houshold_group must be present')
             end
-            # rubocop:enable Style/IfUnlessModifier
           end
         end
       end

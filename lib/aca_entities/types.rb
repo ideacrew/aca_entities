@@ -29,7 +29,7 @@ module AcaEntities
       'pos' => 'Point-of-Service Plan (POS)',
       'catastrophic' => 'Catastrophic Plan',
       'high_deductable' => 'High-Deductible Health Plan With or Without a Health Savings Account'
-    }
+    }.freeze
 
     AcaEssentialHealthBenefitKind =
       Types::Coercible::String.enum(

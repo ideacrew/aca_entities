@@ -12,7 +12,7 @@ module AcaEntities
         params do
           optional(:id).value(:string)
 
-          #TODO: change authority to organization/custom type
+          # TODO: change authority to organization/custom type
           required(:authority).value(:string)
           required(:validated_on).value(:date)
           optional(:payload).value(AcaEntities::Types::StringOrNil)

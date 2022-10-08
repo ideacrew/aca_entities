@@ -28,7 +28,7 @@ RSpec.shared_context 'insurance_policies_context' do
   let(:shared_insurance_products) { [shared_health_insurance_product] }
   let(:shared_insurance_policies) { [shared_individual_insurance_policy] }
 
-  let(:shared_insurance_provider) { { hios_id: hios_id, title: shared_insurance_provider_title } }
+  let(:shared_insurance_provider) { { hios_id: hios_id, title: shared_insurance_provider_title, fein: "12345" } }
 
   # InsuranceProductFeatures
   let(:key) { 'pediatric_dental' }
@@ -60,7 +60,9 @@ RSpec.shared_context 'insurance_policies_context' do
       policy_id: policy_id,
       marketplace_segment_id: marketplace_segment_id,
       coverage_kind: coverage_kind,
-      insurance_product: insurance_product
+      insurance_product: insurance_product,
+      enrollments: [enrollment],
+      start_on: Date.new(moment.year, 1, 1)
     }
   end
 
@@ -244,7 +246,7 @@ RSpec.shared_context 'insurance_policies_context' do
 
   let(:initial_enrollment_election) do
     {
-      subscriber: subscriber,
+      subscriber: enrollment_subscriber,
       product_kind: product_kind,
       product: product,
       product_details: product_details,
@@ -276,9 +278,7 @@ RSpec.shared_context 'insurance_policies_context' do
     {
       subscriber: enrollment_subscriber,
       dependents: enrollment_dependents,
-      enrollment_elections: enrollment_elections,
-      subscriber_service_area_id: subscriber_service_area_id,
-      subscriber_rating_area_id: subscriber_rating_area_id
+      start_on: Date.new(moment.year, 1, 1)
     }
   end
 end

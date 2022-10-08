@@ -20,9 +20,7 @@ RSpec.describe AcaEntities::InsurancePolicies::Contracts::EnrollmentContract do
   let(:required_params) do
     {
       subscriber: subscriber,
-      enrollment_elections: enrollment_elections,
-      subscriber_service_area_id: subscriber_service_area_id,
-      subscriber_rating_area_id: subscriber_rating_area_id
+      start_on: Date.new(moment.year, 1, 1)
     }
   end
 
@@ -52,9 +50,7 @@ RSpec.describe AcaEntities::InsurancePolicies::Contracts::EnrollmentContract do
     let(:error_message) do
       {
         subscriber: ['is missing'],
-        enrollment_elections: ['is missing'],
-        subscriber_service_area_id: ['is missing'],
-        subscriber_rating_area_id: ['is missing']
+        start_on: ["is missing"]
       }
     end
     it 'should pass validation' do

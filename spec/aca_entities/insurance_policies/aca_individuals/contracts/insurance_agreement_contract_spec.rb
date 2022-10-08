@@ -54,7 +54,6 @@ RSpec.describe AcaEntities::InsurancePolicies::AcaIndividuals::Contracts::Insura
         {
           contract_holder: ['is missing'],
           insurance_provider: ['is missing'],
-          insurance_policies: ['is missing'],
           start_on: ['is missing']
         }
       end
