@@ -12,6 +12,7 @@ module AcaEntities
       attribute :ssn,                           Types::String.optional.meta(omittable: true)
       attribute :encrypted_ssn,                 Types::String.optional.meta(omittable: true)
       attribute :dob,                           Types::Date.optional.meta(omittable: true)
+      attribute :relation_with_primary,         Types::String.optional.meta(omittable: true)
     end
   end
 end

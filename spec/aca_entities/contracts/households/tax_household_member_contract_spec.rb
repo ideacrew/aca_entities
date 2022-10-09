@@ -10,7 +10,8 @@ RSpec.describe ::AcaEntities::Contracts::Households::TaxHouseholdMemberContract,
       first_name: 'first name',
       last_name: 'last name',
       person_hbx_id: '1001',
-      is_primary_family_member: true
+      is_primary_family_member: true,
+      relation_with_primary: 'self'
     }
   end
 
@@ -45,7 +46,6 @@ RSpec.describe ::AcaEntities::Contracts::Households::TaxHouseholdMemberContract,
       is_subscriber: true,
       tax_filer_status: 'single',
       slcsp_benchmark_premium: currency,
-      relation_with_primary: 'self',
       product_eligibility_determination: tax_household_member_eligibity_determination }
 
   end

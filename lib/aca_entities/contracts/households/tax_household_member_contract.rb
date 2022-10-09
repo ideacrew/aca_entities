@@ -17,7 +17,6 @@ module AcaEntities
           optional(:product_eligibility_determination).hash(AcaEntities::Contracts::Determinations::ProductEligibilityDeterminationContract.params)
           optional(:is_subscriber).value(:bool?)
           optional(:tax_filer_status).maybe(AcaEntities::Types::TaxFilerKind)
-          optional(:relation_with_primary).maybe(:string)
           optional(:slcsp_benchmark_premium).maybe(AcaEntities::Contracts::CurrencyContract.params)
           optional(:reason).maybe(:string)
         end
