@@ -45,6 +45,7 @@ RSpec.describe ::AcaEntities::Households::TaxHouseholdMember, dbclean: :after_ea
       is_subscriber: true,
       tax_filer_status: 'single',
       slcsp_benchmark_premium: currency,
+      relation_with_primary: 'self',
       product_eligibility_determination: tax_household_member_eligibity_determination }
 
   end
