@@ -69,7 +69,7 @@ module AcaEntities
           family_flags = cache.resolve('family.family_flags').item
           member_id = cache.find(/family.family_members.(\w+)$/).map(&:item).last
           person_relationships = @applicants_hash[member_id.to_sym][:mitc_relationships]
-          person_relationships = find_relationships_to_member(member_id) if family_flags[:invert_person_association]
+          person_relationships = find_relationships_to_member(member_id) if family_flags&.dig(:invert_person_association)
           return unless person_relationships
 
           person_relationships.uniq.each_with_object([]) do |person_relationship, collect|
