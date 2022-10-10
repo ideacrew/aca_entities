@@ -102,6 +102,7 @@ RSpec.describe ::AcaEntities::Contracts::Households::TaxHouseholdContract, dbcle
       allocated_aptc: currency,
       is_eligibility_determined: true,
       start_date: Date.today,
+      end_date: nil,
       tax_household_members: tax_household_members,
       yearly_expected_contribution: { cents: 10_278_238, currency_iso: "USD" },
       eligibility_determinations: eligibility_determinations
