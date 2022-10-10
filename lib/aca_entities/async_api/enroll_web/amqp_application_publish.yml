@@ -56,32 +56,6 @@ channels:
           content_type: application/json
           bindingVersion: 0.2.0
 
-  enroll.iap.applications.renewals.eligibility_determination_triggered:
-    bindings:
-      amqp:
-        is: :routing_key
-        exchange:
-          name: enroll.iap.applications.renewals
-          type: topic
-          content_type: application/json
-          durable: true
-          auto_delete: false
-          vhost: event_source
-        binding_version: '0.2.0'
-    publish:
-      operationId: enroll.iap.applications.renewals.eligibility_determination_triggered
-      description: Events - Eligibility determination triggered
-      bindings:
-        amqp:
-          app_id: enroll
-          type: enroll.iap.applications.renewals
-          routing_key: enroll.iap.applications.renewals.eligibility_determination_triggered
-          deliveryMode: 2
-          mandatory: true
-          timestamp: true
-          content_type: application/json
-          bindingVersion: 0.2.0
-
   enroll.iap.applications.determinations.application_renewal_created:
     bindings:
       amqp:
