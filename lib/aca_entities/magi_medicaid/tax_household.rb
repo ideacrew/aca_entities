@@ -31,6 +31,18 @@ module AcaEntities
       def aptc_csr_eligible_members
         tax_household_members.select(&:aptc_csr_eligible?)
       end
+
+      def aptc_members_aged_19_or_above(effective_date)
+        tax_household_members.select do |thhm|
+          thhm.aptc_csr_eligible? && thhm.age_on(effective_date) >= 19
+        end
+      end
+
+      def aptc_members_aged_below_19(effective_date)
+        tax_household_members.select do |thhm|
+          thhm.aptc_csr_eligible? && thhm.age_on(effective_date) < 19
+        end
+      end
     end
   end
 end

@@ -18,7 +18,7 @@ module AcaEntities
                 Types::Strict::Array.of(AcaEntities::Determinations::EligibilityDetermination).optional.meta(omittable: true)
 
       # Yearly Expected Contribution
-      attribute :yearly_expected_contribution, ::AcaEntities::Types::Money.optional.meta(omittable: true)
+      attribute :yearly_expected_contribution, AcaEntities::Currency.optional.meta(omittable: true)
 
       attribute :eligibility_determination_hbx_id, Types::String.optional.meta(omittable: true)
       attribute :max_aptc,                      AcaEntities::Currency.optional.meta(omittable: true)

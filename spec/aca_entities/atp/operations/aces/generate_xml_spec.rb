@@ -34,7 +34,7 @@ RSpec.describe AcaEntities::Atp::Operations::Aces::GenerateXml  do
       expect(texts.first.content).to eq 'AppliedForSSN'
     end
 
-    it 'should have a preganacy end date if in post partum period' do
+    it 'should have a pregnancy end date if in post partum period' do
       payload_hash = JSON.parse(payload, symbolize_names: true)
       payload_hash[:family][:magi_medicaid_applications][:applicants].first[:pregnancy_information][:is_post_partum_period] = true
       payload_hash[:family][:magi_medicaid_applications][:applicants].first[:pregnancy_information][:pregnancy_end_on] = Date.today
@@ -46,6 +46,28 @@ RSpec.describe AcaEntities::Atp::Operations::Aces::GenerateXml  do
     end
 
     context 'when vlp document is present on applicant' do
+      context 'naturalized citizen with Certificate of Citizenship' do
+        let(:naturalized_citizen_payload) do
+          payload_hash = JSON.parse(payload, symbolize_names: true)
+          applicant = payload_hash[:family][:magi_medicaid_applications][:applicants].first
+          applicant[:citizenship_immigration_status_information][:citizen_status] = 'naturalized_citizen'
+          applicant[:vlp_document] = {}
+          applicant[:vlp_document][:subject] = 'Certificate of Citizenship'
+          applicant[:vlp_document][:citizenship_number] = '234567'
+          payload_hash.to_json
+        end
+
+        it 'should populate LawfulPresenceDocumentPersonIdentification tags for Certificate of Citizenship' do
+          result = described_class.new.call(naturalized_citizen_payload)
+          doc = Nokogiri::XML.parse(result.value!)
+          tags = doc.xpath("//hix-ee:LawfulPresenceDocumentPersonIdentification/nc:IdentificationCategoryText", namespaces)
+          node = tags.detect {|t| t.text == 'Certificate Of Citizenship'}&.parent
+          expect(node.present?).to be_truthy
+          expect(node.children.detect {|c| c.name == 'IdentificationID'}.text).to eq '234567'
+          expect(node.children.detect {|c| c.name == 'IdentificationCategoryText'}.text).to eq 'Certificate Of Citizenship'
+        end
+      end
+
       context 'when expiration date is nil' do
         it 'should not create and populate LawfulPresenceDocumentExpirationDate tags' do
           payload_hash = JSON.parse(payload, symbolize_names: true)
@@ -65,6 +87,15 @@ RSpec.describe AcaEntities::Atp::Operations::Aces::GenerateXml  do
         result = described_class.new.call(payload1)
         _example_output_xml = File.read(Pathname.pwd.join('spec/support/atp/sample_payloads/simple_L_transformed_payload.xml'))
         expect(result.success?).to be_truthy
+      end
+    end
+
+    context 'when applicant is filing taxes' do
+      it 'should include tax return tags in the payload' do
+        result = described_class.new.call(payload)
+        doc = Nokogiri::XML.parse(result.value!)
+        texts = doc.xpath("//hix-ee:TaxReturn", namespaces)
+        expect(texts.present?).to be_truthy
       end
     end
 

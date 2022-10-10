@@ -11,7 +11,7 @@ module AcaEntities
         def call(cache)
           @memoized_data = cache
           @applicants_hash = @memoized_data.resolve('family.magi_medicaid_applications.applicants').item
-          return if @applicants_hash.values.detect {|applicant| applicant['is_required_to_file_taxes']}.nil?
+          return if @applicants_hash.values.detect {|applicant| applicant[:is_required_to_file_taxes]}.nil?
 
           @member_id = @memoized_data.find(Regexp.new('is_primary_applicant.*')).select {|a|  a.item == true}.first.name.split('.').last
           @person_relationships = @applicants_hash[@member_id.to_sym][:mitc_relationships]
