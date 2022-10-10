@@ -119,6 +119,17 @@
                                 "ssn": null
                             },
                             "kind": "self"
+                        },
+                        {
+                            "relative": {
+                                "hbx_id": "1002699",
+                                "first_name": "Helen",
+                                "last_name": "test",
+                                "gender": "Female",
+                                "dob": "01/01/1997",
+                                "ssn": null
+                            },
+                            "kind": "child"
                         }
                     ]
                 },
@@ -236,14 +247,14 @@
                     "person_relationships": [
                         {
                             "relative": {
-                                "hbx_id": "1234",
+                                "hbx_id": "1003158",
                                 "first_name": "Simple",
                                 "last_name": "L",
                                 "gender": "Male",
                                 "dob": "01/01/1941",
                                 "ssn": null
                             },
-                            "kind": "child"
+                            "kind": "parent"
                         }
                     ]
                 },
@@ -441,11 +452,11 @@
                         "is_applying_coverage": true,
                         "is_consent_applicant": false,
                         "vlp_document": {
-                            "subject": "I-94 (Arrival/Departure Record) in Unexpired Foreign Passport",                          
+                            "subject": "I-94 (Arrival/Departure Record) in Unexpired Foreign Passport",
                             "i94_number": "12345678912",
                             "visa_number": "12345678",
                             "passport_number": "123456",
-                            "sevis_id": "1234567891",                                     
+                            "sevis_id": "1234567891",
                             "country_of_citizenship": "USA",
                             "expiration_date": "01-01-2020",
                             "issuing_country": "USA",
