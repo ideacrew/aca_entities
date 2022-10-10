@@ -160,7 +160,7 @@ RSpec.describe ::AcaEntities::Contracts::Households::TaxHouseholdContract, dbcle
       end
 
       it 'should return error message' do
-        result = subject.call(required_params.merge(start_date: nil))
+        result = subject.call(required_params.merge(start_date: 'random string'))
         expect(result.errors.messages.first.text).to eq('must be a date')
       end
     end
