@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe ::AcaEntities::Curreny, dbclean: :after_each do
+RSpec.describe ::AcaEntities::Currency, dbclean: :after_each do
 
   let!(:input_params) do
     {

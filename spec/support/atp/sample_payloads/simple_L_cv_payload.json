@@ -273,7 +273,7 @@
                     "is_active": null,
                     "is_disabled": false,
                     "person_demographics": {
-                        "ssn": "4iZwbErnZLQfDLQkqNBlm4AKuP4LI8RMkg==",
+                        "encrypted_ssn": "4iZwbErnZLQfDLQkqNBlm4AKuP4LI8RMkg==",
                         "gender": "male",
                         "dob": "01/01/2010",
                         "no_ssn": "0",
@@ -493,7 +493,7 @@
                         "is_five_year_bar_met": false,
                         "is_forty_quarters": false,
                         "is_ssn_applied": false,
-                        "non_ssn_apply_reason": "",
+                        "non_ssn_apply_reason": "NoGoodCause",
                         "moved_on_or_after_welfare_reformed_law": false,
                         "is_currently_enrolled_in_health_plan": false,
                         "has_daily_living_help": false,
@@ -573,7 +573,7 @@
                                 "amount_tax_exempt": 0,
                                 "frequency_kind": "Annually",
                                 "start_on": "2021-01-01",
-                                "end_on": null,
+                                "end_on": "2021-12-31",
                                 "is_projected": false,
                                 "tax_form": null,
                                 "employer": {

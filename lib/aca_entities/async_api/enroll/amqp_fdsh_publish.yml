@@ -212,6 +212,32 @@ channels:
           content_type: application/json
           bindingVersion: 0.2.0
 
+  enroll.fdsh_verifications.pvc.periodic_verification_confirmation:
+    bindings:
+      amqp:
+        is: :routing_key
+        exchange:
+          name: enroll.fdsh_verifications.pvc
+          type: topic
+          content_type: application/json
+          durable: true
+          auto_delete: false
+          vhost: event_source
+        binding_version: "0.2.0"
+    publish:
+      operationId: enroll.fdsh_verifications.pvc.periodic_verification_confirmation
+      description: Events - FDSH PVC Medicare determination Requests
+      bindings:
+        amqp:
+          app_id: enroll
+          type: enroll.fdsh_verifications.pvc
+          routing_key: enroll.fdsh_verifications.pvc.periodic_verification_confirmation
+          deliveryMode: 2
+          mandatory: true
+          timestamp: true
+          content_type: application/json
+          bindingVersion: 0.2.0
+
 tags:
   - name: linter_tag
     description: placeholder that satisfies the linter

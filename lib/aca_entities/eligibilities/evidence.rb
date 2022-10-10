@@ -7,7 +7,7 @@ module AcaEntities
 
       attribute :key, Types::Symbol.meta(omittable: false)
       attribute :title, Types::String.meta(omittable: false)
-      attribute :aasm_state, Types::String.meta(omittable: false)
+      attribute :aasm_state, Types::String.meta(omittable: true)
 
       attribute :description, Types::String.optional.meta(omittable: true)
       attribute :received_at, Types::DateTime.optional.meta(omittable: true)

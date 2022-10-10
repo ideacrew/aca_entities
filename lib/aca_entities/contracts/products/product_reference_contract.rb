@@ -19,6 +19,9 @@ module AcaEntities
         # @option opts [String] :family_deductible optional
         # @option opts [String] :individual_deductible optional
         # @option opts [Hash] :issuer_profile required
+        # @option opts [Boolean] :covers_pediatric_dental_costs optional
+        # @option opts [String] :rating_method optional
+        # @option opts [::AcaEntities::Types::Money] :pediatric_dental_ehb optional
         # @return [Dry::Monads::Result]
         params do
           required(:hios_id).filled(:string)
@@ -34,6 +37,10 @@ module AcaEntities
           optional(:family_deductible).maybe(:string)
           optional(:individual_deductible).maybe(:string)
           required(:issuer_profile_reference).hash(AcaEntities::Contracts::Organizations::IssuerProfileReferenceContract.params)
+
+          optional(:covers_pediatric_dental_costs).maybe(:bool)
+          optional(:rating_method).maybe(:string)
+          optional(:pediatric_dental_ehb).maybe(::AcaEntities::Types::Money)
         end
       end
     end
