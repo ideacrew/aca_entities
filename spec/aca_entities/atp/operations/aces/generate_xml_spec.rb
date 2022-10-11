@@ -172,6 +172,20 @@ RSpec.describe AcaEntities::Atp::Operations::Aces::GenerateXml  do
           expect(texts.present?).to be_falsey
         end
       end
+
+      context 'pregnancy status defer to post partum' do
+        it 'should populate the PersonPregnancyStatus/StatusIndictor with true' do
+          param_flags = { 'drop_param_flags' => ['post_partum_is_pregnancy'] }
+          flagged_payload = payload_hash.merge(param_flags)
+          flagged_payload["family"]["magi_medicaid_applications"]["applicants"].first["pregnancy_information"]["is_pregnant"] = false
+          flagged_payload["family"]["magi_medicaid_applications"]["applicants"].first["pregnancy_information"]["is_post_partum_period"] = true
+          result = described_class.new.call(flagged_payload.to_json)
+          doc = Nokogiri::XML.parse(result.value!)
+          texts = doc.xpath("//hix-core:PersonPregnancyStatus/hix-core:StatusIndicator", namespaces)
+          expect(texts.present?).to be_truthy
+          expect(texts&.first&.content&.strip).to eq "true"
+        end
+      end
     end
   end
 end
