@@ -10,7 +10,7 @@ module AcaEntities
             include HappyMapper
 
             tag 'LawfulPresenceDocumentExpirationDate'
-            namespace 'nc'
+            namespace 'hix-ee'
 
             element :date, Date, tag: "Date", namespace: "nc"
             element :date_time, DateTime, tag: "DateTime", namespace: "nc"

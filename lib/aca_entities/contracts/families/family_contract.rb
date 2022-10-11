@@ -29,6 +29,7 @@ module AcaEntities
         params do
           required(:family_members).array(AcaEntities::Contracts::Families::FamilyMemberContract.params)
           optional(:households).array(AcaEntities::Contracts::Households::HouseholdContract.params)
+          optional(:tax_household_groups).array(AcaEntities::Contracts::Households::TaxHouseholdGroupContract.params)
 
           optional(:hbx_id).filled(:string)
           optional(:foreign_keys).array(AcaEntities::Contracts::Identifiers::IdContract.params)

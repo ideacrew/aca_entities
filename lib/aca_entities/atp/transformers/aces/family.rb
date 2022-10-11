@@ -172,6 +172,14 @@ module AcaEntities
                       result = AcaEntities::Operations::Encryption::Decrypt.new.call({ value: v })
                       result.success? ? result.value! : nil
                     }
+                    add_key 'ssn_identification.identification_category_text', value: lambda { |v|
+                      return nil unless v
+                      member_id = v.find(/family.family_members.(\w+)$/).map(&:item).last
+                      applicants_hash = v.resolve('family.magi_medicaid_applications.applicants').item
+                      applicant_hash = applicants_hash[member_id.to_sym]
+                      return "AppliedForSSN" if applicant_hash&.dig(:is_ssn_applied)
+                      applicant_hash&.dig(:non_ssn_apply_reason)
+                    }
                     map 'person_demographics.gender', 'sex', function: ->(v) {v.capitalize}
                     map 'person_demographics.race', 'race'
 
@@ -258,7 +266,8 @@ module AcaEntities
                       applicant_hash = applicants_hash[member_id.to_sym]
                       if applicant_hash
                         pregnancy_information = applicant_hash[:pregnancy_information]
-                        due_date = pregnancy_information[:pregnancy_due_on]
+                        post_partum = pregnancy_information[:is_post_partum_period]
+                        due_date = post_partum ? pregnancy_information[:pregnancy_end_on] : pregnancy_information[:pregnancy_due_on]
                         date_range = { :end_date => { :date => Date.parse(due_date) } } if due_date
 
                         { :status_indicator => pregnancy_information[:is_pregnant],
