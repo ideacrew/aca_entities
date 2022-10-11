@@ -21,6 +21,7 @@ module AcaEntities
         # @option opts [Date] :end_on optional
         # @option opts [DateTime] :submitted_at optional
         # @option opts [Symbol] :hra_kind optional
+        # @option opts [Boolean] :health_plan_meets_mvs_and_affordable optional
         # @return [Dry::Monads::Result]
         params do
           # title
@@ -41,6 +42,9 @@ module AcaEntities
           optional(:submitted_at).maybe(:date_time)
 
           optional(:hra_kind).maybe(Types::HraKind)
+
+          # Does this employer offer a health plan that meets the minimum value standard and is considered affordable for the employee and family?
+          optional(:health_plan_meets_mvs_and_affordable).maybe(:bool)
         end
       end
     end
