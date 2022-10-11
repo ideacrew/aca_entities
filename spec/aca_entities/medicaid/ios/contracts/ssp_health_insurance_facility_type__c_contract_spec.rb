@@ -16,10 +16,7 @@ RSpec.describe AcaEntities::Medicaid::Ios::Contracts::SspHealthInsuranceFacility
       SSP_InsuranceCoveredIndiv__c: "Insurance Coverd Indiv",
       Id: "12345",
       CoverageEndDate__c: Date.today,
-      DCInsuranceCoveredIndivId__c: 12_345,
-      DCId__c: 12_345,
-      FacilityType__c: "Facility Type",  # SelectAtLeast1Validator <- validate in transform
-      EmploymentEndReason__c: "Employment End Reason"  # not on schema RequiredValidator <- need to confirm this field and requirement
+      FacilityType__c: "Facility Type"  # SelectAtLeast1Validator <- validate in transform
     }
   end
 

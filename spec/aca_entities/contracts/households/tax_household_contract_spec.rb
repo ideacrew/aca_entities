@@ -102,6 +102,7 @@ RSpec.describe ::AcaEntities::Contracts::Households::TaxHouseholdContract, dbcle
       allocated_aptc: currency,
       is_eligibility_determined: true,
       start_date: Date.today,
+      end_date: nil,
       tax_household_members: tax_household_members,
       yearly_expected_contribution: { cents: 10_278_238, currency_iso: "USD" },
       eligibility_determinations: eligibility_determinations
@@ -159,7 +160,7 @@ RSpec.describe ::AcaEntities::Contracts::Households::TaxHouseholdContract, dbcle
       end
 
       it 'should return error message' do
-        result = subject.call(required_params.merge(start_date: nil))
+        result = subject.call(required_params.merge(start_date: 'random string'))
         expect(result.errors.messages.first.text).to eq('must be a date')
       end
     end
