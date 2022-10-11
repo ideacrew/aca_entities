@@ -13,6 +13,8 @@ module AcaEntities
         params do
           optional(:product_eligibility_determination).maybe(ProductEligibilityDeterminationContract.params)
           required(:applicant_reference).maybe(ApplicantReferenceContract.params)
+          optional(:is_subscriber).value(:bool?)
+          optional(:tax_filer_status).maybe(::AcaEntities::MagiMedicaid::Types::TaxFilerKind)
         end
       end
     end

@@ -74,7 +74,7 @@ RSpec.describe AcaEntities::MagiMedicaid::Transformers::IapTo::Mitc do
         expect(person).to have_key(:is_us_citizen)
         expect(person[:is_us_citizen]).to eq('Y')
         expect(person).to have_key(:immigration_status)
-        expect(person[:immigration_status]).to eq('01')
+        expect(person[:immigration_status]).to eq('99')
         expect(person).to have_key(:is_lawful_presence_self_attested)
         expect(person[:is_lawful_presence_self_attested]).to eq('N')
         expect(AcaEntities::MagiMedicaid::Mitc::Types::ImmigrationStatusCodeMap.values).to include(person[:immigration_status])
@@ -83,6 +83,7 @@ RSpec.describe AcaEntities::MagiMedicaid::Transformers::IapTo::Mitc do
         expect(person).to have_key(:is_trafficking_victim)
         expect(person).to have_key(:is_eligible_for_refugee_medical_assistance)
         expect(person).to have_key(:is_veteran)
+        expect(person[:is_veteran]).to eq('Y')
 
         person[:relationships].each do |relationship|
           expect(relationship).to be_a(Hash)

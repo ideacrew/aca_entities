@@ -14,6 +14,8 @@ require 'aca_entities/configuration/encryption'
 require 'aca_entities/operations/mongoid/model_adapter'
 
 require 'aca_entities/libraries/aca_individual_market_library'
+require 'aca_entities/libraries/locations_library'
+require 'aca_entities/libraries/insurance_policies_aca_individuals_library'
 require 'aca_entities/libraries/fdsh_library'
 require 'aca_entities/libraries/core_library'
 
@@ -33,7 +35,6 @@ require 'aca_entities/transform'
 # AcaEntities defines a Canonical Vocabulay (CV) for the benefits management domain along
 # with schemas, validation contracts and transformations between other vocabularies
 module AcaEntities
-
   def self.async_api_config_find_by_service_name(args)
     ::AcaEntities::AsyncApi::Operations::FindConfigsByServiceName.new.call(args)
   end

@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 require 'aca_entities/magi_medicaid/libraries/iap_library'
-require 'pry'
+
 RSpec.describe ::AcaEntities::MagiMedicaid::Application, dbclean: :after_each do
 
   context 'with valid params' do
@@ -268,6 +268,64 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Application, dbclean: :after_each do
         input_rel_keys = relationships.first.keys
         expect(result_rel_keys - input_rel_keys).to be_empty
         expect(input_rel_keys - result_rel_keys).to be_empty
+      end
+    end
+
+    context 'with benchmark_product' do
+      let(:issuer_profile_reference) { { hbx_id: '1234', fein: '123333333', hbx_carrier_id: '333333', name: 'Delta Dental', abbrev: 'DDPA' } }
+
+      let(:health_product_reference) do
+        { hios_id: '92479DC0020002', name: 'Access PPO', active_year: Date.today.year, is_dental_only: false,
+          metal_level: 'gold', benefit_market_kind: 'aca_individual', product_kind: 'health', ehb_percent: '0.0',
+          issuer_profile_reference: issuer_profile_reference, covers_pediatric_dental_costs: true,
+          rating_method: 'Age-Based Rates', pediatric_dental_ehb: nil }
+      end
+
+      let(:dental_product_reference) do
+        { hios_id: '92479DC0020011', name: 'Access PPO', active_year: Date.today.year, is_dental_only: true,
+          metal_level: 'dental', benefit_market_kind: 'aca_individual', product_kind: 'dental',
+          ehb_percent: '0.0', issuer_profile_reference: issuer_profile_reference, covers_pediatric_dental_costs: false,
+          rating_method: 'Age-Based Rates', pediatric_dental_ehb: BigDecimal('1.0') }
+      end
+
+      let(:primary_rating_address) do
+        { has_fixed_address: true, kind: 'home', address_1: '1234 street', address_3: 'landmark', city: 'test',
+          county: 'County', state: 'DC', zip: '12345', country_name: 'USA', validation_status: 'ValidMatch', start_on: '2021/1/12',
+          end_on: nil, lives_outside_state_temporarily: false, geocode: "00000" }
+      end
+
+      let(:member) do
+        { applicant_reference: { first_name: 'first_name',
+                                 last_name: 'last_name',
+                                 dob: Date.today,
+                                 person_hbx_id: '109990' },
+          relationship_with_primary: 'self', age_on_effective_date: 20 }
+      end
+
+      let(:household) do
+        { household_hbx_id: '12345', type_of_household: 'adult_only', household_ehb_premium: BigDecimal('100.75'),
+          household_health_ehb_premium: BigDecimal('100.75'), health_product_reference: health_product_reference,
+          household_dental_ehb_premium: BigDecimal('50.25'), dental_product_reference: dental_product_reference, members: [member] }
+      end
+
+      let(:benchmark_product) do
+        { effective_date: Date.today, primary_rating_address: primary_rating_address, exchange_provided_code: 'IC01',
+          household_group_ehb_premium: BigDecimal('100.75'), households: [household] }
+      end
+
+      let(:application_with_benchmark_product) { application_params.merge(benchmark_product: benchmark_product) }
+
+      before do
+        app_params_result = AcaEntities::MagiMedicaid::Contracts::ApplicationContract.new.call(application_with_benchmark_product)
+        @result = if app_params_result.failure?
+                    app_params_result
+                  else
+                    described_class.new(app_params_result.to_h)
+                  end
+      end
+
+      it 'should return all the keys of benchmark_product' do
+        expect(@result.to_h[:benchmark_product].keys).to eq(benchmark_product.keys)
       end
     end
   end

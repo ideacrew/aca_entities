@@ -30,6 +30,7 @@ module AcaEntities
           optional(:magi_medicaid_monthly_income_limit).hash(AcaEntities::Contracts::CurrencyContract.params)
           optional(:magi_as_percentage_of_fpl).maybe(:float)
           optional(:magi_medicaid_category).maybe(MagiMedicaid::Types::MagiMedicaidCategoryType)
+          optional(:csr).maybe(Types::CsrKind)
         end
       end
     end

@@ -150,13 +150,8 @@ module AcaEntities
                       boolean_string(us_citizen_kinds.include?(citizen_status))
                     }
 
-                    # TODO: use mapper to determine the immigration status code from AcaEntities::MagiMedicaid::Mitc::Types::ImmigrationStatusCodeMap
-                    # Currently defaulting immigration_status to 01 which maps to 'Lawful Permanent Resident (LPR/Green Card Holder)'
-                    add_key 'immigration_status', function: ->(v) {
-                      AcaEntities::MagiMedicaid::Mitc::Types::ImmigrationStatusCodeMap[v.resolve('citizen_status').item] || '01'
-                    }
-
                     map 'is_lawful_presence_self_attested', 'is_lawful_presence_self_attested', function: ->(value) { boolean_string(value) }
+                    map 'is_resident_post_092296', 'is_resident_post_092296', memoize: true, visible: false
                   end
                 end
 
@@ -182,9 +177,19 @@ module AcaEntities
 
                 namespace 'demographic' do
                   rewrap '' do
-                    map 'is_veteran_or_active_military', 'is_veteran', function: ->(value) { boolean_string(value) }
+                    map 'is_veteran_or_active_military', 'is_veteran_or_active_military', memoize: true, visible: false
+                    map 'is_vets_spouse_or_child', 'is_vets_spouse_or_child', memoize: true, visible: false
                   end
                 end
+
+                add_key 'is_veteran', function: ->(v) {
+                  is_resident_post_092296 = v.resolve('is_resident_post_092296').item
+                  is_veteran_or_active_military = v.resolve('is_veteran_or_active_military').item.present?
+                  is_vets_spouse_or_child = v.resolve('is_vets_spouse_or_child').item.present?
+                  veteran_by_self_or_dep = is_veteran_or_active_military || is_vets_spouse_or_child
+
+                  is_resident_post_092296 == false ? 'Y' : boolean_string(veteran_by_self_or_dep)
+                }
               end
             end
           end

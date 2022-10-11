@@ -1,0 +1,233 @@
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://xmlns.dc.gov/dcas/common/CommonNative/xsd/V1" xmlns:tns="http://xmlns.dc.gov/dcas/common/CommonNative/xsd/V1" targetNamespace="http://xmlns.dc.gov/dcas/common/CommonNative/xsd/V1" elementFormDefault="qualified">
+<xsd:simpleType name="EnumVerificationsType">
+<xsd:restriction base="xsd:string">
+<xsd:enumeration value="RESIDENCY"/>
+<xsd:enumeration value="ADDRESS"/>
+<xsd:enumeration value="STATE"/>
+<xsd:enumeration value="INCOME"/>
+<xsd:enumeration value="DRIVER_LICENSE"/>
+<xsd:enumeration value="CITIZENSHIP"/>
+<xsd:enumeration value="VEHICLE"/>
+</xsd:restriction>
+</xsd:simpleType>
+<xsd:simpleType name="EnumVerificationsSource">
+<xsd:restriction base="xsd:string">
+<xsd:enumeration value="ACEDS"/>
+<xsd:enumeration value="DMV"/>
+<xsd:enumeration value="DOES"/>
+<xsd:enumeration value="DHS"/>
+<xsd:enumeration value="IRS"/>
+<xsd:enumeration value="USPS"/>
+<xsd:enumeration value="MARS"/>
+</xsd:restriction>
+</xsd:simpleType>
+<xsd:simpleType name="EnumVerificationsStatus">
+<xsd:restriction base="xsd:string">
+<xsd:enumeration value="ACTIVE"/>
+<xsd:enumeration value="INACTIVE"/>
+<xsd:enumeration value="VERIFIED"/>
+<xsd:enumeration value="NOT_VERIFIED"/>
+<xsd:enumeration value="PENDING_VERIFICATION"/>
+</xsd:restriction>
+</xsd:simpleType>
+<xsd:simpleType name="EnumGender">
+<xsd:restriction base="xsd:string">
+<xsd:enumeration value="MALE"/>
+<xsd:enumeration value="FEMALE"/>
+</xsd:restriction>
+</xsd:simpleType>
+<xsd:complexType name="DCASHeaderType">
+<xsd:annotation>
+<xsd:documentation>Common Native Schema</xsd:documentation>
+</xsd:annotation>
+<xsd:sequence>
+<xsd:element name="Sender" minOccurs="0">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element name="SenderId" type="xsd:string" minOccurs="0"/>
+<xsd:element name="SenderName" type="xsd:string" minOccurs="0"/>
+<xsd:element name="SenderDesc" type="xsd:string" minOccurs="0"/>
+<xsd:element name="Language" type="xsd:string" minOccurs="0"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+<xsd:element name="Target" minOccurs="0">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element name="TargetId" type="xsd:string" minOccurs="0"/>
+<xsd:element name="TargetName" type="xsd:string" minOccurs="0"/>
+<xsd:element name="TargetDesc" type="xsd:string" minOccurs="0"/>
+<xsd:element name="Language" type="xsd:string" minOccurs="0"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+<xsd:element name="MessageInstructions" minOccurs="0">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element name="BatchID" type="xsd:string" minOccurs="0"/>
+<xsd:element name="BatchStatus" type="xsd:string" minOccurs="0"/>
+<xsd:element name="TransactionType" type="xsd:string" minOccurs="0"/>
+<xsd:element name="MessageID" type="xsd:string" minOccurs="0"/>
+<xsd:element name="MessageType" type="xsd:string" minOccurs="0"/>
+<xsd:element name="MessageDesc" type="xsd:string" minOccurs="0"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+</xsd:sequence>
+</xsd:complexType>
+<xsd:complexType name="AcknowledgementType">
+<xsd:sequence>
+<xsd:element name="StatusCode" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+<xsd:element name="StatusDesc" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+<xsd:element name="Error" maxOccurs="1" minOccurs="0" type="tns:ErrorType"/>
+</xsd:sequence>
+</xsd:complexType>
+<xsd:complexType name="AddressDetailsType">
+<xsd:sequence>
+<xsd:element name="SuiteNumber" type="xsd:string" minOccurs="0"/>
+<xsd:element name="AddressLine1" type="xsd:string"/>
+<xsd:element name="AddressLine2" type="xsd:string" minOccurs="0"/>
+<xsd:element name="AddressLine3" type="xsd:string" minOccurs="0"/>
+<xsd:element name="Quadrant" type="xsd:string" minOccurs="0"/>
+<xsd:element name="Ward" type="xsd:string" minOccurs="0"/>
+<xsd:element name="City" type="xsd:string"/>
+<xsd:element name="State" type="xsd:string"/>
+<xsd:element name="Country" type="xsd:string" minOccurs="0"/>
+<xsd:element name="County" type="xsd:string" minOccurs="0"/>
+<xsd:element name="ZipCode" type="tns:ZipCodeType" minOccurs="1"/>
+<xsd:element name="ZipCodeExtn" type="tns:ZipCodeExtnType" minOccurs="0"/>
+<xsd:element name="ZipCodeFull" type="tns:ZipCodeFullType" minOccurs="0"/>
+</xsd:sequence>
+</xsd:complexType>
+<xsd:complexType name="AddressType">
+<xsd:sequence>
+<xsd:element name="AddressDetails" type="tns:AddressDetailsType" minOccurs="0"/>
+<xsd:element name="AddressFullText" type="xsd:string" minOccurs="0"/>
+<xsd:element name="AddressKeyValues" type="tns:KeyValueList" minOccurs="0"/>
+</xsd:sequence>
+</xsd:complexType>
+<xsd:complexType name="PersonType">
+<xsd:sequence>
+<xsd:element name="PersonID" type="tns:PersonIDType" minOccurs="0"/>
+<xsd:element name="PersonName" type="tns:PersonNameType" minOccurs="0"/>
+<xsd:element name="PersonDemographic" type="tns:PersonDemographicType" minOccurs="0"/>
+<xsd:element ref="tns:SSN" minOccurs="0"/>
+<xsd:element name="PersonKeyValues" type="tns:KeyValueList" minOccurs="0"/>
+</xsd:sequence>
+</xsd:complexType>
+<xsd:complexType name="PersonIDType">
+<xsd:sequence>
+<xsd:element name="PersonID" type="xsd:string"/>
+<xsd:element name="PersonIDCategory" type="xsd:string" minOccurs="0"/>
+</xsd:sequence>
+</xsd:complexType>
+<xsd:complexType name="PersonNameType">
+<xsd:sequence>
+<xsd:element name="FirstName" type="xsd:string"/>
+<xsd:element name="MiddleName" type="xsd:string" minOccurs="0"/>
+<xsd:element name="LastName" type="xsd:string"/>
+<xsd:element name="SuffixName" type="xsd:string" minOccurs="0"/>
+<xsd:element name="PrefixName" type="xsd:string" minOccurs="0"/>
+<xsd:element name="Initial" type="xsd:string" minOccurs="0"/>
+<xsd:element name="NameFullText" type="xsd:string" minOccurs="0"/>
+</xsd:sequence>
+</xsd:complexType>
+<xsd:complexType name="BusinessOwnerNameType">
+<xsd:sequence>
+<xsd:element name="FirstName" type="xsd:string" minOccurs="0"/>
+<xsd:element name="MiddleName" type="xsd:string" minOccurs="0"/>
+<xsd:element name="LastName" type="xsd:string" minOccurs="0"/>
+<xsd:element name="SuffixName" type="xsd:string" minOccurs="0"/>
+<xsd:element name="NameFullText" type="xsd:string" minOccurs="0"/>
+</xsd:sequence>
+</xsd:complexType>
+<xsd:complexType name="PersonDemographicType">
+<xsd:sequence>
+<xsd:element name="Gender" type="xsd:string"/>
+<xsd:element name="DateOfBirth" type="xsd:date"/>
+<xsd:element name="IsCitizen" type="xsd:boolean" minOccurs="0"/>
+<xsd:element name="MaritalStatus" type="xsd:string" minOccurs="0"/>
+<xsd:element name="DateOfDeath" type="xsd:date" minOccurs="0"/>
+<xsd:element name="Race" type="xsd:string" minOccurs="0"/>
+<xsd:element name="Ethinicity" type="xsd:string" minOccurs="0"/>
+</xsd:sequence>
+</xsd:complexType>
+<xsd:complexType name="ContactType">
+<xsd:sequence>
+<xsd:element name="Type" type="xsd:string" minOccurs="0"/>
+<xsd:element name="ContactEMail" type="xsd:string" minOccurs="0"/>
+<xsd:element name="ContactWebSiteURI" minOccurs="0" type="xsd:anyURI"/>
+<xsd:element name="Phone" type="tns:PhoneDetailsType" minOccurs="0"/>
+<xsd:element name="ContactKeyValues" type="tns:KeyValueList" minOccurs="0"/>
+</xsd:sequence>
+</xsd:complexType>
+<xsd:complexType name="PhoneDetailsType">
+<xsd:sequence>
+<xsd:element name="CountryCode" type="xsd:string"/>
+<xsd:element name="AreaCode" type="tns:AreaCodeType" minOccurs="0"/>
+<xsd:element name="Number" type="tns:PhoneNumberType" minOccurs="0"/>
+<xsd:element name="Extension" type="xsd:string" minOccurs="0"/>
+<xsd:element name="FullPhoneNumber" type="tns:FullPhoneNumberType" minOccurs="1"/>
+<xsd:element name="FaxNumber" type="tns:FaxNumberType" minOccurs="0"/>
+</xsd:sequence>
+</xsd:complexType>
+<xsd:complexType name="VerificationsType">
+<xsd:sequence>
+<xsd:element name="VerificationSource" type="tns:EnumVerificationsSource" minOccurs="0"/>
+<xsd:element name="VerificationStatus" type="tns:EnumVerificationsStatus" minOccurs="0"/>
+<xsd:element name="VerificationStatusMsg" type="xsd:string" minOccurs="0"/>
+<xsd:element name="VerificationType" type="tns:EnumVerificationsType" minOccurs="0"/>
+</xsd:sequence>
+</xsd:complexType>
+<xsd:complexType name="ErrorType">
+<xsd:sequence>
+<xsd:element name="ErrorCode" maxOccurs="1" minOccurs="0" type="xsd:string"/>
+<xsd:element name="ErrorDescription" maxOccurs="1" minOccurs="0" type="xsd:string"/>
+</xsd:sequence>
+</xsd:complexType>
+<xsd:simpleType name="SSNType">
+<xsd:restriction base="xsd:string">
+<xsd:pattern value="[0-9]{9}"/>
+</xsd:restriction>
+</xsd:simpleType>
+<xsd:simpleType name="AreaCodeType">
+<xsd:restriction base="xsd:string"/>
+</xsd:simpleType>
+<xsd:simpleType name="PhoneNumberType">
+<xsd:restriction base="xsd:string"/>
+</xsd:simpleType>
+<xsd:simpleType name="ZipCodeType">
+<xsd:restriction base="xsd:string">
+<xsd:minLength value="5"/>
+</xsd:restriction>
+</xsd:simpleType>
+<xsd:simpleType name="ZipCodeExtnType">
+<xsd:restriction base="xsd:string"/>
+</xsd:simpleType>
+<xsd:simpleType name="ZipCodeFullType">
+<xsd:restriction base="xsd:string"/>
+</xsd:simpleType>
+<xsd:simpleType name="EmailType">
+<xsd:restriction base="xsd:string"/>
+</xsd:simpleType>
+<xsd:simpleType name="FullPhoneNumberType">
+<xsd:restriction base="xsd:string">
+<xsd:minLength value="10"/>
+</xsd:restriction>
+</xsd:simpleType>
+<xsd:simpleType name="FaxNumberType">
+<xsd:restriction base="xsd:string"/>
+</xsd:simpleType>
+<xsd:complexType name="KeyValueType">
+<xsd:sequence>
+<xsd:element name="Key" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+<xsd:element name="Value" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+</xsd:sequence>
+</xsd:complexType>
+<xsd:complexType name="KeyValueList">
+<xsd:sequence>
+<xsd:element name="KeyValue" type="tns:KeyValueType" maxOccurs="unbounded" minOccurs="0"/>
+</xsd:sequence>
+</xsd:complexType>
+<xsd:element name="SSN" type="tns:SSNType"/>
+</xsd:schema>
