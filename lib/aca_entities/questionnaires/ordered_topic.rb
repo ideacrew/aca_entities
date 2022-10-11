@@ -10,7 +10,7 @@ module AcaEntities
       # @!attribute [r] topic
       # The subject Topic
       # @return [Topic]
-      attribute :topic, AcaEntities::Questionnaires::Topic.optional.meta(ommitable: true)
+      attribute :topic, AcaEntities::Questionnaires::Topic.optional.meta(omittable: true)
 
       # @!attribute [r] order
       # The sequence in which this Topic appears relative to other Topics
@@ -18,13 +18,13 @@ module AcaEntities
       # based on the order value.  For example, a Topic with order => 10 will
       # appear before a Topic with order => 20.
       # @return [Integer]
-      attribute :order, Types::Integer.optional.meta(ommitable: true)
+      attribute :order, Types::Integer.optional.meta(omittable: true)
 
       # @!attribute [r] ordered_topics
       # The recursive set of Question groups that are children to this one
       # @return [Array<OrderedTopic>]
       attribute :ordered_topics,
-                Types::Array.of(AcaEntities::Questionnaires::OrderedTopic).optional.meta(ommitable: true)
+                Types::Array.of(AcaEntities::Questionnaires::OrderedTopic).optional.meta(omittable: true)
     end
   end
 end

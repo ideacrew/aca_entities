@@ -10,7 +10,8 @@ RSpec.describe ::AcaEntities::Households::TaxHouseholdMember, dbclean: :after_ea
       first_name: 'first name',
       last_name: 'last name',
       person_hbx_id: '1001',
-      is_primary_family_member: true
+      is_primary_family_member: true,
+      relation_with_primary: 'self'
     }
   end
 
@@ -43,6 +44,8 @@ RSpec.describe ::AcaEntities::Households::TaxHouseholdMember, dbclean: :after_ea
     { family_member_reference: family_member_reference,
       reason: "",
       is_subscriber: true,
+      tax_filer_status: 'single',
+      slcsp_benchmark_premium: currency,
       product_eligibility_determination: tax_household_member_eligibity_determination }
 
   end
@@ -57,16 +60,4 @@ RSpec.describe ::AcaEntities::Households::TaxHouseholdMember, dbclean: :after_ea
       expect { described_class.new(input_params) }.not_to raise_error
     end
   end
-
-  # describe 'with invalid arguments' do
-  #   it 'should raise error' do
-  #     expect do
-  #       described_class.new(input_params.reject do |k, _v|
-  #                             k == :family_member_reference
-  #                           end)
-  #     end.to raise_error(Dry::Struct::Error, /:family_member_reference is missing/)
-  #   end
-  # end
 end
-
-

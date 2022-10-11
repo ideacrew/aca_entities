@@ -14,29 +14,19 @@ RSpec.describe AcaEntities::Medicaid::Ios::Contracts::ContactContract, dbclean: 
 
   let(:optional_params) do
     {
-      AddressTypeCode__c: "Code",
-      AgencyEmployeeId__c: 12_345,
       AssociationStartDate__c: Date.today,
       Birthdate: Date.new(1990, 1, 1),
       Email: "fake@test.com",
       GenderCode__c: "M",
       MailingAddressLine2__c: "Address",
-      OrganizationName__c: "Org",
-      OrgranizationIdentificationNumber__c: "12345",
       PreferredLanguageCode__c: "EN",
       PrimaryPhoneExtension__c: 123,
       PrimaryPhoneNumber__c: "123-4567",
-      RepresentativeProgramCode__c: "Medicaid",
       SSN__c: "123456789",
       SuffixCode__c: "n/a",
-      IndividualId__c: "Id",
       Id: "Id",
       MiddleName: "M",
-      Phone: "123-4567",
-      DCDataId__c: 12_345,
-      IsManualAuthRep__c: false,
-      RecordType: {},
-      AgencyOrOrganization__r: {}
+      Phone: "123-4567"
     }
   end
 

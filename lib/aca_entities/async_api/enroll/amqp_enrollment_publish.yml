@@ -81,6 +81,110 @@ channels:
           timestamp: true
           content_type: application/json
           bindingVersion: 0.2.0
+  enroll.individual.enrollments.coverage_selected:
+    bindings:
+      amqp:
+        is: :routing_key
+        exchange:
+          name: enroll.individual.enrollments
+          type: topic
+          content_type: application/json
+          durable: true
+          auto_delete: false
+          vhost: event_source
+        binding_version: "0.2.0"
+    publish:
+      operationId: enroll.individual.enrollments.coverage_selected
+      description: Events - Individual Enrollment Coverage Selected
+      summary: Events - Document created
+      bindings:
+        amqp:
+          app_id: enroll
+          type: enroll.individual.enrollments
+          routing_key: enroll.individual.enrollments.coverage_selected
+          deliveryMode: 2
+          mandatory: true
+          timestamp: true
+          content_type: application/json
+          bindingVersion: 0.2.0
+  enroll.individual.enrollments.initial_purchase:
+    bindings:
+      amqp:
+        is: :routing_key
+        exchange:
+          name: enroll.individual.enrollments
+          type: topic
+          content_type: application/json
+          durable: true
+          auto_delete: false
+          vhost: event_source
+        binding_version: "0.2.0"
+    publish:
+      operationId: enroll.individual.enrollments.initial_purchase
+      description: Events - Individual Enrollment Initial Purchase
+      summary: Events - Enrollment Initial Purchase
+      bindings:
+        amqp:
+          app_id: enroll
+          type: enroll.individual.enrollments
+          routing_key: enroll.individual.enrollments.initial_purchase
+          deliveryMode: 2
+          mandatory: true
+          timestamp: true
+          content_type: application/json
+          bindingVersion: 0.2.0
+  enroll.individual.enrollments.auto_renew:
+    bindings:
+      amqp:
+        is: :routing_key
+        exchange:
+          name: enroll.individual.enrollments
+          type: topic
+          content_type: application/json
+          durable: true
+          auto_delete: false
+          vhost: event_source
+        binding_version: "0.2.0"
+    publish:
+      operationId: enroll.individual.enrollments.auto_renew
+      description: Events - Individual Enrollment Auto Renew
+      summary: Events - Individual Enrollment Auto Renew
+      bindings:
+        amqp:
+          app_id: enroll
+          type: enroll.individual.enrollments
+          routing_key: enroll.individual.enrollments.auto_renew
+          deliveryMode: 2
+          mandatory: true
+          timestamp: true
+          content_type: application/json
+          bindingVersion: 0.2.0
+  enroll.individual.enrollments.terminated:
+    bindings:
+      amqp:
+        is: :routing_key
+        exchange:
+          name: enroll.individual.enrollments
+          type: topic
+          content_type: application/json
+          durable: true
+          auto_delete: false
+          vhost: event_source
+        binding_version: "0.2.0"
+    publish:
+      operationId: enroll.individual.enrollments.terminated
+      description: Events - Individual Enrollment Terminated
+      summary: Events - Individual Enrollment Terminated
+      bindings:
+        amqp:
+          app_id: enroll
+          type: enroll.individual.enrollments
+          routing_key: enroll.individual.enrollments.terminated
+          deliveryMode: 2
+          mandatory: true
+          timestamp: true
+          content_type: application/json
+          bindingVersion: 0.2.0
 tags:
   - name: linter_tag
     description: placeholder that satisfies the linter
