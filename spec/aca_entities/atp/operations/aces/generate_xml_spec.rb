@@ -117,6 +117,24 @@ RSpec.describe AcaEntities::Atp::Operations::Aces::GenerateXml  do
       end
     end
 
+    context 'family relationships' do
+      context 'when grandparent/grandchild relationship exists' do
+        let(:grandparent_grandchild_payload) do
+          File.read('spec/support/atp/sample_payloads/grandparent_grandchild_payload.json')
+        end
+
+        it 'should not include tax return tags in the payload' do
+          result = described_class.new.call(grandparent_grandchild_payload)
+          doc = Nokogiri::XML.parse(result.value!)
+          person_associations = doc.xpath('//hix-core:Person/hix-core:PersonAugmentation/hix-core:PersonAssociation', namespaces)
+          grandparent_rel_code = person_associations.xpath('//hix-core:FamilyRelationshipCode', namespaces).first.text
+          grandchild_rel_code = person_associations.xpath('//hix-core:FamilyRelationshipCode', namespaces).last.text
+          expect(grandchild_rel_code).to eq '05'
+          expect(grandparent_rel_code).to eq '04'
+        end
+      end
+    end
+
     context 'param flags' do
       let(:payload_hash) { JSON.parse(payload) }
 
