@@ -21,7 +21,8 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Benefit, dbclean: :after_each do
         employee_cost: 1000.00,
         employee_cost_frequency: 'Monthly',
         start_on: Date.today.prev_year,
-        end_on: nil }
+        end_on: nil,
+        health_plan_meets_mvs_and_affordable: true }
     end
 
     before do
