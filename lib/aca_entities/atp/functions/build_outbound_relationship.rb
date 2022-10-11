@@ -75,6 +75,10 @@ module AcaEntities
           person_relationships.uniq.each_with_object([]) do |person_relationship, collect|
             mitc_relationship_code =
               ::AcaEntities::MagiMedicaid::Mitc::Types::RelationshipCodeMap.invert[person_relationship[:relationship_code]] || '88'
+            # prevent mismapping of relationship codes after inverting RelationshipCodeMap
+            mitc_relationship_code = :grandchild if person_relationship[:relationship_code] == '06'
+            mitc_relationship_code = :grandparent if person_relationship[:relationship_code] == '15'
+
             relation = RelationshipCodeMap[mitc_relationship_code]
             atp_relationship_code = AcaEntities::Types::RelationshipToTaxFilerCodeMap.invert[relation.to_s].to_s
             collect << { :person => { :ref => "pe#{person_relationship[:other_id]}" }, :family_relationship_code => atp_relationship_code,
