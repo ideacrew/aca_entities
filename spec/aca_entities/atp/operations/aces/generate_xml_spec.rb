@@ -47,6 +47,48 @@ RSpec.describe AcaEntities::Atp::Operations::Aces::GenerateXml  do
     end
 
     context 'when vlp document is present on applicant' do
+      context 'when applicant is US citizen (not naturalized)' do
+        it 'should not include LawfulPresenceStatusImmigrationDocument tags' do
+          result = described_class.new.call(payload)
+          doc = Nokogiri::XML.parse(result.value!)
+          tags = doc.xpath("//hix-ee:LawfulPresenceStatusImmigrationDocument", namespaces)
+          expect(tags.present?).to be_falsey
+        end
+      end
+
+      context 'naturalized citizen with Naturalization Certificate' do
+        let(:naturalized_citizen_payload) do
+          payload_hash = JSON.parse(payload, symbolize_names: true)
+          applicant = payload_hash[:family][:magi_medicaid_applications][:applicants].first
+          applicant[:citizenship_immigration_status_information][:citizen_status] = 'naturalized_citizen'
+          applicant[:vlp_document] = {}
+          applicant[:vlp_document][:subject] = 'Naturalization Certificate'
+          applicant[:vlp_document][:naturalization_number] = '234567'
+          applicant[:vlp_document][:alien_number] = '987654321'
+          payload_hash.to_json
+        end
+
+        before do
+          result = described_class.new.call(naturalized_citizen_payload)
+          doc = Nokogiri::XML.parse(result.value!)
+          @tags = doc.xpath("//hix-ee:LawfulPresenceDocumentPersonIdentification/nc:IdentificationCategoryText", namespaces)
+        end
+
+        it 'should populate LawfulPresenceDocumentPersonIdentification tags for Naturalization Certificate Number' do
+          node = @tags.detect {|t| t.text == 'Naturalization Certificate Number'}&.parent
+          expect(node.present?).to be_truthy
+          expect(node.children.detect {|c| c.name == 'IdentificationID'}.text).to eq '234567'
+          expect(node.children.detect {|c| c.name == 'IdentificationCategoryText'}.text).to eq 'Naturalization Certificate Number'
+        end
+
+        it 'should populate LawfulPresenceDocumentPersonIdentification tags for Alien Number' do
+          node = @tags.detect {|t| t.text == 'Alien Number'}&.parent
+          expect(node.present?).to be_truthy
+          expect(node.children.detect {|c| c.name == 'IdentificationID'}.text).to eq '987654321'
+          expect(node.children.detect {|c| c.name == 'IdentificationCategoryText'}.text).to eq 'Alien Number'
+        end
+      end
+
       context 'naturalized citizen with Certificate of Citizenship' do
         let(:naturalized_citizen_payload) do
           payload_hash = JSON.parse(payload, symbolize_names: true)
@@ -114,6 +156,24 @@ RSpec.describe AcaEntities::Atp::Operations::Aces::GenerateXml  do
         doc = Nokogiri::XML.parse(result.value!)
         texts = doc.xpath("//hix-ee:TaxReturn", namespaces)
         expect(texts.present?).to be_falsey
+      end
+    end
+
+    context 'family relationships' do
+      context 'when grandparent/grandchild relationship exists' do
+        let(:grandparent_grandchild_payload) do
+          File.read('spec/support/atp/sample_payloads/grandparent_grandchild_payload.json')
+        end
+
+        it 'should not include tax return tags in the payload' do
+          result = described_class.new.call(grandparent_grandchild_payload)
+          doc = Nokogiri::XML.parse(result.value!)
+          person_associations = doc.xpath('//hix-core:Person/hix-core:PersonAugmentation/hix-core:PersonAssociation', namespaces)
+          grandparent_rel_code = person_associations.xpath('//hix-core:FamilyRelationshipCode', namespaces).first.text
+          grandchild_rel_code = person_associations.xpath('//hix-core:FamilyRelationshipCode', namespaces).last.text
+          expect(grandchild_rel_code).to eq '05'
+          expect(grandparent_rel_code).to eq '04'
+        end
       end
     end
 
