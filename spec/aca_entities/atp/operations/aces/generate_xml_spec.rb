@@ -47,6 +47,15 @@ RSpec.describe AcaEntities::Atp::Operations::Aces::GenerateXml  do
     end
 
     context 'when vlp document is present on applicant' do
+      context 'when applicant is US citizen (not naturalized)' do
+        it 'should not include LawfulPresenceStatusImmigrationDocument tags' do
+          result = described_class.new.call(payload)
+          doc = Nokogiri::XML.parse(result.value!)
+          tags = doc.xpath("//hix-ee:LawfulPresenceStatusImmigrationDocument", namespaces)
+          expect(tags.present?).to be_falsey
+        end
+      end
+
       context 'naturalized citizen with Naturalization Certificate' do
         let(:naturalized_citizen_payload) do
           payload_hash = JSON.parse(payload, symbolize_names: true)

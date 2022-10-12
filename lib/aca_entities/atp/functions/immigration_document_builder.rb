@@ -7,7 +7,8 @@ module AcaEntities
       class ImmigrationDocumentBuilder # rubocop:disable Metrics/ClassLength
 
         def call(cache) # rubocop:disable Metrics/CyclomaticComplexity, Metrics/MethodLength
-          # return if applicant is us_citizen (not naturalized)
+          return if cache.resolve('citizen_status').item == 'us_citizen'
+
           @vlp_document = cache.resolve('vlp_document').item
           @document_person_ids = []
           return [] unless @vlp_document
