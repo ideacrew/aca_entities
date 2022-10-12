@@ -64,6 +64,7 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Contracts::BenefitContract,  dbclean
           status: 'is_enrolled',
           start_on: Date.today.prev_year.to_s,
           hra_kind: [:ichra, :qsehra].sample,
+          health_plan_meets_mvs_and_affordable: true,
           end_on: nil }
       end
 

@@ -30,6 +30,7 @@ module AcaEntities
 
           namespace 'family' do
             rewrap 'aces', type: :hash do
+              map 'family_flags', 'family_flags', memoize_record: true, visible: false
               map 'external_app_id', 'ext_app_id'
               map 'hbx_id', 'hbx_id', memoize: true, visible: false
               map 'magi_medicaid_applications.submitted_at', 'submitted_at', memoize: true, visible: false

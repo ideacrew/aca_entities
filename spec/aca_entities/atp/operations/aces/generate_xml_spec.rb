@@ -14,7 +14,8 @@ RSpec.describe AcaEntities::Atp::Operations::Aces::GenerateXml  do
       {
         'hix-core' => 'http://hix.cms.gov/0.1/hix-core',
         'nc' => 'http://niem.gov/niem/niem-core/2.0',
-        'hix-ee' => 'http://hix.cms.gov/0.1/hix-ee'
+        'hix-ee' => 'http://hix.cms.gov/0.1/hix-ee',
+        'niem-s' => 'http://niem.gov/niem/structures/2.0'
       }
     end
 
@@ -170,6 +171,57 @@ RSpec.describe AcaEntities::Atp::Operations::Aces::GenerateXml  do
           doc = Nokogiri::XML.parse(result.value!)
           texts = doc.xpath('//hix-ee:LawfulPresenceStatusImmigrationDocument', namespaces)
           expect(texts.present?).to be_falsey
+        end
+      end
+
+      context 'family flags' do
+        context 'invert_person_association flag present in family hash' do
+          let(:family) { payload_hash['family'] }
+          let(:person_id) { family['magi_medicaid_applications']['applicants'].first['person_hbx_id'] }
+          let(:relative_id) { family['magi_medicaid_applications']['applicants'].first['mitc_relationships'].first['other_id'] }
+          let(:relationship_kind) do
+            family['family_members'].first['person']['person_relationships'].detect {|rel| rel['relative']['hbx_id'] == relative_id}['kind']
+          end
+          let(:faa_mitc_relationship_map) do
+            {
+              'spouse' => :husband_or_wife,
+              'domestic_partner' => :domestic_partner,
+              'child' => :son_or_daughter,
+              'parent' => :parent,
+              'sibling' => :brother_or_sister,
+              'aunt_or_uncle' => :aunt_or_uncle,
+              'nephew_or_niece' => :nephew_or_niece,
+              'grandchild' => :grandchild,
+              'grandparent' => :grandparent,
+              'parents_domestic_partner' => :parents_domestic_partner,
+              'domestic_partners_child' => :domestic_partners_child,
+              'father_or_mother_in_law' => :mother_in_law_or_father_in_law,
+              'daughter_or_son_in_law' => :son_in_law_or_daughter_in_law,
+              'brother_or_sister_in_law' => :brother_in_law_or_sister_in_law,
+              'cousin' => :first_cousin
+            }.freeze
+          end
+
+          before do
+            param_flags = { 'family_flags' => { 'invert_person_association' => true } }
+            flagged_family = payload_hash['family'].merge(param_flags)
+            payload_hash['family'] = flagged_family
+            result = described_class.new.call(payload_hash.to_json)
+            doc = Nokogiri::XML.parse(result.value!)
+            @person_ref = doc.xpath('//hix-core:Person/@niem-s:id', namespaces).first.value
+            person_associations = doc.xpath('//hix-core:Person/hix-core:PersonAugmentation/hix-core:PersonAssociation', namespaces)
+            @relative_ref = person_associations.xpath('//nc:PersonReference/@niem-s:ref', namespaces).first.value
+            relationship_code = person_associations.xpath('//hix-core:FamilyRelationshipCode', namespaces).first.text
+            relationship_text = AcaEntities::Types::RelationshipToTaxFilerCodeMap[relationship_code.to_sym]
+            relationship_symbol = AcaEntities::Atp::Functions::BuildOutboundRelationship::RelationshipCodeMap.invert[relationship_text]
+            @relationship_kind = faa_mitc_relationship_map.invert[relationship_symbol]
+          end
+
+          it 'should represent the relationship of PersonReference tag to Person tag' do
+            expect(@person_ref).to eq("pe#{person_id}")
+            expect(@relative_ref).to eq("pe#{relative_id}")
+            expect(@relationship_kind).to eq(relationship_kind)
+          end
         end
       end
     end

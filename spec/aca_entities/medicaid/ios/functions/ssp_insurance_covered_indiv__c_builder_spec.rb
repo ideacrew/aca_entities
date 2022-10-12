@@ -42,5 +42,15 @@ RSpec.describe AcaEntities::Medicaid::Ios::Functions::SspInsuranceCoveredIndivCB
         expect(result.success?).to be_truthy
       end
     end
+
+    it 'should contain valid data' do
+      result = subject.first
+      expect(result).to include(
+        'DateofBirth__c' => '1960-01-01',
+        'FirstName__c' => 'Rob',
+        'IsPolicyHolder__c' => 'Y',
+        'IsInsuranceCovered__c' => 'Y'
+      )
+    end
   end
 end
