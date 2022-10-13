@@ -48,8 +48,8 @@ channels:
       bindings:
         amqp:
           app_id: medicaid_gateway
-          type: magi_medicaid.applications.aptc_csr_credits.renewals.determined_uqhp_eligible
-          routing_key: magi_medicaid.applications.aptc_csr_credits.renewals
+          type: magi_medicaid.applications.aptc_csr_credits.renewals
+          routing_key: magi_medicaid.applications.aptc_csr_credits.renewals.determined_uqhp_eligible
           deliveryMode: 2
           mandatory: true
           timestamp: true
@@ -63,7 +63,7 @@ channels:
       amqp:
         is: :routing_key
         exchange:
-          name: magi_medicaid.applications.aptc_csr_credits.renewals.determined_aptc_eligible
+          name: magi_medicaid.applications.aptc_csr_credits.renewals
           type: topic
           durable: true
           auto_delete: false
@@ -73,7 +73,7 @@ channels:
       bindings:
         amqp:
           app_id: medicaid_gateway
-          type: magi_medicaid.applications.aptc_csr_credits.renewals.determined_aptc_eligible
+          type: magi_medicaid.applications.aptc_csr_credits.renewals
           routing_key: magi_medicaid.applications.aptc_csr_credits.renewals.determined_aptc_eligible
           deliveryMode: 2
           mandatory: true
@@ -88,7 +88,7 @@ channels:
       amqp:
         is: :routing_key
         exchange:
-          name: magi_medicaid.applications.aptc_csr_credits.renewals.determined_medicaid_chip_eligible
+          name: magi_medicaid.applications.aptc_csr_credits.renewals
           type: topic
           durable: true
           auto_delete: false
@@ -98,7 +98,7 @@ channels:
       bindings:
         amqp:
           app_id: medicaid_gateway
-          type: magi_medicaid.applications.aptc_csr_credits.renewals.determined_medicaid_chip_eligible
+          type: magi_medicaid.applications.aptc_csr_credits.renewals
           routing_key: magi_medicaid.applications.aptc_csr_credits.renewals.determined_medicaid_chip_eligible
           deliveryMode: 2
           mandatory: true
@@ -113,7 +113,7 @@ channels:
       amqp:
         is: :routing_key
         exchange:
-          name: magi_medicaid.applications.aptc_csr_credits.renewals.determined_magi_medicaid_eligible
+          name: magi_medicaid.applications.aptc_csr_credits.renewals
           type: topic
           durable: true
           auto_delete: false
@@ -123,7 +123,7 @@ channels:
       bindings:
         amqp:
           app_id: medicaid_gateway
-          type: magi_medicaid.applications.aptc_csr_credits.renewals.determined_magi_medicaid_eligible
+          type: magi_medicaid.applications.aptc_csr_credits.renewals
           routing_key: magi_medicaid.applications.aptc_csr_credits.renewals.determined_magi_medicaid_eligible
           deliveryMode: 2
           mandatory: true
@@ -138,7 +138,7 @@ channels:
       amqp:
         is: :routing_key
         exchange:
-          name: magi_medicaid.applications.aptc_csr_credits.renewals.determined_mixed_determination
+          name: magi_medicaid.applications.aptc_csr_credits.renewals
           type: topic
           durable: true
           auto_delete: false
@@ -148,7 +148,7 @@ channels:
       bindings:
         amqp:
           app_id: medicaid_gateway
-          type: magi_medicaid.applications.aptc_csr_credits.renewals.determined_mixed_determination
+          type: magi_medicaid.applications.aptc_csr_credits.renewals
           routing_key: magi_medicaid.applications.aptc_csr_credits.renewals.determined_mixed_determination
           deliveryMode: 2
           mandatory: true
@@ -163,7 +163,7 @@ channels:
       amqp:
         is: :routing_key
         exchange:
-          name: magi_medicaid.applications.aptc_csr_credits.renewals.determined_totally_ineligible
+          name: magi_medicaid.applications.aptc_csr_credits.renewals
           type: topic
           durable: true
           auto_delete: false
@@ -173,7 +173,7 @@ channels:
       bindings:
         amqp:
           app_id: medicaid_gateway
-          type: magi_medicaid.applications.aptc_csr_credits.renewals.determined_totally_ineligible
+          type: magi_medicaid.applications.aptc_csr_credits.renewals
           routing_key: magi_medicaid.applications.aptc_csr_credits.renewals.determined_totally_ineligible
           deliveryMode: 2
           mandatory: true
