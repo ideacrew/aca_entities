@@ -282,6 +282,23 @@ RSpec.describe AcaEntities::Atp::Operations::Aces::GenerateXml  do
             expect(@relative_ref).to eq("pe#{relative_id}")
             expect(@relationship_kind).to eq(relationship_kind)
           end
+
+          context 'when primary and spouse applicants are both filing taxes' do
+            let(:spouse_filer_paylaod) { File.read('spec/support/atp/sample_payloads/spouse_th.json') }
+            let(:payload_hash) { JSON.parse(spouse_filer_paylaod) }
+            before do
+              param_flags = { 'family_flags' => { 'invert_person_association' => true } }
+              flagged_family = payload_hash['family'].merge(param_flags)
+              payload_hash['family'] = flagged_family
+            end
+
+            it 'should include SpouseTaxFiler tags in the payload' do
+              result = described_class.new.call(payload_hash.to_json)
+              doc = Nokogiri::XML.parse(result.value!)
+              texts = doc.xpath("//hix-ee:TaxReturn/hix-ee:TaxHousehold/hix-ee:SpouseTaxFiler", namespaces)
+              expect(texts.present?).to be_truthy
+            end
+          end
         end
       end
     end

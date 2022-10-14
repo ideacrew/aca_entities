@@ -92,7 +92,13 @@ module AcaEntities
             applicant_id = applicant[0]
             applicant_hash = applicant[1]
             relationships = applicant_hash[:mitc_relationships].select {|rel| rel[:other_id] == member_id}
-            collect << relationships.each { |rel| rel[:other_id] = applicant_id }
+            relationships.each do |rel|
+              collect << {
+                other_id: applicant_id,
+                attest_primary_responsibility: rel[:attest_primary_responsibility],
+                relationship_code: rel[:relationship_code]
+              }
+            end
           end.flatten
         end
       end
