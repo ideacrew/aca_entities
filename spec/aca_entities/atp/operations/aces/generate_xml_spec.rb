@@ -10,6 +10,7 @@ RSpec.describe AcaEntities::Atp::Operations::Aces::GenerateXml  do
   describe 'When a valid json file is passed' do
 
     let(:payload) { File.read(Pathname.pwd.join("spec/support/atp/sample_payloads/simple_L_cv_payload.json")) }
+    let(:payload_hash) { JSON.parse(payload, symbolize_names: true) }
     let(:namespaces) do
       {
         'hix-core' => 'http://hix.cms.gov/0.1/hix-core',
@@ -26,7 +27,6 @@ RSpec.describe AcaEntities::Atp::Operations::Aces::GenerateXml  do
     end
 
     it 'should have an IdentificationCategoryText of AppliedForSSN if applicant applied for ssn' do
-      payload_hash = JSON.parse(payload, symbolize_names: true)
       payload_hash[:family][:magi_medicaid_applications][:applicants].first[:is_ssn_applied] = true
       result = described_class.new.call(payload_hash.to_json)
       doc = Nokogiri::XML.parse(result.value!)
@@ -36,7 +36,6 @@ RSpec.describe AcaEntities::Atp::Operations::Aces::GenerateXml  do
     end
 
     it 'should have a pregnancy end date if in post partum period' do
-      payload_hash = JSON.parse(payload, symbolize_names: true)
       payload_hash[:family][:magi_medicaid_applications][:applicants].first[:pregnancy_information][:is_post_partum_period] = true
       payload_hash[:family][:magi_medicaid_applications][:applicants].first[:pregnancy_information][:pregnancy_end_on] = Date.today
       result = described_class.new.call(payload_hash.to_json)
@@ -58,7 +57,6 @@ RSpec.describe AcaEntities::Atp::Operations::Aces::GenerateXml  do
 
       context 'naturalized citizen with Naturalization Certificate' do
         let(:naturalized_citizen_payload) do
-          payload_hash = JSON.parse(payload, symbolize_names: true)
           applicant = payload_hash[:family][:magi_medicaid_applications][:applicants].first
           applicant[:citizenship_immigration_status_information][:citizen_status] = 'naturalized_citizen'
           applicant[:vlp_document] = {}
@@ -91,7 +89,6 @@ RSpec.describe AcaEntities::Atp::Operations::Aces::GenerateXml  do
 
       context 'naturalized citizen with Certificate of Citizenship' do
         let(:naturalized_citizen_payload) do
-          payload_hash = JSON.parse(payload, symbolize_names: true)
           applicant = payload_hash[:family][:magi_medicaid_applications][:applicants].first
           applicant[:citizenship_immigration_status_information][:citizen_status] = 'naturalized_citizen'
           applicant[:vlp_document] = {}
@@ -113,7 +110,6 @@ RSpec.describe AcaEntities::Atp::Operations::Aces::GenerateXml  do
 
       context 'when expiration date is nil' do
         it 'should not create and populate LawfulPresenceDocumentExpirationDate tags' do
-          payload_hash = JSON.parse(payload, symbolize_names: true)
           payload_hash[:family][:magi_medicaid_applications][:applicants].first[:vlp_document][:expiration_date] = nil
           result = described_class.new.call(payload_hash.to_json)
           doc = Nokogiri::XML.parse(result.value!)
@@ -144,9 +140,9 @@ RSpec.describe AcaEntities::Atp::Operations::Aces::GenerateXml  do
 
     context 'when no applicants are filing taxes' do
       let(:no_tax_filers_payload) do
-        payload_hash = JSON.parse(payload)
-        payload_hash['family']['magi_medicaid_applications']['applicants'].each do |applicant|
-          applicant['is_required_to_file_taxes'] = false
+        payload_hash = JSON.parse(payload, symbolize_names: true)
+        payload_hash[:family][:magi_medicaid_applications][:applicants].each do |applicant|
+          applicant[:is_required_to_file_taxes] = false
         end
         payload_hash.to_json
       end
@@ -178,8 +174,6 @@ RSpec.describe AcaEntities::Atp::Operations::Aces::GenerateXml  do
     end
 
     context 'param flags' do
-      let(:payload_hash) { JSON.parse(payload) }
-
       context "when drop_non_ssn_apply_reason flag is present in payload" do
         it 'should not populate IdentificationCategoryText tag in PersonSSNIdentification' do
           param_flags = { 'drop_param_flags' => ['drop_non_ssn_apply_reason'] }
@@ -191,7 +185,7 @@ RSpec.describe AcaEntities::Atp::Operations::Aces::GenerateXml  do
         end
 
         it 'should not have an IdentificationCategoryText of AppliedForSSN if applicant applied for ssn' do
-          payload_hash["family"]["magi_medicaid_applications"]["applicants"].first["is_ssn_applied"] = true
+          payload_hash[:family][:magi_medicaid_applications][:applicants].first["is_ssn_applied"] = true
           param_flags = { 'drop_param_flags' => ['drop_non_ssn_apply_reason'] }
           flagged_payload = payload_hash.merge(param_flags).to_json
           result = described_class.new.call(flagged_payload)
@@ -236,11 +230,11 @@ RSpec.describe AcaEntities::Atp::Operations::Aces::GenerateXml  do
 
       context 'family flags' do
         context 'invert_person_association flag present in family hash' do
-          let(:family) { payload_hash['family'] }
-          let(:person_id) { family['magi_medicaid_applications']['applicants'].first['person_hbx_id'] }
-          let(:relative_id) { family['magi_medicaid_applications']['applicants'].first['mitc_relationships'].first['other_id'] }
+          let(:family) { payload_hash[:family] }
+          let(:person_id) { family[:magi_medicaid_applications][:applicants].first[:person_hbx_id] }
+          let(:relative_id) { family[:magi_medicaid_applications][:applicants].first[:mitc_relationships].first[:other_id] }
           let(:relationship_kind) do
-            family['family_members'].first['person']['person_relationships'].detect {|rel| rel['relative']['hbx_id'] == relative_id}['kind']
+            family[:family_members].first[:person][:person_relationships].detect {|rel| rel[:relative][:hbx_id] == relative_id}[:kind]
           end
           let(:faa_mitc_relationship_map) do
             {
@@ -264,7 +258,7 @@ RSpec.describe AcaEntities::Atp::Operations::Aces::GenerateXml  do
 
           before do
             param_flags = { 'family_flags' => { 'invert_person_association' => true } }
-            flagged_family = payload_hash['family'].merge(param_flags)
+            flagged_family = payload_hash[:family].merge(param_flags)
             payload_hash['family'] = flagged_family
             result = described_class.new.call(payload_hash.to_json)
             doc = Nokogiri::XML.parse(result.value!)
@@ -285,10 +279,10 @@ RSpec.describe AcaEntities::Atp::Operations::Aces::GenerateXml  do
 
           context 'when primary and spouse applicants are both filing taxes' do
             let(:spouse_filer_paylaod) { File.read('spec/support/atp/sample_payloads/spouse_th.json') }
-            let(:payload_hash) { JSON.parse(spouse_filer_paylaod) }
+            let(:payload_hash) { JSON.parse(spouse_filer_paylaod, symbolize_names: true) }
             before do
               param_flags = { 'family_flags' => { 'invert_person_association' => true } }
-              flagged_family = payload_hash['family'].merge(param_flags)
+              flagged_family = payload_hash[:family].merge(param_flags)
               payload_hash['family'] = flagged_family
             end
 
