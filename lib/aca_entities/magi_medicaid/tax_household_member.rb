@@ -7,6 +7,8 @@ module AcaEntities
 
       attribute :product_eligibility_determination, ProductEligibilityDetermination.optional.meta(omittable: true)
       attribute :applicant_reference, ApplicantReference.meta(omittable: false)
+      attribute :is_subscriber,           Types::Bool.optional.meta(omittable: true)
+      attribute :tax_filer_status,        ::AcaEntities::MagiMedicaid::Types::TaxFilerKind.optional.meta(omittable: true)
 
       # MagiMedicaid Category Determination for type Income
       def medicaid_cd_for_income
@@ -26,6 +28,17 @@ module AcaEntities
 
       def csr
         product_eligibility_determination&.csr
+      end
+
+      def age_on(date)
+        dob = applicant_reference.dob
+        age = date.year - dob.year
+
+        if date.month < dob.month || (date.month == dob.month && date.day < dob.day)
+          age - 1
+        else
+          age
+        end
       end
     end
   end

@@ -23,6 +23,7 @@ module AcaEntities
           optional(:ssn).maybe(:string)
           optional(:encrypted_ssn).maybe(:string)
           optional(:dob).maybe(:date)
+          optional(:relation_with_primary).maybe(:string)
         end
       end
     end

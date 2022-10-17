@@ -15,6 +15,7 @@ module AcaEntities
         # @option opts [Hash] :tax_households optional
         # @return [Dry::Monads::Result]
         params do
+          required(:hbx_id).filled(:string)
           required(:assistance_year).filled(:integer)
           required(:start_on).value(:date)
           optional(:end_on).maybe(:date)

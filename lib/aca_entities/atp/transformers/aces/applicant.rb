@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'aca_entities/atp/transformers/aces/vlp_document'
-require 'aca_entities/atp/functions/immigrant_document_builder'
+require 'aca_entities/atp/functions/immigration_document_builder'
 
 module AcaEntities
   module Atp
@@ -27,31 +27,13 @@ module AcaEntities
             v.resolve('is_self_attested_disabled').item || v.resolve('is_self_attested_blind').item
           }
           map 'job_coverage_ended_in_past_3_months', 'coverage_during_previous_six_months_indicator'
+          map 'citizenship_immigration_status_information.citizen_status', 'citizen_status', memoize: true, visible: false
           map 'vlp_document', 'vlp_document', memoize_record: true, visible: false
           add_key 'lawful_presence_status.lawful_presence_status_eligibility.eligibility_indicator', function: lambda { |v|
             v.resolve('citizen_status').item == 'alien_lawfully_present'
           }
-          add_key 'lawful_presence_status.immigrant_documents',
-                  function: AcaEntities::Atp::Functions::ImmigrantDocumentBuilder.new
-          # namespace 'vlp_document' do
-          #   rewrap 'lawful_presence_status.immigrant_documents', type: :array do
-          #     add_key 'category_text'
-          #     add_key 'document_person_ids'
-          #     # map 'vlp_subject', 'category_code'
-          #     map 'alien_number', 'document_numbers.identification_id'
-          #     map 'i94_number', 'document_numbers.identification_id'
-          #     # map 'visa_number', 'document_numbers.identification_id'
-          #     # map 'passport_number', 'document_numbers.identification_id'
-          #     # map 'sevis_number', 'document_numbers.identification_id'
-          #     # map 'naturalization_number', 'document_numbers.identification_id'
-          #     # map 'receipt_number', 'document_numbers.identification_id'
-          #     # map 'citizenship_number', 'document_numbers.identification_id'
-          #     # map 'card_number', 'document_numbers.identification_id'
-          #     # map 'country_of_citizenship', 'document_numbers.identification_jurisdiction'
-          #     # map 'issuing_country', 'document_numbers.identification_jurisdiction'
-          #     # map 'expiration_date', 'expiration_date.date'
-          #   end
-          # end
+          add_key 'lawful_presence_status.immigration_documents',
+                  function: AcaEntities::Atp::Functions::ImmigrationDocumentBuilder.new
           map 'is_self_attested_long_term_care', 'long_term_care_indicator'
           map 'is_primary_caregiver', 'parent_caretaker_indicator'
           add_key 'state_benefits_through_public_employee_indicator'

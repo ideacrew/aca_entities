@@ -11,6 +11,8 @@ module AcaEntities
       attribute :household_benchmark_ehb_premium,                           AcaEntities::Currency.meta(omittable: false)
       attribute :household_health_benchmark_ehb_premium,                    AcaEntities::Currency.optional.meta(omittable: true)
       attribute :household_dental_benchmark_ehb_premium,                    AcaEntities::Currency.optional.meta(omittable: true)
+      attribute :applied_aptc,                                              AcaEntities::Currency.optional.meta(omittable: true)
+      attribute :available_max_aptc,                                        AcaEntities::Currency.optional.meta(omittable: true)
 
       attribute :tax_household_members_enrollment_members,
                 Types::Array.of(AcaEntities::PremiumCredits::TaxHouseholdMemberEnrollmentMember).meta(omittable: false)
