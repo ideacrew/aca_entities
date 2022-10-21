@@ -45,3 +45,4 @@
 
 # Exclude node packages
 /node_modules
+temp/

@@ -20,13 +20,13 @@ module AcaEntities
           optional(:hbx_id).maybe(:string)
           optional(:allocated_aptc).hash(AcaEntities::Contracts::CurrencyContract.params)
           optional(:is_eligibility_determined).maybe(:bool)
-          optional(:start_date).value(:date)
-          optional(:end_date).value(:date)
+          optional(:start_date).maybe(:date)
+          optional(:end_date).maybe(:date)
           required(:tax_household_members).array(AcaEntities::Contracts::Households::TaxHouseholdMemberContract.params)
           optional(:eligibility_determinations).array(AcaEntities::Contracts::Determinations::EligibilityDeterminationContract.params)
 
           # Yearly Expected Contribution
-          optional(:yearly_expected_contribution).maybe(::AcaEntities::Types::Money)
+          optional(:yearly_expected_contribution).maybe(AcaEntities::Contracts::CurrencyContract.params)
 
           optional(:eligibility_determination_hbx_id).maybe(:string)
           optional(:max_aptc).maybe(AcaEntities::Contracts::CurrencyContract.params)

@@ -109,7 +109,7 @@ RSpec.describe AcaEntities::Contracts::Households::TaxHouseholdGroupContract, db
       start_date: Date.today,
       end_date: Date.today,
       tax_household_members: tax_household_members,
-      yearly_expected_contribution: BigDecimal('102.78238'),
+      yearly_expected_contribution: { cents: 10_278_238, currency_iso: "USD" },
       max_aptc: currency,
       aptc_accumulator: aptc_accumulator,
       contribution_accumulator: contribution_accumulator
@@ -118,6 +118,7 @@ RSpec.describe AcaEntities::Contracts::Households::TaxHouseholdGroupContract, db
 
   let(:required_params) do
     {
+      hbx_id: "123456789",
       assistance_year: Date.today.year,
       start_on: Date.today,
       end_on: Date.today,

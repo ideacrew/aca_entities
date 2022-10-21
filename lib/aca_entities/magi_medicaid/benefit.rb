@@ -32,6 +32,10 @@ module AcaEntities
 
       # attribute :workflow,                Iap::Workflow.meta(omittable: true)
 
+      # Does this employer offer a health plan that meets the minimum value standard and is considered affordable for the employee and family?
+      # "To determine if the offer of coverage is affordable, use [hyperlink] CoverME.gov's Employer Insurance Tool" Y/N
+      attribute :health_plan_meets_mvs_and_affordable, Types::Bool.optional.meta(omittable: true)
+
       # rubocop:disable Naming/PredicateName
       def is_eligible?
         status == 'is_eligible'

@@ -111,7 +111,7 @@ RSpec.describe AcaEntities::Contracts::Policies::PolicyContract,  dbclean: :afte
       total_responsible_amount: "20.0",
       coverage_start: "2022-01-01",
       coverage_end: "2022-12-31",
-      coverage_kind: "health",
+      coverage_kind: nil,
       term_for_np: "false",
       rating_area: "RDC",
       service_area: nil,
