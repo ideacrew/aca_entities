@@ -176,7 +176,7 @@ channels:
     publish:
       bindings:
         amqp:
-          app_id: medicaid_gateway
+          app_id: enroll
           type: enroll.applications.aptc_csr_credits.renewals.notice
           routing_key: enroll.applications.aptc_csr_credits.renewals.notice.determined_uqhp_eligible
           deliveryMode: 2
@@ -185,7 +185,7 @@ channels:
           content_type: application/json
           bindingVersion: 0.2.0
       operationId: enroll.applications.aptc_csr_credits.renewals.notice.determined_uqhp_eligible
-      description: Some applicants ineligible for Medicaid/CHIP and APTC/SR at renewal
+      description: Some applicants ineligible for Medicaid/CHIP and APTC/CSR at renewal (Notices)
 
   enroll.applications.aptc_csr_credits.renewals.notice.determined_mixed_determination:
     bindings:
@@ -202,7 +202,7 @@ channels:
     publish:
       bindings:
         amqp:
-          app_id: medicaid_gateway
+          app_id: enroll
           type: enroll.applications.aptc_csr_credits.renewals.notice
           routing_key: enroll.applications.aptc_csr_credits.renewals.notice.determined_mixed_determination
           deliveryMode: 2
@@ -211,7 +211,7 @@ channels:
           content_type: application/json
           bindingVersion: 0.2.0
       operationId: enroll.applications.aptc_csr_credits.renewals.notice.determined_mixed_determination
-      description: MitC determined applicants eligible for APTC/CSR financial assistance
+      description: MitC determined applicants eligible for APTC/CSR financial assistance (Notices)
 
   enroll.applications.aptc_csr_credits.renewals.notice.determined_magi_medicaid_eligible:
     bindings:
@@ -228,7 +228,7 @@ channels:
     publish:
       bindings:
         amqp:
-          app_id: medicaid_gateway
+          app_id: enroll
           type: enroll.applications.aptc_csr_credits.renewals.notice
           routing_key: enroll.applications.aptc_csr_credits.renewals.notice.determined_magi_medicaid_eligible
           deliveryMode: 2
@@ -237,7 +237,7 @@ channels:
           content_type: application/json
           bindingVersion: 0.2.0
       operationId: enroll.applications.aptc_csr_credits.renewals.notice.determined_magi_medicaid_eligible
-      description: MitC determined applicants eligible for Medicaid/CHIP financial assistance at renewal
+      description: MitC determined applicants eligible for Medicaid/CHIP financial assistance at renewal (Notices)
 
   enroll.applications.aptc_csr_credits.renewals.notice.determined_totally_ineligible:
     bindings:
@@ -253,7 +253,7 @@ channels:
     publish:
       bindings:
         amqp:
-          app_id: medicaid_gateway
+          app_id: enroll
           type: enroll.applications.aptc_csr_credits.renewals.notice
           routing_key: enroll.applications.aptc_csr_credits.renewals.notice.determined_totally_ineligible
           deliveryMode: 2
@@ -262,7 +262,7 @@ channels:
           content_type: application/json
           bindingVersion: 0.2.0
       operationId: enroll.applications.aptc_csr_credits.renewals.notice.determined_totally_ineligible
-      description: MitC determined applicants eligible for CHIP financial assistance
+      description: MitC determined applicants eligible for CHIP financial assistance (Notices)
 
   enroll.applications.aptc_csr_credits.renewals.notice.determined_medicaid_chip_eligible:
     bindings:
@@ -279,7 +279,7 @@ channels:
     publish:
       bindings:
         amqp:
-          app_id: medicaid_gateway
+          app_id: enroll
           type: enroll.applications.aptc_csr_credits.renewals.notice
           routing_key: enroll.applications.aptc_csr_credits.renewals.notice.determined_medicaid_chip_eligible
           deliveryMode: 2
@@ -288,7 +288,7 @@ channels:
           content_type: application/json
           bindingVersion: 0.2.0
       operationId: enroll.applications.aptc_csr_credits.renewals.notice.determined_medicaid_chip_eligible
-      description: Some applicants eligible for Medicaid/CHIP at renewal
+      description: Some applicants eligible for Medicaid/CHIP at renewal (Notices)
 
   enroll.applications.aptc_csr_credits.renewals.notice.determined_aptc_eligible:
     bindings:
@@ -305,7 +305,7 @@ channels:
     publish:
       bindings:
         amqp:
-          app_id: medicaid_gateway
+          app_id: enroll
           type: enroll.applications.aptc_csr_credits.renewals.notice
           routing_key: enroll.applications.aptc_csr_credits.renewals.notice.determined_aptc_eligible
           deliveryMode: 2
@@ -314,7 +314,7 @@ channels:
           content_type: application/json
           bindingVersion: 0.2.0
       operationId: enroll.applications.aptc_csr_credits.renewals.notice.determined_aptc_eligible
-      description: Some applicants eligible for APTC/CSR at renewal
+      description: Some applicants eligible for APTC/CSR at renewal (Notices)
       
 
 tags:
