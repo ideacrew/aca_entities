@@ -45,6 +45,14 @@ RSpec.describe AcaEntities::Atp::Operations::Aces::GenerateXml  do
       expect(texts&.first&.content&.strip).to eq Date.today.strftime("%F")
     end
 
+    it 'should not include LocationStateUSPostalServiceCode within tribal augmentation if the tribal state is a blank string' do
+      payload_hash[:family][:magi_medicaid_applications][:applicants].first[:native_american_information][:tribal_state] = " "
+      result = described_class.new.call(payload_hash.to_json)
+      doc = Nokogiri::XML.parse(result.value!)
+      texts = doc.xpath("//hix-core:TribalAugmentation/nc:LocationStateUSPostalServiceCode", namespaces)
+      expect(texts.present?).not_to be_truthy
+    end
+
     context 'when vlp document is present on applicant' do
       context 'when applicant is US citizen (not naturalized)' do
         it 'should not include LawfulPresenceStatusImmigrationDocument tags' do
