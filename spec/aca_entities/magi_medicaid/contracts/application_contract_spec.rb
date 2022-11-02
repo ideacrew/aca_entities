@@ -551,7 +551,7 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicationContract,  dbcle
           end
         end
 
-        context 'esi_covered' do
+        context 'esi_covered eligible' do
           let(:local_benefit) do
             benefit.delete(:esi_covered)
             benefit
@@ -560,6 +560,18 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicationContract,  dbcle
           it 'should return failure with error message' do
             err = subject.call(input_params).errors.to_h[:applicants][0][:benefits][0][:esi_covered].first
             expect(err).to eq('is expected when benefit kind is employer_sponsored_insurance')
+          end
+        end
+
+        context 'esi_covered enrolled' do
+          let(:local_benefit) do
+            benefit.delete(:esi_covered)
+            benefit.merge({ status: 'is_enrolled' })
+          end
+
+          it 'should return failure with error message' do
+            err = subject.call(input_params).errors.to_h.dig('applicants', 0, 'benefits', 0, 'esi_covered')
+            expect(err).to eq nil
           end
         end
 
