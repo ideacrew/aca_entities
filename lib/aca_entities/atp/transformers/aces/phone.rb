@@ -16,7 +16,8 @@ module AcaEntities
           map 'extension', 'contact.telephone_number.telephone.telephone_suffix_id'
           map 'contact.telephone_number.telephone.telephone_suffix_id'
           map 'kind', 'category_code', memoize: true, visible: true, function: lambda { |_v|
-            AcaEntities::Atp::Types::ContactKinds[phone[:kind]]
+            kind = v.resolve('category_code').item
+            AcaEntities::Atp::Types::ContactKinds[kind]
           }
           add_key 'is_primary_indicator', value: lambda { |v|
             kind = v.resolve('category_code').item
