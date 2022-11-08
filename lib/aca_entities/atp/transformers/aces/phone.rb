@@ -15,9 +15,8 @@ module AcaEntities
           map 'full_phone_number', 'contact.telephone_number.telephone.telephone_number_full_id'
           map 'extension', 'contact.telephone_number.telephone.telephone_suffix_id'
           map 'contact.telephone_number.telephone.telephone_suffix_id'
-          map 'kind', 'category_code', memoize: true, visible: true, function: lambda { |_v|
-            kind = v.resolve('category_code').item
-            AcaEntities::Atp::Types::ContactKinds[kind]
+          map 'kind', 'category_code', memoize: true, visible: true, function: lambda { |v|
+            AcaEntities::Atp::Types::ContactKinds[v]
           }
           add_key 'is_primary_indicator', value: lambda { |v|
             kind = v.resolve('category_code').item

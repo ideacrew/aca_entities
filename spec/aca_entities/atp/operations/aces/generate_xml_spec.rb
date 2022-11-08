@@ -55,7 +55,7 @@ RSpec.describe AcaEntities::Atp::Operations::Aces::GenerateXml  do
 
     context 'when person has contact with unmappable kind' do
       it 'should not include PersonContactInformationAssociation tags for that kind' do
-        payload_hash[:family][:family_members].first[:phones].first[:kind] = "fax"
+        payload_hash[:family][:family_members].first[:person][:phones].first[:kind] = "fax"
         result = described_class.new.call(payload_hash.to_json)
         doc = Nokogiri::XML.parse(result.value!)
         texts = doc.xpath("//hix-core:PersonContactInformationAssociation/hix-core:ContactInformationCategoryCode", namespaces).text
