@@ -89,6 +89,19 @@ module AcaEntities
         'other_full_benefit_coverage' => 'UnspecifiedFullCoverage',
         'other_limited_benefit_coverage' => 'UnspecifiedLimitedCoverage'
       }.freeze
+      
+      ContactKinds = {
+        'home' => 'Home',
+        'work' => 'Work',
+        'mailing' => 'Mailing',
+        'mobile' => 'Mobile'
+        # Enroll kinds with no accepted mapping:
+        #  - fax
+        #  - phone
+        #  - main
+        #  - primary
+        #  - branch
+      }.freeze
     end
   end
 end
