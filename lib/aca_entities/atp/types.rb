@@ -89,7 +89,7 @@ module AcaEntities
         'other_full_benefit_coverage' => 'UnspecifiedFullCoverage',
         'other_limited_benefit_coverage' => 'UnspecifiedLimitedCoverage'
       }.freeze
-      
+
       ContactKinds = {
         'home' => 'Home',
         'work' => 'Work',
