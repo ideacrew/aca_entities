@@ -25,7 +25,7 @@ module AcaEntities
           end
 
           phone_result = phones.each_with_object([]) do |phone, collector|
-            next if ContactKinds[phone[:kind]].nil?
+            next if AcaEntities::Atp::Types::ContactKinds[phone[:kind]].nil?
             collector << ::AcaEntities::Atp::Transformers::Aces::Phone.transform(phone)
             collector
           end
