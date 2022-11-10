@@ -95,12 +95,12 @@ channels:
       operationId: on_fti.enroll.fdsh_verifications.rrv
       description: Events - CMS FTI RRV Requests
 
-  on_fti.enroll.ivl_market.families.iap_applications.rrvs.income_evidences.determination_requested:
+  on_fti.enroll.ivl_market.families.iap_applications.rrvs.income_evidences:
     bindings:
       amqp:
         is: queue
         queue:
-          name: on_fti.enroll.ivl_market.families.iap_applications.rrvs.income_evidences.determination_requested
+          name: on_fti.enroll.ivl_market.families.iap_applications.rrvs.income_evidences
           durable: true
           exclusive: false
           auto_delete: false
@@ -113,5 +113,5 @@ channels:
           routing_key: enroll.ivl_market.families.iap_applications.rrvs.income_evidences.determination_requested
           bindingVersion: '0.2.0'
           prefetch: 1
-      operationId: on_fti.enroll.ivl_market.families.iap_applications.rrvs.income_evidences.determination_requested
+      operationId: on_fti.enroll.ivl_market.families.iap_applications.rrvs.income_evidences
       description: Events - CMS FRRV IFSV Requests

@@ -32,12 +32,12 @@ servers:
 defaultContentType: application/json
 
 channels:
-  on_enroll.enroll.ivl_market.families.iap_applications.rrvs.non_esi_evidences.determination_build_requested:
+  on_enroll.enroll.ivl_market.families.iap_applications.rrvs.non_esi_evidences:
     bindings:
       amqp:
         is: queue
         queue:
-          name: on_enroll.enroll.ivl_market.families.iap_applications.rrvs.non_esi_evidences.determination_build_requested
+          name: on_enroll.enroll.ivl_market.families.iap_applications.rrvs.non_esi_evidences
           durable: true
           exclusive: false
           auto_delete: false
@@ -50,16 +50,15 @@ channels:
           routing_key: enroll.ivl_market.families.iap_applications.rrvs.non_esi_evidences.determination_build_requested
           bindingVersion: '0.2.0'
           prefetch: 1
-      operationId: on_enroll.enroll.ivl_market.families.iap_applications.rrvs.non_esi_evidences.determination_build_requested
+      operationId: on_enroll.enroll.ivl_market.families.iap_applications.rrvs.non_esi_evidences
       description: Events - CMS FDSH RRV non esi Service requests
 
-channels:
-  on_enroll.enroll.ivl_market.families.iap_applications.rrvs.income_evidences.determination_build_requested:
+  on_enroll.enroll.ivl_market.families.iap_applications.rrvs.income_evidences:
     bindings:
       amqp:
         is: queue
         queue:
-          name: on_enroll.enroll.ivl_market.families.iap_applications.rrvs.income_evidences.determination_build_requested
+          name: on_enroll.enroll.ivl_market.families.iap_applications.rrvs.income_evidences
           durable: true
           exclusive: false
           auto_delete: false
@@ -72,6 +71,5 @@ channels:
           routing_key: enroll.ivl_market.families.iap_applications.rrvs.income_evidences.determination_build_requested
           bindingVersion: '0.2.0'
           prefetch: 1
-      operationId: on_enroll.enroll.ivl_market.families.iap_applications.rrvs.income_evidences.determination_build_requested
-      description: Events - CMS FDSH RIDP Service requests
-
+      operationId: on_enroll.enroll.ivl_market.families.iap_applications.rrvs.income_evidences
+      description: Events - CMS FDSH RRV IFSV Service requests
