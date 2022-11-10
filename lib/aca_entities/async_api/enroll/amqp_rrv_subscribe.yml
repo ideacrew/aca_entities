@@ -53,7 +53,6 @@ channels:
       operationId: on_enroll.enroll.ivl_market.families.iap_applications.rrvs.non_esi_evidences
       description: Events - CMS FDSH RRV non esi Service requests
 
-channels:
   on_enroll.enroll.ivl_market.families.iap_applications.rrvs.income_evidences:
     bindings:
       amqp:
@@ -73,5 +72,4 @@ channels:
           bindingVersion: '0.2.0'
           prefetch: 1
       operationId: on_enroll.enroll.ivl_market.families.iap_applications.rrvs.income_evidences
-      description: Events - CMS FDSH RIDP Service requests
-
+      description: Events - CMS FDSH RRV IFSV Service requests
