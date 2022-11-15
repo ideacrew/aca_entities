@@ -53,6 +53,16 @@ RSpec.describe AcaEntities::Atp::Operations::Aces::GenerateXml  do
       expect(texts.present?).not_to be_truthy
     end
 
+    context 'when person has contact with unmappable kind' do
+      it 'should not include PersonContactInformationAssociation tags for that kind' do
+        payload_hash[:family][:family_members].first[:person][:phones].first[:kind] = "fax"
+        result = described_class.new.call(payload_hash.to_json)
+        doc = Nokogiri::XML.parse(result.value!)
+        texts = doc.xpath("//hix-core:PersonContactInformationAssociation/hix-core:ContactInformationCategoryCode", namespaces).text
+        expect(texts.include?('fax')).not_to be_truthy
+      end
+    end
+
     context 'when vlp document is present on applicant' do
       context 'when applicant is US citizen (not naturalized)' do
         it 'should not include LawfulPresenceStatusImmigrationDocument tags' do
