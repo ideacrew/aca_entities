@@ -69,8 +69,8 @@ channels:
         binding_version: "0.2.0"
     publish:
       operationId: enroll.individual.consumer_roles.updated
-      description: Events - Consumer role create
-      summary: Events - consumer role created
+      description: Events - Consumer role update
+      summary: Events - consumer role updated
       bindings:
         amqp:
           app_id: enroll
