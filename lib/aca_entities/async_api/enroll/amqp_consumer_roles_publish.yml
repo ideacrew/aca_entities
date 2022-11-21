@@ -55,6 +55,32 @@ channels:
           timestamp: true
           content_type: application/json
           bindingVersion: 0.2.0
+  enroll.individual.consumer_roles.updated:
+    bindings:
+      amqp:
+        is: :routing_key
+        exchange:
+          name: enroll.individual.consumer_roles
+          type: topic
+          content_type: application/json
+          durable: true
+          auto_delete: false
+          vhost: event_source
+        binding_version: "0.2.0"
+    publish:
+      operationId: enroll.individual.consumer_roles.updated
+      description: Events - Consumer role create
+      summary: Events - consumer role created
+      bindings:
+        amqp:
+          app_id: enroll
+          type: enroll.individual.consumer_roles
+          routing_key: enroll.individual.consumer_roles.updated
+          deliveryMode: 2
+          mandatory: true
+          timestamp: true
+          content_type: application/json
+          bindingVersion: 0.2.0
 tags:
   - name: linter_tag
     description: placeholder that satisfies the linter
