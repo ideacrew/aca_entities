@@ -19,6 +19,12 @@ module AcaEntities
         end
       end
 
+      def check_consumer_role_citizen_status(consumer_role_reference, failure_message)
+        # if consumer is applying for coverage and citizen status is nil, we want to return a failure
+        return unless consumer_role_reference[:is_applying_coverage] && consumer_role_reference[:citizen_status].nil?
+        failure_message.failure(text: "Citizen status must be filled")
+      end
+
       rule(:special_enrollment_periods).each do |index:|
         next unless key? && value.is_a?(Hash)
         if value[:end_on] && value[:start_on] && (value[:end_on] < value[:start_on])
@@ -81,6 +87,11 @@ module AcaEntities
               if hbx[:consumer_role_reference].nil? || !hbx[:consumer_role_reference].is_a?(Hash)
                 key([:households, index, :hbx_enrollments, hbx_index, :consumer_role_reference,
                      hbx_index]).failure(text: 'consumer_role_reference should be populated')
+              end
+              if hbx[:consumer_role_reference].is_a?(Hash)
+                citizen_status_failure = key([:households, index, :hbx_enrollments, hbx_index, :consumer_role_reference,
+                                              hbx_index])
+                check_consumer_role_citizen_status(hbx[:consumer_role_reference], citizen_status_failure)
               end
             when 'coverall'
               if hbx[:resident_role_reference].nil? || !hbx[:resident_role_reference].is_a?(Hash)

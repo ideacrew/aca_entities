@@ -20,7 +20,7 @@ module AcaEntities
           required(:is_applicant).filled(:bool)
           required(:is_state_resident).filled(:bool)
           required(:lawful_presence_determination).hash(AcaEntities::Contracts::Determinations::LawfulPresenceDeterminationContract.params)
-          required(:citizen_status).filled(:string)
+          optional(:citizen_status).maybe(:string)
         end
       end
     end
