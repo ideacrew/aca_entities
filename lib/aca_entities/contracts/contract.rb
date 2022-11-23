@@ -21,9 +21,8 @@ module AcaEntities
 
       def check_consumer_role_citizen_status(consumer_role_reference, failure_message)
         # if consumer is applying for coverage and citizen status is nil, we want to return a failure
-        is_applying_coverage = consumer_role_reference[:is_applying_coverage] == true
-        citizen_status_is_nil = consumer_role_reference[:citizen_status].nil?
-        failure_message.failure(text: "Citizen status must be filled") if is_applying_coverage && citizen_status_is_nil
+        return unless consumer_role_reference[:is_applying_coverage] && consumer_role_reference[:citizen_status].nil?
+        failure_message.failure(text: "Citizen status must be filled")
       end
 
       rule(:special_enrollment_periods).each do |index:|

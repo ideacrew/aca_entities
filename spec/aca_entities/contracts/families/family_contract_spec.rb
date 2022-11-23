@@ -840,6 +840,22 @@ RSpec.describe AcaEntities::Contracts::Families::FamilyContract,  dbclean: :afte
       end
     end
 
+    context 'consumer reference is applying for coverage is nil and citizen status is nil' do
+      before do
+        consumer_role_reference[:is_applying_coverage] = nil
+        consumer_role_reference[:citizen_status] = nil
+        @result = subject.call(required_params)
+      end
+
+      it "should return failure" do
+        expect(@result.success?).to be_falsy
+      end
+
+      it "should return error message" do
+        expect(@result.errors.messages.first.text).to eq("must be boolean")
+      end
+    end
+
     context 'with magi_medicaid_applications' do
       let(:applicant) do
         { name: {},

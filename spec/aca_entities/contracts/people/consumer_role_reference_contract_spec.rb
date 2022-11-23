@@ -59,6 +59,20 @@ RSpec.describe ::AcaEntities::Contracts::People::ConsumerRoleReferenceContract, 
     it 'should not have any errors' do
       expect(@result.errors.empty?).to be_truthy
     end
+
+    context 'with nil citizen status' do
+      before do
+        @result = subject.call(required_params.merge(citizen_status: nil))
+      end
+      
+      it 'should return success' do
+        expect(@result.success?).to be_truthy
+      end
+  
+      it 'should not have any errors' do
+        expect(@result.errors.empty?).to be_truthy
+      end
+    end
   end
 
   context 'failure case' do
