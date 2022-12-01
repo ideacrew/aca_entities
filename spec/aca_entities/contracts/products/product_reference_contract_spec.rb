@@ -14,6 +14,15 @@ RSpec.describe ::AcaEntities::Contracts::Products::ProductReferenceContract, dbc
     }
   end
 
+  let(:family_rated_premiums) do
+    {
+      exchange_provided_code: 'R-ME002',
+      primary_enrollee: 40.5,
+      primary_enrollee_one_dependent: 80.5,
+      primary_enrollee_many_dependent: 159.0
+    }
+  end
+
   let(:required_params) do
     {
       hios_id: '92479DC0020002',
@@ -27,7 +36,8 @@ RSpec.describe ::AcaEntities::Contracts::Products::ProductReferenceContract, dbc
       issuer_profile_reference: issuer_profile_reference,
       covers_pediatric_dental_costs: true,
       rating_method: 'Age-Based Rates',
-      pediatric_dental_ehb: nil
+      pediatric_dental_ehb: 0.9449,
+      family_rated_premiums: family_rated_premiums
     }
   end
 

@@ -20,7 +20,12 @@ module AcaEntities
 
       attribute :covers_pediatric_dental_costs, Types::Bool.optional.meta(omittable: true) # This is only for HealthProducts
       attribute :rating_method,                 Types::String.optional.meta(omittable: true)
-      attribute :pediatric_dental_ehb,          ::AcaEntities::Types::Money.optional.meta(omittable: true) # This is only for DentalProducts
+
+      # Same as Enroll's :ehb_apportionment_for_pediatric_dental
+      # This is only for DentalProducts
+      attribute :pediatric_dental_ehb,          ::AcaEntities::Types::Money.optional.meta(omittable: true)
+
+      attribute :family_rated_premiums,         ::AcaEntities::Products::FamilyRatedPremiums.optional.meta(omittable: true)
     end
   end
 end
