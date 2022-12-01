@@ -330,7 +330,7 @@ RSpec.describe ::AcaEntities::Enrollments::HbxEnrollment, dbclean: :after_each d
       is_subscriber: true,
       eligibility_date: Date.today,
       coverage_start_on: Date.today,
-      slcsp_benchmark_premium: currency
+      slcsp_member_premium: currency
     }
   end
 
@@ -369,15 +369,15 @@ RSpec.describe ::AcaEntities::Enrollments::HbxEnrollment, dbclean: :after_each d
     ]
   end
 
-  describe 'slcsp_benchmark_premium' do
+  describe 'slcsp_member_premium' do
     before do
       @validated_params_result = AcaEntities::Contracts::Enrollments::HbxEnrollmentContract.new.call(input_params)
     end
 
-    it 'returns slcsp_benchmark_premium' do
+    it 'returns slcsp_member_premium' do
       expect(@validated_params_result.success?).to be_truthy
       expect(
-        @validated_params_result.to_h[:hbx_enrollment_members].first[:slcsp_benchmark_premium]
+        @validated_params_result.to_h[:hbx_enrollment_members].first[:slcsp_member_premium]
       ).not_to be_empty
     end
   end
