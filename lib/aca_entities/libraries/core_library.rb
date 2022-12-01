@@ -26,6 +26,7 @@ module AcaEntities
       require 'aca_entities/contracts/families/family_reference_contract'
       require 'aca_entities/contracts/families/family_member_reference_contract'
       require 'aca_entities/contracts/organizations/issuer_profile_reference_contract'
+      require 'aca_entities/contracts/products/family_rated_premiums_contract'
       require 'aca_entities/contracts/products/product_reference_contract'
       require 'aca_entities/contracts/organizations/general_agency_reference_contract'
       require 'aca_entities/contracts/organizations/broker_agency_profile_reference_contract'
@@ -106,6 +107,7 @@ module AcaEntities
 
       # require 'aca_entities/accounts/user'
       require 'aca_entities/organizations/issuer_profile_reference'
+      require 'aca_entities/products/family_rated_premiums'
       require 'aca_entities/products/product_reference'
       require 'aca_entities/people/person_reference'
       require 'aca_entities/households/household_reference'

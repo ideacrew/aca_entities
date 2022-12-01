@@ -22,6 +22,7 @@ module AcaEntities
         # @option opts [Boolean] :covers_pediatric_dental_costs optional
         # @option opts [String] :rating_method optional
         # @option opts [::AcaEntities::Types::Money] :pediatric_dental_ehb optional
+        # @option opts [Hash] :family_rated_premiums optional
         # @return [Dry::Monads::Result]
         params do
           required(:hios_id).filled(:string)
@@ -41,6 +42,7 @@ module AcaEntities
           optional(:covers_pediatric_dental_costs).maybe(:bool)
           optional(:rating_method).maybe(:string)
           optional(:pediatric_dental_ehb).maybe(::AcaEntities::Types::Money)
+          optional(:family_rated_premiums).maybe(AcaEntities::Contracts::Products::FamilyRatedPremiumsContract.params)
         end
       end
     end

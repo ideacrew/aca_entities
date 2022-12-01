@@ -6,7 +6,7 @@ RSpec.describe ::AcaEntities::Enrollments::HbxEnrollment, dbclean: :after_each d
 
   let(:currency) do
     {
-      cents: 0.0,
+      cents: 98_700.0,
       currency_iso: "USD"
     }
   end
@@ -329,7 +329,8 @@ RSpec.describe ::AcaEntities::Enrollments::HbxEnrollment, dbclean: :after_each d
       coverage_end_on: nil,
       is_subscriber: true,
       eligibility_date: Date.today,
-      coverage_start_on: Date.today
+      coverage_start_on: Date.today,
+      slcsp_member_premium: currency
     }
   end
 
@@ -366,6 +367,19 @@ RSpec.describe ::AcaEntities::Enrollments::HbxEnrollment, dbclean: :after_each d
         tax_household_members_enrollment_members: tax_household_members_enrollment_members
       }
     ]
+  end
+
+  describe 'slcsp_member_premium' do
+    before do
+      @validated_params_result = AcaEntities::Contracts::Enrollments::HbxEnrollmentContract.new.call(input_params)
+    end
+
+    it 'returns slcsp_member_premium' do
+      expect(@validated_params_result.success?).to be_truthy
+      expect(
+        @validated_params_result.to_h[:hbx_enrollment_members].first[:slcsp_member_premium]
+      ).not_to be_empty
+    end
   end
 
   describe 'with valid arguments' do
