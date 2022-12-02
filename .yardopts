@@ -1,9 +1,11 @@
---no-private
---protected
---markup="markdown" lib/**/*.rb
---main README.md
---hide-tag todo
--
-LICENSE.txt
-ChangeLog.md
-CODE_OF_CONDUCT.md
+--query '@api.text != "private"'
+--embed-mixins
+--title "AcaEntities Gem"
+-o doc
+-r README.md
+--markup-provider=redcarpet
+--markup=markdown
+--plugin junk
+--hide-void-return
+lib/**/*.rb -
+ChangeLog.md CODE_OF_CONDUCT.md LICENSE.txt

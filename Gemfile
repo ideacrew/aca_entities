@@ -8,6 +8,7 @@ gemspec
 gem "rake", "~> 12.0"
 
 group :development, :test do
+  gem "redcarpet"
   gem "rspec"
   gem "rspec-core"
   gem "rubocop"

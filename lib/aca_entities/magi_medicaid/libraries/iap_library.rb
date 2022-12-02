@@ -5,13 +5,11 @@ module AcaEntities
   module MagiMedicaid
     module Libraries
       module IapLibrary
-
         require 'aca_entities/magi_medicaid/libraries/mitc_library'
 
         require 'aca_entities/types'
         require 'aca_entities/app_helper'
         require 'aca_entities/people/person_name'
-        require 'aca_entities/locations/address'
         require 'aca_entities/contacts/phone_contact'
         require 'aca_entities/contacts/email_contact'
         require 'aca_entities/documents/document'

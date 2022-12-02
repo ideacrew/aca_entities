@@ -11,7 +11,8 @@ module AcaEntities
       attribute :attestation, Attestation.optional.meta(omittable: true)
       attribute :is_primary_applicant, Types::Bool.meta(omittable: false)
       attribute :native_american_information, NativeAmericanInformation.optional.meta(omittable: true)
-      attribute :citizenship_immigration_status_information, CitizenshipImmigrationStatusInformation.meta(omittable: false)
+      attribute :citizenship_immigration_status_information,
+                CitizenshipImmigrationStatusInformation.meta(omittable: false)
 
       attribute :is_consumer_role, Types::Bool.optional.meta(omittable: true)
       attribute :is_resident_role, Types::Bool.optional.meta(omittable: true)
@@ -39,6 +40,7 @@ module AcaEntities
       attribute :person_hbx_id, Types::String.meta(omittable: false)
 
       attribute :is_required_to_file_taxes, Types::Bool.optional.meta(omittable: true)
+
       # Will this person be filing as head of household?
       attribute :is_filing_as_head_of_household, Types::Bool.optional.meta(omittable: true)
       attribute :tax_filer_kind, Types::TaxFilerKind.optional.meta(omittable: true)
@@ -60,6 +62,7 @@ module AcaEntities
       attribute :is_forty_quarters, Types::Bool.optional.meta(omittable: true)
       attribute :is_ssn_applied, Types::Bool.optional.meta(omittable: true)
       attribute :non_ssn_apply_reason, Types::String.optional.meta(omittable: true)
+
       # 5 Yr. Bar QNs.
       attribute :moved_on_or_after_welfare_reformed_law, Types::Bool.optional.meta(omittable: true)
       attribute :is_currently_enrolled_in_health_plan, Types::Bool.optional.meta(omittable: true)
@@ -82,6 +85,7 @@ module AcaEntities
       # including coverage they could get through another person?
       # @return [Bool]
       attribute :has_eligible_health_coverage, Types::Bool.optional.meta(omittable: true)
+
       # Driver QNs.
 
       # @!attribute [r] job_coverage_ended_in_past_3_months
@@ -99,13 +103,13 @@ module AcaEntities
       attribute :medicaid_and_chip, MedicaidAndChip.optional.meta(omittable: true)
       attribute :other_health_service, OtherHealthService.optional.meta(omittable: true)
 
-      attribute :addresses, Types::Array.of(AcaEntities::Locations::Address).optional.meta(omittable: true)
+      attribute :addresses, Types::Array.of(AcaEntities::Locations::Addresses::Address).optional.meta(omittable: true)
       attribute :emails, Types::Array.of(AcaEntities::Contacts::EmailContact).optional.meta(omittable: true)
       attribute :phones, Types::Array.of(AcaEntities::Contacts::PhoneContact).optional.meta(omittable: true)
 
-      attribute :incomes,         Types::Array.of(Income).optional.meta(omittable: true)
-      attribute :benefits,        Types::Array.of(Benefit).optional.meta(omittable: true)
-      attribute :deductions,      Types::Array.of(Deduction).optional.meta(omittable: true)
+      attribute :incomes, Types::Array.of(Income).optional.meta(omittable: true)
+      attribute :benefits, Types::Array.of(Benefit).optional.meta(omittable: true)
+      attribute :deductions, Types::Array.of(Deduction).optional.meta(omittable: true)
 
       # @!attribute [r] is_medicare_eligible
       # A boolean that tells if applicant has any medicare benefits('medicare', 'medicare_advantage', or 'medicare_part_b').
@@ -166,9 +170,11 @@ module AcaEntities
 
       # Set of attributes specific to MitC which helps to not have much logic in IapTo MitC Transform.
       attribute :mitc_income, AcaEntities::MagiMedicaid::Mitc::Income.optional.meta(omittable: true)
-      attribute :mitc_relationships, Types::Array.of(AcaEntities::MagiMedicaid::Mitc::Relationship).optional.meta(omittable: true)
+      attribute :mitc_relationships,
+                Types::Array.of(AcaEntities::MagiMedicaid::Mitc::Relationship).optional.meta(omittable: true)
       attribute :mitc_state_resident, Types::Bool.optional.meta(omittable: true)
       attribute :mitc_is_required_to_file_taxes, Types::Bool.optional.meta(omittable: true)
+
       # mitc_is_required_to_file_taxes is special attribute that is used to bypass some of the Income rules of Mitc.
       # Mitc has some rules to Include/Exclude Income which do not match with any policy per Sarah:
       # 1. Your income is counted if you are Required to File Taxes
@@ -183,8 +189,8 @@ module AcaEntities
       attribute :local_mec_evidence, AcaEntities::Eligibilities::Evidence.optional.meta(omittable: true)
 
       # fdsh esi response
-      attribute :esi_eligibility_indicator,   Types::Bool.optional.meta(omittable: true)
-      attribute :esi_insured_indicator,       Types::Bool.optional.meta(omittable: true)
+      attribute :esi_eligibility_indicator, Types::Bool.optional.meta(omittable: true)
+      attribute :esi_insured_indicator, Types::Bool.optional.meta(omittable: true)
       attribute :esi_inconsistency_indicator, Types::Bool.optional.meta(omittable: true)
 
       def monthly_qsehra_amount
@@ -196,9 +202,7 @@ module AcaEntities
       def minimum_essential_coverages
         return [] if benefits.blank?
 
-        benefits.select do |benefit|
-          Types::MinimumEssentialCoverageBenefitKinds.include?(benefit.kind)
-        end
+        benefits.select { |benefit| Types::MinimumEssentialCoverageBenefitKinds.include?(benefit.kind) }
       end
 
       def incarcerated?
@@ -222,25 +226,19 @@ module AcaEntities
       def eligible_benefit_esis
         return [] unless has_eligible_health_coverage
 
-        benefits.select do |benefit|
-          benefit.status == 'is_eligible' && benefit.kind == 'employer_sponsored_insurance'
-        end
+        benefits.select { |benefit| benefit.status == 'is_eligible' && benefit.kind == 'employer_sponsored_insurance' }
       end
 
       def ichra_benefits
         return [] if benefits.blank?
 
-        benefits.select do |ben|
-          ben.kind == 'health_reimbursement_arrangement' && ben.hra_kind == :ichra
-        end
+        benefits.select { |ben| ben.kind == 'health_reimbursement_arrangement' && ben.hra_kind == :ichra }
       end
 
       def qsehra_benefits
         return [] if benefits.blank?
 
-        benefits.select do |ben|
-          ben.kind == 'health_reimbursement_arrangement' && ben.hra_kind == :qsehra
-        end
+        benefits.select { |ben| ben.kind == 'health_reimbursement_arrangement' && ben.hra_kind == :qsehra }
       end
 
       def attested_for_aian?
@@ -250,31 +248,29 @@ module AcaEntities
       def home_address
         return if addresses.nil?
 
-        addresses.detect do |address|
-          address.kind == 'home'
-        end
+        addresses.detect { |address| address.kind == 'home' }
       end
 
       def esi_eligible?
-        esi_benefits = benefits.select do |benefit|
-          benefit.status == 'is_eligible' && benefit.kind == 'employer_sponsored_insurance'
-        end
+        esi_benefits =
+          benefits.select do |benefit|
+            benefit.status == 'is_eligible' && benefit.kind == 'employer_sponsored_insurance'
+          end
 
         esi_benefits.present?
       end
 
       def esi_enrolled?
-        esi_benefits = benefits.select do |benefit|
-          benefit.status == 'is_enrolled' && benefit.kind == 'employer_sponsored_insurance'
-        end
+        esi_benefits =
+          benefits.select do |benefit|
+            benefit.status == 'is_enrolled' && benefit.kind == 'employer_sponsored_insurance'
+          end
 
         esi_benefits.present?
       end
 
       def health_benefits_for(benefit_kind)
-        health_benefits = benefits.select do |benefit|
-          benefit.kind == benefit_kind
-        end
+        health_benefits = benefits.select { |benefit| benefit.kind == benefit_kind }
 
         health_benefits.present?
       end
