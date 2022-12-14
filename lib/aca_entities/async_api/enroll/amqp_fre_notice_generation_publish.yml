@@ -56,7 +56,7 @@ channels:
           content_type: application/json
           bindingVersion: 0.2.0
       operationId: enroll.families.notices.fre_notice_generation.requested
-      description: Renewal enrollment for notice generation
+      description: Event for auto renewing enrollment FRE notice generation
 
 tags:
   - name: linter_tag
