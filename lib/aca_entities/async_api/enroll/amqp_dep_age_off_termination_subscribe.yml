@@ -30,12 +30,12 @@ servers:
     description: RabbitMQ Test Server
 
 channels:
-  on_enroll.enroll.shop.non_congressional.dep_age_off_termination:
+  on_enroll.enroll.benefit_sponsors.non_congressional.dependent_age_off_termination:
     bindings:
       amqp:
         is: queue
         queue:
-          name: on_enroll.enroll.shop.non_congressional.dep_age_off_termination
+          name: on_enroll.enroll.benefit_sponsors.non_congressional.dependent_age_off_termination
           durable: true
           exclusive: false
           auto_delete: false
@@ -45,10 +45,10 @@ channels:
         amqp:
           ack: true
           exclusive: false
-          routing_key: enroll.shop.non_congressional.dep_age_off_termination.requested
+          routing_key: enroll.benefit_sponsors.non_congressional.dependent_age_off_termination.requested
           prefetch: 1
           bindingVersion: "0.2.0"
-      operationId: on_enroll.enroll.shop.non_congressional.dep_age_off_termination
+      operationId: on_enroll.enroll.benefit_sponsors.non_congressional.dependent_age_off_termination
       description: Event for SHOP Non-Congressional dependent age off termination
 
 tags:

@@ -33,12 +33,12 @@ defaultContentType: application/json
 
 channels:
   # <app service><.namespace>.<domain_model>.<event>
-  enroll.shop.non_congressional.dep_age_off_termination.requested:
+  enroll.benefit_sponsors.non_congressional.dependent_age_off_termination.requested:
     bindings:
       amqp:
         is: :routing_key
         exchange:
-          name: enroll.shop.non_congressional.dep_age_off_termination
+          name: enroll.benefit_sponsors.non_congressional.dependent_age_off_termination
           type: topic
           durable: true
           auto_delete: false
@@ -48,14 +48,14 @@ channels:
       bindings:
         amqp:
           app_id: enroll
-          type: enroll.shop.non_congressional.dep_age_off_termination
-          routing_key: enroll.shop.non_congressional.dep_age_off_termination.requested
+          type: enroll.benefit_sponsors.non_congressional.dependent_age_off_termination
+          routing_key: enroll.benefit_sponsors.non_congressional.dependent_age_off_termination.requested
           deliveryMode: 2
           mandatory: true
           timestamp: true
           content_type: application/json
           bindingVersion: 0.2.0
-      operationId: enroll.shop.non_congressional.dep_age_off_termination.requested
+      operationId: enroll.benefit_sponsors.non_congressional.dependent_age_off_termination.requested
       description: Event for SHOP Non-Congressional dependent Age-Off termination
 
 tags:
