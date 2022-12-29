@@ -22,6 +22,7 @@ RSpec.describe AcaEntities::InsurancePolicies::AcaIndividuals::Contracts::Insura
 
     let(:required_params) do
       {
+        plan_year: DateTime.now.year,
         contract_holder: contract_holder,
         insurance_provider: insurance_provider,
         insurance_policies: insurance_policies,
@@ -44,7 +45,7 @@ RSpec.describe AcaEntities::InsurancePolicies::AcaIndividuals::Contracts::Insura
         it 'should pass validation' do
           result = subject.call(all_params)
           expect(result.success?).to be_truthy
-          expect(result.to_h).to eq all_params
+          expect(result.to_h).to eq all_params.except(:insurance_product)
         end
       end
     end
@@ -54,7 +55,7 @@ RSpec.describe AcaEntities::InsurancePolicies::AcaIndividuals::Contracts::Insura
         {
           contract_holder: ['is missing'],
           insurance_provider: ['is missing'],
-          start_on: ['is missing']
+          plan_year: ['is missing']
         }
       end
       it 'should pass validation' do

@@ -18,9 +18,9 @@ RSpec.describe AcaEntities::InsurancePolicies::Contracts::InsuranceProviderContr
   let(:text) { 'Some annotations/notes here' }
   let(:timestamps) { { created_at: moment, modified_at: moment } }
 
-  let(:required_params) { { hios_id: hios_id, title: title, fein: "12345" } }
+  let(:required_params) { { hios_id: hios_id, title: title, fein: "12345", insurance_products: insurance_products } }
   let(:optional_params) do
-    { id: id, insurance_products: insurance_products, description: description, text: text, timestamps: timestamps }
+    { id: id, description: description, text: text, timestamps: timestamps }
   end
 
   let(:all_params) { required_params.merge(optional_params) }
@@ -44,7 +44,10 @@ RSpec.describe AcaEntities::InsurancePolicies::Contracts::InsuranceProviderContr
   end
 
   context 'Calling the contract with no params' do
-    let(:error_message) { { hios_id: ['is missing'], title: ['is missing'], fein: ['is missing'] } }
+    let(:error_message) do
+      { hios_id: ['is missing'], title: ['is missing'], fein: ['is missing'],
+        insurance_products: ['is missing'] }
+    end
     it 'should pass validation' do
       result = subject.call({})
       expect(result.failure?).to be_truthy
