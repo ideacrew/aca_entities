@@ -7,12 +7,13 @@ module AcaEntities
       class MemberContract < Contract
         params do
           optional(:id).maybe(:string)
-          required(:member_id).filled(:string)
+          optional(:member_id).maybe(:string)
+          required(:hbx_id).filled(:string)
           optional(:insurer_assigned_id).maybe(:string)
           required(:person_name).filled(AcaEntities::Contracts::People::PersonNameContract.params)
           optional(:encrypted_ssn).maybe(:string)
-          required(:dob).filled(:date)
-          required(:gender).maybe(AcaEntities::Types::BinaryGenderKind)
+          optional(:dob).filled(:date)
+          optional(:gender).maybe(AcaEntities::Types::BinaryGenderKind)
           optional(:relationship_code).maybe(:string)
           optional(:addresses).array(AcaEntities::Locations::Contracts::SiteAddressContract.params)
           optional(:emails).array(AcaEntities::Contracts::Contacts::EmailContactContract.params)
