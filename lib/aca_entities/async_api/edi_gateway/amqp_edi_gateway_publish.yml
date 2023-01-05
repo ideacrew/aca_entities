@@ -75,7 +75,7 @@ channels:
       bindings:
         amqp:
           app_id: edi_gateway
-          type: di_gateway.families.cv3_family
+          type: edi_gateway.families.cv3_family
           routing_key: edi_gateway.families.cv3_family.requested
           deliveryMode: 2
           mandatory: true
