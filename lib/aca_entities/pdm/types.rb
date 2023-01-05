@@ -6,7 +6,6 @@ require 'date'
 module AcaEntities
   module Pdm
     module Entities
-      # rubocop:disable Metrics/ModuleLength, Layout/LineLength
       # custom types for curam
       module Types
         send(:include, Dry.Types())
@@ -17,10 +16,10 @@ module AcaEntities
         end
 
         ManifestTypes = Types::Coercible::Symbol.enum(
-            "RRV_MANIFEST_TYPE",
-            "PVC_MANIFEST_TYPE"
-          )
-  
+          "RRV_MANIFEST_TYPE",
+          "PVC_MANIFEST_TYPE"
+        )
+
       end
     end
   end
