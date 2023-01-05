@@ -35,7 +35,10 @@ RSpec.describe AcaEntities::InsurancePolicies::Contracts::MemberContract do
   let(:moment) { DateTime.now }
   let(:timestamps) { { created_at: moment, modified_at: moment } }
 
-  let(:required_params) { { member_id: member_id, person_name: person_name, gender: gender, dob: dob } }
+  let(:required_params) do
+    { hbx_id: member_id, member_id: member_id, person_name: person_name, gender: gender,
+      dob: dob }
+  end
   let(:optional_params) do
     {
       id: id,
@@ -72,11 +75,9 @@ RSpec.describe AcaEntities::InsurancePolicies::Contracts::MemberContract do
   context 'Calling the contract with no params' do
     let(:error_message) do
       {
-        member_id: ['is missing'],
-        gender: ['is missing'],
+        hbx_id: ['is missing'],
         # relationship: ['is missing'],
-        person_name: ['is missing'],
-        dob: ['is missing']
+        person_name: ['is missing']
       }
     end
     it 'should pass validation' do

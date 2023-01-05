@@ -16,15 +16,15 @@ module AcaEntities
           required(:fein).filled(:string)
 
           # required(:organization).filled(AcaEntities::Organizations::Contracts::OrganizationContract.params)
-          optional(:insurance_products).array(
+          required(:insurance_products).array(
             AcaEntities::InsurancePolicies::Contracts::InsuranceProductContract.params
           )
 
           # optional(:insurance_policies).array(
           #   AcaEntities::InsurancePolicies::Contracts::IndividualInsurancePolicyContract.params
           # )
-          optional(:description).value(:string)
-          optional(:text).value(:string)
+          optional(:description).maybe(:string)
+          optional(:text).maybe(:string)
           optional(:timestamps).maybe(AcaEntities::Contracts::TimeStampContract.params)
         end
       end

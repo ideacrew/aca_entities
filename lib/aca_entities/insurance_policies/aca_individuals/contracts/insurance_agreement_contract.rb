@@ -15,21 +15,15 @@ module AcaEntities
           # @return [Dry::Monads::Result::Failure] if params fail validation
           params do
             optional(:id).value(:string)
+            required(:plan_year).value(:integer)
             required(:contract_holder).value(AcaEntities::InsurancePolicies::Contracts::MemberContract.params)
             required(:insurance_provider).value(
               AcaEntities::InsurancePolicies::Contracts::InsuranceProviderContract.params
             )
-
-            # TODO: make this required followin initial 'partial seed' process
             optional(:insurance_policies).array(
               AcaEntities::InsurancePolicies::AcaIndividuals::Contracts::InsurancePolicyContract.params
             )
-
-            # use tax_household in Single THH scenario using date periods to match with enrollments
-            optional(:tax_household).array(AcaEntities::Contracts::Households::TaxHouseholdContract.params)
-
-            optional(:plan_year).value(:integer)
-            required(:start_on).value(:date)
+            optional(:start_on).value(:date)
             optional(:end_on).value(:date)
             optional(:effectuated_on).value(:date)
             optional(:timestamps).maybe(AcaEntities::Contracts::TimeStampContract.params)
