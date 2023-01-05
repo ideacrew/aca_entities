@@ -32,12 +32,12 @@ servers:
 defaultContentType: application/json
 
 channels:
-  on_edi_gateway.irs_groups.seed_requested:
+  on_edi_gateway.edi_gateway.edi_database.irs_groups:
     bindings:
       amqp:
         is: queue
         queue:
-          name: on_edi_gateway.irs_groups.seed_requested
+          name: on_edi_gateway.edi_gateway.edi_database.irs_groups
           durable: true
           exclusive: false
           auto_delete: false
@@ -47,9 +47,9 @@ channels:
         amqp:
           ack: true
           exclusive: false
-          routing_key: irs_groups.seed_requested.#
+          routing_key: edi_gateway.edi_database.irs_groups.#
           prefetch: 1
           block: false
           bindingVersion: "0.2.0"
-      operationId: on_edi_gateway.irs_groups.seed_requested
+      operationId: on_edi_gateway.edi_gateway.edi_database.irs_groups
       description: Events - EDI Gateway IRS Group requested

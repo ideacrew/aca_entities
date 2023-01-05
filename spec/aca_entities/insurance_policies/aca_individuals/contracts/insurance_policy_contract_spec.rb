@@ -24,6 +24,7 @@ RSpec.describe AcaEntities::InsurancePolicies::AcaIndividuals::Contracts::Insura
       marketplace_segment_id: marketplace_segment_id,
       coverage_kind: coverage_kind,
       insurance_product: insurance_product,
+      hbx_enrollment_ids: [policy_id],
       enrollments: [enrollment],
       start_on: Date.new(moment.year, 1, 1)
     }
@@ -54,10 +55,8 @@ RSpec.describe AcaEntities::InsurancePolicies::AcaIndividuals::Contracts::Insura
     let(:error_message) do
       {
         policy_id: ['is missing'],
-        marketplace_segment_id: ['is missing'],
-        coverage_kind: ['is missing'],
+        hbx_enrollment_ids: ['is missing'],
         insurance_product: ['is missing'],
-        enrollments: ["is missing"],
         start_on: ["is missing"]
       }
     end
