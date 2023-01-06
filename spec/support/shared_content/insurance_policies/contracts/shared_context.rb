@@ -15,6 +15,7 @@ RSpec.shared_context 'insurance_policies_context' do
 
   let(:shared_insurance_agreement) do
     {
+      plan_year: DateTime.now.year,
       contract_holder: contract_holder,
       insurance_provider: insurance_provider,
       insurance_policies: insurance_policies,
@@ -28,7 +29,10 @@ RSpec.shared_context 'insurance_policies_context' do
   let(:shared_insurance_products) { [shared_health_insurance_product] }
   let(:shared_insurance_policies) { [shared_individual_insurance_policy] }
 
-  let(:shared_insurance_provider) { { hios_id: hios_id, title: shared_insurance_provider_title, fein: "12345" } }
+  let(:shared_insurance_provider) do
+    { hios_id: hios_id, title: shared_insurance_provider_title, fein: "12345",
+      insurance_products: [shared_health_insurance_product] }
+  end
 
   # InsuranceProductFeatures
   let(:key) { 'pediatric_dental' }
@@ -43,11 +47,17 @@ RSpec.shared_context 'insurance_policies_context' do
   let(:shared_health_insurance_product_features) { [shared_health_insurance_product_feature] }
 
   let(:shared_health_insurance_product) do
-    { name: shared_health_insurance_product_name, insurance_product_features: shared_health_insurance_product_features }
+    { name: shared_health_insurance_product_name, insurance_product_features: shared_health_insurance_product_features,
+      hios_plan_id: "123ME2345", plan_year: DateTime.now.year, coverage_type: "health",
+      metal_level: "gold", market_type: "Individual", ehb: 0.93 }
   end
 
   let(:shared_dental_insurance_product_name) { 'Insurer Sparkle Dental Product' }
-  let(:shared_dental_insurance_product) { { name: shared_dental_insurance_product_name } }
+  let(:shared_dental_insurance_product) do
+    { name: shared_dental_insurance_product_name, hios_plan_id: "123ME2345",
+      plan_year: DateTime.now.year, coverage_type: "dental",
+      metal_level: "bronze", market_type: "Individual", ehb: 0.93 }
+  end
 
   # IndividualInsurancePolicy
   let(:policy_id) { 'policy_101' }
@@ -62,6 +72,7 @@ RSpec.shared_context 'insurance_policies_context' do
       coverage_kind: coverage_kind,
       insurance_product: insurance_product,
       enrollments: [enrollment],
+      hbx_enrollment_ids: [policy_id],
       start_on: Date.new(moment.year, 1, 1)
     }
   end
@@ -116,13 +127,13 @@ RSpec.shared_context 'insurance_policies_context' do
     {
       enrolled_member: {
         member: {
+          hbx_id: '1055668',
           member_id: '1055668',
           insurer_assigned_id: 'HP597762000',
           person_name: {
             last_name: 'Jetson',
             first_name: 'George'
           },
-          relationship_code: '1:18',
           encrypted_ssn: '012859874',
           dob: Date.new(1978, 12, 19),
           gender: 'male',
@@ -144,13 +155,13 @@ RSpec.shared_context 'insurance_policies_context' do
     {
       enrolled_member: {
         member: {
+          hbx_id: '1055678',
           member_id: '1055678',
           insurer_assigned_id: 'HP597762002',
           person_name: {
             last_name: 'Jetson',
             first_name: 'Jane'
           },
-          relationship_code: '4:19',
           encrypted_ssn: '012859875',
           dob: Date.new(1983, 9, 6),
           gender: 'female',
@@ -170,6 +181,7 @@ RSpec.shared_context 'insurance_policies_context' do
     {
       enrolled_member: {
         member: {
+          hbx_id: '1055689',
           member_id: '1055689',
           insurer_assigned_id: 'HP597762001',
           person_name: {

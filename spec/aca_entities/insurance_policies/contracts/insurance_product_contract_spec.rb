@@ -14,7 +14,11 @@ RSpec.describe AcaEntities::InsurancePolicies::Contracts::InsuranceProductContra
   let(:insurance_product_features) { [shared_health_insurance_product_feature] }
   let(:timestamps) { { created_at: moment, modified_at: moment } }
 
-  let(:required_params) { { name: name } }
+  let(:required_params) do
+    { name: name, hios_plan_id: "123ME2345",
+      plan_year: DateTime.now.year, coverage_type: "dental",
+      metal_level: "bronze", market_type: "Individual", ehb: 0.93 }
+  end
   let(:optional_params) { { id: id, insurance_product_features: insurance_product_features, timestamps: timestamps } }
 
   let(:all_params) { required_params.merge(optional_params) }
@@ -38,7 +42,11 @@ RSpec.describe AcaEntities::InsurancePolicies::Contracts::InsuranceProductContra
   end
 
   context 'Calling the contract with no params' do
-    let(:error_message) { { name: ['is missing'] } }
+    let(:error_message) do
+      { name: ['is missing'],  coverage_type: ['is missing'], ehb: ['is missing'],
+        hios_plan_id: ['is missing'], market_type: ['is missing'], metal_level: ['is missing'],
+        plan_year: ['is missing'] }
+    end
     it 'should pass validation' do
       result = subject.call({})
       expect(result.failure?).to be_truthy
