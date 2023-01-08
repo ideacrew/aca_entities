@@ -15,9 +15,9 @@ module AcaEntities
           send(:include, Dry.Types())
         end
 
-        ManifestTypes = Types::Coercible::Symbol.enum(
-          "RRV_MANIFEST_TYPE",
-          "PVC_MANIFEST_TYPE"
+        ManifestTypes = Types::Coercible::String.enum(
+          "rrv_manifest_type",
+          "pvc_manifest_type"
         )
 
       end
