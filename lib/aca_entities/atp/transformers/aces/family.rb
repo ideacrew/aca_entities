@@ -30,6 +30,7 @@ module AcaEntities
 
           namespace 'family' do
             rewrap 'aces', type: :hash do
+              map 'family_flags', 'family_flags', memoize_record: true, visible: false
               map 'external_app_id', 'ext_app_id'
               map 'hbx_id', 'hbx_id', memoize: true, visible: false
               map 'magi_medicaid_applications.submitted_at', 'submitted_at', memoize: true, visible: false
@@ -214,8 +215,10 @@ module AcaEntities
                       if applicant_hash
                         info = applicant_hash[:native_american_information]
                         native_hash = {}
-                        native_hash[:location_state_us_postal_service_code] = info.nil? ? nil : info[:tribal_state]
-                        native_hash[:person_tribe_name] =  info.nil? ? nil : info[:tribal_name]
+                        state = info[:tribal_state].present? ? info[:tribal_state] : nil
+                        tribe = info[:tribal_name].present? ? info[:tribal_name] : nil
+                        native_hash[:location_state_us_postal_service_code] = info.nil? ? nil : state
+                        native_hash[:person_tribe_name] =  info.nil? ? nil : tribe
                         native_hash[:recognized_tribe_indicator] = info.nil? ? false : info[:tribal_name].present?
                         indicator = info.nil? ? nil : info[:tribal_name].present? && info[:tribal_state].present?
                         native_hash[:american_indian_or_alaska_native_indicator] = indicator

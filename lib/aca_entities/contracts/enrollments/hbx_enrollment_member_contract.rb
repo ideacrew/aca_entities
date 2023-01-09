@@ -15,6 +15,7 @@ module AcaEntities
         # @option opts [Date] :eligibility_date required
         # @option opts [Date] :coverage_start_on required
         # @option opts [Date] :coverage_end_on required
+        # @option opts [Hash] :slcsp_member_premium optional
         # @return [Dry::Monads::Result]
         params do
           required(:family_member_reference).hash(AcaEntities::Contracts::Families::FamilyMemberReferenceContract.params)
@@ -27,6 +28,7 @@ module AcaEntities
           optional(:coverage_end_on).maybe(:date)
           optional(:tobacco_use).maybe(:string)
           optional(:external_id).maybe(:string)
+          optional(:slcsp_member_premium).maybe(AcaEntities::Contracts::CurrencyContract.params)
         end
       end
     end

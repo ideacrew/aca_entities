@@ -65,21 +65,41 @@ module AcaEntities
         }.freeze
 
         def call(cache)
-          @memoized_data = cache
-          applicants_hash = @memoized_data.resolve('family.magi_medicaid_applications.applicants').item
-          member_id = @memoized_data.find(/family.family_members.(\w+)$/).map(&:item).last
-          person_relationships = applicants_hash[member_id.to_sym][:mitc_relationships]
-          @primary_applicant_id = @memoized_data.find(Regexp.new('is_primary_applicant.*')).select {|a|  a.item == true}.first.name.split('.').last
+          @applicants_hash = cache.resolve('family.magi_medicaid_applications.applicants').item
+          family_flags = cache.resolve('family.family_flags').item
+          member_id = cache.find(/family.family_members.(\w+)$/).map(&:item).last
+          person_relationships = @applicants_hash[member_id.to_sym][:mitc_relationships]
+          person_relationships = find_relationships_to_member(member_id) if family_flags&.dig(:invert_person_association)
           return unless person_relationships
 
           person_relationships.uniq.each_with_object([]) do |person_relationship, collect|
             mitc_relationship_code =
               ::AcaEntities::MagiMedicaid::Mitc::Types::RelationshipCodeMap.invert[person_relationship[:relationship_code]] || '88'
+            # prevent mismapping of relationship codes after inverting RelationshipCodeMap
+            mitc_relationship_code = :grandchild if person_relationship[:relationship_code] == '06'
+            mitc_relationship_code = :grandparent if person_relationship[:relationship_code] == '15'
+
             relation = RelationshipCodeMap[mitc_relationship_code]
             atp_relationship_code = AcaEntities::Types::RelationshipToTaxFilerCodeMap.invert[relation.to_s].to_s
             collect << { :person => { :ref => "pe#{person_relationship[:other_id]}" }, :family_relationship_code => atp_relationship_code,
                          :caretaker_dependent_code => nil }
           end
+        end
+
+        # collects relationships FROM other applicants TO applicant with member_id
+        def find_relationships_to_member(member_id)
+          @applicants_hash.each_with_object([]) do |applicant, collect|
+            applicant_id = applicant[0]
+            applicant_hash = applicant[1]
+            relationships = applicant_hash[:mitc_relationships].select {|rel| rel[:other_id] == member_id}
+            relationships.each do |rel|
+              collect << {
+                other_id: applicant_id,
+                attest_primary_responsibility: rel[:attest_primary_responsibility],
+                relationship_code: rel[:relationship_code]
+              }
+            end
+          end.flatten
         end
       end
     end

@@ -50,7 +50,7 @@ RSpec.describe AcaEntities::Contracts::Families::FamilyContract,  dbclean: :afte
       is_applying_coverage: true,
       is_applicant: true, is_state_resident: true,
       lawful_presence_determination: lawful_presence_determination,
-      citizen_status: 'us_citizen'
+      citizen_status: "us_citizen"
     }
   end
 
@@ -767,6 +767,22 @@ RSpec.describe AcaEntities::Contracts::Families::FamilyContract,  dbclean: :afte
     end
   end
 
+  context 'consumer role is not applying for coverage and their citizen status is nil' do
+    before do
+      consumer_role_reference[:is_applying_coverage] = false
+      consumer_role_reference[:citizen_status] = nil
+      @result = subject.call(required_params)
+    end
+
+    it 'should return success' do
+      expect(@result.success?).to be_truthy
+    end
+
+    it 'should not have any errors' do
+      expect(@result.errors.empty?).to be_truthy
+    end
+  end
+
   context 'failure case' do
     context 'missing required param' do
       before do
@@ -806,6 +822,37 @@ RSpec.describe AcaEntities::Contracts::Families::FamilyContract,  dbclean: :afte
       it 'should return error message' do
         result = subject.call(required_params.merge(renewal_consent_through_year: 2012))
         expect(result.errors.messages.first.text).to eq('must be one of: 2014 - 2025')
+      end
+    end
+
+    context 'consumer reference is applying for coverage and citizen status is nil' do
+      before do
+        consumer_role_reference[:citizen_status] = nil
+        @result = subject.call(required_params)
+      end
+
+      it "should return failure" do
+        expect(@result.success?).to be_falsy
+      end
+
+      it "should return error message" do
+        expect(@result.errors.messages.first.text).to eq("Citizen status must be filled")
+      end
+    end
+
+    context 'consumer reference is applying for coverage is nil and citizen status is nil' do
+      before do
+        consumer_role_reference[:is_applying_coverage] = nil
+        consumer_role_reference[:citizen_status] = nil
+        @result = subject.call(required_params)
+      end
+
+      it "should return failure" do
+        expect(@result.success?).to be_falsy
+      end
+
+      it "should return error message" do
+        expect(@result.errors.messages.first.text).to eq("must be boolean")
       end
     end
 

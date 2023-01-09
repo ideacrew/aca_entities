@@ -7,14 +7,14 @@ module AcaEntities
         # Contract for SSP_HealthInsuranceFacilityType__c
         class SspHealthInsuranceFacilityTypeCContract < Dry::Validation::Contract
           params do
+            required(:CoverageStartDate__c).filled(:date)
             optional(:SSP_InsuranceCoveredIndiv__c).maybe(:string)
             optional(:Id).maybe(:string)
             optional(:CoverageEndDate__c).maybe(:date)
-            required(:CoverageStartDate__c).filled(:date)
-            optional(:DCInsuranceCoveredIndivId__c).maybe(:integer)
-            optional(:DCId__c).maybe(:integer)
+            # optional(:DCInsuranceCoveredIndivId__c).maybe(:integer)
+            # optional(:DCId__c).maybe(:integer)
             optional(:FacilityType__c).maybe(:string) # SelectAtLeast1Validator <- validate in transform
-            optional(:EmploymentEndReason__c).maybe(:string) # not on schema RequiredValidator <- need to confirm this field and requirement
+            # optional(:EmploymentEndReason__c).maybe(:string) # not on schema RequiredValidator <- need to confirm this field and requirement
           end
 
           rule(:CoverageStartDate__c, :CoverageEndDate__c) do

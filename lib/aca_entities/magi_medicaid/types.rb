@@ -409,6 +409,10 @@ module AcaEntities
                                               '94',
                                               '100',
                                               'limited')
+
+      # Benchmark Products Household Type
+      BenchmarkProductsHouseholdType = Types::Coercible::String.enum('adult_only', 'adult_and_child', 'child_only')
+
     end
     # rubocop:enable Metrics/ModuleLength
   end

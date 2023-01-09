@@ -47,6 +47,22 @@ module AcaEntities
           cat_det.category == 'Income CHIP Eligible'
         end
       end
+
+      # MagiMedicaid Category Determination for type Citizen Or Immigrant
+      def medicaid_cd_for_citizen_or_immigrant
+        return nil unless category_determinations
+        category_determinations.detect do |cat_det|
+          cat_det.category == 'Medicaid Citizen Or Immigrant'
+        end
+      end
+
+      # MedicaidChip Category Determination for type Citizen Or Immigrant
+      def chip_cd_for_citizen_or_immigrant
+        return nil unless category_determinations
+        category_determinations.detect do |cat_det|
+          cat_det.category == 'CHIP Citizen Or Immigrant'
+        end
+      end
     end
   end
 end

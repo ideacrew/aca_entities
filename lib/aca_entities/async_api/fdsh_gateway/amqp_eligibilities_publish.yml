@@ -284,7 +284,6 @@ channels:
           bindingVersion: 0.2.0
       operationId: fdsh.pvc.medicare.periodic_verification_confirmation_determined
       description: Periodic Verification of Medicare Confirmation completed.
-
 tags:
   - name: linter_tag
     description: placeholder that satisfies the linter

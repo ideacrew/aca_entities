@@ -48,6 +48,12 @@ module AcaEntities
         require 'aca_entities/magi_medicaid/tax_household_member'
         require 'aca_entities/magi_medicaid/tax_household'
         require 'aca_entities/magi_medicaid/notice_options'
+        require 'aca_entities/magi_medicaid/benchmark_products/member'
+        require 'aca_entities/organizations/issuer_profile_reference'
+        require 'aca_entities/products/family_rated_premiums'
+        require 'aca_entities/products/product_reference'
+        require 'aca_entities/magi_medicaid/benchmark_products/household'
+        require 'aca_entities/magi_medicaid/benchmark_products/benchmark_product'
         require 'aca_entities/magi_medicaid/application'
 
         require 'aca_entities/contracts/people/person_name_contract'
@@ -88,6 +94,12 @@ module AcaEntities
         require 'aca_entities/magi_medicaid/contracts/tax_household_member_contract'
         require 'aca_entities/magi_medicaid/contracts/tax_household_contract'
         require 'aca_entities/magi_medicaid/contracts/notice_options_contract'
+        require 'aca_entities/magi_medicaid/contracts/benchmark_products/member_contract'
+        require 'aca_entities/contracts/organizations/issuer_profile_reference_contract'
+        require 'aca_entities/contracts/products/family_rated_premiums_contract'
+        require 'aca_entities/contracts/products/product_reference_contract'
+        require 'aca_entities/magi_medicaid/contracts/benchmark_products/household_contract'
+        require 'aca_entities/magi_medicaid/contracts/benchmark_products/benchmark_product_contract'
         require 'aca_entities/magi_medicaid/contracts/application_contract'
 
         # Transformers

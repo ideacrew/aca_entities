@@ -157,7 +157,6 @@ channels:
           prefetch: 1
       operationId: on_enroll.fdsh.renewal_eligibilities.medicare
       description: Events - CMS RRV Medicare eligibility determined
-
   on_enroll.fdsh.pvc.medicare:
     bindings:
       amqp:

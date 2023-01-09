@@ -15,6 +15,8 @@ module AcaEntities
       attribute :coverage_end_on,           Types::Date.optional.meta(omittable: true)
       attribute :tobacco_use,               Types::String.optional.meta(omittable: true)
       attribute :external_id,               Types::String.optional.meta(omittable: true)
+
+      attribute :slcsp_member_premium,      AcaEntities::Currency.optional.meta(omittable: true)
     end
   end
 end

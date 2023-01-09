@@ -94,5 +94,21 @@ RSpec.describe ::AcaEntities::AsyncApi::Operations::FindConfigsByServiceName do
         end
       end
     end
+
+    context 'service_name: enroll, options: { load_subscriber_operations: false }' do
+      let(:params) { { protocol: :amqp, service_name: 'enroll', options: { load_subscriber_operations: false } } }
+
+      it 'should return success and not return a failure' do
+        expect(subject).to be_success
+      end
+    end
+
+    context 'service_name: enroll, options: { load_publisher_operations: false }' do
+      let(:params) { { protocol: :amqp, service_name: 'enroll', options: { load_publisher_operations: false } } }
+
+      it 'should return success and not return a failure' do
+        expect(subject).to be_success
+      end
+    end
   end
 end

@@ -1,0 +1,55 @@
+---
+asyncapi: 2.0.0
+info:
+  title: EDI Gateway Subscriber
+  version: 0.1.0
+  description: AMQP Configuration for EDI Gateway services
+  contact:
+    name: IdeaCrew
+    url: https://ideacrew.com
+    email: info@ideacrew.com
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+
+servers:
+  development:
+    url: amqp://rabbitmq:5672/event_source
+    protocol: amqp
+    protocolVersion: 0.9.2
+    description: RabbitMQ Development Server
+  test:
+    url: amqp://rabbitmq:5672/event_source
+    protocol: amqp
+    protocolVersion: 0.9.2
+    description: RabbitMQ Test Server
+  production:
+    url: amqp://rabbitmq:5672/event_source
+    protocol: amqp
+    protocolVersion: 0.9.2
+    description: RabbitMQ Production Server
+
+defaultContentType: application/json
+
+channels:
+  on_edi_gateway.edi_gateway.edi_database.irs_groups:
+    bindings:
+      amqp:
+        is: queue
+        queue:
+          name: on_edi_gateway.edi_gateway.edi_database.irs_groups
+          durable: true
+          exclusive: false
+          auto_delete: false
+          vhost: event_source
+    subscribe:
+      bindings:
+        amqp:
+          ack: true
+          exclusive: false
+          routing_key: edi_gateway.edi_database.irs_groups.#
+          prefetch: 1
+          block: false
+          bindingVersion: "0.2.0"
+      operationId: on_edi_gateway.edi_gateway.edi_database.irs_groups
+      description: Events - EDI Gateway IRS Group requested

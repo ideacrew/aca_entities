@@ -6,16 +6,13 @@ require 'aca_entities/medicaid/ios/operations/generate_ios'
 
 RSpec.describe AcaEntities::Medicaid::Ios::Functions::SspInsurancePolicyCBuilder, dbclean: :after_each do
 
-  # should use more recent example payload?
   let(:family) do
     json = File.read(Pathname.pwd.join("spec/support/atp/sample_payloads/uber_payload.json"))
     prepped_data = AcaEntities::Medicaid::Ios::Operations::GenerateIos.new.send(:prep_data, json).value!
     prepped_data[:family]
   end
 
-  # assuming insurance policy data is transformed from something in cv3 application
   let(:application) do
-    # need to use test payload that has array of applications (as opposed to single hash, or assume data prep prepares a hash)
     family[:magi_medicaid_applications]
   end
 
@@ -39,8 +36,20 @@ RSpec.describe AcaEntities::Medicaid::Ios::Functions::SspInsurancePolicyCBuilder
     it 'should only contain valid SSP_InsurancePolicy__c objects' do
       subject.each do |ssp_insurance_policy__c|
         result = AcaEntities::Medicaid::Ios::Contracts::SspInsurancePolicyCContract.new.call(ssp_insurance_policy__c)
-        expect(result.success?).to be_truthy
+        expect(result.errors).to be_empty
       end
     end
+
+    it 'should contain valid data' do
+      result = subject.first
+      expect(result).to include(
+        'EmployerName__c' => 'test llc',
+        'EnrollmentTierLevel__c' => 'N',
+        'Is_this_an_empl__c' => "N",
+        'PolicyBeginDate__c' => "2021-01-01",
+        "IsEnrolledInInsurance__c" => "Y"
+      )
+    end
+
   end
 end

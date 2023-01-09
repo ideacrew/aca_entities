@@ -221,6 +221,27 @@ channels:
       operationId: on_fdsh_gateway.enroll.fdsh_verifications.pvc
       description: Events - CMS FTI PVC Requests
 
+  on_fdsh_gateway.enroll.ivl_market.families.iap_applications.rrvs.non_esi_evidences:
+    bindings:
+      amqp:
+        is: queue
+        queue:
+          name: on_fdsh_gateway.enroll.ivl_market.families.iap_applications.rrvs.non_esi_evidences
+          durable: true
+          exclusive: false
+          auto_delete: false
+          vhost: event_source
+    subscribe:
+      bindings:
+        amqp:
+          ack: true
+          exclusive: false
+          routing_key: enroll.ivl_market.families.iap_applications.rrvs.non_esi_evidences.determination_requested
+          bindingVersion: '0.2.0'
+          prefetch: 1
+      operationId: on_fdsh_gateway.enroll.ivl_market.families.iap_applications.rrvs.non_esi_evidences
+      description: Events - CMS RRV Non Esi Requests
+
 tags:
   - name: linter_tag
     description: placeholder that satisfies the linter

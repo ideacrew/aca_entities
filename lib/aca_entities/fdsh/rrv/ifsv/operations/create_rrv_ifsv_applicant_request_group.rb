@@ -46,7 +46,7 @@ module AcaEntities
                     CompletePersonName: construct_person_name(applicant.name),
                     FilerTypeCd: fetch_tax_filing_code(application, applicant)
                   }
-                end
+                end.compact
               end
 
               def fetch_tax_filing_code(application, applicant)
