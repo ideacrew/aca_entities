@@ -23,7 +23,8 @@ RSpec.describe ::AcaEntities::Pdm::Entities::Manifest, dbclean: :after_each do
       name: "name",
       timestamp: Date.today,
       response: "response",
-      count: 1
+      count: 1,
+      file_generated: true
     }
   end
 

@@ -16,6 +16,7 @@ module AcaEntities
           optional(:timestamp).maybe(:date)
           optional(:response).maybe(:string)
           optional(:count).maybe(:integer)
+          optional(:file_generated).maybe(:bool)
         end
       end
     end

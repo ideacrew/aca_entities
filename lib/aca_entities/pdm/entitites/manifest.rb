@@ -17,9 +17,10 @@ module AcaEntities
         attribute :timestamp, Types::Date.optional.meta(omittable: true)
         # response id
         attribute :response, Types::String.optional.meta(omittable: true)
-        # count
+        # number of requests
         attribute :count, Types::Integer.optional.meta(omittable: true)
-
+        # request file was generated
+        attribute :file_generated, Types::Bool.optional.meta(omittable: true)
       end
     end
   end
