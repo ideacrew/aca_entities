@@ -17,6 +17,7 @@ module AcaEntities
             optional(:insurer_policy_id).value(:string)
             optional(:marketplace_segment_id).value(:string)
             optional(:carrier_policy_id).maybe(:string)
+            optional(:term_for_np).maybe(:bool)
             optional(:coverage_kind).value(AcaEntities::Types::AcaHealthInsuranceCoverageKind)
             optional(:aasm_state).value(:string)
             required(:insurance_product).value(
