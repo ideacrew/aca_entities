@@ -29,7 +29,10 @@ RSpec.describe AcaEntities::InsurancePolicies::AcaIndividuals::Contracts::Insura
       start_on: Date.new(moment.year, 1, 1)
     }
   end
-  let(:optional_params) { { id: id, insurer_policy_id: insurer_policy_id, timestamps: timestamps } }
+  let(:optional_params) do
+    { id: id, insurer_policy_id: insurer_policy_id, timestamps: timestamps,
+      term_for_np: true }
+  end
 
   let(:all_params) { required_params.merge(optional_params) }
 
