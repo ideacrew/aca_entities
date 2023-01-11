@@ -52,7 +52,7 @@ channels:
           block: false
           bindingVersion: '0.2.0'
       operationId: on_polypress.edi_gateway.families.tax_forms.initial1095a_payload
-      description: generate Ivl Tax 1095a
+      description: Events - Individual Market Generate initial1095a notice
 
 tags:
   - name: linter_tag

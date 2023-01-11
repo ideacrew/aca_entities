@@ -56,7 +56,7 @@ channels:
           content_type: application/json
           bindingVersion: 0.2.0
       operationId: edi_gateway.families.tax_forms.initial1095a_payload.generated
-      description: Initial 1095A notice generation
+      description: Events - EDI Gateway Initial 1095A notice generation
 
 tags:
   - name: linter_tag

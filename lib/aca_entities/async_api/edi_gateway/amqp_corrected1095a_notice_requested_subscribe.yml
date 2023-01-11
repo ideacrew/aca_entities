@@ -47,9 +47,9 @@ channels:
         amqp:
           ack: true
           exclusive: false
-          routing_key: enroll.families.notices.corrected1095a_notice.#
+          routing_key: enroll.families.notices.corrected1095a_notice.requested
           prefetch: 1
           block: false
           bindingVersion: "0.2.0"
       operationId: on_edi_gateway.enroll.families.notices.corrected1095a_notice
-      description: Events - EDI Gateway IRS Group requested
+      description: Events - EDI Gateway corrected1095a_notice requested
