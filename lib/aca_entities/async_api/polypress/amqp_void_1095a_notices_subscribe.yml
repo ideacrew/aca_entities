@@ -32,12 +32,12 @@ servers:
 defaultContentType: application/json
 
 channels:
-  on_polypress.edi_gateway.families.notices.tax_forms.void1095a:
+  on_polypress.edi_gateway.families.tax_forms.void1095a_payload:
     bindings:
       amqp:
         is: queue
         queue:
-          name: on_polypress.edi_gateway.families.notices.tax_forms.void1095a
+          name: on_polypress.edi_gateway.families.tax_forms.void1095a_payload
           durable: true
           exclusive: false
           auto_delete: false
@@ -47,12 +47,12 @@ channels:
         amqp:
           ack: true
           exclusive: false
-          routing_key: edi_gateway.families.notices.tax_forms.void1095a.requested
+          routing_key: edi_gateway.families.tax_forms.void1095a_payload.generated
           prefetch: 1
           block: false
           bindingVersion: '0.2.0'
-      operationId: on_polypress.edi_gateway.families.notices.tax_forms.void1095a
-      description: generate Ivl Tax 1095a notices
+      operationId: on_polypress.edi_gateway.families.tax_forms.void1095a_payload
+      description: generate Ivl Tax 1095a
 
 tags:
   - name: linter_tag

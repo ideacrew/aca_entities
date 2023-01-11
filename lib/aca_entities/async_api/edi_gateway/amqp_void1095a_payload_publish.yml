@@ -33,12 +33,12 @@ defaultContentType: application/json
 
 channels:
   # <app service><.namespace>.<domain_model>.<event>
-  edi_gateway.families.notices.tax_forms.corrected1095a.requested:
+  edi_gateway.families.tax_forms.void1095a_payload.generated:
     bindings:
       amqp:
         is: :routing_key
         exchange:
-          name: edi_gateway.families.notices.tax_forms.corrected1095a
+          name: edi_gateway.families.tax_forms.void1095a_payload
           type: topic
           durable: true
           auto_delete: false
@@ -48,15 +48,15 @@ channels:
       bindings:
         amqp:
           app_id: medicaid_gateway
-          type: edi_gateway.families.notices.tax_forms.corrected1095a
-          routing_key: edi_gateway.families.notices.tax_forms.corrected1095a.requested
+          type: edi_gateway.families.tax_forms.void1095a_payload
+          routing_key: edi_gateway.families.tax_forms.void1095a_payload.generated
           deliveryMode: 2
           mandatory: true
           timestamp: true
           content_type: application/json
           bindingVersion: 0.2.0
-      operationId: edi_gateway.families.notices.tax_forms.corrected1095a.requested
-      description: Corrected 1095A notice generation
+      operationId: edi_gateway.families.tax_forms.void1095a_payload.generated
+      description: Void 1095A notice generation
 
 tags:
   - name: linter_tag
