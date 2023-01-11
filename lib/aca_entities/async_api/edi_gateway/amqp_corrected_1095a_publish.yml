@@ -33,12 +33,12 @@ defaultContentType: application/json
 
 channels:
   # <app service><.namespace>.<domain_model>.<event>
-  edi_gateway.families.notices.ivl_tax_1095a.catastrophic_notice_generation.requested:
+  edi_gateway.families.notices.tax_forms.corrected1095a.requested:
     bindings:
       amqp:
         is: :routing_key
         exchange:
-          name: edi_gateway.notices.ivl_tax_1095a.catastrophic_notice_generation
+          name: edi_gateway.families.notices.tax_forms.corrected1095a
           type: topic
           durable: true
           auto_delete: false
@@ -48,15 +48,15 @@ channels:
       bindings:
         amqp:
           app_id: medicaid_gateway
-          type: edi_gateway.notices.ivl_tax_1095a.catastrophic_notice_generation
-          routing_key: edi_gateway.notices.ivl_tax_1095a.catastrophic_notice_generation.requested
+          type: edi_gateway.families.notices.tax_forms.corrected1095a
+          routing_key: edi_gateway.families.notices.tax_forms.corrected1095a.requested
           deliveryMode: 2
           mandatory: true
           timestamp: true
           content_type: application/json
           bindingVersion: 0.2.0
-      operationId: edi_gateway.notices.ivl_tax_1095a.catastrophic_notice_generation.requested
-      description: Catastrophic 1095A notice generation
+      operationId: edi_gateway.families.notices.tax_forms.corrected1095a.requested
+      description: Corrected 1095A notice generation
 
 tags:
   - name: linter_tag

@@ -32,12 +32,12 @@ servers:
 defaultContentType: application/json
 
 channels:
-  on_polypress.edi_gateway.families.notices.ivl_tax_1095a:
+  on_polypress.edi_gateway.families.notices.tax_forms.void1095a:
     bindings:
       amqp:
         is: queue
         queue:
-          name: on_polypress.edi_gateway.families.notices.ivl_tax_1095a
+          name: on_polypress.edi_gateway.families.notices.tax_forms.void1095a
           durable: true
           exclusive: false
           auto_delete: false
@@ -47,11 +47,11 @@ channels:
         amqp:
           ack: true
           exclusive: false
-          routing_key: edi_gateway.families.notices.ivl_tax_1095a.#
+          routing_key: edi_gateway.families.notices.tax_forms.void1095a.requested
           prefetch: 1
           block: false
           bindingVersion: '0.2.0'
-      operationId: on_polypress.edi_gateway.families.notices.ivl_tax_1095a
+      operationId: on_polypress.edi_gateway.families.notices.tax_forms.void1095a
       description: generate Ivl Tax 1095a notices
 
 tags:
