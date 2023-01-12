@@ -125,13 +125,13 @@ channels:
         amqp:
           app_id: medicaid_gateway
           type: edi_gateway.families.tax_form1095a
-          routing_key: edi_gateway.families.tax_form1095a.Initial_payload_generated
+          routing_key: edi_gateway.families.tax_form1095a.initial_payload_generated
           deliveryMode: 2
           mandatory: true
           timestamp: true
           content_type: application/json
           bindingVersion: 0.2.0
-      operationId: edi_gateway.families.tax_form1095a.Initial_payload_generated
+      operationId: edi_gateway.families.tax_form1095a.initial_payload_generated
       description: Events - EDI Gateway Catastrophic 1095A notice generation
 
 tags:
