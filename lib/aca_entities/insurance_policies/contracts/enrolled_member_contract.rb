@@ -8,7 +8,7 @@ module AcaEntities
         params do
           optional(:id).maybe(:string)
           required(:member).value(AcaEntities::InsurancePolicies::Contracts::MemberContract.params)
-          required(:enrolled_member_premium).value(
+          optional(:enrolled_member_premium).value(
             AcaEntities::InsurancePolicies::Contracts::EnrolledMemberPremiumContract.params
           )
           optional(:is_subscriber).value(:bool)

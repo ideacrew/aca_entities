@@ -35,7 +35,7 @@ RSpec.describe AcaEntities::InsurancePolicies::Contracts::EnrolledMemberContract
   end
 
   context 'Calling the contract with no params' do
-    let(:error_message) { { member: ['is missing'], enrolled_member_premium: ['is missing'] } }
+    let(:error_message) { { member: ['is missing'] } }
     it 'should pass validation' do
       result = subject.call({})
       expect(result.failure?).to be_truthy

@@ -5,22 +5,20 @@ require 'date'
 module AcaEntities
   # Types, Entities and Contracts for the {AcaEntities::InsurancePolicies} Domain Model
   module InsurancePolicies
-    # TODO: Add the classes for the domain in dependency order
-
-    # Contracts
-    require_relative 'contracts/contract'
-    require_relative 'contracts/member_contract'
-    require_relative 'contracts/insurance_product_feature_contract'
-    require_relative 'contracts/insurance_product_contract'
-    require_relative 'contracts/premium_schedule_contract'
-    require_relative 'contracts/enrolled_member_premium_contract'
-    require_relative 'contracts/health_care_practitioner_contract'
-    require_relative 'contracts/primary_care_provider_contract'
-    require_relative 'contracts/enrolled_member_contract'
-    require_relative 'contracts/enrollment_election_contract'
-    require_relative 'contracts/enrollment_contract'
-    require_relative 'contracts/insurance_provider_contract'
 
     # Domain Model Entitities
+    require_relative 'member'
+    require_relative 'insurance_product'
+    require_relative 'premium_schedule'
+    require_relative 'enrolled_member_premium'
+    require_relative 'enrolled_member'
+    require_relative 'enrollment'
+    require_relative 'insurance_provider'
+    require "aca_entities/insurance_policies/aca_individuals/month_of_year"
+    require "aca_entities/insurance_policies/aca_individuals/coverage_information"
+    require "aca_entities/insurance_policies/aca_individuals/covered_individual"
+    require "aca_entities/insurance_policies/aca_individuals/aptc_csr_tax_household"
+    require "aca_entities/insurance_policies/aca_individuals/insurance_policy"
+    require "aca_entities/insurance_policies/aca_individuals/insurance_agreeement"
   end
 end

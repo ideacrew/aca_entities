@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module AcaEntities
-  module Ledger
+  module InsurancePolicies
     # Schema and validation rules for {AcaEntities::Ledger::Member}
     class Member < Dry::Struct
       include Comparable

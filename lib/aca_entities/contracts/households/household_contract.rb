@@ -25,6 +25,7 @@ module AcaEntities
           optional(:tax_households).array(AcaEntities::Contracts::Households::TaxHouseholdContract.params)
           required(:coverage_households).array(AcaEntities::Contracts::Households::CoverageHouseholdContract.params)
           optional(:hbx_enrollments).array(AcaEntities::Contracts::Enrollments::HbxEnrollmentContract.params)
+          optional(:insurance_agreements).array(AcaEntities::InsurancePolicies::AcaIndividuals::Contracts::InsuranceAgreementContract.params)
         end
       end
     end

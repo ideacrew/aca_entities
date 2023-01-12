@@ -10,7 +10,7 @@ module AcaEntities
         # @return [Dry::Monads::Result::Success] if params pass validation
         # @return [Dry::Monads::Result::Failure] if params fail validation
         params do
-          optional(:id)
+          optional(:id).maybe(:string)
           required(:name).value(:string)
           required(:hios_plan_id).value(:string)
           required(:plan_year).value(:integer)
