@@ -32,12 +32,12 @@ servers:
 defaultContentType: application/json
 
 channels:
-  on_edi_gateway.enroll.families.notices.initial1095a_notice:
+  on_edi_gateway.enroll.families.notices.ivl_tax1095a:
     bindings:
       amqp:
         is: queue
         queue:
-          name: on_edi_gateway.enroll.families.notices.initial1095a_notice
+          name: on_edi_gateway.enroll.families.notices.ivl_tax1095a
           durable: true
           exclusive: false
           auto_delete: false
@@ -47,9 +47,9 @@ channels:
         amqp:
           ack: true
           exclusive: false
-          routing_key: enroll.families.notices.initial1095a_notice.requested
+          routing_key: enroll.families.notices.ivl_tax1095a.#
           prefetch: 1
           block: false
           bindingVersion: "0.2.0"
-      operationId: on_edi_gateway.enroll.families.notices.initial1095a_notice
-      description: Events - EDI Gateway initial1095a_notice requested
+      operationId: on_edi_gateway.enroll.families.notices.ivl_tax1095a
+      description: Events - EDI Gateway catastrophic1095a_notice requested

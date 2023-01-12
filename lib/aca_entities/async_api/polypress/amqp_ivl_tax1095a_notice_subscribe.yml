@@ -32,12 +32,12 @@ servers:
 defaultContentType: application/json
 
 channels:
-  on_polypress.edi_gateway.families.tax_forms.corrected1095a_payload:
+  on_polypress.edi_gateway.families.tax_form1095a:
     bindings:
       amqp:
         is: queue
         queue:
-          name: on_polypress.edi_gateway.families.tax_forms.corrected1095a_payload
+          name: on_polypress.edi_gateway.families.tax_form1095a
           durable: true
           exclusive: false
           auto_delete: false
@@ -47,12 +47,12 @@ channels:
         amqp:
           ack: true
           exclusive: false
-          routing_key: edi_gateway.families.tax_forms.corrected1095a_payload.generated
+          routing_key: edi_gateway.families.tax_form1095a.#
           prefetch: 1
           block: false
           bindingVersion: '0.2.0'
-      operationId: on_polypress.edi_gateway.families.tax_forms.corrected1095a_payload
-      description: Events - Individual Market Generate corrected1095a notice
+      operationId: on_polypress.edi_gateway.families.tax_form1095a
+      description: Events - Individual Market Generate catastrophic1095a notice 
 
 tags:
   - name: linter_tag
