@@ -53,6 +53,14 @@ RSpec.describe AcaEntities::Atp::Operations::Aces::GenerateXml  do
       expect(texts.present?).not_to be_truthy
     end
 
+    it 'should have the temporarily_lives_outside_application_state_indicator tag mapped' do
+      payload_hash[:family][:magi_medicaid_applications][:applicants].first[:is_temporarily_out_of_state] = true
+      result = described_class.new.call(payload_hash.to_json)
+      doc = Nokogiri::XML.parse(result.value!)
+      texts = doc.xpath("//hix-ee:InsuranceApplicantTemporarilyLivesOutsideApplicationStateIndicator", namespaces)
+      expect(texts&.first&.content&.strip).to eq "true"
+    end
+
     context 'when person has contact with unmappable kind' do
       it 'should not include PersonContactInformationAssociation tags for that kind' do
         payload_hash[:family][:family_members].first[:person][:phones].first[:kind] = "fax"

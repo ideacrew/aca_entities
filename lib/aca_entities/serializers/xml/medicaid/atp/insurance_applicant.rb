@@ -120,6 +120,7 @@ module AcaEntities
               mapper.medicaid_magi_eligibilities = insurance_applicant.medicaid_magi_eligibilities&.map do |medicaid_magi_eligibility|
                 MedicaidMagiEligibility.domain_to_mapper(medicaid_magi_eligibility)
               end
+              mapper.temporarily_lives_outside_application_state_indicator = insurance_applicant.temporarily_lives_outside_application_state_indicator
               mapper.age_left_foster_care = insurance_applicant.age_left_foster_care
               mapper.foster_care_indicator = insurance_applicant.foster_care_indicator
               mapper.parent_caretaker_indicator = insurance_applicant.parent_caretaker_indicator
