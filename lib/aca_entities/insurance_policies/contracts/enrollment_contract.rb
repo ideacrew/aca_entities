@@ -19,9 +19,9 @@ module AcaEntities
           # use tax_household_groups in MTHH scenario
           optional(:tax_households).array(AcaEntities::Contracts::Households::TaxHouseholdContract.params)
 
-          optional(:total_premium_amount).maybe(AcaEntities::Types::Money)
-          optional(:total_premium_adjustment_amount).maybe(AcaEntities::Types::Money)
-          optional(:total_responsible_premium_amount).maybe(AcaEntities::Types::Money)
+          optional(:total_premium_amount).hash(AcaEntities::Contracts::CurrencyContract.params)
+          optional(:total_premium_adjustment_amount).hash(AcaEntities::Contracts::CurrencyContract.params)
+          optional(:total_responsible_premium_amount).hash(AcaEntities::Contracts::CurrencyContract.params)
 
           required(:start_on).value(:date)
           optional(:end_on).maybe(AcaEntities::Types::DateOrNil)

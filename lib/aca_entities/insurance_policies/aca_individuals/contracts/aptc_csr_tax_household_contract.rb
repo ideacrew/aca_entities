@@ -15,6 +15,7 @@ module AcaEntities
             optional(:id).value(:string)
             required(:covered_individuals).array(AcaEntities::InsurancePolicies::AcaIndividuals::Contracts::CoveredIndividualContract.params)
             optional(:months_of_year).array(AcaEntities::InsurancePolicies::AcaIndividuals::Contracts::MonthOfYearContract.params)
+            optional(:annual_premiums).hash(AcaEntities::InsurancePolicies::AcaIndividuals::Contracts::CoverageInformationContract.params)
           end
         end
       end

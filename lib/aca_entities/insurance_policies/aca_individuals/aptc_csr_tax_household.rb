@@ -8,6 +8,8 @@ module AcaEntities
                   Types::Strict::Array.of(AcaEntities::InsurancePolicies::AcaIndividuals::CoveredIndividual).optional.meta(omittable: true)
         attribute :months_of_year,
                   Types::Strict::Array.of(AcaEntities::InsurancePolicies::AcaIndividuals::MonthOfYear).optional.meta(omittable: true)
+
+        attribute :annual_premiums, AcaEntities::InsurancePolicies::AcaIndividuals::CoverageInformation.optional.meta(omittable: true)
       end
     end
   end

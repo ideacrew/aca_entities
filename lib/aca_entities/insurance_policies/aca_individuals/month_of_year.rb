@@ -5,7 +5,7 @@ module AcaEntities
     module AcaIndividuals
       class MonthOfYear < Dry::Struct
         attribute :month, Types::String.meta(omittable: false)
-        attribute :coverage_information, Types::String.optional.meta(omittable: true)
+        attribute :coverage_information, AcaEntities::InsurancePolicies::AcaIndividuals::CoverageInformation.optional.meta(omittable: true)
       end
     end
   end

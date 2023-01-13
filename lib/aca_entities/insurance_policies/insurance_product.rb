@@ -9,7 +9,7 @@ module AcaEntities
       attribute :coverage_type,    Types::String.meta(omittable: false)
       attribute :metal_level,    Types::String.meta(omittable: false)
       attribute :market_type,    Types::String.meta(omittable: false)
-      attribute :ehb,    Types::String.optional.meta(omittable: true)
+      attribute :ehb,    Types::Float.optional.meta(omittable: true)
     end
   end
 end

@@ -12,9 +12,9 @@ module AcaEntities
           # @return [Dry::Monads::Result::Success] if params pass validation
           # @return [Dry::Monads::Result::Failure] if params fail validation
           params do
-            required(:tax_credit).value(:hash)
-            required(:total_premium).value(:hash)
-            required(:slcsp_benchmark_premium).value(:hash)
+            required(:tax_credit).hash(AcaEntities::Contracts::CurrencyContract.params)
+            required(:total_premium).hash(AcaEntities::Contracts::CurrencyContract.params)
+            required(:slcsp_benchmark_premium).hash(AcaEntities::Contracts::CurrencyContract.params)
           end
         end
       end

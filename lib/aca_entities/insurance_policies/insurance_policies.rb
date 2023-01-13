@@ -14,8 +14,8 @@ module AcaEntities
     require_relative 'enrolled_member'
     require_relative 'enrollment'
     require_relative 'insurance_provider'
-    require "aca_entities/insurance_policies/aca_individuals/month_of_year"
     require "aca_entities/insurance_policies/aca_individuals/coverage_information"
+    require "aca_entities/insurance_policies/aca_individuals/month_of_year"
     require "aca_entities/insurance_policies/aca_individuals/covered_individual"
     require "aca_entities/insurance_policies/aca_individuals/aptc_csr_tax_household"
     require "aca_entities/insurance_policies/aca_individuals/insurance_policy"
