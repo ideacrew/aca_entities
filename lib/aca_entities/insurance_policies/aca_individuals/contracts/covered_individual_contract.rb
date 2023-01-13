@@ -14,7 +14,7 @@ module AcaEntities
           params do
             required(:coverage_start_on).value(:date)
             required(:coverage_end_on).value(:date)
-            required(:person_hbx_id).value(:string)
+            required(:person).hash(AcaEntities::Contracts::People::PersonContract.params)
             optional(:filer_status).value(:string)
             optional(:relation_with_primary).value(:string)
           end
