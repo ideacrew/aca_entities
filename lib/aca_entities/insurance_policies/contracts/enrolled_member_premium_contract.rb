@@ -10,7 +10,7 @@ module AcaEntities
 
           # Rating table used to deteminte the insurance rate
           required(:premium_schedule).value(AcaEntities::InsurancePolicies::Contracts::PremiumScheduleContract.params)
-          required(:insurance_rate).value(AcaEntities::Types::Money)
+          required(:insurance_rate).hash(AcaEntities::Contracts::CurrencyContract.params)
           optional(:timestamps).maybe(AcaEntities::Contracts::TimeStampContract.params)
         end
       end
