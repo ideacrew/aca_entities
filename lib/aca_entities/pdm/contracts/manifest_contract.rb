@@ -9,13 +9,16 @@ module AcaEntities
         # @param [Hash] opts the parameters to validate using this contract
         # @return [Dry::Monads::Result]
         params do
-          required(:type).filled(:string)
+          # required(:type).filled(:string)
+          optional(:type).maybe(::AcaEntities::Pdm::Types::ManifestTypes)
           required(:assistance_year).filled(:integer)
-          optional(:batch_id).maybe(:string)
+          optional(:batch_ids).maybe(:array)
+          optional(:file_names).maybe(:array)
           optional(:name).maybe(:string)
           optional(:timestamp).maybe(:date)
           optional(:response).maybe(:string)
-          optional(:count).maybe(:integer)
+          optional(:initial_count).maybe(:integer)
+          optional(:generated_count).maybe(:integer)
           optional(:file_generated).maybe(:bool)
         end
       end

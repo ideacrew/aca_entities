@@ -18,8 +18,6 @@ module AcaEntities
 
     # shared contracts
     require_relative 'contracts/manifest_contract'
-
-    # shared entities
-    require_relative 'entitites/manifest'
+    require_relative 'contracts/request_contract'
   end
 end

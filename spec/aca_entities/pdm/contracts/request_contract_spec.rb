@@ -2,25 +2,22 @@
 
 require 'spec_helper'
 
-RSpec.describe ::AcaEntities::Pdm::Contracts::ManifestContract, dbclean: :after_each do
+RSpec.describe ::AcaEntities::Pdm::Contracts::RequestContract, dbclean: :after_each do
   let(:valid_params) do
     {
-      type: "pvc_manifest_type",
-      assistance_year: 2023
+      subject_id: "THIS_IS_THE_SUBJECT"
     }
   end
   let(:invalid_params) do
     {
-      type: "this_is_the_type"
     }
   end
 
   let(:optional_params) do
     {
-      batch_ids: ["123", "456"],
-      initial_count: 10,
-      generated_count: 10,
-      file_generated: true
+      command: "medicare",
+      request_payload: "{}",
+      response_payload: "{}"
     }
   end
 

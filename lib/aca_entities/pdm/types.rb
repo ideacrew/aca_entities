@@ -5,22 +5,25 @@ require 'date'
 
 module AcaEntities
   module Pdm
-    module Entities
-      # custom types for curam
-      module Types
-        send(:include, Dry.Types())
-        send(:include, Dry::Logic)
+    # custom types for PDM
+    module Types
+      send(:include, Dry.Types())
+      send(:include, Dry::Logic)
 
-        module Types
-          send(:include, Dry.Types())
-        end
+      # module Types
+      #   send(:include, Dry.Types())
+      # end
 
-        ManifestTypes = Types::Coercible::String.enum(
-          "rrv_manifest_type",
-          "pvc_manifest_type"
-        )
+      ManifestTypes = Types::Coercible::String.enum(
+        "rrv_manifest_type",
+        "pvc_manifest_type"
+      )
 
-      end
+      RequestCommandTypes = Types::Coercible::String.enum(
+        "medicare",
+        "death_certificate"
+      )
+
     end
   end
 end
