@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module AcaEntities
-  module Ledger
+  module InsurancePolicies
     # Schema and validation rules for {AcaEntities::Ledger::Member}
     class Member < Dry::Struct
       include Comparable
@@ -14,7 +14,9 @@ module AcaEntities
       # @!attribute [r] member_id
       # A Tenent-assigned unambiguous reference to a member.
       # @return [String]
-      attribute :member_id, Types::String.meta(omittable: false)
+      attribute :member_id, Types::String.optional.meta(omittable: true)
+
+      attribute :hbx_id, Types::String.meta(omittable: false)
 
       # @!attribute [r] insurer_assigned_id
       # An Insurance Provider-assigned unambiguous reference to a member

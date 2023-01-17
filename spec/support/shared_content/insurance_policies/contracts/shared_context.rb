@@ -78,7 +78,7 @@ RSpec.shared_context 'insurance_policies_context' do
   end
 
   # PremiumSchedule
-  let(:premium_amount) { 345.66 }
+  let(:premium_amount) {  { cents: 34_566.0, currency_iso: "USD" } }
   let(:insured_start_on) { Date.new(moment.year, 1, 1) }
   let(:insured_end_on) { Date.new(moment.year, 3, 1) }
   let(:valid_start_on) { Date.new(moment.year, 1, 1) }
@@ -95,7 +95,7 @@ RSpec.shared_context 'insurance_policies_context' do
   end
 
   # EnrolledMemberPremium
-  let(:insurance_rate) { 575.23 }
+  let(:insurance_rate) { { cents: 57_523.0, currency_iso: "USD" }  }
   let(:enrolled_member_premium) { { premium_schedule: premium_schedule, insurance_rate: insurance_rate } }
 
   # PrimaryCareProvider
@@ -115,6 +115,15 @@ RSpec.shared_context 'insurance_policies_context' do
         state_abbreviation: 'ID',
         zip_code: '83705',
         start_on: moment
+      }
+    ]
+  end
+
+  let(:emails) do
+    [
+      {
+        kind: "home",
+        address: "george.jetson@example.com"
       }
     ]
   end
@@ -139,10 +148,10 @@ RSpec.shared_context 'insurance_policies_context' do
           gender: 'male',
           addresses: addresses,
           phones: phones,
-          emails: [{ kind: 'home', address: 'george.jetson@example.com' }]
+          emails: emails
         },
         enrolled_member_premium: {
-          insurance_rate: 575.23,
+          insurance_rate: insurance_rate,
           premium_schedule: premium_schedule
         },
         primary_care_provider: primary_care_provider,
@@ -168,7 +177,7 @@ RSpec.shared_context 'insurance_policies_context' do
           addresses: addresses
         },
         enrolled_member_premium: {
-          insurance_rate: 615.88,
+          insurance_rate: { cents: 61_588.0, currency_iso: "USD" },
           premium_schedule: premium_schedule
         },
         primary_care_provider: primary_care_provider,
@@ -194,7 +203,7 @@ RSpec.shared_context 'insurance_policies_context' do
           addresses: addresses
         },
         enrolled_member_premium: {
-          insurance_rate: 220.16,
+          insurance_rate: { cents: 22_016.0, currency_iso: "USD" },
           premium_schedule: premium_schedule
         },
         primary_care_provider: primary_care_provider,

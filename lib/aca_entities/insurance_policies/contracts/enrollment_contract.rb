@@ -17,11 +17,11 @@ module AcaEntities
           optional(:survivor).maybe(AcaEntities::InsurancePolicies::Contracts::EnrolledMemberContract.params)
 
           # use tax_household_groups in MTHH scenario
-          optional(:tax_household_groups).array(AcaEntities::Contracts::Households::TaxHouseholdGroupContract.params)
+          optional(:tax_households).array(AcaEntities::Contracts::Households::TaxHouseholdContract.params)
 
-          optional(:total_premium).maybe(AcaEntities::Types::Money)
-          optional(:total_premium_adjustments).maybe(AcaEntities::Types::Money)
-          optional(:total_responsible_premium).maybe(AcaEntities::Types::Money)
+          optional(:total_premium_amount).hash(AcaEntities::Contracts::CurrencyContract.params)
+          optional(:total_premium_adjustment_amount).hash(AcaEntities::Contracts::CurrencyContract.params)
+          optional(:total_responsible_premium_amount).hash(AcaEntities::Contracts::CurrencyContract.params)
 
           required(:start_on).value(:date)
           optional(:end_on).maybe(AcaEntities::Types::DateOrNil)
