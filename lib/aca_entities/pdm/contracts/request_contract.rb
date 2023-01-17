@@ -13,6 +13,7 @@ module AcaEntities
           optional(:command).maybe(::AcaEntities::Pdm::Types::RequestCommandTypes)
           optional(:request_payload).maybe(:string)
           optional(:response_payload).maybe(:string)
+          optional(:document_identifier).maybe(:hash)
         end
       end
     end
