@@ -9,9 +9,7 @@ module AcaEntities
     # types
     require 'aca_entities/types'
 
-    # external
-    # dependencies
-    # require 'aca_entities/libraries/core_library'
+    # external dependencies
     require 'aca_entities/timestamp'
 
     require_relative 'types'
