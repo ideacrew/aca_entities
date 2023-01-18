@@ -9,7 +9,6 @@ module AcaEntities
         # @param [Hash] opts the parameters to validate using this contract
         # @return [Dry::Monads::Result]
         params do
-          # required(:type).filled(:string)
           optional(:type).maybe(::AcaEntities::Pdm::Types::ManifestTypes)
           required(:assistance_year).filled(:integer)
           optional(:batch_ids).maybe(:array)

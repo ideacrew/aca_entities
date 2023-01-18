@@ -5,10 +5,6 @@ module AcaEntities
   # PDM (periodic data matching) proceses like PVC and RRV
   #
   module Pdm
-    # shared dependencies
-    # types
-    require 'aca_entities/types'
-
     # external dependencies
     require 'aca_entities/timestamp'
 
