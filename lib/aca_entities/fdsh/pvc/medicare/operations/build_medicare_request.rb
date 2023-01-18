@@ -9,12 +9,9 @@ module AcaEntities
           class BuildMedicareRequest
             include Dry::Monads[:result, :do, :try]
 
-            def call(applications)
-              payload = yield construct_medicare_request(applications)
-              validated_payload = yield validate_payload(payload)
-              request_entity = yield esi_mec_request_entity(validated_payload)
-
-              Success(request_entity)
+            def call(applicant, assistance_year)
+              request_payload = construct_individual_request(applicant, assistance_year)
+              Success(request_payload)
             end
 
             private
@@ -40,16 +37,11 @@ module AcaEntities
               applicant.identifying_information.encrypted_ssn.blank? || applicant.non_esi_evidence.blank?
             end
 
-            def construct_individual_request(application)
-              application.applicants.collect do |applicant|
-                next if can_skip_applicant?(applicant)
-
-                individual_request = {
-                  Applicant: construct_request_applicant(applicant),
-                  InsurancePolicy: construct_insurance_policy(application.assistance_year)
-                }
-                individual_request
-              end.compact
+            def construct_individual_request(applicant, assistance_year)
+              {
+                Applicant: construct_request_applicant(applicant),
+                InsurancePolicy: construct_insurance_policy(assistance_year)
+              }
             end
 
             def construct_insurance_policy(year)
