@@ -13,7 +13,7 @@ module AcaEntities
           optional(:id).value(:string)
 
           # required(:insurance_policy).value(AcaEntities::InsurancePolicies::Contracts::InsurancePolicyContract.params)
-          required(:premium_amount).value(AcaEntities::Types::Money)
+          required(:premium_amount).hash(AcaEntities::Contracts::CurrencyContract.params)
           required(:insured_start_on).value(:date)
           required(:insured_end_on).value(:date)
           required(:valid_start_on).value(:date)

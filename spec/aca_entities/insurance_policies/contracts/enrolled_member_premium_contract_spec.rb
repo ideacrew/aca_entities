@@ -6,7 +6,7 @@ RSpec.describe AcaEntities::InsurancePolicies::Contracts::EnrolledMemberPremiumC
   subject { described_class.new }
 
   # PremiumSchedule
-  let(:premium_amount) { 345.66 }
+  let(:premium_amount) { { cents: 34_566.0, currency_iso: "USD" } }
   let(:insured_start_on) { Date.new(moment.year, 1, 1) }
   let(:insured_end_on) { Date.new(moment.year, 3, 1) }
   let(:valid_start_on) { Date.new(moment.year, 1, 1) }
@@ -23,7 +23,7 @@ RSpec.describe AcaEntities::InsurancePolicies::Contracts::EnrolledMemberPremiumC
   end
 
   let(:id) { '12345' }
-  let(:insurance_rate) { 575.23 }
+  let(:insurance_rate) { { cents: 57_523.0, currency_iso: "USD" } }
   let(:moment) { DateTime.now }
   let(:timestamps) { { created_at: moment, modified_at: moment } }
 
