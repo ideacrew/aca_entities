@@ -56,7 +56,7 @@ channels:
           content_type: application/json
           bindingVersion: 0.2.0
       operationId: enroll.families.notices.ivl_tax1095a.initial_notice_requested
-      description: Event for corrected1095a notice generation
+      description: Event for 1095A initial notice payload generation
 
   enroll.families.notices.ivl_tax1095a.catastrophic_notice_requested:
     bindings:
@@ -81,7 +81,7 @@ channels:
           content_type: application/json
           bindingVersion: 0.2.0
       operationId: enroll.families.notices.ivl_tax1095a.catastrophic_notice_requested
-      description: Event for corrected1095a notice generation
+      description: Event for 1095A catastrophic notice payload generation
 
   enroll.families.notices.ivl_tax1095a.corrected_notice_requested:
     bindings:
@@ -106,7 +106,7 @@ channels:
           content_type: application/json
           bindingVersion: 0.2.0
       operationId: enroll.families.notices.ivl_tax1095a.corrected_notice_requested
-      description: Event for corrected1095a notice generation
+      description: Event for 1095A corrected notice payload generation
 
 
   enroll.families.notices.ivl_tax1095a.void_notice_requested:
@@ -132,7 +132,7 @@ channels:
           content_type: application/json
           bindingVersion: 0.2.0
       operationId: enroll.families.notices.ivl_tax1095a.void_notice_requested
-      description: Event for corrected1095a notice generation
+      description: Event for 1095A void notice payload generation
 
 tags:
   - name: linter_tag
