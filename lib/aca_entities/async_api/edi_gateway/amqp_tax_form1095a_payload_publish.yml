@@ -81,7 +81,7 @@ channels:
           content_type: application/json
           bindingVersion: 0.2.0
       operationId: edi_gateway.families.tax_form1095a.corrected_payload_generated
-      description: Events - EDI Gateway Catastrophic 1095A notice generation
+      description: Events - EDI Gateway Corrected 1095A notice generation
 
   edi_gateway.families.tax_form1095a.void_payload_generated:
     bindings:
@@ -106,10 +106,10 @@ channels:
           content_type: application/json
           bindingVersion: 0.2.0
       operationId: edi_gateway.families.tax_form1095a.void_payload_generated
-      description: Events - EDI Gateway Catastrophic 1095A notice generation
+      description: Events - EDI Gateway Void 1095A notice generation
 
 
-  edi_gateway.families.tax_form1095a.Initial_payload_generated:
+  edi_gateway.families.tax_form1095a.initial_payload_generated:
     bindings:
       amqp:
         is: :routing_key
@@ -132,7 +132,7 @@ channels:
           content_type: application/json
           bindingVersion: 0.2.0
       operationId: edi_gateway.families.tax_form1095a.initial_payload_generated
-      description: Events - EDI Gateway Catastrophic 1095A notice generation
+      description: Events - EDI Gateway Initial 1095A notice generation
 
 tags:
   - name: linter_tag
