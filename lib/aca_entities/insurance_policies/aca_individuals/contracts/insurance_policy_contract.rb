@@ -27,7 +27,7 @@ module AcaEntities
             optional(:aptc_csr_tax_households).array(AcaEntities::InsurancePolicies::AcaIndividuals::Contracts::AptcCsrTaxHouseholdContract.params)
             required(:start_on).value(:date)
             required(:hbx_enrollment_ids).value(:array)
-            optional(:end_on).maybe(AcaEntities::Types::DateOrNil)
+            optional(:end_on).maybe(:date)
             optional(:timestamps).maybe(AcaEntities::Contracts::TimeStampContract.params)
           end
         end

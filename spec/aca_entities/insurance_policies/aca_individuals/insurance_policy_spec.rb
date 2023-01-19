@@ -190,6 +190,11 @@ RSpec.describe ::AcaEntities::InsurancePolicies::AcaIndividuals::InsurancePolicy
       expect(described_class.new(insurance_policy_params.to_h)).to be_a described_class
     end
 
+    it 'should load hbx_enrollment_ids' do
+      result = described_class.new(insurance_policy_params.to_h)
+      expect(result.hbx_enrollment_ids).to be_present
+    end
+
     it 'should not raise error' do
       expect { described_class.new(insurance_policy_params.to_h) }.not_to raise_error
     end
