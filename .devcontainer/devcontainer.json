@@ -3,7 +3,6 @@
 {
 	"name": "Aca Entities Dev",
 	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
-	// "image": "mcr.microsoft.com/devcontainers/ruby:0-2.6.6-bullseye",
 	"image": "mcr.microsoft.com/devcontainers/base:bullseye",
 	"features": {
 		"ghcr.io/devcontainers/features/ruby:1": {"version":"2.6.6"},
