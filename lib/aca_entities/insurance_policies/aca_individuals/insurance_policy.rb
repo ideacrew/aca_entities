@@ -12,6 +12,7 @@ module AcaEntities
         attribute :term_for_np,   Types::Bool.optional.meta(omittable: true)
         attribute :coverage_kind,   Types::String.optional.meta(omittable: true)
         attribute :aasm_state,   Types::String.optional.meta(omittable: true)
+        attribute :hbx_enrollment_ids,  Types::Array.of(Types::String).meta(omittable: false)
         attribute :insurance_product,   AcaEntities::InsurancePolicies::InsuranceProduct.meta(omittable: false)
         attribute :enrollments, Types::Array.of(AcaEntities::InsurancePolicies::Enrollment).optional.meta(omittable: true)
         attribute :aptc_csr_tax_households,
