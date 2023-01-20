@@ -28,6 +28,8 @@ module AcaEntities
           optional(:coverage_end_on).maybe(:date)
           optional(:tobacco_use).maybe(:string)
           optional(:external_id).maybe(:string)
+          optional(:tobacco_use).maybe(:string)
+          optional(:non_tobacco_use_premium).maybe(AcaEntities::Contracts::CurrencyContract.params)
           optional(:slcsp_member_premium).maybe(AcaEntities::Contracts::CurrencyContract.params)
         end
       end
