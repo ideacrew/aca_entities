@@ -320,6 +320,27 @@ RSpec.describe AcaEntities::Atp::Operations::Aces::GenerateXml  do
             end
           end
         end
+
+        describe "contact_method" do
+          let(:payload_hash) { JSON.parse(payload, symbolize_names: true) }
+          let(:result) { described_class.new.call(payload_hash.to_json) }
+          context 'contact_method is mapped correctly' do
+
+            it "should return success" do
+              expect(result.success?).to be_truthy
+            end
+          end
+
+          context "contact_method is not recognized" do
+            before do
+              payload_hash[:family][:family_members].first[:person][:consumer_role][:contact_method] = "mail"
+            end
+
+            it "should return failure" do
+              expect(result.failure?).to be_truthy
+            end          
+          end
+        end
       end
     end
   end
