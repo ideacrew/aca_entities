@@ -24,15 +24,15 @@ module AcaEntities
         class Family < ::AcaEntities::Operations::Transforms::Transform
           include ::AcaEntities::Operations::Transforms::Transformer
 
-          ContactPreferenceCode = { 
-                                    "Paper, Electronic and Text Message communications" => "Email",                          
-                                    "Electronic and Text Message communications" => "Email",
-                                    "Paper and Electronic communications" => "Email",
-                                    "Paper and Text Message communications" => "Mail",
-                                    "Only Text Message communication" => "TextMessage",
-                                    "Only Paper communication" => "Mail",
-                                    "Only Electronic communications" => "Email"
-                                  }.freeze
+          ContactPreferenceCode = {
+            "Paper, Electronic and Text Message communications" => "Email",
+            "Electronic and Text Message communications" => "Email",
+            "Paper and Electronic communications" => "Email",
+            "Paper and Text Message communications" => "Mail",
+            "Only Text Message communication" => "TextMessage",
+            "Only Paper communication" => "Mail",
+            "Only Electronic communications" => "Email"
+          }.freeze
 
           namespace 'family' do
             rewrap 'aces', type: :hash do

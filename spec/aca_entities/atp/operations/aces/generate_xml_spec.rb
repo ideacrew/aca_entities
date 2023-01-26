@@ -338,7 +338,7 @@ RSpec.describe AcaEntities::Atp::Operations::Aces::GenerateXml  do
 
             it "should return failure" do
               expect(result.failure?).to be_truthy
-            end          
+            end
           end
         end
       end
