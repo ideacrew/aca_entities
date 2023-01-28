@@ -10,6 +10,7 @@ module AcaEntities
             required(:OtherCompletePersonName).filled(AcaEntities::Fdsh::H41::Contracts::OtherCompletePersonNameContract.params)
             optional(:SSN).maybe(:string)
             optional(:BirthDt).maybe(:date)
+            required(:USAddressGrp).filled(AcaEntities::Fdsh::H41::Contracts::UsAddressGroupContract.params)
           end
         end
       end
