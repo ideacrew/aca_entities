@@ -4,7 +4,7 @@ module AcaEntities
   module Fdsh
     module H41
       # Entity for h41 OtherCompletePersonName
-      class OtherCompletePersonName
+      class OtherCompletePersonName < Dry::Struct
         attribute :PersonFirstNm,  AcaEntities::Types::String.meta(omittable: false)
         attribute :PersonMiddleNm, AcaEntities::Types::String.optional.meta(omittable: true)
         attribute :PersonLastNm,  AcaEntities::Types::String.meta(omittable: false)

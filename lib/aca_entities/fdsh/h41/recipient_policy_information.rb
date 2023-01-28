@@ -4,7 +4,7 @@ module AcaEntities
   module Fdsh
     module H41
       # Entity for h41 RecipientPolicyInformation
-      class RecipientPolicyInformation
+      class RecipientPolicyInformation < Dry::Struct
         attribute :JanPremiumInformation,  AcaEntities::Fdsh::H41::MonthlyPremiumInformation.meta(omittable: false)
         attribute :FebPremiumInformation,  AcaEntities::Fdsh::H41::MonthlyPremiumInformation.meta(omittable: false)
         attribute :MarPremiumInformation,  AcaEntities::Fdsh::H41::MonthlyPremiumInformation.meta(omittable: false)
@@ -17,7 +17,7 @@ module AcaEntities
         attribute :OctPremiumInformation,  AcaEntities::Fdsh::H41::MonthlyPremiumInformation.meta(omittable: false)
         attribute :NovPremiumInformation,  AcaEntities::Fdsh::H41::MonthlyPremiumInformation.meta(omittable: false)
         attribute :DecPremiumInformation,  AcaEntities::Fdsh::H41::MonthlyPremiumInformation.meta(omittable: false)
-        attribute :AnnualPolicyTotalAmounts,  AcaEntities::Fdsh::H41::AnnaulPremiumTotalAmounts.meta(omittable: false)
+        attribute :AnnualPolicyTotalAmounts,  AcaEntities::Fdsh::H41::AnnualPremiumTotalAmounts.meta(omittable: false)
       end
     end
   end

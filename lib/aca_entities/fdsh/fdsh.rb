@@ -38,5 +38,6 @@ module AcaEntities
     require_relative 'non_esi'
     require_relative 'rrv'
     require_relative 'pvc'
+    require_relative 'h41'
   end
 end

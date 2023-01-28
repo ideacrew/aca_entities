@@ -4,10 +4,10 @@ module AcaEntities
   module Fdsh
     module H41
       # Entity for h41 AnnaulPremiumTotalAmounts
-      class AnnaulPremiumTotalAmounts
-        attribute :AnnualPremiumAmt,  AcaEntities::Currency.meta(omittable: false)
-        attribute :AnnualPremiumSLCSPAmt, AcaEntities::Currency.meta(omittable: false)
-        attribute :AnnualAdvancedPTCAmt, AcaEntities::Currency.meta(omittable: false)
+      class AnnualPremiumTotalAmounts < Dry::Struct
+        attribute :AnnualPremiumAmt,  Types::Float.meta(omittable: false)
+        attribute :AnnualPremiumSLCSPAmt, Types::Float.meta(omittable: false)
+        attribute :AnnualAdvancedPTCAmt, Types::Float.meta(omittable: false)
       end
     end
   end

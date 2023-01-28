@@ -7,9 +7,9 @@ module AcaEntities
         # Contract for H41 AnnualPolicyTotalAmountsContract
         class AnnualPolicyTotalAmountsContract < Dry::Validation::Contract
           params do
-            required(:AnnualPremiumAmt).filled(AcaEntities::Types::Money)
-            required(:AnnualPremiumSLCSPAmt).filled(AcaEntities::Types::Money)
-            required(:AnnualAdvancedPTCAmt).filled(AcaEntities::Types::Money)
+            required(:AnnualPremiumAmt).filled(:float)
+            required(:AnnualPremiumSLCSPAmt).filled(:float)
+            required(:AnnualAdvancedPTCAmt).filled(:float)
           end
         end
       end

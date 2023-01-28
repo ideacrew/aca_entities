@@ -7,9 +7,9 @@ module AcaEntities
         # Contract for H41 MonthlyPremiumInformationContract
         class MonthlyPremiumInformationContract < Dry::Validation::Contract
           params do
-            required(:MonthlyPremiumAmt).filled(AcaEntities::Types::Money)
-            required(:MonthlyPremiumSLCSPAmt).filled(AcaEntities::Types::Money)
-            required(:MonthlyAdvancedPTCAmt).filled(AcaEntities::Types::Money)
+            required(:MonthlyPremiumAmt).filled(:float)
+            required(:MonthlyPremiumSLCSPAmt).filled(:float)
+            required(:MonthlyAdvancedPTCAmt).filled(:float)
           end
         end
       end

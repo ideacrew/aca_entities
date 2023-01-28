@@ -4,10 +4,10 @@ module AcaEntities
   module Fdsh
     module H41
       # Entity for h41 MonthlyPremiumInformation
-      class MonthlyPremiumInformation
-        attribute :MonthlyPremiumAmt,  AcaEntities::Currency.meta(omittable: false)
-        attribute :MonthlyPremiumSLCSPAmt, AcaEntities::Currency.meta(omittable: false)
-        attribute :MonthlyAdvancedPTCAmt, AcaEntities::Currency.meta(omittable: false)
+      class MonthlyPremiumInformation < Dry::Struct
+        attribute :MonthlyPremiumAmt,  Types::Float.meta(omittable: false)
+        attribute :MonthlyPremiumSLCSPAmt, Types::Float.meta(omittable: false)
+        attribute :MonthlyAdvancedPTCAmt, Types::Float.meta(omittable: false)
       end
     end
   end

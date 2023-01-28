@@ -30,3 +30,7 @@ require_relative 'h41/recipient_spouse'
 require_relative 'h41/recipient'
 require_relative 'h41/policy'
 require_relative 'h41/form_1095a_upstream_detail'
+require_relative 'h41/form_1095_a_transmission_upstream'
+
+# happymapper
+require 'aca_entities/serializers/xml/fdsh/h41'
