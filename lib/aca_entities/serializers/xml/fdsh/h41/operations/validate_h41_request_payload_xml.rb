@@ -35,7 +35,7 @@ module AcaEntities
 
               def parse_xml(xml)
                 parse_result = Try do
-                  Nokogiri::XML(xml)
+                  Nokogiri::XML(xml, &:noblanks)
                 end
 
                 return Failure(:invalid_xml) if parse_result.success? && !parses_to_valid_document?(parse_result.value!)

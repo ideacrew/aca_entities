@@ -7,7 +7,7 @@ module AcaEntities
         # Contract for H41 CoverageIndividualContract
         class CoveredIndividualContract < Dry::Validation::Contract
           params do
-            required(:InsuredPerson).array(AcaEntities::Fdsh::H41::Contracts::InsuredPersonContract.params)
+            required(:InsuredPerson).filled(AcaEntities::Fdsh::H41::Contracts::InsuredPersonContract.params)
             required(:CoverageStartDt).filled(:date)
             optional(:CoverageEndDt).maybe(:date)
           end

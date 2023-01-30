@@ -16,6 +16,7 @@ require_relative 'h41/contracts/recipient_spouse_contract'
 require_relative 'h41/contracts/recipient_contract'
 require_relative 'h41/contracts/policy_contract'
 require_relative 'h41/contracts/form_1095a_upstream_detail_contract'
+require_relative 'h41/contracts/form_1095a_transmission_upstream_contract'
 
 # entities
 require_relative 'h41/annual_premium_total_amounts'
@@ -34,3 +35,6 @@ require_relative 'h41/form_1095_a_transmission_upstream'
 
 # happymapper
 require 'aca_entities/serializers/xml/fdsh/h41'
+
+# operations
+require_relative "h41/operations/build_h41_request"
