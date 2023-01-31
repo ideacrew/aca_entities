@@ -13,6 +13,7 @@ module AcaEntities
           # @return [Dry::Monads::Result::Failure] if params fail validation
           params do
             optional(:id).value(:string)
+            optional(:hbx_assigned_id).value(:string)
             required(:covered_individuals).array(AcaEntities::InsurancePolicies::AcaIndividuals::Contracts::CoveredIndividualContract.params)
             optional(:months_of_year).array(AcaEntities::InsurancePolicies::AcaIndividuals::Contracts::MonthOfYearContract.params)
             optional(:annual_premiums).hash(AcaEntities::InsurancePolicies::AcaIndividuals::Contracts::CoverageInformationContract.params)
