@@ -43,7 +43,6 @@ module AcaEntities
             agreement.insurance_policies.collect do |insurance_policy|
               next if insurance_policy.aptc_csr_tax_households.empty?
 
-              provider = agreement.insurance_provider
               insurance_policy.aptc_csr_tax_households.collect do |tax_household|
                 recipient = fetch_recipient(tax_household, agreement, family)
                 recipient_spouse = fetch_recipient_spouse(tax_household)
@@ -57,9 +56,10 @@ module AcaEntities
                   CorrectedInd: "0",
                   VoidInd: "0",
                   MarketplaceId: "02.ME*.SBE.001.001",
-                  Policy: construct_policy(insurance_policy, provider),
+                  Policy: construct_policy(insurance_policy, agreement.insurance_provider),
                   Recipient: construct_recipient(recipient)
                 }
+
                 if has_aptc && recipient_spouse.present?
                   form_1095a_upstream_detail.merge!(RecipientSpouse: construct_recipient_spouse(recipient_spouse))
                 end

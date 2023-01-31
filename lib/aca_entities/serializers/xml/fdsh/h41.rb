@@ -16,6 +16,15 @@ require_relative 'h41/policy'
 require_relative 'h41/form_1095_a_upstream_detail'
 require_relative 'h41/form_1095_a_transmission_upstream'
 
+require_relative 'h41/checksum_augmentation'
+require_relative 'h41/document_binary'
+require_relative 'h41/attachment'
+require_relative 'h41/report_period'
+require_relative 'h41/service_specific_data'
+require_relative 'h41/transmission_metadata'
+require_relative 'h41/batch_metadata'
+require_relative 'h41/batch_handling_service_request'
+
 # operations
 require_relative "h41/operations/validate_h41_request_payload_xml"
 
