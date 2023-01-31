@@ -47,6 +47,3 @@ require_relative 'h41/batch_handling_service_request'
 
 # happymapper
 require 'aca_entities/serializers/xml/fdsh/h41'
-
-# operations
-require_relative "h41/operations/build_h41_request"

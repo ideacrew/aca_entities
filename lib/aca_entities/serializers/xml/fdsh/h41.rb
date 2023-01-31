@@ -27,6 +27,8 @@ require_relative 'h41/batch_handling_service_request'
 
 # operations
 require_relative "h41/operations/validate_h41_request_payload_xml"
+require_relative "h41/operations/validate_h41_manifest_xml"
+require_relative "h41/operations/create_h41_manifest_xml"
 
 module AcaEntities
   module Serializers
