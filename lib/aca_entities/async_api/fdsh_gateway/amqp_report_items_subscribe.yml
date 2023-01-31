@@ -32,7 +32,7 @@ servers:
 defaultContentType: application/json
 
 channels:
-  on_fdsh_gateway.edi_gateway.h41.report_items.created:
+  on_fdsh_gateway.edi_gateway.h41.report_items:
     bindings:
       amqp:
         is: queue
@@ -50,7 +50,7 @@ channels:
           routing_key: edi_gateway.h41.report_items.#
           prefetch: 1
           bindingVersion: '0.2.0'
-      operationId: on_fdsh_gateway.edi_gateway.h41.report_items.created
+      operationId: on_fdsh_gateway.edi_gateway.h41.report_items
       description: Events - EDI Gateway Report Item Events
 
 tags:
