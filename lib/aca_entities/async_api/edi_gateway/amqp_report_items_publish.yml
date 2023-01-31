@@ -37,7 +37,7 @@ channels:
       amqp:
         is: :routing_key
         exchange:
-          name: edi_gateway.h41.transmissions.transmit_requested
+          name: edi_gateway.h41.transmissions
           type: topic
           durable: true
           auto_delete: false
@@ -62,7 +62,7 @@ channels:
       amqp:
         is: :routing_key
         exchange:
-          name: edi_gateway.h41.report_items.corrected
+          name: edi_gateway.h41.report_items
           type: topic
           durable: true
           auto_delete: false
@@ -87,7 +87,7 @@ channels:
       amqp:
         is: :routing_key
         exchange:
-          name: edi_gateway.h41.report_items.created
+          name: edi_gateway.h41.report_items
           type: topic
           durable: true
           auto_delete: false
