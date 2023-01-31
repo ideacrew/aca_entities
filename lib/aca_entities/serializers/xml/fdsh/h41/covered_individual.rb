@@ -8,11 +8,11 @@ module AcaEntities
           # Happymapper implementation for the root object of an Request.
           class CoveredIndividual
             include HappyMapper
-            register_namespace 'airty20a', 'urn:us:gov:treasury:irs:ext:aca:air:ty20a'
+            register_namespace 'airty22a', 'urn:us:gov:treasury:irs:ext:aca:air:ty22a'
             register_namespace 'irs', 'urn:us:gov:treasury:irs:common'
 
             tag 'CoveredIndividual'
-            namespace 'airty20a'
+            namespace 'airty22a'
 
             has_one :InsuredPerson, InsuredPerson
             element :CoverageStartDt, String, tag: 'CoverageStartDt', namespace: "irs"

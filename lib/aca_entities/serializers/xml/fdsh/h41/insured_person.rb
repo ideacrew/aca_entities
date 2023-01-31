@@ -8,15 +8,15 @@ module AcaEntities
           # Happymapper implementation for the root object of an Request.
           class InsuredPerson
             include HappyMapper
-            register_namespace 'airty20a', 'urn:us:gov:treasury:irs:ext:aca:air:ty20a'
+            register_namespace 'airty22a', 'urn:us:gov:treasury:irs:ext:aca:air:ty22a'
             register_namespace 'irs', 'urn:us:gov:treasury:irs:common'
 
             tag 'InsuredPerson'
-            namespace 'airty20a'
+            namespace 'airty22a'
 
             has_one :OtherCompletePersonName, OtherCompletePersonName
             element :SSN, String, tag: 'SSN', namespace: "irs"
-            element :BirthDt, String, tag: 'BirthDt', namespace: "airty20a"
+            element :BirthDt, String, tag: 'BirthDt', namespace: "airty22a"
 
             def self.domain_to_mapper(request)
               mapper = self.new

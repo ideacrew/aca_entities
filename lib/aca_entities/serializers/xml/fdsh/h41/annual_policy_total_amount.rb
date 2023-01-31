@@ -8,9 +8,9 @@ module AcaEntities
           # Happymapper implementation for the root object of an Request.
           class AnnualPolicyTotalAmount
             include HappyMapper
-            register_namespace 'airty20a', 'urn:us:gov:treasury:irs:ext:aca:air:ty20a'
+            register_namespace 'airty22a', 'urn:us:gov:treasury:irs:ext:aca:air:ty22a'
 
-            namespace 'airty20a'
+            namespace 'airty22a'
 
             element :AnnualPremiumAmt, String, tag: 'AnnualPremiumAmt'
             element :AnnualPremiumSLCSPAmt, String, tag: 'AnnualPremiumSLCSPAmt'

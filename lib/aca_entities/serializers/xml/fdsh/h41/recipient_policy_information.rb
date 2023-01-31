@@ -8,10 +8,10 @@ module AcaEntities
           # Happymapper implementation for the root object of an Request.
           class RecipientPolicyInformation
             include HappyMapper
-            register_namespace 'airty20a', 'urn:us:gov:treasury:irs:ext:aca:air:ty20a'
+            register_namespace 'airty22a', 'urn:us:gov:treasury:irs:ext:aca:air:ty22a'
 
             tag 'RecipientPolicyInformation'
-            namespace 'airty20a'
+            namespace 'airty22a'
 
             has_one :JanPremiumInformation, MonthlyPremiumInformation, tag: "JanPremiumInformation"
             has_one :FebPremiumInformation, MonthlyPremiumInformation, tag: "FebPremiumInformation"

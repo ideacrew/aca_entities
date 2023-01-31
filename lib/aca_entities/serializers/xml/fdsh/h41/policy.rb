@@ -8,10 +8,10 @@ module AcaEntities
           # Happymapper implementation for the root object of an Request.
           class Policy
             include HappyMapper
-            register_namespace 'airty20a', "urn:us:gov:treasury:irs:ext:aca:air:ty20a"
+            register_namespace 'airty22a', "urn:us:gov:treasury:irs:ext:aca:air:ty22a"
 
             tag 'Policy'
-            namespace 'airty20a'
+            namespace 'airty22a'
 
             element :MarketPlacePolicyNum, String, tag: 'MarketPlacePolicyNum'
             element :PolicyIssuerNm, String, tag: 'PolicyIssuerNm'
