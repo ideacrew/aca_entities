@@ -115,17 +115,13 @@ RSpec.describe AcaEntities::Serializers::Xml::Fdsh::H41::Form1095ATransmissionUp
     }
   end
 
-  let(:form_1095a_transmission_upstream_request) do
-    AcaEntities::Fdsh::H41::Form1095ATransmissionUpstream.new(
-      {
-        Form1095AUpstreamDetail: [form_1095a_upstream_detail]
-      }
-    )
+  let(:form_1095a_upstream_detail_request) do
+    AcaEntities::Fdsh::H41::Form1095aUpstreamDetail.new(form_1095a_upstream_detail)
   end
 
   subject do
     AcaEntities::Serializers::Xml::Fdsh::H41::Form1095ATransmissionUpstream.domain_to_mapper(
-      form_1095a_transmission_upstream_request
+      form_1095a_upstream_detail_request
     ).to_xml
   end
 
