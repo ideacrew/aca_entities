@@ -32,7 +32,6 @@ servers:
 defaultContentType: application/json
 
 channels:
-  # <app service><.namespace>.<domain_model>.<event>
   edi_gateway.h41.transmissions.transmit_requested:
     bindings:
       amqp:
@@ -47,8 +46,8 @@ channels:
     publish:
       bindings:
         amqp:
-          app_id: medicaid_gateway
-          type: edi_gateway.h41.transmissions.transmit_requested
+          app_id: edi_gateway
+          type: edi_gateway.h41.transmissions
           routing_key: edi_gateway.h41.transmissions.transmit_requested
           deliveryMode: 2
           mandatory: true
@@ -63,7 +62,7 @@ channels:
       amqp:
         is: :routing_key
         exchange:
-          name: edi_gateway.h41.report_items.created
+          name: edi_gateway.h41.report_items.corrected
           type: topic
           durable: true
           auto_delete: false
@@ -72,8 +71,8 @@ channels:
     publish:
       bindings:
         amqp:
-          app_id: medicaid_gateway
-          type: edi_gateway.h41.report_item
+          app_id: edi_gateway
+          type: edi_gateway.h41.report_items
           routing_key: edi_gateway.h41.report_items.corrected
           deliveryMode: 2
           mandatory: true
@@ -98,7 +97,7 @@ channels:
       bindings:
         amqp:
           app_id: edi_gateway
-          type: edi_gateway.h41.report_item
+          type: edi_gateway.h41.report_items
           routing_key: edi_gateway.h41.report_items.created
           deliveryMode: 2
           mandatory: true

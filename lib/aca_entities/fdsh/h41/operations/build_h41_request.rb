@@ -47,7 +47,9 @@ module AcaEntities
               insurance_policy.aptc_csr_tax_households.collect do |tax_household|
                 recipient = fetch_recipient(tax_household, agreement, family)
                 recipient_spouse = fetch_recipient_spouse(tax_household)
-                has_aptc = tax_household.months_of_year.any? { |month| month.coverage_information && month.coverage_information.tax_credit.cents.to_f > 0 }
+                has_aptc = tax_household.months_of_year.any? do |month|
+                  month.coverage_information && month.coverage_information.tax_credit.cents.to_f > 0
+                end
 
                 form_1095a_upstream_detail = {
                   RecordSequenceNum: insurance_policy.policy_id,
@@ -106,7 +108,7 @@ module AcaEntities
               {
                 MonthlyPremiumAmt: coverage_information.total_premium.cents.to_f,
                 MonthlyPremiumSLCSPAmt: aptc_amount > 0 ? coverage_information.slcsp_benchmark_premium.cents.to_f : 0.00,
-                MonthlyAdvancedPTCAmt:  aptc_amount > 0 ? aptc_amount : 0.00
+                MonthlyAdvancedPTCAmt: aptc_amount > 0 ? aptc_amount : 0.00
               }
             else
               {
@@ -130,7 +132,7 @@ module AcaEntities
                 InsuredPerson: { OtherCompletePersonName: { PersonFirstNm: individual.person.person_name.first_name,
                                                             PersonLastNm: individual.person.person_name.last_name },
                                  SSN: decrypt_ssn(individual.person.person_demographics&.encrypted_ssn),
-                                 BirthDt: individual.person.person_demographics.dob, },
+                                 BirthDt: individual.person.person_demographics.dob },
                 CoverageStartDt: individual.coverage_start_on,
                 CoverageEndDt: individual.coverage_end_on
               }
@@ -152,7 +154,7 @@ module AcaEntities
               OtherCompletePersonName: { PersonFirstNm: recipient_spouse.person.person_name.first_name,
                                          PersonLastNm: recipient_spouse.person.person_name.last_name },
               SSN: decrypt_ssn(recipient_spouse.person.person_demographics.encrypted_ssn),
-              BirthDt: recipient_spouse.person.person_demographics.dob,
+              BirthDt: recipient_spouse.person.person_demographics.dob
             }
           end
 

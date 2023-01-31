@@ -37,7 +37,7 @@ channels:
       amqp:
         is: queue
         queue:
-          name: on_fdsh_gateway.edi_gateway.h41.report_items.created
+          name: on_fdsh_gateway.edi_gateway.h41.report_items
           durable: true
           exclusive: false
           auto_delete: false
