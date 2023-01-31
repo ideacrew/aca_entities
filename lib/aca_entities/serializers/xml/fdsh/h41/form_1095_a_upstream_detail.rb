@@ -8,9 +8,9 @@ module AcaEntities
           # Happymapper implementation for the root object of an Request.
           class Form1095AUpstreamDetail
             include HappyMapper
-            register_namespace 'airty22a', "urn:us:gov:treasury:irs:ext:aca:air:ty22a"
+            register_namespace 'airty20a', "urn:us:gov:treasury:irs:ext:aca:air:ty20a"
 
-            namespace 'airty22a'
+            namespace 'airty20a'
             tag 'Form1095AUpstreamDetail'
             attribute 'recordType', String
             attribute 'lineNum', String

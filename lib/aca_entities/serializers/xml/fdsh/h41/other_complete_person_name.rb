@@ -8,10 +8,10 @@ module AcaEntities
           # Happymapper implementation for the root object of an Request.
           class OtherCompletePersonName
             include HappyMapper
-            register_namespace 'airty22a', "urn:us:gov:treasury:irs:ext:aca:air:ty22a"
+            register_namespace 'airty20a', "urn:us:gov:treasury:irs:ext:aca:air:ty20a"
 
             tag 'OtherCompletePersonName'
-            namespace 'airty22a'
+            namespace 'airty20a'
 
             element :PersonFirstNm, String, tag: 'PersonFirstNm'
             element :PersonMiddleNm, String, tag: 'PersonMiddleNm'

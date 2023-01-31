@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- edited with XMLSpy v2013 (http://www.altova.com) by Internal Revenue Service (Internal Revenue Service) -->
-<xsd:schema xmlns="urn:us:gov:treasury:irs:ext:aca:air:ty22a" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:irs="urn:us:gov:treasury:irs:common" targetNamespace="urn:us:gov:treasury:irs:ext:aca:air:ty22a" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+<xsd:schema xmlns="urn:us:gov:treasury:irs:ext:aca:air:ty20a" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:irs="urn:us:gov:treasury:irs:common" targetNamespace="urn:us:gov:treasury:irs:ext:aca:air:ty20a" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
 	<xsd:annotation>
 		<xsd:appinfo>
 			<release>ACA Release 5.0 - AIR Downstream Forms 1095A 1094B/C 1095B/C</release>

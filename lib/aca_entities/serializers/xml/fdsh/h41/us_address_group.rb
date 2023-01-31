@@ -8,11 +8,11 @@ module AcaEntities
           # Happymapper implementation for the root object of an Request.
           class UsAddressGroup
             include HappyMapper
-            register_namespace 'airty22a', "urn:us:gov:treasury:irs:ext:aca:air:ty22a"
+            register_namespace 'airty20a', "urn:us:gov:treasury:irs:ext:aca:air:ty20a"
             register_namespace 'irs', 'urn:us:gov:treasury:irs:common'
 
             tag 'USAddressGrp'
-            namespace 'airty22a'
+            namespace 'airty20a'
 
             element :AddressLine1Txt, String, tag: 'AddressLine1Txt'
             element :AddressLine2Txt, String, tag: 'AddressLine2Txt'
