@@ -3,8 +3,8 @@
 module AcaEntities
   module Fdsh
     module H41
-      # Entity for h41 contract Form109aUpstreamDetail
-      class Form109aUpstreamDetail < Dry::Struct
+      # Entity for h41 contract Form1095aUpstreamDetail
+      class Form1095aUpstreamDetail < Dry::Struct
         attribute :RecordSequenceNum,  AcaEntities::Types::String.meta(omittable: false)
         attribute :TaxYr,  AcaEntities::Types::String.meta(omittable: false)
         attribute :CorrectedInd,  AcaEntities::Types::String.meta(omittable: false)

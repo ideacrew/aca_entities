@@ -20,9 +20,7 @@ module AcaEntities
 
             def self.domain_to_mapper(request)
               mapper = self.new
-              mapper.Form1095AUpstreamDetails = request.Form1095AUpstreamDetail.collect do |request_group|
-                Form1095AUpstreamDetail.domain_to_mapper(request_group)
-              end
+              mapper.Form1095AUpstreamDetails = [Form1095AUpstreamDetail.domain_to_mapper(request)]
 
               mapper
             end
