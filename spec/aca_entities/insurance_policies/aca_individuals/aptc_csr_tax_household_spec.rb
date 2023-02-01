@@ -118,6 +118,7 @@ RSpec.describe ::AcaEntities::InsurancePolicies::AcaIndividuals::AptcCsrTaxHouse
 
   let(:aptc_csr_tax_household) do
     {
+      hbx_assigned_id: '6232341',
       covered_individuals: [covered_individual],
       months_of_year: [months_of_year],
       annual_premiums: coverage_information

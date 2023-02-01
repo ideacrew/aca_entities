@@ -118,6 +118,7 @@ RSpec.describe AcaEntities::InsurancePolicies::AcaIndividuals::Contracts::AptcCs
 
   let(:required_params) do
     {
+      hbx_assigned_id: '6232341',
       covered_individuals: [covered_individual],
       months_of_year: [months_of_year],
       annual_premiums: coverage_information
