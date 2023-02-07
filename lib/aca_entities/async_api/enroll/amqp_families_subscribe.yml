@@ -1,0 +1,59 @@
+---
+asyncapi: 2.0.0
+info:
+  title: Enroll Insurance Policies
+  version: 0.1.0
+  description: AMQP Subscriber configuration for the Enroll service to find families as requested
+  contact:
+    name: IdeaCrew
+    url: https://ideacrew.com
+    email: info@ideacrew.com
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+
+servers:
+  development:
+    url: amqp://rabbitmq:5672/event_source
+    protocol: amqp
+    protocolVersion: 0.9.2
+    description: Enroll Development Server
+  production:
+    url: amqp://rabbitmq:5672/event_source
+    protocol: amqp
+    protocolVersion: 0.9.2
+    description: Enroll Production Server
+  test:
+    url: amqp://rabbitmq:5672/event_source
+    protocol: amqp
+    protocolVersion: 0.9.2
+    description: Enroll Test Server
+
+defaultContentType: application/json
+
+channels:
+  on_enroll.edi_gateway.families:
+    bindings:
+      amqp:
+        is: queue
+        queue:
+          name: on_enroll.edi_gateway.families
+          durable: true
+          exclusive: false
+          auto_delete: false
+          vhost: event_source
+    subscribe:
+      bindings:
+        amqp:
+          ack: true
+          exclusive: false
+          routing_key: edi_gateway.families.find_by_requested
+          prefetch: 1
+          block: false
+          bindingVersion: "0.2.0"
+      operationId: on_enroll.edi_gateway.families
+      description: Events - Subscription for a request to refresh insurance policies
+
+tags:
+  - name: linter_tag
+    description: placeholder that satisfies the linter
