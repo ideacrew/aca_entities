@@ -1,7 +1,7 @@
 ---
 asyncapi: 2.0.0
 info:
-  title: Enroll Insurance Policies
+  title: Enroll Families
   version: 0.1.0
   description: AMQP Subscriber configuration for the Enroll service to find families as requested
   contact:
