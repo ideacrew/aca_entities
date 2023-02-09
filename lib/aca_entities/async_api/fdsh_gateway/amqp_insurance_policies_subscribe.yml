@@ -1,0 +1,59 @@
+---
+asyncapi: 2.0.0
+info:
+  title: FDSH Gateway Insurance Policies
+  version: 0.1.0
+  description: AMQP Subscriber configuration for the FDSH Gateway service to support Refreshed Insurance Policies
+  contact:
+    name: IdeaCrew
+    url: https://ideacrew.com
+    email: info@ideacrew.com
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+
+servers:
+  development:
+    url: amqp://rabbitmq:5672/event_source
+    protocol: amqp
+    protocolVersion: 0.9.2
+    description: FDSH Gateway Development Server
+  production:
+    url: amqp://rabbitmq:5672/event_source
+    protocol: amqp
+    protocolVersion: 0.9.2
+    description: FDSH Gateway Production Server
+  test:
+    url: amqp://rabbitmq:5672/event_source
+    protocol: amqp
+    protocolVersion: 0.9.2
+    description: FDSH Gateway Test Server
+
+defaultContentType: application/json
+
+channels:
+  on_fdsh_gateway.edi_gateway.insurance_policies:
+    bindings:
+      amqp:
+        is: queue
+        queue:
+          name: on_fdsh_gateway.edi_gateway.insurance_policies
+          durable: true
+          exclusive: false
+          auto_delete: false
+          vhost: event_source
+    subscribe:
+      bindings:
+        amqp:
+          ack: true
+          exclusive: false
+          routing_key: edi_gateway.insurance_policies.refreshed
+          prefetch: 1
+          block: false
+          bindingVersion: "0.2.0"
+      operationId: on_fdsh_gateway.edi_gateway.insurance_policies
+      description: Events - Subscription for insurance policies refreshed
+
+tags:
+  - name: linter_tag
+    description: placeholder that satisfies the linter
