@@ -3,7 +3,7 @@ asyncapi: 2.0.0
 info:
   title: EDI Gateway Families
   version: 0.1.0
-  description: AMQP Publish configuration for the EDI Gateway services publish insurance policies refreshed
+  description: AMQP Publish configuration for the EDI Gateway services publish insurance policies
   contact:
     name: IdeaCrew
     url: https://ideacrew.com
@@ -30,7 +30,7 @@ servers:
     description: RabbitMQ Test Server
 
 channels:
-  edi_gateway.insurance_policies.refreshed:
+  edi_gateway.insurance_policies.posted:
     bindings:
       amqp:
         is: :routing_key
@@ -43,13 +43,13 @@ channels:
           vhost: event_source
         binding_version: '0.2.0'
     publish:
-      operationId: edi_gateway.insurance_policies.refreshed
-      description: Events - Publish insurance policies refreshed
+      operationId: edi_gateway.insurance_policies.posted
+      description: Events - Publish insurance policies
       bindings:
         amqp:
           app_id: enroll
           type: edi_gateway.insurance_policies
-          routing_key: edi_gateway.insurance_policies.refreshed
+          routing_key: edi_gateway.insurance_policies.posted
           deliveryMode: 2
           mandatory: true
           timestamp: true
