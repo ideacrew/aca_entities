@@ -3,7 +3,7 @@ asyncapi: 2.0.0
 info:
   title: FDSH Gateway Insurance Policies
   version: 0.1.0
-  description: AMQP Subscriber configuration for the FDSH Gateway service to support Refreshed Insurance Policies
+  description: AMQP Subscriber configuration for the FDSH Gateway service to support Posted Insurance Policies
   contact:
     name: IdeaCrew
     url: https://ideacrew.com
@@ -47,12 +47,12 @@ channels:
         amqp:
           ack: true
           exclusive: false
-          routing_key: edi_gateway.insurance_policies.refreshed
+          routing_key: edi_gateway.insurance_policies.posted
           prefetch: 1
           block: false
           bindingVersion: "0.2.0"
       operationId: on_fdsh_gateway.edi_gateway.insurance_policies
-      description: Events - Subscription for insurance policies refreshed
+      description: Events - Subscription for posted insurance policies
 
 tags:
   - name: linter_tag
