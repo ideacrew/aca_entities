@@ -60,7 +60,6 @@ RSpec.describe AcaEntities::InsurancePolicies::AcaIndividuals::Contracts::Insura
       {
         policy_id: ['is missing'],
         insurance_product: ['is missing'],
-        insurance_provider: ['is missing'],
         start_on: ["is missing"]
       }
     end

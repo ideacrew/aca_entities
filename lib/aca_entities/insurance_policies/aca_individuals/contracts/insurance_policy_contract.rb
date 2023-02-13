@@ -23,7 +23,7 @@ module AcaEntities
             required(:insurance_product).value(
               AcaEntities::InsurancePolicies::Contracts::InsuranceProductContract.params
             )
-            required(:insurance_provider).value(
+            optional(:insurance_provider).maybe(
               AcaEntities::InsurancePolicies::Contracts::InsuranceProviderContract.params
             )
             optional(:enrollments).array(AcaEntities::InsurancePolicies::Contracts::EnrollmentContract.params)
