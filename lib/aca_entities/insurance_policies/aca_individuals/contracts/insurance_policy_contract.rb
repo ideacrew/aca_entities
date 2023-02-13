@@ -23,6 +23,9 @@ module AcaEntities
             required(:insurance_product).value(
               AcaEntities::InsurancePolicies::Contracts::InsuranceProductContract.params
             )
+            required(:insurance_provider).value(
+              AcaEntities::InsurancePolicies::Contracts::InsuranceProviderContract.params
+            )
             optional(:enrollments).array(AcaEntities::InsurancePolicies::Contracts::EnrollmentContract.params)
             optional(:aptc_csr_tax_households).array(AcaEntities::InsurancePolicies::AcaIndividuals::Contracts::AptcCsrTaxHouseholdContract.params)
             required(:start_on).value(:date)

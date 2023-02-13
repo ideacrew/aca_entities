@@ -19,6 +19,8 @@ RSpec.describe ::AcaEntities::InsurancePolicies::AcaIndividuals::InsurancePolicy
     shared_health_insurance_product
   end
 
+  let(:insurance_provider) { shared_insurance_provider }
+
   let(:family_member_reference) do
     {
       family_member_hbx_id: "1234567",
@@ -155,6 +157,7 @@ RSpec.describe ::AcaEntities::InsurancePolicies::AcaIndividuals::InsurancePolicy
 
   let(:aptc_csr_tax_household) do
     {
+      tax_household_members: [tax_household_member],
       covered_individuals: [covered_individual],
       months_of_year: [months_of_year],
       annual_premiums: coverage_information
@@ -165,6 +168,7 @@ RSpec.describe ::AcaEntities::InsurancePolicies::AcaIndividuals::InsurancePolicy
     {
       policy_id: "1197899",
       insurance_product: insurance_product,
+      insurance_provider: insurance_provider,
       enrollments: [enrollment],
       aptc_csr_tax_households: [aptc_csr_tax_household],
       hbx_enrollment_ids: ["1234567"],

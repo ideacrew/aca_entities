@@ -71,6 +71,7 @@ RSpec.shared_context 'insurance_policies_context' do
       marketplace_segment_id: marketplace_segment_id,
       coverage_kind: coverage_kind,
       insurance_product: insurance_product,
+      insurance_provider: shared_insurance_provider,
       enrollments: [enrollment],
       hbx_enrollment_ids: [policy_id],
       start_on: Date.new(moment.year, 1, 1)

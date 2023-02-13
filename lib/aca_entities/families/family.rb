@@ -15,6 +15,8 @@ module AcaEntities
       # @return [String]
       attribute :hbx_id,                            Types::String.optional.meta(omittable: false)
 
+      attribute :irs_group_id,                            Types::String.optional.meta(omittable: true)
+
       # @!attribute [r] foreign_keys
       # All current and psst members of this family
       # @return [Array<AcaEntities::Identifiers::Id>]
