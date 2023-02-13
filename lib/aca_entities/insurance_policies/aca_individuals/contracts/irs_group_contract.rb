@@ -25,6 +25,7 @@ module AcaEntities
           params do
             optional(:id).maybe(:string)
             required(:irs_group_id).filled(:string)
+            optional(:family_hbx_assigned_id).filled(:string)
             required(:insurance_agreements).array(
               AcaEntities::InsurancePolicies::AcaIndividuals::Contracts::InsuranceAgreementContract.params
             )

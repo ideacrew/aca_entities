@@ -171,7 +171,6 @@ RSpec.describe ::AcaEntities::InsurancePolicies::AcaIndividuals::InsurancePolicy
       insurance_provider: insurance_provider,
       enrollments: [enrollment],
       aptc_csr_tax_households: [aptc_csr_tax_household],
-      hbx_enrollment_ids: ["1234567"],
       start_on: january_1,
       end_on: december_31
     }
@@ -192,11 +191,6 @@ RSpec.describe ::AcaEntities::InsurancePolicies::AcaIndividuals::InsurancePolicy
 
     it 'should initialize' do
       expect(described_class.new(insurance_policy_params.to_h)).to be_a described_class
-    end
-
-    it 'should load hbx_enrollment_ids' do
-      result = described_class.new(insurance_policy_params.to_h)
-      expect(result.hbx_enrollment_ids).to be_present
     end
 
     it 'should not raise error' do

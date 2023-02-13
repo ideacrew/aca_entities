@@ -177,7 +177,6 @@ RSpec.describe ::AcaEntities::InsurancePolicies::AcaIndividuals::InsuranceAgreem
       insurance_provider: shared_insurance_provider,
       enrollments: [enrollment],
       aptc_csr_tax_households: [aptc_csr_tax_household],
-      hbx_enrollment_ids: ["1234567"],
       start_on: january_1,
       end_on: december_31
     }
