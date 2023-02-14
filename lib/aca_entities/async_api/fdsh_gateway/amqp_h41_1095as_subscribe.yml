@@ -3,7 +3,7 @@ asyncapi: 2.0.0
 info:
   title: FDSH Gateway H41 1095as
   version: 0.1.0
-  description: AMQP Subscriber configuration for h41 / 1095 as transmission requested
+  description: AMQP Subscriber configuration for h41 / 1095 request transmission 
   contact:
     name: IdeaCrew
     url: https://ideacrew.com
