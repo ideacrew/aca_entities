@@ -3,11 +3,14 @@
 require 'aca_entities/atp/transformers/aces/address'
 require 'aca_entities/atp/transformers/aces/phone'
 require 'aca_entities/atp/transformers/aces/email'
+require 'aca_entities/atp/types'
+
 module AcaEntities
   module Atp
     module Functions
       # build application and applicants
       class ContactBuilder
+
         def call(cache)
           @memoized_data = cache
 
@@ -18,9 +21,12 @@ module AcaEntities
           phones = applicants_hash[member_id.to_sym][:phones]
           @primary_applicant_id = @memoized_data.find(Regexp.new('is_primary_applicant.*')).select {|a|  a.item == true}.first.name.split('.').last
           @contact_method = @memoized_data.find(Regexp.new("consumer_role.contact_method.#{@primary_applicant_id}")).map(&:item).last
+          @primary_address_kind = addresses.any?{ |a| a[:kind] == "mailing"} ? "Mailing" : "Home"
 
           address_result = addresses.each_with_object([]) do |address, collector|
-            collector << ::AcaEntities::Atp::Transformers::Aces::Address.transform(address)
+            result = ::AcaEntities::Atp::Transformers::Aces::Address.transform(address)
+            result[:is_primary_indicator] = AcaEntities::Atp::Types::ContactPreferenceCode[@contact_method] == "Mail" && result[:category_code] == @primary_address_kind
+            collector << result
             collector
           end
 

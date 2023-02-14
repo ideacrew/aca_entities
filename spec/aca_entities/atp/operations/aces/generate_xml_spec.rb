@@ -199,6 +199,56 @@ RSpec.describe AcaEntities::Atp::Operations::Aces::GenerateXml  do
       end
     end
 
+    context "contact_method:" do
+      let(:payload_hash) { JSON.parse(payload, symbolize_names: true) }
+      let(:result) { described_class.new.call(payload_hash.to_json) }
+
+      context 'contact_method is mapped correctly' do
+        it "should return success" do
+          expect(result.success?).to be_truthy
+        end
+      end
+
+      context "contact_method is not recognized" do
+        before do
+          payload_hash[:family][:family_members].first[:person][:consumer_role][:contact_method] = "mail"
+        end
+
+        it "should return failure" do
+          expect(result.failure?).to be_truthy
+        end
+      end
+
+      context "address" do
+        context "when there is a mailing and home address" do
+          before do
+            payload_hash[:family][:family_members].first[:person][:consumer_role][:contact_method] = "Only Paper communication"
+          end
+
+          it "should mark the mailing address with the primary indicator" do
+            doc = Nokogiri::XML.parse(result.value!)
+            pcia = doc.xpath("//hix-core:PersonContactInformationAssociation", namespaces).first
+            ciipi = pcia.xpath("//nc:ContactInformationIsPrimaryIndicator", namespaces)[1].text
+            expect(ciipi).to eq "true"
+          end
+        end
+
+        context "when there is only a home address" do
+          before do
+            payload_hash[:family][:family_members].first[:person][:consumer_role][:contact_method] = "Only Paper communication"
+            payload_hash[:family][:magi_medicaid_applications][:applicants].first[:addresses] = [payload_hash[:family][:magi_medicaid_applications][:applicants].first[:addresses].first]
+          end
+
+          it "should mark the home address with the primary indicator" do
+            doc = Nokogiri::XML.parse(result.value!)
+            pcia = doc.xpath("//hix-core:PersonContactInformationAssociation", namespaces).first
+            ciipi = pcia.xpath("//nc:ContactInformationIsPrimaryIndicator", namespaces)[0].text
+            expect(ciipi).to eq "true"
+          end
+        end
+      end
+    end
+
     context 'param flags' do
       context "when drop_non_ssn_apply_reason flag is present in payload" do
         it 'should not populate IdentificationCategoryText tag in PersonSSNIdentification' do
@@ -321,26 +371,7 @@ RSpec.describe AcaEntities::Atp::Operations::Aces::GenerateXml  do
           end
         end
 
-        describe "contact_method" do
-          let(:payload_hash) { JSON.parse(payload, symbolize_names: true) }
-          let(:result) { described_class.new.call(payload_hash.to_json) }
-          context 'contact_method is mapped correctly' do
 
-            it "should return success" do
-              expect(result.success?).to be_truthy
-            end
-          end
-
-          context "contact_method is not recognized" do
-            before do
-              payload_hash[:family][:family_members].first[:person][:consumer_role][:contact_method] = "mail"
-            end
-
-            it "should return failure" do
-              expect(result.failure?).to be_truthy
-            end
-          end
-        end
       end
     end
   end
