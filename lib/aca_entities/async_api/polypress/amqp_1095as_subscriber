@@ -1,0 +1,59 @@
+---
+asyncapi: 2.0.0
+info:
+  title: Polypress 1095as subscriber
+  version: 0.1.0
+  description: Polypress 1095as notifce requested
+  contact:
+    name: IdeaCrew
+    url: https://ideacrew.com
+    email: info@ideacrew.com
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+
+servers:
+  development:
+    url: amqp://rabbitmq:5672/event_source
+    protocol: amqp
+    protocolVersion: 0.9.2
+    description: EDI Gateway Development Server
+  production:
+    url: amqp://rabbitmq:5672/event_source
+    protocol: amqp
+    protocolVersion: 0.9.2
+    description: EDI Gateway Production Server
+  test:
+    url: amqp://rabbitmq:5672/event_source
+    protocol: amqp
+    protocolVersion: 0.9.2
+    description: EDI Gateway Test Server
+
+defaultContentType: application/json
+
+channels:
+  on_polypress.fdsh_gateway.1095as.notice_requested:
+    bindings:
+      amqp:
+        is: queue
+        queue:
+          name: on_polypress.fdsh_gateway.1095as.notice_requested
+          durable: true
+          exclusive: false
+          auto_delete: false
+          vhost: event_source
+    subscribe:
+      bindings:
+        amqp:
+          ack: true
+          exclusive: false
+          routing_key: fdsh_gateway.1095as.notice_requested
+          prefetch: 1
+          block: false
+          bindingVersion: "0.2.0"
+      operationId: on_polypress.fdsh_gateway.1095as.notice_requested
+      description: Events - Subscription to process family
+
+tags:
+  - name: linter_tag
+    description: placeholder that satisfies the linter
