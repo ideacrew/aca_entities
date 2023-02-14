@@ -3,7 +3,7 @@ asyncapi: 2.0.0
 info:
   title: Polypress 1095as subscriber
   version: 0.1.0
-  description: Polypress 1095as notifce requested
+  description: Polypress 1095as notice requested subscriber
   contact:
     name: IdeaCrew
     url: https://ideacrew.com
