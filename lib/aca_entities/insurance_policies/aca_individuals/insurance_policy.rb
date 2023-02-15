@@ -3,6 +3,7 @@
 module AcaEntities
   module InsurancePolicies
     module AcaIndividuals
+      # Insurance Policy Contract
       class InsurancePolicy < Dry::Struct
         attribute :id, Types::String.optional.meta(omittable: true)
         attribute :policy_id, Types::String.meta(omittable: false)
