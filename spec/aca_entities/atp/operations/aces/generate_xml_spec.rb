@@ -227,7 +227,7 @@ RSpec.describe AcaEntities::Atp::Operations::Aces::GenerateXml  do
         context "when there is a mailing and home address" do
           it "should mark the mailing address with the primary indicator" do
             doc = Nokogiri::XML.parse(result.value!)
-            #1nd & 2nd PersonContactInformationAssociation nodes are addresses
+            # 1nd & 2nd PersonContactInformationAssociation nodes are addresses
             contact_info = doc.xpath("//hix-core:PersonContactInformationAssociation", namespaces)[1]
             is_primary_indicator = contact_info.xpath("./nc:ContactInformationIsPrimaryIndicator", namespaces).text
             expect(is_primary_indicator).to eq "true"
@@ -236,12 +236,13 @@ RSpec.describe AcaEntities::Atp::Operations::Aces::GenerateXml  do
 
         context "when there is only a home address" do
           before do
-            payload_hash[:family][:magi_medicaid_applications][:applicants].first[:addresses] = [payload_hash[:family][:magi_medicaid_applications][:applicants].first[:addresses].first]
+            home_address = payload_hash[:family][:magi_medicaid_applications][:applicants].first[:addresses].first
+            payload_hash[:family][:magi_medicaid_applications][:applicants].first[:addresses] = [home_address]
           end
 
           it "should mark the home address with the primary indicator" do
             doc = Nokogiri::XML.parse(result.value!)
-            #1nd & 2nd PersonContactInformationAssociation nodes are addresses
+            # 1nd & 2nd PersonContactInformationAssociation nodes are addresses
             contact_info = doc.xpath("//hix-core:PersonContactInformationAssociation", namespaces)[0]
             is_primary_indicator = contact_info.xpath("./nc:ContactInformationIsPrimaryIndicator", namespaces).text
             expect(is_primary_indicator).to eq "true"
@@ -257,7 +258,7 @@ RSpec.describe AcaEntities::Atp::Operations::Aces::GenerateXml  do
         context "when there is multiple phone numbers" do
           it "should mark the phone number set as mobile with is_primary_indicator" do
             doc = Nokogiri::XML.parse(result.value!)
-            #2nd & 3rd PersonContactInformationAssociation nodes are phone #s
+            # 2nd & 3rd PersonContactInformationAssociation nodes are phone #s
             contact_info = doc.xpath("//hix-core:PersonContactInformationAssociation", namespaces)[3]
             is_primary_indicator = contact_info.xpath("./nc:ContactInformationIsPrimaryIndicator", namespaces).text
             expect(is_primary_indicator).to eq "true"
@@ -267,7 +268,7 @@ RSpec.describe AcaEntities::Atp::Operations::Aces::GenerateXml  do
         context "when there is only a home phone number" do
           it "should mark the home phone number with is_primary_indicator" do
             doc = Nokogiri::XML.parse(result.value!)
-            #2nd & 3rd PersonContactInformationAssociation nodes are phone #s
+            # 2nd & 3rd PersonContactInformationAssociation nodes are phone #s
             contact_info = doc.xpath("//hix-core:PersonContactInformationAssociation", namespaces)[3]
             is_primary_indicator = contact_info.xpath("./nc:ContactInformationIsPrimaryIndicator", namespaces).text
             expect(is_primary_indicator).to eq "true"
@@ -283,7 +284,7 @@ RSpec.describe AcaEntities::Atp::Operations::Aces::GenerateXml  do
         context "when there is multiple email addresses" do
           it "should mark the home email with is_primary_indicator" do
             doc = Nokogiri::XML.parse(result.value!)
-            #4th & 5th PersonContactInformationAssociation nodes are emails
+            # 4th & 5th PersonContactInformationAssociation nodes are emails
             contact_info = doc.xpath("//hix-core:PersonContactInformationAssociation", namespaces)[4]
             is_primary_indicator = contact_info.xpath("./nc:ContactInformationIsPrimaryIndicator", namespaces).text
             expect(is_primary_indicator).to eq "true"
@@ -292,11 +293,12 @@ RSpec.describe AcaEntities::Atp::Operations::Aces::GenerateXml  do
 
         context "when there is only a work email address" do
           before do
-            payload_hash[:family][:magi_medicaid_applications][:applicants].first[:emails] = [payload_hash[:family][:magi_medicaid_applications][:applicants].first[:emails].last]
+            work_email = payload_hash[:family][:magi_medicaid_applications][:applicants].first[:emails].last
+            payload_hash[:family][:magi_medicaid_applications][:applicants].first[:emails] = [work_email]
           end
           it "should mark the work email with is_primary_indicator" do
             doc = Nokogiri::XML.parse(result.value!)
-            #4th & 5th PersonContactInformationAssociation nodes are emails
+            # 4th & 5th PersonContactInformationAssociation nodes are emails
             contact_info = doc.xpath("//hix-core:PersonContactInformationAssociation", namespaces)[4]
             is_primary_indicator = contact_info.xpath("./nc:ContactInformationIsPrimaryIndicator", namespaces).text
             expect(is_primary_indicator).to eq "true"
@@ -427,8 +429,6 @@ RSpec.describe AcaEntities::Atp::Operations::Aces::GenerateXml  do
             end
           end
         end
-
-
       end
     end
   end
