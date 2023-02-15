@@ -91,16 +91,27 @@ module AcaEntities
       }.freeze
 
       ContactKinds = {
-        'home' => 'Home',
-        'work' => 'Work',
-        'mailing' => 'Mailing',
-        'mobile' => 'Mobile'
+        'home' => 'Home', # mail, text, email
+        'work' => 'Work', # text, email
+        'mailing' => 'Mailing', # mail
+        'mobile' => 'Mobile' # text
+
         # Enroll kinds with no accepted mapping:
         #  - fax
         #  - phone
         #  - main
         #  - primary
         #  - branch
+      }.freeze
+
+      ContactPreferenceCode = {
+        "Paper, Electronic and Text Message communications" => "Email",
+        "Electronic and Text Message communications" => "Email",
+        "Paper and Electronic communications" => "Email",
+        "Paper and Text Message communications" => "Mail",
+        "Only Text Message communication" => "TextMessage",
+        "Only Paper communication" => "Mail",
+        "Only Electronic communications" => "Email"
       }.freeze
     end
   end

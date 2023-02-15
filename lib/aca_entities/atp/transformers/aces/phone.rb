@@ -18,10 +18,7 @@ module AcaEntities
           map 'kind', 'category_code', memoize: true, visible: true, function: lambda { |v|
             AcaEntities::Atp::Types::ContactKinds[v]
           }
-          add_key 'is_primary_indicator', value: lambda { |v|
-            kind = v.resolve('category_code').item
-            @contact_method == kind
-          }
+          add_key 'is_primary_indicator'
         end
       end
     end

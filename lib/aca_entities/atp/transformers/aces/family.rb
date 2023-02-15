@@ -24,16 +24,6 @@ module AcaEntities
         class Family < ::AcaEntities::Operations::Transforms::Transform
           include ::AcaEntities::Operations::Transforms::Transformer
 
-          ContactPreferenceCode = {
-            "Paper, Electronic and Text Message communications" => "Email",
-            "Electronic and Text Message communications" => "Email",
-            "Paper and Electronic communications" => "Email",
-            "Paper and Text Message communications" => "Mail",
-            "Only Text Message communication" => "TextMessage",
-            "Only Paper communication" => "Mail",
-            "Only Electronic communications" => "Email"
-          }.freeze
-
           namespace 'family' do
             rewrap 'aces', type: :hash do
               map 'family_flags', 'family_flags', memoize_record: true, visible: false
@@ -251,7 +241,11 @@ module AcaEntities
                     }
 
                     map 'consumer_role.language_preference', 'language_preference', memoize_record: true, visible: false
-                    map 'consumer_role.contact_method', 'consumer_role.contact_method', memoize_record: true, visible: false, append_identifier: true
+
+                    map 'consumer_role.contact_method', 'consumer_role.contact_method', function: lambda { |v|
+                      AcaEntities::Atp::Types::ContactPreferenceCode[v]
+                    }, memoize_record: true, visible: false, append_identifier: true
+
                     add_key 'person_augmentation.us_naturalized_citizen_indicator', function: lambda { |v|
                       member_id = v.find(/family.family_members.(\w+)$/).map(&:item).last
                       applicants_hash = v.resolve('family.magi_medicaid_applications.applicants').item
@@ -312,7 +306,7 @@ module AcaEntities
               add_key 'insurance_application.ssf_primary_contact', function: lambda { |v|
                 ref = v.find(Regexp.new('is_primary_applicant.*')).select {|a|  a.item == true}.first.name.split('.').last
                 contact_preference = v.find(Regexp.new('consumer_role.contact_method.*')).select {|a|  a.name.split('.').last == ref}.first.item
-                { role_reference: { ref: "pe#{ref}" }, contact_preference: ContactPreferenceCode[contact_preference] }
+                { role_reference: { ref: "pe#{ref}" }, contact_preference: AcaEntities::Atp::Types::ContactPreferenceCode[contact_preference] }
               }
 
               add_key 'insurance_application.ssf_signer', value: lambda { |v|
