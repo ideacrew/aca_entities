@@ -199,17 +199,17 @@ RSpec.describe AcaEntities::Atp::Operations::Aces::GenerateXml  do
       end
     end
 
-    context "contact_method:" do
+    context "when contact_method" do
       let(:payload_hash) { JSON.parse(payload, symbolize_names: true) }
       let(:result) { described_class.new.call(payload_hash.to_json) }
 
-      context 'contact_method is mapped correctly' do
+      context 'is mapped correctly' do
         it "should return success" do
           expect(result.success?).to be_truthy
         end
       end
 
-      context "contact_method is not recognized" do
+      context "is not recognized" do
         before do
           payload_hash[:family][:family_members].first[:person][:consumer_role][:contact_method] = "mail"
         end
@@ -219,34 +219,91 @@ RSpec.describe AcaEntities::Atp::Operations::Aces::GenerateXml  do
         end
       end
 
-      context "address" do
-        context "when there is a mailing and home address" do
-          before do
-            payload_hash[:family][:family_members].first[:person][:consumer_role][:contact_method] = "Only Paper communication"
-          end
+      context "is mail" do
+        before do
+          payload_hash[:family][:family_members].first[:person][:consumer_role][:contact_method] = "Only Paper communication"
+        end
 
+        context "when there is a mailing and home address" do
           it "should mark the mailing address with the primary indicator" do
             doc = Nokogiri::XML.parse(result.value!)
-            pcia = doc.xpath("//hix-core:PersonContactInformationAssociation", namespaces).first
-            ciipi = pcia.xpath("//nc:ContactInformationIsPrimaryIndicator", namespaces)[1].text
-            expect(ciipi).to eq "true"
+            #1nd & 2nd PersonContactInformationAssociation nodes are addresses
+            contact_info = doc.xpath("//hix-core:PersonContactInformationAssociation", namespaces)[1]
+            is_primary_indicator = contact_info.xpath("./nc:ContactInformationIsPrimaryIndicator", namespaces).text
+            expect(is_primary_indicator).to eq "true"
           end
         end
 
         context "when there is only a home address" do
           before do
-            payload_hash[:family][:family_members].first[:person][:consumer_role][:contact_method] = "Only Paper communication"
             payload_hash[:family][:magi_medicaid_applications][:applicants].first[:addresses] = [payload_hash[:family][:magi_medicaid_applications][:applicants].first[:addresses].first]
           end
 
           it "should mark the home address with the primary indicator" do
             doc = Nokogiri::XML.parse(result.value!)
-            pcia = doc.xpath("//hix-core:PersonContactInformationAssociation", namespaces).first
-            ciipi = pcia.xpath("//nc:ContactInformationIsPrimaryIndicator", namespaces)[0].text
-            expect(ciipi).to eq "true"
+            #1nd & 2nd PersonContactInformationAssociation nodes are addresses
+            contact_info = doc.xpath("//hix-core:PersonContactInformationAssociation", namespaces)[0]
+            is_primary_indicator = contact_info.xpath("./nc:ContactInformationIsPrimaryIndicator", namespaces).text
+            expect(is_primary_indicator).to eq "true"
           end
         end
       end
+
+      context "is text message" do
+        before do
+          payload_hash[:family][:family_members].first[:person][:consumer_role][:contact_method] = "Only Text Message communication"
+        end
+
+        context "when there is multiple phone numbers" do
+          it "should mark the phone number set as mobile with is_primary_indicator" do
+            doc = Nokogiri::XML.parse(result.value!)
+            #2nd & 3rd PersonContactInformationAssociation nodes are phone #s
+            contact_info = doc.xpath("//hix-core:PersonContactInformationAssociation", namespaces)[3]
+            is_primary_indicator = contact_info.xpath("./nc:ContactInformationIsPrimaryIndicator", namespaces).text
+            expect(is_primary_indicator).to eq "true"
+          end
+        end
+
+        context "when there is only a home phone number" do
+          it "should mark the home phone number with is_primary_indicator" do
+            doc = Nokogiri::XML.parse(result.value!)
+            #2nd & 3rd PersonContactInformationAssociation nodes are phone #s
+            contact_info = doc.xpath("//hix-core:PersonContactInformationAssociation", namespaces)[3]
+            is_primary_indicator = contact_info.xpath("./nc:ContactInformationIsPrimaryIndicator", namespaces).text
+            expect(is_primary_indicator).to eq "true"
+          end
+        end
+      end
+
+      context "is email" do
+        before do
+          payload_hash[:family][:family_members].first[:person][:consumer_role][:contact_method] = "Only Electronic communications"
+        end
+
+        context "when there is multiple email addresses" do
+          it "should mark the home email with is_primary_indicator" do
+            doc = Nokogiri::XML.parse(result.value!)
+            #4th & 5th PersonContactInformationAssociation nodes are emails
+            contact_info = doc.xpath("//hix-core:PersonContactInformationAssociation", namespaces)[4]
+            is_primary_indicator = contact_info.xpath("./nc:ContactInformationIsPrimaryIndicator", namespaces).text
+            expect(is_primary_indicator).to eq "true"
+          end
+        end
+
+        context "when there is only a work email address" do
+          before do
+            payload_hash[:family][:magi_medicaid_applications][:applicants].first[:emails] = [payload_hash[:family][:magi_medicaid_applications][:applicants].first[:emails].last]
+          end
+          it "should mark the work email with is_primary_indicator" do
+            doc = Nokogiri::XML.parse(result.value!)
+            #4th & 5th PersonContactInformationAssociation nodes are emails
+            contact_info = doc.xpath("//hix-core:PersonContactInformationAssociation", namespaces)[4]
+            is_primary_indicator = contact_info.xpath("./nc:ContactInformationIsPrimaryIndicator", namespaces).text
+            expect(is_primary_indicator).to eq "true"
+          end
+        end
+      end
+
     end
 
     context 'param flags' do

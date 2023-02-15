@@ -91,10 +91,11 @@ module AcaEntities
       }.freeze
 
       ContactKinds = {
-        'home' => 'Home',
-        'work' => 'Work',
-        'mailing' => 'Mailing',
-        'mobile' => 'Mobile'
+        'home' => 'Home', #mail, text, email
+        'work' => 'Work', #text, email
+        'mailing' => 'Mailing', #mail
+        'mobile' => 'Mobile' #text
+
         # Enroll kinds with no accepted mapping:
         #  - fax
         #  - phone
