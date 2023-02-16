@@ -19,6 +19,8 @@ RSpec.describe ::AcaEntities::InsurancePolicies::AcaIndividuals::InsurancePolicy
     shared_health_insurance_product
   end
 
+  let(:insurance_provider) { shared_insurance_provider }
+
   let(:family_member_reference) do
     {
       family_member_hbx_id: "1234567",
@@ -155,6 +157,7 @@ RSpec.describe ::AcaEntities::InsurancePolicies::AcaIndividuals::InsurancePolicy
 
   let(:aptc_csr_tax_household) do
     {
+      tax_household_members: [tax_household_member],
       covered_individuals: [covered_individual],
       months_of_year: [months_of_year],
       annual_premiums: coverage_information
@@ -165,9 +168,9 @@ RSpec.describe ::AcaEntities::InsurancePolicies::AcaIndividuals::InsurancePolicy
     {
       policy_id: "1197899",
       insurance_product: insurance_product,
+      insurance_provider: insurance_provider,
       enrollments: [enrollment],
       aptc_csr_tax_households: [aptc_csr_tax_household],
-      hbx_enrollment_ids: ["1234567"],
       start_on: january_1,
       end_on: december_31
     }
@@ -188,11 +191,6 @@ RSpec.describe ::AcaEntities::InsurancePolicies::AcaIndividuals::InsurancePolicy
 
     it 'should initialize' do
       expect(described_class.new(insurance_policy_params.to_h)).to be_a described_class
-    end
-
-    it 'should load hbx_enrollment_ids' do
-      result = described_class.new(insurance_policy_params.to_h)
-      expect(result.hbx_enrollment_ids).to be_present
     end
 
     it 'should not raise error' do

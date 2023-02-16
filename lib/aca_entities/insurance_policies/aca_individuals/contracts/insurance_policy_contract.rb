@@ -23,10 +23,12 @@ module AcaEntities
             required(:insurance_product).value(
               AcaEntities::InsurancePolicies::Contracts::InsuranceProductContract.params
             )
+            optional(:insurance_provider).maybe(
+              AcaEntities::InsurancePolicies::Contracts::InsuranceProviderContract.params
+            )
             optional(:enrollments).array(AcaEntities::InsurancePolicies::Contracts::EnrollmentContract.params)
             optional(:aptc_csr_tax_households).array(AcaEntities::InsurancePolicies::AcaIndividuals::Contracts::AptcCsrTaxHouseholdContract.params)
             required(:start_on).value(:date)
-            required(:hbx_enrollment_ids).value(:array)
             optional(:end_on).maybe(:date)
             optional(:timestamps).maybe(AcaEntities::Contracts::TimeStampContract.params)
           end

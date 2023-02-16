@@ -101,6 +101,14 @@ RSpec.describe ::AcaEntities::InsurancePolicies::AcaIndividuals::AptcCsrTaxHouse
     }
   end
 
+  let(:tax_household_member) do
+    {
+      family_member_reference: { family_member_hbx_id: "12345",
+                                 first_name: "test", last_name: "payload", relation_with_primary: "self" },
+      tax_filer_status: "tax_filer"
+    }
+  end
+
   let(:coverage_information) do
     {
       tax_credit: currency,
@@ -119,6 +127,7 @@ RSpec.describe ::AcaEntities::InsurancePolicies::AcaIndividuals::AptcCsrTaxHouse
   let(:aptc_csr_tax_household) do
     {
       hbx_assigned_id: '6232341',
+      tax_household_members: [tax_household_member],
       covered_individuals: [covered_individual],
       months_of_year: [months_of_year],
       annual_premiums: coverage_information
