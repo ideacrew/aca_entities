@@ -397,7 +397,7 @@
         "broker_accounts": [],
         "documents": [],
         "payment_transactions": [],
-        "magi_medicaid_applications": 
+        "magi_medicaid_applications":
             {
                 "family_reference": {
                     "hbx_id": "10419"
@@ -460,8 +460,8 @@
                             "country_of_citizenship": "USA",
                             "expiration_date": "01-01-2020",
                             "issuing_country": "USA",
-                            "status": "nil", 
-                            "verification_type": "nil", 
+                            "status": "nil",
+                            "verification_type": "nil",
                             "comment": "nil"
                         },
                         "family_member_reference": {
@@ -561,17 +561,30 @@
                             {
                                 "kind": "home",
                                 "address": "M80@gmail.com"
+                            },
+                            {
+                                "kind": "work",
+                                "address": "E70@gmail.com"
                             }
                         ],
                         "phones": [
                             {
-                                "kind": "mobile",
+                                "kind": "home",
                                 "primary": false,
                                 "area_code": "301",
                                 "number": "1510342",
                                 "country_code": "",
                                 "extension": "",
                                 "full_phone_number": "3011510342"
+                            },
+                            {
+                                "kind": "mobile",
+                                "primary": true,
+                                "area_code": "301",
+                                "number": "6660000",
+                                "country_code": "",
+                                "extension": "",
+                                "full_phone_number": "3016660000"
                             }
                         ],
                         "incomes": [

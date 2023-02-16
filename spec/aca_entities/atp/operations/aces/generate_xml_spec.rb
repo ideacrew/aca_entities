@@ -199,6 +199,115 @@ RSpec.describe AcaEntities::Atp::Operations::Aces::GenerateXml  do
       end
     end
 
+    context "when contact_method" do
+      let(:payload_hash) { JSON.parse(payload, symbolize_names: true) }
+      let(:result) { described_class.new.call(payload_hash.to_json) }
+
+      context 'is mapped correctly' do
+        it "should return success" do
+          expect(result.success?).to be_truthy
+        end
+      end
+
+      context "is not recognized" do
+        before do
+          payload_hash[:family][:family_members].first[:person][:consumer_role][:contact_method] = "mail"
+        end
+
+        it "should return failure" do
+          expect(result.failure?).to be_truthy
+        end
+      end
+
+      context "is mail" do
+        before do
+          payload_hash[:family][:family_members].first[:person][:consumer_role][:contact_method] = "Only Paper communication"
+        end
+
+        context "when there is a mailing and home address" do
+          it "should mark the mailing address with the primary indicator" do
+            doc = Nokogiri::XML.parse(result.value!)
+            # 1nd & 2nd PersonContactInformationAssociation nodes are addresses
+            contact_info = doc.xpath("//hix-core:PersonContactInformationAssociation", namespaces)[1]
+            is_primary_indicator = contact_info.xpath("./nc:ContactInformationIsPrimaryIndicator", namespaces).text
+            expect(is_primary_indicator).to eq "true"
+          end
+        end
+
+        context "when there is only a home address" do
+          before do
+            home_address = payload_hash[:family][:magi_medicaid_applications][:applicants].first[:addresses].first
+            payload_hash[:family][:magi_medicaid_applications][:applicants].first[:addresses] = [home_address]
+          end
+
+          it "should mark the home address with the primary indicator" do
+            doc = Nokogiri::XML.parse(result.value!)
+            # 1nd & 2nd PersonContactInformationAssociation nodes are addresses
+            contact_info = doc.xpath("//hix-core:PersonContactInformationAssociation", namespaces)[0]
+            is_primary_indicator = contact_info.xpath("./nc:ContactInformationIsPrimaryIndicator", namespaces).text
+            expect(is_primary_indicator).to eq "true"
+          end
+        end
+      end
+
+      context "is text message" do
+        before do
+          payload_hash[:family][:family_members].first[:person][:consumer_role][:contact_method] = "Only Text Message communication"
+        end
+
+        context "when there is multiple phone numbers" do
+          it "should mark the phone number set as mobile with is_primary_indicator" do
+            doc = Nokogiri::XML.parse(result.value!)
+            # 2nd & 3rd PersonContactInformationAssociation nodes are phone #s
+            contact_info = doc.xpath("//hix-core:PersonContactInformationAssociation", namespaces)[3]
+            is_primary_indicator = contact_info.xpath("./nc:ContactInformationIsPrimaryIndicator", namespaces).text
+            expect(is_primary_indicator).to eq "true"
+          end
+        end
+
+        context "when there is only a home phone number" do
+          it "should mark the home phone number with is_primary_indicator" do
+            doc = Nokogiri::XML.parse(result.value!)
+            # 2nd & 3rd PersonContactInformationAssociation nodes are phone #s
+            contact_info = doc.xpath("//hix-core:PersonContactInformationAssociation", namespaces)[3]
+            is_primary_indicator = contact_info.xpath("./nc:ContactInformationIsPrimaryIndicator", namespaces).text
+            expect(is_primary_indicator).to eq "true"
+          end
+        end
+      end
+
+      context "is email" do
+        before do
+          payload_hash[:family][:family_members].first[:person][:consumer_role][:contact_method] = "Only Electronic communications"
+        end
+
+        context "when there is multiple email addresses" do
+          it "should mark the home email with is_primary_indicator" do
+            doc = Nokogiri::XML.parse(result.value!)
+            # 4th & 5th PersonContactInformationAssociation nodes are emails
+            contact_info = doc.xpath("//hix-core:PersonContactInformationAssociation", namespaces)[4]
+            is_primary_indicator = contact_info.xpath("./nc:ContactInformationIsPrimaryIndicator", namespaces).text
+            expect(is_primary_indicator).to eq "true"
+          end
+        end
+
+        context "when there is only a work email address" do
+          before do
+            work_email = payload_hash[:family][:magi_medicaid_applications][:applicants].first[:emails].last
+            payload_hash[:family][:magi_medicaid_applications][:applicants].first[:emails] = [work_email]
+          end
+          it "should mark the work email with is_primary_indicator" do
+            doc = Nokogiri::XML.parse(result.value!)
+            # 4th & 5th PersonContactInformationAssociation nodes are emails
+            contact_info = doc.xpath("//hix-core:PersonContactInformationAssociation", namespaces)[4]
+            is_primary_indicator = contact_info.xpath("./nc:ContactInformationIsPrimaryIndicator", namespaces).text
+            expect(is_primary_indicator).to eq "true"
+          end
+        end
+      end
+
+    end
+
     context 'param flags' do
       context "when drop_non_ssn_apply_reason flag is present in payload" do
         it 'should not populate IdentificationCategoryText tag in PersonSSNIdentification' do
@@ -317,27 +426,6 @@ RSpec.describe AcaEntities::Atp::Operations::Aces::GenerateXml  do
               doc = Nokogiri::XML.parse(result.value!)
               texts = doc.xpath("//hix-ee:TaxReturn/hix-ee:TaxHousehold/hix-ee:SpouseTaxFiler", namespaces)
               expect(texts.present?).to be_truthy
-            end
-          end
-        end
-
-        describe "contact_method" do
-          let(:payload_hash) { JSON.parse(payload, symbolize_names: true) }
-          let(:result) { described_class.new.call(payload_hash.to_json) }
-          context 'contact_method is mapped correctly' do
-
-            it "should return success" do
-              expect(result.success?).to be_truthy
-            end
-          end
-
-          context "contact_method is not recognized" do
-            before do
-              payload_hash[:family][:family_members].first[:person][:consumer_role][:contact_method] = "mail"
-            end
-
-            it "should return failure" do
-              expect(result.failure?).to be_truthy
             end
           end
         end
