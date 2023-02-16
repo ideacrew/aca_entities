@@ -1,0 +1,61 @@
+---
+asyncapi: 2.0.0
+info:
+  title: EDI Gateway Families
+  version: 0.1.0
+  description: AMQP Publish configuration for the EDI Gateway services publish all insurance policies from every year
+  contact:
+    name: IdeaCrew
+    url: https://ideacrew.com
+    email: info@ideacrew.com
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+
+servers:
+  development:
+    url: 'amqp://rabbitmq:5672/event_source'
+    protocol: :amqp
+    protocolVersion: '0.9.2'
+    description: RabbitMQ Test Server
+  production:
+    url: 'amqp://rabbitmq:5672/event_source'
+    protocol: :amqp
+    protocolVersion: '0.9.2'
+    description: RabbitMQ Production Server
+  test:
+    url: 'amqp://rabbitmq:5672/event_source'
+    protocol: :amqp
+    protocolVersion: '0.9.2'
+    description: RabbitMQ Test Server
+
+channels:
+  edi_gateway.all_insurance_policies.posted:
+    bindings:
+      amqp:
+        is: :routing_key
+        exchange:
+          name: edi_gateway.all_insurance_policies
+          type: topic
+          content_type: application/json
+          durable: true
+          auto_delete: false
+          vhost: event_source
+        binding_version: '0.2.0'
+    publish:
+      operationId: edi_gateway.all_insurance_policies.posted
+      description: Events - Publish all insurance policies from every year
+      bindings:
+        amqp:
+          app_id: edi_gateway
+          type: edi_gateway.all_insurance_policies
+          routing_key: edi_gateway.all_insurance_policies.posted
+          deliveryMode: 2
+          mandatory: true
+          timestamp: true
+          content_type: application/json
+          bindingVersion: 0.2.0
+
+tags:
+  - name: linter_tag
+    description: placeholder that satisfies the linter
