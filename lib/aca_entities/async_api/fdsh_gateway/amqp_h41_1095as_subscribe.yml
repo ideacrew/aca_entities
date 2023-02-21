@@ -32,12 +32,12 @@ servers:
 defaultContentType: application/json
 
 channels:
-  on_fdsh_gateway.enroll.h41.transmissions.create_requested:
+  on_fdsh_gateway.enroll.h41_1095as.transmission_requested:
     bindings:
       amqp:
         is: queue
         queue:
-          name: on_fdsh_gateway.enroll.h41.transmissions
+          name: on_fdsh_gateway.enroll.h41_1095as
           durable: true
           exclusive: false
           auto_delete: false
@@ -47,11 +47,11 @@ channels:
         amqp:
           ack: true
           exclusive: false
-          routing_key: enroll.h41.transmissions.create_requested
+          routing_key: enroll.h41_1095as.transmission_requested
           prefetch: 1
           block: false
           bindingVersion: '0.2.0'
-      operationId: on_fdsh_gateway.enroll.h41.transmissions
+      operationId: on_fdsh_gateway.enroll.h41_1095as
       description: Events - Subscription for a request to generate H41 transmission
 
 tags:
