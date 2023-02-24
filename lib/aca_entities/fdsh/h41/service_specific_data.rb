@@ -8,6 +8,7 @@ module AcaEntities
         attribute :ReportPeriod, Dry::Struct.optional.meta(omittable: true) do
           attribute :Year,  AcaEntities::Types::Integer.optional.meta(omittable: true)
         end
+        attribute :OriginalBatchId,  AcaEntities::Types::String.optional.meta(omittable: true)
       end
     end
   end

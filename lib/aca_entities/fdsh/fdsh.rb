@@ -39,5 +39,6 @@ module AcaEntities
     require_relative 'rrv'
     require_relative 'pvc'
     require_relative 'h41'
+    require_relative 'h36'
   end
 end

@@ -10,6 +10,8 @@ module AcaEntities
             optional(:ReportPeriod).hash do
               optional(:Year).maybe(:integer)
             end
+
+            optional(:OriginalBatchId).maybe(:string)
           end
         end
       end
