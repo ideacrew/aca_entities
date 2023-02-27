@@ -3,7 +3,7 @@ asyncapi: 2.0.0
 info:
   title: Polypress
   version: 0.1.0
-  description: Publish and Subsribe configuration for the Polypress service
+  description: Publish and Subscribe configuration for the Polypress service
   contact:
     name: IdeaCrew
     url: https://ideacrew.com
@@ -32,12 +32,12 @@ servers:
 defaultContentType: application/json
 
 channels:
-  on_polypress.edi_gateway.families.tax_form1095a:
+  on_polypress.fdsh_gateway.irs1095as:
     bindings:
       amqp:
         is: queue
         queue:
-          name: on_polypress.edi_gateway.families.tax_form1095a
+          name: on_polypress.fdsh_gateway.irs1095as
           durable: true
           exclusive: false
           auto_delete: false
@@ -47,11 +47,11 @@ channels:
         amqp:
           ack: true
           exclusive: false
-          routing_key: edi_gateway.families.tax_form1095a.#
+          routing_key: fdsh_gateway.irs1095as.#
           prefetch: 1
           block: false
           bindingVersion: '0.2.0'
-      operationId: on_polypress.edi_gateway.families.tax_form1095a
+      operationId: on_polypress.fdsh_gateway.irs1095as
       description: Events - Generates 1095A notices in Individual Market
 
 tags:
