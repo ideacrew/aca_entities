@@ -32,7 +32,7 @@ servers:
 defaultContentType: application/json
 
 channels:
-  on_fdsh_gateway.enroll.h41_1095as.transmission_requested:
+  on_fdsh_gateway.enroll.h41_1095as:
     bindings:
       amqp:
         is: queue
