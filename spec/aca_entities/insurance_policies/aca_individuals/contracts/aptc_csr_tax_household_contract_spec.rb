@@ -127,6 +127,7 @@ RSpec.describe AcaEntities::InsurancePolicies::AcaIndividuals::Contracts::AptcCs
   let(:required_params) do
     {
       hbx_assigned_id: '6232341',
+      primary_tax_filer_hbx_id: '12345',
       tax_household_members: [tax_household_member],
       covered_individuals: [covered_individual],
       months_of_year: [months_of_year],
