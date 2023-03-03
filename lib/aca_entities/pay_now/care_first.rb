@@ -10,13 +10,13 @@ require_relative "care_first/contracts/coverage_kind_contract"
 require_relative "care_first/coverage_kind"
 
 # transformers
-require_relative 'care_first/transformers/'
+# require_relative 'care_first/transformers/'
 
 # operations
 require_relative 'care_first/operations/generate_xml'
 
 # happymapper
-require 'aca_entities/serializers/xml/pay_now/care_first/'
+require 'aca_entities/serializers/xml/pay_now/care_first/coverage_kind'
 
 module AcaEntities
   module PayNow
