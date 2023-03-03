@@ -1,0 +1,1 @@
+# TODO coverage_kind_contract spec
