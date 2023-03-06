@@ -47,7 +47,7 @@ channels:
         amqp:
           ack: true
           exclusive: false
-          routing_key: fdsh.fdsh.h36.#
+          routing_key: fdsh.h36.#
           prefetch: 1
           bindingVersion: "0.2.0"
       operationId: on_fdsh_gateway.fdsh.h36
