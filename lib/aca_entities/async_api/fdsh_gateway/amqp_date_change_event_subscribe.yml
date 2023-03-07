@@ -51,7 +51,7 @@ channels:
           prefetch: 1
           bindingVersion: "0.2.0"
       operationId: on_fdsh_gateway.enroll.system_date
-      description: Events - FDSH - H36 build xml requested event subcriber
+      description: Events - FDSH - Subscribe to date change event
 
 tags:
   - name: linter_tag
