@@ -10,7 +10,7 @@ require_relative "care_first/contracts/coverage_kind_contract"
 require_relative "care_first/coverage_kind"
 
 # transformers
-# require_relative 'care_first/transformers/'
+require_relative 'care_first/transformers/coverage_and_members'
 
 # operations
 require_relative 'care_first/operations/generate_xml'

@@ -6,7 +6,6 @@ require 'aca_entities/pay_now/care_first'
 RSpec.describe ::AcaEntities::PayNow::CareFirst::Contracts::CoverageKindContract, dbclean: :after_each do
 
   let(:required_params) { {} }
-
   let(:optional_params) do
     { coverage_kind: 'urn:openhbx:terms:v1:qhp_benefit_coverage#health' }
   end
