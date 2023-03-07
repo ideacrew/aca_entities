@@ -32,12 +32,12 @@ servers:
 defaultContentType: application/json
 
 channels:
-  on_fdsh_gateway.enroll.date_change:
+  on_fdsh_gateway.enroll.system_date:
     bindings:
       amqp:
         is: queue
         queue:
-          name: on_fdsh_gateway.enroll.date_change
+          name: on_fdsh_gateway.enroll.system_date
           durable: true
           exclusive: false
           auto_delete: false
@@ -47,10 +47,10 @@ channels:
         amqp:
           ack: true
           exclusive: false
-          routing_key: enroll.date_change.#
+          routing_key: enroll.system_date.changed
           prefetch: 1
           bindingVersion: "0.2.0"
-      operationId: on_fdsh_gateway.enroll.date_change
+      operationId: on_fdsh_gateway.enroll.system_date
       description: Events - FDSH - H36 build xml requested event subcriber
 
 tags:

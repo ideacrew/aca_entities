@@ -32,12 +32,12 @@ servers:
 defaultContentType: application/json
 
 channels:
-  enroll.date_change.published:
+  enroll.system_date.changed:
     bindings:
       amqp:
         is: :routing_key
         exchange:
-          name: enroll.date_change
+          name: enroll.system_date
           type: topic
           durable: true
           auto_delete: false
@@ -47,14 +47,14 @@ channels:
       bindings:
         amqp:
           app_id: enroll
-          type: enroll.date_change
-          routing_key: enroll.date_change.published
+          type: enroll.system_date
+          routing_key: enroll.system_date.changed
           deliveryMode: 2
           mandatory: true
           timestamp: true
           content_type: application/json
           bindingVersion: 0.2.0
-      operationId: enroll.date_change.published
+      operationId: enroll.system_date.changed
       description: Enroll event to publish date change
 
 tags:
