@@ -11,7 +11,7 @@ RSpec.describe ::AcaEntities::PayNow::CareFirst::CoverageKind, dbclean: :after_e
   let(:optional_params) { {} }
   let(:all_params) { required_params.merge(optional_params) }
   let(:invalid_params) do
-    { bad_key: 'bad_val'}
+    { bad_key: 'bad_val' }
   end
 
   context 'invalid parameters' do
