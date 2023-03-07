@@ -111,15 +111,15 @@ RSpec.describe AcaEntities::PayNow::CareFirst::Transformers::CoverageAndMembers 
     it 'should return transformed data' do
       result = described_class.transform(additional_info_payload)
       # coverage_kind
-      expect(result[:additional_information]).to have_key(:coverage_kind)
-      expect(result[:additional_information][:coverage_kind]).to eq('urn:openhbx:terms:v1:qhp_benefit_coverage#health')
+      expect(result[:pay_now_transfer_payload]).to have_key(:coverage_kind)
+      expect(result[:pay_now_transfer_payload][:coverage_kind]).to eq('urn:openhbx:terms:v1:qhp_benefit_coverage#health')
 
       # primary
-      # expect(result[:additional_information]).to have_key(:primary)
+      # expect(result[:pay_now_transfer_payload]).to have_key(:primary)
       # add additional attribute expectations
 
       # members
-      # result[:additional_information][:members].each do |member|
+      # result[:pay_now_transfer_payload][:members].each do |member|
       # expect(member).to have_key(:exchange_assigned_member_id)
       # add additional attribute expectations
       # end

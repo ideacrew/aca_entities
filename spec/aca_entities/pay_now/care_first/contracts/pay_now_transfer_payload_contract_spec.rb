@@ -3,7 +3,7 @@
 require 'spec_helper'
 require 'aca_entities/pay_now/care_first'
 
-RSpec.describe ::AcaEntities::PayNow::CareFirst::Contracts::CoverageKindContract, dbclean: :after_each do
+RSpec.describe ::AcaEntities::PayNow::CareFirst::Contracts::PayNowTransferPayloadContract, dbclean: :after_each do
 
   let(:required_params) do
     { coverage_kind: AcaEntities::PayNow::CareFirst::Types::PaynowCoverageKindType.values.first }

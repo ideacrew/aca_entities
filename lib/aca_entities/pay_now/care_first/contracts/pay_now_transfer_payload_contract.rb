@@ -8,7 +8,6 @@ module AcaEntities
         class PayNowTransferPayloadContract < Dry::Validation::Contract
 
           params do
-            #   required(:pay_now_transfer_payload).filled(:hash)
             required(:coverage_kind).filled(AcaEntities::PayNow::CareFirst::Types::PaynowCoverageKindType)
           end
         end

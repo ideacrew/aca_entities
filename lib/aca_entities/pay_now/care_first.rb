@@ -5,11 +5,9 @@ require 'aca_entities/types'
 require_relative 'care_first/types'
 
 # contracts
-require_relative 'care_first/contracts/coverage_kind_contract'
 require_relative 'care_first/contracts/pay_now_transfer_payload_contract'
 
 # entities
-require_relative 'care_first/coverage_kind'
 require_relative 'care_first/pay_now_transfer_payload'
 
 # transformers

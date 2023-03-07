@@ -10,7 +10,6 @@ module AcaEntities
             include HappyMapper
 
             tag 'coverage_kind'
-            #   namespace 'gov'
 
             element :coverage_kind, String, tag: 'coverage_kind'
 
@@ -19,12 +18,6 @@ module AcaEntities
               mapper.coverage_kind = coverage_kind
               mapper
             end
-
-            #   def to_hash
-            #     {
-            #       non_esi_mec_individual_information: transfer_header.to_hash
-            #     }
-            #   end
           end
         end
       end
