@@ -4,11 +4,11 @@ module AcaEntities
     module PayNow
       module CareFirst
         module Contracts
-          # Contract for NonEsiMecRequest
+          # Contract for coverage_kind
           class CoverageKindContract < Dry::Validation::Contract
   
             params do
-              optional(:coverage_kind).filled(:string)
+              required(:coverage_kind).filled(AcaEntities::PayNow::CareFirst::Types::PaynowCoverageKindType)
             end
           end
         end

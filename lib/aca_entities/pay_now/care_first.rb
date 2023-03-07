@@ -2,12 +2,13 @@
 
 # types
 require 'aca_entities/types'
+require_relative 'care_first/types'
 
 # contracts
-require_relative "care_first/contracts/coverage_kind_contract"
+require_relative 'care_first/contracts/coverage_kind_contract'
 
 # entities
-require_relative "care_first/coverage_kind"
+require_relative 'care_first/coverage_kind'
 
 # transformers
 require_relative 'care_first/transformers/coverage_and_members'

@@ -5,15 +5,23 @@ require 'aca_entities/pay_now/care_first'
 
 RSpec.describe ::AcaEntities::PayNow::CareFirst::Contracts::CoverageKindContract, dbclean: :after_each do
 
-  let(:required_params) { {} }
-  let(:optional_params) do
-    { coverage_kind: 'urn:openhbx:terms:v1:qhp_benefit_coverage#health' }
+  let(:required_params) do
+    { coverage_kind: AcaEntities::PayNow::CareFirst::Types::PaynowCoverageKindType.values.first }
   end
+  let(:optional_params) { {} }
   let(:all_params) do
     required_params.merge(optional_params)
   end
   let(:invalid_params) do
     { bad_key: 'bad_val' }
+  end
+
+  context 'invalid parameters' do
+    context 'with empty parameters' do
+      it 'should list error for every required parameter' do
+        expect(subject.call({}).errors.to_h.keys).to match_array required_params.keys
+      end
+    end
   end
 
   context 'valid parameters' do
