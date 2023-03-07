@@ -6,7 +6,7 @@ module AcaEntities
         module PayNow
           module CareFirst
             # Happymapper implementation for the root object of a PaynowTransferPayloadType.
-            class PaynowTransferPayload
+            class PayNowTransferPayload
               include HappyMapper
   
               tag 'saml:AttributeValue'
