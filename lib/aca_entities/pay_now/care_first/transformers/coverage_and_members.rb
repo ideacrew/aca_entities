@@ -9,7 +9,7 @@ module AcaEntities
           include ::AcaEntities::Operations::Transforms::Transformer
 
           namespace 'coverage_and_members' do
-            rewrap 'additional_information', type: :hash do
+            rewrap 'pay_now_transfer_payload', type: :hash do
 
               map 'hbx_enrollment.product_kind', 'coverage_kind', function: lambda { |v|
                 "urn:openhbx:terms:v1:qhp_benefit_coverage##{v}"
