@@ -3,20 +3,19 @@
 require "spec_helper"
 require "aca_entities/pay_now/care_first"
 
-RSpec.describe ::AcaEntities::PayNow::CareFirst::Contracts::MemberNameContract, dbclean: :after_each do
-  let(:required_params) do
+RSpec.describe ::AcaEntities::PayNow::CareFirst::Contracts::PrimaryContract, dbclean: :after_each do
+  let(:member_name_params) do
     { :person_surname => "Thomas",
       :person_given_name => "Jeff" }
   end
-  let(:optional_params) do
-    {
-      :person_middle_name => "Test",
-      :person_full_name => "Jeff Thomas",
-      :person_name_prefix_text => "Mr.",
-      :person_name_suffix_text => "Sr.",
-      :person_alternate_name => "Jeff"
-    }
+
+  let(:required_params) do
+    { exchange_assigned_member_id: "1037294",
+      member_name: member_name_params }
   end
+
+  let(:optional_params) { {} }
+
   let(:all_params) do
     required_params.merge(optional_params)
   end
