@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
 require "happymapper"
+# can remove coverage_kind since serializer not needed
 require_relative "care_first/coverage_kind"
+require_relative "care_first/member_name"
 require_relative "care_first/pay_now_transfer_payload"
 
 module AcaEntities

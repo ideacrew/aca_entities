@@ -5,9 +5,11 @@ require 'aca_entities/types'
 require_relative 'care_first/types'
 
 # contracts
+require_relative 'care_first/contracts/member_name_contract'
 require_relative 'care_first/contracts/pay_now_transfer_payload_contract'
 
 # entities
+require_relative 'care_first/member_name'
 require_relative 'care_first/pay_now_transfer_payload'
 
 # transformers
@@ -18,6 +20,7 @@ require_relative 'care_first/pay_now_transfer_payload'
 
 # happymapper
 require 'aca_entities/serializers/xml/pay_now/care_first/coverage_kind'
+require 'aca_entities/serializers/xml/pay_now/care_first/member_name'
 require 'aca_entities/serializers/xml/pay_now/care_first/pay_now_transfer_payload'
 
 module AcaEntities
