@@ -19,19 +19,19 @@ RSpec.describe AcaEntities::Fdsh::H36::Contracts::BatchHandlingServiceRequestCon
   let(:transmission_meta_data) do
     {
       TransmissionAttachmentQuantity: 1,
-      TransmissionSequenceID: 12345
+      TransmissionSequenceID: 12_345
     }
   end
 
   let(:service_specific_data) do
     {
-      ReportPeriod: { Year: Date.today.year },
+      ReportPeriod: { Year: Date.today.year }
     }
   end
 
   let(:attachment) do
     {
-      DocumentBinary: { ChecksumAugmentation: { SHA256HashValueText: "ksahdjkashdkjash"}, BinarySizeValue: 2345 },
+      DocumentBinary: { ChecksumAugmentation: { SHA256HashValueText: "ksahdjkashdkjash" }, BinarySizeValue: 2345 },
       DocumentFileName: "test",
       DocumentSequenceID: "12345"
     }
@@ -51,7 +51,7 @@ RSpec.describe AcaEntities::Fdsh::H36::Contracts::BatchHandlingServiceRequestCon
       BatchMetadata: ['is missing'],
       TransmissionMetadata: ['is missing'],
       ServiceSpecificData: ['is missing'],
-      Attachments: ['is missing'],
+      Attachments: ['is missing']
     }
   end
 
