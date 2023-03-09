@@ -14,7 +14,7 @@ RSpec.describe ::AcaEntities::PayNow::CareFirst::Member, dbclean: :after_each do
       :birth_date => "19740601",
       :sex => "M",
       :relationship => "18",
-      :is_subscriber => "true" }
+      :is_subscriber => true }
   end
   let(:optional_params) do
     { :ssn => "999121212" }
@@ -26,7 +26,7 @@ RSpec.describe ::AcaEntities::PayNow::CareFirst::Member, dbclean: :after_each do
   context "invalid parameters" do
     context "with empty parameters" do
       it "should list error for every required parameter" do
-        expect { described_class.new }.to raise_error(Dry::Struct::Error, /:exchange_assigned_member_id is missing in Hash input/)
+        expect { described_class.new }.to raise_error(Dry::Struct::Error, /:person_surname is missing in Hash input/)
       end
     end
   end

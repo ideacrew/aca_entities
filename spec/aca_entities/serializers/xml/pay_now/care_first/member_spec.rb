@@ -16,7 +16,7 @@ RSpec.describe AcaEntities::Serializers::Xml::PayNow::CareFirst::Member do
       :sex => "M",
       :ssn => "999121212",
       :relationship => "18",
-      :is_subscriber => "true" }
+      :is_subscriber => true }
   end
   let(:entity) do
     AcaEntities::PayNow::CareFirst::Member.new(member)
@@ -27,6 +27,7 @@ RSpec.describe AcaEntities::Serializers::Xml::PayNow::CareFirst::Member do
   end
 
   it "should generate and xml string" do
+    puts subject.to_xml
     expect(subject.to_xml.split("\n").first).to eq '<?xml version="1.0"?>'
   end
 end

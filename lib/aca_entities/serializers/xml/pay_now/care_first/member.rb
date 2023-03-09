@@ -17,12 +17,12 @@ module AcaEntities
             element :sex, String, tag: "sex"
             element :ssn, String, tag: "ssn"
             element :relationship, String, tag: "relationship"
-            element :is_subscriber, Bool, tag: "is_subscriber"
+            element :is_subscriber, Boolean, tag: "is_subscriber"
 
             def self.domain_to_mapper(member)
               mapper = self.new
-              mapper.exchange_assigned_member_id = member.person_surname
-              mapper.member_name = MemberName.domain_to_mapper(primary.member_name)
+              mapper.exchange_assigned_member_id = member.exchange_assigned_member_id
+              mapper.member_name = MemberName.domain_to_mapper(member.member_name)
               mapper.birth_date = member.birth_date
               mapper.sex = member.sex
               mapper.ssn = member.ssn

@@ -14,7 +14,7 @@ RSpec.describe ::AcaEntities::PayNow::CareFirst::Contracts::MemberContract, dbcl
       :birth_date => "19740601",
       :sex => "M",
       :relationship => "18",
-      :is_subscriber => "true" }
+      :is_subscriber => true }
   end
   let(:optional_params) do
     { :ssn => "999121212" }
