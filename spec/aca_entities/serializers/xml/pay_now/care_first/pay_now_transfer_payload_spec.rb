@@ -15,9 +15,19 @@ RSpec.describe AcaEntities::Serializers::Xml::PayNow::CareFirst::PayNowTransferP
       :member_name => member_name }
   end
 
+  let(:member) do
+    { :exchange_assigned_member_id => "1037294",
+      :member_name => member_name,
+      :birth_date => "19740601",
+      :sex => "M",
+      :ssn => "999121212",
+      :relationship => "18",
+      :is_subscriber => true }
+  end
   let(:payload_hash) do
     { :coverage_kind => "urn:openhbx:terms:v1:qhp_benefit_coverage#health",
-      :primary => primary }
+      :primary => primary,
+      :members => [member] }
   end
 
   let(:entity) do
