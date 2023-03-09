@@ -6,6 +6,7 @@ require_relative "care_first/coverage_kind"
 require_relative "care_first/member_name"
 require_relative "care_first/primary"
 require_relative "care_first/pay_now_transfer_payload"
+require_relative "care_first/member"
 
 module AcaEntities
   module Serializers
