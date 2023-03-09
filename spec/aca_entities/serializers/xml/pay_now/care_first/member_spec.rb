@@ -27,7 +27,6 @@ RSpec.describe AcaEntities::Serializers::Xml::PayNow::CareFirst::Member do
   end
 
   it "should generate and xml string" do
-    puts subject.to_xml
     expect(subject.to_xml.split("\n").first).to eq '<?xml version="1.0"?>'
   end
 end
