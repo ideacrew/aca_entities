@@ -20,7 +20,7 @@ RSpec.describe ::AcaEntities::PayNow::CareFirst::PayNowTransferPayload, dbclean:
 
   let(:required_params) do
     { coverage_kind: AcaEntities::PayNow::CareFirst::Types::PaynowCoverageKindType.values.first,
-      members: [ member ] }
+      members: [member] }
   end
   let(:optional_params) { {} }
   let(:all_params) { required_params.merge(optional_params) }

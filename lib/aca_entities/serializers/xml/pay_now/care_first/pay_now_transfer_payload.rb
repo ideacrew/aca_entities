@@ -15,7 +15,7 @@ module AcaEntities
             register_namespace 'xsi', 'http://www.w3.org/2001/XMLSchema-instance'
 
             attribute :type, String, tag: 'type', namespace: 'xsi'
-            
+
             element :coverage_kind, String, tag: 'coverage_kind'
             has_many :members, Member
 
