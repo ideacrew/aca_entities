@@ -15,13 +15,14 @@ module AcaEntities
             register_namespace 'xsi', 'http://www.w3.org/2001/XMLSchema-instance'
 
             attribute :type, String, tag: 'type', namespace: 'xsi'
-            has_one :coverage_kind, CoverageKind
+            
+            element :coverage_kind, String, tag: 'coverage_kind'
             has_many :members, Member
 
             def self.domain_to_mapper(pay_now_transfer_payload)
               mapper = self.new
               mapper.type = 'cv:PaynowTransferPayloadType'
-              mapper.coverage_kind = CoverageKind.domain_to_mapper(pay_now_transfer_payload.coverage_kind)
+              mapper.coverage_kind = pay_now_transfer_payload.coverage_kind
               mapper.members = pay_now_transfer_payload.members.map {|m| Member.domain_to_mapper(m)}
               mapper
             end
