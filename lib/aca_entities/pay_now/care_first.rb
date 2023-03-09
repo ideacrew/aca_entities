@@ -22,7 +22,6 @@ require_relative 'care_first/operations/generate_xml'
 
 # happymapper
 require 'aca_entities/serializers/xml/pay_now/care_first/member_name'
-require 'aca_entities/serializers/xml/pay_now/care_first/coverage_kind'
 require 'aca_entities/serializers/xml/pay_now/care_first/primary'
 require 'aca_entities/serializers/xml/pay_now/care_first/pay_now_transfer_payload'
 
