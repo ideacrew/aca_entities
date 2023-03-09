@@ -8,11 +8,11 @@ module AcaEntities
         class MemberContract < Dry::Validation::Contract
           params do
             required(:exchange_assigned_member_id).filled(:string)
-            required(:member_name).filled(AcaEntities::PayNow::CareFirst::Contracts::MemberNameContract.params)
+            required(:member_name).filled(Contracts::MemberNameContract.params)
             required(:birth_date).filled(:string)
-            required(:sex).filled(AcaEntities::PayNow::CareFirst::Types::SexofIndividualTerminologyType)
+            required(:sex).filled(Types::SexofIndividualTerminologyType)
             optional(:ssn).maybe(:string)
-            required(:relationship).filled(AcaEntities::PayNow::CareFirst::Types::PaynowMemberRelationshipCode)
+            required(:relationship).filled(Types::PaynowMemberRelationshipCode)
             required(:is_subscriber).filled(:bool)
           end
         end
