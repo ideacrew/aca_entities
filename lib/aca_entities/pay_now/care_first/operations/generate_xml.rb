@@ -13,9 +13,12 @@ module AcaEntities
           include Dry::Monads[:result, :do, :try]
 
           def call(payload)
+            # TODO: validate enrollment and members with aca_entities contracts
+            # validated_payload = yield validate_payload(payload)
             transformed_payload = yield transform_payload(payload)
-            validated_payload = yield validate_payload(transformed_payload)
-            entity = yield initialize_entity(validated_payload)
+            binding.irb
+            validated_transformed_payload = yield validate_transformed_payload(transformed_payload)
+            entity = yield initialize_entity(validated_transformed_payload)
             serialized_payload = yield to_serialized_obj(entity)
             xml_payload = serialized_payload.to_xml
             Success(xml_payload)
@@ -30,7 +33,7 @@ module AcaEntities
             Failure("CoverageAndMembers transformer #{e}")
           end
 
-          def validate_payload(params)
+          def validate_transformed_payload(params)
             result = Try do
               AcaEntities::PayNow::CareFirst::Contracts::PayNowTransferPayloadContract.new.call(params)
             end.to_result
