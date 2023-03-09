@@ -24,7 +24,7 @@ module AcaEntities
               mapper = self.new
               mapper.type = 'cv:PaynowTransferPayloadType'
               mapper.coverage_kind = pay_now_transfer_payload.coverage_kind
-              mapper.primary = pay_now_transfer_payload.primary
+              mapper.primary = Primary.domain_to_mapper(pay_now_transfer_payload.primary)
               mapper.members = pay_now_transfer_payload.members.map {|m| Member.domain_to_mapper(m)}
               mapper
             end
