@@ -52,7 +52,7 @@ channels:
           block: false
           bindingVersion: '0.2.0'
       operationId: on_polypress.edi_gateway.families.tax_form1095a
-      description: Events - Individual Market Generate catastrophic1095a notice 
+      description: Events - Generates 1095A notices in Individual Market
 
 tags:
   - name: linter_tag

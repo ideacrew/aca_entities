@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Edited with XMLSpy v2010 rel. 3 sp1 (http://www.altova.com) by ﻿IRS (IRS) -->
+<xsd:schema xmlns="urn:us:gov:treasury:irs:msg:hhsirsacabulkrequestexchange" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:irs="urn:us:gov:treasury:irs:common" targetNamespace="urn:us:gov:treasury:irs:msg:hhsirsacabulkrequestexchange" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+	<xsd:annotation>
+		<xsd:documentation>
+			<Component>
+				<DictionaryEntryNm>HHS IRS Message - ACA (Affordable Care Act) Bulk Request Exchange</DictionaryEntryNm>
+				<MajorVersionNum>1</MajorVersionNum>
+				<MinorVersionNum>0</MinorVersionNum>
+				<VersionEffectiveBeginDt>2014-04-22</VersionEffectiveBeginDt>
+				<VersionDescriptionTxt>Initial version</VersionDescriptionTxt>
+				<DescriptionTxt>Message payload for the SOA service for a bulk request exchange</DescriptionTxt>
+			</Component>
+		</xsd:documentation>
+	</xsd:annotation>
+	<!-- ===== Imports ===== -->
+	<xsd:import namespace="urn:us:gov:treasury:irs:common" schemaLocation="../COMMON/IRS-CAC.xsd"/>
+	<!-- ================================== -->
+	<!-- ===== Root Element Declarations ===== -->
+	<!-- ================================== -->
+	<xsd:element name="ACABulkRequestExchange" type="ACABulkRequestExchangeType"/>
+	<xsd:element name="ACABulkRequestExchangeResponse" type="ACABulkRequestExchangeResponseType"/>
+	<!-- ============================== -->
+	<!-- ===== Root Type Defintions ===== -->
+	<!-- =============================== -->
+	<xsd:complexType name="ACABulkRequestExchangeType">
+		<xsd:annotation>
+			<xsd:documentation>
+				<Component>
+					<DictionaryEntryNm>ACA (Affordable Care Act) Bulk Request Exchange Type</DictionaryEntryNm>
+					<MajorVersionNum>1</MajorVersionNum>
+					<MinorVersionNum>0</MinorVersionNum>
+					<VersionEffectiveBeginDt>2012-07-10</VersionEffectiveBeginDt>
+					<VersionDescriptionTxt>Initial version</VersionDescriptionTxt>
+					<DescriptionTxt>Message payload for the SOA service for a bulk request exchange</DescriptionTxt>
+				</Component>
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element ref="irs:BulkExchangeFile"/>
+		</xsd:sequence>
+		<xsd:attribute name="version" type="xsd:string" fixed="1.0"/>
+	</xsd:complexType>
+	<xsd:complexType name="ACABulkRequestExchangeResponseType">
+		<xsd:annotation>
+			<xsd:documentation>
+				<Component>
+					<DictionaryEntryNm>ACA (Affordable Care Act) Bulk Request Exchange Response Type</DictionaryEntryNm>
+					<MajorVersionNum>1</MajorVersionNum>
+					<MinorVersionNum>0</MinorVersionNum>
+					<VersionEffectiveBeginDt>2012-07-10</VersionEffectiveBeginDt>
+					<VersionDescriptionTxt>Initial version</VersionDescriptionTxt>
+					<DescriptionTxt>Message payload for the SOA service for a bulk request exchange response</DescriptionTxt>
+				</Component>
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element ref="irs:AcknowledgementStatusCd"/>
+			<xsd:element ref="irs:ErrorMessageDetail" minOccurs="0"/>
+		</xsd:sequence>
+		<xsd:attribute name="version" type="xsd:string" fixed="1.0"/>
+	</xsd:complexType>
+</xsd:schema>

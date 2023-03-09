@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2010 rel. 3 sp1 (http://www.altova.com) by IRS (Internal Revenue Service) -->
+<xsd:schema xmlns="urn:us:gov:treasury:irs:msg:hhsirsverifyhouseholdincomeandfamilysize" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:irs="urn:us:gov:treasury:irs:common" targetNamespace="urn:us:gov:treasury:irs:msg:hhsirsverifyhouseholdincomeandfamilysize" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+	<xsd:annotation>
+		<xsd:documentation>
+			<Component>
+				<DictionaryEntryNm>HHS IRS Message - Verify Household Income and Family Size</DictionaryEntryNm>
+				<MajorVersionNum>1</MajorVersionNum>
+				<MinorVersionNum>0</MinorVersionNum>
+				<VersionEffectiveBeginDt>2011-07-19</VersionEffectiveBeginDt>
+				<VersionDescriptionTxt>Initial version</VersionDescriptionTxt>
+				<DescriptionTxt>Message payload for the SOA service verifying income and family size</DescriptionTxt>
+			</Component>
+		</xsd:documentation>
+	</xsd:annotation>
+	<!-- ===== Imports ===== -->
+	<xsd:import namespace="urn:us:gov:treasury:irs:common" schemaLocation="../COMMON/IRS-CAC.xsd"/>
+	<!-- ============================ -->
+	<!-- ===== Element Declarations ===== -->
+	<!-- ============================ -->
+	<xsd:element name="VerifyHsldIncomeAndFamilySize" type="VerifyHouseholdIncomeAndFamilySizeType"/>
+	<xsd:element name="VerifyHsldIncmAndFamSizeBulkReq" type="VerifyHsldIncmAndFamSizeBulkReqType"/>
+	<xsd:element name="VerifyHsldIncmAndFamSzRspns" type="VerifyHouseholdIncomeAndFamilySizeResponseType"/>
+	<xsd:element name="VerifyHsldIncmAndFamSzBulkRspns" type="VerifyHsldIncmAndFamSzBulkRspnsType"/>
+	<!-- ======================== -->
+	<!-- ===== Type Defintions ===== -->
+	<!-- ======================== -->
+	<xsd:complexType name="VerifyHsldIncmAndFamSizeBulkReqType">
+		<xsd:annotation>
+			<xsd:documentation>
+				<Component>
+					<DictionaryEntryNm>Verify Household Income And Family Size Bulk Request Type</DictionaryEntryNm>
+					<MajorVersionNum>1</MajorVersionNum>
+					<MinorVersionNum>0</MinorVersionNum>
+					<VersionEffectiveBeginDt>2011-07-19</VersionEffectiveBeginDt>
+					<VersionDescriptionTxt>Initial version</VersionDescriptionTxt>
+					<DescriptionTxt>Message payload for the SOA service that obtains applicant content for Verify Household Income And Family Size request</DescriptionTxt>
+				</Component>
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element ref="irs:IFSVApplicantRequestGrp" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="VerifyHouseholdIncomeAndFamilySizeType">
+		<xsd:annotation>
+			<xsd:documentation>
+				<Component>
+					<DictionaryEntryNm>Verify Household Income And Family Size Type</DictionaryEntryNm>
+					<MajorVersionNum>1</MajorVersionNum>
+					<MinorVersionNum>0</MinorVersionNum>
+					<VersionEffectiveBeginDt>2011-07-19</VersionEffectiveBeginDt>
+					<VersionDescriptionTxt>Initial version</VersionDescriptionTxt>
+					<DescriptionTxt>Message payload for the SOA service that obtains applicant content for Verify Household Income And Family Size request</DescriptionTxt>
+				</Component>
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element ref="irs:IFSVApplicantRequestGrp"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="VerifyHsldIncmAndFamSzBulkRspnsType">
+		<xsd:annotation>
+			<xsd:documentation>
+				<Component>
+					<DictionaryEntryNm>Verify Household Income And Family Size Bulk Response Type</DictionaryEntryNm>
+					<MajorVersionNum>1</MajorVersionNum>
+					<MinorVersionNum>0</MinorVersionNum>
+					<VersionEffectiveBeginDt>2011-07-19</VersionEffectiveBeginDt>
+					<VersionDescriptionTxt>Initial version</VersionDescriptionTxt>
+					<DescriptionTxt>Message payload for the SOA service that provides IRS verification content for the Verify Household Income And Family Size Bulk response</DescriptionTxt>
+				</Component>
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element ref="irs:IFSVApplicantResponseGrp" minOccurs="0" maxOccurs="unbounded"/>
+			<xsd:element ref="irs:ErrorMessageDetail" minOccurs="0"/>
+		</xsd:sequence>
+		<xsd:attribute name="version" type="xsd:string" fixed="1.0"/>
+	</xsd:complexType>
+	<xsd:complexType name="VerifyHouseholdIncomeAndFamilySizeResponseType">
+		<xsd:annotation>
+			<xsd:documentation>
+				<Component>
+					<DictionaryEntryNm>Verify Household Income And Family Size Response Type</DictionaryEntryNm>
+					<MajorVersionNum>1</MajorVersionNum>
+					<MinorVersionNum>0</MinorVersionNum>
+					<VersionEffectiveBeginDt>2011-07-19</VersionEffectiveBeginDt>
+					<VersionDescriptionTxt>Initial version</VersionDescriptionTxt>
+					<DescriptionTxt>Message payload for the SOA service that provides IRS verification content for the Verify Household Income And Family Size response</DescriptionTxt>
+				</Component>
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element ref="irs:IFSVApplicantResponseGrp"/>
+		</xsd:sequence>
+		<xsd:attribute name="version" type="xsd:string" fixed="1.0"/>
+	</xsd:complexType>
+</xsd:schema>
