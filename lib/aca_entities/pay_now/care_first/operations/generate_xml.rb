@@ -35,11 +35,7 @@ module AcaEntities
               AcaEntities::PayNow::CareFirst::Contracts::PayNowTransferPayloadContract.new.call(params)
             end.to_result
 
-            if result.success?
-              result
-            else
-              Failure("PayNowTransferPayloadContract -> #{result.failure.errors.to_h}")
-            end
+            result.success? ? result : Failure("PayNowTransferPayloadContract -> #{result.failure.errors.to_h}")
           end
 
           def initialize_entity(payload)
@@ -47,11 +43,7 @@ module AcaEntities
               AcaEntities::PayNow::CareFirst::PayNowTransferPayload.new(payload.to_h)
             end.to_result
 
-            if result.success?
-              result
-            else
-              Failure("entity-PayNowTransferPayload -> #{result.failure}")
-            end
+            result.success? ? result : Failure("entity-PayNowTransferPayload -> #{result.failure}")
           end
 
           def to_serialized_obj(entity)
@@ -59,11 +51,7 @@ module AcaEntities
               AcaEntities::Serializers::Xml::PayNow::CareFirst::PayNowTransferPayload.domain_to_mapper(entity)
             end.to_result
 
-            if seralized_xml.success?
-              seralized_xml
-            else
-              Failure("Serializers-PayNowTransferPayload -> #{seralized_xml.failure}")
-            end
+            seralized_xml.success? ? seralized_xml : Failure("Serializers-PayNowTransferPayload -> #{seralized_xml.failure}")
           end
         end
       end
