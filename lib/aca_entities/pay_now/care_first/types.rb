@@ -18,13 +18,13 @@ module AcaEntities
           '19'
         )
 
-        # TODO: replace keys with Enroll relationship kinds
         PaynowMemberRelationshipCodeMap = {
           'self' => '18',
           'spouse' => '01',
           'life_partner' => '53',
           'ward' => '15',
-          'child/other partner' => '19'
+          'child' => '19'
+          # TODO: map other kinds of dependents to 19
         }.freeze
 
         PaynowCoverageKindType = Types::Coercible::String.enum(

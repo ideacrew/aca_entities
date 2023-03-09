@@ -101,188 +101,372 @@ RSpec.describe AcaEntities::PayNow::CareFirst::Operations::GenerateXml do
       }
     end
     let(:members) do
-      [member]
+      [member, member_2]
     end
     let(:member) do
       {
-        "person_id": "640249d786b746001059929c",
-        "external_person_link": "http://pvt-3-enroll.dchbx.org/exchanges/agents/resume_enrollment?person_id=640249d786b746001059929c",
-        "hbx_id": "50001267",
-        "person_name": {
-            "first_name": "Benito",
-            "middle_name": nil,
-            "last_name": "Test",
-            "name_sfx": nil,
-            "name_pfx": nil,
-            "full_name": "Benito Test",
-            "alternate_name": nil
+        person_id: "640249d786b746001059929c",
+        external_person_link: "http://pvt-3-enroll.dchbx.org/exchanges/agents/resume_enrollment?person_id=640249d786b746001059929c",
+        hbx_id: "50001267",
+        person_name: {
+          first_name: "Benito",
+          middle_name: nil,
+          last_name: "Test",
+          name_sfx: nil,
+          name_pfx: nil,
+          full_name: "Benito Test",
+          alternate_name: nil
         },
-        "person_demographics": {
-            "encrypted_ssn": "EQbS0ycavkcS7BWbp0l+2YIEvP8EKMlIkg==\n",
-            "no_ssn": false,
-            "gender": "male",
-            "dob": "1986-01-01",
-            "date_of_death": nil,
-            "dob_check": false,
-            "is_incarcerated": false,
-            "ethnicity": [
-                "",
-                "",
-                "",
-                "",
-                "",
-                "",
-                ""
+        person_demographics: {
+          encrypted_ssn: "EQbS0ycavkcS7BWbp0l+2YIEvP8EKMlIkg==\n",
+          no_ssn: false,
+          gender: "male",
+          dob: "1986-01-01",
+          date_of_death: nil,
+          dob_check: false,
+          is_incarcerated: false,
+          ethnicity: [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          race: nil,
+          tribal_id: "",
+          language_code: "en"
+        },
+        person_health: {
+          is_physically_disabled: nil,
+          is_tobacco_user: "unknown"
+        },
+        no_dc_address: false,
+        no_dc_address_reason: "",
+        is_homeless: false,
+        is_temporarily_out_of_state: false,
+        age_off_excluded: false,
+        is_applying_for_assistance: false,
+        is_active: true,
+        is_disabled: nil,
+        person_relationships: [{ :kind => "spouse",
+                                 :relative => { :hbx_id => "50001268", :first_name => "Spouse", :middle_name => nil, :last_name => "Test",
+                                                :encrypted_ssn => "EQbS0ycavkcS7BWbp0l+2YIEvP8EKMlIkg==\n",
+                                                :no_ssn => false, :dob => "1986-01-01", :gender => "male", :relationship_to_primary => "spouse" } }],
+        consumer_role: {
+          five_year_bar: false,
+          requested_coverage_start_date: "2023-03-03",
+          aasm_state: "verification_outstanding",
+          is_applicant: true,
+          birth_location: nil,
+          marital_status: nil,
+          is_active: true,
+          is_applying_coverage: true,
+          bookmark_url: "https://pvt-3-enroll.priv.dchbx.org/families/home",
+          admin_bookmark_url: "/insured/families/home",
+          contact_method: "Paper and Electronic communications",
+          language_preference: "English",
+          is_state_resident: false,
+          identity_validation: "valid",
+          identity_update_reason: "Verified from Experian",
+          application_validation: "valid",
+          application_update_reason: "Verified from Experian",
+          identity_rejected: false,
+          application_rejected: false,
+          documents: [],
+          vlp_documents: [],
+          ridp_documents: [],
+          verification_type_history_elements: [],
+          lawful_presence_determination: {
+            vlp_verified_at: "2023-03-03T19:29:05.948+00:00",
+            vlp_authority: "ssa",
+            vlp_document_id: nil,
+            citizen_status: "us_citizen",
+            citizenship_result: "not_lawfully_present_in_us",
+            qualified_non_citizenship_result: nil,
+            aasm_state: "verification_outstanding",
+            ssa_responses: [
+              {
+                received_at: "2023-03-03T19:29:05.881+00:00",
+                body: ""
+              }
             ],
-            "race": nil,
-            "tribal_id": "",
-            "language_code": "en"
+            ssa_requests: [],
+            vlp_responses: [],
+            vlp_requests: []
+          },
+          local_residency_responses: [
+            {
+              received_at: "2023-03-04T19:29:08.549+00:00",
+              body: "TIMEOUT LIMIT EXCEEDED"
+            }
+          ],
+          local_residency_requests: [
+            {
+              requested_at: "2023-03-03T19:29:04.426+00:00",
+              body: ""
+            }
+          ]
         },
-        "person_health": {
-            "is_physically_disabled": nil,
-            "is_tobacco_user": "unknown"
-        },
-        "no_dc_address": false,
-        "no_dc_address_reason": "",
-        "is_homeless": false,
-        "is_temporarily_out_of_state": false,
-        "age_off_excluded": false,
-        "is_applying_for_assistance": false,
-        "is_active": true,
-        "is_disabled": nil,
-        "person_relationships": [],
-        "consumer_role": {
-            "five_year_bar": false,
-            "requested_coverage_start_date": "2023-03-03",
-            "aasm_state": "verification_outstanding",
-            "is_applicant": true,
-            "birth_location": nil,
-            "marital_status": nil,
-            "is_active": true,
-            "is_applying_coverage": true,
-            "bookmark_url": "https://pvt-3-enroll.priv.dchbx.org/families/home",
-            "admin_bookmark_url": "/insured/families/home",
-            "contact_method": "Paper and Electronic communications",
-            "language_preference": "English",
-            "is_state_resident": false,
-            "identity_validation": "valid",
-            "identity_update_reason": "Verified from Experian",
-            "application_validation": "valid",
-            "application_update_reason": "Verified from Experian",
-            "identity_rejected": false,
-            "application_rejected": false,
-            "documents": [],
-            "vlp_documents": [],
-            "ridp_documents": [],
-            "verification_type_history_elements": [],
-            "lawful_presence_determination": {
-                "vlp_verified_at": "2023-03-03T19:29:05.948+00:00",
-                "vlp_authority": "ssa",
-                "vlp_document_id": nil,
-                "citizen_status": "us_citizen",
-                "citizenship_result": "not_lawfully_present_in_us",
-                "qualified_non_citizenship_result": nil,
-                "aasm_state": "verification_outstanding",
-                "ssa_responses": [
-                    {
-                        "received_at": "2023-03-03T19:29:05.881+00:00",
-                        "body": "{\"SSACompositeIndividualResponses\":[{\"ResponseMetadata\":{\"ResponseCode\":\"HE030001\",\"ResponseDescriptionText\":\"SSN Not Verified; SSN does not exist on the numident, is marked for deletion, or is inaccessible\",\"TDSResponseDescriptionText\":nil},\"PersonSSNIdentification\":\"374673865\",\"SSAResponse\":{\"SSNVerificationIndicator\":false,\"DeathConfirmationCode\":nil,\"PersonUSCitizenIndicator\":nil,\"PersonIncarcerationInformationIndicator\":nil,\"SSATitleIIMonthlyIncomeInformationIndicator\":nil,\"SSATitleIIAnnualIncomeInformationIndicator\":nil,\"SSAQuartersOfCoverageInformationIndicator\":nil,\"SSAIncarcerationInformation\":nil,\"SSATitleIIMonthlyIncome\":nil,\"SSATitleIIYearlyIncome\":nil,\"SSAQuartersOfCoverage\":nil}}],\"ResponseMetadata\":{\"ResponseCode\":\"HE030001\",\"ResponseDescriptionText\":\"SSN Not Verified; SSN does not exist on the numident, is marked for deletion, or is inaccessible\",\"TDSResponseDescriptionText\":nil}}"
-                    }
-                ],
-                "ssa_requests": [],
-                "vlp_responses": [],
-                "vlp_requests": []
-            },
-            "local_residency_responses": [
-                {
-                    "received_at": "2023-03-04T19:29:08.549+00:00",
-                    "body": "TIMEOUT LIMIT EXCEEDED"
-                }
+        resident_role: nil,
+        individual_market_transitions: [
+          {
+            role_type: "consumer",
+            start_on: "2023-03-03",
+            end_on: nil,
+            reason_code: "generating_consumer_role",
+            submitted_at: "2023-03-03T19:26:16.000+00:00"
+          }
+        ],
+        verification_types: [
+          {
+            type_name: "DC Residency",
+            validation_status: "outstanding",
+            applied_roles: [
+              "consumer_role"
             ],
-            "local_residency_requests": [
-                {
-                    "requested_at": "2023-03-03T19:29:04.426+00:00",
-                    "body": "\u003c?xml version='1.0' encoding='utf-8' ?\u003e\n\u003cresidency_verification_request xmlns='http://openhbx.org/api/terms/1.0'\u003e\n\u003cindividual\u003e\n\u003cid\u003e\n\u003cid\u003e640249d786b746001059929c\u003c/id\u003e\n\u003c/id\u003e\n\u003cperson\u003e\n\u003cid\u003e\n\u003cid\u003eurn:openhbx:hbx:dc0:resources:v1:person:hbx_id#50001267\u003c/id\u003e\n\u003c/id\u003e\n\u003cperson_name\u003e\n\u003cperson_surname\u003eTest\u003c/person_surname\u003e\n\u003cperson_given_name\u003eBenito\u003c/person_given_name\u003e\n\u003c/person_name\u003e\n\n\u003caddresses\u003e\n\u003caddress\u003e\n\u003ctype\u003eurn:openhbx:terms:v1:address_type#home\u003c/type\u003e\n\u003caddress_line_1\u003e123 k\u003c/address_line_1\u003e\n\u003clocation_city_name\u003ewashington\u003c/location_city_name\u003e\n\u003clocation_state_code\u003eDC\u003c/location_state_code\u003e\n\u003cpostal_code\u003e20000\u003c/postal_code\u003e\n\u003c/address\u003e\n\n\u003c/addresses\u003e\n\u003c/person\u003e\n\n\u003cperson_demographics\u003e\n\u003cssn\u003e374673865\u003c/ssn\u003e\n\u003csex\u003eurn:openhbx:terms:v1:gender#male\u003c/sex\u003e\n\u003cbirth_date\u003e19860101\u003c/birth_date\u003e\n\u003cis_incarcerated\u003efalse\u003c/is_incarcerated\u003e\n\u003ccreated_at\u003e2023-03-03T19:26:15Z\u003c/created_at\u003e\n\u003cmodified_at\u003e2023-03-03T19:27:37Z\u003c/modified_at\u003e\n\n\u003c/person_demographics\u003e\n\n\u003c/individual\u003e\n\u003c/residency_verification_request\u003e\n"
-                }
-            ]
-        },
-        "resident_role": nil,
-        "individual_market_transitions": [
-            {
-                "role_type": "consumer",
-                "start_on": "2023-03-03",
-                "end_on": nil,
-                "reason_code": "generating_consumer_role",
-                "submitted_at": "2023-03-03T19:26:16.000+00:00"
-            }
+            update_reason: nil,
+            rejected: nil,
+            external_service: nil,
+            due_date: "2023-06-08",
+            due_date_type: "response_from_hub",
+            inactive: nil,
+            vlp_documents: []
+          },
+          {
+            type_name: "Social Security Number",
+            validation_status: "outstanding",
+            applied_roles: [
+              "consumer_role"
+            ],
+            update_reason: nil,
+            rejected: nil,
+            external_service: nil,
+            due_date: "2023-06-07",
+            due_date_type: "response_from_hub",
+            inactive: nil,
+            vlp_documents: []
+          },
+          {
+            type_name: "Citizenship",
+            validation_status: "outstanding",
+            applied_roles: [
+              "consumer_role"
+            ],
+            update_reason: nil,
+            rejected: nil,
+            external_service: nil,
+            due_date: "2023-06-07",
+            due_date_type: "response_from_hub",
+            inactive: nil,
+            vlp_documents: []
+          }
         ],
-        "verification_types": [
-            {
-                "type_name": "DC Residency",
-                "validation_status": "outstanding",
-                "applied_roles": [
-                    "consumer_role"
-                ],
-                "update_reason": nil,
-                "rejected": nil,
-                "external_service": nil,
-                "due_date": "2023-06-08",
-                "due_date_type": "response_from_hub",
-                "inactive": nil,
-                "vlp_documents": []
-            },
-            {
-                "type_name": "Social Security Number",
-                "validation_status": "outstanding",
-                "applied_roles": [
-                    "consumer_role"
-                ],
-                "update_reason": nil,
-                "rejected": nil,
-                "external_service": nil,
-                "due_date": "2023-06-07",
-                "due_date_type": "response_from_hub",
-                "inactive": nil,
-                "vlp_documents": []
-            },
-            {
-                "type_name": "Citizenship",
-                "validation_status": "outstanding",
-                "applied_roles": [
-                    "consumer_role"
-                ],
-                "update_reason": nil,
-                "rejected": nil,
-                "external_service": nil,
-                "due_date": "2023-06-07",
-                "due_date_type": "response_from_hub",
-                "inactive": nil,
-                "vlp_documents": []
-            }
+        user: {},
+        addresses: [
+          {
+            kind: "home",
+            address_1: "123 k",
+            address_2: "",
+            address_3: "",
+            city: "washington",
+            county: "",
+            state: "DC",
+            zip: "20000",
+            country_name: "United States of America",
+            has_fixed_address: true
+          }
         ],
-        "user": {},
-        "addresses": [
-            {
-                "kind": "home",
-                "address_1": "123 k",
-                "address_2": "",
-                "address_3": "",
-                "city": "washington",
-                "county": "",
-                "state": "DC",
-                "zip": "20000",
-                "country_name": "United States of America",
-                "has_fixed_address": true
-            }
-        ],
-        "emails": [],
-        "phones": [],
-        "documents": [],
-        "timestamp": {
-            "created_at": "2023-03-03T19:26:15.747+00:00",
-            "modified_at": "2023-03-03T19:29:04.355+00:00"
+        emails: [],
+        phones: [],
+        documents: [],
+        timestamp: {
+          created_at: "2023-03-03T19:26:15.747+00:00",
+          modified_at: "2023-03-03T19:29:04.355+00:00"
         }
-    }
+      }
+    end
+    let(:member_2) do
+      {
+        person_id: "640249d786b746001059929c",
+        external_person_link: "http://pvt-3-enroll.dchbx.org/exchanges/agents/resume_enrollment?person_id=640249d786b746001059929c",
+        hbx_id: "50001268",
+        person_name: {
+          first_name: "Spouse",
+          middle_name: nil,
+          last_name: "Test",
+          name_sfx: nil,
+          name_pfx: nil,
+          full_name: "Spouse Test",
+          alternate_name: nil
+        },
+        person_demographics: {
+          encrypted_ssn: "EQbS0ycavkcS7BWbp0l+2YIEvP8EKMlIkg==\n",
+          no_ssn: false,
+          gender: "male",
+          dob: "1986-01-01",
+          date_of_death: nil,
+          dob_check: false,
+          is_incarcerated: false,
+          ethnicity: [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          race: nil,
+          tribal_id: "",
+          language_code: "en"
+        },
+        person_health: {
+          is_physically_disabled: nil,
+          is_tobacco_user: "unknown"
+        },
+        no_dc_address: false,
+        no_dc_address_reason: "",
+        is_homeless: false,
+        is_temporarily_out_of_state: false,
+        age_off_excluded: false,
+        is_applying_for_assistance: false,
+        is_active: true,
+        is_disabled: nil,
+        person_relationships: [],
+        consumer_role: {
+          five_year_bar: false,
+          requested_coverage_start_date: "2023-03-03",
+          aasm_state: "verification_outstanding",
+          is_applicant: true,
+          birth_location: nil,
+          marital_status: nil,
+          is_active: true,
+          is_applying_coverage: true,
+          bookmark_url: "https://pvt-3-enroll.priv.dchbx.org/families/home",
+          admin_bookmark_url: "/insured/families/home",
+          contact_method: "Paper and Electronic communications",
+          language_preference: "English",
+          is_state_resident: false,
+          identity_validation: "valid",
+          identity_update_reason: "Verified from Experian",
+          application_validation: "valid",
+          application_update_reason: "Verified from Experian",
+          identity_rejected: false,
+          application_rejected: false,
+          documents: [],
+          vlp_documents: [],
+          ridp_documents: [],
+          verification_type_history_elements: [],
+          lawful_presence_determination: {
+            vlp_verified_at: "2023-03-03T19:29:05.948+00:00",
+            vlp_authority: "ssa",
+            vlp_document_id: nil,
+            citizen_status: "us_citizen",
+            citizenship_result: "not_lawfully_present_in_us",
+            qualified_non_citizenship_result: nil,
+            aasm_state: "verification_outstanding",
+            ssa_responses: [
+              {
+                received_at: "2023-03-03T19:29:05.881+00:00",
+                body: ""
+              }
+            ],
+            ssa_requests: [],
+            vlp_responses: [],
+            vlp_requests: []
+          },
+          local_residency_responses: [
+            {
+              received_at: "2023-03-04T19:29:08.549+00:00",
+              body: "TIMEOUT LIMIT EXCEEDED"
+            }
+          ],
+          local_residency_requests: [
+            {
+              requested_at: "2023-03-03T19:29:04.426+00:00",
+              body: ""
+            }
+          ]
+        },
+        resident_role: nil,
+        individual_market_transitions: [
+          {
+            role_type: "consumer",
+            start_on: "2023-03-03",
+            end_on: nil,
+            reason_code: "generating_consumer_role",
+            submitted_at: "2023-03-03T19:26:16.000+00:00"
+          }
+        ],
+        verification_types: [
+          {
+            type_name: "DC Residency",
+            validation_status: "outstanding",
+            applied_roles: [
+              "consumer_role"
+            ],
+            update_reason: nil,
+            rejected: nil,
+            external_service: nil,
+            due_date: "2023-06-08",
+            due_date_type: "response_from_hub",
+            inactive: nil,
+            vlp_documents: []
+          },
+          {
+            type_name: "Social Security Number",
+            validation_status: "outstanding",
+            applied_roles: [
+              "consumer_role"
+            ],
+            update_reason: nil,
+            rejected: nil,
+            external_service: nil,
+            due_date: "2023-06-07",
+            due_date_type: "response_from_hub",
+            inactive: nil,
+            vlp_documents: []
+          },
+          {
+            type_name: "Citizenship",
+            validation_status: "outstanding",
+            applied_roles: [
+              "consumer_role"
+            ],
+            update_reason: nil,
+            rejected: nil,
+            external_service: nil,
+            due_date: "2023-06-07",
+            due_date_type: "response_from_hub",
+            inactive: nil,
+            vlp_documents: []
+          }
+        ],
+        user: {},
+        addresses: [
+          {
+            kind: "home",
+            address_1: "123 k",
+            address_2: "",
+            address_3: "",
+            city: "washington",
+            county: "",
+            state: "DC",
+            zip: "20000",
+            country_name: "United States of America",
+            has_fixed_address: true
+          }
+        ],
+        emails: [],
+        phones: [],
+        documents: [],
+        timestamp: {
+          created_at: "2023-03-03T19:26:15.747+00:00",
+          modified_at: "2023-03-03T19:29:04.355+00:00"
+        }
+      }
     end
 
     it 'should generate xml' do

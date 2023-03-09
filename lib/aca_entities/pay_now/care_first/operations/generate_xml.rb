@@ -16,7 +16,6 @@ module AcaEntities
             # TODO: validate enrollment and members with aca_entities contracts
             # validated_payload = yield validate_payload(payload)
             transformed_payload = yield transform_payload(payload)
-            binding.irb
             validated_transformed_payload = yield validate_transformed_payload(transformed_payload)
             entity = yield initialize_entity(validated_transformed_payload)
             serialized_payload = yield to_serialized_obj(entity)
@@ -27,10 +26,25 @@ module AcaEntities
           private
 
           def transform_payload(payload)
-            result = ::AcaEntities::PayNow::CareFirst::Transformers::CoverageAndMembers.transform(payload)
+            prepped_record = prep_record(payload)
+            result = ::AcaEntities::PayNow::CareFirst::Transformers::CoverageAndMembers.transform(prepped_record)
             Success(result[:pay_now_transfer_payload])
           rescue StandardError => e
             Failure("CoverageAndMembers transformer #{e}")
+          end
+
+          def prep_record(payload)
+            enr_subscriber = payload[:coverage_and_members][:hbx_enrollment][:hbx_enrollment_members].detect {|member| member[:is_subscriber]}
+            primary_person = payload[:coverage_and_members][:members].detect do |member|
+              member[:hbx_id] == enr_subscriber[:family_member_reference][:person_hbx_id]
+            end
+            payload[:coverage_and_members][:members].each do |member|
+              relationship = primary_person[:person_relationships].detect { |rel| rel[:relative][:hbx_id] == member[:hbx_id] }
+              relationship_kind = relationship.present? ? relationship[:kind] : 'self'
+              member[:relationship_to_primary] = relationship_kind
+              member[:is_subscriber] = enr_subscriber[:person_hbx_id] == member[:hbx_id]
+            end
+            payload
           end
 
           def validate_transformed_payload(params)

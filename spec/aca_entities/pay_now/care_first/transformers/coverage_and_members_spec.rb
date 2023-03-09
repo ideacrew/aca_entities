@@ -151,7 +151,17 @@ RSpec.describe AcaEntities::PayNow::CareFirst::Transformers::CoverageAndMembers 
         is_applying_for_assistance: false,
         is_active: true,
         is_disabled: nil,
-        person_relationships: [],
+        person_relationships: [{ :kind => "spouse",
+                                 :relative => {
+                                   :hbx_id => "50001268",
+                                   :first_name => "Spouse",
+                                   :middle_name => nil,
+                                   :last_name => "Test",
+                                   :encrypted_ssn => "EQbS0ycavkcS7BWbp0l+2YIEvP8EKMlIkg==\n",
+                                   :no_ssn => false, :dob => "1986-01-01",
+                                   :gender => "male",
+                                   :relationship_to_primary => "spouse"
+                                 } }],
         consumer_role: {
           five_year_bar: false,
           requested_coverage_start_date: "2023-03-03",
@@ -187,7 +197,7 @@ RSpec.describe AcaEntities::PayNow::CareFirst::Transformers::CoverageAndMembers 
             ssa_responses: [
               {
                 received_at: "2023-03-03T19:29:05.881+00:00",
-                body: "{\"SSACompositeIndividualResponses\":[{\"ResponseMetadata\":{\"ResponseCode\":\"HE030001\",\"ResponseDescriptionText\":\"SSN Not Verified; SSN does not exist on the numident, is marked for deletion, or is inaccessible\",\"TDSResponseDescriptionText\":nil},\"PersonSSNIdentification\":\"374673865\",\"SSAResponse\":{\"SSNVerificationIndicator\":false,\"DeathConfirmationCode\":nil,\"PersonUSCitizenIndicator\":nil,\"PersonIncarcerationInformationIndicator\":nil,\"SSATitleIIMonthlyIncomeInformationIndicator\":nil,\"SSATitleIIAnnualIncomeInformationIndicator\":nil,\"SSAQuartersOfCoverageInformationIndicator\":nil,\"SSAIncarcerationInformation\":nil,\"SSATitleIIMonthlyIncome\":nil,\"SSATitleIIYearlyIncome\":nil,\"SSAQuartersOfCoverage\":nil}}],\"ResponseMetadata\":{\"ResponseCode\":\"HE030001\",\"ResponseDescriptionText\":\"SSN Not Verified; SSN does not exist on the numident, is marked for deletion, or is inaccessible\",\"TDSResponseDescriptionText\":nil}}"
+                body: ""
               }
             ],
             ssa_requests: [],
@@ -203,7 +213,7 @@ RSpec.describe AcaEntities::PayNow::CareFirst::Transformers::CoverageAndMembers 
           local_residency_requests: [
             {
               requested_at: "2023-03-03T19:29:04.426+00:00",
-              body: "\u003c?xml version='1.0' encoding='utf-8' ?\u003e\n\u003cresidency_verification_request xmlns='http://openhbx.org/api/terms/1.0'\u003e\n\u003cindividual\u003e\n\u003cid\u003e\n\u003cid\u003e640249d786b746001059929c\u003c/id\u003e\n\u003c/id\u003e\n\u003cperson\u003e\n\u003cid\u003e\n\u003cid\u003eurn:openhbx:hbx:dc0:resources:v1:person:hbx_id#50001267\u003c/id\u003e\n\u003c/id\u003e\n\u003cperson_name\u003e\n\u003cperson_surname\u003eTest\u003c/person_surname\u003e\n\u003cperson_given_name\u003eBenito\u003c/person_given_name\u003e\n\u003c/person_name\u003e\n\n\u003caddresses\u003e\n\u003caddress\u003e\n\u003ctype\u003eurn:openhbx:terms:v1:address_type#home\u003c/type\u003e\n\u003caddress_line_1\u003e123 k\u003c/address_line_1\u003e\n\u003clocation_city_name\u003ewashington\u003c/location_city_name\u003e\n\u003clocation_state_code\u003eDC\u003c/location_state_code\u003e\n\u003cpostal_code\u003e20000\u003c/postal_code\u003e\n\u003c/address\u003e\n\n\u003c/addresses\u003e\n\u003c/person\u003e\n\n\u003cperson_demographics\u003e\n\u003cssn\u003e374673865\u003c/ssn\u003e\n\u003csex\u003eurn:openhbx:terms:v1:gender#male\u003c/sex\u003e\n\u003cbirth_date\u003e19860101\u003c/birth_date\u003e\n\u003cis_incarcerated\u003efalse\u003c/is_incarcerated\u003e\n\u003ccreated_at\u003e2023-03-03T19:26:15Z\u003c/created_at\u003e\n\u003cmodified_at\u003e2023-03-03T19:27:37Z\u003c/modified_at\u003e\n\n\u003c/person_demographics\u003e\n\n\u003c/individual\u003e\n\u003c/residency_verification_request\u003e\n"
+              body: ""
             }
           ]
         },
@@ -282,7 +292,9 @@ RSpec.describe AcaEntities::PayNow::CareFirst::Transformers::CoverageAndMembers 
         timestamp: {
           created_at: "2023-03-03T19:26:15.747+00:00",
           modified_at: "2023-03-03T19:29:04.355+00:00"
-        }
+        },
+        relationship_to_primary: 'self',
+        is_subscriber: true
       }
     end
     let(:member_2) do
@@ -291,12 +303,12 @@ RSpec.describe AcaEntities::PayNow::CareFirst::Transformers::CoverageAndMembers 
         external_person_link: "http://pvt-3-enroll.dchbx.org/exchanges/agents/resume_enrollment?person_id=640249d786b746001059929c",
         hbx_id: "50001268",
         person_name: {
-          first_name: "Dependent",
+          first_name: "Spouse",
           middle_name: nil,
           last_name: "Test",
           name_sfx: nil,
           name_pfx: nil,
-          full_name: "Dependent Test",
+          full_name: "Spouse Test",
           alternate_name: nil
         },
         person_demographics: {
@@ -368,7 +380,7 @@ RSpec.describe AcaEntities::PayNow::CareFirst::Transformers::CoverageAndMembers 
             ssa_responses: [
               {
                 received_at: "2023-03-03T19:29:05.881+00:00",
-                body: "{\"SSACompositeIndividualResponses\":[{\"ResponseMetadata\":{\"ResponseCode\":\"HE030001\",\"ResponseDescriptionText\":\"SSN Not Verified; SSN does not exist on the numident, is marked for deletion, or is inaccessible\",\"TDSResponseDescriptionText\":nil},\"PersonSSNIdentification\":\"374673865\",\"SSAResponse\":{\"SSNVerificationIndicator\":false,\"DeathConfirmationCode\":nil,\"PersonUSCitizenIndicator\":nil,\"PersonIncarcerationInformationIndicator\":nil,\"SSATitleIIMonthlyIncomeInformationIndicator\":nil,\"SSATitleIIAnnualIncomeInformationIndicator\":nil,\"SSAQuartersOfCoverageInformationIndicator\":nil,\"SSAIncarcerationInformation\":nil,\"SSATitleIIMonthlyIncome\":nil,\"SSATitleIIYearlyIncome\":nil,\"SSAQuartersOfCoverage\":nil}}],\"ResponseMetadata\":{\"ResponseCode\":\"HE030001\",\"ResponseDescriptionText\":\"SSN Not Verified; SSN does not exist on the numident, is marked for deletion, or is inaccessible\",\"TDSResponseDescriptionText\":nil}}"
+                body: ""
               }
             ],
             ssa_requests: [],
@@ -384,7 +396,7 @@ RSpec.describe AcaEntities::PayNow::CareFirst::Transformers::CoverageAndMembers 
           local_residency_requests: [
             {
               requested_at: "2023-03-03T19:29:04.426+00:00",
-              body: "\u003c?xml version='1.0' encoding='utf-8' ?\u003e\n\u003cresidency_verification_request xmlns='http://openhbx.org/api/terms/1.0'\u003e\n\u003cindividual\u003e\n\u003cid\u003e\n\u003cid\u003e640249d786b746001059929c\u003c/id\u003e\n\u003c/id\u003e\n\u003cperson\u003e\n\u003cid\u003e\n\u003cid\u003eurn:openhbx:hbx:dc0:resources:v1:person:hbx_id#50001267\u003c/id\u003e\n\u003c/id\u003e\n\u003cperson_name\u003e\n\u003cperson_surname\u003eTest\u003c/person_surname\u003e\n\u003cperson_given_name\u003eBenito\u003c/person_given_name\u003e\n\u003c/person_name\u003e\n\n\u003caddresses\u003e\n\u003caddress\u003e\n\u003ctype\u003eurn:openhbx:terms:v1:address_type#home\u003c/type\u003e\n\u003caddress_line_1\u003e123 k\u003c/address_line_1\u003e\n\u003clocation_city_name\u003ewashington\u003c/location_city_name\u003e\n\u003clocation_state_code\u003eDC\u003c/location_state_code\u003e\n\u003cpostal_code\u003e20000\u003c/postal_code\u003e\n\u003c/address\u003e\n\n\u003c/addresses\u003e\n\u003c/person\u003e\n\n\u003cperson_demographics\u003e\n\u003cssn\u003e374673865\u003c/ssn\u003e\n\u003csex\u003eurn:openhbx:terms:v1:gender#male\u003c/sex\u003e\n\u003cbirth_date\u003e19860101\u003c/birth_date\u003e\n\u003cis_incarcerated\u003efalse\u003c/is_incarcerated\u003e\n\u003ccreated_at\u003e2023-03-03T19:26:15Z\u003c/created_at\u003e\n\u003cmodified_at\u003e2023-03-03T19:27:37Z\u003c/modified_at\u003e\n\n\u003c/person_demographics\u003e\n\n\u003c/individual\u003e\n\u003c/residency_verification_request\u003e\n"
+              body: ""
             }
           ]
         },
@@ -463,7 +475,9 @@ RSpec.describe AcaEntities::PayNow::CareFirst::Transformers::CoverageAndMembers 
         timestamp: {
           created_at: "2023-03-03T19:26:15.747+00:00",
           modified_at: "2023-03-03T19:29:04.355+00:00"
-        }
+        },
+        relationship_to_primary: 'spouse',
+        is_subscriber: false
       }
     end
 
@@ -480,16 +494,35 @@ RSpec.describe AcaEntities::PayNow::CareFirst::Transformers::CoverageAndMembers 
       context 'members' do
         it 'should transform and populate member fields' do
           subject[:pay_now_transfer_payload][:members].each do |member|
+            original_member = members.detect {|m| m[:hbx_id] == member[:member][:exchange_assigned_member_id]}
+            transformed_member = member[:member]
+            ssn = AcaEntities::Operations::Encryption::Decrypt.new.call({ value: original_member[:person_demographics][:encrypted_ssn] }).value!
+            sex = AcaEntities::PayNow::CareFirst::Types::SexofIndividualTerminologyTypeMap[original_member[:person_demographics][:gender]]
+            relationship = AcaEntities::PayNow::CareFirst::Types::PaynowMemberRelationshipCodeMap[original_member[:relationship_to_primary]]
             expect(member).to have_key(:member)
-            expect(member[:member]).to have_key(:exchange_assigned_member_id)
-            expect(member[:member]).to have_key(:member_name)
-            expect(member[:member][:member_name]).to have_key(:person_given_name)
-            expect(member[:member][:member_name]).to have_key(:person_middle_name)
-            expect(member[:member][:member_name]).to have_key(:person_surname)
-            expect(member[:member][:member_name]).to have_key(:person_full_name)
-            expect(member[:member][:member_name]).to have_key(:person_name_prefix_text)
-            expect(member[:member][:member_name]).to have_key(:person_name_suffix_text)
-            expect(member[:member][:member_name]).to have_key(:person_alternate_name)
+            expect(transformed_member).to have_key(:exchange_assigned_member_id)
+            expect(transformed_member[:exchange_assigned_member_id]).to eq original_member[:hbx_id]
+            expect(transformed_member).to have_key(:birth_date)
+            expect(transformed_member[:birth_date]).to eq original_member[:person_demographics][:dob].gsub('-', '')
+            expect(transformed_member).to have_key(:sex)
+            expect(transformed_member[:sex]).to eq sex
+            expect(transformed_member).to have_key(:ssn)
+            expect(transformed_member[:ssn]).to eq ssn
+            expect(transformed_member).to have_key(:relationship)
+            expect(transformed_member[:relationship]).to eq relationship
+            expect(transformed_member).to have_key(:is_subscriber)
+            expect(transformed_member[:is_subscriber]).to eq original_member[:is_subscriber]
+            # member_name
+            expect(transformed_member).to have_key(:member_name)
+            expect(transformed_member[:member_name]).to have_key(:person_given_name)
+            expect(transformed_member[:member_name][:person_given_name]).to eq original_member[:person_name][:first_name]
+            expect(transformed_member[:member_name]).to have_key(:person_middle_name)
+            expect(transformed_member[:member_name]).to have_key(:person_surname)
+            expect(transformed_member[:member_name][:person_surname]).to eq original_member[:person_name][:last_name]
+            expect(transformed_member[:member_name]).to have_key(:person_full_name)
+            expect(transformed_member[:member_name]).to have_key(:person_name_prefix_text)
+            expect(transformed_member[:member_name]).to have_key(:person_name_suffix_text)
+            expect(transformed_member[:member_name]).to have_key(:person_alternate_name)
           end
         end
       end
