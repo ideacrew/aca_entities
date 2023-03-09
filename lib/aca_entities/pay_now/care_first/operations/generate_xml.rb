@@ -44,6 +44,7 @@ module AcaEntities
               member[:relationship_to_primary] = relationship_kind
               member[:is_subscriber] = enr_subscriber[:person_hbx_id] == member[:hbx_id]
             end
+            payload[:coverage_and_members][:primary_person] = primary_person
             payload
           end
 

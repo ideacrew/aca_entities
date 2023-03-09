@@ -11,7 +11,8 @@ RSpec.describe AcaEntities::PayNow::CareFirst::Transformers::CoverageAndMembers 
         coverage_and_members:
           {
             hbx_enrollment: enrollment,
-            members: members
+            members: members,
+            primary_person: member
           }
       }
     end
@@ -512,7 +513,6 @@ RSpec.describe AcaEntities::PayNow::CareFirst::Transformers::CoverageAndMembers 
             expect(transformed_member[:relationship]).to eq relationship
             expect(transformed_member).to have_key(:is_subscriber)
             expect(transformed_member[:is_subscriber]).to eq original_member[:is_subscriber]
-            # member_name
             expect(transformed_member).to have_key(:member_name)
             expect(transformed_member[:member_name]).to have_key(:person_given_name)
             expect(transformed_member[:member_name][:person_given_name]).to eq original_member[:person_name][:first_name]
@@ -524,6 +524,24 @@ RSpec.describe AcaEntities::PayNow::CareFirst::Transformers::CoverageAndMembers 
             expect(transformed_member[:member_name]).to have_key(:person_name_suffix_text)
             expect(transformed_member[:member_name]).to have_key(:person_alternate_name)
           end
+        end
+      end
+
+      context 'primary' do
+        it 'should transform and populate primary fields' do
+          primary = subject[:pay_now_transfer_payload][:primary]
+          expect(subject[:pay_now_transfer_payload]).to have_key(:primary)
+          expect(primary).to have_key(:exchange_assigned_member_id)
+          expect(primary).to have_key(:member_name)
+          expect(primary[:member_name]).to have_key(:person_given_name)
+          expect(primary[:member_name][:person_given_name]).to eq member[:person_name][:first_name]
+          expect(primary[:member_name]).to have_key(:person_middle_name)
+          expect(primary[:member_name]).to have_key(:person_surname)
+          expect(primary[:member_name][:person_surname]).to eq member[:person_name][:last_name]
+          expect(primary[:member_name]).to have_key(:person_full_name)
+          expect(primary[:member_name]).to have_key(:person_name_prefix_text)
+          expect(primary[:member_name]).to have_key(:person_name_suffix_text)
+          expect(primary[:member_name]).to have_key(:person_alternate_name)
         end
       end
     end
