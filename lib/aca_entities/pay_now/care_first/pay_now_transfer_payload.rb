@@ -7,6 +7,7 @@ module AcaEntities
       class PayNowTransferPayload < Dry::Struct
 
         attribute :coverage_kind, AcaEntities::PayNow::CareFirst::Types::PaynowCoverageKindType.meta(omittable: false)
+        attribute :primary, AcaEntities::PayNow::CareFirst::Primary.meta(omittable: false)
       end
     end
   end

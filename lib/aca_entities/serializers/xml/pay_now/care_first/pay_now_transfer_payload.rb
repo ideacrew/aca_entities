@@ -16,11 +16,13 @@ module AcaEntities
 
             attribute :type, String, tag: 'type', namespace: 'xsi'
             element :coverage_kind, String, tag: 'coverage_kind'
+            has_one :primary, Primary
 
             def self.domain_to_mapper(pay_now_transfer_payload)
               mapper = self.new
               mapper.type = 'cv:PaynowTransferPayloadType'
               mapper.coverage_kind = pay_now_transfer_payload.coverage_kind
+              mapper.primary = pay_now_transfer_payload.primary
               mapper
             end
           end
