@@ -13,11 +13,7 @@ RSpec.describe ::AcaEntities::PayNow::CareFirst::PayNowTransferPayload, dbclean:
     { :exchange_assigned_member_id => "1037294",
       :member_name => member_name }
   end
-
-  let(:member_name) do
-    { :person_surname => "Thomas",
-      :person_given_name => "Jeff" }
-  end
+  
   let(:member) do
     { :exchange_assigned_member_id => "1037294",
       :member_name => member_name,
