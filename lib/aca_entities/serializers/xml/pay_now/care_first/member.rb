@@ -9,7 +9,7 @@ module AcaEntities
           class Member
             include HappyMapper
 
-            tag 'Member'
+            tag 'member'
 
             element :exchange_assigned_member_id, String, tag: "exchange_assigned_member_id"
             has_one :member_name, MemberName
