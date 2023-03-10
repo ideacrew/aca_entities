@@ -17,10 +17,22 @@ RSpec.describe ::AcaEntities::PayNow::CareFirst::Contracts::PayNowTransferPayloa
       :relationship => "18",
       :is_subscriber => true }
   end
+  let(:member_name2) do
+    { :person_surname => "Thomas",
+      :person_given_name => "Paula" }
+  end
+  let(:member2) do
+    { :exchange_assigned_member_id => "1037295",
+      :member_name => member_name,
+      :birth_date => "19751213",
+      :sex => "F",
+      :relationship => "01",
+      :is_subscriber => false }
+  end
 
   let(:required_params) do
     { coverage_kind: AcaEntities::PayNow::CareFirst::Types::PaynowCoverageKindType.values.first,
-      members: [member] }
+      members: [member, member2] }
   end
   let(:optional_params) { {} }
   let(:all_params) do
