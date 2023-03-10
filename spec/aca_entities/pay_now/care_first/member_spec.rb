@@ -1,20 +1,14 @@
 # frozen_string_literal: true
 
-require "spec_helper"
-require "aca_entities/pay_now/care_first"
+require 'spec_helper'
+require 'aca_entities/pay_now/care_first'
 
-RSpec.describe ::AcaEntities::PayNow::CareFirst::PayNowTransferPayload, dbclean: :after_each do
+RSpec.describe ::AcaEntities::PayNow::CareFirst::Member, dbclean: :after_each do
   let(:member_name) do
     { :person_surname => "Thomas",
       :person_given_name => "Jeff" }
   end
-
-  let(:primary) do
-    { :exchange_assigned_member_id => "1037294",
-      :member_name => member_name }
-  end
-
-  let(:member) do
+  let(:required_params) do
     { :exchange_assigned_member_id => "1037294",
       :member_name => member_name,
       :birth_date => "19740601",
@@ -22,16 +16,11 @@ RSpec.describe ::AcaEntities::PayNow::CareFirst::PayNowTransferPayload, dbclean:
       :relationship => "18",
       :is_subscriber => true }
   end
-
-  let(:required_params) do
-    { coverage_kind: AcaEntities::PayNow::CareFirst::Types::PaynowCoverageKindType.values.first,
-      primary: primary,
-      members: [member] }
+  let(:optional_params) do
+    { :ssn => "999121212" }
   end
-  let(:optional_params) { {} }
-  let(:all_params) { required_params.merge(optional_params) }
-  let(:invalid_params) do
-    { bad_key: "bad_val" }
+  let(:all_params) do
+    required_params.merge(optional_params)
   end
 
   context "invalid parameters" do
