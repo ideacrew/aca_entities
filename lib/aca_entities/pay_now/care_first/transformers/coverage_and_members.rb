@@ -30,25 +30,25 @@ module AcaEntities
               namespace 'members' do
                 rewrap 'members', type: :array do
                   rewrap '', type: :hash do
-                    map 'hbx_id', 'member.exchange_assigned_member_id'
-                    map 'person_name.first_name', 'member.member_name.person_given_name'
-                    map 'person_name.middle_name', 'member.member_name.person_middle_name'
-                    map 'person_name.last_name', 'member.member_name.person_surname'
-                    map 'person_name.full_name', 'member.member_name.person_full_name'
-                    map 'person_name.name_pfx', 'member.member_name.person_name_prefix_text'
-                    map 'person_name.name_sfx', 'member.member_name.person_name_suffix_text'
+                    map 'hbx_id', 'exchange_assigned_member_id'
+                    map 'person_name.first_name', 'member_name.person_given_name'
+                    map 'person_name.middle_name', 'member_name.person_middle_name'
+                    map 'person_name.last_name', 'member_name.person_surname'
+                    map 'person_name.full_name', 'member_name.person_full_name'
+                    map 'person_name.name_pfx', 'member_name.person_name_prefix_text'
+                    map 'person_name.name_sfx', 'member_name.person_name_suffix_text'
                     map 'person_name.alternate_name', 'member.member_name.person_alternate_name'
-                    map 'person_demographics.dob', 'member.birth_date', function: ->(dob) { dob.gsub('-', '') }
-                    map 'person_demographics.gender', 'member.sex', function: lambda { |gender|
+                    map 'person_demographics.dob', 'birth_date', function: ->(dob) { dob.gsub('-', '') }
+                    map 'person_demographics.gender', 'sex', function: lambda { |gender|
                       AcaEntities::PayNow::CareFirst::Types::SexofIndividualTerminologyTypeMap[gender]
                     }
-                    map 'person_demographics.encrypted_ssn', 'member.ssn', function: lambda { |encrypted_ssn|
+                    map 'person_demographics.encrypted_ssn', 'ssn', function: lambda { |encrypted_ssn|
                       AcaEntities::Operations::Encryption::Decrypt.new.call({ value: encrypted_ssn }).value!
                     }
-                    map 'relationship_to_primary', 'member.relationship', function: lambda {|relationship|
+                    map 'relationship_to_primary', 'relationship', function: lambda {|relationship|
                       AcaEntities::PayNow::CareFirst::Types::PaynowMemberRelationshipCodeMap[relationship]
                     }
-                    map 'is_subscriber', 'member.is_subscriber'
+                    map 'is_subscriber', 'is_subscriber'
                   end
                 end
               end

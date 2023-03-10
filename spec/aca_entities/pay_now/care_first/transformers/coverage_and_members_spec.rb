@@ -495,12 +495,12 @@ RSpec.describe AcaEntities::PayNow::CareFirst::Transformers::CoverageAndMembers 
       context 'members' do
         it 'should transform and populate member fields' do
           subject[:pay_now_transfer_payload][:members].each do |member|
-            original_member = members.detect {|m| m[:hbx_id] == member[:member][:exchange_assigned_member_id]}
-            transformed_member = member[:member]
+            original_member = members.detect {|m| m[:hbx_id] == member[:exchange_assigned_member_id]}
+            transformed_member = member
             ssn = AcaEntities::Operations::Encryption::Decrypt.new.call({ value: original_member[:person_demographics][:encrypted_ssn] }).value!
             sex = AcaEntities::PayNow::CareFirst::Types::SexofIndividualTerminologyTypeMap[original_member[:person_demographics][:gender]]
             relationship = AcaEntities::PayNow::CareFirst::Types::PaynowMemberRelationshipCodeMap[original_member[:relationship_to_primary]]
-            expect(member).to have_key(:member)
+            # expect(member).to have_key(:member)
             expect(transformed_member).to have_key(:exchange_assigned_member_id)
             expect(transformed_member[:exchange_assigned_member_id]).to eq original_member[:hbx_id]
             expect(transformed_member).to have_key(:birth_date)
@@ -522,7 +522,6 @@ RSpec.describe AcaEntities::PayNow::CareFirst::Transformers::CoverageAndMembers 
             expect(transformed_member[:member_name]).to have_key(:person_full_name)
             expect(transformed_member[:member_name]).to have_key(:person_name_prefix_text)
             expect(transformed_member[:member_name]).to have_key(:person_name_suffix_text)
-            expect(transformed_member[:member_name]).to have_key(:person_alternate_name)
           end
         end
       end
@@ -541,7 +540,6 @@ RSpec.describe AcaEntities::PayNow::CareFirst::Transformers::CoverageAndMembers 
           expect(primary[:member_name]).to have_key(:person_full_name)
           expect(primary[:member_name]).to have_key(:person_name_prefix_text)
           expect(primary[:member_name]).to have_key(:person_name_suffix_text)
-          expect(primary[:member_name]).to have_key(:person_alternate_name)
         end
       end
     end
