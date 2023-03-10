@@ -4,7 +4,6 @@ require "spec_helper"
 require "aca_entities/pay_now/care_first"
 
 RSpec.describe ::AcaEntities::PayNow::CareFirst::Contracts::PayNowTransferPayloadContract, dbclean: :after_each do
-
   let(:member_name) do
     { :person_surname => "Thomas",
       :person_given_name => "Jeff" }
@@ -29,7 +28,7 @@ RSpec.describe ::AcaEntities::PayNow::CareFirst::Contracts::PayNowTransferPayloa
       :relationship => "01",
       :is_subscriber => false }
   end
-  
+
   let(:primary) do
     { :exchange_assigned_member_id => "1037294",
       :member_name => member_name }
@@ -39,7 +38,6 @@ RSpec.describe ::AcaEntities::PayNow::CareFirst::Contracts::PayNowTransferPayloa
     { coverage_kind: AcaEntities::PayNow::CareFirst::Types::PaynowCoverageKindType.values.first,
       primary: primary,
       members: [member, member2] }
-
   end
   let(:optional_params) { {} }
   let(:all_params) do
