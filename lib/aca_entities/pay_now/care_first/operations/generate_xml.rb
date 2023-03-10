@@ -13,8 +13,8 @@ module AcaEntities
           include Dry::Monads[:result, :do, :try]
 
           def call(payload)
-            # TODO: validate enrollment and members with aca_entities contracts
-            # validated_payload = yield validate_payload(payload)
+            _validated_enrollment = yield validate_enrollment(payload)
+            _validated_members = yield validate_members(payload)
             transformed_payload = yield transform_payload(payload)
             validated_transformed_payload = yield validate_transformed_payload(transformed_payload)
             entity = yield initialize_entity(validated_transformed_payload)
@@ -24,6 +24,28 @@ module AcaEntities
           end
 
           private
+
+          def validate_enrollment(payload)
+            enrollment = payload.dig(:coverage_and_members, :hbx_enrollment)
+            return Failure("missing :hbx_enrollment in payload") unless enrollment
+
+            result = AcaEntities::Contracts::Enrollments::HbxEnrollmentContract.new.call(enrollment)
+            result.success? ? result : Failure("HbxEnrollmentContract -> #{result.errors.to_h}")
+          end
+
+          def validate_members(payload)
+            members = payload.dig(:coverage_and_members, :members)
+            return Failure("missing :members in payload") unless members
+
+            failures = members.inject([]) do |results, member|
+              result = AcaEntities::Contracts::People::PersonContract.new.call(member)
+              next results if result.success?
+
+              results << "hbx_id: #{member[:hbx_id]} - #{result.errors.to_h}"
+            end
+
+            failures.empty? ? Success(payload) : Failure("PersonContract -> #{failures}")
+          end
 
           def transform_payload(payload)
             prepped_record = prep_record(payload)
