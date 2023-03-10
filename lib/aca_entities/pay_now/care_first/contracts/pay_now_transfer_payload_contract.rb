@@ -9,7 +9,7 @@ module AcaEntities
 
           params do
             required(:coverage_kind).filled(AcaEntities::PayNow::CareFirst::Types::PaynowCoverageKindType)
-            required(:members).filled(Contracts::MemberContract.params)
+            required(:members).array(Contracts::MemberContract.params)
           end
         end
       end
