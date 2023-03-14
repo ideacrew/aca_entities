@@ -26,6 +26,7 @@ require_relative 'care_first/operations/generate_xml'
 require 'aca_entities/serializers/xml/pay_now/care_first/member_name'
 require 'aca_entities/serializers/xml/pay_now/care_first/primary'
 require 'aca_entities/serializers/xml/pay_now/care_first/member'
+require 'aca_entities/serializers/xml/pay_now/care_first/members'
 require 'aca_entities/serializers/xml/pay_now/care_first/pay_now_transfer_payload'
 
 module AcaEntities

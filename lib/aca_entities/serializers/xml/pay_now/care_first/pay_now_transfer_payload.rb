@@ -9,12 +9,7 @@ module AcaEntities
           class PayNowTransferPayload
             include HappyMapper
 
-            tag 'saml:AttributeValue'
-            register_namespace 'xmlns', 'http://openhbx.org/api/terms/1.0'
-            register_namespace 'cv', 'http://openhbx.org/api/terms/1.0'
-            register_namespace 'xsi', 'http://www.w3.org/2001/XMLSchema-instance'
-
-            attribute :type, String, tag: 'type', namespace: 'xsi'
+            tag 'PayNowTransferPayload'
 
             element :coverage_kind, String, tag: 'coverage_kind'
             has_one :primary, Primary
@@ -22,10 +17,9 @@ module AcaEntities
 
             def self.domain_to_mapper(pay_now_transfer_payload)
               mapper = self.new
-              mapper.type = 'cv:PaynowTransferPayloadType'
               mapper.coverage_kind = pay_now_transfer_payload.coverage_kind
               mapper.primary = Primary.domain_to_mapper(pay_now_transfer_payload.primary)
-              mapper.members = pay_now_transfer_payload.members.map {|m| Member.domain_to_mapper(m)}
+              mapper.members = Members.domain_to_mapper(pay_now_transfer_payload.members)
               mapper
             end
           end

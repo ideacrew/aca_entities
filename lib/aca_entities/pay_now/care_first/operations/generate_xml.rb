@@ -19,7 +19,7 @@ module AcaEntities
             validated_transformed_payload = yield validate_transformed_payload(transformed_payload)
             entity = yield initialize_entity(validated_transformed_payload)
             serialized_payload = yield to_serialized_obj(entity)
-            xml_payload = serialized_payload.to_xml
+            xml_payload = yield to_xml(serialized_payload)
             Success(xml_payload)
           end
 
@@ -92,6 +92,16 @@ module AcaEntities
             end.to_result
 
             seralized_xml.success? ? seralized_xml : Failure("Serializers-PayNowTransferPayload -> #{seralized_xml.failure}")
+          end
+
+          def to_xml(serialized_payload)
+            xml_with_root_tag = serialized_payload.to_xml
+            doc = Nokogiri::XML(xml_with_root_tag)
+            root_node = doc.at_xpath('/PayNowTransferPayload')
+
+            Success(root_node.children.to_xml)
+          rescue StandardError => e
+            Failure("AcaEntities::PayNow::CareFirst::Operations::GenerateXml to_xml -> #{e}")
           end
         end
       end
