@@ -469,10 +469,22 @@ RSpec.describe AcaEntities::PayNow::CareFirst::Operations::GenerateXml do
       }
     end
 
-    it 'should generate xml' do
+    it 'should generate and unwrap the custom xml payload' do
       result = described_class.new.call(additional_info_payload)
       expect(result.success?).to be_truthy
-      expect(result.value!.split("\n").first).to eq '<?xml version="1.0"?>'
+      expect(result.value!.include?("<PayNowTransferPayload>")).to be_falsey
+      expect(result.value!.include?("<coverage_kind>")).to be_truthy
+      expect(result.value!.include?("<members>")).to be_truthy
+      expect(result.value!.include?("<primary>")).to be_truthy
+    end
+
+    context 'only one member on enrollment' do
+      let(:members) { [member] }
+
+      it 'should still contain the members tag in the output' do
+        result = described_class.new.call(additional_info_payload)
+        expect(result.value!.include?("<members>")).to be_truthy
+      end
     end
   end
 end
