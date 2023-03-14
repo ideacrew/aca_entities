@@ -486,5 +486,13 @@ RSpec.describe AcaEntities::PayNow::CareFirst::Operations::GenerateXml do
         expect(result.value!.include?("<members>")).to be_truthy
       end
     end
+
+    it "should create a schema valid result" do
+      result = described_class.new.call(additional_info_payload).value!
+      binding.irb
+      # maybe discuss validations with Sai K on Monday
+      validation_result = AcaEntities::Serializers::Xml::PayNow::CareFirst::Operations::ValidatePayNowTransferPayloadXml.new.call(result)
+      expect(validation_result.success?).to be_truthy
+    end
   end
 end

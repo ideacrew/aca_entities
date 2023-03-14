@@ -20,6 +20,7 @@ require_relative 'care_first/pay_now_transfer_payload'
 require_relative 'care_first/transformers/coverage_and_members'
 
 # operations
+require 'aca_entities/serializers/xml/pay_now/care_first/operations/validate_pay_now_transfer_payload_xml'
 require_relative 'care_first/operations/generate_xml'
 
 # happymapper
