@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns="urn:oasis:names:tc:SAML:2.0:assertion" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol" xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:cv="http://openhbx.org/api/terms/1.0" targetNamespace="urn:oasis:names:tc:SAML:2.0:protocol" elementFormDefault="qualified" attributeFormDefault="qualified" blockDefault="substitution" version="2.0">
+  <xsd:import namespace="http://openhbx.org/api/terms/1.0" schemaLocation="paynow_compact.xsd"/>
+  <xsd:include schemaLocation="saml-schema-protocol-2.0.xsd"/>
+</xsd:schema>
