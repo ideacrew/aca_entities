@@ -25,18 +25,18 @@ module AcaEntities
                 )
               ).freeze
 
-              def call(xml)
-                xml_doc = yield parse_xml(xml)
+              def call(saml)
+                doc = yield parse_saml(saml)
                 schema = yield load_schema
-                validate_document(schema, xml_doc)
+                validate_document(schema, doc)
               end
 
-              def parse_xml(xml)
+              def parse_saml(saml)
                 parse_result = Try do
-                  Nokogiri::XML(xml, &:noblanks)
+                  Nokogiri::XML(saml, &:noblanks)
                 end
 
-                return Failure(:invalid_xml) if parse_result.success? && !parses_to_valid_document?(parse_result.value!)
+                return Failure(:invalid_saml) if parse_result.success? && !parses_to_valid_document?(parse_result.value!)
 
                 parse_result.or do |e|
                   Failure(e)
@@ -58,9 +58,9 @@ module AcaEntities
                 end
               end
 
-              def validate_document(schema, xml_doc)
+              def validate_document(schema, doc)
                 schema_validation = Try do
-                  schema.validate(xml_doc)
+                  schema.validate(doc)
                 end
 
                 capture_error = schema_validation.or do |e|
