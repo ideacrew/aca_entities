@@ -7,7 +7,7 @@ module AcaEntities
         module CareFirst
           module Operations
             # Validate pay now transfer payload with xsd
-            class ValidatePayNowTransferPayloadXml
+            class ValidatePayNowTransferPayloadSaml
               send(:include, Dry::Monads[:result, :do, :try])
 
               SCHEMA_LOCATION = File.expand_path(
