@@ -10,12 +10,14 @@ module AcaEntities
         # @option opts [String] :exchange_provided_code optional
         # @option opts [Float] :primary_enrollee optional
         # @option opts [Float] :primary_enrollee_one_dependent optional
+        # @option opts [Float] :primary_enrollee_two_dependents optional
         # @option opts [Float] :primary_enrollee_many_dependent optional
         # @return [Dry::Monads::Result]
         params do
           optional(:exchange_provided_code).maybe(Types::String)
           optional(:primary_enrollee).maybe(:float)
           optional(:primary_enrollee_one_dependent).maybe(:float)
+          optional(:primary_enrollee_two_dependents).maybe(:float)
           optional(:primary_enrollee_many_dependent).maybe(:float)
         end
       end
