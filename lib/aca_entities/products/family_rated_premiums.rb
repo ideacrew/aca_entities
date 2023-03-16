@@ -8,6 +8,7 @@ module AcaEntities
       attribute :exchange_provided_code,          Types::String.optional.meta(omittable: true)
       attribute :primary_enrollee,                Types::Float.optional.meta(omittable: true)
       attribute :primary_enrollee_one_dependent,  Types::Float.optional.meta(omittable: true)
+      attribute :primary_enrollee_two_dependents, Types::Float.optional.meta(omittable: true)
       attribute :primary_enrollee_many_dependent, Types::Float.optional.meta(omittable: true)
     end
   end

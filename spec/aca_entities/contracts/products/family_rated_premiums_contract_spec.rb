@@ -8,6 +8,7 @@ RSpec.describe ::AcaEntities::Contracts::Products::FamilyRatedPremiumsContract, 
       exchange_provided_code: 'R-ME002',
       primary_enrollee: 40.5,
       primary_enrollee_one_dependent: 80.5,
+      primary_enrollee_two_dependents: 130.7,
       primary_enrollee_many_dependent: 159.0
     }
   end
