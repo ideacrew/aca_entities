@@ -1,0 +1,240 @@
+<?xml version="1.0"?>
+<xs:schema xmlns="http://openhbx.org/api/terms/1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://openhbx.org/api/terms/1.0">
+  <xs:simpleType name="ExchangeAssignedMemberIDType">
+    <xs:annotation>
+      <xs:documentation>
+              Exchanged-assigned identifier for the member or primary.
+              
+              Denotes the identifier that is expected to arrive on subsequent information
+              interchanges, such as an X220A1 834 transaction.
+          </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="PaynowMemberRelationshipCode">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="18">
+        <xs:annotation>
+          <xs:documentation>Self</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="01">
+        <xs:annotation>
+          <xs:documentation>Spouse</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="53">
+        <xs:annotation>
+          <xs:documentation>Life Partner</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="15">
+        <xs:annotation>
+          <xs:documentation>Ward</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="19">
+        <xs:annotation>
+          <xs:documentation>Child/other dependent</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="PaynowMemberType">
+    <xs:annotation>
+      <xs:documentation>
+              A member receiving coverage.
+          </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="exchange_assigned_member_id" type="ExchangeAssignedMemberIDType"/>
+      <xs:element name="member_name" type="PersonNameType"/>
+      <xs:element name="birth_date" type="SimpleDateType"/>
+      <xs:element name="sex" type="SexofIndividualTerminologyType"/>
+      <xs:element minOccurs="0" name="ssn" type="FederalTaxIdType"/>
+      <xs:element name="relationship" type="PaynowMemberRelationshipCode">
+        <xs:annotation>
+          <xs:documentation>Describes the relationship to the subscriber.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="is_subscriber" type="xs:boolean">
+        <xs:annotation>
+          <xs:documentation>
+                      Indicates if the member is the subscriber for the coverage
+                      period, rather than simply a covered individual.
+                  </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="PaynowMembersListType">
+    <xs:annotation>
+      <xs:documentation>
+              The list of covered members.
+          </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="1" name="member" type="PaynowMemberType"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="PaynowPrimary">
+    <xs:annotation>
+      <xs:documentation>
+              The primary individual responsible for payment and selection of coverage.
+
+              This individual may or may not appear in the members section.
+          </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="exchange_assigned_member_id" type="ExchangeAssignedMemberIDType"/>
+      <xs:element name="member_name" type="PersonNameType"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="PaynowCoverageKindType">
+    <xs:annotation>
+      <xs:documentation>Set of codes indicating the type of insurance policy or program that pays for the cost of benefits provided to covered parties.</xs:documentation>
+      <xs:appinfo>NCI:C3244106</xs:appinfo>
+      <xs:appinfo>HL7:OID:2.16.840.1.113883.1.11.19855</xs:appinfo>
+      <xs:appinfo>X12:005010X220:1205</xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="xs:anyURI">
+      <xs:enumeration value="urn:openhbx:terms:v1:qhp_benefit_coverage#health">
+        <xs:annotation>
+          <xs:documentation>Health Coverage</xs:documentation>
+          <xs:appinfo>NCI:C3244234</xs:appinfo>
+          <xs:appinfo>HL7:OID:2.16.840.1.113883.1.11.19855:HIP</xs:appinfo>
+          <xs:appinfo>X12:005010X220:1205:HLT</xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="urn:openhbx:terms:v1:qhp_benefit_coverage#dental">
+        <xs:annotation>
+          <xs:documentation>Dental Coverage</xs:documentation>
+          <xs:appinfo>NCI:C3244232</xs:appinfo>
+          <xs:appinfo>HL7:OID:2.16.840.1.113883.1.11.19855:DENTAL</xs:appinfo>
+          <xs:appinfo>X12:005010X220:1205:DEN</xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="PaynowTransferPayloadType">
+    <xs:annotation>
+      <xs:documentation>
+              A transfer representing information needed to enroll a group under
+              a given product and make payment.
+          </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="coverage_kind" type="PaynowCoverageKindType"/>
+      <xs:element name="primary" type="PaynowPrimary"/>
+      <xs:element name="members" type="PaynowMembersListType"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="nonEmptyString">
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="PersonNameType">
+    <xs:annotation>
+      <xs:documentation>Base type for components of an individual's name</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="person_surname" type="nonEmptyString"/>
+      <xs:element name="person_given_name" type="nonEmptyString"/>
+      <xs:element minOccurs="0" name="person_middle_name" type="xs:string"/>
+      <xs:element minOccurs="0" name="person_full_name" type="xs:string"/>
+      <xs:element minOccurs="0" name="person_name_prefix_text" type="xs:string"/>
+      <xs:element minOccurs="0" name="person_name_suffix_text" type="xs:string"/>
+      <xs:element minOccurs="0" name="person_alternate_name" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="FederalTaxIdType">
+    <xs:annotation>
+      <xs:documentation>IRS-assigned Identifier for an individual or organization. Matches: 01-1234567, 011234567, 123-45-6789</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:pattern value="([0-9]{3}-[0-9]{2}-[0-9]{4})|([0-9]{9})|([0-9]{2}-[0-9]{7})"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType xmlns:altova="http://www.altova.com/xml-schema-extensions" name="SimpleDateType">
+    <xs:annotation>
+      <xs:documentation>A simple date format: CCYYMMDD. Matches: YYYYMMDD (20140601)</xs:documentation>
+      <xs:appinfo>
+        <altova:exampleValues>
+          <altova:example value="20140601"/>
+        </altova:exampleValues>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:pattern value="([1-9][0-9]{3})(0[1-9]|1[0-2])(0[1-9]|[12][0-9]|3[01])"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="SexofIndividualTerminologyType">
+    <xs:annotation>
+      <xs:documentation>
+                    CDISC SDTM Sex of Individual Terminology
+                    
+                    Terminology codelist used with Sex of Individual within the Clinical Data Interchange Standards Consortium Study Data Tabulation Model.
+
+                    The assemblage of physical properties or qualities by which male is distinguished from female; the physical difference between male and female; the distinguishing peculiarity of male or female.
+                </xs:documentation>
+      <xs:appinfo>CDISC:SEX</xs:appinfo>
+      <xs:appinfo>NCI:C66731</xs:appinfo>
+      <xs:appinfo>X12:005010X220:1068</xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="F">
+        <xs:annotation>
+          <xs:documentation>
+                            Female.
+                            
+                            A person who belongs to the sex that normally produces ova. The term is used to indicate biological sex distinctions, or cultural gender role distinctions, or both.
+                        </xs:documentation>
+          <xs:appinfo>CDISC:F</xs:appinfo>
+          <xs:appinfo>NCI:C16576</xs:appinfo>
+          <xs:appinfo>X12:005010X220:1068:F</xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="M">
+        <xs:annotation>
+          <xs:documentation>
+                            Male.
+                            
+                            A person who belongs to the sex that normally produces sperm. The term is used to indicate biological sex distinctions, cultural gender role distinctions, or both.
+                        </xs:documentation>
+          <xs:appinfo>CDISC:M</xs:appinfo>
+          <xs:appinfo>NCI:C20197</xs:appinfo>
+          <xs:appinfo>X12:005010X220:1068:M</xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="UNDIFFERENTIATED">
+        <xs:annotation>
+          <xs:documentation>
+                            Intersex.
+
+                            A person (one of unisexual specimens) who is born with genitalia and/or secondary sexual characteristics of indeterminate sex, or which combine features of both sexes.
+                        </xs:documentation>
+          <xs:appinfo>CDISC:UNDIFFERENTIATED</xs:appinfo>
+          <xs:appinfo>NCI:C1704620</xs:appinfo>
+          <xs:appinfo>X12:005010X220:1068:U</xs:appinfo>
+          <xs:appinfo>X12:005010X220:1068:B</xs:appinfo>
+          <xs:appinfo>X12:005010X220:1068:N</xs:appinfo>
+          <xs:appinfo>X12:005010X220:1068:X</xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="U">
+        <xs:annotation>
+          <xs:documentation>
+                            Unknown.
+                            
+                            Not known, not observed, not recorded, or refused.
+                        </xs:documentation>
+          <xs:appinfo>CDISC:U</xs:appinfo>
+          <xs:appinfo>NCI:C17998</xs:appinfo>
+          <xs:appinfo>X12:005010X220:1068:U</xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>

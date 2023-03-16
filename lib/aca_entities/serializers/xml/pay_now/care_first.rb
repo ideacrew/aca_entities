@@ -8,6 +8,9 @@ require_relative "care_first/member"
 require_relative "care_first/members"
 require_relative "care_first/pay_now_transfer_payload"
 
+# operations
+require_relative 'care_first/operations/validate_pay_now_transfer_payload_saml'
+
 module AcaEntities
   module Serializers
     module Xml
