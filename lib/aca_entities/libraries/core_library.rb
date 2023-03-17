@@ -182,6 +182,7 @@ module AcaEntities
       require 'aca_entities/benefit_markets/product_package'
       require 'aca_entities/benefit_markets/benefit_sponsor_catalog'
       require 'aca_entities/operations/operation'
+      require 'aca_entities/operations/composite_operation'
       require 'aca_entities/async_api/async_api'
     end
   end
