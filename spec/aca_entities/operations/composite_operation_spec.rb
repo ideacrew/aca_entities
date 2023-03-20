@@ -76,35 +76,51 @@ RSpec.describe ::AcaEntities::Operations::CompositeOperation do
 
   context 'Creating complex operations' do 
 
-    let(sub_operation_1) { Operations::Operation } 
+    let(:sub_operation_name) { :sub_close_file }
+
+    let(:sub_class_new_init) { { operation: { operation_name: sub_operation_name } }}
 
     before do
-      dummy_klass =
+      simple_klass =
         Class.new do
           send(:include, Dry::Monads[:result, :do])
-          send(:include, ::AcaEntities::Operations::ComplexOperation)
-
-          def initialize
-            add_sub_operation(operations: { operation_name: :step_1 })
-            add_sub_operation(operations: { operation_name: :step_2 })
-            add_sub_operation(operations: { operation_name: :step_3 })
-          end
+          send(:include, ::AcaEntities::Operations::Operation)
 
           def call(params)
             Success(params.merge({operation_name: self.operation_name, parent: self.parent}))
           end
 
         end
+      stub_const('Dummy::SimpleOperation', simple_klass)
+
+      dummy_klass =
+        Class.new do
+          send(:include, Dry::Monads[:result, :do])
+          send(:include, ::AcaEntities::Operations::CompositeOperation)
+
+          def initialize(args)
+            super(args)
+            self.add_sub_operation(Dummy::SimpleOperation.new({ operation: { operation_name: :sub_operation_name } }))
+          end
+
+          def call(params)
+            Success(params.merge({operation_name: self.operation_name, parent: self.parent}))
+          end
+  
+        end
       stub_const('Dummy::ComplexOperation', dummy_klass)
     end
-    
-    context 'Given sub_operations' do 
-      subject { Dummy::CompositeOperation.call(class_call_init) }
+  
+    let(:sub_complex) { Dummy::ComplexOperation } 
 
-      it 'should initialize' do 
-        expect(subject.sub_operations.include)
+    context 'Given sub_operations' do 
+      subject { Dummy::ComplexOperation.call(class_call_init) }
+
+      it 'monad should return success and passed params' do
+        expect(subject.success?).to be_truthy
+        expect(subject.value![:type]).to eq params[:type]
       end
-    end
+  end
 
   end
 

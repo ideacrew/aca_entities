@@ -16,7 +16,7 @@ module AcaEntities
           end
         end
 
-        attr_accessor :operation_name, :parent
+        attr_accessor :operation_name, :parent, :sub_operations
 
         def initialize(args)
           @operation_name = args.dig(:operation,:operation_name)
@@ -27,13 +27,14 @@ module AcaEntities
           super(*args.except(:operation))
         end
 
-        def add_sub_operation(operations)
+        def add_sub_operation(operation)
+
           @sub_operations << operation
           operation.parent = self
         end
 
-        def remove_sub_operation(operations)
-          @sub_operations.delete(operations)
+        def remove_sub_operation(operation)
+          @sub_operations.delete(operation)
           operation.parent = nil
         end
     
