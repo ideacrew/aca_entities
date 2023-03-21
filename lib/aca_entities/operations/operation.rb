@@ -1,31 +1,31 @@
 # frozen_string_literal: true
 
 module AcaEntities
-  # Operations are perform Functions on domain entities
   module Operations
+    # Operation is a leaf node in an Operations tree structure, and must not contain other nodes
     module Operation
-        # Class methods
-        def self.included(base)
-          base.extend(ClassMethods)
+      # Class methods
+      def self.included(base)
+        base.extend(ClassMethods)
+      end
+
+      # Class methods for the Operation mixin
+      module ClassMethods
+        def call(args)
+          operation = args.slice(:operation)
+          new(operation).call(args.except(:operation))
         end
+      end
 
-        module ClassMethods
-          def call(args)
-            operation = args.slice(:operation)
-            new(operation).call(args.except(:operation))
-          end
-        end
+      attr_accessor :operation_name, :parent
 
-        attr_accessor :operation_name, :parent
+      def initialize(args)
+        @operation_name = args.dig(:operation, :operation_name)
+        raise(ArgumentError.new, '{ operation: { :operation_name } } required') if @operation_name.nil?
+        @parent = nil
 
-        def initialize(args)
-          @operation_name = args.dig(:operation,:operation_name)
-          raise ArgumentError.new "{ operation: { :operation_name } } required" if @operation_name.nil?
-          @parent = nil
-
-          super(*args.except(:operation))
-        end
-
+        super(*args.except(:operation))
+      end
     end
   end
 end
