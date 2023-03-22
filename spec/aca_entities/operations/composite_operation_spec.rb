@@ -120,7 +120,29 @@ RSpec.describe ::AcaEntities::Operations::CompositeOperation do
         expect(subject.success?).to be_truthy
         expect(subject.value![:type]).to eq params[:type]
       end
-  end
+    end
+
+    context 'the sub_operation has correct values' do
+      subject { Dummy::ComplexOperation.new(instance_new_init) }
+
+      it 'has a sub_operation' do
+        expect(subject.sub_operations.count).to eq 1
+      end
+
+      it 'has a correct name on the sub_operation' do
+        expect(subject.sub_operations.first.operation_name).to eq :sub_operation_name
+      end
+
+      it 'has a correct parent on the sub_operation' do
+        expect(subject.sub_operations.first.parent).to eq subject
+      end
+
+      it 'can add sub-operations after initialization' do
+        subject.add_sub_operation(Dummy::SimpleOperation.new(sub_class_new_init))
+        expect(subject.sub_operations.count).to eq 2
+      end
+
+    end
 
   end
 
