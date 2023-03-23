@@ -3,12 +3,11 @@
 require 'spec_helper'
 
 RSpec.describe ::AcaEntities::Operations::CompositeOperation do
-
   let(:operation_name) { :close_file }
   let(:operation) { { operation_name: operation_name } }
-  let(:params) { { type: 'blue', name: 'fred'} }
+  let(:params) { { type: 'blue', name: 'fred' } }
   let(:instance_new_init) { { operation: operation } }
-  let(:class_call_init) {  params.merge(instance_new_init) }
+  let(:class_call_init) { params.merge(instance_new_init) }
 
   before do
     dummy_klass =
@@ -17,9 +16,8 @@ RSpec.describe ::AcaEntities::Operations::CompositeOperation do
         send(:include, ::AcaEntities::Operations::CompositeOperation)
 
         def call(params)
-          Success(params.merge({operation_name: self.operation_name, parent: self.parent}))
+          Success(params.merge({ operation_name: self.operation_name, parent: self.parent }))
         end
-
       end
     stub_const('Dummy::CompositeOperation', dummy_klass)
   end
@@ -27,7 +25,7 @@ RSpec.describe ::AcaEntities::Operations::CompositeOperation do
   context 'Initialize the instance via the .call method' do
     context 'and the operation_name is omitted' do
       it 'raises and argument error' do
-        expect{Dummy::CompositeOperation.call(params)}.to raise_error ArgumentError
+        expect { Dummy::CompositeOperation.call(params) }.to raise_error ArgumentError
       end
     end
 
@@ -44,14 +42,12 @@ RSpec.describe ::AcaEntities::Operations::CompositeOperation do
         expect(subject.value![:type]).to eq params[:type]
       end
     end
-
-  end 
+  end
 
   context 'Initialize the instance via the #call method' do
-
     context 'and the operation_name is omitted' do
       it 'raises and argument error' do
-        expect{Dummy::CompositeOperation.new.call(params)}.to raise_error ArgumentError
+        expect { Dummy::CompositeOperation.new.call(params) }.to raise_error ArgumentError
       end
     end
 
@@ -74,93 +70,82 @@ RSpec.describe ::AcaEntities::Operations::CompositeOperation do
     end
   end
 
-  context 'Creating complex operations' do 
-
-    let(:sub_operation_name) { :sub_close_file }
-
-    let(:sub_class_new_init) { { operation: { operation_name: sub_operation_name } }}
-
+  context 'Given a parent Composite Operation' do
     before do
-      simple_klass =
+      composite_operation_klass =
+        Class.new do
+          send(:include, Dry::Monads[:result, :do])
+          send(:include, ::AcaEntities::Operations::CompositeOperation)
+
+          def call(params)
+            Success(params.merge({ operation_name: self.operation_name, parent: self.parent }))
+          end
+        end
+      stub_const('Dummy::CompositeOperation', composite_operation_klass)
+
+      operation_klass =
         Class.new do
           send(:include, Dry::Monads[:result, :do])
           send(:include, ::AcaEntities::Operations::Operation)
 
           def call(params)
-            Success(params.merge({operation_name: self.operation_name, parent: self.parent}))
+            Success(params.merge({ operation_name: self.operation_name, parent: self.parent }))
           end
-
         end
-      stub_const('Dummy::SimpleOperation', simple_klass)
-
-      dummy_klass =
-        Class.new do
-          send(:include, Dry::Monads[:result, :do])
-          send(:include, ::AcaEntities::Operations::CompositeOperation)
-
-          def initialize(args)
-            super(args)
-            self.add_sub_operation(Dummy::SimpleOperation.new({ operation: { operation_name: :sub_operation_name } }))
-          end
-
-          def call(params)
-            Success(params.merge({operation_name: self.operation_name, parent: self.parent}))
-          end
-  
-        end
-      stub_const('Dummy::ComplexOperation', dummy_klass)
+      stub_const('Dummy::Operation', operation_klass)
     end
-  
-    let(:sub_complex) { Dummy::ComplexOperation } 
 
-    context 'Given sub_operations' do 
-      subject { Dummy::ComplexOperation.call(class_call_init) }
+    let(:director_operation_name) { { operation_name: :process_flow_director } }
 
-      it 'monad should return success and passed params' do
-        expect(subject.success?).to be_truthy
-        expect(subject.value![:type]).to eq params[:type]
+    # let(:director_operation) { Dummy::CompositeOperation.new(name: director_operation_name) }
+
+    let(:find_or_create_operation_name) { { operation_name: :find_or_create } }
+    let(:find_operation) { Dummy::Operation.new(operation: find_or_create_operation_name) }
+
+    let(:persist_operation_name) { { operation_name: :persist } }
+    let(:persist_operation) { Dummy::Operation.new(operation: persist_operation_name) }
+
+    let(:persist_operation_name) { { operation_name: :persist } }
+    let(:persist_operation) { Dummy::Operation.new(operation: persist_operation_name) }
+
+    subject { Dummy::CompositeOperation.new(operation: director_operation_name) }
+
+    context 'and a child operation is added ' do
+      let(:non_operation_failure) { 'expected Operation || CompositeOperation, got: Hash' }
+      let(:duplicate_operation_failure) { 'duplicate child operation name: :find_or_create' }
+
+      it 'should add a child operation' do
+        subject.add_child_operation(find_operation)
+        expect(subject.child_operations.include?(find_operation)).to be_truthy
       end
+
+      it 'adding a duplicate child operation name should fail' do
+        subject.add_child_operation(find_operation)
+        expect(subject.add_child_operation(find_operation).failure?).to be_truthy
+        expect(subject.add_child_operation(find_operation).failure).to eq duplicate_operation_failure
+      end
+
+      it 'adding a non-operation class should fail' do
+        expect(subject.add_child_operation({ key: 'value' }).failure?).to be_truthy
+        expect(subject.add_child_operation({ key: 'value' }).failure).to eq non_operation_failure
+      end
+
+      it 'should add a child composite operation' do
+        subject.add_child_operation(find_operation)
+        expect(subject.child_operations.include?(find_operation)).to be_truthy
+      end
+    end
+
+    context 'and a child operation is removed' do
+      it 'and the child operation is present' do
+        op = subject.add_child_operation(find_operation)
+        expect(op.child_operation_names.include?(find_operation.operation_name))
+        expect(op.drop_child_operation(find_operation).child_operation_names).to eq []
+      end
+
+      it 'and the child operation is not present' do
+        expect(subject.drop_child_operation(find_operation).child_operation_names).to eq []
+      end
+    end
   end
-
-  end
-
-
-  # class CompositeTask < Task
-#   def initialize(name)
-#     super(name)
-#     @sub_tasks = []
-#   end
-
-#   def add_sub_task(task)
-#     @sub_tasks << task
-#     task.parent = self
-#   end
-
-#   def remove_sub_task(task)
-#     @sub_tasks.delete(task)
-#     task.parent = nil
-#   end
-
-#   def get_time_required
-#     @sub_tasks.inject(0.0) {|time, task| time += task.get_time_required}
-#   end
-# end
-
-#   it 'has an id attribute with _id value' do
-#     expect(subject.id).not_to be_nil
-#     expect(subject.to_hash[:id]).not_to be_nil
-#     expect(subject.id).to eq subject.to_hash[:id]
-#   end
-
-#   it 'validates attributes using a corresponding AcaEntities validation contract if it exists' do
-#     expect(described_class.validation_contract_class_name).not_to be_nil
-#     expect(subject.validate_domain_attributes.to_h[:errors]).to be_empty if described_class.validation_contract_class
-#   end
-
-#   it 'returns records from associated collections' do
-#     subject = described_class.new(valid_params)
-#     expect(subject.save).to be_truthy
-#     expect(subject.to_deep_hash).not_to be_nil
-#   end
-
 end
