@@ -72,16 +72,16 @@ RSpec.describe ::AcaEntities::Operations::CompositeOperation do
 
   context 'Given a parent Composite Operation' do
     before do
-      composite_operation_klass =
-        Class.new do
-          send(:include, Dry::Monads[:result, :do])
-          send(:include, ::AcaEntities::Operations::CompositeOperation)
+      #     composite_operation_klass =
+      #       Class.new do
+      #         send(:include, Dry::Monads[:result, :do])
+      #         send(:include, ::AcaEntities::Operations::CompositeOperation)
 
-          def call(params)
-            Success(params.merge({ operation_name: self.operation_name, parent: self.parent }))
-          end
-        end
-      stub_const('Dummy::CompositeOperation', composite_operation_klass)
+      #         def call(params)
+      #           Success(params.merge({ operation_name: self.operation_name, parent: self.parent }))
+      #         end
+      #       end
+      #     stub_const('Dummy::CompositeOperation', composite_operation_klass)
 
       operation_klass =
         Class.new do
@@ -97,13 +97,8 @@ RSpec.describe ::AcaEntities::Operations::CompositeOperation do
 
     let(:director_operation_name) { { operation_name: :process_flow_director } }
 
-    # let(:director_operation) { Dummy::CompositeOperation.new(name: director_operation_name) }
-
     let(:find_or_create_operation_name) { { operation_name: :find_or_create } }
     let(:find_operation) { Dummy::Operation.new(operation: find_or_create_operation_name) }
-
-    let(:persist_operation_name) { { operation_name: :persist } }
-    let(:persist_operation) { Dummy::Operation.new(operation: persist_operation_name) }
 
     let(:persist_operation_name) { { operation_name: :persist } }
     let(:persist_operation) { Dummy::Operation.new(operation: persist_operation_name) }
@@ -117,6 +112,7 @@ RSpec.describe ::AcaEntities::Operations::CompositeOperation do
       it 'should add a child operation' do
         subject.add_child_operation(find_operation)
         expect(subject.child_operations.include?(find_operation)).to be_truthy
+        expect(find_operation.parent).to eq subject
       end
 
       it 'adding a duplicate child operation name should fail' do
