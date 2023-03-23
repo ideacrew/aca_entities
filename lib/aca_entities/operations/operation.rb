@@ -11,6 +11,8 @@ module AcaEntities
 
       # Class methods for the Operation mixin
       module ClassMethods
+        send(:include, Dry::Monads[:do])
+
         def call(args)
           operation = args.slice(:operation)
           new(operation).call(args.except(:operation))
