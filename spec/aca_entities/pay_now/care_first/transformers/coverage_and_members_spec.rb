@@ -500,7 +500,6 @@ RSpec.describe AcaEntities::PayNow::CareFirst::Transformers::CoverageAndMembers 
             ssn = AcaEntities::Operations::Encryption::Decrypt.new.call({ value: original_member[:person_demographics][:encrypted_ssn] }).value!
             sex = AcaEntities::PayNow::CareFirst::Types::SexofIndividualTerminologyTypeMap[original_member[:person_demographics][:gender]]
             relationship = AcaEntities::PayNow::CareFirst::Types::PaynowMemberRelationshipCodeMap[original_member[:relationship_to_primary]]
-            # expect(member).to have_key(:member)
             expect(transformed_member).to have_key(:exchange_assigned_member_id)
             expect(transformed_member[:exchange_assigned_member_id]).to eq original_member[:hbx_id]
             expect(transformed_member).to have_key(:birth_date)
@@ -541,6 +540,19 @@ RSpec.describe AcaEntities::PayNow::CareFirst::Transformers::CoverageAndMembers 
           expect(primary[:member_name]).to have_key(:person_name_prefix_text)
           expect(primary[:member_name]).to have_key(:person_name_suffix_text)
         end
+      end
+    end
+
+    context 'when ssn is nil' do
+      before do
+        additional_info_payload[:coverage_and_members][:members].first[:person_demographics][:encrypted_ssn] = nil
+      end
+
+      subject { described_class.transform(additional_info_payload) }
+
+      it 'should set ssn field to nil in output hash' do
+        output_ssn = subject[:pay_now_transfer_payload][:members].first[:member][:ssn]
+        expect(output_ssn).to eq nil
       end
     end
   end
