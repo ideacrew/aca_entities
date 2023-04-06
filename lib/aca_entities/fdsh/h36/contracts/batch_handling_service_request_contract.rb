@@ -7,10 +7,10 @@ module AcaEntities
         # Contract for H36 BatchHandlingServiceRequestContract
         class BatchHandlingServiceRequestContract < Dry::Validation::Contract
           params do
-            required(:BatchMetadata).filled(AcaEntities::Fdsh::H41::Contracts::BatchMetadataContract.params)
-            required(:TransmissionMetadata).filled(AcaEntities::Fdsh::H41::Contracts::TransmissionMetadataContract.params)
-            required(:ServiceSpecificData).maybe(AcaEntities::Fdsh::H41::Contracts::ServiceSpecificDataContract.params)
-            required(:Attachments).array(AcaEntities::Fdsh::H41::Contracts::AttachmentContract.params)
+            required(:BatchMetadata).filled(AcaEntities::Fdsh::H36::Contracts::BatchMetadataContract.params)
+            required(:TransmissionMetadata).filled(AcaEntities::Fdsh::H36::Contracts::TransmissionMetadataContract.params)
+            required(:ServiceSpecificData).maybe(AcaEntities::Fdsh::H36::Contracts::ServiceSpecificDataContract.params)
+            required(:Attachments).array(AcaEntities::Fdsh::H36::Contracts::AttachmentContract.params)
           end
         end
       end
