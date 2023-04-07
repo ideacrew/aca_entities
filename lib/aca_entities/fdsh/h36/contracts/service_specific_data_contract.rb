@@ -7,8 +7,8 @@ module AcaEntities
         # Contract for H36 ServiceSpecificDataContract
         class ServiceSpecificDataContract < Dry::Validation::Contract
           params do
-            optional(:ReportPeriod).hash do
-              optional(:Year).maybe(:integer)
+            required(:ReportPeriod).hash do
+              required(:YearMonth).maybe(:string)
             end
           end
         end
