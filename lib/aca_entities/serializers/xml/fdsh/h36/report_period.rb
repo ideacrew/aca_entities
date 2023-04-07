@@ -14,11 +14,11 @@ module AcaEntities
             tag 'ReportPeriod'
             namespace 'ns4'
 
-            element :Year, String, tag: 'Year', namespace: 'ns5'
+            element :YearMonth, String, tag: 'Year', namespace: 'ns5'
 
             def self.domain_to_mapper(request)
               mapper = self.new
-              mapper.Year = request.Year if request.Year.present?
+              mapper.YearMonth = request.YearMonth if request.YearMonth.present?
 
               mapper
             end
