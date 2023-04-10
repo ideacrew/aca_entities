@@ -80,7 +80,7 @@ module AcaEntities
                     result = AcaEntities::Operations::Encryption::Encrypt.new.call({ value: v })
                     result.success? ? result.value! : nil
                   }
-                  map 'sex', 'person.person_demographics.gender', memoize: true, append_identifier: true, function: ->(value) {value.downcase}
+                  map 'sex', 'person.person_demographics.gender', memoize: true, append_identifier: true, function: ->(value) {value&.downcase}
                   add_key 'person.person_demographics.no_ssn',
                           function: ->(v) { v.resolve(:'person_demographics.ssn', identifier: true).item.nil?}
                   map 'birth_date.date', 'person.person_demographics.dob', memoize: true, append_identifier: true
@@ -119,7 +119,7 @@ module AcaEntities
                   add_key 'person.is_homeless', function: lambda { |v|
                     member_id = v.find(/record.people.(\w+)$/).map(&:item).last
                     contacts_information = v.find(Regexp.new("record.people.#{member_id}.augementation")).map(&:item).last[:contacts]
-                    contacts_information.select { |co| co[:category_code].downcase == "home" && co[:contact][:mailing_address].present? }.empty?
+                    contacts_information.select { |co| co[:category_code]&.downcase == "home" && co[:contact][:mailing_address].present? }.empty?
                   }
                   add_key 'person.emails', function: lambda {|v|
                     # revisit if condition for emails and phone for dependents
@@ -128,7 +128,7 @@ module AcaEntities
                     contacts_information = v.find(Regexp.new('record.people.*.augementation')).map(&:item).last[:contacts]
                     result = contacts_information.each_with_object([]) do |contact_info, collector|
                       if contact_info.dig(:contact, :email_id)
-                        collector << { address: contact_info.dig(:contact, :email_id), kind: contact_info[:category_code].downcase }
+                        collector << { address: contact_info.dig(:contact, :email_id), kind: contact_info[:category_code]&.downcase }
                       end
                     end
                     result
@@ -152,7 +152,7 @@ module AcaEntities
                           function: AcaEntities::Atp::Functions::LawfulPresenceDeterminationBuilder.new
                   add_key 'person.consumer_role.language_preference', function: lambda { |v|
                     preference_language = v.find(Regexp.new('record.people.*.augementation')).map(&:item).last[:preferred_languages]&.first
-                    preference_language ? preference_language[:language_name].downcase : nil
+                    preference_language ? preference_language[:language_name]&.downcase : nil
                   }
 
                   add_key 'person.consumer_role.five_year_bar'
@@ -178,7 +178,7 @@ module AcaEntities
                   add_key 'person.consumer_role.contact_method', function: lambda { |v|
                     contacts_information = v.find(Regexp.new('record.people.*.augementation')).map(&:item).last[:contacts]
                     result = contacts_information.each_with_object([]) do |contact_info, collector|
-                      collector << contact_info[:category_code].downcase if contact_info[:is_primary_indicator]
+                      collector << contact_info[:category_code]&.downcase if contact_info[:is_primary_indicator]
                     end
                     result.first
                   }

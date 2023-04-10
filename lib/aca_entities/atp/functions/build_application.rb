@@ -389,7 +389,7 @@ module AcaEntities
           contacts_information = @member_hash[:contacts]
           contacts_information.each_with_object([]) do |contact_info, collector|
             if contact_info.dig(:contact, :email_id)
-              collector << { address: contact_info.dig(:contact, :email_id), kind: contact_info[:category_code].downcase }
+              collector << { address: contact_info.dig(:contact, :email_id), kind: contact_info[:category_code]&.downcase }
             end
           end
         end
