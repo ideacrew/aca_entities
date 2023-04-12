@@ -183,6 +183,8 @@ module AcaEntities
       require 'aca_entities/benefit_markets/benefit_sponsor_catalog'
       require 'aca_entities/operations/operation'
       require 'aca_entities/async_api/async_api'
+      require 'aca_entities/audit_logs/contracts/audit_log_event_contract'
+      require 'aca_entities/audit_logs/entities/audit_log_event'
     end
   end
 end

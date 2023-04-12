@@ -6,19 +6,21 @@ module AcaEntities
     class AuditLogEventContract < Dry::Validation::Contract
 
       params do
-        required(:subject_gid).maybe(:string)
-        required(:correlation_id).maybe(:string)
-        required(:event_category).maybe(:string)
+        required(:subject_gid).filled(:string)
+        required(:correlation_id).filled(:string)
+        required(:event_category).filled(:symbol)
 
-        required(:session_id).maybe(:string)
-        required(:account_id).maybe(:string)
+        optional(:session_id).maybe(:string)
+        optional(:account_id).maybe(:string)
         required(:host_id).maybe(:string)
 
-        required(:trigger_response).maybe(:string)
-        required(:log_level).filled(:symbol)
-        required(:severity).filled(:symbol)
-        required(:event_time).hash(AcaEntities::Contracts::TimeStampContract.params)
-        required(:tags).filled(:array)
+        required(:trigger).maybe(:string)
+        required(:response).maybe(:string)
+
+        optional(:log_level).filled(:symbol)
+        optional(:severity).filled(:symbol)
+        required(:event_time).value(:date_time)
+        optional(:tags).maybe(:array)
       end
     end
   end
