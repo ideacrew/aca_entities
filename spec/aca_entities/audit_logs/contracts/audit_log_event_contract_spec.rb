@@ -38,7 +38,7 @@ RSpec.describe ::AcaEntities::AuditLogs::AuditLogEventContract do
       result = described_class.new.call(input_params)
 
       expect(result.success?).to be_falsey
-      expect(result.errors.to_h).to eq({:event_category=>["must be filled"]})
+      expect(result.errors.to_h).to eq({ :event_category => ["must be filled"] })
     end
   end
 end
