@@ -34,6 +34,7 @@ RSpec.describe AcaEntities::MagiMedicaid::Mitc::Transformers::ToMitc::Eligibilit
         medicaid_household = applicant[:medicaid_household]
         expect(medicaid_household[:people]).to eq(applicant1[:'Medicaid Household'][:People])
         expect(medicaid_household).to have_key(:magi_income)
+        expect(medicaid_household[:magi_income].to_f).to eq(applicant1[:"Medicaid Household"][:MAGI]/12)
         expect(medicaid_household).to have_key(:magi_as_percentage_of_fpl)
         expect(medicaid_household).to have_key(:size)
 
