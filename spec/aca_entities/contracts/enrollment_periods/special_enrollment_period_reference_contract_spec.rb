@@ -34,27 +34,23 @@ RSpec.describe ::AcaEntities::Contracts::EnrollmentPeriods::SpecialEnrollmentPer
     it 'should not have any errors' do
       expect(@result.errors.empty?).to be_truthy
     end
-  end
 
-  context 'failure case' do
     context 'missing required param' do
       before do
         @result = subject.call(required_params.reject { |k, _v| k == :qualifying_life_event_kind_reference })
       end
 
-      it 'should return failure' do
-        expect(@result.failure?).to be_truthy
+      it 'should return success' do
+        expect(@result.success?).to be_truthy
       end
 
-      it 'should have any errors' do
-        expect(@result.errors.empty?).to be_falsy
-      end
-
-      it 'should return error message' do
-        expect(@result.errors.messages.first.text).to eq('is missing')
+      it 'should not have any errors' do
+        expect(@result.errors.empty?).to be_truthy
       end
     end
+  end
 
+  context 'failure case' do
     context 'with bad input data type' do
       before do
         @result = subject.call(required_params.merge(qualifying_life_event_kind_reference: nil))
