@@ -75,5 +75,3 @@ RSpec.describe ::AcaEntities::Contracts::EnrollmentPeriods::SpecialEnrollmentPer
     end
   end
 end
-
-
