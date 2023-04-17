@@ -23,25 +23,25 @@ RSpec.describe ::AcaEntities::EnrollmentPeriods::SpecialEnrollmentPeriodReferenc
   end
 
   describe 'with valid arguments' do
+    before do
+      sep_params = AcaEntities::Contracts::EnrollmentPeriods::SpecialEnrollmentPeriodReferenceContract.new.call(input_params).to_h
+      @result = described_class.new(sep_params)
+    end
 
     it 'should initialize' do
-      expect(described_class.new(input_params)).to be_a described_class
+      expect(@result).to be_a(described_class)
     end
 
     it 'should not raise error' do
       expect { described_class.new(input_params) }.not_to raise_error
     end
-  end
 
-  describe 'with invalid arguments' do
-    it 'should raise error' do
-      expect do
-        described_class.new(input_params.reject do |k, _v|
-                              k == :qualifying_life_event_kind_reference
-                            end)
-      end.to raise_error(Dry::Struct::Error, /:qualifying_life_event_kind_reference is missing/)
+    context 'without any params' do
+      let(:input_params) { {} }
+
+      it "returns an instance of the #{described_class}" do
+        expect(@result).to be_a(described_class)
+      end
     end
   end
 end
-
-

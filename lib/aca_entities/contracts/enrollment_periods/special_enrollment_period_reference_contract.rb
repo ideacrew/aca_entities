@@ -7,13 +7,13 @@ module AcaEntities
       class SpecialEnrollmentPeriodReferenceContract < Dry::Validation::Contract
         # @!method call(opts)
         # @param [Hash] opts the parameters to validate using this contract
-        # @option opts [Hash] :qualifying_life_event_kind required
-        # @option opts [String] :market_kind required
-        # @option opts [Date] :qle_on required
-        # @option opts [Date] :effective_on required
-        # @option opts [Date] :submitted_at required
-        # @option opts [Date] :start_on required
-        # @option opts [Date] :end_on required
+        # @option opts [Hash] :qualifying_life_event_kind optional
+        # @option opts [String] :market_kind optional
+        # @option opts [Date] :qle_on optional
+        # @option opts [Date] :effective_on optional
+        # @option opts [Date] :submitted_at optional
+        # @option opts [Date] :start_on optional
+        # @option opts [Date] :end_on optional
         # @option opts [Date] :next_poss_effective_date optional
         # @option opts [Date] :option1_date optional
         # @option opts [Date] :option2_date optional
