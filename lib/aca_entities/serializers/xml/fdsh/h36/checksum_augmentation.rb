@@ -8,11 +8,11 @@ module AcaEntities
           # Happymapper implementation for the root object of an ChecksumAugmentation.
           class ChecksumAugmentation
             include HappyMapper
-            register_namespace 'ns3', 'http://hix.cms.gov/0.1/hix-core'
+            register_namespace 'ns2', 'http://hix.cms.gov/0.1/hix-core'
             register_namespace 'ns4', "http://birsrep.dsh.cms.gov/extension/1.0"
 
             tag 'ChecksumAugmentation'
-            namespace 'ns3'
+            namespace 'ns2'
 
             element :SHA256HashValueText, String, tag: 'SHA256HashValueText', namespace: 'ns4'
 
