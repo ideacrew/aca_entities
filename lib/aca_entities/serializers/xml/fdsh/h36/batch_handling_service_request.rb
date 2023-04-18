@@ -8,13 +8,15 @@ module AcaEntities
           # Happymapper implementation for the root object of an BatchHandlingServiceRequest.
           class BatchHandlingServiceRequest
             include HappyMapper
-            register_namespace 'xmlns', 'http://birsrep.dsh.cms.gov/exchange/1.0'
 
-            register_namespace 'ns3', 'http://hix.cms.gov/0.1/hix-core'
+            register_namespace 'ns1', 'http://niem.gov/niem/structures/2.0'
+            register_namespace 'ns2', 'http://hix.cms.gov/0.1/hix-core'
+            register_namespace 'ns3', 'http://niem.gov/niem/niem-core/2.0'
             register_namespace 'ns4', "http://birsrep.dsh.cms.gov/extension/1.0"
-            register_namespace 'ns5', "http://niem.gov/niem/niem-core/2.0"
+            register_namespace 'ns5', "http://birsrep.dsh.cms.gov/exchange/1.0"
 
             tag 'BatchHandlingServiceRequest'
+            namespace 'ns5'
 
             has_one :BatchMetadata, BatchMetadata
             has_one :TransmissionMetadata, TransmissionMetadata
