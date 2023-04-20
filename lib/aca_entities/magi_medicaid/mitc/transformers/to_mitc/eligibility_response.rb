@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'bigdecimal'
+
 # This file defines the maps
 module AcaEntities
   module MagiMedicaid
@@ -26,7 +28,7 @@ module AcaEntities
                       map 'People', 'People', memoize: true, visible: false
                       add_key 'people', function: ->(v) { v.resolve('People').item }
 
-                      map 'MAGI', 'magi_income'
+                      map 'MAGI', 'magi_income', function: ->(value) { BigDecimal(((value || 0) / 12).to_s) }
                       map 'MAGI as Percentage of FPL', 'magi_as_percentage_of_fpl'
                       map 'Size', 'size'
                     end
