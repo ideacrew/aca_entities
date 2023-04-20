@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
+require 'support/shared_content/insurance_policies/contracts/shared_context'
 
 RSpec.describe AcaEntities::Families::Family, dbclean: :after_each do
 
@@ -550,7 +551,7 @@ RSpec.describe AcaEntities::Families::Family, dbclean: :after_each do
     }
   end
 
-  let(:addresses) do
+  let(:person_addresses) do
     [
       {
         kind: "home",
@@ -619,7 +620,7 @@ RSpec.describe AcaEntities::Families::Family, dbclean: :after_each do
       individual_market_transitions: individual_market_transitions,
       verification_types: verification_types,
       broker_role: broker_role,
-      addresses: addresses,
+      addresses: person_addresses,
       phones: phones,
       emails: emails,
       documents: documents,
@@ -782,6 +783,60 @@ RSpec.describe AcaEntities::Families::Family, dbclean: :after_each do
                               k == :family_members
                             end)
       end.to raise_error(Dry::Struct::Error, /:family_members is missing/)
+    end
+  end
+
+  describe '#find_policy_by' do
+    include_context 'insurance_policies_context'
+
+    let(:family_params) do
+      AcaEntities::Contracts::Families::FamilyContract.new.call(input_params).to_h
+    end
+
+    let(:family) do
+      described_class.new(family_params)
+    end
+
+    let(:household_params) do
+      [
+        {
+          start_date: Date.today,
+          end_date: Date.today,
+          is_active: true,
+          submitted_at: Date.today,
+          irs_group_reference: irs_group_reference,
+          coverage_households: coverage_households,
+          tax_households: tax_households,
+          hbx_enrollments: hbx_enrollments,
+          insurance_agreements: [shared_insurance_agreement]
+        }
+      ]
+    end
+
+    let(:currency) { { cents: 98_700.0, currency_iso: 'USD' } }
+
+    let(:enrollment) do
+      {
+        subscriber: enrollment_subscriber,
+        dependents: enrollment_dependents,
+        start_on: Date.new(moment.year, 1, 1),
+        total_premium_amount: currency,
+        total_premium_adjustment_amount: currency
+      }
+    end
+
+    context 'with valid policy id' do
+      it 'returns policy' do
+        expect(family.find_policy_by(policy_id)).to be_a(
+          ::AcaEntities::InsurancePolicies::AcaIndividuals::InsurancePolicy
+        )
+      end
+    end
+
+    context 'with invalid policy id' do
+      it 'returns nil' do
+        expect(family.find_policy_by('policy_id')).to be_nil
+      end
     end
   end
 end
