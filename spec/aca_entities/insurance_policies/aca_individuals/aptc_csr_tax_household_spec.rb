@@ -156,4 +156,168 @@ RSpec.describe ::AcaEntities::InsurancePolicies::AcaIndividuals::AptcCsrTaxHouse
       expect { described_class.new(aptc_csr_tax_household_params.to_h) }.not_to raise_error
     end
   end
+
+  describe '#tax_household_same_as?' do
+    let(:person2_hbx_id) { '1001' }
+
+    let!(:person2_name) do
+      {
+        first_name: 'first name2',
+        middle_name: 'middle2 name',
+        last_name: 'last2 name'
+      }
+    end
+
+    let(:person2_health) { { is_tobacco_user: 'testing', is_physically_disabled: true } }
+
+    let(:person2_demographics) do
+      { ssn: '123454789', no_ssn: true, gender: 'female', dob: Date.today - 10, is_incarcerated: true }
+    end
+
+    let(:person2_addresses) do
+      [
+        {
+          kind: "home",
+          address_1: "100 Street NW",
+          address_2: "",
+          address_3: "",
+          city: "Washington",
+          county: "",
+          state: "DC",
+          location_state_code: nil,
+          full_text: nil,
+          zip: "20609",
+          country_name: ""
+        }
+      ]
+    end
+
+    let(:phones2) { [{ kind: 'mobile', primary: true, area_code: '108', number: '111111', start_on: moment }] }
+
+    let(:emails2) { [{ kind: 'home', address: "testing.gg@example.com" }] }
+
+    let(:person2) do
+      {
+        hbx_id: person2_hbx_id,
+        is_active: false,
+        is_disabled: true,
+        no_dc_address: nil,
+        no_dc_address_reason: nil,
+        is_homeless: true,
+        is_temporarily_out_of_state: true,
+        age_off_excluded: nil,
+        is_applying_for_assistance: true,
+        person_name: person2_name,
+        person_health: person2_health,
+        person_demographics: person2_demographics,
+        person_relationships: [],
+        addresses: person2_addresses,
+        phones: phones2,
+        emails: emails2
+      }
+    end
+
+    let(:coverage_start_on2) { january_1 }
+    let(:coverage_end_on2) { december_31 }
+    let(:filter_status2) { 'separate' }
+
+    let(:covered_individual2) do
+      {
+        coverage_start_on: coverage_start_on2,
+        coverage_end_on: coverage_end_on2,
+        person: person2,
+        filer_status: filter_status2,
+        relation_with_primary: "spouse"
+      }
+    end
+
+    let(:tax_household_member2) do
+      {
+        family_member_reference: { family_member_hbx_id: "7235723",
+                                   first_name: "test", last_name: "last", relation_with_primary: "child" },
+        tax_filer_status: "separate"
+      }
+    end
+
+    let(:coverage_information2) do
+      {
+        tax_credit: currency,
+        total_premium: currency,
+        slcsp_benchmark_premium: currency
+      }
+    end
+
+    let(:month_name2) { "January" }
+    let(:months_of_year2) { { month: month_name2, coverage_information: coverage_information2 } }
+
+    let(:primary_tax_filer_hbx_id2) { '12345' }
+
+    let(:aptc_csr_tax_household2) do
+      {
+        hbx_assigned_id: '6232341',
+        primary_tax_filer_hbx_id: primary_tax_filer_hbx_id2,
+        tax_household_members: [tax_household_member2],
+        covered_individuals: [covered_individual2],
+        months_of_year: [months_of_year2],
+        annual_premiums: coverage_information2
+      }
+    end
+
+    let(:tax_household1_params) do
+      AcaEntities::InsurancePolicies::AcaIndividuals::Contracts::AptcCsrTaxHouseholdContract.new.call(aptc_csr_tax_household).to_h
+    end
+
+    let(:tax_household1) do
+      ::AcaEntities::InsurancePolicies::AcaIndividuals::AptcCsrTaxHousehold.new(tax_household1_params)
+    end
+
+    let(:tax_household2_params) do
+      AcaEntities::InsurancePolicies::AcaIndividuals::Contracts::AptcCsrTaxHouseholdContract.new.call(aptc_csr_tax_household2).to_h
+    end
+
+    let(:tax_household2) do
+      ::AcaEntities::InsurancePolicies::AcaIndividuals::AptcCsrTaxHousehold.new(tax_household2_params)
+    end
+
+    context 'exactly same params' do
+      it 'returns true' do
+        expect(tax_household1.tax_household_same_as?(tax_household2)).to eq(true)
+      end
+    end
+
+    context 'primary_tax_filer_hbx_id is different' do
+      let(:primary_tax_filer_hbx_id2) { '22222' }
+
+      it 'returns false' do
+        expect(tax_household1.tax_household_same_as?(tax_household2)).to eq(false)
+      end
+    end
+
+    context 'covered_individuals information is different' do
+      let(:person2_hbx_id) { '82367' }
+      let(:coverage_start_on2) { Date.new(moment.year, 2, 1) }
+      let(:coverage_end_on2) { june_30 }
+
+      it 'returns false' do
+        expect(tax_household1.tax_household_same_as?(tax_household2)).to eq(false)
+      end
+    end
+
+    context 'months_of_year information is different' do
+      let(:currency2) { { cents: 133_700.0, currency_iso: "USD" } }
+      let(:month_name2) { 'February' }
+
+      it 'returns false' do
+        expect(tax_household1.tax_household_same_as?(tax_household2)).to eq(false)
+      end
+    end
+
+    context 'person hbx_id is different' do
+      let(:person2_hbx_id) { '22001' }
+
+      it 'returns false' do
+        expect(tax_household1.tax_household_same_as?(tax_household2)).to eq(false)
+      end
+    end
+  end
 end

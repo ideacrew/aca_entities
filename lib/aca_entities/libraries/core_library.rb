@@ -185,6 +185,9 @@ module AcaEntities
       require 'aca_entities/async_api/async_api'
       require 'aca_entities/audit_logs/contracts/audit_log_event_contract'
       require 'aca_entities/audit_logs/entities/audit_log_event'
+
+      # Operations
+      require 'aca_entities/operations/create_family'
     end
   end
 end
