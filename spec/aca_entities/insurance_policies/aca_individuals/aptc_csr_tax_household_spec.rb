@@ -247,6 +247,16 @@ RSpec.describe ::AcaEntities::InsurancePolicies::AcaIndividuals::AptcCsrTaxHouse
       }
     end
 
+    let(:annual_currency) { { cents: 100_700.0, currency_iso: "USD" } }
+
+    let(:coverage_information3) do
+      {
+        tax_credit: annual_currency,
+        total_premium: annual_currency,
+        slcsp_benchmark_premium: annual_currency
+      }
+    end
+
     let(:month_name2) { "January" }
     let(:months_of_year2) { { month: month_name2, coverage_information: coverage_information2 } }
 
@@ -259,7 +269,7 @@ RSpec.describe ::AcaEntities::InsurancePolicies::AcaIndividuals::AptcCsrTaxHouse
         tax_household_members: [tax_household_member2],
         covered_individuals: [covered_individual2],
         months_of_year: [months_of_year2],
-        annual_premiums: coverage_information2
+        annual_premiums: coverage_information3
       }
     end
 
@@ -280,8 +290,17 @@ RSpec.describe ::AcaEntities::InsurancePolicies::AcaIndividuals::AptcCsrTaxHouse
     end
 
     context 'exactly same params' do
+      let(:annual_currency) { { cents: 98_700.0, currency_iso: "USD" } }
+
       it 'returns true' do
         expect(tax_household1.tax_household_same_as?(tax_household2)).to eq(true)
+      end
+    end
+
+    context 'annual premiums are different' do
+
+      it 'returns true' do
+        expect(tax_household1.tax_household_same_as?(tax_household2)).to eq(false)
       end
     end
 
@@ -314,6 +333,15 @@ RSpec.describe ::AcaEntities::InsurancePolicies::AcaIndividuals::AptcCsrTaxHouse
 
     context 'person hbx_id is different' do
       let(:person2_hbx_id) { '22001' }
+
+      it 'returns false' do
+        expect(tax_household1.tax_household_same_as?(tax_household2)).to eq(false)
+      end
+    end
+
+    context 'months_of_year information is different' do
+      let(:currency2) { { cents: 133_700.0, currency_iso: "USD" } }
+      let(:month_name2) { 'February' }
 
       it 'returns false' do
         expect(tax_household1.tax_household_same_as?(tax_household2)).to eq(false)

@@ -22,11 +22,13 @@ module AcaEntities
           [
             primary_tax_filer_hbx_id,
             covered_individuals,
-            months_of_year
+            months_of_year,
+            annual_premiums
           ] <=> [
             other.primary_tax_filer_hbx_id,
             other.covered_individuals,
-            other.months_of_year
+            other.months_of_year,
+            other.annual_premiums
           ]
         end
 
