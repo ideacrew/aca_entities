@@ -38,6 +38,15 @@ module AcaEntities
 
           { diff: policy_comp }
         end
+
+        # primary_tax_filer_hbx_id is a unique identifier to find AcaEntities::InsurancePolicies::AcaIndividuals::AptcCsrTaxHousehold
+        def find_tax_household_by(primary_tax_filer_hbx_id)
+          return if policy_id.blank?
+
+          aptc_csr_tax_households.detect do |tax_household|
+            tax_household.primary_tax_filer_hbx_id == primary_tax_filer_hbx_id
+          end
+        end
       end
     end
   end
