@@ -23,9 +23,13 @@ RSpec.describe AcaEntities::Atp::Functions::BuildApplication do
     it 'should return an array' do
         expect(subject).to be_a(Array)
     end
-    it 'should return payload indicating other eligible coverage' do
+    it 'should contain true for applicant with other eligible coverate' do
         result = subject.first
         expect(result[:applicants].first[:has_eligible_health_coverage]).to be_truthy
+    end
+    it 'should contain nil for applicant without other eligible coverage' do
+        result = subject.first
+        expect(result[:applicants][1][:has_eligible_health_coverage]).to be nil
     end
   end
 end
