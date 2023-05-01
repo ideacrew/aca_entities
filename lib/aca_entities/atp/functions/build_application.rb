@@ -201,12 +201,12 @@ module AcaEntities
 
           result = []
           @applicant_hash[:esi_associations].each do |esi|
-            kind = 
+            kind =
               if esi[:enrolled_indicator]
                 'is_enrolled'
               elsif esi[:eligible_indicator]
                 'is_eligible'
-              end          
+              end
             result << {
               'esi_covered' => 'self', # default value
               'kind' => kind,
@@ -364,7 +364,7 @@ module AcaEntities
             has_enrolled_health_coverage: !benefits_hash.concat(benefits_esc_hash).select {|h| h['kind'] == 'is_enrolled' }.empty?,
             # has_eligible_health_coverage: !benefits_hash.empty?, # default value
             has_eligible_health_coverage: !benefits_hash.concat(benefits_esc_hash).select {|h| h['kind'] == 'is_eligible' }.empty? ? true : nil,
-            #has_eligible_health_coverage: nil,
+            # has_eligible_health_coverage: nil,
             addresses: AcaEntities::Atp::Functions::AddressBuilder.new.call(@memoized_data, @applicant_identifier), # default value
             emails: email_hash, # default value
             phones: phone_hash, # default value
