@@ -67,4 +67,11 @@ RSpec.describe ::AcaEntities::People::ConsumerRoleReference, dbclean: :after_eac
       end.to raise_error(Dry::Struct::Error, /:lawful_presence_determination is missing/)
     end
   end
+
+  describe 'with nil citizen status' do
+    it "should not raise an error" do
+      input_params.merge(citizen_status: nil)
+      expect { described_class.new(input_params) }.not_to raise_error
+    end
+  end
 end

@@ -60,7 +60,7 @@
                         "is_applying_coverage": true,
                         "bookmark_url": "http://localhost:3002/financial_assistance/applications/60ce31f0eab5e760baa3e495/eligibility_response_error",
                         "admin_bookmark_url": "http://localhost:3002/financial_assistance/applications/60ce31f0eab5e760baa3e495/eligibility_response_error",
-                        "contact_method": "mail",
+                        "contact_method": "Only Paper communication",
                         "language_preference": "English",
                         "is_state_resident": null,
                         "identity_validation": "valid",

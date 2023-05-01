@@ -15,14 +15,21 @@ module AcaEntities
             optional(:id)
             required(:policy_id).value(:string)
             optional(:insurer_policy_id).value(:string)
-            required(:marketplace_segment_id).value(:string)
-            required(:coverage_kind).value(AcaEntities::Types::AcaHealthInsuranceCoverageKind)
+            optional(:marketplace_segment_id).value(:string)
+            optional(:carrier_policy_id).maybe(:string)
+            optional(:term_for_np).maybe(:bool)
+            optional(:coverage_kind).value(AcaEntities::Types::AcaHealthInsuranceCoverageKind)
+            optional(:aasm_state).value(:string)
             required(:insurance_product).value(
               AcaEntities::InsurancePolicies::Contracts::InsuranceProductContract.params
             )
-            required(:enrollments).array(AcaEntities::InsurancePolicies::Contracts::EnrollmentContract.params)
+            optional(:insurance_provider).maybe(
+              AcaEntities::InsurancePolicies::Contracts::InsuranceProviderContract.params
+            )
+            optional(:enrollments).array(AcaEntities::InsurancePolicies::Contracts::EnrollmentContract.params)
+            optional(:aptc_csr_tax_households).array(AcaEntities::InsurancePolicies::AcaIndividuals::Contracts::AptcCsrTaxHouseholdContract.params)
             required(:start_on).value(:date)
-            optional(:end_on).maybe(AcaEntities::Types::DateOrNil)
+            optional(:end_on).maybe(:date)
             optional(:timestamps).maybe(AcaEntities::Contracts::TimeStampContract.params)
           end
         end

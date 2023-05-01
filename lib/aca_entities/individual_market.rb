@@ -5,5 +5,7 @@ module AcaEntities
 
     require_relative 'questionnaires/questionnaire'
 
+    require_relative 'pdm/pdm'
+
   end
 end

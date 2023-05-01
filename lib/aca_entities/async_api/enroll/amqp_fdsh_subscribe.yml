@@ -156,7 +156,26 @@ channels:
           prefetch: 1
       operationId: on_enroll.fdsh.renewal_eligibilities.medicare
       description: Events - CMS RRV Medicare eligibility determined
-
+  on_enroll.fdsh.pvc.medicare:
+    bindings:
+      amqp:
+        is: queue
+        queue:
+          name: on_enroll.fdsh.pvc.medicare
+          durable: true
+          exclusive: false
+          auto_delete: false
+          vhost: event_source
+    subscribe:
+      bindings:
+        amqp:
+          ack: true
+          exclusive: false
+          routing_key: fdsh.pvc.medicare.#
+          bindingVersion: '0.2.0'
+          prefetch: 1
+      operationId: on_enroll.fdsh.pvc.medicare
+      description: Events - CMS Periodic Verification of Medicare Confirmation determined
 tags:
   - name: linter_tag
     description: placeholder that satisfies the linter

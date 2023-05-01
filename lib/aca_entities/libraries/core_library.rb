@@ -26,6 +26,7 @@ module AcaEntities
       require 'aca_entities/contracts/families/family_reference_contract'
       require 'aca_entities/contracts/families/family_member_reference_contract'
       require 'aca_entities/contracts/organizations/issuer_profile_reference_contract'
+      require 'aca_entities/contracts/products/family_rated_premiums_contract'
       require 'aca_entities/contracts/products/product_reference_contract'
       require 'aca_entities/contracts/organizations/general_agency_reference_contract'
       require 'aca_entities/contracts/organizations/broker_agency_profile_reference_contract'
@@ -51,6 +52,9 @@ module AcaEntities
       require 'aca_entities/contracts/households/coverage_household_contract'
       require 'aca_entities/contracts/financial/payment_transactions/payment_transaction_contract'
       require 'aca_entities/contracts/locations/address_contract'
+      require 'aca_entities/locations/contracts/contract'
+      require 'aca_entities/locations/contracts/address_validation_status_contract'
+      require 'aca_entities/locations/contracts/site_address_contract'
       require 'aca_entities/contracts/contacts/phone_contact_contract'
       require 'aca_entities/contracts/contacts/email_contact_contract'
       require 'aca_entities/contracts/people/person_name_contract'
@@ -64,6 +68,7 @@ module AcaEntities
       require 'aca_entities/contracts/policies/policy_contract'
       require 'aca_entities/contracts/households/tax_household_contract'
       require 'aca_entities/contracts/households/tax_household_group_contract'
+      require 'aca_entities/insurance_policies/aca_individuals/aca_individuals_contracts'
       require 'aca_entities/contracts/households/household_contract'
       require 'aca_entities/contracts/families/family_member_contract'
       require 'aca_entities/contracts/families/family_contract'
@@ -106,6 +111,7 @@ module AcaEntities
 
       # require 'aca_entities/accounts/user'
       require 'aca_entities/organizations/issuer_profile_reference'
+      require 'aca_entities/products/family_rated_premiums'
       require 'aca_entities/products/product_reference'
       require 'aca_entities/people/person_reference'
       require 'aca_entities/households/household_reference'
@@ -137,6 +143,8 @@ module AcaEntities
       require 'aca_entities/households/coverage_household'
       require 'aca_entities/financial/payment_transactions/payment_transaction'
       require 'aca_entities/locations/address'
+      require 'aca_entities/locations/address_validation_status'
+      require 'aca_entities/locations/site_address'
       require 'aca_entities/contacts/phone_contact'
       require 'aca_entities/contacts/email_contact'
       require 'aca_entities/people/person_name'
@@ -146,6 +154,7 @@ module AcaEntities
       require 'aca_entities/people/person'
       require 'aca_entities/households/tax_household'
       require 'aca_entities/households/tax_household_group'
+      require 'aca_entities/insurance_policies/insurance_policies'
       require 'aca_entities/households/household'
       require 'aca_entities/families/family_member'
       require 'aca_entities/families/family'
@@ -174,6 +183,11 @@ module AcaEntities
       require 'aca_entities/benefit_markets/benefit_sponsor_catalog'
       require 'aca_entities/operations/operation'
       require 'aca_entities/async_api/async_api'
+      require 'aca_entities/audit_logs/contracts/audit_log_event_contract'
+      require 'aca_entities/audit_logs/entities/audit_log_event'
+
+      # Operations
+      require 'aca_entities/operations/create_family'
     end
   end
 end

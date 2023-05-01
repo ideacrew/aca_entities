@@ -9,7 +9,7 @@ module AcaEntities
       attribute :is_applicant, Types::Bool.optional.meta(omittable: false)
       attribute :is_state_resident, Types::Bool.optional.meta(omittable: false)
       attribute :lawful_presence_determination, AcaEntities::Determinations::LawfulPresenceDetermination.optional.meta(omittable: false)
-      attribute :citizen_status, Types::String.optional.meta(omittable: false)
+      attribute :citizen_status, Types::String.optional.meta(omittable: true)
     end
   end
 end

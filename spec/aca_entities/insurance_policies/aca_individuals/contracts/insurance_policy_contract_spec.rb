@@ -14,6 +14,7 @@ RSpec.describe AcaEntities::InsurancePolicies::AcaIndividuals::Contracts::Insura
   let(:insurer_policy_id) { 'insurer_id_123' }
   let(:coverage_kind) { 'hmo' }
   let(:insurance_product) { shared_health_insurance_product }
+  let(:insurance_provider) { shared_insurance_provider }
   let(:marketplace_segment_id) { '0130345-68576-20220201' }
 
   let(:timestamps) { { created_at: moment, modified_at: moment } }
@@ -24,11 +25,15 @@ RSpec.describe AcaEntities::InsurancePolicies::AcaIndividuals::Contracts::Insura
       marketplace_segment_id: marketplace_segment_id,
       coverage_kind: coverage_kind,
       insurance_product: insurance_product,
+      insurance_provider: insurance_provider,
       enrollments: [enrollment],
       start_on: Date.new(moment.year, 1, 1)
     }
   end
-  let(:optional_params) { { id: id, insurer_policy_id: insurer_policy_id, timestamps: timestamps } }
+  let(:optional_params) do
+    { id: id, insurer_policy_id: insurer_policy_id, timestamps: timestamps,
+      term_for_np: true }
+  end
 
   let(:all_params) { required_params.merge(optional_params) }
 
@@ -54,10 +59,7 @@ RSpec.describe AcaEntities::InsurancePolicies::AcaIndividuals::Contracts::Insura
     let(:error_message) do
       {
         policy_id: ['is missing'],
-        marketplace_segment_id: ['is missing'],
-        coverage_kind: ['is missing'],
         insurance_product: ['is missing'],
-        enrollments: ["is missing"],
         start_on: ["is missing"]
       }
     end

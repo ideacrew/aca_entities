@@ -6,7 +6,7 @@ RSpec.describe ::AcaEntities::Enrollments::HbxEnrollment, dbclean: :after_each d
 
   let(:currency) do
     {
-      cents: 0.0,
+      cents: 98_700.0,
       currency_iso: "USD"
     }
   end
@@ -320,6 +320,13 @@ RSpec.describe ::AcaEntities::Enrollments::HbxEnrollment, dbclean: :after_each d
     }
   end
 
+  let(:non_tobacco_use_premium) do
+    {
+      cents: 220.0,
+      currency_iso: "USD"
+    }
+  end
+
   let(:hbx_enrollment_member_reference) do
     {
       family_member_reference: family_member_reference,
@@ -329,7 +336,10 @@ RSpec.describe ::AcaEntities::Enrollments::HbxEnrollment, dbclean: :after_each d
       coverage_end_on: nil,
       is_subscriber: true,
       eligibility_date: Date.today,
-      coverage_start_on: Date.today
+      coverage_start_on: Date.today,
+      tobacco_use: 'Y',
+      non_tobacco_use_premium: non_tobacco_use_premium,
+      slcsp_member_premium: currency
     }
   end
 
@@ -366,6 +376,35 @@ RSpec.describe ::AcaEntities::Enrollments::HbxEnrollment, dbclean: :after_each d
         tax_household_members_enrollment_members: tax_household_members_enrollment_members
       }
     ]
+  end
+
+  describe 'slcsp_member_premium' do
+    before do
+      @validated_params_result = AcaEntities::Contracts::Enrollments::HbxEnrollmentContract.new.call(input_params)
+    end
+
+    it 'returns slcsp_member_premium' do
+      expect(@validated_params_result.success?).to be_truthy
+      expect(
+        @validated_params_result.to_h[:hbx_enrollment_members].first[:slcsp_member_premium]
+      ).not_to be_empty
+    end
+  end
+
+  describe 'non_tobacco_use_premium' do
+    before do
+      @validated_params_result = AcaEntities::Contracts::Enrollments::HbxEnrollmentContract.new.call(input_params)
+    end
+
+    it 'return non_tobacco_use_premium' do
+      expect(@validated_params_result.success?).to be_truthy
+      expect(
+        @validated_params_result.to_h[:hbx_enrollment_members].first[:tobacco_use]
+      ).to eq 'Y'
+      expect(
+        @validated_params_result.to_h[:hbx_enrollment_members].first[:non_tobacco_use_premium]
+      ).to eq non_tobacco_use_premium
+    end
   end
 
   describe 'with valid arguments' do

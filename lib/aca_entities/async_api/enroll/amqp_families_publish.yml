@@ -1,0 +1,61 @@
+---
+asyncapi: 2.0.0
+info:
+  title: Enroll App Families
+  version: 0.1.0
+  description: AMQP Publish configuration for the Enroll App services to publish family
+  contact:
+    name: IdeaCrew
+    url: https://ideacrew.com
+    email: info@ideacrew.com
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+
+servers:
+  development:
+    url: 'amqp://rabbitmq:5672/event_source'
+    protocol: :amqp
+    protocolVersion: '0.9.2'
+    description: RabbitMQ Test Server
+  production:
+    url: 'amqp://rabbitmq:5672/event_source'
+    protocol: :amqp
+    protocolVersion: '0.9.2'
+    description: RabbitMQ Production Server
+  test:
+    url: 'amqp://rabbitmq:5672/event_source'
+    protocol: :amqp
+    protocolVersion: '0.9.2'
+    description: RabbitMQ Test Server
+
+channels:
+  enroll.families.found_by:
+    bindings:
+      amqp:
+        is: :routing_key
+        exchange:
+          name: enroll.families
+          type: topic
+          content_type: application/json
+          durable: true
+          auto_delete: false
+          vhost: event_source
+        binding_version: '0.2.0'
+    publish:
+      operationId: enroll.families.found_by
+      description: Events - Publishes family which is found
+      bindings:
+        amqp:
+          app_id: enroll
+          type: enroll.families
+          routing_key: enroll.families.found_by
+          deliveryMode: 2
+          mandatory: true
+          timestamp: true
+          content_type: application/json
+          bindingVersion: 0.2.0
+
+tags:
+  - name: linter_tag
+    description: placeholder that satisfies the linter
