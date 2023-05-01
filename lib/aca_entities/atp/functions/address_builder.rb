@@ -22,7 +22,7 @@ module AcaEntities
         private
 
         def uniq_address(collector, address)
-          collector.map { |ad| ad.except(:kind)}.exclude?(address.except(:kind))
+          !collector.map { |ad| ad.except(:kind)}.include?(address.except(:kind))
         end
 
         def address_hash(address, contact_info)
