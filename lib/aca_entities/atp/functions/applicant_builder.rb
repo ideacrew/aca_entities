@@ -7,7 +7,7 @@ module AcaEntities
     module Functions
       # applicants builder
       class ApplicantBuilder
-        def call(cache) # rubocop:disable Metrics/MethodLength, Metrics/CyclomaticComplexity
+        def call(cache) # rubocop:disable Metrics/MethodLength, Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
           applicants_hash = cache.resolve('family.magi_medicaid_applications.applicants').item
           applicants_hash.each_with_object([]) do |applicant_hash, collector|
             applicant = applicant_hash[1]
@@ -31,14 +31,12 @@ module AcaEntities
             non_esi_policies =
               if non_esi_coverage_eligible_array
                 non_esi_coverage_eligible_array.collect do |benefit|
-                  start_on = Date.parse(benefit[:start_on]) rescue nil
-                  end_on = Date.parse(benefit[:end_on]) rescue nil
+                  kind = benefit[:kind].present? ? AcaEntities::Atp::Types::InsuranceKindsOutbound[benefit[:kind]] : nil
+                  start_on = benefit[:start_on].present? ? Date.parse(benefit[:start_on]) : nil
+                  end_on = benefit[:end_on].present? ? Date.parse(benefit[:end_on]) : nil
                   {
-                    source_code: AcaEntities::Atp::Types::InsuranceKindsOutbound[benefit[:kind]],
-                    applied_effective_date_range: {
-                      start_date: { date: start_on },
-                      end_date: { date: end_on }
-                    }
+                    source_code: kind,
+                    applied_effective_date_range: { start_date: { date: start_on }, end_date: { date: end_on } }
                   }
                 end.compact
               else
