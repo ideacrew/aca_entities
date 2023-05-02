@@ -62,10 +62,16 @@ module AcaEntities
       attribute :timestamp,                         AcaEntities::TimeStamp.optional.meta(omittable: true)
       attribute :documents_needed,                  Types::Bool.optional.meta(omittable: true)
       attribute :policies,                  Types::Array.of(AcaEntities::Policies::Policy).optional.meta(omittable: true)
+
+      # policy_id is a unique identifier to find AcaEntities::InsurancePolicies::AcaIndividuals::InsurancePolicy
+      def find_policy_by(policy_id)
+        return if policy_id.blank?
+
+        all_policies = households.flat_map(&:insurance_agreements).compact.flat_map(&:insurance_policies).compact
+        all_policies.detect do |policy|
+          policy.policy_id == policy_id
+        end
+      end
     end
   end
 end
-
-
-
-

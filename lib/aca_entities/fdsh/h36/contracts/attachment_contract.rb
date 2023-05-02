@@ -7,7 +7,7 @@ module AcaEntities
         # Contract for H36 AttachmentContract
         class AttachmentContract < Dry::Validation::Contract
           params do
-            required(:DocumentBinary).filled(AcaEntities::Fdsh::H41::Contracts::DocumentBinaryContract.params)
+            required(:DocumentBinary).filled(AcaEntities::Fdsh::H36::Contracts::DocumentBinaryContract.params)
             required(:DocumentFileName).filled(:string)
             required(:DocumentSequenceID).filled(:string)
           end

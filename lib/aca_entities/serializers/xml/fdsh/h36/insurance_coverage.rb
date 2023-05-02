@@ -30,12 +30,12 @@ module AcaEntities
               mapper.IssuerNm = request.IssuerNm
               mapper.PolicyCoverageStartDt = request.PolicyCoverageStartDt
               mapper.PolicyCoverageEndDt = request.PolicyCoverageEndDt
-              mapper.TotalQHPMonthlyPremiumAmt = request.TotalQHPMonthlyPremiumAmt
-              mapper.APTCPaymentAmt = request.APTCPaymentAmt
+              mapper.TotalQHPMonthlyPremiumAmt = format('%.2f', request.TotalQHPMonthlyPremiumAmt)
+              mapper.APTCPaymentAmt = format('%.2f', request.APTCPaymentAmt)
               mapper.CoveredIndividuals = request.CoveredIndividuals.collect do |covered_individual|
                 CoveredIndividual.domain_to_mapper(covered_individual)
               end
-              mapper.SLCSPMonthlyPremiumAmt = request.SLCSPMonthlyPremiumAmt if request.SLCSPMonthlyPremiumAmt
+              mapper.SLCSPMonthlyPremiumAmt = format('%.2f', request.SLCSPMonthlyPremiumAmt) if request.SLCSPMonthlyPremiumAmt
 
               mapper
             end

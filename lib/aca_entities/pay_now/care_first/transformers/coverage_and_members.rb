@@ -43,6 +43,7 @@ module AcaEntities
                       AcaEntities::PayNow::CareFirst::Types::SexofIndividualTerminologyTypeMap[gender]
                     }
                     map 'person_demographics.encrypted_ssn', 'ssn', function: lambda { |encrypted_ssn|
+                      return unless encrypted_ssn.present?
                       AcaEntities::Operations::Encryption::Decrypt.new.call({ value: encrypted_ssn }).value!
                     }
                     map 'relationship_to_primary', 'relationship', function: lambda {|relationship|

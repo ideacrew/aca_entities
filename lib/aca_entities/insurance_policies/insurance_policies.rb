@@ -19,6 +19,6 @@ module AcaEntities
     require "aca_entities/insurance_policies/aca_individuals/covered_individual"
     require "aca_entities/insurance_policies/aca_individuals/aptc_csr_tax_household"
     require "aca_entities/insurance_policies/aca_individuals/insurance_policy"
-    require "aca_entities/insurance_policies/aca_individuals/insurance_agreeement"
+    require "aca_entities/insurance_policies/aca_individuals/insurance_agreement"
   end
 end

@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
-require 'support/shared_content/insurance_policies/contracts/shared_context'
+require 'aca_entities/magi_medicaid/shared_contexts/magi_medicaid_application_data'
 
-RSpec.describe AcaEntities::Families::Family, dbclean: :after_each do
+RSpec.shared_context 'sample family cv' do
+  include_context 'setup magi_medicaid application with two applicants'
 
   let(:family_member_reference) do
     {
@@ -15,6 +15,8 @@ RSpec.describe AcaEntities::Families::Family, dbclean: :after_each do
     }
   end
 
+  let(:family_reference) { { hbx_id: '1000' } }
+
   let(:issuer_profile_reference) do
     {
       hbx_id: '1234',
@@ -24,6 +26,7 @@ RSpec.describe AcaEntities::Families::Family, dbclean: :after_each do
       abbrev: 'DDPA'
     }
   end
+
   let(:qualifying_life_event_kind_reference) do
     {
       start_on: Date.today,
@@ -32,6 +35,7 @@ RSpec.describe AcaEntities::Families::Family, dbclean: :after_each do
       market_kind: 'individual'
     }
   end
+
   let(:special_enrollment_period_reference) do
     {
       qualifying_life_event_kind_reference: qualifying_life_event_kind_reference,
@@ -40,13 +44,14 @@ RSpec.describe AcaEntities::Families::Family, dbclean: :after_each do
       end_on: Date.today, submitted_at: Date.today, effective_on: Date.today
     }
   end
+
   let(:consumer_role_reference) do
     {
       is_active: true,
       is_applying_coverage: true,
       is_applicant: true, is_state_resident: true,
       lawful_presence_determination: lawful_presence_determination,
-      citizen_status: 'us_citizen'
+      citizen_status: "us_citizen"
     }
   end
 
@@ -81,6 +86,8 @@ RSpec.describe AcaEntities::Families::Family, dbclean: :after_each do
     }
   end
 
+  let(:household_reference) { {} }
+
   let(:benefit_package_reference) do
     {
       title: 'test title',
@@ -110,7 +117,7 @@ RSpec.describe AcaEntities::Families::Family, dbclean: :after_each do
     }
   end
 
-  let!(:hbx_enrollments) do
+  let(:hbx_enrollments) do
     [
       {
         market_place_kind: 'individual',
@@ -137,7 +144,8 @@ RSpec.describe AcaEntities::Families::Family, dbclean: :after_each do
         termination_submitted_on: nil,
         external_enrollment: false,
         coverage_household_reference: coverage_household_reference,
-        family_hbx_id: "1234",
+        household_reference: household_reference,
+        family_reference: family_reference,
         special_enrollment_period_reference: special_enrollment_period_reference,
         product_reference: product_reference,
         issuer_profile_reference: issuer_profile_reference,
@@ -149,43 +157,37 @@ RSpec.describe AcaEntities::Families::Family, dbclean: :after_each do
         benefit_package_reference: benefit_package_reference,
         benefit_coverage_period_reference: benefit_coverage_period_reference,
         updated_by: person_reference,
-        # benefit_sponsorship_reference: benefit_sponsorship_reference,
-        # sponsored_benefit_package_reference: sponsored_benefit_package_reference,
-        # sponsored_benefit_reference: sponsored_benefit_reference,
-        # rating_area_reference: rating_area_reference,
-        # employee_role_reference: employee_role_reference,
-        # benefit_group_assignment_reference: benefit_group_assignment_reference,
         hbx_enrollment_members:
-              [
-                {
-                  family_member_reference: family_member_reference,
-                  carrier_member_id: nil,
-                  premium_amount: currency,
-                  applied_aptc_amount: currency,
-                  coverage_end_on: nil,
-                  is_subscriber: true,
-                  eligibility_date: Date.today,
-                  coverage_start_on: Date.today
-                }
-              ]
+          [
+            {
+              family_member_reference: family_member_reference,
+              carrier_member_id: nil,
+              premium_amount: currency,
+              applied_aptc_amount: currency,
+              coverage_end_on: nil,
+              is_subscriber: true,
+              eligibility_date: Date.today,
+              coverage_start_on: Date.today
+            }
+          ]
       }
     ]
   end
 
-  let!(:irs_group_reference) do
+  let(:irs_group_reference) do
     {
       hbx_id: '44444'
     }
   end
 
-  let!(:currency) do
+  let(:currency) do
     {
       cents: BigDecimal(0),
       currency_iso: "USD"
     }
   end
 
-  let!(:eligibility_determinations) do
+  let(:eligibility_determinations) do
     [
       {
         e_pdc_id: "3135650",
@@ -274,7 +276,7 @@ RSpec.describe AcaEntities::Families::Family, dbclean: :after_each do
     ]
   end
 
-  let!(:household_params) do
+  let(:household_params) do
     [
       {
         start_date: Date.today,
@@ -289,22 +291,22 @@ RSpec.describe AcaEntities::Families::Family, dbclean: :after_each do
     ]
   end
 
-  let!(:person_name) do
+  let(:person_name) do
     {
       first_name: 'first name',
-      middle_name: 'middle name',
-      last_name: 'last name'
+      last_name: 'last name',
+      middle_name: 'middle name'
     }
   end
 
-  let!(:person_health) do
+  let(:person_health) do
     {
       is_tobacco_user: 'unknown',
       is_physically_disabled: false
     }
   end
 
-  let!(:person_demographics) do
+  let(:person_demographics) do
     {
       ssn: "123456789",
       no_ssn: false,
@@ -314,19 +316,19 @@ RSpec.describe AcaEntities::Families::Family, dbclean: :after_each do
     }
   end
 
-  let!(:person_reference) do
+  let(:person_reference) do
     {
       hbx_id: '1234',
       first_name: 'first name',
-      middle_name: 'middle name',
       last_name: 'last name',
+      middle_name: 'middle name',
       dob: Date.today,
       gender: 'male',
       ssn: nil
     }
   end
 
-  let!(:person_relationships) do
+  let(:person_relationships) do
     [
       {
         kind: 'child',
@@ -355,7 +357,7 @@ RSpec.describe AcaEntities::Families::Family, dbclean: :after_each do
     ]
   end
 
-  let!(:lawful_presence_determination) do
+  let(:lawful_presence_determination) do
     {
       vlp_verified_at: DateTime.now,
       vlp_authority: "curam",
@@ -377,7 +379,7 @@ RSpec.describe AcaEntities::Families::Family, dbclean: :after_each do
         title: "untitled",
         creator: "dchl",
         subject: "Naturalization Certificate",
-        description: "test",
+        description: 'some desc',
         publisher: "dchl",
         contributor: nil,
         date: Date.today,
@@ -416,7 +418,7 @@ RSpec.describe AcaEntities::Families::Family, dbclean: :after_each do
         title: "license - back.pdf",
         creator: "mhc",
         subject: "license - back.pdf",
-        description: "test",
+        description: 'some desc',
         publisher: "mhc",
         contributor: nil,
         date: Date.today,
@@ -445,7 +447,7 @@ RSpec.describe AcaEntities::Families::Family, dbclean: :after_each do
     ]
   end
 
-  let!(:consumer_role) do
+  let(:consumer_role) do
     {
       five_year_bar: false,
       requested_coverage_start_date: Date.today,
@@ -477,7 +479,7 @@ RSpec.describe AcaEntities::Families::Family, dbclean: :after_each do
     }
   end
 
-  let!(:resident_role) do
+  let(:resident_role) do
     {
       is_applicant: true,
       is_active: true,
@@ -491,7 +493,7 @@ RSpec.describe AcaEntities::Families::Family, dbclean: :after_each do
     }
   end
 
-  let!(:individual_market_transitions) do
+  let(:individual_market_transitions) do
     [
       {
         role_type: "consumer",
@@ -503,7 +505,7 @@ RSpec.describe AcaEntities::Families::Family, dbclean: :after_each do
     ]
   end
 
-  let!(:verification_types) do
+  let(:verification_types) do
     [
       {
         type_name: "DC Residency",
@@ -525,7 +527,7 @@ RSpec.describe AcaEntities::Families::Family, dbclean: :after_each do
     { hbx_id: "1233444", market_kind: 'both', name: 'broker agency', dba: nil, display_name: nil, fein: '089441964', corporate_npn: nil }
   end
 
-  let!(:broker_role) do
+  let(:broker_role) do
     {
       aasm_state: "decertified",
       npn: "2355863",
@@ -539,19 +541,19 @@ RSpec.describe AcaEntities::Families::Family, dbclean: :after_each do
       license: nil,
       training: nil,
       carrier_appointments:
-            {
-              aetna_health_inc: nil,
-              aetna_life_insurance_company: nil,
-              carefirst_bluechoice_inc: nil,
-              group_hospitalization_and_medical_services_inc: nil,
-              kaiser_foundation: nil, optimum_choice: nil,
-              united_health_care_insurance: nil,
-              united_health_care_mid_atlantic: nil
-            }
+        {
+          aetna_health_inc: nil,
+          aetna_life_insurance_company: nil,
+          carefirst_bluechoice_inc: nil,
+          group_hospitalization_and_medical_services_inc: nil,
+          kaiser_foundation: nil, optimum_choice: nil,
+          united_health_care_insurance: nil,
+          united_health_care_mid_atlantic: nil
+        }
     }
   end
 
-  let(:person_addresses) do
+  let(:addresses) do
     [
       {
         kind: "home",
@@ -600,7 +602,7 @@ RSpec.describe AcaEntities::Families::Family, dbclean: :after_each do
     }
   end
 
-  let!(:person) do
+  let(:person) do
     {
       hbx_id: '1001',
       is_active: true,
@@ -620,7 +622,7 @@ RSpec.describe AcaEntities::Families::Family, dbclean: :after_each do
       individual_market_transitions: individual_market_transitions,
       verification_types: verification_types,
       broker_role: broker_role,
-      addresses: person_addresses,
+      addresses: addresses,
       phones: phones,
       emails: emails,
       documents: documents,
@@ -681,11 +683,12 @@ RSpec.describe AcaEntities::Families::Family, dbclean: :after_each do
 
       }
     ]
+
   end
 
-  let!(:general_agency_accounts) { [] }
+  let(:general_agency_accounts) { [] }
 
-  let!(:irs_groups) do
+  let(:irs_groups) do
     [
       {
         hbx_id: '1233',
@@ -696,19 +699,19 @@ RSpec.describe AcaEntities::Families::Family, dbclean: :after_each do
     ]
   end
 
-  let!(:payment_transactions) do
+  let(:payment_transactions) do
     [
       {
         payment_transaction_id: nil,
         enrollment_id: "44444",
-        carrier_id: "122",
+        carrier_id: "123",
         enrollment_effective_date: Date.today,
         status: nil
       }
     ]
   end
 
-  let!(:foreign_keys) do
+  let(:foreign_keys) do
     [
       {
         key: 'curam_e_case_id',
@@ -717,7 +720,7 @@ RSpec.describe AcaEntities::Families::Family, dbclean: :after_each do
           key: 'e_case',
           namespace: 'curam',
           label: 'Curam Case Id',
-          description: 'test'
+          description: 'some desc'
         },
         start_on: Date.today,
         end_on: Date.today
@@ -725,13 +728,14 @@ RSpec.describe AcaEntities::Families::Family, dbclean: :after_each do
     ]
   end
 
-  let(:min_verification_due_date) { nil }
+  let(:magi_medicaid_applications) { [iap_application] }
 
-  let(:input_params) do
-    { hbx_id: '1000',
+  let(:family_cv) do
+    {
+      hbx_id: '1000',
       foreign_keys: foreign_keys,
       renewal_consent_through_year: 2014,
-      min_verification_due_date: min_verification_due_date,
+      min_verification_due_date: nil,
       vlp_documents_status: nil,
       family_members: family_member_params,
       households: household_params,
@@ -742,101 +746,8 @@ RSpec.describe AcaEntities::Families::Family, dbclean: :after_each do
       irs_groups: irs_groups,
       payment_transactions: payment_transactions,
       updated_by: person_reference,
-      timestamp: timestamp }
-  end
-
-  let(:family_params) do
-    AcaEntities::Contracts::Families::FamilyContract.new.call(input_params)
-  end
-
-  describe 'with valid arguments' do
-
-    it 'validates input params with contract' do
-      expect(family_params.success?).to be_truthy
-    end
-
-    it 'should initialize' do
-      expect(described_class.new(family_params.to_h)).to be_a described_class
-    end
-
-    it 'should not raise error' do
-      expect { described_class.new(family_params.to_h) }.not_to raise_error
-    end
-
-    context 'when min_verification_due_date is present' do
-      let(:min_verification_due_date) { Date.today }
-
-      it 'validates input params with contract' do
-        expect(family_params.success?).to be_truthy
-      end
-
-      it 'should initialize' do
-        expect(described_class.new(family_params.to_h)).to be_a described_class
-      end
-    end
-  end
-
-  describe 'with invalid arguments' do
-    it 'should raise error' do
-      expect do
-        described_class.new(family_params.to_h.reject do |k, _v|
-                              k == :family_members
-                            end)
-      end.to raise_error(Dry::Struct::Error, /:family_members is missing/)
-    end
-  end
-
-  describe '#find_policy_by' do
-    include_context 'insurance_policies_context'
-
-    let(:family_params) do
-      AcaEntities::Contracts::Families::FamilyContract.new.call(input_params).to_h
-    end
-
-    let(:family) do
-      described_class.new(family_params)
-    end
-
-    let(:household_params) do
-      [
-        {
-          start_date: Date.today,
-          end_date: Date.today,
-          is_active: true,
-          submitted_at: Date.today,
-          irs_group_reference: irs_group_reference,
-          coverage_households: coverage_households,
-          tax_households: tax_households,
-          hbx_enrollments: hbx_enrollments,
-          insurance_agreements: [shared_insurance_agreement]
-        }
-      ]
-    end
-
-    let(:currency) { { cents: 98_700.0, currency_iso: 'USD' } }
-
-    let(:enrollment) do
-      {
-        subscriber: enrollment_subscriber,
-        dependents: enrollment_dependents,
-        start_on: Date.new(moment.year, 1, 1),
-        total_premium_amount: currency,
-        total_premium_adjustment_amount: currency
-      }
-    end
-
-    context 'with valid policy id' do
-      it 'returns policy' do
-        expect(family.find_policy_by(policy_id)).to be_a(
-          ::AcaEntities::InsurancePolicies::AcaIndividuals::InsurancePolicy
-        )
-      end
-    end
-
-    context 'with invalid policy id' do
-      it 'returns nil' do
-        expect(family.find_policy_by('policy_id')).to be_nil
-      end
-    end
+      timestamp: timestamp,
+      magi_medicaid_applications: magi_medicaid_applications
+    }
   end
 end
