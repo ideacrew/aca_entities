@@ -18,10 +18,11 @@ module AcaEntities
           # @option opts [Integer] :time_to_live An optional maximum length of time for this job to execute before it expires.
           # Time value is in seconds
           # @option opts [Symbol] :status This current ProcessState for this job instance
-          # @option opts [Array<AcaEntities::Protocols::Transmitable::ProcessState>] :process_states The list of ProcessState transitions that occured during
-          # execution of this job
+          # @option opts [Array<AcaEntities::Protocols::Transmitable::ProcessState>] :process_states The list of ProcessState transitions that occured
+          # during execution of this job
           # @option opts [Array<AcaEntities::Protocols::Transmitable::Transmission>] :transmissions The list of transmissions that belong to this job
-          # @option opts [Array<AcaEntities::Protocols::Transmitable::Error>] :errors The list of exceptions that occurred during processing of this job
+          # @option opts [Array<AcaEntities::Protocols::Transmitable::Errors>] :errors The list of exceptions that occurred during processing of
+          # this job
           # @option opts [Array<AcaEntities::Protocols::Transmitable::Subject>] :allow_list The list of Subject Transactions to process only under
           # this job
           # @option opts [Array<AcaEntities::Protocols::Transmitable::Subject>] :deny_list The list of Subject Transactions to exclude from processing
@@ -41,17 +42,11 @@ module AcaEntities
             required(:status).value(:symbol)
             required(:process_states).array(AcaEntities::Protocols::Transmitable::Contracts::ProcessStateContract.params)
             optional(:transmissions).array(AcaEntities::Protocols::Transmitable::Contracts::TransmissionContract.params)
-            optional(:errors).array(AcaEntities::Protocols::Transmitable::Contracts::ErrorsContract.params)
+            required(:errors).array(AcaEntities::Protocols::Transmitable::Contracts::ErrorsContract.params)
             optional(:allow_list).array(AcaEntities::Protocols::Transmitable::Contracts::SubjectContract.params)
             optional(:deny_list).array(AcaEntities::Protocols::Transmitable::Contracts::SubjectContract.params)
 
             optional(:timestamps).maybe(AcaEntities::Contracts::TimeStampContract.params)
-          end
-
-          rule(:ended_at, :started_at) do
-            if [values[:ended_at], values[:started_at]].none?(&:nil?) && values[:ended_at] < values[:started_at]
-              key.failure('must be after started_at')
-            end
           end
         end
       end

@@ -2,29 +2,25 @@
 
 require 'spec_helper'
 
-RSpec.describe AcaEntities::Protocols::Transmitable::Contracts::JobContract do
+RSpec.describe AcaEntities::Protocols::Transmitable::Contracts::TransactionContract do
   subject { described_class.new }
 
   let(:moment) { DateTime.now }
 
   let(:id) { '12345' }
-  let(:job_id) { 'abc123'}
-  let(:account) { { username: 'antman', first_name: 'Scott', last_name: 'Lang' } }
-  let(:name) { :verification_job }
+  let(:transaction_id) { 'xyz210'}
 
+  let(:name) { :verification_transaction }
   let(:title) { name.to_s }
-  let(:description) { 'A dummy verification job' }
+  let(:description) { 'A dummy verification transaction' }
+
+  let(:status) { :initial }
+  let(:process_states) { [] }
 
   let(:started_at) { moment }
   let(:ended_at) { nil }
 
-  let(:time_to_live) { 0 }
-  let(:status) { :initial }
-  let(:process_states) { [] }
-  let(:transmissions) { [] }
-  let(:errors) { []}
-  let(:allow_list) { []}
-  let(:deny_list) { [] }
+  let(:errors) { [] }
 
   let(:timestamps) { { created_at: moment, modified_at: moment } }
 
@@ -35,16 +31,11 @@ RSpec.describe AcaEntities::Protocols::Transmitable::Contracts::JobContract do
   let(:optional_params) do
     {
       id: id,
-      job_id: job_id,
-      account: account,
+      transaction_id: transaction_id,
       title: title,
       description: description,
       ended_at: ended_at,
-      time_to_live: time_to_live,
-      allow_list: allow_list,
-      deny_list: deny_list,
-      timestamps: timestamps,
-      transmissions: transmissions
+      timestamps: timestamps
     }
   end
 

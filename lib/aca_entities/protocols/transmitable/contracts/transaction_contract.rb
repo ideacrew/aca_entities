@@ -4,7 +4,7 @@ module AcaEntities
   module Protocols
     module Transmitable
       module Contracts
-        # Schema and validation rules for the {AcaEntities::Evetns::Transmitable::Transaction} entity
+        # Schema and validation rules for the {AcaEntities::Protocols::Transmitable::Transaction} entity
         class TransactionContract < Contract
           # @!method call(opts)
           # @param [Hash] opts the parameters to validate using this contract
@@ -12,17 +12,17 @@ module AcaEntities
           # @return [Dry::Monads::Result::Failure] if params fail validation
           params do
             optional(:id).maybe(:string)
-            optional(:transmission_id).value(:string)
+            optional(:transaction_id).value(:string)
             required(:name).value(:symbol)
             optional(:title).maybe(:string)
             optional(:description).maybe(:string)
 
-            required(:started_at).value(:time)
-            optional(:ended_at).maybe(:time)
+            required(:started_at).value(:date_time)
+            optional(:ended_at).maybe(:date_time)
 
             required(:status).value(:symbol)
             required(:process_states).array(AcaEntities::Protocols::Transmitable::Contracts::ProcessStateContract.params)
-            optional(:errors).array(AcaEntities::Protocols::Transmitable::Contracts::ErrorsContract.params)
+            required(:errors).array(AcaEntities::Protocols::Transmitable::Contracts::ErrorsContract.params)
 
             optional(:timestamps).maybe(AcaEntities::Contracts::TimeStampContract.params)
           end
