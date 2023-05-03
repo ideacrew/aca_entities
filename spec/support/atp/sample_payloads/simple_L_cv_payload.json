@@ -1082,7 +1082,25 @@
                             }
                         ],
                         "incomes": [],
-                        "benefits": [],
+                        "benefits": [{
+                            "name": null,
+                            "kind": "private_health_insurance_plan",
+                            "status": "is_eligible",
+                            "is_employer_sponsored": false,
+                            "employer": null,
+                            "esi_covered": null,
+                            "is_esi_waiting_period": false,
+                            "is_esi_mec_met": false,
+                            "employee_cost": {
+                                "cents": 30000,
+                                "currency_iso": "USD"
+                            },
+                            "employee_cost_frequency": null,
+                            "start_on": "2021-01-01",
+                            "end_on": null,
+                            "submitted_at": "2021-11-24T20:42:37.000+00:00",
+                            "hra_kind": null
+                        }],
                         "deductions": [],
                         "is_medicare_eligible": false,
                         "is_self_attested_long_term_care": false,

@@ -17,8 +17,8 @@ module AcaEntities
 
             def self.domain_to_mapper(date_range)
               mapper = self.new
-              mapper.end_date = date_range.end_date
-              mapper.start_date = date_range.start_date
+              mapper.start_date = StartDate.domain_to_mapper(date_range.start_date) if date_range.start_date&.date
+              mapper.end_date = EndDate.domain_to_mapper(date_range.end_date) if date_range.end_date&.date
               mapper
             end
 
