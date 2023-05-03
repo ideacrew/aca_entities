@@ -15,7 +15,9 @@ require_relative 'contracts/transmission_contract'
 require_relative 'contracts/job_contract'
 
 # entities
-# require_relative 'transaction'
+# require_relative 'errors'
+# require_relative 'process_state'
+require_relative 'transaction'
 # require_relative 'subject'
 require_relative 'transmission'
 require_relative 'job'

@@ -21,7 +21,8 @@ module AcaEntities
             optional(:ended_at).maybe(:date_time)
 
             required(:status).value(:symbol)
-            required(:process_states).array(AcaEntities::Protocols::Transmitable::Contracts::ProcessStateContract.params)
+            # optional(:process_states).array(AcaEntities::Protocols::Transmitable::Contracts::ProcessStateContract.params)
+            # optional(:transactions_transmissions).array(AcaEntities::Protocols::Transmitable::Contracts::TransactionsTransmissionsContract.params)
             required(:errors).array(AcaEntities::Protocols::Transmitable::Contracts::ErrorsContract.params)
 
             optional(:timestamps).maybe(AcaEntities::Contracts::TimeStampContract.params)

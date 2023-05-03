@@ -3,7 +3,7 @@
 module AcaEntities
   module Protocols
     module Transmitable
-      # A collection of transactions that are transmitted together as a group
+      # A collection of {AcaEntities::Protocols::Transmitable::Transactions} that are transmitted together as a group
       class Transmission < Dry::Struct
         # @!attribute [r] id
         # A system-assigned unambiguous reference to the resource

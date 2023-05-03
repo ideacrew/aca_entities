@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module AcaEntities
-  module Events
+  module Protocols
     module Transmitable
       # A data model for a single project
       class Job < Dry::Struct
@@ -60,7 +60,7 @@ module AcaEntities
         # @!attribute [r] status
         # This current {ProcessState} for this job instance
         # @return [Symbol]
-        attribute :status, Types::String.meta(omittable: true)
+        attribute :status, Types::Symbol.meta(omittable: true)
 
         # @!attribute [r] process_states
         # The list of ProcessState transitions that occured during execution of this job
