@@ -17,48 +17,18 @@ module AcaEntities
           @primary_applicant_identifier = @memoized_data.resolve(:primary_applicant_identifier).item
           @tax_return = @memoized_data.resolve(:'insurance_application.tax_returns').item
           people_augementation = @memoized_data.find(Regexp.new("record.people.*.augementation"))
-
           result = people_augementation.each_with_object([]) do |person_augementation, collector|
             id = person_augementation.name.split(".")[2]
             @applicant_hash = insurance_applicants[id.to_sym]
             @applicant_identifier = id
             @member_hash = person_augementation.item
-
             @tribal_augmentation = @memoized_data.find(Regexp.new("record.people.#{id}.tribal_augmentation")).map(&:item).last
-
-            # @applicant_identifier = member.name.split('.').last
-
-            # m_identifier = "attestations.members.#{@applicant_identifier}"
-            # @attestations_family_hash = @=.find(Regexp.new("#{m_identifier}.family"))&.first&.item
             @incomes_hash = @member_hash[:incomes]
             @expenses_hash = @member_hash[:expenses]
             @employments_hash = @member_hash[:employments]
-            # @insurance_coverage_hash = @memoized_data.find(Regexp.new("#{m_identifier}.insuranceCoverage"))&.first&.item
-
-            # collector << member.item.merge!(applicant_hash)
             collector << applicant_hash
             collector
           end
-
-          # result = insurance_applicants.each_with_object([]) do |applicant, collector|
-
-          #   @applicant_hash = applicant[1]
-          #   @applicant_identifier = @applicant_hash[:id]
-          #   @member_hash = @memoized_data.find(Regexp.new("record.people.#{@applicant_identifier}.augementation")).first.item
-
-          #   # @applicant_identifier = member.name.split('.').last
-
-          #   # m_identifier = "attestations.members.#{@applicant_identifier}"
-          #   # @attestations_family_hash = @memoized_data.find(Regexp.new("#{m_identifier}.family"))&.first&.item
-          #   @incomes_hash = @memoized_data.find(Regexp.new("record.people.#{@applicant_identifier}.augementation")).first.item[:incomes]
-          #   @expenses_hash = @memoized_data.find(Regexp.new("record.people.#{@applicant_identifier}.augementation")).first.item[:expenses]
-          #   @employments_hash = @memoized_data.find(Regexp.new("record.people.#{@applicant_identifier}.augementation")).first.item[:employments]
-          #   # @insurance_coverage_hash = @memoized_data.find(Regexp.new("#{m_identifier}.insuranceCoverage"))&.first&.item
-
-          #   # collector << member.item.merge!(applicant_hash)
-          #   collector << applicant_hash
-          #   collector
-          # end
           [application_hash.merge!(applicants: result)]
         end
 
@@ -107,7 +77,6 @@ module AcaEntities
               'employer_address' =>
               if contact_information && contact_information[:mailing_address] && contact_information[:mailing_address][:address]
                 mailing = contact_information[:mailing_address][:address]
-
                 AcaEntities::Atp::Transformers::Cv::ContactInfo.transform(mailing) if check_employer_address(mailing)
               end,
               'employer_phone' =>
@@ -165,7 +134,6 @@ module AcaEntities
 
         def benefits_hash
           return [] if @applicant_hash.nil?
-          # return [] if @applicant_hash[:esi_associations].empty?
           return [] if @applicant_hash[:non_esi_coverage_indicators].empty? || !@applicant_hash[:non_esi_coverage_indicators].first
           return [] if @applicant_hash[:non_esi_policies].empty?
 
@@ -179,19 +147,6 @@ module AcaEntities
               'end_on' => nil
             }
           end
-          # esi_associations = @applicant_hash[:esi_associations].first
-          # %w[is_enrolled is_eligible].each do |status| # default loop , should get value from payload
-          # @insurance_coverage_hash[:enrolledCoverages].each do |ic|
-          # next if ic[:insuranceMarketType] == 'NONE'
-
-          #   result << {
-          #     'kind' => status, # default value
-          #     # 'insurance_kind' => ic['insuranceMarketType'],
-          #     'start_on' => Date.parse('2021-05-07'), # default value
-          #     'end_on' => nil
-          #   }
-          #   # end
-          # end
           result
         end
 
@@ -354,9 +309,7 @@ module AcaEntities
             has_unemployment_income: !unemp_income_hash.empty?,
             has_other_income: !other_income_hash.empty?,
             has_deductions: !deduction_hash.empty?,
-            # has_enrolled_health_coverage: !benefits_hash.empty?, # default value
             has_enrolled_health_coverage: !benefits_hash.concat(benefits_esc_hash).select {|h| h['kind'] == 'is_enrolled' }.empty?,
-            # has_eligible_health_coverage: !benefits_hash.empty?, # default value
             # has_eligible_health_coverage: !benefits_hash.concat(benefits_esc_hash).select {|h| h['kind'] == 'is_eligible' }.empty?,
             has_eligible_health_coverage: nil,
             addresses: AcaEntities::Atp::Functions::AddressBuilder.new.call(@memoized_data, @applicant_identifier), # default value
