@@ -2,16 +2,16 @@
 
 require 'spec_helper'
 
-RSpec.describe AcaEntities::Protocols::Transmitable::Contracts::TransactionContract do
+RSpec.describe AcaEntities::Protocols::Transmitable::Contracts::TransmissionContract do
   subject { described_class.new }
 
   let(:moment) { DateTime.now }
 
   let(:id) { '12345' }
-  let(:transaction_id) { 'xyz210'}
-  let(:name) { :verification_transaction }
+  let(:transmission_id) { 'transmission_001'}
+  let(:name) { :verification_transmission }
   let(:title) { name.to_s }
-  let(:description) { 'A dummy verification transaction' }
+  let(:description) { 'A dummy verification transmission' }
   let(:status) { :initial }
   let(:process_states) { [] }
   let(:started_at) { moment }
@@ -26,7 +26,7 @@ RSpec.describe AcaEntities::Protocols::Transmitable::Contracts::TransactionContr
   let(:optional_params) do
     {
       id: id,
-      transaction_id: transaction_id,
+      transmission_id: transmission_id,
       title: title,
       description: description,
       ended_at: ended_at,

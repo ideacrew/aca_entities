@@ -4,7 +4,7 @@ module AcaEntities
   module Protocols
     module Transmitable
       module Contracts
-        # Schema and validation rules for the {AcaEntities::Protocols::Transmitable::Transmission} entity
+        # Schema and validation rules for the {AcaEntities::Protocols::Transmitable::Subject} entity
         class SubjectContract < Contract
           # @!method call(opts)
           # @param [Hash] opts the parameters to validate using this contract
@@ -12,7 +12,7 @@ module AcaEntities
           # @return [Dry::Monads::Result::Success] if params pass validation
           # @return [Dry::Monads::Result::Failure] if params fail validation
           params do
-            # optional(:transactions).array(AcaEntities::Protocols::Transmitable::Transaction)
+            required(:transactions).array(AcaEntities::Protocols::Transmitable::Contracts::TransactionContract.params)
           end
         end
       end

@@ -14,8 +14,32 @@ module AcaEntities
           # config.messages.namespace - custom messages namespace for a contract class. Use this to differentiate common messages
 
           rule(:ended_at, :started_at) do
-            if [values[:ended_at], values[:started_at]].none?(&:nil?) && values[:ended_at] < values[:started_at]
+            if keys && values[:started_at].present? && values[:ended_at].present? && values[:ended_at] < values[:started_at]
               key.failure('must be after started_at')
+            end
+          end
+
+          rule(:transactions).each do |index:|
+            next unless key? && value.is_a?(Hash)
+            values.to_h[:transactions[index]]&.each_pair do |attr_key, attr_val|
+              result = TransactionContract.new.call(attr_val)
+              next unless result.failure?
+
+              key([*path, attr_key]).failure(
+                { text: 'error', code: result.errors.to_h }
+              )
+            end
+          end
+
+          rule(:transmissions).each do |index:|
+            next unless key? && value.is_a?(Hash)
+            values.to_h[:transmissions[index]]&.each_pair do |attr_key, attr_val|
+              result = TransmissionContract.new.call(attr_val)
+              next unless result.failure?
+
+              key([*path, attr_key]).failure(
+                { text: 'error', code: result.errors.to_h }
+              )
             end
           end
 

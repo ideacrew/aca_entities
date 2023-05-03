@@ -89,9 +89,10 @@ RSpec.describe AcaEntities::Protocols::Transmitable::Contracts::JobContract do
   context 'Validating the ended_at' do
     context 'when ended_at is before started_at' do
       let(:ended_at) { started_at - 1 }
+      let(:params) { all_params.merge(ended_at: ended_at) }
 
       it 'should fail validation' do
-        result = subject.call(all_params)
+        result = subject.call(params)
         expect(result.failure?).to be_truthy
         expect(result.errors.to_h).to eq({ ended_at: ['must be after started_at'] })
       end
@@ -99,11 +100,89 @@ RSpec.describe AcaEntities::Protocols::Transmitable::Contracts::JobContract do
 
     context 'when ended_at is after started_at' do
       let(:ended_at) { started_at + 1 }
+      let(:params) { all_params.merge(ended_at: ended_at) }
 
       it 'should pass validation' do
-        result = subject.call(all_params)
+        result = subject.call(params)
         expect(result.success?).to be_truthy
         expect(result.to_h).to eq all_params
+      end
+    end
+  end
+
+  context 'Validating transmissions' do
+    context 'when transmissions are not present' do
+      let(:transmission) { [] }
+      let(:params) { all_params.merge(transmissions: transmission) }
+
+      it 'should pass validation' do
+        result = subject.call(params)
+        expect(result.success?).to be_truthy
+      end
+    end
+
+    context 'Calling the contract with a transmission present' do
+      let(:moment) { DateTime.now }
+
+      let(:id) { '12345' }
+      let(:transmission_id) { 'transmission_202'}
+
+      let(:name) { :verification_transmission }
+      let(:title) { name.to_s }
+      let(:description) { 'A dummy verification transmission' }
+
+      let(:started_at) { moment }
+      let(:status) { :initial }
+      let(:process_states) { [] }
+      let(:errors) { [] }
+
+      context 'and that transmission is valid' do
+        let(:transmission) do
+          {
+            transmission_id: transmission_id,
+            name: name,
+            title: title,
+            description: description,
+            started_at: started_at,
+            status: status,
+            process_states: process_states,
+            errors: errors
+          }
+        end
+
+        let(:params) { all_params.merge(transmissions: [transmission]) }
+
+        it 'should pass validation' do
+          result = subject.call(params)
+          expect(result.success?).to be_truthy
+          expect(result.to_h).to eq params
+        end
+
+        context 'and that transmission is invalid' do
+          let(:transmission) { { transmission_id: transmission_id } }
+          let(:params) { all_params.merge(transmissions: [transmission]) }
+          let(:error_message) do
+            {
+              transmissions:
+                {
+                  0 =>
+                    {
+                      name: ['is missing'],
+                      started_at: ['is missing'],
+                      status: ['is missing'],
+                      process_states: ['is missing'],
+                      errors: ['is missing']
+                    }
+                }
+            }
+          end
+
+          it 'should fail validation' do
+            result = subject.call(params)
+            expect(result.failure?).to be_truthy
+            expect(result.errors.to_h).to eq error_message
+          end
+        end
       end
     end
   end
