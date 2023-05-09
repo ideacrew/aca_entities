@@ -49,7 +49,7 @@ channels:
           prefetch: 1
           bindingVersion: "0.2.0"
       operationId: on_enroll.enroll.families.family_members
-      description: Event for enrollment saved
+      description: Event for Person address Update
 
 tags:
   - name: linter_tag
