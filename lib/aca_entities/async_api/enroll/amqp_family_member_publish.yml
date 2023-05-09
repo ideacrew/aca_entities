@@ -30,7 +30,7 @@ servers:
     description: Enroll Test Server
 
 channels:
-  enroll.families.family_members.primary_member_address_updated:
+  enroll.families.family_members.primary_member_address_relocated:
     bindings:
       amqp:
         is: :routing_key
@@ -47,16 +47,16 @@ channels:
         amqp:
           app_id: enroll
           type: enroll.families.family_members
-          routing_key: enroll.families.family_members.primary_member_address_updated
+          routing_key: enroll.families.family_members.primary_member_address_relocated
           deliveryMode: 2
           mandatory: true
           timestamp: true
           content_type: application/json
           bindingVersion: 0.2.0
-      operationId: enroll.families.family_members.primary_member_address_updated
+      operationId: enroll.families.family_members.primary_member_address_relocated
       description: Events - Person address Updated  
 
-  enroll.families.family_members.member_address_updated:
+  enroll.families.family_members.member_address_relocated:
     bindings:
       amqp:
         is: :routing_key
@@ -73,13 +73,13 @@ channels:
         amqp:
           app_id: enroll
           type: enroll.families.family_members
-          routing_key: enroll.families.family_members.member_address_updated
+          routing_key: enroll.families.family_members.member_address_relocated
           deliveryMode: 2
           mandatory: true
           timestamp: true
           content_type: application/json
           bindingVersion: 0.2.0
-      operationId: enroll.families.family_members.member_address_updated
+      operationId: enroll.families.family_members.member_address_relocated
       description: Events - Person address Updated          
 tags:
   - name: linter_tag
