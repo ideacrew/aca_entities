@@ -54,7 +54,7 @@ channels:
           content_type: application/json
           bindingVersion: 0.2.0
       operationId: enroll.families.family_members.primary_member_address_relocated
-      description: Events - Person address Updated  
+      description: Events - Person address Update
 
   enroll.families.family_members.member_address_relocated:
     bindings:
@@ -80,7 +80,7 @@ channels:
           content_type: application/json
           bindingVersion: 0.2.0
       operationId: enroll.families.family_members.member_address_relocated
-      description: Events - Person address Updated          
+      description: Events - Person address Update
 tags:
   - name: linter_tag
     description: placeholder that satisfies the linter
