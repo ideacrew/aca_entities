@@ -85,5 +85,3 @@ channels:
 tags:
   - name: linter_tag
     description: placeholder that satisfies the linter
-
-      
