@@ -55,7 +55,35 @@ channels:
           timestamp: true
           content_type: application/json
           bindingVersion: 0.2.0
-
+        x_amqp_exchange_to_exchanges:
+          enroll.enterprise.events:
+            description: Forward Insurance Agreement Events to Exchange enroll.enterprise.events
+            routing_key: enroll.enterprise.#
+            bindings:
+              amqp:
+                is: :routing_key
+                exchange:
+                  name: enroll.enterprise.events
+                  type: topic
+                  content_type: application/json
+                  durable: true
+                  auto_delete: false
+                  vhost: event_source
+          enroll.individual.enrollments:
+            description: Forward Insurance Agreement Events to Exchange enroll.individual.enrollments
+            routing_key: enroll.individual.enrollments.#
+            bindings:
+              amqp:
+                is: :routing_key
+                exchange:
+                  name: enroll.individual.enrollments
+                  type: topic
+                  content_type: application/json
+                  durable: true
+                  auto_delete: false
+                  vhost: event_source
 tags:
   - name: linter_tag
     description: placeholder that satisfies the linter
+
+      
