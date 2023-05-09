@@ -30,12 +30,12 @@ servers:
     description: RabbitMQ Test Server
 
 channels:
-  enroll.audit.log.events.created:
+  enroll.audit_log.events.created:
     bindings:
       amqp:
         is: :routing_key
         exchange:
-          name: enroll.audit.log.events
+          name: enroll.audit_log.events
           type: topic
           content_type: application/json
           durable: true
@@ -43,13 +43,13 @@ channels:
           vhost: event_source
         binding_version: "0.2.0"
     publish:
-      operationId: enroll.audit.log.events.created
+      operationId: enroll.audit_log.events.created
       description: Events - system date advanced
       bindings:
         amqp:
           app_id: enroll
-          type: enroll.audit.log.events
-          routing_key: enroll.audit.log.events.created
+          type: enroll.audit_log.events
+          routing_key: enroll.audit_log.events.created
           deliveryMode: 2
           mandatory: true
           timestamp: true

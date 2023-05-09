@@ -29,12 +29,12 @@ servers:
     protocolVersion: "0.9.2"
     description: RabbitMQ Test Server
 channels:
-  on_enroll.enroll.audit.log.events:
+  on_enroll.enroll.audit_log.events:
     bindings:
       amqp:
         is: queue
         queue:
-          name: on_enroll.enroll.audit.log.events
+          name: on_enroll.enroll.audit_log.events
           durable: true
           exclusive: false
           auto_delete: false
@@ -47,7 +47,7 @@ channels:
           routing_key: enroll.#
           prefetch: 1
           bindingVersion: "0.2.0"
-      operationId: on_enroll.enroll.audit.log.events
+      operationId: on_enroll.enroll.audit_log.events
       description: Events - for system wide changes
 
 tags:
