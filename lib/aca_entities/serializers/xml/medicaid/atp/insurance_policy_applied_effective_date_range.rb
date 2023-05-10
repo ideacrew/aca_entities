@@ -12,8 +12,8 @@ module AcaEntities
             tag 'InsurancePolicyAppliedEffectiveDateRange'
             namespace 'hix-ee'
 
-            has_one :end_date, EndDate
             has_one :start_date, StartDate
+            has_one :end_date, EndDate
 
             def self.domain_to_mapper(date_range)
               mapper = self.new
@@ -24,8 +24,8 @@ module AcaEntities
 
             def to_hash
               {
-                end_date: end_date&.to_hash,
-                start_date: start_date&.to_hash
+                start_date: start_date&.to_hash,
+                end_date: end_date&.to_hash
               }
             end
           end
