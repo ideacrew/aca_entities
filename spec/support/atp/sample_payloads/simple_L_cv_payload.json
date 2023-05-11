@@ -1100,6 +1100,27 @@
                             "end_on": null,
                             "submitted_at": "2021-11-24T20:42:37.000+00:00",
                             "hra_kind": null
+                        }, {
+                            "name": null,
+                            "kind": "employer_sponsored_insurance",
+                            "status": "is_enrolled",
+                            "is_employer_sponsored": false,
+                            "employer": {
+                                "employer_name": "test llc",
+                                "employer_id": "35-5666443"
+                            },
+                            "esi_covered": "self",
+                            "is_esi_waiting_period": false,
+                            "is_esi_mec_met": true,
+                            "employee_cost": {
+                                "cents": 40000,
+                                "currency_iso": "USD"
+                            },
+                            "employee_cost_frequency": "Monthly",
+                            "start_on": "2022-02-02",
+                            "end_on": "2022-06-06",
+                            "submitted_at": "2022-11-24T20:20:20.000+00:00",
+                            "hra_kind": null
                         }],
                         "deductions": [],
                         "is_medicare_eligible": false,

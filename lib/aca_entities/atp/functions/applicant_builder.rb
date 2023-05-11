@@ -5,7 +5,7 @@ require 'aca_entities/atp/transformers/aces/applicant'
 module AcaEntities
   module Atp
     module Functions
-      # applicants builder
+      # insurance_applicant builder
       class ApplicantBuilder
         def call(cache)
           applicants_hash = cache.resolve('family.magi_medicaid_applications.applicants').item
@@ -13,22 +13,14 @@ module AcaEntities
             applicant = applicant_hash[1]
             next unless applicant[:is_applying_coverage]
 
-            enrolled_benefits = applicant[:benefits].select {|benefit| benefit[:status] == "is_enrolled" }
-            enrolled_esi_benefits = enrolled_benefits.select {|benefit|  benefit[:kind] == "employer_sponsored_insurance" }
-            enrolled_non_esi_benfits = enrolled_benefits.reject {|benefit| benefit[:kind] == "employer_sponsored_insurance" }
+            esi_benefits = applicant[:benefits].select {|benefit| benefit[:kind] == "employer_sponsored_insurance" }
 
-            eligible_benefits = applicant[:benefits].select {|benefit| benefit[:status] == "is_eligible" }
-            eligible_esi_benefits = eligible_benefits.select {|benefit| benefit[:kind] == "employer_sponsored_insurance" }
-            eligible_non_esi_benefits = eligible_benefits.reject {|benefit| benefit[:kind] == "employer_sponsored_insurance" }
+            non_esi_benefits = applicant[:benefits].reject {|benefit| benefit[:kind] == "employer_sponsored_insurance" }
+            enrolled_non_esi_benfits = non_esi_benefits.select {|benefit| benefit[:status] == "is_enrolled" }
+            eligible_non_esi_benefits = non_esi_benefits.select {|benefit| benefit[:status] == "is_eligible" }
 
-            enrolled_non_esi_indicator = enrolled_non_esi_indicator(enrolled_non_esi_benfits)
-
-            esi_coverage_indicators = [{
-              enrolled_indicator: enrolled_esi_benefits.present?,
-              eligible_indicator: eligible_esi_benefits.present?,
-              eligibility_unknown_indicator: !(enrolled_esi_benefits.present? || eligible_esi_benefits.present?)
-            }]
-
+            enrolled_non_esi_indicator = get_enrolled_non_esi_indicator(enrolled_non_esi_benfits)
+            esi_coverage_indicators = get_esi_coverage_indicators(esi_benefits)
             non_esi_policies = get_non_esi_policies(eligible_non_esi_benefits)
 
             insurance_applicant = AcaEntities::Atp::Transformers::Aces::Applicant.transform(applicant)
@@ -37,11 +29,30 @@ module AcaEntities
           end
         end
 
-        def enrolled_non_esi_indicator(enrolled_non_esi_benfits)
+        def get_enrolled_non_esi_indicator(enrolled_non_esi_benfits)
           if enrolled_non_esi_benfits.present?
             { non_esi_coverage_indicators: [true] }
           else
             { non_esi_coverage_indicators: [false] }
+          end
+        end
+
+        def get_esi_coverage_indicators(esi_benefits)
+          if esi_benefits
+            esi_benefits.collect do |benefit|
+              is_enrolled = benefit[:status] == "is_enrolled"
+              is_eligible = benefit[:status] == "is_eligible"
+              start_on = benefit[:start_on].present? ? Date.parse(benefit[:start_on]) : nil
+              end_on = benefit[:end_on].present? ? Date.parse(benefit[:end_on]) : nil
+              {
+                enrolled_indicator: is_enrolled,
+                eligible_indicator: is_eligible,
+                planned_coverage_date_ranges: { start_date: { date: start_on }, end_date: { date: end_on } },
+                eligibility_unknown_indicator: !(is_enrolled || is_eligible)
+              }
+            end.compact
+          else
+            []
           end
         end
 
