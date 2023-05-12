@@ -413,6 +413,13 @@ module AcaEntities
       # Benchmark Products Household Type
       BenchmarkProductsHouseholdType = Types::Coercible::String.enum('adult_only', 'adult_and_child', 'child_only')
 
+      # Eligibility Determination Kinds
+      MemberDeterminationKind = Types::Coercible::String.enum(
+        'Medicaid/CHIP Determination',
+        'Insurance Assistance Determination',
+        'Unassisted QHP Determination',
+        'Total Ineligibility Determination'
+      )
     end
     # rubocop:enable Metrics/ModuleLength
   end
