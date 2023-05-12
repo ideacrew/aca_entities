@@ -17,7 +17,6 @@ module AcaEntities
 
             non_esi_benefits = applicant[:benefits].reject {|benefit| benefit[:kind] == "employer_sponsored_insurance" }
             enrolled_non_esi_benfits = non_esi_benefits.select {|benefit| benefit[:status] == "is_enrolled" }
-            eligible_non_esi_benefits = non_esi_benefits.select {|benefit| benefit[:status] == "is_eligible" }
 
             enrolled_non_esi_indicator = get_enrolled_non_esi_indicator(enrolled_non_esi_benfits)
             esi_coverage_indicators = get_esi_coverage_indicators(esi_benefits)
