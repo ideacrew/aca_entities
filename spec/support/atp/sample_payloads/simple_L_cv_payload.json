@@ -1085,7 +1085,7 @@
                         "benefits": [{
                             "name": null,
                             "kind": "private_health_insurance_plan",
-                            "status": "is_eligible",
+                            "status": "is_enrolled",
                             "is_employer_sponsored": false,
                             "employer": null,
                             "esi_covered": null,
