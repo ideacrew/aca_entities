@@ -81,6 +81,59 @@ channels:
           bindingVersion: 0.2.0
       operationId: enroll.families.family_members.member_address_relocated
       description: Events - Person address Update
+
+  enroll.families.family_members.primary_family_member.product_service_area_relocated:
+    bindings:
+      amqp:
+        is: :routing_key
+        exchange:
+          name: enroll.families.family_members.primary_family_member
+          type: topic
+          content_type: application/json
+          durable: true
+          auto_delete: false
+          vhost: event_source
+        binding_version: "0.2.0"
+    publish:
+      bindings:
+        amqp:
+          app_id: enroll
+          type: enroll.families.family_members.primary_family_member
+          routing_key: enroll.families.family_members.primary_family_member.product_service_area_relocated
+          deliveryMode: 2
+          mandatory: true
+          timestamp: true
+          content_type: application/json
+          bindingVersion: 0.2.0
+      operationId: enroll.families.family_members.primary_family_member.product_service_area_relocated
+      description: Events - Person address Update
+
+  enroll.families.family_members.primary_family_member.member_address_relocated:
+    bindings:
+      amqp:
+        is: :routing_key
+        exchange:
+          name: enroll.families.family_members.primary_family_member
+          type: topic
+          content_type: application/json
+          durable: true
+          auto_delete: false
+          vhost: event_source
+        binding_version: "0.2.0"
+    publish:
+      bindings:
+        amqp:
+          app_id: enroll
+          type: enroll.families.family_members.primary_family_member
+          routing_key: enroll.families.family_members.primary_family_member.premium_rating_area_relocated
+          deliveryMode: 2
+          mandatory: true
+          timestamp: true
+          content_type: application/json
+          bindingVersion: 0.2.0
+      operationId: enroll.families.family_members.primary_family_member.premium_rating_area_relocated
+      description: Events - Person address Update
+
 tags:
   - name: linter_tag
     description: placeholder that satisfies the linter
