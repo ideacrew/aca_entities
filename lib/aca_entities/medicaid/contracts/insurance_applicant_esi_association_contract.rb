@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require_relative 'insurance_policy_contract'
-
 module AcaEntities
   module Medicaid
     module Contracts
@@ -10,6 +8,7 @@ module AcaEntities
         params do
           optional(:eligible_indicator).filled(:bool)
           optional(:enrolled_indicator).filled(:bool)
+          optional(:planned_coverage_date_ranges).maybe(:hash)
           optional(:eligibility_unknown_indicator).filled(:bool)
         end
       end

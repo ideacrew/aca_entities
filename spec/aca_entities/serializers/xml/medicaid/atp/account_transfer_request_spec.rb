@@ -79,7 +79,7 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
       lawful_presence_status: lawful_presence_status,
       long_term_care_indicator: false,
       non_esi_coverage_indicators: [true],
-      non_esi_policies: [{ :source_code => "TRICARE" }],
+      non_esi_policies: [benefit],
       esi_associations: [{ eligible_indicator: true, enrolled_indicator: true, eligibility_unknown_indicator: false }],
       medicaid_magi_eligibilities: [medicaid_magi_eligibility],
       chip_eligibilities: [trafficking_victim_category_eligibility_basis],
@@ -304,6 +304,14 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
       date_time: DateTime.now,
       year: "2021",
       year_month: "12/2021" }
+  end
+
+  let(:benefit) do
+    { source_code: "Private",
+      applied_effective_date_range: {
+        start_date: { date: Date.today },
+        end_date: { date: Date.today }
+      } }
   end
 
   let(:income_frequency) do

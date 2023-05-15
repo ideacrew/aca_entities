@@ -60,6 +60,13 @@ RSpec.describe AcaEntities::Atp::Operations::Aces::GenerateXml  do
       expect(texts&.first&.content&.strip).to eq "2021-01-01"
     end
 
+    it 'should include planned_coverage_date_ranges within InsuranceApplicantESIAssociation if exists' do
+      result = described_class.new.call(payload_hash.to_json)
+      doc = Nokogiri::XML.parse(result.value!)
+      texts = doc.xpath("//hix-ee:InsuranceApplicantESIPlannedCoverageDateRange//nc:StartDate//nc:Date", namespaces)
+      expect(texts&.first&.content&.strip).to eq "2022-02-02"
+    end
+
     it 'should have the temporarily_lives_outside_application_state_indicator tag mapped' do
       payload_hash[:family][:magi_medicaid_applications][:applicants].first[:is_temporarily_out_of_state] = true
       result = described_class.new.call(payload_hash.to_json)
