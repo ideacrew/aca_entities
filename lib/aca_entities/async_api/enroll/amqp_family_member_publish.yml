@@ -108,7 +108,7 @@ channels:
       operationId: enroll.families.family_members.primary_family_member.product_service_area_relocated
       description: Events - Person address Update
 
-  enroll.families.family_members.primary_family_member.member_address_relocated:
+  enroll.families.family_members.primary_family_member.premium_rating_area_relocated:
     bindings:
       amqp:
         is: :routing_key
