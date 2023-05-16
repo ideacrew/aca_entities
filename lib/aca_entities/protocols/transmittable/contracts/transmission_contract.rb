@@ -2,9 +2,9 @@
 
 module AcaEntities
   module Protocols
-    module Transmitable
+    module Transmittable
       module Contracts
-        # Schema and validation rules for the {AcaEntities::Protocols::Transmitable::Transmission} entity
+        # Schema and validation rules for the {AcaEntities::Protocols::Transmittable::Transmission} entity
         class TransmissionContract < Contract
           # @!method call(opts)
           # @param [Hash] opts the parameters to validate using this contract
@@ -21,8 +21,8 @@ module AcaEntities
             optional(:ended_at).maybe(:date_time)
 
             required(:status).value(:symbol)
-            required(:process_states).array(AcaEntities::Protocols::Transmitable::Contracts::ProcessStateContract.params)
-            required(:errors).array(AcaEntities::Protocols::Transmitable::Contracts::ErrorsContract.params)
+            required(:process_states).array(AcaEntities::Protocols::Transmittable::Contracts::ProcessStateContract.params)
+            required(:errors).array(AcaEntities::Protocols::Transmittable::Contracts::ErrorsContract.params)
 
             optional(:timestamps).maybe(AcaEntities::Contracts::TimeStampContract.params)
           end

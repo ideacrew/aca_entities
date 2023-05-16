@@ -4,10 +4,26 @@ require 'dry-types'
 
 module AcaEntities
   module Protocols
-    module Transmitable
+    module Transmittable
+      # Constants, enumerations and type definitions for {Transmittable} entities
       module Types
-        send(:include, Dry.Types)
+        send(:include, Dry.Types())
+        # send(:include, Dry.Types)
         send(:include, Dry::Logic)
+
+        ProcessStateKeyKinds = Types::Coercible::String.enum(
+          %i[
+            initial
+            transmitted
+            received
+            acked
+            nacked
+            retried
+            succeeded
+            failed
+            expired
+          ]
+        ).freeze
 
         DefaultTransmitActionKind =
           Types::Coercible::String.enum(%i[blocked expired hold no_transmit pending transmit]).freeze

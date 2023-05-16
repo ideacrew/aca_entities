@@ -2,8 +2,29 @@
 
 require 'spec_helper'
 
-RSpec.describe AcaEntities::Protocols::Transmitable::Contracts::SubjectContract do
-  subject { described_class.new }
+RSpec.describe AcaEntities::Protocols::Transmittable::Contracts::SubjectContract do
+
+  before :each do
+    let(:transmission_base_klass) { Transmittable::Transmission }
+    let(:transaction_base_klass) { Dry::Struct }
+
+    dummy_transmission_klass =
+      Class.new(super_class: Transmittable::Transmission) do
+        # action here
+      end
+    # dummy_transmission_klass.instance_eval { class_inheritable_accessor :transmission_base_klass }
+    stub_const('Dummy::Transmission', dummy_transmission_klass)
+
+    dummy_transaction_subject_klass =
+      Class.new(super_class: Dry::Struct) do
+        include 'Transmittable::Subject'
+
+        attribute :type, Types::String.meta(omittable: false)
+        attribute :message_text, Types::String.meta(omittable: false)
+      end
+    # dummy_transmission_klass.instance_eval { class_inheritable_accessor :transaction_base_klass }
+    stub_const('Dummy::Transaction', dummy_transaction_subject_klass)
+  end
 
   let(:transactions) { [] }
   let(:required_params) { { transactions: transactions } }

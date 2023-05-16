@@ -2,7 +2,7 @@
 
 module AcaEntities
   module Protocols
-    module Transmitable
+    module Transmittable
       # A data model for a single project
       class Job < Dry::Struct
         # @!attribute [r] id
@@ -54,8 +54,8 @@ module AcaEntities
 
         # @!attribute [r] transmissions
         # The list of one or more transaction collections, grouped by kind, that comprise a single job.
-        # @return [Arrya<AcaEntities::Protocols::Transmitable::Transmission>]
-        attribute :transmissions, Types::Array.of(AcaEntities::Protocols::Transmitable::Transmission).meta(omittable: true)
+        # @return [Arrya<AcaEntities::Protocols::Transmittable::Transmission>]
+        attribute :transmissions, Types::Array.of(AcaEntities::Protocols::Transmittable::Transmission).meta(omittable: true)
 
         # @!attribute [r] status
         # This current {ProcessState} for this job instance
@@ -64,25 +64,25 @@ module AcaEntities
 
         # @!attribute [r] process_states
         # The list of ProcessState transitions that occured during execution of this job
-        # @return [Array<AcaEntities::Protocols::Transmitable::ProcessState>]
-        # attribute :process_states, Types::Array.of(AcaEntities::Protocols::Transmitable::ProcessState).meta(omittable: true)
+        # @return [Array<AcaEntities::Protocols::Transmittable::ProcessState>]
+        # attribute :process_states, Types::Array.of(AcaEntities::Protocols::Transmittable::ProcessState).meta(omittable: true)
 
         # @!attribute [r] errors
         # The list of exceptions that occurred during processing of this job
         # @return [Array<Transmittble::Error>]
-        # attribute :errors, Types::Array.of(AcaEntities::Protocols::Transmitable::Errors).meta(omittable: true)
+        # attribute :errors, Types::Array.of(AcaEntities::Protocols::Transmittable::Errors).meta(omittable: true)
 
         # @!attribute [r] allow_list
-        # The list of {AcaEntities::Protocols::Transmitable::Subject AcaEntities::Protocols::Transmitable::Subjects} transactions to process only
+        # The list of {AcaEntities::Protocols::Transmittable::Subject AcaEntities::Protocols::Transmittable::Subjects} transactions to process only
         # not included in this list are ignored
-        # @return [Array<AcaEntities::Protocols::Transmitable::Subject>]
-        # attribute :allow_list, Types::Array.of(AcaEntities::Protocols::Transmitable::Subject).meta(omittable: true)
+        # @return [Array<AcaEntities::Protocols::Transmittable::Subject>]
+        # attribute :allow_list, Types::Array.of(AcaEntities::Protocols::Transmittable::Subject).meta(omittable: true)
 
         # @!attribute [r] deny_list
-        # The list of {AcaEntities::Protocols::Transmitable::Subject Subjects} transactions to exclude from processing under this job
+        # The list of {AcaEntities::Protocols::Transmittable::Subject Subjects} transactions to exclude from processing under this job
         # for all other subjects will process
-        # @return [Array<AcaEntities::Protocols::Transmitable::Subject>]
-        # attribute :deny_list, Types::Array.of(AcaEntities::Protocols::Transmitable::Subject).meta(omittable: true)
+        # @return [Array<AcaEntities::Protocols::Transmittable::Subject>]
+        # attribute :deny_list, Types::Array.of(AcaEntities::Protocols::Transmittable::Subject).meta(omittable: true)
       end
     end
   end

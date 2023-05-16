@@ -5,4 +5,4 @@
 require 'aca_entities/accounts/accounts'
 
 # library components
-require_relative 'transmitable/transmitable'
+require_relative 'transmittable/transmittable'
