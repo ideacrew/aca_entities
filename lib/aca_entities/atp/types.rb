@@ -34,15 +34,17 @@ module AcaEntities
         'CashSupport' => 'other'
       }.freeze
 
-      FrequencyCodeMap = { "annually" => "yearly",
-                           'biweekly' => 'biweekly',
-                           'daily' => 'daily',
-                           'semiannually' => 'half_yearly',
-                           'monthly' => 'monthly',
-                           'quarterly' => 'quarterly',
-                           'weekly' => 'weekly',
-                           'hourly' => 'hourly',
-                           'once' => 'yearly' }.freeze
+      FrequencyCodeMap = {
+        "annually" => "yearly",
+        'biweekly' => 'biweekly',
+        'daily' => 'daily',
+        'semiannually' => 'half_yearly',
+        'monthly' => 'monthly',
+        'quarterly' => 'quarterly',
+        'weekly' => 'weekly',
+        'hourly' => 'hourly',
+        'once' => 'yearly'
+      }.freeze
 
       DeductionKinds = {
         'Alimony' => 'alimony_paid',
@@ -83,6 +85,7 @@ module AcaEntities
         'medicare' => 'Medicare',
         'tricare' => 'TRICARE',
         'cobra' => 'Private',
+        'private_health_insurance_plan' => 'Private',
         'veterans_benefits' => 'VeteranHealthProgram',
         'health_care_for_peace_corp_volunteers' => 'PeaceCorps',
         "employer_sponsored_insurance" => 'Employer',

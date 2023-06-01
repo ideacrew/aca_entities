@@ -8,6 +8,7 @@ module AcaEntities
 
         attribute :eligible_indicator, Types::Bool.meta(omittable: false)
         attribute :enrolled_indicator, Types::Bool.meta(omittable: false)
+        attribute :planned_coverage_date_ranges, InsuranceApplicantEsiPlannedCoverageDateRange.optional.meta(omittable: true)
         attribute :eligibility_unknown_indicator, Types::Bool.meta(omittable: false)
       end
     end
