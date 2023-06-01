@@ -569,7 +569,7 @@ RSpec.describe AcaEntities::MagiMedicaid::Contracts::ApplicationContract,  dbcle
             benefit.merge({ status: 'is_enrolled' })
           end
 
-          it 'should return failure with error message' do
+          it 'should NOT return failure with error message' do
             err = subject.call(input_params).errors.to_h.dig('applicants', 0, 'benefits', 0, 'esi_covered')
             expect(err).to eq nil
           end
