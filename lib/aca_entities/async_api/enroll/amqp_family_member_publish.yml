@@ -1,0 +1,139 @@
+---
+asyncapi: 2.0.0
+info:
+  title: Enroll App
+  version: 0.1.0
+  description: AMQP Publish configuration for the Enroll services
+  contact:
+    name: IdeaCrew
+    url: https://ideacrew.com
+    email: info@ideacrew.com
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+
+servers:
+  production:
+    url: "amqp://rabbitmq:5672/event_source"
+    protocol: :amqp
+    protocolVersion: "0.9.2"
+    description: Enroll Production Server
+  development:
+    url: "amqp://rabbitmq:5672/event_source"
+    protocol: :amqp
+    protocolVersion: "0.9.2"
+    description: Enroll Test Server
+  test:
+    url: "amqp://rabbitmq:5672/event_source"
+    protocol: :amqp
+    protocolVersion: "0.9.2"
+    description: Enroll Test Server
+
+channels:
+  enroll.families.family_members.primary_member_address_relocated:
+    bindings:
+      amqp:
+        is: :routing_key
+        exchange:
+          name: enroll.families.family_members
+          type: topic
+          content_type: application/json
+          durable: true
+          auto_delete: false
+          vhost: event_source
+          binding_version: "0.2.0"
+    publish:
+      bindings:
+        amqp:
+          app_id: enroll
+          type: enroll.families.family_members
+          routing_key: enroll.families.family_members.primary_member_address_relocated
+          deliveryMode: 2
+          mandatory: true
+          timestamp: true
+          content_type: application/json
+          bindingVersion: 0.2.0
+      operationId: enroll.families.family_members.primary_member_address_relocated
+      description: Events - Person address Update
+
+  enroll.families.family_members.member_address_relocated:
+    bindings:
+      amqp:
+        is: :routing_key
+        exchange:
+          name: enroll.families.family_members
+          type: topic
+          content_type: application/json
+          durable: true
+          auto_delete: false
+          vhost: event_source
+        binding_version: "0.2.0"
+    publish:
+      bindings:
+        amqp:
+          app_id: enroll
+          type: enroll.families.family_members
+          routing_key: enroll.families.family_members.member_address_relocated
+          deliveryMode: 2
+          mandatory: true
+          timestamp: true
+          content_type: application/json
+          bindingVersion: 0.2.0
+      operationId: enroll.families.family_members.member_address_relocated
+      description: Events - Person address Update
+
+  enroll.families.family_members.primary_family_member.product_service_area_relocated:
+    bindings:
+      amqp:
+        is: :routing_key
+        exchange:
+          name: enroll.families.family_members.primary_family_member
+          type: topic
+          content_type: application/json
+          durable: true
+          auto_delete: false
+          vhost: event_source
+        binding_version: "0.2.0"
+    publish:
+      bindings:
+        amqp:
+          app_id: enroll
+          type: enroll.families.family_members.primary_family_member
+          routing_key: enroll.families.family_members.primary_family_member.product_service_area_relocated
+          deliveryMode: 2
+          mandatory: true
+          timestamp: true
+          content_type: application/json
+          bindingVersion: 0.2.0
+      operationId: enroll.families.family_members.primary_family_member.product_service_area_relocated
+      description: Events - Person address Update
+
+  enroll.families.family_members.primary_family_member.premium_rating_area_relocated:
+    bindings:
+      amqp:
+        is: :routing_key
+        exchange:
+          name: enroll.families.family_members.primary_family_member
+          type: topic
+          content_type: application/json
+          durable: true
+          auto_delete: false
+          vhost: event_source
+        binding_version: "0.2.0"
+    publish:
+      bindings:
+        amqp:
+          app_id: enroll
+          type: enroll.families.family_members.primary_family_member
+          routing_key: enroll.families.family_members.primary_family_member.premium_rating_area_relocated
+          deliveryMode: 2
+          mandatory: true
+          timestamp: true
+          content_type: application/json
+          bindingVersion: 0.2.0
+      operationId: enroll.families.family_members.primary_family_member.premium_rating_area_relocated
+      description: Events - Person address Update
+
+tags:
+  - name: linter_tag
+    description: placeholder that satisfies the linter
