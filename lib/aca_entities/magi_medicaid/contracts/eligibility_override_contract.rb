@@ -15,6 +15,7 @@ module AcaEntities
                 optional(:override_rule).maybe(::AcaEntities::MagiMedicaid::Types::EligibilityOverrideRule)
                 optional(:override_applied).maybe(:bool)
               end
+            end
         end
     end
 end
