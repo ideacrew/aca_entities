@@ -57,7 +57,7 @@ channels:
           bindingVersion: 0.2.0
         x_amqp_exchange_to_exchanges:
           enroll.enterprise.events:
-            description: Forward Insurance Agreement Events to Exchange enroll.enterprise.events
+            description: Forward Enterprise Events to Exchange enroll.audit_log.events
             routing_key: enroll.enterprise.#
             bindings:
               amqp:
@@ -70,7 +70,7 @@ channels:
                   auto_delete: false
                   vhost: event_source
           enroll.individual.enrollments:
-            description: Forward Insurance Agreement Events to Exchange enroll.individual.enrollments
+            description: Forward Individual Enrollment Events to Exchange enroll.audit_log.events
             routing_key: enroll.individual.enrollments.#
             bindings:
               amqp:
