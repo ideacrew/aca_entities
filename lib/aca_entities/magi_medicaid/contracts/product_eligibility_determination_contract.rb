@@ -56,7 +56,10 @@ module AcaEntities
           optional(:medicaid_chip_category_threshold).maybe(Types::Money)
 
           optional(:category_determinations).array(CategoryDeterminationContract.params)
-          optional(:member_determinations).array(MemberDeterminationContract.params)
+
+          optional(:member_determinations).maybe(:array) do
+            nil? | each(MemberDeterminationContract.params)
+          end
         end
       end
     end
