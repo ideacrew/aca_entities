@@ -14,7 +14,7 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Contracts::MemberDeterminationContra
       eligibility_overrides: [{
         override_rule: 'not_lawfully_present_pregnant',
         override_applied: true
-        }]
+      }]
     }
   end
 

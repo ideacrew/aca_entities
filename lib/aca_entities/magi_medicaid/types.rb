@@ -424,7 +424,7 @@ module AcaEntities
       EligibilityOverrideRule = Types::Coercible::String.enum(
         'not_lawfully_present_pregnant',
         'not_lawfully_present_chip_eligible',
-        'not_lawfully_present_under_twenty_one',
+        'not_lawfully_present_under_twenty_one'
       )
     end
     # rubocop:enable Metrics/ModuleLength

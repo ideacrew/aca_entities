@@ -16,11 +16,10 @@ RSpec.describe ::AcaEntities::MagiMedicaid::MemberDetermination do
         { kind: 'Medicaid/CHIP Determination',
           is_eligible: true,
           determination_reasons: [:mitc_override_not_lawfully_present_pregnant],
-          eligibility_overrides: [{ 
+          eligibility_overrides: [{
             override_rule: 'not_lawfully_present_pregnant',
             override_applied: true
-          }]
-         }
+          }] }
       end
 
       it 'should return MemberDetermination entity object' do
