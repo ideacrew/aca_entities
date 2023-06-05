@@ -19,6 +19,11 @@ module AcaEntities
       # The reasons the {Applicant} qualifies for the determination.
       # @return [Array]
       attribute :determination_reasons, Types::Array.of(Types::Symbol).optional.meta(omittable: true)
+
+      # @!attribute [r] eligibility_overrides
+      # The eligibility overrides for the determination.
+      # @return [Array]
+      attribute :eligibility_overrides, Types::Array.of(EligibilityOverride).optional.meta(omittable: true)
     end
   end
 end

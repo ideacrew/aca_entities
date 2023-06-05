@@ -15,8 +15,7 @@ module AcaEntities
           optional(:kind).maybe(::AcaEntities::MagiMedicaid::Types::MemberDeterminationKind)
           optional(:is_eligible).maybe(:bool)
           optional(:determination_reasons).array(:symbol)
-          # store separate boolean for override flag?
-          # optional(:override_rule_applied).maybe(:bool)
+          optional(:eligibility_overrides).array(AcaEntities::MagiMedicaid::Contracts::EligibilityOverrideContract.params)
         end
       end
     end
