@@ -5,7 +5,7 @@ require 'spec_helper'
 RSpec.describe ::AcaEntities::Operations::Operation do
   let(:operation_name) { :open_file }
   let(:operation) { { operation_name: operation_name } }
-  let(:params) { { type: 'red', name: 'wilma'} }
+  let(:params) { { type: 'red', name: 'wilma' } }
   let(:instance_new_init) { { operation: operation } }
   let(:class_call_init) {  params.merge(instance_new_init) }
 
@@ -16,7 +16,7 @@ RSpec.describe ::AcaEntities::Operations::Operation do
         send(:include, ::AcaEntities::Operations::Operation)
 
         def call(params)
-          Success(params.merge({operation_name: self.operation_name, parent: self.parent}))
+          Success(params.merge({ operation_name: self.operation_name, parent: self.parent }))
         end
 
       end
@@ -26,7 +26,7 @@ RSpec.describe ::AcaEntities::Operations::Operation do
   context 'Initialize the instance via the .call method' do
     context 'and the operation_name is omitted' do
       it 'raises and argument error' do
-        expect{Dummy::Operation.call(params)}.to raise_error ArgumentError
+        expect {Dummy::Operation.call(params)}.to raise_error ArgumentError
       end
     end
 
@@ -44,13 +44,13 @@ RSpec.describe ::AcaEntities::Operations::Operation do
       end
     end
 
-  end 
+  end
 
   context 'Initialize the instance via the #call method' do
 
     context 'and the operation_name is omitted' do
       it 'raises and argument error' do
-        expect{Dummy::Operation.new.call(params)}.to raise_error ArgumentError
+        expect {Dummy::Operation.new.call(params)}.to raise_error ArgumentError
       end
     end
 

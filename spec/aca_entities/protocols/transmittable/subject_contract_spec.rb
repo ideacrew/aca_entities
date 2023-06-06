@@ -6,8 +6,13 @@ RSpec.describe AcaEntities::Protocols::Transmittable::Contracts::SubjectContract
 
   before :each do
     dummy_transmission_klass =
-      Class.new(super_class: Transmittable::Transmission) do
-        # action here
+      Class.new(super_class: AcaEntities::Protocols::Transmittable::Transmission) do
+        # include 'AcaEntities::Protocols::Transmittable::Transmission'
+
+        # attribute :name, Types::String.meta(omittable: false)
+        # attribute :started_at, Types::DateTime.meta(omittable: false)
+        # attribute :status, Types::Symbol.meta(omittable: false)
+        # attribute :errors, Types::Symbol.meta(omittable: false)
       end
     stub_const('Dummy::Transmission', dummy_transmission_klass)
 

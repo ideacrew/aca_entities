@@ -14,7 +14,6 @@ require 'spec_helper'
 #   it 'Transactions pass validation'
 # end
 
-
 RSpec.describe AcaEntities::Protocols::Transmittable::Contracts::SubjectContract do
   context 'Calling an Entity contract with a subject_transactions param' do
 
@@ -46,7 +45,8 @@ RSpec.describe AcaEntities::Protocols::Transmittable::Contracts::SubjectContract
           started_at: transaction_started_at,
           status: transaction_status,
           process_states: transaction_process_states,
-          errors: transaction_errors }
+          errors: transaction_errors
+        }
       end
 
       let(:entity_id) { 'entity_0987' }

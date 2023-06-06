@@ -28,10 +28,10 @@ RSpec.describe AcaEntities::Protocols::Transmittable::Job, type: :model do
   end
 
   context 'Given defined Transmission and Transaction Subject classes' do
-    let(:message_1) { Dummy::Transaction.new() }
+    let(:message_1) { Dummy::Transaction.new }
     let(:transmissions) { [] }
 
-    let(:account) { { id: "123abc"}}
+    let(:account) { { id: "123abc" }}
     let(:title) { 'Chum Check Service' }
     let(:name) { 'chum_verification' }
     let(:description) { 'Returns information on ' }

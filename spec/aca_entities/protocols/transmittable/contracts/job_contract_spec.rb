@@ -24,8 +24,8 @@ RSpec.describe AcaEntities::Protocols::Transmittable::Contracts::JobContract do
   let(:process_status) { { initial_state_key: :draft, status: :draft } }
   let(:transmissions) { [] }
 
-  let(:allow_list) { [ ] }
-  let(:deny_list) { [ ] }
+  let(:allow_list) { [] }
+  let(:deny_list) { [] }
   let(:errors) { [] }
   let(:timestamps) { { created_at: moment, modified_at: moment } }
 
@@ -136,7 +136,7 @@ RSpec.describe AcaEntities::Protocols::Transmittable::Contracts::JobContract do
     context 'allow_list includes a subject entity' do
       let(:allow_transaction_params) { transaction_params.merge(name: :allow_transaction) }
       let(:allow_list_subject) { { name: :allow_list_subject, id: '123', transactions: [allow_transaction_params] } }
-      let(:allow_list) { [ allow_list_subject ] }
+      let(:allow_list) { [allow_list_subject] }
       let(:allow_list_params) { all_params.merge(allow_list: allow_list) }
 
       it 'should pass validation' do
@@ -149,7 +149,7 @@ RSpec.describe AcaEntities::Protocols::Transmittable::Contracts::JobContract do
     context 'deny_list includes a subject entity' do
       let(:deny_transaction_params) { transaction_params.merge(name: :deny_transaction) }
       let(:deny_list_subject) { { name: :deny_list_subject, id: '456', transactions: [deny_transaction_params] } }
-      let(:deny_list) { [ deny_list_subject ] }
+      let(:deny_list) { [deny_list_subject] }
       let(:deny_list_params) { all_params.merge(deny_list: deny_list) }
 
       it 'should pass validation' do
