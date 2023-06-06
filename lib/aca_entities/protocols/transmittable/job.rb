@@ -36,6 +36,16 @@ module AcaEntities
         # @return [String]
         attribute :description, Types::String.meta(omittable: true)
 
+        # @!attribute [r] publish_on
+        # The date when this job becomes available for processing
+        # @return [DateTime]
+        attribute :publish_on, Types::Date.meta(omittable: true)
+
+        # @!attribute [r] expire_on
+        # The date when this job is no longer available for processing
+        # @return [DateTime]
+        attribute :expire_on, Types::Date.meta(omittable: true)
+
         # @!attribute [r] started_at
         # The moment when this job started execution
         # @return [DateTime]
@@ -65,12 +75,12 @@ module AcaEntities
         # @!attribute [r] process_states
         # The list of ProcessState transitions that occured during execution of this job
         # @return [Array<AcaEntities::Protocols::Transmittable::ProcessState>]
-        # attribute :process_states, Types::Array.of(AcaEntities::Protocols::Transmittable::ProcessState).meta(omittable: true)
+        attribute :process_states, Types::Array.of(AcaEntities::Protocols::Transmittable::ProcessState).meta(omittable: true)
 
         # @!attribute [r] errors
         # The list of exceptions that occurred during processing of this job
         # @return [Array<Transmittble::Error>]
-        # attribute :errors, Types::Array.of(AcaEntities::Protocols::Transmittable::Errors).meta(omittable: true)
+        attribute :errors, Types::Array.of(AcaEntities::Protocols::Transmittable::Errors).meta(omittable: true)
 
         # @!attribute [r] allow_list
         # The list of {AcaEntities::Protocols::Transmittable::Subject AcaEntities::Protocols::Transmittable::Subjects} transactions to process only

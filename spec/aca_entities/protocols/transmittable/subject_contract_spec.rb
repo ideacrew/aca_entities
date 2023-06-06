@@ -5,14 +5,10 @@ require 'spec_helper'
 RSpec.describe AcaEntities::Protocols::Transmittable::Contracts::SubjectContract do
 
   before :each do
-    let(:transmission_base_klass) { Transmittable::Transmission }
-    let(:transaction_base_klass) { Dry::Struct }
-
     dummy_transmission_klass =
       Class.new(super_class: Transmittable::Transmission) do
         # action here
       end
-    # dummy_transmission_klass.instance_eval { class_inheritable_accessor :transmission_base_klass }
     stub_const('Dummy::Transmission', dummy_transmission_klass)
 
     dummy_transaction_subject_klass =
@@ -22,7 +18,6 @@ RSpec.describe AcaEntities::Protocols::Transmittable::Contracts::SubjectContract
         attribute :type, Types::String.meta(omittable: false)
         attribute :message_text, Types::String.meta(omittable: false)
       end
-    # dummy_transmission_klass.instance_eval { class_inheritable_accessor :transaction_base_klass }
     stub_const('Dummy::Transaction', dummy_transaction_subject_klass)
   end
 
@@ -32,6 +27,7 @@ RSpec.describe AcaEntities::Protocols::Transmittable::Contracts::SubjectContract
   let(:all_params) { required_params.merge(optional_params) }
 
   context 'Calling contract with Valid params' do
+
     context 'Calling the contract with required params' do
       it 'should pass validation' do
         result = subject.call(required_params)

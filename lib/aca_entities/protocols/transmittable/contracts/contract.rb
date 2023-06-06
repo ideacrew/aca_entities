@@ -19,29 +19,29 @@ module AcaEntities
             end
           end
 
-          rule(:transactions).each do |index:|
-            next unless key? && value.is_a?(Hash)
-            values.to_h[:transactions[index]]&.each_pair do |attr_key, attr_val|
-              result = TransactionContract.new.call(attr_val)
-              next unless result.failure?
+          # rule(:transactions).each do |index:|
+          #   next unless key? && value.is_a?(Hash)
+          #   values.to_h[:transactions[index]]&.each_pair do |attr_key, attr_val|
+          #     result = TransactionContract.new.call(attr_val)
+          #     next unless result.failure?
 
-              key([*path, attr_key]).failure(
-                { text: 'error', code: result.errors.to_h }
-              )
-            end
-          end
+          #     key([*path, attr_key]).failure(
+          #       { text: 'error', code: result.errors.to_h }
+          #     )
+          #   end
+          # end
 
-          rule(:transmissions).each do |index:|
-            next unless key? && value.is_a?(Hash)
-            values.to_h[:transmissions[index]]&.each_pair do |attr_key, attr_val|
-              result = TransmissionContract.new.call(attr_val)
-              next unless result.failure?
+          # rule(:transmissions).each do |index:|
+          #   next unless key? && value.is_a?(Hash)
+          #   values.to_h[:transmissions[index]]&.each_pair do |attr_key, attr_val|
+          #     result = TransmissionContract.new.call(attr_val)
+          #     next unless result.failure?
 
-              key([*path, attr_key]).failure(
-                { text: 'error', code: result.errors.to_h }
-              )
-            end
-          end
+          #     key([*path, attr_key]).failure(
+          #       { text: 'error', code: result.errors.to_h }
+          #     )
+          #   end
+          # end
 
         end
       end

@@ -4,26 +4,27 @@ module AcaEntities
   module Protocols
     module Transmittable
       module Contracts
-        # A schema to validate {AcaEntities::Protocols::Transmittable::Contracts::Transaction Transactions} that
-        # belong to a subject Entity.
+        # A schema to validate {AcaEntities::Protocols::Transmittable::Contracts::Transaction Transactions}
+        # that belong to a Subject's Domain Entity.
         # @example Usage
         #
-        # params do
-        #   required(:id).filled(:string)
-        #   required(:name).filled(:symbol)
-        #   required(:title).filled(:string)
-        #   required(:description).filled(:string)
-        #   required(:subject_transactions).schema(AcaEntities::Protocols::Transmittable::Contracts::SubjectContract.new)
+        # class MySubjectContract < Dry::Validation::Contract
+        #   params do
+        #     required(:id).filled(:string)
+        #     required(:name).filled(:symbol)
+        #     required(:title).filled(:string)
+        #     required(:description).filled(:string)
+        #     optional(:transactions).array(AcaEntities::Protocols::Transmittable::Contracts::TransactionContract.params)
+        #   end
         # end
-        class SubjectContract < Dry::Schema::Params
+        class SubjectContract < Contract
           # @!method call(params)
           # @param [Hash] params the parameters to validate using this contract
           # @option params [Array<AcaEntities::Protocols::Transmittable::Transaction>]: The list of transactions that belong to this subject
           # @return [Dry::Monads::Result::Success] if params pass validation
           # @return [Dry::Monads::Result::Failure] if params fail validation
-          define do
+          params do
             optional(:transactions).array(AcaEntities::Protocols::Transmittable::Contracts::TransactionContract.params)
-            # optional(:transactions).maybe(:array).each(AcaEntities::Protocols::Transmittable::Contracts::TransactionContract.params)
           end
         end
       end

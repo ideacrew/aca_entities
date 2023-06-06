@@ -2,6 +2,19 @@
 
 require 'spec_helper'
 
+# shared_examples_for 'SubjectContract' do
+#   describe "The Transmittable Subject"
+#   # The Subject's domain model class
+#   let(:entity) { described_class }
+
+#   it 'Entity model has a transactions attribute' do
+#     expect(entity).to respond_to(:transactions)
+#   end
+
+#   it 'Transactions pass validation'
+# end
+
+
 RSpec.describe AcaEntities::Protocols::Transmittable::Contracts::SubjectContract do
   context 'Calling an Entity contract with a subject_transactions param' do
 

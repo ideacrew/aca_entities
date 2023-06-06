@@ -3,7 +3,6 @@
 require 'spec_helper'
 
 RSpec.describe AcaEntities::Protocols::Transmittable::Subject do
-
   # Dummy::Entity is a dummy class that includes the Transmittable::Subject mixin
   before :each do
     module Types
