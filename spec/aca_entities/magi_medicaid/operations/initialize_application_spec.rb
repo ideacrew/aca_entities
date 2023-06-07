@@ -56,7 +56,7 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Operations::InitializeApplication do
     context 'set to expected content' do
       let(:member_determinations) do
         [{ kind: 'Medicaid/CHIP Determination',
-           is_eligible: true,
+           criteria_met: true,
            determination_reasons: [:foo],
            eligibility_overrides: [{
              override_rule: 'not_lawfully_present_pregnant',

@@ -8,13 +8,13 @@ module AcaEntities
         # @!method call(opts)
         # @param [Hash] opts the parameters to validate using this contract
         # @option opts [::AcaEntities::MagiMedicaid::Types::MemberDeterminationKind] :kind
-        # @option opts [Boolean] :is_eligible
+        # @option opts [Boolean] :criteria_met
         # @option opts [Array] :determination_reasons
         # @option opts [Array] :eligibility_overrides
         # @return [Dry::Monads::Result]
         params do
           required(:kind).maybe(::AcaEntities::MagiMedicaid::Types::MemberDeterminationKind)
-          required(:is_eligible).maybe(:bool)
+          required(:criteria_met).maybe(:bool)
           required(:determination_reasons).array(:symbol)
           required(:eligibility_overrides).array(AcaEntities::MagiMedicaid::Contracts::EligibilityOverrideContract.params)
         end

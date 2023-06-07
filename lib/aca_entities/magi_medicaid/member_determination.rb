@@ -10,10 +10,10 @@ module AcaEntities
       # @return [AcaEntities::MagiMedicaid::Types::MemberDeterminationKind]
       attribute :kind, ::AcaEntities::MagiMedicaid::Types::MemberDeterminationKind
 
-      # @!attribute [r] is_eligible
-      # Whether or not the {Applicant} is eligible for the kind of determination.
+      # @!attribute [r] criteria_met
+      # Whether or not the {Applicant} has met the criteria for the kind of determination.
       # @return [Boolean]
-      attribute :is_eligible, Types::Bool
+      attribute :criteria_met, Types::Bool
 
       # @!attribute [r] determination_reasons
       # The reasons the {Applicant} qualifies for the determination.

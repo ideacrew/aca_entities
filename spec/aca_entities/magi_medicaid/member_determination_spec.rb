@@ -14,7 +14,7 @@ RSpec.describe ::AcaEntities::MagiMedicaid::MemberDetermination do
     context 'due to mitc override for applicant who is not lawfully present and pregnant' do
       let(:member_determination) do
         { kind: 'Medicaid/CHIP Determination',
-          is_eligible: true,
+          criteria_met: true,
           determination_reasons: [:mitc_override_not_lawfully_present_pregnant],
           eligibility_overrides: [{
             override_rule: 'not_lawfully_present_pregnant',

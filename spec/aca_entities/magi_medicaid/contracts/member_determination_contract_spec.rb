@@ -7,7 +7,7 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Contracts::MemberDeterminationContra
   let(:required_params) do
     {
       kind: 'Medicaid/CHIP Determination',
-      is_eligible: true,
+      criteria_met: true,
       determination_reasons: [:mitc_override_not_lawfully_present_pregnant],
       eligibility_overrides: [{
         override_rule: 'not_lawfully_present_pregnant',
