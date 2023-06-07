@@ -4,14 +4,14 @@ require 'spec_helper'
 require 'aca_entities/magi_medicaid/libraries/iap_library'
 
 RSpec.describe ::AcaEntities::MagiMedicaid::Contracts::EligibilityOverrideContract do
-  let(:required_params) { {} }
-
-  let(:optional_params) do
+  let(:required_params) do
     {
       override_rule: 'not_lawfully_present_pregnant',
       override_applied: true
     }
   end
+
+  let(:optional_params) { {} }
 
   let(:all_params) { required_params.merge(optional_params) }
 

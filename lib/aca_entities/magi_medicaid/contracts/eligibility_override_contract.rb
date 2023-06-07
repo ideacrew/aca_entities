@@ -8,12 +8,12 @@ module AcaEntities
 
         # @!method call(opts)
         # @param [Hash] opts the parameters to validate using this contract
-        # @option opts [::AcaEntities::MagiMedicaid::Types::EligibilityOverrideRule] :override_rule optional
-        # @option opts [Boolean] :override_applied optional
+        # @option opts [::AcaEntities::MagiMedicaid::Types::EligibilityOverrideRule] :override_rule
+        # @option opts [Boolean] :override_applied
         # @return [Dry::Monads::Result]
         params do
-          optional(:override_rule).maybe(::AcaEntities::MagiMedicaid::Types::EligibilityOverrideRule)
-          optional(:override_applied).maybe(:bool)
+          required(:override_rule).maybe(::AcaEntities::MagiMedicaid::Types::EligibilityOverrideRule)
+          required(:override_applied).maybe(:bool)
         end
       end
     end

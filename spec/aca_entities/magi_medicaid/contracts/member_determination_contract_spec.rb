@@ -4,9 +4,7 @@ require 'spec_helper'
 require 'aca_entities/magi_medicaid/libraries/iap_library'
 
 RSpec.describe ::AcaEntities::MagiMedicaid::Contracts::MemberDeterminationContract do
-  let(:required_params) { {} }
-
-  let(:optional_params) do
+  let(:required_params) do
     {
       kind: 'Medicaid/CHIP Determination',
       is_eligible: true,
@@ -17,6 +15,8 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Contracts::MemberDeterminationContra
       }]
     }
   end
+
+  let(:optional_params) { {} }
 
   let(:all_params) { required_params.merge(optional_params) }
 

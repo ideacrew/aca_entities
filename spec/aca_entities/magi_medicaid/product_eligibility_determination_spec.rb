@@ -91,7 +91,15 @@ RSpec.describe ::AcaEntities::MagiMedicaid::ProductEligibilityDetermination, dbc
     let(:member_determinations) do
       [{ kind: 'Medicaid/CHIP Determination',
          is_eligible: true,
-         determination_reasons: [:mitc_override_not_lawfully_present_pregnant] }]
+         determination_reasons: [:mitc_override_not_lawfully_present_pregnant],
+         eligibility_overrides: eligibility_overrides }]
+    end
+
+    let(:eligibility_overrides) do
+      [{
+        override_rule: 'not_lawfully_present_pregnant',
+        override_applied: true
+      }]
     end
 
     let(:params) do
@@ -112,7 +120,15 @@ RSpec.describe ::AcaEntities::MagiMedicaid::ProductEligibilityDetermination, dbc
     let(:member_determinations) do
       [{ kind: 'Insurance Assistance Determination',
          is_eligible: false,
-         determination_reasons: [:income_above_threshold] }]
+         determination_reasons: [:income_above_threshold],
+         eligibility_overrides: eligibility_overrides }]
+    end
+
+    let(:eligibility_overrides) do
+      [{
+        override_rule: 'not_lawfully_present_pregnant',
+        override_applied: false
+      }]
     end
 
     let(:params) do
@@ -133,9 +149,16 @@ RSpec.describe ::AcaEntities::MagiMedicaid::ProductEligibilityDetermination, dbc
     let(:member_determinations) do
       [{ kind: 'Unassisted QHP Determination',
          is_eligible: true,
-         determination_reasons: [:income_above_threshold] }]
+         determination_reasons: [:income_above_threshold],
+         eligibility_overrides: eligibility_overrides }]
     end
 
+    let(:eligibility_overrides) do
+      [{
+        override_rule: 'not_lawfully_present_pregnant',
+        override_applied: false
+      }]
+    end
     let(:params) do
       input_params.merge({ member_determinations: member_determinations })
     end
@@ -154,9 +177,16 @@ RSpec.describe ::AcaEntities::MagiMedicaid::ProductEligibilityDetermination, dbc
     let(:member_determinations) do
       [{ kind: 'Total Ineligibility Determination',
          is_eligible: true,
-         determination_reasons: [:income_above_threshold] }]
+         determination_reasons: [:income_above_threshold],
+         eligibility_overrides: eligibility_overrides }]
     end
 
+    let(:eligibility_overrides) do
+      [{
+        override_rule: 'not_lawfully_present_pregnant',
+        override_applied: false
+      }]
+    end
     let(:params) do
       input_params.merge({ member_determinations: member_determinations })
     end

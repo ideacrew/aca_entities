@@ -13,7 +13,7 @@ module AcaEntities
       # @!attribute [r] override_applied
       # Whether or not the override rule was applied to the determination.
       # @return [Boolean]
-      attribute :override_applied, Types::Bool.optional.meta(omittable: true)
+      attribute :override_applied, Types::Bool
 
     end
   end
