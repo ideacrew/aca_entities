@@ -4,15 +4,19 @@ require 'spec_helper'
 require 'aca_entities/magi_medicaid/libraries/iap_library'
 
 RSpec.describe ::AcaEntities::MagiMedicaid::Contracts::MemberDeterminationContract do
-  let(:required_params) { {} }
-
-  let(:optional_params) do
+  let(:required_params) do
     {
       kind: 'Medicaid/CHIP Determination',
-      is_eligible: true,
-      determination_reasons: [:mitc_override_not_lawfully_present_pregnant]
+      criteria_met: true,
+      determination_reasons: [:mitc_override_not_lawfully_present_pregnant],
+      eligibility_overrides: [{
+        override_rule: 'not_lawfully_present_pregnant',
+        override_applied: true
+      }]
     }
   end
+
+  let(:optional_params) { {} }
 
   let(:all_params) { required_params.merge(optional_params) }
 
