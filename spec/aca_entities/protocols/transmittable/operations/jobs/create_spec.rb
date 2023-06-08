@@ -3,16 +3,26 @@
 RSpec.describe AcaEntities::Protocols::Transmittable::Operations::Jobs::Create do
   let(:title) { 'A dummy job' }
   let(:description) { 'A dummy job for testing' }
+  let(:name) { 'A dummy job name' }
+  let(:started_at) { DateTime.now }
+  let(:time_to_live) { 1 }
+  let(:publish_on) { Date.today }
   let(:status) { :initial }
-  let(:process_states) { [] }
+  let(:process_status) { { initial_state_key: :draft, status: :draft } }
+  let(:errors) { [] }
   let(:timestamps) { { created_at: DateTime.now, modified_at: DateTime.now } }
 
   let(:params) do
     {
+      name: name,
+      started_at: started_at,
+      time_to_live: time_to_live,
+      publish_on: publish_on,
+      errors: errors,
       title: title,
       description: description,
       status: status,
-      process_states: process_states,
+      process_status: process_status,
       timestamps: timestamps
     }
   end
@@ -21,7 +31,7 @@ RSpec.describe AcaEntities::Protocols::Transmittable::Operations::Jobs::Create d
     it 'should create a job' do
       result = subject.call(params)
       expect(result.success?).to be_truthy
-      expect(result.to_h).to eq job
+      expect(result.success.class).to eq AcaEntities::Protocols::Transmittable::Job
     end
   end
 

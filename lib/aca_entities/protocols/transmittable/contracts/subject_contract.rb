@@ -24,7 +24,7 @@ module AcaEntities
           # @return [Dry::Monads::Result::Success] if params pass validation
           # @return [Dry::Monads::Result::Failure] if params fail validation
           params do
-            optional(:transactions).array(AcaEntities::Protocols::Transmittable::Contracts::TransactionContract.params)
+            required(:transactions).array(AcaEntities::Protocols::Transmittable::Contracts::TransactionContract.params)
           end
         end
       end

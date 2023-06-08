@@ -5,9 +5,11 @@ require 'spec_helper'
 RSpec.describe AcaEntities::Protocols::Transmittable::Subject do
   # Dummy::Entity is a dummy class that includes the Transmittable::Subject mixin
   before :each do
+    # rubocop:disable Lint/ConstantDefinitionInBlock
     module Types
       include Dry.Types()
     end
+    # rubocop:enable Lint/ConstantDefinitionInBlock
 
     dummy_entity_klass = Class.new(Dry::Struct) do
       attribute :entity_id, Types::String.meta(omittable: true)

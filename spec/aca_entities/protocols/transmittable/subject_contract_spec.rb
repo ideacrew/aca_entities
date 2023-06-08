@@ -4,27 +4,27 @@ require 'spec_helper'
 
 RSpec.describe AcaEntities::Protocols::Transmittable::Contracts::SubjectContract do
 
-  before :each do
-    dummy_transmission_klass =
-      Class.new(super_class: AcaEntities::Protocols::Transmittable::Transmission) do
-        # include 'AcaEntities::Protocols::Transmittable::Transmission'
+  # before :each do
+  # dummy_transmission_klass =
+  #   Class.new(super_class: Dry::Struct) do
+  #     include 'Transmittable::Transmission'
 
-        # attribute :name, Types::String.meta(omittable: false)
-        # attribute :started_at, Types::DateTime.meta(omittable: false)
-        # attribute :status, Types::Symbol.meta(omittable: false)
-        # attribute :errors, Types::Symbol.meta(omittable: false)
-      end
-    stub_const('Dummy::Transmission', dummy_transmission_klass)
+  #     attribute :transmission_id, Types::String.meta(omittable: false)
+  #     # attribute :started_at, Types::DateTime.meta(omittable: false)
+  #     # attribute :status, Types::Symbol.meta(omittable: false)
+  #     # attribute :errors, Types::Symbol.meta(omittable: false)
+  #   end
+  # stub_const('Dummy::Transmission', dummy_transmission_klass)
 
-    dummy_transaction_subject_klass =
-      Class.new(super_class: Dry::Struct) do
-        include 'Transmittable::Subject'
+  # dummy_transaction_subject_klass =
+  #   Class.new(super_class: Dry::Struct) do
+  #     include 'Transmittable::Subject'
 
-        attribute :type, Types::String.meta(omittable: false)
-        attribute :message_text, Types::String.meta(omittable: false)
-      end
-    stub_const('Dummy::Transaction', dummy_transaction_subject_klass)
-  end
+  #     attribute :type, Types::String.meta(omittable: false)
+  #     attribute :message_text, Types::String.meta(omittable: false)
+  #   end
+  # stub_const('Dummy::Transaction', dummy_transaction_subject_klass)
+  # end
 
   let(:transactions) { [] }
   let(:required_params) { { transactions: transactions } }

@@ -44,8 +44,7 @@ RSpec.describe AcaEntities::Protocols::Transmittable::Job, type: :model do
       context 'and a Time to Live (TTL) value is provided' do
         let(:time_to_live) { 1 }
 
-        context 'and the Job is expired' do
-        end
+        # context 'and the Job is expired' do end
       end
     end
   end

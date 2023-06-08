@@ -13,7 +13,7 @@ module AcaEntities
         # @!attribute [r] job_id
         # An implementation-specific reference to the resource
         # @return [String]
-        attribute :job_id, Types::Integer.meta(omittable: false)
+        attribute :job_id, Types::Integer.meta(omittable: true)
 
         # @!attribute [r] account
         # Identity Management account with this individual's credentials and
@@ -49,7 +49,7 @@ module AcaEntities
         # @!attribute [r] started_at
         # The moment when this job started execution
         # @return [DateTime]
-        attribute :started_at, Types::Time.meta(omittable: true)
+        attribute :started_at, Types::DateTime.meta(omittable: false)
 
         # @!attribute [r] ended_at
         # The moment when this job ended execution
