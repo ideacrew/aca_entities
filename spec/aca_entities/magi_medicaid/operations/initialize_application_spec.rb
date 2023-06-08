@@ -54,10 +54,19 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Operations::InitializeApplication do
     end
 
     context 'set to expected content' do
+      let(:member_determinations) do
+        [{ kind: 'Medicaid/CHIP Determination',
+           criteria_met: true,
+           determination_reasons: [:foo],
+           eligibility_overrides: [{
+             override_rule: :not_lawfully_present_pregnant,
+             override_applied: true
+           }] }]
+      end
       before do
         invalid_application = iap_application
         ped = invalid_application[:tax_households].first[:tax_household_members].first[:product_eligibility_determination]
-        ped = ped.merge({ member_determinations: [{ kind: 'Medicaid/CHIP Determination', is_eligible: true, determination_reasons: [:foo] }] })
+        ped = ped.merge({ member_determinations: member_determinations })
         invalid_application[:tax_households].first[:tax_household_members].first[:product_eligibility_determination] = ped
         @result = subject.call(invalid_application)
       end
