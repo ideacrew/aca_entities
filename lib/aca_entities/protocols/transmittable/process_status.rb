@@ -35,12 +35,15 @@ module AcaEntities
         # Returns the most recent {ProcessState} instance based on started time
         # @return [ProcessState]
         def latest_process_state
-          process_states.order_by(:transitioned_at.desc).limit(1).first[:state]
+          states.order_by(:transitioned_at.desc).limit(1).first[:state]
         end
 
         def sum_process_state_times
-          @elapsed_time =
-            process_states.reduce(0) { |process_state, summed_time| summed_time + process_state.time_in_state.to_i }
+          @elapsed_time = if states.any?
+                            states.reduce(0) { |process_state, summed_time| summed_time + process_state.time_in_state.to_i }
+                          else
+                            0
+                          end
         end
 
       end

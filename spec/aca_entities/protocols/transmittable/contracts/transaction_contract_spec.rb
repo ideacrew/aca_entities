@@ -12,7 +12,7 @@ RSpec.describe AcaEntities::Protocols::Transmittable::Contracts::TransactionCont
   let(:name) { :verification_transaction }
   let(:title) { name.to_s }
   let(:description) { 'A dummy verification transaction' }
-  let(:status) { :initial }
+  let(:process_status) { { initial_state_key: :draft, status: :draft } }
   let(:process_states) { [] }
   let(:started_at) { moment }
   let(:ended_at) { nil }
@@ -20,13 +20,12 @@ RSpec.describe AcaEntities::Protocols::Transmittable::Contracts::TransactionCont
   let(:timestamps) { { created_at: moment, modified_at: moment } }
 
   let(:required_params) do
-    { name: name, started_at: started_at, status: status, process_states: process_states, errors: errors }
+    { name: name, started_at: started_at, process_status: process_status, errors: errors }
   end
 
   let(:optional_params) do
     {
       id: id,
-      transaction_id: transaction_id,
       title: title,
       description: description,
       ended_at: ended_at,
@@ -59,8 +58,7 @@ RSpec.describe AcaEntities::Protocols::Transmittable::Contracts::TransactionCont
       {
         name: ['is missing'],
         started_at: ['is missing'],
-        status: ['is missing'],
-        process_states: ['is missing'],
+        process_status: ['is missing'],
         errors: ['is missing']
       }
     end

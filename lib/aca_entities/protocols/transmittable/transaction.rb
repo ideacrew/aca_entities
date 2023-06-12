@@ -29,22 +29,17 @@ module AcaEntities
         # @!attribute [r] started_at
         # The moment when this Transaction started execution
         # @return [DateTime]
-        attribute :started_at, Types::DateTime.meta(omittable: true)
+        attribute :started_at, Types::DateTime.meta(omittable: false)
 
         # @!attribute [r] ended_at
         # The moment when this Transaction ended execution
         # @return [DateTime]
         attribute :ended_at, Types::DateTime.meta(omittable: true)
 
-        # @!attribute [r] status
-        # This Transaction's current {AcaEntities::Protocols::Transmittable::ProcessState ProcessState}
-        # @return [Symbol]
-        attribute :status, Types::Symbol.meta(omittable: true)
-
-        # @!attribute [r] process_states
-        # The list of state transitions that occured under this Transaction
-        # @return [Array<AcaEntities::Protocols::Transmittable::ProcessState>]
-        attribute :process_states, Types::Array.of(AcaEntities::Protocols::Transmittable::ProcessState).meta(omittable: true)
+        # @!attribute [r] process_status
+        # The current state of a process and the history of its state transitions for this transaction
+        # @return AcaEntities::Protocols::Transmittable::ProcessStatus
+        attribute :process_status, AcaEntities::Protocols::Transmittable::ProcessStatus.meta(omittable: false)
 
         # @!attribute [r] errors
         # The list of exceptions that occurred under this Transaction

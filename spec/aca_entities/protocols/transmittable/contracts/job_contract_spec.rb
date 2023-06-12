@@ -32,6 +32,7 @@ RSpec.describe AcaEntities::Protocols::Transmittable::Contracts::JobContract do
   let(:required_params) do
     {
       name: name,
+      job_id: job_id,
       started_at: started_at,
       process_status: process_status,
       time_to_live: time_to_live,
@@ -43,7 +44,6 @@ RSpec.describe AcaEntities::Protocols::Transmittable::Contracts::JobContract do
   let(:optional_params) do
     {
       id: id,
-      job_id: job_id,
       account: account,
       title: title,
       description: description,
@@ -84,7 +84,8 @@ RSpec.describe AcaEntities::Protocols::Transmittable::Contracts::JobContract do
         process_status: ['is missing'],
         time_to_live: ['is missing'],
         publish_on: ['is missing'],
-        errors: ['is missing']
+        errors: ['is missing'],
+        job_id: ['is missing']
       }
     end
 
@@ -122,15 +123,14 @@ RSpec.describe AcaEntities::Protocols::Transmittable::Contracts::JobContract do
   context 'Validate #allow_list and #deny_list' do
     let(:transaction_name) { :verification_transaction }
     let(:transaction_started_at) { moment }
-    let(:status) { :draft }
+    let(:process_status) { { initial_state_key: :draft, status: :draft } }
     let(:transaction_process_states) { { event: "dummy event", message: "dummy transaction", started_at: moment } }
     let(:transaction_errors) { [] }
 
     let(:transaction_params) do
       {
         started_at: transaction_started_at,
-        process_states: [transaction_process_states],
-        status: status,
+        process_status: process_status,
         errors: transaction_errors
       }
     end
@@ -180,25 +180,23 @@ RSpec.describe AcaEntities::Protocols::Transmittable::Contracts::JobContract do
       let(:id) { '12345' }
       let(:transmission_id) { 'transmission_202'}
 
-      let(:name) { :verification_transmission }
-      let(:title) { name.to_s }
+      let(:transmission_name) { "verification transmission" }
+      let(:title) { "Verification Transmission of Whatever" }
       let(:description) { 'A dummy verification transmission' }
 
       let(:started_at) { moment }
-      let(:status) { :initial }
-      let(:process_states) { [] }
+      let(:process_status) { { initial_state_key: :draft, status: :draft } }
       let(:errors) { [] }
 
       context 'and that transmission is valid' do
         let(:transmission) do
           {
             transmission_id: transmission_id,
-            name: name,
+            name: transmission_name,
             title: title,
             description: description,
             started_at: started_at,
-            status: status,
-            process_states: process_states,
+            process_status: process_status,
             errors: errors
           }
         end
@@ -222,8 +220,7 @@ RSpec.describe AcaEntities::Protocols::Transmittable::Contracts::JobContract do
                     {
                       name: ['is missing'],
                       started_at: ['is missing'],
-                      status: ['is missing'],
-                      process_states: ['is missing'],
+                      process_status: ['is missing'],
                       errors: ['is missing']
                     }
                 }

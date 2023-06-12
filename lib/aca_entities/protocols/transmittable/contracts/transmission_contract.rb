@@ -13,17 +13,16 @@ module AcaEntities
           params do
             optional(:id).maybe(:string)
             optional(:transmission_id).value(:string)
-            required(:name).value(:symbol)
+            required(:name).value(:string)
             optional(:title).maybe(:string)
             optional(:description).maybe(:string)
 
             required(:started_at).value(:date_time)
             optional(:ended_at).maybe(:date_time)
 
-            required(:status).value(:symbol)
-            required(:process_states).array(AcaEntities::Protocols::Transmittable::Contracts::ProcessStateContract.params)
+            required(:process_status).value(AcaEntities::Protocols::Transmittable::Contracts::ProcessStatusContract.params)
             required(:errors).array(AcaEntities::Protocols::Transmittable::Contracts::ErrorContract.params)
-
+            required(:transmission_transactions).array(AcaEntities::Protocols::Transmittable::TransactionsTransmissionsContract.params)
             optional(:timestamps).maybe(AcaEntities::Contracts::TimeStampContract.params)
           end
         end

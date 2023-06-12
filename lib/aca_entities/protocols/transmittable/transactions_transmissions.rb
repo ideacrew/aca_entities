@@ -3,7 +3,7 @@
 module AcaEntities
   module Protocols
     module Transmittable
-      # An indexed list of {Transaction Transactions} with their associated {Transmission Transmissions} and vice versa
+      # An indexed list of {Transaction Transmissions} with their associated {Transmission Transactions} and vice versa
       class TransactionsTransmissions < Dry::Struct
 
         attribute :transactions do

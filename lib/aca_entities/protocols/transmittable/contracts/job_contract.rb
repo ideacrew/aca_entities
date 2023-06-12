@@ -33,7 +33,7 @@ module AcaEntities
           # @return [Dry::Monads::Result::Failure] if params fail validation
           params do
             optional(:id).maybe(:string)
-            optional(:job_id).maybe(:string)
+            required(:job_id).value(:string)
             optional(:account).maybe(AcaEntities::Accounts::Contracts::AccountContract.params)
             required(:name).value(:symbol)
             optional(:title).maybe(:string)
@@ -46,21 +46,8 @@ module AcaEntities
             required(:process_status).value(AcaEntities::Protocols::Transmittable::Contracts::ProcessStatusContract.params)
             optional(:transmissions).array(AcaEntities::Protocols::Transmittable::Contracts::TransmissionContract.params)
             required(:errors).array(AcaEntities::Protocols::Transmittable::Contracts::ErrorContract.params)
-
-            optional(:allow_list).array(:hash) do
-              optional(:transactions).array(AcaEntities::Protocols::Transmittable::Contracts::TransactionContract.params)
-            end
-
-            optional(:deny_list).array(:hash) do
-              optional(:transactions).array(AcaEntities::Protocols::Transmittable::Contracts::TransactionContract.params)
-            end
-
-            # optional(:deny_list).array(AcaEntities::Protocols::Transmittable::Contracts::SubjectContract.params)
-            # optional(:allow_list).array(AcaEntities::Protocols::Transmittable::Contracts::SubjectContract.params)
-            # optional(:deny_list).array(AcaEntities::Protocols::Transmittable::Contracts::SubjectContract.params)
-            # optional(:allow_list).schema(AcaEntities::Protocols::Transmittable::Contracts::SubjectContract.new)
-            # optional(:deny_list).schema(AcaEntities::Protocols::Transmittable::Contracts::SubjectContract.new)
-
+            optional(:deny_list).array(AcaEntities::Protocols::Transmittable::Contracts::SubjectContract.params)
+            optional(:allow_list).array(AcaEntities::Protocols::Transmittable::Contracts::SubjectContract.params)
             optional(:timestamps).maybe(AcaEntities::Contracts::TimeStampContract.params)
           end
         end

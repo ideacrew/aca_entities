@@ -12,14 +12,12 @@ module AcaEntities
           # @return [Dry::Monads::Result::Failure] if params fail validation
           params do
             optional(:id).maybe(:string)
-            optional(:transaction_id).value(:string)
             required(:name).value(:symbol)
             optional(:title).maybe(:string)
             optional(:description).maybe(:string)
 
-            required(:status).value(:symbol)
-            required(:process_states).array(AcaEntities::Protocols::Transmittable::Contracts::ProcessStateContract.params)
-            # optional(:transactions_transmissions).array(AcaEntities::Protocols::Transmittable::Contracts::TransactionsTransmissionsContract.params)
+            required(:process_status).value(AcaEntities::Protocols::Transmittable::Contracts::ProcessStatusContract.params)
+            required(:transactions_transmissions).array(AcaEntities::Protocols::Transmittable::Contracts::TransactionsTransmissionsContract.params)
 
             required(:started_at).value(:date_time)
             optional(:ended_at).maybe(:date_time)

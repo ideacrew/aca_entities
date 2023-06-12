@@ -18,7 +18,7 @@ module AcaEntities
         # @!attribute [r] key
         # An unambiguous reference to the resource
         # @return [String]
-        attribute :name, Types::String.meta(omittable: true)
+        attribute :name, Types::String.meta(omittable: false)
 
         # @!attribute [r] title
         # A name given to the resource by which the resource is formally known
@@ -33,7 +33,7 @@ module AcaEntities
         # @!attribute [r] started_at
         # The moment when this transmission started execution
         # @return [DateTime]
-        attribute :started_at, Types::Time.meta(omittable: true)
+        attribute :started_at, Types::Time.meta(omittable: false)
 
         # @!attribute [r] ended_at
         # The moment when this transmission ended execution
@@ -46,15 +46,10 @@ module AcaEntities
         # attribute :transmission_transactions,
         #           Types::Array.of(AcaEntities::Protocols::Transmittable::TransactionsTransmissions).meta(omittable: false)
 
-        # @!attribute [r] status
-        # This current {ProcessState} for this transmission instance
-        # @return [Symbol]
-        attribute :status, Types::String.meta(omittable: true)
-
-        # @!attribute [r] process_states
-        # The list of ProcessState transitions that occured during execution of this transmission
-        # @return [Array<AcaEntities::Protocols::Transmittable::ProcessState>]
-        # attribute :process_states, Types::Array.of(AcaEntities::Protocols::Transmittable::ProcessState).meta(omittable: true)
+        # @!attribute [r] process_status
+        # The current state of a process and the history of its state transitions for this transmission
+        # @return AcaEntities::Protocols::Transmittable::ProcessStatus
+        attribute :process_status, AcaEntities::Protocols::Transmittable::ProcessStatus.meta(omittable: false)
 
         # @!attribute [r] errors
         # Exceptions that occured during processing of this transmission
