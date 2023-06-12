@@ -12,7 +12,7 @@ RSpec.describe AcaEntities::Protocols::Transmittable::Contracts::TransmissionCon
   let(:transmission_name) { "verification_transmission" }
   let(:title) { "Verification Transmission Cool Title" }
   let(:description) { 'A dummy verification transmission' }
-  let(:process_status) { { initial_state_key: :draft, status: :draft } }
+  let(:process_status) { { initial_state_key: :draft } }
   let(:started_at) { moment }
   let(:ended_at) { nil }
   let(:errors) { [] }

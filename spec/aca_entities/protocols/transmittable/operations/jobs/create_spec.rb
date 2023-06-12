@@ -8,14 +8,14 @@ RSpec.describe AcaEntities::Protocols::Transmittable::Operations::Jobs::Create d
   let(:time_to_live) { 1 }
   let(:publish_on) { Date.today }
   let(:status) { :initial }
-  let(:process_status) { { initial_state_key: :draft, status: :draft } }
+  let(:process_status) { { initial_state_key: :draft } }
   let(:errors) { [] }
   let(:timestamps) { { created_at: DateTime.now, modified_at: DateTime.now } }
 
   let(:params) do
     {
+      job_id: 'test_123',
       name: name,
-      started_at: started_at,
       time_to_live: time_to_live,
       publish_on: publish_on,
       errors: errors,
@@ -23,6 +23,7 @@ RSpec.describe AcaEntities::Protocols::Transmittable::Operations::Jobs::Create d
       description: description,
       status: status,
       process_status: process_status,
+      started_at: started_at,
       timestamps: timestamps
     }
   end

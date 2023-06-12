@@ -15,9 +15,10 @@ module AcaEntities
               required(:transaction).value(AcaEntities::Protocols::Transmittable::Contracts::TransactionContract.params)
               required(:transmissions).array(AcaEntities::Protocols::Transmittable::Contracts::TransmissionContract.params)
             end
+
             required(:transmissions).hash do
               required(:transmission).value(AcaEntities::Protocols::Transmittable::Contracts::TransmissionContract.params)
-              required(:transactions).array(AcaEntities::Protocols::Transmittable::Contracts::TransactionsContract.params)
+              required(:transactions).array(AcaEntities::Protocols::Transmittable::Contracts::TransactionContract.params)
             end
           end
         end

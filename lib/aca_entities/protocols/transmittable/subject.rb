@@ -29,7 +29,7 @@ module AcaEntities
           .of(
             AcaEntities::Protocols::Transmittable::Transaction
           )
-          .meta(omittable: true)
+          .meta(omittable: false)
       end
     end
   end

@@ -26,25 +26,27 @@ module AcaEntities
         # @return [Integer]
         attribute? :elapsed_time, Types::Integer.meta(omittable: true)
 
-        def initialize(args)
-          @elapsed_time = sum_process_state_times
-          @state = latest_process_state[:key]
-          super
-        end
+        # def initialize(args)
+        #   @elapsed_time = sum_process_state_times
+        #   @state = latest_process_state[:key]
+        #   super
+        # end
 
         # Returns the most recent {ProcessState} instance based on started time
         # @return [ProcessState]
-        def latest_process_state
-          states.order_by(:transitioned_at.desc).limit(1).first[:state]
-        end
+        # Commenting this since there is no transitioned_at attributes in process_state at this point.
+        # def latest_process_state
+        #   states.order_by(:transitioned_at.desc).limit(1).first[:state]
+        # end
 
-        def sum_process_state_times
-          @elapsed_time = if states.any?
-                            states.reduce(0) { |process_state, summed_time| summed_time + process_state.time_in_state.to_i }
-                          else
-                            0
-                          end
-        end
+        # Commenting this since there is no transitioned_at attributes in time_in_state at this point.
+        # def sum_process_state_times
+        #   @elapsed_time = if states.any?
+        #                     states.reduce(0) { |process_state, summed_time| summed_time + process_state.time_in_state.to_i }
+        #                   else
+        #                     0
+        #                   end
+        # end
 
       end
     end

@@ -12,7 +12,7 @@ RSpec.describe AcaEntities::Protocols::Transmittable::Contracts::TransactionCont
   let(:name) { :verification_transaction }
   let(:title) { name.to_s }
   let(:description) { 'A dummy verification transaction' }
-  let(:process_status) { { initial_state_key: :draft, status: :draft } }
+  let(:process_status) { { initial_state_key: :draft } }
   let(:process_states) { [] }
   let(:started_at) { moment }
   let(:ended_at) { nil }
