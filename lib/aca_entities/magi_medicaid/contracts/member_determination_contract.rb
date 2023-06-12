@@ -15,7 +15,7 @@ module AcaEntities
         params do
           required(:kind).maybe(::AcaEntities::MagiMedicaid::Types::MemberDeterminationKind)
           required(:criteria_met).maybe(:bool)
-          required(:determination_reasons).array(:symbol)
+          required(:determination_reasons).array(:string)
           required(:eligibility_overrides).array(AcaEntities::MagiMedicaid::Contracts::EligibilityOverrideContract.params)
         end
       end
