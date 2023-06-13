@@ -18,7 +18,8 @@ module AcaEntities
       # @!attribute [r] determination_reasons
       # The reasons the {Applicant} qualifies for the determination.
       # @return [Array]
-      attribute :determination_reasons, Types::Array.of(Types::Symbol)
+      # attribute :determination_reasons, Types::Array.of(Types::Coercible::String)
+      attribute :determination_reasons, Types::Array.of(Types::Coercible::String)
 
       # @!attribute [r] eligibility_overrides
       # The eligibility overrides for the determination.

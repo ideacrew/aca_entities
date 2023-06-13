@@ -91,7 +91,7 @@ RSpec.describe ::AcaEntities::MagiMedicaid::ProductEligibilityDetermination, dbc
     let(:member_determinations) do
       [{ kind: 'Medicaid/CHIP Determination',
          criteria_met: true,
-         determination_reasons: [:mitc_override_not_lawfully_present_pregnant],
+         determination_reasons: ['mitc_override_not_lawfully_present_pregnant'],
          eligibility_overrides: eligibility_overrides }]
     end
 
@@ -120,7 +120,7 @@ RSpec.describe ::AcaEntities::MagiMedicaid::ProductEligibilityDetermination, dbc
     let(:member_determinations) do
       [{ kind: 'Insurance Assistance Determination',
          criteria_met: false,
-         determination_reasons: [:income_above_threshold],
+         determination_reasons: ['income_above_threshold'],
          eligibility_overrides: eligibility_overrides }]
     end
 
@@ -149,7 +149,7 @@ RSpec.describe ::AcaEntities::MagiMedicaid::ProductEligibilityDetermination, dbc
     let(:member_determinations) do
       [{ kind: 'Unassisted QHP Determination',
          criteria_met: true,
-         determination_reasons: [:income_above_threshold],
+         determination_reasons: ['income_above_threshold'],
          eligibility_overrides: eligibility_overrides }]
     end
 
@@ -177,7 +177,7 @@ RSpec.describe ::AcaEntities::MagiMedicaid::ProductEligibilityDetermination, dbc
     let(:member_determinations) do
       [{ kind: 'Total Ineligibility Determination',
          criteria_met: true,
-         determination_reasons: [:income_above_threshold],
+         determination_reasons: ['income_above_threshold'],
          eligibility_overrides: eligibility_overrides }]
     end
 
