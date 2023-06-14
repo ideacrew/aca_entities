@@ -9,9 +9,9 @@ RSpec.describe AcaEntities::Protocols::Transmittable::Contracts::JobContract do
   let(:id) { '12345' }
   let(:job_id) { 'abc123'}
   let(:account) { { username: 'antman', first_name: 'Scott', last_name: 'Lang' } }
-  let(:name) { :verification_job }
+  let(:key) { :verification_job }
 
-  let(:title) { name.to_s }
+  let(:title) { key.to_s }
   let(:description) { 'A dummy verification job' }
 
   let(:publish_on) { moment.to_date }
@@ -31,7 +31,7 @@ RSpec.describe AcaEntities::Protocols::Transmittable::Contracts::JobContract do
 
   let(:required_params) do
     {
-      name: name,
+      key: key,
       job_id: job_id,
       started_at: started_at,
       process_status: process_status,
@@ -79,7 +79,7 @@ RSpec.describe AcaEntities::Protocols::Transmittable::Contracts::JobContract do
   context 'Call the contract with empty params' do
     let(:error_message) do
       {
-        name: ['is missing'],
+        key: ['is missing'],
         started_at: ['is missing'],
         process_status: ['is missing'],
         time_to_live: ['is missing'],
@@ -136,7 +136,7 @@ RSpec.describe AcaEntities::Protocols::Transmittable::Contracts::JobContract do
     end
 
     context 'allow_list includes a subject entity' do
-      let(:allow_transaction_params) { transaction_params.merge(name: :allow_transaction) }
+      let(:allow_transaction_params) { transaction_params.merge(key: :allow_transaction) }
       let(:allow_list_subject) { { transactions: [allow_transaction_params] } }
       let(:allow_list) { [allow_list_subject] }
       let(:allow_list_params) { all_params.merge(allow_list: allow_list) }
@@ -149,7 +149,7 @@ RSpec.describe AcaEntities::Protocols::Transmittable::Contracts::JobContract do
     end
 
     context 'deny_list includes a subject entity' do
-      let(:deny_transaction_params) { transaction_params.merge(name: :deny_transaction) }
+      let(:deny_transaction_params) { transaction_params.merge(key: :deny_transaction) }
       let(:deny_list_subject) { { transactions: [deny_transaction_params] } }
       let(:deny_list) { [deny_list_subject] }
       let(:deny_list_params) { all_params.merge(deny_list: deny_list) }
@@ -179,7 +179,7 @@ RSpec.describe AcaEntities::Protocols::Transmittable::Contracts::JobContract do
 
       let(:id) { '12345' }
 
-      let(:transmission_name) { "verification transmission" }
+      let(:transmission_key) { :verification_transmission }
       let(:title) { "Verification Transmission of Whatever" }
       let(:description) { 'A dummy verification transmission' }
 
@@ -190,7 +190,7 @@ RSpec.describe AcaEntities::Protocols::Transmittable::Contracts::JobContract do
       context 'and that transmission is valid' do
         let(:transmission) do
           {
-            name: transmission_name,
+            key: transmission_key,
             title: title,
             description: description,
             started_at: started_at,
@@ -216,7 +216,7 @@ RSpec.describe AcaEntities::Protocols::Transmittable::Contracts::JobContract do
                 {
                   0 =>
                     {
-                      name: ['is missing'],
+                      key: ['is missing'],
                       started_at: ['is missing'],
                       process_status: ['is missing'],
                       errors: ['is missing']

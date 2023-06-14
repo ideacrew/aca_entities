@@ -8,7 +8,7 @@ RSpec.describe AcaEntities::Protocols::Transmittable::Contracts::TransmissionCon
   let(:moment) { DateTime.now }
 
   let(:id) { '12345' }
-  let(:transmission_name) { "verification_transmission" }
+  let(:transmission_key) { :verification_transmission }
   let(:title) { "Verification Transmission Cool Title" }
   let(:description) { 'A dummy verification transmission' }
   let(:process_status) { { initial_state_key: :draft } }
@@ -18,7 +18,7 @@ RSpec.describe AcaEntities::Protocols::Transmittable::Contracts::TransmissionCon
   let(:timestamps) { { created_at: moment, modified_at: moment } }
 
   let(:required_params) do
-    { name: transmission_name, started_at: started_at, process_status: process_status, errors: errors }
+    { key: transmission_key, started_at: started_at, process_status: process_status, errors: errors }
   end
 
   let(:optional_params) do
@@ -54,7 +54,7 @@ RSpec.describe AcaEntities::Protocols::Transmittable::Contracts::TransmissionCon
   context 'Calling the contract with no params' do
     let(:error_message) do
       {
-        name: ['is missing'],
+        key: ['is missing'],
         started_at: ['is missing'],
         process_status: ['is missing'],
         errors: ['is missing']

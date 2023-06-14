@@ -3,7 +3,7 @@
 RSpec.describe AcaEntities::Protocols::Transmittable::Operations::Jobs::Create do
   let(:title) { 'A dummy job' }
   let(:description) { 'A dummy job for testing' }
-  let(:name) { 'A dummy job name' }
+  let(:key) { 'A dummy job name' }
   let(:started_at) { DateTime.now }
   let(:time_to_live) { 1 }
   let(:publish_on) { Date.today }
@@ -15,7 +15,7 @@ RSpec.describe AcaEntities::Protocols::Transmittable::Operations::Jobs::Create d
   let(:params) do
     {
       job_id: 'test_123',
-      name: name,
+      key: key,
       time_to_live: time_to_live,
       publish_on: publish_on,
       errors: errors,

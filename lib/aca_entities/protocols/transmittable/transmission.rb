@@ -13,7 +13,7 @@ module AcaEntities
         # @!attribute [r] key
         # An unambiguous reference to the resource
         # @return [String]
-        attribute :name, Types::String.meta(omittable: false)
+        attribute :key, Types::Symbol.meta(omittable: false)
 
         # @!attribute [r] title
         # A name given to the resource by which the resource is formally known

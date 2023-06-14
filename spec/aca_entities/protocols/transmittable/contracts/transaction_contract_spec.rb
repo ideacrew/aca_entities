@@ -9,8 +9,8 @@ RSpec.describe AcaEntities::Protocols::Transmittable::Contracts::TransactionCont
 
   let(:id) { '12345' }
   let(:transaction_id) { 'xyz210'}
-  let(:name) { :verification_transaction }
-  let(:title) { name.to_s }
+  let(:key) { :verification_transaction }
+  let(:title) { key.to_s }
   let(:description) { 'A dummy verification transaction' }
   let(:process_status) { { initial_state_key: :draft } }
   let(:process_states) { [] }
@@ -20,7 +20,7 @@ RSpec.describe AcaEntities::Protocols::Transmittable::Contracts::TransactionCont
   let(:timestamps) { { created_at: moment, modified_at: moment } }
 
   let(:required_params) do
-    { name: name, started_at: started_at, process_status: process_status, errors: errors }
+    { key: key, started_at: started_at, process_status: process_status, errors: errors }
   end
 
   let(:optional_params) do
@@ -56,7 +56,7 @@ RSpec.describe AcaEntities::Protocols::Transmittable::Contracts::TransactionCont
   context 'Calling the contract with no params' do
     let(:error_message) do
       {
-        name: ['is missing'],
+        key: ['is missing'],
         started_at: ['is missing'],
         process_status: ['is missing'],
         errors: ['is missing']

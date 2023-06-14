@@ -35,7 +35,7 @@ module AcaEntities
             optional(:id).maybe(:string)
             required(:job_id).value(:string)
             optional(:account).maybe(AcaEntities::Accounts::Contracts::AccountContract.params)
-            required(:name).value(:symbol)
+            required(:key).value(:symbol)
             optional(:title).maybe(:string)
             optional(:description).maybe(:string)
             required(:started_at).value(:date_time)

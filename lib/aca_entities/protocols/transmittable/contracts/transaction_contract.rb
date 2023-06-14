@@ -12,7 +12,7 @@ module AcaEntities
           # @return [Dry::Monads::Result::Failure] if params fail validation
           params do
             optional(:id).maybe(:string)
-            required(:name).value(:symbol)
+            required(:key).value(:symbol)
             optional(:title).maybe(:string)
             optional(:description).maybe(:string)
 

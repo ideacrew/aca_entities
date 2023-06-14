@@ -6,7 +6,7 @@ RSpec.describe AcaEntities::Protocols::Transmittable::Contracts::SubjectContract
   context 'Calling an Entity contract with a subject_transactions param' do
 
     context 'Calling contract with Valid params' do
-      let(:transaction_name) { :verification_transaction }
+      let(:transaction_key) { :verification_transaction }
       let(:transaction_status) { :initial }
       let(:transaction_process_status) { { initial_state_key: :draft } }
       let(:transaction_started_at) { DateTime.now }
@@ -14,7 +14,7 @@ RSpec.describe AcaEntities::Protocols::Transmittable::Contracts::SubjectContract
 
       let(:transaction) do
         {
-          name: transaction_name,
+          key: transaction_key,
           process_status: transaction_process_status,
           started_at: transaction_started_at,
           errors: transaction_errors
