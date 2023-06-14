@@ -12,13 +12,17 @@ module AcaEntities
           # @return [Dry::Monads::Result::Failure] if params fail validation
           params do
             required(:transactions).hash do
-              required(:transaction).value(AcaEntities::Protocols::Transmittable::Contracts::TransactionContract.params)
-              required(:transmissions).array(AcaEntities::Protocols::Transmittable::Contracts::TransmissionContract.params)
+              # this is the transaction object hash
+              required(:transaction).filled(:hash)
+              # this is the transmission object hash
+              required(:transmissions).filled(:hash)
             end
 
             required(:transmissions).hash do
-              required(:transmission).value(AcaEntities::Protocols::Transmittable::Contracts::TransmissionContract.params)
-              required(:transactions).array(AcaEntities::Protocols::Transmittable::Contracts::TransactionContract.params)
+              # this is the transmission object hash
+              required(:transmission).filled(:hash)
+              # this is the transaction object hash
+              required(:transactions).filled(:hash)
             end
           end
         end
