@@ -186,8 +186,7 @@ module AcaEntities
       require 'aca_entities/audit_logs/entities/audit_log_event'
 
       # Operations
-      require 'aca_entities/operations/operation'
-      require 'aca_entities/operations/composite_operation'
+      require 'aca_entities/operations/operations'
       require 'aca_entities/operations/create_family'
     end
   end
