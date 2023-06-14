@@ -178,7 +178,6 @@ RSpec.describe AcaEntities::Protocols::Transmittable::Contracts::JobContract do
       let(:moment) { DateTime.now }
 
       let(:id) { '12345' }
-      let(:transmission_id) { 'transmission_202'}
 
       let(:transmission_name) { "verification transmission" }
       let(:title) { "Verification Transmission of Whatever" }
@@ -191,7 +190,6 @@ RSpec.describe AcaEntities::Protocols::Transmittable::Contracts::JobContract do
       context 'and that transmission is valid' do
         let(:transmission) do
           {
-            transmission_id: transmission_id,
             name: transmission_name,
             title: title,
             description: description,
@@ -210,7 +208,7 @@ RSpec.describe AcaEntities::Protocols::Transmittable::Contracts::JobContract do
         end
 
         context 'and that transmission is invalid' do
-          let(:transmission) { { transmission_id: transmission_id } }
+          let(:transmission) { { id: id } }
           let(:params) { all_params.merge(transmissions: [transmission]) }
           let(:error_message) do
             {

@@ -12,7 +12,6 @@ module AcaEntities
           # @return [Dry::Monads::Result::Failure] if params fail validation
           params do
             optional(:id).maybe(:string)
-            optional(:transmission_id).value(:string)
             required(:name).value(:string)
             optional(:title).maybe(:string)
             optional(:description).maybe(:string)

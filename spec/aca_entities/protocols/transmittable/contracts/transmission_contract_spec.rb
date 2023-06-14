@@ -8,7 +8,6 @@ RSpec.describe AcaEntities::Protocols::Transmittable::Contracts::TransmissionCon
   let(:moment) { DateTime.now }
 
   let(:id) { '12345' }
-  let(:transmission_id) { 'transmission_001'}
   let(:transmission_name) { "verification_transmission" }
   let(:title) { "Verification Transmission Cool Title" }
   let(:description) { 'A dummy verification transmission' }
@@ -25,7 +24,6 @@ RSpec.describe AcaEntities::Protocols::Transmittable::Contracts::TransmissionCon
   let(:optional_params) do
     {
       id: id,
-      transmission_id: transmission_id,
       title: title,
       description: description,
       ended_at: ended_at,

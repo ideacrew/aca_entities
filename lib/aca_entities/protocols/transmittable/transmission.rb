@@ -10,11 +10,6 @@ module AcaEntities
         # @return [String]
         attribute? :id, Types::String.meta(omittable: true)
 
-        # @!attribute [r] transmission_id
-        # An implementation-specific reference to the resource
-        # @return [String]
-        attribute :transmission_id, Types::String.meta(omittable: false)
-
         # @!attribute [r] key
         # An unambiguous reference to the resource
         # @return [String]
