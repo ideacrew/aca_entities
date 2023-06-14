@@ -182,10 +182,12 @@ module AcaEntities
       require 'aca_entities/benefit_markets/product_package'
       require 'aca_entities/benefit_markets/benefit_sponsor_catalog'
       require 'aca_entities/operations/operation'
+      require 'aca_entities/operations/composite_operation'
       require 'aca_entities/async_api/async_api'
       require 'aca_entities/audit_logs/contracts/audit_log_event_contract'
       require 'aca_entities/audit_logs/entities/audit_log_event'
-
+      require 'aca_entities/operations/operation'
+      require 'aca_entities/operations/composite_operation'
       # Operations
       require 'aca_entities/operations/create_family'
     end
