@@ -24,6 +24,12 @@ RSpec.describe AcaEntities::Protocols::Transmittable::Contracts::JobContract do
   let(:process_status) { { initial_state_key: :draft } }
   let(:transmissions) { [] }
 
+  let(:transactions_transmissions_transmissions) { { transmission: { key: :fake_key }, transactions: [{ key: :fake_key }] } }
+  let(:transactions_transmissions_transactions) { { transaction: { key: :fake_key }, transmissions: [{ key: :fake_key }] } }
+  let(:transactions_transmissions) do
+    [{ transmissions: transactions_transmissions_transmissions, transactions: transactions_transmissions_transactions }]
+  end
+
   let(:allow_list) { [] }
   let(:deny_list) { [] }
   let(:errors) { [] }
@@ -131,7 +137,8 @@ RSpec.describe AcaEntities::Protocols::Transmittable::Contracts::JobContract do
       {
         started_at: transaction_started_at,
         process_status: process_status,
-        errors: transaction_errors
+        errors: transaction_errors,
+        transactions_transmissions: transactions_transmissions
       }
     end
 
@@ -195,7 +202,8 @@ RSpec.describe AcaEntities::Protocols::Transmittable::Contracts::JobContract do
             description: description,
             started_at: started_at,
             process_status: process_status,
-            errors: errors
+            errors: errors,
+            transactions_transmissions: transactions_transmissions
           }
         end
 
@@ -219,7 +227,8 @@ RSpec.describe AcaEntities::Protocols::Transmittable::Contracts::JobContract do
                       key: ['is missing'],
                       started_at: ['is missing'],
                       process_status: ['is missing'],
-                      errors: ['is missing']
+                      errors: ['is missing'],
+                      transactions_transmissions: ['is missing']
                     }
                 }
             }

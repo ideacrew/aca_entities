@@ -15,14 +15,14 @@ module AcaEntities
               # this is the transaction object hash
               required(:transaction).filled(:hash)
               # this is the transmission object hash
-              required(:transmissions).filled(:hash)
+              required(:transmissions).array(:hash)
             end
 
             required(:transmissions).hash do
               # this is the transmission object hash
               required(:transmission).filled(:hash)
               # this is the transaction object hash
-              required(:transactions).filled(:hash)
+              required(:transactions).array(:hash)
             end
           end
         end

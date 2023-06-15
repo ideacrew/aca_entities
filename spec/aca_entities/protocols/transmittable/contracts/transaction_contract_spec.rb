@@ -18,9 +18,14 @@ RSpec.describe AcaEntities::Protocols::Transmittable::Contracts::TransactionCont
   let(:ended_at) { nil }
   let(:errors) { [] }
   let(:timestamps) { { created_at: moment, modified_at: moment } }
+  let(:transactions_transmissions_transmissions) { { transmission: { key: :fake_key }, transactions: [{ key: :fake_key }] } }
+  let(:transactions_transmissions_transactions) { { transaction: { key: :fake_key }, transmissions: [{ key: :fake_key }] } }
+  let(:transactions_transmissions) do
+    [{ transmissions: transactions_transmissions_transmissions, transactions: transactions_transmissions_transactions }]
+  end
 
   let(:required_params) do
-    { key: key, started_at: started_at, process_status: process_status, errors: errors }
+    { key: key, started_at: started_at, process_status: process_status, errors: errors, transactions_transmissions: transactions_transmissions }
   end
 
   let(:optional_params) do
@@ -59,7 +64,8 @@ RSpec.describe AcaEntities::Protocols::Transmittable::Contracts::TransactionCont
         key: ['is missing'],
         started_at: ['is missing'],
         process_status: ['is missing'],
-        errors: ['is missing']
+        errors: ['is missing'],
+        transactions_transmissions: ['is missing']
       }
     end
 
