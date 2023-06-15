@@ -153,7 +153,8 @@ RSpec.describe AcaEntities::PayNow::CareFirst::Operations::GenerateXml do
         person_relationships: [{ :kind => "domestic_partner",
                                  :relative => { :hbx_id => "50001268", :first_name => "Spouse", :middle_name => nil, :last_name => "Test",
                                                 :encrypted_ssn => "EQbS0ycavkcS7BWbp0l+2YIEvP8EKMlIkg==\n",
-                                                :no_ssn => false, :dob => "1986-01-01", :gender => "male", :relationship_to_primary => "domestic_partner" } }],
+                                                :no_ssn => false, :dob => "1986-01-01", :gender => "male",
+                                                :relationship_to_primary => "domestic_partner" } }],
         consumer_role: {
           five_year_bar: false,
           requested_coverage_start_date: "2023-03-03",
