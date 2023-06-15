@@ -25,7 +25,7 @@ RSpec.describe AcaEntities::Fdsh::H36::Contracts::BatchHandlingServiceRequestCon
 
   let(:service_specific_data) do
     {
-      ReportPeriod: { Year: Date.today.year }
+      ReportPeriod: { YearMonth: "#{Date.today.year} - #{Date.today.month}" }
     }
   end
 

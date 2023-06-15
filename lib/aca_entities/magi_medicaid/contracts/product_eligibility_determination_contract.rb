@@ -21,6 +21,14 @@ module AcaEntities
         # @option opts [Float] :magi_medicaid_monthly_income_limit optional
         # @option opts [Float] :magi_as_percentage_of_fpl optional
         # @option opts [String] :magi_medicaid_category optional
+        # @option opts [Array] :magi_medicaid_ineligibility_reasons optional
+        # @option opts [Boolean] :is_eligible_for_non_magi_reasons optional
+        # @option opts [Array] :chip_ineligibility_reasons optional
+        # @option opts [Float] :magi_medicaid_category_threshold optional
+        # @option opts [String] :medicaid_chip_category optional
+        # @option opts [Float] :medicaid_chip_category_threshold optional
+        # @option opts [Array] :category_determinations optional
+        # @option opts [Array] :member_determinations optional
         # @return [Dry::Monads::Result]
         params do
           optional(:is_ia_eligible).maybe(:bool)
@@ -48,6 +56,10 @@ module AcaEntities
           optional(:medicaid_chip_category_threshold).maybe(Types::Money)
 
           optional(:category_determinations).array(CategoryDeterminationContract.params)
+
+          optional(:member_determinations).maybe(:array) do
+            nil? | each(MemberDeterminationContract.params)
+          end
         end
       end
     end

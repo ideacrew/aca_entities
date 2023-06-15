@@ -15,7 +15,7 @@ module AcaEntities
             # True if an applicant is eligible for an employer sponsored insurance (ESI) plan; false otherwise.
             element :eligible_indicator, Boolean, tag: "InsuranceApplicantESIEligibleIndicator", namespace: "hix-ee"
 
-            # ATrue if an applicant is enrolled in an employer sponsored insurance (ESI) plan; false otherwise.
+            # True if an applicant is enrolled in an employer sponsored insurance (ESI) plan; false otherwise.
             element :enrolled_indicator, Boolean, tag: "InsuranceApplicantESIEnrolledIndicator", namespace: "hix-ee"
 
             # A date range an insurance applicant plans for coverage to be effective under an employer sponsored insurance (ESI) plan.
@@ -31,7 +31,8 @@ module AcaEntities
               mapper = self.new
               mapper.eligible_indicator = esi_association.eligible_indicator
               mapper.enrolled_indicator = esi_association.enrolled_indicator
-              # mapper.planned_coverage_date_ranges = esi_association&.planned_coverage_date_ranges
+              mapper.planned_coverage_date_ranges =
+                InsuranceApplicantEsiPlannedCoverageDateRange.domain_to_mapper(esi_association.planned_coverage_date_ranges)
               mapper.eligibility_unknown_indicator = esi_association.eligibility_unknown_indicator
               # mapper.ref = esi_association&.ref
               mapper

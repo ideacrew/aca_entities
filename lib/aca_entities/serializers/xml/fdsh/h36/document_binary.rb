@@ -8,14 +8,14 @@ module AcaEntities
           # Happymapper implementation for the root object of an DocumentBinary.
           class DocumentBinary
             include HappyMapper
-            register_namespace 'ns3', 'http://hix.cms.gov/0.1/hix-core'
-            register_namespace 'ns5', "http://niem.gov/niem/niem-core/2.0"
+            register_namespace 'ns2', 'http://hix.cms.gov/0.1/hix-core'
+            register_namespace 'ns3', 'http://niem.gov/niem/niem-core/2.0'
 
             tag 'DocumentBinary'
-            namespace 'ns5'
+            namespace 'ns3'
 
             has_one :ChecksumAugmentation, ChecksumAugmentation
-            element :BinarySizeValue, Integer, tag: 'BinarySizeValue', namespace: 'ns3'
+            element :BinarySizeValue, Integer, tag: 'BinarySizeValue', namespace: 'ns2'
 
             def self.domain_to_mapper(request)
               mapper = self.new

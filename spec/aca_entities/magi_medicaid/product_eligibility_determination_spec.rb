@@ -86,4 +86,118 @@ RSpec.describe ::AcaEntities::MagiMedicaid::ProductEligibilityDetermination, dbc
       expect(@result.chip_cd_for_citizen_or_immigrant).to be_truthy
     end
   end
+
+  describe '#medicaid_chip_determination_reasons' do
+    let(:member_determinations) do
+      [{ kind: 'Medicaid/CHIP Determination',
+         criteria_met: true,
+         determination_reasons: ['mitc_override_not_lawfully_present_pregnant'],
+         eligibility_overrides: eligibility_overrides }]
+    end
+
+    let(:eligibility_overrides) do
+      [{
+        override_rule: 'not_lawfully_present_pregnant',
+        override_applied: true
+      }]
+    end
+
+    let(:params) do
+      input_params.merge({ member_determinations: member_determinations })
+    end
+
+    before do
+      ped_params = AcaEntities::MagiMedicaid::Contracts::ProductEligibilityDeterminationContract.new.call(params).to_h
+      @result = described_class.new(ped_params)
+    end
+
+    it 'should return reasons for the member determination' do
+      expect(@result.medicaid_chip_determination_reasons).to eq member_determinations.first[:determination_reasons]
+    end
+  end
+
+  describe '#aptc_csr_determination_reasons' do
+    let(:member_determinations) do
+      [{ kind: 'Insurance Assistance Determination',
+         criteria_met: false,
+         determination_reasons: ['income_above_threshold'],
+         eligibility_overrides: eligibility_overrides }]
+    end
+
+    let(:eligibility_overrides) do
+      [{
+        override_rule: 'not_lawfully_present_pregnant',
+        override_applied: false
+      }]
+    end
+
+    let(:params) do
+      input_params.merge({ member_determinations: member_determinations })
+    end
+
+    before do
+      ped_params = AcaEntities::MagiMedicaid::Contracts::ProductEligibilityDeterminationContract.new.call(params).to_h
+      @result = described_class.new(ped_params)
+    end
+
+    it 'should return reasons for the member determination' do
+      expect(@result.aptc_csr_determination_reasons).to eq member_determinations.first[:determination_reasons]
+    end
+  end
+
+  describe '#uqhp_determination_reasons' do
+    let(:member_determinations) do
+      [{ kind: 'Unassisted QHP Determination',
+         criteria_met: true,
+         determination_reasons: ['income_above_threshold'],
+         eligibility_overrides: eligibility_overrides }]
+    end
+
+    let(:eligibility_overrides) do
+      [{
+        override_rule: 'not_lawfully_present_pregnant',
+        override_applied: false
+      }]
+    end
+    let(:params) do
+      input_params.merge({ member_determinations: member_determinations })
+    end
+
+    before do
+      ped_params = AcaEntities::MagiMedicaid::Contracts::ProductEligibilityDeterminationContract.new.call(params).to_h
+      @result = described_class.new(ped_params)
+    end
+
+    it 'should return reasons for the member determination' do
+      expect(@result.uqhp_determination_reasons).to eq member_determinations.first[:determination_reasons]
+    end
+  end
+
+  describe '#totally_ineligible_determination_reasons' do
+    let(:member_determinations) do
+      [{ kind: 'Total Ineligibility Determination',
+         criteria_met: true,
+         determination_reasons: ['income_above_threshold'],
+         eligibility_overrides: eligibility_overrides }]
+    end
+
+    let(:eligibility_overrides) do
+      [{
+        override_rule: 'not_lawfully_present_pregnant',
+        override_applied: false
+      }]
+    end
+    let(:params) do
+      input_params.merge({ member_determinations: member_determinations })
+    end
+
+    before do
+      ped_params = AcaEntities::MagiMedicaid::Contracts::ProductEligibilityDeterminationContract.new.call(params).to_h
+      @result = described_class.new(ped_params)
+    end
+
+    it 'should return reasons for the member determination' do
+      expect(@result.totally_ineligible_determination_reasons).to eq member_determinations.first[:determination_reasons]
+    end
+  end
 end

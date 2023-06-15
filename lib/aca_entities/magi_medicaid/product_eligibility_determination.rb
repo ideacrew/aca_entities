@@ -32,6 +32,9 @@ module AcaEntities
 
       attribute :category_determinations, Types::Array.of(CategoryDetermination).optional.meta(omittable: true)
 
+      # Stores the eligibility determination results and reasons for each kind of determination
+      attribute :member_determinations, Types::Array.of(MemberDetermination).optional.meta(omittable: true)
+
       # MagiMedicaid Category Determination for type Income
       def medicaid_cd_for_income
         return nil unless category_determinations
@@ -62,6 +65,26 @@ module AcaEntities
         category_determinations.detect do |cat_det|
           cat_det.category == 'CHIP Citizen Or Immigrant'
         end
+      end
+
+      # Reasons for Medicaid/CHIP eligibility determination
+      def medicaid_chip_determination_reasons
+        member_determinations.detect { |mem_det| mem_det.kind == 'Medicaid/CHIP Determination' }&.determination_reasons
+      end
+
+      # Reasons for APTC/CSR eligibility determination
+      def aptc_csr_determination_reasons
+        member_determinations.detect { |mem_det| mem_det.kind == 'Insurance Assistance Determination' }&.determination_reasons
+      end
+
+      # Reasons for UQHP eligibility determination
+      def uqhp_determination_reasons
+        member_determinations.detect { |mem_det| mem_det.kind == 'Unassisted QHP Determination' }&.determination_reasons
+      end
+
+      # Reasons for totally ineligible determination
+      def totally_ineligible_determination_reasons
+        member_determinations.detect { |mem_det| mem_det.kind == 'Total Ineligibility Determination' }&.determination_reasons
       end
     end
   end

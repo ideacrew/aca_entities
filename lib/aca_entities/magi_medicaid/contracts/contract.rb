@@ -71,7 +71,7 @@ module AcaEntities
             value[:benefits].each_with_index do |benefit, b_index|
               failure_key = [:applicants, index, :benefits, b_index]
 
-              if benefit_kind_esi?(benefit[:kind])
+              if benefit_kind_esi?(benefit[:kind]) && !benefit_status_enrolled?(benefit[:status])
                 # employer
                 if check_if_blank?(benefit[:employer])
                   key(failure_key + [:employer]).failure(text: 'cannot be blank if benefit kind is employer_sponsored_insurance')
