@@ -21,7 +21,6 @@ module AcaEntities
             optional(:seconds_in_state).maybe(:integer)
             optional(:timestamps).maybe(AcaEntities::Contracts::TimeStampContract.params)
             required(:state_key).value(AcaEntities::Protocols::Transmittable::Types::ProcessStateKeyKinds)
-            # optional(:transactions).array(AcaEntities::Events::Transmittable::Transaction)
           end
         end
       end

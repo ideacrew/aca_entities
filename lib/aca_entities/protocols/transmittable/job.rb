@@ -8,7 +8,7 @@ module AcaEntities
         # @!attribute [r] id
         # A system-assigned unambiguous reference to the resource
         # @return [String]
-        attribute :id, Types::Integer.meta(omittable: true)
+        attribute :id, Types::Integer.optional.meta(omittable: true)
 
         # @!attribute [r] job_id
         # An implementation-specific reference to the resource
@@ -19,7 +19,7 @@ module AcaEntities
         # Identity Management account with this individual's credentials and
         # client system access permissions
         # @return [AcaEntities::Accounts::Account]
-        attribute :account, Types::Integer.meta(omittable: true)
+        attribute :account, Types::Integer.optional.meta(omittable: true)
 
         # @!attribute [r] key
         # An unambiguous reference to the resource kind
@@ -29,12 +29,12 @@ module AcaEntities
         # @!attribute [r] title
         # A name given to the resource by which the resource is formally known
         # @return [String]
-        attribute :title, Types::String.meta(omittable: true)
+        attribute :title, Types::String.optional.meta(omittable: true)
 
         # @!attribute [r] description
         # An optional account of the content of this resource
         # @return [String]
-        attribute :description, Types::String.meta(omittable: true)
+        attribute :description, Types::String.optional.meta(omittable: true)
 
         # @!attribute [r] publish_on
         # The date when this job becomes available for processing
@@ -44,7 +44,7 @@ module AcaEntities
         # @!attribute [r] expire_on
         # The date when this job is no longer available for processing
         # @return [DateTime]
-        attribute :expire_on, Types::Date.meta(omittable: true)
+        attribute :expire_on, Types::DateTime.optional.meta(omittable: true)
 
         # @!attribute [r] started_at
         # The moment when this job started execution
@@ -54,13 +54,13 @@ module AcaEntities
         # @!attribute [r] ended_at
         # The moment when this job ended execution
         # @return [DateTime]
-        attribute :ended_at, Types::Time.meta(omittable: true)
+        attribute :ended_at, Types::DateTime.optional.meta(omittable: true)
 
         # @!attribute [r] time_to_live
         # An optional maximum length of time for this job to execute before it expires.  Time value is in seconds.
         # Default value is 0 which never expires
         # @return [String]
-        attribute :time_to_live, Types::Integer.meta(omittable: true)
+        attribute :time_to_live, Types::Integer.optional.meta(omittable: true)
 
         # @!attribute [r] transmissions
         # The list of one or more transaction collections, grouped by kind, that comprise a single job.

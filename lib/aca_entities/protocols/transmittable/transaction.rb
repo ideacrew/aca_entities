@@ -51,7 +51,7 @@ module AcaEntities
         # @return [Array<AcaEntities::Protocols::Transmittable::TransactionsTransmissions>]
         attribute :transactions_transmissions, Types::Array
           .of(AcaEntities::Protocols::Transmittable::TransactionsTransmissions)
-          .meta(omittable: false)
+          .meta(omittable: true)
 
         # @!attribute [r] timestamps
         # Date and time that this resource was originally created and last updated. Time is represented in

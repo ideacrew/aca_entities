@@ -42,7 +42,7 @@ module AcaEntities
             optional(:ended_at).maybe(:date_time)
             required(:time_to_live).maybe(:integer)
             required(:publish_on).value(:date)
-            optional(:expire_on).value(:date)
+            optional(:expire_on).maybe(:date_time)
             required(:process_status).value(AcaEntities::Protocols::Transmittable::Contracts::ProcessStatusContract.params)
             optional(:transmissions).array(AcaEntities::Protocols::Transmittable::Contracts::TransmissionContract.params)
             required(:errors).array(AcaEntities::Protocols::Transmittable::Contracts::ErrorContract.params)
