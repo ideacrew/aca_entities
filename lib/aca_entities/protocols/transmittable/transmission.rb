@@ -38,8 +38,9 @@ module AcaEntities
         # @!attribute [r] transmission_transactions
         # The list of one or more transaction collections, grouped by kind, that belong to this transmission
         # @return [Arrya<AcaEntities::Protocols::Transmittable::TransmissionsTransactions>]
-        # attribute :transmission_transactions,
-        #           Types::Array.of(AcaEntities::Protocols::Transmittable::TransactionsTransmissions).meta(omittable: false)
+        attribute :transactions_transmissions, Types::Array
+          .of(AcaEntities::Protocols::Transmittable::TransactionsTransmissions)
+          .meta(omittable: false)
 
         # @!attribute [r] process_status
         # The current state of a process and the history of its state transitions for this transmission
@@ -49,7 +50,7 @@ module AcaEntities
         # @!attribute [r] errors
         # Exceptions that occured during processing of this transmission
         # @return [Array<Transmittble::Error>]
-        # attribute :errors, Types::Array.of(AcaEntities::Protocols::Transmittable::Errors).meta(omittable: true)
+        attribute :errors, Types::Array.of(AcaEntities::Protocols::Transmittable::Errors).meta(omittable: true)
       end
     end
   end

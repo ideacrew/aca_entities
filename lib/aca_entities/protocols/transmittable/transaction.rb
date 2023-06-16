@@ -49,9 +49,9 @@ module AcaEntities
         # @!attribute [r] transactions_transmissions
         # The intersect list of transactions and the transmissions that they belong to
         # @return [Array<AcaEntities::Protocols::Transmittable::TransactionsTransmissions>]
-        # attribute :transactions_transmissions, Types::Array
-        #   .of(AcaEntities::Protocols::Transmittable::TransactionsTransmissions)
-        #   .meta(omittable: true)
+        attribute :transactions_transmissions, Types::Array
+          .of(AcaEntities::Protocols::Transmittable::TransactionsTransmissions)
+          .meta(omittable: false)
 
         # @!attribute [r] timestamps
         # Date and time that this resource was originally created and last updated. Time is represented in

@@ -21,7 +21,7 @@ RSpec.describe AcaEntities::Protocols::Transmittable::Contracts::JobContract do
   let(:ended_at) { nil }
 
   let(:time_to_live) { 0 }
-  let(:process_status) { { initial_state_key: :draft } }
+  let(:process_status) { { initial_state_key: :initial } }
   let(:transmissions) { [] }
 
   let(:transactions_transmissions_transmissions) { { transmission: { key: :fake_key }, transactions: [{ key: :fake_key }] } }
@@ -129,7 +129,7 @@ RSpec.describe AcaEntities::Protocols::Transmittable::Contracts::JobContract do
   context 'Validate #allow_list and #deny_list' do
     let(:transaction_name) { :verification_transaction }
     let(:transaction_started_at) { moment }
-    let(:process_status) { { initial_state_key: :draft } }
+    let(:process_status) { { initial_state_key: :initial } }
     let(:transaction_process_states) { { event: "dummy event", message: "dummy transaction", started_at: moment } }
     let(:transaction_errors) { [] }
 
@@ -191,7 +191,7 @@ RSpec.describe AcaEntities::Protocols::Transmittable::Contracts::JobContract do
       let(:description) { 'A dummy verification transmission' }
 
       let(:started_at) { moment }
-      let(:process_status) { { initial_state_key: :draft } }
+      let(:process_status) { { initial_state_key: :initial } }
       let(:errors) { [] }
 
       context 'and that transmission is valid' do

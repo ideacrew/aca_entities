@@ -7,13 +7,13 @@ module AcaEntities
       class TransactionsTransmissions < Dry::Struct
 
         attribute :transactions do
-          attribute :transaction, AcaEntities::Protocols::Transmittable::Transaction.meta(omittable: false)
-          attribute :transmissions, Types::Array.of(AcaEntities::Protocols::Transmittable::Transmission).meta(omittable: false)
+          attribute :transaction, Types::Hash.meta(omittable: false)
+          attribute :transmissions, Types::Array.of(Types::Hash).meta(omittable: false)
         end
 
         attribute :transmissions do
-          attribute :transmission, AcaEntities::Protocols::Transmittable::Transmission.meta(omittable: false)
-          attribute :transactions, Types::Array.of(AcaEntities::Protocols::Transmittable::Transaction).meta(omittable: false)
+          attribute :transmission, Types::Hash.meta(omittable: false)
+          attribute :transactions, Types::Array.of(Types::Hash).meta(omittable: false)
         end
       end
     end

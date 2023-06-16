@@ -6,9 +6,9 @@ RSpec.describe AcaEntities::Protocols::Transmittable::ProcessState do
   let(:moment) { DateTime.now }
 
   context 'Given valid required params' do
-    let(:event) { { process_completed: { payload: { name: 'request_to_resource' } } } }
-    let(:message) { 'this sets the initial state to: requested' }
-    let(:state_key) { :requested }
+    let(:event) { 'request_to_resource' }
+    let(:message) { 'this sets the initial state to: transmitted' }
+    let(:state_key) { :transmitted }
     let(:started_at) { moment }
     let(:ended_at) { moment + 1 }
     let(:seconds_in_state) { 3 }

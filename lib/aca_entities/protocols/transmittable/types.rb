@@ -11,24 +11,22 @@ module AcaEntities
         # send(:include, Dry.Types)
         send(:include, Dry::Logic)
 
-        ProcessStateKeyKinds = Types::Coercible::String.enum(
-          %i[
-            initial
-            transmitted
-            received
-            acked
-            nacked
-            retried
-            succeeded
-            failed
-            expired
-          ]
+        ProcessStateKeyKinds = Types::Coercible::Symbol.enum(
+          :initial,
+          :transmitted,
+          :received,
+          :acked,
+          :nacked,
+          :retried,
+          :succeeded,
+          :failed,
+          :expired
         ).freeze
 
         DefaultTransmitActionKind =
-          Types::Coercible::String.enum(%i[blocked expired hold no_transmit pending transmit]).freeze
+          Types::Coercible::String.enum(:blocked, :expired, :hold, :no_transmit, :pending, :transmit).freeze
 
-        DefaultTransmissionStatusKind = Types::Coercible::String.enum(%i[open pending processing transmitted]).freeze
+        DefaultTransmissionStatusKind = Types::Coercible::String.enum('open', 'pending', 'processing', 'transmitted').freeze
 
         # A list of valid status values.  Override defaults using initializer options
         # acked: acknowledged
@@ -39,25 +37,23 @@ module AcaEntities
         # usually upon receiving void when we never transmitted before
         DefaultTransactionStatusKind =
           Types::Coercible::String.enum(
-            %i[
-              approved
-              acked
-              blocked
-              created
-              completed
-              denied
-              errored
-              excluded
-              expired
-              failed
-              nacked
-              pending
-              rejected
-              submitted
-              successful
-              superseded
-              transmitted
-            ]
+            'approved',
+            'acked',
+            'blocked',
+            'created',
+            'completed',
+            'denied',
+            'errored',
+            'excluded',
+            'expired',
+            'failed',
+            'nacked',
+            'pending',
+            'rejected',
+            'submitted',
+            'successful',
+            'superseded',
+            'transmitted'
           ).freeze
       end
     end

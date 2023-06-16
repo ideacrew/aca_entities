@@ -11,7 +11,7 @@ module AcaEntities
         # @!attribute [r] event
         # The event signal that triggered the change in this object's state
         # @return [String]
-        attribute? :event, Types::Hash.meta(omittable: true)
+        attribute? :event, Types::String.meta(omittable: true)
 
         # @!attribute [r] message
         # A message that describes the event that triggered the change in this object's state
