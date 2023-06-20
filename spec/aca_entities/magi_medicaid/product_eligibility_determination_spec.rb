@@ -90,8 +90,16 @@ RSpec.describe ::AcaEntities::MagiMedicaid::ProductEligibilityDetermination, dbc
   describe '#medicaid_chip_determination_reasons' do
     let(:member_determinations) do
       [{ kind: 'Medicaid/CHIP Determination',
-         is_eligible: true,
-         determination_reasons: [:mitc_override_not_lawfully_present_pregnant] }]
+         criteria_met: true,
+         determination_reasons: ['mitc_override_not_lawfully_present_pregnant'],
+         eligibility_overrides: eligibility_overrides }]
+    end
+
+    let(:eligibility_overrides) do
+      [{
+        override_rule: 'not_lawfully_present_pregnant',
+        override_applied: true
+      }]
     end
 
     let(:params) do
@@ -111,8 +119,16 @@ RSpec.describe ::AcaEntities::MagiMedicaid::ProductEligibilityDetermination, dbc
   describe '#aptc_csr_determination_reasons' do
     let(:member_determinations) do
       [{ kind: 'Insurance Assistance Determination',
-         is_eligible: false,
-         determination_reasons: [:income_above_threshold] }]
+         criteria_met: false,
+         determination_reasons: ['income_above_threshold'],
+         eligibility_overrides: eligibility_overrides }]
+    end
+
+    let(:eligibility_overrides) do
+      [{
+        override_rule: 'not_lawfully_present_pregnant',
+        override_applied: false
+      }]
     end
 
     let(:params) do
@@ -132,10 +148,17 @@ RSpec.describe ::AcaEntities::MagiMedicaid::ProductEligibilityDetermination, dbc
   describe '#uqhp_determination_reasons' do
     let(:member_determinations) do
       [{ kind: 'Unassisted QHP Determination',
-         is_eligible: true,
-         determination_reasons: [:income_above_threshold] }]
+         criteria_met: true,
+         determination_reasons: ['income_above_threshold'],
+         eligibility_overrides: eligibility_overrides }]
     end
 
+    let(:eligibility_overrides) do
+      [{
+        override_rule: 'not_lawfully_present_pregnant',
+        override_applied: false
+      }]
+    end
     let(:params) do
       input_params.merge({ member_determinations: member_determinations })
     end
@@ -153,10 +176,17 @@ RSpec.describe ::AcaEntities::MagiMedicaid::ProductEligibilityDetermination, dbc
   describe '#totally_ineligible_determination_reasons' do
     let(:member_determinations) do
       [{ kind: 'Total Ineligibility Determination',
-         is_eligible: true,
-         determination_reasons: [:income_above_threshold] }]
+         criteria_met: true,
+         determination_reasons: ['income_above_threshold'],
+         eligibility_overrides: eligibility_overrides }]
     end
 
+    let(:eligibility_overrides) do
+      [{
+        override_rule: 'not_lawfully_present_pregnant',
+        override_applied: false
+      }]
+    end
     let(:params) do
       input_params.merge({ member_determinations: member_determinations })
     end
