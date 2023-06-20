@@ -23,7 +23,7 @@ RSpec.describe AcaEntities::Atp::Functions::BuildApplication do
     it "should return an array" do
       expect(subject).to be_a(Array)
     end
-    it "should contain true for applicant with other eligible coverate" do
+    it "should contain true for applicant with other eligible coverage" do
       result = subject.first
       expect(result[:applicants].first[:has_eligible_health_coverage]).to be_truthy
     end
@@ -31,5 +31,20 @@ RSpec.describe AcaEntities::Atp::Functions::BuildApplication do
       result = subject.first
       expect(result[:applicants][1][:has_eligible_health_coverage]).to be nil
     end
+  end
+
+  context "with valid xml containing applicant with naturalized citizen status" do
+    before do
+      @result = subject.first
+    end
+    it "should return naturalized citizenship status for naturalized applicant" do
+      expect(@result[:applicants].first[:citizenship_immigration_status_information][:citizen_status]).to eq("naturalized_citizen")
+    end
+    it "should return us citizen status for us citizen applicant" do
+      expect(@result[:applicants][1][:citizenship_immigration_status_information][:citizen_status]).to eq("us_citizen")
+    end
+    # it "should return not lawfully present status for applicant without citizenship status" do
+    #   expect(@result[:applicants][2][:citizenship_immigration_status_information][:citizen_status]).to eq("not_lawfully_present_in_us")
+    # end
   end
 end
