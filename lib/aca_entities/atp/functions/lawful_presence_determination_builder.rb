@@ -11,10 +11,9 @@ module AcaEntities
 
         def call(cache, m_identifier = nil)
           member_id = m_identifier || '*'
-          #issue - grabbing the last applicant information and using it for all applicants
-          us_citizen_indicator = cache.resolve(:us_citizen_indicator, identifier: true).item
-          naturalized_indicator = cache.find(Regexp.new("record.people.#{member_id}.augementation")).map(&:item).last[:us_naturalized_citizen_indicator]
-          binding.irb
+          person_augmentation = cache.find(Regexp.new("record.people.#{member_id}.augementation"))
+          us_citizen_indicator = cache.find(Regexp.new("us_citizen_indicator.#{member_id}"))&.first&.item
+          naturalized_indicator = person_augmentation.map(&:item).first[:us_naturalized_citizen_indicator]
           # no_alien_number_indicator = input.find(Regexp.new("noAlienNumberIndicator.#{member_identifier}"))&.first
           hash = {
             'us_citizen' => us_citizen_indicator,

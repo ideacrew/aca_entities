@@ -43,8 +43,8 @@ RSpec.describe AcaEntities::Atp::Functions::BuildApplication do
     it "should return us citizen status for us citizen applicant" do
       expect(@result[:applicants][1][:citizenship_immigration_status_information][:citizen_status]).to eq("us_citizen")
     end
-    # it "should return not lawfully present status for applicant without citizenship status" do
-    #   expect(@result[:applicants][2][:citizenship_immigration_status_information][:citizen_status]).to eq("not_lawfully_present_in_us")
-    # end
+    it "should return not lawfully present status for applicant without citizenship status" do
+      expect(@result[:applicants][2][:citizenship_immigration_status_information][:citizen_status]).to eq("not_lawfully_present_in_us")
+    end
   end
 end
