@@ -11,8 +11,8 @@ module AcaEntities
 
             def call(params)
               payload = yield construct_initial_request(params)
-              validated_payload = yield validate_payload(payload)
-              request_entity = yield initial_verification_request_entity(validated_payload)
+              # validated_payload = yield validate_payload(payload)
+              request_entity = yield initial_verification_request_payload(payload.to_json)
 
               Success(request_entity)
             end
@@ -44,9 +44,7 @@ module AcaEntities
             end
 
             def construct_birth_date(person)
-              {
-                Date: person.person_demographics.dob
-              }
+              person.person_demographics.dob
             end
 
             def decrypt_ssn(encrypted_ssn)
@@ -55,13 +53,13 @@ module AcaEntities
 
             def validate_payload(payload)
               # Todo validate with Json rather than contracts.
-              # result = AcaEntities::Fdsh::Ssa::H3::SSACompositeRequestContract.new.call(payload)
+              # result = AcaEntities::Fdsh::Ssa::H3::SSACompositeRequestContract.new.call(payload.to_json)
               # result.success? ? Success(result) : Failure("Invalid SSA request due to #{result.errors.to_h}")
             end
 
-            def initial_verification_request_entity(payload)
+            def initial_verification_request_payload(json_payload)
               # Todo create a new entity based on the new JSON or Just send the JSON.
-              # Success(AcaEntities::Fdsh::Ssa::H3::SSACompositeRequest.new(payload.to_h))
+              Success(json_payload)
             end
 
           end
