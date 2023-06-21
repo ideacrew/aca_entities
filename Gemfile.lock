@@ -9,6 +9,7 @@ PATH
       dry-types (~> 1.0)
       dry-validation (~> 1.2)
       iso_country_codes
+      json_schema
       nokogiri-happymapper
       oj (~> 3.11)
       rbnacl (~> 7.1)
@@ -75,6 +76,7 @@ GEM
       concurrent-ruby (~> 1.0)
     ice_nine (0.11.2)
     iso_country_codes (0.7.8)
+    json_schema (0.21.0)
     method_source (1.0.0)
     mini_portile2 (2.8.0)
     minitest (5.14.4)

@@ -99,8 +99,8 @@
             "description": "Quarters of Coverage Service Request Flag indicating that the applicants Quarters of Coverage need to be verified with SSA.",
             "type": "boolean"
         },
-        "description": "The month and year will be extracted for the Title II Monthly Income Service Request for which the applicants Title II Monthly Income need to be verified with SSA.",
         "requestTitleIIMonthlyIncomeDateType": {
+            "description": "The month and year will be extracted for the Title II Monthly Income Service Request for which the applicants Title II Monthly Income need to be verified with SSA.",
             "type": "string",
             "pattern": "^[2-9]\\d{3}(0[1-9]|1[0-2])$"
         },

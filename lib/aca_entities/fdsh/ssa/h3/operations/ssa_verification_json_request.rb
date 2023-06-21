@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 
+require 'json'
+require 'json_schema'
+
 module AcaEntities
   module Fdsh
     module Ssa
@@ -11,10 +14,7 @@ module AcaEntities
 
             def call(params)
               payload = yield construct_initial_request(params)
-              # validated_payload = yield validate_payload(payload)
-              request_entity = yield initial_verification_request_payload(payload.to_json)
-
-              Success(request_entity)
+              validate_payload(payload)
             end
 
             private
@@ -44,7 +44,7 @@ module AcaEntities
             end
 
             def construct_birth_date(person)
-              person.person_demographics.dob
+              person&.person_demographics&.dob
             end
 
             def decrypt_ssn(encrypted_ssn)
@@ -52,14 +52,12 @@ module AcaEntities
             end
 
             def validate_payload(payload)
-              # Todo validate with Json rather than contracts.
-              # result = AcaEntities::Fdsh::Ssa::H3::SSACompositeRequestContract.new.call(payload.to_json)
-              # result.success? ? Success(result) : Failure("Invalid SSA request due to #{result.errors.to_h}")
-            end
-
-            def initial_verification_request_payload(json_payload)
-              # Todo create a new entity based on the new JSON or Just send the JSON.
-              Success(json_payload)
+              schema_data = JSON.parse(File.read("lib/aca_entities/fdsh/ssa/h3/schemas/SSAC-Request-Schema.json"))
+              schema = JsonSchema.parse!(schema_data)
+              # to do research what this line does
+              schema.expand_references!
+              result = schema.validate(JSON.parse(payload.to_json))
+              result[0] ? Success(payload.to_json) : Failure("Invalid SSA request due to #{result[1].join(' AND ')}")
             end
 
           end

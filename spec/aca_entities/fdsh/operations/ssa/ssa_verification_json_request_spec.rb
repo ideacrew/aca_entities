@@ -382,5 +382,38 @@ RSpec.describe ::AcaEntities::Fdsh::Ssa::H3::Operations::SsaVerificationJsonRequ
                end.uniq).to eq([true])
       end
     end
+
+    context 'with invalid demographics' do
+      let!(:person_demographics) do
+        {
+          encrypted_ssn: "iIiE7uT8o0rvFRfms8x8RIcFvv8FLcdIkQ==\n",
+          no_ssn: false,
+          gender: 'male',
+          dob: Date.today,
+          is_incarcerated: false,
+          language_code: 'es'
+        }
+      end
+
+      let(:phones) do
+        [
+          {
+            kind: "home",
+            country_code: "",
+            area_code: "202",
+            number: "2991290",
+            extension: "",
+            primary: true,
+            full_phone_number: "2022991290"
+          }
+        ]
+      end
+
+      it 'should return a failure with an invalid ssn' do
+        @result = subject.call(person_entity)
+        expect(@result).to be_failure
+      end
+
+    end
   end
 end

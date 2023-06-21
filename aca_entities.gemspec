@@ -43,4 +43,5 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'oj', '~> 3.11'
   spec.add_dependency 'rbnacl', '~> 7.1'
   spec.add_development_dependency 'pry-byebug'
+  spec.add_dependency 'json_schema'
 end
