@@ -9,7 +9,7 @@ module AcaEntities
         # Transformers implementation for atp payloads
         class OtherQuestions < ::AcaEntities::Operations::Transforms::Transform
           include ::AcaEntities::Operations::Transforms::Transformer
-
+          
           map 'foster_care_indicator', 'foster_care.is_former_foster_care'
           map 'age_left_foster_care', 'foster_care.age_left_foster_care'
           map 'foster_care_state', 'foster_care.foster_care_us_state'
@@ -25,7 +25,9 @@ module AcaEntities
           add_key 'pregnancy_information.is_enrolled_on_medicaid', value: nil # default
           add_key 'pregnancy_information.is_post_partum_period', value: nil # default
           add_key 'pregnancy_information.pregnancy_due_on', value: nil # default
-          add_key 'pregnancy_information.pregnancy_end_on', value: nil # default
+          map 'pergnancy.status_valid_date_range.end_date.date', 'pregnancy_information.pregnancy_end_on', function: lambda { |v|
+            Date.parse(v) >= Date.today ? Date.parse(v) : nil
+          }
 
           map 'incarcerations.incarceration_indicator', 'attestation.is_incarcerated'
           map 'blindness_or_disability_indicator', 'attestation.is_self_attested_disabled', memoize: true, visible: true, function: lambda { |v|
