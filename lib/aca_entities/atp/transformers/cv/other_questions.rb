@@ -9,7 +9,7 @@ module AcaEntities
         # Transformers implementation for atp payloads
         class OtherQuestions < ::AcaEntities::Operations::Transforms::Transform
           include ::AcaEntities::Operations::Transforms::Transformer
-          
+
           map 'foster_care_indicator', 'foster_care.is_former_foster_care'
           map 'age_left_foster_care', 'foster_care.age_left_foster_care'
           map 'foster_care_state', 'foster_care.foster_care_us_state'
