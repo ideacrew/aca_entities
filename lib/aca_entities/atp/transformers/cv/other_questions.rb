@@ -20,13 +20,13 @@ module AcaEntities
           add_key 'student.student_school_kind', value: nil # default
           add_key 'student.student_status_end_on', value: nil # default
 
-          map 'pergnancy.status_indicator', 'pregnancy_information.is_pregnant', function: ->(v) { v || false}
-          map 'pergnancy.expected_baby_quantity', 'pregnancy_information.expected_children_count'
+          map 'pregnancy.status_indicator', 'pregnancy_information.is_pregnant', function: ->(v) { v || false}
+          map 'pregnancy.expected_baby_quantity', 'pregnancy_information.expected_children_count'
           add_key 'pregnancy_information.is_enrolled_on_medicaid', value: nil # default
           add_key 'pregnancy_information.is_post_partum_period', value: nil # default
           add_key 'pregnancy_information.pregnancy_due_on', value: nil # default
-          map 'pergnancy.status_valid_date_range.end_date.date', 'pregnancy_information.pregnancy_end_on', function: lambda { |v|
-            Date.parse(v) >= Date.today ? Date.parse(v) : nil
+          map "pregnancy.status_valid_date_range.end_date.date", "pregnancy_information.pregnancy_end_on", function: lambda { |v|
+            Date.parse(v) || nil
           }
 
           map 'incarcerations.incarceration_indicator', 'attestation.is_incarcerated'

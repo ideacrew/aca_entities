@@ -55,11 +55,11 @@ RSpec.describe AcaEntities::Atp::Functions::BuildApplication do
     it "should return pregnancy status for pregnant applicant" do
       expect(@result[:applicants][1][:pregnancy_information][:is_pregnant]).to be_truthy
     end
-    it "should return pregnancy end date for pregnant applicant with future end date" do
+    it "should return pregnancy end date for pregnant applicant" do
       expect(@result[:applicants][1][:pregnancy_information][:pregnancy_end_on]).to eq(Date.today + 1)
     end
-    it "should not return pregnancy end date for past end date" do
-      expect(@result[:applicants][2][:pregnancy_information][:pregnancy_end_on]).to be nil
+    it "should return nil end date for applicant without pregnancy status" do
+      expect(@result[:applicants][0][:pregnancy_information][:pregnancy_end_on]).to be nil
     end
   end
 end
