@@ -47,4 +47,19 @@ RSpec.describe AcaEntities::Atp::Functions::BuildApplication do
       expect(@result[:applicants][2][:citizenship_immigration_status_information][:citizen_status]).to eq("not_lawfully_present_in_us")
     end
   end
+
+  context "with valid xml containing pregnant applicant" do
+    before do
+      @result = subject.first
+    end
+    it "should return pregnancy status for pregnant applicant" do
+      expect(@result[:applicants][1][:pregnancy_information][:is_pregnant]).to be_truthy
+    end
+    it "should return pregnancy end date for pregnant applicant" do
+      expect(@result[:applicants][1][:pregnancy_information][:pregnancy_end_on]).to eq(Date.today + 1)
+    end
+    it "should return nil end date for applicant without pregnancy status" do
+      expect(@result[:applicants][0][:pregnancy_information][:pregnancy_end_on]).to be nil
+    end
+  end
 end
