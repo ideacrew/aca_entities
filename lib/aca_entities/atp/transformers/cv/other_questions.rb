@@ -26,7 +26,7 @@ module AcaEntities
           add_key 'pregnancy_information.is_post_partum_period', value: nil # default
           add_key 'pregnancy_information.pregnancy_due_on', value: nil # default
           map "pregnancy.status_valid_date_range.end_date.date", "pregnancy_information.pregnancy_end_on", function: lambda { |v|
-            Date.parse(v) || nil
+            v ? Date.parse(v) : nil
           }
 
           map 'incarcerations.incarceration_indicator', 'attestation.is_incarcerated'
