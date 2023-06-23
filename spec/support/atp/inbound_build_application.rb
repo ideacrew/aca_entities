@@ -356,7 +356,7 @@ RSpec.shared_context "inbound_build_application" do
       "person.person_demographics.ssn.IDC1003159" => { :name => "person.person_demographics.ssn.IDC1003159",
                                                        :item => "213828500" },
       "person.person_demographics.gender.IDC1003159" => { :name => "person.person_demographics.gender.IDC1003159",
-                                                          :item => "female" },
+                                                          :item => "male" },
       "person.person_demographics.dob.IDC1003159" => { :name => "person.person_demographics.dob.IDC1003159",
                                                        :item => "2010-01-01" },
       "record.people.IDC1003159.tribal_augmentation" => { :name => "record.people.IDC1003159.tribal_augmentation",
