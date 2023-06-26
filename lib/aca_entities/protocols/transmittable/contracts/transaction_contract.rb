@@ -17,13 +17,13 @@ module AcaEntities
             optional(:description).maybe(:string)
 
             required(:process_status).value(AcaEntities::Protocols::Transmittable::Contracts::ProcessStatusContract.params)
-            optional(:transactions_transmissions).array(AcaEntities::Protocols::Transmittable::Contracts::TransactionsTransmissionsContract.params)
 
             required(:started_at).value(:date_time)
             optional(:ended_at).maybe(:date_time)
             required(:errors).array(AcaEntities::Protocols::Transmittable::Contracts::ErrorContract.params)
 
             optional(:timestamps).maybe(AcaEntities::Contracts::TimeStampContract.params)
+            optional(:payload).maybe(:string)
           end
         end
       end

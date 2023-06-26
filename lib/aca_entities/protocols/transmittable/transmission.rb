@@ -35,13 +35,6 @@ module AcaEntities
         # @return [DateTime]
         attribute :ended_at, Types::Time.optional.meta(omittable: true)
 
-        # @!attribute [r] transmission_transactions
-        # The list of one or more transaction collections, grouped by kind, that belong to this transmission
-        # @return [Arrya<AcaEntities::Protocols::Transmittable::TransmissionsTransactions>]
-        attribute :transactions_transmissions, Types::Array
-          .of(AcaEntities::Protocols::Transmittable::TransactionsTransmissions)
-          .meta(omittable: true)
-
         # @!attribute [r] process_status
         # The current state of a process and the history of its state transitions for this transmission
         # @return AcaEntities::Protocols::Transmittable::ProcessStatus
@@ -51,6 +44,17 @@ module AcaEntities
         # Exceptions that occured during processing of this transmission
         # @return [Array<Transmittble::Error>]
         attribute :errors, Types::Array.of(AcaEntities::Protocols::Transmittable::Errors).meta(omittable: true)
+
+        # @!attribute [r] timestamps
+        # Date and time that this resource was originally created and last updated. Time is represented in
+        # Coordinated Univeral Time (UTC). System managed.
+        # @return [AcaEntities::TimeStamp]
+        attribute :timestamps, AcaEntities::TimeStamp.optional.meta(omittable: true)
+
+        # @!attribute [r] transmission_id
+        # A correlation id for the transmission
+        # @return [String]
+        attribute :transmission_id, Types::String.optional.meta(omittable: true)
       end
     end
   end

@@ -14,8 +14,11 @@ RSpec.describe AcaEntities::Protocols::Transmittable::Contracts::JobContract do
   let(:title) { key.to_s }
   let(:description) { 'A dummy verification job' }
 
+  let(:saga_id) {'ssa_12345'}
+  let(:message_id) {'XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX'}
+
   let(:publish_on) { moment.to_date }
-  let(:expire_on) { moment.to_date + 1 }
+  let(:expire_on) { moment + 1 }
 
   let(:started_at) { moment }
   let(:ended_at) { nil }
@@ -23,12 +26,6 @@ RSpec.describe AcaEntities::Protocols::Transmittable::Contracts::JobContract do
   let(:time_to_live) { 0 }
   let(:process_status) { { initial_state_key: :initial } }
   let(:transmissions) { [] }
-
-  let(:transactions_transmissions_transmissions) { { transmission: { key: :fake_key }, transactions: [{ key: :fake_key }] } }
-  let(:transactions_transmissions_transactions) { { transaction: { key: :fake_key }, transmissions: [{ key: :fake_key }] } }
-  let(:transactions_transmissions) do
-    [{ transmissions: transactions_transmissions_transmissions, transactions: transactions_transmissions_transactions }]
-  end
 
   let(:allow_list) { [] }
   let(:deny_list) { [] }
@@ -41,7 +38,6 @@ RSpec.describe AcaEntities::Protocols::Transmittable::Contracts::JobContract do
       job_id: job_id,
       started_at: started_at,
       process_status: process_status,
-      time_to_live: time_to_live,
       publish_on: publish_on,
       errors: errors
     }
@@ -58,7 +54,10 @@ RSpec.describe AcaEntities::Protocols::Transmittable::Contracts::JobContract do
       transmissions: transmissions,
       allow_list: allow_list,
       deny_list: deny_list,
-      timestamps: timestamps
+      timestamps: timestamps,
+      time_to_live: time_to_live,
+      saga_id: saga_id,
+      message_id: message_id
     }
   end
 
@@ -88,7 +87,6 @@ RSpec.describe AcaEntities::Protocols::Transmittable::Contracts::JobContract do
         key: ['is missing'],
         started_at: ['is missing'],
         process_status: ['is missing'],
-        time_to_live: ['is missing'],
         publish_on: ['is missing'],
         errors: ['is missing'],
         job_id: ['is missing']
@@ -137,8 +135,7 @@ RSpec.describe AcaEntities::Protocols::Transmittable::Contracts::JobContract do
       {
         started_at: transaction_started_at,
         process_status: process_status,
-        errors: transaction_errors,
-        transactions_transmissions: transactions_transmissions
+        errors: transaction_errors
       }
     end
 
@@ -202,8 +199,7 @@ RSpec.describe AcaEntities::Protocols::Transmittable::Contracts::JobContract do
             description: description,
             started_at: started_at,
             process_status: process_status,
-            errors: errors,
-            transactions_transmissions: transactions_transmissions
+            errors: errors
           }
         end
 
@@ -227,8 +223,7 @@ RSpec.describe AcaEntities::Protocols::Transmittable::Contracts::JobContract do
                       key: ['is missing'],
                       started_at: ['is missing'],
                       process_status: ['is missing'],
-                      errors: ['is missing'],
-                      transactions_transmissions: ['is missing']
+                      errors: ['is missing']
                     }
                 }
             }

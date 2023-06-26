@@ -11,9 +11,14 @@ module AcaEntities
         attribute :id, Types::Integer.optional.meta(omittable: true)
 
         # @!attribute [r] job_id
-        # An implementation-specific reference to the resource
+        # A human readable unique identifier
         # @return [String]
         attribute :job_id, Types::String.meta(omittable: false)
+
+        # @!attribute [r] saga_id
+        # A system-assigned unique identifier that ties this job to a saga cross services
+        # @return [String]
+        attribute :saga_id, Types::String.optional.meta(omittable: true)
 
         # @!attribute [r] account
         # Identity Management account with this individual's credentials and
@@ -88,6 +93,17 @@ module AcaEntities
         # for all other subjects will process
         # @return [Array<AcaEntities::Protocols::Transmittable::Subject>]
         attribute :deny_list, Types::Array.of(AcaEntities::Protocols::Transmittable::Subject).meta(omittable: true)
+
+        # @!attribute [r] timestamps
+        # Date and time that this resource was originally created and last updated. Time is represented in
+        # Coordinated Univeral Time (UTC). System managed.
+        # @return [AcaEntities::TimeStamp]
+        attribute :timestamps, AcaEntities::TimeStamp.optional.meta(omittable: true)
+
+        # @!attribute [r] message_id
+        # The UUID generated to track transmissions of this job to/from an external service such as CMS
+        # @return [String]
+        attribute :message_id, Types::String.optional.meta(omittable: true)
       end
     end
   end
