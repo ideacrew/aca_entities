@@ -68,11 +68,11 @@ RSpec.describe AcaEntities::Atp::Functions::BuildApplication do
       expect(@result[:applicants][1][:pregnancy_information][:pregnancy_due_on]).to eq(Date.today + 1)
       expect(@result[:applicants][1][:pregnancy_information][:pregnancy_end_on]).to be nil
     end
-    it "should return only pregnancy end date for post partum applicant" do
-      expect(@result[:applicants][2][:pregnancy_information][:pregnancy_end_on]).to eq(Date.today)
-      expect(@result[:applicants][2][:pregnancy_information][:pregnancy_due_on]).to be nil
+    it "should return only pregnancy due date for pregnant applicant" do
+      expect(@result[:applicants][1][:pregnancy_information][:pregnancy_due_on]).to eq(Date.today + 1)
+      expect(@result[:applicants][1][:pregnancy_information][:pregnancy_end_on]).to be nil
     end
-    it "should return nil end date and due date for other applicant" do
+    it "should return nil end date and due date for applicant without pregnancy status" do
       expect(@result[:applicants][0][:pregnancy_information][:pregnancy_end_on]).to be nil
       expect(@result[:applicants][0][:pregnancy_information][:pregnancy_due_on]).to be nil
     end
