@@ -55,7 +55,7 @@ module AcaEntities
             end_date = v.resolve('pregnancy_end_date').item
             pregnancy_status = v.resolve('pregnancy_status_indicator').item
             return nil unless end_date && pregnancy_status
-            Date.parse(end_date) <= Date.today || nil
+            Date.parse(end_date) <= Date.today ? true : nil
           }
           map 'pregnancy.expected_baby_quantity', 'pregnancy_information.expected_children_count'
           add_key 'pregnancy_information.is_enrolled_on_medicaid', value: nil # default
