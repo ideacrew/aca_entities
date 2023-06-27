@@ -24,9 +24,20 @@ module AcaEntities
           map 'pregnancy.expected_baby_quantity', 'pregnancy_information.expected_children_count'
           add_key 'pregnancy_information.is_enrolled_on_medicaid', value: nil # default
           add_key 'pregnancy_information.is_post_partum_period', value: nil # default
-          add_key 'pregnancy_information.pregnancy_due_on', value: nil # default
-          map "pregnancy.status_valid_date_range.end_date.date", "pregnancy_information.pregnancy_end_on", function: lambda { |v|
-            v ? Date.parse(v) : nil
+          map "pregnancy.status_valid_date_range.end_date.date", "pregnancy_end_date", memoize: true, visible: false
+          add_key "pregnancy_information.pregnancy_due_on", function: lambda { |v|
+            return nil unless v
+            date = v.resolve('pregnancy_end_date').item
+            return nil unless date
+            end_date = Date.parse(date)
+            end_date > Date.today ? end_date : nil
+          }
+          add_key "pregnancy_information.pregnancy_end_on", function: lambda { |v|
+            return nil unless v
+            date = v.resolve('pregnancy_end_date').item
+            return nil unless date
+            end_date = Date.parse(date)
+            end_date <= Date.today ? end_date : nil
           }
 
           map 'incarcerations.incarceration_indicator', 'attestation.is_incarcerated'
