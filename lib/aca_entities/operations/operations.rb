@@ -11,8 +11,7 @@ require_relative 'mongoid/model_adapter'
 require_relative 'mongoid/entity_adapter'
 
 module AcaEntities
-  # The Operations mixin applies both the Command and Composition development patterns
-  # to build complex process flows that may be organized into tree structures
+  # Operations are perform Functions on domain entities
   module Operations
   end
 end

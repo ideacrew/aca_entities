@@ -72,5 +72,4 @@ RSpec.describe ::AcaEntities::Operations::Operation do
       end
     end
   end
-
 end
