@@ -1,11 +1,12 @@
 module Eligible
-  class ShopOsseEligibility < Dry::Struct
-    include Eligible::Eligible
-    include Eligible::Eligibility
+  class IvlOsseEligibility < Dry::Struct
+    include Eligible
+    include Eligibility
+    include History
 
     attribute :due_on # additional attributes
 
-    evidences :shop_osse_eligibility
-    grants :shop_osse_grant
+    evidence :ivl_osse_evidence, class_name: 'AcaEntities::Eligible::IvlOsseEvidence'
+    grant :ivl_osse_grant, class_name: 'AcaEntities::Eligible::IvlOsseGrant'
   end
 end

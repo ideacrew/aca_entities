@@ -2,7 +2,7 @@ module AcaEntities
   module Eligible
     class ShopOsseGrant < Dry::Struct
       include Grant
-      include Trackable
+      include History
 
     end
   end
