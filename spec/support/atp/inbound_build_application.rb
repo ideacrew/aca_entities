@@ -369,7 +369,7 @@ RSpec.shared_context "inbound_build_application" do
                                                     :item => { :us_naturalized_citizen_indicator => nil,
                                                                :us_veteran_indicator => nil,
                                                                :married_indicator => false,
-                                                               :pregnancy_status => { :status_indicator => false,
+                                                               :pregnancy_status => { :status_indicator => true,
                                                                                       :status_valid_date_range => { :begin_date => nil,
                                                                                                                     :end_date => { :date => Date.today } },
                                                                                       :expected_baby_quantity => nil },
