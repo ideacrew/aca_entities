@@ -48,12 +48,21 @@ RSpec.describe AcaEntities::Atp::Functions::BuildApplication do
     end
   end
 
-  context "with valid xml containing pregnant applicant" do
+  context "with valid xml containing pregnant and post partum applicant" do
     before do
       @result = subject.first
     end
-    it "should return pregnancy status for pregnant applicant" do
+    it "should return pregnancy status for pregnant applicant and nil post partum" do
       expect(@result[:applicants][1][:pregnancy_information][:is_pregnant]).to be_truthy
+      expect(@result[:applicants][1][:pregnancy_information][:is_post_partum_period]).to be nil
+    end
+    it "should return post partum status for post partum applicant and not pregnant" do
+      expect(@result[:applicants][2][:pregnancy_information][:is_pregnant]).to be_falsey
+      expect(@result[:applicants][2][:pregnancy_information][:is_post_partum_period]).to be_truthy
+    end
+    it "should return nil post partum and false pregnancy status for other applicant" do
+      expect(@result[:applicants][0][:pregnancy_information][:is_pregnant]).to be_falsey
+      expect(@result[:applicants][0][:pregnancy_information][:is_post_partum_period]).to be nil
     end
     it "should return only pregnancy due date for pregnant applicant" do
       expect(@result[:applicants][1][:pregnancy_information][:pregnancy_due_on]).to eq(Date.today + 1)
