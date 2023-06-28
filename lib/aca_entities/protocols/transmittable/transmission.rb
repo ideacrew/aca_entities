@@ -28,7 +28,7 @@ module AcaEntities
         # @!attribute [r] started_at
         # The moment when this transmission started execution
         # @return [DateTime]
-        attribute :started_at, Types::Time.meta(omittable: false)
+        attribute :started_at, Types::DateTime.meta(omittable: false)
 
         # @!attribute [r] ended_at
         # The moment when this transmission ended execution

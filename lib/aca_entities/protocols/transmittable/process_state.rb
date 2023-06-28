@@ -11,12 +11,12 @@ module AcaEntities
         # @!attribute [r] event
         # The event signal that triggered the change in this object's state
         # @return [String]
-        attribute? :event, Types::String.meta(omittable: true)
+        attribute :event, Types::String.optional.meta(omittable: true)
 
         # @!attribute [r] message
         # A message that describes the event that triggered the change in this object's state
         # @return [String]
-        attribute? :message, Types::String.meta(omittable: true)
+        attribute :message, Types::String.optional.meta(omittable: true)
 
         # @!attribute [r] state_key
         # The new state that the object transitioned to
@@ -31,7 +31,7 @@ module AcaEntities
         # @!attribute [r] ended_at
         # The moment when this state transition ended
         # @return [DateTime]
-        attribute? :ended_at, Types::DateTime.meta(omittable: true)
+        attribute :ended_at, Types::DateTime.optional.meta(omittable: true)
 
         # @!attribute [r] time_in_state
         # The length of time that this object was in this state

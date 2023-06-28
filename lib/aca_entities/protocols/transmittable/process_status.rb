@@ -24,7 +24,7 @@ module AcaEntities
         # @!attribute [r] elapsed_time
         # The total length of time that the process has been running
         # @return [Integer]
-        attribute? :elapsed_time, Types::Integer.meta(omittable: true)
+        attribute :elapsed_time, Types::Integer.optional.meta(omittable: true)
 
         # def initialize(args)
         #   @elapsed_time = sum_process_state_times

@@ -68,7 +68,7 @@ module AcaEntities
         attribute :time_to_live, Types::Integer.optional.meta(omittable: true)
 
         # @!attribute [r] transmissions
-        # The list of one or more transaction collections, grouped by kind, that comprise a single job.
+        # The list of one or more transmissions collections, grouped by kind, that comprise a single job.
         # @return [Arrya<AcaEntities::Protocols::Transmittable::Transmission>]
         attribute :transmissions, Types::Array.of(AcaEntities::Protocols::Transmittable::Transmission).meta(omittable: true)
 

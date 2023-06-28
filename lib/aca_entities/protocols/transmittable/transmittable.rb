@@ -28,7 +28,6 @@ require_relative 'job'
 require_relative 'job_repository'
 
 # operations
-require_relative 'operations/transactions/create'
 # require_relative 'operations/transactions/update'
 # require_relative 'operations/transactions/find'
 
@@ -46,6 +45,8 @@ require_relative 'operations/transactions/create'
 
 require_relative 'operations/jobs/find'
 require_relative 'operations/jobs/create'
+require_relative 'operations/transmissions/create'
+require_relative 'operations/transactions/create'
 # require_relative 'operations/jobs/update'
 
 # require_relative 'operations/job_repositories/create'
