@@ -148,8 +148,10 @@ module AcaEntities
                     result
                   }
                   map 'us_citizen_indicator', 'us_citizen_indicator', memoize: true, append_identifier: true, visible: false
-                  add_key 'person.consumer_role.lawful_presence_determination.citizen_status',
-                          function: AcaEntities::Atp::Functions::LawfulPresenceDeterminationBuilder.new
+                  add_key 'person.consumer_role.lawful_presence_determination.citizen_status', function: lambda { |v|
+                    member_id = v.find(/record.people.(\w+)$/).map(&:item).last
+                    AcaEntities::Atp::Functions::LawfulPresenceDeterminationBuilder.new.call(v, member_id)
+                  }
                   add_key 'person.consumer_role.language_preference', function: lambda { |v|
                     preference_language = v.find(Regexp.new('record.people.*.augementation')).map(&:item).last[:preferred_languages]&.first
                     preference_language ? preference_language[:language_name].downcase : nil
