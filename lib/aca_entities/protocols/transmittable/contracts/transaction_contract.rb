@@ -23,7 +23,7 @@ module AcaEntities
             required(:errors).array(AcaEntities::Protocols::Transmittable::Contracts::ErrorContract.params)
 
             optional(:timestamps).maybe(AcaEntities::Contracts::TimeStampContract.params)
-            optional(:payload).maybe(:string)
+            optional(:payload).maybe(:hash)
           end
         end
       end

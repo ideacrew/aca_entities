@@ -18,7 +18,7 @@ RSpec.describe AcaEntities::Protocols::Transmittable::Contracts::TransactionCont
   let(:ended_at) { nil }
   let(:errors) { [] }
   let(:timestamps) { { created_at: moment, modified_at: moment } }
-  let(:payload) { '{fake: fake_value}' }
+  let(:payload) { { fake: fake_value } }
 
   let(:required_params) do
     { key: key, started_at: started_at, process_status: process_status, errors: errors }
