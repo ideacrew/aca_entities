@@ -15,7 +15,6 @@ require_relative 'contracts/user_contract'
 # entities
 require_relative 'user_profile'
 require_relative 'identity'
-require_relative 'omniauth_identity'
 require_relative 'user'
 
 # child entities

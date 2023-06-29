@@ -16,8 +16,8 @@ module AcaEntities
           # @option opts [String] :last_name The surname name of the authenticated identity
           # @option opts [String] :location The general location of the authenticated identity, usually a city and state
           # @option opts [String] :description A short description of the authenticated identity
-          # @option opts [AcaEntities::UriKind] :image A URL representing a profile image of the authenticated identity. Where possible, should be specified to a
-          #   square, roughly 50x50 pixel image.
+          # @option opts [AcaEntities::UriKind] :image A URL representing a profile image of the authenticated identity. Where possible,
+          # should be specified to a square, roughly 50x50 pixel image.
           # @option opts [String] :phone telephone number of the authenticated identity
           # @option opts [Hash] :urls A hash containing key-value pairs of an identifier for the website and its URL. For example, an entry could
           #   be "Blog" => "http://example.com/blog"

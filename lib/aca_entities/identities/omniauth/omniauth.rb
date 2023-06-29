@@ -11,6 +11,6 @@ require_relative 'contracts/info_contract'
 require_relative 'contracts/auth_contract'
 
 # entities
-# require_relative 'credentials'
-# require_relative 'info'
-# require_relative 'auth'
+require_relative 'credentials'
+require_relative 'info'
+require_relative 'auth'
