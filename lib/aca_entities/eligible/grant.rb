@@ -18,6 +18,22 @@ module AcaEntities
                       .meta(omittable: false)
           attribute :timestamp,
                     AcaEntities::TimeStamp.optional.meta(omittable: true)
+
+          def latest_is_eligible
+            latest_history&.is_eligible
+          end
+
+          def latest_effective_on
+            latest_history&.effective_on
+          end
+
+          def latest_state
+            latest_history&.to_state
+          end
+
+          def latest_history
+            site_histories.sort_by(&:transition_at).last
+          end
         end
       end
     end
