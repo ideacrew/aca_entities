@@ -26,23 +26,19 @@ module AcaEntities
           #   end
           # end
         end
-
         def evidence(name, **options)
-          attribute name, const_get(options[:class_name].constantize)
+          # attribute name, const_get(options[:class_name].constantize)
         end
-
         def grant(*grant_types)
-          attribute name, const_get(options[:class_name].constantize)
+          # attribute name, const_get(options[:class_name].constantize)
         end
       end
     end
 
+    require_relative 'state_history'
+    require_relative 'value'
     require_relative 'grant'
     require_relative 'evidence'
     require_relative 'eligibility'
-    require_relative 'state_history'
-    require_relative 'shop_osse_grant'
-    require_relative 'shop_osse_evidence'
-    require_relative 'shop_osse_eligibility'
   end
 end
