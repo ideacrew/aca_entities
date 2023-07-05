@@ -22,12 +22,6 @@ module AcaEntities
           grant :shop_osse_grant,
                 class_name:
                   'AcaEntities::BenefitSponsors::BenefitSponsorships::ShopOsseEligibility::Grant'
-          grant :shop_osse_grant,
-                class_name:
-                  'AcaEntities::BenefitSponsors::BenefitSponsorships::ShopOsseEligibility::Grant'
-          grant :shop_osse_grant,
-                class_name:
-                  'AcaEntities::BenefitSponsors::BenefitSponsorships::ShopOsseEligibility::Grant'
         end
       end
     end

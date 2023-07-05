@@ -10,18 +10,18 @@ module AcaEntities
         # @!attribute [r] title
         # Grant title
         # @return [String]
-        attribute :title, Types::String.meta(ommitable: false)
+        attribute :title, Types::String.meta(omittable: false)
 
         # @!attribute [r] description
         # Grant description
         # @return [String]
-        attribute :description?, Types::String.optional.meta(ommitable: true)
+        attribute :description?, Types::String.optional.meta(omittable: true)
 
         # @!attribute [r] key
         # Type of grant, for example cost sharing grant, employer contribution grant
         # or osse premium credit
         # @return [String]
-        attribute :key, Types::String.meta(ommittable: false)
+        attribute :key, Types::String.meta(omittable: false)
 
         # @!attribute [r] value
         # Value can be csr, aptc or employer contribution

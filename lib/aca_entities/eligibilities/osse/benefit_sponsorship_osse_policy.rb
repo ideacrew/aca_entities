@@ -9,7 +9,7 @@ module AcaEntities
         # @!attribute [r] value
         # Value
         # @return [String]
-        attribute :value, Types::String.meta(ommitable: false)
+        attribute :value, Types::String.meta(omittable: false)
       end
     end
   end

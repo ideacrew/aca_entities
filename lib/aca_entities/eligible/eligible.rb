@@ -26,11 +26,19 @@ module AcaEntities
           #   end
           # end
         end
+
         def evidence(name, **options)
-          # attribute name, const_get(options[:class_name].constantize)
+          attribute name,
+                    const_get(options[:class_name].to_s)
+                      .__send__(:optional)
+                      .__send__(:meta, omittable: true)
         end
-        def grant(*grant_types)
-          # attribute name, const_get(options[:class_name].constantize)
+
+        def grant(name, **options)
+          attribute name,
+                    const_get(options[:class_name].to_s)
+                      .__send__(:optional)
+                      .__send__(:meta, omittable: true)
         end
       end
     end
