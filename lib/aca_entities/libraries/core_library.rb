@@ -183,6 +183,9 @@ module AcaEntities
       require 'aca_entities/benefit_markets/benefit_sponsor_catalog'
       require 'aca_entities/async_api/async_api'
 
+      require 'aca_entities/benefit_sponsors/contracts/benefit_sponsorships/shop_osse_eligibility/admin_attested_evidence_contract.rb'
+      require 'aca_entities/benefit_sponsors/contracts/benefit_sponsorships/shop_osse_eligibility/eligibility_contract.rb'
+      require 'aca_entities/benefit_sponsors/contracts/benefit_sponsorships/shop_osse_eligibility/grant_contract.rb'
       require 'aca_entities/benefit_sponsors/entities/benefit_sponsorships/shop_osse_eligibility/admin_attested_evidence.rb'
       require 'aca_entities/benefit_sponsors/entities/benefit_sponsorships/shop_osse_eligibility/grant.rb'
       require 'aca_entities/benefit_sponsors/entities/benefit_sponsorships/shop_osse_eligibility/eligibility.rb'

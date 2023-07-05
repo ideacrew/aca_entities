@@ -7,7 +7,7 @@ module AcaEntities
         # contract for ShopOsseEligibility::Eligibility
         class EligibilityContract < Dry::Validation::Contract
           params do
-            required(:key).filled(:string)
+            required(:key).filled(:symbol)
             required(:title).filled(:string)
             optional(:description).maybe(:string)
             required(:state_histories).filled(:array)

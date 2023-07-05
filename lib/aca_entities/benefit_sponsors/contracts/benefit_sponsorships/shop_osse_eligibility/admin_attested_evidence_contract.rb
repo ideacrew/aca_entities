@@ -7,7 +7,7 @@ module AcaEntities
         # contract for ShopOsseEligibility::AdminAttestedEvidence
         class AdminAttestedEvidenceContract < Dry::Validation::Contract
           params do
-            required(:key).filled(:string)
+            required(:key).filled(:symbol)
             required(:title).filled(:string)
             optional(:description).maybe(:string)
             required(:is_satisfied).filled(:bool)
