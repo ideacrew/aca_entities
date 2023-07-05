@@ -1,6 +1,6 @@
 module AcaEntities
   module Eligible
-    # Entity for Evidence
+    # Entity for StateHistory
     class StateHistory < Dry::Struct
       attribute :effective_on, Types::Date.meta(omittable: false)
       attribute :is_eligible, Types::Bool.optional.meta(omittable: false) # helper value when current state value is satisfied
