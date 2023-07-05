@@ -7,7 +7,7 @@ module AcaEntities
       params do
         required(:title).filled(:string)
         optional(:description).maybe(:string)
-        required(:key).filled(:string)
+        required(:key).filled(:symbol)
       end
     end
   end

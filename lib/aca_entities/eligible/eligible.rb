@@ -48,5 +48,7 @@ module AcaEntities
     require_relative 'grant'
     require_relative 'evidence'
     require_relative 'eligibility'
+    require_relative 'contracts/state_history_contract'
+    require_relative 'contracts/value_contract'
   end
 end

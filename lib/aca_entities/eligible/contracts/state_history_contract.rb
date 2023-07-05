@@ -6,7 +6,7 @@ module AcaEntities
     class StateHistoryContract < Dry::Validation::Contract
       params do
         required(:effective_on).filled(:date)
-        required(:is_eligible).filled(:string)
+        required(:is_eligible).filled(:bool)
         required(:from_state).filled(:string)
         required(:to_state).filled(:string)
         required(:transition_at).filled(:date_time)
