@@ -38,7 +38,7 @@ module AcaEntities
                 Types::Array.of(AcaEntities::Verifications::VerificationTypeHistoryElement).optional.meta(omittable: true)
       attribute :lawful_presence_determination,      AcaEntities::Determinations::LawfulPresenceDetermination.optional.meta(omittable: false)
       attribute :local_residency_responses,          Types::Array.of(AcaEntities::Events::EventResponse).optional.meta(omittable: true)
-      attribute :local_residency_requests,           Types::Array.of(AcaEntities::Events::EventRequest).optional.meta(omittable: true) 
+      attribute :local_residency_requests,           Types::Array.of(AcaEntities::Events::EventRequest).optional.meta(omittable: true)
     end
   end
 end
