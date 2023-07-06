@@ -10,25 +10,13 @@ module AcaEntities
         base.extend ClassMethods
       end
 
-      # def evidence(name, **options)
-      #   options.symbolize_keys!
-      #   options[:class_name].constantize
-
-      #   # evidence_types.each do |evidence_type|
-      #   #   define_method("#{evidence_type}?") do
-      #   #     self.evidence_gid == evidence_gid
-      #   #   end
-      #   # end
-      # end
-
       # class methods
       module ClassMethods
-        def eligibility(*eligibility_types)
-          # eligibility_types.each do |eligibility_type|
-          #   define_method("#{eligibility_type}?") do
-          #     self.evidence_gid == evidence_gid
-          #   end
-          # end
+        def eligibility(name, **options)
+          attribute name,
+                    const_get(options[:class_name].to_s)
+                      .__send__(:optional)
+                      .__send__(:meta, omittable: true)
         end
 
         def evidence(name, **options)
