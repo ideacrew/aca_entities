@@ -17,15 +17,13 @@ module AcaEntities
         end
 
         rule(:state_histories).each do
-          if key? && value
-            result = AcaEntities::Eligible::StateHistoryContract.new.call(value)
-            if result&.failure?
-              key.failure(
-                text: 'invalid state history',
-                error: result.errors.to_h
-              )
-            end
-          end
+          next unless key? && value
+          result = AcaEntities::Eligible::StateHistoryContract.new.call(value)
+          next unless result&.failure?
+          key.failure(
+            text: 'invalid state history',
+            error: result.errors.to_h
+          )
         end
       end
     end

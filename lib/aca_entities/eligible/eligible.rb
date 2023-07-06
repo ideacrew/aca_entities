@@ -1,7 +1,10 @@
+# frozen_string_literal: true
+
 module AcaEntities
+  # Eligible namespace
   module Eligible
     # TODO: bring visitors from eligible repo
-
+    # Mixin with helpers to support extending dsl
     module Eligible
       def self.included(base)
         base.extend ClassMethods
@@ -18,6 +21,7 @@ module AcaEntities
       #   # end
       # end
 
+      # class methods
       module ClassMethods
         def eligibility(*eligibility_types)
           # eligibility_types.each do |eligibility_type|

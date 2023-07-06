@@ -30,7 +30,7 @@ module AcaEntities
           end
 
           def latest_history
-            site_histories.sort_by(&:transition_at).last
+            site_histories.max_by(&:transition_at)
           end
         end
       end
