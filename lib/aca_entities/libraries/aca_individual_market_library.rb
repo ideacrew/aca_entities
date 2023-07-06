@@ -59,6 +59,14 @@ module AcaEntities
       require 'aca_entities/people/resident_role_reference'
       require 'aca_entities/people/consumer_role_reference'
 
+      require_relative 'eligibility_library'
+      require 'aca_entities/people/contracts/ivl_osse_eligibility/admin_attested_evidence_contract'
+      require 'aca_entities/people/contracts/ivl_osse_eligibility/grant_contract'
+      require 'aca_entities/people/contracts/ivl_osse_eligibility/eligibility_contract'
+      require 'aca_entities/people/ivl_osse_eligibility/admin_attested_evidence'
+      require 'aca_entities/people/ivl_osse_eligibility/grant'
+      require 'aca_entities/people/ivl_osse_eligibility/eligibility'
+
       require 'aca_entities/benefit_catalogs/benefit_coverage_period_reference'
       require 'aca_entities/benefit_catalogs/benefit_package_reference'
       require 'aca_entities/verifications/verification_type'
@@ -72,16 +80,8 @@ module AcaEntities
       require 'aca_entities/policies/aptc_maximum'
       require 'aca_entities/policies/policy'
 
-      require_relative 'eligibility_library'
       require_relative 'fdsh_library'
       require_relative 'core_library'
-
-      require 'aca_entities/people/contracts/ivl_osse_eligibility/admin_attested_evidence_contract'
-      require 'aca_entities/people/contracts/ivl_osse_eligibility/grant_contract'
-      require 'aca_entities/people/contracts/ivl_osse_eligibility/eligibility_contract'
-      require 'aca_entities/people/ivl_osse_eligibility/admin_attested_evidence'
-      require 'aca_entities/people/ivl_osse_eligibility/grant'
-      require 'aca_entities/people/ivl_osse_eligibility/eligibility'
     end
   end
 end

@@ -3,6 +3,11 @@
 module AcaEntities
   module People
     class ConsumerRole < Dry::Struct
+      include AcaEntities::Eligible::Eligible
+
+      eligibility :ivl_osse_eligibility,
+                  class_name:
+                    'AcaEntities::People::IvlOsseEligibility::Eligibility'
 
       attribute :five_year_bar,                     Types::Bool.optional.meta(omittable: false)
       attribute :requested_coverage_start_date,     Types::Date.optional.meta(omittable: false)
@@ -33,7 +38,7 @@ module AcaEntities
                 Types::Array.of(AcaEntities::Verifications::VerificationTypeHistoryElement).optional.meta(omittable: true)
       attribute :lawful_presence_determination,      AcaEntities::Determinations::LawfulPresenceDetermination.optional.meta(omittable: false)
       attribute :local_residency_responses,          Types::Array.of(AcaEntities::Events::EventResponse).optional.meta(omittable: true)
-      attribute :local_residency_requests,           Types::Array.of(AcaEntities::Events::EventRequest).optional.meta(omittable: true)
+      attribute :local_residency_requests,           Types::Array.of(AcaEntities::Events::EventRequest).optional.meta(omittable: true) 
     end
   end
 end
