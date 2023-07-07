@@ -1,15 +1,33 @@
 # frozen_string_literal: true
 
-require_relative 'files/read'
-require_relative 'yaml/deserialize'
-require_relative 'yaml/serialize'
-require_relative 'encryption/encrypt'
-require_relative 'encryption/decrypt'
-require_relative 'mongoid/model_adapter'
-require_relative 'mongoid/entity_adapter'
-
 module AcaEntities
-  # Operations are perform Functions on domain entities
   module Operations
+    # Operation is a leaf node in an Operations tree structure, and must not contain other nodes
+    module Operation
+      # Class methods
+      def self.included(base)
+        base.extend(ClassMethods)
+      end
+
+      # Class methods for the Operation mixin
+      module ClassMethods
+        send(:include, Dry::Monads[:do])
+
+        def call(args)
+          operation = args.slice(:operation)
+          new(operation).call(args.except(:operation))
+        end
+      end
+
+      attr_accessor :operation_name, :parent
+
+      def initialize(args)
+        @operation_name = args.dig(:operation, :operation_name)
+        raise(ArgumentError.new, '{ operation: { :operation_name } } required') if @operation_name.nil?
+        @parent = nil
+
+        super(*args.except(:operation))
+      end
+    end
   end
 end

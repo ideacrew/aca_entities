@@ -198,7 +198,7 @@ module AcaEntities
         end
 
         def other_questions
-          AcaEntities::Atp::Transformers::Cv::OtherQuestions.transform(@applicant_hash.nil? ? {}.merge(pergnancy: @member_hash[:pregnancy_status]) : @applicant_hash.merge(pergnancy: @member_hash[:pregnancy_status]))
+          AcaEntities::Atp::Transformers::Cv::OtherQuestions.transform(@applicant_hash.nil? ? {}.merge(pregnancy: @member_hash[:pregnancy_status]) : @applicant_hash.merge(pregnancy: @member_hash[:pregnancy_status]))
         end
 
         def family_member_reference_hash
