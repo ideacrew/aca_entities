@@ -6,6 +6,7 @@ require "aca_entities/atp/functions/lawful_presence_determination_builder"
 require "aca_entities/atp/functions/build_application"
 require "aca_entities/functions/age_on"
 require 'aca_entities/atp/transformers/cv/phone'
+require 'aca_entities/atp/transformers/cv/vlp_document'
 require 'dry/monads'
 require 'dry/monads/do'
 
@@ -193,7 +194,19 @@ module AcaEntities
                   add_key 'person.consumer_role.identity_rejected'
                   add_key 'person.consumer_role.application_rejected'
                   add_key 'person.consumer_role.documents', value: ->(_v) {[]}
-                  add_key 'person.consumer_role.vlp_documents', value: ->(_v) {[]}
+                  add_key 'person.consumer_role.vlp_documents', function: lambda {|v|
+                    member_id = v.find(/record.people.(\w+)$/).map(&:item).last
+                    applicants = v.resolve(:'insurance_application.insurance_applicants').item
+                    return [] unless member_id && applicants
+                    insurance_applicant = applicants[member_id.to_sym]
+                    lawful_presence_status = insurance_applicant[:lawful_presence_status] if insurance_applicant
+                    vlp_documents = lawful_presence_status[:immigration_documents] if lawful_presence_status
+                    result = vlp_documents.each_with_object([]) do |document, collector|
+                      next unless document
+                      collector << AcaEntities::Atp::Transformers::Cv::VlpDocument.transform(document)
+                    end
+                    result
+                  }
                   add_key 'person.consumer_role.ridp_documents', value: ->(_v) {[]}
                   add_key 'person.consumer_role.verification_type_history_elements', value: ->(_v) {[]}
                   add_key 'person.consumer_role.local_residency_responses', value: ->(_v) {[]}
