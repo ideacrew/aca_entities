@@ -3,13 +3,16 @@
 require 'spec_helper'
 
 RSpec.describe AcaEntities::Protocols::Transmittable::ProcessStatus do
-  let(:moment) { DateTime.now }
+  let(:params) do
+    {
+      initial_state_key: :initial,
+      latest_state: :initial
+    }
+  end
 
   context 'Given valid required params' do
-    it 'should initialize and be valid'
-
-    context 'and valid optional params' do
-      it 'should initialize and be valid'
+    it 'should initialize and be valid' do
+      expect(described_class.new(params).to_h).to eq params
     end
   end
 end

@@ -8,7 +8,7 @@ RSpec.describe AcaEntities::Protocols::Transmittable::Operations::Jobs::Create d
   let(:time_to_live) { 1 }
   let(:publish_on) { Date.today }
   let(:status) { :initial }
-  let(:process_status) { { initial_state_key: :initial } }
+  let(:process_status) { { initial_state_key: :initial, latest_state: :initial } }
   let(:errors) { [] }
   let(:timestamps) { { created_at: DateTime.now, modified_at: DateTime.now } }
 

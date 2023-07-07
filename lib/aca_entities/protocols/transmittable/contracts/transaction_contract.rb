@@ -23,7 +23,8 @@ module AcaEntities
             required(:errors).array(AcaEntities::Protocols::Transmittable::Contracts::ErrorContract.params)
 
             optional(:timestamps).maybe(AcaEntities::Contracts::TimeStampContract.params)
-            optional(:payload).maybe(:hash)
+            optional(:json_payload).maybe(:hash)
+            optional(:xml_payload).maybe(:string)
           end
         end
       end

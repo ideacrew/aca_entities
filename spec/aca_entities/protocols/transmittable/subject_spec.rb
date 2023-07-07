@@ -49,7 +49,7 @@ RSpec.describe AcaEntities::Protocols::Transmittable::Subject do
       let(:transaction_id) { 'transaction_12345' }
       let(:transaction_key) { :verification_transaction }
       let(:transaction_title) { transaction_key.to_s }
-      let(:transaction_process_status) { { initial_state_key: :draft } }
+      let(:transaction_process_status) { { initial_state_key: :draft, latest_state: :initial } }
       let(:transaction_started_at) { DateTime.now }
       let(:transaction_errors) { [] }
 

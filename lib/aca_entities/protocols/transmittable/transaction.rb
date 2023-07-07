@@ -54,8 +54,13 @@ module AcaEntities
 
         # @!attribute [r] json_payload
         # An optional field that stores a json payload being sent as part of the transmission
-        # @return [String]
+        # @return [hash]
         attribute :json_payload, Types::Hash.meta(omittable: true)
+
+        # @!attribute [r] xml_payload
+        # An optional field that stores a json payload being sent as part of the transmission
+        # @return [String]
+        attribute :xml_payload, Types::String.meta(omittable: true)
       end
     end
   end

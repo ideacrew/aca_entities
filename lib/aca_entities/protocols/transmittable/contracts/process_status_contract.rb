@@ -15,6 +15,7 @@ module AcaEntities
           # @return [Dry::Monads::Result::Failure] if params fail validation
           params do
             required(:initial_state_key).value(AcaEntities::Protocols::Transmittable::Types::ProcessStateKeyKinds)
+            required(:latest_state).value(AcaEntities::Protocols::Transmittable::Types::ProcessStateKeyKinds)
             optional(:elapsed_time).maybe(:integer)
             optional(:process_states).array(AcaEntities::Protocols::Transmittable::Contracts::ProcessStateContract.params)
 

@@ -9,17 +9,17 @@ module AcaEntities
         # @!attribute [r] initial_state_key
         # The status value to set for this process when it's initialized
         # @return [Symbol]
-        attribute :initial_state_key, Types::Symbol.meta(omittable: true)
+        attribute :initial_state_key, Types::Symbol.meta(omittable: false)
 
         # @!attribute [r] latest_state
         # The current state of the process
         # @return [Symbol]
-        attribute :latest_state, Types::Symbol.meta(omittable: true)
+        attribute :latest_state, Types::Symbol.meta(omittable: false)
 
         # @!attribute [r] states
         # The list of state transitions that have occurred during the process
         # @return [Array<AcaEntities::Protocols::Transmittable::ProcessState>]
-        attribute :states, Types::Array.of(AcaEntities::Protocols::Transmittable::ProcessState).meta(omittable: true)
+        attribute :process_states, Types::Array.of(AcaEntities::Protocols::Transmittable::ProcessState).meta(omittable: true)
 
         # @!attribute [r] elapsed_time
         # The total length of time that the process has been running

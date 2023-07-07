@@ -8,7 +8,7 @@ RSpec.describe AcaEntities::Protocols::Transmittable::Contracts::SubjectContract
     context 'Calling contract with Valid params' do
       let(:transaction_key) { :verification_transaction }
       let(:transaction_status) { :initial }
-      let(:transaction_process_status) { { initial_state_key: :initial } }
+      let(:transaction_process_status) { { initial_state_key: :initial, latest_state: :initial } }
       let(:transaction_started_at) { DateTime.now }
       let(:transaction_errors) { [] }
 
