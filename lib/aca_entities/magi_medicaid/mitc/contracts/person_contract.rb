@@ -48,7 +48,7 @@ module AcaEntities
           # @option opts [Array] :relationships required
           # @return [Dry::Monads::Result]
           params do
-            required(:person_id).filled(:integer)
+            required(:person_id).filled(:string)
             required(:is_applicant).filled(Types::YesNoKind)
             required(:is_blind_or_disabled).filled(Types::YesNoKind)
             required(:is_full_time_student).filled(Types::YesNoKind)

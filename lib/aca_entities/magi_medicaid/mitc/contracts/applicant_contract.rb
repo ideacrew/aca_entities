@@ -24,7 +24,7 @@ module AcaEntities
           # @option opts [Array] :qualified_children required
           # @return [Dry::Monads::Result]
           params do
-            required(:person_id).filled(:integer)
+            required(:person_id).filled(:string)
             required(:medicaid_household).hash(MedicaidHouseholdContract.params)
             required(:is_medicaid_eligible).filled(Types::YesNoKind)
             required(:is_chip_eligible).filled(Types::YesNoKind)

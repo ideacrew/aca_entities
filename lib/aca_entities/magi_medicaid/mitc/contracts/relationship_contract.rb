@@ -13,7 +13,7 @@ module AcaEntities
           # @option opts [String] :relationship_code required
           # @return [Dry::Monads::Result]
           params do
-            required(:other_id).filled(:integer)
+            required(:other_id).filled(:string)
             required(:attest_primary_responsibility).filled(Types::YesNoKind)
             required(:relationship_code).filled(Types::RelationshipCodeKind)
           end

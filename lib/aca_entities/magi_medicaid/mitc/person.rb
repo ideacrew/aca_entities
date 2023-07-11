@@ -8,7 +8,7 @@ module AcaEntities
         # @!attribute [r] person_id
         # An integer representing the applicant, only for the use of the submitter
         # @return [Integer]
-        attribute :person_id,        Types::Integer.meta(omittable: false)
+        attribute :person_id,        Types::String.meta(omittable: false)
 
         # @!attribute [r] is_applicant
         # A boolean if the person applying for insurance.

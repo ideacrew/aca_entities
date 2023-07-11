@@ -14,7 +14,7 @@ module AcaEntities
           # @option opts [Hash] :relationship required
           # @return [Dry::Monads::Result]
           params do
-            required(:person_id).filled(:integer)
+            required(:person_id).filled(:string)
             required(:determination).hash(DeterminationContract.params)
             required(:deprived_child).hash(DeprivedChildContract.params)
             optional(:parent_caretaker_relationship).hash(ParentCaretakerRelationshipContract.params)

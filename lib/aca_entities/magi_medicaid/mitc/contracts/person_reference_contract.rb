@@ -11,7 +11,7 @@ module AcaEntities
           # @option opts [Integer] :person_id required
           # @return [Dry::Monads::Result]
           params do
-            required(:person_id).filled(:integer)
+            required(:person_id).filled(:string)
           end
         end
       end

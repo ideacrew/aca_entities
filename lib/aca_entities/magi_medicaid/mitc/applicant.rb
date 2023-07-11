@@ -8,7 +8,7 @@ module AcaEntities
         # @!attribute [r] person_id
         # An integer representing the applicant.
         # @return [Integer]
-        attribute :person_id,        Types::Integer.meta(omittable: false)
+        attribute :person_id,        Types::String.meta(omittable: false)
 
         # @!attribute [r] medicaid_household
         # A hash representing the household composition and MAGI determination.

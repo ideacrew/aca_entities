@@ -5,7 +5,7 @@ module AcaEntities
     module Mitc
       class PersonReference < Dry::Struct
 
-        attribute :person_id,  Types::Integer.meta(omitttable: false)
+        attribute :person_id,  Types::String.meta(omitttable: false)
 
       end
     end
