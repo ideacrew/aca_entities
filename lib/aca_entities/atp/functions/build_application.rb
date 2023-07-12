@@ -6,6 +6,7 @@ require 'aca_entities/atp/transformers/cv/deduction'
 require 'aca_entities/atp/transformers/cv/income'
 require 'aca_entities/atp/transformers/cv/contact_info'
 require 'aca_entities/atp/transformers/cv/vlp_document'
+require "aca_entities/atp/functions/vlp_document_hash_builder"
 # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity, Metrics/MethodLength, Layout/LineLength, Metrics/AbcSize, Metrics/ClassLength
 module AcaEntities
   module Atp
@@ -218,13 +219,13 @@ module AcaEntities
             is_lawful_presence_self_attested: nil }
         end
 
-        def vlp_document_hash
+        def vlp_documents_hash
           lawful_presence_status = @applicant_hash[:lawful_presence_status] if @applicant_hash
           vlp_documents = lawful_presence_status[:immigration_documents] if lawful_presence_status
           vlp_documents.each_with_object([]) do |document, collector|
             next unless document
-            binding.irb
-            collector << AcaEntities::Atp::Transformers::Cv::VlpDocument.transform(document)
+            document_hash = AcaEntities::Atp::Functions::VlpDocumentHashBuilder.new.call(document)
+            collector << AcaEntities::Atp::Transformers::Cv::VlpDocument.transform(document_hash)
           end
         end
 
@@ -278,7 +279,6 @@ module AcaEntities
           lawful_presence_status_eligibility = if lawful_presence_status && lawful_presence_status[:lawful_presence_status_eligibility]
                                                  lawful_presence_status[:lawful_presence_status_eligibility][:eligibility_indicator] ? true : nil
                                                end
-
           {
             is_primary_applicant: @applicant_identifier == @primary_applicant_identifier,
             name: name_hash,
@@ -298,13 +298,14 @@ module AcaEntities
             is_applying_coverage: !@applicant_hash.nil?, # default value
             is_consent_applicant: nil,
             # assumption that the first immigration document sent holds the subject for the FAA applicant, may need to be revisited
-            vlp_subject: vlp_document_hash&.first&.dig(:subject),
-            alien_number: vlp_document_hash.select { |doc| doc[:alien_number].present? }&.first,
+            vlp_subject: vlp_documents_hash&.first&.dig(:subject),
+            # from vlp documents hash select the first document that has a non nil alien number
+            alien_number: vlp_documents_hash&.select { |document| document[:alien_number].present? }&.first&.dig(:alien_number),
             i94_number: nil,
             visa_number: nil,
             passport_number: nil,
             sevis_id: nil,
-            naturalization_number: vlp_document_hash.select { |doc| doc[:naturalization_number].present? }&.first,
+            naturalization_number: vlp_documents_hash&.select { |document| document[:naturalization_number].present? }&.first&.dig(:naturalization_number),
             receipt_number: nil,
             citizenship_number: nil,
             card_number: nil,

@@ -2,6 +2,7 @@
 
 require "aca_entities/atp/functions/address_builder"
 require "aca_entities/atp/functions/relationship_builder"
+require "aca_entities/atp/functions/vlp_document_hash_builder"
 require "aca_entities/atp/functions/lawful_presence_determination_builder"
 require "aca_entities/atp/functions/build_application"
 require "aca_entities/functions/age_on"
@@ -96,7 +97,6 @@ module AcaEntities
                     applicants = v.resolve(:'insurance_application.insurance_applicants').item
                     applicant = applicants[member_id.to_sym]
                     return false if applicant.nil? || applicant[:incarcerations].empty?
-
                     applicant[:incarcerations].first[:incarceration_indicator] || false # defaulted to false if no value provided
                   }
                   add_key 'person.person_demographics.tribal_id'
@@ -203,7 +203,8 @@ module AcaEntities
                     vlp_documents = lawful_presence_status[:immigration_documents] if lawful_presence_status
                     result = vlp_documents.each_with_object([]) do |document, collector|
                       next unless document
-                      collector << AcaEntities::Atp::Transformers::Cv::VlpDocument.transform(document)
+                      document_hash = AcaEntities::Atp::Functions::VlpDocumentHashBuilder.new.call(document)
+                      collector << AcaEntities::Atp::Transformers::Cv::VlpDocument.transform(document_hash)
                     end
                     result
                   }
