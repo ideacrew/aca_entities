@@ -11,7 +11,7 @@ module AcaEntities
           document_number_hash = create_document_number_hash(vlp_document)
 
           extracted_information_hash = person_ids_hash.merge!(document_number_hash)
-          document.merge!(extracted_information_hash)
+          vlp_document.merge!(extracted_information_hash)
         end
 
         def create_person_ids_hash(vlp_document)

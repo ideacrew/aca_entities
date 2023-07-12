@@ -8,7 +8,7 @@ module AcaEntities
         class VlpDocument < ::AcaEntities::Operations::Transforms::Transform
           include ::AcaEntities::Operations::Transforms::Transformer
 
-          map 'category_code', 'subject', memoize: true, visible: true
+          map 'category_code', 'subject'
           map 'alien_number', 'alien_number'
           add_key 'i94_number', value: nil
           add_key 'visa_number', value: nil
