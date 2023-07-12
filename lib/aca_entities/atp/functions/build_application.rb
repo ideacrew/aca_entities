@@ -224,6 +224,7 @@ module AcaEntities
           vlp_documents = lawful_presence_status[:immigration_documents] if lawful_presence_status
           vlp_documents.each_with_object([]) do |document, collector|
             next unless document
+            # builder will handle the document number and person id arrays for the transformer by expanding hash
             document_hash = AcaEntities::Atp::Functions::VlpDocumentHashBuilder.new.call(document)
             collector << AcaEntities::Atp::Transformers::Cv::VlpDocument.transform(document_hash)
           end
@@ -299,7 +300,6 @@ module AcaEntities
             is_consent_applicant: nil,
             # assumption that the first immigration document sent holds the subject for the FAA applicant, may need to be revisited
             vlp_subject: vlp_documents_hash&.first&.dig(:subject),
-            # from vlp documents hash select the first document that has a non nil alien number
             alien_number: vlp_documents_hash&.select { |document| document[:alien_number].present? }&.first&.dig(:alien_number),
             i94_number: nil,
             visa_number: nil,
