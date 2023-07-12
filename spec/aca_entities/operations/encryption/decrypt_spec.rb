@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
+require 'aca_entities/operations/encryption/encrypt'
+require 'aca_entities/operations/encryption/decrypt'
+
 RSpec.describe AcaEntities::Operations::Encryption::Decrypt do
 
   subject { described_class.new.call(input) }
