@@ -4,12 +4,13 @@ require 'spec_helper'
 
 RSpec.describe AcaEntities::Operations::Files::Read do
   context 'When invalid filename is passed' do
-    let(:filename) { 'thils/filename/is/invalid' }
+    let(:filename) { 'this/filename/is/invalid' }
+    let(:params) { { filename: filename } }
 
     it 'should fail with error message' do
-      expect(described_class.new.call(filename).failure?).to be_truthy
+      expect(described_class.new.call(params).failure?).to be_truthy
       expect(
-        described_class.new.call(filename).failure.first
+        described_class.new.call(params).failure.first
       ).to start_with 'No such file or directory'
     end
   end
@@ -20,7 +21,7 @@ RSpec.describe AcaEntities::Operations::Files::Read do
     end
 
     it 'should return success with file io' do
-      result = described_class.new.call(pathname)
+      result = described_class.new.call({ filename: pathname })
 
       expect(result.success?).to be_truthy
       expect(result.value!).to start_with '---'
