@@ -22,8 +22,6 @@ module AcaEntities
           add_key 'country_of_citizenship', value: nil
           add_key 'expiration_date', value: nil
           add_key 'issuing_country', value: nil
-          add_key 'description', value: nil
-          add_key 'incomes', value: nil
 
         end
       end
