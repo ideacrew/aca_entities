@@ -6,16 +6,38 @@ module AcaEntities
     module Grant
       def self.included(base)
         base.class_eval do
-          attribute :key, Types::Symbol.meta(omittable: false) # currently stored as :osse_subsidy
-          attribute :title, Types::String.meta(omittable: false)
-          attribute :description?, Types::String.optional.meta(omittable: true)
-          attribute :value, AcaEntities::Eligible::Value # replaces aasm_state attribute
 
-          # attribute :is_satisfied, Types::Bool.optional.meta(omittable: false) # helper value when current state value is satisfied
+          # @!attribute [r] key
+          # An unambiguous reference to this Grant
+          # @return [Symbol]
+          attribute :key, Types::Symbol.meta(omittable: false)
+
+          # @!attribute [r] title
+          # A name given to the resource by which the resource is formally known
+          # @return [String]
+          attribute :title, Types::String.meta(omittable: false)
+
+          # @!attribute [r] description
+          # An optional account of the content of this resource
+          # @return [String]
+          attribute :description?, Types::String.optional.meta(omittable: true)
+
+          # @!attribute [r] value
+          # Grant value
+          # @return [AcaEntities::Eligible::Value]
+          attribute :value, AcaEntities::Eligible::Value
+
+          # @!attribute [r] state_histories
+          # Collection of resource historical states and associated eligibility
+          # @return [Array]
           attribute :state_histories,
                     Types::Array
                       .of(AcaEntities::Eligible::StateHistory)
                       .meta(omittable: false)
+
+          # @!attribute [r] timestamp
+          # Timestamp of the resource ie. submitted, created or modified time of the resource
+          # @return [Timestamp]
           attribute :timestamp,
                     AcaEntities::TimeStamp.optional.meta(omittable: true)
 

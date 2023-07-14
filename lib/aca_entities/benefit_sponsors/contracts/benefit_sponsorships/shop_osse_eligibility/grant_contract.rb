@@ -19,6 +19,8 @@ module AcaEntities
 
           rule(:state_histories).each do
             next unless key? && value
+            next if value.is_a?(AcaEntities::Eligible::StateHistory)
+
             result =
               AcaEntities::Eligible::StateHistoryContract.new.call(value)
             next unless result&.failure?
