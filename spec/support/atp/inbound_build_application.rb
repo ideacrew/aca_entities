@@ -123,7 +123,7 @@ RSpec.shared_context "inbound_build_application" do
                                                                                                                                    :date_time => "",
                                                                                                                                    :year => nil,
                                                                                                                                    :year_month => nil } }],
-                                                                                    :absent_parent_or_spouse_code => nil,
+                                                                                    :absent_parent_or_spouse_code => 'Yes',
                                                                                     :blindness_or_disability_indicator => nil,
                                                                                     :coverage_during_previous_six_months_indicator => nil,
                                                                                     :eligible_itu_services_indicator => nil,

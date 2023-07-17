@@ -15,13 +15,13 @@ module AcaEntities
       class BuildApplication
         def call(cache)
           @memoized_data = cache
-          insurance_applicants = @memoized_data.resolve(:'insurance_application.insurance_applicants').item
+          @insurance_applicants = @memoized_data.resolve(:'insurance_application.insurance_applicants').item
           @primary_applicant_identifier = @memoized_data.resolve(:primary_applicant_identifier).item
           @tax_return = @memoized_data.resolve(:'insurance_application.tax_returns').item
           people_augementation = @memoized_data.find(Regexp.new("record.people.*.augementation"))
           result = people_augementation.each_with_object([]) do |person_augementation, collector|
             id = person_augementation.name.split(".")[2]
-            @applicant_hash = insurance_applicants[id.to_sym]
+            @applicant_hash = @insurance_applicants[id.to_sym]
             @applicant_identifier = id
             @member_hash = person_augementation.item
             @tribal_augmentation = @memoized_data.find(Regexp.new("record.people.#{id}.tribal_augmentation")).map(&:item).last
@@ -43,15 +43,15 @@ module AcaEntities
             us_state: 'ME', # default value
             assistance_year: 2021, # default_value,
             transfer_id: @memoized_data.resolve('external_id').item,
-            parent_living_out_of_home_terms: @memoized_data.resolve('parent_living_out_of_home_terms').item,
             is_renewal_authorized: @memoized_data.resolve('is_renewal_authorized').item,
             family_reference: { hbx_id: @memoized_data.resolve('family.hbx_id').item.to_s },
             aptc_effective_date: Date.today, # default value
             application_submission_terms: ssf_attestation_hash[:non_perjury_indicator],
             medicaid_insurance_collection_terms: ssf_attestation_hash[:medicaid_obligations_indicator],
-            report_change_terms: ssf_attestation_hash[:information_changes_indicator],
+            report_change_terms: ssf_attestation_hash[:report_change_terms],
             years_to_renew: @memoized_data.resolve('insurance_application.coverage_renewal_year_quantity').item,
             medicaid_terms: medicaid_terms_value,
+            parent_living_out_of_home_terms: parent_living_out_of_home_terms_value,
           }
         end
 
@@ -60,7 +60,6 @@ module AcaEntities
           {
             non_perjury_indicator: attestation[:non_perjury_indicator],
             medicaid_obligations_indicator: attestation[:medicaid_obligations_indicator],
-            information_changes_indicator: attestation[:information_changes_indicator],
             report_change_terms: attestation[:information_changes_indicator]
           }
         end
@@ -68,6 +67,12 @@ module AcaEntities
         def medicaid_terms_value
           renewal_year_quantity = @memoized_data.resolve('insurance_application.coverage_renewal_year_quantity').item
           renewal_year_quantity > 0
+        end
+        
+        def parent_living_out_of_home_terms_value
+          @insurance_applicants.values.any? do |applicant|
+            applicant[:absent_parent_or_spouse_code]&.include?('Yes')
+          end
         end
 
         def income_hash

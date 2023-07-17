@@ -136,5 +136,14 @@ RSpec.describe AcaEntities::Atp::Functions::BuildApplication do
       end
     end
   end
-  
+
+  context "with valid xml containing applicant with absent parent or spouse code as Yes" do
+    before do
+      @result = subject.first
+    end
+
+    it "should return parent_living_out_of_home_terms on the application as true" do
+      expect(@result[:parent_living_out_of_home_terms]).to eq true
+    end
+  end
 end
