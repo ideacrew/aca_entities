@@ -105,5 +105,11 @@ RSpec.describe AcaEntities::Atp::Functions::BuildApplication do
         expect(@result[:application_submission_terms]).to eq @ssf_attestation[:non_perjury_indicator]
       end
     end
+    
+    context "with valid xml containing medicaid obligations indicator" do
+      it "should map the medicaid obligations indicator to medicaid_insurance_collection_terms on the application" do
+        expect(@result[:medicaid_insurance_collection_terms]).to eq @ssf_attestation[:medicaid_obligations_indicator]
+      end
+    end
   end
 end

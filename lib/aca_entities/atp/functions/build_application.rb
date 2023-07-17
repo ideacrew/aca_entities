@@ -49,14 +49,16 @@ module AcaEntities
             is_renewal_authorized: @memoized_data.resolve('is_renewal_authorized').item,
             family_reference: { hbx_id: @memoized_data.resolve('family.hbx_id').item.to_s },
             aptc_effective_date: Date.today, # default value
-            application_submission_terms: ssf_attestation_hash[:non_perjury_indicator]
+            application_submission_terms: ssf_attestation_hash[:non_perjury_indicator],
+            medicaid_insurance_collection_terms: ssf_attestation_hash[:medicaid_obligations_indicator],
           }
         end
 
         def ssf_attestation_hash
           attestation = @memoized_data.resolve('insurance_application.ssf_signer.ssf_attestation').item
           {
-            non_perjury_indicator: attestation[:non_perjury_indicator]
+            non_perjury_indicator: attestation[:non_perjury_indicator],
+            medicaid_obligations_indicator: attestation[:medicaid_obligations_indicator]
           }
         end
 
