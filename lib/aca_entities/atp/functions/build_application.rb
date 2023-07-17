@@ -44,13 +44,14 @@ module AcaEntities
             assistance_year: 2021, # default_value,
             transfer_id: @memoized_data.resolve('external_id').item,
             parent_living_out_of_home_terms: @memoized_data.resolve('parent_living_out_of_home_terms').item,
-            report_change_terms: @memoized_data.resolve('report_change_terms').item,
-            medicaid_terms: @memoized_data.resolve('medicaid_terms').item,
             is_renewal_authorized: @memoized_data.resolve('is_renewal_authorized').item,
             family_reference: { hbx_id: @memoized_data.resolve('family.hbx_id').item.to_s },
             aptc_effective_date: Date.today, # default value
             application_submission_terms: ssf_attestation_hash[:non_perjury_indicator],
             medicaid_insurance_collection_terms: ssf_attestation_hash[:medicaid_obligations_indicator],
+            report_change_terms: ssf_attestation_hash[:information_changes_indicator],
+            years_to_renew: @memoized_data.resolve('insurance_application.coverage_renewal_year_quantity').item,
+            medicaid_terms: medicaid_terms_value,
           }
         end
 
@@ -58,8 +59,15 @@ module AcaEntities
           attestation = @memoized_data.resolve('insurance_application.ssf_signer.ssf_attestation').item
           {
             non_perjury_indicator: attestation[:non_perjury_indicator],
-            medicaid_obligations_indicator: attestation[:medicaid_obligations_indicator]
+            medicaid_obligations_indicator: attestation[:medicaid_obligations_indicator],
+            information_changes_indicator: attestation[:information_changes_indicator],
+            report_change_terms: attestation[:information_changes_indicator]
           }
+        end
+        
+        def medicaid_terms_value
+          renewal_year_quantity = @memoized_data.resolve('insurance_application.coverage_renewal_year_quantity').item
+          renewal_year_quantity > 0
         end
 
         def income_hash
