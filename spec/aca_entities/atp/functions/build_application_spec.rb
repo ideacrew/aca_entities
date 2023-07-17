@@ -93,4 +93,17 @@ RSpec.describe AcaEntities::Atp::Functions::BuildApplication do
       expect(@result[:applicants][1][:alien_number]).to be nil
     end
   end
+
+  context "ssf attestation" do
+    before do
+      @ssf_attestation = context.resolve("insurance_application.ssf_signer.ssf_attestation").item
+      @result = subject.first
+    end
+
+    context "with valid xml containing non perjury indicator" do
+      it "should map the non perjury indicator to application_submission_terms on the application" do
+        expect(@result[:application_submission_terms]).to eq @ssf_attestation[:non_perjury_indicator]
+      end
+    end
+  end
 end

@@ -31,6 +31,7 @@ module AcaEntities
             collector << applicant_hash
             collector
           end
+
           [application_hash.merge!(applicants: result)]
         end
 
@@ -47,7 +48,15 @@ module AcaEntities
             medicaid_terms: @memoized_data.resolve('medicaid_terms').item,
             is_renewal_authorized: @memoized_data.resolve('is_renewal_authorized').item,
             family_reference: { hbx_id: @memoized_data.resolve('family.hbx_id').item.to_s },
-            aptc_effective_date: Date.today # default value,
+            aptc_effective_date: Date.today, # default value
+            application_submission_terms: ssf_attestation_hash[:non_perjury_indicator]
+          }
+        end
+
+        def ssf_attestation_hash
+          attestation = @memoized_data.resolve('insurance_application.ssf_signer.ssf_attestation').item
+          {
+            non_perjury_indicator: attestation[:non_perjury_indicator]
           }
         end
 
@@ -280,6 +289,7 @@ module AcaEntities
           lawful_presence_status_eligibility = if lawful_presence_status && lawful_presence_status[:lawful_presence_status_eligibility]
                                                  lawful_presence_status[:lawful_presence_status_eligibility][:eligibility_indicator] ? true : nil
                                                end
+
           {
             is_primary_applicant: @applicant_identifier == @primary_applicant_identifier,
             name: name_hash,
