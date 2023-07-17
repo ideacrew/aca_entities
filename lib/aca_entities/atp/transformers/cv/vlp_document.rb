@@ -13,8 +13,7 @@ module AcaEntities
           add_key 'i94_number', value: nil
           add_key 'visa_number', value: nil
           add_key 'sevis_id', value: nil
-          # category code does not get sent with spaces, so no underscore for key
-          map 'naturalizationcertificate', 'naturalization_number'
+          map 'naturalization_certificate', 'naturalization_number'
           add_key 'passport_number', value: nil
           add_key 'receipt_number', value: nil
           add_key 'citizenship_number', value: nil

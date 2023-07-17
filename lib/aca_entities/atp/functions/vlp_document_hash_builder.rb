@@ -6,7 +6,14 @@ module AcaEntities
 
       # build VlpDocument hash so that transformer can deal with array values
       class VlpDocumentHashBuilder
-        def call(vlp_document)
+
+        SUBJECT_MAP = {
+          "NaturalizationCertificate" => "Naturalization Certificate"
+          # Certificate of Citizenship
+        }.freeze
+
+        def call(document)
+          vlp_document = update_subject(document)
           person_ids_hash = create_person_ids_hash(vlp_document)
           document_number_hash = create_document_number_hash(vlp_document)
 
@@ -14,8 +21,14 @@ module AcaEntities
           vlp_document.merge!(extracted_information_hash)
         end
 
+        def update_subject(document)
+          subject = document[:category_code]
+          document[:category_code] = SUBJECT_MAP[subject] || subject
+          document
+        end
+
         def create_person_ids_hash(vlp_document)
-          vlp_document[:document_person_ids].each_with_object({}) do |person_id, ids_hash|
+          vlp_document[:document_person_ids]&.each_with_object({}) do |person_id, ids_hash|
             category_text_key = person_id[:identification_category_text]
             # may need to be revisited if category text contains hyphens or other special characters
             category_text_key = category_text_key&.split&.join("_")&.downcase&.to_sym
