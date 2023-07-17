@@ -3,6 +3,9 @@
 # Include the baseline entities and types
 module AcaEntities
   module Libraries
+    # Base Entities, Contracts and Types for the AcaEntities namespace. Add new, non-core Entity definitions
+    # to their own library file in the same directory as this file so they may be selectively included in
+    # services that require them.
     module CoreLibrary
       require 'aca_entities/types'
       require 'aca_entities/attestations/types'
@@ -19,6 +22,9 @@ module AcaEntities
 
       # Add User and Account library
       require 'aca_entities/accounts/accounts'
+
+      # Add Protcols Library
+      require_relative 'protocols_library'
 
       require 'aca_entities/contracts/people/person_reference_contract'
       require 'aca_entities/contracts/households/household_reference_contract'

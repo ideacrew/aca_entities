@@ -6,7 +6,6 @@ module AcaEntities
 
       # build VlpDocument hash so that transformer can deal with array values
       class VlpDocumentHashBuilder
-
         SUBJECT_MAP = {
           "NaturalizationCertificate" => "Naturalization Certificate"
           # Certificate of Citizenship
