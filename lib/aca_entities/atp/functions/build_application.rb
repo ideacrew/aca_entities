@@ -15,9 +15,9 @@ module AcaEntities
       class BuildApplication
         def call(cache)
           @memoized_data = cache
-          @insurance_applicants = @memoized_data.resolve(:'insurance_application.insurance_applicants').item
-          @primary_applicant_identifier = @memoized_data.resolve(:primary_applicant_identifier).item
-          @tax_return = @memoized_data.resolve(:'insurance_application.tax_returns').item
+          @insurance_applicants = @memoized_data.resolve(:'insurance_application.insurance_applicants')&.item
+          @primary_applicant_identifier = @memoized_data.resolve(:primary_applicant_identifier)&.item
+          @tax_return = @memoized_data.resolve(:'insurance_application.tax_returns')&.item
           people_augementation = @memoized_data.find(Regexp.new("record.people.*.augementation"))
           result = people_augementation.each_with_object([]) do |person_augementation, collector|
             id = person_augementation.name.split(".")[2]
@@ -49,28 +49,34 @@ module AcaEntities
             application_submission_terms: ssf_attestation_hash[:non_perjury_indicator],
             medicaid_insurance_collection_terms: ssf_attestation_hash[:medicaid_obligations_indicator],
             report_change_terms: ssf_attestation_hash[:report_change_terms],
-            years_to_renew: @memoized_data.resolve('insurance_application.coverage_renewal_year_quantity').item,
+            years_to_renew: @memoized_data.resolve('insurance_application.coverage_renewal_year_quantity')&.item,
             medicaid_terms: medicaid_terms_value,
             parent_living_out_of_home_terms: parent_living_out_of_home_terms_value
           }
         end
 
         def ssf_attestation_hash
-          attestation = @memoized_data.resolve('insurance_application.ssf_signer.ssf_attestation').item
-          {
-            non_perjury_indicator: attestation[:non_perjury_indicator],
-            medicaid_obligations_indicator: attestation[:medicaid_obligations_indicator],
-            report_change_terms: attestation[:information_changes_indicator]
-          }
+          @ssf_attestation_hash ||= begin
+            attestation = @memoized_data.resolve('insurance_application.ssf_signer.ssf_attestation')&.item
+            if attestation
+              {
+                non_perjury_indicator: attestation[:non_perjury_indicator],
+                medicaid_obligations_indicator: attestation[:medicaid_obligations_indicator],
+                report_change_terms: attestation[:information_changes_indicator]
+              }
+            else
+              {}
+            end
+          end
         end
 
         def medicaid_terms_value
-          renewal_year_quantity = @memoized_data.resolve('insurance_application.coverage_renewal_year_quantity').item
-          renewal_year_quantity > 0
+          renewal_year_quantity = @memoized_data.resolve('insurance_application.coverage_renewal_year_quantity')&.item
+          renewal_year_quantity&.positive?
         end
 
         def parent_living_out_of_home_terms_value
-          @insurance_applicants.values.any? do |applicant|
+          @insurance_applicants&.values&.any? do |applicant|
             applicant[:absent_parent_or_spouse_code]&.include?('Yes')
           end
         end
