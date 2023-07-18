@@ -3,7 +3,6 @@
 module AcaEntities
   module Eligible
     # module for Eligibility
-
     module Eligibility
       def self.included(base)
         base.class_eval do
