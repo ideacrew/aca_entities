@@ -53,6 +53,10 @@ module AcaEntities
 
             def validate_payload(payload)
               schema_data = JSON.parse(File.read(Pathname.pwd.join("lib/aca_entities/fdsh/ssa/h3/schemas/SSAC-Request-Schema.json")))
+
+              # CMS requested no blank data be sent in the request
+              payload.delete_if { |_k, v| v.empty? }
+
               result = begin
                 JSON::Validator.fully_validate(schema_data, JSON.parse(payload.to_json))
               rescue JSON::Schema::ValidationError => e
