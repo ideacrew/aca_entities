@@ -77,4 +77,20 @@ RSpec.describe AcaEntities::Atp::Functions::BuildApplication do
       expect(@result[:applicants][0][:pregnancy_information][:pregnancy_due_on]).to be nil
     end
   end
+
+  context "with valid xml containing naturalization certificate document information" do
+    before do
+      @result = subject.first
+    end
+    it "should return naturalization certificate document information for naturalized applicant" do
+      expect(@result[:applicants][0][:vlp_subject]).to eq("NaturalizationCertificate")
+      expect(@result[:applicants][0][:naturalization_number]).to eq(12_345)
+      expect(@result[:applicants][0][:alien_number]).to eq(67_890)
+    end
+    it "should return nil naturalization certificate document information for other applicant" do
+      expect(@result[:applicants][1][:vlp_subject]).to be nil
+      expect(@result[:applicants][1][:naturalization_number]).to be nil
+      expect(@result[:applicants][1][:alien_number]).to be nil
+    end
+  end
 end

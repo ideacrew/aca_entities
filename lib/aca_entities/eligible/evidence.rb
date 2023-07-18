@@ -30,6 +30,7 @@ module AcaEntities
           # @!attribute [r] state_histories
           # Collection of resource historical states and associated eligibility
           # @return [Array]
+
           attribute :state_histories,
                     Types::Array
                       .of(AcaEntities::Eligible::StateHistory)
