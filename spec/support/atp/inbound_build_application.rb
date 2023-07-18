@@ -452,7 +452,7 @@ RSpec.shared_context "inbound_build_application" do
                                                                :person_identification => nil } }
     }
   end
-  
+
   let(:context) do
     # rubocop:enable Layout/LineLength
     AcaEntities::Operations::Transforms::Context.new(context_hash)

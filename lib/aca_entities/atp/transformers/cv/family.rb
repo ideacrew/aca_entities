@@ -28,7 +28,7 @@ module AcaEntities
           map 'insurance_application.tax_returns', 'tax_returns', memoize_record: true, visible: false
           map 'insurance_application.application_identifications.identification_id', 'external_id', memoize_record: true, visible: false
           map 'insurance_application.coverage_renewal_year_quantity', 'coverage_renewal_year_quantity', memoize: true, visible: false
-          
+
           namespace 'record' do
             rewrap 'family', type: :hash do
               # map 'coverage_renewal_year_quantity', 'renewal_consent_through_year', function: ->(_value) {Date.parse("2021-05-07").year}

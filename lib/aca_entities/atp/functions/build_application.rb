@@ -51,7 +51,7 @@ module AcaEntities
             report_change_terms: ssf_attestation_hash[:report_change_terms],
             years_to_renew: @memoized_data.resolve('insurance_application.coverage_renewal_year_quantity').item,
             medicaid_terms: medicaid_terms_value,
-            parent_living_out_of_home_terms: parent_living_out_of_home_terms_value,
+            parent_living_out_of_home_terms: parent_living_out_of_home_terms_value
           }
         end
 
@@ -63,12 +63,12 @@ module AcaEntities
             report_change_terms: attestation[:information_changes_indicator]
           }
         end
-        
+
         def medicaid_terms_value
           renewal_year_quantity = @memoized_data.resolve('insurance_application.coverage_renewal_year_quantity').item
           renewal_year_quantity > 0
         end
-        
+
         def parent_living_out_of_home_terms_value
           @insurance_applicants.values.any? do |applicant|
             applicant[:absent_parent_or_spouse_code]&.include?('Yes')
@@ -95,20 +95,20 @@ module AcaEntities
 
           @incomes_hash.each_with_object([]) do |income, result|
             next unless income[:category_code] == 'Wages'
-            employer_hash = @employments_hash.select {|hash| hash[:employer][:id] == income[:source_organization_reference][:ref]}.first
+            employer_hash = @employments_hash.select { |hash| hash[:employer][:id] == income[:source_organization_reference][:ref] }.first
             contact_information = employer_hash[:employer][:organization_primary_contact_information] if employer_hash
             transformed_income = AcaEntities::Atp::Transformers::Cv::Income.transform(income)
             result << {
               'employer_name' => employer_hash ? employer_hash[:employer][:category_text] : nil,
               'employer_address' =>
-              if contact_information && contact_information[:mailing_address] && contact_information[:mailing_address][:address]
-                mailing = contact_information[:mailing_address][:address]
-                AcaEntities::Atp::Transformers::Cv::ContactInfo.transform(mailing) if check_employer_address(mailing)
-              end,
+                if contact_information && contact_information[:mailing_address] && contact_information[:mailing_address][:address]
+                  mailing = contact_information[:mailing_address][:address]
+                  AcaEntities::Atp::Transformers::Cv::ContactInfo.transform(mailing) if check_employer_address(mailing)
+                end,
               'employer_phone' =>
-              if contact_information && contact_information[:telephone_number]
-                AcaEntities::Atp::Transformers::Cv::ContactInfo.transform(contact_information[:telephone_number])
-              end
+                if contact_information && contact_information[:telephone_number]
+                  AcaEntities::Atp::Transformers::Cv::ContactInfo.transform(contact_information[:telephone_number])
+                end
             }.merge(transformed_income)
             result
           end
@@ -274,7 +274,7 @@ module AcaEntities
 
         def tax_returns_hash
           applicant_is_primary_tax_filer = @tax_return.nil? ? nil : @tax_return[:tax_household][:primary_tax_filer][:role_reference][:ref] == @applicant_identifier
-          tax_dependents = @tax_return.nil? ? nil : @tax_return[:tax_household][:tax_dependents].collect {|a| a[:role_reference][:ref]}
+          tax_dependents = @tax_return.nil? ? nil : @tax_return[:tax_household][:tax_dependents].collect { |a| a[:role_reference][:ref] }
 
           is_tax_filer = if !@tax_return.nil? && @tax_return[:tax_household]
                            if applicant_is_primary_tax_filer
@@ -288,9 +288,9 @@ module AcaEntities
 
           joint_tax_filing_status = @tax_return[:status_code] == '2' if is_tax_filer && @tax_return[:status_code].present?
 
-          is_head_of_household =  if !@tax_return.nil? && @tax_return[:tax_household] && applicant_is_primary_tax_filer
-                                    @tax_return[:status_code] == '4' || @tax_return[:status_code] == '7'
-                                  end
+          is_head_of_household = if !@tax_return.nil? && @tax_return[:tax_household] && applicant_is_primary_tax_filer
+                                   @tax_return[:status_code] == '4' || @tax_return[:status_code] == '7'
+                                 end
           { tax_dependents: tax_dependents,
             is_tax_filer: is_tax_filer,
             joint_tax_filing_status: joint_tax_filing_status,
@@ -366,8 +366,8 @@ module AcaEntities
             has_unemployment_income: !unemp_income_hash.empty?,
             has_other_income: !other_income_hash.empty?,
             has_deductions: !deduction_hash.empty?,
-            has_enrolled_health_coverage: !benefits_hash.concat(benefits_esc_hash).select {|h| h['kind'] == 'is_enrolled' }.empty?,
-            has_eligible_health_coverage: benefits_hash.concat(benefits_esc_hash).select {|h| h['kind'] == 'is_eligible' }.empty? ? nil : true,
+            has_enrolled_health_coverage: !benefits_hash.concat(benefits_esc_hash).select { |h| h['kind'] == 'is_enrolled' }.empty?,
+            has_eligible_health_coverage: benefits_hash.concat(benefits_esc_hash).select { |h| h['kind'] == 'is_eligible' }.empty? ? nil : true,
             addresses: AcaEntities::Atp::Functions::AddressBuilder.new.call(@memoized_data, @applicant_identifier), # default value
             emails: email_hash, # default value
             phones: phone_hash, # default value
@@ -391,7 +391,7 @@ module AcaEntities
           return if age.blank?
           age_date = age.respond_to?(:strftime) ? Date.strptime(age, "%m/%d/%Y") : Date.parse(age)
           AcaEntities::Functions::AgeOn.new(on_date: Date.today.strftime('%Y/%m/%d'))
-                                                         .call(age_date.strftime('%Y/%m/%d'))
+                                       .call(age_date.strftime('%Y/%m/%d'))
         end
 
         def email_hash
