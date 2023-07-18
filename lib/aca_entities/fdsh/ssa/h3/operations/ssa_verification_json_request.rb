@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'json'
-require 'json_schema'
+require "json-schema"
 
 module AcaEntities
   module Fdsh
@@ -52,14 +52,14 @@ module AcaEntities
             end
 
             def validate_payload(payload)
-              schema_data = JSON.parse(File.read("lib/aca_entities/fdsh/ssa/h3/schemas/SSAC-Request-Schema.json"))
-              schema = JsonSchema.parse!(schema_data)
-              # to do research what this line does
-              schema.expand_references!
-              result = schema.validate(JSON.parse(payload.to_json))
-              result[0] ? Success(payload.to_json) : Failure("Invalid SSA request due to #{result[1].join(' AND ')}")
+              schema_data = JSON.parse(File.read(Pathname.pwd.join("lib/aca_entities/fdsh/ssa/h3/schemas/SSAC-Request-Schema.json")))
+              result = begin
+                JSON::Validator.fully_validate(schema_data, JSON.parse(payload.to_json))
+              rescue JSON::Schema::ValidationError => e
+                e.message
+              end
+              result.empty? ? Success(payload.to_json) : Failure(result.to_s)
             end
-
           end
         end
       end

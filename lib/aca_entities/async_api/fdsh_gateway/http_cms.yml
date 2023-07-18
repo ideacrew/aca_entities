@@ -250,6 +250,33 @@ channels:
           headers:
             Content-Type: application/json
             Accept: application/json
+  /VerifySSACompositeServiceRest:
+    publish:
+      operationId: /VerifySSACompositeServiceRest
+      description: Send ssa JSON request to CMS
+      message:
+        contentType: application/json
+      bindings:
+        http:
+          type: request
+          method: POST
+          contentType: application/json
+          headers:
+            Content-Type: application/json
+            Accept: application/json
+    subscribe:
+      operationId: /on/VerifySSACompositeServiceRest
+      description: Receive ssa JSON response from CMS
+      message:
+        contentType: application/json
+      bindings:
+        http:
+          type: response
+          method: GET
+          contentType: application/json
+          headers:
+            Content-Type: application/json
+            Accept: application/json
 tags:
   - name: linter_tag
     description: placeholder that satisfies the linter
