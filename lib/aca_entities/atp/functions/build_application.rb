@@ -246,7 +246,7 @@ module AcaEntities
         def vlp_documents_hash
           lawful_presence_status = @applicant_hash[:lawful_presence_status] if @applicant_hash
           vlp_documents = lawful_presence_status[:immigration_documents] if lawful_presence_status
-          vlp_documents.each_with_object([]) do |document, collector|
+          vlp_documents&.each_with_object([]) do |document, collector|
             next unless document
             # builder will handle the document number and person id arrays for the transformer by expanding hash
             document_hash = AcaEntities::Atp::Functions::VlpDocumentHashBuilder.new.call(document)
