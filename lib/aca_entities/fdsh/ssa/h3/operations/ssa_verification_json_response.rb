@@ -30,6 +30,7 @@ module AcaEntities
               rescue JSON::Schema::ValidationError => e
                 e.message
               end
+              payload = JSON.parse(payload.to_json, symbolize_names: true)
               result.empty? ? Success(payload) : Failure(result.to_s)
             end
 
