@@ -48,6 +48,7 @@ require_relative 'ssa/h3/json/ssa_composite_request'
 # operations
 require_relative 'ssa/h3/operations/ssa_verification_request'
 require_relative 'ssa/h3/operations/ssa_verification_json_request'
+require_relative 'ssa/h3/operations/ssa_verification_json_response'
 
 # happymapper
 require 'aca_entities/serializers/xml/fdsh/ssa'
