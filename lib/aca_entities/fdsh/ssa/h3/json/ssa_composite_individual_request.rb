@@ -5,8 +5,8 @@ module AcaEntities
     module Ssa
       module H3
         module Json
-          # Entity for Fdsh JSON ssaCompositeIndividualRequestArray
-          class SsaCompositeIndividualRequestArray < Dry::Struct
+          # Entity for Fdsh JSON ssaCompositeIndividualRequest
+          class SsaCompositeIndividualRequest < Dry::Struct
             attribute :personSocialSecurityNumber, Types::String.meta(omittable: false)
             attribute :personGivenName, Types::String.meta(omittable: false)
             attribute :personMiddleName, Types::String.optional.meta(omittable: true)
