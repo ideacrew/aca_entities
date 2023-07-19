@@ -8,7 +8,20 @@ module AcaEntities
         class SSAQuartersOfCoverageContract < Dry::Validation::Contract
           params do
             required(:LifeTimeQuarterQuantity).maybe(:integer)
-            required(:QualifyingYearAndQuarter).maybe(AcaEntities::Fdsh::Ssa::H3::QualifyingYearAndQuarterContract.params)
+            optional(:QualifyingYearAndQuarter).maybe(AcaEntities::Fdsh::Ssa::H3::QualifyingYearAndQuarterContract.params)
+            optional(:QualifyingYearAndQuarterArray).array(AcaEntities::Fdsh::Ssa::H3::QualifyingYearAndQuarterContract.params)
+          end
+
+          rule(:QualifyingYearAndQuarter, :QualifyingYearAndQuarterArray) do
+            unless key?(:QualifyingYearAndQuarter) || key?(:QualifyingYearAndQuarterArray)
+              key.failure('qualifying year and quarter information is required')
+            end
+            if key?(:QualifyingYearAndQuarter) && !values[:QualifyingYearAndQuarter]
+              key.failure('qualifying year and quarter information is required')
+            end
+            if key?(:QualifyingYearAndQuarterArray) && !values[:QualifyingYearAndQuarterArray]
+              key.failure('qualifying year and quarter information is required')
+            end
           end
         end
       end
