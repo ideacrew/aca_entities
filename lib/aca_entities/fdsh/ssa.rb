@@ -42,7 +42,7 @@ require_relative 'ssa/h3/ssa_composite_individual_response'
 require_relative 'ssa/h3/ssa_composite_response'
 
 # entities for json request
-require_relative 'ssa/h3/json/ssa_composite_individual_request_array'
+require_relative 'ssa/h3/json/ssa_composite_individual_request'
 require_relative 'ssa/h3/json/ssa_composite_request'
 
 # operations

@@ -9,7 +9,7 @@ module AcaEntities
           class SsaCompositeRequest < Dry::Struct
 
             attribute :ssaCompositeIndividualRequestArray,
-                      Types::Array.of(Fdsh::Ssa::H3::Json::SsaCompositeIndividualRequestArray).meta(omittable: false)
+                      Types::Array.of(Fdsh::Ssa::H3::Json::SsaCompositeIndividualRequest).meta(omittable: false)
           end
         end
       end
