@@ -1,0 +1,113 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "id": "./SSAC-Leg1-Request-Schema.json",
+    "title": "Social Security Administration (SSA) Composite (RJ003) - Request Schema",
+    "description": "The SSA Composite Service verifies an Applicant, Enrollee, or Beneficiary SSN, attestation of citizenship, and attestation of not being incarcerated. It may also verify income information.",
+    "type": "object",
+    "$comment": "Define root as ssaCompositeRequest.",
+    "required": ["ssaCompositeRequest"],
+    "additionalProperties": false,
+    "properties": {
+        "ssaCompositeRequest": {
+            "type": "object",
+            "description": "Request for SSA composite service to Verify the following - 1. SSN Verification. 2. Citizenship Verification. 3. Incarceration Verification. 4. description II Monthly Income Verification. 5. description II Annual Income Verification - translation for the Annual description II Income benefits received from SSA. 6. Quarters of Coverage Verification - translation of the Quarters of Coverage data received from SSA. 7. The PersonLivingInd used to indicate if an applicant was deceased; not deceased and/or not releasable found in the response elements from SSA and the Hub will be updated to the DeathConfirmationCode.",
+            "required": ["ssaCompositeIndividualRequestArray"],
+            "properties": {
+                "ssaCompositeIndividualRequestArray": {
+                    "type": "array",
+                    "description": "Contains request information for each individual.",
+                    "minItems": 1,
+                    "items": {"$ref": "#/definitions/ssaCompositeIndividualRequestArrayType"}
+                }
+            }
+        }
+    },
+    "definitions": {
+        "ssaCompositeIndividualRequestArrayType": {
+            "type": "object",
+            "required": [
+                "personSocialSecurityNumber",
+                "personSurName",
+                "personBirthDate",
+                "requestCitizenshipVerificationIndicator",
+                "requestIncarcerationVerificationIndicator",
+                "requestTitleIIMonthlyIncomeVerificationIndicator",
+                "requestTitleIIAnnualIncomeVerificationIndicator",
+                "requestQuartersOfCoverageVerificationIndicator"
+            ],
+            "additionalProperties": false,
+            "properties": {
+                "personSocialSecurityNumber": {"$ref": "#/definitions/personSocialSecurityNumberType"},
+                "personGivenName": {"$ref": "#/definitions/personGivenNameType"},
+                "personMiddleName": {"$ref": "#/definitions/personMiddleNameType"},
+                "personSurName": {"$ref": "#/definitions/personSurNameType"},
+                "personBirthDate": {"$ref": "#/definitions/personBirthDateType"},
+                "requestCitizenshipVerificationIndicator": {"$ref": "#/definitions/requestCitizenshipVerificationIndicatorType"},
+                "requestIncarcerationVerificationIndicator": {"$ref": "#/definitions/requestIncarcerationVerificationIndicatorType"},
+                "requestTitleIIMonthlyIncomeVerificationIndicator": {"$ref": "#/definitions/requestTitleIIMonthlyIncomeVerificationIndicatorType"},
+                "requestTitleIIAnnualIncomeVerificationIndicator": {"$ref": "#/definitions/requestTitleIIAnnualIncomeVerificationIndicatorType"},
+                "requestQuartersOfCoverageVerificationIndicator": {"$ref": "#/definitions/requestQuartersOfCoverageVerificationIndicatorType"},
+                "requestTitleIIMonthlyIncomeDate": {"$ref": "#/definitions/requestTitleIIMonthlyIncomeDateType"},
+                "requestTitleIIAnnualIncomeDate": {"$ref": "#/definitions/requestTitleIIAnnualIncomeDateType"}
+            }
+        },
+        "personSocialSecurityNumberType": {
+            "description": "A unique reference to a living person assigned by the United States Social Security Administration.",
+            "type": "string",
+            "pattern": "^([1-57-8][0-9]{2}|0([1-9][0-9]|[0-9][1-9])|6([0-57-9][0-9]|[0-9][0-57-9]))([1-9][0-9]|[0-9][1-9])([1-9]\\d{3}|\\d[1-9]\\d{2}|\\d{2}[1-9]\\d|\\d{3}[1-9])$"
+        },
+        "personGivenNameType": {
+            "description": "The first name of an individual.",
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 50
+        },
+        "personMiddleNameType": {
+            "description": "The middle name of an individual.",
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 50
+        },
+        "personSurNameType": {
+            "description": "The last name of an individual.",
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 50
+        },
+        "personBirthDateType": {
+            "description": "The date of birth of an individual",
+            "type": "string",
+            "pattern": "^([0-9]{4}-((0[13-9]|1[012])-(0[1-9]|[12][0-9]|30)|(0[13578]|1[02])-31|02-(0[1-9]|1[0-9]|2[0-8]))|([0-9]{2}(([2468][048]|[02468][48])|[13579][26])|([13579][26]|[02468][048]|0[0-9]|1[0-6])00)-02-29)$"
+        },
+        "requestCitizenshipVerificationIndicatorType": {
+            "description": "Citizenship Service Request Flag indicating that the applicants citizenship needs to be verified with SSA.",
+            "type": "boolean"
+        },
+        "requestIncarcerationVerificationIndicatorType": {
+            "description": "Incarceration Service Request Flag indicating that the applicants Incarceration status needs to be verified with SSA.",
+            "type": "boolean"
+        },
+        "requestTitleIIMonthlyIncomeVerificationIndicatorType": {
+            "description": "Title II Monthly Income Service Request Flag indicating that the applicants Title II Monthly Income needs to be verified with SSA.",
+            "type": "boolean"
+        },
+        "requestTitleIIAnnualIncomeVerificationIndicatorType": {
+            "description": "Title II Annual Income Service Request Flag indicating that the applicants Title II Annual Income needs to be verified with SSA.",
+            "type": "boolean"
+        },
+        "requestQuartersOfCoverageVerificationIndicatorType": {
+            "description": "Quarters of Coverage Service Request Flag indicating that the applicants Quarters of Coverage need to be verified with SSA.",
+            "type": "boolean"
+        },
+        "requestTitleIIMonthlyIncomeDateType": {
+            "description": "The month and year will be extracted for the Title II Monthly Income Service Request for which the applicants Title II Monthly Income need to be verified with SSA.",
+            "type": "string",
+            "pattern": "^[2-9]\\d{3}(0[1-9]|1[0-2])$"
+        },
+        "requestTitleIIAnnualIncomeDateType": {
+            "description": "The year will be extracted for the Title II Annual Income Service Request for which the applicants Title II Annual Income need to be verified with SSA.",
+            "type": "string",
+            "pattern": "^[2-9]\\d{3}$"
+        }
+    }
+}
