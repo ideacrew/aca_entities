@@ -130,7 +130,6 @@ module AcaEntities
             next if AcaEntities::Atp::Types::DeductionKinds[expense[:category_code]].nil?
 
             result << AcaEntities::Atp::Transformers::Cv::Deduction.transform(expense)
-            binding.irb
             result
           end
         end
