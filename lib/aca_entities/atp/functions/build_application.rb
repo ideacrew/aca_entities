@@ -129,7 +129,8 @@ module AcaEntities
           @expenses_hash.each_with_object([]) do |expense, result|
             next if AcaEntities::Atp::Types::DeductionKinds[expense[:category_code]].nil?
 
-            result << AcaEntities::Atp::Transformers::Cv::Income.transform(expense)
+            result << AcaEntities::Atp::Transformers::Cv::Deduction.transform(expense)
+            binding.irb
             result
           end
         end
