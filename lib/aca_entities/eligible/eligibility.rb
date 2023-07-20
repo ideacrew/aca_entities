@@ -7,11 +7,6 @@ module AcaEntities
       def self.included(base)
         base.class_eval do
 
-          # @!attribute [r] key
-          # An unambiguous reference to this Eligibility
-          # @return [Symbol]
-          attribute :key, Types::Symbol.meta(omittable: false)
-
           # @!attribute [r] title
           # A name given to the resource by which the resource is formally known
           # @return [String]

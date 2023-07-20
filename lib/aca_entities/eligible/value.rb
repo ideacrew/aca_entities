@@ -19,8 +19,14 @@ module AcaEntities
       # @!attribute [r] key
       # Type of grant, for example cost sharing, employer contribution
       # or osse premium credit
-      # @return [String]
+      # @return [Symbol]
       attribute :key, Types::Symbol.meta(omittable: false)
+
+      # @!attribute [r] item
+      # A item can be contribution percentage, cost sharing credit
+      # or osse premium credit
+      # @return [String]
+      attribute :item, Types::Any.meta(omittable: true)
     end
   end
 end

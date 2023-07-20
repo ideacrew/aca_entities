@@ -11,8 +11,9 @@ RSpec.describe AcaEntities::People::IvlOsseEligibility::AdminAttestedEvidence do
     {
       effective_on: Date.today,
       is_eligible: true,
-      from_state: 'draft',
-      to_state: 'eligible',
+      from_state: :draft,
+      to_state: :eligible,
+      event: :move_to_eligible,
       transition_at: DateTime.now
     }
   end

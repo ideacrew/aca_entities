@@ -8,6 +8,7 @@ module AcaEntities
         required(:title).filled(:string)
         optional(:description).maybe(:string)
         required(:key).filled(:symbol)
+        optional(:item).filled(:any)
       end
     end
   end

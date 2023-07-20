@@ -3,7 +3,6 @@
 require 'spec_helper'
 
 RSpec.describe AcaEntities::BenefitSponsors::BenefitSponsorships::ShopOsseEligibility::EligibilityContract do
-  let(:key) { :hc4cc }
   let(:title) { 'childcare subsidy' }
   let(:description) { 'childcare subsidy eligibility' }
   let(:state_histories) do
@@ -19,7 +18,7 @@ RSpec.describe AcaEntities::BenefitSponsors::BenefitSponsorships::ShopOsseEligib
   end
 
   let(:required_params) do
-    { key: key, title: title, state_histories: state_histories }
+    { title: title, state_histories: state_histories }
   end
 
   let(:optional_params) { { description: description } }

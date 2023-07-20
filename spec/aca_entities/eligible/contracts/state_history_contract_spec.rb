@@ -7,15 +7,15 @@ RSpec.describe AcaEntities::Eligible::StateHistoryContract do
     {
       effective_on: Date.today,
       is_eligible: true,
-      from_state: 'draft',
-      to_state: 'eligible',
+      from_state: :draft,
+      to_state: :eligible,
       transition_at: DateTime.now
     }
   end
 
   let(:optional_params) do
     {
-      event: 'mark_eligible',
+      event: :mark_eligible,
       comment: 'hc4cc eligibility submitted',
       reason: 'childcare subsidy'
     }

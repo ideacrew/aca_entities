@@ -19,12 +19,12 @@ module AcaEntities
       # @!attribute [r] from_state
       # Initial state of the record
       # @return [String]
-      attribute :from_state, Types::Strict::String.meta(omittable: false)
+      attribute :from_state, Types::Strict::Symbol.meta(omittable: false)
 
       # @!attribute [r] to_state
       # Final state of the record
       # @return [String]
-      attribute :to_state, Types::Strict::String.meta(omittable: false)
+      attribute :to_state, Types::Strict::Symbol.meta(omittable: false)
 
       # @!attribute [r] transition_at
       # Transition time
@@ -34,7 +34,7 @@ module AcaEntities
       # @!attribute [r] event
       # Event upon which state transition occured
       # @return [String]
-      attribute :event, Types::Strict::String.optional.meta(omittable: true)
+      attribute :event, Types::Strict::Symbol.optional.meta(omittable: false)
 
       # @!attribute [r] comment
       # An optional account of the state transition
