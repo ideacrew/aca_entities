@@ -146,4 +146,16 @@ RSpec.describe AcaEntities::Atp::Functions::BuildApplication do
       expect(@result[:parent_living_out_of_home_terms]).to eq true
     end
   end
+  
+  context "with valid xml containing applicant with deduction" do
+    before do
+      @result = subject.first
+    end
+
+    it "should return correct deduction type, frequency, and amount" do
+      expect(@result[:applicants][0][:deductions].first[:kind]).to eq("alimony_paid")
+      expect(@result[:applicants][0][:deductions].first[:frequency_kind]).to eq("monthly")
+      expect(@result[:applicants][0][:deductions].first[:amount]).to eq(500)
+    end
+  end
 end

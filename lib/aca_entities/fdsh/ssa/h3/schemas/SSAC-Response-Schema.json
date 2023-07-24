@@ -1,0 +1,464 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "id": "./SSAC-Leg4-Response-Schema.json",
+    "title": "Social Security Administration (SSA) Composite (RJ003) - Response Schema",
+    "description": "The SSA Composite Service verifies an Applicant, Enrollee, or Beneficiary SSN, attestation of citizenship, and attestation of not being incarcerated. It may also verify income information.",
+    "type": "object",
+    "$comment": "Define root as ssaCompositeResponse",
+    "required": ["ssaCompositeResponse"],
+    "additionalProperties": false,
+    "properties": {
+        "ssaCompositeResponse": {
+            "type": "object",
+            "description": "The SSA Composite Response can handle multiple individual responses or a Response Metadata node.",
+            "additionalProperties": false,
+            "properties": {
+                "responseMetadata": {"$ref": "#/definitions/responseMetadataType"},
+                "ssaCompositeIndividualResponseArray": {
+                    "type": "array",
+                    "minItems": 1,
+                    "items": {"$ref": "#/definitions/ssaCompositeIndividualResponseArrayType"}
+                }
+            }
+        }
+    },
+    "definitions": {
+        "ssaCompositeIndividualResponseArrayType": {
+            "type": "object",
+            "required": [
+                "responseMetadata",
+                "personSocialSecurityNumber"
+            ],
+            "additionalProperties": false,
+            "properties": {
+                "responseMetadata": {"$ref": "#/definitions/responseMetadataType"},
+                "personSocialSecurityNumber": {"$ref": "#/definitions/personSocialSecurityNumberType"},
+                "ssaResponse": {"$ref": "#/definitions/ssaResponseType"}
+            }
+        },
+        "ssaResponseType": {
+            "description": "Collection of data provided by SSA.",
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "ssnVerificationIndicator": {"$ref": "#/definitions/ssnVerificationIndicatorType"},
+                "deathConfirmationCode": {"$ref": "#/definitions/deathConfirmationCodeType"},
+                "personUSCitizenIndicator": {"$ref": "#/definitions/personUSCitizenIndicatorType"},
+                "personIncarcerationInformationIndicator": {"$ref": "#/definitions/personIncarcerationInformationIndicatorType"},
+                "ssaTitleIIMonthlyIncomeInformationIndicator": {"$ref": "#/definitions/ssaTitleIIMonthlyIncomeInformationIndicatorType"},
+                "ssaTitleIIAnnualIncomeInformationIndicator": {"$ref": "#/definitions/ssaTitleIIAnnualIncomeInformationIndicatorType"},
+                "ssaQuartersOfCoverageInformationIndicator": {"$ref": "#/definitions/ssaQuartersOfCoverageInformationIndicatorType"},
+                "ssaIncarcerationInformation": {"$ref": "#/definitions/ssaIncarcerationInformationType"},
+                "ssaTitleIIMonthlyIncome": {"$ref": "#/definitions/ssaTitleIIMonthlyIncomeType"},
+                "ssaTitleIIYearlyIncome": {"$ref": "#/definitions/ssaTitleIIYearlyIncomeType"},
+                "ssaQuartersOfCoverage": {"$ref": "#/definitions/ssaQuartersOfCoverageType"}
+            }
+        },
+        "ssaIncarcerationInformationType": {
+            "description": "Incarcertaion information of the person.",
+            "type": "object",
+            "required": [
+                "prisonerIdentification",
+                "prisonerConfinementDate",
+                "reportingPersonText",
+                "supervisionFacility",
+                "inmateStatusIndicator"
+            ],
+            "additionalProperties": false,
+            "properties": {
+                "prisonerIdentification": {"$ref": "#/definitions/prisonerIdentificationNumberType"},
+                "prisonerConfinementDate": {"$ref": "#/definitions/prisonerConfinementDateType"},
+                "reportingPersonText": {"$ref": "#/definitions/reportingPersonTextType"},
+                "supervisionFacility": {"$ref": "#/definitions/supervisionFacilityType"},
+                "inmateStatusIndicator": {"$ref": "#/definitions/inmateStatusIndicatorType"}
+            }
+        },
+        "supervisionFacilityType": {
+            "description": "Supervision facility details.",
+            "type": "object",
+            "required": [
+                "facilityName",
+                "facilityLocationStreet",
+                "facilityLocationCityName",
+                "facilityLocationStateCode",
+                "facilityLocationPostalCode",
+                "facilityContactPersonFullName",
+                "facilityContactTelephoneNumber",
+                "facilityContactFaxNumber",
+                "facilityCategoryCode"
+            ],
+            "additionalProperties": false,
+            "properties": {
+                "facilityName": {"$ref": "#/definitions/facilityNameType"},
+                "facilityLocationStreet": {"$ref": "#/definitions/facilityLocationStreetType"},
+                "facilityLocationCityName": {"$ref": "#/definitions/facilityLocationCityNameType"},
+                "facilityLocationStateCode": {"$ref": "#/definitions/usStateCodeType"},
+                "facilityLocationPostalCode": {"$ref": "#/definitions/facilityLocationPostalCodeType"},
+                "facilityContactPersonFullName": {"$ref": "#/definitions/facilityContactPersonFullNameType"},
+                "facilityContactTelephoneNumber": {"$ref": "#/definitions/facilityContactTelephoneNumberType"},
+                "facilityContactFaxNumber": {"$ref": "#/definitions/facilityContactFaxNumberType"},
+                "facilityCategoryCode": {"$ref": "#/definitions/facilityCategoryCodeType"}
+            }
+        },
+        "ssaTitleIIMonthlyIncomeType": {
+            "description": "Title II Monthly Income information of the person.",
+            "type": "object",
+            "required": ["personDisabledIndicator"],
+            "additionalProperties": false,
+            "properties": {
+                "personDisabledIndicator": {"$ref": "#/definitions/personDisabledIndicatorType"},
+                "ongoingMonthlyBenefitCreditedAmount": {"$ref": "#/definitions/ongoingMonthlyBenefitCreditedAmountType"},
+                "ongoingMonthlyOverpaymentDeductionAmount": {"$ref": "#/definitions/ongoingMonthlyOverpaymentDeductionAmountType"},
+                "ongoingPaymentInSuspenseIndicator": {"$ref": "#/definitions/ongoingPaymentInSuspenseIndicatorType"},
+                "requestedMonthInformation": {"$ref": "#/definitions/monthInformationType"},
+                "requestedMonthMinusOneInformation": {"$ref": "#/definitions/monthInformationType"},
+                "requestedMonthMinusTwoInformation": {"$ref": "#/definitions/monthInformationType"},
+                "requestedMonthMinusThreeInformation": {"$ref": "#/definitions/monthInformationType"}
+            }
+        },
+        "monthInformationType": {
+            "description": "Income information for a given month.",
+            "type": "object",
+            "required": [
+                "incomeMonthYear",
+                "benefitCreditedAmount",
+                "paymentInSuspenseIndicator",
+                "netMonthlyBenefitCreditedAmount",
+                "monthlyIncomeAmount"
+            ],
+            "additionalProperties": false,
+            "properties": {
+                "incomeMonthYear": {"$ref": "#/definitions/incomeMonthYearType"},
+                "benefitCreditedAmount": {"$ref": "#/definitions/benefitCreditedAmountType"},
+                "overpaymentDeductionAmount": {"$ref": "#/definitions/overpaymentDeductionAmountType"},
+                "priorMonthAccrualAmount": {"$ref": "#/definitions/priorMonthAccrualAmountType"},
+                "returnedCheckAmount": {"$ref": "#/definitions/returnedCheckAmountType"},
+                "paymentInSuspenseIndicator": {"$ref": "#/definitions/paymentInSuspenseIndicatorType"},
+                "netMonthlyBenefitCreditedAmount": {"$ref": "#/definitions/netMonthlyBenefitCreditedAmountType"},
+                "monthlyIncomeAmount": {"$ref": "#/definitions/monthlyIncomeAmountType"}
+            }
+        },
+        "ssaTitleIIYearlyIncomeType": {
+            "description": "Title II yearly Income information of the person.",
+            "type": "object",
+            "required": [
+                "incomeYear",
+                "yearlyIncomeAmount"
+            ],
+            "additionalProperties": false,
+            "properties": {
+                "incomeYear": {"$ref": "#/definitions/incomeYearType"},
+                "yearlyIncomeAmount": {"$ref": "#/definitions/yearlyIncomeAmountType"}
+            }
+        },
+        "ssaQuartersOfCoverageType": {
+            "description": "Quarters of Coverage.",
+            "type": "object",
+            "required": ["lifeTimeQuarterQuantity"],
+            "additionalProperties": false,
+            "properties": {
+                "lifeTimeQuarterQuantity": {"$ref": "#/definitions/lifeTimeQuarterQuantityType"},
+                "qualifyingYearAndQuarterArray": {
+                    "type": "array",
+                    "minItems": 1,
+                    "maxItems": 109,
+                    "items": {"$ref": "#/definitions/qualifyingYearAndQuarterArrayType"}
+                }
+            }
+        },
+        "qualifyingYearAndQuarterArrayType": {
+            "description": "Qualifying Year and Quarter will repeat for every year found in the QC pattern with its subsequent quarters worked. This will repeat a maximum of 109 times.",
+            "type": "object",
+            "required": [
+                "qualifyingYear",
+                "qualifyingQuarter"
+            ],
+            "additionalProperties": false,
+            "properties": {
+                "qualifyingYear": {"$ref": "#/definitions/qualifyingYearType"},
+                "qualifyingQuarter": {"$ref": "#/definitions/qualifyingQuarterType"}
+            }
+        },
+        "personSocialSecurityNumberType": {
+            "description": "A unique reference to a living person assigned by the United States Social Security Administration.",
+            "type": "string",
+            "pattern": "^([1-57-8][0-9]{2}|0([1-9][0-9]|[0-9][1-9])|6([0-57-9][0-9]|[0-9][0-57-9]))([1-9][0-9]|[0-9][1-9])([1-9]\\d{3}|\\d[1-9]\\d{2}|\\d{2}[1-9]\\d|\\d{3}[1-9])$"
+        },
+        "ssnVerificationIndicatorType": {
+            "description": "True if the SSN is valid False if otherwise.",
+            "type": "boolean"
+        },
+        "deathConfirmationCodeType": {
+            "description": "'Confirmed' if the death can be confirmed by SSA or 'Unconfirmed' if the Death cannot be confirmed (due to unavailable data or if it cannot be disclosed).",
+            "type": "string",
+            "enum": [
+                "Confirmed",
+                "Unconfirmed"
+            ]
+        },
+        "personUSCitizenIndicatorType": {
+            "description": "'true' if a person is a citizen of the United States; 'false' otherwise.",
+            "type": "boolean"
+        },
+        "personIncarcerationInformationIndicatorType": {
+            "description": "'true' if the persons incarceration information is provided by SSA; 'false' if either The Person is not Incarcerated or if SSA does not have any information.",
+            "type": "boolean"
+        },
+        "ssaTitleIIMonthlyIncomeInformationIndicatorType": {
+            "description": "'true' if the persons Title II monthly income information is provided by SSA; 'false' if either The Person does not have a Title II monthly Income or if SSA does not have any information.",
+            "type": "boolean"
+        },
+        "ssaTitleIIAnnualIncomeInformationIndicatorType": {
+            "description": "'true' if the persons Title II annual income information is provided by SSA; 'false' if either The Person does not have a Title II annual Income or if SSA does not have any information.",
+            "type": "boolean"
+        },
+        "ssaQuartersOfCoverageInformationIndicatorType": {
+            "description": "'true' if the persons Title II Quarters Of Coverage information is provided by SSA; 'false' if either The Person does not have Quarters of Coverage or if SSA does not have any information.",
+            "type": "boolean"
+        },
+        "prisonerIdentificationNumberType": {
+            "description": "Prisoner Identification number of the person.",
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 10
+        },
+        "prisonerConfinementDateType": {
+            "description": "Confinement date of the person.",
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 8
+        },
+        "reportingPersonTextType": {
+            "description": "Name of the reporting person.",
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 60
+        },
+        "facilityNameType": {
+            "description": "Name of the facility.",
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 60
+        },
+        "facilityLocationStreetType": {
+            "description": "Street text of the Address.",
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 88
+        },
+        "facilityLocationCityNameType": {
+            "description": "City name of the facility.",
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 19
+        },
+        "facilityLocationPostalCodeType": {
+            "description": "An identifier of a post office-assigned zone for an address.",
+            "type": "string",
+            "pattern": "^\\d{1,9}$"
+        },
+        "facilityContactPersonFullNameType": {
+            "description": "Full Name of the contact person.",
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 35
+        },
+        "facilityContactTelephoneNumberType": {
+            "description": "Contact Telephone number for the facility.",
+            "type": "string",
+            "pattern": "^\\d{1,11}$"
+        },
+        "facilityContactFaxNumberType": {
+            "description": "Contact fax number for the facility.",
+            "type": "string",
+            "pattern": "^\\d{1,11}$"
+        },
+        "facilityCategoryCodeType": {
+            "description": "Facility Category code. '01' - State Prison. '02' - County Prison. '03' - Federal Correctional Institute. '04' - Mental Correctional Institute. '05' - Boot Camp. '06' - Medical Correctional Institute. '07' - Work Camp. '08' - Detention Center. '09' - Juvenile Detention Center. '10' - Half-way House.",
+            "type": "string",
+            "enum": [
+                "01",
+                "02",
+                "03",
+                "04",
+                "05",
+                "06",
+                "07",
+                "08",
+                "09",
+                "10"
+            ]
+        },
+        "inmateStatusIndicatorType": {
+            "description": "'true' if the Person is incarcerated; 'false' if otherwise.",
+            "type": "boolean"
+        },
+        "personDisabledIndicatorType": {
+            "description": "'true' if person is disabled; 'false' if not.",
+            "type": "boolean"
+        },
+        "ongoingMonthlyBenefitCreditedAmountType": {
+            "description": "Ongoing Monthly Benefit Credited Amount.",
+            "type": "number"
+        },
+        "ongoingMonthlyOverpaymentDeductionAmountType": {
+            "description": "Ongoing Monthly Overpayment Deduction Amount.",
+            "type": "number"
+        },
+        "ongoingPaymentInSuspenseIndicatorType": {
+            "description": "'true' id Ongoing Payment is suspended; 'false' if not.",
+            "type": "boolean"
+        },
+        "incomeMonthYearType": {
+            "description": "Date in month year format.",
+            "type": "string",
+            "pattern": "^[2-9]\\d{3}(0[1-9]|1[0-2])$"
+        },
+        "benefitCreditedAmountType": {
+            "description": "Benefit Credited Amount.",
+            "type": "number"
+        },
+        "overpaymentDeductionAmountType": {
+            "description": "Overpayment Deduction Amount.",
+            "type": "number"
+        },
+        "priorMonthAccrualAmountType": {
+            "description": "Prior Month Accrual Amount.",
+            "type": "number"
+        },
+        "returnedCheckAmountType": {
+            "description": "Returned Check Amount.",
+            "type": "number"
+        },
+        "paymentInSuspenseIndicatorType": {
+            "description": "'true' when Payment is in Suspense; 'false' if otherwise.",
+            "type": "boolean"
+        },
+        "netMonthlyBenefitCreditedAmountType": {
+            "description": "Net Monthly Benefit Credited Amount is calculated for the requested month by subtracting the Monthly Overpayment Deduction Amount from the Monthly BenefitCredit Amount.",
+            "type": "number"
+        },
+        "monthlyIncomeAmountType": {
+            "description": "Monthly Income Amount is calculated for the requested month by adding the Monthly Prior Month Accrual Amount to the Net Monthly Benefit Credited Amount.",
+            "type": "number"
+        },
+        "incomeYearType": {
+            "description": "Year for which Title II annual income is requested in the format CCYY.",
+            "type": "string",
+            "pattern": "^[2-9]\\d{3}$"
+        },
+        "yearlyIncomeAmountType": {
+            "description": "Title II annual income amount for the requested year calculated by the Hub to subtract all prior year amounts.",
+            "type": "number"
+        },
+        "lifeTimeQuarterQuantityType": {
+            "description": "The sum of all qualifying quarters worked.",
+            "type": "integer"
+        },
+        "qualifyingYearType": {
+            "description": "Year in which Qualifying Quarters were worked (1937 through 2045).",
+            "type": "integer",
+            "minimum": 1937,
+            "maximum": 2045
+        },
+        "qualifyingQuarterType": {
+            "description": "Number of qualifying quarters worked in a year.",
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 4
+        },
+        "responseMetadataType": {
+            "description": "A set of details about a response (successful or not)",
+            "type": "object",
+            "required": [
+                "responseCode",
+                "responseText"
+            ],
+            "additionalProperties": false,
+            "properties": {
+                "responseCode": {
+                    "description": "A coded response of 8 characters, expected to be of the format HE/HX/HS followed by 6 digits, but not enforced.",
+                    "type": "string",
+                    "minLength": 8,
+                    "maxLength": 8
+                },
+                "responseText": {
+                    "description": "A description of a response",
+                    "type": "string"
+                },
+                "tdsResponseText": {
+                    "description": "In the event that a TDS (DHS, in this case) sends the Hub a new error code, this field will be populated with a description of the new code.",
+                    "type": "string"
+                }
+            }
+        },
+        "usStateCodeType": {
+            "type": "string",
+            "description": "A state, commonwealth, province, or other such geopolitical subdivision of the United States of America. AA - Armed Forces Americas (except Canada). AE - Armed Forces Africa, Canada, Europe, Middle East. AK - ALASKA. AL - ALABAMA. AP - Armed Forces Pacific. AR - ARKANSAS. AS - AMERICAN SAMOA. AZ - ARIZONA . CA - CALIFORNIA. CO - COLORADO. CT - CONNECTICUT. DC - DISTRICT OF COLUMBIA. DE - DELAWARE. FL - FLORIDA. FM - FEDERATED STATES OF MICRONESIA. GA - GEORGIA. GU - GUAM. HI - HAWAII. IA - IOWA. ID - IDAHO. IL - ILLINOIS. IN - INDIANA. KS - KANSAS. KY - KENTUCKY. LA - LOUISIANA. MA - MASSACHUSETTS. MD - MARYLAND. ME - MAINE. MH - MARSHALL ISLANDS. MI - MICHIGAN. MN - MINNESOTA. MO - MISSOURI. MP - NORTHERN MARIANA ISLANDS. MS - MISSISSIPPI. MT - MONTANA. NC - NORTH CAROLINA. ND - NORTH DAKOTA. NE - NEBRASKA. NH - NEW HAMPSHIRE. NJ - NEW JERSEY. NM - NEW MEXICO. NV - NEVADA. NY - NEW YORK. OH - OHIO. OK - OKLAHOMA. OR - OREGON. PA - PENNSYLVANIA. PR - PUERTO RICO. PW - PALAU. RI - RHODE ISLAND. SC - SOUTH CAROLINA. SD - SOUTH DAKOTA. TN - TENNESSEE. TX - TEXAS. UT - UTAH. VA - VIRGINIA . VI - VIRGIN ISLANDS. VT - VERMONT. WA - WASHINGTON. WI - WISCONSIN. WV - WEST VIRGINIA. WY - WYOMING. ",
+            "enum": [
+                "AA",
+                "AE",
+                "AK",
+                "AL",
+                "AP",
+                "AR",
+                "AS",
+                "AZ",
+                "CA",
+                "CO",
+                "CT",
+                "DC",
+                "DE",
+                "FL",
+                "FM",
+                "GA",
+                "GU",
+                "HI",
+                "IA",
+                "ID",
+                "IL",
+                "IN",
+                "KS",
+                "KY",
+                "LA",
+                "MA",
+                "MD",
+                "ME",
+                "MH",
+                "MI",
+                "MN",
+                "MO",
+                "MP",
+                "MS",
+                "MT",
+                "NC",
+                "ND",
+                "NE",
+                "NH",
+                "NJ",
+                "NM",
+                "NV",
+                "NY",
+                "OH",
+                "OK",
+                "OR",
+                "PA",
+                "PR",
+                "PW",
+                "RI",
+                "SC",
+                "SD",
+                "TN",
+                "TX",
+                "UT",
+                "VA",
+                "VI",
+                "VT",
+                "WA",
+                "WI",
+                "WV",
+                "WY"
+            ]
+        }
+    }
+}
