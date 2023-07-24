@@ -155,7 +155,7 @@ module AcaEntities
                   }
                   add_key 'person.consumer_role.language_preference', function: lambda { |v|
                     preference_language = v.find(Regexp.new('record.people.*.augementation')).map(&:item).last[:preferred_languages]&.first
-                    preference_language ? preference_language[:language_name].downcase : nil
+                    preference_language ? preference_language[:language_name].downcase.titleize : nil
                   }
 
                   add_key 'person.consumer_role.five_year_bar'
