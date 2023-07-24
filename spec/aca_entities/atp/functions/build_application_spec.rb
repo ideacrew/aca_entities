@@ -146,7 +146,7 @@ RSpec.describe AcaEntities::Atp::Functions::BuildApplication do
       expect(@result[:parent_living_out_of_home_terms]).to eq true
     end
   end
-  
+
   context "with valid xml containing applicant with deduction" do
     before do
       @result = subject.first
