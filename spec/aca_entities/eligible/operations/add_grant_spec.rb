@@ -34,7 +34,7 @@ RSpec.describe AcaEntities::Eligible::AddGrant do
   let(:grant_params) do
     [
       {
-        key: :min_employee_relaxed_grant,
+        key: :min_employee_participation_relaxed_grant,
         title: 'minimum employee rule relaxed',
         description: 'relaxed minimum number of employees',
         value: AcaEntities::Eligible::Value.new(title: 'minimum employee rule relaxed', key: :min_employee_relaxed).to_h,

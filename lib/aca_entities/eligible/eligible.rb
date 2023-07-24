@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+require 'active_support/inflector'
 
 module AcaEntities
   # Eligible namespace
@@ -13,47 +14,50 @@ module AcaEntities
       # class methods
       module ClassMethods
 
+        ResourceReference = Struct.new(:class_name, :optional, :meta)
+
+        def resource_ref_dir
+          @resource_ref_dir ||= Concurrent::Map.new
+        end
+
+        def register(resource_kind, name, options)
+          resource_set = resource_kind.to_s.pluralize
+          resource_ref_dir[resource_set.to_sym] ||= {}
+          resource_ref_dir[resource_set.to_sym][name] = ResourceReference.new(
+            options[:class_name],
+            options[:optional],
+            options[:meta]
+          )
+        end
+
         def eligibility(name, **options)
-          @@eligibilities ||= {}
-          @@eligibilities[name] = options[:class_name]
-          # attribute name,
-          #           const_get(options[:class_name].to_s)
-          #             .__send__(:optional)
-          #             .__send__(:meta, omittable: true)
+          register(:eligibility, name, options)
         end
 
         def evidence(name, **options)
-          @@evidences ||= {}
-          @@evidences[name] = options[:class_name]
+          register(:evidence, name, options)
         end
 
         def grant(name, **options)
-          @@grants ||= {}
-          @@grants[name] = options[:class_name]
-        end
-
-        def registered_eligibilities
-          @@eligibilities
-        end
-
-        def registered_evidences
-          @@evidences
-        end
-
-        def registered_grants
-          @@grants
+          register(:grant, name, options)
         end
 
         def eligibility_resource_for(key)
-          registered_eligibilities[key.to_sym]&.constantize || AcaEntities::Eligible::Eligibility
+          resource = resource_ref_dir[:eligibilities][key.to_sym]
+          return AcaEntities::Eligible::Eligibility unless resource
+          resource.class_name.constantize
         end
 
         def evidence_resource_for(key)
-          registered_evidences[key.to_sym]&.constantize || AcaEntities::Eligible::Evidence
+          resource = resource_ref_dir[:evidences][key.to_sym]
+          return AcaEntities::Eligible::Evidence unless resource
+          resource.class_name.constantize
         end
 
         def grant_resource_for(key)
-          registered_grants[key.to_sym]&.constantize || AcaEntities::Eligible::Grant
+          resource = resource_ref_dir[:grants][key.to_sym]
+          return AcaEntities::Eligible::Grant unless resource
+          resource.class_name.constantize
         end
 
         def resource_name_for(type, identifier)
