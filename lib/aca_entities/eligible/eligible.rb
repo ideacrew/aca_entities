@@ -45,15 +45,15 @@ module AcaEntities
         end
 
         def eligibility_resource_for(key)
-          registered_eligibilities[key.to_sym].constantize || AcaEntities::Eligible::Eligibility
+          registered_eligibilities[key.to_sym]&.constantize || AcaEntities::Eligible::Eligibility
         end
 
         def evidence_resource_for(key)
-          registered_evidences[key.to_sym].constantize || AcaEntities::Eligible::Evidence
+          registered_evidences[key.to_sym]&.constantize || AcaEntities::Eligible::Evidence
         end
 
         def grant_resource_for(key)
-          registered_grants[key.to_sym].constantize || AcaEntities::Eligible::Grant
+          registered_grants[key.to_sym]&.constantize || AcaEntities::Eligible::Grant
         end
 
         def resource_name_for(type, identifier)
@@ -63,13 +63,16 @@ module AcaEntities
     end
 
     require 'aca_entities/benefit_sponsors/entities/benefit_sponsorships/benefit_sponsorship'
-    require_relative 'state_history'
-    require_relative 'value'
-    require_relative 'grant'
-    require_relative 'evidence'
-    require_relative 'eligibility'
+    require_relative 'entities/state_history'
+    require_relative 'entities/value'
+    require_relative 'entities/grant'
+    require_relative 'entities/evidence'
+    require_relative 'entities/eligibility'
     require_relative 'contracts/state_history_contract'
     require_relative 'contracts/value_contract'
+    require_relative 'contracts/evidence_contract'
+    require_relative 'contracts/grant_contract'
+    require_relative 'contracts/eligibility_contract'
     require_relative 'operations/add_evidence'
     require_relative 'operations/add_eligibility'
     require_relative 'operations/add_grant'
