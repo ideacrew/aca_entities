@@ -5,6 +5,8 @@ module AcaEntities
     module IvlOsseEligibility
       # contract for IvlOsseEligibility::Grant
       class GrantContract < AcaEntities::Eligible::GrantContract
+        params do
+        end
       end
     end
   end

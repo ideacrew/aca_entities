@@ -5,6 +5,8 @@ module AcaEntities
     module IvlOsseEligibility
       # contract for ShopOsseEligibility::Eligibility
       class EligibilityContract < AcaEntities::Eligible::EligibilityContract
+        params do
+        end
       end
     end
   end

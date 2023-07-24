@@ -195,9 +195,6 @@ module AcaEntities
       require 'aca_entities/benefit_sponsors/entities/benefit_sponsorships/shop_osse_eligibility/admin_attested_evidence'
       require 'aca_entities/benefit_sponsors/entities/benefit_sponsorships/shop_osse_eligibility/grant'
       require 'aca_entities/benefit_sponsors/entities/benefit_sponsorships/shop_osse_eligibility/eligibility'
-      require 'aca_entities/benefit_sponsors/operations/benefit_sponsorships/shop_osse_eligibility/create_admin_attested_evidence'
-      require 'aca_entities/benefit_sponsors/operations/benefit_sponsorships/shop_osse_eligibility/create_grant'
-      require 'aca_entities/benefit_sponsors/operations/benefit_sponsorships/shop_osse_eligibility/create_eligibility'
 
       require 'aca_entities/audit_logs/contracts/audit_log_event_contract'
       require 'aca_entities/audit_logs/entities/audit_log_event'

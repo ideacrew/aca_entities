@@ -34,7 +34,7 @@ RSpec.describe AcaEntities::Eligible::AddEligibility do
   let(:grant_params) do
     [
       {
-        key: :min_employee_relaxed_grant,
+        key: :min_employee_participation_relaxed_grant,
         title: 'minimum employee rule relaxed ',
         description: 'relaxed minimum number of employees',
         value: AcaEntities::Eligible::Value.new(title: 'minimum employee rule relaxed', key: :min_employee_relaxed).to_h,
@@ -67,6 +67,14 @@ RSpec.describe AcaEntities::Eligible::AddEligibility do
 
       expect(result).to be_success
       expect(result.value!).to be_a AcaEntities::BenefitSponsors::BenefitSponsorships::ShopOsseEligibility::Eligibility
+    end
+
+    it 'should create evidence and grant' do
+      result = subject.call(required_params)
+
+      eligibility = result.value!
+      expect(eligibility.evidences.first).to be_a AcaEntities::BenefitSponsors::BenefitSponsorships::ShopOsseEligibility::AdminAttestedEvidence
+      expect(eligibility.grants.first).to be_a AcaEntities::BenefitSponsors::BenefitSponsorships::ShopOsseEligibility::Grant
     end
   end
 end
