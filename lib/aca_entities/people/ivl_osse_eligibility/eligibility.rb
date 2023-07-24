@@ -3,10 +3,9 @@
 module AcaEntities
   module People
     module IvlOsseEligibility
-      class Eligibility < Dry::Struct
+      class Eligibility < AcaEntities::Eligible::Eligibility
         include AcaEntities::Eligible::Eligible
-        include AcaEntities::Eligible::Eligibility
-
+  
         # attribute :due_on # additional attributes
 
         evidence :ivl_osse_evidence,
