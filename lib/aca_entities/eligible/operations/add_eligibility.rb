@@ -10,6 +10,8 @@ module AcaEntities
       send(:include, Dry::Monads[:result, :do])
 
       # @params [Hash] opts Options to create eligibility
+      # @option opts [String] :subject required
+      # @option opts [Hash] :eligibility required
       # @return [Dry::Monad] result
       def call(params)
         subject, elg_params = yield build_eligibility_params(params)
@@ -30,7 +32,7 @@ module AcaEntities
       end
 
       def find_eligibility_type(subject, eligibility_key)
-        eligibility_type = subject.eligbility_class_for(eligibility_key)
+        eligibility_type = subject.resource_name_for(:eligibility, eligibility_key)
 
         Success(eligibility_type)
       end

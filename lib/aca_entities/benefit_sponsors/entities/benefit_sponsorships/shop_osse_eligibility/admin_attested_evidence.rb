@@ -4,8 +4,8 @@ module AcaEntities
   module BenefitSponsors
     module BenefitSponsorships
       module ShopOsseEligibility
-        class AdminAttestedEvidence < Dry::Struct
-          include AcaEntities::Eligible::Evidence
+        class AdminAttestedEvidence < AcaEntities::Eligible::Evidence
+
         end
       end
     end

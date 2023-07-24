@@ -14,17 +14,23 @@ module AcaEntities
       # @option opts [Hash] :evidence required
       # @return [Dry::Monad] result
       def call(params)
-        grant_model = yield get_grant_model_for(params)
-        values = yield validate(grant_model, params)
-        evidence = yield create(grant_model, values)
+        resource_name = yield get_resource_name(params)
+        values = yield validate(resource_name, params)
+        evidence = yield create(resource_name, values)
 
         Success(evidence)
       end
 
       private
 
-      def validate(grant_model, params)
-        response = "#{grant_model}Contract".constantize.new.call(params[:grant])
+      def get_resource_name(params)
+        resource_name = params[:subject].resource_name_for(:grant, params[:grant][:key])
+
+        Success(resource_name)
+      end
+
+      def validate(resource_name, params)
+        response = "#{resource_name}Contract".constantize.new.call(params[:grant])
 
         if response.success?
           Success(response.to_h)
@@ -33,14 +39,8 @@ module AcaEntities
         end
       end
 
-      def create(grant_model, values)
-        Success(grant_model.new(values))
-      end
-
-      def get_grant_model_for(params)
-        grant_type = params[:subject].grant_class_for(params[:grant][:key])
-
-        Success(grant_type)
+      def create(resource_name, values)
+        Success(resource_name.new(values))
       end
     end
   end

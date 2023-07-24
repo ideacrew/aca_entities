@@ -44,16 +44,20 @@ module AcaEntities
           @@grants
         end
 
-        def eligbility_class_for(key)
+        def eligibility_resource_for(key)
           registered_eligibilities[key.to_sym].constantize || AcaEntities::Eligible::Eligibility
         end
 
-        def evidence_class_for(key)
+        def evidence_resource_for(key)
           registered_evidences[key.to_sym].constantize || AcaEntities::Eligible::Evidence
         end
 
-        def grant_class_for(key)
+        def grant_resource_for(key)
           registered_grants[key.to_sym].constantize || AcaEntities::Eligible::Grant
+        end
+
+        def resource_name_for(type, identifier)
+          send("#{type}_resource_for", identifier)
         end
       end
     end
@@ -68,7 +72,7 @@ module AcaEntities
     require_relative 'contracts/value_contract'
     require_relative 'operations/add_evidence'
     require_relative 'operations/add_eligibility'
-    # require_relative 'operations/add_grant'
+    require_relative 'operations/add_grant'
     require_relative 'operations/create_evidence_type'
     require_relative 'operations/create_eligibility_type'
     require_relative 'operations/create_grant_type'

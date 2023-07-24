@@ -14,17 +14,17 @@ module AcaEntities
       # @option opts [Hash] :evidence required
       # @return [Dry::Monad] result
       def call(params)
-        evidence_model = yield get_evidence_model_for(params)
-        values = yield validate(evidence_model, params)
-        evidence = yield create(evidence_model, values)
+        resource_name = yield get_resource_name(params)
+        values = yield validate(resource_name, params)
+        evidence = yield create(resource_name, values)
 
         Success(evidence)
       end
 
       private
 
-      def validate(evidence_model, params)
-        response = "#{evidence_model}Contract".constantize.new.call(params[:evidence])
+      def validate(resource_name, params)
+        response = "#{resource_name}Contract".constantize.new.call(params[:evidence])
 
         if response.success?
           Success(response.to_h)
@@ -33,14 +33,14 @@ module AcaEntities
         end
       end
 
-      def create(evidence_model, values)
-        Success(evidence_model.new(values))
+      def create(resource_name, values)
+        Success(resource_name.new(values))
       end
 
-      def get_evidence_model_for(params)
-        evidence_type = params[:subject].evidence_class_for(params[:evidence][:key])
+      def get_resource_name(params)
+        resource_name = params[:subject].resource_name_for(:evidence, params[:evidence][:key])
 
-        Success(evidence_type)
+        Success(resource_name)
       end
     end
   end

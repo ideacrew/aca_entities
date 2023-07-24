@@ -15,17 +15,17 @@ module AcaEntities
 
       # @return [Dry::Monad] result
       def call(params)
-        eligibility_model = yield get_eligibility_model_for(params)
-        values = yield validate(eligibility_model, params)
-        evidence = yield create(eligibility_model, values)
+        resource_name = yield get_resource_name(params)
+        values = yield validate(resource_name, params)
+        evidence = yield create(resource_name, values)
 
         Success(evidence)
       end
 
       private
 
-      def validate(eligibility_model, params)
-        response = "#{eligibility_model}Contract".constantize.new.call(params[:eligibility])
+      def validate(resource_name, params)
+        response = "#{resource_name}Contract".constantize.new.call(params[:eligibility])
 
         if response.success?
           Success(response.to_h)
@@ -34,14 +34,14 @@ module AcaEntities
         end
       end
 
-      def create(eligibility_model, values)
-        Success(eligibility_model.new(values))
+      def create(resource_name, values)
+        Success(resource_name.new(values))
       end
 
-      def get_eligibility_model_for(params)
-        eligibility_type = params[:subject].eligbility_class_for(params[:eligibility][:key])
+      def get_resource_name(params)
+        resource_name = params[:subject].resource_name_for(:eligibility, params[:eligibility][:key])
 
-        Success(eligibility_type)
+        Success(resource_name)
       end
     end
   end
