@@ -13,7 +13,8 @@ module AcaEntities
           # @return [Dry::Monads::Result::Success] if params pass validation
           # @return [Dry::Monads::Result::Failure] if params fail validation
           params do
-            optional(:error).maybe(:string)
+            optional(:key).maybe(:symbol)
+            optional(:message).maybe(:string)
           end
         end
       end

@@ -18,13 +18,57 @@ module AcaEntities
             # @option params [Symbol] :initial_process_state
             # @option params [Date] :publish_on Together with {status} the date when this job is intended to start execution
             def call(params)
-              values = yield validate(params)
+              validated_params = yield validate_params(params)
+              job_hash = yield create_job_hash(validated_params)
+              values = yield validate(job_hash)
               job = yield create(values)
 
               Success(job)
             end
 
             private
+
+            def validate_params(params)
+              return Failure('Cannot create a job without a key as a symbol') unless params[:key].is_a?(Symbol)
+              return Failure('Cannot create a job without a started_at as a DateTime') unless params[:started_at].is_a?(DateTime)
+              return Failure('Cannot create a job without a publish_on as a DateTime') unless params[:publish_on].is_a?(DateTime)
+      
+              Success(params)
+            end
+      
+            def create_job_hash(values)
+              Success({
+                        job_id: generate_job_id(values[:key]),
+                        saga_id: values[:saga_id],
+                        key: values[:key],
+                        title: values[:title],
+                        description: values[:description],
+                        publish_on: values[:publish_on],
+                        expire_on: values[:expire_on],
+                        started_at: values[:started_at],
+                        ended_at: values[:ended_at],
+                        time_to_live: values[:time_to_live],
+                        process_status: create_process_status,
+                        errors: [],
+                        allow_list: [],
+                        deny_list: []
+                      })
+            end
+      
+            def create_job_entity(job_hash)
+              validation_result = AcaEntities::Protocols::Transmittable::Operations::Jobs::Create.new.call(job_hash)
+      
+              validation_result.success? ? Success(validation_result.value!) : Failure("Unable to create job due to invalid params")
+            end
+      
+            def generate_job_id(key)
+              "#{key}_#{DateTime.now.strftime('%Y%m%d%H%M%S%L')}"
+            end
+      
+            def create_process_status
+              AcaEntities::Protocols::Transmittable::Operations::CreateProcessStatus.new.call({ event: 'initial', state_key: :initial, started_at: DateTime.now,
+                                                             message: 'created job' }).value!
+            end
 
             # @param [Hash] params The options to create a job with
             # @return [Dry::Monads::Result::Success] if params pass validation

@@ -40,10 +40,10 @@ module AcaEntities
         # @return AcaEntities::Protocols::Transmittable::ProcessStatus
         attribute :process_status, AcaEntities::Protocols::Transmittable::ProcessStatus.meta(omittable: false)
 
-        # @!attribute [r] errors
+        # @!attribute [r] transmittable_errors
         # Exceptions that occured during processing of this transmission
         # @return [Array<Transmittble::Error>]
-        attribute :errors, Types::Array.of(AcaEntities::Protocols::Transmittable::Errors).meta(omittable: true)
+        attribute :transmittable_errors, Types::Array.of(AcaEntities::Protocols::Transmittable::Errors).meta(omittable: true)
 
         # @!attribute [r] timestamps
         # Date and time that this resource was originally created and last updated. Time is represented in

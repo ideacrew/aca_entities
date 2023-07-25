@@ -77,10 +77,10 @@ module AcaEntities
         # @return AcaEntities::Protocols::Transmittable::ProcessStatus
         attribute :process_status, AcaEntities::Protocols::Transmittable::ProcessStatus.meta(omittable: false)
 
-        # @!attribute [r] errors
+        # @!attribute [r] transmittable_errors
         # The list of exceptions that occurred during processing of this job
         # @return [Array<Transmittble::Error>]
-        attribute :errors, Types::Array.of(AcaEntities::Protocols::Transmittable::Errors).meta(omittable: false)
+        attribute :transmittable_errors, Types::Array.of(AcaEntities::Protocols::Transmittable::Errors).meta(omittable: false)
 
         # @!attribute [r] allow_list
         # The list of {AcaEntities::Protocols::Transmittable::Subject AcaEntities::Protocols::Transmittable::Subjects} transactions to process only
