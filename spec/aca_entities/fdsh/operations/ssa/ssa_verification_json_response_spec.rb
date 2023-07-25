@@ -12,16 +12,18 @@ RSpec.describe ::AcaEntities::Fdsh::Ssa::H3::Operations::SsaVerificationJsonResp
           ssaCompositeIndividualResponseArray: [
             {
               responseMetadata: {
-                responseText: "responseText",
-                responseCode: "HS000000"
+                responseCode: "HS000000",
+                responseText: "Success"
               },
-              personSocialSecurityNumber: "100101000"
+              personSocialSecurityNumber: "431332331",
+              ssaResponse: {
+                ssnVerificationIndicator: true,
+                deathConfirmationCode: "Unconfirmed",
+                personUSCitizenIndicator: true,
+                personIncarcerationInformationIndicator: false
+              }
             }
-          ],
-          responseMetadata: {
-            responseText: "responseText",
-            responseCode: "HE123456"
-          }
+          ]
         }
       }
     end
@@ -261,6 +263,10 @@ RSpec.describe ::AcaEntities::Fdsh::Ssa::H3::Operations::SsaVerificationJsonResp
 
       it 'should return a hash' do
         expect(@result.value!.class).to eq Hash
+      end
+
+      it 'should return a hash with the correct keys' do
+        expect(@result.value![:ResponseMetadata]).not_to eq nil
       end
     end
 
