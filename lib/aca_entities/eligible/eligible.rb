@@ -1,6 +1,22 @@
 # frozen_string_literal: true
 
-require 'active_support/inflector'
+require "active_support/inflector"
+require_relative "entities/state_history"
+require_relative "entities/value"
+require_relative "entities/grant"
+require_relative "entities/evidence"
+require_relative "entities/eligibility"
+require_relative "contracts/state_history_contract"
+require_relative "contracts/value_contract"
+require_relative "contracts/evidence_contract"
+require_relative "contracts/grant_contract"
+require_relative "contracts/eligibility_contract"
+require_relative "operations/add_evidence"
+require_relative "operations/add_eligibility"
+require_relative "operations/add_grant"
+require_relative "operations/create_evidence_type"
+require_relative "operations/create_eligibility_type"
+require_relative "operations/create_grant_type"
 
 module AcaEntities
   # Eligible namespace
@@ -9,7 +25,17 @@ module AcaEntities
     # Mixin with helpers to support extending dsl
     module Eligible
       def self.included(base)
-        base.extend ClassMethods
+        base.class_eval do
+          # @!attribute [r] eligibilities
+          # Collection of eligibilities
+          # @return [Arrray]
+          attribute :eligibilities,
+                    Types::Array.of(AcaEntities::Eligible::Eligibility).meta(
+                      omittable: true
+                    )
+        end
+
+        base.extend(ClassMethods)
       end
 
       # class methods
@@ -45,23 +71,7 @@ module AcaEntities
         end
       end
     end
-
-    require 'aca_entities/benefit_sponsors/entities/benefit_sponsorships/benefit_sponsorship'
-    require_relative 'entities/state_history'
-    require_relative 'entities/value'
-    require_relative 'entities/grant'
-    require_relative 'entities/evidence'
-    require_relative 'entities/eligibility'
-    require_relative 'contracts/state_history_contract'
-    require_relative 'contracts/value_contract'
-    require_relative 'contracts/evidence_contract'
-    require_relative 'contracts/grant_contract'
-    require_relative 'contracts/eligibility_contract'
-    require_relative 'operations/add_evidence'
-    require_relative 'operations/add_eligibility'
-    require_relative 'operations/add_grant'
-    require_relative 'operations/create_evidence_type'
-    require_relative 'operations/create_eligibility_type'
-    require_relative 'operations/create_grant_type'
   end
 end
+
+require "aca_entities/benefit_sponsors/entities/benefit_sponsorships/benefit_sponsorship"

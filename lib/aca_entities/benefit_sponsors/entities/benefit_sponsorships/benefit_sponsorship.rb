@@ -28,8 +28,6 @@ module AcaEntities
         # attribute :organization_id, Types::Bson
         attribute :market_kind, Types::Strict::Symbol
 
-        # attribute :eligibilities,  move into module FIX ME
-
         # attribute :benefit_applications,
         #           Types::Array.of(BenefitSponsors::BenefitApplication)
       end
