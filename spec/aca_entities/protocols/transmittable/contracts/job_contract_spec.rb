@@ -39,7 +39,7 @@ RSpec.describe AcaEntities::Protocols::Transmittable::Contracts::JobContract do
       started_at: started_at,
       process_status: process_status,
       publish_on: publish_on,
-      errors: errors
+      transmittable_errors: errors
     }
   end
 
@@ -88,7 +88,7 @@ RSpec.describe AcaEntities::Protocols::Transmittable::Contracts::JobContract do
         started_at: ['is missing'],
         process_status: ['is missing'],
         publish_on: ['is missing'],
-        errors: ['is missing'],
+        transmittable_errors: ['is missing'],
         job_id: ['is missing']
       }
     end
@@ -135,7 +135,7 @@ RSpec.describe AcaEntities::Protocols::Transmittable::Contracts::JobContract do
       {
         started_at: transaction_started_at,
         process_status: process_status,
-        errors: transaction_errors
+        transmittable_errors: transaction_errors
       }
     end
 
@@ -199,7 +199,7 @@ RSpec.describe AcaEntities::Protocols::Transmittable::Contracts::JobContract do
             description: description,
             started_at: started_at,
             process_status: process_status,
-            errors: errors
+            transmittable_errors: errors
           }
         end
 
@@ -223,7 +223,7 @@ RSpec.describe AcaEntities::Protocols::Transmittable::Contracts::JobContract do
                       key: ['is missing'],
                       started_at: ['is missing'],
                       process_status: ['is missing'],
-                      errors: ['is missing']
+                      transmittable_errors: ['is missing']
                     }
                 }
             }
