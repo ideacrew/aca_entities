@@ -13,7 +13,6 @@ module AcaEntities
 
       # class methods
       module ClassMethods
-
         ResourceReference = Struct.new(:class_name, :optional, :meta)
 
         def resource_ref_dir
@@ -34,29 +33,9 @@ module AcaEntities
           register(:eligibility, name, options)
         end
 
-        def evidence(name, **options)
-          register(:evidence, name, options)
-        end
-
-        def grant(name, **options)
-          register(:grant, name, options)
-        end
-
         def eligibility_resource_for(key)
           resource = resource_ref_dir[:eligibilities][key.to_sym]
           return AcaEntities::Eligible::Eligibility unless resource
-          resource.class_name.constantize
-        end
-
-        def evidence_resource_for(key)
-          resource = resource_ref_dir[:evidences][key.to_sym]
-          return AcaEntities::Eligible::Evidence unless resource
-          resource.class_name.constantize
-        end
-
-        def grant_resource_for(key)
-          resource = resource_ref_dir[:grants][key.to_sym]
-          return AcaEntities::Eligible::Grant unless resource
           resource.class_name.constantize
         end
 

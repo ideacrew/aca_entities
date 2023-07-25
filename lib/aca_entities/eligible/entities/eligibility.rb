@@ -4,9 +4,6 @@ module AcaEntities
   module Eligible
     # entity class for Eligibility
     class Eligibility < Dry::Struct
-      # def self.included(base)
-      #   base.class_eval do
-
       # @!attribute [r] title
       # A name given to the resource by which the resource is formally known
       # @return [String]
@@ -21,25 +18,25 @@ module AcaEntities
       # Collection of evidences for the eligibility
       # @return [Arrray]
       attribute :evidences,
-                Types::Array
-                  .of(AcaEntities::Eligible::Evidence)
-                  .meta(omittable: true)
+                Types::Array.of(AcaEntities::Eligible::Evidence).meta(
+                  omittable: false
+                )
 
       # @!attribute [r] grants
       # Collection of grants available for the eligibility
       # @return [Arrray]
       attribute :grants,
-                Types::Array
-                  .of(AcaEntities::Eligible::Grant)
-                  .meta(omittable: true)
+                Types::Array.of(AcaEntities::Eligible::Grant).meta(
+                  omittable: false
+                )
 
       # @!attribute [r] state_histories
       # Collection of resource historical states and associated eligibility
       # @return [Array]
       attribute :state_histories,
-                Types::Array
-                  .of(AcaEntities::Eligible::StateHistory)
-                  .meta(omittable: false)
+                Types::Array.of(AcaEntities::Eligible::StateHistory).meta(
+                  omittable: false
+                )
 
       # @!attribute [r] timestamp
       # Timestamp of the resource ie. submitted, created or modified time of the resource
@@ -62,8 +59,48 @@ module AcaEntities
       # def latest_history
       #   site_histories.max_by(&:transition_at)
       # end
-      # end
-      # end
+
+      class << self
+        ResourceReference = Struct.new(:class_name, :optional, :meta)
+
+        def resource_ref_dir
+          @resource_ref_dir ||= Concurrent::Map.new
+        end
+
+        def register(resource_kind, name, options)
+          resource_set = resource_kind.to_s.pluralize
+          resource_ref_dir[resource_set.to_sym] ||= {}
+          resource_ref_dir[resource_set.to_sym][name] = ResourceReference.new(
+            options[:class_name],
+            options[:optional],
+            options[:meta]
+          )
+        end
+
+        def evidence(name, **options)
+          register(:evidence, name, options)
+        end
+
+        def grant(name, **options)
+          register(:grant, name, options)
+        end
+
+        def evidence_resource_for(key)
+          resource = resource_ref_dir[:evidences][key.to_sym]
+          return AcaEntities::Eligible::Evidence unless resource
+          resource.class_name.constantize
+        end
+
+        def grant_resource_for(key)
+          resource = resource_ref_dir[:grants][key.to_sym]
+          return AcaEntities::Eligible::Grant unless resource
+          resource.class_name.constantize
+        end
+
+        def resource_name_for(type, identifier)
+          send("#{type}_resource_for", identifier)
+        end
+      end
     end
   end
 end

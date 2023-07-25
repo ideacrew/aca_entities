@@ -1,20 +1,12 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
-
-module AcaEntities
-  module Eligible
-    class EvidenceExample < Dry::Struct
-      include AcaEntities::Eligible::Evidence
-    end
-  end
-end
+require "spec_helper"
 
 RSpec.describe AcaEntities::Eligible::Evidence do
   let(:key) { :hc4cc }
-  let(:title) { 'childcare subsidy' }
+  let(:title) { "childcare subsidy" }
   let(:is_satisfied) { true }
-  let(:description) { 'childcare subsidy eligibility' }
+  let(:description) { "childcare subsidy eligibility" }
   let(:history_params) do
     {
       effective_on: Date.today,
@@ -42,21 +34,19 @@ RSpec.describe AcaEntities::Eligible::Evidence do
 
   let(:all_params) { required_params.merge(optional_params) }
 
-  subject { AcaEntities::Eligible::EvidenceExample }
+  context "Initializing with required params" do
+    it "should initialize the entity" do
+      result = described_class.new(required_params)
 
-  context 'Initializing with required params' do
-    it 'should initialize the entity' do
-      result = subject.new(required_params)
-
-      expect(result).to be_a subject
+      expect(result).to be_a described_class
     end
   end
 
-  context 'initializing with additional optional params' do
-    it 'should initialize the entity' do
-      result = subject.new(all_params)
+  context "initializing with additional optional params" do
+    it "should initialize the entity" do
+      result = described_class.new(all_params)
 
-      expect(result).to be_a subject
+      expect(result).to be_a described_class
     end
   end
 end
