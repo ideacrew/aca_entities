@@ -6,6 +6,7 @@ module AcaEntities
       # contract for IvlOsseEligibility::Grant
       class IvlOsseGrantContract < AcaEntities::Eligible::GrantContract
         params do
+          # TODO: extend contract for specific needs
         end
       end
     end

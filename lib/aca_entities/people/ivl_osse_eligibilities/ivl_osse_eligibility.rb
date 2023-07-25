@@ -4,7 +4,7 @@ module AcaEntities
   module People
     module IvlOsseEligibilities
       class IvlOsseEligibility < AcaEntities::Eligible::Eligibility
-  
+
         # attribute :due_on # additional attributes
 
         evidence :ivl_osse_evidence,

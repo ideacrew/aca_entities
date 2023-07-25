@@ -3,7 +3,7 @@
 module AcaEntities
   module Eligible
     # contract for Eligible::Evidence
-    class EvidenceContract < Dry::Validation::Contract 
+    class EvidenceContract < Dry::Validation::Contract
       params do
         required(:key).filled(:symbol)
         required(:title).filled(:string)

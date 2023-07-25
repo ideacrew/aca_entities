@@ -7,6 +7,7 @@ module AcaEntities
         # contract for ShopOsseEligibilities::ShopOsseEligibility
         class ShopOsseEligibilityContract < AcaEntities::Eligible::EligibilityContract
           params do
+            # TODO: extend contract for specific needs
           end
         end
       end

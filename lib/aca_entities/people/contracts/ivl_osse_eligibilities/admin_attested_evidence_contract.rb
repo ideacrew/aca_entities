@@ -6,6 +6,7 @@ module AcaEntities
       # contract for ShopOsseEligibility::AdminAttestedEvidence
       class AdminAttestedEvidenceContract < AcaEntities::Eligible::EvidenceContract
         params do
+          # TODO: extend contract for specific needs
         end
       end
     end

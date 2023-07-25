@@ -4,9 +4,6 @@ module AcaEntities
   module Eligible
     # entity class for Grant
     class Grant < Dry::Struct
-      # def self.included(base)
-      #   base.class_eval do
-
       # @!attribute [r] key
       # An unambiguous reference to this Grant
       # @return [Symbol]
@@ -31,9 +28,9 @@ module AcaEntities
       # Collection of resource historical states and associated eligibility
       # @return [Array]
       attribute :state_histories,
-                Types::Array
-                  .of(AcaEntities::Eligible::StateHistory)
-                  .meta(omittable: false)
+                Types::Array.of(AcaEntities::Eligible::StateHistory).meta(
+                  omittable: false
+                )
 
       # @!attribute [r] timestamp
       # Timestamp of the resource ie. submitted, created or modified time of the resource
@@ -55,8 +52,6 @@ module AcaEntities
 
       # def latest_history
       #   site_histories.max_by(&:transition_at)
-      # end
-      #   end
       # end
     end
   end
