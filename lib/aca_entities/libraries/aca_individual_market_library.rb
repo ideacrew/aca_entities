@@ -60,12 +60,12 @@ module AcaEntities
       require 'aca_entities/people/consumer_role_reference'
 
       require_relative 'eligibility_library'
-      require 'aca_entities/people/contracts/ivl_osse_eligibility/admin_attested_evidence_contract'
-      require 'aca_entities/people/contracts/ivl_osse_eligibility/grant_contract'
-      require 'aca_entities/people/contracts/ivl_osse_eligibility/eligibility_contract'
-      require 'aca_entities/people/ivl_osse_eligibility/admin_attested_evidence'
-      require 'aca_entities/people/ivl_osse_eligibility/grant'
-      require 'aca_entities/people/ivl_osse_eligibility/eligibility'
+      require 'aca_entities/people/contracts/ivl_osse_eligibilities/admin_attested_evidence_contract'
+      require 'aca_entities/people/contracts/ivl_osse_eligibilities/ivl_osse_grant_contract'
+      require 'aca_entities/people/contracts/ivl_osse_eligibilities/ivl_osse_eligibility_contract'
+      require 'aca_entities/people/ivl_osse_eligibilities/admin_attested_evidence'
+      require 'aca_entities/people/ivl_osse_eligibilities/ivl_osse_grant'
+      require 'aca_entities/people/ivl_osse_eligibilities/ivl_osse_eligibility'
 
       require 'aca_entities/benefit_catalogs/benefit_coverage_period_reference'
       require 'aca_entities/benefit_catalogs/benefit_package_reference'
