@@ -20,6 +20,7 @@ RSpec.describe AcaEntities::BenefitSponsors::BenefitSponsorships::ShopOsseEligib
 
   let(:required_params) do
     {
+      key: :shop_osse_eligibility,
       title: title,
       state_histories: state_histories,
       evidences: evidence_params,

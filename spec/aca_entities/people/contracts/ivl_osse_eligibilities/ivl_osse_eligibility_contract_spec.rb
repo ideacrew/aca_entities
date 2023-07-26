@@ -58,6 +58,7 @@ RSpec.describe AcaEntities::People::IvlOsseEligibilities::IvlOsseEligibilityCont
 
   let(:required_params) do
     {
+      key: :ivl_osse_eligibility,
       title: title,
       state_histories: state_histories,
       evidences: evidence_params,

@@ -4,6 +4,16 @@ module AcaEntities
   module Eligible
     # entity class for Eligibility
     class Eligibility < Dry::Struct
+      # @!attribute [r] id
+      # An id reference to this Eligibility
+      # @return [Symbol]
+      attribute? :id, Types::Coercible::String.optional.meta(omittable: true)
+
+      # @!attribute [r] key
+      # An unambiguous reference to this Eligibility
+      # @return [Symbol]
+      attribute :key, Types::Coercible::String.meta(omittable: false)
+
       # @!attribute [r] title
       # A name given to the resource by which the resource is formally known
       # @return [String]
@@ -12,7 +22,7 @@ module AcaEntities
       # @!attribute [r] description
       # An optional account of the content of this resource
       # @return [String]
-      attribute :description?, Types::String.optional.meta(omittable: true)
+      attribute? :description, Types::String.optional.meta(omittable: true)
 
       # @!attribute [r] evidences
       # Collection of evidences for the eligibility

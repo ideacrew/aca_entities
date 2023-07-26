@@ -4,6 +4,9 @@ module AcaEntities
   module Eligible
     # entity class for Evidence
     class Evidence < Dry::Struct
+      # @!attribute [r] id
+      # An id reference to this Evidence
+      # @return [Symbol]
       attribute? :id, Types::String.optional.meta(omittable: true)
 
       # @!attribute [r] key

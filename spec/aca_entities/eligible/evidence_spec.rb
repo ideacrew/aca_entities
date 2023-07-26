@@ -20,13 +20,19 @@ RSpec.describe AcaEntities::Eligible::Evidence do
   let(:state_histories) do
     [AcaEntities::Eligible::StateHistory.new(history_params)]
   end
+  let(:subject_ref) do
+    URI("gid://enroll_app/BenefitSponsors/BenefitSponsorship")
+  end
+  let(:evidence_ref) { URI("gid://enroll_app/BenefitSponsors/Evidence") }
 
   let(:required_params) do
     {
       key: key,
       title: title,
       is_satisfied: is_satisfied,
-      state_histories: state_histories
+      state_histories: state_histories,
+      evidence_ref: evidence_ref,
+      subject_ref: subject_ref
     }
   end
 

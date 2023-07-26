@@ -5,6 +5,9 @@ module AcaEntities
     # Entity for StateHistory
     # Intended to keep track state based historical snapshots of the record with eligibility.
     class StateHistory < Dry::Struct
+      # @!attribute [r] id
+      # An id reference to this StateHistory
+      # @return [Symbol]
       attribute? :id, Types::Coercible::String.optional.meta(omittable: true)
 
       # @!attribute [r] effective_on

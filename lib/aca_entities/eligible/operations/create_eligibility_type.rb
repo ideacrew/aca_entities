@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require 'dry/monads'
-require 'dry/monads/do'
+require "dry/monads"
+require "dry/monads/do"
 
 module AcaEntities
   module Eligible
@@ -25,8 +25,8 @@ module AcaEntities
       private
 
       def validate(resource_name, params)
-        response = "#{resource_name}Contract".constantize.new.call(params[:eligibility])
-
+        response =
+          "#{resource_name}Contract".constantize.new.call(params[:eligibility])
         if response.success?
           Success(response.to_h)
         else
@@ -39,7 +39,11 @@ module AcaEntities
       end
 
       def get_resource_name(params)
-        resource_name = params[:subject].resource_name_for(:eligibility, params[:eligibility][:key])
+        resource_name =
+          params[:subject].resource_name_for(
+            :eligibility,
+            params[:eligibility][:key]
+          )
 
         Success(resource_name)
       end

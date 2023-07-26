@@ -17,6 +17,10 @@ RSpec.describe AcaEntities::Eligible::AddGrant do
       transition_at: DateTime.now
     }
   end
+  let(:subject_ref) do
+    URI("gid://enroll_app/BenefitSponsors/BenefitSponsorship")
+  end
+  let(:evidence_ref) { URI("gid://enroll_app/BenefitSponsors/Evidence") }
 
   let(:evidence_params) do
     [
@@ -25,7 +29,9 @@ RSpec.describe AcaEntities::Eligible::AddGrant do
         title: "childcare subsidy",
         is_satisfied: true,
         description: "childcare subsidy evidence",
-        state_histories: state_histories
+        state_histories: state_histories,
+        evidence_ref: evidence_ref,
+        subject_ref: subject_ref
       }
     ]
   end
