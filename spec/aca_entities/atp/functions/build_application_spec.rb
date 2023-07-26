@@ -94,6 +94,59 @@ RSpec.describe AcaEntities::Atp::Functions::BuildApplication do
     end
   end
 
+  context "ssf attestation" do
+    before do
+      @ssf_attestation = context.resolve("insurance_application.ssf_signer.ssf_attestation").item
+      @result = subject.first
+    end
+
+    context "with valid xml containing non perjury indicator" do
+      it "should map the non perjury indicator to application_submission_terms on the application" do
+        expect(@result[:application_submission_terms]).to eq @ssf_attestation[:non_perjury_indicator]
+      end
+    end
+
+    context "with valid xml containing medicaid obligations indicator" do
+      it "should map the medicaid obligations indicator to medicaid_insurance_collection_terms on the application" do
+        expect(@result[:medicaid_insurance_collection_terms]).to eq @ssf_attestation[:medicaid_obligations_indicator]
+      end
+    end
+
+    context "with valid xml containing medicaid obligations indicator" do
+      it "should map the information_changes_indicator indicator to report_change_terms on the application" do
+        expect(@result[:report_change_terms]).to eq @ssf_attestation[:information_changes_indicator]
+      end
+    end
+
+  end
+
+  context "insurance application coverage renewal year quantity" do
+    before do
+      @coverage_year_quantity = context.resolve("insurance_application.coverage_renewal_year_quantity").item
+      @result = subject.first
+    end
+
+    context "with valid xml containing coverage renewal year quantity" do
+      it "should map the coverage_renewal_year_quantity to years_to_renew on the application" do
+        expect(@result[:years_to_renew]).to eq @coverage_year_quantity
+      end
+
+      it "should set the medicaid_terms to true on the application when renewal year quantity is greater than 0" do
+        expect(@result[:medicaid_terms]).to eq true
+      end
+    end
+  end
+
+  context "with valid xml containing applicant with absent parent or spouse code as Yes" do
+    before do
+      @result = subject.first
+    end
+
+    it "should return parent_living_out_of_home_terms on the application as true" do
+      expect(@result[:parent_living_out_of_home_terms]).to eq true
+    end
+  end
+
   context "with valid xml containing applicant with deduction" do
     before do
       @result = subject.first
