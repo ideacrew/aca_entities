@@ -35,6 +35,12 @@ module AcaEntities
       # @return [DateTime]
       attribute :transition_at, Types::DateTime.meta(omittable: false)
 
+      # @!attribute [r] subject_ref
+      # A class or object described by the {evidence_ref}
+      # @return [String]
+      attribute :subject_ref,
+                Types::Coercible::String.optional.meta(omittable: true)
+
       # @!attribute [r] event
       # Event upon which state transition occured
       # @return [String]

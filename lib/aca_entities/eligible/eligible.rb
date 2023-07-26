@@ -62,7 +62,12 @@ module AcaEntities
         end
 
         def eligibility_resource_for(key)
-          resource = resource_ref_dir[:eligibilities][key.to_sym]
+          if resource_ref_dir[
+            :eligibilities
+          ]
+            resource =
+              resource_ref_dir[:eligibilities][key.to_sym]
+          end
           return AcaEntities::Eligible::Eligibility unless resource
           resource.class_name.constantize
         end

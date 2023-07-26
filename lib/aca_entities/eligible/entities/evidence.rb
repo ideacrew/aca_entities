@@ -33,14 +33,14 @@ module AcaEntities
       # A class or object described by the {evidence_ref}
       # @return [String]
       attribute :subject_ref,
-                Types::Coercible::String.optional.meta(omittable: false) # FIXME: should be required
+                Types::Coercible::String.optional.meta(omittable: false)
 
       # @!attribute [r] evidence_ref
       # A class or object that maintains the state for a fact
       # about the {subject_ref}
       # @return [String]
       attribute :evidence_ref,
-                Types::Coercible::String.optional.meta(omittable: false) # FIXME: should be required
+                Types::Coercible::String.optional.meta(omittable: false)
 
       # @!attribute [r] state_histories
       # Collection of resource historical states and associated eligibility
@@ -55,6 +55,10 @@ module AcaEntities
       # @return [Timestamp]
       attribute :timestamp,
                 AcaEntities::TimeStamp.optional.meta(omittable: true)
+
+      def satisfied?
+        # state_histories.last.approved?
+      end
 
       # def latest_is_eligible
       #   latest_history&.is_eligible

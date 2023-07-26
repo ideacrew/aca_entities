@@ -54,21 +54,25 @@ module AcaEntities
       attribute :timestamp,
                 AcaEntities::TimeStamp.optional.meta(omittable: true)
 
-      # def latest_is_eligible
-      #   latest_history&.is_eligible
+      # delegate :current_state,
+      #          :latest_state_history,
+      #          to: :eligibility_state_handler,
+      #          allow_nil: false
+
+      def eligibility_state_handler
+        @eligibility_state_handler ||=
+          AcaEntities::Eligible::StateHandlers::EligibilityStateHandler.new(
+            self
+          )
+      end
+
+      # def is_satisfied?
+      #   evidences.all?(&:is_satisfied?)
       # end
 
-      # def latest_effective_on
-      #   latest_history&.effective_on
-      # end
-
-      # def latest_state
-      #   latest_history&.to_state
-      # end
-
-      # def latest_history
-      #   site_histories.max_by(&:transition_at)
-      # end
+      def satisfied?(date = Date.today)
+        # test
+      end
 
       class << self
         ResourceReference = Struct.new(:class_name, :optional, :meta)
@@ -96,13 +100,20 @@ module AcaEntities
         end
 
         def evidence_resource_for(key)
-          resource = resource_ref_dir[:evidences][key.to_sym]
+          if resource_ref_dir[
+            :evidences
+          ]
+            resource =
+              resource_ref_dir[:evidences][key.to_sym]
+          end
           return AcaEntities::Eligible::Evidence unless resource
           resource.class_name.constantize
         end
 
         def grant_resource_for(key)
-          resource = resource_ref_dir[:grants][key.to_sym]
+          resource = resource_ref_dir[:grants][key.to_sym] if resource_ref_dir[
+            :grants
+          ]
           return AcaEntities::Eligible::Grant unless resource
           resource.class_name.constantize
         end
