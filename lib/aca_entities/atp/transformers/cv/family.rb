@@ -27,6 +27,7 @@ module AcaEntities
           map 'insurance_application.ssf_signer.ssf_attestation', 'ssf_attestation', memoize_record: true, visible: false
           map 'insurance_application.tax_returns', 'tax_returns', memoize_record: true, visible: false
           map 'insurance_application.application_identifications.identification_id', 'external_id', memoize_record: true, visible: false
+          map 'insurance_application.coverage_renewal_year_quantity', 'coverage_renewal_year_quantity', memoize: true, visible: false
 
           namespace 'record' do
             rewrap 'family', type: :hash do
@@ -155,7 +156,7 @@ module AcaEntities
                   }
                   add_key 'person.consumer_role.language_preference', function: lambda { |v|
                     preference_language = v.find(Regexp.new('record.people.*.augementation')).map(&:item).last[:preferred_languages]&.first
-                    preference_language ? preference_language[:language_name].downcase : nil
+                    preference_language ? preference_language[:language_name].downcase.titleize : nil
                   }
 
                   add_key 'person.consumer_role.five_year_bar'

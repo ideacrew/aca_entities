@@ -14,7 +14,8 @@ module AcaEntities
 
             def call(params)
               validated_payload = yield validate_payload(params)
-              metadata = yield construct_response_metadata(validated_payload.dig(:ssaCompositeResponse, :responseMetadata))
+              top_level_metadata = yield add_metadata(validated_payload)
+              metadata = yield construct_response_metadata(top_level_metadata)
               responses = yield get_individual_responses(validated_payload.dig(:ssaCompositeResponse, :ssaCompositeIndividualResponseArray))
               response_payload = yield construct_params(metadata, responses)
               validate_response_payload(response_payload)
@@ -32,6 +33,14 @@ module AcaEntities
               end
               payload = JSON.parse(payload.to_json, symbolize_names: true)
               result.empty? ? Success(payload) : Failure(result.to_s)
+            end
+
+            def add_metadata(payload)
+              top_level_metadata = payload.dig(:ssaCompositeResponse,
+                                               :responseMetadata) || payload.dig(:ssaCompositeResponse, :ssaCompositeIndividualResponseArray, 0,
+                                                                                 :responseMetadata)
+
+              Success(top_level_metadata)
             end
 
             def construct_response_metadata(metadata)
