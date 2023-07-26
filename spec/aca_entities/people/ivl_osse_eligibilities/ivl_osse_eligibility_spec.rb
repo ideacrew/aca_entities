@@ -17,6 +17,9 @@ RSpec.describe AcaEntities::People::IvlOsseEligibilities::IvlOsseEligibility do
     }
   end
 
+  let(:subject_ref) { URI("gid://enroll_app/People/Consumer") }
+  let(:evidence_ref) { URI("gid://enroll_app/People/Evidence") }
+
   let(:evidence_params) do
     [
       {
@@ -24,7 +27,9 @@ RSpec.describe AcaEntities::People::IvlOsseEligibilities::IvlOsseEligibility do
         title: "childcare subsidy",
         is_satisfied: true,
         description: "childcare subsidy evidence",
-        state_histories: state_histories
+        state_histories: state_histories,
+        subject_ref: subject_ref,
+        evidence_ref: evidence_ref
       }
     ]
   end

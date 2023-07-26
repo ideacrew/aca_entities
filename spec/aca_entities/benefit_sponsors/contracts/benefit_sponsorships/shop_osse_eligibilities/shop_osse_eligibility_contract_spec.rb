@@ -27,6 +27,11 @@ RSpec.describe AcaEntities::BenefitSponsors::BenefitSponsorships::ShopOsseEligib
     }
   end
 
+  let(:subject_ref) do
+    URI("gid://enroll_app/BenefitSponsors/BenefitSponsorship")
+  end
+  let(:evidence_ref) { URI("gid://enroll_app/BenefitSponsors/Evidence") }
+
   let(:evidence_params) do
     [
       {
@@ -36,7 +41,9 @@ RSpec.describe AcaEntities::BenefitSponsors::BenefitSponsorships::ShopOsseEligib
         description: "childcare subsidy evidence",
         state_histories: [
           state_histories.first.merge(transition_at: DateTime.now)
-        ]
+        ],
+        evidence_ref: evidence_ref,
+        subject_ref: subject_ref
       }
     ]
   end
