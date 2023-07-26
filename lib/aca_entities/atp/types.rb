@@ -47,21 +47,23 @@ module AcaEntities
       }.freeze
 
       DeductionKinds = {
+        # alimony and student loan interest are mapped via specific category code types in the schema
         'Alimony' => 'alimony_paid',
-        # 'Deductible part of self-employment taxes' => 'deductable_part_of_self_employment_taxes',
-        # 'Domestic production activities deduction' => 'domestic_production_activities',
-        # 'Penalty on early withdrawal of savings' => 'penalty_on_early_withdrawal_of_savings',
-        # 'Educator expenses' => 'educator_expenses',
-        # 'Self-employmed SEP, SIMPLE, and qualified plans' => 'self_employment_sep_simple_and_qualified_plans',
+        'StudentLoanInterest' => 'student_loan_interest',
+        # the remaining kinds are mapped via category text and are not specified in the schema
+        'Deductible part of self-employment tax' => 'deductable_part_of_self_employment_taxes',
+        'Domestic production activities deduction' => 'domestic_production_activities',
+        'Penalty on early withdrawal of savings' => 'penalty_on_early_withdrawal_of_savings',
+        'Educator expenses' => 'educator_expenses',
+        'Self-employed SEP, SIMPLE, and qualified plans' => 'self_employment_sep_simple_and_qualified_plans',
         # 'Self-employed health insurance' => 'self_employed_health_insurance',
         # 'Moving expenses' => 'moving_expenses',
-        # 'Health savings account' => 'health_savings_account',
-        # 'IRA deduction' => 'ira_deduction',
-        # 'Certain business expenses of reservists, performing artists, and fee-basis government officials' =>
-        # 'reservists_performing_artists_and_fee_basis_government_official_expenses',
+        'Health savings account deduction' => 'health_savings_account',
+        'IRA deduction' => 'ira_deduction',
+        'Certain business expenses of reservists, performing artists, and fee-basis government officials' =>
+        'reservists_performing_artists_and_fee_basis_government_official_expenses'
         # 'Tuition and fees' => 'tuition_and_fees',
         # 'OTHER_DEDUCTION' => 'OTHER_DEDUCTION',
-        'StudentLoanInterest' => 'student_loan_interest'
       }.freeze
 
       InsuranceKinds = {
