@@ -157,7 +157,7 @@ module AcaEntities
           return [] if @expenses_hash.nil?
 
           @expenses_hash.each_with_object([]) do |expense, result|
-            next if AcaEntities::Atp::Types::DeductionKinds[expense[:category_code]].nil?
+            next if AcaEntities::Atp::Types::DeductionKinds[expense[:category_code]].nil? && AcaEntities::Atp::Types::DeductionKinds[expense[:category_text]].nil?
 
             result << AcaEntities::Atp::Transformers::Cv::Deduction.transform(expense)
             result
