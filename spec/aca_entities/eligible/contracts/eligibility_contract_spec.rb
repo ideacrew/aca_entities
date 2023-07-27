@@ -59,10 +59,7 @@ RSpec.describe AcaEntities::Eligible::EligibilityContract do
           AcaEntities::Eligible::Value.new(
             title: "minimum employee rule relaxed",
             key: :min_employee_relaxed
-          ).to_h,
-        state_histories: [
-          state_histories.first.merge(transition_at: DateTime.now)
-        ]
+          ).to_h
       }
     ]
   end

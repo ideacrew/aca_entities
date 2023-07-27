@@ -45,8 +45,7 @@ RSpec.describe AcaEntities::BenefitSponsors::BenefitSponsorships::ShopOsseEligib
           AcaEntities::Eligible::Value.new(
             title: "minimum employee rule relaxed",
             key: :min_employee_relaxed
-          ).to_h,
-        state_histories: state_histories
+          ).to_h
       }
     ]
   end

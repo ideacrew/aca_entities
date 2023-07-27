@@ -48,10 +48,7 @@ RSpec.describe AcaEntities::People::IvlOsseEligibilities::IvlOsseEligibilityCont
           AcaEntities::Eligible::Value.new(
             title: "premium grant",
             key: :premium_subsidy_grant
-          ).to_h,
-        state_histories: [
-          state_histories.first.merge(transition_at: DateTime.now)
-        ]
+          ).to_h
       }
     ]
   end
