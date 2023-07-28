@@ -18,7 +18,7 @@ RSpec.describe AcaEntities::Protocols::Transmittable::Contracts::TransmissionCon
   let(:timestamps) { { created_at: moment, modified_at: moment } }
 
   let(:required_params) do
-    { key: transmission_key, started_at: started_at, process_status: process_status, errors: errors }
+    { key: transmission_key, started_at: started_at, process_status: process_status, transmittable_errors: errors }
   end
 
   let(:optional_params) do
@@ -57,7 +57,7 @@ RSpec.describe AcaEntities::Protocols::Transmittable::Contracts::TransmissionCon
         key: ['is missing'],
         started_at: ['is missing'],
         process_status: ['is missing'],
-        errors: ['is missing']
+        transmittable_errors: ['is missing']
       }
     end
 

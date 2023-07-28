@@ -17,7 +17,7 @@ RSpec.describe AcaEntities::Protocols::Transmittable::Contracts::SubjectContract
           key: transaction_key,
           process_status: transaction_process_status,
           started_at: transaction_started_at,
-          errors: transaction_errors
+          transmittable_errors: transaction_errors
         }
       end
 

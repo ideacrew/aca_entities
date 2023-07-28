@@ -21,7 +21,7 @@ RSpec.describe AcaEntities::Protocols::Transmittable::Contracts::TransactionCont
   let(:payload) { { fake: fake_value } }
 
   let(:required_params) do
-    { key: key, started_at: started_at, process_status: process_status, errors: errors }
+    { key: key, started_at: started_at, process_status: process_status, transmittable_errors: errors }
   end
 
   let(:optional_params) do
@@ -60,7 +60,7 @@ RSpec.describe AcaEntities::Protocols::Transmittable::Contracts::TransactionCont
         key: ['is missing'],
         started_at: ['is missing'],
         process_status: ['is missing'],
-        errors: ['is missing']
+        transmittable_errors: ['is missing']
       }
     end
 

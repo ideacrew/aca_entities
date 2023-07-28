@@ -60,7 +60,7 @@ RSpec.describe AcaEntities::Protocols::Transmittable::Subject do
           title: transaction_title,
           started_at: transaction_started_at,
           process_status: transaction_process_status,
-          errors: transaction_errors
+          transmittable_errors: transaction_errors
         }
       end
       let(:transactions) { [transaction] }

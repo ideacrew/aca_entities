@@ -7,7 +7,7 @@ require_relative 'types'
 
 # contracts
 require_relative 'contracts/contract'
-require_relative 'contracts/error_contract'
+require_relative 'contracts/transmittable_error_contract'
 require_relative 'contracts/process_state_contract'
 require_relative 'contracts/process_status_contract'
 require_relative 'contracts/transactions_transmissions_contract'
@@ -18,6 +18,7 @@ require_relative 'contracts/job_contract'
 
 # entities
 require_relative 'errors'
+require_relative 'transmittable_error'
 require_relative 'process_state'
 require_relative 'process_status'
 require_relative 'transactions_transmissions'
@@ -47,6 +48,8 @@ require_relative 'operations/jobs/find'
 require_relative 'operations/jobs/create'
 require_relative 'operations/transmissions/create'
 require_relative 'operations/transactions/create'
+require_relative 'operations/process_states/create'
+require_relative 'operations/transmittable_errors/create'
 # require_relative 'operations/jobs/update'
 
 # require_relative 'operations/job_repositories/create'
