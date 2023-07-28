@@ -102,7 +102,7 @@ RSpec.describe AcaEntities::Atp::Functions::BuildApplication do
 
     context "with valid xml containing non perjury indicator" do
       it "should map the non perjury indicator to application_submission_terms on the application" do
-        expect(@result[:application_submission_terms]).to eq @ssf_attestation[:non_perjury_indicator]
+        expect(@result[:submission_terms]).to eq @ssf_attestation[:non_perjury_indicator]
       end
     end
 
