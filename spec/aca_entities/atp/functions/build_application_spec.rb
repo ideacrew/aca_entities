@@ -117,7 +117,7 @@ RSpec.describe AcaEntities::Atp::Functions::BuildApplication do
         expect(@result[:report_change_terms]).to eq @ssf_attestation[:information_changes_indicator]
       end
     end
-    
+
     context "with valid attestation terms" do
       it "should map the attestation terms to attestation_terms on the application" do
         expect(@result[:attestation_terms]).to eq @ssf_attestation[:attestation_terms]
