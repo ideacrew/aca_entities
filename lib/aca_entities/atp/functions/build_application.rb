@@ -49,7 +49,7 @@ module AcaEntities
             application_submission_terms: ssf_attestation_hash[:non_perjury_indicator],
             medicaid_insurance_collection_terms: ssf_attestation_hash[:medicaid_obligations_indicator],
             report_change_terms: ssf_attestation_hash[:report_change_terms],
-            years_to_renew: @memoized_data.resolve('insurance_application.coverage_renewal_year_quantity')&.item,
+            years_to_renew: @memoized_data.resolve('coverage_renewal_year_quantity')&.item,
             medicaid_terms: medicaid_terms_value,
             parent_living_out_of_home_terms: parent_living_out_of_home_terms_value
           }
@@ -71,7 +71,7 @@ module AcaEntities
         end
 
         def medicaid_terms_value
-          renewal_year_quantity = @memoized_data.resolve('insurance_application.coverage_renewal_year_quantity')&.item
+          renewal_year_quantity = @memoized_data.resolve('coverage_renewal_year_quantity')&.item
           renewal_year_quantity&.positive?
         end
 
