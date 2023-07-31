@@ -43,7 +43,7 @@ module AcaEntities
         # @!attribute [r] errors
         # Exceptions that occured during processing of this transmission
         # @return [Array<Transmittble::Error>]
-        attribute :errors, Types::Array.of(AcaEntities::Protocols::Transmittable::Errors).meta(omittable: true)
+        attribute :transmittable_errors, Types::Array.of(AcaEntities::Protocols::Transmittable::TransmittableError).meta(omittable: true)
 
         # @!attribute [r] timestamps
         # Date and time that this resource was originally created and last updated. Time is represented in
