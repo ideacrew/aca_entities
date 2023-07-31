@@ -7,7 +7,7 @@ RSpec.shared_context "inbound_build_application" do
     {
       "external_id" => { :name => "external_id",
                          :item => "IDC1000886" },
-      "insurance_application.coverage_renewal_year_quantity" => { :name => "insurance_application.coverage_renewal_year_quantity", :item => 1 },
+      "insurance_application.coverage_renewal_year_quantity" => { :name => "coverage_renewal_year_quantity", :item => 1 },
       "insurance_application.insurance_applicants" => { :name => "insurance_application.insurance_applicants",
                                                         :item => { :IDC1003158 => { :id => "IDC1003158",
                                                                                     :role_reference => { :ref => "IDC1003158" },
@@ -165,7 +165,8 @@ RSpec.shared_context "inbound_build_application" do
                                                                          :privacy_agreement_indicator => true,
                                                                          :pending_charges_indicator => true,
                                                                          :information_changes_indicator => true,
-                                                                         :application_terms_indicator => true } },
+                                                                         :application_terms_indicator => true,
+                                                                         :attestation_terms => true } },
       "tax_returns" => { :name => "tax_returns",
                          :item => nil },
       "record.people.IDC1003158" => { :name => "record.people.IDC1003158",
@@ -459,7 +460,7 @@ RSpec.shared_context "inbound_build_application" do
                                                                :person_identification => nil } }
     }
   end
-
+  
   let(:context) do
     # rubocop:enable Layout/LineLength
     AcaEntities::Operations::Transforms::Context.new(context_hash)
