@@ -36,6 +36,10 @@ module AcaEntities
       require 'aca_entities/contracts/verifications/verification_type_history_element_contract'
       require 'aca_entities/contracts/people/consumer_role_contract'
       require 'aca_entities/contracts/people/resident_role_contract'
+      require 'aca_entities/cms/pbp/contracts/prorated_amount_contract'
+      require 'aca_entities/cms/pbp/contracts/financial_information_contract'
+      require 'aca_entities/cms/pbp/contracts/sbmi_enrollee_contract'
+      require 'aca_entities/cms/pbp/contracts/sbmi_policy_contract'
 
       # entities
       require 'aca_entities/timestamp'
@@ -79,6 +83,10 @@ module AcaEntities
       require 'aca_entities/policies/aptc_credit'
       require 'aca_entities/policies/aptc_maximum'
       require 'aca_entities/policies/policy'
+      require 'aca_entities/cms/pbp/prorated_amount'
+      require 'aca_entities/cms/pbp/financial_information'
+      require 'aca_entities/cms/pbp/sbmi_enrollee'
+      require 'aca_entities/cms/pbp/sbmi_policy'
 
       require_relative 'fdsh_library'
       require_relative 'core_library'

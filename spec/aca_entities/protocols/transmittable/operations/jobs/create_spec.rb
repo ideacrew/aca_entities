@@ -18,7 +18,7 @@ RSpec.describe AcaEntities::Protocols::Transmittable::Operations::Jobs::Create d
       key: key,
       time_to_live: time_to_live,
       publish_on: publish_on,
-      errors: errors,
+      transmittable_errors: errors,
       title: title,
       description: description,
       status: status,
