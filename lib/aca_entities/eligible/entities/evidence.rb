@@ -4,6 +4,17 @@ module AcaEntities
   module Eligible
     # entity class for Evidence
     class Evidence < Dry::Struct
+
+      INELIGIBLE_STATUSES = %i[initial denied].freeze
+      ELIGIBLE_STATUSES = %i[approved].freeze
+      EVENTS = %i[move_to_initial move_to_approved move_to_denied].freeze
+
+      STATE_TRANSITION_MAP = {
+        initial: [:initial],
+        approved: [:initial, :denied],
+        denied: [:initial, :approved]
+      }.freeze
+
       # @!attribute [r] id
       # An id reference to this Evidence
       # @return [Symbol]

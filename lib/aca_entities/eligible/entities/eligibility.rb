@@ -4,6 +4,17 @@ module AcaEntities
   module Eligible
     # entity class for Eligibility
     class Eligibility < Dry::Struct
+
+      INELIGIBLE_STATUSES = %i[initial expired].freeze
+      ELIGIBLE_STATUSES = %i[published].freeze
+      EVENTS = %i[move_to_initial move_to_published move_to_expired].freeze
+
+      STATE_TRANSITION_MAP = {
+        initial: [:initial],
+        published: [:initial],
+        expired: [:initial, :published]
+      }.freeze
+
       # @!attribute [r] id
       # An id reference to this Eligibility
       # @return [Symbol]
@@ -24,6 +35,7 @@ module AcaEntities
       # @return [String]
       attribute? :description, Types::String.optional.meta(omittable: true)
 
+      # FIXME: We may store different evidence classes not just AcaEntities::Eligible::Evidence
       # @!attribute [r] evidences
       # Collection of evidences for the eligibility
       # @return [Arrray]
