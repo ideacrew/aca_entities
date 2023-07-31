@@ -222,7 +222,7 @@ module AcaEntities
       end
 
       def eligible_citizen_status(citizen_status)
-        citizen_status == 'us_citizen' || citizen_status == 'naturalized citizen'
+        ['us_citizen', 'naturalized citizen'].include?(citizen_status)
       end
 
       def eligible_benefit_esis
