@@ -102,7 +102,7 @@ RSpec.describe AcaEntities::Atp::Functions::BuildApplication do
 
     context "with valid xml containing non perjury indicator" do
       it "should map the non perjury indicator to application_submission_terms on the application" do
-        expect(@result[:application_submission_terms]).to eq @ssf_attestation[:non_perjury_indicator]
+        expect(@result[:submission_terms]).to eq @ssf_attestation[:non_perjury_indicator]
       end
     end
 
@@ -147,15 +147,21 @@ RSpec.describe AcaEntities::Atp::Functions::BuildApplication do
     end
   end
 
-  context "with valid xml containing applicant with deduction" do
+  context "with valid xml containing applicant with an alimony and ira deduction" do
     before do
       @result = subject.first
     end
 
-    it "should return correct deduction type, frequency, and amount" do
+    it "should return correct alimony deduction type, frequency, and amount" do
       expect(@result[:applicants][0][:deductions].first[:kind]).to eq("alimony_paid")
       expect(@result[:applicants][0][:deductions].first[:frequency_kind]).to eq("monthly")
       expect(@result[:applicants][0][:deductions].first[:amount]).to eq(500)
+    end
+
+    it "should return correct ira deduction type, frequency, and amount" do
+      expect(@result[:applicants][0][:deductions].last[:kind]).to eq("ira_deduction")
+      expect(@result[:applicants][0][:deductions].last[:frequency_kind]).to eq("yearly")
+      expect(@result[:applicants][0][:deductions].last[:amount]).to eq(100)
     end
   end
 end

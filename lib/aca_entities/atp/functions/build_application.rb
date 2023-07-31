@@ -46,7 +46,7 @@ module AcaEntities
             is_renewal_authorized: @memoized_data.resolve('is_renewal_authorized').item,
             family_reference: { hbx_id: @memoized_data.resolve('family.hbx_id').item.to_s },
             aptc_effective_date: Date.today, # default value
-            application_submission_terms: ssf_attestation_hash[:non_perjury_indicator],
+            submission_terms: ssf_attestation_hash[:non_perjury_indicator],
             medicaid_insurance_collection_terms: ssf_attestation_hash[:medicaid_obligations_indicator],
             report_change_terms: ssf_attestation_hash[:report_change_terms],
             years_to_renew: @memoized_data.resolve('insurance_application.coverage_renewal_year_quantity')&.item,
@@ -157,7 +157,7 @@ module AcaEntities
           return [] if @expenses_hash.nil?
 
           @expenses_hash.each_with_object([]) do |expense, result|
-            next if AcaEntities::Atp::Types::DeductionKinds[expense[:category_code]].nil?
+            next if AcaEntities::Atp::Types::DeductionKinds[expense[:category_code]].nil? && AcaEntities::Atp::Types::DeductionKinds[expense[:category_text]].nil?
 
             result << AcaEntities::Atp::Transformers::Cv::Deduction.transform(expense)
             result

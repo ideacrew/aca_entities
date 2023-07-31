@@ -20,7 +20,7 @@ module AcaEntities
 
             required(:started_at).value(:date_time)
             optional(:ended_at).maybe(:date_time)
-            required(:errors).array(AcaEntities::Protocols::Transmittable::Contracts::ErrorContract.params)
+            required(:transmittable_errors).array(AcaEntities::Protocols::Transmittable::Contracts::TransmittableErrorContract.params)
 
             optional(:timestamps).maybe(AcaEntities::Contracts::TimeStampContract.params)
             optional(:json_payload).maybe(:hash)

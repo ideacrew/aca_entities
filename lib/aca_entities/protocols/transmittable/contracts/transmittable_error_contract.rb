@@ -5,7 +5,7 @@ module AcaEntities
     module Transmittable
       module Contracts
         # Schema and validation rules for the {AcaEntities::Protocols::Transmittable::Errors} entity
-        class ErrorContract < Contract
+        class TransmittableErrorContract < Contract
           # @!method call(opts)
           # @param [Hash] opts the parameters to validate using this contract
           # @option opts [Array<AcaEntities::Protocols::Transmittable::Contracts::ErrorsContract.params>]:
@@ -13,7 +13,8 @@ module AcaEntities
           # @return [Dry::Monads::Result::Success] if params pass validation
           # @return [Dry::Monads::Result::Failure] if params fail validation
           params do
-            optional(:error).maybe(:string)
+            optional(:key).maybe(:symbol)
+            optional(:message).maybe(:string)
           end
         end
       end
