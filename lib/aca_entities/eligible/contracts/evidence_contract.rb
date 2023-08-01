@@ -12,7 +12,7 @@ module AcaEntities
         required(:is_satisfied).filled(:bool)
         required(:state_histories).filled(:array)
         required(:subject_ref).value(type?: URI)
-        optional(:evidence_ref).value(type?: URI)
+        optional(:evidence_ref).maybe(type?: URI)
         optional(:timestamps).filled(
           AcaEntities::Contracts::TimeStampContract.params
         )
