@@ -118,11 +118,17 @@ RSpec.describe AcaEntities::Atp::Functions::BuildApplication do
       end
     end
 
+    context "with valid attestation terms" do
+      it "should map the attestation terms to attestation_terms on the application" do
+        expect(@result[:attestation_terms]).to eq @ssf_attestation[:attestation_terms]
+      end
+    end
+
   end
 
   context "insurance application coverage renewal year quantity" do
     before do
-      @coverage_year_quantity = context.resolve("insurance_application.coverage_renewal_year_quantity").item
+      @coverage_year_quantity = context.resolve("coverage_renewal_year_quantity").item
       @result = subject.first
     end
 
