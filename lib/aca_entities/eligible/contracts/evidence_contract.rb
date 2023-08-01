@@ -5,7 +5,7 @@ module AcaEntities
     # contract for Eligible::Evidence
     class EvidenceContract < Contract
       params do
-        optional(:_id).maybe(:string)
+        optional(:_id).filled(Types::Coercible::String)
         required(:key).filled(:symbol)
         required(:title).filled(:string)
         optional(:description).maybe(:string)
