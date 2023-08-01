@@ -217,12 +217,8 @@ module AcaEntities
       def valid_citizen_eligibility_check
         citizen_status = citizenship_immigration_status_information&.citizen_status
         return nil unless citizen_status
-        return false if eligible_citizen_status(citizen_status)
+        return false if ['us_citizen', 'naturalized_citizen'].include?(citizen_status)
         citizen_status != 'us_citizen' && !citizenship_immigration_status_information.is_lawful_presence_self_attested
-      end
-
-      def eligible_citizen_status(citizen_status)
-        ['us_citizen', 'naturalized citizen'].include?(citizen_status)
       end
 
       def eligible_benefit_esis

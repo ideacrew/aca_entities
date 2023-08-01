@@ -223,8 +223,8 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Applicant, dbclean: :after_each do
     end
   end
 
-  describe 'with valid arguments for naturalized citizen' do
-
+  describe 'with valid arguments for valid citizen citizen' do
+    let(:citizenship_immigration_status_information) { { citizen_status: 'naturalized_citizen' } }
     let(:input_params) do
       { name: name,
         identifying_information: identifying_information,
@@ -281,6 +281,69 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Applicant, dbclean: :after_each do
       input_cisi_keys = citizenship_immigration_status_information.keys
       expect(result_cisi_keys - input_cisi_keys).to be_empty
       expect(input_cisi_keys - result_cisi_keys).to be_empty
+      expect(@result.valid_citizen_eligibility_check).to be_falsy
+    end
+  end
+
+  describe 'with valid arguments for invalid citizen status' do
+    let(:citizenship_immigration_status_information) { { citizen_status: 'alien_lawfully_present', is_lawful_presence_self_attested: false} }
+    let(:input_params) do
+      { name: name,
+        identifying_information: identifying_information,
+        demographic: demographic,
+        attestation: attestation,
+        is_primary_applicant: true,
+        citizenship_immigration_status_information: citizenship_immigration_status_information,
+        is_applying_coverage: false,
+        five_year_bar_applies: false,
+        five_year_bar_met: false,
+        qualified_non_citizen: true,
+        job_coverage_end_date: Date.today,
+        prior_insurance_end_date: Date.today,
+        family_member_reference: family_member_reference,
+        person_hbx_id: '95',
+        is_required_to_file_taxes: false,
+        is_filing_as_head_of_household: false,
+        pregnancy_information: pregnancy_information,
+        is_primary_caregiver: true,
+        is_primary_caregiver_for: ["test"],
+        has_job_income: true,
+        has_self_employment_income: false,
+        has_unemployment_income: false,
+        has_other_income: false,
+        has_deductions: true,
+        has_enrolled_health_coverage: true,
+        has_eligible_health_coverage: false,
+        addresses: [],
+        emails: [],
+        phones: [],
+        incomes: [income],
+        benefits: [benefit],
+        deductions: [deduction],
+        is_temporarily_out_of_state: false,
+        age_of_applicant: 45,
+        is_claimed_as_dependent_by_non_applicant: false,
+        benchmark_premium: benchmark_premium,
+        is_homeless: false,
+        mitc_relationships: mitc_relationships,
+        mitc_income: mitc_income }
+    end
+
+    before do
+      app_params_result = AcaEntities::MagiMedicaid::Contracts::ApplicantContract.new.call(input_params)
+      @result = if app_params_result.failure?
+                  app_params_result
+                else
+                  described_class.new(app_params_result.to_h)
+                end
+    end
+
+    it 'should match all the input keys of citizenship_immigration_status_information for invalid citizen status' do
+      result_cisi_keys = @result.to_h[:citizenship_immigration_status_information].keys
+      input_cisi_keys = citizenship_immigration_status_information.keys
+      expect(result_cisi_keys - input_cisi_keys).to be_empty
+      expect(input_cisi_keys - result_cisi_keys).to be_empty
+      expect(@result.valid_citizen_eligibility_check).to be_truthy
     end
   end
 end
