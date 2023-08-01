@@ -5,7 +5,7 @@ module AcaEntities
     # contract for Eligible::StateHistory
     class StateHistoryContract < Dry::Validation::Contract
       params do
-        optional(:id).maybe(:string)
+        optional(:_id).maybe(:string)
         required(:effective_on).filled(:date)
         required(:is_eligible).filled(:bool)
         required(:from_state).filled(:symbol)

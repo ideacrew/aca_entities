@@ -5,7 +5,7 @@ module AcaEntities
     # contract for Eligible::Grant
     class GrantContract < Dry::Validation::Contract
       params do
-        optional(:id).maybe(:string)
+        optional(:_id).maybe(:string)
         required(:key).filled(:symbol)
         required(:title).filled(:string)
         optional(:description).maybe(:string)

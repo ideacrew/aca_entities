@@ -4,10 +4,10 @@ module AcaEntities
   module Eligible
     # entity class for Grant
     class Grant < Dry::Struct
-      # @!attribute [r] id
+      # @!attribute [r] _id
       # An id reference to this Grant
-      # @return [Symbol]
-      attribute? :id, Types::String.optional.meta(omittable: true)
+      # @return [String]
+      attribute? :_id, Types::String.optional.meta(omittable: true)
 
       # @!attribute [r] key
       # An unambiguous reference to this Grant

@@ -15,10 +15,10 @@ module AcaEntities
         denied: [:initial, :approved]
       }.freeze
 
-      # @!attribute [r] id
+      # @!attribute [r] _id
       # An id reference to this Evidence
-      # @return [Symbol]
-      attribute? :id, Types::String.optional.meta(omittable: true)
+      # @return [String]
+      attribute? :_id, Types::String.optional.meta(omittable: true)
 
       # @!attribute [r] key
       # An unambiguous reference to this Evidence
@@ -51,7 +51,7 @@ module AcaEntities
       # about the {subject_ref}
       # @return [String]
       attribute :evidence_ref,
-                Types::Coercible::String.optional.meta(omittable: false)
+                Types::Coercible::String.optional.meta(omittable: true)
 
       # @!attribute [r] state_histories
       # Collection of resource historical states and associated eligibility

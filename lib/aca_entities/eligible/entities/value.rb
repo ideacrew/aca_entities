@@ -6,6 +6,12 @@ module AcaEntities
     # A value can be cost sharing credit, employer contribution percentage
     # or osse premium credit
     class Value < Dry::Struct
+
+      # @!attribute [r] _id
+      # An id reference to this Value
+      # @return [String]
+      attribute? :_id, Types::Coercible::String.optional.meta(omittable: true)
+
       # @!attribute [r] title
       # Value title
       # @return [String]
