@@ -286,7 +286,7 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Applicant, dbclean: :after_each do
   end
 
   describe 'with valid arguments for invalid citizen status' do
-    let(:citizenship_immigration_status_information) { { citizen_status: 'alien_lawfully_present', is_lawful_presence_self_attested: false} }
+    let(:citizenship_immigration_status_information) { { citizen_status: 'alien_lawfully_present', is_lawful_presence_self_attested: false } }
     let(:input_params) do
       { name: name,
         identifying_information: identifying_information,
