@@ -21,7 +21,11 @@ module AcaEntities
         private
 
         def transform(params)
-          result = YAML.safe_load(ERB.new(params[:yaml]).result, [Symbol])
+          # Using YAML.load instead of YAML.safe_load to support multiple versions of ruby(2.x & 3.x)
+
+          # rubocop:disable Security/YAMLLoad
+          result = YAML.load(ERB.new(params[:yaml]).result)
+          # rubocop:enable Security/YAMLLoad
 
           Success(result || {})
         rescue Psych::SyntaxError => e

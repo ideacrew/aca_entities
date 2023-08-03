@@ -2,7 +2,6 @@
 
 require 'spec_helper'
 require 'aca_entities/medicaid/mec_check'
-require 'pry'
 
 RSpec.describe AcaEntities::Medicaid::MecCheck::Operations::GenerateXml  do
   describe 'When a valid json file is passed' do
