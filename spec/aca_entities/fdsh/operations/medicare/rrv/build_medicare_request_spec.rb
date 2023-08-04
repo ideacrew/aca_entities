@@ -632,7 +632,7 @@ RSpec.describe AcaEntities::Fdsh::Rrv::Medicare::Operations::BuildMedicareReques
   end
 
   subject do
-    described_class.new.call([application])
+    described_class.new.call({ applications: [application], transaction_encrypted_ssn: "test" })
   end
 
   it "is successful" do
