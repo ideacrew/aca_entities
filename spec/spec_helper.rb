@@ -2,7 +2,6 @@
 
 require 'bundler/setup'
 require 'aca_entities'
-# require 'pry'
 
 # Load spec dependencies and configs
 Dir[File.join('.', 'spec', 'support', 'config', '**', '*.rb')].sort.each do |f|
