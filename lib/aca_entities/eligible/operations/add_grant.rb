@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require 'dry/monads'
-require 'dry/monads/do'
+require "dry/monads"
+require "dry/monads/do"
 
 module AcaEntities
   module Eligible
@@ -26,28 +26,36 @@ module AcaEntities
       private
 
       def validate_input_params(params)
-        return Failure('subject is required') unless params[:subject]
-        return Failure('eligibility is required') unless params[:eligibility]
-        return Failure('grant is required') unless params[:grant]
+        return Failure("subject is required") unless params[:subject]
+        return Failure("eligibility is required") unless params[:eligibility]
+        return Failure("grant is required") unless params[:grant]
 
         params[:subject] = params[:subject].classify.constantize
         Success(params)
       end
 
       def find_eligibility_type(values)
-        eligibility_type = values[:subject].resource_name_for(:eligibility, values[:eligibility][:key])
+        eligibility_type =
+          values[:subject].resource_name_for(
+            :eligibility,
+            values[:eligibility][:key]
+          )
 
         Success(eligibility_type)
       end
 
       def create_grant(eligibility_type, values)
-        AcaEntities::Eligible::CreateGrantType.new.call({ subject: eligibility_type, grant: values[:grant] })
+        AcaEntities::Eligible::CreateGrantType.new.call(
+          { subject: eligibility_type, grant: values[:grant] }
+        )
       end
 
       def update_eligibility(values, grant)
         (values[:eligibility][:grants] ||= []) << grant
 
-        AcaEntities::Eligible::CreateEligibilityType.new.call({ subject: values[:subject], eligibility: values[:eligibility] })
+        AcaEntities::Eligible::CreateEligibilityType.new.call(
+          { subject: values[:subject], eligibility: values[:eligibility] }
+        )
       end
     end
   end

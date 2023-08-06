@@ -63,7 +63,7 @@ module AcaEntities
       # @!attribute [r] timestamp
       # Timestamp of the resource ie. submitted, created or modified time of the resource
       # @return [Timestamp]
-      attribute :timestamp,
+      attribute :timestamps,
                 AcaEntities::TimeStamp.optional.meta(omittable: true)
 
       # delegate :current_state,
