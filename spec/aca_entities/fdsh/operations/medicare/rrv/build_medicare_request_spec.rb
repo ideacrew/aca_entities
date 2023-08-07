@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-
+require 'pry'
 require 'spec_helper'
 
 RSpec.describe AcaEntities::Fdsh::Rrv::Medicare::Operations::BuildMedicareRequest, dbclean: :after_each do
@@ -13,7 +13,8 @@ RSpec.describe AcaEntities::Fdsh::Rrv::Medicare::Operations::BuildMedicareReques
       :is_ridp_verified => true,
       :is_renewal_authorized => true,
       :applicants =>
-        [{ :name =>
+        [
+          { :name =>
              { :first_name => "filing",
                :middle_name => nil,
                :last_name => "jointly",
@@ -162,7 +163,7 @@ RSpec.describe AcaEntities::Fdsh::Rrv::Medicare::Operations::BuildMedicareReques
            :mitc_is_required_to_file_taxes => true,
            :income_evidence => nil,
            :esi_evidence => nil,
-           :non_esi_evidence => nil,
+           :non_esi_evidence => {key: "test", title: "test"},
            :local_mec_evidence => nil },
          { :name =>
              { :first_name => "filing",
@@ -171,8 +172,8 @@ RSpec.describe AcaEntities::Fdsh::Rrv::Medicare::Operations::BuildMedicareReques
                :name_sfx => nil,
                :name_pfx => nil },
            :identifying_information =>
-             { :encrypted_ssn => "yobheUbYUK2Abfc6lrq37YQCsPgBL8lLkw==\n",
-               :ssn => "518124854",
+             { :encrypted_ssn => "ibu5cZijQZrnn4ozptYg5YQCsPgBL8lLkg==\n",
+               :ssn => "518124855",
                :has_ssn => false },
            :demographic =>
              { :gender => "Female",
@@ -313,7 +314,7 @@ RSpec.describe AcaEntities::Fdsh::Rrv::Medicare::Operations::BuildMedicareReques
            :mitc_is_required_to_file_taxes => true,
            :income_evidence => nil,
            :esi_evidence => nil,
-           :non_esi_evidence => nil,
+           :non_esi_evidence => {key: "test", title: "test"},
            :local_mec_evidence => nil },
          { :name =>
              { :first_name => "filing",
@@ -322,8 +323,8 @@ RSpec.describe AcaEntities::Fdsh::Rrv::Medicare::Operations::BuildMedicareReques
                :name_sfx => nil,
                :name_pfx => nil },
            :identifying_information =>
-             { :encrypted_ssn => "yobheUbYUK2Abfc6lrq37YQCsPgBL8lLkw==\n",
-               :ssn => "518124854",
+             { :encrypted_ssn => "SPCRaepuModO0h0stvKJ3IQCsPgBL8lLkQ==\n",
+               :ssn => "518124856",
                :has_ssn => false },
            :demographic =>
              { :gender => "Male",
@@ -464,7 +465,7 @@ RSpec.describe AcaEntities::Fdsh::Rrv::Medicare::Operations::BuildMedicareReques
            :mitc_is_required_to_file_taxes => true,
            :income_evidence => nil,
            :esi_evidence => nil,
-           :non_esi_evidence => nil,
+           :non_esi_evidence => {key: "test", title: "test"},
            :local_mec_evidence => nil }],
       :tax_households =>
         [{ :max_aptc => 0.0,
@@ -632,10 +633,14 @@ RSpec.describe AcaEntities::Fdsh::Rrv::Medicare::Operations::BuildMedicareReques
   end
 
   subject do
-    described_class.new.call({ applications: [application], transaction_encrypted_ssn: "test" })
+    described_class.new.call({ applications: [application], transaction_encrypted_ssn: "yobheUbYUK2Abfc6lrq37YQCsPgBL8lLkw==\n" })
   end
 
   it "is successful" do
     expect(subject.success?).to be_truthy
+  end
+
+  it "should return only one applicant" do
+    expect(subject.success.to_hash[:IndividualRequests].count).to eq 1
   end
 end
