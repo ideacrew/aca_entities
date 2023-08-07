@@ -41,7 +41,7 @@ module AcaEntities
             end
 
             def construct_individual_request(application, transaction_encrypted_ssn)
-              application.applicants.map do |applicant|
+              application.applicants.collect do |applicant|
                 next if can_skip_applicant?(applicant)
                 next unless applicant.identifying_information.encrypted_ssn == transaction_encrypted_ssn
 
