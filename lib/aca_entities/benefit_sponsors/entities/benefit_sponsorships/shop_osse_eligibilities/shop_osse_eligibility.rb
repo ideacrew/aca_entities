@@ -4,6 +4,9 @@ module AcaEntities
   module BenefitSponsors
     module BenefitSponsorships
       module ShopOsseEligibilities
+        # This is a feature specific entity defined to extend base eligibility class with additional fields and methods
+        # Describe the allowed evidence, grant resource names using `evidence`, `grant` macros
+        # Resource definitions are used to build the feature specific resource with contract validations
         class ShopOsseEligibility < AcaEntities::Eligible::Eligibility
           # attribute :due_on # additional attributes
           evidence :shop_osse_evidence,
