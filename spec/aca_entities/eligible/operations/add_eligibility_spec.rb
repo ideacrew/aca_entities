@@ -93,4 +93,15 @@ RSpec.describe AcaEntities::Eligible::AddEligibility do
       ).to be_a AcaEntities::BenefitSponsors::BenefitSponsorships::ShopOsseEligibilities::ShopOsseGrant
     end
   end
+
+  context "when passed invalid params" do
+    context "when invalid key passed" do
+      it "should fail" do
+        result = subject.call(required_params.except(:subject))
+
+        expect(result).to be_failure
+        expect(result.failure).to eq "subject is required"
+      end
+    end
+  end
 end

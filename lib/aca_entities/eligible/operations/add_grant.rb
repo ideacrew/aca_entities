@@ -32,6 +32,8 @@ module AcaEntities
 
         params[:subject] = params[:subject].classify.constantize
         Success(params)
+      rescue StandardError => e
+        Failure(e.message)
       end
 
       def find_eligibility_type(values)

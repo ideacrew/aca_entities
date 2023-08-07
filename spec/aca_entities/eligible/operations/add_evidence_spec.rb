@@ -22,10 +22,11 @@ RSpec.describe AcaEntities::Eligible::AddEvidence do
   end
   let(:evidence_ref) { URI("gid://enroll_app/BenefitSponsors/Evidence") }
 
+  let(:evidence_key) { :shop_osse_evidence }
   let(:evidence_params) do
     [
       {
-        key: :shop_osse_evidence,
+        key: evidence_key,
         title: "childcare subsidy",
         is_satisfied: true,
         description: "childcare subsidy evidence",
@@ -52,9 +53,11 @@ RSpec.describe AcaEntities::Eligible::AddEvidence do
     ]
   end
 
+  let(:eligibility_key) { :shop_osse_eligibility }
+
   let(:eligibility_params) do
     {
-      key: :shop_osse_eligibility,
+      key: eligibility_key,
       title: "childcare subsidy",
       description: "childcare subsidy eligibility",
       state_histories: state_histories,
@@ -63,10 +66,13 @@ RSpec.describe AcaEntities::Eligible::AddEvidence do
     }
   end
 
+  let(:subject_klass) do
+    "AcaEntities::BenefitSponsors::BenefitSponsorships::BenefitSponsorship"
+  end
+
   let(:required_params) do
     {
-      subject:
-        "AcaEntities::BenefitSponsors::BenefitSponsorships::BenefitSponsorship",
+      subject: subject_klass,
       eligibility: eligibility_params,
       evidence:
         evidence_params.first.merge(title: "childcare subsidy evidence2")
@@ -99,6 +105,44 @@ RSpec.describe AcaEntities::Eligible::AddEvidence do
       expect(eligibility.evidences.map(&:title)).to include(
         "childcare subsidy evidence2"
       )
+    end
+  end
+
+  context "when different eligibility and evidence key are passed" do
+    let(:eligibility_key) { :shop_osse }
+    let(:evidence_key) { :evidence }
+
+    it "should use default evidence class" do
+      result = subject.call(required_params)
+
+      expect(result.success?).to be_truthy
+
+      output = result.success
+      expect(output.first).to be_a AcaEntities::Eligible::Evidence
+      expect(output.last).to be_a AcaEntities::Eligible::Eligibility
+    end
+  end
+
+  context "when passed invalid params" do
+    context "when invalid key passed" do
+      it "should fail" do
+        result = subject.call(required_params.except(:subject))
+
+        expect(result).to be_failure
+        expect(result.failure).to eq "subject is required"
+      end
+    end
+
+    context "when unknow class passed as subject" do
+      let(:subject_klass) do
+        "AcaEntities::BenefitSponsors::BenefitSponsorships::ShopBenefitSponsorship"
+      end
+      it "should return failure monad" do
+        result = subject.call(required_params)
+
+        expect(result).to be_failure
+        expect(result.failure).to eq "uninitialized constant #{subject_klass}"
+      end
     end
   end
 end

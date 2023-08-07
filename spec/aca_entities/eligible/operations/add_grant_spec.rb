@@ -36,6 +36,9 @@ RSpec.describe AcaEntities::Eligible::AddGrant do
     ]
   end
 
+  let(:eligibility_key) { :shop_osse_eligibility }
+  let(:grant_key) { :min_employee_participation_relaxed_grant }
+
   let(:grant_params) do
     [
       {
@@ -63,10 +66,13 @@ RSpec.describe AcaEntities::Eligible::AddGrant do
     }
   end
 
+  let(:subject_klass) do
+    "AcaEntities::BenefitSponsors::BenefitSponsorships::BenefitSponsorship"
+  end
+
   let(:required_params) do
     {
-      subject:
-        "AcaEntities::BenefitSponsors::BenefitSponsorships::BenefitSponsorship",
+      subject: subject_klass,
       eligibility: eligibility_params,
       grant: grant_params.first.merge(title: "minimum employee rule relaxed 2")
     }
@@ -98,6 +104,44 @@ RSpec.describe AcaEntities::Eligible::AddGrant do
       expect(eligibility.grants.map(&:title)).to include(
         "minimum employee rule relaxed 2"
       )
+    end
+  end
+
+  context "when different eligibility and evidence key are passed" do
+    let(:eligibility_key) { :shop_osse }
+    let(:grant_key) { :grant }
+
+    it "should use default evidence class" do
+      result = subject.call(required_params)
+
+      expect(result.success?).to be_truthy
+
+      output = result.success
+      expect(output.first).to be_a AcaEntities::Eligible::Grant
+      expect(output.last).to be_a AcaEntities::Eligible::Eligibility
+    end
+  end
+
+  context "when passed invalid params" do
+    context "when invalid key passed" do
+      it "should fail" do
+        result = subject.call(required_params.except(:subject))
+
+        expect(result).to be_failure
+        expect(result.failure).to eq "subject is required"
+      end
+    end
+
+    context "when unknow class passed as subject" do
+      let(:subject_klass) do
+        "AcaEntities::BenefitSponsors::BenefitSponsorships::ShopBenefitSponsorship"
+      end
+      it "should return failure monad" do
+        result = subject.call(required_params)
+
+        expect(result).to be_failure
+        expect(result.failure).to eq "uninitialized constant #{subject_klass}"
+      end
     end
   end
 end

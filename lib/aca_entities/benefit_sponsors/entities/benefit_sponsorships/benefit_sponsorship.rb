@@ -27,9 +27,6 @@ module AcaEntities
         attribute :aasm_state, Types::Strict::Symbol
         attribute :organization_id, Types::String.optional
         attribute :market_kind, Types::Strict::Symbol
-
-        # attribute :benefit_applications,
-        #           Types::Array.of(BenefitSponsors::BenefitApplication)
       end
     end
   end
