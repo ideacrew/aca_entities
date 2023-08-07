@@ -4,7 +4,6 @@ module AcaEntities
   module Eligible
     # entity class for Eligibility
     class Eligibility < Dry::Struct
-
       INELIGIBLE_STATUSES = %i[initial expired].freeze
       ELIGIBLE_STATUSES = %i[published].freeze
       EVENTS = %i[move_to_initial move_to_published move_to_expired].freeze
@@ -12,7 +11,7 @@ module AcaEntities
       STATE_TRANSITION_MAP = {
         initial: [:initial],
         published: [:initial],
-        expired: [:initial, :published]
+        expired: %i[initial published]
       }.freeze
 
       # @!attribute [r] _id
@@ -66,24 +65,11 @@ module AcaEntities
       attribute :timestamps,
                 AcaEntities::TimeStamp.optional.meta(omittable: true)
 
-      # delegate :current_state,
-      #          :latest_state_history,
-      #          to: :eligibility_state_handler,
-      #          allow_nil: false
-
       def eligibility_state_handler
         @eligibility_state_handler ||=
           AcaEntities::Eligible::StateHandlers::EligibilityStateHandler.new(
             self
           )
-      end
-
-      # def is_satisfied?
-      #   evidences.all?(&:is_satisfied?)
-      # end
-
-      def satisfied?(date = Date.today)
-        # test
       end
 
       class << self
@@ -112,12 +98,7 @@ module AcaEntities
         end
 
         def evidence_resource_for(key)
-          if resource_ref_dir[
-            :evidences
-          ]
-            resource =
-              resource_ref_dir[:evidences][key.to_sym]
-          end
+          resource = resource_ref_dir[:evidences][key.to_sym] if resource_ref_dir[:evidences]
           return AcaEntities::Eligible::Evidence unless resource
           resource.class_name.constantize
         end

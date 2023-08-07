@@ -34,22 +34,6 @@ module AcaEntities
       # @return [Timestamp]
       attribute :timestamps,
                 AcaEntities::TimeStamp.optional.meta(omittable: true)
-
-      # def latest_is_eligible
-      #   latest_history&.is_eligible
-      # end
-
-      # def latest_effective_on
-      #   latest_history&.effective_on
-      # end
-
-      # def latest_state
-      #   latest_history&.to_state
-      # end
-
-      # def latest_history
-      #   site_histories.max_by(&:transition_at)
-      # end
     end
   end
 end

@@ -4,15 +4,14 @@ module AcaEntities
   module Eligible
     # entity class for Evidence
     class Evidence < Dry::Struct
-
       INELIGIBLE_STATUSES = %i[initial denied].freeze
       ELIGIBLE_STATUSES = %i[approved].freeze
       EVENTS = %i[move_to_initial move_to_approved move_to_denied].freeze
 
       STATE_TRANSITION_MAP = {
         initial: [:initial],
-        approved: [:initial, :denied],
-        denied: [:initial, :approved]
+        approved: %i[initial denied],
+        denied: %i[initial approved]
       }.freeze
 
       # @!attribute [r] _id
@@ -66,26 +65,6 @@ module AcaEntities
       # @return [Timestamp]
       attribute :timestamps,
                 AcaEntities::TimeStamp.optional.meta(omittable: true)
-
-      def satisfied?
-        # state_histories.last.approved?
-      end
-
-      # def latest_is_eligible
-      #   latest_history&.is_eligible
-      # end
-
-      # def latest_effective_on
-      #   latest_history&.effective_on
-      # end
-
-      # def latest_state
-      #   latest_history&.to_state
-      # end
-
-      # def latest_history
-      #   site_histories.max_by(&:transition_at)
-      # end
     end
   end
 end
