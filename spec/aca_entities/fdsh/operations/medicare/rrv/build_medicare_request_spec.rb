@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-require 'pry'
+
 require 'spec_helper'
 
 RSpec.describe AcaEntities::Fdsh::Rrv::Medicare::Operations::BuildMedicareRequest, dbclean: :after_each do
