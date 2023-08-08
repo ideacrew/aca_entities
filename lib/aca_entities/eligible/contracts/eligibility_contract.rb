@@ -9,6 +9,7 @@ module AcaEntities
         required(:key).filled(:symbol)
         required(:title).filled(:string)
         optional(:description).maybe(:string)
+        required(:current_state).filled(:symbol)
         required(:evidences).filled(:array)
         required(:grants).filled(:array)
         required(:state_histories).filled(:array)

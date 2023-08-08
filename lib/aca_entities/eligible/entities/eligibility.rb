@@ -34,7 +34,11 @@ module AcaEntities
       # @return [String]
       attribute? :description, Types::String.optional.meta(omittable: true)
 
-      # FIXME: We may store different evidence classes not just AcaEntities::Eligible::Evidence
+      # @!attribute [r] current_state
+      # CurrentState of the resource
+      # @return [Symbol]
+      attribute :current_state, Types::Symbol.meta(omittable: false)
+
       # @!attribute [r] evidences
       # Collection of evidences for the eligibility
       # @return [Arrray]

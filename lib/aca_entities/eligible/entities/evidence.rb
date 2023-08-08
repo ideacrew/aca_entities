@@ -34,6 +34,11 @@ module AcaEntities
       # @return [String]
       attribute? :description, Types::String.optional.meta(omittable: true)
 
+      # @!attribute [r] current_state
+      # CurrentState of the resource
+      # @return [Symbol]
+      attribute :current_state, Types::Symbol.meta(omittable: false)
+
       # @!attribute [r] is_satisfied
       # Boolean value that responsents whether an evidence is satisfied or not
       # @return [Boolean]
