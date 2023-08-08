@@ -28,6 +28,7 @@ RSpec.describe AcaEntities::Eligible::AddEligibility do
         key: :shop_osse_evidence,
         title: "childcare subsidy",
         is_satisfied: true,
+        current_state: :initial,
         description: "childcare subsidy evidence",
         state_histories: state_histories,
         evidence_ref: evidence_ref,
@@ -56,6 +57,7 @@ RSpec.describe AcaEntities::Eligible::AddEligibility do
     {
       key: :shop_osse_eligibility,
       title: "childcare subsidy",
+      current_state: :initial,
       description: "childcare subsidy eligibility",
       state_histories: state_histories,
       evidences: evidence_params,

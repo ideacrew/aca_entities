@@ -28,6 +28,7 @@ RSpec.describe AcaEntities::People::IvlOsseEligibilities::AdminAttestedEvidence 
     {
       key: key,
       title: title,
+      current_state: :initial,
       is_satisfied: is_satisfied,
       state_histories: state_histories,
       subject_ref: subject_ref,

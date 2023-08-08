@@ -27,6 +27,7 @@ RSpec.describe AcaEntities::BenefitSponsors::BenefitSponsorships::ShopOsseEligib
         key: :shop_osse_evidence,
         title: "childcare subsidy",
         is_satisfied: true,
+        current_state: :initial,
         description: "childcare subsidy evidence",
         state_histories: state_histories,
         evidence_ref: evidence_ref,
@@ -58,6 +59,7 @@ RSpec.describe AcaEntities::BenefitSponsors::BenefitSponsorships::ShopOsseEligib
     {
       key: key,
       title: title,
+      current_state: :initial,
       state_histories: state_histories,
       evidences: evidence_params,
       grants: grant_params

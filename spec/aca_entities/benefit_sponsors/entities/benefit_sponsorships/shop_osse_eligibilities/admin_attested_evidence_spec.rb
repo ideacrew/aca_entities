@@ -30,6 +30,7 @@ RSpec.describe AcaEntities::BenefitSponsors::BenefitSponsorships::ShopOsseEligib
       key: key,
       title: title,
       is_satisfied: is_satisfied,
+      current_state: :initial,
       state_histories: state_histories,
       evidence_ref: evidence_ref,
       subject_ref: subject_ref
