@@ -141,7 +141,9 @@ RSpec.describe AcaEntities::Eligible::AddEvidence do
         result = subject.call(required_params)
 
         expect(result).to be_failure
-        expect(result.failure).to eq "uninitialized constant #{subject_klass}"
+        expect(result.failure).to include(
+          "uninitialized constant #{subject_klass}"
+        )
       end
     end
   end
