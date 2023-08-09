@@ -2,10 +2,9 @@
 
 require "spec_helper"
 
-RSpec.describe AcaEntities::Eligible::Evidence do
+RSpec.describe AcaEntities::People::IvlOsseEligibilities::IvlOsseEligibility do
   let(:key) { :hc4cc }
   let(:title) { "childcare subsidy" }
-  let(:is_satisfied) { true }
   let(:description) { "childcare subsidy eligibility" }
   let(:history_params) do
     {
@@ -17,23 +16,52 @@ RSpec.describe AcaEntities::Eligible::Evidence do
       transition_at: DateTime.now
     }
   end
+
+  let(:subject_ref) { URI("gid://enroll_app/People/Consumer") }
+  let(:evidence_ref) { URI("gid://enroll_app/People/Evidence") }
+
+  let(:evidence_params) do
+    [
+      {
+        key: :shop_osse_evidence,
+        title: "childcare subsidy",
+        is_satisfied: true,
+        current_state: :initial,
+        description: "childcare subsidy evidence",
+        state_histories: state_histories,
+        subject_ref: subject_ref,
+        evidence_ref: evidence_ref
+      }
+    ]
+  end
+
+  let(:grant_params) do
+    [
+      {
+        key: :premium_subsidy_grant,
+        title: "Premium subsidy grant",
+        description: "extra subsidy for osse eligible consumers",
+        value:
+          AcaEntities::Eligible::Value.new(
+            title: "premium grant",
+            key: :premium_subsidy_grant
+          ).to_h
+      }
+    ]
+  end
+
   let(:state_histories) do
     [AcaEntities::Eligible::StateHistory.new(history_params)]
   end
-  let(:subject_ref) do
-    URI("gid://enroll_app/BenefitSponsors/BenefitSponsorship")
-  end
-  let(:evidence_ref) { URI("gid://enroll_app/BenefitSponsors/Evidence") }
 
   let(:required_params) do
     {
       key: key,
       title: title,
-      is_satisfied: is_satisfied,
       current_state: :initial,
       state_histories: state_histories,
-      evidence_ref: evidence_ref,
-      subject_ref: subject_ref
+      evidences: evidence_params,
+      grants: grant_params
     }
   end
 

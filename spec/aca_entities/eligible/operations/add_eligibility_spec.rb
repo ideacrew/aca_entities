@@ -2,10 +2,11 @@
 
 require "spec_helper"
 
-RSpec.describe AcaEntities::Eligible::Eligibility do
-  let(:key) { :hc4cc }
-  let(:title) { "childcare subsidy" }
-  let(:description) { "childcare subsidy eligibility" }
+RSpec.describe AcaEntities::Eligible::AddEligibility do
+  let(:state_histories) do
+    [AcaEntities::Eligible::StateHistory.new(history_params)]
+  end
+
   let(:history_params) do
     {
       effective_on: Date.today,
@@ -15,9 +16,6 @@ RSpec.describe AcaEntities::Eligible::Eligibility do
       event: :move_to_eligible,
       transition_at: DateTime.now
     }
-  end
-  let(:state_histories) do
-    [AcaEntities::Eligible::StateHistory.new(history_params)]
   end
   let(:subject_ref) do
     URI("gid://enroll_app/BenefitSponsors/BenefitSponsorship")
@@ -55,34 +53,57 @@ RSpec.describe AcaEntities::Eligible::Eligibility do
     ]
   end
 
-  let(:required_params) do
+  let(:eligibility_params) do
     {
-      key: key,
-      title: title,
+      key: :shop_osse_eligibility,
+      title: "childcare subsidy",
       current_state: :initial,
+      description: "childcare subsidy eligibility",
       state_histories: state_histories,
       evidences: evidence_params,
       grants: grant_params
     }
   end
 
-  let(:optional_params) { { description: description } }
-
-  let(:all_params) { required_params.merge(optional_params) }
+  let(:required_params) do
+    {
+      subject:
+        "AcaEntities::BenefitSponsors::BenefitSponsorships::BenefitSponsorship",
+      eligibility: eligibility_params
+    }
+  end
 
   context "Initializing with required params" do
     it "should initialize the entity" do
-      result = described_class.new(required_params)
+      result = subject.call(required_params)
 
-      expect(result).to be_a described_class
+      expect(result).to be_success
+      expect(
+        result.value!
+      ).to be_a AcaEntities::BenefitSponsors::BenefitSponsorships::ShopOsseEligibilities::ShopOsseEligibility
+    end
+
+    it "should create evidence and grant" do
+      result = subject.call(required_params)
+
+      eligibility = result.value!
+      expect(
+        eligibility.evidences.first
+      ).to be_a AcaEntities::BenefitSponsors::BenefitSponsorships::ShopOsseEligibilities::AdminAttestedEvidence
+      expect(
+        eligibility.grants.first
+      ).to be_a AcaEntities::BenefitSponsors::BenefitSponsorships::ShopOsseEligibilities::ShopOsseGrant
     end
   end
 
-  context "initializing with additional optional params" do
-    it "should initialize the entity" do
-      result = described_class.new(all_params)
+  context "when passed invalid params" do
+    context "when invalid key passed" do
+      it "should fail" do
+        result = subject.call(required_params.except(:subject))
 
-      expect(result).to be_a described_class
+        expect(result).to be_failure
+        expect(result.failure).to eq "subject is required"
+      end
     end
   end
 end

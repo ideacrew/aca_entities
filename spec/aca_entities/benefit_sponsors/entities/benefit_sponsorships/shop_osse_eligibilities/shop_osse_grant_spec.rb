@@ -2,29 +2,12 @@
 
 require "spec_helper"
 
-RSpec.describe AcaEntities::Eligible::Grant do
+RSpec.describe AcaEntities::BenefitSponsors::BenefitSponsorships::ShopOsseEligibilities::ShopOsseGrant do
   let(:key) { :contribution_grant }
   let(:title) { "childcare subsidy contribution" }
   let(:value) { AcaEntities::Eligible::Value.new(title: title, key: key) }
   let(:description) { "childcare subsidy contribution grant" }
-  let(:history_params) do
-    {
-      effective_on: Date.today,
-      is_eligible: true,
-      from_state: :draft,
-      to_state: :eligible,
-      event: :move_to_eligible,
-      transition_at: DateTime.now
-    }
-  end
-
-  let(:state_histories) do
-    [AcaEntities::Eligible::StateHistory.new(history_params)]
-  end
-
-  let(:required_params) do
-    { key: key, title: title, value: value, state_histories: state_histories }
-  end
+  let(:required_params) { { key: key, title: title, value: value } }
 
   let(:optional_params) { { description: description } }
 

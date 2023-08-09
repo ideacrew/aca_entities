@@ -5,12 +5,13 @@ module AcaEntities
     # contract for Eligible::StateHistory
     class StateHistoryContract < Dry::Validation::Contract
       params do
+        optional(:_id).filled(Types::Coercible::String)
         required(:effective_on).filled(:date)
         required(:is_eligible).filled(:bool)
-        required(:from_state).filled(:string)
-        required(:to_state).filled(:string)
+        required(:from_state).filled(:symbol)
+        required(:to_state).filled(:symbol)
         required(:transition_at).filled(:date_time)
-        optional(:event).maybe(:string)
+        optional(:event).maybe(:symbol)
         optional(:comment).maybe(:string)
         optional(:reason).maybe(:string)
         optional(:timestamps).filled(

@@ -2,7 +2,7 @@
 
 require "spec_helper"
 
-RSpec.describe AcaEntities::Eligible::Evidence do
+RSpec.describe AcaEntities::BenefitSponsors::BenefitSponsorships::ShopOsseEligibilities::AdminAttestedEvidence do
   let(:key) { :hc4cc }
   let(:title) { "childcare subsidy" }
   let(:is_satisfied) { true }
