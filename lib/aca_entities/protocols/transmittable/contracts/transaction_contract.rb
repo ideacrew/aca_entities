@@ -15,6 +15,7 @@ module AcaEntities
             required(:key).value(:symbol)
             optional(:title).maybe(:string)
             optional(:description).maybe(:string)
+            optional(:transaction_id).maybe(:string)
 
             required(:process_status).value(AcaEntities::Protocols::Transmittable::Contracts::ProcessStatusContract.params)
 

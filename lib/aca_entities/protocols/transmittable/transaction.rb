@@ -26,6 +26,11 @@ module AcaEntities
         # @return [String]
         attribute :description, Types::String.optional.meta(omittable: true)
 
+        # @!attribute [r] transaction_id
+        # An unambiguous reference to the resource kind
+        # @return [String]
+        attribute :transaction_id, Types::String.optional.meta(omittable: true)
+
         # @!attribute [r] process_status
         # The current state of a process and the history of its state transitions for this transaction
         # @return AcaEntities::Protocols::Transmittable::ProcessStatus
