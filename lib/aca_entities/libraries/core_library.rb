@@ -202,6 +202,7 @@ module AcaEntities
       # Operations
       require 'aca_entities/operations/operations'
       require 'aca_entities/operations/create_family'
+      require 'aca_entities/operations/create_person'
     end
   end
 end
