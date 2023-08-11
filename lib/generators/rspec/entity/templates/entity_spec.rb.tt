@@ -1,0 +1,30 @@
+# frozen_string_literal: true
+
+require 'rails_helper'
+
+<% module_namespacing do -%>
+RSpec.describe <%= class_name %> do
+  subject { described_class.new }
+
+  let(:required_params) { {} }
+  let(:optional_params) { {} }
+  let(:all_params) { required_params.merge(optional_params) }
+
+  describe 'With required arguments' do
+    pending "add 'required params' scenario #{__FILE__}"
+
+    # it 'should initialize' do
+      # expect(subject.new(required_params)).to be_a described_class
+    # end
+  end
+
+  describe 'With all arguments' do
+    pending "add 'all params' scenario #{__FILE__}"
+
+    # it 'should initialize' do
+      # expect(subject.new(all_params)).to be_a described_class
+    # end
+  end
+
+end
+<% end -%>

@@ -1,0 +1,9 @@
+Description:
+  Create Domain Operation file
+
+Example:
+  bin/rails generate domain:operation accounts/update
+
+  creates an Accounts::Update operation class and RSpec spec:
+    Operation: app/operations/accounts/update_operation.rb
+    Rspec: spec/operations/accounts/update_operation_spec.rb

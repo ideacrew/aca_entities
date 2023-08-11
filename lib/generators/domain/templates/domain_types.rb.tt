@@ -1,0 +1,13 @@
+# frozen_string_literal: true
+
+require 'dry-types'
+
+module <%= @app_name.classify %>
+  # <%= @app_name.classify %> Custom Data Types
+  module Types
+    send(:include, Dry.Types)
+    send(:include, Dry::Logic)
+
+    # Add custom types for this application here
+  end
+end
