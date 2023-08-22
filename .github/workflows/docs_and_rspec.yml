@@ -10,8 +10,6 @@ jobs:
         with:
           mongoDBVersion: '4.2'
       - uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: 2.6
       - name: Cache Gems
         uses: actions/cache@v1
         with:
