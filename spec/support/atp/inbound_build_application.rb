@@ -1,12 +1,13 @@
 # frozen_string_literal: true
 
 RSpec.shared_context "inbound_build_application" do
-  let(:context) do
+  let(:context_hash) do
     # context hash formatted in separate lines to make finding and adjusting fields for future specs easier
     # rubocop:disable Layout/LineLength
-    context_hash = {
+    {
       "external_id" => { :name => "external_id",
                          :item => "IDC1000886" },
+      "insurance_application.coverage_renewal_year_quantity" => { :name => "coverage_renewal_year_quantity", :item => 1 },
       "insurance_application.insurance_applicants" => { :name => "insurance_application.insurance_applicants",
                                                         :item => { :IDC1003158 => { :id => "IDC1003158",
                                                                                     :role_reference => { :ref => "IDC1003158" },
@@ -22,18 +23,18 @@ RSpec.shared_context "inbound_build_application" do
                                                                                     :eligible_itu_services_indicator => nil,
                                                                                     :lawful_presence_status => { :arrived_before_1996_indicator => nil,
                                                                                                                  :immigration_documents => [{ :expiration_date => { :date => nil },
-                                                                                                                                              :document_numbers => [{ :identification_id => 12_345  },
-                                                                                                                                                                    { :identification_id => 54_321  }],
+                                                                                                                                              :document_numbers => [{ :identification_id => 12_345 },
+                                                                                                                                                                    { :identification_id => 54_321 }],
                                                                                                                                               :document_person_ids => [{ :identification_id => 67_890,
-                                                                                                                                                                         :identification_category_text => "Alien Number"  }],
+                                                                                                                                                                         :identification_category_text => "Alien Number" }],
                                                                                                                                               :same_name_indicator => nil,
                                                                                                                                               :category_text => nil,
                                                                                                                                               :category_code => "NaturalizationCertificate" },
                                                                                                                                             { :expiration_date => { :date => nil },
-                                                                                                                                              :document_numbers => [{ :identification_id => 12_345  },
-                                                                                                                                                                    { :identification_id => 54_321  }],
+                                                                                                                                              :document_numbers => [{ :identification_id => 12_345 },
+                                                                                                                                                                    { :identification_id => 54_321 }],
                                                                                                                                               :document_person_ids => [{ :identification_id => 67_890,
-                                                                                                                                                                         :identification_category_text => "Alien Number"  }],
+                                                                                                                                                                         :identification_category_text => "Alien Number" }],
                                                                                                                                               :same_name_indicator => nil,
                                                                                                                                               :category_text => nil,
                                                                                                                                               :category_code => "NaturalizationCertificate" }],
@@ -81,10 +82,10 @@ RSpec.shared_context "inbound_build_application" do
                                                                                     :eligible_itu_services_indicator => nil,
                                                                                     :lawful_presence_status => { :arrived_before_1996_indicator => nil,
                                                                                                                  :immigration_documents => [{ :expiration_date => { :date => nil },
-                                                                                                                                              :document_numbers => [{ :identification_id => nil  },
-                                                                                                                                                                    { :identification_id => nil  }],
+                                                                                                                                              :document_numbers => [{ :identification_id => nil },
+                                                                                                                                                                    { :identification_id => nil }],
                                                                                                                                               :document_person_ids => [{ :identification_id => nil,
-                                                                                                                                                                         :identification_category_text => nil  }],
+                                                                                                                                                                         :identification_category_text => nil }],
                                                                                                                                               :same_name_indicator => nil,
                                                                                                                                               :category_text => nil,
                                                                                                                                               :category_code => nil }],
@@ -122,7 +123,7 @@ RSpec.shared_context "inbound_build_application" do
                                                                                                                                    :date_time => "",
                                                                                                                                    :year => nil,
                                                                                                                                    :year_month => nil } }],
-                                                                                    :absent_parent_or_spouse_code => nil,
+                                                                                    :absent_parent_or_spouse_code => 'Yes',
                                                                                     :blindness_or_disability_indicator => nil,
                                                                                     :coverage_during_previous_six_months_indicator => nil,
                                                                                     :eligible_itu_services_indicator => nil,
@@ -164,7 +165,8 @@ RSpec.shared_context "inbound_build_application" do
                                                                          :privacy_agreement_indicator => true,
                                                                          :pending_charges_indicator => true,
                                                                          :information_changes_indicator => true,
-                                                                         :application_terms_indicator => true } },
+                                                                         :application_terms_indicator => true,
+                                                                         :attestation_terms => true } },
       "tax_returns" => { :name => "tax_returns",
                          :item => nil },
       "record.people.IDC1003158" => { :name => "record.people.IDC1003158",
@@ -224,7 +226,14 @@ RSpec.shared_context "inbound_build_application" do
                                                                               :frequency => { :frequency_code => "Annually" },
                                                                               :payment_frequency => nil,
                                                                               :source_organization_reference => { :ref => "em2009481180751485382" } }],
-                                                               :expenses => [],
+                                                               :expenses => [{ :category_text => nil,
+                                                                               :amount => 500,
+                                                                               :frequency => { :frequency_code => "Monthly" },
+                                                                               :category_code => "Alimony" },
+                                                                             { :category_text => "IRA deduction",
+                                                                               :amount => 100,
+                                                                               :frequency => { :frequency_code => "Annually" },
+                                                                               :category_code => nil }],
                                                                :employments => [{ :begin_date => nil,
                                                                                   :end_date => nil,
                                                                                   :esi_augmentation => nil,
@@ -450,6 +459,9 @@ RSpec.shared_context "inbound_build_application" do
                                                                :family_relationships => [],
                                                                :person_identification => nil } }
     }
+  end
+
+  let(:context) do
     # rubocop:enable Layout/LineLength
     AcaEntities::Operations::Transforms::Context.new(context_hash)
   end

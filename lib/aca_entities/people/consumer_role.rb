@@ -6,8 +6,7 @@ module AcaEntities
       include AcaEntities::Eligible::Eligible
 
       eligibility :ivl_osse_eligibility,
-                  class_name:
-                    'AcaEntities::People::IvlOsseEligibility::Eligibility'
+                  class_name: 'AcaEntities::People::IvlOsseEligibilities::IvlOsseEligibility'
 
       attribute :five_year_bar,                     Types::Bool.optional.meta(omittable: false)
       attribute :requested_coverage_start_date,     Types::Date.optional.meta(omittable: false)

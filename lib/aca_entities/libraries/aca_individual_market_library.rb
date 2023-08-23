@@ -36,6 +36,10 @@ module AcaEntities
       require 'aca_entities/contracts/verifications/verification_type_history_element_contract'
       require 'aca_entities/contracts/people/consumer_role_contract'
       require 'aca_entities/contracts/people/resident_role_contract'
+      require 'aca_entities/cms/pbp/contracts/prorated_amount_contract'
+      require 'aca_entities/cms/pbp/contracts/financial_information_contract'
+      require 'aca_entities/cms/pbp/contracts/sbmi_enrollee_contract'
+      require 'aca_entities/cms/pbp/contracts/sbmi_policy_contract'
 
       # entities
       require 'aca_entities/timestamp'
@@ -60,12 +64,12 @@ module AcaEntities
       require 'aca_entities/people/consumer_role_reference'
 
       require_relative 'eligibility_library'
-      require 'aca_entities/people/contracts/ivl_osse_eligibility/admin_attested_evidence_contract'
-      require 'aca_entities/people/contracts/ivl_osse_eligibility/grant_contract'
-      require 'aca_entities/people/contracts/ivl_osse_eligibility/eligibility_contract'
-      require 'aca_entities/people/ivl_osse_eligibility/admin_attested_evidence'
-      require 'aca_entities/people/ivl_osse_eligibility/grant'
-      require 'aca_entities/people/ivl_osse_eligibility/eligibility'
+      require 'aca_entities/people/contracts/ivl_osse_eligibilities/admin_attested_evidence_contract'
+      require 'aca_entities/people/contracts/ivl_osse_eligibilities/ivl_osse_grant_contract'
+      require 'aca_entities/people/contracts/ivl_osse_eligibilities/ivl_osse_eligibility_contract'
+      require 'aca_entities/people/ivl_osse_eligibilities/admin_attested_evidence'
+      require 'aca_entities/people/ivl_osse_eligibilities/ivl_osse_grant'
+      require 'aca_entities/people/ivl_osse_eligibilities/ivl_osse_eligibility'
 
       require 'aca_entities/benefit_catalogs/benefit_coverage_period_reference'
       require 'aca_entities/benefit_catalogs/benefit_package_reference'
@@ -79,6 +83,10 @@ module AcaEntities
       require 'aca_entities/policies/aptc_credit'
       require 'aca_entities/policies/aptc_maximum'
       require 'aca_entities/policies/policy'
+      require 'aca_entities/cms/pbp/prorated_amount'
+      require 'aca_entities/cms/pbp/financial_information'
+      require 'aca_entities/cms/pbp/sbmi_enrollee'
+      require 'aca_entities/cms/pbp/sbmi_policy'
 
       require_relative 'fdsh_library'
       require_relative 'core_library'

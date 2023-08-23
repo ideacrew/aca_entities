@@ -213,9 +213,11 @@ module AcaEntities
       end
 
       # Not US citizen and did not attest to having an eligible immigration status.
-      def non_citizen_and_no_lawful_presence_attestation
+      # Additional check added to verify naturalized citizen status.
+      def valid_citizen_eligibility_check
         citizen_status = citizenship_immigration_status_information&.citizen_status
         return nil unless citizen_status
+        return false if ['us_citizen', 'naturalized_citizen'].include?(citizen_status)
         citizen_status != 'us_citizen' && !citizenship_immigration_status_information.is_lawful_presence_self_attested
       end
 

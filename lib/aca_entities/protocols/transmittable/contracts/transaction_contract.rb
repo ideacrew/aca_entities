@@ -15,12 +15,13 @@ module AcaEntities
             required(:key).value(:symbol)
             optional(:title).maybe(:string)
             optional(:description).maybe(:string)
+            optional(:transaction_id).maybe(:string)
 
             required(:process_status).value(AcaEntities::Protocols::Transmittable::Contracts::ProcessStatusContract.params)
 
             required(:started_at).value(:date_time)
             optional(:ended_at).maybe(:date_time)
-            required(:errors).array(AcaEntities::Protocols::Transmittable::Contracts::ErrorContract.params)
+            required(:transmittable_errors).array(AcaEntities::Protocols::Transmittable::Contracts::TransmittableErrorContract.params)
 
             optional(:timestamps).maybe(AcaEntities::Contracts::TimeStampContract.params)
             optional(:json_payload).maybe(:hash)

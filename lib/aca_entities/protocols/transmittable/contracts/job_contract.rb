@@ -49,7 +49,7 @@ module AcaEntities
             optional(:expire_on).maybe(:date_time)
             required(:process_status).value(AcaEntities::Protocols::Transmittable::Contracts::ProcessStatusContract.params)
             optional(:transmissions).array(AcaEntities::Protocols::Transmittable::Contracts::TransmissionContract.params)
-            required(:errors).array(AcaEntities::Protocols::Transmittable::Contracts::ErrorContract.params)
+            required(:transmittable_errors).array(AcaEntities::Protocols::Transmittable::Contracts::TransmittableErrorContract.params)
             optional(:deny_list).array(AcaEntities::Protocols::Transmittable::Contracts::SubjectContract.params)
             optional(:allow_list).array(AcaEntities::Protocols::Transmittable::Contracts::SubjectContract.params)
             optional(:timestamps).maybe(AcaEntities::Contracts::TimeStampContract.params)

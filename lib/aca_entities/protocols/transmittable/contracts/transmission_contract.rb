@@ -20,7 +20,7 @@ module AcaEntities
             optional(:ended_at).maybe(:date_time)
 
             required(:process_status).value(AcaEntities::Protocols::Transmittable::Contracts::ProcessStatusContract.params)
-            required(:errors).array(AcaEntities::Protocols::Transmittable::Contracts::ErrorContract.params)
+            required(:transmittable_errors).array(AcaEntities::Protocols::Transmittable::Contracts::TransmittableErrorContract.params)
             optional(:timestamps).maybe(AcaEntities::Contracts::TimeStampContract.params)
             optional(:transmission_id).maybe(:string)
           end

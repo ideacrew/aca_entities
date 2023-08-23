@@ -26,6 +26,11 @@ module AcaEntities
         # @return [String]
         attribute :description, Types::String.optional.meta(omittable: true)
 
+        # @!attribute [r] transaction_id
+        # An unambiguous reference to the resource kind
+        # @return [String]
+        attribute :transaction_id, Types::String.optional.meta(omittable: true)
+
         # @!attribute [r] process_status
         # The current state of a process and the history of its state transitions for this transaction
         # @return AcaEntities::Protocols::Transmittable::ProcessStatus
@@ -44,7 +49,7 @@ module AcaEntities
         # @!attribute [r] errors
         # The list of exceptions that occurred under this Transaction
         # @return [Array<Transmittble::Error>]
-        attribute :errors, Types::Array.of(AcaEntities::Protocols::Transmittable::Errors).meta(omittable: true)
+        attribute :transmittable_errors, Types::Array.of(AcaEntities::Protocols::Transmittable::TransmittableError).meta(omittable: true)
 
         # @!attribute [r] timestamps
         # Date and time that this resource was originally created and last updated. Time is represented in
