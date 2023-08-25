@@ -30,12 +30,12 @@ servers:
     description: RabbitMQ Test Server
 
 channels:
-  enroll.enroll.eligible.eligibility.events.create_default_eligibility:
+  enroll.eligible.eligibility.events.create_default_eligibility:
     bindings:
       amqp:
         is: :routing_key
         exchange:
-          name: enroll.enroll.eligible.eligibility.events
+          name: enroll.eligible.eligibility.events
           type: topic
           content_type: application/json
           durable: true
@@ -43,25 +43,25 @@ channels:
           vhost: event_source
         binding_version: "0.2.0"
     publish:
-      operationId: enroll.enroll.eligible.eligibility.events.create_default_eligibility
+      operationId: enroll.eligible.eligibility.events.create_default_eligibility
       description: Events - create default eligible eligibilities
       bindings:
         amqp:
           app_id: enroll
-          type: enroll.enroll.eligible.eligibility.events
-          routing_key: enroll.enroll.eligible.eligibility.events.create_default_eligibility
+          type: enroll.eligible.eligibility.events
+          routing_key: enroll.eligible.eligibility.events.create_default_eligibility
           deliveryMode: 2
           mandatory: true
           timestamp: true
           content_type: application/json
           bindingVersion: 0.2.0
 
-  enroll.enroll.eligible.eligibility.events.renew_eligibility:
+  enroll.eligible.eligibility.events.renew_eligibility:
     bindings:
       amqp:
         is: :routing_key
         exchange:
-          name: enroll.enroll.eligible.eligibility.events
+          name: enroll.eligible.eligibility.events
           type: topic
           content_type: application/json
           durable: true
@@ -69,13 +69,13 @@ channels:
           vhost: event_source
         binding_version: "0.2.0"
     publish:
-      operationId: enroll.enroll.eligible.eligibility.events.renew_eligibility
+      operationId: enroll.eligible.eligibility.events.renew_eligibility
       description: Events - renew eligible eligibilities
       bindings:
         amqp:
           app_id: enroll
-          type: enroll.enroll.eligible.eligibility.events
-          routing_key: enroll.enroll.eligible.eligibility.events.renew_eligibility
+          type: enroll.eligible.eligibility.events
+          routing_key: enroll.eligible.eligibility.events.renew_eligibility
           deliveryMode: 2
           mandatory: true
           timestamp: true
