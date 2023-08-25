@@ -3,6 +3,7 @@
 # dependencies
 # external
 require 'aca_entities/attestations/attestations'
+require 'aca_entities/accounts/oauth/omniauth'
 
 # contracts
 require_relative 'contracts/profile_contract'
