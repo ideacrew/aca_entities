@@ -1,0 +1,87 @@
+---
+asyncapi: 2.0.0
+info:
+  title: Enroll App
+  version: 0.1.0
+  description: AMQP Publishconfiguration for the Enroll App services
+  contact:
+    name: IdeaCrew
+    url: https://ideacrew.com
+    email: info@ideacrew.com
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+
+servers:
+  production:
+    url: 'amqp://rabbitmq:5672/event_source'
+    protocol: :amqp
+    protocolVersion: '0.9.2'
+    description: RabbitMQ Production Server
+  development:
+    url: 'amqp://rabbitmq:5672/event_source'
+    protocol: :amqp
+    protocolVersion: '0.9.2'
+    description: RabbitMQ Test Server
+  test:
+    url: 'amqp://rabbitmq:5672/event_source'
+    protocol: :amqp
+    protocolVersion: '0.9.2'
+    description: RabbitMQ Test Server
+
+channels:
+  enroll.enroll.eligible.eligibility.events.create_default_eligibility:
+    bindings:
+      amqp:
+        is: :routing_key
+        exchange:
+          name: enroll.enroll.eligible.eligibility.events
+          type: topic
+          content_type: application/json
+          durable: true
+          auto_delete: false
+          vhost: event_source
+        binding_version: "0.2.0"
+    publish:
+      operationId: enroll.enroll.eligible.eligibility.events.create_default_eligibility
+      description: Events - create default eligible eligibilities
+      bindings:
+        amqp:
+          app_id: enroll
+          type: enroll.enroll.eligible.eligibility.events
+          routing_key: enroll.enroll.eligible.eligibility.events.create_default_eligibility
+          deliveryMode: 2
+          mandatory: true
+          timestamp: true
+          content_type: application/json
+          bindingVersion: 0.2.0
+
+  enroll.enroll.eligible.eligibility.events.renew_eligibility:
+    bindings:
+      amqp:
+        is: :routing_key
+        exchange:
+          name: enroll.enroll.eligible.eligibility.events
+          type: topic
+          content_type: application/json
+          durable: true
+          auto_delete: false
+          vhost: event_source
+        binding_version: "0.2.0"
+    publish:
+      operationId: enroll.enroll.eligible.eligibility.events.renew_eligibility
+      description: Events - renew eligible eligibilities
+      bindings:
+        amqp:
+          app_id: enroll
+          type: enroll.enroll.eligible.eligibility.events
+          routing_key: enroll.enroll.eligible.eligibility.events.renew_eligibility
+          deliveryMode: 2
+          mandatory: true
+          timestamp: true
+          content_type: application/json
+          bindingVersion: 0.2.0
+
+tags:
+  - name: linter_tag
+    description: placeholder that satisfies the linter
