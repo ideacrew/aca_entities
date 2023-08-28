@@ -4,7 +4,7 @@ module AcaEntities
   module Accounts
     module Contracts
       # Schema and validation rules for {AcaEntities::Accounts::Attributes}
-      class AttributesContract < Dry::Validation::Contract
+      class AttributesContract < Contract
         # @!method call(opts)
         # @param [Hash] opts the parameters to validate using this contract
         # @option opts [String] :relay_state optional

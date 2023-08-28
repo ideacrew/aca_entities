@@ -36,7 +36,7 @@ module AcaEntities
           optional(:first_name).maybe(:string)
           optional(:last_name).maybe(:string)
           optional(:password).maybe(:string)
-          optional(:attributes).hash(AttributesContract.params)
+          optional(:attributes).hash(AcaEntities::Accounts::Contracts::AttributesContract.params)
           optional(:realm_roles).array(:string)
           optional(:client_roles).array(:string)
           optional(:groups).array(:string)

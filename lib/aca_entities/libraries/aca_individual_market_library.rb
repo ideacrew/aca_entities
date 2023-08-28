@@ -10,6 +10,7 @@ module AcaEntities
       require 'aca_entities/magi_medicaid/libraries/iap_library'
 
       # contracts
+      require 'aca_entities/contracts/contract'
       require 'aca_entities/contracts/timestamp_contract'
       require 'aca_entities/contracts/currency_contract'
       require 'aca_entities/contracts/organizations/issuer_profile_reference_contract'

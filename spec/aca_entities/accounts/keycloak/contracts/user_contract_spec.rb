@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe AcaEntities::Accounts::Contracts::KeycloakUserRepresentationContract do
+RSpec.describe AcaEntities::Accounts::Keycloak::Contracts::UserContract do
   subject { described_class.new }
 
   let(:access) do

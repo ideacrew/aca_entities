@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe AcaEntities::Accounts::Contracts::KeycloakCredentialRepresentationContract do
+RSpec.describe AcaEntities::Accounts::Keycloak::Contracts::CredentialsContract do
   subject { described_class.new }
 
   let(:algorithm) { 'aes' }
