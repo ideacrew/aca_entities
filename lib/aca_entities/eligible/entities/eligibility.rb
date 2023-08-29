@@ -9,9 +9,8 @@ module AcaEntities
       EVENTS = %i[move_to_initial move_to_eligible move_to_ineligible].freeze
 
       STATE_TRANSITION_MAP = {
-        initial: [:initial],
-        eligible: [:initial],
-        ineligible: %i[initial eligible]
+        eligible: %i[initial eligible ineligible],
+        ineligible: %i[initial eligible ineligible]
       }.freeze
 
       # @!attribute [r] _id

@@ -14,10 +14,9 @@ module AcaEntities
       ].freeze
 
       STATE_TRANSITION_MAP = {
-        initial: [:initial],
         not_approved: [:initial],
-        approved: %i[initial not_approved denied],
-        denied: %i[initial approved]
+        approved: %i[initial not_approved approved denied],
+        denied: %i[initial not_approved approved denied]
       }.freeze
 
       # @!attribute [r] _id
