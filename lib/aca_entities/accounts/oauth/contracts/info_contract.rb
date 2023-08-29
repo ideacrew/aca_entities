@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'uri'
-
 module AcaEntities
   module Accounts
     module Oauth

@@ -7,9 +7,33 @@ RSpec.describe AcaEntities::Accounts::Oauth::Contracts::OmniauthContract do
 
   let(:provider) { 'keycloak_openid' }
   let(:uid) { 'george.jetson' }
+
   let(:name) { 'George Jetson' }
+  let(:email) { 'george.jetson@example.com' }
+  let(:nickname) { 'Georgy' }
+  let(:first_name) { 'George' }
+  let(:last_name) { 'Jetson' }
+  let(:location) { 'New Columbia' }
+  let(:description) { "George likes cloud surfing and observing Saturn's Rings" }
+  let(:image) { 'https://example.com/images/george_jetson.jpeg' }
+  let(:phone) { '4105551212' }
+  let(:urls) { { blog: 'https://example.com/blogs/george_jetson' } }
+
   let(:info) { { name: name } }
-  let(:credentials) { {} }
+
+  let(:token) { '48jdlllejjllklkfkklkdlfkfl' }
+  let(:secret) { 'abd837sd989ddlsdlkdflkasd394887j' }
+  let(:expires) { true }
+  let(:expires_at) { Time.now }
+
+  let(:credentials) do
+    {
+      token: token,
+      secret: secret,
+      expires: expires,
+      expires_at: expires_at
+    }
+  end
   let(:extra) { {} }
 
   let(:required_params) { { provider: provider, uid: uid, info: info } }
