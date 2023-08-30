@@ -46,11 +46,14 @@ module AcaEntities
       end
 
       def validate_state_changes(resource_name, values)
-        return Success(values) unless values[:state_history]
-        validator = StateChangeValidator.new(values[:state_history], resource_name)
+        return Success(values) unless values[:state_histories]
+
+        validator =
+          StateChangeValidator.new(values[:state_histories], resource_name)
         validator.validate
 
-        validator.errors.empty? ? Success(values) : Failure(validator.errors)
+        return Failure(validator.errors) unless validator.errors.empty?
+        Success(values)
       end
 
       def create(resource_name, values)

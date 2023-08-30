@@ -7,7 +7,6 @@ module AcaEntities
       INELIGIBLE_STATUSES = %i[initial not_approved denied].freeze
       ELIGIBLE_STATUSES = %i[approved].freeze
       EVENTS = %i[
-        move_to_initial
         move_to_not_approved
         move_to_approved
         move_to_denied

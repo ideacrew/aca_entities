@@ -3,17 +3,32 @@
 require "spec_helper"
 
 RSpec.describe AcaEntities::Eligible::AddEvidence do
-  let(:state_histories) do
-    [AcaEntities::Eligible::StateHistory.new(history_params)]
+  let(:eligibility_state_histories) do
+    [AcaEntities::Eligible::StateHistory.new(eligibility_history_params)]
   end
 
-  let(:history_params) do
+  let(:eligibility_history_params) do
     {
       effective_on: Date.today,
       is_eligible: true,
-      from_state: :draft,
+      from_state: :ineligible,
       to_state: :eligible,
       event: :move_to_eligible,
+      transition_at: DateTime.now
+    }
+  end
+
+  let(:evidence_state_histories) do
+    [AcaEntities::Eligible::StateHistory.new(evidence_history_params)]
+  end
+
+  let(:evidence_history_params) do
+    {
+      effective_on: Date.today,
+      is_eligible: true,
+      from_state: :not_approved,
+      to_state: :approved,
+      event: :move_to_approved,
       transition_at: DateTime.now
     }
   end
@@ -31,7 +46,7 @@ RSpec.describe AcaEntities::Eligible::AddEvidence do
         is_satisfied: true,
         current_state: :initial,
         description: "childcare subsidy evidence",
-        state_histories: state_histories,
+        state_histories: evidence_state_histories,
         evidence_ref: evidence_ref,
         subject_ref: subject_ref
       }
@@ -48,8 +63,7 @@ RSpec.describe AcaEntities::Eligible::AddEvidence do
           AcaEntities::Eligible::Value.new(
             title: "minimum employee rule relaxed",
             key: :min_employee_relaxed
-          ).to_h,
-        state_histories: state_histories
+          ).to_h
       }
     ]
   end
@@ -62,7 +76,7 @@ RSpec.describe AcaEntities::Eligible::AddEvidence do
       title: "childcare subsidy",
       current_state: :initial,
       description: "childcare subsidy eligibility",
-      state_histories: state_histories,
+      state_histories: eligibility_state_histories,
       evidences: evidence_params,
       grants: grant_params
     }
@@ -146,6 +160,31 @@ RSpec.describe AcaEntities::Eligible::AddEvidence do
         expect(result.failure).to include(
           "uninitialized constant #{subject_klass}"
         )
+      end
+    end
+
+    context "when invalid evidence event, to_state passed" do
+      let(:evidence_history_params) do
+        {
+          effective_on: Date.today,
+          is_eligible: true,
+          from_state: :initial,
+          to_state: :not_approved,
+          event: :move_to_eligible,
+          transition_at: DateTime.now
+        }
+      end
+
+      it "should fail" do
+        result = subject.call(required_params)
+
+        expect(result).to be_failure
+        expect(
+          result.failure
+        ).to include "event name should be move_to_not_approved"
+        expect(
+          result.failure
+        ).to include "is_eligible should be false for not_approved state"
       end
     end
   end
