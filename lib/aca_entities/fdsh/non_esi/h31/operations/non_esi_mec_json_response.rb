@@ -15,7 +15,8 @@ module AcaEntities
             def call(params)
               validated_params = yield validate_params(params)
               validated_payload = yield validate_response_payload(validated_params[:response_payload])
-              updated_application_hash = yield update_application(validated_params[:application_hash], validated_payload)
+              application_entity = yield build_application(validated_params[:application_hash])
+              updated_application_hash = yield update_application(application_entity.to_h, validated_payload)
               updated_application = yield build_application(updated_application_hash)
 
               Success(updated_application)
