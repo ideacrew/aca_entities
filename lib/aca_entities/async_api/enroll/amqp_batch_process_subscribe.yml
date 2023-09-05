@@ -1,0 +1,55 @@
+---
+asyncapi: 2.0.0
+info:
+  title: Enroll App
+  version: 0.1.0
+  description: AMQP Subsribe configuration for the Enroll App services
+  contact:
+    name: IdeaCrew
+    url: https://ideacrew.com
+    email: info@ideacrew.com
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+
+servers:
+  production:
+    url: "amqp://rabbitmq:5672/event_source"
+    protocol: :amqp
+    protocolVersion: "0.9.2"
+    description: RabbitMQ Production Server
+  development:
+    url: "amqp://rabbitmq:5672/event_source"
+    protocol: :amqp
+    protocolVersion: "0.9.2"
+    description: RabbitMQ Test Server
+  test:
+    url: "amqp://rabbitmq:5672/event_source"
+    protocol: :amqp
+    protocolVersion: "0.9.2"
+    description: RabbitMQ Test Server
+channels:
+  on_enroll.enroll.batch_process.events:
+    bindings:
+      amqp:
+        is: queue
+        queue:
+          name: on_enroll.enroll.batch_process.events
+          durable: true
+          exclusive: false
+          auto_delete: false
+          vhost: event_source
+    subscribe:
+      bindings:
+        amqp:
+          ack: true
+          exclusive: false
+          routing_key: enroll.batch_process.events.#
+          prefetch: 1
+          bindingVersion: "0.2.0"
+      operationId: on_enroll.enroll.batch_process.events
+      description: Events - for system batch processing
+
+tags:
+  - name: linter_tag
+    description: placeholder that satisfies the linter
