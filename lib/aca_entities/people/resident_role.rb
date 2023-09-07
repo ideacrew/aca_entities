@@ -6,8 +6,7 @@ module AcaEntities
       include AcaEntities::Eligible::Eligible
 
       eligibility :ivl_osse_eligibility,
-                  class_name:
-                    'AcaEntities::People::IvlOsseEligibility::Eligibility'
+                  class_name: 'AcaEntities::People::IvlOsseEligibilities::IvlOsseEligibility'
 
       attribute :is_applicant,                          Types::Bool.optional.meta(omittable: false)
       attribute :is_active,                             Types::Bool.optional.meta(omittable: true)

@@ -1,26 +1,19 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
-
-module AcaEntities
-  module Eligible
-    class GrantExample < Dry::Struct
-      include AcaEntities::Eligible::Grant
-    end
-  end
-end
+require "spec_helper"
 
 RSpec.describe AcaEntities::Eligible::Grant do
   let(:key) { :contribution_grant }
-  let(:title) { 'childcare subsidy contribution' }
+  let(:title) { "childcare subsidy contribution" }
   let(:value) { AcaEntities::Eligible::Value.new(title: title, key: key) }
-  let(:description) { 'childcare subsidy contribution grant' }
+  let(:description) { "childcare subsidy contribution grant" }
   let(:history_params) do
     {
       effective_on: Date.today,
       is_eligible: true,
-      from_state: 'draft',
-      to_state: 'eligible',
+      from_state: :draft,
+      to_state: :eligible,
+      event: :move_to_eligible,
       transition_at: DateTime.now
     }
   end
@@ -37,21 +30,19 @@ RSpec.describe AcaEntities::Eligible::Grant do
 
   let(:all_params) { required_params.merge(optional_params) }
 
-  subject { AcaEntities::Eligible::GrantExample }
+  context "Initializing with required params" do
+    it "should initialize the entity" do
+      result = described_class.new(required_params)
 
-  context 'Initializing with required params' do
-    it 'should initialize the entity' do
-      result = subject.new(required_params)
-
-      expect(result).to be_a subject
+      expect(result).to be_a described_class
     end
   end
 
-  context 'initializing with additional optional params' do
-    it 'should initialize the entity' do
-      result = subject.new(all_params)
+  context "initializing with additional optional params" do
+    it "should initialize the entity" do
+      result = described_class.new(all_params)
 
-      expect(result).to be_a subject
+      expect(result).to be_a described_class
     end
   end
 end
