@@ -3,7 +3,7 @@
 module AcaEntities
   module Fdsh
     module NonEsi
-      module H31
+      module Rj31
         module Operations
           # validate non esi response and update application
           class NonEsiMecJsonResponse
@@ -31,7 +31,8 @@ module AcaEntities
             end
 
             def validate_response_payload(payload)
-              schema_data = JSON.parse(File.read(Pathname.pwd.join("lib/aca_entities/fdsh/non_esi/h31/schemas/VerifyNonESIMEC-Response-schema.json")))
+              schema_path = Pathname.pwd.join("lib/aca_entities/fdsh/non_esi/rj31/schemas/VerifyNonESIMEC-Response-schema.json")
+              schema_data = JSON.parse(File.read(schema_path))
 
               result = begin
                 JSON::Validator.fully_validate(schema_data, JSON.parse(payload.to_json))

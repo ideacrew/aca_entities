@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe AcaEntities::Fdsh::NonEsi::H31::Operations::NonEsiMecJsonResponse, dbclean: :after_each do
+RSpec.describe AcaEntities::Fdsh::NonEsi::Rj31::Operations::NonEsiMecJsonResponse, dbclean: :after_each do
   let(:application_params) do
     {
       :family_reference => { :hbx_id => "10205" },
