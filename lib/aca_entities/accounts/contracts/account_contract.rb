@@ -6,13 +6,14 @@ module AcaEntities
       # Schema and validation rules for {AcaEntities::Accounts::Account}
       class AccountContract < Contract
         params do
-          optional(:id).maybe(:string)
+          optional(:id).filled(:string)
           required(:provider).filled(:string)
           required(:uid).filled(:string)
           required(:name).filled(:string)
-          optional(:email).filled(:string)
-
-          optional(:timestamp).hash(AcaEntities::Contracts::TimeStampContract.params)
+          optional(:email).value(AcaEntities::Types::EmailAddressKind)
+          optional(:encrypted_password).value(:string)
+          optional(:created_at).filled(:time)
+          optional(:updated_at).filled(:time)
         end
       end
     end

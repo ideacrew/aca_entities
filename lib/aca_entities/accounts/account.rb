@@ -5,11 +5,46 @@ module AcaEntities
     # An OmniAuth 2 identity stored on a local service that represents a party (person or service) authenticated
     # through a # trusted third party service
     class Account < Dry::Struct
-      attribute :id, Types::String.optional.meta(omittable: true)
-      attribute :provider, Types::String.optional.meta(omittable: false)
-      attribute :uid, Types::String.optional.meta(omittable: false)
-      attribute :name, Types::String.optional.meta(omittable: false)
-      attribute :email, AcaEntities::Types::EmailAddressKind.optional.meta(omittable: true)
+      # @!attribute [r] id
+      # Local database ID for this account
+      # @return [String]
+      attribute? :id, Types::String.meta(omittable: true)
+
+      # @!attribute [r] provider
+      # The name of the third party service that authenticated this account
+      # @return [String]
+      attribute :provider, Types::String.meta(omittable: false)
+
+      # @!attribute [r] uid
+      # A provider-assigned unique identifier for this account
+      # @return [String]
+      attribute :uid, Types::String.meta(omittable: false)
+
+      # @!attribute [r] name
+      # Display name for the OAuth account. Usually a concatenation of first and last name of the owner
+      # but may also be an arbitrary designator or nickname
+      # @return [String]
+      attribute :name, Types::String.meta(omittable: false)
+
+      # @!attribute [r] email
+      # Email address of the authenticated user
+      # @return [String]
+      attribute? :email, AcaEntities::Types::EmailAddressKind.meta(omittable: true)
+
+      # @!attribute [r] encrypted_password
+      # Encrypted password for the authenticated user
+      # @return [String]
+      attribute? :encrypted_password, Types::String.meta(omittable: true)
+
+      # @!attribute [r] created_at
+      # Date and time when this account record was created
+      # @return [Time]
+      attribute? :created_at, Types::Time.meta(ommittable: true)
+
+      # @!attribute [r] updated_at
+      # Date and time when this account record was last updated
+      # @return [Time]
+      attribute? :updated_at, Types::Time.meta(ommittable: true)
     end
   end
 end

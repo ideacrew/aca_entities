@@ -10,11 +10,15 @@ RSpec.describe AcaEntities::Accounts::Account do
   let(:uid) { '6304e375-c5f6-45c4-bd9c-da75b01d19f4' }
   let(:name) { 'Steven Strange' }
   let(:email) { 'my_username@example.com' }
+  let(:encrypted_password) { 'abc123xyz' }
 
-  let(:created_at) { DateTime.now }
+  let(:created_at) { Time.now }
+  let(:updated_at) { created_at }
 
   let(:required_params) { { provider: provider, uid: uid, name: name } }
-  let(:optional_params) { { id: id, email: email } }
+  let(:optional_params) do
+    { id: id, email: email, encrypted_password: encrypted_password, created_at: created_at, updated_at: updated_at }
+  end
   let(:all_params) { required_params.merge(optional_params) }
 
   let(:contract_klass) { AcaEntities::Accounts::Contracts::AccountContract }

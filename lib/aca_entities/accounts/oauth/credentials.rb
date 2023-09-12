@@ -19,12 +19,12 @@ module AcaEntities
 
         # @!attribute [r] expires
         # Flag indicating whether the access token has an expiry date
-        # @return [String]
+        # @return [Boolean]
         attribute :expires, Types::Bool.meta(omittable: true)
 
         # @!attribute [r] expires_at
         # Timestamp of the expiry time
-        # @return [String]
+        # @return [Time]
         attribute :expires_at, Types::Time.meta(omittable: true)
       end
     end
