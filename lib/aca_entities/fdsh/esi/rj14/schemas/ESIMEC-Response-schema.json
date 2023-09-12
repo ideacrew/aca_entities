@@ -1,0 +1,89 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "id": "./ESIMEC-Response-schema.json",
+    "title": "Employer-Sponsored Insurance (ESI) Minimum Essential Coverage (MEC) (RJ14) - Response Schema",
+    "description": "ESI MEC service supports the verification of eligibility for Office of Personnel Management (OPM) health coverage for an Applicant requesting an eligibility determination for APTC and CSRs.",
+    "type": "object",
+    "$comment": "Define root as esiMECResponse. Note: applicantResponseArray and responseMetadata should be considered mutually exclusive but this is not enforced by this schema.",
+    "required": ["esiMECResponse"],
+    "additionalProperties": false,
+    "properties": {
+        "esiMECResponse": {
+        "description": "responseMetadata may appear alone at the top response level if an exception occurs.",
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "applicantResponseArray": {
+                    "type": "array",
+                    "minItems": 1,
+                    "items": {"$ref": "#/definitions/applicantResponseArrayType"}
+                },
+                "responseMetadata": {"$ref": "#/definitions/responseMetadataType"}
+            }
+        }
+    },
+    "definitions": {
+        "applicantResponseArrayType": {
+            "description": "Response for each individual request in the household - SSN, indicators and coverage dates. Note: responseMetadata is required at applicant level.",
+            "type": "object",
+            "required": [
+                "personSocialSecurityNumber",
+                "responseMetadata"
+            ],
+            "additionalProperties": false,
+            "properties": {
+                "personSocialSecurityNumber": {"$ref": "./lib/aca_entities/fdsh/esi/rj14/schemas/ESIMEC-Shared-schema.json#/definitions/personSocialSecurityNumberType"},
+                "applicantMECInformation": {"$ref": "#/definitions/applicantMECInformationType"},
+                "responseMetadata": {"$ref": "#/definitions/responseMetadataType"}
+            }
+        },
+        "applicantMECInformationType": {
+            "description": "The individual's Minimal Essential Coverage information including one or more indicators.",
+            "type": "object",
+            "required": [
+                "requestedCoveragePeriod",
+                "inconsistencyIndicator"
+            ],
+            "properties": {
+                "requestedCoveragePeriod": {"$ref": "./lib/aca_entities/fdsh/esi/rj14/schemas/ESIMEC-Shared-schema.json#/definitions/requestedCoveragePeriodType"},
+                "applicantEligibleESIIndicator": {
+                    "description": "True if an applicant is eligible for ESI (employer sponsored insurance); false otherwise.",
+                    "type": "boolean"
+                },
+                "applicantInsuredIndicator": {
+                    "description": "True if the applicant is currently insured; false otherwise.",
+                    "type": "boolean"
+                },
+                "inconsistencyIndicator": {
+                    "description": "True if information about an object is inconsistent; false otherwise.",
+                    "type": "boolean"
+                },
+                "employeeMonthlyPremiumAmount": {
+                    "description": "The employee paid monthly portion amount toward the self-insurance premium amount. Floating point (decimal) value expected.",
+                    "type": "number"
+                }
+            }
+        },
+        "responseMetadataType": {
+            "description": "A set of details about a response (successful or not)",
+            "type": "object",
+            "required": [
+                "responseCode",
+                "responseText"
+            ],
+            "additionalProperties": false,
+            "properties": {
+                "responseCode": {
+                    "description": "A coded response of 8 characters, expected to be of the format HE/HX/HS followed by 6 digits, but not enforced.",
+                    "type": "string",
+                    "minLength": 8,
+                    "maxLength": 8
+                },
+                "responseText": {
+                    "description": "A description of a response",
+                    "type": "string"
+                }
+            }
+        }
+    }
+}
