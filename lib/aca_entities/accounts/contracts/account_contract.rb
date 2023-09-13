@@ -12,8 +12,8 @@ module AcaEntities
           required(:name).filled(:string)
           optional(:email).value(AcaEntities::Types::EmailAddressKind)
           optional(:encrypted_password).value(:string)
-          optional(:created_at).filled(:time)
-          optional(:updated_at).filled(:time)
+          optional(:created_at).value(:time)
+          optional(:updated_at).value(:time)
         end
       end
     end
