@@ -35,13 +35,13 @@
             ],
             "additionalProperties": false,
             "properties": {
-                "personSocialSecurityNumber": {"$ref": "./lib/aca_entities/fdsh/non_esi/h31/schemas/VerifyNonESIMEC-Shared-schema.json#/definitions/personSocialSecurityNumberType"},
-                "personGivenName": {"$ref": "./lib/aca_entities/fdsh/non_esi/h31/schemas/VerifyNonESIMEC-Shared-schema.json#/definitions/personGivenNameType"},
-                "personMiddleName": {"$ref": "./lib/aca_entities/fdsh/non_esi/h31/schemas/VerifyNonESIMEC-Shared-schema.json#/definitions/personMiddleNameType"},
-                "personSurName": {"$ref": "./lib/aca_entities/fdsh/non_esi/h31/schemas/VerifyNonESIMEC-Shared-schema.json#/definitions/personSurNameType"},
-                "personSuffixName": {"$ref": "./lib/aca_entities/fdsh/non_esi/h31/schemas/VerifyNonESIMEC-Shared-schema.json#/definitions/personSuffixNameType"},
-                "personBirthDate": {"$ref": "./lib/aca_entities/fdsh/non_esi/h31/schemas/VerifyNonESIMEC-Shared-schema.json#/definitions/dateType"},
-                "personSexCode": {"$ref": "./lib/aca_entities/fdsh/non_esi/h31/schemas/VerifyNonESIMEC-Shared-schema.json#/definitions/personSexCodeType"},
+                "personSocialSecurityNumber": {"$ref": "./lib/aca_entities/fdsh/non_esi/rj31/schemas/VerifyNonESIMEC-Shared-schema.json#/definitions/personSocialSecurityNumberType"},
+                "personGivenName": {"$ref": "./lib/aca_entities/fdsh/non_esi/rj31/schemas/VerifyNonESIMEC-Shared-schema.json#/definitions/personGivenNameType"},
+                "personMiddleName": {"$ref": "./lib/aca_entities/fdsh/non_esi/rj31/schemas/VerifyNonESIMEC-Shared-schema.json#/definitions/personMiddleNameType"},
+                "personSurName": {"$ref": "./lib/aca_entities/fdsh/non_esi/rj31/schemas/VerifyNonESIMEC-Shared-schema.json#/definitions/personSurNameType"},
+                "personSuffixName": {"$ref": "./lib/aca_entities/fdsh/non_esi/rj31/schemas/VerifyNonESIMEC-Shared-schema.json#/definitions/personSuffixNameType"},
+                "personBirthDate": {"$ref": "./lib/aca_entities/fdsh/non_esi/rj31/schemas/VerifyNonESIMEC-Shared-schema.json#/definitions/dateType"},
+                "personSexCode": {"$ref": "./lib/aca_entities/fdsh/non_esi/rj31/schemas/VerifyNonESIMEC-Shared-schema.json#/definitions/personSexCodeType"},
                 "partialResponseIndicator": {
                     "description": "Indicates a partial response for that request. This occurs when all the Trusted Data Sources have not responded in time",
                     "type": "boolean"
@@ -62,7 +62,7 @@
             ],
             "additionalProperties": false,
             "properties": {
-                "organizationCode": {"$ref": "./lib/aca_entities/fdsh/non_esi/h31/schemas/VerifyNonESIMEC-Shared-schema.json#/definitions/organizationCodeType"},
+                "organizationCode": {"$ref": "./lib/aca_entities/fdsh/non_esi/rj31/schemas/VerifyNonESIMEC-Shared-schema.json#/definitions/organizationCodeType"},
                 "mecCoverage": {"$ref": "#/definitions/mecCoverageType"},
                 "responseMetadata": {"$ref": "#/definitions/responseMetadataType"}
             }
@@ -73,7 +73,7 @@
             "required": ["mecVerificationCode"],
             "additionalProperties": false,
             "properties": {
-                "usStateCode": {"$ref": "./lib/aca_entities/fdsh/non_esi/h31/schemas/USStateCode-schema.json#/definitions/usStateCodeType"},
+                "usStateCode": {"$ref": "./lib/aca_entities/fdsh/non_esi/rj31/schemas/USStateCode-schema.json#/definitions/usStateCodeType"},
                 "mecVerificationCode": {
                     "description": "Indicates whether Minimum Eligible Coverage exists for an individual in a Trusted Data Source",
                     "type": "string",
@@ -97,8 +97,8 @@
             "required": ["insurancePolicyEffectiveDate"],
             "additionalProperties": false,
             "properties": {
-                "insurancePolicyEffectiveDate": {"$ref": "./lib/aca_entities/fdsh/non_esi/h31/schemas/VerifyNonESIMEC-Shared-schema.json#/definitions/dateType"},
-                "insurancePolicyExpirationDate": {"$ref": "./lib/aca_entities/fdsh/non_esi/h31/schemas/VerifyNonESIMEC-Shared-schema.json#/definitions/dateType"}
+                "insurancePolicyEffectiveDate": {"$ref": "./lib/aca_entities/fdsh/non_esi/rj31/schemas/VerifyNonESIMEC-Shared-schema.json#/definitions/dateType"},
+                "insurancePolicyExpirationDate": {"$ref": "./lib/aca_entities/fdsh/non_esi/rj31/schemas/VerifyNonESIMEC-Shared-schema.json#/definitions/dateType"}
             }
         },
         "responseMetadataType": {

@@ -35,8 +35,8 @@ require_relative 'non_esi/h31/individual_request'
 require_relative 'non_esi/h31/verify_non_esi_mec_request'
 
 # operations
-require_relative 'non_esi/h31/operations/non_esi_mec_json_response'
-require_relative 'non_esi/h31/operations/non_esi_mec_json_request'
+require_relative 'non_esi/rj31/operations/non_esi_mec_json_response'
+require_relative 'non_esi/rj31/operations/non_esi_mec_json_request'
 require_relative 'non_esi/h31/operations/build_non_esi_mec_request'
 
 # happymapper
