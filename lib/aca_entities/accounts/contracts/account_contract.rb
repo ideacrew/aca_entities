@@ -10,10 +10,10 @@ module AcaEntities
           required(:provider).filled(:string)
           required(:uid).filled(:string)
           required(:name).filled(:string)
-          optional(:email).value(AcaEntities::Types::EmailAddressKind)
-          optional(:encrypted_password).value(:string)
-          optional(:created_at).value(:time)
-          optional(:updated_at).value(:time)
+          optional(:email).filled(AcaEntities::Types::EmailAddressKind)
+          optional(:encrypted_password).maybe(:string)
+          optional(:created_at).maybe(:time)
+          optional(:updated_at).maybe(:time)
         end
       end
     end
