@@ -7,15 +7,15 @@ RSpec.describe AcaEntities::Protocols::Transmittable::Contracts::JobContract do
 
   let(:moment) { DateTime.now }
   let(:id) { '12345' }
-  let(:job_id) { 'abc123'}
-  let(:account) { { username: 'antman', first_name: 'Scott', last_name: 'Lang' } }
+  let(:job_id) { 'abc123' }
+  let(:account) { { provider: 'keycloak_openid', uid: 'scott.lang@avengers.com', name: 'Scott Lang' } }
   let(:key) { :verification_job }
 
   let(:title) { key.to_s }
   let(:description) { 'A dummy verification job' }
 
-  let(:saga_id) {'ssa_12345'}
-  let(:message_id) {'XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX'}
+  let(:saga_id) { 'ssa_12345' }
+  let(:message_id) { 'XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX' }
 
   let(:publish_on) { moment.to_date }
   let(:expire_on) { moment + 1 }
@@ -128,15 +128,11 @@ RSpec.describe AcaEntities::Protocols::Transmittable::Contracts::JobContract do
     let(:transaction_name) { :verification_transaction }
     let(:transaction_started_at) { moment }
     let(:process_status) { { initial_state_key: :initial, latest_state: :initial } }
-    let(:transaction_process_states) { { event: "dummy event", message: "dummy transaction", started_at: moment } }
+    let(:transaction_process_states) { { event: 'dummy event', message: 'dummy transaction', started_at: moment } }
     let(:transaction_errors) { [] }
 
     let(:transaction_params) do
-      {
-        started_at: transaction_started_at,
-        process_status: process_status,
-        transmittable_errors: transaction_errors
-      }
+      { started_at: transaction_started_at, process_status: process_status, transmittable_errors: transaction_errors }
     end
 
     context 'allow_list includes a subject entity' do
@@ -184,7 +180,7 @@ RSpec.describe AcaEntities::Protocols::Transmittable::Contracts::JobContract do
       let(:id) { '12345' }
 
       let(:transmission_key) { :verification_transmission }
-      let(:title) { "Verification Transmission of Whatever" }
+      let(:title) { 'Verification Transmission of Whatever' }
       let(:description) { 'A dummy verification transmission' }
 
       let(:started_at) { moment }
@@ -216,16 +212,14 @@ RSpec.describe AcaEntities::Protocols::Transmittable::Contracts::JobContract do
           let(:params) { all_params.merge(transmissions: [transmission]) }
           let(:error_message) do
             {
-              transmissions:
-                {
-                  0 =>
-                    {
-                      key: ['is missing'],
-                      started_at: ['is missing'],
-                      process_status: ['is missing'],
-                      transmittable_errors: ['is missing']
-                    }
+              transmissions: {
+                0 => {
+                  key: ['is missing'],
+                  started_at: ['is missing'],
+                  process_status: ['is missing'],
+                  transmittable_errors: ['is missing']
                 }
+              }
             }
           end
 

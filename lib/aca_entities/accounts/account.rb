@@ -8,7 +8,7 @@ module AcaEntities
       # @!attribute [r] id
       # Local database ID for this account
       # @return [String]
-      attribute? :id, Types::String.meta(omittable: true)
+      attribute? :id, AcaEntities::Types::StringOrNil.meta(omittable: true)
 
       # @!attribute [r] provider
       # The name of the third party service that authenticated this account
@@ -29,22 +29,22 @@ module AcaEntities
       # @!attribute [r] email
       # Email address of the authenticated user
       # @return [String]
-      attribute? :email, AcaEntities::Types::EmailAddressKind.meta(omittable: true)
+      attribute? :email, AcaEntities::Types::EmailOrNil.meta(omittable: true)
 
       # @!attribute [r] encrypted_password
       # Encrypted password for the authenticated user
       # @return [String]
-      attribute? :encrypted_password, Types::String.meta(omittable: true)
+      attribute? :encrypted_password, AcaEntities::Types::StringOrNil.meta(omittable: true)
 
       # @!attribute [r] created_at
       # Date and time when this account record was created
       # @return [Time]
-      attribute? :created_at, Types::Time.meta(ommittable: true)
+      attribute? :created_at, AcaEntities::Types::TimeOrNil.meta(ommittable: true)
 
       # @!attribute [r] updated_at
       # Date and time when this account record was last updated
       # @return [Time]
-      attribute? :updated_at, Types::Time.meta(ommittable: true)
+      attribute? :updated_at, AcaEntities::Types::TimeOrNil.meta(ommittable: true)
     end
   end
 end

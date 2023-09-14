@@ -2,27 +2,17 @@
 
 require 'spec_helper'
 
-RSpec.describe AcaEntities::Contracts::People::PersonContract,
-               type: :model,
-               dbclean: :after_each do
+RSpec.describe AcaEntities::Contracts::People::PersonContract, type: :model, dbclean: :after_each do
   it 'should be a container-ready operation' do
     expect(subject.respond_to?(:call)).to be_truthy
   end
 
   let!(:person_name) { { first_name: 'first name', last_name: 'last name' } }
 
-  let!(:person_health) do
-    { is_tobacco_user: 'unknown', is_physically_disabled: false }
-  end
+  let!(:person_health) { { is_tobacco_user: 'unknown', is_physically_disabled: false } }
 
   let!(:person_demographics) do
-    {
-      ssn: '123456789',
-      no_ssn: false,
-      gender: 'male',
-      dob: Date.today,
-      is_incarcerated: false
-    }
+    { ssn: '123456789', no_ssn: false, gender: 'male', dob: Date.today, is_incarcerated: false }
   end
 
   let(:addresses) do
@@ -57,25 +47,11 @@ RSpec.describe AcaEntities::Contracts::People::PersonContract,
     ]
   end
 
-  let(:account) do
-    {
-      id: 'lkjsdf989894',
-      username: 'steve.austin',
-      email: 'steve.austin@gmail.com',
-      first_name: 'Steve',
-      last_name: 'Austin'
-    }
-  end
+  let(:account) { { provider: 'keycloak_openid', uid: 'scott.lang@avengers.com', name: 'Scott Lang' } }
 
   let(:emails) { [{ kind: 'home', address: 'test@gmail.com' }] }
 
-  let(:timestamp) do
-    {
-      submitted_at: DateTime.now,
-      created_at: DateTime.now,
-      modified_at: DateTime.now
-    }
-  end
+  let(:timestamp) { { submitted_at: DateTime.now, created_at: DateTime.now, modified_at: DateTime.now } }
 
   let(:broker_agency_reference) do
     {
@@ -95,8 +71,7 @@ RSpec.describe AcaEntities::Contracts::People::PersonContract,
         role_type: 'consumer',
         start_on: Date.today,
         end_on: Date.today,
-        reason_code:
-          'initial_individual_market_transition_created_using_data_migration',
+        reason_code: 'initial_individual_market_transition_created_using_data_migration',
         submitted_at: DateTime.now
       }
     ]
@@ -108,8 +83,7 @@ RSpec.describe AcaEntities::Contracts::People::PersonContract,
       npn: '2355863',
       broker_agency_reference: broker_agency_reference,
       provider_kind: 'broker',
-      reason:
-        'Broker has obtained carrier appointments and has completed training.',
+      reason: 'Broker has obtained carrier appointments and has completed training.',
       market_kind: 'both',
       languages_spoken: ['en'],
       working_hours: false,
@@ -160,18 +134,10 @@ RSpec.describe AcaEntities::Contracts::People::PersonContract,
   end
 
   let!(:person_reference) do
-    {
-      hbx_id: '1234',
-      first_name: 'first name',
-      last_name: 'last name',
-      dob: Date.today,
-      gender: 'male'
-    }
+    { hbx_id: '1234', first_name: 'first name', last_name: 'last name', dob: Date.today, gender: 'male' }
   end
 
-  let!(:person_relationships) do
-    [{ kind: 'child', relative: person_reference }]
-  end
+  let!(:person_relationships) { [{ kind: 'child', relative: person_reference }] }
 
   let(:documents) { [] }
 
@@ -302,8 +268,10 @@ RSpec.describe AcaEntities::Contracts::People::PersonContract,
         action: 'SSA Hub Request',
         modifier: 'Enroll App',
         update_reason: 'Hub request',
-        event_response_record: {},
-        event_request_record: {}
+        event_response_record: {
+        },
+        event_request_record: {
+        }
       }
     ]
   end
@@ -351,10 +319,7 @@ RSpec.describe AcaEntities::Contracts::People::PersonContract,
 
   context 'failure case' do
     context 'start on date is in the past' do
-      before do
-        @result =
-          subject.call(person_params.reject { |k, _v| k == :person_name })
-      end
+      before { @result = subject.call(person_params.reject { |k, _v| k == :person_name }) }
 
       it 'should return failure' do
         expect(@result.failure?).to be_truthy

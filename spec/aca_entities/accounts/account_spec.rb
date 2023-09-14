@@ -3,15 +3,12 @@
 require 'spec_helper'
 
 RSpec.describe AcaEntities::Accounts::Account do
-  subject { described_class.new }
-
-  let(:id) { 'abc123' }
+  let(:id) { 'abc123zxy' }
   let(:provider) { 'keycloak_openid' }
   let(:uid) { '6304e375-c5f6-45c4-bd9c-da75b01d19f4' }
-  let(:name) { 'Steven Strange' }
-  let(:email) { 'my_username@example.com' }
-  let(:encrypted_password) { 'abc123xyz' }
-
+  let(:name) { 'Stephan Strange' }
+  let(:email) { 'steven@avengers.com' }
+  let(:encrypted_password) { 'sup3rS3cr3tp@ssw0rd' }
   let(:created_at) { Time.now }
   let(:updated_at) { created_at }
 
@@ -19,9 +16,36 @@ RSpec.describe AcaEntities::Accounts::Account do
   let(:optional_params) do
     { id: id, email: email, encrypted_password: encrypted_password, created_at: created_at, updated_at: updated_at }
   end
+  let(:nil_value_optional_params) { { id: nil, email: nil, encrypted_password: nil, created_at: nil, updated_at: nil } }
   let(:all_params) { required_params.merge(optional_params) }
 
   let(:contract_klass) { AcaEntities::Accounts::Contracts::AccountContract }
+
+  describe 'attributes' do
+    context 'with required params' do
+      subject(:account) { described_class.new(required_params) }
+
+      it 'has the expected attributes' do
+        expect(account.to_h).to eq required_params
+      end
+    end
+
+    context 'with all params' do
+      subject(:account) { described_class.new(all_params) }
+
+      it 'has the expected attributes' do
+        expect(account.to_h).to eq all_params
+      end
+    end
+
+    context 'with optional params that have nil values' do
+      subject(:account) { described_class.new(all_params.merge(nil_value_optional_params)) }
+
+      it 'has the expected attributes' do
+        expect(account.to_h).to eq all_params.merge(nil_value_optional_params)
+      end
+    end
+  end
 
   describe 'with valid arguments' do
     subject(:account) { described_class.new(required_params) }

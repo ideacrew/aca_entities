@@ -3,65 +3,69 @@
 require 'spec_helper'
 
 RSpec.describe AcaEntities::Accounts::Contracts::AccountContract do
-  let(:id) { 'abc123' }
+  let(:id) { 'abc123zxy' }
   let(:provider) { 'keycloak_openid' }
   let(:uid) { '6304e375-c5f6-45c4-bd9c-da75b01d19f4' }
   let(:name) { 'Stephan Strange' }
-
   let(:email) { 'steven.strange@example.com' }
+  let(:encrypted_password) { 'abc123xyz' }
   let(:created_at) { Time.now }
   let(:updated_at) { created_at }
-  let(:encrypted_password) { 'abc123xyz' }
 
-  let(:required_params) { { provider: provider, uid: uid, name: name, email: email } }
+  let(:required_params) { { provider: provider, uid: uid, name: name } }
   let(:optional_params) do
     { id: id, email: email, encrypted_password: encrypted_password, created_at: created_at, updated_at: updated_at }
   end
+  let(:nil_value_optional_params) { { id: nil, email: nil, encrypted_password: nil, created_at: nil, updated_at: nil } }
   let(:all_params) { required_params.merge(optional_params) }
 
-  describe 'validating required params' do
-    context 'Calling the contract with required params' do
+  describe 'attributes' do
+    context 'with required params' do
       subject(:account) { described_class.new.call(required_params) }
 
-      it 'passes validation' do
-        expect(account.success?).to be_truthy
-      end
-
-      it 'populates model with required params' do
+      it 'has the expected attributes' do
         expect(account.to_h).to eq required_params
       end
-    end
-  end
 
-  context 'Calling the contract with optional params' do
-    subject(:account) { described_class.new.call(optional_params) }
-
-    it 'fails validation' do
-      expect(subject.success?).to be_falsey
-    end
-  end
-
-  context 'Calling the contract with only required params' do
-    subject(:account) { described_class.new.call(required_params) }
-
-    it 'passes validation' do
-      expect(account.success?).to be_truthy
+      it 'is valid' do
+        expect(account.success?).to be_truthy
+      end
     end
 
-    it 'populates model with required params' do
-      expect(account.to_h).to eq required_params
+    context 'with all params' do
+      subject(:account) { described_class.new.call(all_params) }
+
+      it 'has the expected attributes' do
+        expect(account.to_h).to eq all_params
+      end
+
+      it 'is valid' do
+        expect(account.success?).to be_truthy
+      end
     end
-  end
 
-  context 'Calling the contract with all params' do
-    subject(:account) { described_class.new.call(all_params) }
+    context 'with only optional params' do
+      subject(:account) { described_class.new.call(optional_params) }
 
-    it 'passes validation' do
-      expect(account.success?).to be_truthy
+      it 'has the expected attributes' do
+        expect(account.to_h).to eq optional_params
+      end
+
+      it 'is not valid' do
+        expect(account.success?).to be_falsey
+      end
     end
 
-    it 'populates model with all params' do
-      expect(account.to_h).to eq all_params
+    context 'with optional params that have nil values' do
+      subject(:account) { described_class.new.call(all_params.merge(nil_value_optional_params)) }
+
+      it 'has the expected attributes' do
+        expect(account.to_h).to eq all_params.merge(nil_value_optional_params)
+      end
+
+      it 'is valid' do
+        expect(account.success?).to be_truthy
+      end
     end
   end
 end

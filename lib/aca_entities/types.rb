@@ -46,10 +46,23 @@ module AcaEntities
         'preventive_services_and_chronic_disease_management'
       )
 
+    AddressValidationStatusCode = Types::Coercible::String.enum('ValidMatch', 'PartialMatch', 'NoStreet', 'NoCity')
+
     BinaryGenderKind = Types::Coercible::String.enum('male', 'female')
     BoolOrNil = Types::Bool | Types::Nil
     DateOrNil = Types::Date | Types::Nil
+
+    EmailAddressRegex = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i.freeze
+    EmailAddressKind = Types::String.constrained(format: EmailAddressRegex)
+    EmailOrNil = EmailAddressKind | Types::Nil
+
+    # Regex for PhoneNumber
+    NumbersOnlyRegex = /^[0-9]/.freeze
+
     StringOrNil = Types::String | Types::Nil
+    TimeOrNil = Types::Time | Types::Nil
+
+    ZipCodeRegex = /\A\d{5}(-\d{4})?\z/.freeze
 
     ClientKinds = Types::String.enum('enroll', 'edi_db', 'sugar_crm', 'polypress').freeze
 
@@ -77,8 +90,7 @@ module AcaEntities
 
     TaxFilerKind = Types::Coercible::String.enum('tax_filer', 'single', 'joint', 'separate', 'dependent', 'non_filer')
 
-    McrToCvIncarcerationKind =
-      Types.Constructor(self) { |value| value == 'INCARCERATED' }
+    McrToCvIncarcerationKind = Types.Constructor(self) { |value| value == 'INCARCERATED' }
 
     UsStateAbbreviationKind =
       Types::String.enum(
@@ -235,7 +247,6 @@ module AcaEntities
       # Family members not included in the immediate relative class of
       # admission may be eligible for immigration under family-sponsored preferences.
       # Categories are organized by priority.
-
       # First: Unmarried sons/daughters of U.S. citizens and their children
       A11: 'Unmarried Amerasian sons/daughters of U.S. citizens, new arrivals',
       A16: 'Unmarried Amerasian sons/daughters of U.S. citizens, adjustments',
@@ -324,7 +335,6 @@ module AcaEntities
       B33: 'Children of B31 or B36, subject to country limits, new arrivals',
       B38: 'Children of B31 or B36, subject to country limits, adjustments',
       # Fourth: Brothers/sisters of U.S. citizens (at least 21 years of age) and their spouses and children
-
       F41: 'Brothers/sisters of U.S. citizens, new arrivals',
       F46: 'Brothers/sisters of U.S. citizens, adjustments',
       F42: 'Spouses of brothers/sisters of U.S. citizens, new arrivals',
@@ -335,7 +345,6 @@ module AcaEntities
       # Those seeking to provide needed skills in the U.S. workforce or invest in new U.S.
       # jobs may be eligible to immigrate under employment-based preferences.
       # Categories are organized by priority.
-
       # First: Priority workers
       E11: 'Aliens with extraordinary ability, new arrivals',
       E16: 'Aliens with extraordinary ability, adjustments',
@@ -477,7 +486,6 @@ module AcaEntities
       # have a well-founded fear of persecution through two programs:
       # a refugee program for persons outside the United States and their immediate relatives,
       # and an asylum program for persons in the United States and their immediate relatives.
-
       # Refugees',
       CU6: 'Cuban refugees (P.L. 89-732 of 1966)',
       CU7: 'Non-Cuban spouses or children of Cuban refugees',
@@ -504,7 +512,6 @@ module AcaEntities
       # Those who seek to immigrate to the United States from countries with relatively
       # low levels of immigration may be eligible to seek immigration under the
       # Diversity Immigrant Visa Program.
-
       # Diversity',
       DV1: 'Principals, new arrivals',
       DV6: 'Principals, adjustments',
@@ -514,7 +521,6 @@ module AcaEntities
       DV8: 'Children of DV1 or DV6, adjustments',
       # Other
       # Remaining admission categories are generally limited to persons admitted under special legislation.
-
       # Parolees',
       PH6: 'Parolees, Polish/Hungarian',
       LA6: 'Parolees, Soviet/Indochinese',
@@ -1857,17 +1863,6 @@ module AcaEntities
       fehb: %w[health dental],
       medicaid: %w[chip snap tanf]
     }.freeze
-
-    AddressValidationStatusCode = Types::Coercible::String.enum('ValidMatch', 'PartialMatch', 'NoStreet', 'NoCity')
-
-    EmailAddressRegex = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i.freeze
-
-    EmailAddressKind = Types::String.constrained(format: EmailAddressRegex)
-
-    # Regex for PhoneNumber
-    NumbersOnlyRegex = /^[0-9]/.freeze
-
-    ZipCodeRegex = /\A\d{5}(-\d{4})?\z/.freeze
 
     # List of the documents user can provide to verify Immigration status
     VlpDocumentKind =
