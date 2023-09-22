@@ -304,9 +304,9 @@ channels:
           headers:
             Content-Type: application/json
             Accept: application/json
-  /VerifyEsiMECServiceRest:
+  /VerifyEsiMecServiceRest:
     publish:
-      operationId: /VerifyEsiMECServiceRest
+      operationId: /VerifyEsiMecServiceRest
       description: Send esi mec JSON request to CMS
       message:
         contentType: application/json
@@ -319,7 +319,7 @@ channels:
             Content-Type: application/json
             Accept: application/json
     subscribe:
-      operationId: /on/VerifyEsiMECServiceRest
+      operationId: /on/VerifyEsiMecServiceRest
       description: Receive esi mec JSON response from CMS
       message:
         contentType: application/json
