@@ -388,7 +388,12 @@ RSpec.describe AcaEntities::Fdsh::Vlp::H92::VlpV37Contract, type: :model, dbclea
 
   context "Machine Readable Immigrant Visa (with Temporary I-551 Language)" do
     let(:valid_params) do
-      { subject: 'Machine Readable Immigrant Visa (with Temporary I-551 Language)', passport_number: '123456789', alien_number: '123456789' }
+      {
+        subject: 'Machine Readable Immigrant Visa (with Temporary I-551 Language)',
+        passport_number: '123456789',
+        alien_number: '123456789',
+        country_of_citizenship: 'United States'
+      }
     end
 
     context 'for success case' do
@@ -550,8 +555,13 @@ RSpec.describe AcaEntities::Fdsh::Vlp::H92::VlpV37Contract, type: :model, dbclea
 
   context "I-94 (Arrival/Departure Record) in Unexpired Foreign Passport" do
     let(:valid_params) do
-      { subject: 'I-94 (Arrival/Departure Record) in Unexpired Foreign Passport', i94_number: '123456789t6', passport_number: 'N000000',
-        expiration_date: Date.today.to_s }
+      {
+        subject: 'I-94 (Arrival/Departure Record) in Unexpired Foreign Passport',
+        i94_number: '123456789t6',
+        passport_number: 'N000000',
+        expiration_date: Date.today.to_s,
+        country_of_citizenship: 'United States'
+      }
     end
 
     context 'for success case' do
@@ -605,7 +615,7 @@ RSpec.describe AcaEntities::Fdsh::Vlp::H92::VlpV37Contract, type: :model, dbclea
 
   context "Unexpired Foreign Passport" do
     let(:valid_params) do
-      { subject: 'Unexpired Foreign Passport', passport_number: 'N000000', expiration_date: Date.today.to_s }
+      { subject: 'Unexpired Foreign Passport', passport_number: 'N000000', expiration_date: Date.today.to_s, country_of_citizenship: 'United States' }
     end
 
     context 'for success case' do

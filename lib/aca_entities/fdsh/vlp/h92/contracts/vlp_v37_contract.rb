@@ -32,6 +32,12 @@ module AcaEntities
           CARD_NUMBER_REQUIRED_SUBJECTS = ['I-551 (Permanent Resident Card)',
                                            'I-766 (Employment Authorization Card)'].freeze
 
+          COUNTRY_OF_CITIZENSHIP_REQUIRED_SUBJECTS = [
+            'I-94 (Arrival/Departure Record) in Unexpired Foreign Passport',
+            'Machine Readable Immigrant Visa (with Temporary I-551 Language)',
+            'Unexpired Foreign Passport'
+          ].freeze
+
           EXPIRATION_DATE_REQUIRED_SUBJECTS = ['I-94 (Arrival/Departure Record) in Unexpired Foreign Passport',
                                                'Unexpired Foreign Passport'].freeze
 
@@ -87,6 +93,10 @@ module AcaEntities
 
           rule(:card_number) do
             key.failure(message(values[:subject])) if  CARD_NUMBER_REQUIRED_SUBJECTS.include?(values[:subject]) && value.blank?
+          end
+
+          rule(:country_of_citizenship) do
+            key.failure(message(values[:subject])) if  COUNTRY_OF_CITIZENSHIP_REQUIRED_SUBJECTS.include?(values[:subject]) && value.blank?
           end
 
           rule(:expiration_date) do
