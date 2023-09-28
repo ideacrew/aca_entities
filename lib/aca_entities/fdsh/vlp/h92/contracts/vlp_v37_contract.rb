@@ -32,8 +32,7 @@ module AcaEntities
           CARD_NUMBER_REQUIRED_SUBJECTS = ['I-551 (Permanent Resident Card)',
                                            'I-766 (Employment Authorization Card)'].freeze
 
-          EXPIRATION_DATE_REQUIRED_SUBJECTS = ['I-766 (Employment Authorization Card)',
-                                               'I-94 (Arrival/Departure Record) in Unexpired Foreign Passport',
+          EXPIRATION_DATE_REQUIRED_SUBJECTS = ['I-94 (Arrival/Departure Record) in Unexpired Foreign Passport',
                                                'Unexpired Foreign Passport'].freeze
 
           DESCRIPTION_REQUIRED_SUBJECTS = ['Other (With Alien Number)',

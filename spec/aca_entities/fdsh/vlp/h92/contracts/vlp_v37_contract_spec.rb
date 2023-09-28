@@ -212,7 +212,7 @@ RSpec.describe AcaEntities::Fdsh::Vlp::H92::VlpV37Contract, type: :model, dbclea
 
   context "I-766 (Employment Authorization Card)" do
     let(:valid_params) do
-      { subject: 'I-766 (Employment Authorization Card)', alien_number: '123456789', card_number: '1234567890123', expiration_date: Date.today.to_s }
+      { subject: 'I-766 (Employment Authorization Card)', alien_number: '123456789', card_number: '1234567890123' }
     end
 
     context 'for success case' do
