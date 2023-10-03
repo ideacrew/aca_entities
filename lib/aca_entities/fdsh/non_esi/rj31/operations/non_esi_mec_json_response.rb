@@ -122,8 +122,9 @@ module AcaEntities
             def find_response_for_applicant(applicant, non_esi_response)
               non_esi_response[:verifyNonESIMECResponse][:individualResponseArray].detect do |individual_response|
                 ssn = individual_response[:personSocialSecurityNumber]
-                encrypted_ssn = AcaEntities::Operations::Encryption::Encrypt.new.call({ value: ssn }).value!
-                applicant[:identifying_information][:encrypted_ssn] == encrypted_ssn
+                encrypted_ssn = applicant[:identifying_information][:encrypted_ssn]
+                decrypted_ssn = AcaEntities::Operations::Encryption::Decrypt.new.call({ value: encrypted_ssn }).value!
+                ssn == decrypted_ssn
               end
             end
           end
