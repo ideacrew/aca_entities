@@ -56,8 +56,9 @@ module AcaEntities
     EmailAddressKind = Types::String.constrained(format: EmailAddressRegex)
     EmailOrNil = EmailAddressKind | Types::Nil
 
-    # Regex for PhoneNumber
     NumbersOnlyRegex = /^[0-9]/.freeze
+    NumbersOnlyKind = Types::String.constrained(format: NumbersOnlyRegex)
+    NumbersOrNil = NumbersOnlyKind | Types::Nil
 
     StringOrNil = Types::String | Types::Nil
     TimeOrNil = Types::Time | Types::Nil
