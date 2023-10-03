@@ -43,7 +43,6 @@ RSpec.describe AcaEntities::Accounts::Contracts::PersonProfileContract do
       {
         electronic_communication_method: ['is missing'],
         preferred_name: ['is missing'],
-        locale: ['is missing'],
         notice_delivery_method: ['is missing']
       }
     end

@@ -9,7 +9,7 @@ module AcaEntities
         # @!method call(opts)
         # @param [Hash] opts the attributes of an {AcaEntities::Accounts::PersonProfile}
         # @option opts [String] :preferred_name The account_holder's informal name
-        # @option opts [String] :locale Preferred system-supported language in ISO 639 encoding
+        # @option opts [AcaEntities::Types::LocaleKinds] :locale Preferred system-supported language in ISO 639 encoding. Defaults to 'en'
         # @option opts [AcaEntities::Types::CommunicationKinds] :notice_delivery_method Preferred method of receiving system notices
         # @option opts [AcaEntities::Types::ElectronicCommunicationKinds] :electronic_communication_method System-supported electronic communication methods
         # @option opts [AcaEntities::Types::EmailOrNil] :email Preferred email address for the account_holder to receive communications
@@ -21,7 +21,7 @@ module AcaEntities
 
         params do
           required(:preferred_name).filled(:string)
-          required(:locale).filled(:string)
+          required(:locale).filled(AcaEntities::Types::LocaleKinds)
           required(:notice_delivery_method).filled(AcaEntities::Types::CommunicationKinds)
           required(:electronic_communication_method).filled(AcaEntities::Types::ElectronicCommunicationKinds)
           optional(:email).maybe(AcaEntities::Types::EmailOrNil)

@@ -12,7 +12,7 @@ module AcaEntities
       # @!attribute [r] locale
       # Preferred system-supported language in ISO 639 encoding
       # @return [String]
-      attribute :locale, Types::String.meta(omittable: false)
+      attribute :locale, AcaEntities::Types::LocaleKinds.meta(omittable: false)
 
       # @!attribute [r] notice_delivery_method
       # Preferred communication channel to receive system notices

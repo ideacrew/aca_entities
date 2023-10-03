@@ -1841,7 +1841,8 @@ module AcaEntities
         'religious_conscience'
       )
 
-    LocaleKinds = Types::Coercible::String.enum('en')
+    # ISO 639 2-letter language codes supported by the system
+    LocaleKinds = Types::Coercible::String.default('en').enum('en', 'es')
 
     MarketTransitionRoleTypes = Types::Coercible::String.enum('consumer', 'resident')
 
