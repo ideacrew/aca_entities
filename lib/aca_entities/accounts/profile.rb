@@ -3,11 +3,11 @@
 module AcaEntities
   module Accounts
     # Individual person or system account holder's preference settings
-    class PersonProfile < Dry::Struct
+    class Profile < Dry::Struct
       # @!attribute [r] preferred_name
       # The account_holder's informal name
       # @return [String]
-      attribute :preferred_name, Types::String.meta(omittable: true)
+      attribute :preferred_name, Types::String.meta(omittable: false)
 
       # @!attribute [r] locale
       # Preferred system-supported language in ISO 639 encoding

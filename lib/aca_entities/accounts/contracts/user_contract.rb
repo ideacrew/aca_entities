@@ -6,11 +6,9 @@ module AcaEntities
     module Contracts
       # Contract for validating a client service-level identity associated with an
       # SSO {AcaEntities::Accounts::Account}
-      class UserContract < Dry::Validation::Contract
+      class UserContract < Contract
         params do
-          optional(:attestations).array(
-            AcaEntities::Attestations::AttestationContract.params
-          )
+          optional(:attestations).array(AcaEntities::Attestations::AttestationContract.params)
           optional(:approved).maybe(:bool)
           optional(:oim_id).maybe(:string)
           optional(:account_id).maybe(:string)
@@ -29,9 +27,7 @@ module AcaEntities
           optional(:profile_type).maybe(:string)
           optional(:roles).maybe(:array)
           optional(:created_at).maybe(:time)
-          optional(:timestamp).hash(
-            AcaEntities::Contracts::TimeStampContract.params
-          )
+          optional(:timestamp).hash(AcaEntities::Contracts::TimeStampContract.params)
         end
       end
     end

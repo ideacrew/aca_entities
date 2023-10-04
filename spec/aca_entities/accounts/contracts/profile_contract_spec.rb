@@ -2,10 +2,8 @@
 
 require 'spec_helper'
 
-RSpec.describe AcaEntities::Accounts::Contracts::PersonProfileContract do
-  subject(:person_profile) { described_class.new }
-
-  let(:client_key) { 'polypress' }
+RSpec.describe AcaEntities::Accounts::Contracts::ProfileContract do
+  subject(:profile) { described_class.new }
 
   let(:preferred_name) { 'John Jacob Jingleheimer-Schmitt' }
   let(:locale) { 'en' }
@@ -30,11 +28,11 @@ RSpec.describe AcaEntities::Accounts::Contracts::PersonProfileContract do
 
   context 'Calling the contract with required params' do
     it 'parameters are valid' do
-      expect(person_profile.call(required_params).success?).to be_truthy
+      expect(profile.call(required_params).success?).to be_truthy
     end
 
     it 'validated attributes match passed parameters' do
-      expect(person_profile.call(required_params).to_h).to eq required_params
+      expect(profile.call(required_params).to_h).to eq required_params
     end
   end
 
@@ -47,21 +45,21 @@ RSpec.describe AcaEntities::Accounts::Contracts::PersonProfileContract do
       }
     end
     it 'parameters are invalid' do
-      expect(person_profile.call(optional_params).failure?).to be_truthy
+      expect(profile.call(optional_params).failure?).to be_truthy
     end
 
     it 'returned errors specify missing required parameters' do
-      expect(person_profile.call(optional_params).errors.to_h).to eq missing_params_error_hash
+      expect(profile.call(optional_params).errors.to_h).to eq missing_params_error_hash
     end
   end
 
   context 'Calling the contract with all params' do
     it 'parameters are valid' do
-      expect(person_profile.call(all_params).success?).to be_truthy
+      expect(profile.call(all_params).success?).to be_truthy
     end
 
     it 'validated attributes match passed parameters' do
-      expect(person_profile.call(all_params).to_h).to eq all_params
+      expect(profile.call(all_params).to_h).to eq all_params
     end
   end
 end

@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe AcaEntities::Accounts::PersonProfile do
+RSpec.describe AcaEntities::Accounts::Profile do
   let(:preferred_name) { 'John Jacob Jingleheimer-Schmitt' }
   let(:locale) { 'en' }
   let(:notice_delivery_method) { 'electronic_preferred' }
@@ -25,36 +25,36 @@ RSpec.describe AcaEntities::Accounts::PersonProfile do
 
   describe 'attributes' do
     context 'with required params' do
-      subject(:person_profile) { described_class.new(required_params) }
+      subject(:profile) { described_class.new(required_params) }
 
       it 'has the expected attributes' do
-        expect(person_profile.to_h).to eq required_params
+        expect(profile.to_h).to eq required_params
       end
     end
 
     context 'with all params' do
-      subject(:person_profile) { described_class.new(all_params) }
+      subject(:profile) { described_class.new(all_params) }
 
       it 'has the expected attributes' do
-        expect(person_profile.to_h).to eq all_params
+        expect(profile.to_h).to eq all_params
       end
     end
 
     context 'with optional params that have nil values' do
-      subject(:person_profile) { described_class.new(all_params.merge(nil_value_optional_params)) }
+      subject(:profile) { described_class.new(all_params.merge(nil_value_optional_params)) }
 
       it 'has the expected attributes' do
-        expect(person_profile.to_h).to eq all_params.merge(nil_value_optional_params)
+        expect(profile.to_h).to eq all_params.merge(nil_value_optional_params)
       end
     end
   end
 
   describe '#initials' do
-    subject(:person_profile) { described_class.new(all_params) }
+    subject(:profile) { described_class.new(all_params) }
     let(:jjj_initals) { 'JJJ' }
 
     it 'returns expected value for initials' do
-      expect(person_profile.initials).to eq jjj_initals
+      expect(profile.initials).to eq jjj_initals
     end
   end
 end
