@@ -61,6 +61,7 @@ module AcaEntities
     NumbersOrNil = NumbersOnlyKind | Types::Nil
 
     StringOrNil = Types::String | Types::Nil
+    DateTimeOrNil = Types::DateTime | Types::Nil
     TimeOrNil = Types::Time | Types::Nil
 
     ZipCodeRegex = /\A\d{5}(-\d{4})?\z/.freeze

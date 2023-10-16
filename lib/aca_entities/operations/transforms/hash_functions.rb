@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # rubocop:disable Style/OptionalArguments, Metrics/BlockNesting, Metrics/ModuleLength, Style/HashConversion
-require 'dry/transformer/all'
+require 'dry/transformer'
 require 'dry/inflector'
 require 'deep_merge'
 
@@ -33,22 +33,19 @@ module AcaEntities
           source_hash = input[:source_hash] || input
 
           source_hash.to_h.tap do |hash|
-            data_pair = if namespaces.empty?
-                          hash
-                        else
-                          hash.dig(*namespaces) || hash
-                        end
+            data_pair = (namespaces.empty? ? hash : hash.dig(*namespaces) || hash)
 
-            transformed_pair = if input[:context] && func.is_a?(Proc)
-                                 data_pair.update(data_pair) { |_k, _old_value| instance_exec(input[:context], &func) }
-                               elsif input[:context]
-                                 # this condition is for custom build non proc functions
-                                 data_pair.update(data_pair) { |_k, _old_value| func.call(input[:context]) }
-                               elsif func.is_a?(Proc)
-                                 data_pair.update(data_pair) { |_k, old_value| instance_exec(old_value, &func) }
-                               else
-                                 data_pair.transform_values!(&func)
-                               end
+            transformed_pair =
+              if input[:context] && func.is_a?(Proc)
+                data_pair.update(data_pair) { |_k, _old_value| instance_exec(input[:context], &func) }
+              elsif input[:context]
+                # this condition is for custom build non proc functions
+                data_pair.update(data_pair) { |_k, _old_value| func.call(input[:context]) }
+              elsif func.is_a?(Proc)
+                data_pair.update(data_pair) { |_k, old_value| instance_exec(old_value, &func) }
+              else
+                data_pair.transform_values!(&func)
+              end
             legacy_build_nested_hash({}, namespaces[0..-2].dup, transformed_pair)
           end
           input
@@ -129,13 +126,9 @@ module AcaEntities
         #
         # @return [Hash]
         def rename_nested_keys(source_hash, mapping, namespaces = [])
-          data_pair = if namespaces.empty?
-                        source_hash
-                      else
-                        nested_hash(source_hash, mapping.map(&:keys).flatten.first)
-                      end
+          data_pair = (namespaces.empty? ? source_hash : nested_hash(source_hash, mapping.map(&:keys).flatten.first))
 
-          mapping.first.each {|k, v| data_pair[v] = data_pair.delete(k) if data_pair.key?(k)}
+          mapping.first.each { |k, v| data_pair[v] = data_pair.delete(k) if data_pair.key?(k) }
 
           fns = []
           namespaces.each_with_index do |namespace, index|
@@ -195,18 +188,10 @@ module AcaEntities
         def get_last_pair(data)
           case data
           when Array
-            if data.first.is_a?(Array) || data.first.is_a?(Hash)
-              get_last_pair(data.first)
-            else
-              data
-            end
+            data.first.is_a?(Array) || data.first.is_a?(Hash) ? get_last_pair(data.first) : data
           when Hash
             value = data.values.first
-            if value.is_a?(Hash) || (value.is_a?(Array) && value.first.is_a?(Hash))
-              get_last_pair(value)
-            else
-              data
-            end
+            value.is_a?(Hash) || (value.is_a?(Array) && value.first.is_a?(Hash)) ? get_last_pair(value) : data
           end
         end
 
@@ -219,13 +204,14 @@ module AcaEntities
           if (current_namespace = namespace_values.first)
             init_value = (values[0][current_namespace] == :array ? [] : {})
 
-            current_record = if record.is_a?(Array)
-                               record.push(init_value)
-                               record.last
-                             else
-                               record[current_namespace] ||= init_value
-                               record[current_namespace]
-                             end
+            current_record =
+              if record.is_a?(Array)
+                record.push(init_value)
+                record.last
+              else
+                record[current_namespace] ||= init_value
+                record[current_namespace]
+              end
 
             if namespace_values.empty?
               if record.is_a?(Array)
@@ -306,15 +292,13 @@ module AcaEntities
           source_hash.each_with_object({}) do |(k, v), result|
             mapped_key = mapped_keys[k] || k
             result[mapped_key] = case v
-                                 when ::Hash
-                                   deep_rename_keys(v, mapped_keys)
-                                 when ::Array
-                                   v.map do |item|
-                                     item.is_a?(Hash) ? deep_rename_keys(item, mapped_keys) : item
-                                   end
-                                 else
-                                   v
-                                 end
+            when ::Hash
+              deep_rename_keys(v, mapped_keys)
+            when ::Array
+              v.map { |item| item.is_a?(Hash) ? deep_rename_keys(item, mapped_keys) : item }
+            else
+              v
+            end
           end
         end
 
@@ -323,15 +307,13 @@ module AcaEntities
             next unless permitted_keys.include? key
 
             output[key] = case value
-                          when ::Hash
-                            deep_accept_keys(value, permitted_keys)
-                          when ::Array
-                            value.map do |item|
-                              item.is_a?(Hash) ? deep_accept_keys(item, permitted_keys) : item
-                            end
-                          else
-                            value
-                          end
+            when ::Hash
+              deep_accept_keys(value, permitted_keys)
+            when ::Array
+              value.map { |item| item.is_a?(Hash) ? deep_accept_keys(item, permitted_keys) : item }
+            else
+              value
+            end
           end
         end
 
@@ -339,15 +321,13 @@ module AcaEntities
           inflector = Dry::Inflector.new
           hash.each_with_object({}) do |(key, value), output|
             output[inflector.underscore(key).to_sym] = case value
-                                                       when Hash
-                                                         deep_map_keys(value)
-                                                       when Array
-                                                         value.map do |item|
-                                                           item.is_a?(Hash) ? deep_map_keys(item) : item
-                                                         end
-                                                       else
-                                                         value
-                                                       end
+            when Hash
+              deep_map_keys(value)
+            when Array
+              value.map { |item| item.is_a?(Hash) ? deep_map_keys(item) : item }
+            else
+              value
+            end
           end
         end
 

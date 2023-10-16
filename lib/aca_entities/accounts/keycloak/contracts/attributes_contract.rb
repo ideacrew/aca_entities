@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'uri'
+
 module AcaEntities
   module Accounts
     module Keycloak
@@ -14,6 +16,8 @@ module AcaEntities
             # optional(:relay_state).maybe(AcaEntities::Types::EnrollmentExemptionKinds)
             optional(:id).maybe(:string)
             optional(:relay_state).maybe(:string)
+            optional(:created_at).maybe(AcaEntities::Types::DateTimeOrNil)
+            optional(:updated_at).maybe(AcaEntities::Types::DateTimeOrNil)
           end
 
           rule(:relay_state) do
@@ -23,9 +27,11 @@ module AcaEntities
               relay_state_kinds = AcaEntities::RelayStateKinds.values
 
               match_found = true if relay_state_kinds.include?(path)
+              # rubocop:disable Style/ZeroLengthPredicate
               match_found = true if relay_state_kinds.any? { |relay_state_kind|
-                path.scan(/^#{relay_state_kind}/).present?
+                path.scan(/^#{relay_state_kind}/).size > 0
               }
+              # rubocop:enable Style/ZeroLengthPredicate
 
               key.failure(text: "must be one of: #{AcaEntities::RelayStateKinds.values.join(', ')}") unless match_found
             end
