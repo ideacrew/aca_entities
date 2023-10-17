@@ -29,12 +29,12 @@ servers:
     protocolVersion: "0.9.2"
     description: RabbitMQ Test Server
 channels:
-  on_enroll.enroll.iap.transfers:
+  on_enroll.enroll.iap.account_transfers:
     bindings:
       amqp:
         is: queue
         queue:
-          name: on_enroll.enroll.iap.transfers
+          name: on_enroll.enroll.iap.account_transfers
           durable: true
           exclusive: false
           auto_delete: false
@@ -44,10 +44,10 @@ channels:
         amqp:
           ack: true
           exclusive: false
-          routing_key: enroll.iap.transfers.account_transfer_requested
+          routing_key: enroll.iap.account_transfers.requested
           prefetch: 1
           bindingVersion: "0.2.0"
-      operationId: on_enroll.iap.transfers
+      operationId: on_enroll.iap.account_transfers
       description: Events - for system wide changes
 
 tags:

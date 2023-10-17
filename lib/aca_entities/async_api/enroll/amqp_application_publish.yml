@@ -159,12 +159,12 @@ channels:
           timestamp: true
           content_type: application/json
           bindingVersion: 0.2.0
-  enroll.iap.transfers.account_transfer_requested:
+  enroll.iap.account_transfers.requested:
     bindings:
       amqp:
         is: :routing_key
         exchange:
-          name: enroll.iap.transfers
+          name: enroll.iap.account_transfers
           type: topic
           content_type: application/json
           durable: true
@@ -172,13 +172,13 @@ channels:
           vhost: event_source
         binding_version: '0.2.0'
     publish:
-      operationId: enroll.iap.transfers.account_transfer_requested
+      operationId: enroll.iap.account_transfers.requested
       description: Events - Account Transfer requested from enroll
       bindings:
         amqp:
           app_id: enroll
-          type: enroll.iap.transfers
-          routing_key: enroll.iap.transfers.account_transfer_requested
+          type: enroll.iap.account_transfers
+          routing_key: enroll.iap.account_transfers.requested
           deliveryMode: 2
           mandatory: true
           timestamp: true
