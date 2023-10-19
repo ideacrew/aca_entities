@@ -277,6 +277,60 @@ channels:
           headers:
             Content-Type: application/json
             Accept: application/json
+  /VerifyNonEsiMecServiceRest:
+    publish:
+      operationId: /VerifyNonEsiMecServiceRest
+      description: Send non esi mec JSON request to CMS
+      message:
+        contentType: application/json
+      bindings:
+        http:
+          type: request
+          method: POST
+          contentType: application/json
+          headers:
+            Content-Type: application/json
+            Accept: application/json
+    subscribe:
+      operationId: /on/VerifyNonEsiMecServiceRest
+      description: Receive non esi mec JSON response from CMS
+      message:
+        contentType: application/json
+      bindings:
+        http:
+          type: response
+          method: GET
+          contentType: application/json
+          headers:
+            Content-Type: application/json
+            Accept: application/json
+  /VerifyEsiMecServiceRest:
+    publish:
+      operationId: /VerifyEsiMecServiceRest
+      description: Send esi mec JSON request to CMS
+      message:
+        contentType: application/json
+      bindings:
+        http:
+          type: request
+          method: POST
+          contentType: application/json
+          headers:
+            Content-Type: application/json
+            Accept: application/json
+    subscribe:
+      operationId: /on/VerifyEsiMecServiceRest
+      description: Receive esi mec JSON response from CMS
+      message:
+        contentType: application/json
+      bindings:
+        http:
+          type: response
+          method: GET
+          contentType: application/json
+          headers:
+            Content-Type: application/json
+            Accept: application/json
 tags:
   - name: linter_tag
     description: placeholder that satisfies the linter

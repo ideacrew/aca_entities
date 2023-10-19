@@ -32,6 +32,7 @@ require_relative 'vlp/h92/contracts/initial_verification_individual_response_set
 require_relative 'vlp/h92/contracts/initial_verification_individual_response_contract'
 require_relative 'vlp/h92/contracts/initial_verification_response_set_contract'
 require_relative 'vlp/h92/contracts/initial_verification_response_contract'
+require_relative 'vlp/h92/contracts/vlp_v37_contract'
 
 # entities
 require_relative 'vlp/h92/passport_country'
