@@ -9,23 +9,23 @@ module AcaEntities
       class Credentials < Dry::Struct
         # @!attribute [r] token
         # Supplied by OAuth and OAuth 2.0 providers, the access token
-        # @return [String]
-        attribute :token, Types::String.meta(omittable: true)
+        # @return [AcaEntities::Types::StringOrNil]
+        attribute? :token, Types::String.meta(omittable: true)
 
         # @!attribute [r] secret
         # Supplied by OAuth providers, the access token secret
-        # @return [String]
-        attribute :secret, Types::String.meta(omittable: true)
+        # @return [AcaEntities::Types::StringOrNil]
+        attribute? :secret, Types::String.meta(omittable: true)
 
         # @!attribute [r] expires
         # Flag indicating whether the access token has an expiry date
         # @return [Boolean]
-        attribute :expires, Types::Bool.meta(omittable: true)
+        attribute? :expires, Types::Bool.meta(omittable: true)
 
         # @!attribute [r] expires_at
         # Timestamp of the expiry time
         # @return [Time]
-        attribute :expires_at, Types::Time.meta(omittable: true)
+        attribute? :expires_at, Types::Time.meta(omittable: true)
       end
     end
   end

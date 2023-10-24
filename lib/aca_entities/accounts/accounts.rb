@@ -3,7 +3,7 @@
 # dependencies
 # external
 require 'aca_entities/attestations/attestations'
-require 'aca_entities/accounts/oauth/omniauth'
+require 'aca_entities/accounts/oauth/oauth'
 require 'aca_entities/accounts/keycloak/keycloak'
 
 # contracts

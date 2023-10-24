@@ -2,9 +2,8 @@
 
 module AcaEntities
   module Accounts
-    # OmniAuth 2.0 (OAuth) defines a common identity interface for use with third-party authenticaction services
-    # known as "Providers".
-    #
+    # OmniAuth 2.0 (OAuth) defines a common identity interface for use with third-party authentication services
+    # known as Providers.
     # This implementation uses [Devise's integration](https://github.com/heartcombo/devise/wiki/OmniAuth:-Overview)
     # with [Omniauth](https://github.com/omniauth/omniauth).
     #

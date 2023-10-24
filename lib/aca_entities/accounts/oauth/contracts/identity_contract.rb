@@ -14,7 +14,7 @@ module AcaEntities
           # @option opts [String] :uid An identifier for this identity unique to the given provider (required)
           # @option opts [AcaEntities::Accounts::Oauth::Contracts::InfoContract] :info Information about the
           #   identity (required)
-          # @option opts [AcaEntities::Accounts::Oauth::Contracts::Credentials] :credentials provider-assigned access
+          # @option opts [AcaEntities::Accounts::Oauth::Contracts::CredentialsContract] :credentials provider-assigned access
           #   token or other credentials returned upon authentication
           # @option opts [Hash] :extra Extra information returned from the authentication provider
           # @return [Dry::Monads::Success] if the payload passes validation
