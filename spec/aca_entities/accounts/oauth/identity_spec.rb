@@ -2,8 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe AcaEntities::Accounts::Oauth::Omniauth do
-
+RSpec.describe AcaEntities::Accounts::Oauth::Identity do
   let(:provider) { 'keycloak_openid' }
   let(:uid) { '6304e375-c5f6-45c4-bd9c-da75b01d19f4' }
 
@@ -37,21 +36,12 @@ RSpec.describe AcaEntities::Accounts::Oauth::Omniauth do
   let(:secret) { 'abd837sd989ddlsdlkdflkasd394887j' }
   let(:expires) { true }
   let(:expires_at) { Time.now }
+  let(:credentials) { { token: token, secret: secret, expires: expires, expires_at: expires_at } }
 
-  let(:credentials) do
-    {
-      token: token,
-      secret: secret,
-      expires: expires,
-      expires_at: expires_at
-    }
-  end
-
-  let(:moment) { DateTime.now }
-  let(:time_stamp) { { submitted_at: moment, created_at: moment, modified_at: moment } }
+  let(:extra) { {} }
 
   let(:required_params) { { provider: provider, uid: uid, info: info } }
-  let(:optional_params) { { credentials: credentials, time_stamp: time_stamp } }
+  let(:optional_params) { { credentials: credentials, extra: extra } }
   let(:all_params) { required_params.merge(optional_params) }
 
   context 'Calling the contract with only optional params' do
@@ -66,7 +56,7 @@ RSpec.describe AcaEntities::Accounts::Oauth::Omniauth do
     subject { described_class.call(required_params) }
 
     it 'should pass validation' do
-      expect(subject).to be_a AcaEntities::Accounts::Oauth::Omniauth
+      expect(subject).to be_a AcaEntities::Accounts::Oauth::Identity
       expect(subject.to_h).to eq required_params
     end
   end
@@ -75,7 +65,7 @@ RSpec.describe AcaEntities::Accounts::Oauth::Omniauth do
     subject { described_class.call(all_params) }
 
     it 'should pass validation' do
-      expect(subject).to be_a AcaEntities::Accounts::Oauth::Omniauth
+      expect(subject).to be_a AcaEntities::Accounts::Oauth::Identity
       expect(subject.to_h).to eq all_params
     end
   end
