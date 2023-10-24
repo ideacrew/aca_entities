@@ -3,7 +3,6 @@
 require 'spec_helper'
 
 RSpec.describe AcaEntities::Accounts::Oauth::Info do
-
   let(:name) { 'George Jetson' }
   let(:email) { 'george.jetson@example.com' }
   let(:nickname) { 'Georgy' }
@@ -55,6 +54,15 @@ RSpec.describe AcaEntities::Accounts::Oauth::Info do
     it 'should pass validation' do
       expect(subject).to be_a described_class
       expect(subject.to_h).to eq all_params
+    end
+  end
+
+  context 'Calling the contract with Email key an nil value' do
+    subject { described_class.call(all_params.merge(email: nil)) }
+
+    it 'should pass validation' do
+      expect(subject).to be_a described_class
+      expect(subject.to_h).to eq all_params.merge(email: nil)
     end
   end
 end

@@ -14,48 +14,48 @@ module AcaEntities
         # @!attribute [r] description
         # A short description of the authenticating user
         # @return [String]
-        attribute :description, Types::String.meta(omittable: true)
+        attribute? :description, AcaEntities::Types::StringOrNil.meta(omittable: true)
 
         # @!attribute [r] email
         # Email address of the authenticating user
         # @return [String]
-        attribute :email, Types::String.meta(omittable: true)
+        attribute? :email, AcaEntities::Types::EmailOrNil.meta(omittable: true)
 
         # @!attribute [r] nickname
         # Username of the authenticating user
         # @return [String]
-        attribute :nickname, Types::String.meta(omittable: true)
+        attribute? :nickname, AcaEntities::Types::StringOrNil.meta(omittable: true)
 
         # @!attribute [r] first_name
         # Given name of the authenticating user
         # @return [String]
-        attribute :first_name, Types::String.meta(omittable: true)
+        attribute? :first_name, AcaEntities::Types::StringOrNil.meta(omittable: true)
 
         # @!attribute [r] last_name
         # Surname of the authenticating user
         # @return [String]
-        attribute :last_name, Types::String.meta(omittable: true)
+        attribute? :last_name, AcaEntities::Types::StringOrNil.meta(omittable: true)
 
         # @!attribute [r] location
         # The general location of the user, usually a city and state.
         # @return [String]
-        attribute :location, Types::String.meta(omittable: true)
+        attribute? :location, AcaEntities::Types::StringOrNil.meta(omittable: true)
 
         # @!attribute [r] image
         # A URL representing a profile image of the authenticating user.
         # Where possible, should be specified to a square, roughly 50x50 pixel image
         # @return [String]
-        attribute :image, Types::String.meta(omittable: true)
+        attribute? :image, AcaEntities::Types::StringOrNil.meta(omittable: true)
 
         # @!attribute [r] phone
         # Telephone number of the authenticating user
         # @return [String]
-        attribute :phone, Types::String.meta(omittable: true)
+        attribute? :phone, AcaEntities::Types::NumbersOrNil.meta(omittable: true)
 
         # @!attribute [r] urls
         # A hash containing key value pairs of an identifier for the website and its URL
         # @return [Hash]
-        attribute :urls, Types::Hash.meta(omittable: true)
+        attribute? :urls, Types::Hash.meta(omittable: true)
       end
     end
   end

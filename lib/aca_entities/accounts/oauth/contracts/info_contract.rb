@@ -25,14 +25,14 @@ module AcaEntities
           # @return [Dry::Monads::Failure] if the payload fails validation
           params do
             required(:name).filled(:string)
-            optional(:email).maybe(:string)
+            optional(:email).maybe(AcaEntities::Types::EmailOrNil)
             optional(:nickname).maybe(:string)
             optional(:first_name).maybe(:string)
             optional(:last_name).maybe(:string)
             optional(:location).maybe(:string)
             optional(:description).maybe(:string)
             optional(:image).maybe(:string)
-            optional(:phone).maybe(:string)
+            optional(:phone).maybe(AcaEntities::Types::NumbersOrNil)
             optional(:urls).maybe(:hash)
           end
         end

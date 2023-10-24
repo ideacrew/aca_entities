@@ -5,7 +5,6 @@ module AcaEntities
     # Namespace grouping OmniAuth 2 identity service authentication strategies
     module Oauth
       # dependencies
-      require 'aca_entities/contracts/contract'
 
       # contracts
       require_relative 'contracts/contract'
