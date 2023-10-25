@@ -22,7 +22,7 @@ module AcaEntities
               def self.domain_to_mapper(document)
                 mapper = self.new
                 mapper.AlienNumber = document.AlienNumber
-                mapper.PassportCountry = PassportCountry.domain_to_mapper(document.PassportCountry)
+                mapper.PassportCountry = PassportCountry.domain_to_mapper(document.PassportCountry) if document.PassportCountry.present?
                 mapper.DocExpirationDate = document.DocExpirationDate&.strftime
 
                 mapper
