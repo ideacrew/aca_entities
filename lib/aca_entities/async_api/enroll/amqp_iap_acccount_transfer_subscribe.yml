@@ -47,7 +47,7 @@ channels:
           routing_key: enroll.iap.account_transfers.requested
           prefetch: 1
           bindingVersion: "0.2.0"
-      operationId: on_enroll.iap.account_transfers
+      operationId: on_enroll.enroll.iap.account_transfers
       description: Events - for system wide changes
 
 tags:
