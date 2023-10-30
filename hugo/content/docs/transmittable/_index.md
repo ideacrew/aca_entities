@@ -7,6 +7,8 @@ The Transmittable model is a framework to structure communication between intern
 
 The Ruby API for transmittable can be found [here](../../doc/AcaEntities/Protocols/Transmittable.html).
 
+There also a [brief presentation](https://drive.google.com/file/d/1AhThVHR3Wo3WkrvDhSepTMT-lj-CTlAw/view) on the overall usage and ideas behind this model.
+
 ## Key
 
 {{% scaleimg "Legend" "/transmittable/legend.webp" 0.20 %}}
