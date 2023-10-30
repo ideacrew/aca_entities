@@ -4,6 +4,11 @@ module AcaEntities
   module Accounts
     # Individual person or system account holder's preference settings
     class Profile < Dry::Struct
+      # @!attribute [r] client_services
+      # List of client services that this account has access to
+      # @return [Array<AcaEntities::ClientServices>]
+      # attribute :client_services, Types::Array.of(AcaEntities::ClientServices).meta(omittable: false)
+
       # @!attribute [r] preferred_name
       # The account_holder's informal name
       # @return [String]

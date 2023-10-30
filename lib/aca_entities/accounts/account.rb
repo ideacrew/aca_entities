@@ -2,44 +2,54 @@
 
 module AcaEntities
   module Accounts
-    # An OmniAuth2 identity stored on a local service that represents a party (person or service) authenticated
-    # through a trusted third party service
+    # A Single Sign On (SSO) account for a person or service that is authenticated through a
+    # trusted third party Provider services
     class Account < Dry::Struct
       # @!attribute [r] id
-      # Local data store's unique identifier for this account
+      # Local service data store's unique identifier for this account
       # @return [String]
       attribute? :id, AcaEntities::Types::StringOrNil.meta(omittable: true)
 
-      # @!attribute [r] provider
-      # An identifier for the third party OAuth service that authenticated this account
-      # @return [String]
-      attribute :provider, Types::String.meta(omittable: false)
-
-      # @!attribute [r] uid
-      # A {Provider}-assigned unique identifier for this account
-      # @return [String]
-      attribute :uid, Types::String.meta(omittable: false)
-
       # @!attribute [r] name
-      # Display name for the OAuth account. Usually a concatenation of first and last name of the account holder
-      # but may also be an arbitrary designator or nickname
+      # Local service data store's unique identifier for this account
       # @return [String]
-      attribute :name, Types::String.meta(omittable: false)
+      attribute :name, AcaEntities::Types::StringOrNil.meta(omittable: true)
+
+      # @!attribute [r] identities
+      # A list of authentication Provider identities associated with this account
+      # @return [Array<AcaEntities::Accounts::Identity>]
+      attribute :identities, Types::Array.of(AcaEntities::Accounts::Identity).meta(omittable: false)
 
       # @!attribute [r] profile
-      # Individual person or system account holder's preference settings
+      # Account holder's enterprise service settings, including preferences and authorization permissions
+      # See [Managing Multiple Providers](https://github.com/omniauth/omniauth/wiki/Managing-Multiple-Providers)
       # @return [AcaEntities::Accounts::Profile]
       attribute? :profile, AcaEntities::Accounts::Profile.meta(omittable: true)
 
-      # @!attribute [r] email
-      # Email address of the authenticated user
-      # @return [AcaEntities::Types::EmailOrNil]
-      attribute? :email, AcaEntities::Types::EmailOrNil.meta(omittable: true)
+      # @!attribute [r] sign_in_count
+      # The number of times this account has been authenticated on this service
+      # @return [Integer]
+      attribute? :sign_in_count, Types::Integer.meta(omittable: true)
 
-      # @!attribute [r] encrypted_password
-      # Encrypted password for the authenticated user
-      # @return [AcaEntities::Types::StringOrNil]
-      attribute? :encrypted_password, AcaEntities::Types::StringOrNil.meta(omittable: true)
+      # @!attribute [r] current_sign_in_at
+      # The timestamp when the current session for this account started
+      # @return [Time]
+      attribute :current_sign_in_at, Types::Time.meta(omittable: true)
+
+      # @!attribute [r] last_sign_in_at
+      # The timestamp when the most recent session for this account started
+      # @return [Time]
+      attribute? :last_sign_in_at, Types::Time.meta(omittable: true)
+
+      # @!attribute [r] current_sign_in_ip
+      # The IP address for the current session for this account
+      # @return [String]
+      attribute? :current_sign_in_ip, Types::StringOrNil.meta(omittable: true)
+
+      # @!attribute [r] last_sign_in_ip
+      # The IP address for the most recent session for this account started
+      # @return [String]
+      attribute? :last_sign_in_ip, Types::StringOrNil.meta(omittable: true)
 
       # @!attribute [r] created_at
       # The timestamp when this record was originally created in the data store

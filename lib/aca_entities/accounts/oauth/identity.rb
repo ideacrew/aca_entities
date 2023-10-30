@@ -34,11 +34,6 @@ module AcaEntities
         # @!attribute [r] extra
         # @return [AcaEntities::Accounts::Oauth::Extra]
         attribute? :extra, Types::Hash.meta(omittable: true)
-
-        # @!attribute [r] profile
-        # Individual person or system account holder's preference settings
-        # @return [AcaEntities::Accounts::Profile]
-        # attribute? :profile, AcaEntities::Accounts::Profile.meta(omittable: true)
       end
     end
   end

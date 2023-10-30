@@ -8,7 +8,9 @@ RSpec.describe AcaEntities::Protocols::Transmittable::Contracts::JobContract do
   let(:moment) { DateTime.now }
   let(:id) { '12345' }
   let(:job_id) { 'abc123' }
-  let(:account) { { provider: 'keycloak_openid', uid: 'scott.lang@avengers.com', name: 'Scott Lang' } }
+  let(:account) do
+    { identities: [{ provider: 'keycloak_openid', uid: 'scott.lang@avengers.com' }], name: 'Scott Lang' }
+  end
   let(:key) { :verification_job }
 
   let(:title) { key.to_s }
