@@ -8,6 +8,17 @@ technology solutions. AcaEntities defines those domain model entities,
 validation contracts, transformations with other vocabularies, and
 other supporting artifacts.
 
+## Documentation
+
+Documentation is automatically generated for both the project and the Ruby source code.
+
+To build and view the documentation, make sure you have hugo installed (usually via `brew install hugo`) and then run:
+```
+bundle exec rake docserver
+```
+
+This will start a hugo documentation server you can view.
+
 ## Installation
 
 Add this line to your application's Gemfile:
