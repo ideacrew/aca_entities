@@ -157,6 +157,7 @@ module AcaEntities
       require 'aca_entities/people/person_relationship'
       require 'aca_entities/people/person_health'
       require 'aca_entities/people/person_demographics'
+      require 'aca_entities/verifications/identity_verification'
       require 'aca_entities/people/person'
       require 'aca_entities/households/tax_household'
       require 'aca_entities/households/tax_household_group'

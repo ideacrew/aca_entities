@@ -3,7 +3,7 @@
 module AcaEntities
   module Fdsh
     module Ridp
-      module H139
+      module H140
         # Entity for FarsResponse
         class FarsResponse < Dry::Struct
           attribute :response_code,                           Types::String.meta(omittable: false)
