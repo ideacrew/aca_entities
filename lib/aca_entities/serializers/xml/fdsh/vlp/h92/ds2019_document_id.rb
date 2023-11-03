@@ -12,7 +12,7 @@ module AcaEntities
               include HappyMapper
               register_namespace 'vlp', 'http://vlp.ee.sim.dsh.cms.hhs.gov'
 
-              tag 'Ds2019DocumentID'
+              tag 'DS2019DocumentID'
               namespace 'vlp'
 
               element :I94Number, String, tag: 'I94Number', namespace: "vlp"
@@ -23,7 +23,7 @@ module AcaEntities
               def self.domain_to_mapper(document)
                 mapper = self.new
                 mapper.I94Number = document.I94Number
-                mapper.PassportCountry = PassportCountry.domain_to_mapper(document.PassportCountry)
+                mapper.PassportCountry = PassportCountry.domain_to_mapper(document.PassportCountry) if document.PassportCountry.present?
                 mapper.SEVISID = document.SEVISID
                 mapper.DocExpirationDate = document.DocExpirationDate&.strftime
 
