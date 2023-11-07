@@ -3,10 +3,10 @@ PATH
   specs:
     aca_entities (0.10.0)
       deep_merge
-      dry-monads (~> 1.5)
-      dry-struct (~> 1.4)
+      dry-monads (~> 1.2)
+      dry-struct (~> 1.0)
       dry-transformer (~> 0.1.1)
-      dry-types (~> 1.5)
+      dry-types (~> 1.0)
       dry-validation (~> 1.2)
       iso_country_codes
       json-schema
@@ -160,4 +160,4 @@ DEPENDENCIES
   yard
 
 BUNDLED WITH
-   2.4.17
+   2.3.16
