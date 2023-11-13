@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'dry/validation'
+require 'dry/monads/result'
 
 require 'dry/monads'
 require 'dry/monads/do'
