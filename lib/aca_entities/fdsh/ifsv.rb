@@ -6,6 +6,8 @@ require_relative 'ifsv/h9t/types'
 
 require 'aca_entities/accounts/accounts'
 
+############## H9t
+
 # contracts
 require_relative 'ifsv/h9t/contracts/contract'
 require_relative 'ifsv/h9t/contracts/api/person_contract'
@@ -45,5 +47,12 @@ require_relative 'ifsv/h9t/operations/ifsv_verification_request'
 require_relative 'ifsv/h9t/transformers/ifsv_verification_request_to/persistence_request'
 require_relative 'ifsv/h9t/transformers/ifsv_verification_response_to/persistence_response'
 
-# happymapper
+############## Rj9t
+
+# operations
+require_relative 'ifsv/rj9t/operations/ifsv_verification_json_request'
+require_relative 'ifsv/rj9t/operations/ifsv_verification_json_response'
+
+############## happymapper
+
 require 'aca_entities/serializers/xml/fdsh/ifsv'
