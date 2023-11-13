@@ -33,16 +33,15 @@ Gem::Specification.new do |spec|
   spec.executables = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ['lib']
   spec.add_dependency 'deep_merge'
-  spec.add_dependency 'dry-monads', '~> 1.5'
-  spec.add_dependency 'dry-struct', '~> 1.4'
-  spec.add_dependency 'dry-types', '~> 1.5'
+  spec.add_dependency 'dry-monads', '~> 1.2'
+  spec.add_dependency 'dry-struct', '~> 1.0'
+  spec.add_dependency 'dry-types', '~> 1.0'
   spec.add_dependency 'dry-transformer', '~> 0.1.1'
   spec.add_dependency 'dry-validation', '~> 1.2'
   spec.add_dependency 'iso_country_codes'
   spec.add_dependency 'nokogiri-happymapper'
   spec.add_dependency 'oj', '~> 3.11'
   spec.add_dependency 'rbnacl', '~> 7.1'
-  spec.add_dependency 'json-schema'
-
   spec.add_development_dependency 'pry-byebug'
+  spec.add_dependency 'json-schema'
 end
