@@ -35,7 +35,7 @@ module AcaEntities
                   personMiddleName: parse_name(name&.middle_name),
                   personSurName: parse_name(name&.last_name),
                   personNameSuffix: parse_name(name&.name_sfx),
-                  personSocialSecurityNumber: decrypt_applicant_ssn(applicant),
+                  personSocialSecurityNumber: decrypt_ssn(applicant),
                   taxFilerCategoryCode: fetch_tax_filing_code(application, applicant)
                 }.compact
               end.compact
@@ -47,10 +47,6 @@ module AcaEntities
 
             def parse_name(applicant_name)
               applicant_name&.gsub(/[^A-Za-z]/, '')
-            end
-
-            def decrypt_applicant_ssn(applicant)
-              decrypt_ssn(applicant.identifying_information&.encrypted_ssn)
             end
 
             def fetch_tax_filing_code(application, applicant)
@@ -65,11 +61,12 @@ module AcaEntities
             end
 
             def fetch_relationship_kind(application, applicant)
-              relationship = application.relationships.detect {|rel| rel.applicant_reference.person_hbx_id == applicant.person_hbx_id }
+              relationship = application.relationships.detect { |rel| rel.applicant_reference.person_hbx_id == applicant.person_hbx_id }
               relationship&.kind
             end
 
-            def decrypt_ssn(encrypted_ssn)
+            def decrypt_ssn(applicant)
+              encrypted_ssn = applicant&.identifying_information&.encrypted_ssn
               AcaEntities::Operations::Encryption::Decrypt.new.call({ value: encrypted_ssn }).value!
             end
 
