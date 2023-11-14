@@ -34,12 +34,13 @@ RSpec.describe AcaEntities::Fdsh::Ifsv::Rj9t::Operations::IfsvVerificationJsonRe
     it "result contains an ifsvResponse with a nested responseMetadataArray" do
       result = @result1.value!
 
-      expect(result).to have_key(:ifsvResponse)
-      expect(result[:ifsvResponse]).to have_key(:responseMetadataArray)
+      expect(result).to have_key(:application_hash)
+      expect(result).to have_key(:response_payload)
+      expect(result[:response_payload]).to have_key(:ifsvResponse)
     end
 
     it "result contains a responseMetadataArray with error codes and messages" do
-      error = @result1.value![:ifsvResponse][:responseMetadataArray].first
+      error = @result1.value![:response_payload][:ifsvResponse][:responseMetadataArray].first
 
       expect(error[:responseMetadata]).to have_key(:responseText)
       expect(error[:responseMetadata]).to have_key(:responseCode)
@@ -96,12 +97,13 @@ RSpec.describe AcaEntities::Fdsh::Ifsv::Rj9t::Operations::IfsvVerificationJsonRe
       expect(@result2.success?).to be_truthy
     end
 
-    it "result contains an ifsv_response with a nested :household and :requestID" do
+    it "result contains an application_hash as well as an ifsv_response with a nested :household and :requestID" do
       result = @result2.value!
 
-      expect(result).to have_key(:ifsvResponse)
-      expect(result[:ifsvResponse]).to have_key(:household)
-      expect(result[:ifsvResponse]).to have_key(:requestID)
+      expect(result).to have_key(:application_hash)
+      expect(result).to have_key(:response_payload)
+      expect(result[:response_payload][:ifsvResponse]).to have_key(:household)
+      expect(result[:response_payload][:ifsvResponse]).to have_key(:requestID)
     end
   end
 
