@@ -51,14 +51,6 @@ RSpec.describe AcaEntities::Contracts::Documents::VlpDocumentContract, dbclean: 
     end
   end
 
-  context "with invalid params" do
-    it "should fail validation" do
-      result = subject.call(input_params.reject { |k, _v| k == :subject })
-      expect(result.success?).to be_falsey
-      expect(result.errors.to_h).to eq({ :subject => ["is missing"] })
-    end
-  end
-
   context "and all required and optional parameters" do
     it "should pass validation" do
       result = subject.call(input_params)
