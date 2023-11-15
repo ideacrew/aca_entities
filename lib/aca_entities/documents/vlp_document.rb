@@ -8,7 +8,7 @@ module AcaEntities
     class VlpDocument < AcaEntities::Documents::Document
       # attribute :identification_number,   Types::String.optional.meta(omittable: false)
 
-      attribute :subject,      Types::String.meta(omittable: false)
+      attribute :subject,      Types::String.optional.meta(omittable: true)
       attribute :alien_number, Types::String.optional.meta(omittable: true)
       attribute :i94_number, Types::String.optional.meta(omittable: true)
       attribute :visa_number, Types::String.optional.meta(omittable: true)

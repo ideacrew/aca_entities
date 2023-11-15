@@ -22,7 +22,7 @@ module AcaEntities
         # @option opts [String] :issuing_country optional
         # @return [Dry::Monads::Result]
         params do
-          required(:subject).filled(:string)
+          optional(:subject).maybe(:string)
           optional(:alien_number).maybe(:string, size?: 9)
           optional(:i94_number).maybe(:string, size?: 11)
           optional(:visa_number).maybe(:string, size?: 8..12)
