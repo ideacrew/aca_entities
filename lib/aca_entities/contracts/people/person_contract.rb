@@ -53,7 +53,7 @@ module AcaEntities
           required(:is_active).maybe(:bool)
           optional(:is_disabled).maybe(:bool)
           optional(:no_dc_address).maybe(:bool)
-          optional(:no_dc_address_reason).maybe(:bool)
+          optional(:no_dc_address_reason).maybe(:string)
           optional(:is_homeless).maybe(:bool)
           optional(:is_temporarily_out_of_state).maybe(:bool)
           optional(:age_off_excluded).maybe(:bool)
