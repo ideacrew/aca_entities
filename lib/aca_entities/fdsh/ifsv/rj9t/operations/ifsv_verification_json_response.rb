@@ -11,9 +11,9 @@ module AcaEntities
 
             def call(params)
               validated_params = yield validate_params(params)
-              validated_payload = yield validate_response_payload(validated_params[:response_payload])
+              validated_params[:response_payload] = yield validate_response_payload(validated_params[:response_payload])
 
-              Success(validated_payload)
+              Success(validated_params)
             end
 
             private
