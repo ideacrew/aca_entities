@@ -15,10 +15,10 @@ module AcaEntities
         # @option opts [Hash] :event_request_record optional
         # @return [Dry::Monads::Result]
         params do
-          optional(:verification_type).filled(:string)
-          optional(:action).filled(:string)
-          optional(:modifier).filled(:string)
-          optional(:update_reason).filled(:string)
+          optional(:verification_type).maybe(:string)
+          optional(:action).maybe(:string)
+          optional(:modifier).maybe(:string)
+          optional(:update_reason).maybe(:string)
           optional(:event_response_record).hash(AcaEntities::Contracts::Events::EventResponseContract.params)
           optional(:event_request_record).hash(AcaEntities::Contracts::Events::EventRequestContract.params)
         end
