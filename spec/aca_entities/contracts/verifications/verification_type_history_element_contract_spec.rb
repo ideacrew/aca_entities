@@ -17,7 +17,7 @@ RSpec.describe ::AcaEntities::Contracts::Verifications::VerificationTypeHistoryE
     { verification_type: nil,
       action: nil,
       modifier: nil,
-      update_reason: nil}
+      update_reason: nil }
   end
 
   context 'success case' do
