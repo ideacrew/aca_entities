@@ -3,7 +3,7 @@
 require 'spec_helper'
 require 'shared_examples/aca_entities/fdsh/json_operations/request_magi_medicaid_application'
 
-RSpec.describe AcaEntities::Fdsh::NonEsi::Rj31::Operations::NonEsiMecJsonRequest, dbclean: :after_each do
+RSpec.describe AcaEntities::Fdsh::Ifsv::Rj9t::Operations::IfsvVerificationJsonRequest, dbclean: :after_each do
   include_context 'request magi medicaid application'
 
   subject do
@@ -22,8 +22,8 @@ RSpec.describe AcaEntities::Fdsh::NonEsi::Rj31::Operations::NonEsiMecJsonRequest
     end
   end
 
-  context "when no applicants on the application have non_esi_evidence" do
-    let(:non_esi_evidence) { nil }
+  context "when no applicants on the application have income_evidence" do
+    let(:income_evidence) { nil }
 
     it "is failure" do
       expect(subject.failure?).to be_truthy
