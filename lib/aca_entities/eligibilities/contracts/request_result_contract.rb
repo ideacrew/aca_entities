@@ -13,6 +13,7 @@ module AcaEntities
           optional(:code).maybe(:string)
           optional(:code_description).maybe(:string)
           optional(:raw_payload).maybe(:string)
+          optional(:action).maybe(:string)
         end
       end
     end

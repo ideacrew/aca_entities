@@ -1,0 +1,32 @@
+name: RSpec
+on: push
+
+jobs:
+  rspec:
+    strategy:
+      fail-fast: false
+      matrix:
+        ruby_version: ['2.6.3', '2.7.6', '3.0.5', '3.1.4', '3.2.2']
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: wbari/start-mongoDB@v0.2
+        with:
+          mongoDBVersion: '4.2'
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ matrix.ruby_version }}
+      - name: Cache Gems
+        uses: actions/cache@v1
+        with:
+          path: vendor/bundle
+          key: ${{ runner.os }}-${{matrix.ruby_version}}-aca_entities-gems-${{ hashFiles('**/Gemfile.lock') }}-${{ hashFiles('**/Gemfile' ) }}
+          restore-keys: |
+            ${{ runner.os }}-${{matrix.ruby_version}}-aca_entities-gems-${{ hashFiles('**/Gemfile.lock') }}-${{ hashFiles('**/Gemfile' ) }}
+      - name: bundle install
+        run: |
+          bundle config path vendor/bundle
+          bundle install
+      - name: run tests
+        run: |
+          bundle exec rspec

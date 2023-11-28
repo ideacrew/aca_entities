@@ -1,0 +1,6 @@
+{{ $alt := .Get 0}}
+{{ $imgPath := .Get 1 }}
+{{ $factor := .Get 2 }}
+{{ $legendImg := resources.Get $imgPath }}
+
+<img alt="{{ $alt }}" src="{{ $legendImg.RelPermalink }}" width="{{ mul $legendImg.Width $factor }}" height="{{ mul $legendImg.Height $factor }}">

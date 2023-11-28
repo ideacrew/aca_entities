@@ -30,58 +30,6 @@ servers:
     description: RabbitMQ Test Server
 
 channels:
-  enroll.iap.applications.renewals.application_renewal_request_created:
-    bindings:
-      amqp:
-        is: :routing_key
-        exchange:
-          name: enroll.iap.applications.renewals
-          type: topic
-          content_type: application/json
-          durable: true
-          auto_delete: false
-          vhost: event_source
-        binding_version: '0.2.0'
-    publish:
-      operationId: enroll.iap.applications.renewals.application_renewal_request_created
-      description: Events - Application Renewal Request Created
-      bindings:
-        amqp:
-          app_id: enroll
-          type: enroll.iap.applications.renewals
-          routing_key: enroll.iap.applications.renewals.application_renewal_request_created
-          deliveryMode: 2
-          mandatory: true
-          timestamp: true
-          content_type: application/json
-          bindingVersion: 0.2.0
-
-  enroll.iap.applications.determinations.application_renewal_created:
-    bindings:
-      amqp:
-        is: :routing_key
-        exchange:
-          name: enroll.iap.applications.determinations
-          type: topic
-          content_type: application/json
-          durable: true
-          auto_delete: false
-          vhost: event_source
-        binding_version: '0.2.0'
-    publish:
-      operationId: enroll.iap.applications.determinations.application_renewal_created
-      description: Events - Application Renewal Created
-      bindings:
-        amqp:
-          app_id: enroll
-          type: enroll.iap.applications.determinations
-          routing_key: enroll.iap.applications.determinations.application_renewal_created
-          deliveryMode: 2
-          mandatory: true
-          timestamp: true
-          content_type: application/json
-          bindingVersion: 0.2.0
-
   enroll.iap.applications.haven_magi_medicaid_eligibility_determination_requested:
     bindings:
       amqp:
@@ -206,6 +154,31 @@ channels:
           app_id: enroll
           type: enroll.iap.mec_check
           routing_key: enroll.iap.mec_check.mec_check_requested
+          deliveryMode: 2
+          mandatory: true
+          timestamp: true
+          content_type: application/json
+          bindingVersion: 0.2.0
+  enroll.iap.account_transfers.requested:
+    bindings:
+      amqp:
+        is: :routing_key
+        exchange:
+          name: enroll.iap.account_transfers
+          type: topic
+          content_type: application/json
+          durable: true
+          auto_delete: false
+          vhost: event_source
+        binding_version: '0.2.0'
+    publish:
+      operationId: enroll.iap.account_transfers.requested
+      description: Events - Account Transfer requested from enroll
+      bindings:
+        amqp:
+          app_id: enroll
+          type: enroll.iap.account_transfers
+          routing_key: enroll.iap.account_transfers.requested
           deliveryMode: 2
           mandatory: true
           timestamp: true

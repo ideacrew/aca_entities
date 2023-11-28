@@ -11,7 +11,7 @@ module AcaEntities
       attribute :code, Types::String.optional.meta(omittable: true)
       attribute :code_description, Types::String.optional.meta(omittable: true)
       attribute :raw_payload, Types::String.optional.meta(omittable: true)
-
+      attribute :action, Types::String.optional.meta(omittable: true)
     end
   end
 end

@@ -5,6 +5,8 @@ require 'aca_entities/atp/transformers/cv/other_questions'
 require 'aca_entities/atp/transformers/cv/deduction'
 require 'aca_entities/atp/transformers/cv/income'
 require 'aca_entities/atp/transformers/cv/contact_info'
+require 'aca_entities/atp/transformers/cv/vlp_document'
+require "aca_entities/atp/functions/vlp_document_hash_builder"
 # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity, Metrics/MethodLength, Layout/LineLength, Metrics/AbcSize, Metrics/ClassLength
 module AcaEntities
   module Atp
@@ -13,13 +15,13 @@ module AcaEntities
       class BuildApplication
         def call(cache)
           @memoized_data = cache
-          insurance_applicants = @memoized_data.resolve(:'insurance_application.insurance_applicants').item
-          @primary_applicant_identifier = @memoized_data.resolve(:primary_applicant_identifier).item
-          @tax_return = @memoized_data.resolve(:'insurance_application.tax_returns').item
+          @insurance_applicants = @memoized_data.resolve(:'insurance_application.insurance_applicants')&.item
+          @primary_applicant_identifier = @memoized_data.resolve(:primary_applicant_identifier)&.item
+          @tax_return = @memoized_data.resolve(:'insurance_application.tax_returns')&.item
           people_augementation = @memoized_data.find(Regexp.new("record.people.*.augementation"))
           result = people_augementation.each_with_object([]) do |person_augementation, collector|
             id = person_augementation.name.split(".")[2]
-            @applicant_hash = insurance_applicants[id.to_sym]
+            @applicant_hash = @insurance_applicants[id.to_sym]
             @applicant_identifier = id
             @member_hash = person_augementation.item
             @tribal_augmentation = @memoized_data.find(Regexp.new("record.people.#{id}.tribal_augmentation")).map(&:item).last
@@ -29,6 +31,7 @@ module AcaEntities
             collector << applicant_hash
             collector
           end
+
           [application_hash.merge!(applicants: result)]
         end
 
@@ -40,13 +43,44 @@ module AcaEntities
             us_state: 'ME', # default value
             assistance_year: 2021, # default_value,
             transfer_id: @memoized_data.resolve('external_id').item,
-            parent_living_out_of_home_terms: @memoized_data.resolve('parent_living_out_of_home_terms').item,
-            report_change_terms: @memoized_data.resolve('report_change_terms').item,
-            medicaid_terms: @memoized_data.resolve('medicaid_terms').item,
             is_renewal_authorized: @memoized_data.resolve('is_renewal_authorized').item,
             family_reference: { hbx_id: @memoized_data.resolve('family.hbx_id').item.to_s },
-            aptc_effective_date: Date.today # default value,
+            aptc_effective_date: Date.today, # default value
+            submission_terms: ssf_attestation_hash[:non_perjury_indicator],
+            medicaid_insurance_collection_terms: ssf_attestation_hash[:medicaid_obligations_indicator],
+            report_change_terms: ssf_attestation_hash[:report_change_terms],
+            years_to_renew: @memoized_data.resolve('coverage_renewal_year_quantity')&.item,
+            medicaid_terms: medicaid_terms_value,
+            parent_living_out_of_home_terms: parent_living_out_of_home_terms_value,
+            attestation_terms: ssf_attestation_hash[:attestation_terms]
           }
+        end
+
+        def ssf_attestation_hash
+          @ssf_attestation_hash ||= begin
+            attestation = @memoized_data.resolve('insurance_application.ssf_signer.ssf_attestation')&.item
+            if attestation
+              {
+                non_perjury_indicator: attestation[:non_perjury_indicator],
+                medicaid_obligations_indicator: attestation[:medicaid_obligations_indicator],
+                report_change_terms: attestation[:information_changes_indicator],
+                attestation_terms: attestation[:collections_agreement_indicator]
+              }
+            else
+              {}
+            end
+          end
+        end
+
+        def medicaid_terms_value
+          renewal_year_quantity = @memoized_data.resolve('coverage_renewal_year_quantity')&.item
+          renewal_year_quantity&.positive?
+        end
+
+        def parent_living_out_of_home_terms_value
+          @insurance_applicants&.values&.any? do |applicant|
+            applicant[:absent_parent_or_spouse_code]&.include?('Yes')
+          end
         end
 
         def income_hash
@@ -69,20 +103,20 @@ module AcaEntities
 
           @incomes_hash.each_with_object([]) do |income, result|
             next unless income[:category_code] == 'Wages'
-            employer_hash = @employments_hash.select {|hash| hash[:employer][:id] == income[:source_organization_reference][:ref]}.first
+            employer_hash = @employments_hash.select { |hash| hash[:employer][:id] == income[:source_organization_reference][:ref] }.first
             contact_information = employer_hash[:employer][:organization_primary_contact_information] if employer_hash
             transformed_income = AcaEntities::Atp::Transformers::Cv::Income.transform(income)
             result << {
               'employer_name' => employer_hash ? employer_hash[:employer][:category_text] : nil,
               'employer_address' =>
-              if contact_information && contact_information[:mailing_address] && contact_information[:mailing_address][:address]
-                mailing = contact_information[:mailing_address][:address]
-                AcaEntities::Atp::Transformers::Cv::ContactInfo.transform(mailing) if check_employer_address(mailing)
-              end,
+                if contact_information && contact_information[:mailing_address] && contact_information[:mailing_address][:address]
+                  mailing = contact_information[:mailing_address][:address]
+                  AcaEntities::Atp::Transformers::Cv::ContactInfo.transform(mailing) if check_employer_address(mailing)
+                end,
               'employer_phone' =>
-              if contact_information && contact_information[:telephone_number]
-                AcaEntities::Atp::Transformers::Cv::ContactInfo.transform(contact_information[:telephone_number])
-              end
+                if contact_information && contact_information[:telephone_number]
+                  AcaEntities::Atp::Transformers::Cv::ContactInfo.transform(contact_information[:telephone_number])
+                end
             }.merge(transformed_income)
             result
           end
@@ -125,9 +159,9 @@ module AcaEntities
           return [] if @expenses_hash.nil?
 
           @expenses_hash.each_with_object([]) do |expense, result|
-            next if AcaEntities::Atp::Types::DeductionKinds[expense[:category_code]].nil?
+            next if AcaEntities::Atp::Types::DeductionKinds[expense[:category_code]].nil? && AcaEntities::Atp::Types::DeductionKinds[expense[:category_text]].nil?
 
-            result << AcaEntities::Atp::Transformers::Cv::Income.transform(expense)
+            result << AcaEntities::Atp::Transformers::Cv::Deduction.transform(expense)
             result
           end
         end
@@ -198,7 +232,7 @@ module AcaEntities
         end
 
         def other_questions
-          AcaEntities::Atp::Transformers::Cv::OtherQuestions.transform(@applicant_hash.nil? ? {}.merge(pergnancy: @member_hash[:pregnancy_status]) : @applicant_hash.merge(pergnancy: @member_hash[:pregnancy_status]))
+          AcaEntities::Atp::Transformers::Cv::OtherQuestions.transform(@applicant_hash.nil? ? {}.merge(pregnancy: @member_hash[:pregnancy_status]) : @applicant_hash.merge(pregnancy: @member_hash[:pregnancy_status]))
         end
 
         def family_member_reference_hash
@@ -215,6 +249,17 @@ module AcaEntities
           { citizen_status: AcaEntities::Atp::Functions::LawfulPresenceDeterminationBuilder.new.call(@memoized_data, @applicant_identifier),
             is_resident_post_092296: nil,
             is_lawful_presence_self_attested: nil }
+        end
+
+        def vlp_documents_hash
+          lawful_presence_status = @applicant_hash[:lawful_presence_status] if @applicant_hash
+          vlp_documents = lawful_presence_status[:immigration_documents] if lawful_presence_status
+          vlp_documents&.each_with_object([]) do |document, collector|
+            next unless document
+            # builder will handle the document number and person id arrays for the transformer by expanding hash
+            document_hash = AcaEntities::Atp::Functions::VlpDocumentHashBuilder.new.call(document)
+            collector << AcaEntities::Atp::Transformers::Cv::VlpDocument.transform(document_hash)
+          end
         end
 
         def referral_status
@@ -237,7 +282,7 @@ module AcaEntities
 
         def tax_returns_hash
           applicant_is_primary_tax_filer = @tax_return.nil? ? nil : @tax_return[:tax_household][:primary_tax_filer][:role_reference][:ref] == @applicant_identifier
-          tax_dependents = @tax_return.nil? ? nil : @tax_return[:tax_household][:tax_dependents].collect {|a| a[:role_reference][:ref]}
+          tax_dependents = @tax_return.nil? ? nil : @tax_return[:tax_household][:tax_dependents].collect { |a| a[:role_reference][:ref] }
 
           is_tax_filer = if !@tax_return.nil? && @tax_return[:tax_household]
                            if applicant_is_primary_tax_filer
@@ -251,9 +296,9 @@ module AcaEntities
 
           joint_tax_filing_status = @tax_return[:status_code] == '2' if is_tax_filer && @tax_return[:status_code].present?
 
-          is_head_of_household =  if !@tax_return.nil? && @tax_return[:tax_household] && applicant_is_primary_tax_filer
-                                    @tax_return[:status_code] == '4' || @tax_return[:status_code] == '7'
-                                  end
+          is_head_of_household = if !@tax_return.nil? && @tax_return[:tax_household] && applicant_is_primary_tax_filer
+                                   @tax_return[:status_code] == '4' || @tax_return[:status_code] == '7'
+                                 end
           { tax_dependents: tax_dependents,
             is_tax_filer: is_tax_filer,
             joint_tax_filing_status: joint_tax_filing_status,
@@ -286,7 +331,21 @@ module AcaEntities
             is_resident_role: nil,
             is_applying_coverage: !@applicant_hash.nil?, # default value
             is_consent_applicant: nil,
-            vlp_document: nil,
+            # assumption that the first immigration document sent holds the subject for the FAA applicant, may need to be revisited
+            vlp_subject: vlp_documents_hash&.first&.dig(:subject),
+            alien_number: vlp_documents_hash&.select { |document| document[:alien_number].present? }&.first&.dig(:alien_number),
+            i94_number: nil,
+            visa_number: nil,
+            passport_number: nil,
+            sevis_id: nil,
+            naturalization_number: vlp_documents_hash&.select { |document| document[:naturalization_number].present? }&.first&.dig(:naturalization_number),
+            receipt_number: nil,
+            citizenship_number: nil,
+            card_number: nil,
+            country_of_citizenship: nil,
+            vlp_description: nil,
+            expiration_date: nil,
+            issuing_country: nil,
             family_member_reference: family_member_reference_hash,
             person_hbx_id: @applicant_identifier, # default value
             is_required_to_file_taxes: tax_returns_hash[:is_tax_filer], # default value
@@ -315,8 +374,8 @@ module AcaEntities
             has_unemployment_income: !unemp_income_hash.empty?,
             has_other_income: !other_income_hash.empty?,
             has_deductions: !deduction_hash.empty?,
-            has_enrolled_health_coverage: !benefits_hash.concat(benefits_esc_hash).select {|h| h['kind'] == 'is_enrolled' }.empty?,
-            has_eligible_health_coverage: benefits_hash.concat(benefits_esc_hash).select {|h| h['kind'] == 'is_eligible' }.empty? ? nil : true,
+            has_enrolled_health_coverage: !benefits_hash.concat(benefits_esc_hash).select { |h| h['kind'] == 'is_enrolled' }.empty?,
+            has_eligible_health_coverage: benefits_hash.concat(benefits_esc_hash).select { |h| h['kind'] == 'is_eligible' }.empty? ? nil : true,
             addresses: AcaEntities::Atp::Functions::AddressBuilder.new.call(@memoized_data, @applicant_identifier), # default value
             emails: email_hash, # default value
             phones: phone_hash, # default value
@@ -340,7 +399,7 @@ module AcaEntities
           return if age.blank?
           age_date = age.respond_to?(:strftime) ? Date.strptime(age, "%m/%d/%Y") : Date.parse(age)
           AcaEntities::Functions::AgeOn.new(on_date: Date.today.strftime('%Y/%m/%d'))
-                                                         .call(age_date.strftime('%Y/%m/%d'))
+                                       .call(age_date.strftime('%Y/%m/%d'))
         end
 
         def email_hash

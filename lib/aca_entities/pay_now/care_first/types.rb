@@ -22,6 +22,7 @@ module AcaEntities
           'self' => '18',
           'spouse' => '01',
           'life_partner' => '53',
+          'domestic_partner' => '53',
           'ward' => '15',
           'child' => '19'
           # TODO: map other kinds of dependents to 19

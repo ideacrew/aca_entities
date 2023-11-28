@@ -1,0 +1,18 @@
+name: Rubocop
+on: push
+
+jobs:
+  rubocop:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 2.7.6
+      - name: bundle install
+        run: |
+          bundle config path vendor/bundle
+          bundle install
+      - name: run rubocop
+        run: |
+          bundle exec rubocop

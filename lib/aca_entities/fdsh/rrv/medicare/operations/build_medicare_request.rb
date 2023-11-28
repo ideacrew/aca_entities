@@ -9,8 +9,8 @@ module AcaEntities
           class BuildMedicareRequest
             include Dry::Monads[:result, :do, :try]
 
-            def call(applications)
-              payload = yield construct_medicare_request(applications)
+            def call(params)
+              payload = yield construct_medicare_request(params[:applications], params[:transaction_encrypted_ssn])
               validated_payload = yield validate_payload(payload)
               request_entity = yield esi_mec_request_entity(validated_payload)
 
@@ -28,9 +28,9 @@ module AcaEntities
               Success(AcaEntities::Fdsh::Rrv::Medicare::EesDshBatchRequestData.new(payload.to_h))
             end
 
-            def construct_medicare_request(applications)
+            def construct_medicare_request(applications, transaction_encrypted_ssn)
               request_groups = applications.collect do |application|
-                construct_individual_request(application)
+                construct_individual_request(application, transaction_encrypted_ssn)
               end
               request = { IndividualRequests: request_groups.flatten }
               Success(request)
@@ -40,9 +40,10 @@ module AcaEntities
               applicant.identifying_information.encrypted_ssn.blank? || applicant.non_esi_evidence.blank?
             end
 
-            def construct_individual_request(application)
+            def construct_individual_request(application, transaction_encrypted_ssn)
               application.applicants.collect do |applicant|
                 next if can_skip_applicant?(applicant)
+                next unless applicant.identifying_information.encrypted_ssn == transaction_encrypted_ssn
 
                 individual_request = {
                   Applicant: construct_request_applicant(applicant),
