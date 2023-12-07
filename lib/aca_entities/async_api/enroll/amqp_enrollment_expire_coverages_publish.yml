@@ -55,6 +55,32 @@ channels:
           timestamp: true
           content_type: application/json
           bindingVersion: 0.2.0
+  enroll.individual.enrollments.expire_coverages.expire:
+    bindings:
+      amqp:
+        is: :routing_key
+        exchange:
+          name: enroll.individual.enrollments.expire_coverages
+          type: topic
+          content_type: application/json
+          durable: true
+          auto_delete: false
+          vhost: event_source
+        binding_version: "0.2.0"
+    publish:
+      operationId: enroll.individual.enrollments.expire_coverages.expire
+      description: Events - Individual Enrollment Expire Coverage
+      summary: Events - Individual Enrollment Expire Coverage
+      bindings:
+        amqp:
+          app_id: enroll
+          type: enroll.individual.enrollments
+          routing_key: enroll.individual.enrollments.expire_coverages.expire
+          deliveryMode: 2
+          mandatory: true
+          timestamp: true
+          content_type: application/json
+          bindingVersion: 0.2.0
 tags:
   - name: linter_tag
     description: placeholder that satisfies the linter
