@@ -44,11 +44,21 @@ channels:
         amqp:
           ack: true
           exclusive: false
-          routing_key: enroll.individual.enrollments.begin_coverages.#
+          routing_key: enroll.individual.enrollments.begin_coverages.request
           prefetch: 1
           bindingVersion: "0.2.0"
       operationId: on_enroll.enroll.individual.enrollments.begin_coverages
-      description: Events for annual initiation of IVL enrollment coverage
+      description: Event for requesting annual initiation of IVL enrollment coverages
+    subscribe:
+      bindings:
+        amqp:
+          ack: true
+          exclusive: false
+          routing_key: enroll.individual.enrollments.begin_coverages.begin
+          prefetch: 1
+          bindingVersion: "0.2.0"
+      operationId: on_enroll.enroll.individual.enrollments.begin_coverages
+      description: Event for beginning IVL enrollment coverage
 tags:
   - name: linter_tag
     description: placeholder that satisfies the linter
