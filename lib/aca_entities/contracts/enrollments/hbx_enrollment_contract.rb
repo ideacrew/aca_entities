@@ -101,7 +101,7 @@ module AcaEntities
           optional(:enrollment_signature).maybe(:string)
 
           optional(:consumer_role_reference).hash(AcaEntities::Contracts::People::ConsumerRoleReferenceContract.params)
-          optional(:resident_role_reference).hash(AcaEntities::Contracts::People::ResidentRoleReferenceContract.params)  # TODO: revisit
+          optional(:resident_role_reference).maybe(AcaEntities::Contracts::People::ResidentRoleReferenceContract.params)  # TODO: revisit
           optional(:benefit_package_reference).hash(AcaEntities::Contracts::BenefitCatalogs::BenefitPackageReferenceContract.params)
           optional(:benefit_coverage_period_reference).hash(AcaEntities::Contracts::BenefitCatalogs::BenefitCoveragePeriodReferenceContract.params)
           optional(:tax_households_references).array(AcaEntities::Contracts::PremiumCredits::TaxHouseholdEnrollmentContract.params)
@@ -121,5 +121,3 @@ module AcaEntities
     end
   end
 end
-
-
