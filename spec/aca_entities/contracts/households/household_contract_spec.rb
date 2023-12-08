@@ -342,7 +342,8 @@ RSpec.describe ::AcaEntities::Contracts::Households::HouseholdContract, dbclean:
   context 'success case' do
     before do
       @result = subject.call(required_params)
-      adjusted_params = required_params[:hbx_enrollments].each { |enr| enr[:resident_role_reference] = nil }
+      adjusted_params = required_params
+      adjusted_params[:hbx_enrollments].each { |enr| enr[:resident_role_reference] = nil }
 
       @result_adjusted = subject.call(adjusted_params)
     end
