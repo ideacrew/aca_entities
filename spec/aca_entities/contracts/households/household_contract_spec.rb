@@ -352,7 +352,7 @@ RSpec.describe ::AcaEntities::Contracts::Households::HouseholdContract, dbclean:
       expect(@result.errors.empty?).to be_truthy
     end
 
-    context 'where resident_role_reference is nil' do
+    context 'where optional values are nil' do
       before do
         adjusted_params = required_params
         adjusted_params[:hbx_enrollments].each { |enr| enr[:resident_role_reference] = nil }
