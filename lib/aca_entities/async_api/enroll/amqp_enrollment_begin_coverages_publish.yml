@@ -75,7 +75,7 @@ channels:
         amqp:
           app_id: enroll
           type: enroll.individual.enrollments
-          routing_key: enroll.individual.enrollments.begin_coverages.request
+          routing_key: enroll.individual.enrollments.begin_coverages.begin
           deliveryMode: 2
           mandatory: true
           timestamp: true
