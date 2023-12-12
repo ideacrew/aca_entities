@@ -2,6 +2,7 @@
 
 module AcaEntities
   module EventLogs
+    # contract for BenefitSponsorshipEventLog
     class BenefitSponsorshipEventLogContract < Dry::Validation::Contract
 
       params(EventLogContract.schema) do
