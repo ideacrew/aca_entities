@@ -198,6 +198,8 @@ module AcaEntities
 
       require 'aca_entities/event_logs/contracts/event_log_contract'
       require 'aca_entities/event_logs/entities/event_log'
+      require 'aca_entities/event_logs/entities/person_event_log'
+      require 'aca_entities/event_logs/entities/benefit_sponsorship_event_log'
 
       # Operations
       require 'aca_entities/operations/operations'
