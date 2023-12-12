@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+require "dry/validation"
 
 module AcaEntities
   module EventLogs
@@ -25,4 +26,3 @@ module AcaEntities
     end
   end
 end
-
