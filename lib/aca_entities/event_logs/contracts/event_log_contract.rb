@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 module AcaEntities
-  module AuditLogs
-    # contract for Audit Log Event
-    class AuditLogEventContract < Dry::Validation::Contract
+  module EventLogs
+    # contract for EventLog
+    class EventLogContract < Dry::Validation::Contract
 
       params do
         required(:subject_gid).filled(:string)
@@ -25,3 +25,4 @@ module AcaEntities
     end
   end
 end
+

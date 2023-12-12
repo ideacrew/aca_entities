@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 module AcaEntities
-  module AuditLogs
-    # Entity for Audit Log Event
-    class AuditLogEvent < Dry::Struct
+  module EventLogs
+    # Entity for Event Log
+    class EventLog < Dry::Struct
       transform_keys(&:to_sym)
 
       attribute :subject_gid, Types::String.optional.meta(omittable: false)

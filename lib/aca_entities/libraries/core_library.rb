@@ -196,8 +196,8 @@ module AcaEntities
       require 'aca_entities/benefit_sponsors/entities/benefit_sponsorships/shop_osse_eligibilities/shop_osse_grant'
       require 'aca_entities/benefit_sponsors/entities/benefit_sponsorships/shop_osse_eligibilities/shop_osse_eligibility'
 
-      require 'aca_entities/audit_logs/contracts/audit_log_event_contract'
-      require 'aca_entities/audit_logs/entities/audit_log_event'
+      require 'aca_entities/event_logs/contracts/event_log_contract'
+      require 'aca_entities/event_logs/entities/event_log'
 
       # Operations
       require 'aca_entities/operations/operations'
