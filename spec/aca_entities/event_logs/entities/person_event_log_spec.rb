@@ -2,17 +2,11 @@
 
 require 'spec_helper'
 
-RSpec.describe ::AcaEntities::EventLogs::EventLog do
-
-  let(:event_class) do
-    Class.new(Dry::Struct) do
-      include ::AcaEntities::EventLogs::EventLog
-    end
-  end
+RSpec.describe ::AcaEntities::EventLogs::PersonEventLog do
 
   let(:input_params) do
     {
-      subject_gid: 'BenefitSponsorship',
+      subject_gid: 'Person',
       correlation_id: '13423234-23232323',
       event_category: event_category,
       session_id: '1234567',
@@ -32,11 +26,11 @@ RSpec.describe ::AcaEntities::EventLogs::EventLog do
     let(:event_category) { :osse_eligibility }
 
     it 'should initialize' do
-      expect(event_class.new(input_params)).to be_a event_class
+      expect(described_class.new(input_params)).to be_a described_class
     end
 
     it 'should not raise error' do
-      expect { event_class.new(input_params) }.not_to raise_error
+      expect { described_class.new(input_params) }.not_to raise_error
     end
   end
 
@@ -46,7 +40,7 @@ RSpec.describe ::AcaEntities::EventLogs::EventLog do
 
     it 'should raise error' do
       input_params.delete(:event_category)
-      expect { event_class.new(input_params) }.to raise_error(Dry::Struct::Error, /:event_category is missing in Hash input/)
+      expect { described_class.new(input_params) }.to raise_error(Dry::Struct::Error, /:event_category is missing in Hash input/)
     end
   end
 end
