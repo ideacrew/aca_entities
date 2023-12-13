@@ -3,6 +3,8 @@
 # types
 require 'aca_entities/types'
 
+############# H92
+
 # contracts
 require_relative 'vlp/h92/contracts/passport_country_contract'
 require_relative 'vlp/h92/contracts/i327_document_id_contract'
@@ -66,6 +68,27 @@ require_relative 'vlp/h92/initial_verification_response'
 
 # operations
 require_relative 'vlp/h92/operations/person_to_initial_request'
+
+############# Rx1424
+
+# contracts
+require_relative 'vlp/rx1424/contracts/error_response_metadata_contract'
+require_relative 'vlp/rx1424/contracts/array_of_error_response_metadata_contract'
+require_relative 'vlp/rx1424/contracts/response_metadata_contract'
+require_relative 'vlp/rx1424/contracts/close_case_response_set_contract'
+require_relative 'vlp/rx1424/contracts/close_case_request_contract'
+require_relative 'vlp/rx1424/contracts/close_case_response_contract'
+
+# entities
+require_relative 'vlp/rx1424/error_response_metadata'
+require_relative 'vlp/rx1424/array_of_error_response_metadata'
+require_relative 'vlp/rx1424/response_metadata'
+require_relative 'vlp/rx1424/close_case_response_set'
+require_relative 'vlp/rx1424/close_case_request'
+require_relative 'vlp/rx1424/close_case_response'
+
+# operations
+require_relative 'vlp/rx1424/operations/verify_close_case_request'
 
 # happymapper
 require 'aca_entities/serializers/xml/fdsh/vlp'
