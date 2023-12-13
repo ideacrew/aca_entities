@@ -11,7 +11,7 @@ module AcaEntities
         optional(:account_id).maybe(:string)
         required(:subject_gid).filled(:string)
         required(:correlation_id).filled(:string)
-        required(:message_id).filled(:symbol)
+        required(:message_id).filled(:string)
         required(:host_id).maybe(:string)
 
         required(:event_category).filled(:symbol)
