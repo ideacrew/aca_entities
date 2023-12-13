@@ -2,6 +2,9 @@
 
 require "happymapper"
 
+############ H92
+
+# entities
 require_relative 'vlp/h92/passport_country'
 require_relative 'vlp/h92/i327_document_id'
 require_relative 'vlp/h92/i551_document_id'
@@ -34,6 +37,20 @@ require_relative 'vlp/h92/initial_verification_response'
 # operations
 require_relative "vlp/h92/operations/validate_vlp_h92_payload_xml"
 require_relative "vlp/h92/operations/initial_request_to_xml"
+
+############ Rx1424
+
+# entities
+require_relative 'vlp/rx1424/close_case_response_set'
+require_relative 'vlp/rx1424/response_metadata'
+require_relative 'vlp/rx1424/error_response_metadata'
+require_relative 'vlp/rx1424/array_of_error_response_metadata'
+require_relative 'vlp/rx1424/close_case_response'
+require_relative 'vlp/rx1424/close_case_request'
+
+# operations
+require_relative "vlp/rx1424/operations/validate_vlp_rx1424_payload_xml"
+require_relative "vlp/rx1424/operations/close_case_request_to_xml"
 
 module AcaEntities
   module Serializers
