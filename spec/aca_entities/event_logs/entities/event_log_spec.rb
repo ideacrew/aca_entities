@@ -12,31 +12,44 @@ RSpec.describe ::AcaEntities::EventLogs::EventLog do
 
   let(:input_params) do
     {
+      account_id: '96',
       subject_gid: 'BenefitSponsorship',
       correlation_id: '13423234-23232323',
-      event_category: event_category,
-      session_id: '1234567',
-      account_id: '96',
+      message_id: SecureRandom.uuid,
       host_id: 'enroll',
-      trigger: 'determine_eligibility',
-      response: 'success',
-      log_level: :debug,
-      severity: :debug,
+      event_category: event_category,
       event_time: DateTime.now,
+      session_detail: session_detail,
+      trigger: 'determine_eligibility',
       tags: []
     }
   end
 
+  let(:session_detail) do
+    {
+      session_id: SecureRandom.uuid,
+      login_session_id: SecureRandom.uuid,
+      portal: 'http://dchealthlink.com'
+    }
+  end
+
+  let(:event_category) { :osse_eligibility }
+
   describe 'with valid arguments' do
-
-    let(:event_category) { :osse_eligibility }
-
     it 'should initialize' do
       expect(event_class.new(input_params)).to be_a event_class
     end
 
     it 'should not raise error' do
       expect { event_class.new(input_params) }.not_to raise_error
+    end
+  end
+
+  describe 'when session detail missing' do
+    let(:session_detail) { {} }
+
+    it 'should fail ' do
+      expect { event_class.new(input_params) }.to raise_error(Dry::Struct::Error, /:session_id is missing in Hash input/)
     end
   end
 

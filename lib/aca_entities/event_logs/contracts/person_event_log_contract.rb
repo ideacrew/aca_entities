@@ -6,7 +6,7 @@ module AcaEntities
     class PersonEventLogContract < Dry::Validation::Contract
 
       params(EventLogContract.schema) do
-        required(:custom_person_field).filled(:string)
+        # required(:custom_person_field).filled(:string)
       end
     end
   end

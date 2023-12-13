@@ -9,21 +9,25 @@ RSpec.describe ::AcaEntities::EventLogs::PersonEventLogContract do
       subject_gid: 'Person',
       correlation_id: '13423234-23232323',
       event_category: event_category,
+      message_id: SecureRandom.uuid,
       session_id: '1234567',
       account_id: '96',
       host_id: 'enroll',
       trigger: 'determine_eligibility',
-      response: 'success',
-      log_level: :debug,
-      severity: :debug,
+      session_detail: session_detail,
       event_time: DateTime.now,
-      custom_person_field: custom_person_field,
       tags: []
     }
   end
 
   let(:event_category) { :osse_eligibility }
-  let(:custom_person_field) { 'custom_person_field' }
+  let(:session_detail) do
+    {
+      session_id: SecureRandom.uuid,
+      login_session_id: SecureRandom.uuid,
+      portal: 'http://dchealthlink.com'
+    }
+  end
 
   describe 'with valid arguments' do
 
@@ -40,17 +44,6 @@ RSpec.describe ::AcaEntities::EventLogs::PersonEventLogContract do
 
       expect(result.success?).to be_falsey
       expect(result.errors.to_h).to eq({ :event_category => ["must be filled"] })
-    end
-  end
-
-  describe 'with custom benefit sponsorship field missing' do
-    let(:custom_person_field) { nil }
-
-    it 'should return failure' do
-      result = described_class.new.call(input_params)
-
-      expect(result.success?).to be_falsey
-      expect(result.errors.to_h).to eq({ :custom_person_field => ["must be filled"] })
     end
   end
 end

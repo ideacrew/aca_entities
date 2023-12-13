@@ -9,15 +9,22 @@ RSpec.describe ::AcaEntities::EventLogs::PersonEventLog do
       subject_gid: 'Person',
       correlation_id: '13423234-23232323',
       event_category: event_category,
+      message_id: SecureRandom.uuid,
       session_id: '1234567',
       account_id: '96',
       host_id: 'enroll',
       trigger: 'determine_eligibility',
-      response: 'success',
-      log_level: :debug,
-      severity: :debug,
+      session_detail: session_detail,
       event_time: DateTime.now,
       tags: []
+    }
+  end
+
+  let(:session_detail) do
+    {
+      session_id: SecureRandom.uuid,
+      login_session_id: SecureRandom.uuid,
+      portal: 'http://dchealthlink.com'
     }
   end
 

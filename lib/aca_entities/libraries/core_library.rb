@@ -196,10 +196,12 @@ module AcaEntities
       require 'aca_entities/benefit_sponsors/entities/benefit_sponsorships/shop_osse_eligibilities/shop_osse_grant'
       require 'aca_entities/benefit_sponsors/entities/benefit_sponsorships/shop_osse_eligibilities/shop_osse_eligibility'
 
+      require 'aca_entities/event_logs/contracts/session_detail_contract'
       require 'aca_entities/event_logs/contracts/event_log_contract'
       require 'aca_entities/event_logs/contracts/person_event_log_contract'
       require 'aca_entities/event_logs/contracts/benefit_sponsorship_event_log_contract'
 
+      require 'aca_entities/event_logs/entities/session_detail'
       require 'aca_entities/event_logs/entities/event_log'
       require 'aca_entities/event_logs/entities/person_event_log'
       require 'aca_entities/event_logs/entities/benefit_sponsorship_event_log'

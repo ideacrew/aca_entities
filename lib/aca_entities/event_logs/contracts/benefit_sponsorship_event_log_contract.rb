@@ -6,7 +6,7 @@ module AcaEntities
     class BenefitSponsorshipEventLogContract < Dry::Validation::Contract
 
       params(EventLogContract.schema) do
-        required(:custom_sponsorship_field).filled(:string)
+        # required(:custom_sponsorship_field).filled(:string)
       end
     end
   end
