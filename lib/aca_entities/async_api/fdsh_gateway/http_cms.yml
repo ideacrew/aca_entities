@@ -196,6 +196,34 @@ channels:
             Content-Type: application/soap+xml
             Accept: application/soap+xml
 
+  /VerifyAnnualHouseholdIncomeandFamilySizeServiceRest:
+    publish:
+      operationId: /VerifyAnnualHouseholdIncomeandFamilySizeServiceRest
+      description: Send ifsv JSON request to CMS
+      message:
+        contentType: application/json
+      bindings:
+        http:
+          type: request
+          method: POST
+          contentType: application/json
+          headers:
+            Content-Type: application/json
+            Accept: application/json
+    subscribe:
+      operationId: /on/VerifyAnnualHouseholdIncomeandFamilySizeServiceRest
+      description: Receive ifsv JSON response from CMS
+      message:
+        contentType: application/json
+      bindings:
+        http:
+          type: response
+          method: GET
+          contentType: application/json
+          headers:
+            Content-Type: application/json
+            Accept: application/json
+
   /HubConnectivityService:
     publish:
       operationId: /HubConnectivityService
