@@ -69,14 +69,14 @@ channels:
                   durable: true
                   auto_delete: false
                   vhost: event_source
-          enroll.individual.enrollments:
-            description: Forward Individual Enrollment Events to Exchange enroll.audit_log.events
-            routing_key: enroll.individual.enrollments.#
+          enroll.hc4cc.events:
+            description: Forward HC4CC Events to Exchange enroll.audit_log.events
+            routing_key: enroll.hc4cc.#
             bindings:
               amqp:
                 is: :routing_key
                 exchange:
-                  name: enroll.individual.enrollments
+                  name: enroll.hc4cc.events
                   type: topic
                   content_type: application/json
                   durable: true

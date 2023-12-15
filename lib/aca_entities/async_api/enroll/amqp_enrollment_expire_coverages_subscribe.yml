@@ -48,7 +48,17 @@ channels:
           prefetch: 1
           bindingVersion: "0.2.0"
       operationId: on_enroll.enroll.individual.enrollments.expire_coverages
-      description: Event for requesting expiration of enrollment coverage
+      description: Event for requesting IVL enrollment coverage expirations
+    subscribe:
+      bindings:
+        amqp:
+          ack: true
+          exclusive: false
+          routing_key: enroll.individual.enrollments.expire_coverages.expire
+          prefetch: 1
+          bindingVersion: "0.2.0"
+      operationId: on_enroll.enroll.individual.enrollments.expire_coverages
+      description: Event for expiring IVL enrollment coverage
 tags:
   - name: linter_tag
     description: placeholder that satisfies the linter

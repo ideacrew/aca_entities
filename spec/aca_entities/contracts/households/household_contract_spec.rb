@@ -351,6 +351,23 @@ RSpec.describe ::AcaEntities::Contracts::Households::HouseholdContract, dbclean:
     it 'should not have any errors' do
       expect(@result.errors.empty?).to be_truthy
     end
+
+    context 'where optional values are nil' do
+      before do
+        adjusted_params = required_params
+        adjusted_params[:hbx_enrollments].each { |enr| enr[:resident_role_reference] = nil }
+
+        @result_adjusted = subject.call(adjusted_params)
+      end
+
+      it 'should return success' do
+        expect(@result_adjusted.success?).to be_truthy
+      end
+
+      it 'should not have any errors' do
+        expect(@result_adjusted.errors.empty?).to be_truthy
+      end
+    end
   end
 
   context 'failure case' do
