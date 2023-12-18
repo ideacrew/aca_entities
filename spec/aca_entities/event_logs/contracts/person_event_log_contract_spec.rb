@@ -2,28 +2,34 @@
 
 require 'spec_helper'
 
-RSpec.describe ::AcaEntities::AuditLogs::AuditLogEventContract do
+RSpec.describe ::AcaEntities::EventLogs::PersonEventLogContract do
 
   let(:input_params) do
     {
-      subject_gid: 'BenefitSponsorship',
+      subject_gid: 'Person',
       correlation_id: '13423234-23232323',
       event_category: event_category,
+      message_id: SecureRandom.uuid,
       session_id: '1234567',
       account_id: '96',
       host_id: 'enroll',
       trigger: 'determine_eligibility',
-      response: 'success',
-      log_level: :debug,
-      severity: :debug,
+      session_detail: session_detail,
       event_time: DateTime.now,
       tags: []
     }
   end
 
-  describe 'with valid arguments' do
+  let(:event_category) { :osse_eligibility }
+  let(:session_detail) do
+    {
+      session_id: SecureRandom.uuid,
+      login_session_id: SecureRandom.uuid,
+      portal: 'http://dchealthlink.com'
+    }
+  end
 
-    let(:event_category) { :osse_eligibility }
+  describe 'with valid arguments' do
 
     it 'should return success' do
       expect(described_class.new.call(input_params).success?).to be_truthy
@@ -31,7 +37,6 @@ RSpec.describe ::AcaEntities::AuditLogs::AuditLogEventContract do
   end
 
   describe 'with invalid arguments' do
-
     let(:event_category) { nil }
 
     it 'should return failure' do
