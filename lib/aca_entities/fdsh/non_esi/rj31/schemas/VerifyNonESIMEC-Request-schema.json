@@ -1,0 +1,57 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "id": "./VerifyNonESIMEC-Request-schema.json",
+    "title": "Verify Non-Employer Sponsored Insurance Minimum Essential Coverage (Verify Non-ESI MEC) (RJ31) - Request Schema",
+    "description": "An applicable individual shall for each month beginning after 2013 ensure that the individual, and any dependent of the individual who is an applicable individual, is covered under minimum essential coverage for such month.",
+    "type": "object",
+    "$comment": "Define root as verifyNonESIMECRequest",
+    "required": ["verifyNonESIMECRequest"],
+    "additionalProperties": false,
+    "properties": {
+        "verifyNonESIMECRequest": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "individualRequestArray": {
+                    "type": "array",
+                    "minItems": 1,
+                    "items": {"$ref": "#/definitions/individualRequestArrayType"}
+                }
+            }
+        }
+    },
+    "definitions": {
+        "individualRequestArrayType": {
+            "description": "Request for each individual request of the household - name fields, SSN, DOB, state, policy dates",
+            "type": "object",
+            "required": [
+                "personSocialSecurityNumber",
+                "personGivenName",
+                "personSurName",
+                "personBirthDate",
+                "usStateCode",
+                "insurancePolicyEffectiveDate",
+                "insurancePolicyExpirationDate"
+            ],
+            "additionalProperties": false,
+            "properties": {
+                "personSocialSecurityNumber": {"$ref": "./lib/aca_entities/fdsh/non_esi/rj31/schemas/VerifyNonESIMEC-Shared-schema.json#/definitions/personSocialSecurityNumberType"},
+                "personGivenName": {"$ref": "./lib/aca_entities/fdsh/non_esi/rj31/schemas/VerifyNonESIMEC-Shared-schema.json#/definitions/personGivenNameType"},
+                "personMiddleName": {"$ref": "./lib/aca_entities/fdsh/non_esi/rj31/schemas/VerifyNonESIMEC-Shared-schema.json#/definitions/personMiddleNameType"},
+                "personSurName": {"$ref": "./lib/aca_entities/fdsh/non_esi/rj31/schemas/VerifyNonESIMEC-Shared-schema.json#/definitions/personSurNameType"},
+                "personSuffixName": {"$ref": "./lib/aca_entities/fdsh/non_esi/rj31/schemas/VerifyNonESIMEC-Shared-schema.json#/definitions/personSuffixNameType"},
+                "personBirthDate": {"$ref": "./lib/aca_entities/fdsh/non_esi/rj31/schemas/VerifyNonESIMEC-Shared-schema.json#/definitions/dateType"},
+                "personSexCode": {"$ref": "./lib/aca_entities/fdsh/non_esi/rj31/schemas/VerifyNonESIMEC-Shared-schema.json#/definitions/personSexCodeType"},
+                "usStateCode": {"$ref": "./lib/aca_entities/fdsh/non_esi/rj31/schemas/USStateCode-schema.json#/definitions/usStateCodeType"},
+                "insurancePolicyEffectiveDate": {"$ref": "./lib/aca_entities/fdsh/non_esi/rj31/schemas/VerifyNonESIMEC-Shared-schema.json#/definitions/dateType"},
+                "insurancePolicyExpirationDate": {"$ref": "./lib/aca_entities/fdsh/non_esi/rj31/schemas/VerifyNonESIMEC-Shared-schema.json#/definitions/dateType"},
+                "organizationCodeArray": {
+                    "$comment": "Though maxItems is not constrained in this schema, in practice the maximum number of repetitions should not exceed 7, one for each enumeration",
+                    "type": "array",
+                    "minItems": 1,
+                    "items": {"$ref": "./lib/aca_entities/fdsh/non_esi/rj31/schemas/VerifyNonESIMEC-Shared-schema.json#/definitions/organizationCodeType"}
+                }
+            }
+        }
+    }
+}

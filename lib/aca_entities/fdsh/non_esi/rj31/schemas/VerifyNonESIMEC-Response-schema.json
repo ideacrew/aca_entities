@@ -1,0 +1,130 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "id": "./VerifyNonESIMEC-Response-schema.json",
+    "title": "Verify Non-Employer Sponsored Insurance Minimum Essential Coverage (Verify Non-ESI MEC) (RJ31) - Response Schema",
+    "description": "An applicable individual shall for each month beginning after 2013 ensure that the individual, and any dependent of the individual who is an applicable individual, is covered under minimum essential coverage for such month.",
+    "type": "object",
+    "$comment": "Define root as verifyNonESIMECResponse. The immediate children (individualResponseArray and responseMetadata) are to be considered mutually exclusive; i.e., only populate one of them.",
+    "required": ["verifyNonESIMECResponse"],
+    "additionalProperties": false,
+    "properties": {
+        "verifyNonESIMECResponse": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "individualResponseArray": {
+                    "type": "array",
+                    "minItems": 1,
+                    "items": {"$ref": "#/definitions/individualResponseArrayType"}
+                },
+                "responseMetadata": {"$ref": "#/definitions/responseMetadataType"}
+            }
+        }
+    },
+    "definitions": {
+        "individualResponseArrayType": {
+            "description": "Response for each individual request of the household - name fields, SSN, DOB, state, policy dates",
+            "type": "object",
+            "required": [
+                "personSocialSecurityNumber",
+                "personGivenName",
+                "personSurName",
+                "personBirthDate",
+                "partialResponseIndicator",
+                "otherCoverageArray"
+            ],
+            "additionalProperties": false,
+            "properties": {
+                "personSocialSecurityNumber": {"$ref": "./lib/aca_entities/fdsh/non_esi/rj31/schemas/VerifyNonESIMEC-Shared-schema.json#/definitions/personSocialSecurityNumberType"},
+                "personGivenName": {"$ref": "./lib/aca_entities/fdsh/non_esi/rj31/schemas/VerifyNonESIMEC-Shared-schema.json#/definitions/personGivenNameType"},
+                "personMiddleName": {"$ref": "./lib/aca_entities/fdsh/non_esi/rj31/schemas/VerifyNonESIMEC-Shared-schema.json#/definitions/personMiddleNameType"},
+                "personSurName": {"$ref": "./lib/aca_entities/fdsh/non_esi/rj31/schemas/VerifyNonESIMEC-Shared-schema.json#/definitions/personSurNameType"},
+                "personSuffixName": {"$ref": "./lib/aca_entities/fdsh/non_esi/rj31/schemas/VerifyNonESIMEC-Shared-schema.json#/definitions/personSuffixNameType"},
+                "personBirthDate": {"$ref": "./lib/aca_entities/fdsh/non_esi/rj31/schemas/VerifyNonESIMEC-Shared-schema.json#/definitions/dateType"},
+                "personSexCode": {"$ref": "./lib/aca_entities/fdsh/non_esi/rj31/schemas/VerifyNonESIMEC-Shared-schema.json#/definitions/personSexCodeType"},
+                "partialResponseIndicator": {
+                    "description": "Indicates a partial response for that request. This occurs when all the Trusted Data Sources have not responded in time",
+                    "type": "boolean"
+                },
+                "otherCoverageArray": {
+                    "type": "array",
+                    "minItems": 1,
+                    "items": {"$ref": "#/definitions/otherCoverageArrayType"}
+                }
+            }
+        },
+        "otherCoverageArrayType": {
+            "description": "Other coverage information returned from each Trusted data source for a individual request",
+            "type": "object",
+            "required": [
+                "organizationCode",
+                "responseMetadata"
+            ],
+            "additionalProperties": false,
+            "properties": {
+                "organizationCode": {"$ref": "./lib/aca_entities/fdsh/non_esi/rj31/schemas/VerifyNonESIMEC-Shared-schema.json#/definitions/organizationCodeType"},
+                "mecCoverage": {"$ref": "#/definitions/mecCoverageType"},
+                "responseMetadata": {"$ref": "#/definitions/responseMetadataType"}
+            }
+        },
+        "mecCoverageType": {
+            "description": "contains the coverage information of other sources",
+            "type": "object",
+            "required": ["mecVerificationCode"],
+            "additionalProperties": false,
+            "properties": {
+                "usStateCode": {"$ref": "./lib/aca_entities/fdsh/non_esi/rj31/schemas/USStateCode-schema.json#/definitions/usStateCodeType"},
+                "mecVerificationCode": {
+                    "description": "Indicates whether Minimum Eligible Coverage exists for an individual in a Trusted Data Source",
+                    "type": "string",
+                    "enum": [
+                        "Y",
+                        "N",
+                        "P"
+                    ]
+                },
+                "insuranceArray": {
+                    "description": "Contains the effective and expiration date for insurance plans",
+                    "type": "array",
+                    "minItems": 1,
+                    "items": {"$ref": "#/definitions/insuranceArrayType"}
+                }
+            }
+        },
+        "insuranceArrayType": {
+            "description": "Contains the effective and expiration date for insurance plans",
+            "type": "object",
+            "required": ["insurancePolicyEffectiveDate"],
+            "additionalProperties": false,
+            "properties": {
+                "insurancePolicyEffectiveDate": {"$ref": "./lib/aca_entities/fdsh/non_esi/rj31/schemas/VerifyNonESIMEC-Shared-schema.json#/definitions/dateType"},
+                "insurancePolicyExpirationDate": {"$ref": "./lib/aca_entities/fdsh/non_esi/rj31/schemas/VerifyNonESIMEC-Shared-schema.json#/definitions/dateType"}
+            }
+        },
+        "responseMetadataType": {
+            "description": "A set of details about a response (successful or not)",
+            "type": "object",
+            "required": [
+                "responseCode",
+                "responseText"
+            ],
+            "additionalProperties": false,
+            "properties": {
+                "responseCode": {
+                    "description": "A coded response of 8 characters",
+                    "type": "string",
+                    "minLength": 8,
+                    "maxLength": 8
+                },
+                "responseText": {
+                    "description": "A description of a response",
+                    "type": "string"
+                },
+                "tdsResponseText": {
+                    "description": "A description of a response from a data source designated as trusted (a trusted data source or TDS) by the Centers for Medicare and Medicaid Services; optional",
+                    "type": "string"
+                }
+            }
+        }
+    }
+}

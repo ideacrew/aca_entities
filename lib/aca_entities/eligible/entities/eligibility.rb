@@ -4,14 +4,12 @@ module AcaEntities
   module Eligible
     # entity class for Eligibility
     class Eligibility < Dry::Struct
-      INELIGIBLE_STATUSES = %i[initial expired].freeze
-      ELIGIBLE_STATUSES = %i[published].freeze
-      EVENTS = %i[move_to_initial move_to_published move_to_expired].freeze
-
+      INELIGIBLE_STATUSES = %i[initial ineligible].freeze
+      ELIGIBLE_STATUSES = %i[eligible].freeze
+      EVENTS = %i[move_to_eligible move_to_ineligible].freeze
       STATE_TRANSITION_MAP = {
-        initial: [:initial],
-        published: [:initial],
-        expired: %i[initial published]
+        eligible: %i[initial eligible ineligible],
+        ineligible: %i[initial eligible ineligible]
       }.freeze
 
       # @!attribute [r] _id
@@ -102,7 +100,12 @@ module AcaEntities
         end
 
         def evidence_resource_for(key)
-          resource = resource_ref_dir[:evidences][key.to_sym] if resource_ref_dir[:evidences]
+          if resource_ref_dir[
+            :evidences
+          ]
+            resource =
+              resource_ref_dir[:evidences][key.to_sym]
+          end
           return AcaEntities::Eligible::Evidence unless resource
           resource.class_name.constantize
         end

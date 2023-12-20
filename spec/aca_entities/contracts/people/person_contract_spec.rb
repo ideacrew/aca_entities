@@ -284,7 +284,7 @@ RSpec.describe AcaEntities::Contracts::People::PersonContract, type: :model, dbc
       is_active: true,
       is_disabled: false,
       no_dc_address: nil,
-      no_dc_address_reason: nil,
+      no_dc_address_reason: 'I am homeless',
       is_homeless: nil,
       is_temporarily_out_of_state: nil,
       age_off_excluded: nil,

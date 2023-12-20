@@ -64,7 +64,7 @@ RSpec.describe AcaEntities::Eligible::StateChangeValidator do
         validator.validate
         expect(validator.errors).to be_present
         expect(validator.errors).to include("event name should be move_to_#{current[:to_state]}")
-        expect(validator.errors).to include("Invalid state transition")
+        expect(validator.errors).to include("Invalid from state approved. It should be one of [:initial, :denied].")
       end
     end
   end

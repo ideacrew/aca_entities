@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require 'dry/monads'
-require 'dry/monads/do'
+require "dry/monads"
+require "dry/monads/do"
 
 module AcaEntities
   module Eligible
@@ -25,7 +25,8 @@ module AcaEntities
       private
 
       def validate(resource_name, params)
-        response = "#{resource_name}Contract".constantize.new.call(params[:evidence])
+        response =
+          "#{resource_name}Contract".constantize.new.call(params[:evidence])
 
         if response.success?
           Success(response.to_h)
@@ -39,15 +40,19 @@ module AcaEntities
       end
 
       def validate_state_changes(resource_name, values)
-        return Success(values) unless values[:state_history]
-        validator = StateChangeValidator.new(values[:state_history], resource_name)
+        return Success(values) unless values[:state_histories]
+
+        validator =
+          StateChangeValidator.new(values[:state_histories], resource_name)
         validator.validate
 
-        validator.errors.empty? ? Success(values) : Failure(validator.errors)
+        return Failure(validator.errors) unless validator.errors.empty?
+        Success(values)
       end
 
       def get_resource_name(params)
-        resource_name = params[:subject].resource_name_for(:evidence, params[:evidence][:key])
+        resource_name =
+          params[:subject].resource_name_for(:evidence, params[:evidence][:key])
 
         Success(resource_name)
       end
