@@ -41,16 +41,16 @@ require_relative "vlp/h92/operations/initial_request_to_xml"
 ############ Rx1424
 
 # entities
-require_relative 'vlp/rx1424/close_case_response_set'
-require_relative 'vlp/rx1424/response_metadata'
-require_relative 'vlp/rx1424/error_response_metadata'
-require_relative 'vlp/rx1424/array_of_error_response_metadata'
-require_relative 'vlp/rx1424/close_case_response'
-require_relative 'vlp/rx1424/close_case_request'
+require_relative 'vlp/rx142/close_case/close_case_response_set'
+require_relative 'vlp/rx142/close_case/response_metadata'
+require_relative 'vlp/rx142/close_case/error_response_metadata'
+require_relative 'vlp/rx142/close_case/array_of_error_response_metadata'
+require_relative 'vlp/rx142/close_case/close_case_response'
+require_relative 'vlp/rx142/close_case/close_case_request'
 
 # operations
-require_relative "vlp/rx1424/operations/validate_vlp_rx1424_payload_xml"
-require_relative "vlp/rx1424/operations/close_case_request_to_xml"
+require_relative "vlp/rx142/close_case/operations/validate_vlp_rx142_close_case_payload_xml"
+require_relative "vlp/rx142/close_case/operations/close_case_request_to_xml"
 
 module AcaEntities
   module Serializers
