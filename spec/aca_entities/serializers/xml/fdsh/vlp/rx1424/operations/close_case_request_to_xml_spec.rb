@@ -43,24 +43,4 @@ RSpec.describe ::AcaEntities::Serializers::Xml::Fdsh::Vlp::Rx1424::Operations::C
       expect(subject.success?).to be_falsey
     end
   end
-
-  context 'with invalid params' do
-    let(:close_case_request) do
-      {
-        DateOfBirth: '12345'
-      }
-    end
-
-    let(:close_case_request_entity) do
-      AcaEntities::Fdsh::Vlp::Rx1424::CloseCaseRequest.call(close_case_request)
-    end
-
-    subject do
-      described_class.new.call(close_case_request_entity)
-    end
-
-    xit "is not successful" do
-      expect(subject).to not_eq(Success())
-    end
-  end
 end
