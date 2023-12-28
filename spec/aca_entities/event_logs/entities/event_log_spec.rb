@@ -20,7 +20,7 @@ RSpec.describe ::AcaEntities::EventLogs::EventLog do
       event_category: event_category,
       event_time: DateTime.now,
       session_detail: session_detail,
-      trigger: 'determine_eligibility',
+      event_name: 'events.determine_eligibility',
       tags: []
     }
   end

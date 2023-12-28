@@ -15,12 +15,12 @@ module AcaEntities
         required(:host_id).maybe(:string)
 
         required(:event_category).filled(:symbol)
+        required(:event_name).maybe(:string)
         required(:event_time).value(:date_time)
 
         required(:session_detail).hash(AcaEntities::EventLogs::SessionDetailContract.params)
         optional(:monitored_event).hash(AcaEntities::EventLogs::MonitoredEventContract.params)
 
-        required(:trigger).maybe(:string)
         optional(:tags).maybe(:array)
       end
     end

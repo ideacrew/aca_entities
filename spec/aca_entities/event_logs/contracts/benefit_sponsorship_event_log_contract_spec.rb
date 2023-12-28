@@ -13,7 +13,7 @@ RSpec.describe ::AcaEntities::EventLogs::BenefitSponsorshipEventLogContract do
       session_id: '1234567',
       account_id: '96',
       host_id: 'enroll',
-      trigger: 'determine_eligibility',
+      event_name: 'events.determine_eligibility',
       session_detail: session_detail,
       event_time: DateTime.now,
       tags: []
