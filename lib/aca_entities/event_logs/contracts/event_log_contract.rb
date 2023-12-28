@@ -18,6 +18,7 @@ module AcaEntities
         required(:event_time).value(:date_time)
 
         required(:session_detail).hash(AcaEntities::EventLogs::SessionDetailContract.params)
+        optional(:monitored_event).hash(AcaEntities::EventLogs::MonitoredEventContract.params)
 
         required(:trigger).maybe(:string)
         optional(:tags).maybe(:array)

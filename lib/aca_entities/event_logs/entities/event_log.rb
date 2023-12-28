@@ -19,6 +19,8 @@ module AcaEntities
 
           attribute :session_detail,
                     AcaEntities::EventLogs::SessionDetail.optional.meta(omittable: false)
+          attribute :monitored_event,
+                    AcaEntities::EventLogs::MonitoredEvent.optional.meta(omittable: true)
 
           attribute :trigger, Types::String.optional.meta(omittable: false)
           attribute :tags, Types::Array.optional.meta(omittable: true)
