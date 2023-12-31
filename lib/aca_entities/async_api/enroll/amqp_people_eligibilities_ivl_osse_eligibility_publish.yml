@@ -30,12 +30,12 @@ servers:
     description: RabbitMQ Test Server
 
 channels:
-  enroll.hc4cc.events.eligibility_created:
+  enroll.people.eligibilities.ivl_osse_eligibility.eligibility_created:
     bindings:
       amqp:
         is: :routing_key
         exchange:
-          name: enroll.hc4cc.events
+          name: enroll.people.eligibilities.ivl_osse_eligibility
           type: topic
           content_type: application/json
           durable: true
@@ -43,25 +43,25 @@ channels:
           vhost: event_source
         binding_version: "0.2.0"
     publish:
-      operationId: enroll.hc4cc.events.eligibility_created
+      operationId: enroll.people.eligibilities.ivl_osse_eligibility.eligibility_created
       description: Events - hc4cc eligibility created
       bindings:
         amqp:
           app_id: enroll
-          type: enroll.hc4cc.events
-          routing_key: enroll.hc4cc.events.eligibility_created
+          type: enroll.people.eligibilities.ivl_osse_eligibility
+          routing_key: enroll.people.eligibilities.ivl_osse_eligibility.eligibility_created
           deliveryMode: 2
           mandatory: true
           timestamp: true
           content_type: application/json
           bindingVersion: 0.2.0
 
-  enroll.hc4cc.events.eligibility_terminated:
+  enroll.people.eligibilities.ivl_osse_eligibility.eligibility_terminated:
     bindings:
       amqp:
         is: :routing_key
         exchange:
-          name: enroll.hc4cc.events
+          name: enroll.people.eligibilities.ivl_osse_eligibility
           type: topic
           content_type: application/json
           durable: true
@@ -69,19 +69,44 @@ channels:
           vhost: event_source
         binding_version: "0.2.0"
     publish:
-      operationId: enroll.hc4cc.events.eligibility_terminated
+      operationId: enroll.people.eligibilities.ivl_osse_eligibility.eligibility_terminated
       description: Events - hc4cc eligibility terminated
       bindings:
         amqp:
           app_id: enroll
-          type: enroll.hc4cc.events
-          routing_key: enroll.hc4cc.events.eligibility_terminated
+          type: enroll.people.eligibilities.ivl_osse_eligibility
+          routing_key: enroll.people.eligibilities.ivl_osse_eligibility.eligibility_terminated
           deliveryMode: 2
           mandatory: true
           timestamp: true
           content_type: application/json
           bindingVersion: 0.2.0
 
+  enroll.people.eligibilities.ivl_osse_eligibility.eligibility_renewed:
+    bindings:
+      amqp:
+        is: :routing_key
+        exchange:
+          name: enroll.people.eligibilities.ivl_osse_eligibility
+          type: topic
+          content_type: application/json
+          durable: true
+          auto_delete: false
+          vhost: event_source
+        binding_version: "0.2.0"
+    publish:
+      operationId: enroll.people.eligibilities.ivl_osse_eligibility.eligibility_renewed
+      description: Events - hc4cc eligibility terminated
+      bindings:
+        amqp:
+          app_id: enroll
+          type: enroll.people.eligibilities.ivl_osse_eligibility
+          routing_key: enroll.people.eligibilities.ivl_osse_eligibility.eligibility_renewed
+          deliveryMode: 2
+          mandatory: true
+          timestamp: true
+          content_type: application/json
+          bindingVersion: 0.2.0
 tags:
   - name: linter_tag
     description: placeholder that satisfies the linter
