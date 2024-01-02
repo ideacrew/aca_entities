@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe ::AcaEntities::EventLogs::PersonEventLogContract do
+RSpec.describe ::AcaEntities::People::EligibilitiesEventLogContract do
 
   let(:input_params) do
     {
