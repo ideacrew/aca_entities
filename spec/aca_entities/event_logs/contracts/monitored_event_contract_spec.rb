@@ -6,7 +6,8 @@ RSpec.describe ::AcaEntities::EventLogs::MonitoredEventContract do
 
   let(:input_params) do
     {
-      account_id: '96',
+      account_hbx_id: '963434',
+      account_username: 'sample_username',
       subject_hbx_id: '623340',
       event_category: event_category,
       event_time: DateTime.now,

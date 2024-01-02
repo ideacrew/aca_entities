@@ -8,7 +8,8 @@ module AcaEntities
     class MonitoredEventContract < Dry::Validation::Contract
 
       params do
-        required(:account_id).filled(:string)
+        required(:account_hbx_id).filled(:string)
+        required(:account_username).filled(:string)
         required(:subject_hbx_id).filled(:string)
         required(:event_category).filled(:symbol)
         required(:event_time).value(:date_time)

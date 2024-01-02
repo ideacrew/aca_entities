@@ -6,7 +6,8 @@ module AcaEntities
     class MonitoredEvent < Dry::Struct
       transform_keys(&:to_sym)
 
-      attribute :account_id, Types::String.optional.meta(omittable: false)
+      attribute :account_hbx_id, Types::String.optional.meta(omittable: false)
+      attribute :account_username, Types::String.optional.meta(omittable: false)
       attribute :subject_hbx_id, Types::String.optional.meta(omittable: false)
       attribute :event_category, Types::Strict::Symbol.meta(omittable: false)
       attribute :event_time, Types::DateTime.optional.meta(omittable: false)
