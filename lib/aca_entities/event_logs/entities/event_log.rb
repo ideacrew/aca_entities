@@ -13,6 +13,7 @@ module AcaEntities
           attribute :correlation_id, Types::String.optional.meta(omittable: false)
           attribute :message_id, Types::String.optional.meta(omittable: false)
           attribute :host_id, Types::String.optional.meta(omittable: false)
+          attribute :payload, Types::Any.meta(omittable: true)
 
           attribute :event_category, Types::Strict::Symbol.meta(omittable: false)
           attribute :event_name, Types::String.optional.meta(omittable: false)

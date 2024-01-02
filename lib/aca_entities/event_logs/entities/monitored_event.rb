@@ -6,7 +6,6 @@ module AcaEntities
     class MonitoredEvent < Dry::Struct
       transform_keys(&:to_sym)
 
-      attribute :market_kind, Types::String.optional.meta(omittable: false)
       attribute :account_id, Types::String.optional.meta(omittable: false)
       attribute :subject_hbx_id, Types::String.optional.meta(omittable: false)
       attribute :event_category, Types::Strict::Symbol.meta(omittable: false)

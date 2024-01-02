@@ -13,6 +13,7 @@ module AcaEntities
         required(:correlation_id).filled(:string)
         required(:message_id).filled(:string)
         required(:host_id).maybe(:string)
+        optional(:payload).maybe(:any)
 
         required(:event_category).filled(:symbol)
         required(:event_name).maybe(:string)

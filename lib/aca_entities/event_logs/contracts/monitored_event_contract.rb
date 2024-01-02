@@ -8,7 +8,6 @@ module AcaEntities
     class MonitoredEventContract < Dry::Validation::Contract
 
       params do
-        required(:market_kind).filled(:string)
         required(:account_id).filled(:string)
         required(:subject_hbx_id).filled(:string)
         required(:event_category).filled(:symbol)
