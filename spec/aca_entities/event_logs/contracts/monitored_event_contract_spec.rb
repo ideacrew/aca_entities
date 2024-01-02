@@ -6,7 +6,6 @@ RSpec.describe ::AcaEntities::EventLogs::MonitoredEventContract do
 
   let(:input_params) do
     {
-      market_kind: 'individual',
       account_id: '96',
       subject_hbx_id: '623340',
       event_category: event_category,

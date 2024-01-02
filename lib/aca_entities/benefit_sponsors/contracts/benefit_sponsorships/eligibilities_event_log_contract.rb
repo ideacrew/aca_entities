@@ -5,8 +5,8 @@ module AcaEntities
     module BenefitSponsorships
       # contract for EligibilitiesEventLog
       class EligibilitiesEventLogContract < Dry::Validation::Contract
-  
-        params(EventLogContract.schema) do
+
+        params(AcaEntities::EventLogs::EventLogContract.schema) do
           # Fields specific to the resource model can be included in this section, as illustrated below.
           # required(:custom_sponsorship_field).filled(:string)
         end
