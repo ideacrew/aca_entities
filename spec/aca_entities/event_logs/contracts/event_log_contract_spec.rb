@@ -12,7 +12,7 @@ RSpec.describe ::AcaEntities::EventLogs::EventLogContract do
       message_id: SecureRandom.uuid,
       account_id: '96',
       host_id: 'enroll',
-      trigger: 'determine_eligibility',
+      event_name: 'events.determine_eligibility',
       event_time: DateTime.now,
       session_detail: session_detail,
       tags: []

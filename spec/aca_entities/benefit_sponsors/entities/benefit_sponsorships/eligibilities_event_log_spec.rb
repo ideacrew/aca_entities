@@ -2,18 +2,18 @@
 
 require 'spec_helper'
 
-RSpec.describe ::AcaEntities::EventLogs::PersonEventLog do
+RSpec.describe ::AcaEntities::BenefitSponsors::BenefitSponsorships::EligibilitiesEventLog do
 
   let(:input_params) do
     {
-      subject_gid: 'Person',
+      subject_gid: 'BenefitSponsorship',
       correlation_id: '13423234-23232323',
       event_category: event_category,
       message_id: SecureRandom.uuid,
       session_id: '1234567',
       account_id: '96',
       host_id: 'enroll',
-      trigger: 'determine_eligibility',
+      event_name: 'events.determine_eligibility',
       session_detail: session_detail,
       event_time: DateTime.now,
       tags: []

@@ -2,32 +2,20 @@
 
 require 'spec_helper'
 
-RSpec.describe ::AcaEntities::EventLogs::BenefitSponsorshipEventLogContract do
+RSpec.describe ::AcaEntities::EventLogs::MonitoredEventContract do
 
   let(:input_params) do
     {
-      subject_gid: 'BenefitSponsorship',
-      correlation_id: '13423234-23232323',
+      account_hbx_id: '963434',
+      account_username: 'sample_username',
+      subject_hbx_id: '623340',
       event_category: event_category,
-      message_id: SecureRandom.uuid,
-      session_id: '1234567',
-      account_id: '96',
-      host_id: 'enroll',
-      trigger: 'determine_eligibility',
-      session_detail: session_detail,
       event_time: DateTime.now,
-      tags: []
+      login_session_id: SecureRandom.uuid
     }
   end
 
   let(:event_category) { :osse_eligibility }
-  let(:session_detail) do
-    {
-      session_id: SecureRandom.uuid,
-      login_session_id: SecureRandom.uuid,
-      portal: 'http://dchealthlink.com'
-    }
-  end
 
   describe 'with valid arguments' do
 
@@ -37,6 +25,7 @@ RSpec.describe ::AcaEntities::EventLogs::BenefitSponsorshipEventLogContract do
   end
 
   describe 'with invalid arguments' do
+
     let(:event_category) { nil }
 
     it 'should return failure' do
@@ -47,3 +36,4 @@ RSpec.describe ::AcaEntities::EventLogs::BenefitSponsorshipEventLogContract do
     end
   end
 end
+
