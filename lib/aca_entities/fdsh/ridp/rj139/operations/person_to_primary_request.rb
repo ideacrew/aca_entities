@@ -54,18 +54,20 @@ module AcaEntities
             end
 
             def decrypt_ssn(encrypted_ssn)
+              return nil if encrypted_ssn.blank?
+
               AcaEntities::Operations::Encryption::Decrypt.new.call({ value: encrypted_ssn }).value!
             end
 
             def construct_contact_information(payload)
-              home_address = payload.home_address || payload.addresses.last
-              home_phone = payload.home_phone || payload.phones.last
+              home_address = payload.home_address || payload.addresses&.last
+              home_phone = payload.home_phone || payload.phones&.last
               {
-                streetName: home_address.address_1,
-                cityName: home_address.city&.gsub(/[^0-9A-Za-z]/, ''),
-                usStateCode: home_address.state,
-                zipCode: home_address.zip,
-                telephoneNumber: home_phone.full_phone_number
+                streetName: home_address&.address_1&.gsub(/[^0-9A-Za-z\s]/, ''),
+                cityName: home_address&.city&.gsub(/[^0-9A-Za-z]/, ''),
+                usStateCode: home_address&.state,
+                zipCode: home_address&.zip,
+                telephoneNumber: home_phone&.full_phone_number
               }
             end
 
