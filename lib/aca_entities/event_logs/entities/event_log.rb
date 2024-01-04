@@ -10,6 +10,7 @@ module AcaEntities
 
           attribute :account_id, Types::String.optional.meta(omittable: true)
           attribute :subject_gid, Types::String.optional.meta(omittable: false)
+          attribute :resource_gid, Types::String.optional.meta(omittable: false)
           attribute :correlation_id, Types::String.optional.meta(omittable: false)
           attribute :message_id, Types::String.optional.meta(omittable: false)
           attribute :host_id, Types::String.optional.meta(omittable: false)

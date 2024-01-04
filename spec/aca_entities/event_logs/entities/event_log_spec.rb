@@ -13,7 +13,8 @@ RSpec.describe ::AcaEntities::EventLogs::EventLog do
   let(:input_params) do
     {
       account_id: '96',
-      subject_gid: 'BenefitSponsorship',
+      subject_gid: 'gid://enroll/BenefitSponsors::Organizations::GeneralOrganization/5d8518611bdce254e0717301',
+      resource_gid: 'gid://enroll/BenefitSponsors::BenefitSponsorships::ShopOsseEligibilities::ShopOsseEligibility/651717acf1ff6d456b041c7c',
       correlation_id: '13423234-23232323',
       message_id: SecureRandom.uuid,
       host_id: 'enroll',

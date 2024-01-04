@@ -6,7 +6,8 @@ RSpec.describe ::AcaEntities::EventLogs::EventLogContract do
 
   let(:input_params) do
     {
-      subject_gid: 'BenefitSponsorship',
+      subject_gid: 'gid://enroll/BenefitSponsors::Organizations::GeneralOrganization/5d8518611bdce254e0717301',
+      resource_gid: 'gid://enroll/BenefitSponsors::BenefitSponsorships::ShopOsseEligibilities::ShopOsseEligibility/651717acf1ff6d456b041c7c',
       correlation_id: '13423234-23232323',
       event_category: event_category,
       message_id: SecureRandom.uuid,
