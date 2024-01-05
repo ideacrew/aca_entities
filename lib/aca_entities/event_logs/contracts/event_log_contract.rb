@@ -10,6 +10,7 @@ module AcaEntities
       params do
         optional(:account_id).maybe(:string)
         required(:subject_gid).filled(:string)
+        required(:resource_gid).filled(:string)
         required(:correlation_id).filled(:string)
         required(:message_id).filled(:string)
         required(:host_id).maybe(:string)
