@@ -16,11 +16,11 @@ module AcaEntities
                 tag 'CloseCaseResponseSet'
                 namespace 'vlpcc'
 
-                element :WebServSftwrVerType, String, tag: "WebServSftwrVerType"
+                element :WebServSftwrVer, String, tag: "WebServSftwrVer"
 
                 def self.domain_to_mapper(response_set)
                   mapper = self.new
-                  mapper.WebServSftwrVerType = response_set.WebServSftwrVerType
+                  mapper.WebServSftwrVer = response_set.WebServSftwrVer
 
                   mapper
                 end
