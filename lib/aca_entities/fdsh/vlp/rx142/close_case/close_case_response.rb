@@ -8,8 +8,10 @@ module AcaEntities
           # Entity for Fdsh Vlp CloseCaseResponse
           class CloseCaseResponse < Dry::Struct
             attribute :ResponseMetadata,                Fdsh::Vlp::Rx142::CloseCase::ResponseMetadata.meta(omittable: false)
-            attribute :ArrayOfErrorResponseMetadata,    Fdsh::Vlp::Rx142::CloseCase::ArrayOfErrorResponseMetadata.optional.meta(omittable: false)
-            attribute :CloseCaseResponseSet,            Fdsh::Vlp::Rx142::CloseCase::CloseCaseResponseSet.optional.meta(omittable: false)
+            # rubocop:disable Layout/LineLength
+            attribute :ArrayOfErrorResponseMetadata,    Types::Array.of(Fdsh::Vlp::Rx142::CloseCase::ErrorResponseMetadata).optional.meta(omittable: true)
+            # rubocop:enable Layout/LineLength
+            attribute :CloseCaseResponseSet,            Fdsh::Vlp::Rx142::CloseCase::CloseCaseResponseSet.optional.meta(omittable: true)
           end
         end
       end

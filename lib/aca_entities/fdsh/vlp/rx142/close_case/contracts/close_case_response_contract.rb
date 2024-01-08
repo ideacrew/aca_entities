@@ -12,8 +12,8 @@ module AcaEntities
               params do
                 required(:ResponseMetadata).filled(Fdsh::Vlp::Rx142::CloseCase::Contracts::ResponseMetadataContract.params)
 
-                optional(:ArrayOfErrorResponseMetadata).filled(Fdsh::Vlp::Rx142::CloseCase::Contracts::ArrayOfErrorResponseMetadataContract.params)
-                optional(:CloseCaseResponseSet).filled(Fdsh::Vlp::Rx142::CloseCase::Contracts::CloseCaseResponseSetContract.params)
+                optional(:ArrayOfErrorResponseMetadata).array(Fdsh::Vlp::Rx142::CloseCase::Contracts::ErrorResponseMetadataContract.params)
+                optional(:CloseCaseResponseSet).maybe(Fdsh::Vlp::Rx142::CloseCase::Contracts::CloseCaseResponseSetContract.params)
               end
             end
           end

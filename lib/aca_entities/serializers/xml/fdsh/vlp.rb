@@ -38,7 +38,7 @@ require_relative 'vlp/h92/initial_verification_response'
 require_relative "vlp/h92/operations/validate_vlp_h92_payload_xml"
 require_relative "vlp/h92/operations/initial_request_to_xml"
 
-############ Rx1424
+############ Rx142
 
 # entities
 require_relative 'vlp/rx142/close_case/close_case_response_set'
