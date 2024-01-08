@@ -10,10 +10,10 @@ module AcaEntities
               # Happymapper implementation for the root object of an ErrorResponseMetadata.
               class ErrorResponseMetadata
                 include HappyMapper
-                register_namespace 'hix-core', 'http://hix.cms.gov/0.1/hix-core'
+                register_namespace 'vlpcc', 'http://vclpcc.ee.sim.dsh.cms.hhs.gov'
 
                 tag 'ErrorResponseMetadata'
-                namespace 'hix-core'
+                namespace 'vlpcc'
 
                 element :ErrorResponseCode, String, tag: "ErrorResponseCode"
                 element :ErrorResponseDescriptionText, String, tag: "ErrorResponseDescriptionText"

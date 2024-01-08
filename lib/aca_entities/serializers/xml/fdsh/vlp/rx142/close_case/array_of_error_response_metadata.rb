@@ -10,7 +10,7 @@ module AcaEntities
               # Happymapper implementation for the root object of an ArrayOfErrorResponseMetadata.
               class ArrayOfErrorResponseMetadata
                 include HappyMapper
-                register_namespace 'vlpcc', 'http://vlpcc.ee.sim.dsh.cms.hhs.gov'
+                register_namespace 'vlpcc', 'http://vclpcc.ee.sim.dsh.cms.hhs.gov'
 
                 tag 'ArrayOfErrorResponseMetadata'
                 namespace 'vlpcc'

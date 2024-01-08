@@ -84,6 +84,34 @@ channels:
             Content-Type: application/soap+xml
             Accept: application/soap+xml
 
+  /CloseCaseServiceV37Rest:
+    publish:
+      operationId: /CloseCaseServiceV37Rest
+      description: Send request to VLP CloseCase endpoint
+      message:
+        contentType: application/xml
+      bindings:
+        http:
+          type: request
+          method: POST
+          contentType: application/xml
+          headers:
+            Content-Type: application/xml
+            Accept: application/xml
+    subscribe:
+      operationId: /on/CloseCaseServiceV37Rest
+      description: Receive response from VLP CloseCase request
+      message:
+        contentType: application/xml
+      bindings:
+        http:
+          type: response
+          method: GET
+          contentType: application/xml
+          headers:
+            Content-Type: application/xml
+            Accept: application/xml
+
   /VerifySSACompositeService:
     publish:
       operationId: /VerifySSACompositeService
