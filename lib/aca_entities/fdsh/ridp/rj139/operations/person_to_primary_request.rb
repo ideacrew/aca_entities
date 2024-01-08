@@ -61,7 +61,7 @@ module AcaEntities
 
             def construct_contact_information(payload)
               home_address = payload.home_address || payload.addresses&.last
-              home_phone = payload.home_phone || payload.phones&.last
+              home_phone = payload.phones ? (payload.home_phone || payload.phones&.last) : nil
               {
                 streetName: home_address&.address_1&.gsub(/[^0-9A-Za-z\s]/, ''),
                 cityName: home_address&.city&.gsub(/[^0-9A-Za-z]/, ''),
