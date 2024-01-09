@@ -297,7 +297,7 @@ channels:
         exchange:
           name: fdsh.close_case_request
           type: topic
-          content_type: application/json
+          content_type: application/xml
           durable: true
           auto_delete: false
           vhost: event_source
@@ -313,7 +313,7 @@ channels:
           deliveryMode: 2
           mandatory: true
           timestamp: true
-          content_type: application/json
+          content_type: application/xml
           bindingVersion: 0.2.0
 
 tags:

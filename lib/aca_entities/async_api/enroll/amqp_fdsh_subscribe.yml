@@ -182,7 +182,7 @@ channels:
       amqp:
         is: queue
         queue:
-          name: fdsh.close_case_request
+          name: on_fdsh.close_case_request
           durable: true
           exclusive: false
           auto_delete: false
@@ -195,7 +195,7 @@ channels:
           routing_key: fdsh.close_case_request.#
           bindingVersion: '0.2.0'
           prefetch: 1
-      operationId: fdsh.close_case_request
+      operationId: on_fdsh.close_case_request
       description: Events - CMS FDSH VLP Close Case Service requests
 
 tags:
