@@ -47,7 +47,7 @@ channels:
         amqp:
           ack: true
           exclusive: false
-          routing_key: on_fdsh_gateway.fdsh.close_case_request.#
+          routing_key: enroll.fdsh.close_case_request.close_case_requested
           prefetch: 1
           bindingVersion: '0.2.0'
       operationId: on_fdsh_gateway.fdsh.close_case_request
