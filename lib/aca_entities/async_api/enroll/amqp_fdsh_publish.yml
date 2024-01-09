@@ -297,7 +297,7 @@ channels:
         exchange:
           name: fdsh.close_case_requests
           type: topic
-          content_type: application/xml
+          content_type: application/json
           durable: true
           auto_delete: false
           vhost: event_source
@@ -305,6 +305,7 @@ channels:
     publish:
       operationId: fdsh.close_case_requests.close_case_requested
       description: Events - VLP Close Case Request
+      summary: Initiate close case after VLP response successfully returned from CMS
       bindings:
         amqp:
           app_id: enroll
@@ -313,7 +314,7 @@ channels:
           deliveryMode: 2
           mandatory: true
           timestamp: true
-          content_type: application/xml
+          content_type: application/json
           bindingVersion: 0.2.0
 
 tags:
