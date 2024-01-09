@@ -32,12 +32,12 @@ servers:
 defaultContentType: application/json
 
 channels:
-  on_fdsh.close_case_request:
+  on_fdsh_gateway.fdsh.close_case_request:
     bindings:
       amqp:
         is: queue
         queue:
-          name: on_fdsh.close_case_request
+          name: on_fdsh_gateway.fdsh.close_case_request
           durable: true
           exclusive: false
           auto_delete: false
@@ -47,10 +47,10 @@ channels:
         amqp:
           ack: true
           exclusive: false
-          routing_key: fdsh.close_case_request.close_case_requested
+          routing_key: on_fdsh_gateway.fdsh.close_case_request.#
           prefetch: 1
           bindingVersion: '0.2.0'
-      operationId: on_fdsh.close_case_request
+      operationId: on_fdsh_gateway.fdsh.close_case_request
       description: Events - CMS FDSH VLP Close Case Service requests
 
 tags:
