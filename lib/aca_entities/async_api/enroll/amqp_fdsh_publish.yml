@@ -290,32 +290,6 @@ channels:
           content_type: application/json
           bindingVersion: 0.2.0
 
-  fdsh.close_case_request.close_case_requested:
-    bindings:
-      amqp:
-        is: :routing_key
-        exchange:
-          name: fdsh.close_case_request
-          type: topic
-          content_type: application/json
-          durable: true
-          auto_delete: false
-          vhost: event_source
-        binding_version: "0.2.0"
-    publish:
-      operationId: fdsh.close_case_request.close_case_requested
-      description: Events - VLP Close Case Request
-      bindings:
-        amqp:
-          app_id: enroll
-          type: fdsh.close_case_request
-          routing_key: fdsh.close_case_request.close_case_requested
-          deliveryMode: 2
-          mandatory: true
-          timestamp: true
-          content_type: application/json
-          bindingVersion: 0.2.0
-
 tags:
   - name: linter_tag
     description: placeholder that satisfies the linter
