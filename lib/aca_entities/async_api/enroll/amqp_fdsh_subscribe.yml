@@ -177,6 +177,27 @@ channels:
       operationId: on_enroll.fdsh.pvc.medicare
       description: Events - CMS Periodic Verification of Medicare Confirmation determined
 
+  on_fdsh.close_case_requests:
+    bindings:
+      amqp:
+        is: queue
+        queue:
+          name: on_fdsh.close_case_requests
+          durable: true
+          exclusive: false
+          auto_delete: false
+          vhost: event_source
+    subscribe:
+      bindings:
+        amqp:
+          ack: true
+          exclusive: false
+          routing_key: fdsh.close_case_requests.#
+          bindingVersion: '0.2.0'
+          prefetch: 1
+      operationId: on_fdsh.close_case_requests
+      description: Events - CMS FDSH VLP Close Case Service requests
+
 tags:
   - name: linter_tag
     description: placeholder that satisfies the linter
