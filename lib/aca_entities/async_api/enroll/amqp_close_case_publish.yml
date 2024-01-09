@@ -1,9 +1,9 @@
 ---
 asyncapi: 2.0.0
 info:
-  title: FDSH Gateway
+  title: Enroll App
   version: 0.1.0
-  description: AMQP Producer configuration for the FDSH Gateway service
+  description: AMQP Publish configuration for the Enroll services
   contact:
     name: IdeaCrew
     url: https://ideacrew.com
@@ -13,23 +13,21 @@ info:
     url: https://opensource.org/licenses/MIT
 
 servers:
-  development:
-    url: amqp://rabbitmq:5672/event_source
-    protocol: amqp
-    protocolVersion: 0.9.2
-    description: RabbitMQ Development Server
-  test:
-    url: amqp://rabbitmq:5672/event_source
-    protocol: amqp
-    protocolVersion: 0.9.2
-    description: RabbitMQ Test Server
   production:
-    url: amqp://rabbitmq:5672/event_source
-    protocol: amqp
-    protocolVersion: 0.9.2
-    description: RabbitMQ Production Server
-
-defaultContentType: application/json
+    url: "amqp://rabbitmq:5672/event_source"
+    protocol: :amqp
+    protocolVersion: "0.9.2"
+    description: Enroll Production Server
+  development:
+    url: "amqp://rabbitmq:5672/event_source"
+    protocol: :amqp
+    protocolVersion: "0.9.2"
+    description: Enroll Test Server
+  test:
+    url: "amqp://rabbitmq:5672/event_source"
+    protocol: :amqp
+    protocolVersion: "0.9.2"
+    description: Enroll Test Server
 
 channels:
   fdsh.close_case_request.close_case_requested:
