@@ -84,9 +84,9 @@ channels:
             Content-Type: application/soap+xml
             Accept: application/soap+xml
 
-  /CloseCaseServiceV37Rest:
+  /CloseCaseServiceV37.1Rest:
     publish:
-      operationId: /CloseCaseServiceV37Rest
+      operationId: /CloseCaseServiceV37.1Rest
       description: Send request to VLP CloseCase endpoint
       message:
         contentType: application/xml
@@ -99,7 +99,7 @@ channels:
             Content-Type: application/xml
             Accept: application/xml
     subscribe:
-      operationId: /on/CloseCaseServiceV37Rest
+      operationId: /on/CloseCaseServiceV37.1Rest
       description: Receive response from VLP CloseCase request
       message:
         contentType: application/xml
