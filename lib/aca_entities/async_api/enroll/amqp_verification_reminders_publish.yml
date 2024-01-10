@@ -3,7 +3,7 @@ asyncapi: 2.0.0
 info:
   title: Enroll App
   version: 0.1.0
-  description: AMQP Publishconfiguration for the Enroll App services
+  description: AMQP Publish Configuration for the Enroll App services
   contact:
     name: IdeaCrew
     url: https://ideacrew.com

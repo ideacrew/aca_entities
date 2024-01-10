@@ -23,8 +23,8 @@ module AcaEntities
                 def self.domain_to_mapper(response)
                   mapper = self.new
                   mapper.ResponseMetadata = ResponseMetadata.domain_to_mapper(response.ResponseMetadata)
-                  mapper.ArrayOfErrorResponseMetadata = ArrayOfErrorResponseMetadata.domain_to_mapper(response.ArrayOfErrorResponseMetadata)
                   mapper.CloseCaseResponseSet = CloseCaseResponseSet.domain_to_mapper(response.CloseCaseResponseSet)
+                  mapper.ArrayOfErrorResponseMetadata = ArrayOfErrorResponseMetadata.domain_to_mapper(response.ArrayOfErrorResponseMetadata)
 
                   mapper
                 end
