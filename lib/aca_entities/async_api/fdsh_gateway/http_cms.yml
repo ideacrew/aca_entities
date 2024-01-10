@@ -415,6 +415,33 @@ channels:
           headers:
             Content-Type: application/json
             Accept: application/json
+  /RIDPCrossCoreService:
+    publish:
+      operationId: /RIDPCrossCoreService
+      description: Send RIDP primary JSON request to CMS
+      message:
+        contentType: application/json
+      bindings:
+        http:
+          type: request
+          method: POST
+          contentType: application/json
+          headers:
+            Content-Type: application/json
+            Accept: application/json
+    subscribe:
+      operationId: /on/RIDPCrossCoreService
+      description: Receive RIDP primary JSON response from CMS
+      message:
+        contentType: application/json
+      bindings:
+        http:
+          type: response
+          method: GET
+          contentType: application/json
+          headers:
+            Content-Type: application/json
+            Accept: application/json
 tags:
   - name: linter_tag
     description: placeholder that satisfies the linter

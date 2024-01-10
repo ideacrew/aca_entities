@@ -63,6 +63,10 @@ require_relative 'ridp/h139/transformers/person_to_primary_request'
 
 # operations
 require_relative 'ridp/h139/operations/generate_primary_request_payload'
+require_relative 'ridp/rj139/operations/person_to_primary_request'
+require_relative 'ridp/rj139/operations/cms_primary_response_to_cv3_primary_response'
+require_relative 'ridp/rj139/operations/cms_secondary_response_to_cv3_secondary_response'
+require_relative 'ridp/rj139/operations/evidence_to_secondary_request'
 
 # happymapper
 require 'aca_entities/serializers/xml/fdsh/ridp'
