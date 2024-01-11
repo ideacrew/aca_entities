@@ -16,7 +16,7 @@ RSpec.describe ::AcaEntities::Fdsh::Ridp::Rj139::Operations::EvidenceToSecondary
                 { :VerificationQuestionNumber => 2, :VerificatonAnswer => 1 },
                 { :VerificationQuestionNumber => 3, :VerificatonAnswer => 2 }
               ] },
-          :transmission_id => "test"
+          :DSHReferenceNumber => "test"
         }
       end
 
