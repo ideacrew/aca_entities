@@ -84,9 +84,37 @@ channels:
             Content-Type: application/soap+xml
             Accept: application/soap+xml
 
-  /CloseCaseServiceV37Rest:
+  /VerifyLawfulPresenceServiceV37.1Rest:
     publish:
-      operationId: /CloseCaseServiceV37Rest
+      operationId: /VerifyLawfulPresenceServiceV37.1Rest
+      description: Send request to VLP InitialVerification REST endpoint
+      message:
+        contentType: application/xml
+      bindings:
+        http:
+          type: request
+          method: POST
+          contentType: application/xml
+          headers:
+            Content-Type: application/xml
+            Accept: application/xml
+    subscribe:
+      operationId: /on/VerifyLawfulPresenceServiceV37.1Rest
+      description: Receive response from VLP InitialVerification REST request
+      message:
+        contentType: application/xml
+      bindings:
+        http:
+          type: response
+          method: GET
+          contentType: application/xml
+          headers:
+            Content-Type: application/xml
+            Accept: application/xml
+
+  /CloseCaseServiceV37.1Rest:
+    publish:
+      operationId: /CloseCaseServiceV37.1Rest
       description: Send request to VLP CloseCase endpoint
       message:
         contentType: application/xml
@@ -99,7 +127,7 @@ channels:
             Content-Type: application/xml
             Accept: application/xml
     subscribe:
-      operationId: /on/CloseCaseServiceV37Rest
+      operationId: /on/CloseCaseServiceV37.1Rest
       description: Receive response from VLP CloseCase request
       message:
         contentType: application/xml
