@@ -13,8 +13,8 @@ module AcaEntities
             end
           end
 
-          attribute :SessionIdentification,         Types::String.meta(omittable: false)
-
+          attribute :SessionIdentification, Types::String.meta(omittable: false)
+          attribute :DSHReferenceNumber, Types::String.optional.meta(omittable: true)
         end
       end
     end
