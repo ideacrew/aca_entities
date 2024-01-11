@@ -28,7 +28,7 @@ module AcaEntities
               {
                 verificationAnswerArray: construct_answer_array(payload[:VerificationAnswerSet]),
                 sessionIdentification: payload[:SessionIdentification],
-                hubReferenceNumber: payload[:transmission_id]
+                hubReferenceNumber: payload[:DSHReferenceNumber]
               }
             end
 
