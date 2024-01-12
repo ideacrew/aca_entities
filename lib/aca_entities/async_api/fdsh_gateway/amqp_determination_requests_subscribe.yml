@@ -242,12 +242,12 @@ channels:
       operationId: on_fdsh_gateway.enroll.ivl_market.families.iap_applications.rrvs.non_esi_evidences
       description: Events - CMS RRV Non Esi Requests
 
-  on_fdsh.close_case_requests:
+  on_fdsh_gateway.fdsh.close_case_requests:
     bindings:
       amqp:
         is: queue
         queue:
-          name: on_fdsh.close_case_requests
+          name: on_fdsh_gateway.fdsh.close_case_requests
           durable: true
           exclusive: false
           auto_delete: false
@@ -257,11 +257,11 @@ channels:
         amqp:
           ack: true
           exclusive: false
-          routing_key: fdsh.close_case_requests.close_case_requested
+          routing_key: fdsh.close_case_requests.#
           bindingVersion: '0.2.0'
           prefetch: 1
-      operationId: on_fdsh.close_case_requests
-      description: Events - CMS FDSH VLP Close Case Service requests
+      operationId: on_fdsh_gateway.fdsh.close_case_requests
+      description: Events - CMS VLP Close Case requests
 
 tags:
   - name: linter_tag
