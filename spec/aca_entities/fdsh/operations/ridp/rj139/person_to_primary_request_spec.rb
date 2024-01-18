@@ -166,7 +166,7 @@ RSpec.describe ::AcaEntities::Fdsh::Ridp::Rj139::Operations::PersonToPrimaryRequ
         bookmark_url: nil,
         admin_bookmark_url: nil,
         contact_method: "Only Paper communication",
-        language_preference: "spa",
+        language_preference: "Spanish",
         is_state_resident: true,
         identity_validation: "na",
         application_validation: "na",
@@ -390,7 +390,7 @@ RSpec.describe ::AcaEntities::Fdsh::Ridp::Rj139::Operations::PersonToPrimaryRequ
           gender: 'male',
           dob: Date.today,
           is_incarcerated: false,
-          language_code: 'es'
+          language_code: 'en'
         }
       end
 

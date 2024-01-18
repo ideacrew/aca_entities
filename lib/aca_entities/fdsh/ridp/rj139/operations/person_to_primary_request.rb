@@ -39,12 +39,12 @@ module AcaEntities
                 personBirthDate: construct_birth_date(payload),
                 personSuffixName: payload.person_name.name_sfx&.gsub(/[^A-Za-z]/, ''),
                 personSocialSecurityNumber: decrypt_ssn(payload.person_demographics.encrypted_ssn),
-                personPreferredLanguage: construct_language_code(payload.person_demographics&.language_code)
+                personPreferredLanguage: construct_language_code(payload.consumer_role&.language_preference)
               }
             end
 
             def construct_language_code(language_preference)
-              lan_mapper = { 'en' => 'eng', 'es' => 'spa' }
+              lan_mapper = { 'en' => 'eng', 'es' => 'spa', 'English' => 'eng', 'Spanish' => 'spa' }
               return 'eng' unless lan_mapper.keys.include?(language_preference)
               lan_mapper[language_preference]
             end
