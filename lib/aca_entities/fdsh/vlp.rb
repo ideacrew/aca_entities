@@ -86,6 +86,7 @@ require_relative 'vlp/rx142/close_case/close_case_response'
 # operations
 require_relative 'vlp/rx142/close_case/operations/verify_close_case_request'
 require_relative 'vlp/rx142/close_case/operations/build_close_case_response_params'
+require_relative 'vlp/rx142/initial_verification/operations/build_initial_verification_response_params'
 
 # happymapper
 require 'aca_entities/serializers/xml/fdsh/vlp'
