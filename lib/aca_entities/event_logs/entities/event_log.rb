@@ -21,7 +21,7 @@ module AcaEntities
           attribute :event_time, Types::DateTime.optional.meta(omittable: false)
 
           attribute :session_detail,
-                    AcaEntities::EventLogs::SessionDetail.optional.meta(omittable: false)
+                    AcaEntities::EventLogs::SessionDetail.optional.meta(omittable: true)
           attribute :monitored_event,
                     AcaEntities::EventLogs::MonitoredEvent.optional.meta(omittable: true)
 
