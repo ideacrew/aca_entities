@@ -56,19 +56,6 @@ channels:
           content_type: application/json
           bindingVersion: 0.2.0
         x_amqp_exchange_to_exchanges:
-          enroll.enterprise.events:
-            description: Forward Enterprise Events to Exchange enroll.event_log.events
-            routing_key: enroll.enterprise.#
-            bindings:
-              amqp:
-                is: :routing_key
-                exchange:
-                  name: enroll.enterprise.events
-                  type: topic
-                  content_type: application/json
-                  durable: true
-                  auto_delete: false
-                  vhost: event_source
           enroll.people.eligibilities.ivl_osse_eligibility:
             description: Forward Individual HC4CC Events to Exchange enroll.event_log.events
             routing_key: enroll.people.eligibilities.ivl_osse_eligibility.#
