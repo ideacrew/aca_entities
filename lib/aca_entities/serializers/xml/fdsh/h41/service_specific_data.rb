@@ -14,12 +14,12 @@ module AcaEntities
             namespace 'ns4'
 
             has_one :ReportPeriod, ReportPeriod
-            element :OriginalBatchId, String, tag: 'OriginalBatchId', namespace: 'ns4'
+            element :OriginalBatchID, String, tag: 'OriginalBatchID', namespace: 'ns4'
 
             def self.domain_to_mapper(request)
               mapper = self.new
               mapper.ReportPeriod = ReportPeriod.domain_to_mapper(request.ReportPeriod) if request.ReportPeriod.present?
-              mapper.OriginalBatchId = request.OriginalBatchId if request.OriginalBatchId
+              mapper.OriginalBatchID = request.OriginalBatchID if request.OriginalBatchID
 
               mapper
             end
