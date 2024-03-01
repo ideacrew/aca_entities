@@ -88,6 +88,8 @@ module AcaEntities
 
       attribute :timestamp, AcaEntities::TimeStamp.meta(omittable: true)
 
+      attribute :identity_verification, AcaEntities::Verifications::IdentityVerification.meta(omittable: true)
+
       def home_address
         return nil if addresses.empty?
 

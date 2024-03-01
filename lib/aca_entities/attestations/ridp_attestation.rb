@@ -23,6 +23,8 @@ module AcaEntities
 
       attribute :workflow_state_transitions,
                 AcaEntities::Transitions::WorkflowStateTransition.optional.meta(omittable: true)
+
+      attribute :fars_evidences, Types::Array.of(AcaEntities::Evidences::FarsEvidence).meta(omittable: true)
     end
   end
 end
