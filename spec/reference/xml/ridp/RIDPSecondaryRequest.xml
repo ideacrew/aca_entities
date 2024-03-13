@@ -25,5 +25,6 @@
             </ext:VerificationAnswers>
         </ext:VerificationAnswerSet>
         <ext:SessionIdentification>SessionIdentification0</ext:SessionIdentification>
+        <ext:DSHReferenceNumber>DSHReferenceNumber0</ext:DSHReferenceNumber>
     </ext:SecondaryRequest>
 </exch:Request>

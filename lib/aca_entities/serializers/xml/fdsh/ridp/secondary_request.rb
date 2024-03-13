@@ -16,10 +16,12 @@ module AcaEntities
 
             has_one :VerificationAnswerSet, VerificationAnswerSet
             element :SessionIdentification, String, tag: 'SessionIdentification'
+            element :DSHReferenceNumber, String, tag: 'DSHReferenceNumber'
 
             def self.domain_to_mapper(secondary_request)
               mapper = self.new
               mapper.VerificationAnswerSet = VerificationAnswerSet.domain_to_mapper(secondary_request.VerificationAnswerSet)
+              mapper.DSHReferenceNumber = secondary_request.DSHReferenceNumber
               mapper.SessionIdentification = secondary_request.SessionIdentification
               mapper
             end
