@@ -8,6 +8,7 @@ module AcaEntities
         class SecondaryRequestContract < Dry::Validation::Contract
           params do
             required(:SessionIdentification).filled(:string)
+            required(:DSHReferenceNumber).filled(:string)
             required(:VerificationAnswerSet).schema do
               required(:VerificationAnswers).array(:hash) do
                 required(:VerificatonAnswer).filled(:integer)
