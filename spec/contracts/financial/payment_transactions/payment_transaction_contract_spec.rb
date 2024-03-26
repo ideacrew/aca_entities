@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "../aca_entities/lib/aca_entities/contracts/financial/payment_transactions/payment_transaction_contract"
+require "aca_entities/contracts/financial/payment_transactions/payment_transaction_contract"
 
 RSpec.describe ::AcaEntities::Contracts::Financial::PaymentTransactions::PaymentTransactionContract,  dbclean: :after_each do
 
