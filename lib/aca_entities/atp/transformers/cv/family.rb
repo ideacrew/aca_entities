@@ -121,11 +121,13 @@ module AcaEntities
                   add_key 'person.is_homeless', function: lambda { |v|
                     member_id = v.find(/record.people.(\w+)$/).map(&:item).last
                     applicants = v.resolve(:'insurance_application.insurance_applicants').item
-                    if applicants[member_id.to_sym]&.key?(:fixed_address_indicator)
-                      !applicants[member_id.to_sym][:fixed_address_indicator]
-                    else
+                    fixed_address_indicator = applicants.dig(member_id.to_sym, :fixed_address_indicator)
+
+                    if fixed_address_indicator.nil?
                       contacts_information = v.find(Regexp.new("record.people.#{member_id}.augementation")).map(&:item).last[:contacts]
                       contacts_information.select { |co| co[:category_code].downcase == "home" && co[:contact][:mailing_address].present? }.empty?
+                    else
+                      !fixed_address_indicator
                     end
                   }
                   add_key 'person.emails', function: lambda {|v|
