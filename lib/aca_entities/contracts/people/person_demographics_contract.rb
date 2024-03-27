@@ -3,8 +3,8 @@
 module AcaEntities
   module Contracts
     module People
-      # Schema and validation rules for {AcaEntities::People::PersonDemographics}.
-      class PersonDemographicsContract < Dry::Validation::Contract
+      # Schema and validation rules for {AcaEntities::People::Demographics}.
+      class DemographicsContract < Dry::Validation::Contract
         # @!method call(opts)
         # @param [Hash] opts the parameters to validate using this contract
         # @option opts [String] :ssn optional

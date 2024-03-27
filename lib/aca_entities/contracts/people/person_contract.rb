@@ -45,7 +45,7 @@ module AcaEntities
             AcaEntities::Contracts::People::PersonNameContract.params
           )
           required(:person_demographics).hash(
-            AcaEntities::Contracts::People::PersonDemographicsContract.params
+            AcaEntities::Contracts::People::DemographicsContract.params
           )
           required(:person_health).hash(
             AcaEntities::Contracts::People::PersonHealthContract.params

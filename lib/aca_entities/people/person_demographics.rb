@@ -2,7 +2,7 @@
 
 module AcaEntities
   module People
-    class PersonDemographics < Dry::Struct
+    class Demographics < Dry::Struct
 
       attribute :ssn,                     Types::String.optional.meta(omittable: true)
       attribute :encrypted_ssn,           Types::String.optional.meta(omittable: true)
