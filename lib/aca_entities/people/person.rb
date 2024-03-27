@@ -10,8 +10,8 @@ module AcaEntities
       attribute :hbx_id, Types::String.optional.meta(omittable: false)
       attribute :person_name,
                 AcaEntities::People::PersonName.meta(omittable: false)
-      attribute :person_demographics,
-                AcaEntities::People::PersonDemographics.meta(omittable: false)
+      attribute :demographics,
+                AcaEntities::People::Demographics.meta(omittable: false)
       attribute :person_health,
                 AcaEntities::People::PersonHealth.meta(omittable: false)
       attribute :no_dc_address, Types::Bool.optional.meta(omittable: true)

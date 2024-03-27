@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe ::AcaEntities::People::PersonDemographics, dbclean: :after_each do
+RSpec.describe ::AcaEntities::People::Demographics, dbclean: :after_each do
 
   let!(:input_params) do
     {
