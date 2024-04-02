@@ -112,8 +112,8 @@ module AcaEntities
         veteran_indicator = memoized_data.find(Regexp.new("#{member_identifier}.other.veteranIndicator"))&.first&.item
 
         member_demographic = {
-          gender: memoized_data.find(Regexp.new("person_demographics.gender.#{member_identifier}"))&.first&.item&.capitalize,
-          dob: memoized_data.find(Regexp.new("person_demographics.dob.#{member_identifier}"))&.first&.item,
+          gender: memoized_data.find(Regexp.new("demographics.gender.#{member_identifier}"))&.first&.item&.capitalize,
+          dob: memoized_data.find(Regexp.new("demographics.dob.#{member_identifier}"))&.first&.item,
           ethnicity: [],
           race: nil,
           is_veteran_or_active_military: veteran_indicator || false,
@@ -210,7 +210,7 @@ module AcaEntities
       def identifying_info_hash
         identifying_info = {
           encrypted_ssn: nil,
-          has_ssn: !memoized_data.find(Regexp.new("person_demographics.ssn.#{member_identifier}"))&.first&.item.nil?
+          has_ssn: !memoized_data.find(Regexp.new("demographics.ssn.#{member_identifier}"))&.first&.item.nil?
         }
 
         { identifying_information: identifying_info }
@@ -238,7 +238,7 @@ module AcaEntities
           is_primary_applicant: member_identifier == primary_applicant_identifier,
           person_hbx_id: member_identifier,
           is_applying_coverage: memoized_data.find(Regexp.new("is_coverage_applicant.#{member_identifier}"))&.first&.item,
-          age_of_applicant: AcaEntities::Functions::AgeOn.new(on_date: Date.parse('2021-01-01')).call(memoized_data.find(Regexp.new("person_demographics.dob.#{member_identifier}"))&.first&.item),
+          age_of_applicant: AcaEntities::Functions::AgeOn.new(on_date: Date.parse('2021-01-01')).call(memoized_data.find(Regexp.new("demographics.dob.#{member_identifier}"))&.first&.item),
 
           is_homeless: memoized_data.find(Regexp.new("is_homeless.#{member_identifier}"))&.first&.item || false, # default value
           is_temporarily_out_of_state: memoized_data.find(Regexp.new("is_temporarily_out_of_state.#{member_identifier}"))&.first&.item || false, # default value

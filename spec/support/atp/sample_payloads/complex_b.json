@@ -19,7 +19,7 @@
                         "full_name": "Chris Mill",
                         "alternate_name": null
                     },
-                    "person_demographics": {
+                    "demographics": {
                         "encrypted_ssn": "YXEo8bHDcTxDypSqP6R+nIMEvvwHKcJNkw==\n",
                         "no_ssn": false,
                         "gender": "male",
@@ -231,7 +231,7 @@
                         "full_name": "Kate Mill",
                         "alternate_name": null
                     },
-                    "person_demographics": {
+                    "demographics": {
                         "encrypted_ssn": "tpNxlAcREOSQWkJ37rN31IkLuv8FKMRLlQ==\n",
                         "no_ssn": false,
                         "gender": "female",

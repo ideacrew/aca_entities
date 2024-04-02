@@ -26,10 +26,10 @@ module AcaEntities
                       map 'name_sfx', 'name_suffix'
                     end
                   end
-                  map "person_demographics.ssn", "person_ssn", function: lambda { |v|
+                  map "demographics.ssn", "person_ssn", function: lambda { |v|
                     v.to_s
                   }
-                  map 'person_demographics.dob', 'person_date_of_birth', memoize: true, function: lambda { |v|
+                  map 'demographics.dob', 'person_date_of_birth', memoize: true, function: lambda { |v|
                     if v.respond_to?(:strftime)
                       Date.strptime(v, "%Y-%m-%d")
                     else
@@ -42,7 +42,7 @@ module AcaEntities
                     age = now.year - dob.year - ((now.month > dob.month || (now.month == dob && now.day >= dob.day)) ? 0 : 1)
                     age > 18 ? "MEDC" : "CHIP"
                   }
-                  map 'person_demographics.gender', 'person_sex_code', function: ->(v) { GenderCode[v] }
+                  map 'demographics.gender', 'person_sex_code', function: ->(v) { GenderCode[v] }
                   add_key 'requested_insurance_period', value: lambda { |_v|
                     rip = {}
                     rip[:start_date] = (Time.now - 604_800).to_date

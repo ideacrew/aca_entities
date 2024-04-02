@@ -31,7 +31,7 @@ module AcaEntities
               "LastName" => primary_applicant&.dig(:name, :last_name),
               "GenderCode__c" => AcaEntities::Medicaid::Ios::Types::GENDER_MAP[primary_applicant&.dig(:demographic, :gender)&.downcase],
               "MailingAddressLine2" => primary_applicant&.dig(:addresses)&.first&.dig(:address_line_2),
-              "PreferredLanguageCode__c" => person&.dig(:person_demographics, :language_code)&.downcase,
+              "PreferredLanguageCode__c" => person&.dig(:demographics, :language_code)&.downcase,
               "PrimaryPhoneExtension__c" => primary_phone&.dig(:extension),
               "PrimaryPhoneNumber__c" => convert_to_phone(primary_phone&.dig(:full_phone_number)),
               "SSN__c" => decrypt_ssn(primary_applicant&.dig(:identifying_information, :encrypted_ssn)),

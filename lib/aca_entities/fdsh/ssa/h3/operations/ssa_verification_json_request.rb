@@ -26,7 +26,7 @@ module AcaEntities
 
             def construct_ssa_verification_request(person)
               {
-                personSocialSecurityNumber: decrypt_ssn(person.person_demographics.encrypted_ssn),
+                personSocialSecurityNumber: decrypt_ssn(person.demographics.encrypted_ssn),
                 personSurName: person.person_name.last_name&.gsub(/[^A-Za-z]/, ''),
                 personBirthDate: construct_birth_date(person),
                 requestCitizenshipVerificationIndicator: true,
@@ -44,7 +44,7 @@ module AcaEntities
             end
 
             def construct_birth_date(person)
-              person&.person_demographics&.dob
+              person&.demographics&.dob
             end
 
             def decrypt_ssn(encrypted_ssn)

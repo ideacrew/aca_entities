@@ -19,7 +19,7 @@
                              "full_name": "Jerry Brunhilde",
                         "alternate_name": null
                     },
-                              "person_demographics": {
+                              "demographics": {
                           "encrypted_ssn": "7n2saq47MNMYNCYYLe+qCoEDvvEFKcBNlg==\n",
                                  "no_ssn": false,
                                  "gender": "male",
@@ -349,7 +349,7 @@
                              "full_name": "Constance W Brunhilde",
                         "alternate_name": null
                     },
-                              "person_demographics": {
+                              "demographics": {
                           "encrypted_ssn": "OoI9OKuXHfbwhA/ayv9cOYEDvPkHI8BKkg==\n",
                                  "no_ssn": false,
                                  "gender": "male",
@@ -474,7 +474,7 @@
                              "full_name": "Asia M Brunhilde",
                         "alternate_name": null
                     },
-                              "person_demographics": {
+                              "demographics": {
                           "encrypted_ssn": "QqWBt9oN7YO6rJUqFKyM0IEDv/kLK8lPlA==\n",
                                  "no_ssn": false,
                                  "gender": "female",
@@ -599,7 +599,7 @@
                              "full_name": "Sarah Lou Brunhilde",
                         "alternate_name": null
                     },
-                              "person_demographics": {
+                              "demographics": {
                           "encrypted_ssn": "dO/o/WxINlnf4mSkjqPggIEDvP4FIshGlA==\n",
                                  "no_ssn": false,
                                  "gender": "female",
@@ -767,7 +767,7 @@
                              "full_name": "Ethan M Brunhilde",
                         "alternate_name": null
                     },
-                              "person_demographics": {
+                              "demographics": {
                           "encrypted_ssn": "XW3f0Bfz1wufMAHQnoNSo4EDvvkHI8RNlg==\n",
                                  "no_ssn": false,
                                  "gender": "male",

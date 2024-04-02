@@ -15,7 +15,7 @@ module AcaEntities
             map 'name_sfx', 'Person.PersonName.PersonNameSuffixText', function: ->(v) { v&.gsub(/[^A-Za-z]/, '')}
           end
 
-          namespace 'person_demographics' do
+          namespace 'demographics' do
             rewrap '' do
               map 'dob', 'Person.PersonBirthDate'
               map 'ssn', 'Person.PersonSSNIdentification'

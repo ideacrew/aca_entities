@@ -19,7 +19,7 @@
                         "full_name": "gerald2 rivers2",
                         "alternate_name": null
                     },
-                    "person_demographics": {
+                    "demographics": {
                         "encrypted_ssn": "/gC9VOULqbRBmtaTnWopAIMEu/8CKclNkQ==\n",
                         "no_ssn": false,
                         "gender": "male",

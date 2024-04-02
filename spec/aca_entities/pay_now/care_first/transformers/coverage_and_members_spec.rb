@@ -119,7 +119,7 @@ RSpec.describe AcaEntities::PayNow::CareFirst::Transformers::CoverageAndMembers 
           full_name: "Benito Test",
           alternate_name: nil
         },
-        person_demographics: {
+        demographics: {
           encrypted_ssn: "EQbS0ycavkcS7BWbp0l+2YIEvP8EKMlIkg==\n",
           no_ssn: false,
           gender: "male",
@@ -312,7 +312,7 @@ RSpec.describe AcaEntities::PayNow::CareFirst::Transformers::CoverageAndMembers 
           full_name: "Spouse Test",
           alternate_name: nil
         },
-        person_demographics: {
+        demographics: {
           encrypted_ssn: "EQbS0ycavkcS7BWbp0l+2YIEvP8EKMlIkg==\n",
           no_ssn: false,
           gender: "male",
@@ -497,13 +497,13 @@ RSpec.describe AcaEntities::PayNow::CareFirst::Transformers::CoverageAndMembers 
           subject[:pay_now_transfer_payload][:members].each do |member|
             original_member = members.detect {|m| m[:hbx_id] == member[:exchange_assigned_member_id]}
             transformed_member = member
-            ssn = AcaEntities::Operations::Encryption::Decrypt.new.call({ value: original_member[:person_demographics][:encrypted_ssn] }).value!
-            sex = AcaEntities::PayNow::CareFirst::Types::SexofIndividualTerminologyTypeMap[original_member[:person_demographics][:gender]]
+            ssn = AcaEntities::Operations::Encryption::Decrypt.new.call({ value: original_member[:demographics][:encrypted_ssn] }).value!
+            sex = AcaEntities::PayNow::CareFirst::Types::SexofIndividualTerminologyTypeMap[original_member[:demographics][:gender]]
             relationship = AcaEntities::PayNow::CareFirst::Types::PaynowMemberRelationshipCodeMap[original_member[:relationship_to_primary]]
             expect(transformed_member).to have_key(:exchange_assigned_member_id)
             expect(transformed_member[:exchange_assigned_member_id]).to eq original_member[:hbx_id]
             expect(transformed_member).to have_key(:birth_date)
-            expect(transformed_member[:birth_date]).to eq original_member[:person_demographics][:dob].gsub('-', '')
+            expect(transformed_member[:birth_date]).to eq original_member[:demographics][:dob].gsub('-', '')
             expect(transformed_member).to have_key(:sex)
             expect(transformed_member[:sex]).to eq sex
             expect(transformed_member).to have_key(:ssn)
@@ -545,7 +545,7 @@ RSpec.describe AcaEntities::PayNow::CareFirst::Transformers::CoverageAndMembers 
 
     context 'when ssn is nil' do
       before do
-        additional_info_payload[:coverage_and_members][:members].first[:person_demographics][:encrypted_ssn] = nil
+        additional_info_payload[:coverage_and_members][:members].first[:demographics][:encrypted_ssn] = nil
       end
 
       subject { described_class.transform(additional_info_payload) }

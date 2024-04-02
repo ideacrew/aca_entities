@@ -15,7 +15,7 @@ RSpec.describe AcaEntities::Fdsh::Vlp::H92::Operations::PersonToInitialRequest, 
         :full_name => "vlp first",
         :alternate_name => nil
       },
-      :person_demographics => {
+      :demographics => {
         :ssn => "368748379",
         :no_ssn => false,
         :gender => "male",

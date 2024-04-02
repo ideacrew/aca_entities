@@ -19,7 +19,7 @@
                         "full_name": "Rob Smith",
                         "alternate_name": null
                     },
-                    "person_demographics": {
+                    "demographics": {
                         "encrypted_ssn": "5khTNQlUYCWwHb0u/a1ih4kLv/8FLsRKkw==\n",
                         "no_ssn": false,
                         "gender": "male",
@@ -272,7 +272,7 @@
                         "full_name": "Nancy Smith",
                         "alternate_name": null
                     },
-                    "person_demographics": {
+                    "demographics": {
                         "encrypted_ssn": "f4/irRpyO0EmhwT1Y6NIyoIAv/8HKMJKkg==\n",
                         "no_ssn": false,
                         "gender": "female",
@@ -457,7 +457,7 @@
                         "full_name": "James Smith",
                         "alternate_name": null
                     },
-                    "person_demographics": {
+                    "demographics": {
                         "encrypted_ssn": "4TOgDSon5aPlOSlthX2hLoUEv/wGL8JNkg==\n",
                         "no_ssn": false,
                         "gender": "male",
@@ -624,7 +624,7 @@
                         "full_name": "Lucy Smith",
                         "alternate_name": null
                     },
-                    "person_demographics": {
+                    "demographics": {
                         "encrypted_ssn": "wXQ8FaLPzz0tMwG48vR6g4EAv/8HLcZGkw==\n",
                         "no_ssn": false,
                         "gender": "female",
@@ -789,7 +789,7 @@
                         "full_name": "Juan Carlos Sam Smith",
                         "alternate_name": null
                     },
-                    "person_demographics": {
+                    "demographics": {
                         "encrypted_ssn": "6hYCGpO6WphdIQueO4Ji3okAvvwFKMdKkA==\n",
                         "no_ssn": false,
                         "gender": "male",

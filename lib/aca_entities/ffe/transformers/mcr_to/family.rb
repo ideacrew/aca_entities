@@ -274,13 +274,13 @@ module AcaEntities
 
                       add_key 'documents', value: ->(_v) {[]}
                       add_key 'age_off_excluded'
-                      map 'sex', 'person_demographics.gender', function: lambda {|value|
+                      map 'sex', 'demographics.gender', function: lambda {|value|
                         value.to_s.downcase
                       }, memoize_record: true, append_identifier: true
-                      map 'birthDate', 'person_demographics.dob', function: lambda {|value|
+                      map 'birthDate', 'demographics.dob', function: lambda {|value|
                         convert_to_date(value)
                       }, memoize_record: true, append_identifier: true
-                      map 'ssn', 'person_demographics.ssn', memoize_record: true, append_identifier: true
+                      map 'ssn', 'demographics.ssn', memoize_record: true, append_identifier: true
 
                       # map transform not working for values with arrays
                       # revist the code for values as array
@@ -291,7 +291,7 @@ module AcaEntities
                       map 'otherRaceText', 'otherRaceText', memoize: true, visible: false,  append_identifier: true
                       map 'otherEthnicityText', 'otherEthnicityText', memoize: true, visible: false,  append_identifier: true
 
-                      add_key 'person_demographics.ethnicity',
+                      add_key 'demographics.ethnicity',
                               value: lambda { |v|
                                        race_or_ethnicity = [v.resolve("race.#{v.find(/attestations.members.(\w+)$/).map(&:item).last}").item,
                                                             v.resolve("ethnicity.#{v.find(/attestations.members.(\w+)$/).map(&:item).last}").item].flatten.compact
@@ -299,16 +299,16 @@ module AcaEntities
                                      }
 
                       # race value storing in ethnicity, enroll doesn't have race record.
-                      # add_key 'person_demographics.race', value: ->(v) {v.resolve('race').item}
+                      # add_key 'demographics.race', value: ->(v) {v.resolve('race').item}
 
                       # Tribal id value missing
-                      add_key 'person_demographics.tribal_id'
-                      add_key 'person_demographics.no_ssn', value: lambda { |v|
-                                                                     v.resolve('person_demographics.ssn', identifier: true).item.nil?
+                      add_key 'demographics.tribal_id'
+                      add_key 'demographics.no_ssn', value: lambda { |v|
+                                                                     v.resolve('demographics.ssn', identifier: true).item.nil?
                                                                    }
-                      add_key 'person_demographics.language_code'
-                      # add_key 'person_demographics.date_of_death', value: ->(_v) {Date.parse("2021-05-07")} # default value
-                      add_key 'person_demographics.dob_check'
+                      add_key 'demographics.language_code'
+                      # add_key 'demographics.date_of_death', value: ->(_v) {Date.parse("2021-05-07")} # default value
+                      add_key 'demographics.dob_check'
 
                       # add_namespace 'tax_household_members', type: :array do
                       #   rewrap 'family.household.tax_households.tax_household_members', type: :array do
@@ -407,7 +407,7 @@ module AcaEntities
                             attr.nil? ? false : (attr[:blindOrDisabledIndicator] || false)
                           }
                   map 'other.americanIndianAlaskanNative', 'americanIndianAlaskanNative', memoize_record: true, visible: false
-                  add_key 'person.person_demographics.indian_tribe_member', function: lambda { |v|
+                  add_key 'person.demographics.indian_tribe_member', function: lambda { |v|
                                                                                         member = v.find(/attestations.members.(\w+)$/).map(&:item).last
                                                                                         is_tribe = v.resolve("americanIndianAlaskanNativeIndicator.#{member}")&.item
                                                                                         return false unless is_tribe
@@ -417,7 +417,7 @@ module AcaEntities
                                                                                         return false if tribe.nil?
                                                                                         tribe[:personRecognizedTribeIndicator] || false
                                                                                       }
-                  add_key 'person.person_demographics.tribal_name', function: lambda { |v|
+                  add_key 'person.demographics.tribal_name', function: lambda { |v|
                                                                                 member = v.find(/attestations.members.(\w+)$/).map(&:item).last
                                                                                 is_tribe = v.resolve("americanIndianAlaskanNativeIndicator.#{member}")&.item
                                                                                 return nil unless is_tribe
@@ -428,7 +428,7 @@ module AcaEntities
                                                                                   tribe[:federallyRecognizedTribeName]
                                                                                 end
                                                                               }
-                  add_key 'person.person_demographics.tribal_state', function: lambda { |v|
+                  add_key 'person.demographics.tribal_state', function: lambda { |v|
                                                                                  member = v.find(/attestations.members.(\w+)$/).map(&:item).last
                                                                                  is_tribe = v.resolve("americanIndianAlaskanNativeIndicator.#{member}")&.item
                                                                                  return nil unless is_tribe
@@ -437,7 +437,7 @@ module AcaEntities
                                                                                                    identifier: true)&.item
                                                                                  "ME" if !tribe.nil? && tribe[:personRecognizedTribeIndicator]
                                                                                }
-                  map 'other.incarcerationType', 'person.person_demographics.is_incarcerated',
+                  map 'other.incarcerationType', 'person.demographics.is_incarcerated',
                       function: lambda {|value|
                         val = AcaEntities::Types::McrToCvIncarcerationKind[value]
                         val.nil? ? false : val

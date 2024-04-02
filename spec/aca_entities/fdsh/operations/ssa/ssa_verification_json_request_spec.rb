@@ -306,7 +306,7 @@ RSpec.describe ::AcaEntities::Fdsh::Ssa::H3::Operations::SsaVerificationJsonRequ
         is_applying_for_assistance: nil,
         person_name: person_name,
         person_health: person_health,
-        person_demographics: person_demographics,
+        demographics: demographics,
         person_relationships: person_relationships,
         consumer_role: consumer_role,
         resident_role: resident_role,
@@ -330,7 +330,7 @@ RSpec.describe ::AcaEntities::Fdsh::Ssa::H3::Operations::SsaVerificationJsonRequ
     end
 
     context 'with valid demographics' do
-      let!(:person_demographics) do
+      let!(:demographics) do
         {
           encrypted_ssn: "yobheUbYUK2Abfc6lrq37YQCsPgBL8lLkw==\n",
           no_ssn: false,
@@ -384,7 +384,7 @@ RSpec.describe ::AcaEntities::Fdsh::Ssa::H3::Operations::SsaVerificationJsonRequ
     end
 
     context 'with invalid demographics' do
-      let!(:person_demographics) do
+      let!(:demographics) do
         {
           encrypted_ssn: "iIiE7uT8o0rvFRfms8x8RIcFvv8FLcdIkQ==\n",
           no_ssn: false,

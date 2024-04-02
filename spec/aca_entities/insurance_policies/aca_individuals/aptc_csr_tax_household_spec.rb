@@ -30,7 +30,7 @@ RSpec.describe ::AcaEntities::InsurancePolicies::AcaIndividuals::AptcCsrTaxHouse
     }
   end
 
-  let!(:person_demographics) do
+  let!(:demographics) do
     {
       ssn: "123456789",
       no_ssn: false,
@@ -83,7 +83,7 @@ RSpec.describe ::AcaEntities::InsurancePolicies::AcaIndividuals::AptcCsrTaxHouse
       is_applying_for_assistance: nil,
       person_name: person_name,
       person_health: person_health,
-      person_demographics: person_demographics,
+      demographics: demographics,
       person_relationships: [],
       addresses: person_addresses,
       phones: phones,
@@ -209,7 +209,7 @@ RSpec.describe ::AcaEntities::InsurancePolicies::AcaIndividuals::AptcCsrTaxHouse
         is_applying_for_assistance: true,
         person_name: person2_name,
         person_health: person2_health,
-        person_demographics: person2_demographics,
+        demographics: person2_demographics,
         person_relationships: [],
         addresses: person2_addresses,
         phones: phones2,

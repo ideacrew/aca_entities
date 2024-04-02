@@ -306,7 +306,7 @@ RSpec.describe ::AcaEntities::Fdsh::Ssa::H3::Operations::SsaVerificationRequest,
         is_applying_for_assistance: nil,
         person_name: person_name,
         person_health: person_health,
-        person_demographics: person_demographics,
+        demographics: demographics,
         person_relationships: person_relationships,
         consumer_role: consumer_role,
         resident_role: resident_role,
@@ -335,7 +335,7 @@ RSpec.describe ::AcaEntities::Fdsh::Ssa::H3::Operations::SsaVerificationRequest,
     end
 
     context 'with valid demographics' do
-      let!(:person_demographics) do
+      let!(:demographics) do
         {
           encrypted_ssn: "yobheUbYUK2Abfc6lrq37YQCsPgBL8lLkw==\n",
           no_ssn: false,

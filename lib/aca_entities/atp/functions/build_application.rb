@@ -222,9 +222,9 @@ module AcaEntities
         end
 
         def demographic_hash
-          ethnicity = @memoized_data.find(Regexp.new("person_demographics.ethnicity.#{@applicant_identifier}"))&.first&.item
-          { gender: @memoized_data.find(Regexp.new("person_demographics.gender.#{@applicant_identifier}"))&.first&.item&.downcase,
-            dob: @memoized_data.find(Regexp.new("person_demographics.dob.#{@applicant_identifier}"))&.first&.item,
+          ethnicity = @memoized_data.find(Regexp.new("demographics.ethnicity.#{@applicant_identifier}"))&.first&.item
+          { gender: @memoized_data.find(Regexp.new("demographics.gender.#{@applicant_identifier}"))&.first&.item&.downcase,
+            dob: @memoized_data.find(Regexp.new("demographics.dob.#{@applicant_identifier}"))&.first&.item,
             ethnicity: ethnicity || ["", "", "", "", "", "", ""],
             race: nil,
             is_veteran_or_active_military: @member_hash[:us_verteran_indicator] || false,
@@ -317,7 +317,7 @@ module AcaEntities
             is_primary_applicant: @applicant_identifier == @primary_applicant_identifier,
             name: name_hash,
             identifying_information: { encrypted_ssn: nil,
-                                       has_ssn: !@memoized_data.find(Regexp.new("person_demographics.ssn.#{@applicant_identifier}"))&.first&.item.nil? },
+                                       has_ssn: !@memoized_data.find(Regexp.new("demographics.ssn.#{@applicant_identifier}"))&.first&.item.nil? },
             demographic: demographic_hash,
             attestation: other_questions[:attestation],
             native_american_information: nil,
@@ -326,7 +326,7 @@ module AcaEntities
             tribal_name: tribe_indicator ? @tribal_augmentation[:person_tribe_name] : nil,
             citizenship_immigration_status_information: @applicant_hash.nil? ? nil : citizenship_immigration_hash,
             eligible_immigration_status: lawful_presence_status_eligibility,
-            is_incarcerated: @memoized_data.find(Regexp.new("person_demographics.is_incarcerated.#{@applicant_identifier}"))&.first&.item || false,
+            is_incarcerated: @memoized_data.find(Regexp.new("demographics.is_incarcerated.#{@applicant_identifier}"))&.first&.item || false,
             is_consumer_role: true, # default value
             is_resident_role: nil,
             is_applying_coverage: !@applicant_hash.nil?, # default value
@@ -387,7 +387,7 @@ module AcaEntities
             has_state_health_benefit: false, # default value
             had_prior_insurance: false, # default value
             # prior_insurance_end_date: Date.parse("2021-05-07"), # default value
-            age_of_applicant: get_age(@memoized_data.find(Regexp.new("person_demographics.dob.#{@applicant_identifier}"))&.first&.item),
+            age_of_applicant: get_age(@memoized_data.find(Regexp.new("demographics.dob.#{@applicant_identifier}"))&.first&.item),
             # is_self_attested_long_term_care: non_magi.nil? ? false : non_magi[:longTermCareIndicator],
             is_primary_caregiver: !@applicant_hash.nil? && !@applicant_hash[:parent_caretaker_indicator].nil? ? @applicant_hash[:parent_caretaker_indicator] : false,
             hours_worked_per_week: '2', # default value??

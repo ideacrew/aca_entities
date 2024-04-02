@@ -117,7 +117,7 @@ RSpec.describe AcaEntities::PayNow::CareFirst::Operations::GenerateXml do
           full_name: "Benito Test",
           alternate_name: nil
         },
-        person_demographics: {
+        demographics: {
           encrypted_ssn: "EQbS0ycavkcS7BWbp0l+2YIEvP8EKMlIkg==\n",
           no_ssn: false,
           gender: "male",
@@ -302,7 +302,7 @@ RSpec.describe AcaEntities::PayNow::CareFirst::Operations::GenerateXml do
           full_name: "Spouse Test",
           alternate_name: nil
         },
-        person_demographics: {
+        demographics: {
           encrypted_ssn: "EQbS0ycavkcS7BWbp0l+2YIEvP8EKMlIkg==\n",
           no_ssn: false,
           gender: "male",

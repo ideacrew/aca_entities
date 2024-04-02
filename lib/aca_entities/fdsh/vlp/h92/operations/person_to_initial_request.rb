@@ -40,7 +40,7 @@ module AcaEntities
                 FirstName: person.person_name.first_name&.gsub(/[^A-Za-z]/, ''),
                 MiddleName: person.person_name.middle_name&.gsub(/[^A-Za-z]/, ''),
                 LastName: person.person_name.last_name&.gsub(/[^A-Za-z]/, ''),
-                DateOfBirth: person.person_demographics.dob,
+                DateOfBirth: person.demographics.dob,
                 AKA: person.person_name.alternate_name,
                 FiveYearBarApplicabilityIndicator: true,
                 RequestSponsorDataIndicator: false,

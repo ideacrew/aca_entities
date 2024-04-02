@@ -30,7 +30,7 @@ RSpec.describe ::AcaEntities::InsurancePolicies::AcaIndividuals::CoveredIndividu
     }
   end
 
-  let!(:person_demographics) do
+  let!(:demographics) do
     {
       ssn: "123456789",
       no_ssn: false,
@@ -83,7 +83,7 @@ RSpec.describe ::AcaEntities::InsurancePolicies::AcaIndividuals::CoveredIndividu
       is_applying_for_assistance: nil,
       person_name: person_name,
       person_health: person_health,
-      person_demographics: person_demographics,
+      demographics: demographics,
       person_relationships: [],
       addresses: person_addresses,
       phones: phones,

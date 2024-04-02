@@ -11,7 +11,7 @@
                 "person": {
                     "hbx_id": "1624122792128407",
                     "person_name": { "first_name": "alex", "middle_name": null, "last_name": "burns", "name_sfx": null, "name_pfx": null, "full_name": "alex burns", "alternate_name": null },
-                    "person_demographics": {
+                    "demographics": {
                         "encrypted_ssn": "02PhjjzNp3tQ2NB+khu5pIkEufsFIsBNlA==\n",
                         "no_ssn": false,
                         "gender": "male",
@@ -159,7 +159,7 @@
                 "person": {
                     "hbx_id": "1624122934237342",
                     "person_name": { "first_name": "lynn", "middle_name": null, "last_name": "jones", "name_sfx": null, "name_pfx": null, "full_name": "lynn jones", "alternate_name": null },
-                    "person_demographics": {
+                    "demographics": {
                         "encrypted_ssn": "y+RueHUoPvHOY90oWU1mrIALuv4ALcBMlA==\n",
                         "no_ssn": false,
                         "gender": "male",

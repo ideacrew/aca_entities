@@ -9,7 +9,7 @@ module AcaEntities
         # @param [Hash] opts the parameters to validate using this contract
         # @option opts [String] :hbx_id required
         # @option opts [Hash] :person_name required
-        # @option opts [Hash] :person_demographics required
+        # @option opts [Hash] :demographics required
         # @option opts [Hash] :person_health required
         # @option opts [Boolean] :is_active required
         # @option opts [Boolean] :is_disabled optional
@@ -44,7 +44,7 @@ module AcaEntities
           required(:person_name).hash(
             AcaEntities::Contracts::People::PersonNameContract.params
           )
-          required(:person_demographics).hash(
+          required(:demographics).hash(
             AcaEntities::Contracts::People::DemographicsContract.params
           )
           required(:person_health).hash(

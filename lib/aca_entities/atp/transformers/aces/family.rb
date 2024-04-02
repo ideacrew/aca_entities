@@ -164,7 +164,7 @@ module AcaEntities
                       citizen_status == 'us_citizen'
                     }
                     add_key 'living_indicator', value: ->(_v) {true}
-                    map 'person_demographics.encrypted_ssn', 'ssn_identification.identification_id', function: lambda { |v|
+                    map 'demographics.encrypted_ssn', 'ssn_identification.identification_id', function: lambda { |v|
                       return nil unless v
                       result = AcaEntities::Operations::Encryption::Decrypt.new.call({ value: v })
                       result.success? ? result.value! : nil
@@ -177,10 +177,10 @@ module AcaEntities
                       return "AppliedForSSN" if applicant_hash&.dig(:is_ssn_applied)
                       applicant_hash&.dig(:non_ssn_apply_reason)
                     }
-                    map 'person_demographics.gender', 'sex', function: ->(v) {v.capitalize}
-                    map 'person_demographics.race', 'race'
+                    map 'demographics.gender', 'sex', function: ->(v) {v.capitalize}
+                    map 'demographics.race', 'race'
 
-                    map 'person_demographics.dob', 'birth_date.date',  memoize: true, visible: true, append_identifier: true,
+                    map 'demographics.dob', 'birth_date.date',  memoize: true, visible: true, append_identifier: true,
                                                                        function: lambda { |v|
                                                                                    if v.respond_to?(:strftime)
                                                                                      Date.strptime(v, "%Y-%m-%d")
@@ -221,10 +221,10 @@ module AcaEntities
                         native_hash
                       end
                     }
-                    # 'person_demographics.tribal_state', 'tribal_augmentation.location_state_us_postal_service_code', memoize: true, visible: true
-                    # map 'person_demographics.tribal_name', 'tribal_augmentation.person_tribe_name', memoize: true, visible: true
+                    # 'demographics.tribal_state', 'tribal_augmentation.location_state_us_postal_service_code', memoize: true, visible: true
+                    # map 'demographics.tribal_name', 'tribal_augmentation.person_tribe_name', memoize: true, visible: true
 
-                    map 'person_demographics.is_incarcerated', 'is_incarcerated', memoize: true, visible: false, append_identifier: true
+                    map 'demographics.is_incarcerated', 'is_incarcerated', memoize: true, visible: false, append_identifier: true
 
                     # add_key 'tribal_augmentation.american_indian_or_alaska_native_indicator',
                     # function: lambda { |v|

@@ -46,7 +46,7 @@ module AcaEntities
 
             def construct_person(person)
               {
-                PersonSSNIdentification: decrypt_ssn(person.person_demographics.encrypted_ssn),
+                PersonSSNIdentification: decrypt_ssn(person.demographics.encrypted_ssn),
                 PersonName: construct_person_name(person),
                 PersonBirthDate: construct_birth_date(person)
               }
@@ -62,7 +62,7 @@ module AcaEntities
 
             def construct_birth_date(person)
               {
-                Date: person.person_demographics.dob
+                Date: person.demographics.dob
               }
             end
 

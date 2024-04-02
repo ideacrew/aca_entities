@@ -26,19 +26,19 @@ module AcaEntities
 
             def construct_primary_request(payload)
               {
-                person: construct_person_demographics(payload),
+                person: construct_demographics(payload),
                 contactInformation: construct_contact_information(payload)
               }
             end
 
-            def construct_person_demographics(payload)
+            def construct_demographics(payload)
               {
                 personSurName: payload.person_name.last_name&.gsub(/[^A-Za-z]/, ''),
                 personMiddleName: payload.person_name.middle_name&.gsub(/[^A-Za-z]/, ''),
                 personGivenName: payload.person_name.first_name&.gsub(/[^A-Za-z]/, ''),
                 personBirthDate: construct_birth_date(payload),
                 personSuffixName: payload.person_name.name_sfx&.gsub(/[^A-Za-z]/, ''),
-                personSocialSecurityNumber: decrypt_ssn(payload.person_demographics.encrypted_ssn),
+                personSocialSecurityNumber: decrypt_ssn(payload.demographics.encrypted_ssn),
                 personPreferredLanguage: construct_language_code(payload.consumer_role&.language_preference)
               }
             end
@@ -50,7 +50,7 @@ module AcaEntities
             end
 
             def construct_birth_date(person)
-              person&.person_demographics&.dob
+              person&.demographics&.dob
             end
 
             def decrypt_ssn(encrypted_ssn)

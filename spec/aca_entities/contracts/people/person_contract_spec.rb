@@ -15,7 +15,7 @@ RSpec.describe AcaEntities::Contracts::People::PersonContract,
     { is_tobacco_user: 'unknown', is_physically_disabled: false }
   end
 
-  let!(:person_demographics) do
+  let!(:demographics) do
     {
       ssn: '123456789',
       no_ssn: false,
@@ -321,7 +321,7 @@ RSpec.describe AcaEntities::Contracts::People::PersonContract,
       is_applying_for_assistance: nil,
       person_name: person_name,
       person_health: person_health,
-      person_demographics: person_demographics,
+      demographics: demographics,
       person_relationships: person_relationships,
       consumer_role: consumer_role,
       resident_role: resident_role,

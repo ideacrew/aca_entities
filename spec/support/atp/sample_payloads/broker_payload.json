@@ -19,7 +19,7 @@
                         "full_name": "grandpa1 ee1",
                         "alternate_name": null
                     },
-                    "person_demographics": {
+                    "demographics": {
                         "encrypted_ssn": "nqWr5xR+G22wSEblJDL6JIAKuvEAKcFHlg==\n",
                         "no_ssn": false,
                         "gender": "male",
@@ -221,7 +221,7 @@
                         "full_name": "sonny1 ee1",
                         "alternate_name": null
                     },
-                    "person_demographics": {
+                    "demographics": {
                         "encrypted_ssn": "LJyKabRvxAGU7aJwWC0j74ABu/sAKsNNlg==\n",
                         "no_ssn": false,
                         "gender": "female",
@@ -386,7 +386,7 @@
                         "full_name": "child1 ee1",
                         "alternate_name": null
                     },
-                    "person_demographics": {
+                    "demographics": {
                         "encrypted_ssn": "qdVLvHOdKyxG5+4ti99KtIABu/sAKcBNlg==\n",
                         "no_ssn": false,
                         "gender": "female",

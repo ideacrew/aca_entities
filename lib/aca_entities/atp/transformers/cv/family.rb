@@ -77,40 +77,40 @@ module AcaEntities
                     end
                   end
 
-                  map 'ssn_identification.identification_id', 'person.person_demographics.ssn', memoize: true, append_identifier: true, function:
+                  map 'ssn_identification.identification_id', 'person.demographics.ssn', memoize: true, append_identifier: true, function:
                   lambda { |v|
                     return nil unless v
                     result = AcaEntities::Operations::Encryption::Encrypt.new.call({ value: v })
                     result.success? ? result.value! : nil
                   }
-                  map 'sex', 'person.person_demographics.gender', memoize: true, append_identifier: true, function: ->(value) {value.downcase}
-                  add_key 'person.person_demographics.no_ssn',
-                          function: ->(v) { v.resolve(:'person_demographics.ssn', identifier: true).item.nil?}
-                  map 'birth_date.date', 'person.person_demographics.dob', memoize: true, append_identifier: true
-                  add_key 'person.person_demographics.dob', memoize: true, append_identifier: true, function: lambda { |v|
+                  map 'sex', 'person.demographics.gender', memoize: true, append_identifier: true, function: ->(value) {value.downcase}
+                  add_key 'person.demographics.no_ssn',
+                          function: ->(v) { v.resolve(:'demographics.ssn', identifier: true).item.nil?}
+                  map 'birth_date.date', 'person.demographics.dob', memoize: true, append_identifier: true
+                  add_key 'person.demographics.dob', memoize: true, append_identifier: true, function: lambda { |v|
                     member_id = v.find(/record.people.(\w+)$/).map(&:item).last
-                    v.resolve("person.person_demographics.dob.#{member_id}").item
+                    v.resolve("person.demographics.dob.#{member_id}").item
                   }
-                  add_key 'person.person_demographics.date_of_death'
-                  add_key 'person.person_demographics.dob_check'
-                  add_key 'person.person_demographics.is_incarcerated', memoize: true, function: lambda { |v|
+                  add_key 'person.demographics.date_of_death'
+                  add_key 'person.demographics.dob_check'
+                  add_key 'person.demographics.is_incarcerated', memoize: true, function: lambda { |v|
                     member_id = v.find(/record.people.(\w+)$/).map(&:item).last
                     applicants = v.resolve(:'insurance_application.insurance_applicants').item
                     applicant = applicants[member_id.to_sym]
                     return false if applicant.nil? || applicant[:incarcerations].empty?
                     applicant[:incarcerations].first[:incarceration_indicator] || false # defaulted to false if no value provided
                   }
-                  add_key 'person.person_demographics.tribal_id'
-                  add_key 'person.person_demographics.language_code'
+                  add_key 'person.demographics.tribal_id'
+                  add_key 'person.demographics.language_code'
 
                   map 'tribal_augmentation', 'tribal_augmentation', memoize_record: true, visible: false
-                  add_key 'person.person_demographics.tribal_state', function: lambda { |v|
+                  add_key 'person.demographics.tribal_state', function: lambda { |v|
                     tribal_augmentation = v.find(Regexp.new('record.people.*.tribal_augmentation')).map(&:item).last
                     tribe_indicator = tribal_augmentation[:american_indian_or_alaska_native_indicator]
                     return nil unless tribe_indicator
                     tribal_augmentation[:location_state_us_postal_service_code]
                   }
-                  add_key 'person.person_demographics.tribal_name', function: lambda { |v|
+                  add_key 'person.demographics.tribal_name', function: lambda { |v|
                     tribal_augmentation = v.find(Regexp.new('record.people.*.tribal_augmentation')).map(&:item).last
                     tribe_indicator = tribal_augmentation[:american_indian_or_alaska_native_indicator]
                     return nil unless tribe_indicator
@@ -217,10 +217,10 @@ module AcaEntities
                   add_key 'person.person_relationships', function: AcaEntities::Atp::Functions::RelationshipBuilder.new
 
                   map 'race', 'person.race'
-                  map 'ethnicities', 'person.person_demographics.ethnicity', memoize_record: true, append_identifier: true, visible: false
-                  add_key 'person.person_demographics.ethnicity', function: lambda { |v|
+                  map 'ethnicities', 'person.demographics.ethnicity', memoize_record: true, append_identifier: true, visible: false
+                  add_key 'person.demographics.ethnicity', function: lambda { |v|
                     member_id = v.find(/record.people.(\w+)$/).map(&:item).last
-                    ethnicity = v.resolve("person.person_demographics.ethnicity.#{member_id}").item
+                    ethnicity = v.resolve("person.demographics.ethnicity.#{member_id}").item
                     ethnicity.nil? ? ["", "", "", "", "", "", ""] : ethnicity
                   }
                 end

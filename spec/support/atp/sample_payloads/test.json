@@ -18,7 +18,7 @@
             "last_name": "pqlvb",
             "full_name": "Fatheroevwg pqlvb"
           },
-          "person_demographics": {
+          "demographics": {
             "ssn": "276728793",
             "no_ssn": false,
             "gender": "male",
@@ -142,7 +142,7 @@
             "last_name": "pqlvb",
             "full_name": "Spouserfmkj pqlvb"
           },
-          "person_demographics": {
+          "demographics": {
             "ssn": "276729990",
             "no_ssn": false,
             "gender": "female",
@@ -266,7 +266,7 @@
             "last_name": "pqlvb",
             "full_name": "Sonolsub pqlvb"
           },
-          "person_demographics": {
+          "demographics": {
             "ssn": "276740252",
             "no_ssn": false,
             "gender": "male",

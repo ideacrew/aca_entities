@@ -38,11 +38,11 @@ module AcaEntities
                     map 'person_name.name_pfx', 'member_name.person_name_prefix_text'
                     map 'person_name.name_sfx', 'member_name.person_name_suffix_text'
                     map 'person_name.alternate_name', 'member.member_name.person_alternate_name'
-                    map 'person_demographics.dob', 'birth_date', function: ->(dob) { dob.gsub('-', '') }
-                    map 'person_demographics.gender', 'sex', function: lambda { |gender|
+                    map 'demographics.dob', 'birth_date', function: ->(dob) { dob.gsub('-', '') }
+                    map 'demographics.gender', 'sex', function: lambda { |gender|
                       AcaEntities::PayNow::CareFirst::Types::SexofIndividualTerminologyTypeMap[gender]
                     }
-                    map 'person_demographics.encrypted_ssn', 'ssn', function: lambda { |encrypted_ssn|
+                    map 'demographics.encrypted_ssn', 'ssn', function: lambda { |encrypted_ssn|
                       return unless encrypted_ssn.present?
                       AcaEntities::Operations::Encryption::Decrypt.new.call({ value: encrypted_ssn }).value!
                     }

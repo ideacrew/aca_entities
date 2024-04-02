@@ -13,7 +13,7 @@ module AcaEntities
           def resolve_la_type(applicant)
             if applicant&.dig(:is_homeless)
               "H"
-            elsif applicant&.dig(:person, :person_demographics, :is_incarcerated)
+            elsif applicant&.dig(:person, :demographics, :is_incarcerated)
               "CO"
             else
               "CH"
@@ -21,7 +21,7 @@ module AcaEntities
           end
 
           def resolve_hispanic(options)
-            # applicant&.dig(:person_demographics, :ethnicity) ? not applicant&.dig(:person_demographics, :ethnicity).empty? : false
+            # applicant&.dig(:demographics, :ethnicity) ? not applicant&.dig(:demographics, :ethnicity).empty? : false
             return "false" if options.nil? || options.empty?
             (options & AcaEntities::Medicaid::Ios::Types::HISPANIC_MAP).empty?
           end
@@ -67,7 +67,7 @@ module AcaEntities
                 'BirthDate__c' => applicant&.dig(:demographic, :dob),
                 'CitizenshipNumber__c' => vlp_document&.dig(:citizenship_number),
                 'CountryOfIssuanceCode__c' => vlp_document&.dig(:issuing_country),
-                'DeathDate__c' => family_member&.dig(:person, :person_demographics, :date_of_death),
+                'DeathDate__c' => family_member&.dig(:person, :demographics, :date_of_death),
                 'DocumentExpiryDate__c' => vlp_document&.dig(:expiration_date),
                 'FosterStateCode__c' => applicant&.dig(:foster_care, :foster_care_us_state),
                 'GenderCode__c' => AcaEntities::Medicaid::Ios::Types::GENDER_MAP[applicant&.dig(:demographic, :gender)&.downcase],
@@ -83,7 +83,7 @@ module AcaEntities
                 'ImmigrationSuffix__c' => applicant&.dig(:name, :name_sfx)&.upcase,
                 'IndianTribeCode__c' => applicant&.dig(:native_american_information, :tribe_codes)&.join(";"),
                 'IndianTribeState__c' => applicant&.dig(:native_american_information, :tribal_state),
-                'InmateStatusIndicator__c' => boolean_string(applicant&.dig(:person, :person_demographics, :is_incarcerated)),
+                'InmateStatusIndicator__c' => boolean_string(applicant&.dig(:person, :demographics, :is_incarcerated)),
                 'IsCoverageMonth3__c' => boolean_string(applicant&.dig(:need_help_paying_bills)),
                 'IsDeleted__c' => boolean_string(applicant&.dig(:incomes)&.detect { |x| x[:kind] == 'wages_and_salaries' }&.dig(:end_on)&.nil?),
                 'IsDisabledToggle__c' => boolean_string(applicant&.dig(:is_disabled)),

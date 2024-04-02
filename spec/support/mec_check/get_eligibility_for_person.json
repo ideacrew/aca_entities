@@ -18,7 +18,7 @@
       "age_off_excluded": null,
       "is_active": null,
       "is_disabled": false,
-      "person_demographics": {
+      "demographics": {
         "ssn": "212828539",
         "gender": "male",
         "dob": "01/01/2010",

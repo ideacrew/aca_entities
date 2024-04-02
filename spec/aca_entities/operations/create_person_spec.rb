@@ -11,7 +11,7 @@ RSpec.describe ::AcaEntities::Operations::CreatePerson do
         hbx_id: '123456',
         person_health: {},
         is_active: true,
-        person_demographics: { encrypted_ssn: '1234567', gender: 'Male', dob: "1985-01-01" }
+        demographics: { encrypted_ssn: '1234567', gender: 'Male', dob: "1985-01-01" }
       }
     end
 
@@ -31,7 +31,7 @@ RSpec.describe ::AcaEntities::Operations::CreatePerson do
         hbx_id: '123456',
         person_health: {},
         is_active: true,
-        person_demographics: { encrypted_ssn: '1234567', gender: 'Male', dob: "1985-01-01" }
+        demographics: { encrypted_ssn: '1234567', gender: 'Male', dob: "1985-01-01" }
       }
     end
 

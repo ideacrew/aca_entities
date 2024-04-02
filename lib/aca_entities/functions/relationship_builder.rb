@@ -79,14 +79,14 @@ module AcaEntities
 
       def person_hash
         # TODO: check here Date
-        dob_value = @memoized_data.find(Regexp.new("person_demographics.dob.#{@current_member}"))&.first&.item
+        dob_value = @memoized_data.find(Regexp.new("demographics.dob.#{@current_member}"))&.first&.item
         dob = dob_value ? Date.parse(dob_value) : Date.parse("2021-05-07")
         { hbx_id: @current_member, # default value
           first_name: @memoized_data.find(Regexp.new("first_name.#{@current_member}"))&.first&.item,
           last_name: @memoized_data.find(Regexp.new("last_name.#{@current_member}"))&.first&.item,
-          gender: @memoized_data.find(Regexp.new("person_demographics.gender.#{@current_member}"))&.first&.item&.capitalize,
+          gender: @memoized_data.find(Regexp.new("demographics.gender.#{@current_member}"))&.first&.item&.capitalize,
           dob: dob,
-          ssn: @memoized_data.find(Regexp.new("person_demographics.ssn.#{@current_member}"))&.first&.item }
+          ssn: @memoized_data.find(Regexp.new("demographics.ssn.#{@current_member}"))&.first&.item }
       end
 
       def find_other_relationships(relationship)

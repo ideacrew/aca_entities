@@ -22,7 +22,7 @@
                     "age_off_excluded": null,
                     "is_active": null,
                     "is_disabled": false,
-                    "person_demographics": {
+                    "demographics": {
                         "gender": "male",
                         "dob": "01/01/1941",
                         "no_ssn": "1",
@@ -158,7 +158,7 @@
                     "age_off_excluded": null,
                     "is_active": null,
                     "is_disabled": false,
-                    "person_demographics": {
+                    "demographics": {
                         "gender": "female",
                         "dob": "01/01/1997",
                         "no_ssn": "1",
@@ -283,7 +283,7 @@
                     "age_off_excluded": null,
                     "is_active": null,
                     "is_disabled": false,
-                    "person_demographics": {
+                    "demographics": {
                         "encrypted_ssn": "4iZwbErnZLQfDLQkqNBlm4AKuP4LI8RMkg==",
                         "gender": "male",
                         "dob": "01/01/2010",

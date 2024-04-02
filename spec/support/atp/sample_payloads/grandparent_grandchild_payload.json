@@ -19,7 +19,7 @@
                         "full_name": "Grandparent Test",
                         "alternate_name": null
                     },
-                    "person_demographics": {
+                    "demographics": {
                         "encrypted_ssn": "0lDiNFvG8PTW1xrESREwT4QCvfwDLMZJkA==\n",
                         "no_ssn": false,
                         "gender": "male",
@@ -223,7 +223,7 @@
                         "full_name": "Grandchild Test",
                         "alternate_name": null
                     },
-                    "person_demographics": {
+                    "demographics": {
                         "encrypted_ssn": "LZ7PMwRQ3KOO1qpyDyUWnIAKsPkHKsJOlg==\n",
                         "no_ssn": false,
                         "gender": "female",

@@ -12,7 +12,7 @@ module AcaEntities
       # @option params [String] :hbx_id HBX-assigned unique identifier for this person
       # @option params [Hash] :person_name first_name last_name
       # @option params [Bool] :is_active
-      # @option params [Hash] :person_demographics dob gender encrypted_ssn
+      # @option params [Hash] :demographics dob gender encrypted_ssn
       def call(params)
         values = yield validate_params(params)
         person = yield create_person(values)
