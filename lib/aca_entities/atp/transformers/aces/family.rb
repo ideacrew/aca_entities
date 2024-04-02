@@ -181,13 +181,13 @@ module AcaEntities
                     map 'demographics.race', 'race'
 
                     map 'demographics.dob', 'birth_date.date',  memoize: true, visible: true, append_identifier: true,
-                                                                       function: lambda { |v|
-                                                                                   if v.respond_to?(:strftime)
-                                                                                     Date.strptime(v, "%Y-%m-%d")
-                                                                                   else
-                                                                                     Date.parse(v)
-                                                                                   end
-                                                                                 }
+                                                                function: lambda { |v|
+                                                                            if v.respond_to?(:strftime)
+                                                                              Date.strptime(v, "%Y-%m-%d")
+                                                                            else
+                                                                              Date.parse(v)
+                                                                            end
+                                                                          }
                     add_key 'age_measure.measure_point_value', value: lambda { |v|
                       member_id = v.find(/family.family_members.(\w+)$/).map(&:item).last
                       applicants_hash = v.resolve('family.magi_medicaid_applications.applicants').item
