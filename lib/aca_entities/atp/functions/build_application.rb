@@ -283,12 +283,11 @@ module AcaEntities
         def tax_returns_hash
           applicant_is_primary_tax_filer = @tax_return.nil? ? nil : @tax_return[:tax_household][:primary_tax_filer][:role_reference][:ref] == @applicant_identifier
           tax_dependents = @tax_return.nil? ? nil : @tax_return[:tax_household][:tax_dependents].collect { |a| a[:role_reference][:ref] }
-
           is_tax_filer = if !@tax_return.nil? && @tax_return[:tax_household]
                            if applicant_is_primary_tax_filer
                              true
                            else
-                             @tax_return[:tax_household][:spouse_tax_filer] == @applicant_identifier
+                             @tax_return[:tax_household][:spouse_tax_filer][:role_reference][:ref] == @applicant_identifier
                            end
                          else
                            false
