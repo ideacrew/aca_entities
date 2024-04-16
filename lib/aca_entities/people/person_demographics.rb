@@ -19,6 +19,11 @@ module AcaEntities
       attribute :tribal_name,             Types::String.optional.meta(omittable: true)
       attribute :tribal_state,            Types::String.optional.meta(omittable: true)
       attribute :language_code,           Types::String.optional.meta(omittable: true)
+
+      # @!attribute [r] alive_status
+      #   @return [AcaEntities::People::AliveStatus, nil] the alive status of a person
+      #   @note This attribute is optional and can be omitted.
+      attribute :alive_status, AcaEntities::People::AliveStatus.optional.meta(omittable: true)
     end
   end
 end
