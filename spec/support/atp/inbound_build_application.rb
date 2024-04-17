@@ -169,17 +169,18 @@ RSpec.shared_context "inbound_build_application" do
                                                                          :attestation_terms => true } },
       "insurance_application.tax_returns" => {  :name => "insurance_application.tax_returns",
                                                 :item => {
-                                                :tax_household => { 
-                                                  :primary_tax_filer => { :role_reference => { :ref => "IDC1003158" } },
-                                                  :spouse_tax_filer => { :role_reference => { :ref => "IDC1003158" } },
-                                                  :tax_dependents => [{ :role_reference => { :ref => "IDC1002699" } }],
-                                                },
-                                                :total_exemptions_quantity => "1",
-                                                :status_code => "2",
-                                                :return_year => "2021",
-                                                :agi_amount => 78_100.0,
-                                                :magi_amount => 78_100.0,
-                                                :taxable_social_security_benefits_amount => 0.0 } },
+                                                  :tax_household => {
+                                                    :primary_tax_filer => { :role_reference => { :ref => "IDC1003158" } },
+                                                    :spouse_tax_filer => { :role_reference => { :ref => "IDC1003158" } },
+                                                    :tax_dependents => [{ :role_reference => { :ref => "IDC1002699" } }]
+                                                  },
+                                                  :total_exemptions_quantity => "1",
+                                                  :status_code => "2",
+                                                  :return_year => "2021",
+                                                  :agi_amount => 78_100.0,
+                                                  :magi_amount => 78_100.0,
+                                                  :taxable_social_security_benefits_amount => 0.0
+                                                } },
       "record.people.IDC1003158" => { :name => "record.people.IDC1003158",
                                       :item => "IDC1003158" },
       "person_name.first_name.IDC1003158" => { :name => "person_name.first_name.IDC1003158",
