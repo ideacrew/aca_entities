@@ -18,6 +18,7 @@ module AcaEntities
         # @option opts [String] :race required
         # @option opts [String] :tribal_id required
         # @option opts [String] :language_code required
+        # @option opts [Hash] :alive_status optional
         # @return [Dry::Monads::Result]
         params do
           optional(:ssn).maybe(:string)
@@ -35,6 +36,13 @@ module AcaEntities
           optional(:tribal_state).maybe(:string)
           optional(:tribal_name).maybe(:string)
           optional(:language_code).maybe(:string)
+
+          # @!attribute [r] alive_status
+          #   @return [AcaEntities::Contracts::People::AliveStatusContract.params, nil] the alive status of a person
+          #   @note This attribute is optional and can be omitted.
+          optional(:alive_status).maybe(
+            AcaEntities::Contracts::People::AliveStatusContract.params
+          )
         end
       end
     end
