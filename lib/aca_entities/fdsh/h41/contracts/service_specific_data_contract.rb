@@ -11,7 +11,7 @@ module AcaEntities
               optional(:Year).maybe(:integer)
             end
 
-            optional(:OriginalBatchId).maybe(:string)
+            optional(:OriginalBatchID).maybe(:string)
           end
         end
       end

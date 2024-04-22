@@ -10,7 +10,8 @@ module AcaEntities
             required(:ResponseMetadata).filled(Fdsh::Vlp::H92::ResponseMetadataContract.params)
             required(:LawfulPresenceVerifiedCode).filled(:string)
             required(:InitialVerificationIndividualResponseSet).filled(Fdsh::Vlp::H92::InitialVerificationIndividualResponseSetContract.params)
-            optional(:ArrayOfErrorResponseMetadata).maybe(Fdsh::Vlp::H92::ArrayOfErrorResponseMetadataContract.params)
+
+            optional(:ArrayOfErrorResponseMetadata).array(Fdsh::Vlp::H92::ErrorResponseMetadataContract.params)
           end
         end
       end

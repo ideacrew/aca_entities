@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:vlpcc="http://vclpcc.ee.sim.dsh.cms.hhs.gov"
+            targetNamespace="http://vclpcc.ee.sim.dsh.cms.hhs.gov" xmlns="http://vclpcc.ee.sim.dsh.cms.hhs.gov"
+            elementFormDefault="qualified"
+            version="1.0">
+    
+    <xsd:annotation>
+        <xsd:documentation>
+            <SchemaComponent>
+                <EffectiveDt>2018-01-01</EffectiveDt>
+                <VersionDt>2017-10-04</VersionDt>
+                <VersionDescriptionTxt>
+                    This is the first version of the Close Case v37 request
+                    and response. </VersionDescriptionTxt>
+                <DescriptionTxt>Request and Response payloads for the SOA service Close Case
+                    of Verify Lawful Presence.
+                </DescriptionTxt>
+            </SchemaComponent>
+        </xsd:documentation>
+    </xsd:annotation>
+    
+    <!--##########################################################-->
+    <!--#                                                        #-->
+    <!--#                        Root Nodes                      #-->
+    <!--#                                                        #-->
+    <!--##########################################################-->
+    
+    <xsd:element name="CloseCaseRequest" type="vlpcc:CloseCaseRequestType">
+        <xsd:annotation>
+            <xsd:documentation>
+                <Component>
+                    <DictionaryEntryNm>Request Message - CloseCase </DictionaryEntryNm>
+                    <DescriptionTxt>Request payload for the SOA service CloseCase (from
+                        Verify Lawful Presence)</DescriptionTxt>
+                </Component>
+            </xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    
+    <xsd:element name="CloseCaseResponse" type="vlpcc:CloseCaseResponseType">
+        <xsd:annotation>
+            <xsd:documentation>
+                <Component>
+                    <DictionaryEntryNm>Response Message - CloseCase </DictionaryEntryNm>
+                    <DescriptionTxt>Response payload for the SOA service CloseCase (from
+                        Verify Lawful Presence)</DescriptionTxt>
+                </Component>
+            </xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    
+    <!--##########################################################-->
+    <!--#                                                        #-->
+    <!--#                      Complex Types                     #-->
+    <!--#                                                        #-->
+    <!--##########################################################-->
+    
+    <xsd:complexType name="CloseCaseRequestType">
+        <xsd:sequence>
+            <xsd:element ref="vlpcc:CaseNumber"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="CloseCaseResponseType">
+            <xsd:sequence>
+                <xsd:element ref="vlpcc:ResponseMetadata"/>
+                <xsd:element ref="vlpcc:ArrayOfErrorResponseMetadata" minOccurs="0"/>
+                <xsd:element ref="vlpcc:CloseCaseResponseSet" minOccurs="0"/>
+            </xsd:sequence>
+    </xsd:complexType>
+    
+    <xsd:complexType name="CloseCaseResponseSetType">
+        <xsd:sequence>
+            <xsd:element ref="vlpcc:WebServSftwrVer"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    
+    <xsd:complexType name="ResponseMetadataType">
+        <xsd:sequence>
+            <xsd:element ref="vlpcc:ResponseCode"/>
+            <xsd:element ref="vlpcc:ResponseDescriptionText"/>
+            <xsd:element ref="vlpcc:TDSResponseDescriptionText" minOccurs="0"/>
+        </xsd:sequence>
+    </xsd:complexType>  
+    
+    <xsd:complexType name="ArrayOfErrorResponseMetadataType">
+        <xsd:sequence>
+            <xsd:element ref="vlpcc:ErrorResponseMetadata" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType> 
+    
+    <xsd:complexType name="ErrorResponseMetadataType">
+        <xsd:sequence>
+            <xsd:element ref="vlpcc:ErrorResponseCode"/>
+            <xsd:element ref="vlpcc:ErrorResponseDescriptionText"/>
+            <xsd:element ref="vlpcc:ErrorTDSResponseDescriptionText" minOccurs="0"/>
+        </xsd:sequence>
+    </xsd:complexType>      
+    
+    <!-- ============================================-->
+    <!--               Simple Types                  -->
+    <!-- ============================================-->
+    
+    <xsd:simpleType name="CaseNumberType">
+        <xsd:annotation>
+            <xsd:documentation>The unique case verification number assigned to this 
+                query. The last two characters in the case number must be upper case.
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:string">
+            <xsd:pattern value="[a-zA-Z0-9]{13}[A-Z]{2}"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    
+    <xsd:simpleType name="WebServSftwrVerType">
+        <xsd:restriction base="xsd:string">
+            <xsd:minLength value="1"/>
+            <xsd:maxLength value="30"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    
+    <!-- ============================================-->
+    <!--          Error Handling Datatypes           -->
+    <!-- ============================================-->
+    
+    <xsd:simpleType name="ResponseCodeType">
+        <xsd:annotation>
+            <xsd:documentation>
+                Response code in initiated by the HUB indicating failure or success of the request.
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:string">
+            <xsd:length value="8"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    
+    <xsd:simpleType name="ResponseDescriptionTextType">
+        <xsd:annotation>
+            <xsd:documentation>
+                Description of the Response Code.
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:string">
+        </xsd:restriction>
+    </xsd:simpleType>
+    
+    <xsd:simpleType name="TDSResponseDescriptionTextType">
+        <xsd:annotation>
+            <xsd:documentation>
+                In the event that a TDS sends the Hub a new error code, this field will be populated
+                with a description of the new code.
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:string">
+        </xsd:restriction>
+    </xsd:simpleType>
+    
+    <!--##########################################################-->
+    <!--#                                                        #-->
+    <!--#                       Elements                         #-->
+    <!--#                                                        #-->
+    <!--##########################################################-->
+    
+    
+    <xsd:element name="CaseNumber" type="vlpcc:CaseNumberType">
+        <xsd:annotation>
+            <xsd:documentation>The unique case verification number that was assigned to the initial
+                verification query. Note the last two characters in the case number must be upper
+                case. </xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    
+    <xsd:element name="CloseCaseResponseSet" type="vlpcc:CloseCaseResponseSetType">
+        <xsd:annotation>
+            <xsd:documentation>The fields returned from DHS.
+            </xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    
+    <xsd:element name="WebServSftwrVer" type="vlpcc:WebServSftwrVerType">
+        <xsd:annotation>
+            <xsd:documentation>The version number of the CPS software that executed this Web Service method.
+            </xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+        
+    <xsd:element name="ResponseMetadata" type="vlpcc:ResponseMetadataType">
+        <xsd:annotation>
+            <xsd:documentation>Standard Hub level response code.</xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    
+    <xsd:element name="ResponseCode" type="vlpcc:ResponseCodeType">
+        <xsd:annotation>
+            <xsd:documentation>Standard Hub level response code.</xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    
+    <xsd:element name="ResponseDescriptionText" type="vlpcc:ResponseDescriptionTextType">
+        <xsd:annotation>
+            <xsd:documentation>Standard Hub level response code description. </xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    
+    <xsd:element name="TDSResponseDescriptionText" type="vlpcc:TDSResponseDescriptionTextType">
+        <xsd:annotation>
+            <xsd:documentation>
+                In the event that a TDS sends the Hub a new error code, this field will be populated
+                with a description of the new code.
+            </xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    
+    <xsd:element name="ArrayOfErrorResponseMetadata" type="vlpcc:ArrayOfErrorResponseMetadataType">
+        <xsd:annotation>
+            <xsd:documentation>Array of standard Hub level response business error codes. </xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>    
+    <xsd:element name="ErrorResponseMetadata" type="vlpcc:ErrorResponseMetadataType">
+        <xsd:annotation>
+            <xsd:documentation>Standard Hub level response business error metadata. </xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    <xsd:element name="ErrorResponseCode" type="vlpcc:ResponseCodeType">
+        <xsd:annotation>
+            <xsd:documentation>Standard Hub level response business error code. </xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    <xsd:element name="ErrorResponseDescriptionText" type="vlpcc:ResponseDescriptionTextType">
+        <xsd:annotation>
+            <xsd:documentation>Standard Hub level response business error code description. </xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    <xsd:element name="ErrorTDSResponseDescriptionText" type="vlpcc:TDSResponseDescriptionTextType">
+        <xsd:annotation>
+            <xsd:documentation> In the event that a TDS sends the Hub a new error code, this field will be populated
+                with a description of the new code.
+            </xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+
+</xsd:schema>

@@ -7,10 +7,10 @@ module AcaEntities
         # Entity for Fdsh Vlp InitialVerificationIndividualResponse
         class InitialVerificationIndividualResponse < Dry::Struct
 
-          attribute :ResponseMetadata,                           Fdsh::Vlp::H92::ResponseMetadata.meta(omittable: false)
-          attribute :ArrayOfErrorResponseMetadata,               Fdsh::Vlp::H92::ArrayOfErrorResponseMetadata.optional.meta(omittable: true)
-          attribute :LawfulPresenceVerifiedCode,                 Types::Strict::String.meta(omittable: false)
-          attribute :InitialVerificationIndividualResponseSet,   Fdsh::Vlp::H92::InitialVerificationIndividualResponseSet.meta(omittable: false)
+          attribute :ResponseMetadata, Fdsh::Vlp::H92::ResponseMetadata.meta(omittable: false)
+          attribute :ArrayOfErrorResponseMetadata,    Types::Array.of(Fdsh::Vlp::H92::ErrorResponseMetadata).optional.meta(omittable: true)
+          attribute :LawfulPresenceVerifiedCode, Types::Strict::String.meta(omittable: false)
+          attribute :InitialVerificationIndividualResponseSet, Fdsh::Vlp::H92::InitialVerificationIndividualResponseSet.meta(omittable: false)
         end
       end
     end
