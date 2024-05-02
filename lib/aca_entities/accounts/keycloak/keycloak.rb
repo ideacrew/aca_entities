@@ -7,6 +7,8 @@ require_relative 'contracts/user_contract'
 require_relative 'contracts/attributes_contract'
 require_relative 'contracts/account_contract'
 
+require_relative 'openid_connect/openid_connect'
+
 # entities
 require_relative 'credentials'
 require_relative 'user'

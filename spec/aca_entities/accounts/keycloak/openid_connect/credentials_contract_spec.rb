@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe AcaEntities::Accounts::Oauth::Contracts::CredentialsContract do
+RSpec.describe AcaEntities::Accounts::Keycloak::OpenidConnect::Contracts::CredentialsContract do
   subject { described_class.new }
 
   let(:id_token) do

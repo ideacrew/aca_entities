@@ -9,17 +9,21 @@ module AcaEntities
         class CredentialsContract < Contract
           # @!method call(opts)
           # @param [Hash] opts the attributes of an {AcaEntities::Accounts::Oauth::Credentials}
+          # @option opts [AcaEntities::Types::StringOrNil] :id_token The OpenID Connect ID Token
           # @option opts [AcaEntities::Types::StringOrNil] :token Supplied by OAuth and OAuth 2.0 providers, the access token
-          # @option opts [AcaEntities::Types::StringOrNil] :secret The access token secret
-          # @option opts [Boolean] :expires Flag indicating whether the access token has an expiry date
-          # @option opts [Time] :expires_at Timestamp of the expiry time
+          # @option opts [AcaEntities::Types::StringOrNil] :secret Supplied by OAuth and OAuth 2.0 providers, the access token secret
+          # @option opts [AcaEntities::Types::StringOrNil] :refresh_token Supplied by OAuth and OAuth 2.0 providers, the refresh token
+          # @option opts [Integer] :expires_in Duration in seconds the access token is valid from the time of issuance
+          # @option opts [AcaEntities::Types::StringOrNil] :scope The scope of the access token
           # @return [Dry::Monads::Success] if the payload passes validation
           # @return [Dry::Monads::Failure] if the payload fails validation
           params do
+            optional(:id_token).maybe(AcaEntities::Types::StringOrNil)
             optional(:token).maybe(AcaEntities::Types::StringOrNil)
             optional(:secret).maybe(AcaEntities::Types::StringOrNil)
-            optional(:expires).maybe(:bool)
-            optional(:expires_at).maybe(:time)
+            optional(:refresh_token).maybe(AcaEntities::Types::StringOrNil)
+            optional(:expires_in).maybe(:integer)
+            optional(:scope).maybe(AcaEntities::Types::StringOrNil)
           end
         end
       end

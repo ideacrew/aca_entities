@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe AcaEntities::Accounts::Oauth::Contracts::InfoContract do
+RSpec.describe AcaEntities::Accounts::Keycloak::OpenidConnect::Contracts::InfoContract do
   subject { described_class.new }
 
   let(:name) { 'George Jetson' }
@@ -52,7 +52,7 @@ RSpec.describe AcaEntities::Accounts::Oauth::Contracts::InfoContract do
       expect(subject.success?).to be_truthy
     end
 
-    it 'all input params should have matching attribute' do
+    it 'all input params should have matchig attribute' do
       expect(subject.to_h).to eq required_params
     end
   end
@@ -64,7 +64,7 @@ RSpec.describe AcaEntities::Accounts::Oauth::Contracts::InfoContract do
       expect(subject.success?).to be_truthy
     end
 
-    it 'all input params should have matching attribute' do
+    it 'all input params should have matchig attribute' do
       expect(subject.to_h).to eq all_params
     end
   end
