@@ -7,18 +7,10 @@ module AcaEntities
       class AliveStatusContract < Dry::Validation::Contract
         # @!method call(opts)
         # @param [Hash] opts the parameters to validate using this contract
-        # @option opts [AcaEntities::Eligibilities::Evidence] :alive_evidence optional
         # @option opts [Boolean] :is_deceased optional
         # @option opts [Date] :date_of_death optional
         # @return [Dry::Monads::Result]
         params do
-          # @!attribute [r] alive_evidence
-          #   @return [AcaEntities::Eligibilities::Evidence, nil] the evidence of being alive
-          #   @note This attribute is optional and can be omitted.
-          optional(:alive_evidence).maybe(
-            AcaEntities::Eligibilities::Contracts::EvidenceContract.params
-          )
-
           # @!attribute [r] is_deceased
           #   @return [Types::Bool, nil] the deceased status of a person
           #   @note This attribute is optional and can be omitted.
