@@ -6,11 +6,6 @@ module AcaEntities
     #
     # This class represents the alive status of a person.
     class AliveStatus < Dry::Struct
-      # @!attribute [r] alive_evidence
-      #   @return [AcaEntities::Eligibilities::Evidence, nil] the evidence of being alive
-      #   @note This attribute is optional and can be omitted.
-      attribute :alive_evidence, AcaEntities::Eligibilities::Evidence.optional.meta(omittable: true)
-
       # @!attribute [r] is_deceased
       #   @return [Types::Bool, nil] the deceased status of a person
       #   @note This attribute is optional and can be omitted.
