@@ -288,7 +288,7 @@ module AcaEntities
                            if applicant_is_primary_tax_filer
                              true
                            else
-                             @tax_return[:tax_household][:spouse_tax_filer] == @applicant_identifier
+                             @tax_return.dig(:tax_household, :spouse_tax_filer, :role_reference, :ref) == @applicant_identifier
                            end
                          else
                            false
@@ -334,17 +334,17 @@ module AcaEntities
             # assumption that the first immigration document sent holds the subject for the FAA applicant, may need to be revisited
             vlp_subject: vlp_documents_hash&.first&.dig(:subject),
             alien_number: vlp_documents_hash&.select { |document| document[:alien_number].present? }&.first&.dig(:alien_number),
-            i94_number: nil,
-            visa_number: nil,
-            passport_number: nil,
-            sevis_id: nil,
+            i94_number: vlp_documents_hash&.select { |document| document[:i94_number].present? }&.first&.dig(:i94_number),
+            visa_number: vlp_documents_hash&.select { |document| document[:visa_number].present? }&.first&.dig(:visa_number),
+            passport_number: vlp_documents_hash&.select { |document| document[:passport_number].present? }&.first&.dig(:passport_number),
+            sevis_id: vlp_documents_hash&.select { |document| document[:sevis_id].present? }&.first&.dig(:sevis_id),
             naturalization_number: vlp_documents_hash&.select { |document| document[:naturalization_number].present? }&.first&.dig(:naturalization_number),
             receipt_number: nil,
-            citizenship_number: nil,
-            card_number: nil,
-            country_of_citizenship: nil,
+            citizenship_number: vlp_documents_hash&.select { |document| document[:citizenship_number].present? }&.first&.dig(:citizenship_number),
+            card_number: vlp_documents_hash&.select { |document| document[:card_number].present? }&.first&.dig(:card_number),
+            country_of_citizenship: vlp_documents_hash&.select { |document| document[:country_of_citizenship].present? }&.first&.dig(:country_of_citizenship),
             vlp_description: nil,
-            expiration_date: nil,
+            expiration_date: vlp_documents_hash&.first&.dig(:expiration_date),
             issuing_country: nil,
             family_member_reference: family_member_reference_hash,
             person_hbx_id: @applicant_identifier, # default value
@@ -375,7 +375,7 @@ module AcaEntities
             has_other_income: !other_income_hash.empty?,
             has_deductions: !deduction_hash.empty?,
             has_enrolled_health_coverage: !benefits_hash.concat(benefits_esc_hash).select { |h| h['kind'] == 'is_enrolled' }.empty?,
-            has_eligible_health_coverage: benefits_hash.concat(benefits_esc_hash).select { |h| h['kind'] == 'is_eligible' }.empty? ? nil : true,
+            has_eligible_health_coverage: benefits_hash.concat(benefits_esc_hash).select { |h| h['kind'] == 'is_eligible' }.present?,
             addresses: AcaEntities::Atp::Functions::AddressBuilder.new.call(@memoized_data, @applicant_identifier), # default value
             emails: email_hash, # default value
             phones: phone_hash, # default value
