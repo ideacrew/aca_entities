@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require_relative "../support/shared_examples/keycloak_oidc_examples"
+require_relative '../support/shared_examples/keycloak_oidc_examples'
 
 RSpec.describe AcaEntities::Accounts::Oauth::Contracts::InfoContract do
   subject { described_class.new }

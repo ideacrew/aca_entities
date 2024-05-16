@@ -24,7 +24,7 @@ module AcaEntities
             required(:uid).filled(:string)
             required(:info).filled(AcaEntities::Accounts::Oauth::Contracts::InfoContract.params)
             optional(:credentials).maybe(AcaEntities::Accounts::Oauth::Contracts::CredentialsContract.params)
-            optional(:extra).hash { optional(:raw_info).maybe(:hash) }
+            optional(:extra).maybe(AcaEntities::Accounts::Oauth::Contracts::ExtraContract.params)
           end
         end
       end
