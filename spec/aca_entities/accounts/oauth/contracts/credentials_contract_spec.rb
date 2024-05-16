@@ -1,9 +1,11 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
+require_relative "../support/shared_examples/keycloak_oidc_examples"
 
-RSpec.describe AcaEntities::Accounts::Oauth::Contracts::CredentialsContract do
+RSpec.describe AcaEntities::Accounts::Oauth::Contracts::CredentialsContract, type: :contract do
   subject { described_class.new }
+  include_context 'keycloak oidc examples'
 
   let(:id_token) do
     'eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJUTmNRNHNuRy1oUEpEdGtzRUxQdDdqV25UQWJBclpQb01tejNUbW5lSGlnIn0.eyJleHAiOjE3MTM5NzgzMTUsImlhdCI6MTcxMzk3ODAxNSwiYXV0aF90aW1lIjoxNzEzOTc3NjM4LCJqdGkiOiJmOTE2NWM1My1mN2VhLTQwOGItOTRhMy02YmQyYmMzOTA0NWIiLCJpc3MiOiJodHRwOi8vMC4wLjAuMDo4MTgwL3JlYWxtcy9pZGVhY3JldyIsImF1ZCI6InNibS1zZXJ2aWNlIiwic3ViIjoiODMyMzU1N2YtNDQzMC00YTlhLTgxZTktZGEzYWFiMjIxZWRlIiwidHlwIjoiSUQiLCJhenAiOiJzYm0tc2VydmljZSIsIm5vbmNlIjoiZjExM2MzOTljZmUzOTE3NWIzMGNjMmU4ZTFiNGQ0NWEiLCJzZXNzaW9uX3N0YXRlIjoiYzEyMDM3MWYtY2U2ZC00YTlkLWJiNTEtOWJjOWQzMTI1ZGQ2IiwiYXRfaGFzaCI6IlFneldzeGp6MWZHcFBXWnVRZ3o1Q3ciLCJhY3IiOiIwIiwic2lkIjoiYzEyMDM3MWYtY2U2ZC00YTlkLWJiNTEtOWJjOWQzMTI1ZGQ2IiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJuYW1lIjoiZ3Vlc3QgZ3Vlc3QiLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJndWVzdCIsImdpdmVuX25hbWUiOiJndWVzdCIsImZhbWlseV9uYW1lIjoiZ3Vlc3QiLCJlbWFpbCI6Imd1ZXN0QGd1ZXN0LmNvbSJ9.CPwKaChhunxTvhhk1wiWRK4qWLBsSeOHA78HIccwQbbYvPwMGbKlRqPGbiu-BpBILvTXuR9JfeEZn5TVP173kvjlaP77YJn6WqMgJDZP_Z-jb8RfNyodggKTJWHTtG06dCU3eGkuvZO7xZAC-0PesvVzjnTkX_FOglZW5RkFMzttYuHWn4zVG8utCZdSUmF1CNhr7QRk40zsFQEsVJKdHeSyh8UK0PLhNJQ92M1MRr8Az4ocZkhZKhTlntDn6-1af6xjGh90KEutDOPrXHRgxFBZqD4ipdoR-2KyNmNWXoTjrg9fasymrl8c8YIvWFF5pK3_TFFc1QTM7Mmlwpx53A'
@@ -54,4 +56,18 @@ RSpec.describe AcaEntities::Accounts::Oauth::Contracts::CredentialsContract do
       expect(result.to_h).to eq all_params
     end
   end
+
+  context 'Calling the contract with an example json payload' do
+    subject { described_class.new.call(credentials) }
+    let(:credentials) { auth_response['credentials'] }
+
+    it 'should pass validation' do
+      expect(subject.success?).to be_truthy
+    end
+
+    it 'all input params should have matching attribute' do
+      expect(subject.to_h).to eq credentials.deep_symbolize_keys
+    end
+  end
+
 end

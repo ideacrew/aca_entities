@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe AcaEntities::Accounts::Keycloak::OpenidConnect::Contracts::InfoContract do
+RSpec.describe AcaEntities::Accounts::Oauth::OpenidConnect::Contracts::InfoContract do
   subject { described_class.new }
 
   let(:name) { 'George Jetson' }

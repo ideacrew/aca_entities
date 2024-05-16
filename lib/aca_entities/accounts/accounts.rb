@@ -4,7 +4,6 @@
 # external
 require 'aca_entities/attestations/attestations'
 require 'aca_entities/accounts/oauth/oauth'
-require 'aca_entities/accounts/openid_connect/openid_connect'
 require 'aca_entities/accounts/keycloak/keycloak'
 
 # contracts

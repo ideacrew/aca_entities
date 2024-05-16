@@ -3,7 +3,6 @@
 # contracts
 require_relative 'contracts/contract'
 require_relative 'contracts/credentials_contract'
-require_relative 'contracts/info_contract'
 
 # entities
 # require_relative 'credentials'

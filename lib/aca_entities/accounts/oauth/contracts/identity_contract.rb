@@ -19,7 +19,7 @@ module AcaEntities
           # @option opts [Hash] :extra Extra information returned from the authentication provider
           # @return [Dry::Monads::Success] if the payload passes validation
           # @return [Dry::Monads::Failure] if the payload fails validation
-          params do
+          json do
             required(:provider).filled(:string)
             required(:uid).filled(:string)
             required(:info).filled(AcaEntities::Accounts::Oauth::Contracts::InfoContract.params)

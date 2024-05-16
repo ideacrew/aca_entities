@@ -2,40 +2,20 @@
 
 require 'spec_helper'
 
-RSpec.describe AcaEntities::Accounts::Oauth::OpenidConnectInfo do
-  let(:name) { 'George Jetson' }
-  let(:email) { 'george.jetson@example.com' }
-  let(:nickname) { 'Georgy' }
-  let(:first_name) { 'George' }
-  let(:last_name) { 'Jetson' }
-  let(:location) { 'New Columbia' }
-  let(:description) { "George likes cloud surfing and observing Saturn's Rings" }
-  let(:image) { 'https://example.com/images/george_jetson.jpeg' }
-  let(:phone) { '4105551212' }
-  let(:urls) { { blog: 'https://example.com/blogs/george_jetson' } }
+RSpec.describe AcaEntities::Accounts::Oauth::Extra do
+  let(:raw_info) { {} }
 
-  let(:required_params) { { name: name } }
-  let(:optional_params) do
-    {
-      email: email,
-      nickname: nickname,
-      first_name: first_name,
-      last_name: last_name,
-      location: location,
-      description: description,
-      image: image,
-      phone: phone,
-      urls: urls
-    }
-  end
+  let(:required_params) { {} }
+  let(:optional_params) { { raw_info: raw_info } }
 
   let(:all_params) { required_params.merge(optional_params) }
 
   context 'Calling the contract with only optional params' do
     subject { described_class.call(optional_params) }
 
-    it 'should fail validation' do
-      expect { subject }.to raise_error(Dry::Struct::Error)
+    it 'should pass validation' do
+      expect(subject).to be_a described_class
+      expect(subject.to_h).to eq optional_params
     end
   end
 

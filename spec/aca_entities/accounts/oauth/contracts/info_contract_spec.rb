@@ -1,9 +1,11 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
+require_relative "../support/shared_examples/keycloak_oidc_examples"
 
 RSpec.describe AcaEntities::Accounts::Oauth::Contracts::InfoContract do
   subject { described_class.new }
+  include_context 'keycloak oidc examples'
 
   let(:name) { 'George Jetson' }
   let(:nickname) { 'gorgous_george' }
@@ -65,7 +67,20 @@ RSpec.describe AcaEntities::Accounts::Oauth::Contracts::InfoContract do
     end
 
     it 'all input params should have matching attribute' do
-      expect(subject.to_h).to eq all_params
+      expect(subject.to_h).to eq all_params.deep_symbolize_keys
+    end
+  end
+
+  context 'Calling the contract with an example json payload' do
+    subject { described_class.new.call(info) }
+    let(:info) { auth_response['info'] }
+
+    it 'should pass validation' do
+      expect(subject.success?).to be_truthy
+    end
+
+    it 'all input params should have matching attribute' do
+      expect(subject.to_h).to eq info.deep_symbolize_keys
     end
   end
 end

@@ -4,8 +4,8 @@ module AcaEntities
   module Accounts
     module Oauth
       module Contracts
-        # Contract for validating a {AcaEntitiess::Accounts::Oauth::Info} entity based on
-        # Omniauth schema 1.0 and later
+        # Contract for validating a {AcaEntitiess::Accounts::Keycloak::OpenidConnect::Info} entity based on
+        # OpenidConnect protocol
         class InfoContract < Contract
           # @!method call(opts)
           # @param [Hash] opts the attributes of an {AcaEntities::Idnetities::Omniauth::Info}
@@ -25,7 +25,7 @@ module AcaEntities
           # @option opts [AcaEntities::Types::StringOrNil] :description A short description of the authenticated identity
           # @return [Dry::Monads::Success] if the payload passes validation
           # @return [Dry::Monads::Failure] if the payload fails validation
-          params do
+          json do
             required(:nickname).filled(:string)
             optional(:name).maybe(AcaEntities::Types::StringOrNil)
             optional(:email).maybe(AcaEntities::Types::EmailOrNil)
@@ -35,7 +35,12 @@ module AcaEntities
             optional(:gender).maybe(AcaEntities::Types::StringOrNil)
             optional(:image).maybe(AcaEntities::Types::StringOrNil)
             optional(:phone).maybe(AcaEntities::Types::NumbersOrNil)
-            optional(:urls).maybe(:hash)
+            optional(:urls).maybe do
+              hash do
+                optional(:website).maybe(AcaEntities::Types::StringOrNil)
+                optional(:blog).maybe(AcaEntities::Types::StringOrNil)
+              end
+            end
             optional(:location).maybe(:string)
             optional(:description).maybe(:string)
           end

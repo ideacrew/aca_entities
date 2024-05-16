@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe AcaEntities::Accounts::OpenidConnect::Contracts::IdTokenContract do
+RSpec.describe AcaEntities::Accounts::Oauth::OpenidConnect::Contracts::IdTokenContract do
   # identity provider
 
   # identifier for the issuer of the response

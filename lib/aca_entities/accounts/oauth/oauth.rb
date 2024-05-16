@@ -24,6 +24,7 @@ module AcaEntities
 
       # local contracts
       require_relative 'contracts/contract'
+      require_relative 'contracts/extra_contract'
       require_relative 'contracts/credentials_contract'
       require_relative 'contracts/info_contract'
       require_relative 'contracts/identity_contract'

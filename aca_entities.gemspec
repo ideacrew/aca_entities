@@ -5,13 +5,13 @@ require_relative 'lib/aca_entities/version'
 Gem::Specification.new do |spec|
   spec.name = 'aca_entities'
   spec.version = AcaEntities::VERSION
-  spec.authors = ['Dan Thomas']
-  spec.email = ['dan@ideacrew.com']
+  spec.authors = ['IdeaCrew']
+  spec.email = ['info@ideacrew.com']
 
   spec.summary = 'Domain model for Affordable Care Act (ACA) data entities'
   spec.homepage = 'https://github.com/ideacrew/aca_entities'
   spec.license = 'MIT'
-  spec.required_ruby_version = Gem::Requirement.new('>= 2.5.1')
+  spec.required_ruby_version = Gem::Requirement.new('>= 2.7.6')
 
   # spec.metadata['allowed_push_host'] = 'TODO: Set to 'http://mygemserver.com''
 

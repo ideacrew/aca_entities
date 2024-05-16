@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe AcaEntities::Accounts::Oauth::Identity do
+RSpec.describe AcaEntities::Accounts::Oauth::OpenidConnect::IdToken do
   let(:provider) { 'keycloak_openid' }
   let(:uid) { '6304e375-c5f6-45c4-bd9c-da75b01d19f4' }
 

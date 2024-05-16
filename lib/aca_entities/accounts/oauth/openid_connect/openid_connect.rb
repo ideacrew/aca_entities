@@ -35,10 +35,12 @@ module AcaEntities
 
       # local contracts
       require_relative 'contracts/contract'
-      require_relative 'contracts/identity_token_contract'
+      require_relative 'contracts/extra_contract'
+      require_relative 'contracts/info_token_contract'
+      require_relative 'contracts/id_token_contract'
 
       # local entities
-      require_relative 'identity_token'
+      require_relative 'id_token'
     end
   end
 end

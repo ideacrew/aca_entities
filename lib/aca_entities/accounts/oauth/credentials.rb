@@ -8,6 +8,11 @@ module AcaEntities
       # these are passed through here
       class Credentials < Dry::Struct
         # @!attribute [r] token
+        # Supplied by OAuth and OAuth 2.0 providers, the OpenID Connect ID Token
+        # @return [AcaEntities::Types::StringOrNil]
+        attribute? :id_token, Types::String.meta(omittable: true)
+
+        # @!attribute [r] token
         # Supplied by OAuth and OAuth 2.0 providers, the access token
         # @return [AcaEntities::Types::StringOrNil]
         attribute? :token, Types::String.meta(omittable: true)
@@ -17,15 +22,20 @@ module AcaEntities
         # @return [AcaEntities::Types::StringOrNil]
         attribute? :secret, Types::String.meta(omittable: true)
 
-        # @!attribute [r] expires
-        # Flag indicating whether the access token has an expiry date
-        # @return [Boolean]
-        attribute? :expires, Types::Bool.meta(omittable: true)
+        # @!attribute [r] refresh_token
+        # Supplied by OAuth providers, the refresh token
+        # @return [AcaEntities::Types::StringOrNil]
+        attribute? :refresh_token, Types::String.meta(omittable: true)
 
-        # @!attribute [r] expires_at
-        # Timestamp of the expiry time
+        # @!attribute [r] scope
+        # The scope of the access token
+        # @return [AcaEntities::Types::StringOrNil]
+        attribute? :scope, Types::String.meta(omittable: true)
+
+        # @!attribute [r] expires_in
+        # Duration in seconds the access token is valid from the time of issuance
         # @return [Time]
-        attribute? :expires_at, Types::Time.meta(omittable: true)
+        attribute? :expires_in, Types::Time.meta(omittable: true)
       end
     end
   end

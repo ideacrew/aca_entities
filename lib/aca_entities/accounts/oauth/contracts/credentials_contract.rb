@@ -17,7 +17,7 @@ module AcaEntities
           # @option opts [AcaEntities::Types::StringOrNil] :scope The scope of the access token
           # @return [Dry::Monads::Success] if the payload passes validation
           # @return [Dry::Monads::Failure] if the payload fails validation
-          params do
+          json do
             optional(:id_token).maybe(AcaEntities::Types::StringOrNil)
             optional(:token).maybe(AcaEntities::Types::StringOrNil)
             optional(:secret).maybe(AcaEntities::Types::StringOrNil)
