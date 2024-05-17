@@ -838,5 +838,27 @@ RSpec.describe AcaEntities::Families::Family, dbclean: :after_each do
         expect(family.find_policy_by('policy_id')).to be_nil
       end
     end
+
+    context 'include family eligibility determination' do
+      let(:subjects) { { subjects: {} } }
+      let(:eligibility_params) do
+        {
+          subjects: subjects,
+          effective_date: Date.today,
+          outstanding_verification_status: 'not_enrolled',
+          outstanding_verification_earliest_due_date: Date.today + 30,
+          outstanding_verification_document_status: 'Partially Uploaded',
+          grants: []
+        }
+      end
+
+      before do
+        @result = described_class.call(input_params.merge(eligibility_determination: eligibility_params))
+      end
+
+      it 'should return AcaEntities::Families::Family' do
+        expect(@result.class).to eq AcaEntities::Families::Family
+      end
+    end
   end
 end

@@ -62,6 +62,7 @@ module AcaEntities
       attribute :timestamp,                         AcaEntities::TimeStamp.optional.meta(omittable: true)
       attribute :documents_needed,                  Types::Bool.optional.meta(omittable: true)
       attribute :policies,                  Types::Array.of(AcaEntities::Policies::Policy).optional.meta(omittable: true)
+      attribute :eligibility_determination,         AcaEntities::Eligibilities::Determination.optional.meta(omittable: true)
 
       # policy_id is a unique identifier to find AcaEntities::InsurancePolicies::AcaIndividuals::InsurancePolicy
       def find_policy_by(policy_id)
