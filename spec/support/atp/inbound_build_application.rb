@@ -289,7 +289,7 @@ RSpec.shared_context "inbound_build_application" do
                                                                                :category_code => "Home",
                                                                                :is_primary_indicator => false }],
                                                                :family_relationships => [],
-                                                               :person_identification => nil } },
+                                                               :person_identifications => [] } },
       "record.people.IDC1002699" => { :name => "record.people.IDC1002699",
                                       :item => "IDC1002699" },
       "person_name.first_name.IDC1002699" => { :name => "person_name.first_name.IDC1002699",
@@ -372,7 +372,7 @@ RSpec.shared_context "inbound_build_application" do
                                                                                :category_code => "Home",
                                                                                :is_primary_indicator => false }],
                                                                :family_relationships => [],
-                                                               :person_identification => nil } },
+                                                               :person_identifications => [] } },
       "record.people.IDC1003159" => { :name => "record.people.IDC1003159",
                                       :item => "IDC1003159" },
       "person_name.first_name.IDC1003159" => { :name => "person_name.first_name.IDC1003159",
@@ -457,7 +457,7 @@ RSpec.shared_context "inbound_build_application" do
                                                                                :category_code => "Home",
                                                                                :is_primary_indicator => false }],
                                                                :family_relationships => [],
-                                                               :person_identification => nil } }
+                                                               :person_identifications => [] } }
     }
   end
 

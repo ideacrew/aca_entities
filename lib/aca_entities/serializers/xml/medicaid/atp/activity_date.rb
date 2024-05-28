@@ -27,8 +27,9 @@ module AcaEntities
             end
 
             def to_hash
+              date_value = date.to_s.blank? ? nil : date.to_s
               {
-                date: date.to_s,
+                date: date_value,
                 date_time: date_time.to_s,
                 year: year,
                 year_month: year_month

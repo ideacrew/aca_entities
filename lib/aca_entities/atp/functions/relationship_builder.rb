@@ -69,11 +69,19 @@ module AcaEntities
         private
 
         def person_hash
+          dob_item = @memoized_data.find(Regexp.new("person.person_demographics.dob.#{@primary_applicant_id}"))&.first&.item
+          dob_value = nil
+          case dob_item
+          when String
+            dob_value = Date.parse(dob_item)
+          else
+            dob_value = dob_item&.to_date
+          end
           { hbx_id: '1234', # default value
             first_name: @memoized_data.find(Regexp.new("person_name.first_name.#{@primary_applicant_id}"))&.first&.item&.capitalize,
             last_name: @memoized_data.find(Regexp.new("person_name.last_name.#{@primary_applicant_id}"))&.first&.item&.capitalize,
             gender: @memoized_data.find(Regexp.new("person.person_demographics.gender.#{@primary_applicant_id}"))&.first&.item&.capitalize,
-            dob: @memoized_data.find(Regexp.new("person.person_demographics.dob.#{@primary_applicant_id}"))&.first&.item&.to_date,
+            dob: dob_value,
             ssn: encrypt_ssn(@memoized_data.find(Regexp.new("person.person_demographics.ssn.#{@primary_applicant_id}"))&.first&.item) }
         end
 

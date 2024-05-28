@@ -26,13 +26,27 @@ RSpec.describe AcaEntities::Atp::Operations::Aces::GenerateXml  do
       expect(result.success?).to be_truthy
     end
 
-    it 'should have an IdentificationCategoryText of AppliedForSSN if applicant applied for ssn' do
+    it 'should have an IdentificationID of AppliedForSSN if applicant applied for ssn' do
       payload_hash[:family][:magi_medicaid_applications][:applicants].first[:is_ssn_applied] = true
       result = described_class.new.call(payload_hash.to_json)
       doc = Nokogiri::XML.parse(result.value!)
       texts = doc.xpath("//nc:PersonSSNIdentification/nc:IdentificationCategoryText", namespaces)
-      expect(texts.present?).to be_truthy
-      expect(texts.first.content).to eq 'AppliedForSSN'
+      expect(texts.present?).to be_falsey
+      additional_identification_id = doc.xpath("//hix-core:PersonIdentification/nc:IdentificationID", namespaces)
+      expect(additional_identification_id.first.content).to eq 'AppliedForSSN'
+      additional_identification_text = doc.xpath("//hix-core:PersonIdentification/nc:IdentificationCategoryText", namespaces)
+      expect(additional_identification_text.first.content).to eq 'No SSN Reason'
+    end
+
+    it 'should have an IdentificationCategoryID of "other" for an "other" no ssn reason' do
+      payload_hash[:family][:magi_medicaid_applications][:applicants].first[:non_ssn_apply_reason] = "other"
+      result = described_class.new.call(payload_hash.to_json)
+      doc = Nokogiri::XML.parse(result.value!)
+      additional_identifications = doc.xpath("//hix-core:PersonIdentification/nc:IdentificationID", namespaces)
+      additional_identification_id = doc.xpath("//hix-core:PersonIdentification/nc:IdentificationID", namespaces)
+      expect(additional_identification_id.first.content).to eq 'other'
+      additional_identification_text = doc.xpath("//hix-core:PersonIdentification/nc:IdentificationCategoryText", namespaces)
+      expect(additional_identification_text.first.content).to eq 'No SSN Reason'
     end
 
     it 'should have a pregnancy end date if in post partum period' do

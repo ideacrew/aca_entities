@@ -28,6 +28,7 @@ module AcaEntities
             @incomes_hash = @member_hash[:incomes]
             @expenses_hash = @member_hash[:expenses]
             @employments_hash = @member_hash[:employments]
+            @person_identifiers_hash = @member_hash[:person_identifications]
             collector << applicant_hash
             collector
           end
@@ -103,6 +104,7 @@ module AcaEntities
 
           @incomes_hash.each_with_object([]) do |income, result|
             next unless income[:category_code] == 'Wages'
+            next if income[:source_organization_reference].blank?
             employer_hash = @employments_hash.select { |hash| hash[:employer][:id] == income[:source_organization_reference][:ref] }.first
             contact_information = employer_hash[:employer][:organization_primary_contact_information] if employer_hash
             transformed_income = AcaEntities::Atp::Transformers::Cv::Income.transform(income)
@@ -312,7 +314,18 @@ module AcaEntities
           lawful_presence_status_eligibility = if lawful_presence_status && lawful_presence_status[:lawful_presence_status_eligibility]
                                                  lawful_presence_status[:lawful_presence_status_eligibility][:eligibility_indicator] ? true : nil
                                                end
-
+          no_ssn_identifier_set = @person_identifiers_hash&.any? && @person_identifiers_hash.detect do |pih|
+            pih[:identification_category_text] == "No SSN Reason"
+          end
+          applied_ssn = false
+          no_ssn_reason = nil
+          if no_ssn_identifier_set
+            if no_ssn_identifier_set[:identification_id]&.downcase == "appliedssn"
+              applied_ssn = true
+            else
+              no_ssn_reason = no_ssn_identifier_set[:identification_id]
+            end
+          end
           {
             is_primary_applicant: @applicant_identifier == @primary_applicant_identifier,
             name: name_hash,
@@ -363,8 +376,8 @@ module AcaEntities
             is_subject_to_five_year_bar: nil, # default value
             is_five_year_bar_met: nil, # default value
             is_forty_quarters: nil, # default value
-            is_ssn_applied: nil, # default value
-            non_ssn_apply_reason: nil, # default value
+            is_ssn_applied: applied_ssn, # default value
+            non_ssn_apply_reason: no_ssn_reason, # default value
             moved_on_or_after_welfare_reformed_law: nil, # default value
             is_currently_enrolled_in_health_plan: nil, # default value
             has_daily_living_help: @applicant_hash.nil? ? false : @applicant_hash[:long_term_care_indicator],

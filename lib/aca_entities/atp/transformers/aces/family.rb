@@ -290,7 +290,29 @@ module AcaEntities
                     add_key 'person_augmentation.employments', function: AcaEntities::Atp::Functions::EmploymentBuilder.new
                     add_key 'person_augmentation.family_relationships', function: AcaEntities::Atp::Functions::BuildOutboundRelationship.new
                     add_key 'person_augmentation.contacts', function: AcaEntities::Atp::Functions::ContactBuilder.new
-
+                    add_key 'person_augmentation.person_identifications', function: lambda { |v| 
+                      return [] unless v
+                      member_id = v.find(/family.family_members.(\w+)$/).map(&:item).last
+                      applicants_hash = v.resolve('family.magi_medicaid_applications.applicants').item
+                      applicant_hash = applicants_hash[member_id.to_sym]
+                      if applicant_hash&.dig(:is_ssn_applied)
+                         [
+                          {
+                            identification_id: "AppliedForSSN",
+                            identification_category_text: "No SSN Reason"
+                          }
+                         ]
+                      elsif applicant_hash&.dig(:non_ssn_apply_reason)
+                        [
+                          {
+                            identification_id: applicant_hash&.dig(:non_ssn_apply_reason),
+                            identification_category_text: "No SSN Reason"
+                          }
+                         ]
+                      else
+                        []
+                      end
+                    }
                   end
                 end
               end
@@ -350,10 +372,10 @@ module AcaEntities
                   # broker_npn = broker.dig(:broker_role_reference, :npn) || "n/a"
                   broker_npn = broker.dig(:broker_agency_reference, :corporate_npn) || "n/a"
                   augmentation = {
-                    person_identification: {
+                    person_identifications: [{
                       identification_id: broker_npn,
                       identification_category_text: 'National Producer Number'
-                    }
+                    }]
                   }
 
                   {
