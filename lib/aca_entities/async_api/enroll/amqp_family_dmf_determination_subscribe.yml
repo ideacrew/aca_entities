@@ -45,11 +45,11 @@ channels:
         amqp:
           ack: true
           exclusive: false
-          routing_key: enroll.families.verifications.dmf_determination.started
+          routing_key: enroll.families.verifications.dmf_determination.#
           prefetch: 1
           bindingVersion: "0.2.0"
       operationId: on_enroll.enroll.families.verifications.dmf_determination
-      description: Events - for system wide changes
+      description: Events - Subscribe to DMF Determination start event for single family
 
 tags:
   - name: linter_tag
