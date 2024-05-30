@@ -30,12 +30,12 @@ servers:
     description: RabbitMQ Test Server
 
 channels:
-  on_enroll.enroll.people.person_alive_status.migration:
+  on_enroll.enroll.people.person_alive_status.data_migration:
     bindings:
       amqp:
         is: queue
         queue:
-          name: on_enroll.enroll.people.person_alive_status.migration
+          name: on_enroll.enroll.people.person_alive_status.data_migration
           durable: true
           exclusive: false
           auto_delete: false
@@ -45,12 +45,12 @@ channels:
         amqp:
           ack: true
           exclusive: false
-          routing_key: enroll.people.person_alive_status.migration.requested
+          routing_key: enroll.people.person_alive_status.data_migration.requested
           prefetch: 1
           block: false
           bindingVersion: "0.2.0"
-      operationId: on_enroll.enroll.people.person_alive_status.migration
-      description: Events - Person demographics alive status migration requested
+      operationId: on_enroll.enroll.people.person_alive_status.data_migration
+      description: Events - Person demographics alive status data migration requested
 
 tags:
   - name: linter_tag

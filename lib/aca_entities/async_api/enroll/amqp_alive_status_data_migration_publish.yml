@@ -30,12 +30,12 @@ servers:
     description: RabbitMQ Test Server
 
 channels:
-  enroll.people.person_alive_status.migration.requested:
+  enroll.people.person_alive_status.data_migration.requested:
     bindings:
       amqp:
         is: :routing_key
         exchange:
-          name: enroll.people.person_alive_status.migration
+          name: enroll.people.person_alive_status.data_migration
           type: topic
           content_type: application/json
           durable: true
@@ -43,13 +43,13 @@ channels:
           vhost: event_source
         binding_version: "0.2.0"
     publish:
-      operationId: enroll.people.person_alive_status.migration.requested
-      description: Events - Person demographics alive status migration requested
+      operationId: enroll.people.person_alive_status.data_migration.requested
+      description: Events - Person demographics alive status data_migration requested
       bindings:
         amqp:
           app_id: enroll
-          type: enroll.people.person_alive_status.migration
-          routing_key: enroll.people.person_alive_status.migration.requested
+          type: enroll.people.person_alive_status.data_migration
+          routing_key: enroll.people.person_alive_status.data_migration.requested
           deliveryMode: 2
           mandatory: true
           timestamp: true
