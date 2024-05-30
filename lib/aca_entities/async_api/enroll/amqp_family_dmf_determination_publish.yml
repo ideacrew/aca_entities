@@ -44,12 +44,38 @@ channels:
         binding_version: "0.2.0"
     publish:
       operationId: enroll.families.verifications.dmf_determination.started
-      description: Events - Commence DMF Determination for single family
+      description: Events - Publish eligible families for DMF
       bindings:
         amqp:
           app_id: enroll
           type: enroll.families.verifications.dmf_determination
           routing_key: enroll.families.verifications.dmf_determination.started
+          deliveryMode: 2
+          mandatory: true
+          timestamp: true
+          content_type: application/json
+          bindingVersion: 0.2.0
+
+  enroll.families.verifications.dmf_determination.requested:
+    bindings:
+      amqp:
+        is: :routing_key
+        exchange:
+          name: enroll.families.verifications.dmf_determination
+          type: topic
+          content_type: application/json
+          durable: true
+          auto_delete: false
+          vhost: event_source
+        binding_version: "0.2.0"
+    publish:
+      operationId: enroll.families.verifications.dmf_determination.requested
+      description: Events - Publish DMF Determination request for single family
+      bindings:
+        amqp:
+          app_id: enroll
+          type: enroll.families.verifications.dmf_determination
+          routing_key: enroll.families.verifications.dmf_determination.requested
           deliveryMode: 2
           mandatory: true
           timestamp: true

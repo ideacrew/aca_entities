@@ -49,7 +49,7 @@ channels:
           prefetch: 1
           bindingVersion: "0.2.0"
       operationId: on_enroll.enroll.families.verifications.dmf_determination
-      description: Events - Subscribe to DMF Determination start event for single family
+      description: Events - Subscribe to publish dmf-eligible families events
 
 tags:
   - name: linter_tag
