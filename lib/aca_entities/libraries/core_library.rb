@@ -214,6 +214,7 @@ module AcaEntities
       require 'aca_entities/operations/operations'
       require 'aca_entities/operations/create_family'
       require 'aca_entities/operations/create_person'
+      require 'aca_entities/operations/encrypted_ssn_validator'
     end
   end
 end
