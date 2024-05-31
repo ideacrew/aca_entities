@@ -45,11 +45,32 @@ channels:
         amqp:
           ack: true
           exclusive: false
-          routing_key: enroll.families.verifications.dmf_determination.#
+          routing_key: enroll.families.verifications.dmf_determination.started
           prefetch: 1
           bindingVersion: "0.2.0"
       operationId: on_enroll.enroll.families.verifications.dmf_determination
-      description: Events - Subscribe to DMF Determination start event for single family
+      description: Events - Subscriber to publish dmf-eligible families
+
+  on_fdsh_gateway.enroll.families.verifications.dmf_determination:
+    bindings:
+      amqp:
+        is: queue
+        queue:
+          name: on_fdsh_gateway.enroll.families.verifications.dmf_determination
+          durable: true
+          exclusive: false
+          auto_delete: false
+          vhost: event_source
+    subscribe:
+      bindings:
+        amqp:
+          ack: true
+          exclusive: false
+          routing_key: enroll.families.verifications.dmf_determination.requested
+          prefetch: 1
+          bindingVersion: "0.2.0"
+      operationId: on_fdsh_gateway.enroll.families.verifications.dmf_determination
+      description: Events - Subscriber to publish dmf determination request for individual family
 
 tags:
   - name: linter_tag
