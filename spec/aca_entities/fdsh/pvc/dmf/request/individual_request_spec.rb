@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 require 'aca_entities/fdsh/pvc/dmf/request/individual_request'
 
