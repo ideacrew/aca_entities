@@ -24,7 +24,7 @@ module AcaEntities
                 namespace 'ext'
 
                 # XML mapping rule for PersonSSNIdentification
-                # @return [String]
+                # @return [PersonSSNIdentification]
                 has_one :PersonSSNIdentification, PersonSSNIdentification
 
                 # XML mapping rule for PersonName

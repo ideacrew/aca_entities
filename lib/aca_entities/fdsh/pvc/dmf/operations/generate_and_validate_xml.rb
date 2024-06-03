@@ -50,7 +50,7 @@ module AcaEntities
               # Code to generate XML from xml_data
               Try do
                 serialized_obj = AcaEntities::Serializers::Xml::Fdsh::Pvc::Dmf::Request::IndividualRequests.domain_to_mapper(entity)
-                generated_xml = serialized_obj.to_xml
+                serialized_obj.to_xml
               end.to_result
             end
 
