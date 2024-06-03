@@ -22,6 +22,7 @@ module AcaEntities
 
                 # XML tag for PersonName
                 tag 'PersonName'
+                namespace 'nc'
 
                 # XML mapping rule for PersonGivenName
                 # @return [String]

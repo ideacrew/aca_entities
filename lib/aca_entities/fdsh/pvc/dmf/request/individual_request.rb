@@ -8,7 +8,7 @@ module AcaEntities
           # Entity for IndividualRequest
           class IndividualRequest < Dry::Struct
 
-            attribute :PersonSSNIdentification, Types::String.meta(omittable: false)
+            attribute :PersonSSNIdentification, AcaEntities::Fdsh::Pvc::Dmf::Request::PersonSsnIdentification.meta(omittable: false)
             attribute :PersonName,              AcaEntities::Fdsh::Person::PersonName.meta(omittable: false)
             attribute :PersonBirthDate,         Types::Date.meta(omittable: false)
             attribute :PersonSexCode,           Types::String.optional.meta(omittable: true)

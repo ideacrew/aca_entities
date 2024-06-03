@@ -19,10 +19,11 @@ module AcaEntities
 
                 # XML tag for IndividualRequest
                 tag 'IndividualRequest'
+                namespace 'ext'
 
                 # XML mapping rule for PersonSSNIdentification
                 # @return [String]
-                element :PersonSSNIdentification, String, tag: 'PersonSSNIdentification'
+                has_one :PersonSSNIdentification, PersonSSNIdentification
 
                 # XML mapping rule for PersonName
                 # @return [PersonName]
@@ -42,7 +43,7 @@ module AcaEntities
                 # @return [Applicant] the mapper object
                 def self.domain_to_mapper(individual_request)
                   mapper = self.new
-                  mapper.PersonSSNIdentification = individual_request.PersonSSNIdentification
+                  mapper.PersonSSNIdentification = PersonSSNIdentification.domain_to_mapper(individual_request.PersonSSNIdentification)
                   mapper.PersonName = PersonName.domain_to_mapper(individual_request.PersonName)
                   mapper.PersonBirthDate = PersonBirthDate.domain_to_mapper(individual_request.PersonBirthDate)
                   mapper.PersonSexCode = individual_request.PersonSexCode

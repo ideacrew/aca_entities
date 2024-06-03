@@ -16,6 +16,7 @@ module AcaEntities
 
                 # XML tag for PersonBirthDate
                 tag 'PersonBirthDate'
+                namespace 'nc'
 
                 # XML mapping rule for date
                 # @return [String]

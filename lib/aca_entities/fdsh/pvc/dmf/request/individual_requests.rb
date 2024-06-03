@@ -8,7 +8,7 @@ module AcaEntities
           # Entity for IndividualRequest
           class IndividualRequests < Dry::Struct
 
-            attribute :IndividualRequest,   Types::Array.of(AcaEntities::Fdsh::Pvc::Dmf.IndividualRequest).meta(omittable: false)
+            attribute :IndividualRequests,   Types::Array.of(AcaEntities::Fdsh::Pvc::Dmf::Request::IndividualRequest).meta(omittable: false)
           end
         end
       end

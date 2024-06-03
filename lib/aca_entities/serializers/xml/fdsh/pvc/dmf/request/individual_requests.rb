@@ -16,8 +16,13 @@ module AcaEntities
               class IndividualRequests
                 include HappyMapper
 
+                register_namespace 'exch', 'http://pvcdmfrqst.ee.sim.dsh.cms.hhs.gov/exchange/1.0'
+                register_namespace 'ext', 'http://pvcdmfrqst.ee.sim.dsh.cms.hhs.gov/extension/1.0'
+                register_namespace 'nc', 'http://niem.gov/niem/niem-core/2.0'
+
                 # XML tag for IndividualRequests
-                tag 'IndividualRequests'
+                tag 'Request'
+                namespace 'exch'
 
                 # XML mapping rule for IndividualRequests
                 # @return [Array<IndividualRequest>]
