@@ -20,7 +20,7 @@ module AcaEntities
             # @return [Dry::Monads::Result] Returns a Success monad with the generated XML string if successful,
             #   otherwise returns a Failure monad with an error message.
             def call(payload)
-              entity = yield generate_and_validate_request_payload(payload)
+              entity = yield build_request_payload_entity(payload)
               xml_string = yield generate_xml(entity)
               yield validate_xml(xml_string)
               Success(xml_string)
@@ -28,13 +28,13 @@ module AcaEntities
 
             private
 
-            # Generates and validates the request payload.
+            # Builds and validates the request payload entity.
             #
-            # @param payload [Hash] The input data to generate XML.
+            # @param payload [Hash] The input data to generate the request payload entity.
             #
             # @return [Dry::Monads::Result] Returns a Success monad with the entity if successful,
             #   otherwise returns a Failure monad with an error message.
-            def generate_and_validate_request_payload(payload)
+            def build_request_payload_entity(payload)
               Try do
                 AcaEntities::Fdsh::Pvc::Dmf::Request::IndividualRequests.new(payload)
               end.to_result
@@ -48,10 +48,10 @@ module AcaEntities
             #   otherwise returns a Failure monad with an error message.
             def generate_xml(entity)
               # Code to generate XML from xml_data
-              serialized_obj = AcaEntities::Serializers::Xml::Fdsh::Pvc::Dmf::Request::IndividualRequests.domain_to_mapper(entity)
-              generated_xml = serialized_obj.to_xml
-
-              Success(generated_xml)
+              Try do
+                serialized_obj = AcaEntities::Serializers::Xml::Fdsh::Pvc::Dmf::Request::IndividualRequests.domain_to_mapper(entity)
+                generated_xml = serialized_obj.to_xml
+              end.to_result
             end
 
             # Validates the given XML string.
