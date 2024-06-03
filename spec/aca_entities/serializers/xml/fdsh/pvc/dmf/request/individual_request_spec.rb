@@ -21,7 +21,7 @@ RSpec.describe AcaEntities::Serializers::Xml::Fdsh::Pvc::Dmf::Request::Individua
   it 'should convert to xml' do
     result = described_class.domain_to_mapper(entity)
     expect(result.to_xml.split("\n").first).to eq '<?xml version="1.0"?>'
-    expect(result.to_xml.split("\n")[1]).to eq(/<ext:IndividualRequest xmlns:ext=/)
+    expect(result.to_xml.split("\n")[1]).to match(/<ext:IndividualRequest xmlns:ext=/)
     expect(result.to_xml.split("\n")[2]).to eq '  <nc:PersonSSNIdentification>'
     expect(result.to_xml.split("\n")[5]).to eq '  <nc:PersonName>'
     expect(result.to_xml.split("\n")[6]).to eq '    <nc:PersonGivenName>John</nc:PersonGivenName>'
