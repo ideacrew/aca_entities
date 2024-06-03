@@ -16,6 +16,8 @@ module AcaEntities
               #   @return [Applicant] an Applicant object
               class IndividualRequest
                 include HappyMapper
+                register_namespace 'ext', 'http://pvcdmfrqst.ee.sim.dsh.cms.hhs.gov/extension/1.0'
+                register_namespace 'nc', 'http://niem.gov/niem/niem-core/2.0'
 
                 # XML tag for IndividualRequest
                 tag 'IndividualRequest'

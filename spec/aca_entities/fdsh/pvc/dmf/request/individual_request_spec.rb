@@ -6,7 +6,8 @@ require 'aca_entities/fdsh/pvc/dmf/request/individual_request'
 RSpec.describe AcaEntities::Fdsh::Pvc::Dmf::Request::IndividualRequest do
   describe 'valid attributes' do
     let(:required_params) do
-      { PersonName: { PersonGivenName: "test", PersonSurName: "test" }, PersonSSNIdentification: "123456789", PersonBirthDate: Date.today }
+      { PersonName: { PersonGivenName: "test", PersonSurName: "test" }, PersonSSNIdentification: { SSNIdentification: "123456789" },
+        PersonBirthDate: Date.today }
     end
 
     it 'should have the correct attributes' do
