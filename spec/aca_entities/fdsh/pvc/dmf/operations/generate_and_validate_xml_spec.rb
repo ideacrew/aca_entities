@@ -6,7 +6,8 @@ require 'aca_entities/fdsh/pvc/dmf/operations/generate_and_validate_xml'
 RSpec.describe AcaEntities::Fdsh::Pvc::Dmf::Operations::GenerateAndValidateXml do
   describe 'valid attributes' do
     let(:required_params) do
-      { IndividualRequests: [{ :PersonName => { :PersonGivenName => "test", :PersonSurName => "test" }, :PersonSSNIdentification => { :SSNIdentification => "123456789" },
+      { IndividualRequests: [{ :PersonName => { :PersonGivenName => "test", :PersonSurName => "test" },
+                               :PersonSSNIdentification => { :SSNIdentification => "123456789" },
                                :PersonBirthDate => Date.today }] }
     end
 
