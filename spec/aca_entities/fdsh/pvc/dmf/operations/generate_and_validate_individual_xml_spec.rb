@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require 'aca_entities/fdsh/pvc/dmf/operations/generate_and_validate_xml'
+require 'aca_entities/fdsh/pvc/dmf/operations/generate_and_validate_individual_xml'
 
-RSpec.describe AcaEntities::Fdsh::Pvc::Dmf::Operations::GenerateAndValidateXml do
+RSpec.describe AcaEntities::Fdsh::Pvc::Dmf::Operations::GenerateAndValidateIndividualXml do
   describe 'valid attributes' do
     let(:required_params) do
       { IndividualRequests: [{ :PersonName => { :PersonGivenName => "test", :PersonSurName => "test" },
