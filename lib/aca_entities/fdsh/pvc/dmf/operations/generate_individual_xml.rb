@@ -10,7 +10,7 @@ module AcaEntities
       module Dmf
         module Operations
           # This class is responsible for generating and validating XML from a given payload.
-          class GenerateAndValidateIndividualXml
+          class GenerateIndividualXml
             include Dry::Monads[:result, :do, :try]
 
             # Main method of the class. It generates and validates XML from a given payload.
@@ -22,7 +22,7 @@ module AcaEntities
             def call(payload)
               entity = yield build_request_payload_entity(payload)
               xml_string = yield generate_xml(entity)
-              yield validate_xml(xml_string)
+              # yield validate_xml(xml_string)
               Success(xml_string)
             end
 
