@@ -50,6 +50,7 @@ module AcaEntities
           optional(:updated_by).hash(AcaEntities::Contracts::People::PersonReferenceContract.params)
           optional(:timestamp).hash(TimeStampContract.params)
           optional(:documents_needed).maybe(:bool)
+          optional(:eligibility_determination).hash(AcaEntities::Eligibilities::Contracts::DeterminationContract.params)
         end
 
         # Need to have below rule and cannot move all MagiMedicaidApplication level rules to AcaEntities::Contracts::Contract because
