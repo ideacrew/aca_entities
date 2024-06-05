@@ -12,4 +12,4 @@ require_relative 'request/individual_request'
 require_relative 'request/individual_requests'
 
 # operations
-require_relative 'operations/generate_and_validate_individual_xml'
+require_relative 'operations/generate_individual_xml'
