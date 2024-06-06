@@ -1,7 +1,7 @@
 ---
 asyncapi: 2.0.0
 info:
-  title: Enroll App H36 Transmissions
+  title: Enroll App Private Family Member Events Publisher
   version: 0.1.0
   description: AMQP Publish configuration for the Enroll App services to publish family member events
   contact:
@@ -35,7 +35,7 @@ channels:
       amqp:
         is: :routing_key
         exchange:
-          name: enroll.h36
+          name: enroll.private
           type: topic
           content_type: application/json
           durable: true
