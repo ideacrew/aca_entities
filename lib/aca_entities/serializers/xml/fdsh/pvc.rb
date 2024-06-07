@@ -2,6 +2,7 @@
 
 require "aca_entities/serializers/xml/fdsh/pvc/medicare/medicare"
 require "aca_entities/serializers/xml/fdsh/pvc/h43/pvc_manifest"
+require_relative 'pvc/dmf/request/request'
 
 module AcaEntities
   module Serializers
