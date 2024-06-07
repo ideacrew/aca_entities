@@ -1,9 +1,9 @@
 ---
 asyncapi: 2.0.0
 info:
-  title: Enroll App Private Family Member Events Subscribe
+  title: Enroll App
   version: 0.1.0
-  description: AMQP Publish configuration for the Enroll App services to publish family member events
+  description: AMQP Subscribe configuration for Enroll Private Family Member services
   contact:
     name: IdeaCrew
     url: https://ideacrew.com
@@ -14,47 +14,45 @@ info:
 
 servers:
   development:
-    url: 'amqp://rabbitmq:5672/event_source'
-    protocol: :amqp
-    protocolVersion: '0.9.2'
+    url: amqp://rabbitmq:5672/event_source
+    protocol: amqp
+    protocolVersion: 0.9.2
+    description: RabbitMQ Development Server
+  test:
+    url: amqp://rabbitmq:5672/event_source
+    protocol: amqp
+    protocolVersion: 0.9.2
     description: RabbitMQ Test Server
   production:
-    url: 'amqp://rabbitmq:5672/event_source'
-    protocol: :amqp
-    protocolVersion: '0.9.2'
+    url: amqp://rabbitmq:5672/event_source
+    protocol: amqp
+    protocolVersion: 0.9.2
     description: RabbitMQ Production Server
-  test:
-    url: 'amqp://rabbitmq:5672/event_source'
-    protocol: :amqp
-    protocolVersion: '0.9.2'
-    description: RabbitMQ Test Server
+
+defaultContentType: application/json
 
 channels:
-  enroll.private.family_member_created:
+  on_enroll.enroll.private:
     bindings:
       amqp:
-        is: :routing_key
-        exchange:
-          name: enroll.private
-          type: topic
-          content_type: application/json
+        is: queue
+        queue:
+          name: on_enroll.enroll.private
           durable: true
+          exclusive: false
           auto_delete: false
           vhost: event_source
-        binding_version: '0.2.0'
-    publish:
-      operationId: enroll.private.family_member_created
-      description: Events - Publishes private family member created
+    subscribe:
       bindings:
         amqp:
-          app_id: enroll
-          type: enroll.private
+          ack: true
+          exclusive: false
           routing_key: enroll.private.family_member_created
-          deliveryMode: 2
-          mandatory: true
-          timestamp: true
-          content_type: application/json
-          bindingVersion: 0.2.0
+          prefetch: 1
+          block: false
+          bindingVersion: '0.2.0'
+      operationId: on_enroll.enroll.private
+      description: placeholder that satisfies the linter
 
 tags:
   - name: linter_tag
