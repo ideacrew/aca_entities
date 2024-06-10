@@ -5,7 +5,7 @@ module AcaEntities
     module Pvc
       module Dmf
         module Contracts
-          # Contract for PVC BatchMetadataContract
+          # Contract for PVC DMF BatchMetadataContract
           class BatchMetadataContract < Dry::Validation::Contract
             params do
               required(:BatchID).maybe(:string)

@@ -29,3 +29,4 @@ require_relative 'request/batch_handling_service_request'
 
 # operations
 require_relative 'operations/generate_individual_xml'
+require_relative 'operations/validate_dmf_manifest_request_payload_xml'
