@@ -48,7 +48,7 @@ channels:
       bindings:
         amqp:
           app_id: enroll
-          type: enroll.private
+          type: enroll.families
           routing_key: enroll.families.created_or_updated
           deliveryMode: 2
           mandatory: true
