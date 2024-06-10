@@ -34,7 +34,6 @@ module AcaEntities
                 ).freeze
 
                 def call(xml)
-                  
                   xml_doc = yield parse_xml(xml)
                   schema = yield load_schema
                   validate_document(schema, xml_doc)
@@ -60,7 +59,7 @@ module AcaEntities
 
                 def load_schema
                   read_schema_result = Try do
-                    
+
                     Nokogiri::XML::Schema(File.open(SCHEMA_LOCATION))
                   end
                   read_schema_result.or do |e|

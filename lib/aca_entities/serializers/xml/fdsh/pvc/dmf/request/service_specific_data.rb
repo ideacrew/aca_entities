@@ -20,9 +20,7 @@ module AcaEntities
 
                 def self.domain_to_mapper(request)
                   mapper = self.new
-                  if request.DMFFileMetadata.present?
-                    mapper.DMFFileMetadata = DMFFileMetadata.domain_to_mapper(request.DMFFileMetadata)
-                  end
+                  mapper.DMFFileMetadata = DMFFileMetadata.domain_to_mapper(request.DMFFileMetadata) if request.DMFFileMetadata.present?
 
                   mapper
                 end
