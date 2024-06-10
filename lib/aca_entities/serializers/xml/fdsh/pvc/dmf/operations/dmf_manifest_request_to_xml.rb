@@ -19,6 +19,7 @@ module AcaEntities
                 end
 
                 def convert_to_xml(medicare_request)
+                  
                   encode_result = Try do
                     ::AcaEntities::Serializers::Xml::Fdsh::Pvc::Dmf::Request::BatchHandlingServiceRequest.domain_to_mapper(medicare_request).to_xml
                   end
@@ -29,6 +30,7 @@ module AcaEntities
                 end
 
                 def validate_xml(xml)
+                  
                   ValidateDmfManifestRequestPayloadXml.new.call(xml)
                 end
               end
