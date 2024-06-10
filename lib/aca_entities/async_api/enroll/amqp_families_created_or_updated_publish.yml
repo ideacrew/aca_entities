@@ -30,7 +30,7 @@ servers:
     description: RabbitMQ Test Server
 
 channels:
-  enroll.familes.created_or_updated:
+  enroll.families.created_or_updated:
     bindings:
       amqp:
         is: :routing_key
