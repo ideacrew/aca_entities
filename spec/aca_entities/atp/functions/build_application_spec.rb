@@ -48,6 +48,21 @@ RSpec.describe AcaEntities::Atp::Functions::BuildApplication do
     end
   end
 
+  context "with valid xml containing applicant filing tax return jointly" do
+    before do
+      @result = subject.last
+    end
+    it "should return true for is_joint_tax_filing" do
+      expect(@result[:applicants][0][:is_joint_tax_filing]).to be_truthy
+    end
+    it "should return joint for tax_filer_kind" do
+      expect(@result[:applicants][0][:tax_filer_kind]).to eq("joint")
+    end
+    it "should return true for is_required_to_file_taxes" do
+      expect(@result[:applicants][0][:is_required_to_file_taxes]).to be_truthy
+    end
+  end
+
   context "with valid xml containing pregnant and post partum applicant" do
     before do
       @result = subject.first
