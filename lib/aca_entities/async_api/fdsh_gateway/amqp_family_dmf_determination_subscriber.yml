@@ -1,0 +1,56 @@
+---
+asyncapi: 2.0.0
+info:
+  title: Enroll App
+  version: 0.1.0
+  description: AMQP Subscribe configuration for the Enroll App services
+  contact:
+    name: IdeaCrew
+    url: https://ideacrew.com
+    email: info@ideacrew.com
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+
+servers:
+  production:
+    url: "amqp://rabbitmq:5672/event_source"
+    protocol: :amqp
+    protocolVersion: "0.9.2"
+    description: RabbitMQ Production Server
+  development:
+    url: "amqp://rabbitmq:5672/event_source"
+    protocol: :amqp
+    protocolVersion: "0.9.2"
+    description: RabbitMQ Test Server
+  test:
+    url: "amqp://rabbitmq:5672/event_source"
+    protocol: :amqp
+    protocolVersion: "0.9.2"
+    description: RabbitMQ Test Server
+
+channels:
+  on_fdsh_gateway.enroll.families.verifications.dmf_determination:
+    bindings:
+      amqp:
+        is: queue
+        queue:
+          name: on_fdsh_gateway.enroll.families.verifications.dmf_determination
+          durable: true
+          exclusive: false
+          auto_delete: false
+          vhost: event_source
+    subscribe:
+      bindings:
+        amqp:
+          ack: true
+          exclusive: false
+          routing_key: enroll.families.verifications.dmf_determination.requested
+          prefetch: 1
+          bindingVersion: "0.2.0"
+      operationId: on_fdsh_gateway.enroll.families.verifications.dmf_determination
+      description: Events - Subscriber to publish dmf determination request for individual family
+
+tags:
+  - name: linter_tag
+    description: placeholder that satisfies the linter
