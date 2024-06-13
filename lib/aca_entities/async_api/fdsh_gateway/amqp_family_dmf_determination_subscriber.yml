@@ -49,7 +49,7 @@ channels:
           prefetch: 1
           bindingVersion: "0.2.0"
       operationId: on_fdsh_gateway.enroll.families.verifications.dmf_determination
-      description: Events - Subscriber to publish dmf determination request for individual family
+      description: Events - Subscriber to consume dmf determination request for individual family
 
 tags:
   - name: linter_tag
