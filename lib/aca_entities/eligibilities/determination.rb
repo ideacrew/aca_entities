@@ -10,7 +10,7 @@ module AcaEntities
 
       persistence_model_name 'Eligibilities::Determination'
 
-      attribute :effective_date, Types::Date
+      attribute :effective_date, Types::Date.meta(omittable: false)
       attribute :subjects, Types::Hash.meta(omittable: false)
       attribute :outstanding_verification_status,
                 AcaEntities::Eligibilities::Types::DeterminationStateKind.meta(

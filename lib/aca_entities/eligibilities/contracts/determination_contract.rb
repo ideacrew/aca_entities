@@ -6,7 +6,7 @@ module AcaEntities
       # contract for EvidenceContract
       class DeterminationContract < Dry::Validation::Contract
         params do
-          required(:effective_date).maybe(:date)
+          required(:effective_date).filled(:date)
           required(:subjects).value(:hash)
           required(:outstanding_verification_status).filled(AcaEntities::Eligibilities::Types::DeterminationStateKind)
           required(:outstanding_verification_earliest_due_date).maybe(:date)
