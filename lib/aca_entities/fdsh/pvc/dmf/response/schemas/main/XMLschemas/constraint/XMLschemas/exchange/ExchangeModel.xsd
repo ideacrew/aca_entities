@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:exch="http://pvcdmfresp.ee.sim.dsh.cms.hhs.gov/exchange/1.0" xmlns:ext="http://pvcdmfresp.ee.sim.dsh.cms.hhs.gov/extension/1.0" xmlns:i="http://niem.gov/niem/appinfo/2.0" xmlns:i2="http://niem.gov/niem/appinfo/2.1" xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema" attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://pvcdmfresp.ee.sim.dsh.cms.hhs.gov/exchange/1.0" version="1">
+  <xsd:annotation>
+    <xsd:appinfo>
+      <i:ConformantIndicator>true</i:ConformantIndicator>
+    </xsd:appinfo>
+    <xsd:documentation source="">An Exchange Schema.</xsd:documentation>
+  </xsd:annotation>
+  <xsd:import namespace="http://niem.gov/niem/appinfo/2.0" schemaLocation="../../../../XMLschemas/subset/niem/appinfo/2.0/appinfo.xsd"/>
+  <xsd:import namespace="http://niem.gov/niem/appinfo/2.1" schemaLocation="../../../../XMLschemas/subset/niem/appinfo/2.1/appinfo.xsd"/>
+  <xsd:import namespace="http://niem.gov/niem/proxy/xsd/2.0" schemaLocation="../../../../XMLschemas/subset/niem/proxy/xsd/2.0/xsd.xsd"/>
+  <xsd:import namespace="http://niem.gov/niem/structures/2.0" schemaLocation="../../../../XMLschemas/subset/niem/structures/2.0/structures.xsd"/>
+  <xsd:import namespace="http://pvcdmfresp.ee.sim.dsh.cms.hhs.gov/extension/1.0" schemaLocation="../../../.././XMLschemas/constraint/XMLschemas/extension/ExtensionModel.xsd"/>
+  <xsd:element abstract="false" name="Response" type="ext:PVCDMFResponseType">
+    <xsd:annotation>
+      <xsd:documentation source="">A The Periodic Verification Composite (PVC) service enables Requesters to verify Medicare enrollment, Medicaid/CHIP eligibility, and death data for Marketplace enrollees. This portion is specific for the response from the Death Master File (DMF).</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+</xsd:schema>
