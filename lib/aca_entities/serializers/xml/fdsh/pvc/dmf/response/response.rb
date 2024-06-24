@@ -31,6 +31,7 @@ module AcaEntities
       module Fdsh
         module Pvc
           module Dmf
+            # XML serialization for PVC DMF objects.
             module Response
             end
           end
