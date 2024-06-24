@@ -10,7 +10,7 @@ module AcaEntities
           module Dmf
             module Operations
               # PVC Request manifest to payload xml
-              class SanitizeXml
+              class SanitizeXML
                 send(:include, Dry::Monads[:result, :do, :try])
 
                 def call(xml_string)
