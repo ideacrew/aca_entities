@@ -10,7 +10,7 @@ RSpec.describe AcaEntities::Serializers::Xml::Fdsh::Pvc::Dmf::Operations::Saniti
   let(:xml_string) { File.read(file_path)}
 
   context 'with valid arguments' do
-    let(:file_path) { "spec/support/dmf_test_payloads/PVC_DMF_valid_Response_1.xml" }
+    let(:file_path) { "spec/support/dmf_test_payloads/sample_valid_response_1.xml" }
     before do
       @result = described_class.new.call(xml_string)
     end
@@ -30,7 +30,7 @@ RSpec.describe AcaEntities::Serializers::Xml::Fdsh::Pvc::Dmf::Operations::Saniti
   end
 
   context 'with invalid arguments' do
-    let(:file_path) { "spec/support/dmf_test_payloads/PVC_DMF_invalid_Response_1.xml" }
+    let(:file_path) { "spec/support/dmf_test_payloads/sample_invalid_response_1.xml" }
 
     before do
       @result = described_class.new.call(xml_string)

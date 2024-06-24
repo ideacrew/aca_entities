@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<exch:Response xmlns:s="http://niem.gov/niem/structures/2.0"
+ xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0"
+ xmlns:i="http://niem.gov/niem/appinfo/2.0"
+ xmlns:exch="http://pvcdmfresp.ee.sim.dsh.cms.hhs.gov/exchange/1.0"
+ xmlns:ext="http://pvcdmfresp.ee.sim.dsh.cms.hhs.gov/extension/1.0"
+ xmlns:i2="http://niem.gov/niem/appinfo/2.1"
+ xmlns:hix-core="http://hix.cms.gov/0.1/hix-core"
+ xmlns:hix-types="http://hix.cms.gov/0.1/hix-types"
+ xmlns:nc="http://niem.gov/niem/niem-core/2.0"
+ xmlns:fbi="http://niem.gov/niem/fbi/2.0"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:schemaLocation="http://pvcdmfresp.ee.sim.dsh.cms.hhs.gov/exchange/1.0 ../XMLschemas/constraint/XMLschemas/exchange/ExchangeModel.xsd">
+    <ext:IndividualResponse>
+        <ext:Person>
+            <nc:PersonSSNIdentification>
+                <ext:SSNIdentification>d</ext:SSNIdentification>
+            </nc:PersonSSNIdentification>
+            <nc:PersonName>
+                <nc:PersonGivenName>PersonGivenName0</nc:PersonGivenName>
+                <nc:PersonSurName>PersonSurName0</nc:PersonSurName>
+            </nc:PersonName>
+        </ext:Person>
+        <ext:SSAVerificationSupplement>
+            <hix-core:DeathConfirmationCode>Confirmed</hix-core:DeathConfirmationCode>
+        </ext:SSAVerificationSupplement>
+    </ext:IndividualResponse>
+</exch:Response>
