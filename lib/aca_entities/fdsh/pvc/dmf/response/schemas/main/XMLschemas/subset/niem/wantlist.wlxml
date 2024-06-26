@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="ASCII"?>
+<_2:WantList xmlns:_2="http://niem.gov/niem/wantlist/2" xmlns:fbi="http://niem.gov/niem/fbi/2.0" xmlns:nc="http://niem.gov/niem/niem-core/2.0" _2:product="NIEM" _2:release="2.1">
+  <_2:Element _2:isReference="false" _2:name="nc:Date"/>
+  <_2:Element _2:isReference="false" _2:name="nc:DateRepresentation"/>
+  <_2:Element _2:isReference="true" _2:name="nc:EntityPersonReference"/>
+  <_2:Element _2:isReference="false" _2:name="nc:EntityRepresentation"/>
+  <_2:Element _2:isReference="false" _2:name="nc:IdentificationID"/>
+  <_2:Element _2:isReference="false" _2:name="nc:PersonBirthDate"/>
+  <_2:Element _2:isReference="false" _2:name="nc:PersonDeathDate"/>
+  <_2:Element _2:isReference="false" _2:name="nc:PersonGivenName"/>
+  <_2:Element _2:isReference="false" _2:name="nc:PersonMiddleName"/>
+  <_2:Element _2:isReference="false" _2:name="nc:PersonName"/>
+  <_2:Element _2:isReference="false" _2:name="nc:PersonNameSuffixText"/>
+  <_2:Element _2:isReference="false" _2:name="nc:PersonSex"/>
+  <_2:Element _2:isReference="false" _2:name="nc:PersonSexCode"/>
+  <_2:Element _2:isReference="false" _2:name="nc:PersonSSNIdentification"/>
+  <_2:Element _2:isReference="false" _2:name="nc:PersonSurName"/>
+  <_2:Element _2:isReference="false" _2:name="nc:Date"/>
+  <_2:Element _2:isReference="false" _2:name="nc:DateRepresentation"/>
+  <_2:Element _2:isReference="true" _2:name="nc:EntityPersonReference"/>
+  <_2:Element _2:isReference="false" _2:name="nc:EntityRepresentation"/>
+  <_2:Element _2:isReference="false" _2:name="nc:IdentificationID"/>
+  <_2:Element _2:isReference="false" _2:name="nc:PersonBirthDate"/>
+  <_2:Element _2:isReference="false" _2:name="nc:PersonDeathDate"/>
+  <_2:Element _2:isReference="false" _2:name="nc:PersonGivenName"/>
+  <_2:Element _2:isReference="false" _2:name="nc:PersonMiddleName"/>
+  <_2:Element _2:isReference="false" _2:name="nc:PersonName"/>
+  <_2:Element _2:isReference="false" _2:name="nc:PersonNameSuffixText"/>
+  <_2:Element _2:isReference="false" _2:name="nc:PersonSex"/>
+  <_2:Element _2:isReference="false" _2:name="nc:PersonSexCode"/>
+  <_2:Element _2:isReference="false" _2:name="nc:PersonSSNIdentification"/>
+  <_2:Element _2:isReference="false" _2:name="nc:PersonSurName"/>
+  <_2:Type _2:isRequested="false" _2:name="nc:AmountType"/>
+  <_2:Type _2:isRequested="false" _2:name="nc:DateType">
+    <_2:ElementInType _2:isReference="false" _2:maxOccurs="1" _2:minOccurs="1" _2:name="nc:Date"/>
+  </_2:Type>
+  <_2:Type _2:isRequested="false" _2:name="nc:EntityType">
+    <_2:ElementInType _2:isReference="true" _2:maxOccurs="unbounded" _2:minOccurs="0" _2:name="nc:EntityPersonReference"/>
+  </_2:Type>
+  <_2:Type _2:isRequested="false" _2:name="nc:IdentificationType">
+    <_2:ElementInType _2:isReference="false" _2:maxOccurs="1" _2:minOccurs="1" _2:name="nc:IdentificationID"/>
+  </_2:Type>
+  <_2:Type _2:isRequested="false" _2:name="nc:NumericType"/>
+  <_2:Type _2:isRequested="false" _2:name="nc:PercentageSimpleType">
+    <_2:Facet _2:facet="maxInclusive" _2:value="1"/>
+    <_2:Facet _2:facet="minExclusive" _2:value="0"/>
+  </_2:Type>
+  <_2:Type _2:isRequested="false" _2:name="nc:PercentageType"/>
+  <_2:Type _2:isRequested="false" _2:name="nc:PersonNameTextType"/>
+  <_2:Type _2:isRequested="false" _2:name="nc:PersonNameType">
+    <_2:ElementInType _2:isReference="false" _2:maxOccurs="1" _2:minOccurs="1" _2:name="nc:PersonGivenName"/>
+    <_2:ElementInType _2:isReference="false" _2:maxOccurs="1" _2:minOccurs="0" _2:name="nc:PersonMiddleName"/>
+    <_2:ElementInType _2:isReference="false" _2:maxOccurs="1" _2:minOccurs="1" _2:name="nc:PersonSurName"/>
+    <_2:ElementInType _2:isReference="false" _2:maxOccurs="1" _2:minOccurs="0" _2:name="nc:PersonNameSuffixText"/>
+  </_2:Type>
+  <_2:Type _2:isRequested="false" _2:name="nc:PersonType">
+    <_2:ElementInType _2:isReference="false" _2:maxOccurs="1" _2:minOccurs="1" _2:name="nc:PersonSSNIdentification"/>
+    <_2:ElementInType _2:isReference="false" _2:maxOccurs="1" _2:minOccurs="1" _2:name="nc:PersonName"/>
+    <_2:ElementInType _2:isReference="false" _2:maxOccurs="1" _2:minOccurs="0" _2:name="nc:PersonBirthDate"/>
+    <_2:ElementInType _2:isReference="false" _2:maxOccurs="1" _2:minOccurs="0" _2:name="nc:PersonDeathDate"/>
+  </_2:Type>
+  <_2:Type _2:isRequested="false" _2:name="nc:ProperNameTextType"/>
+  <_2:Type _2:isRequested="false" _2:name="nc:QuantityType"/>
+  <_2:Type _2:isRequested="false" _2:name="nc:StatusType"/>
+  <_2:Type _2:isRequested="false" _2:name="nc:TextType"/>
+  <_2:Type _2:isRequested="false" _2:name="nc:AmountType"/>
+  <_2:Type _2:isRequested="false" _2:name="nc:DateType">
+    <_2:ElementInType _2:isReference="false" _2:maxOccurs="1" _2:minOccurs="1" _2:name="nc:Date"/>
+  </_2:Type>
+  <_2:Type _2:isRequested="false" _2:name="nc:EntityType">
+    <_2:ElementInType _2:isReference="true" _2:maxOccurs="unbounded" _2:minOccurs="0" _2:name="nc:EntityPersonReference"/>
+  </_2:Type>
+  <_2:Type _2:isRequested="false" _2:name="nc:IdentificationType">
+    <_2:ElementInType _2:isReference="false" _2:maxOccurs="1" _2:minOccurs="1" _2:name="nc:IdentificationID"/>
+  </_2:Type>
+  <_2:Type _2:isRequested="false" _2:name="nc:NumericType"/>
+  <_2:Type _2:isRequested="false" _2:name="nc:PercentageSimpleType">
+    <_2:Facet _2:facet="maxInclusive" _2:value="1"/>
+    <_2:Facet _2:facet="minExclusive" _2:value="0"/>
+  </_2:Type>
+  <_2:Type _2:isRequested="false" _2:name="nc:PercentageType"/>
+  <_2:Type _2:isRequested="false" _2:name="nc:PersonNameTextType"/>
+  <_2:Type _2:isRequested="false" _2:name="nc:PersonNameType">
+    <_2:ElementInType _2:isReference="false" _2:maxOccurs="1" _2:minOccurs="1" _2:name="nc:PersonGivenName"/>
+    <_2:ElementInType _2:isReference="false" _2:maxOccurs="1" _2:minOccurs="0" _2:name="nc:PersonMiddleName"/>
+    <_2:ElementInType _2:isReference="false" _2:maxOccurs="1" _2:minOccurs="1" _2:name="nc:PersonSurName"/>
+    <_2:ElementInType _2:isReference="false" _2:maxOccurs="1" _2:minOccurs="0" _2:name="nc:PersonNameSuffixText"/>
+  </_2:Type>
+  <_2:Type _2:isRequested="false" _2:name="nc:PersonType">
+    <_2:ElementInType _2:isReference="false" _2:maxOccurs="1" _2:minOccurs="1" _2:name="nc:PersonSSNIdentification"/>
+    <_2:ElementInType _2:isReference="false" _2:maxOccurs="1" _2:minOccurs="1" _2:name="nc:PersonName"/>
+    <_2:ElementInType _2:isReference="false" _2:maxOccurs="1" _2:minOccurs="0" _2:name="nc:PersonBirthDate"/>
+    <_2:ElementInType _2:isReference="false" _2:maxOccurs="1" _2:minOccurs="0" _2:name="nc:PersonDeathDate"/>
+  </_2:Type>
+  <_2:Type _2:isRequested="false" _2:name="nc:ProperNameTextType"/>
+  <_2:Type _2:isRequested="false" _2:name="nc:QuantityType"/>
+  <_2:Type _2:isRequested="false" _2:name="nc:StatusType"/>
+  <_2:Type _2:isRequested="false" _2:name="nc:TextType"/>
+  <_2:Type _2:isRequested="false" _2:name="fbi:SEXCodeSimpleType">
+    <_2:Facet _2:facet="enumeration" _2:value="U"/>
+    <_2:Facet _2:facet="enumeration" _2:value="M"/>
+    <_2:Facet _2:facet="enumeration" _2:value="F"/>
+  </_2:Type>
+  <_2:Type _2:isRequested="false" _2:name="fbi:SEXCodeType"/>
+  <_2:Type _2:isRequested="false" _2:name="fbi:SEXCodeSimpleType">
+    <_2:Facet _2:facet="enumeration" _2:value="U"/>
+    <_2:Facet _2:facet="enumeration" _2:value="M"/>
+    <_2:Facet _2:facet="enumeration" _2:value="F"/>
+  </_2:Type>
+  <_2:Type _2:isRequested="false" _2:name="fbi:SEXCodeType"/>
+</_2:WantList>

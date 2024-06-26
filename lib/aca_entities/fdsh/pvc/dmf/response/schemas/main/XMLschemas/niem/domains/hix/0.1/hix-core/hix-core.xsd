@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:hix-core="http://hix.cms.gov/0.1/hix-core" xmlns:hix-types="http://hix.cms.gov/0.1/hix-types" xmlns:i="http://niem.gov/niem/appinfo/2.0" xmlns:i2="http://niem.gov/niem/appinfo/2.1" xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema" attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://hix.cms.gov/0.1/hix-core" version="&quot;1&quot;">
+  <xsd:annotation>
+    <xsd:appinfo>
+      <i:ConformantIndicator>true</i:ConformantIndicator>
+    </xsd:appinfo>
+    <xsd:documentation source="">A reference model containing data components that either a) are good candidates for inclusion in NIEM-Core or b) are needed to support web services.</xsd:documentation>
+  </xsd:annotation>
+  <xsd:import namespace="http://hix.cms.gov/0.1/hix-types" schemaLocation="../../../../../.././XMLschemas/niem/domains/hix/0.1/hix-types/hix-types.xsd"/>
+  <xsd:import namespace="http://niem.gov/niem/appinfo/2.0" schemaLocation="../../../../../../XMLschemas/subset/niem/appinfo/2.0/appinfo.xsd"/>
+  <xsd:import namespace="http://niem.gov/niem/appinfo/2.1" schemaLocation="../../../../../../XMLschemas/subset/niem/appinfo/2.1/appinfo.xsd"/>
+  <xsd:import namespace="http://niem.gov/niem/niem-core/2.0" schemaLocation="../../../../../.././XMLschemas/niem/niem-core.xsd"/>
+  <xsd:import namespace="http://niem.gov/niem/proxy/xsd/2.0" schemaLocation="../../../../../../XMLschemas/subset/niem/proxy/xsd/2.0/xsd.xsd"/>
+  <xsd:import namespace="http://niem.gov/niem/structures/2.0" schemaLocation="../../../../../../XMLschemas/subset/niem/structures/2.0/structures.xsd"/>
+  <xsd:element abstract="false" name="DeathConfirmationCode" nillable="true" type="hix-types:DeathConfirmationCodeType">
+    <xsd:annotation>
+      <xsd:documentation source="">A confirmation of the death status of an individual according to the Social Security Administration (SSA) .</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element abstract="true" name="Response" nillable="false">
+    <xsd:annotation>
+      <xsd:documentation source="">A data concept for a response made to a request.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element abstract="false" name="ResponseCode" nillable="false" substitutionGroup="hix-core:Response" type="nc:TextType">
+    <xsd:annotation>
+      <xsd:appinfo>
+        <i:Base i:name="Response" i:namespace="http://hix.cms.gov/0.1/hix-core"/>
+      </xsd:appinfo>
+      <xsd:documentation source="">A coded response.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element abstract="false" name="ResponseDescriptionText" nillable="false" substitutionGroup="hix-core:Response" type="nc:TextType">
+    <xsd:annotation>
+      <xsd:appinfo>
+        <i:Base i:name="Response" i:namespace="http://hix.cms.gov/0.1/hix-core"/>
+      </xsd:appinfo>
+      <xsd:documentation source="">A description of a response.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element abstract="false" name="TDSResponseDescriptionText" nillable="false" substitutionGroup="hix-core:Response" type="nc:TextType">
+    <xsd:annotation>
+      <xsd:appinfo>
+        <i:Base i:name="Response" i:namespace="http://hix.cms.gov/0.1/hix-core"/>
+      </xsd:appinfo>
+      <xsd:documentation source="">A description of a response from a data source designated as trusted (a trusted data source or TDS) by the Centers for Medicare &amp; Medicaid Services.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:complexType abstract="false" mixed="false" name="SSAVerificationSupplementType">
+    <xsd:annotation>
+      <xsd:appinfo>
+        <i:Base i:name="VerificationSupplementType" i:namespace="http://hix.cms.gov/0.1/hix-core"/>
+      </xsd:appinfo>
+      <xsd:documentation source="">A data type for supplemental information provided by the Social Security Administration (SSA).</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="hix-core:VerificationSupplementType">
+        <xsd:sequence>
+          <xsd:element maxOccurs="1" minOccurs="1" ref="hix-core:DeathConfirmationCode"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType abstract="false" mixed="false" name="VerificationSupplementType">
+    <xsd:annotation>
+      <xsd:appinfo>
+        <i:Base i:name="Object" i:namespace="http://niem.gov/niem/structures/2.0"/>
+      </xsd:appinfo>
+      <xsd:documentation source="">A data type for a supplement containing additional verification metadata provided by a verifying authority.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="s:ComplexObjectType">
+        <xsd:sequence/>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+</xsd:schema>
