@@ -30,6 +30,8 @@ module AcaEntities
           optional(:updated_by).hash(AcaEntities::Contracts::People::PersonReferenceContract.params)
           optional(:inactive).maybe(:bool)
           optional(:vlp_documents).array(AcaEntities::Contracts::Documents::VlpDocumentContract.params)
+          optional(:from_validation_status).maybe(:string)
+          optional(:to_validation_status).maybe(:string)
         end
       end
     end

@@ -783,6 +783,29 @@ RSpec.describe AcaEntities::Contracts::Families::FamilyContract,  dbclean: :afte
     end
   end
 
+  context 'include family eligibility determination' do
+    let(:subjects) { { subjects: {} } }
+    let(:eligibility_params) do
+      {
+        subjects: subjects,
+        effective_date: Date.today,
+        outstanding_verification_status: 'not_enrolled',
+        outstanding_verification_earliest_due_date: Date.today + 30,
+        outstanding_verification_document_status: 'Partially Uploaded',
+        grants: []
+      }
+    end
+
+    before do
+      @result = subject.call(required_params.merge(eligibility_determination: eligibility_params))
+    end
+
+    it 'should return success' do
+      expect(@result.success?).to be_truthy
+      expect(@result[:eligibility_determination]).to eq eligibility_params
+    end
+  end
+
   context 'failure case' do
     context 'missing required param' do
       before do
