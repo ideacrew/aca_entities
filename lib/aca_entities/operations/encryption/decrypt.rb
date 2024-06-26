@@ -15,18 +15,7 @@ module AcaEntities
 
         # @param [hash] pass in value to be encrypted
         def call(params)
-          decrypted_value = yield decrypt(params[:value])
-
-          Success(decrypted_value)
-        end
-
-        private
-
-        def decrypt(value)
-          key = AcaEntities::Configuration::Encryption.config.secret_key
-          iv = AcaEntities::Configuration::Encryption.config.iv
-          secret_box = RbNaCl::SecretBox.new([key].pack("H*"))
-          Success(secret_box.decrypt(iv, Base64.decode64(value)))
+          AcaEntities::Encryption::Symmetric.decrypt(params[:value])
         end
       end
     end

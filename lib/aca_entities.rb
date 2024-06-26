@@ -10,6 +10,7 @@ require 'aca_entities/version'
 require 'aca_entities/error'
 
 require 'aca_entities/configuration/encryption'
+require 'aca_entities/encryption'
 require 'aca_entities/operations/mongoid/model_adapter'
 
 require 'aca_entities/libraries/aca_individual_market_library'
