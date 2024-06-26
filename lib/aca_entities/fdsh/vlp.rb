@@ -3,6 +3,8 @@
 # types
 require 'aca_entities/types'
 
+############# H92
+
 # contracts
 require_relative 'vlp/h92/contracts/passport_country_contract'
 require_relative 'vlp/h92/contracts/i327_document_id_contract'
@@ -27,7 +29,6 @@ require_relative 'vlp/h92/contracts/sponsorship_data_contract'
 require_relative 'vlp/h92/contracts/array_of_sponsorship_data_contract'
 require_relative 'vlp/h92/contracts/response_metadata_contract'
 require_relative 'vlp/h92/contracts/error_response_metadata_contract'
-require_relative 'vlp/h92/contracts/array_of_error_response_metadata_contract'
 require_relative 'vlp/h92/contracts/initial_verification_individual_response_set_contract'
 require_relative 'vlp/h92/contracts/initial_verification_individual_response_contract'
 require_relative 'vlp/h92/contracts/initial_verification_response_set_contract'
@@ -58,7 +59,6 @@ require_relative 'vlp/h92/sponsorship_data'
 require_relative 'vlp/h92/array_of_sponsorship_data'
 require_relative 'vlp/h92/response_metadata'
 require_relative 'vlp/h92/error_response_metadata'
-require_relative 'vlp/h92/array_of_error_response_metadata'
 require_relative 'vlp/h92/initial_verification_individual_response_set'
 require_relative 'vlp/h92/initial_verification_individual_response'
 require_relative 'vlp/h92/initial_verification_response_set'
@@ -66,6 +66,27 @@ require_relative 'vlp/h92/initial_verification_response'
 
 # operations
 require_relative 'vlp/h92/operations/person_to_initial_request'
+
+############# Rx142
+
+# contracts
+require_relative 'vlp/rx142/close_case/contracts/error_response_metadata_contract'
+require_relative 'vlp/rx142/close_case/contracts/response_metadata_contract'
+require_relative 'vlp/rx142/close_case/contracts/close_case_response_set_contract'
+require_relative 'vlp/rx142/close_case/contracts/close_case_request_contract'
+require_relative 'vlp/rx142/close_case/contracts/close_case_response_contract'
+
+# entities
+require_relative 'vlp/rx142/close_case/error_response_metadata'
+require_relative 'vlp/rx142/close_case/response_metadata'
+require_relative 'vlp/rx142/close_case/close_case_response_set'
+require_relative 'vlp/rx142/close_case/close_case_request'
+require_relative 'vlp/rx142/close_case/close_case_response'
+
+# operations
+require_relative 'vlp/rx142/close_case/operations/verify_close_case_request'
+require_relative 'vlp/rx142/close_case/operations/build_close_case_response_params'
+require_relative 'vlp/rx142/initial_verification/operations/build_initial_verification_response_params'
 
 # happymapper
 require 'aca_entities/serializers/xml/fdsh/vlp'

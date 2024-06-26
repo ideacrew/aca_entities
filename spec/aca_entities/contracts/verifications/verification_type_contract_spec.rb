@@ -28,7 +28,9 @@ RSpec.describe ::AcaEntities::Contracts::Verifications::VerificationTypeContract
       due_date_type: nil,
       updated_by: person_reference,
       inactive: nil,
-      vlp_documents: []
+      vlp_documents: [],
+      from_validation_status: "outstanding",
+      to_validation_status: "attested"
     }
   end
 

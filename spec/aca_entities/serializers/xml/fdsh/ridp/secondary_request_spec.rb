@@ -10,6 +10,7 @@ RSpec.describe AcaEntities::Serializers::Xml::Fdsh::Ridp::SecondaryRequest,
     AcaEntities::Fdsh::Ridp::H139::SecondaryRequest.new(
       {
         SessionIdentification: '123456789',
+        DSHReferenceNumber: '123456789',
         VerificationAnswerSet: {
           VerificationAnswers: [
             {

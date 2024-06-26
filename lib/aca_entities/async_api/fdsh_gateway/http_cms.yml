@@ -84,6 +84,62 @@ channels:
             Content-Type: application/soap+xml
             Accept: application/soap+xml
 
+  /VerifyLawfulPresenceServiceV37.1Rest:
+    publish:
+      operationId: /VerifyLawfulPresenceServiceV37.1Rest
+      description: Send request to VLP InitialVerification REST endpoint
+      message:
+        contentType: application/xml
+      bindings:
+        http:
+          type: request
+          method: POST
+          contentType: application/xml
+          headers:
+            Content-Type: application/xml
+            Accept: application/xml
+    subscribe:
+      operationId: /on/VerifyLawfulPresenceServiceV37.1Rest
+      description: Receive response from VLP InitialVerification REST request
+      message:
+        contentType: application/xml
+      bindings:
+        http:
+          type: response
+          method: GET
+          contentType: application/xml
+          headers:
+            Content-Type: application/xml
+            Accept: application/xml
+
+  /CloseCaseServiceV37.1Rest:
+    publish:
+      operationId: /CloseCaseServiceV37.1Rest
+      description: Send request to VLP CloseCase endpoint
+      message:
+        contentType: application/xml
+      bindings:
+        http:
+          type: request
+          method: POST
+          contentType: application/xml
+          headers:
+            Content-Type: application/xml
+            Accept: application/xml
+    subscribe:
+      operationId: /on/CloseCaseServiceV37.1Rest
+      description: Receive response from VLP CloseCase request
+      message:
+        contentType: application/xml
+      bindings:
+        http:
+          type: response
+          method: GET
+          contentType: application/xml
+          headers:
+            Content-Type: application/xml
+            Accept: application/xml
+
   /VerifySSACompositeService:
     publish:
       operationId: /VerifySSACompositeService
@@ -195,6 +251,34 @@ channels:
           headers:
             Content-Type: application/soap+xml
             Accept: application/soap+xml
+
+  /VerifyAnnualHouseholdIncomeandFamilySizeServiceRest:
+    publish:
+      operationId: /VerifyAnnualHouseholdIncomeandFamilySizeServiceRest
+      description: Send ifsv JSON request to CMS
+      message:
+        contentType: application/json
+      bindings:
+        http:
+          type: request
+          method: POST
+          contentType: application/json
+          headers:
+            Content-Type: application/json
+            Accept: application/json
+    subscribe:
+      operationId: /on/VerifyAnnualHouseholdIncomeandFamilySizeServiceRest
+      description: Receive ifsv JSON response from CMS
+      message:
+        contentType: application/json
+      bindings:
+        http:
+          type: response
+          method: GET
+          contentType: application/json
+          headers:
+            Content-Type: application/json
+            Accept: application/json
 
   /HubConnectivityService:
     publish:
@@ -321,6 +405,33 @@ channels:
     subscribe:
       operationId: /on/VerifyEsiMecServiceRest
       description: Receive esi mec JSON response from CMS
+      message:
+        contentType: application/json
+      bindings:
+        http:
+          type: response
+          method: GET
+          contentType: application/json
+          headers:
+            Content-Type: application/json
+            Accept: application/json
+  /RIDPCrossCoreService:
+    publish:
+      operationId: /RIDPCrossCoreService
+      description: Send RIDP primary JSON request to CMS
+      message:
+        contentType: application/json
+      bindings:
+        http:
+          type: request
+          method: POST
+          contentType: application/json
+          headers:
+            Content-Type: application/json
+            Accept: application/json
+    subscribe:
+      operationId: /on/RIDPCrossCoreService
+      description: Receive RIDP primary JSON response from CMS
       message:
         contentType: application/json
       bindings:

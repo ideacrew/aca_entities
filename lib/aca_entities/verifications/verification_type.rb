@@ -17,6 +17,8 @@ module AcaEntities
 
       attribute :vlp_documents,
                 Types::Strict::Array.of(AcaEntities::Documents::VlpDocument).optional.meta(omittable: true)
+      attribute :from_validation_status,                     Types::String.optional.meta(omittable: true)
+      attribute :to_validation_status,                       Types::String.optional.meta(omittable: true)
     end
   end
 end

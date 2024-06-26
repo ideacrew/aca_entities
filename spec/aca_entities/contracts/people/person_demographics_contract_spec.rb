@@ -72,4 +72,27 @@ RSpec.describe ::AcaEntities::Contracts::People::PersonDemographicsContract, dbc
       end
     end
   end
+
+  context 'alive_status' do
+    let(:alive_status) { { is_deceased: false, date_of_death: nil } }
+
+    let(:person_demographics) do
+      {
+        ssn: "123456789",
+        no_ssn: false,
+        gender: 'male',
+        dob: Date.today,
+        is_incarcerated: false,
+        alive_status: alive_status
+      }
+    end
+
+    it 'returns success' do
+      expect(subject.call(person_demographics).success?).to be_truthy
+    end
+
+    it 'returns results without any errors' do
+      expect(subject.call(person_demographics).errors.empty?).to be_truthy
+    end
+  end
 end

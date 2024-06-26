@@ -66,6 +66,7 @@ module AcaEntities
       require 'aca_entities/contracts/people/person_name_contract'
       require 'aca_entities/contracts/people/person_relationship_contract'
       require 'aca_entities/contracts/people/person_health_contract'
+      require 'aca_entities/contracts/people/alive_status_contract'
       require 'aca_entities/contracts/people/person_demographics_contract'
       require 'aca_entities/contracts/people/person_contract'
       require 'aca_entities/contracts/enrollees/enrollee_demographics_contract'
@@ -156,6 +157,7 @@ module AcaEntities
       require 'aca_entities/people/person_name'
       require 'aca_entities/people/person_relationship'
       require 'aca_entities/people/person_health'
+      require 'aca_entities/people/alive_status'
       require 'aca_entities/people/person_demographics'
       require 'aca_entities/people/person'
       require 'aca_entities/households/tax_household'
@@ -196,13 +198,23 @@ module AcaEntities
       require 'aca_entities/benefit_sponsors/entities/benefit_sponsorships/shop_osse_eligibilities/shop_osse_grant'
       require 'aca_entities/benefit_sponsors/entities/benefit_sponsorships/shop_osse_eligibilities/shop_osse_eligibility'
 
-      require 'aca_entities/audit_logs/contracts/audit_log_event_contract'
-      require 'aca_entities/audit_logs/entities/audit_log_event'
+      require 'aca_entities/event_logs/contracts/session_detail_contract'
+      require 'aca_entities/event_logs/contracts/monitored_event_contract'
+      require 'aca_entities/event_logs/contracts/event_log_contract'
+      require 'aca_entities/people/contracts/eligibilities_event_log_contract'
+      require 'aca_entities/benefit_sponsors/contracts/benefit_sponsorships/eligibilities_event_log_contract'
+
+      require 'aca_entities/event_logs/entities/session_detail'
+      require 'aca_entities/event_logs/entities/monitored_event'
+      require 'aca_entities/event_logs/entities/event_log'
+      require 'aca_entities/people/eligibilities_event_log'
+      require 'aca_entities/benefit_sponsors/entities/benefit_sponsorships/eligibilities_event_log'
 
       # Operations
       require 'aca_entities/operations/operations'
       require 'aca_entities/operations/create_family'
       require 'aca_entities/operations/create_person'
+      require 'aca_entities/operations/encrypted_ssn_validator'
     end
   end
 end
