@@ -57,6 +57,31 @@ channels:
       operationId: fdsh.pvc.dmf.responses.individual_response.import.requested
       description: PVC DMF Determination received.
 
+  fdsh.pvc.dmf.responses.transform_family.requested:
+    bindings:
+      amqp:
+        is: :routing_key
+        exchange:
+          name: fdsh.pvc.dmf.responses.transform_family
+          type: topic
+          durable: true
+          auto_delete: false
+          vhost: event_source
+        bindingVersion: 0.1.0
+    publish:
+      bindings:
+        amqp:
+          app_id: fdsh_gateway
+          type: fdsh.pvc.dmf.responses.transform_family
+          routing_key: fdsh.pvc.dmf.responses.transform_family.requested
+          deliveryMode: 2
+          mandatory: true
+          timestamp: true
+          content_type: application/json
+          bindingVersion: 0.2.0
+      operationId: fdsh.pvc.dmf.responses.transform_family.requested
+      description: PVC DMF Determination received.
+
 tags:
   - name: linter_tag
     description: placeholder that satisfies the linter

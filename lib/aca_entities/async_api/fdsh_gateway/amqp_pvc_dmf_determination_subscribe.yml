@@ -51,6 +51,27 @@ channels:
       operationId: on_fdsh_gateway.fdsh.pvc.dmf.responses.individual_response.import
       description: Events - Subscriber to consume dmf determination response for import process
 
+  on_fdsh_gateway.fdsh.pvc.dmf.responses.transform_family:
+    bindings:
+      amqp:
+        is: queue
+        queue:
+          name: on_fdsh_gateway.fdsh.pvc.dmf.responses.transform_family
+          durable: true
+          exclusive: false
+          auto_delete: false
+          vhost: event_source
+    subscribe:
+      bindings:
+        amqp:
+          ack: true
+          exclusive: false
+          routing_key: fdsh.pvc.dmf.responses.transform_family.requested
+          prefetch: 1
+          bindingVersion: "0.2.0"
+      operationId: on_fdsh_gateway.fdsh.pvc.dmf.responses.transform_family
+      description: Events - Subscriber to consume dmf determination response for import process
+
 tags:
   - name: linter_tag
     description: placeholder that satisfies the linter
