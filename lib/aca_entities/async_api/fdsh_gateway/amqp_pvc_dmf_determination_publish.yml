@@ -82,12 +82,12 @@ channels:
       operationId: fdsh.pvc.dmf.responses.transform_family.requested
       description: PVC DMF Determination received.
 
-  fdsh.pvc.dmf.responses.individual_family.determined:
+  fdsh.pvc.dmf.responses.family.determined:
     bindings:
       amqp:
         is: :routing_key
         exchange:
-          name: fdsh.pvc.dmf.responses.individual_family
+          name: fdsh.pvc.dmf.responses.family
           type: topic
           durable: true
           auto_delete: false
@@ -97,14 +97,14 @@ channels:
       bindings:
         amqp:
           app_id: fdsh_gateway
-          type: fdsh.pvc.dmf.responses.individual_family
-          routing_key: fdsh.pvc.dmf.responses.individual_family.determined
+          type: fdsh.pvc.dmf.responses.family
+          routing_key: fdsh.pvc.dmf.responses.family.determined
           deliveryMode: 2
           mandatory: true
           timestamp: true
           content_type: application/json
           bindingVersion: 0.2.0
-      operationId: fdsh.pvc.dmf.responses.individual_family.determined
+      operationId: fdsh.pvc.dmf.responses.family.determined
       description: PVC DMF for family is determined.
 
 tags:
