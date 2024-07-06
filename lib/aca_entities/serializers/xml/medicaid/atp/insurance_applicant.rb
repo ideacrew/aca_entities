@@ -108,8 +108,9 @@ module AcaEntities
               mapper.long_term_care_indicator = insurance_applicant.long_term_care_indicator
               mapper.role_reference = RoleOfPersonReference.domain_to_mapper(insurance_applicant.role_reference)
               if insurance_applicant.incarcerations
-                mapper.incarcerations = insurance_applicant.incarcerations.map {
-                  |inc| Incarceration.domain_to_mapper(insurance_applicant, inc, verification_metadata) }
+                mapper.incarcerations = insurance_applicant.incarcerations.map do |inc|
+                  Incarceration.domain_to_mapper(insurance_applicant, inc, verification_metadata)
+                end
               end
               mapper.lawful_presence_status = InsuranceApplicantLawfulPresenceStatus.domain_to_mapper(insurance_applicant.lawful_presence_status)
               mapper.non_esi_coverage_indicators = insurance_applicant.non_esi_coverage_indicators
