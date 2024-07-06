@@ -322,6 +322,68 @@ RSpec.describe AcaEntities::Atp::Operations::Aces::GenerateXml  do
 
     end
 
+    context "verification metadata" do
+      context "when ssa_response exists for one person" do
+        it "should set verification metadata" do
+          result = described_class.new.call(payload_hash.to_json)
+          doc = Nokogiri::XML.parse(result.value!)
+          verification_metadata = doc.xpath("//hix-core:VerificationMetadata", namespaces)[0]
+          expect(verification_metadata.present?).to be_truthy
+          expect(verification_metadata.attributes["id"].value).to eq "vmssa1003159"
+        end
+      end
+
+      it "should populate FFEVerificationCode to Y" do
+        result = described_class.new.call(payload_hash.to_json)
+        doc = Nokogiri::XML.parse(result.value!)
+        verification_metadata = doc.xpath("//hix-core:VerificationMetadata", namespaces)[0]
+        expect(verification_metadata.xpath("//hix-core:FFEVerificationCode", namespaces).text).to eq "Y"
+      end
+
+      it "should populate VerificationAuthorityTDS-FEPS-AlphaCode to SSA" do
+        result = described_class.new.call(payload_hash.to_json)
+        doc = Nokogiri::XML.parse(result.value!)
+        verification_metadata = doc.xpath("//hix-core:VerificationMetadata", namespaces)[0]
+        expect(verification_metadata.xpath("//hix-core:VerificationAuthorityTDS-FEPS-AlphaCode", namespaces).text).to eq "SSA"
+      end
+
+      it "should populate VerificationAuthorityTDS-FEPS-AlphaCode to SSA" do
+        result = described_class.new.call(payload_hash.to_json)
+        doc = Nokogiri::XML.parse(result.value!)
+        verification_metadata = doc.xpath("//hix-core:VerificationMetadata", namespaces)[0]
+        expect(verification_metadata.xpath("//hix-core:VerificationAuthorityTDS-FEPS-AlphaCode", namespaces).text).to eq "SSA"
+      end
+
+      it "should populate VerificationRequestingSystem" do
+        result = described_class.new.call(payload_hash.to_json)
+        doc = Nokogiri::XML.parse(result.value!)
+        verification_metadata = doc.xpath("//hix-core:VerificationMetadata", namespaces)[0]
+        expect(verification_metadata.xpath("//hix-core:VerificationRequestingSystem", namespaces).text).to be_present
+      end
+
+      it "should populate VerificationDate" do
+        result = described_class.new.call(payload_hash.to_json)
+        doc = Nokogiri::XML.parse(result.value!)
+        verification_metadata = doc.xpath("//hix-core:VerificationMetadata", namespaces)[0]
+        expect(verification_metadata.xpath("//hix-core:VerificationDate", namespaces).text).to be_present
+      end
+
+      it "should populate VerificationCategoryCode" do
+        result = described_class.new.call(payload_hash.to_json)
+        doc = Nokogiri::XML.parse(result.value!)
+        verification_metadata = doc.xpath("//hix-core:VerificationMetadata", namespaces)[0]
+        expect(verification_metadata.xpath("//hix-core:VerificationCategoryCode", namespaces).count).to eq 3
+      end
+
+      it "should populate VerificationStatusCode" do
+        result = described_class.new.call(payload_hash.to_json)
+        doc = Nokogiri::XML.parse(result.value!)
+        verification_metadata = doc.xpath("//hix-core:VerificationMetadata", namespaces)[0]
+        status = verification_metadata.xpath("//hix-core:VerificationStatus", namespaces)
+        expect(status.xpath('./hix-core:VerificationStatusCode', namespaces).text).to eq "5"
+      end
+    end
+
     context 'param flags' do
       context "when drop_non_ssn_apply_reason flag is present in payload" do
         it 'should not populate IdentificationCategoryText tag in PersonSSNIdentification' do

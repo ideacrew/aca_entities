@@ -26,7 +26,8 @@ module AcaEntities
             has_one :ssf_primary_contact, SsfPrimaryContact
             element :tax_return_access, Boolean, tag: "InsuranceApplicationTaxReturnAccessIndicator", namespace: "hix-ee"
 
-            def self.domain_to_mapper(insurance_application)
+            def self.domain_to_mapper(account_transfer_request)
+              insurance_application = account_transfer_request.insurance_application
               mapper = self.new
               mapper.application_creation = ApplicationCreation.domain_to_mapper(insurance_application.application_creation)
               mapper.application_submission = ApplicationSubmission.domain_to_mapper(insurance_application.application_submission)
@@ -37,7 +38,7 @@ module AcaEntities
                 ApplicationIdentification.domain_to_mapper(ai)
               end
               mapper.insurance_applicants = insurance_application.insurance_applicants.map do |insurance_applicant|
-                InsuranceApplicant.domain_to_mapper(insurance_applicant)
+                InsuranceApplicant.domain_to_mapper(insurance_applicant, account_transfer_request.verification_metadata)
               end
               mapper.requesting_financial_assistance = insurance_application.requesting_financial_assistance
               mapper.coverage_renewal_year_quantity = insurance_application.coverage_renewal_year_quantity

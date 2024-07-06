@@ -8,7 +8,6 @@ RSpec.describe ::AcaEntities::Medicaid::Atp::VerificationRequestingSystem,  dbcl
 
   let(:required_params) do
     {
-      id: "id123",
       category_code: "Exchange"
     }
   end
@@ -25,13 +24,13 @@ RSpec.describe ::AcaEntities::Medicaid::Atp::VerificationRequestingSystem,  dbcl
   context 'invalid parameters' do
     context 'with empty parameters' do
       it 'should list error for every required parameter' do
-        expect { described_class.new }.to raise_error(Dry::Struct::Error, /:id is missing in Hash input/)
+        expect { described_class.new }.to raise_error(Dry::Struct::Error, /:category_code is missing in Hash input/)
       end
     end
 
     context 'with optional parameters only' do
       it 'should list error for every required parameter' do
-        expect { described_class.new(optional_params) }.to raise_error(Dry::Struct::Error, /:id is missing in Hash input/)
+        expect { described_class.new(optional_params) }.to raise_error(Dry::Struct::Error, /:category_code is missing in Hash input/)
       end
     end
   end

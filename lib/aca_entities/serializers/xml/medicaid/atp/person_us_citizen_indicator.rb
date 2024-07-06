@@ -5,24 +5,24 @@ module AcaEntities
     module Xml
       module Medicaid
         module Atp
-          # Include XML element and type definitions.
-          class PersonSsnIdentification
+          # A verification supplement provided by the Department of Homeland Security (DHS)
+          # Systematic Alien Verification for Entitlements (SAVE) program.
+          class PersonUsCitizenIndicator
             include HappyMapper
 
-            tag 'PersonSSNIdentification'
+            attribute :metadata, String, namespace: "niem-s"
+            tag 'PersonUSCitizenIndicator'
             namespace 'nc'
 
-            attribute :metadata, String, namespace: "niem-s"
-            element :identification_id, String, tag: "IdentificationID"
-            element :identification_category_text, String, tag: "IdentificationCategoryText"
+            # A step in the Department of Homeland Security (DHS) Systematic Alien Verification for Entitlements (SAVE) process.
+            content :value, Boolean
 
             def self.domain_to_mapper(person, verification_metadata)
-              ssn = person.ssn_identification
+              us_citizen_indicator = person&.us_citizen_indicator
               mapper = self.new
               matching_ssa_response = mapper.fetch_ssa_response(person, verification_metadata)
-              mapper.metadata = matching_ssa_response.id if matching_ssa_response
-              mapper.identification_id = ssn&.identification_id || ""
-              mapper.identification_category_text = ssn.identification_category_text if ssn&.identification_category_text
+              mapper.metadata = matching_ssa_response&.id if matching_ssa_response&.verification_category_codes&.include?("Citizenship")
+              mapper.value = us_citizen_indicator
               mapper
             end
 
@@ -35,12 +35,6 @@ module AcaEntities
 
                 person_id == data_id
               end
-            end
-
-            def to_hash
-              {
-                identification_id: identification_id
-              }
             end
           end
         end
