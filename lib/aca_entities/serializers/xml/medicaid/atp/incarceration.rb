@@ -20,12 +20,24 @@ module AcaEntities
             # True if the person is incarcerated; false otherwise.
             element :incarceration_indicator, Boolean, tag: 'IncarcerationIndicator', namespace: 'hix-core'
 
-            def self.domain_to_mapper(inc)
+            def self.domain_to_mapper(insurance_applicant, inc, verification_metadata)
               mapper = self.new
-              mapper.metadata = inc.metadata
+              matching_ssa_response = mapper.fetch_ssa_response(insurance_applicant, verification_metadata)
+              mapper.metadata = matching_ssa_response.id if matching_ssa_response&.verification_category_codes&.include?("IncarcerationStatus")
               mapper.incarceration_date = IncarcerationDate.domain_to_mapper(inc.incarceration_date) if inc.incarceration_date
               mapper.incarceration_indicator = inc.incarceration_indicator
               mapper
+            end
+
+            def fetch_ssa_response(insurance_applicant, verification_metadata)
+              return nil unless verification_metadata
+
+              verification_metadata.detect do |data|
+                person_id = insurance_applicant.role_reference&.ref&.scan(/\d+/)&.first
+                data_id = data.id&.scan(/\d+/)&.first
+
+                person_id == data_id
+              end
             end
 
             def to_hash

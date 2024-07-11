@@ -246,6 +246,8 @@ module AcaEntities
                       AcaEntities::Atp::Types::ContactPreferenceCode[v]
                     }, memoize_record: true, visible: false, append_identifier: true
 
+                    map 'consumer_role', 'consumer_role', memoize_record: true, visible: false
+
                     add_key 'person_augmentation.us_naturalized_citizen_indicator', function: lambda { |v|
                       member_id = v.find(/family.family_members.(\w+)$/).map(&:item).last
                       applicants_hash = v.resolve('family.magi_medicaid_applications.applicants').item
@@ -331,7 +333,7 @@ module AcaEntities
                   :information_changes_indicator => true, # default value
                   :application_terms_indicator => true } # default value
               }
-              # add_key "verification_metadata", function: ::AcaEntities::Atp::Functions::VerificationMetadataBuilder.new
+              add_key "verification_metadata", function: ::AcaEntities::Atp::Functions::VerificationMetadataBuilder.new
               add_key "tax_returns", function: ::AcaEntities::Atp::Functions::TaxReturnBuilder.new
               add_key "medicaid_households", function: ::AcaEntities::Atp::Functions::MedicaidHouseholdBuilder.new
 
