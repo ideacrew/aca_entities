@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe ::AcaEntities::Enrollments::HbxEnrollment, dbclean: :after_each do
+RSpec.describe ::AcaEntities::Enrollments::HbxEnrollment do
 
   let(:currency) do
     {

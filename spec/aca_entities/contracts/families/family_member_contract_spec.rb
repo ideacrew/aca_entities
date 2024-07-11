@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe ::AcaEntities::Contracts::Families::FamilyMemberContract, dbclean: :after_each do
+RSpec.describe ::AcaEntities::Contracts::Families::FamilyMemberContract do
 
   let!(:person_name) do
     {

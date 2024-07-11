@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe ::AcaEntities::Contracts::Determinations::LawfulPresenceDeterminationContract, dbclean: :after_each do
+RSpec.describe ::AcaEntities::Contracts::Determinations::LawfulPresenceDeterminationContract do
 
   let(:event_response) do
     [
@@ -72,5 +72,3 @@ RSpec.describe ::AcaEntities::Contracts::Determinations::LawfulPresenceDetermina
     end
   end
 end
-
-

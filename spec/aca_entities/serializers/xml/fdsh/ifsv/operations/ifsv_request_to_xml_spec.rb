@@ -3,7 +3,7 @@
 require 'spec_helper'
 require 'aca_entities/serializers/xml/fdsh/ssa'
 
-RSpec.describe ::AcaEntities::Serializers::Xml::Fdsh::Ifsv::H9t::Operations::IfsvRequestToXml, dbclean: :after_each do
+RSpec.describe ::AcaEntities::Serializers::Xml::Fdsh::Ifsv::H9t::Operations::IfsvRequestToXml do
 
   let(:ifsv_verification_request_entity) do
     AcaEntities::Fdsh::Ifsv::H9t::Api::Request.call(

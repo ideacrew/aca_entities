@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe ::AcaEntities::People::AliveStatus, dbclean: :after_each do
+RSpec.describe ::AcaEntities::People::AliveStatus do
 
   let(:alive_status_params) { { is_deceased: false, date_of_death: nil } }
 

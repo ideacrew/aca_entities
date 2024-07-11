@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe ::AcaEntities::TimeStamp, dbclean: :after_each do
+RSpec.describe ::AcaEntities::TimeStamp do
 
   let(:input_params) do
     {
@@ -23,4 +23,3 @@ RSpec.describe ::AcaEntities::TimeStamp, dbclean: :after_each do
     end
   end
 end
-

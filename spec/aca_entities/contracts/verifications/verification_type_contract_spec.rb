@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe ::AcaEntities::Contracts::Verifications::VerificationTypeContract, dbclean: :after_each do
+RSpec.describe ::AcaEntities::Contracts::Verifications::VerificationTypeContract do
 
   let!(:person_reference) do
     {
@@ -91,5 +91,3 @@ RSpec.describe ::AcaEntities::Contracts::Verifications::VerificationTypeContract
     end
   end
 end
-
-

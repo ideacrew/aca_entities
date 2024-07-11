@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe ::AcaEntities::EnrollmentPeriods::SpecialEnrollmentPeriod, dbclean: :after_each do
+RSpec.describe ::AcaEntities::EnrollmentPeriods::SpecialEnrollmentPeriod do
 
   let(:timestamp) do
     {
@@ -62,10 +62,3 @@ RSpec.describe ::AcaEntities::EnrollmentPeriods::SpecialEnrollmentPeriod, dbclea
     end
   end
 end
-
-
-
-
-
-
-

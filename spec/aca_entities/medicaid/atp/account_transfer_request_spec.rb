@@ -3,7 +3,7 @@
 require 'spec_helper'
 require 'aca_entities/medicaid/atp'
 
-RSpec.describe ::AcaEntities::Medicaid::Atp::AccountTransferRequest, dbclean: :after_each do
+RSpec.describe ::AcaEntities::Medicaid::Atp::AccountTransferRequest do
 
   let(:required_params) do
     {

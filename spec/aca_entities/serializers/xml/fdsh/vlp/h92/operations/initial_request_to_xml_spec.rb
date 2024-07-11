@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe ::AcaEntities::Serializers::Xml::Fdsh::Vlp::H92::Operations::InitialRequestToXml, dbclean: :after_each do
+RSpec.describe ::AcaEntities::Serializers::Xml::Fdsh::Vlp::H92::Operations::InitialRequestToXml do
 
   context 'with valid arguments' do
     let(:initial_verification_request) do

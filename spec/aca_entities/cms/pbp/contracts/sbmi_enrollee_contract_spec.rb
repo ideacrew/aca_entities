@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe AcaEntities::Cms::Pbp::Contracts::SbmiEnrolleeContract, dbclean: :after_each do
+RSpec.describe AcaEntities::Cms::Pbp::Contracts::SbmiEnrolleeContract do
   let(:required_params) do
     {
       exchange_assigned_memberId: "99921",

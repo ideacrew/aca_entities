@@ -6,7 +6,7 @@ require 'aca_entities/medicaid/ios/contracts/ssp_application_individual__c_contr
 
 require 'aca_entities/medicaid/ios/operations/generate_ios'
 
-RSpec.describe AcaEntities::Medicaid::Ios::Functions::SspApplicationIndividualCBuilder, dbclean: :after_each do
+RSpec.describe AcaEntities::Medicaid::Ios::Functions::SspApplicationIndividualCBuilder do
 
   # should use more recent example payload?
   let(:family) do

@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe AcaEntities::Cms::Pbp::Contracts::ProratedAmountContract, dbclean: :after_each do
+RSpec.describe AcaEntities::Cms::Pbp::Contracts::ProratedAmountContract do
 
   let(:required_params) do
     {

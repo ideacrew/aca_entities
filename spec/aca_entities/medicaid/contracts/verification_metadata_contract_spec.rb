@@ -3,7 +3,7 @@
 require 'spec_helper'
 require 'aca_entities/medicaid/contracts/verification_metadata_contract'
 
-RSpec.describe ::AcaEntities::Medicaid::Contracts::VerificationMetadataContract, dbclean: :after_each do
+RSpec.describe ::AcaEntities::Medicaid::Contracts::VerificationMetadataContract do
 
   let(:required_params) do
     {

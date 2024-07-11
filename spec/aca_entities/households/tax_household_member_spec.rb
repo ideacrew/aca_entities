@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe ::AcaEntities::Households::TaxHouseholdMember, dbclean: :after_each do
+RSpec.describe ::AcaEntities::Households::TaxHouseholdMember do
 
   let(:family_member_reference) do
     {

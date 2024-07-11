@@ -3,7 +3,7 @@
 require 'spec_helper'
 require 'support/shared_content/insurance_policies/contracts/shared_context'
 
-RSpec.describe AcaEntities::Families::Family, dbclean: :after_each do
+RSpec.describe AcaEntities::Families::Family do
 
   let(:family_member_reference) do
     {

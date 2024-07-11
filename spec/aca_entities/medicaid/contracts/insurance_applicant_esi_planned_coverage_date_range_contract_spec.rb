@@ -3,7 +3,7 @@
 require 'spec_helper'
 require 'aca_entities/medicaid/contracts/insurance_applicant_esi_planned_coverage_date_range_contract'
 
-RSpec.describe ::AcaEntities::Medicaid::Contracts::InsuranceApplicantEsiPlannedCoverageDateRangeContract, dbclean: :after_each do
+RSpec.describe ::AcaEntities::Medicaid::Contracts::InsuranceApplicantEsiPlannedCoverageDateRangeContract do
 
   let(:required_params) { {} }
 

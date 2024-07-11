@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe ::AcaEntities::People::PersonReference, dbclean: :after_each do
+RSpec.describe ::AcaEntities::People::PersonReference do
 
   let!(:input_params) do
     {

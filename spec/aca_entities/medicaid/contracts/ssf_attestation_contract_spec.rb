@@ -3,7 +3,7 @@
 require 'spec_helper'
 require 'aca_entities/medicaid/contracts/ssf_attestation_contract'
 
-RSpec.describe ::AcaEntities::Medicaid::Contracts::SsfAttestationContract, dbclean: :after_each do
+RSpec.describe ::AcaEntities::Medicaid::Contracts::SsfAttestationContract do
 
   let(:required_params) do
     { non_perjury_indicator: true,

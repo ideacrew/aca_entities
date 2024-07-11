@@ -5,7 +5,7 @@ require 'aca_entities/medicaid/ios/functions/ssp_member__r_builder'
 require 'aca_entities/medicaid/ios/contracts/ssp_member__r_contract'
 require 'aca_entities/medicaid/ios/operations/generate_ios'
 
-RSpec.describe AcaEntities::Medicaid::Ios::Functions::SspMemberRBuilder, dbclean: :after_each do
+RSpec.describe AcaEntities::Medicaid::Ios::Functions::SspMemberRBuilder do
 
   # should use more recent example payload?
   let(:family) do

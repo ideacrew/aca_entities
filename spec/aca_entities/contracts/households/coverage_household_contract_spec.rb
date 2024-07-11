@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe ::AcaEntities::Contracts::Households::CoverageHouseholdContract, dbclean: :after_each do
+RSpec.describe ::AcaEntities::Contracts::Households::CoverageHouseholdContract do
 
   let(:broker_agency_reference) do
     { hbx_id: "1233444", market_kind: 'both', name: 'broker agency', dba: nil, display_name: nil, fein: '089441964', corporate_npn: nil }
@@ -123,4 +123,3 @@ RSpec.describe ::AcaEntities::Contracts::Households::CoverageHouseholdContract, 
     # end
   end
 end
-

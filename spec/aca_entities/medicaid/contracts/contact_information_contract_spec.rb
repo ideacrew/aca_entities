@@ -3,7 +3,7 @@
 require 'spec_helper'
 require 'aca_entities/medicaid/contracts/contact_information_contract'
 
-RSpec.describe ::AcaEntities::Medicaid::Contracts::ContactInformationContract, dbclean: :after_each do
+RSpec.describe ::AcaEntities::Medicaid::Contracts::ContactInformationContract do
 
   let(:required_params) { {} }
 

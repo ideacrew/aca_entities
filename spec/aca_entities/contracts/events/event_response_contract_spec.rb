@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe ::AcaEntities::Contracts::Events::EventResponseContract, dbclean: :after_each do
+RSpec.describe ::AcaEntities::Contracts::Events::EventResponseContract do
 
   let(:required_params) do
     {

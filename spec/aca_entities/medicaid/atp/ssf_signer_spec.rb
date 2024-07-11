@@ -11,7 +11,7 @@ require "aca_entities/medicaid/atp/ssf_signer_authorized_representative_associat
 require 'aca_entities/medicaid/atp/ssf_attestation'
 require 'aca_entities/medicaid/atp/ssf_signer'
 
-RSpec.describe ::AcaEntities::Medicaid::Atp::SsfSigner, dbclean: :after_each do
+RSpec.describe ::AcaEntities::Medicaid::Atp::SsfSigner do
 
   describe 'with valid arguments' do
 

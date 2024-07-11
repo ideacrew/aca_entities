@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe ::AcaEntities::Products::ProductReference, dbclean: :after_each do
+RSpec.describe ::AcaEntities::Products::ProductReference do
 
   let(:issuer_profile_reference) do
     {

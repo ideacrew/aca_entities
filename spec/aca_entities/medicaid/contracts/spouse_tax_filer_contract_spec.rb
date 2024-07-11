@@ -3,7 +3,7 @@
 require 'spec_helper'
 require 'aca_entities/medicaid/contracts/spouse_tax_filer_contract'
 
-RSpec.describe ::AcaEntities::Medicaid::Contracts::SpouseTaxFilerContract, dbclean: :after_each do
+RSpec.describe ::AcaEntities::Medicaid::Contracts::SpouseTaxFilerContract do
 
   let(:required_params) { { role_reference: { ref: "pe123" } } }
 

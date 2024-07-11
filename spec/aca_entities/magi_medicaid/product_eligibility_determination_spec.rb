@@ -3,7 +3,7 @@
 require 'spec_helper'
 require 'aca_entities/magi_medicaid/libraries/iap_library'
 
-RSpec.describe ::AcaEntities::MagiMedicaid::ProductEligibilityDetermination, dbclean: :after_each do
+RSpec.describe ::AcaEntities::MagiMedicaid::ProductEligibilityDetermination do
   let(:input_params) do
     { is_ia_eligible: true,
       is_medicaid_chip_eligible: false,

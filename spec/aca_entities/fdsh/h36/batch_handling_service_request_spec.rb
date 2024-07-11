@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe AcaEntities::Fdsh::H36::BatchHandlingServiceRequest, dbclean: :after_each do
+RSpec.describe AcaEntities::Fdsh::H36::BatchHandlingServiceRequest do
   subject { described_class.new }
 
   let(:batch_metadata) do

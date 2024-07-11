@@ -3,7 +3,7 @@
 require 'spec_helper'
 require 'aca_entities/magi_medicaid/libraries/iap_library'
 
-RSpec.describe ::AcaEntities::MagiMedicaid::Applicant, dbclean: :after_each do
+RSpec.describe ::AcaEntities::MagiMedicaid::Applicant do
 
   let(:name) do
     { first_name: 'First', middle_name: 'middle', last_name: 'Last' }

@@ -3,7 +3,7 @@
 require 'spec_helper'
 require 'support/shared_content/insurance_policies/contracts/shared_context'
 
-RSpec.describe ::AcaEntities::InsurancePolicies::AcaIndividuals::InsurancePolicy, dbclean: :after_each do
+RSpec.describe ::AcaEntities::InsurancePolicies::AcaIndividuals::InsurancePolicy do
   include_context('insurance_policies_context')
 
   let(:currency) do

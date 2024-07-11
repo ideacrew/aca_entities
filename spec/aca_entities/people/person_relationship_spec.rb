@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe ::AcaEntities::People::PersonRelationship, dbclean: :after_each do
+RSpec.describe ::AcaEntities::People::PersonRelationship do
 
   let!(:person_reference) do
     {
@@ -40,4 +40,3 @@ RSpec.describe ::AcaEntities::People::PersonRelationship, dbclean: :after_each d
     end
   end
 end
-

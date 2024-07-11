@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe ::AcaEntities::Serializers::Xml::Fdsh::Vlp::Rx142::CloseCase::Operations::CloseCaseRequestToXml, dbclean: :after_each do
+RSpec.describe ::AcaEntities::Serializers::Xml::Fdsh::Vlp::Rx142::CloseCase::Operations::CloseCaseRequestToXml do
 
   context 'with valid arguments' do
     let(:close_case_request) do

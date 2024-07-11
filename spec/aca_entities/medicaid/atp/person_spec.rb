@@ -35,7 +35,7 @@ require 'aca_entities/medicaid/atp/person_age_measure'
 require 'aca_entities/medicaid/atp/person_ssn_identification'
 require 'aca_entities/medicaid/atp/person'
 
-RSpec.describe ::AcaEntities::Medicaid::Atp::Person, dbclean: :after_each do
+RSpec.describe ::AcaEntities::Medicaid::Atp::Person do
 
   let(:required_params) do
     { id: 'a-person-id',

@@ -3,7 +3,7 @@
 require 'spec_helper'
 require 'aca_entities/medicaid/contracts/insurance_policy_applied_effective_date_range_contract'
 
-RSpec.describe ::AcaEntities::Medicaid::Contracts::InsurancePolicyAppliedEffectiveDateRangeContract, dbclean: :after_each do
+RSpec.describe ::AcaEntities::Medicaid::Contracts::InsurancePolicyAppliedEffectiveDateRangeContract do
 
   let(:required_params) { {} }
 

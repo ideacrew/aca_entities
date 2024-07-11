@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe ::AcaEntities::Fdsh::Ridp::Rj139::Operations::EvidenceToSecondaryRequest, dbclean: :after_each do
+RSpec.describe ::AcaEntities::Fdsh::Ridp::Rj139::Operations::EvidenceToSecondaryRequest do
 
   describe 'with valid arguments' do
     context 'with valid payload' do

@@ -3,7 +3,7 @@
 require 'spec_helper'
 require 'aca_entities/medicaid/ios'
 
-RSpec.describe AcaEntities::Medicaid::Ios::Contracts::SspApplicationIndividualCContract, dbclean: :after_each do
+RSpec.describe AcaEntities::Medicaid::Ios::Contracts::SspApplicationIndividualCContract do
 
   let(:all_params) do
     {
@@ -71,4 +71,3 @@ RSpec.describe AcaEntities::Medicaid::Ios::Contracts::SspApplicationIndividualCC
     end
   end
 end
-
