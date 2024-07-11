@@ -77,6 +77,9 @@ module AcaEntities
               mapper.response_code = metadata.response_code
               mapper.verification_date = VerificationDate.domain_to_mapper(metadata.verification_date)
               mapper.verification_requesting_system = VerificationRequestingSystem.domain_to_mapper(metadata.verification_requesting_system)
+              if metadata.verification_category_codes.present?
+                mapper.verification_category_codes = metadata.verification_category_codes.map {|vc| VerificationCategoryCode.domain_to_mapper(vc)}
+              end
               mapper.verification_status = VerificationStatus.domain_to_mapper(metadata.verification_status)
               mapper
             end

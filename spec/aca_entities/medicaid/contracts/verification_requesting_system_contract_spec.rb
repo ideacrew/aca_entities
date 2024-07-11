@@ -7,7 +7,6 @@ RSpec.describe ::AcaEntities::Medicaid::Contracts::VerificationRequestingSystemC
 
   let(:required_params) do
     {
-      id: "id123",
       category_code: "Exchange"
     }
   end

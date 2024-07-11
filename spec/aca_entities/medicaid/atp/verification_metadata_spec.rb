@@ -11,10 +11,10 @@ RSpec.describe ::AcaEntities::Medicaid::Atp::VerificationMetadata,  dbclean: :ar
 
   let(:required_params) do
     {
+      id: "vm123",
       verification_date: { date: Date.today },
       verification_requesting_system:
         {
-          id: "id123",
           category_code: "Exchange"
         }
     }
@@ -22,6 +22,7 @@ RSpec.describe ::AcaEntities::Medicaid::Atp::VerificationMetadata,  dbclean: :ar
 
   let(:optional_params) do
     {
+      id: "vm123",
       address_verification_code: "verificationCode",
       dhs_g845_verification_code: "verificationCode",
       dhs_save_verification_code: "verificationCode",
@@ -44,7 +45,7 @@ RSpec.describe ::AcaEntities::Medicaid::Atp::VerificationMetadata,  dbclean: :ar
   context 'invalid parameters' do
     context 'with empty parameters' do
       it 'should list error for every required parameter' do
-        expect { described_class.new }.to raise_error(Dry::Struct::Error, /:id is missing in Hash input/)
+        expect { described_class.new }.to raise_error(Dry::Struct::Error, /:category_code is missing in Hash input/)
       end
     end
 
