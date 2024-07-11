@@ -1,0 +1,13 @@
+# frozen_string_literal: true
+
+require 'dry/monads/do'
+
+<% class_path.each_with_index do |path_fragment, index| -%>
+<%= indent("module #{path_fragment.to_s.camelcase}", index * @indentation) %>
+<% end -%>
+<%= indent("# ** REPLACE WITH DEFINITION FOR Operation: #{@local_class_name} **", @class_indent * @indentation) %>
+<%= indent("class #{@local_class_name}", @class_indent * @indentation) %>
+<%= indent(content.strip, (@class_indent + 1) * @indentation) %>
+<% (0...(@class_indent + 1)).reverse_each do |index| -%>
+<%= indent('end', index * @indentation) %>
+<% end -%>
