@@ -1,0 +1,82 @@
+asyncapi: 3.0.0
+info:
+  title: FTI Gateway Subscriber
+  version: 0.1.0
+  description: AMQP Consumer configuration for the FTI Gateway Consumer services
+  contact:
+    name: IdeaCrew
+    url: 'https://ideacrew.com'
+    email: info@ideacrew.com
+  license:
+    name: MIT
+    url: 'https://opensource.org/licenses/MIT'
+defaultContentType: application/json
+servers:
+  development:
+    host: 'rabbitmq:5672'
+    pathname: /event_source
+    protocol: amqp
+    protocolVersion: 0.9.2
+    description: RabbitMQ Development Server
+  test:
+    host: 'rabbitmq:5672'
+    pathname: /event_source
+    protocol: amqp
+    protocolVersion: 0.9.2
+    description: RabbitMQ Test Server
+  production:
+    host: 'rabbitmq:5672'
+    pathname: /event_source
+    protocol: amqp
+    protocolVersion: 0.9.2
+    description: RabbitMQ Production Server
+channels:
+  on_enroll.fti.eligibilities:
+    address: on_enroll.fti.eligibilities
+    messages: {}
+    bindings:
+      amqp:
+        is: queue
+        queue:
+          name: on_enroll.fti.eligibilities
+          durable: true
+          exclusive: false
+          auto_delete: false
+          vhost: event_source
+  on_enroll.fti.renewal_eligibilities.ifsv:
+    address: on_enroll.fti.renewal_eligibilities.ifsv
+    messages: {}
+    bindings:
+      amqp:
+        is: queue
+        queue:
+          name: on_enroll.fti.renewal_eligibilities.ifsv
+          durable: true
+          exclusive: false
+          auto_delete: false
+          vhost: event_source
+operations:
+  on_enroll.fti.eligibilities:
+    action: send
+    channel:
+      $ref: '#/channels/on_enroll.fti.eligibilities'
+    description: Events - CMS FTI IFSV Service requests
+    bindings:
+      amqp:
+        ack: true
+        exclusive: false
+        routing_key: fti.eligibilities.#
+        bindingVersion: 0.2.0
+        prefetch: 1
+  on_enroll.fti.renewal_eligibilities.ifsv:
+    action: send
+    channel:
+      $ref: '#/channels/on_enroll.fti.renewal_eligibilities.ifsv'
+    description: Events - CMS FTI RRV IFSV Service requests
+    bindings:
+      amqp:
+        ack: true
+        exclusive: false
+        routing_key: fti.renewal_eligibilities.ifsv.#
+        bindingVersion: 0.2.0
+        prefetch: 1

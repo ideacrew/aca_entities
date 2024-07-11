@@ -1,0 +1,67 @@
+asyncapi: 3.0.0
+info:
+  title: Enroll App Insurance Policies
+  version: 0.1.0
+  description: >-
+    AMQP Publish configuration for the Enroll App services to support Insurance
+    Policies Refresh
+  contact:
+    name: IdeaCrew
+    url: 'https://ideacrew.com'
+    email: info@ideacrew.com
+  license:
+    name: MIT
+    url: 'https://opensource.org/licenses/MIT'
+  tags:
+    - name: linter_tag
+      description: placeholder that satisfies the linter
+servers:
+  production:
+    host: 'rabbitmq:5672'
+    pathname: /event_source
+    protocol: ':amqp'
+    protocolVersion: 0.9.2
+    description: RabbitMQ Production Server
+  development:
+    host: 'rabbitmq:5672'
+    pathname: /event_source
+    protocol: ':amqp'
+    protocolVersion: 0.9.2
+    description: RabbitMQ Test Server
+  test:
+    host: 'rabbitmq:5672'
+    pathname: /event_source
+    protocol: ':amqp'
+    protocolVersion: 0.9.2
+    description: RabbitMQ Test Server
+channels:
+  enroll.insurance_policies.refresh_requested:
+    address: enroll.insurance_policies.refresh_requested
+    messages: {}
+    bindings:
+      amqp:
+        is: ':routing_key'
+        exchange:
+          name: enroll.insurance_policies
+          type: topic
+          content_type: application/json
+          durable: true
+          auto_delete: false
+          vhost: event_source
+        binding_version: 0.2.0
+operations:
+  enroll.insurance_policies.refresh_requested:
+    action: receive
+    channel:
+      $ref: '#/channels/enroll.insurance_policies.refresh_requested'
+    description: Events - Requesting a refresh of insurance policies
+    bindings:
+      amqp:
+        app_id: enroll
+        type: enroll.insurance_policies
+        routing_key: enroll.insurance_policies.refresh_requested
+        deliveryMode: 2
+        mandatory: true
+        timestamp: true
+        content_type: application/json
+        bindingVersion: 0.2.0

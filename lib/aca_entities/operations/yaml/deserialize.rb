@@ -8,7 +8,7 @@ module AcaEntities
     module Yaml
       # Transform a YAML-formatted String into a Hash object
       class Deserialize
-        send(:include, Dry::Monads[:result, :do])
+        include Dry::Monads[:do, :result]
 
         # @param [Hash] params the params to read file
         # @options params [String] yaml String of YAML-structured values

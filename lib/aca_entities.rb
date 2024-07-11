@@ -37,4 +37,7 @@ module AcaEntities
   def self.async_api_config_find_by_service_name(args)
     ::AcaEntities::AsyncApi::Operations::FindConfigsByServiceName.new.call(args)
   end
+
+  ASYNC_API_VERSION = '3.0.0'.freeze
+  ASYNC_API_PATH = 'v3'.freeze
 end

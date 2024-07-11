@@ -1,0 +1,121 @@
+asyncapi: 3.0.0
+info:
+  title: EDI Gateway
+  version: 0.1.0
+  description: Publish and Subscribe configuration for the FDSH Gateway service
+  contact:
+    name: IdeaCrew
+    url: 'https://ideacrew.com'
+    email: info@ideacrew.com
+  license:
+    name: MIT
+    url: 'https://opensource.org/licenses/MIT'
+  tags:
+    - name: linter_tag
+      description: placeholder that satisfies the linter
+defaultContentType: application/json
+servers:
+  development:
+    host: 'rabbitmq:5672'
+    pathname: /event_source
+    protocol: amqp
+    protocolVersion: 0.9.2
+    description: FDSH Gateway Development Server
+  test:
+    host: 'rabbitmq:5672'
+    pathname: /event_source
+    protocol: amqp
+    protocolVersion: 0.9.2
+    description: FDSH Gateway Test Server
+  production:
+    host: 'rabbitmq:5672'
+    pathname: /event_source
+    protocol: amqp
+    protocolVersion: 0.9.2
+    description: FDSH Gateway Production Server
+channels:
+  fdsh_gateway.irs1095as.initial_notice_requested:
+    address: fdsh_gateway.irs1095as.initial_notice_requested
+    messages: {}
+    bindings:
+      amqp:
+        is: ':routing_key'
+        exchange:
+          name: fdsh_gateway.irs1095as
+          type: topic
+          durable: true
+          auto_delete: false
+          vhost: event_source
+        bindingVersion: 0.1.0
+  fdsh_gateway.irs1095as.void_notice_requested:
+    address: fdsh_gateway.irs1095as.void_notice_requested
+    messages: {}
+    bindings:
+      amqp:
+        is: ':routing_key'
+        exchange:
+          name: fdsh_gateway.irs1095as
+          type: topic
+          durable: true
+          auto_delete: false
+          vhost: event_source
+        bindingVersion: 0.1.0
+  fdsh_gateway.irs1095as.corrected_notice_requested:
+    address: fdsh_gateway.irs1095as.corrected_notice_requested
+    messages: {}
+    bindings:
+      amqp:
+        is: ':routing_key'
+        exchange:
+          name: fdsh_gateway.irs1095as
+          type: topic
+          durable: true
+          auto_delete: false
+          vhost: event_source
+        bindingVersion: 0.1.0
+operations:
+  fdsh_gateway.irs1095as.initial_notice_requested:
+    action: receive
+    channel:
+      $ref: '#/channels/fdsh_gateway.irs1095as.initial_notice_requested'
+    description: Events - FDSH Gateway 1095A initial notice requested
+    bindings:
+      amqp:
+        app_id: fdsh_gateway
+        type: fdsh_gateway.irs1095as
+        routing_key: fdsh_gateway.irs1095as.initial_notice_requested
+        deliveryMode: 2
+        mandatory: true
+        timestamp: true
+        content_type: application/json
+        bindingVersion: 0.2.0
+  fdsh_gateway.irs1095as.void_notice_requested:
+    action: receive
+    channel:
+      $ref: '#/channels/fdsh_gateway.irs1095as.void_notice_requested'
+    description: Events - FDSH Gateway 1095A void notice requested
+    bindings:
+      amqp:
+        app_id: fdsh_gateway
+        type: fdsh_gateway.irs1095as
+        routing_key: fdsh_gateway.irs1095as.void_notice_requested
+        deliveryMode: 2
+        mandatory: true
+        timestamp: true
+        content_type: application/json
+        bindingVersion: 0.2.0
+  fdsh_gateway.irs1095as.corrected_notice_requested:
+    action: receive
+    channel:
+      $ref: '#/channels/fdsh_gateway.irs1095as.corrected_notice_requested'
+    description: Events - FDSH Gateway 1095A corrected notice requested
+    bindings:
+      amqp:
+        app_id: fdsh_gateway
+        type: fdsh_gateway.irs1095as
+        routing_key: fdsh_gateway.irs1095as.corrected_notice_requested
+        deliveryMode: 2
+        mandatory: true
+        timestamp: true
+        content_type: application/json
+        bindingVersion: 0.2.0

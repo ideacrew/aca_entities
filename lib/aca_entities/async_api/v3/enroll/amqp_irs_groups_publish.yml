@@ -1,0 +1,96 @@
+asyncapi: 3.0.0
+info:
+  title: Enroll App
+  version: 0.1.0
+  description: AMQP Publish configuration for the Enroll services Related To IRS Groups
+  contact:
+    name: IdeaCrew
+    url: 'https://ideacrew.com'
+    email: info@ideacrew.com
+  license:
+    name: MIT
+    url: 'https://opensource.org/licenses/MIT'
+  tags:
+    - name: linter_tag
+      description: placeholder that satisfies the linter
+servers:
+  production:
+    host: 'rabbitmq:5672'
+    pathname: /event_source
+    protocol: ':amqp'
+    protocolVersion: 0.9.2
+    description: Enroll Production Server
+  development:
+    host: 'rabbitmq:5672'
+    pathname: /event_source
+    protocol: ':amqp'
+    protocolVersion: 0.9.2
+    description: Enroll Test Server
+  test:
+    host: 'rabbitmq:5672'
+    pathname: /event_source
+    protocol: ':amqp'
+    protocolVersion: 0.9.2
+    description: Enroll Test Server
+channels:
+  irs_groups.families.family_found:
+    address: irs_groups.families.family_found
+    messages: {}
+    bindings:
+      amqp:
+        is: ':routing_key'
+        exchange:
+          name: irs_groups.families
+          type: topic
+          content_type: application/json
+          durable: true
+          auto_delete: false
+          vhost: event_source
+        binding_version: 0.2.0
+  irs_groups.seed_requested.built_requested_seed:
+    address: irs_groups.seed_requested.built_requested_seed
+    messages: {}
+    bindings:
+      amqp:
+        is: ':routing_key'
+        exchange:
+          name: irs_groups.seed_requested
+          type: topic
+          content_type: application/json
+          durable: true
+          auto_delete: false
+          vhost: event_source
+        binding_version: 0.2.0
+operations:
+  irs_groups.families.family_found:
+    action: receive
+    channel:
+      $ref: '#/channels/irs_groups.families.family_found'
+    summary: Events - Families Found For Irs Group Seed
+    description: Events - Families Found For Irs Group Seed
+    bindings:
+      amqp:
+        app_id: enroll
+        type: irs_groups.families
+        routing_key: irs_groups.families.family_found
+        deliveryMode: 2
+        mandatory: true
+        timestamp: true
+        content_type: application/json
+        bindingVersion: 0.2.0
+  irs_groups.seed_requested.built_requested_seed:
+    action: receive
+    channel:
+      $ref: '#/channels/irs_groups.seed_requested.built_requested_seed'
+    summary: Events - Built CV3 Family On Seed Request
+    description: Events - Built CV3 Family On Seed Request
+    bindings:
+      amqp:
+        app_id: enroll
+        type: irs_groups.seed_requested
+        routing_key: irs_groups.seed_requested.built_requested_seed
+        deliveryMode: 2
+        mandatory: true
+        timestamp: true
+        content_type: application/json
+        bindingVersion: 0.2.0

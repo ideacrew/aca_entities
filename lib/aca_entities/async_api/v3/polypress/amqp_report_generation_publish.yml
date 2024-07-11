@@ -1,0 +1,66 @@
+asyncapi: 3.0.0
+info:
+  title: Polypress
+  version: 0.1.0
+  description: AMQP Publishconfiguration for the Polypress services
+  contact:
+    name: IdeaCrew
+    url: 'https://ideacrew.com'
+    email: info@ideacrew.com
+  license:
+    name: MIT
+    url: 'https://opensource.org/licenses/MIT'
+  tags:
+    - name: linter_tag
+      description: placeholder that satisfies the linter
+servers:
+  production:
+    host: 'rabbitmq:5672'
+    pathname: /event_source
+    protocol: ':amqp'
+    protocolVersion: 0.9.2
+    description: RabbitMQ Production Server
+  development:
+    host: 'rabbitmq:5672'
+    pathname: /event_source
+    protocol: ':amqp'
+    protocolVersion: 0.9.2
+    description: RabbitMQ Test Server
+  test:
+    host: 'rabbitmq:5672'
+    pathname: /event_source
+    protocol: ':amqp'
+    protocolVersion: 0.9.2
+    description: RabbitMQ Test Server
+channels:
+  polypress.report_generation.generate_pre_audit_report:
+    address: polypress.report_generation.generate_pre_audit_report
+    messages: {}
+    bindings:
+      amqp:
+        is: ':routing_key'
+        exchange:
+          name: polypress.report_generation
+          type: topic
+          content_type: application/json
+          durable: true
+          auto_delete: false
+          vhost: event_source
+        binding_version: 0.2.0
+operations:
+  polypress.report_generation.generate_pre_audit_report:
+    action: receive
+    channel:
+      $ref: '#/channels/polypress.report_generation.generate_pre_audit_report'
+    summary: Events - generate pre audit report
+    description: Events - polypress pre audit report publisher
+    bindings:
+      amqp:
+        app_id: polypress
+        type: polypress.report_generation
+        routing_key: polypress.report_generation.generate_pre_audit_report
+        deliveryMode: 2
+        mandatory: true
+        timestamp: true
+        content_type: application/json
+        bindingVersion: 0.2.0

@@ -1,0 +1,152 @@
+asyncapi: 3.0.0
+info:
+  title: FTI
+  version: 0.1.0
+  description: AMQP Producer configuration for the FTI service
+  contact:
+    name: IdeaCrew
+    url: 'https://ideacrew.com'
+    email: info@ideacrew.com
+  license:
+    name: MIT
+    url: 'https://opensource.org/licenses/MIT'
+  tags:
+    - name: linter_tag
+      description: placeholder that satisfies the linter
+defaultContentType: application/json
+servers:
+  development:
+    host: 'rabbitmq:5672'
+    pathname: /event_source
+    protocol: amqp
+    protocolVersion: 0.9.2
+    description: RabbitMQ Development Server
+  test:
+    host: 'rabbitmq:5672'
+    pathname: /event_source
+    protocol: amqp
+    protocolVersion: 0.9.2
+    description: RabbitMQ Test Server
+  production:
+    host: 'rabbitmq:5672'
+    pathname: /event_source
+    protocol: amqp
+    protocolVersion: 0.9.2
+    description: RabbitMQ Production Server
+channels:
+  fti.eligibilities.fdsh_eligibilities_ifsv_determined:
+    address: fti.eligibilities.fdsh_eligibilities_ifsv_determined
+    messages: {}
+    bindings:
+      amqp:
+        is: ':routing_key'
+        exchange:
+          name: fti.eligibilities
+          type: topic
+          durable: true
+          auto_delete: false
+          vhost: event_source
+        bindingVersion: 0.1.0
+  fti.eligibilities.fdsh_eligibilities_ifsv_errored:
+    address: fti.eligibilities.fdsh_eligibilities_ifsv_errored
+    messages: {}
+    bindings:
+      amqp:
+        is: ':routing_key'
+        exchange:
+          name: fti.eligibilities
+          type: topic
+          durable: true
+          auto_delete: false
+          vhost: event_source
+        bindingVersion: 0.1.0
+  fti.eligibilities.fdsh_eligibilities_ifsv_delayed:
+    address: fti.eligibilities.fdsh_eligibilities_ifsv_delayed
+    messages: {}
+    bindings:
+      amqp:
+        is: ':routing_key'
+        exchange:
+          name: fti.eligibilities
+          type: topic
+          durable: true
+          auto_delete: false
+          vhost: event_source
+        bindingVersion: 0.1.0
+  fti.renewal_eligibilities.ifsv.magi_medicaid_application_renewal_eligibilities_ifsv_determined:
+    address: >-
+      fti.renewal_eligibilities.ifsv.magi_medicaid_application_renewal_eligibilities_ifsv_determined
+    messages: {}
+    bindings:
+      amqp:
+        is: ':routing_key'
+        exchange:
+          name: fti.renewal_eligibilities.ifsv
+          type: topic
+          durable: true
+          auto_delete: false
+          vhost: event_source
+        bindingVersion: 0.1.0
+operations:
+  fti.eligibilities.fdsh_eligibilities_ifsv_determined:
+    action: receive
+    channel:
+      $ref: '#/channels/fti.eligibilities.fdsh_eligibilities_ifsv_determined'
+    description: IFSV Determination has completed.
+    bindings:
+      amqp:
+        app_id: fti_gateway
+        type: fti.eligibilities
+        routing_key: fti.eligibilities.fdsh_eligibilities_ifsv_determined
+        deliveryMode: 2
+        mandatory: true
+        timestamp: true
+        content_type: application/json
+        bindingVersion: 0.2.0
+  fti.eligibilities.fdsh_eligibilities_ifsv_errored:
+    action: receive
+    channel:
+      $ref: '#/channels/fti.eligibilities.fdsh_eligibilities_ifsv_errored'
+    description: IFSV Determination has errored.
+    bindings:
+      amqp:
+        app_id: fti_gateway
+        type: fti.eligibilities
+        routing_key: fti.eligibilities.fdsh_eligibilities_ifsv_errored
+        deliveryMode: 2
+        mandatory: true
+        timestamp: true
+        content_type: application/json
+        bindingVersion: 0.2.0
+  fti.eligibilities.fdsh_eligibilities_ifsv_delayed:
+    action: receive
+    channel:
+      $ref: '#/channels/fti.eligibilities.fdsh_eligibilities_ifsv_delayed'
+    description: IFSV Determination has delay.
+    bindings:
+      amqp:
+        app_id: fti_gateway
+        type: fti.eligibilities
+        routing_key: fti.eligibilities.fdsh_eligibilities_ifsv_delayed
+        deliveryMode: 2
+        mandatory: true
+        timestamp: true
+        content_type: application/json
+        bindingVersion: 0.2.0
+  fti.renewal_eligibilities.ifsv.magi_medicaid_application_renewal_eligibilities_ifsv_determined:
+    action: receive
+    channel:
+      $ref: >-
+        #/channels/fti.renewal_eligibilities.ifsv.magi_medicaid_application_renewal_eligibilities_ifsv_determined
+    description: RRV IFSV Determination completed.
+    bindings:
+      amqp:
+        app_id: fti_gateway
+        type: fti.renewal_eligibilities.ifsv
+        routing_key: >-
+          fti.renewal_eligibilities.ifsv.magi_medicaid_application_renewal_eligibilities_ifsv_determined
+        deliveryMode: 2
+        mandatory: true
+        timestamp: true
+        content_type: application/json
+        bindingVersion: 0.2.0

@@ -1,0 +1,82 @@
+asyncapi: 3.0.0
+info:
+  title: FTI Gateway Subscriber
+  version: 0.1.0
+  description: AMQP Consumer configuration for Polypress Report generation
+  contact:
+    name: IdeaCrew
+    url: 'https://ideacrew.com'
+    email: info@ideacrew.com
+  license:
+    name: MIT
+    url: 'https://opensource.org/licenses/MIT'
+defaultContentType: application/json
+servers:
+  development:
+    host: 'rabbitmq:5672'
+    pathname: /event_source
+    protocol: amqp
+    protocolVersion: 0.9.2
+    description: RabbitMQ Development Server
+  test:
+    host: 'rabbitmq:5672'
+    pathname: /event_source
+    protocol: amqp
+    protocolVersion: 0.9.2
+    description: RabbitMQ Test Server
+  production:
+    host: 'rabbitmq:5672'
+    pathname: /event_source
+    protocol: amqp
+    protocolVersion: 0.9.2
+    description: RabbitMQ Production Server
+channels:
+  on_polypress.enroll.reports.recon_preaudit:
+    address: on_polypress.enroll.reports.recon_preaudit
+    messages: {}
+    bindings:
+      amqp:
+        is: queue
+        queue:
+          name: on_polypress.enroll.reports.recon_preaudit
+          durable: true
+          exclusive: false
+          auto_delete: false
+          vhost: event_source
+  on_polypress.polypress.report_generation:
+    address: on_polypress.polypress.report_generation
+    messages: {}
+    bindings:
+      amqp:
+        is: queue
+        queue:
+          name: on_polypress.polypress.report_generation
+          durable: true
+          exclusive: false
+          auto_delete: false
+          vhost: event_source
+operations:
+  on_polypress.enroll.reports.recon_preaudit:
+    action: send
+    channel:
+      $ref: '#/channels/on_polypress.enroll.reports.recon_preaudit'
+    description: Events - Monthly Recon Pre Audit reports generation
+    bindings:
+      amqp:
+        ack: true
+        exclusive: false
+        routing_key: enroll.reports.recon_preaudit.preaudit_generation_report
+        bindingVersion: 0.2.0
+        prefetch: 1
+  on_polypress.polypress.report_generation:
+    action: send
+    channel:
+      $ref: '#/channels/on_polypress.polypress.report_generation'
+    description: Generate pre audit report
+    bindings:
+      amqp:
+        ack: true
+        exclusive: false
+        routing_key: polypress.report_generation.generate_pre_audit_report
+        bindingVersion: 0.2.0
+        prefetch: 1

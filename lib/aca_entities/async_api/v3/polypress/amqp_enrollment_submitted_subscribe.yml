@@ -1,0 +1,61 @@
+asyncapi: 3.0.0
+info:
+  title: Polypress
+  version: 0.1.0
+  description: AMQP Subscribe configuration for the Polypress services
+  contact:
+    name: IdeaCrew
+    url: 'https://ideacrew.com'
+    email: info@ideacrew.com
+  license:
+    name: MIT
+    url: 'https://opensource.org/licenses/MIT'
+  tags:
+    - name: linter_tag
+      description: placeholder that satisfies the linter
+servers:
+  production:
+    host: 'rabbitmq:5672'
+    pathname: /event_source
+    protocol: ':amqp'
+    protocolVersion: 0.9.2
+    description: Polypress Production Server
+  test:
+    host: 'rabbitmq:5672'
+    pathname: /event_source
+    protocol: ':amqp'
+    protocolVersion: 0.9.2
+    description: Polypress Test Server
+  development:
+    host: 'rabbitmq:5672'
+    pathname: /event_source
+    protocol: ':amqp'
+    protocolVersion: 0.9.2
+    description: Polypress Development Server
+channels:
+  on_polypress.enroll.individual.enrollments:
+    address: on_polypress.enroll.individual.enrollments
+    messages: {}
+    bindings:
+      amqp:
+        is: queue
+        queue:
+          name: on_polypress.enroll.individual.enrollments
+          durable: true
+          exclusive: false
+          auto_delete: false
+          vhost: event_source
+operations:
+  on_polypress.enroll.individual.enrollments:
+    action: send
+    channel:
+      $ref: '#/channels/on_polypress.enroll.individual.enrollments'
+    description: Events - Individual Market Enrollment related events
+    bindings:
+      amqp:
+        ack: true
+        exclusive: false
+        routing_key: enroll.individual.enrollments.#
+        prefetch: 1
+        block: false
+        bindingVersion: 0.2.0

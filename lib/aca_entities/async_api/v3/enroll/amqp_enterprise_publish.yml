@@ -1,0 +1,94 @@
+asyncapi: 3.0.0
+info:
+  title: Enroll App
+  version: 0.1.0
+  description: AMQP Publish configuration for the Fdsh services
+  contact:
+    name: IdeaCrew
+    url: 'https://ideacrew.com'
+    email: info@ideacrew.com
+  license:
+    name: MIT
+    url: 'https://opensource.org/licenses/MIT'
+  tags:
+    - name: linter_tag
+      description: placeholder that satisfies the linter
+servers:
+  production:
+    host: 'rabbitmq:5672'
+    pathname: /event_source
+    protocol: ':amqp'
+    protocolVersion: 0.9.2
+    description: RabbitMQ Production Server
+  development:
+    host: 'rabbitmq:5672'
+    pathname: /event_source
+    protocol: ':amqp'
+    protocolVersion: 0.9.2
+    description: RabbitMQ Test Server
+  test:
+    host: 'rabbitmq:5672'
+    pathname: /event_source
+    protocol: ':amqp'
+    protocolVersion: 0.9.2
+    description: RabbitMQ Test Server
+channels:
+  enroll.enterprise.events.date_advanced:
+    address: enroll.enterprise.events.date_advanced
+    messages: {}
+    bindings:
+      amqp:
+        is: ':routing_key'
+        exchange:
+          name: enroll.enterprise.events
+          type: topic
+          content_type: application/json
+          durable: true
+          auto_delete: false
+          vhost: event_source
+        binding_version: 0.2.0
+  enroll.enterprise.events.document_reminder_notices_processed:
+    address: enroll.enterprise.events.document_reminder_notices_processed
+    messages: {}
+    bindings:
+      amqp:
+        is: ':routing_key'
+        exchange:
+          name: enroll.enterprise.events
+          type: topic
+          content_type: application/json
+          durable: true
+          auto_delete: false
+          vhost: event_source
+        binding_version: 0.2.0
+operations:
+  enroll.enterprise.events.date_advanced:
+    action: receive
+    channel:
+      $ref: '#/channels/enroll.enterprise.events.date_advanced'
+    description: Events - system date advanced
+    bindings:
+      amqp:
+        app_id: enroll
+        type: enroll.enterprise.events
+        routing_key: enroll.enterprise.events.date_advanced
+        deliveryMode: 2
+        mandatory: true
+        timestamp: true
+        content_type: application/json
+        bindingVersion: 0.2.0
+  enroll.enterprise.events.document_reminder_notices_processed:
+    action: receive
+    channel:
+      $ref: '#/channels/enroll.enterprise.events.document_reminder_notices_processed'
+    description: Events - document reminder notices processed
+    bindings:
+      amqp:
+        app_id: enroll
+        type: enroll.enterprise.events
+        routing_key: enroll.enterprise.events.document_reminder_notices_processed
+        deliveryMode: 2
+        mandatory: true
+        timestamp: true
+        content_type: application/json
+        bindingVersion: 0.2.0

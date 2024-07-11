@@ -1,0 +1,614 @@
+asyncapi: 3.0.0
+info:
+  title: CMS FDSH Hub Services
+  version: 0.1.0
+  description: Access CMS Services that support State-based Exchange Activities
+  contact:
+    name: IdeaCrew
+    url: 'https://ideacrew.com'
+    email: info@ideacrew.com
+  license:
+    name: MIT
+    url: 'https://opensource.org/licenses/MIT'
+  tags:
+    - name: linter_tag
+      description: placeholder that satisfies the linter
+defaultContentType: application/soap+xml
+servers:
+  development:
+    host: impl.hub.cms.gov
+    pathname: /Imp1
+    protocol: http
+    protocolVersion: 0.1.0
+    description: RIDP Initial Service
+  test:
+    host: impl.hub.cms.gov
+    pathname: /Imp1
+    protocol: http
+    protocolVersion: 0.1.0
+    description: RIDP Initial Service
+  production:
+    host: impl.hub.cms.gov
+    pathname: /Imp1
+    protocol: http
+    protocolVersion: 0.1.0
+    description: RIDP Initial Service
+channels:
+  /RIDPService:
+    address: /RIDPService
+    messages:
+      /RIDPService.message:
+        contentType: application/soap+xml
+      /on/RIDPService.message:
+        contentType: application/soap+xml
+  /VerifyLawfulPresenceServiceV37:
+    address: /VerifyLawfulPresenceServiceV37
+    messages:
+      /VerifyLawfulPresenceServiceV37.message:
+        contentType: application/soap+xml
+      /on/VerifyLawfulPresenceServiceV37.message:
+        contentType: application/soap+xml
+  /VerifyLawfulPresenceServiceV37.1Rest:
+    address: /VerifyLawfulPresenceServiceV37.1Rest
+    messages:
+      1Rest.message:
+        contentType: application/xml
+  /CloseCaseServiceV37.1Rest:
+    address: /CloseCaseServiceV37.1Rest
+    messages:
+      1Rest.message:
+        contentType: application/xml
+  /VerifySSACompositeService:
+    address: /VerifySSACompositeService
+    messages:
+      /VerifySSACompositeService.message:
+        contentType: application/soap+xml
+      /on/VerifySSACompositeService.message:
+        contentType: application/soap+xml
+  /CalculateOPMPremiumServiceV2:
+    address: /CalculateOPMPremiumServiceV2
+    messages:
+      /CalculateOPMPremiumServiceV2.message:
+        contentType: application/soap+xml
+      /on/CalculateOPMPremiumServiceV2.message:
+        contentType: application/soap+xml
+  /VerifyNonEsiMecService:
+    address: /VerifyNonEsiMecService
+    messages:
+      /VerifyNonEsiMecService.message:
+        contentType: application/soap+xml
+      /on/VerifyNonEsiMecService.message:
+        contentType: application/soap+xml
+  /VerifyAnnualHouseholdIncomeandFamilySizeService:
+    address: /VerifyAnnualHouseholdIncomeandFamilySizeService
+    messages:
+      /VerifyAnnualHouseholdIncomeandFamilySizeService.message:
+        contentType: application/soap+xml
+      /on/VerifyAnnualHouseholdIncomeandFamilySizeService.message:
+        contentType: application/soap+xml
+  /VerifyAnnualHouseholdIncomeandFamilySizeServiceRest:
+    address: /VerifyAnnualHouseholdIncomeandFamilySizeServiceRest
+    messages:
+      /VerifyAnnualHouseholdIncomeandFamilySizeServiceRest.message:
+        contentType: application/json
+      /on/VerifyAnnualHouseholdIncomeandFamilySizeServiceRest.message:
+        contentType: application/json
+  /HubConnectivityService:
+    address: /HubConnectivityService
+    messages:
+      /HubConnectivityService.message:
+        contentType: application/soap+xml
+      /on/HubConnectivityService.message:
+        contentType: application/soap+xml
+  /HubConnectivityServiceRest:
+    address: /HubConnectivityServiceRest
+    messages:
+      /HubConnectivityServiceRest.message:
+        contentType: application/json
+      /on/HubConnectivityServiceRest.message:
+        contentType: application/json
+  /VerifySSACompositeServiceRest:
+    address: /VerifySSACompositeServiceRest
+    messages:
+      /VerifySSACompositeServiceRest.message:
+        contentType: application/json
+      /on/VerifySSACompositeServiceRest.message:
+        contentType: application/json
+  /VerifyNonEsiMecServiceRest:
+    address: /VerifyNonEsiMecServiceRest
+    messages:
+      /VerifyNonEsiMecServiceRest.message:
+        contentType: application/json
+      /on/VerifyNonEsiMecServiceRest.message:
+        contentType: application/json
+  /VerifyEsiMecServiceRest:
+    address: /VerifyEsiMecServiceRest
+    messages:
+      /VerifyEsiMecServiceRest.message:
+        contentType: application/json
+      /on/VerifyEsiMecServiceRest.message:
+        contentType: application/json
+  /RIDPCrossCoreService:
+    address: /RIDPCrossCoreService
+    messages:
+      /RIDPCrossCoreService.message:
+        contentType: application/json
+      /on/RIDPCrossCoreService.message:
+        contentType: application/json
+operations:
+  /RIDPService:
+    action: receive
+    channel:
+      $ref: '#/channels/~1RIDPService'
+    description: Send request to RIDP endpoint
+    bindings:
+      http:
+        type: request
+        method: POST
+        contentType: application/soap+xml
+        headers:
+          Content-Type: application/soap+xml
+          Accept: application/soap+xml
+    messages:
+      - $ref: '#/channels/~1RIDPService/messages/~1RIDPService.message'
+  /on/RIDPService:
+    action: send
+    channel:
+      $ref: '#/channels/~1RIDPService'
+    description: Receive response from RIDP request
+    bindings:
+      http:
+        type: response
+        method: GET
+        contentType: application/soap+xml
+        headers:
+          Content-Type: application/soap+xml
+          Accept: application/soap+xml
+    messages:
+      - $ref: '#/channels/~1RIDPService/messages/~1on~1RIDPService.message'
+  /VerifyLawfulPresenceServiceV37:
+    action: receive
+    channel:
+      $ref: '#/channels/~1VerifyLawfulPresenceServiceV37'
+    description: Send request to VLP endpoint
+    bindings:
+      http:
+        type: request
+        method: POST
+        contentType: application/soap+xml
+        headers:
+          Content-Type: application/soap+xml
+          Accept: application/soap+xml
+    messages:
+      - $ref: >-
+          #/channels/~1VerifyLawfulPresenceServiceV37/messages/~1VerifyLawfulPresenceServiceV37.message
+  /on/VerifyLawfulPresenceServiceV37:
+    action: send
+    channel:
+      $ref: '#/channels/~1VerifyLawfulPresenceServiceV37'
+    description: Receive response from VLP request
+    bindings:
+      http:
+        type: response
+        method: GET
+        contentType: application/soap+xml
+        headers:
+          Content-Type: application/soap+xml
+          Accept: application/soap+xml
+    messages:
+      - $ref: >-
+          #/channels/~1VerifyLawfulPresenceServiceV37/messages/~1on~1VerifyLawfulPresenceServiceV37.message
+  /VerifyLawfulPresenceServiceV37.1Rest:
+    action: receive
+    channel:
+      $ref: '#/channels/~1VerifyLawfulPresenceServiceV37.1Rest'
+    description: Send request to VLP InitialVerification REST endpoint
+    bindings:
+      http:
+        type: request
+        method: POST
+        contentType: application/xml
+        headers:
+          Content-Type: application/xml
+          Accept: application/xml
+    messages:
+      - $ref: >-
+          #/channels/~1VerifyLawfulPresenceServiceV37.1Rest/messages/1Rest.message
+  /on/VerifyLawfulPresenceServiceV37.1Rest:
+    action: send
+    channel:
+      $ref: '#/channels/~1VerifyLawfulPresenceServiceV37.1Rest'
+    description: Receive response from VLP InitialVerification REST request
+    bindings:
+      http:
+        type: response
+        method: GET
+        contentType: application/xml
+        headers:
+          Content-Type: application/xml
+          Accept: application/xml
+    messages:
+      - $ref: >-
+          #/channels/~1VerifyLawfulPresenceServiceV37.1Rest/messages/1Rest.message
+  /CloseCaseServiceV37.1Rest:
+    action: receive
+    channel:
+      $ref: '#/channels/~1CloseCaseServiceV37.1Rest'
+    description: Send request to VLP CloseCase endpoint
+    bindings:
+      http:
+        type: request
+        method: POST
+        contentType: application/xml
+        headers:
+          Content-Type: application/xml
+          Accept: application/xml
+    messages:
+      - $ref: '#/channels/~1CloseCaseServiceV37.1Rest/messages/1Rest.message'
+  /on/CloseCaseServiceV37.1Rest:
+    action: send
+    channel:
+      $ref: '#/channels/~1CloseCaseServiceV37.1Rest'
+    description: Receive response from VLP CloseCase request
+    bindings:
+      http:
+        type: response
+        method: GET
+        contentType: application/xml
+        headers:
+          Content-Type: application/xml
+          Accept: application/xml
+    messages:
+      - $ref: '#/channels/~1CloseCaseServiceV37.1Rest/messages/1Rest.message'
+  /VerifySSACompositeService:
+    action: receive
+    channel:
+      $ref: '#/channels/~1VerifySSACompositeService'
+    description: Send request to SSA endpoint
+    bindings:
+      http:
+        type: request
+        method: POST
+        contentType: application/soap+xml
+        headers:
+          Content-Type: application/soap+xml
+          Accept: application/soap+xml
+    messages:
+      - $ref: >-
+          #/channels/~1VerifySSACompositeService/messages/~1VerifySSACompositeService.message
+  /on/VerifySSACompositeService:
+    action: send
+    channel:
+      $ref: '#/channels/~1VerifySSACompositeService'
+    description: Receive response from SSA request
+    bindings:
+      http:
+        type: response
+        method: GET
+        contentType: application/soap+xml
+        headers:
+          Content-Type: application/soap+xml
+          Accept: application/soap+xml
+    messages:
+      - $ref: >-
+          #/channels/~1VerifySSACompositeService/messages/~1on~1VerifySSACompositeService.message
+  /CalculateOPMPremiumServiceV2:
+    action: receive
+    channel:
+      $ref: '#/channels/~1CalculateOPMPremiumServiceV2'
+    description: Send request to ESI endpoint
+    bindings:
+      http:
+        type: request
+        method: POST
+        contentType: application/soap+xml
+        headers:
+          Content-Type: application/soap+xml
+          Accept: application/soap+xml
+    messages:
+      - $ref: >-
+          #/channels/~1CalculateOPMPremiumServiceV2/messages/~1CalculateOPMPremiumServiceV2.message
+  /on/CalculateOPMPremiumServiceV2:
+    action: send
+    channel:
+      $ref: '#/channels/~1CalculateOPMPremiumServiceV2'
+    description: Receive response from ESI request
+    bindings:
+      http:
+        type: response
+        method: GET
+        contentType: application/soap+xml
+        headers:
+          Content-Type: application/soap+xml
+          Accept: application/soap+xml
+    messages:
+      - $ref: >-
+          #/channels/~1CalculateOPMPremiumServiceV2/messages/~1on~1CalculateOPMPremiumServiceV2.message
+  /VerifyNonEsiMecService:
+    action: receive
+    channel:
+      $ref: '#/channels/~1VerifyNonEsiMecService'
+    description: Send request to Non ESI endpoint
+    bindings:
+      http:
+        type: request
+        method: POST
+        contentType: application/soap+xml
+        headers:
+          Content-Type: application/soap+xml
+          Accept: application/soap+xml
+    messages:
+      - $ref: >-
+          #/channels/~1VerifyNonEsiMecService/messages/~1VerifyNonEsiMecService.message
+  /on/VerifyNonEsiMecService:
+    action: send
+    channel:
+      $ref: '#/channels/~1VerifyNonEsiMecService'
+    description: Receive response from Non ESI request
+    bindings:
+      http:
+        type: response
+        method: GET
+        contentType: application/soap+xml
+        headers:
+          Content-Type: application/soap+xml
+          Accept: application/soap+xml
+    messages:
+      - $ref: >-
+          #/channels/~1VerifyNonEsiMecService/messages/~1on~1VerifyNonEsiMecService.message
+  /VerifyAnnualHouseholdIncomeandFamilySizeService:
+    action: receive
+    channel:
+      $ref: '#/channels/~1VerifyAnnualHouseholdIncomeandFamilySizeService'
+    description: Send request to IFSV endpoint
+    bindings:
+      http:
+        type: request
+        method: POST
+        contentType: application/soap+xml
+        headers:
+          Content-Type: application/soap+xml
+          Accept: application/soap+xml
+    messages:
+      - $ref: >-
+          #/channels/~1VerifyAnnualHouseholdIncomeandFamilySizeService/messages/~1VerifyAnnualHouseholdIncomeandFamilySizeService.message
+  /on/VerifyAnnualHouseholdIncomeandFamilySizeService:
+    action: send
+    channel:
+      $ref: '#/channels/~1VerifyAnnualHouseholdIncomeandFamilySizeService'
+    description: Receive response from IFSV request
+    bindings:
+      http:
+        type: response
+        method: GET
+        contentType: application/soap+xml
+        headers:
+          Content-Type: application/soap+xml
+          Accept: application/soap+xml
+    messages:
+      - $ref: >-
+          #/channels/~1VerifyAnnualHouseholdIncomeandFamilySizeService/messages/~1on~1VerifyAnnualHouseholdIncomeandFamilySizeService.message
+  /VerifyAnnualHouseholdIncomeandFamilySizeServiceRest:
+    action: receive
+    channel:
+      $ref: '#/channels/~1VerifyAnnualHouseholdIncomeandFamilySizeServiceRest'
+    description: Send ifsv JSON request to CMS
+    bindings:
+      http:
+        type: request
+        method: POST
+        contentType: application/json
+        headers:
+          Content-Type: application/json
+          Accept: application/json
+    messages:
+      - $ref: >-
+          #/channels/~1VerifyAnnualHouseholdIncomeandFamilySizeServiceRest/messages/~1VerifyAnnualHouseholdIncomeandFamilySizeServiceRest.message
+  /on/VerifyAnnualHouseholdIncomeandFamilySizeServiceRest:
+    action: send
+    channel:
+      $ref: '#/channels/~1VerifyAnnualHouseholdIncomeandFamilySizeServiceRest'
+    description: Receive ifsv JSON response from CMS
+    bindings:
+      http:
+        type: response
+        method: GET
+        contentType: application/json
+        headers:
+          Content-Type: application/json
+          Accept: application/json
+    messages:
+      - $ref: >-
+          #/channels/~1VerifyAnnualHouseholdIncomeandFamilySizeServiceRest/messages/~1on~1VerifyAnnualHouseholdIncomeandFamilySizeServiceRest.message
+  /HubConnectivityService:
+    action: receive
+    channel:
+      $ref: '#/channels/~1HubConnectivityService'
+    description: Send request to Hub Connectivity endpoint
+    bindings:
+      http:
+        type: request
+        method: POST
+        contentType: application/soap+xml
+        headers:
+          Content-Type: application/soap+xml
+          Accept: application/soap+xml
+    messages:
+      - $ref: >-
+          #/channels/~1HubConnectivityService/messages/~1HubConnectivityService.message
+  /on/HubConnectivityService:
+    action: send
+    channel:
+      $ref: '#/channels/~1HubConnectivityService'
+    description: Receive response from Hub Connectivity request
+    bindings:
+      http:
+        type: response
+        method: GET
+        contentType: application/soap+xml
+        headers:
+          Content-Type: application/soap+xml
+          Accept: application/soap+xml
+    messages:
+      - $ref: >-
+          #/channels/~1HubConnectivityService/messages/~1on~1HubConnectivityService.message
+  /HubConnectivityServiceRest:
+    action: receive
+    channel:
+      $ref: '#/channels/~1HubConnectivityServiceRest'
+    description: Send request to Hub OAuth Connectivity endpoint
+    bindings:
+      http:
+        type: request
+        method: POST
+        contentType: application/json
+        headers:
+          Content-Type: application/json
+          Accept: application/json
+    messages:
+      - $ref: >-
+          #/channels/~1HubConnectivityServiceRest/messages/~1HubConnectivityServiceRest.message
+  /on/HubConnectivityServiceRest:
+    action: send
+    channel:
+      $ref: '#/channels/~1HubConnectivityServiceRest'
+    description: Receive response from Hub OAuth Connectivity request
+    bindings:
+      http:
+        type: response
+        method: GET
+        contentType: application/json
+        headers:
+          Content-Type: application/json
+          Accept: application/json
+    messages:
+      - $ref: >-
+          #/channels/~1HubConnectivityServiceRest/messages/~1on~1HubConnectivityServiceRest.message
+  /VerifySSACompositeServiceRest:
+    action: receive
+    channel:
+      $ref: '#/channels/~1VerifySSACompositeServiceRest'
+    description: Send ssa JSON request to CMS
+    bindings:
+      http:
+        type: request
+        method: POST
+        contentType: application/json
+        headers:
+          Content-Type: application/json
+          Accept: application/json
+    messages:
+      - $ref: >-
+          #/channels/~1VerifySSACompositeServiceRest/messages/~1VerifySSACompositeServiceRest.message
+  /on/VerifySSACompositeServiceRest:
+    action: send
+    channel:
+      $ref: '#/channels/~1VerifySSACompositeServiceRest'
+    description: Receive ssa JSON response from CMS
+    bindings:
+      http:
+        type: response
+        method: GET
+        contentType: application/json
+        headers:
+          Content-Type: application/json
+          Accept: application/json
+    messages:
+      - $ref: >-
+          #/channels/~1VerifySSACompositeServiceRest/messages/~1on~1VerifySSACompositeServiceRest.message
+  /VerifyNonEsiMecServiceRest:
+    action: receive
+    channel:
+      $ref: '#/channels/~1VerifyNonEsiMecServiceRest'
+    description: Send non esi mec JSON request to CMS
+    bindings:
+      http:
+        type: request
+        method: POST
+        contentType: application/json
+        headers:
+          Content-Type: application/json
+          Accept: application/json
+    messages:
+      - $ref: >-
+          #/channels/~1VerifyNonEsiMecServiceRest/messages/~1VerifyNonEsiMecServiceRest.message
+  /on/VerifyNonEsiMecServiceRest:
+    action: send
+    channel:
+      $ref: '#/channels/~1VerifyNonEsiMecServiceRest'
+    description: Receive non esi mec JSON response from CMS
+    bindings:
+      http:
+        type: response
+        method: GET
+        contentType: application/json
+        headers:
+          Content-Type: application/json
+          Accept: application/json
+    messages:
+      - $ref: >-
+          #/channels/~1VerifyNonEsiMecServiceRest/messages/~1on~1VerifyNonEsiMecServiceRest.message
+  /VerifyEsiMecServiceRest:
+    action: receive
+    channel:
+      $ref: '#/channels/~1VerifyEsiMecServiceRest'
+    description: Send esi mec JSON request to CMS
+    bindings:
+      http:
+        type: request
+        method: POST
+        contentType: application/json
+        headers:
+          Content-Type: application/json
+          Accept: application/json
+    messages:
+      - $ref: >-
+          #/channels/~1VerifyEsiMecServiceRest/messages/~1VerifyEsiMecServiceRest.message
+  /on/VerifyEsiMecServiceRest:
+    action: send
+    channel:
+      $ref: '#/channels/~1VerifyEsiMecServiceRest'
+    description: Receive esi mec JSON response from CMS
+    bindings:
+      http:
+        type: response
+        method: GET
+        contentType: application/json
+        headers:
+          Content-Type: application/json
+          Accept: application/json
+    messages:
+      - $ref: >-
+          #/channels/~1VerifyEsiMecServiceRest/messages/~1on~1VerifyEsiMecServiceRest.message
+  /RIDPCrossCoreService:
+    action: receive
+    channel:
+      $ref: '#/channels/~1RIDPCrossCoreService'
+    description: Send RIDP primary JSON request to CMS
+    bindings:
+      http:
+        type: request
+        method: POST
+        contentType: application/json
+        headers:
+          Content-Type: application/json
+          Accept: application/json
+    messages:
+      - $ref: >-
+          #/channels/~1RIDPCrossCoreService/messages/~1RIDPCrossCoreService.message
+  /on/RIDPCrossCoreService:
+    action: send
+    channel:
+      $ref: '#/channels/~1RIDPCrossCoreService'
+    description: Receive RIDP primary JSON response from CMS
+    bindings:
+      http:
+        type: response
+        method: GET
+        contentType: application/json
+        headers:
+          Content-Type: application/json
+          Accept: application/json
+    messages:
+      - $ref: >-
+          #/channels/~1RIDPCrossCoreService/messages/~1on~1RIDPCrossCoreService.message

@@ -1,0 +1,65 @@
+asyncapi: 3.0.0
+info:
+  title: FDSH Gateway
+  version: 0.1.0
+  description: AMQP Producer configuration for the FDSH Gateway service
+  contact:
+    name: IdeaCrew
+    url: 'https://ideacrew.com'
+    email: info@ideacrew.com
+  license:
+    name: MIT
+    url: 'https://opensource.org/licenses/MIT'
+  tags:
+    - name: linter_tag
+      description: placeholder that satisfies the linter
+defaultContentType: application/json
+servers:
+  development:
+    host: 'rabbitmq:5672'
+    pathname: /event_source
+    protocol: amqp
+    protocolVersion: 0.9.2
+    description: RabbitMQ Development Server
+  test:
+    host: 'rabbitmq:5672'
+    pathname: /event_source
+    protocol: amqp
+    protocolVersion: 0.9.2
+    description: RabbitMQ Test Server
+  production:
+    host: 'rabbitmq:5672'
+    pathname: /event_source
+    protocol: amqp
+    protocolVersion: 0.9.2
+    description: RabbitMQ Production Server
+channels:
+  fdsh.pvc.dmf.responses.individual_response.import.requested:
+    address: fdsh.pvc.dmf.responses.individual_response.import.requested
+    messages: {}
+    bindings:
+      amqp:
+        is: ':routing_key'
+        exchange:
+          name: fdsh.pvc.dmf.responses.individual_response.import
+          type: topic
+          durable: true
+          auto_delete: false
+          vhost: event_source
+        bindingVersion: 0.1.0
+operations:
+  fdsh.pvc.dmf.responses.individual_response.import.requested:
+    action: receive
+    channel:
+      $ref: '#/channels/fdsh.pvc.dmf.responses.individual_response.import.requested'
+    description: PVC DMF Determination received.
+    bindings:
+      amqp:
+        app_id: fdsh_gateway
+        type: fdsh.pvc.dmf.responses.individual_response.import
+        routing_key: fdsh.pvc.dmf.responses.individual_response.import.requested
+        deliveryMode: 2
+        mandatory: true
+        timestamp: true
+        content_type: application/json
+        bindingVersion: 0.2.0

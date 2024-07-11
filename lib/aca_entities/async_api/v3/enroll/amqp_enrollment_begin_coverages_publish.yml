@@ -1,0 +1,96 @@
+asyncapi: 3.0.0
+info:
+  title: Enroll App
+  version: 0.1.0
+  description: AMQP Publish configuration for the Enroll services
+  contact:
+    name: IdeaCrew
+    url: 'https://ideacrew.com'
+    email: info@ideacrew.com
+  license:
+    name: MIT
+    url: 'https://opensource.org/licenses/MIT'
+  tags:
+    - name: linter_tag
+      description: placeholder that satisfies the linter
+servers:
+  production:
+    host: 'rabbitmq:5672'
+    pathname: /event_source
+    protocol: ':amqp'
+    protocolVersion: 0.9.2
+    description: Enroll Production Server
+  development:
+    host: 'rabbitmq:5672'
+    pathname: /event_source
+    protocol: ':amqp'
+    protocolVersion: 0.9.2
+    description: Enroll Test Server
+  test:
+    host: 'rabbitmq:5672'
+    pathname: /event_source
+    protocol: ':amqp'
+    protocolVersion: 0.9.2
+    description: Enroll Test Server
+channels:
+  enroll.individual.enrollments.begin_coverages.request:
+    address: enroll.individual.enrollments.begin_coverages.request
+    messages: {}
+    bindings:
+      amqp:
+        is: ':routing_key'
+        exchange:
+          name: enroll.individual.enrollments.begin_coverages
+          type: topic
+          content_type: application/json
+          durable: true
+          auto_delete: false
+          vhost: event_source
+        binding_version: 0.2.0
+  enroll.individual.enrollments.begin_coverages.begin:
+    address: enroll.individual.enrollments.begin_coverages.begin
+    messages: {}
+    bindings:
+      amqp:
+        is: ':routing_key'
+        exchange:
+          name: enroll.individual.enrollments.begin_coverages
+          type: topic
+          content_type: application/json
+          durable: true
+          auto_delete: false
+          vhost: event_source
+        binding_version: 0.2.0
+operations:
+  enroll.individual.enrollments.begin_coverages.request:
+    action: receive
+    channel:
+      $ref: '#/channels/enroll.individual.enrollments.begin_coverages.request'
+    summary: Events - Individual Enrollment Begin Coverages Request
+    description: Events - Individual Enrollment Begin Coverages Request
+    bindings:
+      amqp:
+        app_id: enroll
+        type: enroll.individual.enrollments
+        routing_key: enroll.individual.enrollments.begin_coverages.request
+        deliveryMode: 2
+        mandatory: true
+        timestamp: true
+        content_type: application/json
+        bindingVersion: 0.2.0
+  enroll.individual.enrollments.begin_coverages.begin:
+    action: receive
+    channel:
+      $ref: '#/channels/enroll.individual.enrollments.begin_coverages.begin'
+    summary: Events - Individual Enrollment Begin Coverage
+    description: Events - Individual Enrollment Begin Coverage
+    bindings:
+      amqp:
+        app_id: enroll
+        type: enroll.individual.enrollments
+        routing_key: enroll.individual.enrollments.begin_coverages.begin
+        deliveryMode: 2
+        mandatory: true
+        timestamp: true
+        content_type: application/json
+        bindingVersion: 0.2.0

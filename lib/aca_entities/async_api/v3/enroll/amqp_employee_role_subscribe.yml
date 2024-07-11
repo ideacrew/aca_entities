@@ -1,0 +1,62 @@
+asyncapi: 3.0.0
+info:
+  title: Enroll Subscriber
+  version: 0.1.0
+  description: AMQP Consumer configuration for the Enroll Consumer services
+  contact:
+    name: IdeaCrew
+    url: 'https://ideacrew.com'
+    email: info@ideacrew.com
+  license:
+    name: MIT
+    url: 'https://opensource.org/licenses/MIT'
+  tags:
+    - name: linter_tag
+      description: placeholder that satisfies the linter
+defaultContentType: application/json
+servers:
+  development:
+    host: 'rabbitmq:5672'
+    pathname: /event_source
+    protocol: amqp
+    protocolVersion: 0.9.2
+    description: RabbitMQ Development Server
+  test:
+    host: 'rabbitmq:5672'
+    pathname: /event_source
+    protocol: amqp
+    protocolVersion: 0.9.2
+    description: RabbitMQ Test Server
+  production:
+    host: 'rabbitmq:5672'
+    pathname: /event_source
+    protocol: amqp
+    protocolVersion: 0.9.2
+    description: RabbitMQ Production Server
+channels:
+  on_enroll.enroll.benefit_sponsors.employee_role:
+    address: on_enroll.enroll.benefit_sponsors.employee_role
+    messages: {}
+    bindings:
+      amqp:
+        is: queue
+        queue:
+          name: on_enroll.enroll.benefit_sponsors.employee_role
+          durable: true
+          exclusive: false
+          auto_delete: false
+          vhost: event_source
+operations:
+  on_enroll.enroll.benefit_sponsors.employee_role:
+    action: send
+    channel:
+      $ref: '#/channels/on_enroll.enroll.benefit_sponsors.employee_role'
+    description: Events - Employee role created
+    bindings:
+      amqp:
+        ack: true
+        exclusive: false
+        routing_key: enroll.benefit_sponsors.employee_role.created
+        prefetch: 1
+        block: false
+        bindingVersion: 0.2.0

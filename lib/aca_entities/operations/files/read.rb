@@ -5,7 +5,7 @@ module AcaEntities
     module Files
       # Open and read contents of a file
       class Read
-        send(:include, Dry::Monads[:result, :do])
+        include Dry::Monads[:do, :result]
 
         # @param [Hash] params the params to read file
         # @options params [String] file_name Full file pathname
