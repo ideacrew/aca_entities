@@ -53,7 +53,7 @@ module AcaEntities
                 id: id,
                 age_measure: age_measure&.to_hash,
                 person_name: person_name&.to_hash,
-                us_citizen_indicator: us_citizen_indicator,
+                us_citizen_indicator: us_citizen_indicator.value,
                 living_indicator: living_indicator,
                 ssn_identification: ssn_identification&.to_hash,
                 sex: sex,
