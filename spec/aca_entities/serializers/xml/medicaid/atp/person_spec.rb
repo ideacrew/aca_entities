@@ -24,7 +24,6 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::Person do
       person_instance.tribal_augmentation = double(to_hash: { tribe_name: 'Tribe' })
     end
 
-
     it 'returns a hash representation of the person object' do
       expected_hash = {
         id: '123',
