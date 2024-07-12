@@ -4,7 +4,7 @@ require 'spec_helper'
 require 'aca_entities/medicaid/atp/not_incarcerated_indicator'
 require 'aca_entities/medicaid/atp/ssf_attestation'
 
-RSpec.describe ::AcaEntities::Medicaid::Atp::SsfAttestation, dbclean: :after_each do
+RSpec.describe ::AcaEntities::Medicaid::Atp::SsfAttestation do
 
   describe 'with valid arguments' do
 

@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe ::AcaEntities::Contracts::Families::FamilyReferenceContract, dbclean: :after_each do
+RSpec.describe ::AcaEntities::Contracts::Families::FamilyReferenceContract do
 
   let(:required_params) do
     {

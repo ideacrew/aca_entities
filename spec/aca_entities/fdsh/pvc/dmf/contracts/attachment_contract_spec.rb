@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe AcaEntities::Fdsh::Pvc::Dmf::Contracts::AttachmentContract, dbclean: :after_each do
+RSpec.describe AcaEntities::Fdsh::Pvc::Dmf::Contracts::AttachmentContract do
   subject { described_class.new }
 
   let(:required_params) do

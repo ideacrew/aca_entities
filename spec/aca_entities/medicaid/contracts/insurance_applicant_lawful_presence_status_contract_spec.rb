@@ -3,7 +3,7 @@
 require 'spec_helper'
 require 'aca_entities/medicaid/contracts/insurance_applicant_lawful_presence_status_contract'
 
-RSpec.describe ::AcaEntities::Medicaid::Contracts::InsuranceApplicantLawfulPresenceStatusContract, dbclean: :after_each do
+RSpec.describe ::AcaEntities::Medicaid::Contracts::InsuranceApplicantLawfulPresenceStatusContract do
 
   let(:required_params) { {} }
 

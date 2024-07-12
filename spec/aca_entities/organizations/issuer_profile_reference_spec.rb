@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe ::AcaEntities::Organizations::IssuerProfileReference, dbclean: :after_each do
+RSpec.describe ::AcaEntities::Organizations::IssuerProfileReference do
 
   let(:input_params) do
     {

@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe ::AcaEntities::Pdm::Contracts::RequestContract, dbclean: :after_each do
+RSpec.describe ::AcaEntities::Pdm::Contracts::RequestContract do
   let(:valid_params) do
     {
       subject_id: "THIS_IS_THE_SUBJECT"

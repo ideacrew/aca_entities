@@ -3,7 +3,7 @@
 require 'spec_helper'
 require 'aca_entities/medicaid/contracts/chip_identification_contract'
 
-RSpec.describe ::AcaEntities::Medicaid::Contracts::ChipIdentificationContract, dbclean: :after_each do
+RSpec.describe ::AcaEntities::Medicaid::Contracts::ChipIdentificationContract do
 
   let(:required_params) { { identification_id: "MET00000000001887090" } }
 

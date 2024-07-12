@@ -3,7 +3,7 @@
 require 'spec_helper'
 require 'aca_entities/medicaid/contracts/status_valid_date_range_contract'
 
-RSpec.describe ::AcaEntities::Medicaid::Contracts::StatusValidDateRangeContract, dbclean: :after_each do
+RSpec.describe ::AcaEntities::Medicaid::Contracts::StatusValidDateRangeContract do
 
   let(:required_params) { {} }
 

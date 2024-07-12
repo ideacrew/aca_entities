@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe AcaEntities::Cms::Pbp::SbmiPolicy, dbclean: :after_each do
+RSpec.describe AcaEntities::Cms::Pbp::SbmiPolicy do
   subject { described_class.new }
 
   let(:required_params) do

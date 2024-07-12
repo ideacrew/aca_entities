@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe ::AcaEntities::Organizations::BrokerAgencyProfileReference, dbclean: :after_each do
+RSpec.describe ::AcaEntities::Organizations::BrokerAgencyProfileReference do
 
   let(:input_params) do
     { hbx_id: "1233444", market_kind: 'both', name: 'broker agency', dba: nil, display_name: nil, fein: '089441964', corporate_npn: nil }

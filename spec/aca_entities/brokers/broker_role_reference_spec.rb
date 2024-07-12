@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe ::AcaEntities::Brokers::BrokerRoleReference, dbclean: :after_each do
+RSpec.describe ::AcaEntities::Brokers::BrokerRoleReference do
 
   let!(:person_reference) do
     {

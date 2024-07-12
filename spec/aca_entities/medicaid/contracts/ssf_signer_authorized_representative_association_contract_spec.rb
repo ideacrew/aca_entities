@@ -3,7 +3,7 @@
 require 'spec_helper'
 require 'aca_entities/medicaid/contracts/ssf_signer_authorized_representative_association_contract'
 
-RSpec.describe ::AcaEntities::Medicaid::Contracts::SsfSignerAuthorizedRepresentativeAssociationContract, dbclean: :after_each do
+RSpec.describe ::AcaEntities::Medicaid::Contracts::SsfSignerAuthorizedRepresentativeAssociationContract do
 
   let(:required_params) do
     {

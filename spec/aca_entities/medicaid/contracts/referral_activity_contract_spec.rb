@@ -3,7 +3,7 @@
 require 'spec_helper'
 require 'aca_entities/medicaid/contracts/referral_activity_contract'
 
-RSpec.describe ::AcaEntities::Medicaid::Contracts::ReferralActivityContract, dbclean: :after_each do
+RSpec.describe ::AcaEntities::Medicaid::Contracts::ReferralActivityContract do
 
   let(:required_params) do
     { activity_id: { identification_id: "01234" },

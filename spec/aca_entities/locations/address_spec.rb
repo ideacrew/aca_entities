@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe ::AcaEntities::Locations::Address, dbclean: :after_each do
+RSpec.describe ::AcaEntities::Locations::Address do
 
   describe 'with valid arguments' do
     let(:input_params) do

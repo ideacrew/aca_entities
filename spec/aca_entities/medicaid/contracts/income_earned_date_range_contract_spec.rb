@@ -3,7 +3,7 @@
 require 'spec_helper'
 require 'aca_entities/medicaid/contracts/income_earned_date_range_contract'
 
-RSpec.describe ::AcaEntities::Medicaid::Contracts::IncomeEarnedDateRangeContract, dbclean: :after_each do
+RSpec.describe ::AcaEntities::Medicaid::Contracts::IncomeEarnedDateRangeContract do
 
   let(:required_params) { {} }
 

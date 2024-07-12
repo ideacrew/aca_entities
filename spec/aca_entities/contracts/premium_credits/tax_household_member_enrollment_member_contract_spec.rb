@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe ::AcaEntities::Contracts::PremiumCredits::TaxHouseholdMemberEnrollmentMemberContract, dbclean: :after_each do
+RSpec.describe ::AcaEntities::Contracts::PremiumCredits::TaxHouseholdMemberEnrollmentMemberContract do
 
   let(:currency) do
     {

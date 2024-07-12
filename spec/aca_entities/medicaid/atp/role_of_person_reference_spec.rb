@@ -3,7 +3,7 @@
 require 'spec_helper'
 require 'aca_entities/medicaid/atp/role_of_person_reference'
 
-RSpec.describe ::AcaEntities::Medicaid::Atp::RoleOfPersonReference, dbclean: :after_each do
+RSpec.describe ::AcaEntities::Medicaid::Atp::RoleOfPersonReference do
 
   describe 'with valid arguments' do
 

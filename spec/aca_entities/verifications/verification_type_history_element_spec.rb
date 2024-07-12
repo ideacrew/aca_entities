@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe ::AcaEntities::Verifications::VerificationTypeHistoryElement, dbclean: :after_each do
+RSpec.describe ::AcaEntities::Verifications::VerificationTypeHistoryElement do
 
   let(:input_params) do
     { verification_type: "Social Security Number",
@@ -32,7 +32,3 @@ RSpec.describe ::AcaEntities::Verifications::VerificationTypeHistoryElement, dbc
     end
   end
 end
-
-
-
-

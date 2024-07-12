@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe AcaEntities::Fdsh::Rrv::H79::Ifsv::Operations::CreateRrvIfsvRequest, dbclean: :after_each do
+RSpec.describe AcaEntities::Fdsh::Rrv::H79::Ifsv::Operations::CreateRrvIfsvRequest do
 
   let(:application_params) do
     { :family_reference => { :hbx_id => "10208" },

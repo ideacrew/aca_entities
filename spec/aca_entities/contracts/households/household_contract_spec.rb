@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe ::AcaEntities::Contracts::Households::HouseholdContract, dbclean: :after_each do
+RSpec.describe ::AcaEntities::Contracts::Households::HouseholdContract do
 
   let!(:irs_group_reference) do
     {

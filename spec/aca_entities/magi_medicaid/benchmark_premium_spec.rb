@@ -3,7 +3,7 @@
 require 'spec_helper'
 require 'aca_entities/magi_medicaid/libraries/iap_library'
 
-RSpec.describe ::AcaEntities::MagiMedicaid::BenchmarkPremium, dbclean: :after_each do
+RSpec.describe ::AcaEntities::MagiMedicaid::BenchmarkPremium do
 
   describe 'with valid arguments' do
     let(:member1_lcsp_premium) { { member_identifier: '95', monthly_premium: 310.50 } }

@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe ::AcaEntities::Contracts::Verifications::VerificationTypeHistoryElementContract, dbclean: :after_each do
+RSpec.describe ::AcaEntities::Contracts::Verifications::VerificationTypeHistoryElementContract do
 
   let(:required_params) do
     { verification_type: "Social Security Number",
@@ -57,7 +57,3 @@ RSpec.describe ::AcaEntities::Contracts::Verifications::VerificationTypeHistoryE
     end
   end
 end
-
-
-
-

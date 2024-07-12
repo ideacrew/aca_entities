@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe ::AcaEntities::Policies::Policy, dbclean: :after_each do
+RSpec.describe ::AcaEntities::Policies::Policy do
 
   describe 'with valid arguments' do
 

@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe ::AcaEntities::BenefitCatalogs::BenefitPackageReference, dbclean: :after_each do
+RSpec.describe ::AcaEntities::BenefitCatalogs::BenefitPackageReference do
 
   describe 'with valid arguments' do
 

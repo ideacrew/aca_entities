@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe ::AcaEntities::Contracts::People::AliveStatusContract, dbclean: :after_each do
+RSpec.describe ::AcaEntities::Contracts::People::AliveStatusContract do
   let(:input_params) { { is_deceased: false, date_of_death: nil } }
 
   context '#call' do

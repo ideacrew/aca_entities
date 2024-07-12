@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe ::AcaEntities::Groups::IrsGroupReference, dbclean: :after_each do
+RSpec.describe ::AcaEntities::Groups::IrsGroupReference do
 
   let!(:input_params) do
     {
@@ -27,5 +27,3 @@ RSpec.describe ::AcaEntities::Groups::IrsGroupReference, dbclean: :after_each do
     end
   end
 end
-
-

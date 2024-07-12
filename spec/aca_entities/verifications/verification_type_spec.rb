@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe ::AcaEntities::Verifications::VerificationType, dbclean: :after_each do
+RSpec.describe ::AcaEntities::Verifications::VerificationType do
 
   let!(:person_reference) do
     {
@@ -51,5 +51,3 @@ RSpec.describe ::AcaEntities::Verifications::VerificationType, dbclean: :after_e
   #   end
   # end
 end
-
-

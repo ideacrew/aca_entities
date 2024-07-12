@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe ::AcaEntities::AptcCsrEligibilitiesEnrollments::AccumulatorAdjustment, dbclean: :after_each do
+RSpec.describe ::AcaEntities::AptcCsrEligibilitiesEnrollments::AccumulatorAdjustment do
 
   let(:currency) do
     {

@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe ::AcaEntities::GeneralAgencies::GeneralAgencyAccount, dbclean: :after_each do
+RSpec.describe ::AcaEntities::GeneralAgencies::GeneralAgencyAccount do
 
   let!(:person_reference) do
     {
@@ -61,4 +61,3 @@ RSpec.describe ::AcaEntities::GeneralAgencies::GeneralAgencyAccount, dbclean: :a
     end
   end
 end
-

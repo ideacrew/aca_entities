@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe ::AcaEntities::Events::EventRequest, dbclean: :after_each do
+RSpec.describe ::AcaEntities::Events::EventRequest do
 
   let(:input_params) do
     {

@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe AcaEntities::Cms::Pbp::Contracts::SbmiPolicyContract, dbclean: :after_each do
+RSpec.describe AcaEntities::Cms::Pbp::Contracts::SbmiPolicyContract do
   let(:required_params) do
     {
       record_control_number: 1,

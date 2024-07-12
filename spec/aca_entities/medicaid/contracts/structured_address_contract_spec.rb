@@ -3,7 +3,7 @@
 require 'spec_helper'
 require 'aca_entities/medicaid/contracts/structured_address_contract'
 
-RSpec.describe ::AcaEntities::Medicaid::Contracts::StructuredAddressContract, dbclean: :after_each do
+RSpec.describe ::AcaEntities::Medicaid::Contracts::StructuredAddressContract do
 
   let(:required_params) { {} }
 

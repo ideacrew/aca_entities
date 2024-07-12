@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe ::AcaEntities::Contracts::Groups::IrsGroupReferenceContract, dbclean: :after_each do
+RSpec.describe ::AcaEntities::Contracts::Groups::IrsGroupReferenceContract do
 
   let!(:required_params) do
     {
@@ -62,5 +62,3 @@ RSpec.describe ::AcaEntities::Contracts::Groups::IrsGroupReferenceContract, dbcl
     end
   end
 end
-
-

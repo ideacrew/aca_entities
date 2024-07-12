@@ -3,7 +3,7 @@
 require 'spec_helper'
 require 'aca_entities/magi_medicaid/libraries/mitc_library'
 
-RSpec.describe ::AcaEntities::MagiMedicaid::Mitc::Application, dbclean: :after_each do
+RSpec.describe ::AcaEntities::MagiMedicaid::Mitc::Application do
   let(:person) do
     { person_id: 100,
       is_applicant: 'Y',

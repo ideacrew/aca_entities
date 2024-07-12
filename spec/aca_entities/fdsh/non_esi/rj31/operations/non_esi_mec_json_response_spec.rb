@@ -3,7 +3,7 @@
 require 'spec_helper'
 require 'shared_examples/aca_entities/fdsh/json_operations/response_magi_medicaid_application'
 
-RSpec.describe AcaEntities::Fdsh::NonEsi::Rj31::Operations::NonEsiMecJsonResponse, dbclean: :after_each do
+RSpec.describe AcaEntities::Fdsh::NonEsi::Rj31::Operations::NonEsiMecJsonResponse do
   include_context 'response magi medicaid application'
 
   context "in case of failure response" do

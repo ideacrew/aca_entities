@@ -4,7 +4,7 @@ require 'spec_helper'
 require 'aca_entities/serializers/xml/fdsh/h36'
 require 'aca_entities/fdsh/h36/irs_household_coverage_shared_context'
 
-RSpec.describe AcaEntities::Serializers::Xml::Fdsh::H36::HealthExchange, dbclean: :after_each do
+RSpec.describe AcaEntities::Serializers::Xml::Fdsh::H36::HealthExchange do
   include_context('irs_group_coverage_shared_context')
 
   let(:required_params) do

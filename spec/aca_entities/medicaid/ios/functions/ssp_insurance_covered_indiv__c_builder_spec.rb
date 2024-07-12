@@ -4,7 +4,7 @@ require 'spec_helper'
 require 'aca_entities/medicaid/ios/functions/ssp_insurance_covered_indiv__c_builder'
 require 'aca_entities/medicaid/ios/operations/generate_ios'
 
-RSpec.describe AcaEntities::Medicaid::Ios::Functions::SspInsuranceCoveredIndivCBuilder, dbclean: :after_each do
+RSpec.describe AcaEntities::Medicaid::Ios::Functions::SspInsuranceCoveredIndivCBuilder do
 
   # should use more recent example payload?
   let(:family) do

@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe ::AcaEntities::People::Person, dbclean: :after_each do
+RSpec.describe ::AcaEntities::People::Person do
 
   describe 'with valid arguments' do
     let!(:person_name) do

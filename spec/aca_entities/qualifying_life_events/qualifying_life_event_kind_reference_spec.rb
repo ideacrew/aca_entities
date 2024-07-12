@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe ::AcaEntities::QualifyingLifeEvents::QualifyingLifeEventKindReference, dbclean: :after_each do
+RSpec.describe ::AcaEntities::QualifyingLifeEvents::QualifyingLifeEventKindReference do
 
   let(:input_params) do
     {

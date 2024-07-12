@@ -5,7 +5,7 @@ require 'aca_entities/medicaid/ios/functions/contact_builder'
 require 'aca_entities/medicaid/ios/operations/generate_ios'
 require 'aca_entities/medicaid/ios/contracts/contact_contract'
 
-RSpec.describe AcaEntities::Medicaid::Ios::Functions::ContactBuilder, dbclean: :after_each do
+RSpec.describe AcaEntities::Medicaid::Ios::Functions::ContactBuilder do
 
   # should use more recent example payload?
   let(:family) do

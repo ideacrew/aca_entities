@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe AcaEntities::Contracts::Documents::VlpDocumentContract, dbclean: :after_each do
+RSpec.describe AcaEntities::Contracts::Documents::VlpDocumentContract do
 
   let(:input_params) do
     {
