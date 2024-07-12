@@ -48,8 +48,6 @@ module AcaEntities
         (self <=> other_account) == 0
       end
 
-      private
-
       def <=>(other)
         [
           hbxid_c,
