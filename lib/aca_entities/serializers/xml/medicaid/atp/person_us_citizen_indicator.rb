@@ -29,7 +29,8 @@ module AcaEntities
             def fetch_ssa_response(person, verification_metadata)
               return nil unless verification_metadata
 
-              verification_metadata.detect do |data|
+              ssa_responses = verification_metadata.select {|meta_data| meta_data.id.match(/vmssa/)}
+              ssa_responses.detect do |data|
                 person_id = person.id&.scan(/\d+/)&.first
                 data_id = data.id&.scan(/\d+/)&.first
 

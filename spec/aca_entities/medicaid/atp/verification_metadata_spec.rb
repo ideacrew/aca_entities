@@ -5,6 +5,7 @@ require 'aca_entities/medicaid/atp/types'
 require 'aca_entities/medicaid/atp/verification_date'
 require 'aca_entities/medicaid/atp/verification_status'
 require 'aca_entities/medicaid/atp/verification_requesting_system'
+require 'aca_entities/medicaid/atp/dhs_save_verification_supplement'
 require 'aca_entities/medicaid/atp/verification_metadata'
 
 RSpec.describe ::AcaEntities::Medicaid::Atp::VerificationMetadata,  dbclean: :around_each do
@@ -20,6 +21,16 @@ RSpec.describe ::AcaEntities::Medicaid::Atp::VerificationMetadata,  dbclean: :ar
     }
   end
 
+  let(:dhs_save_verification_supplement) do
+    {
+      step_id: "1",
+      lawful_presence_verification_code: "Y",
+      five_year_bar_verification_code: "Y",
+      qualified_non_citizen_verification_code: "Y",
+      us_citizenship_verification_code: "Y"
+    }
+  end
+
   let(:optional_params) do
     {
       id: "vm123",
@@ -30,6 +41,7 @@ RSpec.describe ::AcaEntities::Medicaid::Atp::VerificationMetadata,  dbclean: :ar
       verification_authority_name: "Name",
       verification_authority_alpha_code: "alphaCode",
       verification_id: "id123",
+      dhs_save_verification_supplement: dhs_save_verification_supplement,
       verification_indicator: true,
       verification_inconsistency_indicator: false,
       verification_description_text: "Text",
