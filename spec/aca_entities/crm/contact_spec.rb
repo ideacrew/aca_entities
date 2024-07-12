@@ -21,7 +21,7 @@ RSpec.describe ::AcaEntities::Crm::Contact do
     }
   end
 
-  context 'with all valid values' do
+  describe '.initialize' do
     before do
       app_params_result = AcaEntities::Crm::Contracts::ContactContract.new.call(contact_params)
       @result = if app_params_result.failure?
@@ -37,6 +37,45 @@ RSpec.describe ::AcaEntities::Crm::Contact do
 
     it 'should return all keys of account' do
       expect(@result.to_h.keys.sort).to eq(contact_params.keys.sort)
+    end
+  end
+
+  describe '#<=>' do
+    let(:contact1_attributes) { contact_params }
+    let(:contact1) { described_class.new(contact1_attributes) }
+
+    let(:contact2) { described_class.new(contact2_attributes) }
+
+    context 'when comparing with an identical contact' do
+      let(:contact2_attributes) { contact_params }
+
+      it 'returns 0' do
+        expect(contact1 <=> contact2).to eq(0)
+      end
+    end
+
+    context 'when comparing with a contact with different attributes' do
+      let(:contact2_attributes) { contact_params.merge(first_name: 'Jane') }
+
+      it 'returns -1 or 1' do
+        expect([-1, 1]).to include(contact1 <=> contact2)
+      end
+    end
+
+    context 'when comparing with a contact with a lower sort order' do
+      let(:contact2_attributes) { contact_params.merge(hbxid_c: '12044') }
+
+      it 'returns 1' do
+        expect(contact1 <=> contact2).to eq(1)
+      end
+    end
+
+    context 'when comparing with a contact with a higher sort order' do
+      let(:contact2_attributes) { contact_params.merge(hbxid_c: '12346') }
+
+      it 'returns -1' do
+        expect(contact1 <=> contact2).to eq(-1)
+      end
     end
   end
 end

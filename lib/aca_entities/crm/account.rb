@@ -40,7 +40,41 @@ module AcaEntities
       attribute :raw_ssn_c, AcaEntities::Crm::Types::SSN.meta(omittable: false)
       attribute :dob_c, AcaEntities::Crm::Types::Dob.meta(omittable: false)
       attribute :enroll_account_link_c, Types::String.optional.meta(omittable: true)
-      attribute :contacts, Types::Array.of(AcaEntities::Crm::Contact).meta(omittable: true)
+      attribute :contacts, Types::Array.of(AcaEntities::Crm::Contact).meta(omittable: false)
+
+      def account_same_as?(other_account)
+        return false unless other_account.is_a?(Account)
+
+        (self <=> other_account) == 0
+      end
+
+      def <=>(other)
+        [
+          hbxid_c,
+          name,
+          email1,
+          billing_address_street,
+          billing_address_city,
+          billing_address_postalcode,
+          billing_address_state,
+          phone_office,
+          raw_ssn_c,
+          dob_c,
+          contacts
+        ] <=> [
+          other.hbxid_c,
+          other.name,
+          other.email1,
+          other.billing_address_street,
+          other.billing_address_city,
+          other.billing_address_postalcode,
+          other.billing_address_state,
+          other.phone_office,
+          other.raw_ssn_c,
+          other.dob_c,
+          other.contacts
+        ]
+      end
     end
   end
 end

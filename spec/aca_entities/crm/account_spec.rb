@@ -43,7 +43,7 @@ RSpec.describe ::AcaEntities::Crm::Account do
 
   let(:account_params) { required_values.merge(optional_values) }
 
-  context 'with all valid values' do
+  describe '.initialize' do
     before do
       app_params_result = AcaEntities::Crm::Contracts::AccountContract.new.call(account_params)
       @result = if app_params_result.failure?
@@ -66,6 +66,83 @@ RSpec.describe ::AcaEntities::Crm::Account do
       input_contact_keys = contact.keys
       expect(result_contact_keys - input_contact_keys).to be_empty
       expect(input_contact_keys - result_contact_keys).to be_empty
+    end
+  end
+
+  describe '#account_same_as?' do
+    let(:account1_params) { account_params }
+    let(:account1) { described_class.new(account1_params) }
+
+    let(:account2) { described_class.new(account2_params) }
+
+    context 'with same account' do
+      it 'returns true' do
+        expect(account1.account_same_as?(account1)).to be_truthy
+      end
+    end
+
+    context 'with different account' do
+      let(:account2_params) { account_params.merge(hbxid_c: '98723') }
+
+      it 'returns false' do
+        expect(account1.account_same_as?(account2)).to be_falsey
+      end
+    end
+
+    context 'when comparing with nil' do
+      it 'returns false' do
+        expect(account1.account_same_as?(nil)).to be false
+      end
+    end
+
+    context 'when comparing with contact information' do
+      let(:contact2) do
+        {
+          hbxid_c: '12345',
+          first_name: 'John',
+          last_name: 'Doe',
+          phone_mobile: phone,
+          email: email,
+          birthdate: (Date.today - 1_000).to_s,
+          relationship_c: 'Spouse'
+        }
+      end
+
+      let(:account2_params) { account_params.merge(contacts: [contact2]) }
+
+      it 'returns false' do
+        expect(account1.account_same_as?(account2)).to be_falsey
+      end
+    end
+
+    context 'when other account has more contacts' do
+      let(:contact) do
+        {
+          hbxid_c: '12345',
+          first_name: 'John',
+          last_name: 'Doe',
+          phone_mobile: phone,
+          email: email,
+          birthdate: (Date.today - 10_000).to_s,
+          relationship_c: 'Spouse'
+        }
+      end
+
+      let(:account2_params) { account_params.merge(contacts: [contact, contact]) }
+
+      it 'returns false' do
+        expect(account1.account_same_as?(account2)).to be_falsey
+      end
+    end
+
+    context 'when both accounts has different information for fields that are not compared' do
+      let(:account2_params) { account_params.merge(enroll_account_link_c: 'kjdhskjh') }
+
+      let(:account1_params) { account_params.merge(enroll_account_link_c: 'test') }
+
+      it 'returns true' do
+        expect(account1.account_same_as?(account2)).to be_truthy
+      end
     end
   end
 end

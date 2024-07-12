@@ -26,6 +26,26 @@ module AcaEntities
       attribute :email, AcaEntities::Crm::Types::Email.meta(omittable: false)
       attribute :birthdate, AcaEntities::Crm::Types::Dob.meta(omittable: false)
       attribute :relationship_c, Types::String.meta(omittable: false)
+
+      def <=>(other)
+        [
+          hbxid_c,
+          first_name,
+          last_name,
+          phone_mobile,
+          email,
+          birthdate,
+          relationship_c
+        ] <=> [
+          other.hbxid_c,
+          other.first_name,
+          other.last_name,
+          other.phone_mobile,
+          other.email,
+          other.birthdate,
+          other.relationship_c
+        ]
+      end
     end
   end
 end
