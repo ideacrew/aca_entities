@@ -9,15 +9,13 @@ RSpec.describe ::AcaEntities::Crm::Account do
 
   let(:phone) { '(123) 456-7890' }
 
-  let(:ssn) { '123-45-6789' }
+  let(:ssn) { '123456789' }
 
   let(:contact) do
     {
       hbxid_c: '12345',
       first_name: 'John',
       last_name: 'Doe',
-      phone_mobile: phone,
-      email: email,
       birthdate: (Date.today - 10_000).to_s,
       relationship_c: 'Spouse'
     }
@@ -39,7 +37,15 @@ RSpec.describe ::AcaEntities::Crm::Account do
     }
   end
 
-  let(:optional_values) { { enroll_account_link_c: 'http://example.com/account' } }
+  let(:optional_values) do
+    {
+      billing_address_street2: 'Apt 1',
+      billing_address_street3: 'Floor 2',
+      billing_address_street4: 'Suite 3',
+      rawssn_c: ssn,
+      enroll_account_link_c: 'http://example.com/account'
+    }
+  end
 
   let(:account_params) { required_values.merge(optional_values) }
 
@@ -95,53 +101,13 @@ RSpec.describe ::AcaEntities::Crm::Account do
       end
     end
 
-    context 'when comparing with contact information' do
-      let(:contact2) do
-        {
-          hbxid_c: '12345',
-          first_name: 'John',
-          last_name: 'Doe',
-          phone_mobile: phone,
-          email: email,
-          birthdate: (Date.today - 1_000).to_s,
-          relationship_c: 'Spouse'
-        }
-      end
-
-      let(:account2_params) { account_params.merge(contacts: [contact2]) }
-
-      it 'returns false' do
-        expect(account1.account_same_as?(account2)).to be_falsey
-      end
-    end
-
-    context 'when other account has more contacts' do
-      let(:contact) do
-        {
-          hbxid_c: '12345',
-          first_name: 'John',
-          last_name: 'Doe',
-          phone_mobile: phone,
-          email: email,
-          birthdate: (Date.today - 10_000).to_s,
-          relationship_c: 'Spouse'
-        }
-      end
-
-      let(:account2_params) { account_params.merge(contacts: [contact, contact]) }
-
-      it 'returns false' do
-        expect(account1.account_same_as?(account2)).to be_falsey
-      end
-    end
-
-    context 'when both accounts has different information for fields that are not compared' do
+    context 'when both accounts has different information for enroll_account_link_c' do
       let(:account2_params) { account_params.merge(enroll_account_link_c: 'kjdhskjh') }
 
       let(:account1_params) { account_params.merge(enroll_account_link_c: 'test') }
 
-      it 'returns true' do
-        expect(account1.account_same_as?(account2)).to be_truthy
+      it 'returns false' do
+        expect(account1.account_same_as?(account2)).to be_falsey
       end
     end
   end

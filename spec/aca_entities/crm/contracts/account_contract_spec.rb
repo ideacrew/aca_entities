@@ -9,7 +9,7 @@ RSpec.describe AcaEntities::Crm::Contracts::AccountContract do
 
   let(:phone) { '(123) 456-7890' }
 
-  let(:ssn) { '123-45-6789' }
+  let(:ssn) { '123456789' }
 
   let(:contact) do
     {
@@ -17,7 +17,7 @@ RSpec.describe AcaEntities::Crm::Contracts::AccountContract do
       first_name: 'John',
       last_name: 'Doe',
       phone_mobile: phone,
-      email: email,
+      email1: email,
       birthdate: (Date.today - 10_000).to_s,
       relationship_c: 'Spouse'
     }
@@ -39,7 +39,15 @@ RSpec.describe AcaEntities::Crm::Contracts::AccountContract do
     }
   end
 
-  let(:optional_values) { { enroll_account_link_c: 'http://example.com/account' } }
+  let(:optional_values) do
+    {
+      billing_address_street2: 'Apt 1',
+      billing_address_street3: 'Floor 2',
+      billing_address_street4: 'Suite 3',
+      rawssn_c: ssn,
+      enroll_account_link_c: 'http://example.com/account'
+    }
+  end
 
   let(:all_values) { required_values.merge(optional_values) }
 

@@ -19,27 +19,33 @@ RSpec.describe AcaEntities::Crm::Operations::CreateAccount do
       first_name: first_name,
       last_name: last_name,
       phone_mobile: phone,
-      email: email,
+      email1: email,
       birthdate: (Date.today - 10_000).to_s,
       relationship_c: relationship
     }
   end
 
-  let(:input_params) do
+  let(:account) do
     {
       hbxid_c: '12345',
       name: name,
       email1: 'john.doe@example.com',
       billing_address_street: '123 Main St',
+      billing_address_street2: 'Apt 1',
+      billing_address_street3: 'Floor 2',
+      billing_address_street4: 'Suite 3',
       billing_address_city: 'Anytown',
       billing_address_postalcode: '12345',
       billing_address_state: 'ST',
       phone_office: phone,
-      raw_ssn_c: '123-45-6789',
+      rawssn_c: '123456789',
+      raw_ssn_c: '123456789',
       dob_c: (Date.today - 10_000).to_s,
       contacts: [contact]
     }
   end
+
+  let(:input_params) { account }
 
   let(:result) { subject.call(input_params) }
 

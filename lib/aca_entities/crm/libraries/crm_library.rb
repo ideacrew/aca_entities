@@ -19,6 +19,7 @@ module AcaEntities
         require 'aca_entities/crm/account'
 
         # Transformers
+        require 'aca_entities/crm/transformers/sugar_account_to/account'
 
         # Operations
         require 'aca_entities/crm/operations/create_account'

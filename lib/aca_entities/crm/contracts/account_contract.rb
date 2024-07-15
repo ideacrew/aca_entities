@@ -12,10 +12,14 @@ module AcaEntities
       #   @option opts [String] :name required
       #   @option opts [String] :email1 required
       #   @option opts [String] :billing_address_street required
+      #   @option opts [String] :billing_address_street2 optional
+      #   @option opts [String] :billing_address_street3 optional
+      #   @option opts [String] :billing_address_street4 optional
       #   @option opts [String] :billing_address_city required
       #   @option opts [String] :billing_address_postalcode required
       #   @option opts [String] :billing_address_state required
       #   @option opts [String] :phone_office required
+      #   @option opts [String] :rawssn_c required
       #   @option opts [String] :raw_ssn_c required
       #   @option opts [Date] :dob_c required
       #   @option opts [String] :enroll_account_link_c optional
@@ -26,10 +30,14 @@ module AcaEntities
           required(:name).filled(:string)
           required(:email1).filled(AcaEntities::Crm::Types::Email)
           required(:billing_address_street).filled(:string)
+          optional(:billing_address_street2).maybe(:string)
+          optional(:billing_address_street3).maybe(:string)
+          optional(:billing_address_street4).maybe(:string)
           required(:billing_address_city).filled(:string)
           required(:billing_address_postalcode).filled(:string)
           required(:billing_address_state).filled(:string)
           required(:phone_office).filled(AcaEntities::Crm::Types::Phone)
+          optional(:rawssn_c).maybe(AcaEntities::Crm::Types::SSN)
           required(:raw_ssn_c).filled(AcaEntities::Crm::Types::SSN)
           required(:dob_c).filled(AcaEntities::Crm::Types::Dob)
           optional(:enroll_account_link_c).maybe(:string)

@@ -11,8 +11,8 @@ module AcaEntities
       #   @option opts [String] :hbxid_c required
       #   @option opts [String] :first_name required
       #   @option opts [String] :last_name required
-      #   @option opts [String] :phone_mobile required
-      #   @option opts [String] :email required
+      #   @option opts [String] :phone_mobile optional
+      #   @option opts [String] :email1 optional
       #   @option opts [Date] :birthdate required
       #   @option opts [String] :relationship_c required
       #   @return [Dry::Monads::Result]
@@ -21,8 +21,8 @@ module AcaEntities
           required(:hbxid_c).filled(:string)
           required(:first_name).filled(:string)
           required(:last_name).filled(:string)
-          required(:phone_mobile).filled(AcaEntities::Crm::Types::Phone)
-          required(:email).filled(AcaEntities::Crm::Types::Email)
+          optional(:phone_mobile).maybe(AcaEntities::Crm::Types::Phone)
+          optional(:email1).maybe(AcaEntities::Crm::Types::Email)
           required(:birthdate).filled(AcaEntities::Crm::Types::Dob)
           required(:relationship_c).filled(:string)
         end
