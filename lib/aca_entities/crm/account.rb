@@ -60,7 +60,7 @@ module AcaEntities
           phone_office,
           raw_ssn_c,
           dob_c,
-          contacts
+          enroll_account_link_c
         ] <=> [
           other.hbxid_c,
           other.name,
@@ -72,7 +72,7 @@ module AcaEntities
           other.phone_office,
           other.raw_ssn_c,
           other.dob_c,
-          other.contacts
+          other.enroll_account_link_c
         ]
       end
     end

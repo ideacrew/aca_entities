@@ -19,7 +19,7 @@ RSpec.describe AcaEntities::Crm::Operations::CreateAccount do
       first_name: first_name,
       last_name: last_name,
       phone_mobile: phone,
-      email: email,
+      email1: email,
       birthdate: (Date.today - 10_000).to_s,
       relationship_c: relationship
     }
@@ -35,7 +35,7 @@ RSpec.describe AcaEntities::Crm::Operations::CreateAccount do
       billing_address_postalcode: '12345',
       billing_address_state: 'ST',
       phone_office: phone,
-      raw_ssn_c: '123-45-6789',
+      raw_ssn_c: '123456789',
       dob_c: (Date.today - 10_000).to_s,
       contacts: [contact]
     }

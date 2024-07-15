@@ -9,7 +9,7 @@ RSpec.describe AcaEntities::Crm::Contracts::AccountContract do
 
   let(:phone) { '(123) 456-7890' }
 
-  let(:ssn) { '123-45-6789' }
+  let(:ssn) { '123456789' }
 
   let(:contact) do
     {
@@ -17,7 +17,7 @@ RSpec.describe AcaEntities::Crm::Contracts::AccountContract do
       first_name: 'John',
       last_name: 'Doe',
       phone_mobile: phone,
-      email: email,
+      email1: email,
       birthdate: (Date.today - 10_000).to_s,
       relationship_c: 'Spouse'
     }

@@ -13,18 +13,25 @@ RSpec.describe AcaEntities::Crm::Contracts::ContactContract do
       hbxid_c: '12345',
       first_name: 'John',
       last_name: 'Doe',
-      phone_mobile: phone,
-      email: email,
       birthdate: (Date.today - 10_000).to_s,
       relationship_c: 'Spouse'
     }
   end
 
+  let(:optional_values) do
+    {
+      email1: email,
+      phone_mobile: phone
+    }
+  end
+
+  let(:all_values) { required_values.merge(optional_values) }
+
   subject { described_class.new }
 
   context 'with valid values' do
     it 'passes validation' do
-      expect(subject.call(required_values).success?).to be true
+      expect(subject.call(all_values).success?).to be true
     end
   end
 
@@ -54,9 +61,9 @@ RSpec.describe AcaEntities::Crm::Contracts::ContactContract do
     let(:email) { 'john.example.com' }
 
     it 'fails validation' do
-      result = subject.call(required_values)
+      result = subject.call(all_values)
       expect(result.failure?).to be true
-      expect(result.errors.to_h[:email]).to include('is in invalid format')
+      expect(result.errors.to_h[:email1]).to include('is in invalid format')
     end
   end
 
@@ -64,7 +71,7 @@ RSpec.describe AcaEntities::Crm::Contracts::ContactContract do
     let(:phone) { '123-456-7890' }
 
     it 'fails validation' do
-      result = subject.call(required_values)
+      result = subject.call(all_values)
       expect(result.failure?).to be true
       expect(result.errors.to_h[:phone_mobile]).to include('is in invalid format')
     end
@@ -74,7 +81,7 @@ RSpec.describe AcaEntities::Crm::Contracts::ContactContract do
     let(:phone) { Date.today }
 
     it 'fails validation' do
-      result = subject.call(required_values)
+      result = subject.call(all_values)
       expect(result.failure?).to be true
       expect(result.errors.to_h[:phone_mobile]).to include('must be a string')
     end

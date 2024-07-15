@@ -15,7 +15,7 @@ RSpec.describe ::AcaEntities::Crm::Contact do
       first_name: 'John',
       last_name: 'Doe',
       phone_mobile: phone,
-      email: email,
+      email1: email,
       birthdate: (Date.today - 10_000).to_s,
       relationship_c: 'Spouse'
     }
@@ -75,6 +75,41 @@ RSpec.describe ::AcaEntities::Crm::Contact do
 
       it 'returns -1' do
         expect(contact1 <=> contact2).to eq(-1)
+      end
+    end
+  end
+
+  describe '#contact_same_as?' do
+    let(:contact) { described_class.new(contact_params) }
+
+    context 'when comparing with the same contact' do
+      let(:same_contact) { described_class.new(contact_params) }
+
+      it 'returns true' do
+        expect(contact.contact_same_as?(same_contact)).to be true
+      end
+    end
+
+    context 'when comparing with a different contact' do
+      let(:different_contact_params) do
+        contact_params.merge(first_name: 'Jane')
+      end
+      let(:different_contact) { described_class.new(different_contact_params) }
+
+      it 'returns false' do
+        expect(contact.contact_same_as?(different_contact)).to be false
+      end
+    end
+
+    context 'when comparing with nil' do
+      it 'returns false' do
+        expect(contact.contact_same_as?(nil)).to be false
+      end
+    end
+
+    context 'when comparing with an object of a different class' do
+      it 'returns false' do
+        expect(contact.contact_same_as?('not_a_contact')).to be false
       end
     end
   end

@@ -22,10 +22,16 @@ module AcaEntities
       attribute :hbxid_c, Types::String.meta(omittable: false)
       attribute :first_name, Types::String.meta(omittable: false)
       attribute :last_name, Types::String.meta(omittable: false)
-      attribute :phone_mobile, AcaEntities::Crm::Types::Phone.meta(omittable: false)
-      attribute :email, AcaEntities::Crm::Types::Email.meta(omittable: false)
+      attribute :phone_mobile, AcaEntities::Crm::Types::Phone.optional.meta(omittable: true)
+      attribute :email1, AcaEntities::Crm::Types::Email.optional.meta(omittable: true)
       attribute :birthdate, AcaEntities::Crm::Types::Dob.meta(omittable: false)
       attribute :relationship_c, Types::String.meta(omittable: false)
+
+      def contact_same_as?(other_contact)
+        return false unless other_contact.is_a?(Contact)
+
+        (self <=> other_contact) == 0
+      end
 
       def <=>(other)
         [
@@ -33,7 +39,7 @@ module AcaEntities
           first_name,
           last_name,
           phone_mobile,
-          email,
+          email1,
           birthdate,
           relationship_c
         ] <=> [
@@ -41,7 +47,7 @@ module AcaEntities
           other.first_name,
           other.last_name,
           other.phone_mobile,
-          other.email,
+          other.email1,
           other.birthdate,
           other.relationship_c
         ]
