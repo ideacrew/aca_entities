@@ -39,7 +39,15 @@ RSpec.describe AcaEntities::Crm::Contracts::AccountContract do
     }
   end
 
-  let(:optional_values) { { enroll_account_link_c: 'http://example.com/account' } }
+  let(:optional_values) do
+    {
+      billing_address_street2: 'Apt 1',
+      billing_address_street3: 'Floor 2',
+      billing_address_street4: 'Suite 3',
+      rawssn_c: ssn,
+      enroll_account_link_c: 'http://example.com/account'
+    }
+  end
 
   let(:all_values) { required_values.merge(optional_values) }
 
