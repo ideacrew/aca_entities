@@ -619,7 +619,17 @@
                             }
                         ],
                         "benefits": [],
-                        "deductions": [],
+                        "deductions": [
+                            {
+                                "name": null,
+                                "kind": "alimony_paid",
+                                "amount": 10.0,
+                                "start_on": "2021-01-01",
+                                "end_on": "2021-12-31",
+                                "frequency_kind": "Daily",
+                                "submitted_at": "2021-07-27T14:29:26.000+00:00"
+                            }
+                        ],
                         "is_medicare_eligible": false,
                         "is_self_attested_long_term_care": false,
                         "has_insurance": false,
