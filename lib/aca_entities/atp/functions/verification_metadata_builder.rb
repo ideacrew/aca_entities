@@ -23,7 +23,8 @@ module AcaEntities
         def construct_ssa_verification_response(latest_ssa_response, hbx_id)
           parsed_response = JSON.parse(latest_ssa_response[:body])
           response_metadata = parsed_response["ResponseMetadata"]
-          ssa_response = parsed_response["SSACompositeIndividualResponses"][0]["SSAResponse"]
+          ssa_response = parsed_response.dig("SSACompositeIndividualResponses", 0, "SSAResponse")
+          return if ssa_response.nil?
 
           {
             id: "vmssa#{hbx_id}",
