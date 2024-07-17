@@ -389,9 +389,13 @@ RSpec.describe AcaEntities::Atp::Operations::Aces::GenerateXml  do
           person_2 = payload_hash[:family][:family_members][1][:person][:consumer_role][:lawful_presence_determination]
           person_3 = payload_hash[:family][:family_members][2][:person][:consumer_role][:lawful_presence_determination]
           person_1[:ssa_responses] = [{
-                                         "received_at": "2024-06-20T18:48:28.368+00:00",
-                                         "body": "{\"ResponseMetadata\":{\"ResponseCode\":\"HX005001\",\"ResponseDescriptionText\":\"Unexpected Exception Occurred at Trusted Data Source\",\"TDSResponseDescriptionText\":null},\"SSACompositeIndividualResponses\":[{\"ResponseMetadata\":{\"ResponseCode\":\"HX005001\",\"ResponseDescriptionText\":\"Unexpected Exception Occurred at Trusted Data Source\",\"TDSResponseDescriptionText\":null},\"PersonSSNIdentification\":\"123456789\",\"SSAResponse\":null}]}"
-                                       }]
+            received_at: "2024-06-20T18:48:28.368+00:00",
+            body: "{\"ResponseMetadata\":{\"ResponseCode\":\"HX005001\",
+\"ResponseDescriptionText\":\"Unexpected Exception Occurred at Trusted Data Source\",\"TDSResponseDescriptionText\":null},
+\"SSACompositeIndividualResponses\":[{\"ResponseMetadata\":{\"ResponseCode\":\"HX005001\",
+\"ResponseDescriptionText\":\"Unexpected Exception Occurred at Trusted Data Source\",
+\"TDSResponseDescriptionText\":null},\"PersonSSNIdentification\":\"123456789\",\"SSAResponse\":null}]}"
+          }]
           person_2[:ssa_responses] = []
           person_3[:ssa_responses] = []
           payload_hash.to_json
