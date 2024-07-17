@@ -102,8 +102,9 @@ module AcaEntities
 
         def construct_dhs_save_verification_supplement(parsed_response)
           response_set = extract_initial_verification_response_set(parsed_response)
-          lawful_presence_code = extract_lawful_presence_code(parsed_response)
+          return if response_set.nil?
 
+          lawful_presence_code = extract_lawful_presence_code(parsed_response)
           {
             step_id: "1",
             case_number: response_set["CaseNumber"],
@@ -141,6 +142,8 @@ module AcaEntities
         end
 
         def determine_verification_category_codes(dhs_save_verification)
+          return if dhs_save_verification.nil?
+
           ["EligibleImmigrationStatus"] if dhs_save_verification[:lawful_presence_verification_code] == "Y"
         end
       end
