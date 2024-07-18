@@ -482,6 +482,8 @@ RSpec.describe AcaEntities::Atp::Operations::Aces::GenerateXml  do
           }]
           person_2[:ssa_responses] = []
           person_3[:ssa_responses] = []
+          person_2[:vlp_responses] = []
+          person_3[:vlp_responses] = []
           payload_hash.to_json
         end
 
