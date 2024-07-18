@@ -23,7 +23,7 @@ module AcaEntities
             def self.domain_to_mapper(insurance_applicant, inc, verification_metadata)
               mapper = self.new
               matching_ssa_response = mapper.fetch_ssa_response(insurance_applicant, verification_metadata)
-              mapper.metadata = matching_ssa_response.id if matching_ssa_response&.verification_category_codes&.include?("IncarcerationStatus")
+              mapper.metadata = matching_ssa_response&.id if matching_ssa_response&.verification_category_codes&.include?("IncarcerationStatus")
               mapper.incarceration_date = IncarcerationDate.domain_to_mapper(inc.incarceration_date) if inc.incarceration_date
               mapper.incarceration_indicator = inc.incarceration_indicator
               mapper
@@ -32,7 +32,8 @@ module AcaEntities
             def fetch_ssa_response(insurance_applicant, verification_metadata)
               return nil unless verification_metadata
 
-              verification_metadata.detect do |data|
+              ssa_responses = verification_metadata.select {|meta_data| meta_data.id.match(/vmssa/)}
+              ssa_responses.detect do |data|
                 person_id = insurance_applicant.role_reference&.ref&.scan(/\d+/)&.first
                 data_id = data.id&.scan(/\d+/)&.first
 

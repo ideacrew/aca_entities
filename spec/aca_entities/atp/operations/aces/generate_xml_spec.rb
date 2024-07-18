@@ -327,60 +327,144 @@ RSpec.describe AcaEntities::Atp::Operations::Aces::GenerateXml  do
         it "should set verification metadata" do
           result = described_class.new.call(payload_hash.to_json)
           doc = Nokogiri::XML.parse(result.value!)
-          verification_metadata = doc.xpath("//hix-core:VerificationMetadata", namespaces)[0]
+          verification_metadata = doc.xpath("//hix-core:VerificationMetadata", namespaces)[1]
           expect(verification_metadata.present?).to be_truthy
           expect(verification_metadata.attributes["id"].value).to eq "vmssa1003159"
         end
+
+        it "should populate FFEVerificationCode to Y" do
+          result = described_class.new.call(payload_hash.to_json)
+          doc = Nokogiri::XML.parse(result.value!)
+          verification_metadata = doc.xpath("//hix-core:VerificationMetadata", namespaces)[1]
+          expect(verification_metadata.xpath("//hix-core:FFEVerificationCode", namespaces).text).to eq "Y"
+        end
+
+        it "should populate VerificationAuthorityTDS-FEPS-AlphaCode to SSA" do
+          result = described_class.new.call(payload_hash.to_json)
+          doc = Nokogiri::XML.parse(result.value!)
+          verification_metadata = doc.xpath("//hix-core:VerificationMetadata", namespaces)[1]
+          expect(verification_metadata.xpath("//hix-core:VerificationAuthorityTDS-FEPS-AlphaCode", namespaces)[1].text).to eq "SSA"
+        end
+
+        it "should populate VerificationRequestingSystem" do
+          result = described_class.new.call(payload_hash.to_json)
+          doc = Nokogiri::XML.parse(result.value!)
+          verification_metadata = doc.xpath("//hix-core:VerificationMetadata", namespaces)[1]
+          expect(verification_metadata.xpath("//hix-core:VerificationRequestingSystem", namespaces).text).to be_present
+        end
+
+        it "should populate VerificationDate" do
+          result = described_class.new.call(payload_hash.to_json)
+          doc = Nokogiri::XML.parse(result.value!)
+          verification_metadata = doc.xpath("//hix-core:VerificationMetadata", namespaces)[1]
+          expect(verification_metadata.xpath("//hix-core:VerificationDate", namespaces).text).to be_present
+        end
+
+        it "should populate VerificationCategoryCode" do
+          result = described_class.new.call(payload_hash.to_json)
+          doc = Nokogiri::XML.parse(result.value!)
+          verification_metadata = doc.xpath("//hix-core:VerificationMetadata", namespaces)[1]
+          expect(verification_metadata.xpath("//hix-core:VerificationCategoryCode", namespaces).count).to eq 4
+        end
+
+        it "should populate VerificationStatusCode" do
+          result = described_class.new.call(payload_hash.to_json)
+          doc = Nokogiri::XML.parse(result.value!)
+          verification_metadata = doc.xpath("//hix-core:VerificationMetadata", namespaces)[1]
+          status = verification_metadata.xpath("//hix-core:VerificationStatus", namespaces)
+          expect(status.xpath('./hix-core:VerificationStatusCode', namespaces)[0].text).to eq "5"
+        end
       end
 
-      it "should populate FFEVerificationCode to Y" do
-        result = described_class.new.call(payload_hash.to_json)
-        doc = Nokogiri::XML.parse(result.value!)
-        verification_metadata = doc.xpath("//hix-core:VerificationMetadata", namespaces)[0]
-        expect(verification_metadata.xpath("//hix-core:FFEVerificationCode", namespaces).text).to eq "Y"
-      end
+      context "when vlp_response exists" do
+        it "should set verification metadata" do
+          result = described_class.new.call(payload_hash.to_json)
+          doc = Nokogiri::XML.parse(result.value!)
+          verification_metadata = doc.xpath("//hix-core:VerificationMetadata", namespaces)
+          expect(verification_metadata.count).to eq 3
+          expect(verification_metadata[0].attributes["id"].value).to eq "vmdhs1002699"
+          expect(verification_metadata[2].attributes["id"].value).to eq "vmdhs1003159"
+        end
 
-      it "should populate VerificationAuthorityTDS-FEPS-AlphaCode to SSA" do
-        result = described_class.new.call(payload_hash.to_json)
-        doc = Nokogiri::XML.parse(result.value!)
-        verification_metadata = doc.xpath("//hix-core:VerificationMetadata", namespaces)[0]
-        expect(verification_metadata.xpath("//hix-core:VerificationAuthorityTDS-FEPS-AlphaCode", namespaces).text).to eq "SSA"
-      end
+        it "should populate DHS-SAVEVerificationCode to Y" do
+          result = described_class.new.call(payload_hash.to_json)
+          doc = Nokogiri::XML.parse(result.value!)
+          verification_metadata = doc.xpath("//hix-core:VerificationMetadata", namespaces)[0]
+          expect(verification_metadata.xpath("//hix-core:DHS-SAVEVerificationCode", namespaces)[0].text).to eq "1"
+          expect(verification_metadata.xpath("//hix-core:DHS-SAVEVerificationCode", namespaces)[1].text).to eq "1"
+        end
 
-      it "should populate VerificationAuthorityTDS-FEPS-AlphaCode to SSA" do
-        result = described_class.new.call(payload_hash.to_json)
-        doc = Nokogiri::XML.parse(result.value!)
-        verification_metadata = doc.xpath("//hix-core:VerificationMetadata", namespaces)[0]
-        expect(verification_metadata.xpath("//hix-core:VerificationAuthorityTDS-FEPS-AlphaCode", namespaces).text).to eq "SSA"
-      end
+        it "should populate VerificationAuthorityTDS-FEPS-AlphaCode to DHS" do
+          result = described_class.new.call(payload_hash.to_json)
+          doc = Nokogiri::XML.parse(result.value!)
+          verification_metadata = doc.xpath("//hix-core:VerificationMetadata", namespaces)[0]
+          expect(verification_metadata.xpath("//hix-core:VerificationAuthorityTDS-FEPS-AlphaCode", namespaces)[0].text).to eq "DHS"
+        end
 
-      it "should populate VerificationRequestingSystem" do
-        result = described_class.new.call(payload_hash.to_json)
-        doc = Nokogiri::XML.parse(result.value!)
-        verification_metadata = doc.xpath("//hix-core:VerificationMetadata", namespaces)[0]
-        expect(verification_metadata.xpath("//hix-core:VerificationRequestingSystem", namespaces).text).to be_present
-      end
+        it "should populate VerificationRequestingSystem" do
+          result = described_class.new.call(payload_hash.to_json)
+          doc = Nokogiri::XML.parse(result.value!)
+          verification_metadata = doc.xpath("//hix-core:VerificationMetadata", namespaces)[0]
+          expect(verification_metadata.xpath("//hix-core:VerificationRequestingSystem", namespaces).text).to be_present
+        end
 
-      it "should populate VerificationDate" do
-        result = described_class.new.call(payload_hash.to_json)
-        doc = Nokogiri::XML.parse(result.value!)
-        verification_metadata = doc.xpath("//hix-core:VerificationMetadata", namespaces)[0]
-        expect(verification_metadata.xpath("//hix-core:VerificationDate", namespaces).text).to be_present
-      end
+        it "should populate VerificationDate" do
+          result = described_class.new.call(payload_hash.to_json)
+          doc = Nokogiri::XML.parse(result.value!)
+          verification_metadata = doc.xpath("//hix-core:VerificationMetadata", namespaces)[0]
+          expect(verification_metadata.xpath("//hix-core:VerificationDate", namespaces).text).to be_present
+        end
 
-      it "should populate VerificationCategoryCode" do
-        result = described_class.new.call(payload_hash.to_json)
-        doc = Nokogiri::XML.parse(result.value!)
-        verification_metadata = doc.xpath("//hix-core:VerificationMetadata", namespaces)[0]
-        expect(verification_metadata.xpath("//hix-core:VerificationCategoryCode", namespaces).count).to eq 3
-      end
+        it "should populate VerificationCategoryCode" do
+          result = described_class.new.call(payload_hash.to_json)
+          doc = Nokogiri::XML.parse(result.value!)
+          verification_metadata = doc.xpath("//hix-core:VerificationMetadata", namespaces)[0]
+          expect(verification_metadata.xpath("//hix-core:VerificationCategoryCode", namespaces)[0].text).to eq "EligibleImmigrationStatus"
+        end
 
-      it "should populate VerificationStatusCode" do
-        result = described_class.new.call(payload_hash.to_json)
-        doc = Nokogiri::XML.parse(result.value!)
-        verification_metadata = doc.xpath("//hix-core:VerificationMetadata", namespaces)[0]
-        status = verification_metadata.xpath("//hix-core:VerificationStatus", namespaces)
-        expect(status.xpath('./hix-core:VerificationStatusCode', namespaces).text).to eq "5"
+        it "should populate VerificationStatusCode" do
+          result = described_class.new.call(payload_hash.to_json)
+          doc = Nokogiri::XML.parse(result.value!)
+          verification_metadata = doc.xpath("//hix-core:VerificationMetadata", namespaces)[0]
+          status = verification_metadata.xpath("//hix-core:VerificationStatus", namespaces)
+          expect(status.xpath('./hix-core:VerificationStatusCode', namespaces)[0].text).to eq "5"
+        end
+
+        it "should populate dhs save verification supplement" do
+          result = described_class.new.call(payload_hash.to_json)
+          doc = Nokogiri::XML.parse(result.value!)
+          verification_metadata = doc.xpath("//hix-core:VerificationMetadata", namespaces)[0]
+          expect(verification_metadata.xpath("//hix-core:DHS-SAVEVerificationSupplement", namespaces).count).to eq 2
+        end
+
+        it "should populate StepID in dhs save verification supplement" do
+          result = described_class.new.call(payload_hash.to_json)
+          doc = Nokogiri::XML.parse(result.value!)
+          verification_metadata = doc.xpath("//hix-core:VerificationMetadata", namespaces)[0]
+          expect(verification_metadata.xpath("//hix-core:StepID", namespaces)[0].text).to eq "1"
+        end
+
+        it "should populate LawfulPresenceVerificationCode in dhs save verification supplement if present" do
+          result = described_class.new.call(payload_hash.to_json)
+          doc = Nokogiri::XML.parse(result.value!)
+          verification_metadata = doc.xpath("//hix-core:VerificationMetadata", namespaces)[0]
+          expect(verification_metadata.xpath("//hix-core:LawfulPresenceVerificationCode", namespaces)[0].text).to eq "Y"
+          expect(verification_metadata.xpath("//hix-core:LawfulPresenceVerificationCode", namespaces)[1].text).to eq "P"
+        end
+
+        it "should populate QualifiedNonCitizenVerificationCode in dhs save verification supplement if present" do
+          result = described_class.new.call(payload_hash.to_json)
+          doc = Nokogiri::XML.parse(result.value!)
+          verification_metadata = doc.xpath("//hix-core:VerificationMetadata", namespaces)[0]
+          expect(verification_metadata.xpath("//hix-core:QualifiedNonCitizenVerificationCode", namespaces)[0].text).to eq "Y"
+        end
+
+        it "should populate FiveYearBarMetVerificationCode in dhs save verification supplement if present" do
+          result = described_class.new.call(payload_hash.to_json)
+          doc = Nokogiri::XML.parse(result.value!)
+          verification_metadata = doc.xpath("//hix-core:VerificationMetadata", namespaces)[0]
+          expect(verification_metadata.xpath("//hix-core:FiveYearBarMetVerificationCode", namespaces)[0].text).to eq "Y"
+        end
       end
 
       context "when no valid ssa_response exists for the person" do
@@ -398,6 +482,8 @@ RSpec.describe AcaEntities::Atp::Operations::Aces::GenerateXml  do
           }]
           person_2[:ssa_responses] = []
           person_3[:ssa_responses] = []
+          person_2[:vlp_responses] = []
+          person_3[:vlp_responses] = []
           payload_hash.to_json
         end
 

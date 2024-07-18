@@ -40,6 +40,10 @@ module AcaEntities
             # An information exchange system that requested a verification.
             has_one :verification_requesting_system, VerificationRequestingSystem
 
+            # A verification supplement provided by the Department of Homeland Security (DHS) Systematic Alien
+            # Verification for Entitlements (SAVE) program.
+            has_one :dhs_save_verification_supplement, DhsSaveVerificationSupplement
+
             # True if the information has been verified as accurate; false if the information has been rejected as inaccurate.
             element :verification_indicator, Boolean, tag: 'VerificationIndicator'
 
@@ -81,6 +85,9 @@ module AcaEntities
                 mapper.verification_category_codes = metadata.verification_category_codes.map {|vc| VerificationCategoryCode.domain_to_mapper(vc)}
               end
               mapper.verification_status = VerificationStatus.domain_to_mapper(metadata.verification_status)
+              if metadata.dhs_save_verification_supplement.present?
+                mapper.dhs_save_verification_supplement = DhsSaveVerificationSupplement.domain_to_mapper(metadata.dhs_save_verification_supplement)
+              end
               mapper
             end
 

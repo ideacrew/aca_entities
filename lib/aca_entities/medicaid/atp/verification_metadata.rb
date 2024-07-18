@@ -9,6 +9,7 @@ module AcaEntities
         attribute :id, Types::String.optional.meta(omittable: true)
         attribute :verification_date, VerificationDate.meta(omittable: false)
         attribute :verification_requesting_system, VerificationRequestingSystem.meta(omittable: false)
+        attribute :dhs_save_verification_supplement, DhsSaveVerificationSupplement.optional.meta(omittable: true)
         attribute :address_verification_code, Types::String.optional.meta(omittable: true)
         attribute :dhs_g845_verification_code, Types::String.optional.meta(omittable: true)
         attribute :dhs_save_verification_code, Types::String.optional.meta(omittable: true)
