@@ -12,7 +12,7 @@ module AcaEntities
       # Validates the input parameters using the AccountContract and expects
       # the account to have a list of contacts.
       class CreateAccount
-        include Dry::Monads[:result, :do]
+        include Dry::Monads[:do, :result]
 
         # Calls the operation
         #

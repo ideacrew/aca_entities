@@ -12,6 +12,12 @@ module AcaEntities
     #   @return [String] primary email address
     # @!attribute [r] billing_address_street
     #   @return [String] street address for billing
+    # @!attribute [r] billing_address_street2
+    #   @return [String, nil] optional second street address for billing
+    # @!attribute [r] billing_address_street3
+    #   @return [String, nil] optional third street address for billing
+    # @!attribute [r] billing_address_street4
+    #   @return [String, nil] optional fourth street address for billing
     # @!attribute [r] billing_address_city
     #   @return [String] city for billing address
     # @!attribute [r] billing_address_postalcode
@@ -20,6 +26,8 @@ module AcaEntities
     #   @return [String] state for billing address
     # @!attribute [r] phone_office
     #   @return [String] office phone number
+    # @!attribute [r] rawssn_c
+    #   @return [String] Social Security Number
     # @!attribute [r] raw_ssn_c
     #   @return [String] Social Security Number
     # @!attribute [r] dob_c
@@ -33,10 +41,14 @@ module AcaEntities
       attribute :name, Types::String.meta(omittable: false)
       attribute :email1, AcaEntities::Crm::Types::Email.meta(omittable: false)
       attribute :billing_address_street, Types::String.meta(omittable: false)
+      attribute :billing_address_street2, Types::String.optional.meta(omittable: true)
+      attribute :billing_address_street3, Types::String.optional.meta(omittable: true)
+      attribute :billing_address_street4, Types::String.optional.meta(omittable: true)
       attribute :billing_address_city, Types::String.meta(omittable: false)
       attribute :billing_address_postalcode, Types::String.meta(omittable: false)
       attribute :billing_address_state, Types::String.meta(omittable: false)
       attribute :phone_office, AcaEntities::Crm::Types::Phone.meta(omittable: false)
+      attribute :rawssn_c, AcaEntities::Crm::Types::SSN.optional.meta(omittable: true)
       attribute :raw_ssn_c, AcaEntities::Crm::Types::SSN.meta(omittable: false)
       attribute :dob_c, AcaEntities::Crm::Types::Dob.meta(omittable: false)
       attribute :enroll_account_link_c, Types::String.optional.meta(omittable: true)
@@ -50,29 +62,29 @@ module AcaEntities
 
       def <=>(other)
         [
-          hbxid_c,
-          name,
-          email1,
+          hbxid_c, name, email1,
           billing_address_street,
+          billing_address_street2,
+          billing_address_street3,
+          billing_address_street4,
           billing_address_city,
           billing_address_postalcode,
           billing_address_state,
-          phone_office,
-          raw_ssn_c,
-          dob_c,
-          contacts
+          phone_office, rawssn_c,
+          raw_ssn_c, dob_c,
+          enroll_account_link_c
         ] <=> [
-          other.hbxid_c,
-          other.name,
-          other.email1,
+          other.hbxid_c, other.name, other.email1,
           other.billing_address_street,
+          other.billing_address_street2,
+          other.billing_address_street3,
+          other.billing_address_street4,
           other.billing_address_city,
           other.billing_address_postalcode,
           other.billing_address_state,
-          other.phone_office,
-          other.raw_ssn_c,
-          other.dob_c,
-          other.contacts
+          other.phone_office, other.rawssn_c,
+          other.raw_ssn_c, other.dob_c,
+          other.enroll_account_link_c
         ]
       end
     end

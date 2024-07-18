@@ -22,10 +22,10 @@ module AcaEntities
       Email = Types::String.constrained(format: /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i)
 
       # @!attribute [r] SSN
-      # A string representation of a Social Security Number in the format XXX-XX-XXXX
+      # A string representation of a Social Security Number in plain numbers format
       # @example
-      #   "123-45-6789"
-      SSN = Types::String.constrained(format: /\A\d{3}-\d{2}-\d{4}\z/)
+      #   "123456789"
+      SSN = Types::String.constrained(format: /\A\d{9}\z/)
 
       # @!attribute [r] Phone
       # A string representation of a phone number in the format (XXX) XXX-XXXX
