@@ -295,7 +295,8 @@ RSpec.shared_context 'sample family cv' do
     {
       first_name: 'first name',
       last_name: 'last name',
-      middle_name: 'middle name'
+      middle_name: 'middle name',
+      full_name: 'first name last name',
     }
   end
 
@@ -636,7 +637,7 @@ RSpec.shared_context 'sample family cv' do
     [
       {
         hbx_id: '1001',
-        is_primary_applicant: false,
+        is_primary_applicant: true,
         is_consent_applicant: true,
         is_coverage_applicant: nil,
         is_active: true,
