@@ -83,9 +83,7 @@ module AcaEntities
           end
 
           def fetch_phone_number(phones)
-            phones.detect {|phone| phone.kind == "mobile"}.try(:full_phone_number) || phones.detect do |phone|
-              phone.kind == "home"
-            end.try(:full_phone_number)
+            phones.detect {|phone| phone.kind == "mobile"}.try(:full_phone_number) || phones.detect { |phone| phone.kind == "home" }.try(:full_phone_number)
           end
 
           def decrypt_ssn(encrypted_ssn)
