@@ -296,7 +296,7 @@ RSpec.shared_context 'sample family cv' do
       first_name: 'first name',
       last_name: 'last name',
       middle_name: 'middle name',
-      full_name: 'first name last name',
+      full_name: 'first name last name'
     }
   end
 

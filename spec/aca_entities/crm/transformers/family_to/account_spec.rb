@@ -60,10 +60,9 @@ RSpec.describe AcaEntities::Crm::Transformers::FamilyTo::Account do
 
     before do
       encrypted_ssn = AcaEntities::Operations::Encryption::Encrypt.new.call({ value: ssn })
-      family_cv[:family_members].first[:person][:person_demographics].merge!({encrypted_ssn: encrypted_ssn.success})
+      family_cv[:family_members].first[:person][:person_demographics].merge!({ encrypted_ssn: encrypted_ssn.success })
       @family_with_ssn = ::AcaEntities::Operations::CreateFamily.new.call(family_cv).success
     end
-
 
     it "returns transformed raw ssn" do
       result = subject.call(@family_with_ssn)

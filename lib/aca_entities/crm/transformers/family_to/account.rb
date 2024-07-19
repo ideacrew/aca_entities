@@ -33,7 +33,6 @@ module AcaEntities
             Success(primary_family_member)
           end
 
-
           def transform_family(primary_family_member, family)
             primary_person = primary_family_member.person
             addresses = primary_person.addresses
@@ -84,7 +83,9 @@ module AcaEntities
           end
 
           def fetch_phone_number(phones)
-            phones.detect {|phone| phone.kind == "mobile"}.try(:full_phone_number) || phones.detect {|phone| phone.kind == "home"}.try(:full_phone_number)
+            phones.detect {|phone| phone.kind == "mobile"}.try(:full_phone_number) || phones.detect do |phone|
+              phone.kind == "home"
+            end.try(:full_phone_number)
           end
 
           def decrypt_ssn(encrypted_ssn)
@@ -101,7 +102,7 @@ module AcaEntities
             end
             matched_relative&.kind
           end
-      
+
           def transform_contacts(family_members, primary_person)
             family_members.map do |family_member|
               next unless family_member.person.present?
