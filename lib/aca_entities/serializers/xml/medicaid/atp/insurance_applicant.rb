@@ -112,7 +112,7 @@ module AcaEntities
                   Incarceration.domain_to_mapper(insurance_applicant, inc, verification_metadata)
                 end
               end
-              mapper.lawful_presence_status = InsuranceApplicantLawfulPresenceStatus.domain_to_mapper(insurance_applicant.lawful_presence_status)
+              mapper.lawful_presence_status = InsuranceApplicantLawfulPresenceStatus.domain_to_mapper(insurance_applicant, verification_metadata)
               mapper.non_esi_coverage_indicators = insurance_applicant.non_esi_coverage_indicators
               mapper.non_esi_policies =  insurance_applicant.non_esi_policies.map { |inc| InsuranceApplicantNonEsiPolicy.domain_to_mapper(inc) }
               mapper.esi_associations =  insurance_applicant.esi_associations.map { |inc| EsiAssociation.domain_to_mapper(inc) }
