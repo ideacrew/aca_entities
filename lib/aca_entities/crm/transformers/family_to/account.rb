@@ -56,7 +56,7 @@ module AcaEntities
               }
             )
           rescue StandardError => e
-            Failure("Unable to transform Sugar Account: #{e.message}, backtrace: #{e.backtrace}")
+            Failure("Unable to transform Family entity into Account due to: #{e.message}, backtrace: #{e.backtrace}")
           end
 
           def fetch_address(person, kind)
