@@ -94,6 +94,36 @@ module AcaEntities
         addresses.detect { |addr| addr.kind == 'home' }
       end
 
+      def mailing_address
+        return nil if addresses.empty?
+
+        addresses.detect { |addr| addr.kind == 'mailing' }
+      end
+
+      def best_address
+        return nil if addresses.empty?
+
+        addresses.first
+      end
+
+      def work_email
+        return nil if emails.empty?
+
+        emails.detect { |email| email.kind == 'work' }.try(:address)
+      end
+
+      def home_email
+        return nil if emails.empty?
+
+        emails.detect { |email| email.kind == 'home' }.try(:address)
+      end
+
+      def mobile_phone
+        return nil if phones.empty?
+
+        phones.detect { |phone| phone.kind == 'mobile' }
+      end
+
       def home_phone
         return nil if phones.empty?
 

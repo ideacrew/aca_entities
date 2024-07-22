@@ -36,20 +36,19 @@ module AcaEntities
           def transform_family(primary_family_member, family)
             primary_person = primary_family_member.person
             addresses = primary_person.addresses
-
             Success(
               {
                 hbxid_c: primary_person.hbx_id,
                 name: primary_person.person_name.full_name,
-                email1: fetch_email(primary_person.emails),
-                billing_address_street: fetch_address(addresses, 'billing_address_street'),
-                billing_address_street2: fetch_address(addresses, 'billing_address_street2'),
-                billing_address_street3: fetch_address(addresses, 'billing_address_street3'),
+                email1: primary_person.home_email || primary_person.work_email,
+                billing_address_street: fetch_address(primary_person, 'billing_address_street'),
+                billing_address_street2: fetch_address(primary_person, 'billing_address_street2'),
+                billing_address_street3: fetch_address(primary_person, 'billing_address_street3'),
                 billing_address_street4: nil,
-                billing_address_city: fetch_address(addresses, 'billing_address_city'),
-                billing_address_postalcode: fetch_address(addresses, 'billing_address_postalcode'),
-                billing_address_state: fetch_address(addresses, 'billing_address_state'),
-                phone_office: fetch_phone_number(primary_person.phones),
+                billing_address_city: fetch_address(primary_person, 'billing_address_city'),
+                billing_address_postalcode: fetch_address(primary_person, 'billing_address_postalcode'),
+                billing_address_state: fetch_address(primary_person, 'billing_address_state'),
+                phone_office: fetch_phone(primary_person),
                 rawssn_c: decrypt_ssn(primary_person.person_demographics.encrypted_ssn),
                 raw_ssn_c: decrypt_ssn(primary_person.person_demographics.encrypted_ssn),
                 dob_c: primary_person&.person_demographics&.dob&.to_s,
@@ -61,31 +60,26 @@ module AcaEntities
             Failure("Unable to transform Sugar Account: #{e.message}, backtrace: #{e.backtrace}")
           end
 
-          def fetch_email(emails)
-            emails.detect {|email| email.kind == "home"}.try(:address) || emails.detect {|email| email.kind == "work"}.try(:address)
-          end
-
-          def fetch_address(addresses, kind)
+          def fetch_address(person, kind)
+            address = person.best_address
             case kind
             when 'billing_address_street'
-              addresses.first.try(:address_1)
+              address.try(:address_1)
             when 'billing_address_street2'
-              addresses.first.try(:address_2)
+              address.try(:address_2)
             when 'billing_address_street3'
-              addresses.first.try(:address_3)
+              address.try(:address_3)
             when 'billing_address_city'
-              addresses.first.try(:city)
+              address.try(:city)
             when 'billing_address_postalcode'
-              addresses.first.try(:zip)
+              address.try(:zip)
             when 'billing_address_state'
-              addresses.first.try(:state)
+              address.try(:state)
             end
           end
 
-          def fetch_phone_number(phones)
-            phones.detect {|phone| phone.kind == "mobile"}.try(:full_phone_number) || phones.detect do |phone|
-              phone.kind == "home"
-            end.try(:full_phone_number)
+          def fetch_phone(person)
+            person.mobile_phone.try(:full_phone_number) || person.home_phone.try(:full_phone_number)
           end
 
           def decrypt_ssn(encrypted_ssn)
@@ -111,8 +105,8 @@ module AcaEntities
                 hbxid_c: hbx_id,
                 first_name: family_member.person.person_name.first_name,
                 last_name: family_member.person.person_name.last_name,
-                phone_mobile: fetch_phone_number(family_member.person.phones),
-                email1: fetch_email(family_member.person.emails),
+                phone_mobile: fetch_phone(primary_person),
+                email1: primary_person.home_email || primary_person.work_email,
                 birthdate: family_member&.person&.person_demographics&.dob&.to_s,
                 relationship_c: fetch_relationship_to_primary(hbx_id, primary_person)
               }
