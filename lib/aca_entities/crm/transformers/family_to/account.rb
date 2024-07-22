@@ -35,7 +35,6 @@ module AcaEntities
 
           def transform_family(primary_family_member, family)
             primary_person = primary_family_member.person
-            addresses = primary_person.addresses
             Success(
               {
                 hbxid_c: primary_person.hbx_id,
