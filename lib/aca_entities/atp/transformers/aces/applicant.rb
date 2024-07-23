@@ -68,14 +68,6 @@ module AcaEntities
           }
 
           map 'need_help_paying_bills', 'recent_medical_bills_indicator'
-          add_key 'referral_activity.activity_id.identification_id', function: lambda {|v|
-            ["SBM", DateTime.now.strftime("%Y%m%d%H%M%S"), v.resolve('role_reference.ref').item&.slice(-3..-1)].join
-          }
-          add_key 'referral_activity.activity_date.date_time', value: ->(_v) {DateTime.now} # default value
-          add_key 'referral_activity.sender_reference.ref', value: "Sender"
-          add_key 'referral_activity.receiver_reference.ref', value: "medicaidReceiver"
-          add_key 'referral_activity.status.status_code', value: "Initiated" # default value
-          add_key 'referral_activity.reason_code', value: "FullDetermination" # default value
         end
       end
     end

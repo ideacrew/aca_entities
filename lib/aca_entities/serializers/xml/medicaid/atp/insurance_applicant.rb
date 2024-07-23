@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 
+require_relative "insurance_applicant_lawful_presence_status"
+require_relative "insurance_applicant_non_esi_policy"
+
 module AcaEntities
   module Serializers
     module Xml
@@ -8,6 +11,8 @@ module AcaEntities
           # A person requesting insurance coverage (either to obtain a new policy or to maintain enrollment in an existing policy).
           class InsuranceApplicant
             include HappyMapper
+
+            register_namespace 'me-atp', 'http://xmlns.coverme.gov/atp/hix-ee'
 
             tag 'InsuranceApplicant'
             namespace 'hix-ee'
@@ -94,6 +99,8 @@ module AcaEntities
             # A referral of an insurance applicant from one information exchange system to another.
             has_one :referral_activity, ReferralActivity
 
+            has_one :additional_referral_activity, AdditionalReferralActivity, namespace: "me-atp"
+
             # True if the applicant has ever been in foster care; false otherwise.
             element :foster_care_indicator, Boolean, tag: 'InsuranceApplicantFosterCareIndicator'
 
@@ -134,9 +141,7 @@ module AcaEntities
                 mapper.foster_care_state = insurance_applicant.foster_care_state
               end
               mapper.had_medicaid_during_foster_care_indicator = insurance_applicant.had_medicaid_during_foster_care_indicator
-              if insurance_applicant&.referral_activity
-                mapper.referral_activity = ReferralActivity.domain_to_mapper(insurance_applicant&.referral_activity)
-              end
+              encode_ref_activity(mapper, insurance_applicant&.referral_activity)
               mapper
             end
 
@@ -177,6 +182,16 @@ module AcaEntities
                 foster_care_indicator: foster_care_indicator,
                 parent_average_hours_worked_per_week_values: parent_average_hours_worked_per_week_values
               }
+            end
+
+            def self.encode_ref_activity(mapper, ref_activity)
+              return unless ref_activity
+
+              if ref_activity.additional_reason_codes.present? && ref_activity.additional_reason_codes.any?
+                mapper.additional_referral_activity = AdditionalReferralActivity.domain_to_mapper(ref_activity)
+              else
+                mapper.referral_activity = ReferralActivity.domain_to_mapper(ref_activity)
+              end
             end
           end
         end
