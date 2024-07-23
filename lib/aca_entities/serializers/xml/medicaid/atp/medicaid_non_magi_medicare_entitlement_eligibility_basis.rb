@@ -9,11 +9,14 @@ module AcaEntities
           class MedicaidNonMagiMedicareEntitlementEligibilityBasis
             include HappyMapper
 
+            register_namespace 'hix-core', 'http://hix.cms.gov/0.1/hix-core'
+            register_namespace 'hix-ee', 'http://hix.cms.gov/0.1/hix-ee'
+
             tag 'MedicaidNonMAGIMedicareEntitlementEligibilityBasis'
             namespace 'hix-ee'
 
-            element :status_indicator, Boolean, tag: 'StatusIndicator', namespace: "ns3"
-            element :status_code, Boolean, tag: 'EligibilityBasisStatusCode', namespace: "ns5"
+            element :status_indicator, Boolean, tag: 'StatusIndicator', namespace: "hix-core"
+            element :status_code, Boolean, tag: 'EligibilityBasisStatusCode', namespace: "hix-ee"
 
             def self.domain_to_mapper(eligibility_basis)
               mapper = self.new
