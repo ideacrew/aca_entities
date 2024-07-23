@@ -305,6 +305,13 @@ module AcaEntities
             is_head_of_household: is_head_of_household }
         end
 
+        def resolve_incarcerations
+          return unless @applicant_hash
+          first_incarceration = @applicant_hash[:incarcerations]&.first
+          return unless first_incarceration
+          first_incarceration[:incarceration_indicator]
+        end
+
         def applicant_hash
           # non_magi = @memoized_data.find(Regexp.new('attestations.members.*.nonMagi')).map(&:item).last
           tribe_indicator = @tribal_augmentation[:american_indian_or_alaska_native_indicator]
@@ -326,11 +333,11 @@ module AcaEntities
             tribal_name: tribe_indicator ? @tribal_augmentation[:person_tribe_name] : nil,
             citizenship_immigration_status_information: @applicant_hash.nil? ? nil : citizenship_immigration_hash,
             eligible_immigration_status: lawful_presence_status_eligibility,
-            is_incarcerated: @memoized_data.find(Regexp.new("person_demographics.is_incarcerated.#{@applicant_identifier}"))&.first&.item || false,
             is_consumer_role: true, # default value
             is_resident_role: nil,
             is_applying_coverage: !@applicant_hash.nil?, # default value
             is_consent_applicant: nil,
+            is_incarcerated: resolve_incarcerations,
             # assumption that the first immigration document sent holds the subject for the FAA applicant, may need to be revisited
             vlp_subject: vlp_documents_hash&.first&.dig(:subject),
             alien_number: vlp_documents_hash&.select { |document| document[:alien_number].present? }&.first&.dig(:alien_number),
