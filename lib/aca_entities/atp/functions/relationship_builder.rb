@@ -2,6 +2,7 @@
 
 require 'aca_entities/types'
 require 'dry/monads'
+require 'active_support/core_ext/string/conversions'
 
 # rubocop:disable Metrics/CyclomaticComplexity
 module AcaEntities
