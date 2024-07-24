@@ -713,6 +713,43 @@ RSpec.describe AcaEntities::Atp::Operations::Aces::GenerateXml  do
         end
       end
 
+      context "when no valid vlp_response exists for the person" do
+        let(:invalid_vlp_response_payload) do
+          person_1 = payload_hash[:family][:family_members][0][:person][:consumer_role][:lawful_presence_determination]
+          person_2 = payload_hash[:family][:family_members][1][:person][:consumer_role][:lawful_presence_determination]
+          person_3 = payload_hash[:family][:family_members][2][:person][:consumer_role][:lawful_presence_determination]
+          person_1[:ssa_responses] = []
+          person_2[:ssa_responses] = []
+          person_2[:vlp_responses] = []
+          person_2[:vlp_responses] = [{
+            received_at: "2024-06-20T18:48:28.368+00:00",
+            body: "{\"ResponseMetadata\":{\"ResponseCode\":\"HX005001\",
+\"ResponseDescriptionText\":\"Unexpected Exception Occurred at Trusted Data Source\"},
+\"InitialVerificationResponseSet\":{\"InitialVerificationIndividualResponses\":[{
+\"ResponseMetadata\":{\"ResponseCode\":\"HX005001\",\"ResponseDescriptionText\":\"Unexpected Exception Occurred at Trusted Data Source\"},
+\"LawfulPresenceVerifiedCode\":\"N\",\"InitialVerificationIndividualResponseSet\":{\"CaseNumber\":null,
+\"NonCitLastName\":null,\"NonCitFirstName\":null,\"NonCitMiddleName\":null,\"NonCitBirthDate\":null,
+\"NonCitEntryDate\":null,\"AdmittedToDate\":null,\"AdmittedToText\":null,\"NonCitCountryBirthCd\":null,
+\"NonCitCountryCitCd\":null,\"NonCitCoaCode\":null,\"NonCitProvOfLaw\":null,\"NonCitEadsExpireDate\":null,
+\"EligStatementCd\":null,\"EligStatementTxt\":null,\"IAVTypeCode\":null,\"IAVTypeTxt\":null,\"WebServSftwrVer\":null,
+\"GrantDate\":null,\"GrantDateReasonCd\":null,\"SponsorDataFoundIndicator\":null,\"ArrayOfSponsorshipData\":null,
+\"SponsorshipReasonCd\":null,\"AgencyAction\":null,\"FiveYearBarApplyCode\":null,\"QualifiedNonCitizenCode\":null,
+\"FiveYearBarMetCode\":null,\"USCitizenCode\":null}}]}}"
+          }]
+          person_3[:ssa_responses] = []
+          person_3[:vlp_responses] = []
+          payload_hash.to_json
+        end
+
+        it "should set verification metadata with no errors" do
+          result = described_class.new.call(invalid_vlp_response_payload)
+          doc = Nokogiri::XML.parse(result.value!)
+          verification_metadata = doc.xpath("//hix-core:VerificationMetadata", namespaces)[0]
+          expect(result.success?).to be_truthy
+          expect(verification_metadata.present?).to be_truthy
+        end
+      end
+
       context "when no valid ssa_response exists for the person" do
         let(:invalid_ssa_response_payload) do
           person_1 = payload_hash[:family][:family_members][0][:person][:consumer_role][:lawful_presence_determination]

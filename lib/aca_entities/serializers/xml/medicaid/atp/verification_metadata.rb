@@ -65,11 +65,11 @@ module AcaEntities
 
             element :response_code, String, tag: 'ResponseCode'
 
-            def self.domain_to_mapper(metadata)
+            def self.domain_to_mapper(metadata) # rubocop:disable Metrics/AbcSize
               mapper = self.new
               mapper.address_verification_code = metadata.address_verification_code
               mapper.dhs_g845_verification_code = metadata.dhs_g845_verification_code
-              mapper.dhs_save_verification_code = metadata.dhs_save_verification_code
+              mapper.dhs_save_verification_code = metadata.dhs_save_verification_code if metadata.dhs_save_verification_code.present?
               mapper.ffe_verification_code = metadata.ffe_verification_code
               mapper.verification_authority_name = metadata.verification_authority_name
               mapper.verification_authority_alpha_code = metadata.verification_authority_alpha_code
