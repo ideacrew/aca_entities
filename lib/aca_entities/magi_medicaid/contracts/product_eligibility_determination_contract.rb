@@ -41,6 +41,7 @@ module AcaEntities
 
           optional(:is_non_magi_medicaid_eligible).maybe(:bool)
           optional(:is_without_assistance).maybe(:bool)
+          optional(:is_gap_filling).maybe(:bool)
 
           optional(:magi_medicaid_monthly_household_income).maybe(Types::Money)
           optional(:medicaid_household_size).maybe(:integer)
