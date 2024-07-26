@@ -116,6 +116,10 @@ module AcaEntities
                     return nil unless tribe_indicator
                     tribal_augmentation[:person_tribe_name]
                   }
+                  add_key 'person.person_demographics.indian_tribe_member', function: lambda { |v|
+                    tribal_augmentation = v.find(Regexp.new('record.people.*.tribal_augmentation')).map(&:item).last
+                    tribal_augmentation[:american_indian_or_alaska_native_indicator]
+                  }
                   map 'augementation', 'augementation', memoize_record: true, visible: false
                   add_key 'person.addresses', memoize_record: true, function: AcaEntities::Atp::Functions::AddressBuilder.new
                   add_key 'person.is_homeless', function: lambda { |v|
