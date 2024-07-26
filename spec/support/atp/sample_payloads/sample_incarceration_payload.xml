@@ -301,7 +301,10 @@
     </nc:PersonSSNIdentification>
     <nc:PersonUSCitizenIndicator>false</nc:PersonUSCitizenIndicator>
     <hix-core:TribalAugmentation>
-      <hix-core:PersonAmericanIndianOrAlaskaNativeIndicator>false</hix-core:PersonAmericanIndianOrAlaskaNativeIndicator>
+      <hix-core:PersonRecognizedTribeIndicator>true</hix-core:PersonRecognizedTribeIndicator>
+      <hix-core:PersonAmericanIndianOrAlaskaNativeIndicator>true</hix-core:PersonAmericanIndianOrAlaskaNativeIndicator>
+      <hix-core:PersonTribeName>Eastern Band of Cherokee Indians of North Carolina</hix-core:PersonTribeName>
+      <nc:LocationStateUSPostalServiceCode>ME</nc:LocationStateUSPostalServiceCode>
     </hix-core:TribalAugmentation>
     <hix-core:PersonAugmentation>
       <hix-core:PersonAssociation>
