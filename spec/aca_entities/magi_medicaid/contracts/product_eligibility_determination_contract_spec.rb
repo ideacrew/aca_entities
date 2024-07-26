@@ -17,6 +17,7 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Contracts::ProductEligibilityDetermi
       medicaid_household_size: 1,
       magi_medicaid_monthly_income_limit: 3760.67,
       magi_as_percentage_of_fpl: 10.0,
+      is_gap_filling: true,
       magi_medicaid_category: 'parent_caretaker'
     }
   end
