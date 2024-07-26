@@ -307,9 +307,14 @@ RSpec.shared_context 'sample family cv' do
     }
   end
 
+  let(:encrypted_ssn) do
+    AcaEntities::Operations::Encryption::Encrypt.new.call({ value: '123456789' }).success
+  end
+
   let(:person_demographics) do
     {
-      ssn: "123456789",
+      ssn: '123456789',
+      encrypted_ssn: encrypted_ssn,
       no_ssn: false,
       gender: 'male',
       dob: Date.today,
@@ -325,7 +330,8 @@ RSpec.shared_context 'sample family cv' do
       middle_name: 'middle name',
       dob: Date.today,
       gender: 'male',
-      ssn: nil
+      encrypted_ssn: encrypted_ssn,
+      ssn: '123456789'
     }
   end
 

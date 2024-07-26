@@ -18,13 +18,13 @@ module AcaEntities
       #   @return [Dry::Monads::Result]
       class ContactContract < Dry::Validation::Contract
         params do
-          required(:hbxid_c).filled(:string)
-          required(:first_name).filled(:string)
-          required(:last_name).filled(:string)
+          required(:hbxid_c).filled(Types::Coercible::String)
+          required(:first_name).filled(Types::Coercible::String)
+          required(:last_name).filled(Types::Coercible::String)
           optional(:phone_mobile).maybe(AcaEntities::Crm::Types::Phone)
           optional(:email1).maybe(AcaEntities::Crm::Types::Email)
           required(:birthdate).filled(AcaEntities::Crm::Types::Dob)
-          required(:relationship_c).filled(:string)
+          required(:relationship_c).filled(Types::Coercible::String)
         end
       end
     end

@@ -7,10 +7,15 @@ module AcaEntities
   module Crm
     module Transformers
       module SugarAccountTo
-        # Transforms a Sugar Account to an Account entity
+        # Transforms a SugarCRM Account record to an Account entity suitable for AcaEntities.
         class Account
           include Dry::Monads[:do, :result]
 
+          # Transforms SugarCRM account data to AcaEntities account format.
+          #
+          # @param params [Hash] The SugarCRM account data.
+          # @return [Dry::Monads::Result::Success] When transformation succeeds.
+          # @return [Dry::Monads::Result::Failure] When transformation fails.
           def call(params)
             result = yield transform(params)
 
@@ -19,6 +24,11 @@ module AcaEntities
 
           private
 
+          # Performs the transformation of account data.
+          #
+          # @param params [Hash] The original SugarCRM account data.
+          # @return [Dry::Monads::Result::Success<Hash>] The transformed account data.
+          # @raise [StandardError] If any error occurs during the transformation process.
           def transform(params)
             Success(
               {
@@ -34,8 +44,7 @@ module AcaEntities
                 billing_address_state: params[:billing_address_state],
                 phone_office: params[:phone_office],
                 rawssn_c: params[:rawssn_c],
-                # Incoming/inbound sugar 'raw_ssn_c' might have a different format than the expected format.
-                raw_ssn_c: params[:raw_ssn_c],
+                raw_ssn_c: params[:raw_ssn_c], # Duplicate key, possibly an error.
                 dob_c: params[:dob_c],
                 contacts: transform_contacts(params[:contacts])
               }
@@ -44,6 +53,10 @@ module AcaEntities
             Failure("Unable to transform Sugar Account: #{e.message}")
           end
 
+          # Transforms contact data associated with the SugarCRM account.
+          #
+          # @param sugar_contacts [Array<Hash>] The contact data from SugarCRM.
+          # @return [Array<Hash>] The transformed contact data.
           def transform_contacts(sugar_contacts)
             sugar_contacts.map do |contact|
               {

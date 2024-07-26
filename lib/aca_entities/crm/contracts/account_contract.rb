@@ -26,21 +26,21 @@ module AcaEntities
       #   @return [Dry::Monads::Result]
       class AccountContract < Dry::Validation::Contract
         params do
-          required(:hbxid_c).filled(:string)
-          required(:name).filled(:string)
+          required(:hbxid_c).filled(Types::Coercible::String)
+          required(:name).filled(Types::Coercible::String)
           required(:email1).filled(AcaEntities::Crm::Types::Email)
-          required(:billing_address_street).filled(:string)
-          optional(:billing_address_street2).maybe(:string)
-          optional(:billing_address_street3).maybe(:string)
-          optional(:billing_address_street4).maybe(:string)
-          required(:billing_address_city).filled(:string)
-          required(:billing_address_postalcode).filled(:string)
-          required(:billing_address_state).filled(:string)
+          required(:billing_address_street).filled(Types::Coercible::String)
+          optional(:billing_address_street2).maybe(Types::Coercible::String)
+          optional(:billing_address_street3).maybe(Types::Coercible::String)
+          optional(:billing_address_street4).maybe(Types::Coercible::String)
+          required(:billing_address_city).filled(Types::Coercible::String)
+          required(:billing_address_postalcode).filled(Types::Coercible::String)
+          required(:billing_address_state).filled(Types::Coercible::String)
           required(:phone_office).filled(AcaEntities::Crm::Types::Phone)
           optional(:rawssn_c).maybe(AcaEntities::Crm::Types::SSN)
           required(:raw_ssn_c).filled(AcaEntities::Crm::Types::SSN)
           required(:dob_c).filled(AcaEntities::Crm::Types::Dob)
-          optional(:enroll_account_link_c).maybe(:string)
+          optional(:enroll_account_link_c).maybe(Types::Coercible::String)
 
           required(:contacts).array(AcaEntities::Crm::Contracts::ContactContract.params)
         end

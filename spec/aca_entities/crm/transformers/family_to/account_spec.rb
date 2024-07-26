@@ -15,6 +15,24 @@ RSpec.describe AcaEntities::Crm::Transformers::FamilyTo::Account do
     @result = subject.call(input_params)
   end
 
+  context 'valid params' do
+    context 'validates contract' do
+      it 'passes contract validations' do
+        expect(
+          AcaEntities::Crm::Contracts::AccountContract.new.call(@result.success).success?
+        ).to be_truthy
+      end
+    end
+
+    context 'creates a valid account' do
+      it 'returns account entity' do
+        expect(
+          AcaEntities::Crm::Operations::CreateAccount.new.call(@result.success).success
+        ).to be_a(AcaEntities::Crm::Account)
+      end
+    end
+  end
+
   context "valid params" do
     it "returns a success" do
       expect(@result.success?).to be_truthy
@@ -41,9 +59,8 @@ RSpec.describe AcaEntities::Crm::Transformers::FamilyTo::Account do
   end
 
   context "transformed phones" do
-
     it "returns transformed phone" do
-      expect(@result.success[:phone_office]).to eq(phones.first[:full_phone_number])
+      expect(@result.success[:phone_office]).to eq('(202) 299-1290')
     end
   end
 

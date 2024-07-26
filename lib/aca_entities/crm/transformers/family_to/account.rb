@@ -13,9 +13,9 @@ module AcaEntities
           include Dry::Monads[:do, :result]
 
           def call(family)
-            family = yield validate(family)
+            family                = yield validate(family)
             primary_family_member = yield fetch_primary_family_member(family)
-            result = yield transform_family(primary_family_member, family)
+            result                = yield transform_family(primary_family_member, family)
 
             Success(result)
           end
@@ -23,18 +23,26 @@ module AcaEntities
           private
 
           def validate(family)
-            return Failure("Invalid family object: #{family.class}") unless family.is_a?(AcaEntities::Families::Family)
-            Success(family)
+            if family.is_a?(AcaEntities::Families::Family)
+              Success(family)
+            else
+              Failure("Invalid family object: #{family.class}")
+            end
           end
 
           def fetch_primary_family_member(family)
             primary_family_member = family.family_members.detect(&:is_primary_applicant)
-            return Failure("Primary family member not found") unless primary_family_member.present?
-            Success(primary_family_member)
+            if primary_family_member.present?
+              Success(primary_family_member)
+            else
+              Failure("Primary family member not found")
+            end
           end
 
           def transform_family(primary_family_member, family)
             primary_person = primary_family_member.person
+            raw_ssn = decrypt_ssn(primary_person.person_demographics.encrypted_ssn)
+
             Success(
               {
                 hbxid_c: primary_person.hbx_id,
@@ -47,9 +55,8 @@ module AcaEntities
                 billing_address_city: fetch_address(primary_person, 'billing_address_city'),
                 billing_address_postalcode: fetch_address(primary_person, 'billing_address_postalcode'),
                 billing_address_state: fetch_address(primary_person, 'billing_address_state'),
-                phone_office: fetch_phone(primary_person),
-                rawssn_c: decrypt_ssn(primary_person.person_demographics.encrypted_ssn),
-                raw_ssn_c: decrypt_ssn(primary_person.person_demographics.encrypted_ssn),
+                phone_office: fetch_and_format_phone(primary_person),
+                rawssn_c: raw_ssn, raw_ssn_c: raw_ssn,
                 dob_c: primary_person&.person_demographics&.dob&.to_s,
                 enroll_account_link_c: primary_person.external_person_link,
                 contacts: transform_contacts(family.family_members, primary_person)
@@ -77,8 +84,20 @@ module AcaEntities
             end
           end
 
-          def fetch_phone(person)
-            person.mobile_phone.try(:full_phone_number) || person.home_phone.try(:full_phone_number)
+          # Fetches a person's phone number and formats it.
+          # If the person has a mobile phone, it uses that; otherwise, it falls back to the home phone.
+          # The phone number is formatted as "(XXX) XXX-XXXX" where X represents a digit.
+          #
+          # @param person [Object] The person object expected to respond to `mobile_phone` and `home_phone`.
+          # @return [String, nil] The formatted phone number or nil if the person has no phone or the phone number is invalid.
+          def fetch_and_format_phone(person)
+            phone = person.mobile_phone || person.home_phone
+            return nil if phone.blank?
+
+            phone_number = phone.area_code + phone.number
+            return nil unless phone_number.match?(/\A\d{10}\z/)
+
+            phone_number.gsub(/(\d{3})(\d{3})(\d{4})/, '(\1) \2-\3')
           end
 
           def decrypt_ssn(encrypted_ssn)
@@ -104,7 +123,7 @@ module AcaEntities
                 hbxid_c: hbx_id,
                 first_name: family_member.person.person_name.first_name,
                 last_name: family_member.person.person_name.last_name,
-                phone_mobile: fetch_phone(primary_person),
+                phone_mobile: fetch_and_format_phone(primary_person),
                 email1: primary_person.home_email || primary_person.work_email,
                 birthdate: family_member&.person&.person_demographics&.dob&.to_s,
                 relationship_c: fetch_relationship_to_primary(hbx_id, primary_person)
