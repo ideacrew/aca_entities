@@ -27,9 +27,9 @@ RSpec.describe AcaEntities::Atp::Functions::BuildApplication do
       result = subject.first
       expect(result[:applicants].first[:has_eligible_health_coverage]).to be_truthy
     end
-    it "should contain nil for applicant without other eligible coverage" do
+    it "should contain false for applicant without other eligible coverage" do
       result = subject.first
-      expect(result[:applicants][1][:has_eligible_health_coverage]).to be nil
+      expect(result[:applicants][1][:has_eligible_health_coverage]).to be_falsey
     end
   end
 
@@ -45,6 +45,21 @@ RSpec.describe AcaEntities::Atp::Functions::BuildApplication do
     end
     it "should return not lawfully present status for applicant without citizenship status" do
       expect(@result[:applicants][2][:citizenship_immigration_status_information][:citizen_status]).to eq("not_lawfully_present_in_us")
+    end
+  end
+
+  context "with valid xml containing applicant filing tax return jointly" do
+    before do
+      @result = subject.last
+    end
+    it "should return true for is_joint_tax_filing" do
+      expect(@result[:applicants][0][:is_joint_tax_filing]).to be_truthy
+    end
+    it "should return joint for tax_filer_kind" do
+      expect(@result[:applicants][0][:tax_filer_kind]).to eq("joint")
+    end
+    it "should return true for is_required_to_file_taxes" do
+      expect(@result[:applicants][0][:is_required_to_file_taxes]).to be_truthy
     end
   end
 
@@ -78,7 +93,7 @@ RSpec.describe AcaEntities::Atp::Functions::BuildApplication do
     end
   end
 
-  context "with valid xml containing naturalization certificate document information" do
+  context "with valid xml containing naturalization certificate document information and other document fields" do
     before do
       @result = subject.first
     end
@@ -86,6 +101,11 @@ RSpec.describe AcaEntities::Atp::Functions::BuildApplication do
       expect(@result[:applicants][0][:vlp_subject]).to eq("Naturalization Certificate")
       expect(@result[:applicants][0][:naturalization_number]).to eq(12_345)
       expect(@result[:applicants][0][:alien_number]).to eq(67_890)
+      expect(@result[:applicants][0][:i94_number]).to eq(45_678)
+      expect(@result[:applicants][0][:passport_number]).to eq(14_373)
+      expect(@result[:applicants][0][:sevis_id]).to eq(54_321)
+      expect(@result[:applicants][0][:visa_number]).to eq(56_789)
+      expect(@result[:applicants][0][:country_of_citizenship]).to eq("Brazil")
     end
     it "should return nil naturalization certificate document information for other applicant" do
       expect(@result[:applicants][1][:vlp_subject]).to be nil
@@ -168,6 +188,24 @@ RSpec.describe AcaEntities::Atp::Functions::BuildApplication do
       expect(@result[:applicants][0][:deductions].last[:kind]).to eq("ira_deduction")
       expect(@result[:applicants][0][:deductions].last[:frequency_kind]).to eq("yearly")
       expect(@result[:applicants][0][:deductions].last[:amount]).to eq(100)
+    end
+  end
+
+  context "with valid xml containing applicant with enrolled in health coverage and access to other coverage info" do
+    before do
+      @result = subject.first
+    end
+
+    it "should return correct enrolled in health coverage for applicant" do
+      expect(@result[:applicants][0][:has_enrolled_health_coverage]).to eq(false)
+      expect(@result[:applicants][1][:has_enrolled_health_coverage]).to eq(false)
+      expect(@result[:applicants][2][:has_enrolled_health_coverage]).to eq(false)
+    end
+
+    it "should return correct access to other coverage for applicant" do
+      expect(@result[:applicants][0][:has_eligible_health_coverage]).to eq(true)
+      expect(@result[:applicants][1][:has_eligible_health_coverage]).to eq(false)
+      expect(@result[:applicants][2][:has_eligible_health_coverage]).to eq(false)
     end
   end
 end
