@@ -47,7 +47,8 @@ module AcaEntities
       # The comparison is made in the order of hbxid_c, first_name, last_name, phone_mobile, email1, birthdate, and relationship_c.
       #
       # @param other [Contact] The other contact to compare with.
-      # @return [Integer] Returns -1, 0, or 1 depending on whether the current contact is less than, equal to, or greater than the other contact, respectively.
+      # @return [Integer] Returns -1, 0, or 1 depending on whether the current contact is less than,
+      #   equal to, or greater than the other contact, respectively.
       def <=>(other)
         [
           hbxid_c,
