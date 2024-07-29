@@ -10,7 +10,7 @@ module AcaEntities
       #   @param opts [Hash] the parameters to validate using this contract
       #   @option opts [String] :hbxid_c required
       #   @option opts [String] :name required
-      #   @option opts [String] :email1 required
+      #   @option opts [String] :email1 optional
       #   @option opts [String] :billing_address_street required
       #   @option opts [String] :billing_address_street2 optional
       #   @option opts [String] :billing_address_street3 optional
@@ -18,7 +18,7 @@ module AcaEntities
       #   @option opts [String] :billing_address_city required
       #   @option opts [String] :billing_address_postalcode required
       #   @option opts [String] :billing_address_state required
-      #   @option opts [String] :phone_office required
+      #   @option opts [String] :phone_office optional
       #   @option opts [String] :rawssn_c required
       #   @option opts [String] :raw_ssn_c required
       #   @option opts [Date] :dob_c required
