@@ -25,12 +25,10 @@ RSpec.describe ::AcaEntities::Crm::Account do
     {
       hbxid_c: '12345',
       name: 'John Doe',
-      email1: email,
       billing_address_street: '123 Main St',
       billing_address_city: 'Anytown',
       billing_address_postalcode: '12345',
       billing_address_state: 'ST',
-      phone_office: phone,
       raw_ssn_c: ssn,
       dob_c: (Date.today - 10_000).to_s,
       contacts: [contact]
@@ -43,7 +41,9 @@ RSpec.describe ::AcaEntities::Crm::Account do
       billing_address_street3: 'Floor 2',
       billing_address_street4: 'Suite 3',
       rawssn_c: ssn,
-      enroll_account_link_c: 'http://example.com/account'
+      enroll_account_link_c: 'http://example.com/account',
+      phone_office: phone,
+      email1: email
     }
   end
 
@@ -108,6 +108,40 @@ RSpec.describe ::AcaEntities::Crm::Account do
 
       it 'returns false' do
         expect(account1.account_same_as?(account2)).to be_falsey
+      end
+    end
+
+    context "with blank emails" do
+
+      let(:email) { nil }
+
+      let(:account_contract) { AcaEntities::Crm::Contracts::AccountContract.new.call(account_params) }
+
+      let(:account_entity) { described_class.new(account_contract.to_h) }
+
+      it "sucessfully passes account contact" do
+        expect(account_contract.success?).to be_truthy
+      end
+
+      it "returns an account entity object" do
+        expect(account_entity).to be_a(described_class)
+      end
+    end
+
+    context "with blank phones" do
+
+      let(:phone) { nil }
+
+      let(:account_contract) { AcaEntities::Crm::Contracts::AccountContract.new.call(account_params) }
+
+      let(:account_entity) { described_class.new(account_contract.to_h) }
+
+      it "sucessfully passes account contact" do
+        expect(account_contract.success?).to be_truthy
+      end
+
+      it "returns an account entity object" do
+        expect(account_entity).to be_a(described_class)
       end
     end
   end
