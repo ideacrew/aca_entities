@@ -118,7 +118,7 @@ RSpec.describe AcaEntities::Crm::Contracts::AccountContract do
     let(:phone) { nil }
 
     it "passes validation" do
-      binding.irb
+
       expect(subject.call(all_values).success?).to be true
     end
   end
@@ -127,7 +127,6 @@ RSpec.describe AcaEntities::Crm::Contracts::AccountContract do
     let(:email) { nil }
 
     it "passes validation" do
-      binding.irb
       expect(subject.call(all_values).success?).to be true
     end
   end
