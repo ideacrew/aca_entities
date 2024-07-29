@@ -41,9 +41,9 @@ module AcaEntities
           when 'DS2019 (Certificate of Eligibility for Exchange Visitor (J-1) Status)'
             doc = ds2019_doc
           when 'Other (with alien number)'
-            # Uncertain mapping to XML
+            doc = other_with_alien_number_doc
           when 'Other (with I-94 number)'
-            # Uncertain mapping to XML
+            doc = other_with_i94_doc
           end
 
           [doc]
@@ -179,6 +179,28 @@ module AcaEntities
           @document_person_ids << passport_number if passport_number
           {
             category_code: 'DS2019',
+            expiration_date: expiration_date,
+            document_person_ids: @document_person_ids
+          }
+        end
+
+        def other_with_i94_doc
+          @document_person_ids << i94_number if i94_number
+          @document_person_ids << passport_number if passport_number
+          @document_person_ids << sevis_id if sevis_id
+          {
+            category_text: 'Other (with I-94 number)',
+            expiration_date: expiration_date,
+            document_person_ids: @document_person_ids
+          }
+        end
+
+        def other_with_alien_number_doc
+          @document_person_ids << alien_number if alien_number
+          @document_person_ids << passport_number if passport_number
+          @document_person_ids << sevis_id if sevis_id
+          {
+            category_text: 'Other (with alien number)',
             expiration_date: expiration_date,
             document_person_ids: @document_person_ids
           }
