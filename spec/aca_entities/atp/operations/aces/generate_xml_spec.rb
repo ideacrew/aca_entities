@@ -403,6 +403,48 @@ RSpec.describe AcaEntities::Atp::Operations::Aces::GenerateXml  do
           expect(tag.text).to eq "I20"
         end
       end
+
+      context 'Other (with alien number) vlp document' do
+        let(:other_with_alien_number) do
+          applicant = payload_hash[:family][:magi_medicaid_applications][:applicants][1]
+          applicant[:citizenship_immigration_status_information][:citizen_status] = 'alien_lawfully_present'
+          applicant[:vlp_document] = {}
+          applicant[:vlp_document][:subject] = 'Other (with alien number)'
+          applicant[:vlp_document][:alien_number] = '987654321'
+          applicant[:vlp_document][:passport_number] = 'M2938193'
+          applicant[:vlp_document][:sevis_id] = '4829292910'
+          applicant[:vlp_document][:expiration_date] = '2025-07-01T00:00:00.000+00:00'
+          payload_hash.to_json
+        end
+
+        it 'should populate LawfulPresenceDocumentCategoryCode tags for Other (with alien number)' do
+          result = described_class.new.call(other_with_alien_number)
+          doc = Nokogiri::XML.parse(result.value!)
+          tag = doc.xpath("//hix-ee:LawfulPresenceDocumentCategoryText", namespaces)[0]
+          expect(tag.text).to eq "Other (with alien number)"
+        end
+      end
+
+      context 'Other (with I-94 number) vlp document' do
+        let(:other_with_alien_number) do
+          applicant = payload_hash[:family][:magi_medicaid_applications][:applicants][1]
+          applicant[:citizenship_immigration_status_information][:citizen_status] = 'alien_lawfully_present'
+          applicant[:vlp_document] = {}
+          applicant[:vlp_document][:subject] = 'Other (with I-94 number)'
+          applicant[:vlp_document][:i94_number] = '9882888888O'
+          applicant[:vlp_document][:passport_number] = 'M2938193'
+          applicant[:vlp_document][:sevis_id] = '4829292910'
+          applicant[:vlp_document][:expiration_date] = '2025-07-01T00:00:00.000+00:00'
+          payload_hash.to_json
+        end
+
+        it 'should populate LawfulPresenceDocumentCategoryCode tags for Other (with I-94 number)' do
+          result = described_class.new.call(other_with_alien_number)
+          doc = Nokogiri::XML.parse(result.value!)
+          tag = doc.xpath("//hix-ee:LawfulPresenceDocumentCategoryText", namespaces)[0]
+          expect(tag.text).to eq "Other (with I-94 number)"
+        end
+      end
     end
 
     context "when annual_tax_household_income is a string" do
