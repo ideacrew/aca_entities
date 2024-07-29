@@ -118,7 +118,6 @@ RSpec.describe AcaEntities::Crm::Contracts::AccountContract do
     let(:phone) { nil }
 
     it "passes validation" do
-
       expect(subject.call(all_values).success?).to be true
     end
   end
