@@ -324,7 +324,7 @@ RSpec.shared_context 'sample family cv' do
 
   let(:person_reference) do
     {
-   
+
       hbx_id: dependent_hbx_id,
       first_name: 'first name',
       last_name: 'last name',
@@ -641,7 +641,7 @@ RSpec.shared_context 'sample family cv' do
   let(:dependent_hbx_id) { '1002' }
 
   let(:dependent) do
-      {
+    {
       hbx_id: dependent_hbx_id,
       is_active: true,
       is_disabled: false,
@@ -665,7 +665,7 @@ RSpec.shared_context 'sample family cv' do
       emails: emails,
       documents: documents,
       timestamp: timestamp
-      }
+    }
   end
 
   let(:hbx_enrollment_exemptions) { [] }
