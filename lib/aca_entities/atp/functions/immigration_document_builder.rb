@@ -12,6 +12,7 @@ module AcaEntities
           @vlp_document = cache.resolve('vlp_document').item
           @document_person_ids = []
           return [] unless @vlp_document
+          @vlp_doc_entity = AcaEntities::Documents::VlpDocument.new(@vlp_document.except(:expiration_date))
 
           case @vlp_document[:subject]
           when 'I-327 (Reentry Permit)'
@@ -236,7 +237,7 @@ module AcaEntities
           {
             :identification_id => @vlp_document[:passport_number],
             :identification_category_text => "Passport Number",
-            :identification_jurisdiction => @vlp_document[:country_of_citizenship]
+            :identification_jurisdiction => @vlp_doc_entity.three_letter_country_of_citizenship
           }
         end
 

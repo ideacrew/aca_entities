@@ -166,7 +166,7 @@ RSpec.describe AcaEntities::Atp::Operations::Aces::GenerateXml  do
           applicant[:vlp_document][:subject] = 'DS2019 (Certificate of Eligibility for Exchange Visitor (J-1) Status)'
           applicant[:vlp_document][:i94_number] = '9882888888O'
           applicant[:vlp_document][:passport_number] = 'M2938193'
-          applicant[:vlp_document][:country_of_citizenship] = 'Brazil'
+          applicant[:vlp_document][:country_of_citizenship] = 'India'
           applicant[:vlp_document][:sevis_id] = '4829292910'
           applicant[:vlp_document][:expiration_date] = '2025-07-01T00:00:00.000+00:00'
           payload_hash.to_json
@@ -189,7 +189,7 @@ RSpec.describe AcaEntities::Atp::Operations::Aces::GenerateXml  do
           doc = Nokogiri::XML.parse(result.value!)
           country = doc.xpath("//hix-ee:LawfulPresenceDocumentPersonIdentification/nc:IdentificationJurisdictionISO3166Alpha3Code",
                               namespaces)[0]
-          expect(country.text).to eq "Brazil"
+          expect(country.text).to eq "IND"
         end
 
         it "applicant should have EligibilityIndicator set to true" do
