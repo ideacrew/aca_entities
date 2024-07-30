@@ -89,12 +89,18 @@ RSpec.describe AcaEntities::Crm::Transformers::FamilyTo::Account do
 
   context "Transformed Contacts" do
 
+    let(:relationship) { family_cv[:family_members].first[:person][:person_relationships].first[:kind] }
+
     it 'returns Contacts' do
       expect(@result.success[:contacts].size).to eql(family_cv[:family_members].size)
     end
 
     it 'returns correct relationship to primary' do
-      expect(@result.success[:contacts].first[:relationship_c]).to eql('Self')
+      expect(@result.success[:contacts].first[:relationship_c]).to eql("Self")
+    end
+
+    it "returns a titleized relationship" do
+      expect(@result.success[:contacts].last[:relationship_c]).to eql(relationship.titleize)
     end
   end
 end
