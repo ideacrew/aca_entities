@@ -10,7 +10,7 @@ module AcaEntities
       #   @param opts [Hash] the parameters to validate using this contract
       #   @option opts [String] :hbxid_c required
       #   @option opts [String] :name required
-      #   @option opts [String] :email1 required
+      #   @option opts [String] :email1 optional
       #   @option opts [String] :billing_address_street required
       #   @option opts [String] :billing_address_street2 optional
       #   @option opts [String] :billing_address_street3 optional
@@ -18,7 +18,7 @@ module AcaEntities
       #   @option opts [String] :billing_address_city required
       #   @option opts [String] :billing_address_postalcode required
       #   @option opts [String] :billing_address_state required
-      #   @option opts [String] :phone_office required
+      #   @option opts [String] :phone_office optional
       #   @option opts [String] :rawssn_c required
       #   @option opts [String] :raw_ssn_c required
       #   @option opts [Date] :dob_c required
@@ -28,7 +28,7 @@ module AcaEntities
         params do
           required(:hbxid_c).filled(Types::Coercible::String)
           required(:name).filled(Types::Coercible::String)
-          required(:email1).filled(AcaEntities::Crm::Types::Email)
+          optional(:email1).maybe(AcaEntities::Crm::Types::Email)
           required(:billing_address_street).filled(Types::Coercible::String)
           optional(:billing_address_street2).maybe(Types::Coercible::String)
           optional(:billing_address_street3).maybe(Types::Coercible::String)
@@ -36,7 +36,7 @@ module AcaEntities
           required(:billing_address_city).filled(Types::Coercible::String)
           required(:billing_address_postalcode).filled(Types::Coercible::String)
           required(:billing_address_state).filled(Types::Coercible::String)
-          required(:phone_office).filled(AcaEntities::Crm::Types::Phone)
+          optional(:phone_office).maybe(AcaEntities::Crm::Types::Phone)
           optional(:rawssn_c).maybe(AcaEntities::Crm::Types::SSN)
           required(:raw_ssn_c).filled(AcaEntities::Crm::Types::SSN)
           required(:dob_c).filled(AcaEntities::Crm::Types::Dob)

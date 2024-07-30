@@ -15,7 +15,7 @@ module AcaEntities
 
       # @!attribute [r] email1
       #   @return [String] primary email address
-      attribute :email1, AcaEntities::Crm::Types::Email.meta(omittable: false)
+      attribute :email1, AcaEntities::Crm::Types::Email.optional.meta(omittable: true)
 
       # @!attribute [r] billing_address_street
       #   @return [String] street address for billing
@@ -47,7 +47,7 @@ module AcaEntities
 
       # @!attribute [r] phone_office
       #   @return [String] office phone number
-      attribute :phone_office, AcaEntities::Crm::Types::Phone.meta(omittable: false)
+      attribute :phone_office, AcaEntities::Crm::Types::Phone.optional.meta(omittable: true)
 
       # @!attribute [r] rawssn_c
       #   @return [String] Social Security Number
