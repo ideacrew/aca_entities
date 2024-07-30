@@ -96,7 +96,7 @@ RSpec.describe AcaEntities::Crm::Transformers::FamilyTo::Account do
     end
 
     it 'returns correct relationship to primary' do
-      expect(@result.success[:contacts].first[:relationship_c]).to eql("Self")
+      expect(@result.success[:contacts].first[:relationship_c]).to eql('Self')
     end
 
     it "returns a titleized relationship" do

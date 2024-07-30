@@ -683,7 +683,7 @@ RSpec.shared_context 'sample family cv' do
       },
 
       {
-        hbx_id: '1002',
+        hbx_id: dependent_hbx_id,
         is_primary_applicant: false,
         is_consent_applicant: true,
         is_coverage_applicant: nil,
