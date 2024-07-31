@@ -3,7 +3,7 @@
 require 'spec_helper'
 require 'aca_entities/magi_medicaid/libraries/iap_library'
 
-RSpec.describe ::AcaEntities::MagiMedicaid::TaxHousehold, dbclean: :after_each do
+RSpec.describe ::AcaEntities::MagiMedicaid::TaxHousehold do
   let(:product_eligibility_determination) do
     { is_ia_eligible: true,
       is_medicaid_chip_eligible: false,

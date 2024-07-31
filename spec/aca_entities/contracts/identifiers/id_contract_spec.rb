@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe ::AcaEntities::Contracts::Identifiers::IdContract, dbclean: :after_each do
+RSpec.describe ::AcaEntities::Contracts::Identifiers::IdContract do
 
   let!(:required_params) do
     {
@@ -76,5 +76,3 @@ RSpec.describe ::AcaEntities::Contracts::Identifiers::IdContract, dbclean: :afte
     end
   end
 end
-
-

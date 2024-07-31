@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe ::AcaEntities::People::ConsumerRoleReference, dbclean: :after_each do
+RSpec.describe ::AcaEntities::People::ConsumerRoleReference do
 
   let(:event_response) do
     [

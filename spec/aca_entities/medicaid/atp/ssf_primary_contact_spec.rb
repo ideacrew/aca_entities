@@ -5,7 +5,7 @@ require 'aca_entities/medicaid/atp/types'
 require 'aca_entities/medicaid/atp/role_of_person_reference'
 require 'aca_entities/medicaid/atp/ssf_primary_contact'
 
-RSpec.describe ::AcaEntities::Medicaid::Atp::SsfPrimaryContact, dbclean: :after_each do
+RSpec.describe ::AcaEntities::Medicaid::Atp::SsfPrimaryContact do
 
   describe 'with valid arguments' do
 

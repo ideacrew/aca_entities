@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe AcaEntities::Fdsh::Vlp::Rx142::CloseCase::Operations::VerifyCloseCaseRequest, dbclean: :after_each do
+RSpec.describe AcaEntities::Fdsh::Vlp::Rx142::CloseCase::Operations::VerifyCloseCaseRequest do
 
   context 'with valid params' do
     let(:params) do

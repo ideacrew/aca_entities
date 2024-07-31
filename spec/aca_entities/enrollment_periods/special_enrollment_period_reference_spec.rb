@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe ::AcaEntities::EnrollmentPeriods::SpecialEnrollmentPeriodReference, dbclean: :after_each do
+RSpec.describe ::AcaEntities::EnrollmentPeriods::SpecialEnrollmentPeriodReference do
 
   let(:qualifying_life_event_kind_reference) do
     {

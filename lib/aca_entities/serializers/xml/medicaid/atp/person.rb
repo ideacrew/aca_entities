@@ -22,11 +22,12 @@ module AcaEntities
             element :race, String, tag: "PersonRaceText", namespace: "nc"
             element :sex, String, tag: "PersonSexText", namespace: "nc"
             has_one :ssn_identification, PersonSsnIdentification
-            element :us_citizen_indicator, Boolean, tag: "PersonUSCitizenIndicator", namespace: "nc"
+            has_one :us_citizen_indicator, PersonUsCitizenIndicator
+            # element :us_citizen_indicator, Boolean, tag: "PersonUSCitizenIndicator", namespace: "nc"
             has_one :tribal_augmentation, TribalAugmentation
             has_one :person_augmentation, PersonAugmentation
 
-            def self.domain_to_mapper(person)
+            def self.domain_to_mapper(person, verification_metadata)
               mapper = self.new
               mapper.id = person.id
               mapper.age_measure = PersonAgeMeasure.domain_to_mapper(person.age_measure)
@@ -38,9 +39,9 @@ module AcaEntities
               mapper.race = person.race
               mapper.sex = person.sex
               if person.ssn_identification&.identification_id.present? || person.ssn_identification&.identification_category_text.present?
-                mapper.ssn_identification = PersonSsnIdentification.domain_to_mapper(person.ssn_identification)
+                mapper.ssn_identification = PersonSsnIdentification.domain_to_mapper(person, verification_metadata)
               end
-              mapper.us_citizen_indicator = person.us_citizen_indicator
+              mapper.us_citizen_indicator = PersonUsCitizenIndicator.domain_to_mapper(person, verification_metadata)
               mapper.living_indicator = person.living_indicator
               mapper.person_augmentation = PersonAugmentation.domain_to_mapper(person.person_augmentation)
               mapper.tribal_augmentation = TribalAugmentation.domain_to_mapper(person.tribal_augmentation)
@@ -52,7 +53,7 @@ module AcaEntities
                 id: id,
                 age_measure: age_measure&.to_hash,
                 person_name: person_name&.to_hash,
-                us_citizen_indicator: us_citizen_indicator,
+                us_citizen_indicator: us_citizen_indicator.value,
                 living_indicator: living_indicator,
                 ssn_identification: ssn_identification&.to_hash,
                 sex: sex,

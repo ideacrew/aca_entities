@@ -78,7 +78,7 @@ Interface definitions for service producers and consumers to exchange messages.
 Typically used by the {https://github.com/ideacrew/aca_entities.git EventSource gem}
 these files follow the {https://www.asyncapi.com/docs/specifications/v2.0.0 AsyncAPI 2.0} standard.
 
-### {AcaEntities::Crms CRMs}
+### {AcaEntities::Crm CRM}
 
 Integration with Customer Relationship Management (CRM) systems including SugarCRM.
 

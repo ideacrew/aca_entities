@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe ::AcaEntities::Contracts::QualifyingLifeEvents::QualifyingLifeEventKindReferenceContract, dbclean: :after_each do
+RSpec.describe ::AcaEntities::Contracts::QualifyingLifeEvents::QualifyingLifeEventKindReferenceContract do
 
   let(:required_params) do
     {

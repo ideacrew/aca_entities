@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe AcaEntities::Fdsh::H41::ServiceSpecificData, dbclean: :after_each do
+RSpec.describe AcaEntities::Fdsh::H41::ServiceSpecificData do
   subject { described_class.new }
 
   let(:params) do

@@ -3,7 +3,7 @@
 require 'spec_helper'
 require 'aca_entities/medicaid/atp/person_name'
 
-RSpec.describe ::AcaEntities::Medicaid::Atp::PersonName, dbclean: :after_each do
+RSpec.describe ::AcaEntities::Medicaid::Atp::PersonName do
 
   let(:required_params) do
     { given: 'first',

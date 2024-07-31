@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe ::AcaEntities::Contacts::EmailContact, dbclean: :after_each do
+RSpec.describe ::AcaEntities::Contacts::EmailContact do
 
   describe 'with valid arguments' do
     let(:input_params) do

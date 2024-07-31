@@ -3,7 +3,7 @@
 require 'spec_helper'
 require 'aca_entities/medicaid/contracts/referral_activity_receiver_reference_contract'
 
-RSpec.describe ::AcaEntities::Medicaid::Contracts::ReferralActivityReceiverReferenceContract, dbclean: :after_each do
+RSpec.describe ::AcaEntities::Medicaid::Contracts::ReferralActivityReceiverReferenceContract do
 
   let(:required_params) { { ref: "Receiver" } }
 

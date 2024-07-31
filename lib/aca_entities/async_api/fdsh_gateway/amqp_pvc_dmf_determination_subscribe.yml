@@ -1,9 +1,9 @@
 ---
 asyncapi: 2.0.0
 info:
-  title: Enroll App
+  title: FDSH Gateway Insurance Policies
   version: 0.1.0
-  description: AMQP Subscribe configuration for the Enroll App services
+  description: AMQP Subscriber configuration for the FDSH Gateway service to support Posted Insurance Policies
   contact:
     name: IdeaCrew
     url: https://ideacrew.com
@@ -13,21 +13,23 @@ info:
     url: https://opensource.org/licenses/MIT
 
 servers:
-  production:
-    url: "amqp://rabbitmq:5672/event_source"
-    protocol: :amqp
-    protocolVersion: "0.9.2"
-    description: RabbitMQ Production Server
   development:
-    url: "amqp://rabbitmq:5672/event_source"
-    protocol: :amqp
-    protocolVersion: "0.9.2"
-    description: RabbitMQ Test Server
+    url: amqp://rabbitmq:5672/event_source
+    protocol: amqp
+    protocolVersion: 0.9.2
+    description: RabbitMQ Development Server
   test:
-    url: "amqp://rabbitmq:5672/event_source"
-    protocol: :amqp
-    protocolVersion: "0.9.2"
+    url: amqp://rabbitmq:5672/event_source
+    protocol: amqp
+    protocolVersion: 0.9.2
     description: RabbitMQ Test Server
+  production:
+    url: amqp://rabbitmq:5672/event_source
+    protocol: amqp
+    protocolVersion: 0.9.2
+    description: RabbitMQ Production Server
+
+defaultContentType: application/json
 
 channels:
   on_fdsh_gateway.fdsh.pvc.dmf.responses.individual_response.import:
@@ -49,6 +51,27 @@ channels:
           prefetch: 1
           bindingVersion: "0.2.0"
       operationId: on_fdsh_gateway.fdsh.pvc.dmf.responses.individual_response.import
+      description: Events - Subscriber to consume dmf determination response for import process
+
+  on_fdsh_gateway.fdsh.pvc.dmf.responses.transform_family:
+    bindings:
+      amqp:
+        is: queue
+        queue:
+          name: on_fdsh_gateway.fdsh.pvc.dmf.responses.transform_family
+          durable: true
+          exclusive: false
+          auto_delete: false
+          vhost: event_source
+    subscribe:
+      bindings:
+        amqp:
+          ack: true
+          exclusive: false
+          routing_key: fdsh.pvc.dmf.responses.transform_family.requested
+          prefetch: 1
+          bindingVersion: "0.2.0"
+      operationId: on_fdsh_gateway.fdsh.pvc.dmf.responses.transform_family
       description: Events - Subscriber to consume dmf determination response for import process
 
 tags:

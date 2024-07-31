@@ -14,7 +14,7 @@ class VlpDocument
                         "Other (With Alien Number)", "Other (With I-94 Number)"].freeze
 end
 
-RSpec.describe AcaEntities::Fdsh::Vlp::H92::VlpV37Contract, type: :model, dbclean: :after_each do
+RSpec.describe AcaEntities::Fdsh::Vlp::H92::VlpV37Contract, type: :model do
 
   def message(subject_name)
     "is required for VLP Document type: #{subject_name}"

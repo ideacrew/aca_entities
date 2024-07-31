@@ -4,7 +4,7 @@ require 'spec_helper'
 require 'aca_entities/medicaid/contracts/role_of_person_reference_contract'
 require 'aca_entities/medicaid/contracts/ssf_primary_contact_contract'
 
-RSpec.describe ::AcaEntities::Medicaid::Contracts::SsfPrimaryContactContract, dbclean: :after_each do
+RSpec.describe ::AcaEntities::Medicaid::Contracts::SsfPrimaryContactContract do
 
   let(:required_params) do
     {

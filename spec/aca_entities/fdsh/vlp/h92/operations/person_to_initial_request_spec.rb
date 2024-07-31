@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe AcaEntities::Fdsh::Vlp::H92::Operations::PersonToInitialRequest, dbclean: :after_each do
+RSpec.describe AcaEntities::Fdsh::Vlp::H92::Operations::PersonToInitialRequest do
   let(:person_params) do
     {
       :hbx_id => "a7619992755141bea940230b3a0a97d4",

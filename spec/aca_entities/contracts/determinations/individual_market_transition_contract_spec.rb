@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe ::AcaEntities::Contracts::Determinations::IndividualMarketTransitionContract, dbclean: :after_each do
+RSpec.describe ::AcaEntities::Contracts::Determinations::IndividualMarketTransitionContract do
 
   let!(:required_params) do
     {

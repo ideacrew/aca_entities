@@ -3,7 +3,7 @@
 require 'spec_helper'
 require 'aca_entities/medicaid/contracts/insurance_policy_identification_contract'
 
-RSpec.describe ::AcaEntities::Medicaid::Contracts::InsurancePolicyIdentificationContract, dbclean: :after_each do
+RSpec.describe ::AcaEntities::Medicaid::Contracts::InsurancePolicyIdentificationContract do
 
   let(:required_params) { { identification_id: "MET00000000001887090" } }
 

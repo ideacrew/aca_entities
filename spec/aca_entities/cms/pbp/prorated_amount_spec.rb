@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe AcaEntities::Cms::Pbp::ProratedAmount, dbclean: :after_each do
+RSpec.describe AcaEntities::Cms::Pbp::ProratedAmount do
   subject { described_class.new }
 
   let(:required_params) do

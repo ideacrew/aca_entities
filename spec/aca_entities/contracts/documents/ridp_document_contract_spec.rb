@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe ::AcaEntities::Contracts::Documents::RidpDocumentContract, dbclean: :after_each do
+RSpec.describe ::AcaEntities::Contracts::Documents::RidpDocumentContract do
 
   let(:required_params) do
     {

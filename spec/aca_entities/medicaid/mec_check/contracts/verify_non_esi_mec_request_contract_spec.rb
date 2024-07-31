@@ -3,7 +3,7 @@
 require 'spec_helper'
 require 'aca_entities/medicaid/mec_check'
 
-RSpec.describe AcaEntities::Medicaid::MecCheck::Contracts::VerifyNonEsiMecRequestContract, dbclean: :after_each do
+RSpec.describe AcaEntities::Medicaid::MecCheck::Contracts::VerifyNonEsiMecRequestContract do
 
   let(:required_params) { { non_esi_mec_request: non_esi_mec_request } }
 

@@ -3,14 +3,14 @@
 require 'spec_helper'
 require 'aca_entities/medicaid/contracts/verification_metadata_contract'
 
-RSpec.describe ::AcaEntities::Medicaid::Contracts::VerificationMetadataContract, dbclean: :after_each do
+RSpec.describe ::AcaEntities::Medicaid::Contracts::VerificationMetadataContract do
 
   let(:required_params) do
     {
+      id: "id123",
       verification_date: { date: Date.today },
       verification_requesting_system:
         {
-          id: "id123",
           category_code: "Exchange"
         }
     }
@@ -24,7 +24,6 @@ RSpec.describe ::AcaEntities::Medicaid::Contracts::VerificationMetadataContract,
       ffe_verification_code: "verificationCode",
       verification_authority_name: "Name",
       verification_authority_alpha_code: "alphaCode",
-      id: "id123",
       verification_indicator: true,
       verification_inconsistency_indicator: false,
       verification_description_text: "Text",

@@ -157,6 +157,294 @@ RSpec.describe AcaEntities::Atp::Operations::Aces::GenerateXml  do
           expect(texts.present?).to be_falsey
         end
       end
+
+      context 'DS2019 vlp document' do
+        let(:ds2019) do
+          applicant = payload_hash[:family][:magi_medicaid_applications][:applicants][1]
+          applicant[:citizenship_immigration_status_information][:citizen_status] = 'alien_lawfully_present'
+          applicant[:vlp_document] = {}
+          applicant[:vlp_document][:subject] = 'DS2019 (Certificate of Eligibility for Exchange Visitor (J-1) Status)'
+          applicant[:vlp_document][:i94_number] = '9882888888O'
+          applicant[:vlp_document][:passport_number] = 'M2938193'
+          applicant[:vlp_document][:country_of_citizenship] = 'India'
+          applicant[:vlp_document][:sevis_id] = '4829292910'
+          applicant[:vlp_document][:expiration_date] = '2025-07-01T00:00:00.000+00:00'
+          payload_hash.to_json
+        end
+
+        it 'should populate LawfulPresenceDocumentPersonIdentification tags for DS2019' do
+          result = described_class.new.call(ds2019)
+          doc = Nokogiri::XML.parse(result.value!)
+          tags = doc.xpath("//hix-ee:LawfulPresenceDocumentPersonIdentification/nc:IdentificationCategoryText", namespaces)
+          i_94_node = tags.detect {|t| t.text == 'I-94 Number'}&.parent
+          sevis_id_node = tags.detect {|t| t.text == 'Sevis ID'}&.parent
+          passport_number_node = tags.detect {|t| t.text == 'Passport Number'}&.parent
+          expect(i_94_node.present?).to be_truthy
+          expect(sevis_id_node.present?).to be_truthy
+          expect(passport_number_node.present?).to be_truthy
+        end
+
+        it "should populate JurisdictionISO3166Alpha3Code tag for DS2019" do
+          result = described_class.new.call(ds2019)
+          doc = Nokogiri::XML.parse(result.value!)
+          country = doc.xpath("//hix-ee:LawfulPresenceDocumentPersonIdentification/nc:IdentificationJurisdictionISO3166Alpha3Code",
+                              namespaces)[0]
+          expect(country.text).to eq "IND"
+        end
+
+        it "applicant should have EligibilityIndicator set to true" do
+          result = described_class.new.call(ds2019)
+          doc = Nokogiri::XML.parse(result.value!)
+          tag = doc.xpath("//hix-ee:LawfulPresenceStatusEligibility/hix-ee:EligibilityIndicator", namespaces)[1]
+          expect(tag.text).to eq "true"
+        end
+      end
+
+      context 'I-327 reentry permit vlp document' do
+        let(:i327) do
+          applicant = payload_hash[:family][:magi_medicaid_applications][:applicants][1]
+          applicant[:citizenship_immigration_status_information][:citizen_status] = 'alien_lawfully_present'
+          applicant[:vlp_document] = {}
+          applicant[:vlp_document][:subject] = 'I-327 (Reentry Permit)'
+          applicant[:vlp_document][:alien_number] = '989797959'
+          applicant[:vlp_document][:expiration_date] = '2025-07-01T00:00:00.000+00:00'
+          payload_hash.to_json
+        end
+
+        it 'should populate LawfulPresenceDocumentCategoryCode tags for I-327' do
+          result = described_class.new.call(i327)
+          doc = Nokogiri::XML.parse(result.value!)
+          tag = doc.xpath("//hix-ee:LawfulPresenceDocumentCategoryCode", namespaces)[0]
+          expect(tag.text).to eq "I327"
+        end
+      end
+
+      context 'I-551 (Permanent Resident Card) vlp document' do
+        let(:i551) do
+          applicant = payload_hash[:family][:magi_medicaid_applications][:applicants][1]
+          applicant[:citizenship_immigration_status_information][:citizen_status] = 'alien_lawfully_present'
+          applicant[:vlp_document] = {}
+          applicant[:vlp_document][:subject] = 'I-551 (Permanent Resident Card)'
+          applicant[:vlp_document][:alien_number] = '989797959'
+          applicant[:vlp_document][:card_number] = 'ABC1234567891'
+          applicant[:vlp_document][:expiration_date] = '2025-07-01T00:00:00.000+00:00'
+          payload_hash.to_json
+        end
+
+        it 'should populate LawfulPresenceDocumentCategoryCode tags for I551' do
+          result = described_class.new.call(i551)
+          doc = Nokogiri::XML.parse(result.value!)
+          tag = doc.xpath("//hix-ee:LawfulPresenceDocumentCategoryCode", namespaces)[0]
+          expect(tag.text).to eq "I551"
+        end
+      end
+
+      context 'I-571 (Refugee Travel Document) vlp document' do
+        let(:i571) do
+          applicant = payload_hash[:family][:magi_medicaid_applications][:applicants][1]
+          applicant[:citizenship_immigration_status_information][:citizen_status] = 'alien_lawfully_present'
+          applicant[:vlp_document] = {}
+          applicant[:vlp_document][:subject] = 'I-571 (Refugee Travel Document)'
+          applicant[:vlp_document][:alien_number] = '989797959'
+          applicant[:vlp_document][:expiration_date] = '2025-07-01T00:00:00.000+00:00'
+          payload_hash.to_json
+        end
+
+        it 'should populate LawfulPresenceDocumentCategoryCode tags for I571' do
+          result = described_class.new.call(i571)
+          doc = Nokogiri::XML.parse(result.value!)
+          tag = doc.xpath("//hix-ee:LawfulPresenceDocumentCategoryCode", namespaces)[0]
+          expect(tag.text).to eq "I571"
+        end
+      end
+
+      context 'I-766 (Employment Authorization Card)' do
+        let(:i766) do
+          applicant = payload_hash[:family][:magi_medicaid_applications][:applicants][1]
+          applicant[:citizenship_immigration_status_information][:citizen_status] = 'alien_lawfully_present'
+          applicant[:vlp_document] = {}
+          applicant[:vlp_document][:subject] = 'I-766 (Employment Authorization Card)'
+          applicant[:vlp_document][:alien_number] = '989797959'
+          applicant[:vlp_document][:card_number] = 'ABC1234567891'
+          applicant[:vlp_document][:expiration_date] = '2025-07-01T00:00:00.000+00:00'
+          payload_hash.to_json
+        end
+
+        it 'should populate LawfulPresenceDocumentCategoryCode tags for I766' do
+          result = described_class.new.call(i766)
+          doc = Nokogiri::XML.parse(result.value!)
+          tag = doc.xpath("//hix-ee:LawfulPresenceDocumentCategoryCode", namespaces)[0]
+          expect(tag.text).to eq "I766"
+        end
+      end
+
+      context 'Machine Readable Immigrant Visa (with Temporary I-551 Language) vlp document' do
+        let(:machine_readable_visa) do
+          applicant = payload_hash[:family][:magi_medicaid_applications][:applicants][1]
+          applicant[:citizenship_immigration_status_information][:citizen_status] = 'alien_lawfully_present'
+          applicant[:vlp_document] = {}
+          applicant[:vlp_document][:subject] = 'Machine Readable Immigrant Visa (with Temporary I-551 Language)'
+          applicant[:vlp_document][:i94_number] = '9882888888O'
+          applicant[:vlp_document][:passport_number] = 'M2938193'
+          applicant[:vlp_document][:sevis_id] = '4829292910'
+          applicant[:vlp_document][:expiration_date] = '2025-07-01T00:00:00.000+00:00'
+          payload_hash.to_json
+        end
+
+        it 'should populate LawfulPresenceDocumentCategoryCode tags for MachineReadableVisa' do
+          result = described_class.new.call(machine_readable_visa)
+          doc = Nokogiri::XML.parse(result.value!)
+          tag = doc.xpath("//hix-ee:LawfulPresenceDocumentCategoryCode", namespaces)[0]
+          expect(tag.text).to eq "MachineReadableVisa"
+        end
+      end
+
+      context 'Temporary I-551 Stamp (on passport or I-94) vlp document' do
+        let(:temp_i551) do
+          applicant = payload_hash[:family][:magi_medicaid_applications][:applicants][1]
+          applicant[:citizenship_immigration_status_information][:citizen_status] = 'alien_lawfully_present'
+          applicant[:vlp_document] = {}
+          applicant[:vlp_document][:subject] = 'Temporary I-551 Stamp (on passport or I-94)'
+          applicant[:vlp_document][:i94_number] = '9882888888O'
+          applicant[:vlp_document][:passport_number] = 'M2938193'
+          applicant[:vlp_document][:sevis_id] = '4829292910'
+          applicant[:vlp_document][:expiration_date] = '2025-07-01T00:00:00.000+00:00'
+          payload_hash.to_json
+        end
+
+        it 'should populate LawfulPresenceDocumentCategoryCode tags for TemporaryI551Stamp' do
+          result = described_class.new.call(temp_i551)
+          doc = Nokogiri::XML.parse(result.value!)
+          tag = doc.xpath("//hix-ee:LawfulPresenceDocumentCategoryCode", namespaces)[0]
+          expect(tag.text).to eq "TemporaryI551Stamp"
+        end
+      end
+
+      context 'I-94 (Arrival/Departure Record) vlp document' do
+        let(:i_94) do
+          applicant = payload_hash[:family][:magi_medicaid_applications][:applicants][1]
+          applicant[:citizenship_immigration_status_information][:citizen_status] = 'alien_lawfully_present'
+          applicant[:vlp_document] = {}
+          applicant[:vlp_document][:subject] = 'I-94 (Arrival/Departure Record)'
+          applicant[:vlp_document][:i94_number] = '9882888888O'
+          applicant[:vlp_document][:passport_number] = 'M2938193'
+          applicant[:vlp_document][:sevis_id] = '4829292910'
+          applicant[:vlp_document][:expiration_date] = '2025-07-01T00:00:00.000+00:00'
+          payload_hash.to_json
+        end
+
+        it 'should populate LawfulPresenceDocumentCategoryCode tags for I94' do
+          result = described_class.new.call(i_94)
+          doc = Nokogiri::XML.parse(result.value!)
+          tag = doc.xpath("//hix-ee:LawfulPresenceDocumentCategoryCode", namespaces)[0]
+          expect(tag.text).to eq "I94"
+        end
+      end
+
+      context 'I-94 (Arrival/Departure Record) in Unexpired Foreign Passport vlp document' do
+        let(:i_94_in_passport) do
+          applicant = payload_hash[:family][:magi_medicaid_applications][:applicants][1]
+          applicant[:citizenship_immigration_status_information][:citizen_status] = 'alien_lawfully_present'
+          applicant[:vlp_document] = {}
+          applicant[:vlp_document][:subject] = 'I-94 (Arrival/Departure Record) in Unexpired Foreign Passport'
+          applicant[:vlp_document][:i94_number] = '9882888888O'
+          applicant[:vlp_document][:passport_number] = 'M2938193'
+          applicant[:vlp_document][:sevis_id] = '4829292910'
+          applicant[:vlp_document][:expiration_date] = '2025-07-01T00:00:00.000+00:00'
+          payload_hash.to_json
+        end
+
+        it 'should populate LawfulPresenceDocumentCategoryCode tags for I94InPassport' do
+          result = described_class.new.call(i_94_in_passport)
+          doc = Nokogiri::XML.parse(result.value!)
+          tag = doc.xpath("//hix-ee:LawfulPresenceDocumentCategoryCode", namespaces)[0]
+          expect(tag.text).to eq "I94InPassport"
+        end
+      end
+
+      context 'Unexpired Foreign Passport vlp document' do
+        let(:unexpired_foreign_passport) do
+          applicant = payload_hash[:family][:magi_medicaid_applications][:applicants][1]
+          applicant[:citizenship_immigration_status_information][:citizen_status] = 'alien_lawfully_present'
+          applicant[:vlp_document] = {}
+          applicant[:vlp_document][:subject] = 'Unexpired Foreign Passport'
+          applicant[:vlp_document][:i94_number] = '9882888888O'
+          applicant[:vlp_document][:passport_number] = 'M2938193'
+          applicant[:vlp_document][:sevis_id] = '4829292910'
+          applicant[:vlp_document][:expiration_date] = '2025-07-01T00:00:00.000+00:00'
+          payload_hash.to_json
+        end
+
+        it 'should populate LawfulPresenceDocumentCategoryCode tags for UnexpiredForeignPassport' do
+          result = described_class.new.call(unexpired_foreign_passport)
+          doc = Nokogiri::XML.parse(result.value!)
+          tag = doc.xpath("//hix-ee:LawfulPresenceDocumentCategoryCode", namespaces)[0]
+          expect(tag.text).to eq "UnexpiredForeignPassport"
+        end
+      end
+
+      context 'I-20 (Certificate of Eligibility for Nonimmigrant (F-1) Student Status) vlp document' do
+        let(:i_20) do
+          applicant = payload_hash[:family][:magi_medicaid_applications][:applicants][1]
+          applicant[:citizenship_immigration_status_information][:citizen_status] = 'alien_lawfully_present'
+          applicant[:vlp_document] = {}
+          applicant[:vlp_document][:subject] = 'I-20 (Certificate of Eligibility for Nonimmigrant (F-1) Student Status)'
+          applicant[:vlp_document][:i94_number] = '9882888888O'
+          applicant[:vlp_document][:passport_number] = 'M2938193'
+          applicant[:vlp_document][:sevis_id] = '4829292910'
+          applicant[:vlp_document][:expiration_date] = '2025-07-01T00:00:00.000+00:00'
+          payload_hash.to_json
+        end
+
+        it 'should populate LawfulPresenceDocumentCategoryCode tags for I20' do
+          result = described_class.new.call(i_20)
+          doc = Nokogiri::XML.parse(result.value!)
+          tag = doc.xpath("//hix-ee:LawfulPresenceDocumentCategoryCode", namespaces)[0]
+          expect(tag.text).to eq "I20"
+        end
+      end
+
+      context 'Other (with alien number) vlp document' do
+        let(:other_with_alien_number) do
+          applicant = payload_hash[:family][:magi_medicaid_applications][:applicants][1]
+          applicant[:citizenship_immigration_status_information][:citizen_status] = 'alien_lawfully_present'
+          applicant[:vlp_document] = {}
+          applicant[:vlp_document][:subject] = 'Other (with alien number)'
+          applicant[:vlp_document][:alien_number] = '987654321'
+          applicant[:vlp_document][:passport_number] = 'M2938193'
+          applicant[:vlp_document][:sevis_id] = '4829292910'
+          applicant[:vlp_document][:expiration_date] = '2025-07-01T00:00:00.000+00:00'
+          payload_hash.to_json
+        end
+
+        it 'should populate LawfulPresenceDocumentCategoryCode tags for Other (with alien number)' do
+          result = described_class.new.call(other_with_alien_number)
+          doc = Nokogiri::XML.parse(result.value!)
+          tag = doc.xpath("//hix-ee:LawfulPresenceDocumentCategoryText", namespaces)[0]
+          expect(tag.text).to eq "Other (with alien number)"
+        end
+      end
+
+      context 'Other (with I-94 number) vlp document' do
+        let(:other_with_alien_number) do
+          applicant = payload_hash[:family][:magi_medicaid_applications][:applicants][1]
+          applicant[:citizenship_immigration_status_information][:citizen_status] = 'alien_lawfully_present'
+          applicant[:vlp_document] = {}
+          applicant[:vlp_document][:subject] = 'Other (with I-94 number)'
+          applicant[:vlp_document][:i94_number] = '9882888888O'
+          applicant[:vlp_document][:passport_number] = 'M2938193'
+          applicant[:vlp_document][:sevis_id] = '4829292910'
+          applicant[:vlp_document][:expiration_date] = '2025-07-01T00:00:00.000+00:00'
+          payload_hash.to_json
+        end
+
+        it 'should populate LawfulPresenceDocumentCategoryCode tags for Other (with I-94 number)' do
+          result = described_class.new.call(other_with_alien_number)
+          doc = Nokogiri::XML.parse(result.value!)
+          tag = doc.xpath("//hix-ee:LawfulPresenceDocumentCategoryText", namespaces)[0]
+          expect(tag.text).to eq "Other (with I-94 number)"
+        end
+      end
     end
 
     context "when annual_tax_household_income is a string" do
@@ -322,6 +610,217 @@ RSpec.describe AcaEntities::Atp::Operations::Aces::GenerateXml  do
 
     end
 
+    context "verification metadata" do
+      context "when ssa_response exists for one person" do
+        it "should set verification metadata" do
+          result = described_class.new.call(payload_hash.to_json)
+          doc = Nokogiri::XML.parse(result.value!)
+          verification_metadata = doc.xpath("//hix-core:VerificationMetadata", namespaces)[1]
+          expect(verification_metadata.present?).to be_truthy
+          expect(verification_metadata.attributes["id"].value).to eq "vmssa1003159"
+        end
+
+        it "should populate FFEVerificationCode to Y" do
+          result = described_class.new.call(payload_hash.to_json)
+          doc = Nokogiri::XML.parse(result.value!)
+          verification_metadata = doc.xpath("//hix-core:VerificationMetadata", namespaces)[1]
+          expect(verification_metadata.xpath("//hix-core:FFEVerificationCode", namespaces).text).to eq "Y"
+        end
+
+        it "should populate VerificationAuthorityTDS-FEPS-AlphaCode to SSA" do
+          result = described_class.new.call(payload_hash.to_json)
+          doc = Nokogiri::XML.parse(result.value!)
+          verification_metadata = doc.xpath("//hix-core:VerificationMetadata", namespaces)[1]
+          expect(verification_metadata.xpath("//hix-core:VerificationAuthorityTDS-FEPS-AlphaCode", namespaces)[1].text).to eq "SSA"
+        end
+
+        it "should populate VerificationRequestingSystem" do
+          result = described_class.new.call(payload_hash.to_json)
+          doc = Nokogiri::XML.parse(result.value!)
+          verification_metadata = doc.xpath("//hix-core:VerificationMetadata", namespaces)[1]
+          expect(verification_metadata.xpath("//hix-core:VerificationRequestingSystem", namespaces).text).to be_present
+        end
+
+        it "should populate VerificationDate" do
+          result = described_class.new.call(payload_hash.to_json)
+          doc = Nokogiri::XML.parse(result.value!)
+          verification_metadata = doc.xpath("//hix-core:VerificationMetadata", namespaces)[1]
+          expect(verification_metadata.xpath("//hix-core:VerificationDate", namespaces).text).to be_present
+        end
+
+        it "should populate VerificationCategoryCode" do
+          result = described_class.new.call(payload_hash.to_json)
+          doc = Nokogiri::XML.parse(result.value!)
+          verification_metadata = doc.xpath("//hix-core:VerificationMetadata", namespaces)[1]
+          expect(verification_metadata.xpath("//hix-core:VerificationCategoryCode", namespaces).count).to eq 4
+        end
+
+        it "should populate VerificationStatusCode" do
+          result = described_class.new.call(payload_hash.to_json)
+          doc = Nokogiri::XML.parse(result.value!)
+          verification_metadata = doc.xpath("//hix-core:VerificationMetadata", namespaces)[1]
+          status = verification_metadata.xpath("//hix-core:VerificationStatus", namespaces)
+          expect(status.xpath('./hix-core:VerificationStatusCode', namespaces)[0].text).to eq "5"
+        end
+      end
+
+      context "when vlp_response exists" do
+        it "should set verification metadata" do
+          result = described_class.new.call(payload_hash.to_json)
+          doc = Nokogiri::XML.parse(result.value!)
+          verification_metadata = doc.xpath("//hix-core:VerificationMetadata", namespaces)
+          expect(verification_metadata.count).to eq 3
+          expect(verification_metadata[0].attributes["id"].value).to eq "vmdhs1002699"
+          expect(verification_metadata[2].attributes["id"].value).to eq "vmdhs1003159"
+        end
+
+        it "should populate DHS-SAVEVerificationCode to Y" do
+          result = described_class.new.call(payload_hash.to_json)
+          doc = Nokogiri::XML.parse(result.value!)
+          verification_metadata = doc.xpath("//hix-core:VerificationMetadata", namespaces)[0]
+          expect(verification_metadata.xpath("//hix-core:DHS-SAVEVerificationCode", namespaces)[0].text).to eq "1"
+          expect(verification_metadata.xpath("//hix-core:DHS-SAVEVerificationCode", namespaces)[1].text).to eq "1"
+        end
+
+        it "should populate VerificationAuthorityTDS-FEPS-AlphaCode to DHS" do
+          result = described_class.new.call(payload_hash.to_json)
+          doc = Nokogiri::XML.parse(result.value!)
+          verification_metadata = doc.xpath("//hix-core:VerificationMetadata", namespaces)[0]
+          expect(verification_metadata.xpath("//hix-core:VerificationAuthorityTDS-FEPS-AlphaCode", namespaces)[0].text).to eq "DHS"
+        end
+
+        it "should populate VerificationRequestingSystem" do
+          result = described_class.new.call(payload_hash.to_json)
+          doc = Nokogiri::XML.parse(result.value!)
+          verification_metadata = doc.xpath("//hix-core:VerificationMetadata", namespaces)[0]
+          expect(verification_metadata.xpath("//hix-core:VerificationRequestingSystem", namespaces).text).to be_present
+        end
+
+        it "should populate VerificationDate" do
+          result = described_class.new.call(payload_hash.to_json)
+          doc = Nokogiri::XML.parse(result.value!)
+          verification_metadata = doc.xpath("//hix-core:VerificationMetadata", namespaces)[0]
+          expect(verification_metadata.xpath("//hix-core:VerificationDate", namespaces).text).to be_present
+        end
+
+        it "should populate VerificationCategoryCode" do
+          result = described_class.new.call(payload_hash.to_json)
+          doc = Nokogiri::XML.parse(result.value!)
+          verification_metadata = doc.xpath("//hix-core:VerificationMetadata", namespaces)[0]
+          expect(verification_metadata.xpath("//hix-core:VerificationCategoryCode", namespaces)[0].text).to eq "EligibleImmigrationStatus"
+        end
+
+        it "should populate VerificationStatusCode" do
+          result = described_class.new.call(payload_hash.to_json)
+          doc = Nokogiri::XML.parse(result.value!)
+          verification_metadata = doc.xpath("//hix-core:VerificationMetadata", namespaces)[0]
+          status = verification_metadata.xpath("//hix-core:VerificationStatus", namespaces)
+          expect(status.xpath('./hix-core:VerificationStatusCode', namespaces)[0].text).to eq "5"
+        end
+
+        it "should populate dhs save verification supplement" do
+          result = described_class.new.call(payload_hash.to_json)
+          doc = Nokogiri::XML.parse(result.value!)
+          verification_metadata = doc.xpath("//hix-core:VerificationMetadata", namespaces)[0]
+          expect(verification_metadata.xpath("//hix-core:DHS-SAVEVerificationSupplement", namespaces).count).to eq 2
+        end
+
+        it "should populate StepID in dhs save verification supplement" do
+          result = described_class.new.call(payload_hash.to_json)
+          doc = Nokogiri::XML.parse(result.value!)
+          verification_metadata = doc.xpath("//hix-core:VerificationMetadata", namespaces)[0]
+          expect(verification_metadata.xpath("//hix-core:StepID", namespaces)[0].text).to eq "1"
+        end
+
+        it "should populate LawfulPresenceVerificationCode in dhs save verification supplement if present" do
+          result = described_class.new.call(payload_hash.to_json)
+          doc = Nokogiri::XML.parse(result.value!)
+          verification_metadata = doc.xpath("//hix-core:VerificationMetadata", namespaces)[0]
+          expect(verification_metadata.xpath("//hix-core:LawfulPresenceVerificationCode", namespaces)[0].text).to eq "Y"
+          expect(verification_metadata.xpath("//hix-core:LawfulPresenceVerificationCode", namespaces)[1].text).to eq "P"
+        end
+
+        it "should populate QualifiedNonCitizenVerificationCode in dhs save verification supplement if present" do
+          result = described_class.new.call(payload_hash.to_json)
+          doc = Nokogiri::XML.parse(result.value!)
+          verification_metadata = doc.xpath("//hix-core:VerificationMetadata", namespaces)[0]
+          expect(verification_metadata.xpath("//hix-core:QualifiedNonCitizenVerificationCode", namespaces)[0].text).to eq "Y"
+        end
+
+        it "should populate FiveYearBarMetVerificationCode in dhs save verification supplement if present" do
+          result = described_class.new.call(payload_hash.to_json)
+          doc = Nokogiri::XML.parse(result.value!)
+          verification_metadata = doc.xpath("//hix-core:VerificationMetadata", namespaces)[0]
+          expect(verification_metadata.xpath("//hix-core:FiveYearBarMetVerificationCode", namespaces)[0].text).to eq "Y"
+        end
+      end
+
+      context "when no valid vlp_response exists for the person" do
+        let(:invalid_vlp_response_payload) do
+          person_1 = payload_hash[:family][:family_members][0][:person][:consumer_role][:lawful_presence_determination]
+          person_2 = payload_hash[:family][:family_members][1][:person][:consumer_role][:lawful_presence_determination]
+          person_3 = payload_hash[:family][:family_members][2][:person][:consumer_role][:lawful_presence_determination]
+          person_1[:ssa_responses] = []
+          person_2[:ssa_responses] = []
+          person_2[:vlp_responses] = []
+          person_2[:vlp_responses] = [{
+            received_at: "2024-06-20T18:48:28.368+00:00",
+            body: "{\"ResponseMetadata\":{\"ResponseCode\":\"HX005001\",
+\"ResponseDescriptionText\":\"Unexpected Exception Occurred at Trusted Data Source\"},
+\"InitialVerificationResponseSet\":{\"InitialVerificationIndividualResponses\":[{
+\"ResponseMetadata\":{\"ResponseCode\":\"HX005001\",\"ResponseDescriptionText\":\"Unexpected Exception Occurred at Trusted Data Source\"},
+\"LawfulPresenceVerifiedCode\":\"N\",\"InitialVerificationIndividualResponseSet\":{\"CaseNumber\":null,
+\"NonCitLastName\":null,\"NonCitFirstName\":null,\"NonCitMiddleName\":null,\"NonCitBirthDate\":null,
+\"NonCitEntryDate\":null,\"AdmittedToDate\":null,\"AdmittedToText\":null,\"NonCitCountryBirthCd\":null,
+\"NonCitCountryCitCd\":null,\"NonCitCoaCode\":null,\"NonCitProvOfLaw\":null,\"NonCitEadsExpireDate\":null,
+\"EligStatementCd\":null,\"EligStatementTxt\":null,\"IAVTypeCode\":null,\"IAVTypeTxt\":null,\"WebServSftwrVer\":null,
+\"GrantDate\":null,\"GrantDateReasonCd\":null,\"SponsorDataFoundIndicator\":null,\"ArrayOfSponsorshipData\":null,
+\"SponsorshipReasonCd\":null,\"AgencyAction\":null,\"FiveYearBarApplyCode\":null,\"QualifiedNonCitizenCode\":null,
+\"FiveYearBarMetCode\":null,\"USCitizenCode\":null}}]}}"
+          }]
+          person_3[:ssa_responses] = []
+          person_3[:vlp_responses] = []
+          payload_hash.to_json
+        end
+
+        it "should set verification metadata with no errors" do
+          result = described_class.new.call(invalid_vlp_response_payload)
+          doc = Nokogiri::XML.parse(result.value!)
+          verification_metadata = doc.xpath("//hix-core:VerificationMetadata", namespaces)[0]
+          expect(result.success?).to be_truthy
+          expect(verification_metadata.present?).to be_truthy
+        end
+      end
+
+      context "when no valid ssa_response exists for the person" do
+        let(:invalid_ssa_response_payload) do
+          person_1 = payload_hash[:family][:family_members][0][:person][:consumer_role][:lawful_presence_determination]
+          person_2 = payload_hash[:family][:family_members][1][:person][:consumer_role][:lawful_presence_determination]
+          person_3 = payload_hash[:family][:family_members][2][:person][:consumer_role][:lawful_presence_determination]
+          person_1[:ssa_responses] = [{
+            received_at: "2024-06-20T18:48:28.368+00:00",
+            body: "{\"ResponseMetadata\":{\"ResponseCode\":\"HX005001\",
+\"ResponseDescriptionText\":\"Unexpected Exception Occurred at Trusted Data Source\",\"TDSResponseDescriptionText\":null},
+\"SSACompositeIndividualResponses\":[{\"ResponseMetadata\":{\"ResponseCode\":\"HX005001\",
+\"ResponseDescriptionText\":\"Unexpected Exception Occurred at Trusted Data Source\",
+\"TDSResponseDescriptionText\":null},\"PersonSSNIdentification\":\"123456789\",\"SSAResponse\":null}]}"
+          }]
+          person_2[:ssa_responses] = []
+          person_3[:ssa_responses] = []
+          person_2[:vlp_responses] = []
+          person_3[:vlp_responses] = []
+          payload_hash.to_json
+        end
+
+        it "should not set verification metadata" do
+          result = described_class.new.call(invalid_ssa_response_payload)
+          doc = Nokogiri::XML.parse(result.value!)
+          verification_metadata = doc.xpath("//hix-core:VerificationMetadata", namespaces)[0]
+          expect(verification_metadata.present?).to be_falsey
+        end
+      end
+    end
+
     context 'param flags' do
       context "when drop_non_ssn_apply_reason flag is present in payload" do
         it 'should not populate IdentificationCategoryText tag in PersonSSNIdentification' do
@@ -363,6 +862,28 @@ RSpec.describe AcaEntities::Atp::Operations::Aces::GenerateXml  do
           doc = Nokogiri::XML.parse(result.value!)
           texts = doc.xpath('//hix-core:IncomeEarnedDateRange/nc:EndDate/nc:Date', namespaces)
           expect(texts.present?).to be_falsey
+        end
+      end
+
+      context 'drop_income_start_on flag present in payload' do
+        it 'should not populate StartDate/Date tag in IncomeEarnedDateRange' do
+          param_flags = {}
+          flagged_payload = payload_hash.merge(param_flags).to_json
+          result = described_class.new.call(flagged_payload)
+          doc = Nokogiri::XML.parse(result.value!)
+          texts = doc.xpath('//hix-core:IncomeEarnedDateRange/nc:StartDate/nc:Date', namespaces)
+          expect(texts.present?).to be_truthy
+        end
+      end
+
+      context 'drop_income_end_on flag present in payload' do
+        it 'should not populate EndDate/Date tag in IncomeEarnedDateRange' do
+          param_flags = {}
+          flagged_payload = payload_hash.merge(param_flags).to_json
+          result = described_class.new.call(flagged_payload)
+          doc = Nokogiri::XML.parse(result.value!)
+          texts = doc.xpath('//hix-core:IncomeEarnedDateRange/nc:EndDate/nc:Date', namespaces)
+          expect(texts.present?).to be_truthy
         end
       end
 

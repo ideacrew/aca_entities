@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe AcaEntities::Fdsh::Pvc::Medicare::Operations::BuildMedicareRequest, dbclean: :after_each do
+RSpec.describe AcaEntities::Fdsh::Pvc::Medicare::Operations::BuildMedicareRequest do
 
   let!(:applicant) do
     { :name =>

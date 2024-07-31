@@ -7,7 +7,7 @@ require 'aca_entities/medicaid/atp/person_name'
 require 'aca_entities/medicaid/atp/person_birth_date'
 require 'aca_entities/medicaid/atp/role_played_by_person'
 
-RSpec.describe ::AcaEntities::Medicaid::Atp::RolePlayedByPerson, dbclean: :after_each do
+RSpec.describe ::AcaEntities::Medicaid::Atp::RolePlayedByPerson do
 
   let(:required_params) do
     {

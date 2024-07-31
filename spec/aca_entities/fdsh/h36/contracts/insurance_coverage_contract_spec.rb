@@ -3,7 +3,7 @@
 require 'spec_helper'
 require 'aca_entities/fdsh/h36/irs_household_coverage_shared_context'
 
-RSpec.describe AcaEntities::Fdsh::H36::Contracts::InsuranceCoverageContract, dbclean: :after_each do
+RSpec.describe AcaEntities::Fdsh::H36::Contracts::InsuranceCoverageContract do
   include_context('irs_group_coverage_shared_context')
 
   subject { described_class.new }

@@ -3,7 +3,7 @@
 require 'spec_helper'
 require 'aca_entities/magi_medicaid/libraries/iap_library'
 
-RSpec.describe ::AcaEntities::MagiMedicaid::ProductEligibilityDetermination, dbclean: :after_each do
+RSpec.describe ::AcaEntities::MagiMedicaid::ProductEligibilityDetermination do
   let(:input_params) do
     { is_ia_eligible: true,
       is_medicaid_chip_eligible: false,
@@ -16,6 +16,7 @@ RSpec.describe ::AcaEntities::MagiMedicaid::ProductEligibilityDetermination, dbc
       magi_medicaid_monthly_income_limit: 3760.67,
       magi_as_percentage_of_fpl: 10.0,
       magi_medicaid_category: 'parent_caretaker',
+      is_gap_filling: true,
       magi_medicaid_ineligibility_reasons: ['dummy reason'] }
   end
 

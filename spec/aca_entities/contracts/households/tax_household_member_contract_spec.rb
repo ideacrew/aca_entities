@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe ::AcaEntities::Contracts::Households::TaxHouseholdMemberContract, dbclean: :after_each do
+RSpec.describe ::AcaEntities::Contracts::Households::TaxHouseholdMemberContract do
 
   let(:family_member_reference) do
     {
@@ -107,5 +107,3 @@ RSpec.describe ::AcaEntities::Contracts::Households::TaxHouseholdMemberContract,
     end
   end
 end
-
-

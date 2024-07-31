@@ -3,7 +3,7 @@
 require 'spec_helper'
 require 'aca_entities/medicaid/contracts/referral_activity_status_contract'
 
-RSpec.describe ::AcaEntities::Medicaid::Contracts::ReferralActivityStatusContract, dbclean: :after_each do
+RSpec.describe ::AcaEntities::Medicaid::Contracts::ReferralActivityStatusContract do
 
   let(:required_params) do
     { status_code: "Initiated" }

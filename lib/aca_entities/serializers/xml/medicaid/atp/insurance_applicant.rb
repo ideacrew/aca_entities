@@ -100,7 +100,7 @@ module AcaEntities
             # An average number of hours worked (in total) by a parent of an applicant. Max of two values.
             element :parent_average_hours_worked_per_week_values, Float, tag: 'InsuranceApplicantParentAverageHoursWorkedPerWeekValue'
 
-            def self.domain_to_mapper(insurance_applicant) # rubocop:disable Metrics/CyclomaticComplexity, Metrics/MethodLength, Metrics/AbcSize
+            def self.domain_to_mapper(insurance_applicant, verification_metadata) # rubocop:disable Metrics/CyclomaticComplexity, Metrics/MethodLength, Metrics/AbcSize
               mapper = self.new
               mapper.fixed_address_indicator = insurance_applicant.fixed_address_indicator
               mapper.blindness_or_disability_indicator = insurance_applicant.blindness_or_disability_indicator
@@ -108,9 +108,11 @@ module AcaEntities
               mapper.long_term_care_indicator = insurance_applicant.long_term_care_indicator
               mapper.role_reference = RoleOfPersonReference.domain_to_mapper(insurance_applicant.role_reference)
               if insurance_applicant.incarcerations
-                mapper.incarcerations = insurance_applicant.incarcerations.map { |inc| Incarceration.domain_to_mapper(inc) }
+                mapper.incarcerations = insurance_applicant.incarcerations.map do |inc|
+                  Incarceration.domain_to_mapper(insurance_applicant, inc, verification_metadata)
+                end
               end
-              mapper.lawful_presence_status = InsuranceApplicantLawfulPresenceStatus.domain_to_mapper(insurance_applicant.lawful_presence_status)
+              mapper.lawful_presence_status = InsuranceApplicantLawfulPresenceStatus.domain_to_mapper(insurance_applicant, verification_metadata)
               mapper.non_esi_coverage_indicators = insurance_applicant.non_esi_coverage_indicators
               mapper.non_esi_policies =  insurance_applicant.non_esi_policies.map { |inc| InsuranceApplicantNonEsiPolicy.domain_to_mapper(inc) }
               mapper.esi_associations =  insurance_applicant.esi_associations.map { |inc| EsiAssociation.domain_to_mapper(inc) }

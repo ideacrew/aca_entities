@@ -3,7 +3,7 @@
 require 'spec_helper'
 require 'aca_entities/medicaid/ios'
 
-RSpec.describe AcaEntities::Medicaid::Ios::Contracts::SspApplicationCContract, dbclean: :after_each do
+RSpec.describe AcaEntities::Medicaid::Ios::Contracts::SspApplicationCContract do
   let(:required_params) do
     {
       NotEnrolledInHealthCareCoverageToggle__c: "Y",

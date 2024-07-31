@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe ::AcaEntities::Pdm::Contracts::ManifestContract, dbclean: :after_each do
+RSpec.describe ::AcaEntities::Pdm::Contracts::ManifestContract do
   let(:valid_params) do
     {
       type: "pvc_manifest_type",

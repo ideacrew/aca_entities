@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe ::AcaEntities::Fdsh::Ridp::Rj139::Operations::CmsPrimaryResponseToCv3PrimaryResponse, dbclean: :after_each do
+RSpec.describe ::AcaEntities::Fdsh::Ridp::Rj139::Operations::CmsPrimaryResponseToCv3PrimaryResponse do
 
   describe 'cms response' do
     let(:input_params) do

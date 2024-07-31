@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe ::AcaEntities::Families::FamilyReference, dbclean: :after_each do
+RSpec.describe ::AcaEntities::Families::FamilyReference do
 
   let(:input_params) do
     {

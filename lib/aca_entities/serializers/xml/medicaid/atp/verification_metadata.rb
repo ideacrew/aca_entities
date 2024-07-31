@@ -40,6 +40,10 @@ module AcaEntities
             # An information exchange system that requested a verification.
             has_one :verification_requesting_system, VerificationRequestingSystem
 
+            # A verification supplement provided by the Department of Homeland Security (DHS) Systematic Alien
+            # Verification for Entitlements (SAVE) program.
+            has_one :dhs_save_verification_supplement, DhsSaveVerificationSupplement
+
             # True if the information has been verified as accurate; false if the information has been rejected as inaccurate.
             element :verification_indicator, Boolean, tag: 'VerificationIndicator'
 
@@ -61,11 +65,11 @@ module AcaEntities
 
             element :response_code, String, tag: 'ResponseCode'
 
-            def self.domain_to_mapper(metadata)
+            def self.domain_to_mapper(metadata) # rubocop:disable Metrics/AbcSize
               mapper = self.new
               mapper.address_verification_code = metadata.address_verification_code
               mapper.dhs_g845_verification_code = metadata.dhs_g845_verification_code
-              mapper.dhs_save_verification_code = metadata.dhs_save_verification_code
+              mapper.dhs_save_verification_code = metadata.dhs_save_verification_code if metadata.dhs_save_verification_code.present?
               mapper.ffe_verification_code = metadata.ffe_verification_code
               mapper.verification_authority_name = metadata.verification_authority_name
               mapper.verification_authority_alpha_code = metadata.verification_authority_alpha_code
@@ -77,7 +81,13 @@ module AcaEntities
               mapper.response_code = metadata.response_code
               mapper.verification_date = VerificationDate.domain_to_mapper(metadata.verification_date)
               mapper.verification_requesting_system = VerificationRequestingSystem.domain_to_mapper(metadata.verification_requesting_system)
+              if metadata.verification_category_codes.present?
+                mapper.verification_category_codes = metadata.verification_category_codes.map {|vc| VerificationCategoryCode.domain_to_mapper(vc)}
+              end
               mapper.verification_status = VerificationStatus.domain_to_mapper(metadata.verification_status)
+              if metadata.dhs_save_verification_supplement.present?
+                mapper.dhs_save_verification_supplement = DhsSaveVerificationSupplement.domain_to_mapper(metadata.dhs_save_verification_supplement)
+              end
               mapper
             end
 

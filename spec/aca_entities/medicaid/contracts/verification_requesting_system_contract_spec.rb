@@ -3,11 +3,10 @@
 require 'spec_helper'
 require 'aca_entities/medicaid/contracts/verification_requesting_system_contract'
 
-RSpec.describe ::AcaEntities::Medicaid::Contracts::VerificationRequestingSystemContract, dbclean: :after_each do
+RSpec.describe ::AcaEntities::Medicaid::Contracts::VerificationRequestingSystemContract do
 
   let(:required_params) do
     {
-      id: "id123",
       category_code: "Exchange"
     }
   end

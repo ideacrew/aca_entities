@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe ::AcaEntities::Contracts::Products::FamilyRatedPremiumsContract, dbclean: :after_each do
+RSpec.describe ::AcaEntities::Contracts::Products::FamilyRatedPremiumsContract do
   let(:family_rated_premiums) do
     {
       exchange_provided_code: 'R-ME002',

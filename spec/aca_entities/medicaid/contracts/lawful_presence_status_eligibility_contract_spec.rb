@@ -3,7 +3,7 @@
 require 'spec_helper'
 require 'aca_entities/medicaid/contracts/lawful_presence_status_eligibility_contract'
 
-RSpec.describe ::AcaEntities::Medicaid::Contracts::LawfulPresenceStatusEligibilityContract, dbclean: :after_each do
+RSpec.describe ::AcaEntities::Medicaid::Contracts::LawfulPresenceStatusEligibilityContract do
 
   let(:required_params) { { eligibility_indicator: true } }
 

@@ -63,8 +63,8 @@ module AcaEntities
               mapper.senders = account_transfer_request.senders.map {|s| Sender.domain_to_mapper(s)}
               mapper.receivers = account_transfer_request.receivers.map {|r| Receiver.domain_to_mapper(r)}
               mapper.transfer_header = TransferHeader.domain_to_mapper(account_transfer_request.transfer_header)
-              mapper.insurance_application = InsuranceApplication.domain_to_mapper(account_transfer_request.insurance_application)
-              mapper.people = account_transfer_request.people.map {|p| Person.domain_to_mapper(p)}
+              mapper.insurance_application = InsuranceApplication.domain_to_mapper(account_transfer_request)
+              mapper.people = account_transfer_request.people.map {|p| Person.domain_to_mapper(p, account_transfer_request.verification_metadata)}
               mapper.physical_households = account_transfer_request.physical_households.map {|ph| PhysicalHousehold.domain_to_mapper(ph)}
               unless account_transfer_request.medicaid_households.nil?
                 mapper.medicaid_households = account_transfer_request.medicaid_households.map {|vm| MedicaidHousehold.domain_to_mapper(vm)}
@@ -88,7 +88,7 @@ module AcaEntities
                 record: identifier ? { people: people.map(&:to_hash).group_by {|h| h[:id]}.transform_keys(&:to_s).transform_values(&:first) } : nil,
                 people: identifier ? nil : people.map(&:to_hash),
                 physical_households: physical_households&.map(&:to_hash),
-                assister: assister&.map(&:to_hash)
+                assister: assister&.to_hash
               }
             end
           end

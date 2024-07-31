@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe ::AcaEntities::Determinations::LawfulPresenceDetermination, dbclean: :after_each do
+RSpec.describe ::AcaEntities::Determinations::LawfulPresenceDetermination do
 
   let(:event_response) do
     [
@@ -49,5 +49,3 @@ RSpec.describe ::AcaEntities::Determinations::LawfulPresenceDetermination, dbcle
     end
   end
 end
-
-

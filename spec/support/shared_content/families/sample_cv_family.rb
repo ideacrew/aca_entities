@@ -295,7 +295,8 @@ RSpec.shared_context 'sample family cv' do
     {
       first_name: 'first name',
       last_name: 'last name',
-      middle_name: 'middle name'
+      middle_name: 'middle name',
+      full_name: 'first name last name'
     }
   end
 
@@ -306,9 +307,14 @@ RSpec.shared_context 'sample family cv' do
     }
   end
 
+  let(:encrypted_ssn) do
+    AcaEntities::Operations::Encryption::Encrypt.new.call({ value: '123456789' }).success
+  end
+
   let(:person_demographics) do
     {
-      ssn: "123456789",
+      ssn: '123456789',
+      encrypted_ssn: encrypted_ssn,
       no_ssn: false,
       gender: 'male',
       dob: Date.today,
@@ -318,13 +324,15 @@ RSpec.shared_context 'sample family cv' do
 
   let(:person_reference) do
     {
-      hbx_id: '1234',
+
+      hbx_id: dependent_hbx_id,
       first_name: 'first name',
       last_name: 'last name',
       middle_name: 'middle name',
       dob: Date.today,
       gender: 'male',
-      ssn: nil
+      encrypted_ssn: encrypted_ssn,
+      ssn: '123456789'
     }
   end
 
@@ -630,17 +638,57 @@ RSpec.shared_context 'sample family cv' do
     }
   end
 
+  let(:dependent_hbx_id) { '1002' }
+
+  let(:dependent) do
+    {
+      hbx_id: dependent_hbx_id,
+      is_active: true,
+      is_disabled: false,
+      no_dc_address: nil,
+      no_dc_address_reason: nil,
+      is_homeless: nil,
+      is_temporarily_out_of_state: nil,
+      age_off_excluded: nil,
+      is_applying_for_assistance: nil,
+      person_name: person_name,
+      person_health: person_health,
+      person_demographics: person_demographics,
+      person_relationships: [],
+      consumer_role: consumer_role,
+      resident_role: resident_role,
+      individual_market_transitions: individual_market_transitions,
+      verification_types: verification_types,
+      broker_role: broker_role,
+      addresses: addresses,
+      phones: phones,
+      emails: emails,
+      documents: documents,
+      timestamp: timestamp
+    }
+  end
+
   let(:hbx_enrollment_exemptions) { [] }
 
   let(:family_member_params) do
     [
       {
         hbx_id: '1001',
-        is_primary_applicant: false,
+        is_primary_applicant: true,
         is_consent_applicant: true,
         is_coverage_applicant: nil,
         is_active: true,
         person: person,
+        timestamp: timestamp
+      },
+
+      {
+        hbx_id: dependent_hbx_id,
+        is_primary_applicant: false,
+        is_consent_applicant: true,
+        is_coverage_applicant: nil,
+        is_active: true,
+        person: dependent,
         timestamp: timestamp
       }
     ]

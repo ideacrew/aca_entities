@@ -5,7 +5,7 @@ require 'aca_entities/medicaid/ios/functions/ssp_health_insurance_facility_type_
 require 'aca_entities/medicaid/ios/operations/generate_ios'
 require 'aca_entities/medicaid/ios/contracts/ssp_health_insurance_facility_type__c_contract'
 
-RSpec.describe AcaEntities::Medicaid::Ios::Functions::SspHealthInsuranceFacilityTypeCBuilder, dbclean: :after_each do
+RSpec.describe AcaEntities::Medicaid::Ios::Functions::SspHealthInsuranceFacilityTypeCBuilder do
 
   # should use more recent example payload?
   let(:family) do

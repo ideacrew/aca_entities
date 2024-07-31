@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe AcaEntities::Cms::Pbp::Contracts::FinancialInformationContract, dbclean: :after_each do
+RSpec.describe AcaEntities::Cms::Pbp::Contracts::FinancialInformationContract do
   let(:required_params) do
     {
       financial_effective_start_date: Date.today,

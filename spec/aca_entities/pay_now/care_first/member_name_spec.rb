@@ -3,7 +3,7 @@
 require "spec_helper"
 require "aca_entities/pay_now/care_first"
 
-RSpec.describe ::AcaEntities::PayNow::CareFirst::MemberName, dbclean: :after_each do
+RSpec.describe ::AcaEntities::PayNow::CareFirst::MemberName do
   let(:required_params) do
     { :person_surname => "Thomas",
       :person_given_name => "Jeff" }

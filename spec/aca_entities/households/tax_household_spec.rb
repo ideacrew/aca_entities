@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe ::AcaEntities::Households::TaxHousehold, dbclean: :after_each do
+RSpec.describe ::AcaEntities::Households::TaxHousehold do
 
   let(:tax_household_member_eligibity_determination) do
     {
@@ -132,5 +132,3 @@ RSpec.describe ::AcaEntities::Households::TaxHousehold, dbclean: :after_each do
     end
   end
 end
-
-

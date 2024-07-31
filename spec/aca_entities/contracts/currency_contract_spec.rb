@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe ::AcaEntities::Contracts::CurrencyContract, dbclean: :after_each do
+RSpec.describe ::AcaEntities::Contracts::CurrencyContract do
 
   let!(:required_params) do
     {
@@ -63,4 +63,3 @@ RSpec.describe ::AcaEntities::Contracts::CurrencyContract, dbclean: :after_each 
     end
   end
 end
-

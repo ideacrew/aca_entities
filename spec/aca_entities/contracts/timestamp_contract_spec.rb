@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe ::AcaEntities::Contracts::TimeStampContract, dbclean: :after_each do
+RSpec.describe ::AcaEntities::Contracts::TimeStampContract do
 
   let(:required_params) do
     {
@@ -64,4 +64,3 @@ RSpec.describe ::AcaEntities::Contracts::TimeStampContract, dbclean: :after_each
     end
   end
 end
-

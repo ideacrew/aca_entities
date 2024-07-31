@@ -3,7 +3,7 @@
 require 'spec_helper'
 require 'aca_entities/fdsh/h36/irs_household_coverage_shared_context'
 
-RSpec.describe AcaEntities::Fdsh::H36::Contracts::BatchHandlingServiceRequestContract, dbclean: :after_each do
+RSpec.describe AcaEntities::Fdsh::H36::Contracts::BatchHandlingServiceRequestContract do
   subject { described_class.new }
 
   let(:batch_metadata_contract) do

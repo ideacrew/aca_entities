@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe AcaEntities::Fdsh::NonEsi::H31::Operations::BuildNonEsiMecRequest, dbclean: :after_each do
+RSpec.describe AcaEntities::Fdsh::NonEsi::H31::Operations::BuildNonEsiMecRequest do
 
   let(:encrypted_ssn) { "yobheUbYUK2Abfc6lrq37YQCsPgBL8lLkw==\n" }
   let(:encrypted_ssn_2) { encrypted_ssn }

@@ -3,7 +3,7 @@
 require 'spec_helper'
 require 'aca_entities/medicaid/contracts/insurance_applicant_contract'
 
-RSpec.describe ::AcaEntities::Medicaid::Contracts::InsuranceApplicantContract, dbclean: :after_each do
+RSpec.describe ::AcaEntities::Medicaid::Contracts::InsuranceApplicantContract do
 
   let(:required_params) do
     { role_reference: { ref: "a-person-id" },

@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe ::AcaEntities::Products::FamilyRatedPremiums, dbclean: :after_each do
+RSpec.describe ::AcaEntities::Products::FamilyRatedPremiums do
 
   let(:family_rated_premiums) do
     {

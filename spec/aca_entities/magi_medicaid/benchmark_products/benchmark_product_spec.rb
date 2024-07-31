@@ -3,7 +3,7 @@
 require 'spec_helper'
 require 'aca_entities/magi_medicaid/libraries/iap_library'
 
-RSpec.describe ::AcaEntities::MagiMedicaid::BenchmarkProducts::BenchmarkProduct, dbclean: :after_each do
+RSpec.describe ::AcaEntities::MagiMedicaid::BenchmarkProducts::BenchmarkProduct do
 
   describe 'with valid arguments' do
     let(:issuer_profile_reference) do

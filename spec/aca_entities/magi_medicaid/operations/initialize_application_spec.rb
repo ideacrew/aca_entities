@@ -77,5 +77,3 @@ RSpec.describe ::AcaEntities::MagiMedicaid::Operations::InitializeApplication do
     end
   end
 end
-
-

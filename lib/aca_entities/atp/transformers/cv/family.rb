@@ -97,8 +97,8 @@ module AcaEntities
                     member_id = v.find(/record.people.(\w+)$/).map(&:item).last
                     applicants = v.resolve(:'insurance_application.insurance_applicants').item
                     applicant = applicants[member_id.to_sym]
-                    return false if applicant.nil? || applicant[:incarcerations].empty?
-                    applicant[:incarcerations].first[:incarceration_indicator] || false # defaulted to false if no value provided
+                    return if applicant.nil? || applicant[:incarcerations].empty?
+                    applicant[:incarcerations].first[:incarceration_indicator]
                   }
                   add_key 'person.person_demographics.tribal_id'
                   add_key 'person.person_demographics.language_code'
@@ -115,6 +115,10 @@ module AcaEntities
                     tribe_indicator = tribal_augmentation[:american_indian_or_alaska_native_indicator]
                     return nil unless tribe_indicator
                     tribal_augmentation[:person_tribe_name]
+                  }
+                  add_key 'person.person_demographics.indian_tribe_member', function: lambda { |v|
+                    tribal_augmentation = v.find(Regexp.new('record.people.*.tribal_augmentation')).map(&:item).last
+                    tribal_augmentation[:american_indian_or_alaska_native_indicator]
                   }
                   map 'augementation', 'augementation', memoize_record: true, visible: false
                   add_key 'person.addresses', memoize_record: true, function: AcaEntities::Atp::Functions::AddressBuilder.new

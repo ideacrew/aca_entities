@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe ::AcaEntities::Determinations::EligibilityDetermination, dbclean: :after_each do
+RSpec.describe ::AcaEntities::Determinations::EligibilityDetermination do
 
   let!(:currency) do
     {

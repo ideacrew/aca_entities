@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe ::AcaEntities::Fdsh::Ssa::H3::Operations::SsaVerificationJsonRequest, dbclean: :after_each do
+RSpec.describe ::AcaEntities::Fdsh::Ssa::H3::Operations::SsaVerificationJsonRequest do
 
   describe 'with valid arguments' do
     let!(:person_name) do

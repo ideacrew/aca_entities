@@ -3,7 +3,7 @@
 require 'spec_helper'
 require 'aca_entities/medicaid/contracts/income_payment_frequency_contract'
 
-RSpec.describe ::AcaEntities::Medicaid::Contracts::IncomePaymentFrequencyContract, dbclean: :after_each do
+RSpec.describe ::AcaEntities::Medicaid::Contracts::IncomePaymentFrequencyContract do
 
   let(:required_params) { { frequency_code: "Weekly" } }
 

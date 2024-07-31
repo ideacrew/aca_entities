@@ -3,7 +3,7 @@
 require 'spec_helper'
 require 'aca_entities/medicaid/ios'
 
-RSpec.describe AcaEntities::Medicaid::Ios::Contracts::AgencyOrOrganizationRContract, dbclean: :after_each do
+RSpec.describe AcaEntities::Medicaid::Ios::Contracts::AgencyOrOrganizationRContract do
 
   let(:all_params) { { DCDataId__c: 0 } }
 

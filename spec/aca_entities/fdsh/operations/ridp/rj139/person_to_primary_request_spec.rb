@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe ::AcaEntities::Fdsh::Ridp::Rj139::Operations::PersonToPrimaryRequest, dbclean: :after_each do
+RSpec.describe ::AcaEntities::Fdsh::Ridp::Rj139::Operations::PersonToPrimaryRequest do
 
   describe 'with valid arguments' do
     let!(:person_name) do

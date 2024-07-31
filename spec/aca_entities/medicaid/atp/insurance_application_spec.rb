@@ -49,7 +49,7 @@ require 'aca_entities/medicaid/atp/referral_activity'
 require 'aca_entities/medicaid/atp/insurance_applicant'
 require 'aca_entities/medicaid/atp/insurance_application'
 
-RSpec.describe ::AcaEntities::Medicaid::Atp::InsuranceApplication, dbclean: :after_each do
+RSpec.describe ::AcaEntities::Medicaid::Atp::InsuranceApplication do
 
   let(:required_params) do
     {

@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe ::AcaEntities::Identifiers::Id, dbclean: :after_each do
+RSpec.describe ::AcaEntities::Identifiers::Id do
 
   let!(:input_params) do
     {
@@ -36,5 +36,3 @@ RSpec.describe ::AcaEntities::Identifiers::Id, dbclean: :after_each do
     end
   end
 end
-
-

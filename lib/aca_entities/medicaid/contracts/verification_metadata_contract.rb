@@ -14,7 +14,7 @@ module AcaEntities
           optional(:ffe_verification_code).maybe(:string)
           optional(:verification_authority_name).maybe(:string)
           optional(:verification_authority_alpha_code).maybe(:string)
-          optional(:id).maybe(:string)
+          required(:id).filled(:string)
           optional(:verification_indicator).maybe(:bool)
           optional(:verification_inconsistency_indicator).maybe(:bool)
           optional(:verification_description_text).maybe(:string)

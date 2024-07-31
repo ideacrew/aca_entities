@@ -3,7 +3,7 @@
 require 'spec_helper'
 require 'aca_entities/medicaid/contracts/verification_status_contract'
 
-RSpec.describe ::AcaEntities::Medicaid::Contracts::VerificationStatusContract, dbclean: :after_each do
+RSpec.describe ::AcaEntities::Medicaid::Contracts::VerificationStatusContract do
 
   let(:required_params) { { status_code: "1" } }
 
