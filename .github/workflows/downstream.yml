@@ -1,0 +1,24 @@
+name: Downstream
+
+on:
+  workflow_dispatch:
+    branches:
+      - trunk
+  push:
+    branches:
+      - trunk
+
+jobs:
+  check-dependencies:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Bundle Dependency Checks
+        uses: convictional/trigger-workflow-and-wait@v1.6.1
+        with:
+            owner: ideacrew
+            repo: ic_dependency_jamboree
+            github_token: ${{ secrets.GH_PAT }}
+            workflow_file_name: test_bundle.yml
+            ref: trunk
+            propagate_failure: false
+
