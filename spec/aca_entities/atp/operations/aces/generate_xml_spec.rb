@@ -821,6 +821,66 @@ RSpec.describe AcaEntities::Atp::Operations::Aces::GenerateXml  do
       end
     end
 
+    context 'expense information' do
+      context 'when expense has start and end dates' do
+        it 'should map and populate start and end date to category_text in expense section' do
+          result = described_class.new.call(payload)
+          doc = Nokogiri::XML.parse(result.value!)
+          category_text = doc.xpath("//hix-core:ExpenseCategoryText", namespaces)[0]
+          expect(category_text.text).to include("start")
+          expect(category_text.text).to include("end")
+        end
+      end
+
+      context 'when expense has only start date' do
+        let(:expense_payload) do
+          applicant_1 = payload_hash[:family][:magi_medicaid_applications][:applicants][0]
+          applicant_1[:deductions] = [
+            {
+              name: nil,
+              kind: "alimony_paid",
+              amount: 10.0,
+              start_on: "2021-01-01",
+              frequency_kind: "Daily",
+              submitted_at: "2021-07-27T14:29:26.000+00:00"
+            }
+          ]
+          payload_hash.to_json
+        end
+
+        it 'should map and populate start date but not end date to category_text in expense section' do
+          result = described_class.new.call(expense_payload)
+          doc = Nokogiri::XML.parse(result.value!)
+          category_text = doc.xpath("//hix-core:ExpenseCategoryText", namespaces)[0]
+          expect(category_text.text).to include("start")
+          expect(category_text.text).not_to include("end")
+        end
+      end
+
+      context 'when expense does not have both start and end date' do
+        let(:expense_payload) do
+          applicant_1 = payload_hash[:family][:magi_medicaid_applications][:applicants][0]
+          applicant_1[:deductions] = [
+            {
+              name: nil,
+              kind: "alimony_paid",
+              amount: 10.0,
+              frequency_kind: "Daily",
+              submitted_at: "2021-07-27T14:29:26.000+00:00"
+            }
+          ]
+          payload_hash.to_json
+        end
+
+        it 'should not populate expense category text section' do
+          result = described_class.new.call(expense_payload)
+          doc = Nokogiri::XML.parse(result.value!)
+          category_text = doc.xpath("//hix-core:ExpenseCategoryText", namespaces)[0]
+          expect(category_text.present?).to eq false
+        end
+      end
+    end
+
     context 'param flags' do
       context "when drop_non_ssn_apply_reason flag is present in payload" do
         it 'should not populate IdentificationCategoryText tag in PersonSSNIdentification' do

@@ -13,7 +13,6 @@ module AcaEntities
             'student_loan_interest' => 'StudentLoanInterest'
           }.freeze
 
-          add_key 'category_text'
           map 'amount', 'amount'
           map 'frequency_kind', 'frequency.frequency_code'
           map 'kind', 'category_code', function: lambda { |v|

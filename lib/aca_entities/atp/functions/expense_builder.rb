@@ -13,8 +13,20 @@ module AcaEntities
           deductions = applicants_hash[member_id.to_sym][:deductions]
 
           deductions.each_with_object([]) do |deduction, collect|
-            collect << ::AcaEntities::Atp::Transformers::Aces::Expense.transform(deduction)
+            result = ::AcaEntities::Atp::Transformers::Aces::Expense.transform(deduction)
+            category_text = construct_category_text(deduction)
+            result.merge!(category_text: category_text) if category_text.present?
+            collect << result
           end
+        end
+
+        def construct_category_text(deduction)
+          return if deduction[:start_on].blank? && deduction[:end_on].blank?
+
+          category_text = []
+          category_text << "start:#{deduction[:start_on]}" if deduction[:start_on].present?
+          category_text << "end:#{deduction[:end_on]}" if deduction[:end_on].present?
+          category_text.join(',')
         end
       end
     end
