@@ -14,9 +14,11 @@ module AcaEntities
       class CreateAccount
         include Dry::Monads[:do, :result]
 
-        # Calls the operation
+        # Calls the operation to create an account
         #
         # @param params [Hash] the parameters to create an account with
+        # @option params [String] :account_name The name of the account
+        # @option params [Array<Hash>] :contacts A list of contacts associated with the account
         # @return [Dry::Monads::Result] Success or Failure
         def call(params)
           values = yield validate_params(params)
@@ -30,7 +32,7 @@ module AcaEntities
         # Validates the input parameters using the AccountContract
         #
         # @param params [Hash] the parameters to validate
-        # @return [Dry::Monads::Result] Success or Failure
+        # @return [Dry::Monads::Result] Success with validated parameters or Failure with errors
         def validate_params(params)
           result = ::AcaEntities::Crm::Contracts::AccountContract.new.call(params)
 
