@@ -41,9 +41,9 @@ module AcaEntities
             doc = i20_doc
           when 'DS2019 (Certificate of Eligibility for Exchange Visitor (J-1) Status)'
             doc = ds2019_doc
-          when 'Other (with alien number)'
+          when 'Other (With Alien Number)'
             doc = other_with_alien_number_doc
-          when 'Other (with I-94 number)'
+          when 'Other (With I-94 Number)'
             doc = other_with_i94_doc
           end
 
@@ -190,7 +190,7 @@ module AcaEntities
           @document_person_ids << passport_number if passport_number
           @document_person_ids << sevis_id if sevis_id
           {
-            category_text: 'Other (with I-94 number)',
+            category_text: 'Other (With I-94 Number)',
             expiration_date: expiration_date,
             document_person_ids: @document_person_ids
           }
@@ -201,7 +201,7 @@ module AcaEntities
           @document_person_ids << passport_number if passport_number
           @document_person_ids << sevis_id if sevis_id
           {
-            category_text: 'Other (with alien number)',
+            category_text: 'Other (With Alien Number)',
             expiration_date: expiration_date,
             document_person_ids: @document_person_ids
           }
