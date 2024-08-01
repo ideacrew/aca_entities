@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 module AcaEntities
+  # Contains classes and modules related to CRM entities.
   module Crm
     # Represents a Contact entity with attributes validated by ContactContract
-    #
     class Contact < Dry::Struct
       # @!attribute [r] hbxid_c
       #   @return [String] unique identifier for the contact

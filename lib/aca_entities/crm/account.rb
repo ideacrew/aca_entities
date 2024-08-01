@@ -1,72 +1,88 @@
 # frozen_string_literal: true
 
 module AcaEntities
+  # Contains classes and modules related to CRM entities.
   module Crm
     # Represents an Account entity with attributes validated by AccountContract
-    #
     class Account < Dry::Struct
       # @!attribute [r] hbxid_c
-      #   @return [String] unique identifier for the account
+      #   @return [String] unique identifier for the account.
+      #   @note :hbxid_c is required
       attribute :hbxid_c, Types::String.meta(omittable: false)
 
       # @!attribute [r] name
       #   @return [String] name of the account
+      #   @note :name is required
       attribute :name, Types::String.meta(omittable: false)
 
-      # @!attribute [r] email1
-      #   @return [String] primary email address
-      attribute :email1, AcaEntities::Crm::Types::Email.optional.meta(omittable: true)
-
-      # @!attribute [r] billing_address_street
-      #   @return [String] street address for billing
-      attribute :billing_address_street, Types::String.meta(omittable: false)
-
-      # @!attribute [r] billing_address_street2
-      #   @return [String, nil] optional second street address for billing
-      attribute :billing_address_street2, Types::String.optional.meta(omittable: true)
-
-      # @!attribute [r] billing_address_street3
-      #   @return [String, nil] optional third street address for billing
-      attribute :billing_address_street3, Types::String.optional.meta(omittable: true)
-
-      # @!attribute [r] billing_address_street4
-      #   @return [String, nil] optional fourth street address for billing
-      attribute :billing_address_street4, Types::String.optional.meta(omittable: true)
-
-      # @!attribute [r] billing_address_city
-      #   @return [String] city for billing address
-      attribute :billing_address_city, Types::String.meta(omittable: false)
-
-      # @!attribute [r] billing_address_postalcode
-      #   @return [String] postal code for billing address
-      attribute :billing_address_postalcode, Types::String.meta(omittable: false)
-
-      # @!attribute [r] billing_address_state
-      #   @return [String] state for billing address
-      attribute :billing_address_state, Types::String.meta(omittable: false)
-
-      # @!attribute [r] phone_office
-      #   @return [String] office phone number
-      attribute :phone_office, AcaEntities::Crm::Types::Phone.optional.meta(omittable: true)
+      # @!attribute [r] dob_c
+      #   @return [Date] date of birth
+      #   @note :dob_c is required
+      attribute :dob_c, AcaEntities::Crm::Types::Dob.meta(omittable: false)
 
       # @!attribute [r] rawssn_c
       #   @return [String] Social Security Number
+      #   @note :rawssn_c is optional
       attribute :rawssn_c, AcaEntities::Crm::Types::SSN.optional.meta(omittable: true)
 
       # @!attribute [r] raw_ssn_c
       #   @return [String] Social Security Number
-      attribute :raw_ssn_c, AcaEntities::Crm::Types::SSN.meta(omittable: false)
+      #   @note :raw_ssn_c is optional
+      attribute :raw_ssn_c, AcaEntities::Crm::Types::SSN.optional.meta(omittable: true)
 
-      # @!attribute [r] dob_c
-      #   @return [Date] date of birth
-      attribute :dob_c, AcaEntities::Crm::Types::Dob.meta(omittable: false)
+      # @!attribute [r] email1
+      #   @return [String] primary email address
+      #   @note :email1 is optional
+      attribute :email1, AcaEntities::Crm::Types::Email.optional.meta(omittable: true)
+
+      # @!attribute [r] phone_office
+      #   @return [String] office phone number
+      #   @note :phone_office is optional
+      attribute :phone_office, AcaEntities::Crm::Types::Phone.optional.meta(omittable: true)
+
+      # @!attribute [r] billing_address_street
+      #   @return [String] street address for billing
+      #   @note :billing_address_street is optional
+      attribute :billing_address_street, Types::String.optional.meta(omittable: true)
+
+      # @!attribute [r] billing_address_street2
+      #   @return [String, nil] optional second street address for billing
+      #   @note :billing_address_street2 is optional
+      attribute :billing_address_street2, Types::String.optional.meta(omittable: true)
+
+      # @!attribute [r] billing_address_street3
+      #   @return [String, nil] optional third street address for billing
+      #   @note :billing_address_street3 is optional
+      attribute :billing_address_street3, Types::String.optional.meta(omittable: true)
+
+      # @!attribute [r] billing_address_street4
+      #   @return [String, nil] optional fourth street address for billing
+      #   @note :billing_address_street4 is optional
+      attribute :billing_address_street4, Types::String.optional.meta(omittable: true)
+
+      # @!attribute [r] billing_address_city
+      #   @return [String] city for billing address
+      #   @note :billing_address_city is optional
+      attribute :billing_address_city, Types::String.optional.meta(omittable: true)
+
+      # @!attribute [r] billing_address_postalcode
+      #   @return [String] postal code for billing address
+      #   @note :billing_address_postalcode is optional
+      attribute :billing_address_postalcode, Types::String.optional.meta(omittable: true)
+
+      # @!attribute [r] billing_address_state
+      #   @return [String] state for billing address
+      #   @note :billing_address_state is optional
+      attribute :billing_address_state, Types::String.optional.meta(omittable: true)
 
       # @!attribute [r] enroll_account_link_c
       #   @return [String, nil] optional link to enroll account
+      #   @note :enroll_account_link_c is optional
       attribute :enroll_account_link_c, Types::String.optional.meta(omittable: true)
 
       # @!attribute [r] contacts
       #   @return [Array<Contact>] array of associated contacts
+      #   @note :contacts is required
       attribute :contacts, Types::Array.of(AcaEntities::Crm::Contact).meta(omittable: false)
 
       # Determines if another account is the same as the current account based on specific attributes.
