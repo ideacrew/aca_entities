@@ -50,8 +50,8 @@ module AcaEntities
         'brother_or_sister_in_law' => 'Brother or Sister in Law',
         'cousin' => 'Cousin',
         'domestic_partners_child' => 'Domestic Partners Child',
-        'parents_domestic_partner' => 'Parents Domestic Partner',
-      }
+        'parents_domestic_partner' => 'Parents Domestic Partner'
+      }.freeze
     end
   end
 end
