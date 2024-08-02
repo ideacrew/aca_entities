@@ -32,6 +32,26 @@ module AcaEntities
       # @example
       #   "(123) 456-7890"
       Phone = Types::String.constrained(format: /\A\(\d{3}\) \d{3}-\d{4}\z/)
+
+      ACA_TO_SUGAR_RELATIONSHIP_MAPPING = {
+        'self' => 'Self',
+        'spouse' => 'Spouse',
+        'domestic_partner' => 'Domestic Partner',
+        'child' => 'Child',
+        'parent' => 'Parent',
+        'sibling' => 'Sibling',
+        'unrelated' => 'Unrelated',
+        'aunt_or_uncle' => 'Aunt or Uncle',
+        'nephew_or_niece' => 'Nephew or Niece',
+        'grandchild' => 'Grandchild',
+        'grandparent' => 'Grandparent',
+        'father_or_mother_in_law' => 'Father or Mother in Law',
+        'daughter_or_son_in_law' => 'Daughter or Son in Law',
+        'brother_or_sister_in_law' => 'Brother or Sister in Law',
+        'cousin' => 'Cousin',
+        'domestic_partners_child' => 'Domestic Partners Child',
+        'parents_domestic_partner' => 'Parents Domestic Partner'
+      }.freeze
     end
   end
 end
