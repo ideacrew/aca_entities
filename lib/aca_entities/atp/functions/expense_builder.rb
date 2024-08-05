@@ -24,9 +24,19 @@ module AcaEntities
           return if deduction[:start_on].blank? && deduction[:end_on].blank?
 
           category_text = []
-          category_text << "start:#{deduction[:start_on]}" if deduction[:start_on].present?
-          category_text << "end:#{deduction[:end_on]}" if deduction[:end_on].present?
+          category_text << "start:#{format_date(deduction[:start_on])}" if deduction[:start_on].present?
+          category_text << "end:#{format_date(deduction[:end_on])}" if deduction[:end_on].present?
           category_text.join(',')
+        end
+
+        def format_date(date)
+          case date
+          when String
+            parsed_date = Date.parse(date)
+            parsed_date.iso8601
+          when Date, DateTime
+            date.to_date.iso8601
+          end
         end
       end
     end

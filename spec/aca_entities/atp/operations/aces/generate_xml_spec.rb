@@ -879,6 +879,32 @@ RSpec.describe AcaEntities::Atp::Operations::Aces::GenerateXml  do
           expect(category_text.present?).to eq false
         end
       end
+
+      context 'when expense start and end dates are in date format' do
+        let(:date) { Date.today }
+        let(:expense_payload) do
+          applicant_1 = payload_hash[:family][:magi_medicaid_applications][:applicants][0]
+          applicant_1[:deductions] = [
+            {
+              name: nil,
+              kind: "alimony_paid",
+              start_on: date,
+              end_on: date,
+              amount: 10.0,
+              frequency_kind: "Daily",
+              submitted_at: "2021-07-27T14:29:26.000+00:00"
+            }
+          ]
+          payload_hash.to_json
+        end
+
+        it 'should populate expense category text section' do
+          result = described_class.new.call(expense_payload)
+          doc = Nokogiri::XML.parse(result.value!)
+          category_text = doc.xpath("//hix-core:ExpenseCategoryText", namespaces)[0]
+          expect(category_text.text).to include(date.to_date.iso8601)
+        end
+      end
     end
 
     context 'param flags' do
