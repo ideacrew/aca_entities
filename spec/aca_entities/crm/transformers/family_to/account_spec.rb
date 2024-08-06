@@ -91,16 +91,49 @@ RSpec.describe AcaEntities::Crm::Transformers::FamilyTo::Account do
 
     let(:relationship) { family_cv[:family_members].first[:person][:person_relationships].first[:kind] }
 
+    let(:relative_relationships) do
+      [
+        'self',
+        'spouse',
+        'domestic_partner',
+        'child',
+        'parent',
+        'sibling',
+        'unrelated',
+        'aunt_or_uncle',
+        'nephew_or_niece',
+        'grandchild',
+        'grandparent',
+        'father_or_mother_in_law',
+        'daughter_or_son_in_law',
+        'brother_or_sister_in_law',
+        'cousin',
+        'domestic_partners_child',
+        'parents_domestic_partner'
+      ]
+    end
+
     it 'returns Contacts' do
       expect(@result.success[:contacts].size).to eql(family_cv[:family_members].size)
     end
 
-    it 'returns correct relationship to primary' do
+    it 'returns correct relationship for primary applicant' do
       expect(@result.success[:contacts].first[:relationship_c]).to eql('Self')
     end
 
     it "returns a titleized relationship" do
       expect(@result.success[:contacts].last[:relationship_c]).to eql(relationship.titleize)
+    end
+
+    it 'returns the correctly formatted relationship title for dependents' do
+      relative_relationships.each do |relationship|
+        family_cv[:family_members].first[:person][:person_relationships].first.merge!({ kind: relationship })
+        input_params = ::AcaEntities::Operations::CreateFamily.new.call(family_cv).success
+        result = subject.call(input_params)
+        relationship_mapper = AcaEntities::Crm::Types::ACA_TO_SUGAR_RELATIONSHIP_MAPPING[relationship]
+
+        expect(result.success[:contacts].last[:relationship_c]).to eql(relationship_mapper)
+      end
     end
   end
 end
