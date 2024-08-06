@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 module AcaEntities
+  # Contains classes and modules related to CRM entities.
   module Crm
     module Contracts
       # Schema and validation rules for {AcaEntities::Contact}

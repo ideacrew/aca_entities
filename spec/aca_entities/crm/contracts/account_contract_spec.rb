@@ -27,13 +27,6 @@ RSpec.describe AcaEntities::Crm::Contracts::AccountContract do
     {
       hbxid_c: '12345',
       name: 'John Doe',
-      email1: email,
-      billing_address_street: '123 Main St',
-      billing_address_city: 'Anytown',
-      billing_address_postalcode: '12345',
-      billing_address_state: 'ST',
-      phone_office: phone,
-      raw_ssn_c: ssn,
       dob_c: (Date.today - 10_000).to_s,
       contacts: [contact]
     }
@@ -41,10 +34,17 @@ RSpec.describe AcaEntities::Crm::Contracts::AccountContract do
 
   let(:optional_values) do
     {
+      rawssn_c: ssn,
+      raw_ssn_c: ssn,
+      email1: email,
+      phone_office: phone,
       billing_address_street2: 'Apt 1',
       billing_address_street3: 'Floor 2',
       billing_address_street4: 'Suite 3',
-      rawssn_c: ssn,
+      billing_address_street: '123 Main St',
+      billing_address_city: 'Anytown',
+      billing_address_postalcode: '12345',
+      billing_address_state: 'ST',
       enroll_account_link_c: 'http://example.com/account'
     }
   end
@@ -78,7 +78,7 @@ RSpec.describe AcaEntities::Crm::Contracts::AccountContract do
     let(:email) { 'john.example.com' }
 
     it 'fails validation' do
-      result = subject.call(required_values)
+      result = subject.call(all_values)
       expect(result.failure?).to be true
       expect(result.errors.to_h[:email1]).to include('is in invalid format')
     end
@@ -88,7 +88,7 @@ RSpec.describe AcaEntities::Crm::Contracts::AccountContract do
     let(:phone) { '123-456-7890' }
 
     it 'fails validation' do
-      result = subject.call(required_values)
+      result = subject.call(all_values)
       expect(result.failure?).to be true
       expect(result.errors.to_h[:phone_office]).to include('is in invalid format')
     end
@@ -98,7 +98,7 @@ RSpec.describe AcaEntities::Crm::Contracts::AccountContract do
     let(:phone) { Date.today }
 
     it 'fails validation' do
-      result = subject.call(required_values)
+      result = subject.call(all_values)
       expect(result.failure?).to be true
       expect(result.errors.to_h[:phone_office]).to include('must be a string')
     end
@@ -108,9 +108,25 @@ RSpec.describe AcaEntities::Crm::Contracts::AccountContract do
     let(:ssn) { 'my_test_ssn' }
 
     it 'fails validation' do
-      result = subject.call(required_values)
+      result = subject.call(all_values)
       expect(result.failure?).to be true
       expect(result.errors.to_h[:raw_ssn_c]).to include('is in invalid format')
+    end
+  end
+
+  context "with blank phone number" do
+    let(:phone) { nil }
+
+    it "passes validation" do
+      expect(subject.call(all_values).success?).to be true
+    end
+  end
+
+  context "with blank email" do
+    let(:email) { nil }
+
+    it "passes validation" do
+      expect(subject.call(all_values).success?).to be true
     end
   end
 end

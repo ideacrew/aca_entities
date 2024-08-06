@@ -112,7 +112,7 @@ module AcaEntities
             matched_relative = primary_person.person_relationships.detect do |person_relationship|
               person_relationship.relative.hbx_id == hbx_id
             end
-            matched_relative&.kind
+            AcaEntities::Crm::Types::ACA_TO_SUGAR_RELATIONSHIP_MAPPING[matched_relative&.kind]
           end
 
           def transform_contacts(family_members, primary_person)

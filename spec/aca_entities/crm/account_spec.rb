@@ -25,13 +25,6 @@ RSpec.describe ::AcaEntities::Crm::Account do
     {
       hbxid_c: '12345',
       name: 'John Doe',
-      email1: email,
-      billing_address_street: '123 Main St',
-      billing_address_city: 'Anytown',
-      billing_address_postalcode: '12345',
-      billing_address_state: 'ST',
-      phone_office: phone,
-      raw_ssn_c: ssn,
       dob_c: (Date.today - 10_000).to_s,
       contacts: [contact]
     }
@@ -39,10 +32,17 @@ RSpec.describe ::AcaEntities::Crm::Account do
 
   let(:optional_values) do
     {
+      raw_ssn_c: ssn,
+      rawssn_c: ssn,
+      phone_office: phone,
+      email1: email,
+      billing_address_street: '123 Main St',
+      billing_address_city: 'Anytown',
+      billing_address_postalcode: '12345',
+      billing_address_state: 'ST',
       billing_address_street2: 'Apt 1',
       billing_address_street3: 'Floor 2',
       billing_address_street4: 'Suite 3',
-      rawssn_c: ssn,
       enroll_account_link_c: 'http://example.com/account'
     }
   end
@@ -51,7 +51,7 @@ RSpec.describe ::AcaEntities::Crm::Account do
 
   describe '.initialize' do
     before do
-      app_params_result = AcaEntities::Crm::Contracts::AccountContract.new.call(account_params)
+      app_params_result = AcaEntities::Crm::Contracts::AccountContract.new.call(input_params)
       @result = if app_params_result.failure?
                   app_params_result
                 else
@@ -59,19 +59,42 @@ RSpec.describe ::AcaEntities::Crm::Account do
                 end
     end
 
-    it 'should return account entity object' do
-      expect(@result).to be_a(described_class)
+    context 'with both required and optional values' do
+      let(:input_params) { account_params }
+
+      it 'should return account entity object' do
+        expect(@result).to be_a(described_class)
+      end
+
+      it 'should return all keys of account' do
+        expect(@result.to_h.keys.sort).to eq(input_params.keys.sort)
+      end
+
+      it 'should match all the input keys of contact' do
+        result_contact_keys = @result.to_h[:contacts].first.keys
+        input_contact_keys = contact.keys
+        expect(result_contact_keys - input_contact_keys).to be_empty
+        expect(input_contact_keys - result_contact_keys).to be_empty
+      end
     end
 
-    it 'should return all keys of account' do
-      expect(@result.to_h.keys.sort).to eq(account_params.keys.sort)
-    end
+    context 'with only required values' do
+      let(:input_params) { required_values }
 
-    it 'should match all the input keys of contact' do
-      result_contact_keys = @result.to_h[:contacts].first.keys
-      input_contact_keys = contact.keys
-      expect(result_contact_keys - input_contact_keys).to be_empty
-      expect(input_contact_keys - result_contact_keys).to be_empty
+      it 'should return account entity object' do
+        expect(@result).to be_a(described_class)
+      end
+
+      it 'should return all keys of account' do
+        expect(@result.to_h.keys.sort).to eq(input_params.keys.sort)
+      end
+
+      it 'should match all the input keys of contact' do
+        result_contact_keys = @result.to_h[:contacts].first.keys
+        input_contact_keys = contact.keys
+        expect(result_contact_keys - input_contact_keys).to be_empty
+        expect(input_contact_keys - result_contact_keys).to be_empty
+      end
     end
   end
 
@@ -108,6 +131,40 @@ RSpec.describe ::AcaEntities::Crm::Account do
 
       it 'returns false' do
         expect(account1.account_same_as?(account2)).to be_falsey
+      end
+    end
+
+    context "with blank emails" do
+
+      let(:email) { nil }
+
+      let(:account_contract) { AcaEntities::Crm::Contracts::AccountContract.new.call(account_params) }
+
+      let(:account_entity) { described_class.new(account_contract.to_h) }
+
+      it "sucessfully passes account contact" do
+        expect(account_contract.success?).to be_truthy
+      end
+
+      it "returns an account entity object" do
+        expect(account_entity).to be_a(described_class)
+      end
+    end
+
+    context "with blank phones" do
+
+      let(:phone) { nil }
+
+      let(:account_contract) { AcaEntities::Crm::Contracts::AccountContract.new.call(account_params) }
+
+      let(:account_entity) { described_class.new(account_contract.to_h) }
+
+      it "sucessfully passes account contact" do
+        expect(account_contract.success?).to be_truthy
+      end
+
+      it "returns an account entity object" do
+        expect(account_entity).to be_a(described_class)
       end
     end
   end
