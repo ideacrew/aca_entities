@@ -409,7 +409,7 @@ RSpec.describe AcaEntities::Atp::Operations::Aces::GenerateXml  do
           applicant = payload_hash[:family][:magi_medicaid_applications][:applicants][1]
           applicant[:citizenship_immigration_status_information][:citizen_status] = 'alien_lawfully_present'
           applicant[:vlp_document] = {}
-          applicant[:vlp_document][:subject] = 'Other (with alien number)'
+          applicant[:vlp_document][:subject] = 'Other (With Alien Number)'
           applicant[:vlp_document][:alien_number] = '987654321'
           applicant[:vlp_document][:passport_number] = 'M2938193'
           applicant[:vlp_document][:sevis_id] = '4829292910'
@@ -421,7 +421,7 @@ RSpec.describe AcaEntities::Atp::Operations::Aces::GenerateXml  do
           result = described_class.new.call(other_with_alien_number)
           doc = Nokogiri::XML.parse(result.value!)
           tag = doc.xpath("//hix-ee:LawfulPresenceDocumentCategoryText", namespaces)[0]
-          expect(tag.text).to eq "Other (with alien number)"
+          expect(tag.text).to eq "Other (With Alien Number)"
         end
       end
 
@@ -430,7 +430,7 @@ RSpec.describe AcaEntities::Atp::Operations::Aces::GenerateXml  do
           applicant = payload_hash[:family][:magi_medicaid_applications][:applicants][1]
           applicant[:citizenship_immigration_status_information][:citizen_status] = 'alien_lawfully_present'
           applicant[:vlp_document] = {}
-          applicant[:vlp_document][:subject] = 'Other (with I-94 number)'
+          applicant[:vlp_document][:subject] = 'Other (With I-94 Number)'
           applicant[:vlp_document][:i94_number] = '9882888888O'
           applicant[:vlp_document][:passport_number] = 'M2938193'
           applicant[:vlp_document][:sevis_id] = '4829292910'
@@ -442,7 +442,7 @@ RSpec.describe AcaEntities::Atp::Operations::Aces::GenerateXml  do
           result = described_class.new.call(other_with_alien_number)
           doc = Nokogiri::XML.parse(result.value!)
           tag = doc.xpath("//hix-ee:LawfulPresenceDocumentCategoryText", namespaces)[0]
-          expect(tag.text).to eq "Other (with I-94 number)"
+          expect(tag.text).to eq "Other (With I-94 Number)"
         end
       end
     end
@@ -817,6 +817,92 @@ RSpec.describe AcaEntities::Atp::Operations::Aces::GenerateXml  do
           doc = Nokogiri::XML.parse(result.value!)
           verification_metadata = doc.xpath("//hix-core:VerificationMetadata", namespaces)[0]
           expect(verification_metadata.present?).to be_falsey
+        end
+      end
+    end
+
+    context 'expense information' do
+      context 'when expense has start and end dates' do
+        it 'should map and populate start and end date to category_text in expense section' do
+          result = described_class.new.call(payload)
+          doc = Nokogiri::XML.parse(result.value!)
+          category_text = doc.xpath("//hix-core:ExpenseCategoryText", namespaces)[0]
+          expect(category_text.text).to include("start")
+          expect(category_text.text).to include("end")
+        end
+      end
+
+      context 'when expense has only start date' do
+        let(:expense_payload) do
+          applicant_1 = payload_hash[:family][:magi_medicaid_applications][:applicants][0]
+          applicant_1[:deductions] = [
+            {
+              name: nil,
+              kind: "alimony_paid",
+              amount: 10.0,
+              start_on: "2021-01-01",
+              frequency_kind: "Daily",
+              submitted_at: "2021-07-27T14:29:26.000+00:00"
+            }
+          ]
+          payload_hash.to_json
+        end
+
+        it 'should map and populate start date but not end date to category_text in expense section' do
+          result = described_class.new.call(expense_payload)
+          doc = Nokogiri::XML.parse(result.value!)
+          category_text = doc.xpath("//hix-core:ExpenseCategoryText", namespaces)[0]
+          expect(category_text.text).to include("start")
+          expect(category_text.text).not_to include("end")
+        end
+      end
+
+      context 'when expense does not have both start and end date' do
+        let(:expense_payload) do
+          applicant_1 = payload_hash[:family][:magi_medicaid_applications][:applicants][0]
+          applicant_1[:deductions] = [
+            {
+              name: nil,
+              kind: "alimony_paid",
+              amount: 10.0,
+              frequency_kind: "Daily",
+              submitted_at: "2021-07-27T14:29:26.000+00:00"
+            }
+          ]
+          payload_hash.to_json
+        end
+
+        it 'should not populate expense category text section' do
+          result = described_class.new.call(expense_payload)
+          doc = Nokogiri::XML.parse(result.value!)
+          category_text = doc.xpath("//hix-core:ExpenseCategoryText", namespaces)[0]
+          expect(category_text.present?).to eq false
+        end
+      end
+
+      context 'when expense start and end dates are in date format' do
+        let(:date) { Date.today }
+        let(:expense_payload) do
+          applicant_1 = payload_hash[:family][:magi_medicaid_applications][:applicants][0]
+          applicant_1[:deductions] = [
+            {
+              name: nil,
+              kind: "alimony_paid",
+              start_on: date,
+              end_on: date,
+              amount: 10.0,
+              frequency_kind: "Daily",
+              submitted_at: "2021-07-27T14:29:26.000+00:00"
+            }
+          ]
+          payload_hash.to_json
+        end
+
+        it 'should populate expense category text section' do
+          result = described_class.new.call(expense_payload)
+          doc = Nokogiri::XML.parse(result.value!)
+          category_text = doc.xpath("//hix-core:ExpenseCategoryText", namespaces)[0]
+          expect(category_text.text).to include(date.to_date.iso8601)
         end
       end
     end
