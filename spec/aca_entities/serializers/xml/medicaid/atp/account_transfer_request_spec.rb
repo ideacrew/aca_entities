@@ -3,6 +3,7 @@
 require 'spec_helper'
 require 'aca_entities/medicaid/atp'
 require 'aca_entities/serializers/xml/medicaid/atp'
+require 'aca_entities/atp/xml'
 require 'open3'
 
 RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequest do
@@ -497,7 +498,7 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
   end
 
   let(:mapper) { described_class.domain_to_mapper(account_transfer_request) }
-  let(:schema) { Nokogiri::XML::Schema(File.open(schema_location)) }
+  let(:schema) { AcaEntities::Atp::Xml::Validator.new }
   let(:schema_location) do
     loc = File.join(File.dirname(__FILE__), "..", "..", "..", "..", "..",
                     "reference", "xml", "atp",
@@ -535,7 +536,7 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
   it "passes business rule validation" do
     # This test will always be green locally unless you have Java JDK installed on your machine!
     data = mapper.to_xml
-    output, _err = Open3.capture3("java -jar atp_validator-0.1.0-jar-with-dependencies.jar --oneshot", stdin_data: data, binmode: true,
+    output, _err = Open3.capture3("java -jar atp_validator-0.3.0-jar-with-dependencies.jar --oneshot", stdin_data: data, binmode: true,
                                                                                                        chdir: schematron_location)
     error_doc = Nokogiri::XML(output)
     error_objects = error_doc.xpath("//svrl:failed-assert", business_error_ns).map do |node|

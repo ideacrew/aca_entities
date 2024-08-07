@@ -12,6 +12,7 @@ module AcaEntities
         attribute :receiver_reference, ReferralActivityReceiverReference.meta(omittable: false)
         attribute :activity_identification, ActivityIdentification.optional.meta(omittable: true)
         attribute :reason_code, Types::ReferralActivityReasonCode.optional.meta(omittable: true)
+        attribute :additional_reason_codes, Types::Array.optional.meta(omittable: true)
         attribute :status, ReferralActivityStatus.meta(omittable: false)
         # attribute :eligibility_reason_reference, ReferralActivityEligibilityReasonReference.optional.meta(omittable: true)
       end
