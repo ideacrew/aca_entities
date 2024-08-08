@@ -75,6 +75,14 @@ RSpec.describe AcaEntities::Atp::Operations::Aces::GenerateXml  do
       expect(texts&.first&.content&.strip).to eq "true"
     end
 
+    it 'should include the default referral activity reason code' do
+      payload_hash[:family][:magi_medicaid_applications][:applicants].first[:is_temporarily_out_of_state] = true
+      result = described_class.new.call(payload_hash.to_json)
+      doc = Nokogiri::XML.parse(result.value!)
+      texts = doc.xpath("//hix-ee:InsuranceApplicant/hix-ee:ReferralActivity/hix-ee:ReferralActivityReasonCode", namespaces).map(&:content)
+      expect(texts).to eq ["FullDetermination", "FullDetermination", "FullDetermination"]
+    end
+
     context 'when person has contact with unmappable kind' do
       it 'should not include PersonContactInformationAssociation tags for that kind' do
         payload_hash[:family][:family_members].first[:person][:phones].first[:kind] = "fax"
@@ -1052,5 +1060,29 @@ RSpec.describe AcaEntities::Atp::Operations::Aces::GenerateXml  do
         end
       end
     end
+  end
+end
+
+RSpec.describe AcaEntities::Atp::Operations::Aces::GenerateXml, "given a multiple referral reasons input" do
+
+  let(:namespaces) do
+    {
+      'hix-core' => 'http://hix.cms.gov/0.1/hix-core',
+      'nc' => 'http://niem.gov/niem/niem-core/2.0',
+      'hix-ee' => 'http://hix.cms.gov/0.1/hix-ee',
+      'niem-s' => 'http://niem.gov/niem/structures/2.0',
+      'me-atp' => 'http://xmlns.coverme.gov/atp/hix-ee'
+    }
+  end
+
+  let(:payload) { File.read(Pathname.pwd.join("spec/support/atp/sample_payloads/multiple_reason_L_cv_payload.json")) }
+  let(:payload_hash) { JSON.parse(payload, symbolize_names: true) }
+
+  it 'should include additional referral activity reason codes, excluding the primary one' do
+    payload_hash[:family][:magi_medicaid_applications][:applicants].first[:is_temporarily_out_of_state] = true
+    result = described_class.new.call(payload_hash.to_json)
+    doc = Nokogiri::XML.parse(result.value!)
+    texts = doc.xpath("//hix-ee:InsuranceApplicant/me-atp:ReferralActivity/me-atp:AdditionalReferralActivityReasonCode", namespaces).map(&:content)
+    expect(texts).to eq ["GapFilling"]
   end
 end

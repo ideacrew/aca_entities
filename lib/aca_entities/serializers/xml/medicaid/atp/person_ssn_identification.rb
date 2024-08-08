@@ -21,7 +21,7 @@ module AcaEntities
               mapper = self.new
               matching_ssa_response = mapper.fetch_ssa_response(person, verification_metadata)
               mapper.metadata = matching_ssa_response.id if matching_ssa_response
-              mapper.identification_id = ssn&.identification_id || ""
+              mapper.identification_id = ssn&.identification_id if ssn&.identification_id
               mapper.identification_category_text = ssn.identification_category_text if ssn&.identification_category_text
               mapper
             end

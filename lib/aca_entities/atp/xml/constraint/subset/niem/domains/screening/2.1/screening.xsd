@@ -1,0 +1,893 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--AT-041916-MD/XMLschemas/subset/niem/domains/screening/2.1/screening.xsd-->
+<xsd:schema xmlns:i="http://niem.gov/niem/appinfo/2.0" xmlns:i2="http://niem.gov/niem/appinfo/2.1"
+   xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0"
+   xmlns:s="http://niem.gov/niem/structures/2.0"
+   xmlns:scr="http://niem.gov/niem/domains/screening/2.1"
+   xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xi="http://www.w3.org/2001/XInclude"
+   attributeFormDefault="qualified" elementFormDefault="qualified"
+   targetNamespace="http://niem.gov/niem/domains/screening/2.1" version="1">
+   <xsd:annotation>
+      <xsd:appinfo>
+         <i:ConformantIndicator>true</i:ConformantIndicator>
+      </xsd:appinfo>
+      <xsd:documentation source="">The People Screening domain provides harmonized information sharing content within the Screening Portfolio of DHS. The Screening namespace is initially being populated with person screening information for immigrant and non-immigrant person types who have been encountered and identified by the Screening Portfolio Components. Screening expands on encounter-related NIEM elements currently included in the Immigration and Intelligence domains.</xsd:documentation>
+   </xsd:annotation>
+   <xsd:import namespace="http://niem.gov/niem/appinfo/2.0"
+      schemaLocation="../../../appinfo/2.0/appinfo.xsd"/>
+   <xsd:import namespace="http://niem.gov/niem/appinfo/2.1"
+      schemaLocation="../../../appinfo/2.1/appinfo.xsd"/>
+   <xsd:import namespace="http://niem.gov/niem/niem-core/2.0"
+      schemaLocation="../../../../../niem/niem-core.xsd"/>
+   <xsd:import namespace="http://niem.gov/niem/proxy/xsd/2.0"
+      schemaLocation="../../../proxy/xsd/2.0/xsd.xsd"/>
+   <xsd:import namespace="http://niem.gov/niem/structures/2.0"
+      schemaLocation="../../../structures/2.0/structures.xsd"/>
+   <xsd:element abstract="false" name="AdmitToDate" nillable="false" type="nc:DateType">
+      <xsd:annotation>
+         <xsd:documentation source="">The date , as specified at ARRIVAL, on which the alien is no longer authorized to stay in the United State.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element abstract="false" name="ClassOfAdmissionClassificationCode" nillable="false"
+      type="scr:ClassOfAdmissionCategoryCodeType">
+      <xsd:annotation>
+         <xsd:documentation source="">A kind of class of admission.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:simpleType name="ClassOfAdmissionCategoryCodeSimpleType">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:Base i:name="Object" i:namespace="http://niem.gov/niem/structures/2.0"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">A data type for A data type describing the kinds of Immigration Class of Admission types</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="xsd:token">
+         <xsd:enumeration value="H-4">
+            <xsd:annotation>
+               <xsd:documentation source="">Spouse or child of H-1B, H-1B1, H-1C, H-2A, H-2B, H-2R, or H-3.</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="S9">
+            <xsd:annotation>
+               <xsd:documentation source="">Temporary agricultural workers coming to the United States to perform agricultural services or labor of a temporary or seasonal nature when authorized workers are unavailable in the United States;</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="H-1C">
+            <xsd:annotation>
+               <xsd:documentation source="">Registered nurses to work in areas with a shortage of health professionals under the Nursing Relief for Disadvantaged Areas Act of 1999;</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="K-4">
+            <xsd:annotation>
+               <xsd:documentation source="">Child accompanying or following to join a K-3 alien.</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="V1">
+            <xsd:annotation>
+               <xsd:documentation source="">Nonimmigrant spouse of lawful permanent residents waiting more than 3 years for an immigrant visa based upon an immigrant petition filed on or before the enactment date of the LIFE Act, as of December 28, 2000.</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="T-3">
+            <xsd:annotation>
+               <xsd:documentation source="">Child of T-1</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="H3">
+            <xsd:annotation>
+               <xsd:documentation source="">Aliens coming temporarily to the United States as trainees, other than to receive graduate medical education or training;</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="N8">
+            <xsd:annotation>
+               <xsd:documentation source="">Parent of an alien classified SK3 or SN3.</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="D-1">
+            <xsd:annotation>
+               <xsd:documentation source="">Alien crewman on a vessel or aircraft temporarily in the United States, departing on same vessel or airline of arrival.</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="H2R">
+            <xsd:annotation>
+               <xsd:documentation source="">Returning H-2B worker not subject to the numerical cap (exempts returning workers from the H-2B numerical cap for FY05, FY06, FY07), expires at the conclusion of FY 2007. </xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="R2">
+            <xsd:annotation>
+               <xsd:documentation source="">Spouse and children of R1 (Prior to FY92, R2 was a class used for deferred inspection).</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="V2">
+            <xsd:annotation>
+               <xsd:documentation source="">Child of lawful permanent residents waiting more than 3 years for an immigrant visa based upon an immigrant petition filed on or before the enactment date of the LIFE Act.</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="NATO-7">
+            <xsd:annotation>
+               <xsd:documentation source="">Attendant, servant, or personal employee of NATO-1, NATO-2, NATO-3, NATO-4, NATO-5, and NATO-6 classes, and members of immediate family.</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="H1C">
+            <xsd:annotation>
+               <xsd:documentation source="">Registered nurses to work in areas with a shortage of health professionals under the Nursing Relief for Disadvantaged Areas Act of 1999;</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="P-4">
+            <xsd:annotation>
+               <xsd:documentation source="">Spouse or child of P-1, P-2, or P-3.</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="B-1">
+            <xsd:annotation>
+               <xsd:documentation source="">Temporary visitor for business (including Peace Corps).</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="U3">
+            <xsd:annotation>
+               <xsd:documentation source="">Child of U-1
+(Regulations have not yet been written, but DHS is statutorily responsible for writing the regulations by 5 Jul 2006.)</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="G3">
+            <xsd:annotation>
+               <xsd:documentation source="">Representative of nonrecognized or nonmember foreign government to international organization, and members of immediate family.</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="R1">
+            <xsd:annotation>
+               <xsd:documentation source="">Temporary worker to perform work in religious occupations (Prior to FY92, R1 was a class used for parolee admission).</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="WB">
+            <xsd:annotation>
+               <xsd:documentation source="">Temporary visitor for business admitted without visa under the Visa Waiver Program.</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="B1">
+            <xsd:annotation>
+               <xsd:documentation source="">Temporary visitor for business (including Peace Corps).</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="A-1">
+            <xsd:annotation>
+               <xsd:documentation source="">Ambassador, public minister, career diplomatic or consular officer, and members of immediate family.</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="HSC">
+            <xsd:annotation>
+               <xsd:documentation source="">Free Trade, Singapore / Chile nationals to work in specialty occupations.</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="N2">
+            <xsd:annotation>
+               <xsd:documentation source="">Other representatives of Member States to NATO </xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="T-4">
+            <xsd:annotation>
+               <xsd:documentation source="">Parent of T-1</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="F-1">
+            <xsd:annotation>
+               <xsd:documentation source="">Student, academic or language program.</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="V-3">
+            <xsd:annotation>
+               <xsd:documentation source="">Child of V-1 or V-2.  </xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="D2">
+            <xsd:annotation>
+               <xsd:documentation source="">Alien crewman departing on vessel other than one of arrival.</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="NATO-6">
+            <xsd:annotation>
+               <xsd:documentation source="">Members of a civilian component accompanying a force entering in accordance with the provisions of the NATO Status-of-Forces Agreement; </xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="J1">
+            <xsd:annotation>
+               <xsd:documentation source="">Exchange visitor.</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="M-3">
+            <xsd:annotation>
+               <xsd:documentation source="">Canadian or Mexican national commuter student (vocational student or other nonacademic student).</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="Q-1">
+            <xsd:annotation>
+               <xsd:documentation source="">Temporary worker in an international cultural exchange program.</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="L-2">
+            <xsd:annotation>
+               <xsd:documentation source="">Spouse or child of L-1.</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="H-1B">
+            <xsd:annotation>
+               <xsd:documentation source="">Workers with "specialty occupations" admitted on the basis of professional education, skills, and/or equivalent experience</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="O2">
+            <xsd:annotation>
+               <xsd:documentation source="">Temporary worker accompanying or assisting O-1.</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="B-2">
+            <xsd:annotation>
+               <xsd:documentation source="">Temporary visitor for pleasure.</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="A2">
+            <xsd:annotation>
+               <xsd:documentation source="">Other foreign government official or employee and members of immediate family.</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="V-1">
+            <xsd:annotation>
+               <xsd:documentation source="">Nonimmigrant spouse of lawful permanent residents waiting more than 3 years for an immigrant visa based upon an immigrant petition filed on or before the enactment date of the LIFE Act, as of December 28, 2000.</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="T1">
+            <xsd:annotation>
+               <xsd:documentation source="">Individuals physically present in the United States who are or have been victims of a severe form of trafficking.</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="P4">
+            <xsd:annotation>
+               <xsd:documentation source="">Spouse or child of P-1, P-2, or P-3.</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="F2">
+            <xsd:annotation>
+               <xsd:documentation source="">Spouse or child of F-1.</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="E-2">
+            <xsd:annotation>
+               <xsd:documentation source="">Treaty investor, spouse and children.</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="M2">
+            <xsd:annotation>
+               <xsd:documentation source="">Spouse or child of M-1.</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="E2">
+            <xsd:annotation>
+               <xsd:documentation source="">Treaty investor, spouse and children.</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="J-1">
+            <xsd:annotation>
+               <xsd:documentation source="">Exchange visitor.</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="T-2">
+            <xsd:annotation>
+               <xsd:documentation source="">Spouse of T-1</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="D1">
+            <xsd:annotation>
+               <xsd:documentation source="">Alien crewman on a vessel or aircraft temporarily in the United States, departing on same vessel or airline of arrival.</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="P-1">
+            <xsd:annotation>
+               <xsd:documentation source="">Temporary Worker, internationally recognized athlete or entertainer for a specific competition or performance.</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="C-1">
+            <xsd:annotation>
+               <xsd:documentation source="">Alien in continuous and immediate transit through the United States.</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="A3">
+            <xsd:annotation>
+               <xsd:documentation source="">Attendant, servant, or personal employee of A-1 or A-2 and members of immediate family.</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="C1">
+            <xsd:annotation>
+               <xsd:documentation source="">Alien in continuous and immediate transit through the United States.</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="H-2B">
+            <xsd:annotation>
+               <xsd:documentation source="">Temporary non-agricultural workers coming to the United States to perform temporary services or labor if unemployed persons capable of performing the service or labor cannot be found in the United States;</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="Q3">
+            <xsd:annotation>
+               <xsd:documentation source="">Spouse or child of Q-2, expires September 2008</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="A1">
+            <xsd:annotation>
+               <xsd:documentation source="">Ambassador, public minister, career diplomatic or consular officer, and members of immediate family.</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="U-5">
+            <xsd:annotation>
+               <xsd:documentation source="">Unmarried, under 18, sibling of U-1
+(Regulations have not yet been written, but DHS is statutorily responsible for writing the regulations by 5 Jul 2006.)</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="NATO-2">
+            <xsd:annotation>
+               <xsd:documentation source="">Other representatives of Member States to NATO </xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="K2">
+            <xsd:annotation>
+               <xsd:documentation source="">Child of K-1.</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="P2">
+            <xsd:annotation>
+               <xsd:documentation source="">Temporary worker, artist or entertainer under a reciprocal exchange program with a similar organization of a foreign state.</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="O1">
+            <xsd:annotation>
+               <xsd:documentation source="">Temporary worker with extraordinary ability/achievement in the sciences, arts, education, business, or athletics.</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="N6">
+            <xsd:annotation>
+               <xsd:documentation source="">Members of a civilian component accompanying a force entering in accordance with the provisions of the NATO Status-of-Forces Agreement; </xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="J2">
+            <xsd:annotation>
+               <xsd:documentation source="">Spouse or child of J-1.</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="M3">
+            <xsd:annotation>
+               <xsd:documentation source="">Canadian or Mexican national commuter student (vocational student or other nonacademic student).</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="U-1">
+            <xsd:annotation>
+               <xsd:documentation source="">Individuals who have suffered substantial physical or mental abuse as victim of criminal activity. (Regulations have not yet been written, but DHS is statutorily responsible for writing the regulations by 5 Jul 2006.)</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="K-2">
+            <xsd:annotation>
+               <xsd:documentation source="">Child of K-1.</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="S3">
+            <xsd:annotation>
+               <xsd:documentation source="">Free Trade, Singapore / Chile nationals to work in specialty occupations.</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="U1">
+            <xsd:annotation>
+               <xsd:documentation source="">Individuals who have suffered substantial physical or mental abuse as victim of criminal activity. (Regulations have not yet been written, but DHS is statutorily responsible for writing the regulations by 5 Jul 2006.)</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="U-3">
+            <xsd:annotation>
+               <xsd:documentation source="">Child of U-1
+(Regulations have not yet been written, but DHS is statutorily responsible for writing the regulations by 5 Jul 2006.)</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="P-2">
+            <xsd:annotation>
+               <xsd:documentation source="">Athletes and entertainers at an internationally recognized level of performance; artists and entertainers under a reciprocal exchange program; artists and entertainers under a program that is "culturally unique"; and their spouses and children;</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="G4">
+            <xsd:annotation>
+               <xsd:documentation source="">Officer or employee of international organization and  members of immediate family.</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="K-3">
+            <xsd:annotation>
+               <xsd:documentation source="">Spouse of a U.S. citizen who is a beneficiary of a petition for status as the immediate relative of a U.S. citizen (I-130).</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="K3">
+            <xsd:annotation>
+               <xsd:documentation source="">Spouse of a U.S. citizen who is a beneficiary of a petition for status as the immediate relative of a U.S. citizen (I-130).</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="O-1">
+            <xsd:annotation>
+               <xsd:documentation source="">Temporary workers with extraordinary ability or achievement in the sciences, arts, education, business, or athletics; those entering solely for the purpose of accompanying and assisting such workers; and their spouses and children;</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="J-2">
+            <xsd:annotation>
+               <xsd:documentation source="">Spouse or child of J-1.</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="H-2A">
+            <xsd:annotation>
+               <xsd:documentation source="">Temporary agricultural workers coming to the United States to perform agricultural services or labor of a temporary or seasonal nature when authorized workers are unavailable in the United States;</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="H-2R">
+            <xsd:annotation>
+               <xsd:documentation source="">Returning H-2B worker not subject to the numerical cap (exempts returning workers from the H-2B numerical cap for FY05, FY06, FY07), expires at the conclusion of FY 2007. </xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="N-9">
+            <xsd:annotation>
+               <xsd:documentation source="">Child of N-8 or of an alien classified SK1, SK2, SK4, SN1, SN2, or SN4.</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="U5">
+            <xsd:annotation>
+               <xsd:documentation source="">Unmarried, under 18, sibling of U-1
+(Regulations have not yet been written, but DHS is statutorily responsible for writing the regulations by 5 Jul 2006.)</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="N9">
+            <xsd:annotation>
+               <xsd:documentation source="">Child of N-8 or of an alien classified SK1, SK2, SK4, SN1, SN2, or SN4.</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="V-2">
+            <xsd:annotation>
+               <xsd:documentation source="">Child of lawful permanent residents waiting more than 3 years for an immigrant visa based upon an immigrant petition filed on or before the enactment date of the LIFE Act.</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="F1">
+            <xsd:annotation>
+               <xsd:documentation source="">Student, academic or language program.</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="G-5">
+            <xsd:annotation>
+               <xsd:documentation source="">Attendant, servant, or personal employee of G-1, G-2, G-3, or G-4, and members of immediate family.</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="H4">
+            <xsd:annotation>
+               <xsd:documentation source="">Spouse or child of H-1B, H-1B1, H-1C, H-2A, H-2B, H-2R, or H-3.</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="L2">
+            <xsd:annotation>
+               <xsd:documentation source="">Spouse or child of L-1.</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="NATO-3">
+            <xsd:annotation>
+               <xsd:documentation source="">Official clerical staff accompanying a representative of Member State to NATO</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="H-1A">
+            <xsd:annotation>
+               <xsd:documentation source="">Registered nurses (valid from 10/1/1990 through 9/30/1995)</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="M1">
+            <xsd:annotation>
+               <xsd:documentation source="">Student pursuing a full course of study at an established vocational or other recognized nonacademic institution (other than in a language training program).</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="T4">
+            <xsd:annotation>
+               <xsd:documentation source="">Parent of T-1</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="C-3">
+            <xsd:annotation>
+               <xsd:documentation source="">Foreign government official, members of immediate family, attendant, servant, or personal employee, in transit.</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="H1">
+            <xsd:annotation>
+               <xsd:documentation source="">Workers with "specialty occupations" admitted on the basis of professional education, skills, and/or equivalent experience</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="D-2">
+            <xsd:annotation>
+               <xsd:documentation source="">Alien crewman departing on vessel other than one of arrival.</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="WT">
+            <xsd:annotation>
+               <xsd:documentation source="">Temporary visitor for pleasure admitted without visa under the Visa Waiver Program.</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="T2">
+            <xsd:annotation>
+               <xsd:documentation source="">Spouse of T-1</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="N4">
+            <xsd:annotation>
+               <xsd:documentation source="">Officials of NATO (other than those classifiable under NATO-1) and members of immediate family.</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="K-1">
+            <xsd:annotation>
+               <xsd:documentation source="">Fiance or fiancee of a U.S. citizen entering solely to conclude a valid marriage contract.</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="V3">
+            <xsd:annotation>
+               <xsd:documentation source="">Child of V-1 or V-2.  </xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="R-1">
+            <xsd:annotation>
+               <xsd:documentation source="">Temporary worker to perform work in religious occupations (Prior to FY92, R1 was a class used for parolee admission).</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="C2">
+            <xsd:annotation>
+               <xsd:documentation source="">Alien in Transit to United Nations Headquarters District under Sec. 11 (3), (4), or (5) of the Headquarters Agreement with the United Nations.</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="U2">
+            <xsd:annotation>
+               <xsd:documentation source="">Spouse of U-1
+(Regulations have not yet been written, but DHS is statutorily responsible for writing the regulations by 5 Jul 2006.)</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="L-1">
+            <xsd:annotation>
+               <xsd:documentation source="">Intracompany transferee (executive, managerial, and specialized personnel entering to render services to a branch, parent, subsidiary, or affiliate of the company of previous employment outside the United States).</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="T-5">
+            <xsd:annotation>
+               <xsd:documentation source="">Sibling of T-1</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="GT">
+            <xsd:annotation>
+               <xsd:documentation source="">Temporary visitor for pleasure admitted without visa to Guam under the Guam Visa Waiver Program.</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="G1">
+            <xsd:annotation>
+               <xsd:documentation source="">Principal resident representative of recognized foreign member government to international organization, staff, and members of immediate family.</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="K4">
+            <xsd:annotation>
+               <xsd:documentation source="">Child accompanying or following to join a K-3 alien.</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="A-2">
+            <xsd:annotation>
+               <xsd:documentation source="">Other foreign government official or employee and members of immediate family.</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="Q-3">
+            <xsd:annotation>
+               <xsd:documentation source="">Spouse or child of Q-2, expires September 2008</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="Q1">
+            <xsd:annotation>
+               <xsd:documentation source="">Temporary worker in an international cultural exchange program.</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="H-3">
+            <xsd:annotation>
+               <xsd:documentation source="">Aliens coming temporarily to the United States as trainees, other than to receive graduate medical education or training;</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="K1">
+            <xsd:annotation>
+               <xsd:documentation source="">Fiance or fiancee of a U.S. citizen entering solely to conclude a valid marriage contract.</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="C-2">
+            <xsd:annotation>
+               <xsd:documentation source="">Alien in Transit to United Nations Headquarters District under Sec. 11 (3), (4), or (5) of the Headquarters Agreement with the United Nations.</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="GB">
+            <xsd:annotation>
+               <xsd:documentation source="">Temporary visitor for business admitted without visa to Guam under the Guam Visa Waiver Program.</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="HR">
+            <xsd:annotation>
+               <xsd:documentation source="">Returning H-2B worker not subject to the numerical cap (exempts returning workers from the H-2B numerical cap for FY05, FY06, FY07), expires at the conclusion of FY 2007. </xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="P-3">
+            <xsd:annotation>
+               <xsd:documentation source="">Temporary worker, artist or entertainer under a program that is "culturally unique".</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="H2B">
+            <xsd:annotation>
+               <xsd:documentation source="">Temporary non-agricultural workers coming to the United States to perform temporary services or labor if unemployed persons capable of performing the service or labor cannot be found in the United States;</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="NATO-1">
+            <xsd:annotation>
+               <xsd:documentation source="">Principal permanent representative of Member State to NATO</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="F-2">
+            <xsd:annotation>
+               <xsd:documentation source="">Spouse or child of F-1.</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="E-1">
+            <xsd:annotation>
+               <xsd:documentation source="">Treaty trader, spouse and children.</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="T-1">
+            <xsd:annotation>
+               <xsd:documentation source="">Individuals physically present in the United States who are or have been victims of a severe form of trafficking.</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="M-1">
+            <xsd:annotation>
+               <xsd:documentation source="">Student pursuing a full course of study at an established vocational or other recognized nonacademic institution (other than in a language training program).</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="S4">
+            <xsd:annotation>
+               <xsd:documentation source="">Registered nurses to work in areas with a shortage of health professionals under the Nursing Relief for Disadvantaged Areas Act of 1999;</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="G2">
+            <xsd:annotation>
+               <xsd:documentation source="">Temporary representative of recognized foreign member government to an international organization, and members of immediate family.</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="N1">
+            <xsd:annotation>
+               <xsd:documentation source="">Principal permanent representative of Member State to NATO</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="Q-2">
+            <xsd:annotation>
+               <xsd:documentation source="">Participants of the Irish Peace Process Cultural and Training (PPCT) Program, expires September 2008</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="P1">
+            <xsd:annotation>
+               <xsd:documentation source="">Temporary Worker, internationally recognized athlete or entertainer for a specific competition or performance.</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="G-1">
+            <xsd:annotation>
+               <xsd:documentation source="">Principal resident representative of recognized foreign member government to international organization, staff, and members of immediate family.</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="M-2">
+            <xsd:annotation>
+               <xsd:documentation source="">Spouse or child of M-1.</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="P3">
+            <xsd:annotation>
+               <xsd:documentation source="">Temporary worker, artist or entertainer under a program that is "culturally unique".</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="G5">
+            <xsd:annotation>
+               <xsd:documentation source="">Attendant, servant, or personal employee of G-1, G-2, G-3, or G-4, and members of immediate family.</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="U4">
+            <xsd:annotation>
+               <xsd:documentation source="">Parent of U-1
+(Regulations have not yet been written, but DHS is statutorily responsible for writing the regulations by 5 Jul 2006.)</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="H2A">
+            <xsd:annotation>
+               <xsd:documentation source="">Temporary agricultural workers coming to the United States to perform agricultural services or labor of a temporary or seasonal nature when authorized workers are unavailable in the United States;</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="U-4">
+            <xsd:annotation>
+               <xsd:documentation source="">Parent of U-1
+(Regulations have not yet been written, but DHS is statutorily responsible for writing the regulations by 5 Jul 2006.)</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="F-3">
+            <xsd:annotation>
+               <xsd:documentation source="">Canadian or Mexican national commuter student.</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="A-3">
+            <xsd:annotation>
+               <xsd:documentation source="">Attendant, servant, or personal employee of A-1 or A-2 and members of immediate family.</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="T5">
+            <xsd:annotation>
+               <xsd:documentation source="">Sibling of T-1</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="G-4">
+            <xsd:annotation>
+               <xsd:documentation source="">Officer or employee of international organization and  members of immediate family.</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="N7">
+            <xsd:annotation>
+               <xsd:documentation source="">Attendant, servant, or personal employee of NATO-1, NATO-2, NATO-3, NATO-4, NATO-5, and NATO-6 classes, and members of immediate family.</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="G-2">
+            <xsd:annotation>
+               <xsd:documentation source="">Temporary representative of recognized foreign member government to an international organization, and members of immediate family.</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="B2">
+            <xsd:annotation>
+               <xsd:documentation source="">Temporary visitor for pleasure.</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="N3">
+            <xsd:annotation>
+               <xsd:documentation source="">Official clerical staff accompanying a representative of Member State to NATO</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="G-3">
+            <xsd:annotation>
+               <xsd:documentation source="">Representative of nonrecognized or nonmember foreign government to international organization, and members of immediate family.</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="O-2">
+            <xsd:annotation>
+               <xsd:documentation source="">Temporary worker accompanying or assisting O-1.</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="TN">
+            <xsd:annotation>
+               <xsd:documentation source="">Canadian or Mexican citizen professional business person engaged in business activities in the U.S. (North American Free Trade Agreement.)</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="NATO-4">
+            <xsd:annotation>
+               <xsd:documentation source="">Officials of NATO (other than those classifiable under NATO-1) and members of immediate family.</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="E3">
+            <xsd:annotation>
+               <xsd:documentation source="">Australian Free Trade Agreement: issued to Australian nationals coming to work in "specialty occupations"</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="O3">
+            <xsd:annotation>
+               <xsd:documentation source="">Spouse or child of O-1 or O-2.</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="N5">
+            <xsd:annotation>
+               <xsd:documentation source="">Experts, other than NATO officials classifiable under the symbol NATO-4, employed on missions on behalf of NATO and their dependents.</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="N-8">
+            <xsd:annotation>
+               <xsd:documentation source="">Parent of an alien classified SK3 or SN3.</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="BE">
+            <xsd:annotation>
+               <xsd:documentation source="">Bering Strait Agreement: visa-free travel for Russian citizens to designated areas of Alaska</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="T3">
+            <xsd:annotation>
+               <xsd:documentation source="">Child of T-1</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="O-3">
+            <xsd:annotation>
+               <xsd:documentation source="">Spouse or child of O-1 or O-2.</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="R-2">
+            <xsd:annotation>
+               <xsd:documentation source="">Spouse and children of R1 (Prior to FY92, R2 was a class used for deferred inspection).</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="I">
+            <xsd:annotation>
+               <xsd:documentation source="">Representative of foreign information media, spouse and children.</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="H2">
+            <xsd:annotation>
+               <xsd:documentation source="">Temporary non-agricultural workers coming to the United States to perform temporary services or labor if unemployed persons capable of performing the service or labor cannot be found in the United States;</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="L1">
+            <xsd:annotation>
+               <xsd:documentation source="">Intracompany transferee (executive, managerial, and specialized personnel entering to render services to a branch, parent, subsidiary, or affiliate of the company of previous employment outside the United States).</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="F3">
+            <xsd:annotation>
+               <xsd:documentation source="">Canadian or Mexican national commuter student.</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="E-3">
+            <xsd:annotation>
+               <xsd:documentation source="">Australian Free Trade Agreement: issued to Australian nationals coming to work in "specialty occupations"</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="NATO-5">
+            <xsd:annotation>
+               <xsd:documentation source="">Experts, other than NATO officials classifiable under the symbol NATO-4, employed on missions on behalf of NATO and their dependents.</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="TD">
+            <xsd:annotation>
+               <xsd:documentation source="">Spouse or child of TN.</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="E1">
+            <xsd:annotation>
+               <xsd:documentation source="">Treaty trader, spouse and children.</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="Q2">
+            <xsd:annotation>
+               <xsd:documentation source="">Participants of the Irish Peace Process Cultural and Training (PPCT) Program, expires September 2008</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="H-1B1">
+            <xsd:annotation>
+               <xsd:documentation source="">Free Trade, Singapore / Chile nationals to work in specialty occupations.</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="U-2">
+            <xsd:annotation>
+               <xsd:documentation source="">Spouse of U-1
+(Regulations have not yet been written, but DHS is statutorily responsible for writing the regulations by 5 Jul 2006.)</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="C3">
+            <xsd:annotation>
+               <xsd:documentation source="">Foreign government official, members of immediate family, attendant, servant, or personal employee, in transit.</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:complexType abstract="false" mixed="false" name="ClassOfAdmissionCategoryCodeType">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:Base i:name="Object" i:namespace="http://niem.gov/niem/structures/2.0"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">A data type for A data type describing the kinds of Immigration Class of Admission types</xsd:documentation>
+      </xsd:annotation>
+      <xsd:simpleContent>
+         <xsd:extension base="scr:ClassOfAdmissionCategoryCodeSimpleType">
+            <xsd:attributeGroup ref="s:SimpleObjectAttributeGroup"/>
+         </xsd:extension>
+      </xsd:simpleContent>
+   </xsd:complexType>
+   <xsd:complexType abstract="false" mixed="false" name="ScreeningArrivalType">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:Base i:name="Object" i:namespace="http://niem.gov/niem/structures/2.0"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">A data type for an encounter representing the entry of a Person or Conveyance into the United States</xsd:documentation>
+      </xsd:annotation>
+      <xsd:complexContent>
+         <xsd:extension base="s:ComplexObjectType">
+            <xsd:sequence>
+               <xsd:element maxOccurs="unbounded" minOccurs="0" ref="scr:AdmitToDate"/>
+            </xsd:sequence>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+</xsd:schema>
