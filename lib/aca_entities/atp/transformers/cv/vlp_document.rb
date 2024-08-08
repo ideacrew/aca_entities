@@ -7,21 +7,19 @@ module AcaEntities
         # Transformers implementation for atp payloads
         class VlpDocument < ::AcaEntities::Operations::Transforms::Transform
           include ::AcaEntities::Operations::Transforms::Transformer
-
           map 'category_code', 'subject'
           map 'alien_number', 'alien_number'
-          add_key 'i94_number', value: nil
-          add_key 'visa_number', value: nil
-          add_key 'sevis_id', value: nil
+          map 'i94_number', 'i94_number'
+          map 'visa_number', 'visa_number'
+          map 'sevis_id', 'sevis_id'
           map 'naturalization_certificate', 'naturalization_number'
-          add_key 'passport_number', value: nil
+          map 'passport_number', 'passport_number'
           add_key 'receipt_number', value: nil
-          add_key 'citizenship_number', value: nil
-          add_key 'card_number', value: nil
-          add_key 'country_of_citizenship', value: nil
-          add_key 'expiration_date', value: nil
+          map 'citizenship_number', 'citizenship_number'
+          map 'card_number', 'card_number'
+          map 'country_of_citizenship', 'country_of_citizenship'
+          map 'expiration_date', 'expiration_date'
           add_key 'issuing_country', value: nil
-
         end
       end
     end
