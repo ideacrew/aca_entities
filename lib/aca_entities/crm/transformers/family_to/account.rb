@@ -71,9 +71,9 @@ module AcaEntities
             case kind
             when 'billing_address_street'
               address.try(:address_1)
-            when 'billing_address_street2'
+            when 'billing_address_street_2'
               address.try(:address_2)
-            when 'billing_address_street3'
+            when 'billing_address_street_3'
               address.try(:address_3)
             when 'billing_address_city'
               address.try(:city)
@@ -117,15 +117,16 @@ module AcaEntities
 
           def transform_contacts(family_members, primary_person)
             family_members.map do |family_member|
-              next unless family_member.person.present?
-              hbx_id = family_member.person.hbx_id
+              person = family_member.person
+              next unless person.present?
+              hbx_id = person.hbx_id
               {
                 hbxid_c: hbx_id,
-                first_name: family_member.person.person_name.first_name,
-                last_name: family_member.person.person_name.last_name,
-                phone_mobile: fetch_and_format_phone(primary_person),
-                email1: primary_person.home_email || primary_person.work_email,
-                birthdate: family_member&.person&.person_demographics&.dob&.to_s,
+                first_name: person.person_name.first_name,
+                last_name: person.person_name.last_name,
+                phone_mobile: fetch_and_format_phone(person),
+                email1: person.home_email || person.work_email,
+                birthdate: person&.person_demographics&.dob&.to_s,
                 relationship_c: fetch_relationship_to_primary(hbx_id, primary_person)
               }
             end
