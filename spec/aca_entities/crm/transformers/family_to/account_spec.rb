@@ -147,7 +147,7 @@ RSpec.describe AcaEntities::Crm::Transformers::FamilyTo::Account do
 
     it 'returns the correct email for contact' do
       email = family_cv[:family_members].last[:person][:emails].first[:address]
-      expect(@result.success[:contacts].last[:email1]).to eql(formatted_number)
+      expect(@result.success[:contacts].last[:email1]).to eql(email)
     end
   end
 end
