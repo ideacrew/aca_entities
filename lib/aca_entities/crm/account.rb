@@ -97,7 +97,7 @@ module AcaEntities
 
       # Compares the current account with another account based on a set of attributes.
       # The comparison is made in the order of hbxid_c, name, email1, billing_address_street, billing_address_street_2,
-      # billing_address_street_3, billing_address_street4, billing_address_city, billing_address_postalcode,
+      # billing_address_street_3, billing_address_street_4, billing_address_city, billing_address_postalcode,
       # billing_address_state, phone_office, rawssn_c, raw_ssn_c, dob_c, and enroll_account_link_c.
       #
       # @param other [Account] The other account to compare with.

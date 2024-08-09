@@ -17,7 +17,7 @@ RSpec.describe AcaEntities::Crm::Transformers::SugarAccountTo::Account do
       :billing_address_street => "1 Test St",
       :billing_address_street_2: nil,
       :billing_address_street_3: nil,
-      :billing_address_street4: nil,
+      :billing_address_street_4: nil,
       :billing_address_city => "Testing City",
       :billing_address_postalcode => "04055",
       :billing_address_state => "ME",
