@@ -566,7 +566,7 @@ RSpec.shared_context 'sample family cv' do
       {
         kind: "home",
         address_1: "S Street NW",
-        address_2: "",
+        address_2: "Apt 101",
         address_3: "",
         city: "Washington",
         county: "",

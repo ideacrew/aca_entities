@@ -45,6 +45,10 @@ RSpec.describe AcaEntities::Crm::Transformers::FamilyTo::Account do
       expect(@result.success[:billing_address_street]).to eq(addresses.first[:address_1])
     end
 
+    it "returns transformed address 2" do
+      expect(@result.success[:billing_address_street_2]).to eq(addresses.first[:address_2])
+    end
+
     it "returns transformed address city" do
       expect(@result.success[:billing_address_city]).to eq(addresses.first[:city])
     end
