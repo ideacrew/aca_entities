@@ -566,7 +566,7 @@ RSpec.shared_context 'sample family cv' do
       {
         kind: "home",
         address_1: "S Street NW",
-        address_2: "",
+        address_2: "Apt 101",
         address_3: "",
         city: "Washington",
         county: "",
@@ -589,6 +589,29 @@ RSpec.shared_context 'sample family cv' do
         extension: "",
         primary: true,
         full_phone_number: "2022991290"
+      }
+    ]
+  end
+
+  let(:dependent_phones) do
+    [
+      {
+        kind: "home",
+        country_code: "",
+        area_code: "202",
+        number: "5555555",
+        extension: "",
+        primary: true,
+        full_phone_number: "2025555555"
+      }
+    ]
+  end
+
+  let(:dependent_emails) do
+    [
+      {
+        kind: "home",
+        address: "dependent@gmail.com"
       }
     ]
   end
@@ -661,8 +684,8 @@ RSpec.shared_context 'sample family cv' do
       verification_types: verification_types,
       broker_role: broker_role,
       addresses: addresses,
-      phones: phones,
-      emails: emails,
+      phones: dependent_phones,
+      emails: dependent_emails,
       documents: documents,
       timestamp: timestamp
     }

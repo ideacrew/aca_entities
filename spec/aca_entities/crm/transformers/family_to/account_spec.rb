@@ -45,6 +45,10 @@ RSpec.describe AcaEntities::Crm::Transformers::FamilyTo::Account do
       expect(@result.success[:billing_address_street]).to eq(addresses.first[:address_1])
     end
 
+    it "returns transformed address 2" do
+      expect(@result.success[:billing_address_street_2]).to eq(addresses.first[:address_2])
+    end
+
     it "returns transformed address city" do
       expect(@result.success[:billing_address_city]).to eq(addresses.first[:city])
     end
@@ -134,6 +138,20 @@ RSpec.describe AcaEntities::Crm::Transformers::FamilyTo::Account do
 
         expect(result.success[:contacts].last[:relationship_c]).to eql(relationship_mapper)
       end
+    end
+
+    it 'returns the correctly formatted phone number for contact' do
+      phone = family_cv[:family_members].last[:person][:phones].first
+
+      phone_number = phone[:area_code] + phone[:number]
+
+      formatted_number = phone_number.gsub(/(\d{3})(\d{3})(\d{4})/, '(\1) \2-\3')
+      expect(@result.success[:contacts].last[:phone_mobile]).to eql(formatted_number)
+    end
+
+    it 'returns the correct email for contact' do
+      email = family_cv[:family_members].last[:person][:emails].first[:address]
+      expect(@result.success[:contacts].last[:email1]).to eql(email)
     end
   end
 end
