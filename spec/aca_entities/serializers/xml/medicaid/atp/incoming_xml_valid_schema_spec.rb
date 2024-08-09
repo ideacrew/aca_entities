@@ -2,6 +2,7 @@
 
 require 'spec_helper'
 require 'aca_entities/serializers/xml/medicaid/atp'
+require 'aca_entities/atp/xml'
 require 'open3'
 
 RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequest do
@@ -21,16 +22,6 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
   # Split sample file on comments (ignoring the first one) and store just the payloads
   let(:payloads) {sample_xml.split(/<!-- payload (?:1[0-9]+|[2-9]+) -->/)}
 
-  let(:schema_location) do
-    loc = File.join(
-      File.dirname(__FILE__),
-      "..", "..", "..", "..", "..",
-      "reference", "xml", "atp",
-      "atp_service.xsd"
-    )
-    File.expand_path(loc)
-  end
-
   ############################
   let(:schematron_location) do
     loc = File.join(
@@ -48,7 +39,7 @@ RSpec.describe AcaEntities::Serializers::Xml::Medicaid::Atp::AccountTransferRequ
   end
   ##############################
 
-  let(:schema) { Nokogiri::XML::Schema(File.open(schema_location)) }
+  let(:schema) { AcaEntities::Atp::Xml::Validator.new }
 
   it "is schema valid" do
     # Line numbers must be adjusted for accurate error messages

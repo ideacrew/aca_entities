@@ -1,5 +1,10 @@
 # frozen_string_literal: true
 
+require_relative "referral_activity_status"
+require_relative "referral_activity_receiver_reference"
+require_relative "referral_activity_sender_reference"
+require_relative "referral_activity_eligibility_reason_reference"
+
 module AcaEntities
   module Serializers
     module Xml

@@ -21,11 +21,28 @@ module AcaEntities
             enrolled_non_esi_indicator = get_enrolled_non_esi_indicator(enrolled_non_esi_benfits)
             esi_coverage_indicators = get_esi_coverage_indicators(esi_benefits)
             non_esi_policies = get_non_esi_policies(enrolled_non_esi_benfits)
+            referral_activity_hash = referral_activity(applicant)
 
             insurance_applicant = AcaEntities::Atp::Transformers::Aces::Applicant.transform(applicant)
-            insurance_applicant.merge!(enrolled_non_esi_indicator, esi_associations: esi_coverage_indicators, non_esi_policies: non_esi_policies)
+
+            insurance_applicant.merge!(enrolled_non_esi_indicator, referral_activity: referral_activity_hash,
+                                                                   esi_associations: esi_coverage_indicators, non_esi_policies: non_esi_policies)
             collector << insurance_applicant
           end
+        end
+
+        def referral_activity(applicant)
+          additional_reason_codes = applicant[:additional_reason_codes]&.flat_map {|e| e[:additional_reason_codes]}
+          reason_code = applicant[:reason_code].blank? ? "FullDetermination" : applicant[:reason_code]
+          {
+            activity_id: { identification_id: ["SBM", DateTime.now.strftime("%Y%m%d%H%M%S"), "pe#{applicant[:person_hbx_id]}"&.slice(-3..-1)].join },
+            activity_date: { date_time: DateTime.now },
+            sender_reference: { :ref => "Sender" }, # TODO
+            receiver_reference: { :ref => "medicaidReceiver" }, # TODO
+            status: { :status_code => "Initiated" }, # TODO
+            reason_code: reason_code, # TODO
+            additional_reason_codes: additional_reason_codes
+          }
         end
 
         def get_enrolled_non_esi_indicator(enrolled_non_esi_benfits)
