@@ -7,6 +7,7 @@ require 'aca_entities/atp/transformers/cv/income'
 require 'aca_entities/atp/transformers/cv/contact_info'
 require 'aca_entities/atp/transformers/cv/vlp_document'
 require "aca_entities/atp/functions/vlp_document_hash_builder"
+require "aca_entities/atp/functions/tribe_codes_builder"
 # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity, Metrics/MethodLength, Layout/LineLength, Metrics/AbcSize, Metrics/ClassLength
 module AcaEntities
   module Atp
@@ -320,6 +321,8 @@ module AcaEntities
                                                  lawful_presence_status[:lawful_presence_status_eligibility][:eligibility_indicator] ? true : nil
                                                end
 
+          tribe_name = @tribal_augmentation[:person_tribe_name]
+          tribe_codes = AcaEntities::Atp::Functions::TribeCodesBuilder.new.call(tribe_name) if tribe_indicator
           {
             is_primary_applicant: @applicant_identifier == @primary_applicant_identifier,
             name: name_hash,
@@ -330,7 +333,8 @@ module AcaEntities
             native_american_information: nil,
             indian_tribe_member: tribe_indicator,
             tribal_state: tribe_indicator ? @tribal_augmentation[:location_state_us_postal_service_code] : nil,
-            tribal_name: tribe_indicator ? @tribal_augmentation[:person_tribe_name] : nil,
+            tribal_name: tribe_indicator ? tribe_name : nil,
+            tribe_codes: tribe_name.present? ? tribe_codes : nil,
             citizenship_immigration_status_information: @applicant_hash.nil? ? nil : citizenship_immigration_hash,
             eligible_immigration_status: lawful_presence_status_eligibility,
             is_consumer_role: true, # default value
