@@ -17,9 +17,9 @@ module AcaEntities
       #   @option opts [String] :email1 optional
       #   @option opts [String] :phone_office optional
       #   @option opts [String] :billing_address_street optional
-      #   @option opts [String] :billing_address_street2 optional
-      #   @option opts [String] :billing_address_street3 optional
-      #   @option opts [String] :billing_address_street4 optional
+      #   @option opts [String] :billing_address_street_2 optional
+      #   @option opts [String] :billing_address_street_3 optional
+      #   @option opts [String] :billing_address_street_4 optional
       #   @option opts [String] :billing_address_city optional
       #   @option opts [String] :billing_address_postalcode optional
       #   @option opts [String] :billing_address_state optional
@@ -39,9 +39,9 @@ module AcaEntities
           optional(:phone_office).maybe(AcaEntities::Crm::Types::Phone)
 
           optional(:billing_address_street).maybe(Types::Coercible::String)
-          optional(:billing_address_street2).maybe(Types::Coercible::String)
-          optional(:billing_address_street3).maybe(Types::Coercible::String)
-          optional(:billing_address_street4).maybe(Types::Coercible::String)
+          optional(:billing_address_street_2).maybe(Types::Coercible::String)
+          optional(:billing_address_street_3).maybe(Types::Coercible::String)
+          optional(:billing_address_street_4).maybe(Types::Coercible::String)
           optional(:billing_address_city).maybe(Types::Coercible::String)
           optional(:billing_address_postalcode).maybe(Types::Coercible::String)
           optional(:billing_address_state).maybe(Types::Coercible::String)
