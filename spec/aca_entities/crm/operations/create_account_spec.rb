@@ -46,9 +46,9 @@ RSpec.describe AcaEntities::Crm::Operations::CreateAccount do
       billing_address_city: 'Anytown',
       billing_address_postalcode: '12345',
       billing_address_state: 'ST',
-      billing_address_street2: 'Apt 1',
-      billing_address_street3: 'Floor 2',
-      billing_address_street4: 'Suite 3',
+      billing_address_street_2: 'Apt 1',
+      billing_address_street_3: 'Floor 2',
+      billing_address_street_4: 'Suite 3',
       enroll_account_link_c: 'http://example.com/account'
     }
   end

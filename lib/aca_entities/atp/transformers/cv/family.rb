@@ -3,6 +3,7 @@
 require "aca_entities/atp/functions/address_builder"
 require "aca_entities/atp/functions/relationship_builder"
 require "aca_entities/atp/functions/vlp_document_hash_builder"
+require "aca_entities/atp/functions/tribe_codes_builder"
 require "aca_entities/atp/functions/lawful_presence_determination_builder"
 require "aca_entities/atp/functions/build_application"
 require "aca_entities/functions/age_on"
@@ -16,6 +17,7 @@ module AcaEntities
     module Transformers
       module Cv
         # Transformers implementation for atp payloads
+        # rubocop:disable Metrics/ClassLength
         class Family < ::AcaEntities::Operations::Transforms::Transform
           include ::AcaEntities::Operations::Transforms::Transformer
 
@@ -115,6 +117,16 @@ module AcaEntities
                     tribe_indicator = tribal_augmentation[:american_indian_or_alaska_native_indicator]
                     return nil unless tribe_indicator
                     tribal_augmentation[:person_tribe_name]
+                  }
+                  add_key 'person.person_demographics.tribe_codes', function: lambda { |v|
+                    tribal_augmentation = v.find(Regexp.new('record.people.*.tribal_augmentation')).map(&:item).last
+                    tribe_indicator = tribal_augmentation[:american_indian_or_alaska_native_indicator]
+                    return nil unless tribe_indicator
+
+                    tribe_name = tribal_augmentation[:person_tribe_name]
+                    return nil unless tribe_name
+
+                    AcaEntities::Atp::Functions::TribeCodesBuilder.new.call(tribe_name)
                   }
                   add_key 'person.person_demographics.indian_tribe_member', function: lambda { |v|
                     tribal_augmentation = v.find(Regexp.new('record.people.*.tribal_augmentation')).map(&:item).last
@@ -234,6 +246,7 @@ module AcaEntities
             end
           end
         end
+        # rubocop:enable Metrics/ClassLength
       end
     end
   end

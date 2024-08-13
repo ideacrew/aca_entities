@@ -45,20 +45,20 @@ module AcaEntities
       #   @note :billing_address_street is optional
       attribute :billing_address_street, Types::String.optional.meta(omittable: true)
 
-      # @!attribute [r] billing_address_street2
+      # @!attribute [r] billing_address_street_2
       #   @return [String, nil] optional second street address for billing
-      #   @note :billing_address_street2 is optional
-      attribute :billing_address_street2, Types::String.optional.meta(omittable: true)
+      #   @note :billing_address_street_2 is optional
+      attribute :billing_address_street_2, Types::String.optional.meta(omittable: true)
 
-      # @!attribute [r] billing_address_street3
+      # @!attribute [r] billing_address_street_3
       #   @return [String, nil] optional third street address for billing
-      #   @note :billing_address_street3 is optional
-      attribute :billing_address_street3, Types::String.optional.meta(omittable: true)
+      #   @note :billing_address_street_3 is optional
+      attribute :billing_address_street_3, Types::String.optional.meta(omittable: true)
 
-      # @!attribute [r] billing_address_street4
+      # @!attribute [r] billing_address_street_4
       #   @return [String, nil] optional fourth street address for billing
-      #   @note :billing_address_street4 is optional
-      attribute :billing_address_street4, Types::String.optional.meta(omittable: true)
+      #   @note :billing_address_street_4 is optional
+      attribute :billing_address_street_4, Types::String.optional.meta(omittable: true)
 
       # @!attribute [r] billing_address_city
       #   @return [String] city for billing address
@@ -96,8 +96,8 @@ module AcaEntities
       end
 
       # Compares the current account with another account based on a set of attributes.
-      # The comparison is made in the order of hbxid_c, name, email1, billing_address_street, billing_address_street2,
-      # billing_address_street3, billing_address_street4, billing_address_city, billing_address_postalcode,
+      # The comparison is made in the order of hbxid_c, name, email1, billing_address_street, billing_address_street_2,
+      # billing_address_street_3, billing_address_street_4, billing_address_city, billing_address_postalcode,
       # billing_address_state, phone_office, rawssn_c, raw_ssn_c, dob_c, and enroll_account_link_c.
       #
       # @param other [Account] The other account to compare with.
@@ -107,9 +107,9 @@ module AcaEntities
         [
           hbxid_c, name, email1,
           billing_address_street,
-          billing_address_street2,
-          billing_address_street3,
-          billing_address_street4,
+          billing_address_street_2,
+          billing_address_street_3,
+          billing_address_street_4,
           billing_address_city,
           billing_address_postalcode,
           billing_address_state,
@@ -119,9 +119,9 @@ module AcaEntities
         ] <=> [
           other.hbxid_c, other.name, other.email1,
           other.billing_address_street,
-          other.billing_address_street2,
-          other.billing_address_street3,
-          other.billing_address_street4,
+          other.billing_address_street_2,
+          other.billing_address_street_3,
+          other.billing_address_street_4,
           other.billing_address_city,
           other.billing_address_postalcode,
           other.billing_address_state,
