@@ -80,8 +80,19 @@
         <hix-core:IncarcerationIndicator>true</hix-core:IncarcerationIndicator>
       </hix-ee:InsuranceApplicantIncarceration>
       <hix-ee:InsuranceApplicantLawfulPresenceStatus>
+        <hix-core:StatusIndicator>true</hix-core:StatusIndicator>
+        <hix-ee:LawfulPresenceStatusImmigrationDocument>
+          <hix-ee:LawfulPresenceDocumentNumber>
+            <nc:IdentificationID>1234567891</nc:IdentificationID>
+          </hix-ee:LawfulPresenceDocumentNumber>
+          <hix-ee:LawfulPresenceDocumentPersonIdentification>
+            <nc:IdentificationID>1234567891</nc:IdentificationID>
+            <nc:IdentificationCategoryText>SEVIS ID</nc:IdentificationCategoryText>
+          </hix-ee:LawfulPresenceDocumentPersonIdentification>
+          <hix-ee:LawfulPresenceDocumentCategoryCode>DS2019</hix-ee:LawfulPresenceDocumentCategoryCode>
+        </hix-ee:LawfulPresenceStatusImmigrationDocument>
         <hix-ee:LawfulPresenceStatusEligibility>
-          <hix-ee:EligibilityIndicator>false</hix-ee:EligibilityIndicator>
+          <hix-ee:EligibilityIndicator>true</hix-ee:EligibilityIndicator>
         </hix-ee:LawfulPresenceStatusEligibility>
       </hix-ee:InsuranceApplicantLawfulPresenceStatus>
       <hix-ee:InsuranceApplicantLongTermCareIndicator>true</hix-ee:InsuranceApplicantLongTermCareIndicator>

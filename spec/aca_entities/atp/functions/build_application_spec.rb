@@ -78,7 +78,7 @@ RSpec.describe AcaEntities::Atp::Functions::BuildApplication do
     end
   end
 
-  context "with valid xml containing naturalization certificate document information" do
+  context "with valid xml containing naturalization certificate document information and other document fields" do
     before do
       @result = subject.first
     end
@@ -86,6 +86,11 @@ RSpec.describe AcaEntities::Atp::Functions::BuildApplication do
       expect(@result[:applicants][0][:vlp_subject]).to eq("Naturalization Certificate")
       expect(@result[:applicants][0][:naturalization_number]).to eq(12_345)
       expect(@result[:applicants][0][:alien_number]).to eq(67_890)
+      expect(@result[:applicants][0][:i94_number]).to eq(45_678)
+      expect(@result[:applicants][0][:passport_number]).to eq(14_373)
+      expect(@result[:applicants][0][:sevis_id]).to eq(54_321)
+      expect(@result[:applicants][0][:visa_number]).to eq(56_789)
+      expect(@result[:applicants][0][:country_of_citizenship]).to eq("Brazil")
     end
     it "should return nil naturalization certificate document information for other applicant" do
       expect(@result[:applicants][1][:vlp_subject]).to be nil
