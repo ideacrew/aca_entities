@@ -32,17 +32,28 @@ module AcaEntities
         end
 
         def referral_activity(applicant)
-          additional_reason_codes = applicant[:additional_reason_codes]&.flat_map {|e| e[:additional_reason_codes]}
-          reason_code = applicant[:reason_code].blank? ? "FullDetermination" : applicant[:reason_code]
-          {
+          referral_activity_values = {
             activity_id: { identification_id: ["SBM", DateTime.now.strftime("%Y%m%d%H%M%S"), "pe#{applicant[:person_hbx_id]}"&.slice(-3..-1)].join },
             activity_date: { date_time: DateTime.now },
             sender_reference: { :ref => "Sender" }, # TODO
             receiver_reference: { :ref => "medicaidReceiver" }, # TODO
-            status: { :status_code => "Initiated" }, # TODO
-            reason_code: reason_code, # TODO
-            additional_reason_codes: additional_reason_codes
+            status: { :status_code => "Initiated" } # TODO
           }
+          referral_activity_values[:reason_code] = applicant[:reason_code] unless applicant[:reason_code].blank?
+          unless applicant[:additional_reason_codes].nil?
+            referral_activity_values[:additional_reason_codes] = extract_additional_reason_codes(applicant[:additional_reason_codes])
+          end
+          referral_activity_values
+        end
+
+        # I don't know why the transformer 'double-nests' my array value,
+        # but I'm not going to fix it at the risk of damaging overall behaviour
+        def extract_additional_reason_codes(reason_codes_value)
+          if reason_codes_value.is_a?(Array) && reason_codes_value.first.is_a?(Hash)
+            reason_codes_value.first.values.first
+          else
+            reason_codes_value
+          end
         end
 
         def get_enrolled_non_esi_indicator(enrolled_non_esi_benfits)
