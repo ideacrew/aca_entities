@@ -187,10 +187,10 @@ module AcaEntities
             def self.encode_ref_activity(mapper, ref_activity)
               return unless ref_activity
 
-              if ref_activity.additional_reason_codes.present? && ref_activity.additional_reason_codes.any?
-                mapper.additional_referral_activity = AdditionalReferralActivity.domain_to_mapper(ref_activity)
-              else
+              if ref_activity.additional_reason_codes.nil?
                 mapper.referral_activity = ReferralActivity.domain_to_mapper(ref_activity)
+              else
+                mapper.additional_referral_activity = AdditionalReferralActivity.domain_to_mapper(ref_activity)
               end
             end
           end

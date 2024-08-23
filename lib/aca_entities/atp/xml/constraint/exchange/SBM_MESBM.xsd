@@ -1,25 +1,18 @@
-<?xml version="1.0" encoding="UTF-8"?>  
+<?xml version="1.0" encoding="UTF-8"?>
 <xsd:schema xmlns:exch="http://at.dsh.cms.gov/exchange/1.0"
-            xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-            xmlns:hix-ee="http://hix.cms.gov/0.1/hix-ee"
-            xmlns:i="http://niem.gov/niem/appinfo/2.0"
-            xmlns:hix-types="http://hix.cms.gov/0.1/hix-types"
-            xmlns:s="http://niem.gov/niem/structures/2.0"
-            xmlns:me-atp="http://xmlns.coverme.gov/atp/hix-ee"
-            attributeFormDefault="qualified"
-            elementFormDefault="qualified" targetNamespace="http://xmlns.coverme.gov/atp/hix-ee" version="1">
-    <xsd:import namespace="http://hix.cms.gov/0.1/hix-types"
-                schemaLocation="../niem/domains/hix/0.1/hix-tupes/hix-types.xsd" />
-    <xsd:import namespace="http://hix.cms.gov/0.1/hix-ee"
-                schemaLocation="../niem/domains/hix/0.1/hix-ee/hix-ee.xsd" />
-   <xsd:import namespace="http://niem.gov/niem/structures/2.0"
-      schemaLocation="../../subset/niem/structures/2.0/structures.xsd"/>
-   
-    <xsd:element abstract="false" name="ReferralActivity"
-                 substitutionGroup="hix-ee:ReferralActivity"
-                 type="me-atp:ReferralActivityType">
-    </xsd:element>
-        
+   xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+   xmlns:hix-ee="http://hix.cms.gov/0.1/hix-ee"
+   xmlns:i="http://niem.gov/niem/appinfo/2.0"
+   xmlns:hix-types="http://hix.cms.gov/0.1/hix-types"
+   xmlns:s="http://niem.gov/niem/structures/2.0"
+   xmlns:me-atp="http://xmlns.coverme.gov/atp/hix-ee" attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://xmlns.coverme.gov/atp/hix-ee" version="1">
+   <xsd:import namespace="http://hix.cms.gov/0.1/hix-types" schemaLocation="../niem/domains/hix/0.1/hix-tupes/hix-types.xsd" />
+   <xsd:import namespace="http://hix.cms.gov/0.1/hix-ee" schemaLocation="../niem/domains/hix/0.1/hix-ee/hix-ee.xsd" />
+   <xsd:import namespace="http://niem.gov/niem/structures/2.0" schemaLocation="../../subset/niem/structures/2.0/structures.xsd"/>
+
+   <xsd:element abstract="false" name="ReferralActivity" substitutionGroup="hix-ee:ReferralActivity" type="me-atp:ReferralActivityType">
+   </xsd:element>
+
    <xsd:complexType abstract="false" mixed="false" name="ReferralActivityType">
       <xsd:annotation>
          <xsd:appinfo>
@@ -35,6 +28,51 @@
          </xsd:extension>
       </xsd:complexContent>
    </xsd:complexType>
-   
-   <xsd:element name="AdditionalReferralActivityReasonCode" type="hix-types:ReferralActivityReasonCodeType" />
+
+   <xsd:simpleType name="AdditionalReferralActivityReasonCodeSimpleType">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:Base i:name="Object" i:namespace="http://niem.gov/niem/structures/2.0"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">A data type for a reason for a referral activity.</xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="xsd:token">
+         <xsd:enumeration value="FullDetermination">
+            <xsd:annotation>
+               <xsd:documentation source="">The applicant has requested a full determination be made for Medicaid and Children's Health Insurance Program eligibility.</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="WaitingPeriodException">
+            <xsd:annotation>
+               <xsd:documentation source="">The marketplace has requested that a Children's Health Insurance Program (CHIP) system determine if an applicant qualifies for an exception to the normal waiting period rules for the Children's Health Insurance Program. (This reason can apply either in the case of an initial referral from a marketplace to a CHIP system or in the case of a rejected referral initiated by a CHIP system.)</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="GapFilling">
+            <xsd:annotation>
+               <xsd:documentation source="">The sender is referring an applicant under the gap filling rules established by the Centers for Medicare &amp; Medicaid Services.</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="Renewal">
+            <xsd:annotation>
+               <xsd:documentation source="">The sender is referring an applicant under a renewal application.</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+      </xsd:restriction>
+   </xsd:simpleType>
+
+   <xsd:complexType name="AdditionalReferralActivityReasonCodeType">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <i:Base i:name="Object" i:namespace="http://niem.gov/niem/structures/2.0"/>
+         </xsd:appinfo>
+         <xsd:documentation source="">A data type for an additional reason for a referral activity.</xsd:documentation>
+      </xsd:annotation>
+      <xsd:simpleContent>
+         <xsd:extension base="me-atp:AdditionalReferralActivityReasonCodeSimpleType">
+            <xsd:attributeGroup ref="s:SimpleObjectAttributeGroup"/>
+         </xsd:extension>
+      </xsd:simpleContent>
+   </xsd:complexType>
+
+   <xsd:element name="AdditionalReferralActivityReasonCode" type="me-atp:AdditionalReferralActivityReasonCodeType" />
 </xsd:schema>

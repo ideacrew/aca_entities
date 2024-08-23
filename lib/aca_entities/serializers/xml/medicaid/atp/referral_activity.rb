@@ -32,7 +32,7 @@ module AcaEntities
               mapper.sender_reference = ReferralActivitySenderReference.domain_to_mapper(referral_activity.sender_reference)
               mapper.receiver_reference = ReferralActivityReceiverReference.domain_to_mapper(referral_activity.receiver_reference)
               mapper.status = ReferralActivityStatus.domain_to_mapper(referral_activity.status)
-              mapper.reason_code = referral_activity.reason_code
+              mapper.reason_code = referral_activity.reason_code unless referral_activity.reason_code.blank?
               mapper
             end
 

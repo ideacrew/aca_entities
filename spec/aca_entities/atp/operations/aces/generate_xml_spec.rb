@@ -75,12 +75,12 @@ RSpec.describe AcaEntities::Atp::Operations::Aces::GenerateXml  do
       expect(texts&.first&.content&.strip).to eq "true"
     end
 
-    it 'should include the default referral activity reason code' do
+    it 'should not include any default activity code' do
       payload_hash[:family][:magi_medicaid_applications][:applicants].first[:is_temporarily_out_of_state] = true
       result = described_class.new.call(payload_hash.to_json)
       doc = Nokogiri::XML.parse(result.value!)
       texts = doc.xpath("//hix-ee:InsuranceApplicant/hix-ee:ReferralActivity/hix-ee:ReferralActivityReasonCode", namespaces).map(&:content)
-      expect(texts).to eq ["FullDetermination", "FullDetermination", "FullDetermination"]
+      expect(texts).to eq []
     end
 
     context 'when person has contact with unmappable kind' do
@@ -1078,11 +1078,11 @@ RSpec.describe AcaEntities::Atp::Operations::Aces::GenerateXml, "given a multipl
   let(:payload) { File.read(Pathname.pwd.join("spec/support/atp/sample_payloads/multiple_reason_L_cv_payload.json")) }
   let(:payload_hash) { JSON.parse(payload, symbolize_names: true) }
 
-  it 'should include additional referral activity reason codes, excluding the primary one' do
+  it 'should include additional referral activity reason codes' do
     payload_hash[:family][:magi_medicaid_applications][:applicants].first[:is_temporarily_out_of_state] = true
     result = described_class.new.call(payload_hash.to_json)
     doc = Nokogiri::XML.parse(result.value!)
     texts = doc.xpath("//hix-ee:InsuranceApplicant/me-atp:ReferralActivity/me-atp:AdditionalReferralActivityReasonCode", namespaces).map(&:content)
-    expect(texts).to eq ["GapFilling"]
+    expect(texts).to eq ["FullDetermination", "GapFilling"]
   end
 end

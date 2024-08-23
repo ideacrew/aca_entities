@@ -26,8 +26,10 @@ module AcaEntities
             has_one :receiver_reference, ReferralActivityReceiverReference
             has_one :status, ReferralActivityStatus
             element :reason_code, String, tag: 'ReferralActivityReasonCode', namespace: "hix-ee"
-            has_many :additional_reason_codes, String, tag: 'AdditionalReferralActivityReasonCode', namespace: 'me-atp'
             has_many :eligibility_reason_reference, ReferralActivityEligibilityReasonReference
+
+            # As this is derived by extension, new elements must come last.
+            has_many :additional_reason_codes, String, tag: 'AdditionalReferralActivityReasonCode', namespace: 'me-atp'
 
             def self.domain_to_mapper(referral_activity)
               mapper = self.new
@@ -37,9 +39,8 @@ module AcaEntities
               mapper.receiver_reference = ReferralActivityReceiverReference.domain_to_mapper(referral_activity.receiver_reference)
               mapper.status = ReferralActivityStatus.domain_to_mapper(referral_activity.status)
               other_reason_codes = referral_activity.additional_reason_codes || []
-              encoded_additional_reasons = other_reason_codes - [referral_activity.reason_code]
-              mapper.reason_code = referral_activity.reason_code
-              mapper.additional_reason_codes = encoded_additional_reasons
+              mapper.reason_code = referral_activity.reason_code unless referral_activity.reason_code.blank?
+              mapper.additional_reason_codes = other_reason_codes
               mapper
             end
 
