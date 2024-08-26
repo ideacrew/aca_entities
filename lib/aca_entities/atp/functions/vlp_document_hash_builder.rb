@@ -80,6 +80,10 @@ module AcaEntities
         end
 
         # this method handles the identification category text and maps it to the correct key in the vlp_document hash
+        # Being flexible and extra cautious with case insensitive match for sevis id/ cert of citizenship/naturalization number
+        # as we are unsure in which string case external system  will be sending the document category text.
+        # The issue first occurred with the Sevis ID in DC client,
+        # as sometimes DC sends it as Sevis ID, and other times as sevis id.
         def handle_identification_category(vlp_document, document_person_id)
           case document_person_id[:identification_category_text]
           when 'Alien Number'
