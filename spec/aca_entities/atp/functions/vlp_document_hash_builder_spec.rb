@@ -25,6 +25,25 @@ RSpec.describe AcaEntities::Atp::Functions::VlpDocumentHashBuilder do
     }
   end
 
+  let(:naturalization_certificate_2) do
+    {
+      category_code: 'NaturalizationCertificate',
+      document_person_ids: [
+        {
+          identification_category_text: 'Alien Number',
+          identification_id: '123456789'
+        },
+        {
+          identification_category_text: 'Naturalization Certificate Number',
+          identification_id: '123456789'
+        }
+      ],
+      expiration_date: {
+        date: '2022-12-31'
+      }
+    }
+  end
+
   let(:document_citizenship) do
     {
       category_code: 'Certificate of Citizenship',
@@ -37,6 +56,25 @@ RSpec.describe AcaEntities::Atp::Functions::VlpDocumentHashBuilder do
       document_numbers: [
         {
           identification_id: '987654321'
+        }
+      ],
+      expiration_date: {
+        date: '2022-12-31'
+      }
+    }
+  end
+
+  let(:document_citizenship_2) do
+    {
+      category_code: 'Certificate of Citizenship',
+      document_person_ids: [
+        {
+          identification_category_text: 'Alien Number',
+          identification_id: '123456789'
+        },
+        {
+          identification_category_text: 'certificate of citizenship',
+          identification_id: '123456789'
         }
       ],
       expiration_date: {
@@ -72,6 +110,29 @@ RSpec.describe AcaEntities::Atp::Functions::VlpDocumentHashBuilder do
         expect(result[:category_code]).to eq('Naturalization Certificate')
         expect(result[:alien_number]).to eq('123456789')
         expect(result[:naturalization_certificate]).to eq('987654321')
+        expect(result[:naturalization_number]).to eq('987654321')
+        expect(result[:expiration_date]).to eq('2022-12-31')
+        expect(result[:card_number]).to be_nil
+      end
+    end
+
+    context 'with a document person id that is a naturalization certificate' do
+      it 'returns a hash with updated document information' do
+        result = builder.call(naturalization_certificate_2)
+        expect(result[:category_code]).to eq('Naturalization Certificate')
+        expect(result[:alien_number]).to eq('123456789')
+        expect(result[:naturalization_number]).to eq('123456789')
+        expect(result[:expiration_date]).to eq('2022-12-31')
+        expect(result[:card_number]).to be_nil
+      end
+    end
+
+    context 'with a document person id that is a certificate of citizenship' do
+      it 'returns a hash with updated document information' do
+        result = builder.call(document_citizenship_2)
+        expect(result[:category_code]).to eq('Certificate of Citizenship')
+        expect(result[:alien_number]).to eq('123456789')
+        expect(result[:citizenship_number]).to eq('123456789')
         expect(result[:expiration_date]).to eq('2022-12-31')
         expect(result[:card_number]).to be_nil
       end

@@ -60,6 +60,8 @@ module AcaEntities
             vlp_document[:card_number] = vlp_document[:document_numbers]&.first&.dig(:identification_id).to_s
           elsif vlp_document[:category_code] == "Certificate of Citizenship"
             vlp_document[:citizenship_number] = vlp_document[:document_numbers]&.first&.dig(:identification_id).to_s
+          elsif vlp_document[:category_code] == "Naturalization Certificate"
+            vlp_document[:naturalization_number] = vlp_document[:document_numbers]&.first&.dig(:identification_id).to_s
           end
 
           # this handles whether the expiration date returned is a date inside a hash or null
@@ -91,6 +93,10 @@ module AcaEntities
             vlp_document[:sevis_id] = document_person_id[:identification_id]
           when 'Visa Number'
             vlp_document[:visa_number] = document_person_id[:identification_id]
+          when /certificate\s*of\s*citizenship/i
+            vlp_document[:citizenship_number] = document_person_id[:identification_id]
+          when /naturalization\s*certificate\s*number/i
+            vlp_document[:naturalization_number] = document_person_id[:identification_id]
           end
         end
 
