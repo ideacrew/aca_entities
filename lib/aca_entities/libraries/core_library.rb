@@ -4,8 +4,8 @@
 module AcaEntities
   module Libraries
     # Base Entities, Contracts and Types for the AcaEntities namespace. Add new, non-core Entity definitions
-    # to their own library file in the same directory as this file so they may be selectively included in
-    # services that require them.
+    # to their own library file in the same directory as this file so they may be selectively included in services that require them.
+    # rubocop:disable Metrics/ModuleLength
     module CoreLibrary
       require 'aca_entities/types'
       require 'aca_entities/attestations/types'
@@ -105,6 +105,10 @@ module AcaEntities
       require 'aca_entities/benefit_markets/contracts/products/product_package_contract'
       require 'aca_entities/benefit_markets/contracts/products/legacy_product_package_contract'
       require 'aca_entities/benefit_markets/contracts/benefit_sponsor_catalogs/benefit_sponsor_catalog_contract'
+      require 'aca_entities/benefit_markets/contracts/pvp_eligibilities/admin_attested_evidence_contract'
+      require 'aca_entities/benefit_markets/contracts/pvp_eligibilities/pvp_grant_contract'
+      require 'aca_entities/benefit_markets/contracts/pvp_eligibilities/pvp_eligibility_contract'
+      require 'aca_entities/benefit_markets/contracts/products/premium_value_product_contract'
 
       # entities
       require 'aca_entities/timestamp'
@@ -190,6 +194,10 @@ module AcaEntities
       require 'aca_entities/benefit_markets/product_package'
       require 'aca_entities/benefit_markets/benefit_sponsor_catalog'
       require 'aca_entities/async_api/async_api'
+      require 'aca_entities/benefit_markets/pvp_eligibilities/admin_attested_evidence'
+      require 'aca_entities/benefit_markets/pvp_eligibilities/pvp_grant'
+      require 'aca_entities/benefit_markets/pvp_eligibilities/pvp_eligibility'
+      require 'aca_entities/benefit_markets/premium_value_product'
 
       require 'aca_entities/benefit_sponsors/contracts/benefit_sponsorships/shop_osse_eligibilities/admin_attested_evidence_contract'
       require 'aca_entities/benefit_sponsors/contracts/benefit_sponsorships/shop_osse_eligibilities/shop_osse_eligibility_contract'
@@ -216,5 +224,6 @@ module AcaEntities
       require 'aca_entities/operations/create_person'
       require 'aca_entities/operations/encrypted_ssn_validator'
     end
+    # rubocop:enable Metrics/ModuleLength
   end
 end

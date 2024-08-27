@@ -17,7 +17,8 @@ RSpec.describe AcaEntities::Eligible::StateHistoryContract do
     {
       event: :mark_eligible,
       comment: 'hc4cc eligibility submitted',
-      reason: 'childcare subsidy'
+      reason: 'childcare subsidy',
+      updated_by: "gid://enroll/User/66c4f31a90be7cedfb877fe7"
     }
   end
 
