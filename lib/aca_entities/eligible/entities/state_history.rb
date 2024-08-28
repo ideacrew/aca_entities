@@ -56,6 +56,8 @@ module AcaEntities
       # @return [String]
       attribute :reason, Types::Strict::String.optional.meta(omittable: true)
 
+      attribute :updated_by, Types::Coercible::String.optional.meta(omittable: true)
+
       # @!attribute [r] timestamp
       # Timestamp of the resource ie. submitted, created or modified time of the resource
       # @return [Timestamp]

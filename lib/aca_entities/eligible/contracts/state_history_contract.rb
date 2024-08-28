@@ -14,6 +14,8 @@ module AcaEntities
         optional(:event).maybe(:symbol)
         optional(:comment).maybe(:string)
         optional(:reason).maybe(:string)
+        optional(:updated_by).maybe(:string)
+
         optional(:timestamps).filled(
           AcaEntities::Contracts::TimeStampContract.params
         )
