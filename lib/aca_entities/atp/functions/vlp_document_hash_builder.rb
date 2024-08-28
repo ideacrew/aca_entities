@@ -60,6 +60,8 @@ module AcaEntities
             vlp_document[:card_number] = vlp_document[:document_numbers]&.first&.dig(:identification_id).to_s
           elsif vlp_document[:category_code] == "Certificate of Citizenship"
             vlp_document[:citizenship_number] = vlp_document[:document_numbers]&.first&.dig(:identification_id).to_s
+          elsif vlp_document[:category_code] == "Naturalization Certificate"
+            vlp_document[:naturalization_number] = vlp_document[:document_numbers]&.first&.dig(:identification_id).to_s
           end
 
           # this handles whether the expiration date returned is a date inside a hash or null
@@ -78,6 +80,10 @@ module AcaEntities
         end
 
         # this method handles the identification category text and maps it to the correct key in the vlp_document hash
+        # Being flexible and extra cautious with case insensitive match for sevis id/ cert of citizenship/naturalization number
+        # as we are unsure in which string case external system  will be sending the document category text.
+        # The issue first occurred with the Sevis ID in DC client,
+        # as sometimes DC sends it as Sevis ID, and other times as sevis id.
         def handle_identification_category(vlp_document, document_person_id)
           case document_person_id[:identification_category_text]
           when 'Alien Number'
@@ -91,6 +97,10 @@ module AcaEntities
             vlp_document[:sevis_id] = document_person_id[:identification_id]
           when 'Visa Number'
             vlp_document[:visa_number] = document_person_id[:identification_id]
+          when /certificate\s*of\s*citizenship/i
+            vlp_document[:citizenship_number] = document_person_id[:identification_id]
+          when /naturalization\s*certificate\s*number/i
+            vlp_document[:naturalization_number] = document_person_id[:identification_id]
           end
         end
 
