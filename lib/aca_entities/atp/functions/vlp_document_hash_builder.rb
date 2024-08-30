@@ -101,6 +101,8 @@ module AcaEntities
             vlp_document[:citizenship_number] = document_person_id[:identification_id]
           when /naturalization\s*certificate\s*number/i
             vlp_document[:naturalization_number] = document_person_id[:identification_id]
+          when /card\s*number/i
+            vlp_document[:card_number] = document_person_id[:identification_id]
           end
         end
 
