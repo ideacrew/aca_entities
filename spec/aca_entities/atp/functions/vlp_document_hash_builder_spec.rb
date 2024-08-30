@@ -103,6 +103,25 @@ RSpec.describe AcaEntities::Atp::Functions::VlpDocumentHashBuilder do
     }
   end
 
+  let(:document_i766) do
+    {
+      category_code: 'I766',
+      document_person_ids: [
+        {
+          identification_category_text: 'Alien Number',
+          identification_id: '123456789'
+        },
+        {
+          identification_category_text: 'Card Number',
+          identification_id: '123456789'
+        }
+      ],
+      expiration_date: {
+        date: '2022-12-31'
+      }
+    }
+  end
+
   describe '#call' do
     context 'with a document that is a naturalization certificate' do
       it 'returns a hash with updated document information' do
@@ -157,6 +176,16 @@ RSpec.describe AcaEntities::Atp::Functions::VlpDocumentHashBuilder do
         expect(result[:alien_number]).to eq('123456789')
         expect(result[:expiration_date]).to eq('2022-12-31')
         expect(result[:card_number]).to eq('AAA0000000000')
+      end
+    end
+
+    context 'with a document that is an I-766' do
+      it 'returns a hash with updated document information' do
+        result = builder.call(document_i766)
+        expect(result[:category_code]).to eq('I-766 (Employment Authorization Card)')
+        expect(result[:alien_number]).to eq('123456789')
+        expect(result[:expiration_date]).to eq('2022-12-31')
+        expect(result[:card_number]).to eq('123456789')
       end
     end
   end
