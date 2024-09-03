@@ -25,5 +25,16 @@ RSpec.describe AcaEntities::Atp::Transformers::Cv::Family do
         expect(vlp_document[:subject]).to eq('DS2019 (Certificate of Eligibility for Exchange Visitor (J-1) Status)')
       end
     end
+
+    context 'Naturalization certificate vlp document' do
+      let(:payload) { File.read(Pathname.pwd.join("spec/support/atp/sample_payloads/sample_naturalization_certificate_payload.xml")) }
+
+      it 'should set vlp document with naturalization number' do
+        transformed = ::AcaEntities::Atp::Transformers::Cv::Family.transform(account_transfer_request.to_hash(identifier: true))
+        vlp_document = transformed[:family][:family_members][1][:person][:consumer_role][:vlp_documents][0]
+        expect(vlp_document[:naturalization_number]).to eq('2468013579')
+        expect(vlp_document[:subject]).to eq('Naturalization Certificate')
+      end
+    end
   end
 end

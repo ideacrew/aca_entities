@@ -12,7 +12,7 @@ module AcaEntities
           map 'i94_number', 'i94_number'
           map 'visa_number', 'visa_number'
           map 'sevis_id', 'sevis_id'
-          map 'naturalization_certificate', 'naturalization_number'
+          map 'naturalization_number', 'naturalization_number'
           map 'passport_number', 'passport_number'
           add_key 'receipt_number', value: nil
           map 'citizenship_number', 'citizenship_number'
