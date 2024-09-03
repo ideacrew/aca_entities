@@ -84,7 +84,7 @@ RSpec.describe AcaEntities::Atp::Functions::BuildApplication do
     end
     it "should return naturalization certificate document information for naturalized applicant" do
       expect(@result[:applicants][0][:vlp_subject]).to eq("Naturalization Certificate")
-      expect(@result[:applicants][0][:naturalization_number]).to eq(12_345)
+      expect(@result[:applicants][0][:naturalization_number]).to eq("12345")
       expect(@result[:applicants][0][:alien_number]).to eq(67_890)
       expect(@result[:applicants][0][:i94_number]).to eq(45_678)
       expect(@result[:applicants][0][:passport_number]).to eq(14_373)
