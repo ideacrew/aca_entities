@@ -1,0 +1,56 @@
+---
+asyncapi: 2.0.0
+info:
+  title: Enroll App
+  version: 0.1.0
+  description: AMQP Subsribe configuration for Benchmark Premiums Migrations for Applications
+  contact:
+    name: IdeaCrew
+    url: https://ideacrew.com
+    email: info@ideacrew.com
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+
+servers:
+  development:
+    url: "amqp://rabbitmq:5672/event_source"
+    protocol: :amqp
+    protocolVersion: "0.9.2"
+    description: RabbitMQ Test Server
+  production:
+    url: "amqp://rabbitmq:5672/event_source"
+    protocol: :amqp
+    protocolVersion: "0.9.2"
+    description: RabbitMQ Production Server
+  test:
+    url: "amqp://rabbitmq:5672/event_source"
+    protocol: :amqp
+    protocolVersion: "0.9.2"
+    description: RabbitMQ Test Server
+
+channels:
+  on_enroll.enroll.batch_processes.migrations.applications.benchmark_premiums:
+    bindings:
+      amqp:
+        is: queue
+        queue:
+          name: on_enroll.enroll.batch_processes.migrations.applications.benchmark_premiums
+          durable: true
+          exclusive: false
+          auto_delete: false
+          vhost: event_source
+    subscribe:
+      bindings:
+        amqp:
+          ack: true
+          exclusive: false
+          routing_key: enroll.batch_processes.migrations.applications.benchmark_premiums.#
+          prefetch: 1
+          bindingVersion: "0.2.0"
+      operationId: on_enroll.enroll.batch_processes.migrations.applications.benchmark_premiums
+      description: Events - for system batch processing
+
+tags:
+  - name: linter_tag
+    description: The subscribe configuration to Application Benchmark Premiums Migration events
