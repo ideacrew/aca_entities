@@ -14,7 +14,7 @@ class VlpDocument
                         "Other (With Alien Number)", "Other (With I-94 Number)"].freeze
 end
 
-RSpec.describe AcaEntities::Fdsh::Vlp::H92::VlpV37Contract, type: :model do
+RSpec.describe AcaEntities::Fdsh::Vlp::H92::VlpV37Contract, type: :model, dbclean: :after_each do
 
   def message(subject_name)
     "is required for VLP Document type: #{subject_name}"
@@ -838,6 +838,65 @@ RSpec.describe AcaEntities::Fdsh::Vlp::H92::VlpV37Contract, type: :model do
 
         it 'should return errors' do
           expect(@result.errors.to_h).to eq({ alien_number: ["length must be 9"] })
+        end
+      end
+    end
+  end
+
+  context "Other (With Alien Number) Case" do
+    let(:valid_params) do
+      {
+        subject: 'Other (With Alien Number)',
+        alien_number: '123456789',
+        country_of_citizenship: 'United States',
+        description: 'Some description'
+      }
+    end
+
+    context 'for success case' do
+      before do
+        @result = subject.call(valid_params)
+      end
+
+      it 'should be a container-ready operation' do
+        expect(subject.respond_to?(:call)).to be_truthy
+      end
+
+      it 'should return Dry::Validation::Result object' do
+        expect(@result).to be_a ::Dry::Validation::Result
+      end
+
+      it 'should not return any errors' do
+        expect(@result.errors.to_h).to be_empty
+      end
+    end
+
+    context 'for failure cases' do
+      context 'missing country_of_citizenship' do
+        before do
+          @result = subject.call(valid_params.except(:country_of_citizenship))
+        end
+
+        it 'should return errors' do
+          expect(@result.errors.to_h).not_to be_empty
+        end
+
+        it 'should return specific error message' do
+          expect(@result.errors.to_h).to eq({ country_of_citizenship: [message(valid_params[:subject])] })
+        end
+      end
+
+      context 'missing alien_number' do
+        before do
+          @result = subject.call(valid_params.except(:alien_number))
+        end
+
+        it 'should return errors' do
+          expect(@result.errors.to_h).not_to be_empty
+        end
+
+        it 'should return specific error message' do
+          expect(@result.errors.to_h).to eq({ alien_number: [message(valid_params[:subject])] })
         end
       end
     end

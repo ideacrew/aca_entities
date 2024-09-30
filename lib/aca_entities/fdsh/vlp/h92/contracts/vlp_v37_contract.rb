@@ -35,7 +35,8 @@ module AcaEntities
           COUNTRY_OF_CITIZENSHIP_REQUIRED_SUBJECTS = [
             'I-94 (Arrival/Departure Record) in Unexpired Foreign Passport',
             'Machine Readable Immigrant Visa (with Temporary I-551 Language)',
-            'Unexpired Foreign Passport'
+            'Unexpired Foreign Passport',
+            'Other (With Alien Number)'
           ].freeze
 
           EXPIRATION_DATE_REQUIRED_SUBJECTS = ['I-94 (Arrival/Departure Record) in Unexpired Foreign Passport',
