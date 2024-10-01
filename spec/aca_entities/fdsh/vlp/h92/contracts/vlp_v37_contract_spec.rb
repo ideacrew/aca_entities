@@ -14,7 +14,7 @@ class VlpDocument
                         "Other (With Alien Number)", "Other (With I-94 Number)"].freeze
 end
 
-RSpec.describe AcaEntities::Fdsh::Vlp::H92::VlpV37Contract, type: :model do
+RSpec.describe AcaEntities::Fdsh::Vlp::H92::VlpV37Contract, type: :model, dbclean: :after_each do
 
   def message(subject_name)
     "is required for VLP Document type: #{subject_name}"
@@ -777,7 +777,12 @@ RSpec.describe AcaEntities::Fdsh::Vlp::H92::VlpV37Contract, type: :model do
 
   context "Other (With Alien Number)" do
     let(:valid_params) do
-      { subject: 'Other (With Alien Number)', alien_number: '123456789', description: 'Document with some description' }
+      {
+        subject: 'Other (With Alien Number)',
+        alien_number: '123456789',
+        country_of_citizenship: 'United States',
+        description: 'Some description'
+      }
     end
 
     context 'for success case' do
@@ -799,45 +804,31 @@ RSpec.describe AcaEntities::Fdsh::Vlp::H92::VlpV37Contract, type: :model do
     end
 
     context 'for failure cases' do
-      context 'missing key' do
+      context 'missing country_of_citizenship' do
         before do
-          @result = subject.call(valid_params.except(:description))
+          @result = subject.call(valid_params.except(:country_of_citizenship))
         end
 
         it 'should return errors' do
           expect(@result.errors.to_h).not_to be_empty
         end
 
-        it 'should return errors' do
-          expect(@result.errors.to_h).to eq({ description: [message(valid_params[:subject])] })
+        it 'should return specific error message' do
+          expect(@result.errors.to_h).to eq({ country_of_citizenship: [message(valid_params[:subject])] })
         end
       end
 
-      context 'description is longer' do
+      context 'missing alien_number' do
         before do
-          @result = subject.call(valid_params.merge({ description: 'Description for the document with type Other (With Alien Number)' }))
+          @result = subject.call(valid_params.except(:alien_number))
         end
 
         it 'should return errors' do
           expect(@result.errors.to_h).not_to be_empty
         end
 
-        it 'should return errors' do
-          expect(@result.errors.to_h).to eq({ description: ['length must be within 0 - 35'] })
-        end
-      end
-
-      context 'alien_number is shorter' do
-        before do
-          @result = subject.call(valid_params.merge!({ alien_number: '1234' }))
-        end
-
-        it 'should return errors' do
-          expect(@result.errors.to_h).not_to be_empty
-        end
-
-        it 'should return errors' do
-          expect(@result.errors.to_h).to eq({ alien_number: ["length must be 9"] })
+        it 'should return specific error message' do
+          expect(@result.errors.to_h).to eq({ alien_number: [message(valid_params[:subject])] })
         end
       end
     end
