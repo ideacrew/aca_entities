@@ -1,0 +1,64 @@
+asyncapi: 3.0.0
+info:
+  title: EDI Gateway Insurance Policies
+  version: 0.1.0
+  description: >-
+    AMQP Subscriber configuration for the EDI Gateway service to support
+    Insurance Policies Refresh
+  contact:
+    name: IdeaCrew
+    url: 'https://ideacrew.com'
+    email: info@ideacrew.com
+  license:
+    name: MIT
+    url: 'https://opensource.org/licenses/MIT'
+  tags:
+    - name: linter_tag
+      description: placeholder that satisfies the linter
+defaultContentType: application/json
+servers:
+  development:
+    host: 'rabbitmq:5672'
+    pathname: /event_source
+    protocol: amqp
+    protocolVersion: 0.9.2
+    description: EDI Gateway Development Server
+  production:
+    host: 'rabbitmq:5672'
+    pathname: /event_source
+    protocol: amqp
+    protocolVersion: 0.9.2
+    description: EDI Gateway Production Server
+  test:
+    host: 'rabbitmq:5672'
+    pathname: /event_source
+    protocol: amqp
+    protocolVersion: 0.9.2
+    description: EDI Gateway Test Server
+channels:
+  on_edi_gateway.enroll.insurance_policies:
+    address: on_edi_gateway.enroll.insurance_policies
+    messages: {}
+    bindings:
+      amqp:
+        is: queue
+        queue:
+          name: on_edi_gateway.enroll.insurance_policies
+          durable: true
+          exclusive: false
+          auto_delete: false
+          vhost: event_source
+operations:
+  on_edi_gateway.enroll.insurance_policies:
+    action: send
+    channel:
+      $ref: '#/channels/on_edi_gateway.enroll.insurance_policies'
+    description: Events - Subscription for a request to refresh insurance policies
+    bindings:
+      amqp:
+        ack: true
+        exclusive: false
+        routing_key: enroll.insurance_policies.refresh_requested
+        prefetch: 1
+        block: false
+        bindingVersion: 0.2.0

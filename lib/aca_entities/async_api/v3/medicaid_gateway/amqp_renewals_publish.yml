@@ -1,0 +1,225 @@
+asyncapi: 3.0.0
+info:
+  title: Medicaid Gateway
+  version: 0.1.0
+  description: Publish and Subsribe configuration for the Medicaid Gateway service
+  contact:
+    name: IdeaCrew
+    url: 'https://ideacrew.com'
+    email: info@ideacrew.com
+  license:
+    name: MIT
+    url: 'https://opensource.org/licenses/MIT'
+  tags:
+    - name: linter_tag
+      description: placeholder that satisfies the linter
+defaultContentType: application/json
+servers:
+  development:
+    host: 'rabbitmq:5672'
+    pathname: /event_source
+    protocol: amqp
+    protocolVersion: 0.9.2
+    description: Medicaid Gateway Development Server
+  test:
+    host: 'rabbitmq:5672'
+    pathname: /event_source
+    protocol: amqp
+    protocolVersion: 0.9.2
+    description: Medicaid Gateway Test Server
+  production:
+    host: 'rabbitmq:5672'
+    pathname: /event_source
+    protocol: amqp
+    protocolVersion: 0.9.2
+    description: Medicaid Gateway Production Server
+channels:
+  magi_medicaid.applications.aptc_csr_credits.renewals.determined_uqhp_eligible:
+    address: >-
+      magi_medicaid.applications.aptc_csr_credits.renewals.determined_uqhp_eligible
+    messages: {}
+    bindings:
+      amqp:
+        is: ':routing_key'
+        exchange:
+          name: magi_medicaid.applications.aptc_csr_credits.renewals
+          type: topic
+          durable: true
+          auto_delete: false
+          vhost: event_source
+        bindingVersion: 0.1.0
+  magi_medicaid.applications.aptc_csr_credits.renewals.determined_aptc_eligible:
+    address: >-
+      magi_medicaid.applications.aptc_csr_credits.renewals.determined_aptc_eligible
+    messages: {}
+    bindings:
+      amqp:
+        is: ':routing_key'
+        exchange:
+          name: magi_medicaid.applications.aptc_csr_credits.renewals
+          type: topic
+          durable: true
+          auto_delete: false
+          vhost: event_source
+        bindingVersion: 0.1.0
+  magi_medicaid.applications.aptc_csr_credits.renewals.determined_medicaid_chip_eligible:
+    address: >-
+      magi_medicaid.applications.aptc_csr_credits.renewals.determined_medicaid_chip_eligible
+    messages: {}
+    bindings:
+      amqp:
+        is: ':routing_key'
+        exchange:
+          name: magi_medicaid.applications.aptc_csr_credits.renewals
+          type: topic
+          durable: true
+          auto_delete: false
+          vhost: event_source
+        bindingVersion: 0.1.0
+  magi_medicaid.applications.aptc_csr_credits.renewals.determined_magi_medicaid_eligible:
+    address: >-
+      magi_medicaid.applications.aptc_csr_credits.renewals.determined_magi_medicaid_eligible
+    messages: {}
+    bindings:
+      amqp:
+        is: ':routing_key'
+        exchange:
+          name: magi_medicaid.applications.aptc_csr_credits.renewals
+          type: topic
+          durable: true
+          auto_delete: false
+          vhost: event_source
+        bindingVersion: 0.1.0
+  magi_medicaid.applications.aptc_csr_credits.renewals.determined_mixed_determination:
+    address: >-
+      magi_medicaid.applications.aptc_csr_credits.renewals.determined_mixed_determination
+    messages: {}
+    bindings:
+      amqp:
+        is: ':routing_key'
+        exchange:
+          name: magi_medicaid.applications.aptc_csr_credits.renewals
+          type: topic
+          durable: true
+          auto_delete: false
+          vhost: event_source
+        bindingVersion: 0.1.0
+  magi_medicaid.applications.aptc_csr_credits.renewals.determined_totally_ineligible:
+    address: >-
+      magi_medicaid.applications.aptc_csr_credits.renewals.determined_totally_ineligible
+    messages: {}
+    bindings:
+      amqp:
+        is: ':routing_key'
+        exchange:
+          name: magi_medicaid.applications.aptc_csr_credits.renewals
+          type: topic
+          durable: true
+          auto_delete: false
+          vhost: event_source
+        bindingVersion: 0.1.0
+operations:
+  magi_medicaid.applications.aptc_csr_credits.renewals.determined_uqhp_eligible:
+    action: receive
+    channel:
+      $ref: >-
+        #/channels/magi_medicaid.applications.aptc_csr_credits.renewals.determined_uqhp_eligible
+    description: Some applicants ineligible for Medicaid/CHIP and APTC/SR at renewal
+    bindings:
+      amqp:
+        app_id: medicaid_gateway
+        type: magi_medicaid.applications.aptc_csr_credits.renewals
+        routing_key: >-
+          magi_medicaid.applications.aptc_csr_credits.renewals.determined_uqhp_eligible
+        deliveryMode: 2
+        mandatory: true
+        timestamp: true
+        content_type: application/json
+        bindingVersion: 0.2.0
+  magi_medicaid.applications.aptc_csr_credits.renewals.determined_aptc_eligible:
+    action: receive
+    channel:
+      $ref: >-
+        #/channels/magi_medicaid.applications.aptc_csr_credits.renewals.determined_aptc_eligible
+    description: Some applicants eligible for APTC/CSR at renewal
+    bindings:
+      amqp:
+        app_id: medicaid_gateway
+        type: magi_medicaid.applications.aptc_csr_credits.renewals
+        routing_key: >-
+          magi_medicaid.applications.aptc_csr_credits.renewals.determined_aptc_eligible
+        deliveryMode: 2
+        mandatory: true
+        timestamp: true
+        content_type: application/json
+        bindingVersion: 0.2.0
+  magi_medicaid.applications.aptc_csr_credits.renewals.determined_medicaid_chip_eligible:
+    action: receive
+    channel:
+      $ref: >-
+        #/channels/magi_medicaid.applications.aptc_csr_credits.renewals.determined_medicaid_chip_eligible
+    description: Some applicants eligible for Medicaid/CHIP at renewal
+    bindings:
+      amqp:
+        app_id: medicaid_gateway
+        type: magi_medicaid.applications.aptc_csr_credits.renewals
+        routing_key: >-
+          magi_medicaid.applications.aptc_csr_credits.renewals.determined_medicaid_chip_eligible
+        deliveryMode: 2
+        mandatory: true
+        timestamp: true
+        content_type: application/json
+        bindingVersion: 0.2.0
+  magi_medicaid.applications.aptc_csr_credits.renewals.determined_magi_medicaid_eligible:
+    action: receive
+    channel:
+      $ref: >-
+        #/channels/magi_medicaid.applications.aptc_csr_credits.renewals.determined_magi_medicaid_eligible
+    description: >-
+      MitC determined applicants eligible for Medicaid/CHIP financial assistance
+      at renewal
+    bindings:
+      amqp:
+        app_id: medicaid_gateway
+        type: magi_medicaid.applications.aptc_csr_credits.renewals
+        routing_key: >-
+          magi_medicaid.applications.aptc_csr_credits.renewals.determined_magi_medicaid_eligible
+        deliveryMode: 2
+        mandatory: true
+        timestamp: true
+        content_type: application/json
+        bindingVersion: 0.2.0
+  magi_medicaid.applications.aptc_csr_credits.renewals.determined_mixed_determination:
+    action: receive
+    channel:
+      $ref: >-
+        #/channels/magi_medicaid.applications.aptc_csr_credits.renewals.determined_mixed_determination
+    description: MitC determined applicants eligible for APTC/CSR financial assistance
+    bindings:
+      amqp:
+        app_id: medicaid_gateway
+        type: magi_medicaid.applications.aptc_csr_credits.renewals
+        routing_key: >-
+          magi_medicaid.applications.aptc_csr_credits.renewals.determined_mixed_determination
+        deliveryMode: 2
+        mandatory: true
+        timestamp: true
+        content_type: application/json
+        bindingVersion: 0.2.0
+  magi_medicaid.applications.aptc_csr_credits.renewals.determined_totally_ineligible:
+    action: receive
+    channel:
+      $ref: >-
+        #/channels/magi_medicaid.applications.aptc_csr_credits.renewals.determined_totally_ineligible
+    description: MitC determined applicants eligible for CHIP financial assistance
+    bindings:
+      amqp:
+        app_id: medicaid_gateway
+        type: magi_medicaid.applications.aptc_csr_credits.renewals
+        routing_key: >-
+          magi_medicaid.applications.aptc_csr_credits.renewals.determined_totally_ineligible
+        deliveryMode: 2
+        mandatory: true
+        timestamp: true
+        content_type: application/json
+        bindingVersion: 0.2.0

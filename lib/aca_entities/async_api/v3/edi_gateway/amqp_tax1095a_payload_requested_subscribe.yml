@@ -1,0 +1,60 @@
+asyncapi: 3.0.0
+info:
+  title: EDI Gateway Subscriber
+  version: 0.1.0
+  description: AMQP Configuration for EDI Gateway services
+  contact:
+    name: IdeaCrew
+    url: 'https://ideacrew.com'
+    email: info@ideacrew.com
+  license:
+    name: MIT
+    url: 'https://opensource.org/licenses/MIT'
+defaultContentType: application/json
+servers:
+  development:
+    host: 'rabbitmq:5672'
+    pathname: /event_source
+    protocol: amqp
+    protocolVersion: 0.9.2
+    description: RabbitMQ Development Server
+  test:
+    host: 'rabbitmq:5672'
+    pathname: /event_source
+    protocol: amqp
+    protocolVersion: 0.9.2
+    description: RabbitMQ Test Server
+  production:
+    host: 'rabbitmq:5672'
+    pathname: /event_source
+    protocol: amqp
+    protocolVersion: 0.9.2
+    description: RabbitMQ Production Server
+channels:
+  on_edi_gateway.edi_gateway.insurance_policies.tax1095a_payload:
+    address: on_edi_gateway.edi_gateway.insurance_policies.tax1095a_payload
+    messages: {}
+    bindings:
+      amqp:
+        is: queue
+        queue:
+          name: on_edi_gateway.edi_gateway.insurance_policies.tax1095a_payload
+          durable: true
+          exclusive: false
+          auto_delete: false
+          vhost: event_source
+operations:
+  on_edi_gateway.edi_gateway.insurance_policies.tax1095a_payload:
+    action: send
+    channel:
+      $ref: >-
+        #/channels/on_edi_gateway.edi_gateway.insurance_policies.tax1095a_payload
+    description: Events - EDI Gateway Tax 1095A payload requested subscribe
+    bindings:
+      amqp:
+        ack: true
+        exclusive: false
+        routing_key: edi_gateway.insurance_policies.tax1095a_payload.#
+        prefetch: 1
+        block: false
+        bindingVersion: 0.2.0

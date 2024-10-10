@@ -1,0 +1,61 @@
+asyncapi: 3.0.0
+info:
+  title: FDSH Gateway Subscriber
+  version: 0.1.0
+  description: AMQP Consumer configuration for the FDSH Gateway Consumer services
+  contact:
+    name: IdeaCrew
+    url: 'https://ideacrew.com'
+    email: info@ideacrew.com
+  license:
+    name: MIT
+    url: 'https://opensource.org/licenses/MIT'
+  tags:
+    - name: linter_tag
+      description: placeholder that satisfies the linter
+defaultContentType: application/json
+servers:
+  development:
+    host: 'rabbitmq:5672'
+    pathname: /event_source
+    protocol: amqp
+    protocolVersion: 0.9.2
+    description: RabbitMQ Development Server
+  test:
+    host: 'rabbitmq:5672'
+    pathname: /event_source
+    protocol: amqp
+    protocolVersion: 0.9.2
+    description: RabbitMQ Test Server
+  production:
+    host: 'rabbitmq:5672'
+    pathname: /event_source
+    protocol: amqp
+    protocolVersion: 0.9.2
+    description: RabbitMQ Production Server
+channels:
+  on_fdsh_gateway.enroll.system_date:
+    address: on_fdsh_gateway.enroll.system_date
+    messages: {}
+    bindings:
+      amqp:
+        is: queue
+        queue:
+          name: on_fdsh_gateway.enroll.system_date
+          durable: true
+          exclusive: false
+          auto_delete: false
+          vhost: event_source
+operations:
+  on_fdsh_gateway.enroll.system_date:
+    action: send
+    channel:
+      $ref: '#/channels/on_fdsh_gateway.enroll.system_date'
+    description: Events - FDSH - Subscribe to date change event
+    bindings:
+      amqp:
+        ack: true
+        exclusive: false
+        routing_key: enroll.system_date.changed
+        prefetch: 1
+        bindingVersion: 0.2.0

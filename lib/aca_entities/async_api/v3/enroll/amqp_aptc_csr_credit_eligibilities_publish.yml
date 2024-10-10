@@ -1,0 +1,152 @@
+asyncapi: 3.0.0
+info:
+  title: Enroll App
+  version: 0.1.0
+  description: AMQP Publish configuration for the Fdsh services
+  contact:
+    name: IdeaCrew
+    url: 'https://ideacrew.com'
+    email: info@ideacrew.com
+  license:
+    name: MIT
+    url: 'https://opensource.org/licenses/MIT'
+  tags:
+    - name: linter_tag
+      description: placeholder that satisfies the linter
+servers:
+  production:
+    host: 'rabbitmq:5672'
+    pathname: /event_source
+    protocol: ':amqp'
+    protocolVersion: 0.9.2
+    description: RabbitMQ Production Server
+  development:
+    host: 'rabbitmq:5672'
+    pathname: /event_source
+    protocol: ':amqp'
+    protocolVersion: 0.9.2
+    description: RabbitMQ Test Server
+  test:
+    host: 'rabbitmq:5672'
+    pathname: /event_source
+    protocol: ':amqp'
+    protocolVersion: 0.9.2
+    description: RabbitMQ Test Server
+channels:
+  enroll.individual.eligibilities.income_evidence_updated:
+    address: enroll.individual.eligibilities.income_evidence_updated
+    messages: {}
+    bindings:
+      amqp:
+        is: ':routing_key'
+        exchange:
+          name: enroll.individual.eligibilities
+          type: topic
+          content_type: application/json
+          durable: true
+          auto_delete: false
+          vhost: event_source
+        binding_version: 0.2.0
+  enroll.individual.eligibilities.esi_mec_evidence_updated:
+    address: enroll.individual.eligibilities.esi_mec_evidence_updated
+    messages: {}
+    bindings:
+      amqp:
+        is: ':routing_key'
+        exchange:
+          name: enroll.individual.eligibilities
+          type: topic
+          content_type: application/json
+          durable: true
+          auto_delete: false
+          vhost: event_source
+        binding_version: 0.2.0
+  enroll.individual.eligibilities.non_esi_mec_evidence_updated:
+    address: enroll.individual.eligibilities.non_esi_mec_evidence_updated
+    messages: {}
+    bindings:
+      amqp:
+        is: ':routing_key'
+        exchange:
+          name: enroll.individual.eligibilities
+          type: topic
+          content_type: application/json
+          durable: true
+          auto_delete: false
+          vhost: event_source
+        binding_version: 0.2.0
+  enroll.individual.eligibilities.local_mec_evidence_updated:
+    address: enroll.individual.eligibilities.local_mec_evidence_updated
+    messages: {}
+    bindings:
+      amqp:
+        is: ':routing_key'
+        exchange:
+          name: enroll.individual.eligibilities
+          type: topic
+          content_type: application/json
+          durable: true
+          auto_delete: false
+          vhost: event_source
+        binding_version: 0.2.0
+operations:
+  enroll.individual.eligibilities.income_evidence_updated:
+    action: receive
+    channel:
+      $ref: '#/channels/enroll.individual.eligibilities.income_evidence_updated'
+    description: Events - eligibility determination Request
+    bindings:
+      amqp:
+        app_id: enroll
+        type: enroll.individual.eligibilities
+        routing_key: enroll.individual.eligibilities.income_evidence_updated
+        deliveryMode: 2
+        mandatory: true
+        timestamp: true
+        content_type: application/json
+        bindingVersion: 0.2.0
+  enroll.individual.eligibilities.esi_mec_evidence_updated:
+    action: receive
+    channel:
+      $ref: '#/channels/enroll.individual.eligibilities.esi_mec_evidence_updated'
+    description: Events - eligibility determination Request
+    bindings:
+      amqp:
+        app_id: enroll
+        type: enroll.individual.eligibilities
+        routing_key: enroll.individual.eligibilities.esi_mec_evidence_updated
+        deliveryMode: 2
+        mandatory: true
+        timestamp: true
+        content_type: application/json
+        bindingVersion: 0.2.0
+  enroll.individual.eligibilities.non_esi_mec_evidence_updated:
+    action: receive
+    channel:
+      $ref: '#/channels/enroll.individual.eligibilities.non_esi_mec_evidence_updated'
+    description: Events - eligibility determination Request
+    bindings:
+      amqp:
+        app_id: enroll
+        type: enroll.individual.eligibilities
+        routing_key: enroll.individual.eligibilities.non_esi_mec_evidence_updated
+        deliveryMode: 2
+        mandatory: true
+        timestamp: true
+        content_type: application/json
+        bindingVersion: 0.2.0
+  enroll.individual.eligibilities.local_mec_evidence_updated:
+    action: receive
+    channel:
+      $ref: '#/channels/enroll.individual.eligibilities.local_mec_evidence_updated'
+    description: Events - eligibility determination Request
+    bindings:
+      amqp:
+        app_id: enroll
+        type: enroll.individual.eligibilities
+        routing_key: enroll.individual.eligibilities.local_mec_evidence_updated
+        deliveryMode: 2
+        mandatory: true
+        timestamp: true
+        content_type: application/json
+        bindingVersion: 0.2.0

@@ -1,0 +1,161 @@
+asyncapi: 3.0.0
+info:
+  title: Enroll App
+  version: 0.1.0
+  description: AMQP Publish configuration for the RRV Outbound services
+  contact:
+    name: IdeaCrew
+    url: 'https://ideacrew.com'
+    email: info@ideacrew.com
+  license:
+    name: MIT
+    url: 'https://opensource.org/licenses/MIT'
+servers:
+  production:
+    host: 'rabbitmq:5672'
+    pathname: /event_source
+    protocol: ':amqp'
+    protocolVersion: 0.9.2
+    description: RabbitMQ Production Server
+  development:
+    host: 'rabbitmq:5672'
+    pathname: /event_source
+    protocol: ':amqp'
+    protocolVersion: 0.9.2
+    description: RabbitMQ Test Server
+  test:
+    host: 'rabbitmq:5672'
+    pathname: /event_source
+    protocol: ':amqp'
+    protocolVersion: 0.9.2
+    description: RabbitMQ Test Server
+channels:
+  enroll.ivl_market.families.iap_applications.rrvs.non_esi_evidences.determination_build_requested:
+    address: >-
+      enroll.ivl_market.families.iap_applications.rrvs.non_esi_evidences.determination_build_requested
+    messages: {}
+    bindings:
+      amqp:
+        is: ':routing_key'
+        exchange:
+          name: enroll.ivl_market.families.iap_applications.rrvs.non_esi_evidences
+          type: topic
+          content_type: application/json
+          durable: true
+          auto_delete: false
+          vhost: event_source
+        binding_version: 0.2.0
+  enroll.ivl_market.families.iap_applications.rrvs.non_esi_evidences.determination_requested:
+    address: >-
+      enroll.ivl_market.families.iap_applications.rrvs.non_esi_evidences.determination_requested
+    messages: {}
+    bindings:
+      amqp:
+        is: ':routing_key'
+        exchange:
+          name: enroll.ivl_market.families.iap_applications.rrvs.non_esi_evidences
+          type: topic
+          content_type: application/json
+          durable: true
+          auto_delete: false
+          vhost: event_source
+        binding_version: 0.2.0
+  enroll.ivl_market.families.iap_applications.rrvs.income_evidences.determination_build_requested:
+    address: >-
+      enroll.ivl_market.families.iap_applications.rrvs.income_evidences.determination_build_requested
+    messages: {}
+    bindings:
+      amqp:
+        is: ':routing_key'
+        exchange:
+          name: enroll.ivl_market.families.iap_applications.rrvs.income_evidences
+          type: topic
+          content_type: application/json
+          durable: true
+          auto_delete: false
+          vhost: event_source
+        binding_version: 0.2.0
+  enroll.ivl_market.families.iap_applications.rrvs.income_evidences.determination_requested:
+    address: >-
+      enroll.ivl_market.families.iap_applications.rrvs.income_evidences.determination_requested
+    messages: {}
+    bindings:
+      amqp:
+        is: ':routing_key'
+        exchange:
+          name: enroll.ivl_market.families.iap_applications.rrvs.income_evidences
+          type: topic
+          content_type: application/json
+          durable: true
+          auto_delete: false
+          vhost: event_source
+        binding_version: 0.2.0
+operations:
+  enroll.ivl_market.families.iap_applications.rrvs.non_esi_evidences.determination_build_requested:
+    action: receive
+    channel:
+      $ref: >-
+        #/channels/enroll.ivl_market.families.iap_applications.rrvs.non_esi_evidences.determination_build_requested
+    description: Events - eligibility determination Request
+    bindings:
+      amqp:
+        app_id: enroll
+        type: enroll.ivl_market.families.iap_applications.rrvs.non_esi_evidences
+        routing_key: >-
+          enroll.ivl_market.families.iap_applications.rrvs.non_esi_evidences.determination_build_requested
+        deliveryMode: 2
+        mandatory: true
+        timestamp: true
+        content_type: application/json
+        bindingVersion: 0.2.0
+  enroll.ivl_market.families.iap_applications.rrvs.non_esi_evidences.determination_requested:
+    action: receive
+    channel:
+      $ref: >-
+        #/channels/enroll.ivl_market.families.iap_applications.rrvs.non_esi_evidences.determination_requested
+    description: Events - eligibility determination Request
+    bindings:
+      amqp:
+        app_id: enroll
+        type: enroll.ivl_market.families.iap_applications.rrvs.non_esi_evidences
+        routing_key: >-
+          enroll.ivl_market.families.iap_applications.rrvs.non_esi_evidences.determination_requested
+        deliveryMode: 2
+        mandatory: true
+        timestamp: true
+        content_type: application/json
+        bindingVersion: 0.2.0
+  enroll.ivl_market.families.iap_applications.rrvs.income_evidences.determination_build_requested:
+    action: receive
+    channel:
+      $ref: >-
+        #/channels/enroll.ivl_market.families.iap_applications.rrvs.income_evidences.determination_build_requested
+    description: Events - eligibility determination Request
+    bindings:
+      amqp:
+        app_id: enroll
+        type: enroll.ivl_market.families.iap_applications.rrvs.income_evidences
+        routing_key: >-
+          enroll.ivl_market.families.iap_applications.rrvs.income_evidences.determination_build_requested
+        deliveryMode: 2
+        mandatory: true
+        timestamp: true
+        content_type: application/json
+        bindingVersion: 0.2.0
+  enroll.ivl_market.families.iap_applications.rrvs.income_evidences.determination_requested:
+    action: receive
+    channel:
+      $ref: >-
+        #/channels/enroll.ivl_market.families.iap_applications.rrvs.income_evidences.determination_requested
+    description: Events - eligibility determination Request
+    bindings:
+      amqp:
+        app_id: enroll
+        type: enroll.ivl_market.families.iap_applications.rrvs.income_evidences
+        routing_key: >-
+          enroll.ivl_market.families.iap_applications.rrvs.income_evidences.determination_requested
+        deliveryMode: 2
+        mandatory: true
+        timestamp: true
+        content_type: application/json
+        bindingVersion: 0.2.0

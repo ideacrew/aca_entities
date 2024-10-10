@@ -1,0 +1,62 @@
+asyncapi: 3.0.0
+info:
+  title: Enroll App
+  version: 0.1.0
+  description: AMQP Subscribe configuration for Enroll families created or updated services
+  contact:
+    name: IdeaCrew
+    url: 'https://ideacrew.com'
+    email: info@ideacrew.com
+  license:
+    name: MIT
+    url: 'https://opensource.org/licenses/MIT'
+  tags:
+    - name: linter_tag
+      description: placeholder that satisfies the linter
+defaultContentType: application/json
+servers:
+  development:
+    host: 'rabbitmq:5672'
+    pathname: /event_source
+    protocol: amqp
+    protocolVersion: 0.9.2
+    description: Crm Gateway Development Server
+  test:
+    host: 'rabbitmq:5672'
+    pathname: /event_source
+    protocol: amqp
+    protocolVersion: 0.9.2
+    description: Crm Gateway Test Server
+  production:
+    host: 'rabbitmq:5672'
+    pathname: /event_source
+    protocol: amqp
+    protocolVersion: 0.9.2
+    description: Crm Gateway Production Server
+channels:
+  on_crm_gateway.enroll.families:
+    address: on_crm_gateway.enroll.families
+    messages: {}
+    bindings:
+      amqp:
+        is: queue
+        queue:
+          name: on_crm_gateway.enroll.families
+          durable: true
+          exclusive: false
+          auto_delete: false
+          vhost: event_source
+operations:
+  on_crm_gateway.enroll.families:
+    action: send
+    channel:
+      $ref: '#/channels/on_crm_gateway.enroll.families'
+    description: placeholder that satisfies the linter
+    bindings:
+      amqp:
+        ack: true
+        exclusive: false
+        routing_key: enroll.families.created_or_updated
+        prefetch: 1
+        block: false
+        bindingVersion: 0.2.0

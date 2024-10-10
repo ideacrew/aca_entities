@@ -1,0 +1,63 @@
+asyncapi: 3.0.0
+info:
+  title: Medicaid Gateway
+  version: 0.1.0
+  description: AMQP Publish and Subsribe configuration for the Medicaid Gateway service
+  contact:
+    name: IdeaCrew
+    url: 'https://ideacrew.com'
+    email: info@ideacrew.com
+  license:
+    name: MIT
+    url: 'https://opensource.org/licenses/MIT'
+  tags:
+    - name: linter_tag
+      description: placeholder that satisfies the linter
+defaultContentType: application/json
+servers:
+  development:
+    host: 'rabbitmq:5672'
+    pathname: /event_source
+    protocol: amqp
+    protocolVersion: 0.9.2
+    description: Medicaid Gateway Development Server
+  test:
+    host: 'rabbitmq:5672'
+    pathname: /event_source
+    protocol: amqp
+    protocolVersion: 0.9.2
+    description: Medicaid Gateway Test Server
+  production:
+    host: 'rabbitmq:5672'
+    pathname: /event_source
+    protocol: amqp
+    protocolVersion: 0.9.2
+    description: Medicaid Gateway Production Server
+channels:
+  on_medicaid_gateway.enroll.applications.aptc_csr_credits.renewals:
+    address: on_medicaid_gateway.enroll.applications.aptc_csr_credits.renewals
+    messages: {}
+    bindings:
+      amqp:
+        is: queue
+        queue:
+          name: on_medicaid_gateway.enroll.applications.aptc_csr_credits.renewals
+          durable: true
+          exclusive: false
+          auto_delete: false
+          vhost: event_source
+operations:
+  on_medicaid_gateway.enroll.applications.aptc_csr_credits.renewals:
+    action: send
+    channel:
+      $ref: >-
+        #/channels/on_medicaid_gateway.enroll.applications.aptc_csr_credits.renewals
+    description: Events - APTC CSR Credits Request for renewal
+    bindings:
+      amqp:
+        ack: true
+        exclusive: false
+        routing_key: enroll.applications.aptc_csr_credits.renewals.determination_requested
+        prefetch: 1
+        block: false
+        bindingVersion: 0.2.0

@@ -1,0 +1,66 @@
+asyncapi: 3.0.0
+info:
+  title: FDSH Gateway
+  version: 0.1.0
+  description: AMQP Producer configuration for the FDSH Gateway service
+  contact:
+    name: IdeaCrew
+    url: 'https://ideacrew.com'
+    email: info@ideacrew.com
+  license:
+    name: MIT
+    url: 'https://opensource.org/licenses/MIT'
+  tags:
+    - name: linter_tag
+      description: placeholder that satisfies the linter
+defaultContentType: application/json
+servers:
+  development:
+    host: 'rabbitmq:5672'
+    pathname: /event_source
+    protocol: amqp
+    protocolVersion: 0.9.2
+    description: RabbitMQ Development Server
+  test:
+    host: 'rabbitmq:5672'
+    pathname: /event_source
+    protocol: amqp
+    protocolVersion: 0.9.2
+    description: RabbitMQ Test Server
+  production:
+    host: 'rabbitmq:5672'
+    pathname: /event_source
+    protocol: amqp
+    protocolVersion: 0.9.2
+    description: RabbitMQ Production Server
+channels:
+  fdsh.rrv_medicaid.individual_responses.individual_response_received:
+    address: fdsh.rrv_medicaid.individual_responses.individual_response_received
+    messages: {}
+    bindings:
+      amqp:
+        is: ':routing_key'
+        exchange:
+          name: fdsh.rrv_medicaid.individual_responses
+          type: topic
+          durable: true
+          auto_delete: false
+          vhost: event_source
+        bindingVersion: 0.1.0
+operations:
+  fdsh.rrv_medicaid.individual_responses.individual_response_received:
+    action: receive
+    channel:
+      $ref: >-
+        #/channels/fdsh.rrv_medicaid.individual_responses.individual_response_received
+    description: RRV Medicare Determination completed.
+    bindings:
+      amqp:
+        app_id: fdsh_gateway
+        type: fdsh.rrv_medicaid.individual_responses
+        routing_key: fdsh.rrv_medicaid.individual_responses.individual_response_received
+        deliveryMode: 2
+        mandatory: true
+        timestamp: true
+        content_type: application/json
+        bindingVersion: 0.2.0

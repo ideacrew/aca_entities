@@ -1,0 +1,63 @@
+asyncapi: 3.0.0
+info:
+  title: Polypress
+  version: 0.1.0
+  description: Publish and Subscribe configuration for the Polypress service
+  contact:
+    name: IdeaCrew
+    url: 'https://ideacrew.com'
+    email: info@ideacrew.com
+  license:
+    name: MIT
+    url: 'https://opensource.org/licenses/MIT'
+  tags:
+    - name: linter_tag
+      description: placeholder that satisfies the linter
+defaultContentType: application/json
+servers:
+  development:
+    host: 'rabbitmq:5672'
+    pathname: /event_source
+    protocol: amqp
+    protocolVersion: 0.9.2
+    description: Polypress Gateway Development Server
+  test:
+    host: 'rabbitmq:5672'
+    pathname: /event_source
+    protocol: amqp
+    protocolVersion: 0.9.2
+    description: Polypress Gateway Test Server
+  production:
+    host: 'rabbitmq:5672'
+    pathname: /event_source
+    protocol: amqp
+    protocolVersion: 0.9.2
+    description: Polypress Gateway Production Server
+channels:
+  on_polypress.enroll.families.notices.faa_totally_ineligible_notice:
+    address: on_polypress.enroll.families.notices.faa_totally_ineligible_notice
+    messages: {}
+    bindings:
+      amqp:
+        is: queue
+        queue:
+          name: on_polypress.enroll.families.notices.faa_totally_ineligible_notice
+          durable: true
+          exclusive: false
+          auto_delete: false
+          vhost: event_source
+operations:
+  on_polypress.enroll.families.notices.faa_totally_ineligible_notice:
+    action: send
+    channel:
+      $ref: >-
+        #/channels/on_polypress.enroll.families.notices.faa_totally_ineligible_notice
+    description: Events - Application Renewal Notice Request Created
+    bindings:
+      amqp:
+        ack: true
+        exclusive: false
+        routing_key: enroll.families.notices.faa_totally_ineligible_notice.#
+        prefetch: 1
+        block: false
+        bindingVersion: 0.2.0

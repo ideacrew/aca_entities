@@ -1,0 +1,212 @@
+asyncapi: 3.0.0
+info:
+  title: Enroll App
+  version: 0.1.0
+  description: AMQP Publishconfiguration for the Enroll App services
+  contact:
+    name: IdeaCrew
+    url: 'https://ideacrew.com'
+    email: info@ideacrew.com
+  license:
+    name: MIT
+    url: 'https://opensource.org/licenses/MIT'
+  tags:
+    - name: linter_tag
+      description: placeholder that satisfies the linter
+servers:
+  production:
+    host: 'rabbitmq:5672'
+    pathname: /event_source
+    protocol: ':amqp'
+    protocolVersion: 0.9.2
+    description: RabbitMQ Production Server
+  development:
+    host: 'rabbitmq:5672'
+    pathname: /event_source
+    protocol: ':amqp'
+    protocolVersion: 0.9.2
+    description: RabbitMQ Test Server
+  test:
+    host: 'rabbitmq:5672'
+    pathname: /event_source
+    protocol: ':amqp'
+    protocolVersion: 0.9.2
+    description: RabbitMQ Test Server
+channels:
+  enroll.individual.notices.qhp_eligible_on_reverification:
+    address: enroll.individual.notices.qhp_eligible_on_reverification
+    messages: {}
+    bindings:
+      amqp:
+        is: ':routing_key'
+        exchange:
+          name: enroll.individual.notices
+          type: topic
+          content_type: application/json
+          durable: true
+          auto_delete: false
+          vhost: event_source
+        binding_version: 0.2.0
+  enroll.individual.notices.aqhp_eligible_on_reverification:
+    address: enroll.individual.notices.aqhp_eligible_on_reverification
+    messages: {}
+    bindings:
+      amqp:
+        is: ':routing_key'
+        exchange:
+          name: enroll.individual.notices
+          type: topic
+          content_type: application/json
+          durable: true
+          auto_delete: false
+          vhost: event_source
+        binding_version: 0.2.0
+  enroll.individual.notices.uqhp_eligible_on_reverification:
+    address: enroll.individual.notices.uqhp_eligible_on_reverification
+    messages: {}
+    bindings:
+      amqp:
+        is: ':routing_key'
+        exchange:
+          name: enroll.individual.notices
+          type: topic
+          content_type: application/json
+          durable: true
+          auto_delete: false
+          vhost: event_source
+        binding_version: 0.2.0
+  enroll.individual.notices.medicaid_eligible_on_reverification:
+    address: enroll.individual.notices.medicaid_eligible_on_reverification
+    messages: {}
+    bindings:
+      amqp:
+        is: ':routing_key'
+        exchange:
+          name: enroll.individual.notices
+          type: topic
+          content_type: application/json
+          durable: true
+          auto_delete: false
+          vhost: event_source
+        binding_version: 0.2.0
+  enroll.individual.notices.expired_consent_during_reverification:
+    address: enroll.individual.notices.expired_consent_during_reverification
+    messages: {}
+    bindings:
+      amqp:
+        is: ':routing_key'
+        exchange:
+          name: enroll.individual.notices
+          type: topic
+          content_type: application/json
+          durable: true
+          auto_delete: false
+          vhost: event_source
+        binding_version: 0.2.0
+  enroll.individual.notices.mixed_determination_on_reverification:
+    address: enroll.individual.notices.mixed_determination_on_reverification
+    messages: {}
+    bindings:
+      amqp:
+        is: ':routing_key'
+        exchange:
+          name: enroll.individual.notices
+          type: topic
+          content_type: application/json
+          durable: true
+          auto_delete: false
+          vhost: event_source
+        binding_version: 0.2.0
+operations:
+  enroll.individual.notices.qhp_eligible_on_reverification:
+    action: receive
+    channel:
+      $ref: '#/channels/enroll.individual.notices.qhp_eligible_on_reverification'
+    description: Events - Individual QHP eligible on reverification
+    bindings:
+      amqp:
+        app_id: enroll
+        type: enroll.individual.notices
+        routing_key: enroll.individual.notices.qhp_eligible_on_reverification
+        deliveryMode: 2
+        mandatory: true
+        timestamp: true
+        content_type: application/json
+        bindingVersion: 0.2.0
+  enroll.individual.notices.aqhp_eligible_on_reverification:
+    action: receive
+    channel:
+      $ref: '#/channels/enroll.individual.notices.aqhp_eligible_on_reverification'
+    description: Events - Individual AQHP eligible on reverification
+    bindings:
+      amqp:
+        app_id: enroll
+        type: enroll.individual.notices
+        routing_key: enroll.individual.notices.aqhp_eligible_on_reverification
+        deliveryMode: 2
+        mandatory: true
+        timestamp: true
+        content_type: application/json
+        bindingVersion: 0.2.0
+  enroll.individual.notices.uqhp_eligible_on_reverification:
+    action: receive
+    channel:
+      $ref: '#/channels/enroll.individual.notices.uqhp_eligible_on_reverification'
+    description: Events - Individual UQHP eligible on reverification
+    bindings:
+      amqp:
+        app_id: enroll
+        type: enroll.individual.notices
+        routing_key: enroll.individual.notices.uqhp_eligible_on_reverification
+        deliveryMode: 2
+        mandatory: true
+        timestamp: true
+        content_type: application/json
+        bindingVersion: 0.2.0
+  enroll.individual.notices.medicaid_eligible_on_reverification:
+    action: receive
+    channel:
+      $ref: '#/channels/enroll.individual.notices.medicaid_eligible_on_reverification'
+    description: Events - Individual Medicaid eligible on reverification
+    bindings:
+      amqp:
+        app_id: enroll
+        type: enroll.individual.notices
+        routing_key: enroll.individual.notices.medicaid_eligible_on_reverification
+        deliveryMode: 2
+        mandatory: true
+        timestamp: true
+        content_type: application/json
+        bindingVersion: 0.2.0
+  enroll.individual.notices.expired_consent_during_reverification:
+    action: receive
+    channel:
+      $ref: >-
+        #/channels/enroll.individual.notices.expired_consent_during_reverification
+    description: Events - Individual Expired consent during reverification
+    bindings:
+      amqp:
+        app_id: enroll
+        type: enroll.individual.notices
+        routing_key: enroll.individual.notices.expired_consent_during_reverification
+        deliveryMode: 2
+        mandatory: true
+        timestamp: true
+        content_type: application/json
+        bindingVersion: 0.2.0
+  enroll.individual.notices.mixed_determination_on_reverification:
+    action: receive
+    channel:
+      $ref: >-
+        #/channels/enroll.individual.notices.mixed_determination_on_reverification
+    description: Events - Individual Mixed determination during reverification
+    bindings:
+      amqp:
+        app_id: enroll
+        type: enroll.individual.notices
+        routing_key: enroll.individual.notices.mixed_determination_on_reverification
+        deliveryMode: 2
+        mandatory: true
+        timestamp: true
+        content_type: application/json
+        bindingVersion: 0.2.0

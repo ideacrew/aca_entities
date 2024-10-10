@@ -6,7 +6,7 @@ module AcaEntities
   module AsyncApi
     # Extend DryTypes to include AsyncApi
     module Types
-      send(:include, Dry.Types)
+      include Dry.Types
 
       ServiceNameKind =
         Types::Coercible::String.enum(

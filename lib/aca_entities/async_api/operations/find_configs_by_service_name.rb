@@ -9,7 +9,7 @@ module AcaEntities
       # Find AsyncApi configuration files for a given application or service and return as an
       # array of hashes
       class FindConfigsByServiceName
-        send(:include, Dry::Monads[:result, :do, :try])
+        include Dry::Monads[:do, :result, :try]
 
         ProtocolOptionDefaults = { load_publisher_operations: true, load_subscriber_operations: true }.freeze
 
@@ -48,13 +48,13 @@ module AcaEntities
         def find_config_files(service_name, options)
           files =
             if service_name && options[:load_publisher_operations] && options[:load_subscriber_operations]
-              Gem.find_files("aca_entities/async_api/#{service_name}/**/*.yml")
+              Gem.find_files("aca_entities/async_api/#{ASYNC_API_PATH}/#{service_name}/**/*.yml")
             elsif service_name && options[:load_publisher_operations]
-              Gem.find_files("aca_entities/async_api/#{service_name}/**/*_publish.yml")
+              Gem.find_files("aca_entities/async_api/#{ASYNC_API_PATH}/#{service_name}/**/*_publish.yml")
             elsif service_name && options[:load_subscriber_operations]
-              Gem.find_files("aca_entities/async_api/#{service_name}/**/*_subscribe.yml")
+              Gem.find_files("aca_entities/async_api/#{ASYNC_API_PATH}/#{service_name}/**/*_subscribe.yml")
             else
-              Gem.find_files("aca_entities/async_api/**/*.yml")
+              Gem.find_files("aca_entities/async_api/#{ASYNC_API_PATH}/**/*.yml")
             end
 
           Success(files)

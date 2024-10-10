@@ -1,0 +1,63 @@
+asyncapi: 3.0.0
+info:
+  title: Enroll App
+  version: 0.1.0
+  description: AMQP Subscribe configuration for the Enroll App services
+  contact:
+    name: IdeaCrew
+    url: 'https://ideacrew.com'
+    email: info@ideacrew.com
+  license:
+    name: MIT
+    url: 'https://opensource.org/licenses/MIT'
+  tags:
+    - name: linter_tag
+      description: placeholder that satisfies the linter
+servers:
+  production:
+    host: 'rabbitmq:5672'
+    pathname: /event_source
+    protocol: ':amqp'
+    protocolVersion: 0.9.2
+    description: RabbitMQ Production Server
+  development:
+    host: 'rabbitmq:5672'
+    pathname: /event_source
+    protocol: ':amqp'
+    protocolVersion: 0.9.2
+    description: RabbitMQ Test Server
+  test:
+    host: 'rabbitmq:5672'
+    pathname: /event_source
+    protocol: ':amqp'
+    protocolVersion: 0.9.2
+    description: RabbitMQ Test Server
+channels:
+  on_fdsh_gateway.fdsh.pvc.dmf.responses.individual_response.import:
+    address: on_fdsh_gateway.fdsh.pvc.dmf.responses.individual_response.import
+    messages: {}
+    bindings:
+      amqp:
+        is: queue
+        queue:
+          name: on_fdsh_gateway.fdsh.pvc.dmf.responses.individual_response.import
+          durable: true
+          exclusive: false
+          auto_delete: false
+          vhost: event_source
+operations:
+  on_fdsh_gateway.fdsh.pvc.dmf.responses.individual_response.import:
+    action: send
+    channel:
+      $ref: >-
+        #/channels/on_fdsh_gateway.fdsh.pvc.dmf.responses.individual_response.import
+    description: >-
+      Events - Subscriber to consume dmf determination response for import
+      process
+    bindings:
+      amqp:
+        ack: true
+        exclusive: false
+        routing_key: fdsh.pvc.dmf.responses.individual_response.import.requested
+        prefetch: 1
+        bindingVersion: 0.2.0

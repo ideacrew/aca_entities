@@ -1,0 +1,68 @@
+asyncapi: 3.0.0
+info:
+  title: Enroll App
+  version: 0.1.0
+  description: AMQP Publish configuration for the Enroll services
+  contact:
+    name: IdeaCrew
+    url: 'https://ideacrew.com'
+    email: info@ideacrew.com
+  license:
+    name: MIT
+    url: 'https://opensource.org/licenses/MIT'
+  tags:
+    - name: linter_tag
+      description: placeholder that satisfies the linter
+servers:
+  production:
+    host: 'rabbitmq:5672'
+    pathname: /event_source
+    protocol: ':amqp'
+    protocolVersion: 0.9.2
+    description: Enroll Production Server
+  development:
+    host: 'rabbitmq:5672'
+    pathname: /event_source
+    protocol: ':amqp'
+    protocolVersion: 0.9.2
+    description: Enroll Test Server
+  test:
+    host: 'rabbitmq:5672'
+    pathname: /event_source
+    protocol: ':amqp'
+    protocolVersion: 0.9.2
+    description: Enroll Test Server
+channels:
+  enroll.individual.consumer_roles.lawful_presence_determinations.updated:
+    address: enroll.individual.consumer_roles.lawful_presence_determinations.updated
+    messages: {}
+    bindings:
+      amqp:
+        is: ':routing_key'
+        exchange:
+          name: enroll.individual.consumer_roles.lawful_presence_determinations
+          type: topic
+          content_type: application/json
+          durable: true
+          auto_delete: false
+          vhost: event_source
+        binding_version: 0.2.0
+operations:
+  enroll.individual.consumer_roles.lawful_presence_determinations.updated:
+    action: receive
+    channel:
+      $ref: >-
+        #/channels/enroll.individual.consumer_roles.lawful_presence_determinations.updated
+    summary: Events - lawful presence determination updated
+    description: Events - lawful presence determination update
+    bindings:
+      amqp:
+        app_id: enroll
+        type: enroll.individual.consumer_roles.lawful_presence_determinations
+        routing_key: >-
+          enroll.individual.consumer_roles.lawful_presence_determinations.updated
+        deliveryMode: 2
+        mandatory: true
+        timestamp: true
+        content_type: application/json
+        bindingVersion: 0.2.0

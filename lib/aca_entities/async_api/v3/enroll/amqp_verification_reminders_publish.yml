@@ -1,0 +1,152 @@
+asyncapi: 3.0.0
+info:
+  title: Enroll App
+  version: 0.1.0
+  description: AMQP Publish Configuration for the Enroll App services
+  contact:
+    name: IdeaCrew
+    url: 'https://ideacrew.com'
+    email: info@ideacrew.com
+  license:
+    name: MIT
+    url: 'https://opensource.org/licenses/MIT'
+  tags:
+    - name: linter_tag
+      description: placeholder that satisfies the linter
+servers:
+  production:
+    host: 'rabbitmq:5672'
+    pathname: /event_source
+    protocol: ':amqp'
+    protocolVersion: 0.9.2
+    description: RabbitMQ Production Server
+  development:
+    host: 'rabbitmq:5672'
+    pathname: /event_source
+    protocol: ':amqp'
+    protocolVersion: 0.9.2
+    description: RabbitMQ Test Server
+  test:
+    host: 'rabbitmq:5672'
+    pathname: /event_source
+    protocol: ':amqp'
+    protocolVersion: 0.9.2
+    description: RabbitMQ Test Server
+channels:
+  enroll.individual.enrollments.first_verifications_reminder:
+    address: enroll.individual.enrollments.first_verifications_reminder
+    messages: {}
+    bindings:
+      amqp:
+        is: ':routing_key'
+        exchange:
+          name: enroll.individual.enrollments
+          type: topic
+          content_type: application/json
+          durable: true
+          auto_delete: false
+          vhost: event_source
+        binding_version: 0.2.0
+  enroll.individual.enrollments.second_verifications_reminder:
+    address: enroll.individual.enrollments.second_verifications_reminder
+    messages: {}
+    bindings:
+      amqp:
+        is: ':routing_key'
+        exchange:
+          name: enroll.individual.enrollments
+          type: topic
+          content_type: application/json
+          durable: true
+          auto_delete: false
+          vhost: event_source
+        binding_version: 0.2.0
+  enroll.individual.enrollments.third_verifications_reminder:
+    address: enroll.individual.enrollments.third_verifications_reminder
+    messages: {}
+    bindings:
+      amqp:
+        is: ':routing_key'
+        exchange:
+          name: enroll.individual.enrollments
+          type: topic
+          content_type: application/json
+          durable: true
+          auto_delete: false
+          vhost: event_source
+        binding_version: 0.2.0
+  enroll.individual.enrollments.fourth_verifications_reminder:
+    address: enroll.individual.enrollments.fourth_verifications_reminder
+    messages: {}
+    bindings:
+      amqp:
+        is: ':routing_key'
+        exchange:
+          name: enroll.individual.enrollments
+          type: topic
+          content_type: application/json
+          durable: true
+          auto_delete: false
+          vhost: event_source
+        binding_version: 0.2.0
+operations:
+  enroll.individual.enrollments.first_verifications_reminder:
+    action: receive
+    channel:
+      $ref: '#/channels/enroll.individual.enrollments.first_verifications_reminder'
+    description: Events - Individual Outstanding Verifications First Reminder
+    bindings:
+      amqp:
+        app_id: enroll
+        type: enroll.individual.enrollments
+        routing_key: enroll.individual.enrollments.first_verifications_reminder
+        deliveryMode: 2
+        mandatory: true
+        timestamp: true
+        content_type: application/json
+        bindingVersion: 0.2.0
+  enroll.individual.enrollments.second_verifications_reminder:
+    action: receive
+    channel:
+      $ref: '#/channels/enroll.individual.enrollments.second_verifications_reminder'
+    description: Events - Individual Outstanding Verifications Second Reminder
+    bindings:
+      amqp:
+        app_id: enroll
+        type: enroll.individual.enrollments
+        routing_key: enroll.individual.enrollments.second_verifications_reminder
+        deliveryMode: 2
+        mandatory: true
+        timestamp: true
+        content_type: application/json
+        bindingVersion: 0.2.0
+  enroll.individual.enrollments.third_verifications_reminder:
+    action: receive
+    channel:
+      $ref: '#/channels/enroll.individual.enrollments.third_verifications_reminder'
+    description: Events - Individual Outstanding Verifications Third Reminder
+    bindings:
+      amqp:
+        app_id: enroll
+        type: enroll.individual.enrollments
+        routing_key: enroll.individual.enrollments.third_verifications_reminder
+        deliveryMode: 2
+        mandatory: true
+        timestamp: true
+        content_type: application/json
+        bindingVersion: 0.2.0
+  enroll.individual.enrollments.fourth_verifications_reminder:
+    action: receive
+    channel:
+      $ref: '#/channels/enroll.individual.enrollments.fourth_verifications_reminder'
+    description: Events - Individual Outstanding Verifications Fourth Reminder
+    bindings:
+      amqp:
+        app_id: enroll
+        type: enroll.individual.enrollments
+        routing_key: enroll.individual.enrollments.fourth_verifications_reminder
+        deliveryMode: 2
+        mandatory: true
+        timestamp: true
+        content_type: application/json
+        bindingVersion: 0.2.0

@@ -1,0 +1,123 @@
+asyncapi: 3.0.0
+info:
+  title: EDI Gateway
+  version: 0.1.0
+  description: >-
+    Publish and Subsribe configuration for Publishing EDI Gateway Family Domain
+    Model Events
+  contact:
+    name: IdeaCrew
+    url: 'https://ideacrew.com'
+    email: info@ideacrew.com
+  license:
+    name: MIT
+    url: 'https://opensource.org/licenses/MIT'
+  tags:
+    - name: linter_tag
+      description: placeholder that satisfies the linter
+defaultContentType: application/json
+servers:
+  development:
+    host: 'rabbitmq:5672'
+    pathname: /event_source
+    protocol: amqp
+    protocolVersion: 0.9.2
+    description: Medicaid Gateway Development Server
+  test:
+    host: 'rabbitmq:5672'
+    pathname: /event_source
+    protocol: amqp
+    protocolVersion: 0.9.2
+    description: Medicaid Gateway Test Server
+  production:
+    host: 'rabbitmq:5672'
+    pathname: /event_source
+    protocol: amqp
+    protocolVersion: 0.9.2
+    description: Medicaid Gateway Production Server
+channels:
+  edi_gateway.h41.transmissions.transmit_requested:
+    address: edi_gateway.h41.transmissions.transmit_requested
+    messages: {}
+    bindings:
+      amqp:
+        is: ':routing_key'
+        exchange:
+          name: edi_gateway.h41.transmissions
+          type: topic
+          durable: true
+          auto_delete: false
+          vhost: event_source
+        bindingVersion: 0.1.0
+  edi_gateway.h41.report_items.corrected:
+    address: edi_gateway.h41.report_items.corrected
+    messages: {}
+    bindings:
+      amqp:
+        is: ':routing_key'
+        exchange:
+          name: edi_gateway.h41.report_items
+          type: topic
+          durable: true
+          auto_delete: false
+          vhost: event_source
+        bindingVersion: 0.1.0
+  edi_gateway.h41.report_items.created:
+    address: edi_gateway.h41.report_items.created
+    messages: {}
+    bindings:
+      amqp:
+        is: ':routing_key'
+        exchange:
+          name: edi_gateway.h41.report_items
+          type: topic
+          durable: true
+          auto_delete: false
+          vhost: event_source
+        bindingVersion: 0.1.0
+operations:
+  edi_gateway.h41.transmissions.transmit_requested:
+    action: receive
+    channel:
+      $ref: '#/channels/edi_gateway.h41.transmissions.transmit_requested'
+    description: Events - EDI Gateway Request H41 Transmission
+    bindings:
+      amqp:
+        app_id: edi_gateway
+        type: edi_gateway.h41.transmissions
+        routing_key: edi_gateway.h41.transmissions.transmit_requested
+        deliveryMode: 2
+        mandatory: true
+        timestamp: true
+        content_type: application/json
+        bindingVersion: 0.2.0
+  edi_gateway.h41.report_items.corrected:
+    action: receive
+    channel:
+      $ref: '#/channels/edi_gateway.h41.report_items.corrected'
+    description: Events - EDI Gateway Corrected 1095A notice generation
+    bindings:
+      amqp:
+        app_id: edi_gateway
+        type: edi_gateway.h41.report_items
+        routing_key: edi_gateway.h41.report_items.corrected
+        deliveryMode: 2
+        mandatory: true
+        timestamp: true
+        content_type: application/json
+        bindingVersion: 0.2.0
+  edi_gateway.h41.report_items.created:
+    action: receive
+    channel:
+      $ref: '#/channels/edi_gateway.h41.report_items.created'
+    description: Events - EDI Gateway Initial H41 notice generation
+    bindings:
+      amqp:
+        app_id: edi_gateway
+        type: edi_gateway.h41.report_items
+        routing_key: edi_gateway.h41.report_items.created
+        deliveryMode: 2
+        mandatory: true
+        timestamp: true
+        content_type: application/json
+        bindingVersion: 0.2.0
