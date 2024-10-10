@@ -1,0 +1,70 @@
+asyncapi: 3.0.0
+info:
+  title: Medicaid Gateway Benchmark Products
+  version: 0.1.0
+  description: >-
+    AMQP Publish configuration for the Medicaid Gateway services to support
+    Benchmark SLCSP
+  contact:
+    name: IdeaCrew
+    url: 'https://ideacrew.com'
+    email: info@ideacrew.com
+  license:
+    name: MIT
+    url: 'https://opensource.org/licenses/MIT'
+  tags:
+    - name: linter_tag
+      description: placeholder that satisfies the linter
+defaultContentType: application/json
+servers:
+  development:
+    host: 'rabbitmq:5672'
+    pathname: /event_source
+    protocol: amqp
+    protocolVersion: 0.9.2
+    description: Medicaid Gateway Development Server
+  test:
+    host: 'rabbitmq:5672'
+    pathname: /event_source
+    protocol: amqp
+    protocolVersion: 0.9.2
+    description: Medicaid Gateway Test Server
+  production:
+    host: 'rabbitmq:5672'
+    pathname: /event_source
+    protocol: amqp
+    protocolVersion: 0.9.2
+    description: Medicaid Gateway Production Server
+channels:
+  magi_medicaid.iap.benchmark_products.determine_slcsp:
+    address: magi_medicaid.iap.benchmark_products.determine_slcsp
+    messages: {}
+    bindings:
+      amqp:
+        is: ':routing_key'
+        exchange:
+          name: magi_medicaid.iap.benchmark_products
+          type: topic
+          content_type: application/json
+          durable: true
+          auto_delete: false
+          vhost: event_source
+        bindingVersion: 0.1.0
+operations:
+  magi_medicaid.iap.benchmark_products.determine_slcsp:
+    action: receive
+    channel:
+      $ref: '#/channels/magi_medicaid.iap.benchmark_products.determine_slcsp'
+    description: >-
+      Events - Second Lowest Cost Ehb Premiums With Pediatric Dental Costs
+      determination Request
+    bindings:
+      amqp:
+        app_id: medicaid_gateway
+        type: magi_medicaid.iap.benchmark_products
+        routing_key: magi_medicaid.iap.benchmark_products.determine_slcsp
+        deliveryMode: 2
+        mandatory: true
+        timestamp: true
+        content_type: application/json
+        bindingVersion: 0.2.0
