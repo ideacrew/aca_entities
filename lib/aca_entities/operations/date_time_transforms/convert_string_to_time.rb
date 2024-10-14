@@ -46,11 +46,13 @@ module AcaEntities
         # @param time_string [String] the validated time string
         # @return [Dry::Monads::Result::Success<Time>, Dry::Monads::Result::Failure<String>] the result of the conversion
         def convert(time_string)
-          begin
-            Success(Time.strptime(time_string, AcaEntities::Types::DATETIME_FORMAT_ISO8601))
-          rescue ArgumentError => e
-            Failure("Invalid time format: #{e.message} with time input: #{time_string}. Time string must match the format #{AcaEntities::Types::DATETIME_FORMAT_ISO8601}.")
-          end
+          Success(Time.strptime(time_string, AcaEntities::Types::DATETIME_FORMAT_ISO8601))
+        rescue ArgumentError => e
+          Failure(
+            "Invalid time format: #{e.message} with time input: #{time_string}. Time string must match the format #{
+              AcaEntities::Types::DATETIME_FORMAT_ISO8601
+            }."
+          )
         end
       end
     end

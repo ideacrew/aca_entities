@@ -29,7 +29,7 @@ RSpec.describe AcaEntities::Operations::DateTimeTransforms::ConvertStringToTime 
     end
 
     context 'when time_string is not a String' do
-      let(:params) { { time_string: 12345 } }
+      let(:params) { { time_string: 12_345 } }
 
       it 'returns a failure' do
         result = subject.call(params)

@@ -62,7 +62,7 @@ module AcaEntities
 
     # @!constant
     # @return [String] the ISO 8601 datetime format string
-    DATETIME_FORMAT_ISO8601 = "%Y-%m-%dT%H:%M:%S.%N%z".freeze
+    DATETIME_FORMAT_ISO8601 = "%Y-%m-%dT%H:%M:%S.%N%z"
 
     ElectronicCommunicationKinds = Types::String.enum('sms', 'smtp').freeze
 
