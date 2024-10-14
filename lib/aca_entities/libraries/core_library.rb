@@ -223,6 +223,8 @@ module AcaEntities
       require 'aca_entities/operations/create_family'
       require 'aca_entities/operations/create_person'
       require 'aca_entities/operations/encrypted_ssn_validator'
+      require 'aca_entities/operations/date_time_transforms/convert_string_to_time'
+      require 'aca_entities/operations/date_time_transforms/convert_time_to_string'
     end
     # rubocop:enable Metrics/ModuleLength
   end
