@@ -60,6 +60,10 @@ module AcaEntities
       electronic_only: 'Only Electronic communications'
     }.freeze
 
+    # @!constant
+    # @return [String] the ISO 8601 datetime format string
+    DATETIME_FORMAT_ISO8601 = "%Y-%m-%dT%H:%M:%S.%N%z"
+
     ElectronicCommunicationKinds = Types::String.enum('sms', 'smtp').freeze
 
     ElectronicCommunicationKindsMap = { simple_message_service: 'Text message', smtp: 'Email' }.freeze
