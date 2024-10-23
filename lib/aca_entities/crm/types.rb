@@ -50,7 +50,21 @@ module AcaEntities
         'brother_or_sister_in_law' => 'Brother or Sister in Law',
         'cousin' => 'Cousin',
         'domestic_partners_child' => 'Domestic Partners Child',
-        'parents_domestic_partner' => 'Parents Domestic Partner'
+        'parents_domestic_partner' => 'Parents Domestic Partner',
+        'other_relationship' => 'Other Relationship',
+        'stepchild' => 'Stepchild',
+        'stepparent' => 'Stepparent',
+        'foster_child' => 'Foster Child',
+        'ward' => 'Ward',
+        'sponsored_dependent' => 'Sponsored Dependent',
+        'great_grandchild' => 'Great Grandchild',
+        'great_grandparent' => 'Great Grandparent',
+        'trustee' => 'Trustee',
+        'collateral_dependent' => 'Collateral Dependent',
+        'adopted_child' => 'Adopted Child',
+        'life_partner' => 'Life Partner',
+        'annuitant' => 'Annuitant',
+        'dependent_of_a_minor_dependent' => 'Dependent of a Minor Dependent'
       }.freeze
     end
   end
